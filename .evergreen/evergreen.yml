@@ -47,7 +47,6 @@ buildvariants:
       mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.2.tgz
       mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.0.2-linux-x64.tgz
       node_version: 20.10.0
-      role_arn: ${ASSUME_ROLE_ARN}
     modules:
       - evergreen
       - logkeeper
@@ -74,7 +73,6 @@ buildvariants:
       mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.2.tgz
       mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.0.2-linux-x64.tgz
       node_version: 20.10.0
-      role_arn: ${ASSUME_ROLE_ARN}
     run_on:
       - ubuntu2204-large
       - ubuntu2204-small

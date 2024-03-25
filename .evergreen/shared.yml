@@ -2,7 +2,7 @@ functions:
   assume-ec2-role:
     command: ec2.assume_role
     params:
-      role_arn: ${role_arn}
+      role_arn: ${ASSUME_ROLE_ARN}
 
   check-codegen:
     command: shell.exec
