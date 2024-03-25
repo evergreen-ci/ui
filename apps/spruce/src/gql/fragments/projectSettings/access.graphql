@@ -1,0 +1,9 @@
+fragment ProjectAccessSettings on Project {
+  admins
+  restricted
+}
+
+fragment RepoAccessSettings on RepoRef {
+  admins
+  restricted
+}

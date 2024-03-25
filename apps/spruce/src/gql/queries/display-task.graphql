@@ -1,0 +1,12 @@
+query DisplayTask($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    displayName
+    displayTask {
+      execution
+      id
+    }
+    execution
+    executionTasks
+    id
+  }
+}

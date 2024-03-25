@@ -1,0 +1,88 @@
+#import "../fragments/upstreamProject.graphql"
+
+query Version($id: String!) {
+  version(id: $id) {
+    activated
+    author
+    authorEmail
+    baseVersion {
+      id
+    }
+    createTime
+    errors
+    externalLinksForMetadata {
+      displayName
+      url
+    }
+    finishTime
+    gitTags {
+      pusher
+      tag
+    }
+    id
+    ignored
+    isPatch
+    manifest {
+      branch
+      id
+      isBase
+      moduleOverrides
+      modules
+      project
+      revision
+    }
+    message
+    order
+    parameters {
+      key
+      value
+    }
+    patch {
+      alias
+      canEnqueueToCommitQueue
+      childPatches {
+        githash
+        id
+        parameters {
+          key
+          value
+        }
+        projectIdentifier
+        status
+        taskCount
+        versionFull {
+          baseVersion {
+            id
+          }
+          id
+          status
+        }
+      }
+      commitQueuePosition
+      id
+      patchNumber
+    }
+    previousVersion {
+      id
+      revision
+    }
+    project
+    projectIdentifier
+    projectMetadata {
+      id
+      owner
+      repo
+    }
+    repo
+    revision
+    startTime
+    status
+    taskCount
+    ...UpstreamProject
+    versionTiming {
+      makespan
+      timeTaken
+    }
+    warnings
+  }
+}

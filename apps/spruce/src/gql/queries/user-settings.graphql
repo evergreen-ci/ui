@@ -1,0 +1,26 @@
+query UserSettings {
+  userSettings {
+    dateFormat
+    githubUser {
+      lastKnownAs
+    }
+    notifications {
+      buildBreak
+      commitQueue
+      patchFinish
+      patchFirstFailure
+      spawnHostExpiration
+      spawnHostOutcome
+    }
+    region
+    slackMemberId
+    slackUsername
+    timeFormat
+    timezone
+    useSpruceOptions {
+      hasUsedMainlineCommitsBefore
+      hasUsedSpruceBefore
+      spruceV1
+    }
+  }
+}

@@ -1,0 +1,17 @@
+query ViewableProjectRefs {
+  viewableProjectRefs {
+    groupDisplayName
+    projects {
+      displayName
+      enabled
+      id
+      identifier
+      isFavorite
+      owner
+      repo
+    }
+    repo {
+      id
+    }
+  }
+}

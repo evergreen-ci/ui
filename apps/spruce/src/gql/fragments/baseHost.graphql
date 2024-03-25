@@ -1,0 +1,11 @@
+fragment BaseHost on Host {
+  hostUrl
+  id
+  persistentDnsName
+  provider
+  startedBy
+  status
+  tag
+  uptime
+  user
+}

@@ -1,0 +1,9 @@
+mutation UpdateSpawnHostStatus(
+  $hostId: String!
+  $action: SpawnHostStatusActions!
+) {
+  updateSpawnHostStatus(hostId: $hostId, action: $action) {
+    id
+    status
+  }
+}

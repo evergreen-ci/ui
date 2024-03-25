@@ -1,0 +1,31 @@
+fragment PatchesPagePatches on Patches {
+  filteredPatchCount
+  patches {
+    activated
+    alias
+    author
+    authorDisplayName
+    canEnqueueToCommitQueue
+    commitQueuePosition
+    createTime
+    description
+    hidden
+    id
+    projectIdentifier
+    projectMetadata {
+      owner
+      repo
+    }
+    status
+    versionFull {
+      id
+      status
+      taskStatusStats(options: {}) {
+        counts {
+          count
+          status
+        }
+      }
+    }
+  }
+}

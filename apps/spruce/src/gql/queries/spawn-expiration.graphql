@@ -1,0 +1,10 @@
+query SpawnExpirationInfo {
+  myHosts {
+    id
+    noExpiration
+  }
+  myVolumes {
+    id
+    noExpiration
+  }
+}

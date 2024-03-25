@@ -1,0 +1,14 @@
+#import "../fragments/annotations/issueLink.graphql"
+
+query Issues($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    annotation {
+      id
+      issues {
+        ...IssueLink
+      }
+    }
+    execution
+    id
+  }
+}

@@ -1,0 +1,38 @@
+query TaskTests(
+  $id: String!
+  $execution: Int
+  $pageNum: Int
+  $limitNum: Int
+  $statusList: [String!]!
+  $sort: [TestSortOptions!]
+  $testName: String!
+) {
+  task(taskId: $id, execution: $execution) {
+    execution
+    id
+    tests(
+      opts: {
+        sort: $sort
+        page: $pageNum
+        limit: $limitNum
+        statuses: $statusList
+        testName: $testName
+      }
+    ) {
+      filteredTestCount
+      testResults {
+        baseStatus
+        duration
+        id
+        logs {
+          url
+          urlParsley
+          urlRaw
+        }
+        status
+        testFile
+      }
+      totalTestCount
+    }
+  }
+}

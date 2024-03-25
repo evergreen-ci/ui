@@ -1,0 +1,13 @@
+query FailedTaskStatusIconTooltip($taskId: String!) {
+  task(taskId: $taskId) {
+    execution
+    id
+    tests(opts: { statuses: ["fail"], limit: 5 }) {
+      filteredTestCount
+      testResults {
+        id
+        testFile
+      }
+    }
+  }
+}

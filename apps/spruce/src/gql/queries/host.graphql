@@ -1,0 +1,18 @@
+#import "../fragments/baseHost.graphql"
+
+query Host($id: String!) {
+  host(hostId: $id) {
+    ami
+    ...BaseHost
+    distro {
+      bootstrapMethod
+      id
+    }
+    distroId
+    lastCommunicationTime
+    runningTask {
+      id
+      name
+    }
+  }
+}

@@ -1,0 +1,9 @@
+fragment BaseTask on Task {
+  buildVariant
+  buildVariantDisplayName
+  displayName
+  execution
+  id
+  revision
+  status
+}

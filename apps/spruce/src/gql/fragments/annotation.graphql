@@ -1,0 +1,45 @@
+fragment Annotation on Annotation {
+  createdIssues {
+    issueKey
+    source {
+      author
+      requester
+      time
+    }
+    url
+  }
+  id
+  issues {
+    issueKey
+    source {
+      author
+      requester
+      time
+    }
+    url
+  }
+  metadataLinks {
+    text
+    url
+  }
+  note {
+    message
+    source {
+      author
+      requester
+      time
+    }
+  }
+  suspectedIssues {
+    issueKey
+    source {
+      author
+      requester
+      time
+    }
+    url
+  }
+  taskExecution
+  taskId
+  webhookConfigured
+}

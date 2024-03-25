@@ -1,0 +1,16 @@
+fragment ProjectViewsAndFiltersSettings on Project {
+  parsleyFilters {
+    caseSensitive
+    exactMatch
+    expression
+  }
+  projectHealthView
+}
+
+fragment RepoViewsAndFiltersSettings on RepoRef {
+  parsleyFilters {
+    caseSensitive
+    exactMatch
+    expression
+  }
+}

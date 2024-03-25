@@ -1,0 +1,47 @@
+fragment ProjectPluginsSettings on Project {
+  buildBaronSettings {
+    ticketCreateIssueType
+    ticketCreateProject
+    ticketSearchProjects
+  }
+  externalLinks {
+    displayName
+    requesters
+    urlTemplate
+  }
+  perfEnabled
+  taskAnnotationSettings {
+    fileTicketWebhook {
+      endpoint
+      secret
+    }
+    jiraCustomFields {
+      displayText
+      field
+    }
+  }
+}
+
+fragment RepoPluginsSettings on RepoRef {
+  buildBaronSettings {
+    ticketCreateIssueType
+    ticketCreateProject
+    ticketSearchProjects
+  }
+  externalLinks {
+    displayName
+    requesters
+    urlTemplate
+  }
+  perfEnabled
+  taskAnnotationSettings {
+    fileTicketWebhook {
+      endpoint
+      secret
+    }
+    jiraCustomFields {
+      displayText
+      field
+    }
+  }
+}

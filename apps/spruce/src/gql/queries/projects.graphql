@@ -1,0 +1,13 @@
+query Projects {
+  projects {
+    groupDisplayName
+    projects {
+      displayName
+      id
+      identifier
+      isFavorite
+      owner
+      repo
+    }
+  }
+}

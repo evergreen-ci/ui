@@ -1,0 +1,7 @@
+mutation SetTaskPriority($taskId: String!, $priority: Int!) {
+  setTaskPriority(taskId: $taskId, priority: $priority) {
+    execution
+    id
+    priority
+  }
+}

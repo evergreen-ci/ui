@@ -1,0 +1,6 @@
+mutation SpawnHost($spawnHostInput: SpawnHostInput) {
+  spawnHost(spawnHostInput: $spawnHostInput) {
+    id
+    status
+  }
+}

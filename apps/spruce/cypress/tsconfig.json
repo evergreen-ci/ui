@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "../src",
+    "lib": [
+      "es5",
+      "dom",
+      "es2017"
+    ],
+    "types": [
+      "cypress",
+    ],
+    "jsxImportSource": "@emotion/react",
+    "esModuleInterop": true
+  },
+  "include": [
+    "**/*.*"
+  ]
+}

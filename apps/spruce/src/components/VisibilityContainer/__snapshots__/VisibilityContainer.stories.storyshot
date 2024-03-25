@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Tests VisibilityContainer.stories Default 1`] = `
+<div>
+  Scroll the below container out of view and observe the component mounting and unmounting
+  <div
+    class="css-hd1nxa-ScrollableContainer ek5umk1"
+  >
+    <div
+      class="css-149tahu-InnerContainer ek5umk0"
+    >
+      <div>
+        <div>
+          Visible content
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

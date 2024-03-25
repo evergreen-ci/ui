@@ -1,0 +1,7 @@
+query Distros($onlySpawnable: Boolean!) {
+  distros(onlySpawnable: $onlySpawnable) {
+    adminOnly
+    isVirtualWorkStation
+    name
+  }
+}

@@ -1,0 +1,45 @@
+query VersionTasks(
+  $versionId: String!
+  $taskFilterOptions: TaskFilterOptions!
+) {
+  version(id: $versionId) {
+    id
+    isPatch
+    tasks(options: $taskFilterOptions) {
+      count
+      data {
+        aborted
+        baseTask {
+          execution
+          id
+          status
+        }
+        blocked
+        buildVariant
+        buildVariantDisplayName
+        dependsOn {
+          name
+        }
+        displayName
+        execution
+        executionTasksFull {
+          baseTask {
+            execution
+            id
+            status
+          }
+          buildVariant
+          buildVariantDisplayName
+          displayName
+          execution
+          id
+          projectIdentifier
+          status
+        }
+        id
+        projectIdentifier
+        status
+      }
+    }
+  }
+}

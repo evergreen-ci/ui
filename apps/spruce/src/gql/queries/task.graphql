@@ -1,0 +1,129 @@
+#import "../fragments/baseTask.graphql"
+#import "../fragments/annotation.graphql"
+
+query Task($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    aborted
+    abortInfo {
+      buildVariantDisplayName
+      newVersion
+      prClosed
+      taskDisplayName
+      taskID
+      user
+    }
+    activatedBy
+    activatedTime
+    ami
+    annotation {
+      ...Annotation
+    }
+    baseTask {
+      execution
+      id
+      timeTaken
+      versionMetadata {
+        id
+        revision
+      }
+    }
+    ...BaseTask
+    blocked
+    canAbort
+    canDisable
+    canModifyAnnotation
+    canOverrideDependencies
+    canRestart
+    canSchedule
+    canSetPriority
+    canUnschedule
+    dependsOn {
+      buildVariant
+      metStatus
+      name
+      requiredStatus
+      taskId
+    }
+    details {
+      description
+      diskDevices
+      oomTracker {
+        detected
+        pids
+      }
+      status
+      timedOut
+      timeoutType
+      traceID
+      type
+    }
+    displayTask {
+      displayName
+      execution
+      id
+    }
+    distroId
+    estimatedStart
+    executionTasksFull {
+      baseStatus
+      buildVariant
+      buildVariantDisplayName
+      displayName
+      execution
+      id
+      status
+    }
+    expectedDuration
+    failedTestCount
+    files {
+      fileCount
+    }
+    finishTime
+    generatedBy
+    generatedByName
+    hostId
+    ingestTime
+    isPerfPluginEnabled
+    latestExecution
+    logs {
+      agentLogLink
+      allLogLink
+      eventLogLink
+      systemLogLink
+      taskLogLink
+    }
+    minQueuePosition
+    order
+    patchNumber
+    pod {
+      id
+    }
+    priority
+    project {
+      id
+      identifier
+    }
+    requester
+    resetWhenFinished
+    spawnHostLink
+    startTime
+    stepbackInfo {
+      lastFailingStepbackTaskId
+      lastPassingStepbackTaskId
+      nextStepbackTaskId
+      previousStepbackTaskId
+    }
+    timeTaken
+    totalTestCount
+    versionMetadata {
+      author
+      id
+      isPatch
+      message
+      order
+      project
+      projectIdentifier
+      revision
+    }
+  }
+}

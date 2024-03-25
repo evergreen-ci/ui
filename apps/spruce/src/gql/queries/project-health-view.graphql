@@ -1,0 +1,6 @@
+query ProjectHealthView($identifier: String!) {
+  project(projectIdentifier: $identifier) {
+    id
+    projectHealthView
+  }
+}

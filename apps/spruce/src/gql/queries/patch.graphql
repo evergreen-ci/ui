@@ -1,0 +1,14 @@
+#import "../fragments/basePatch.graphql"
+
+query Patch($id: String!) {
+  patch(id: $id) {
+    ...BasePatch
+    githash
+    patchNumber
+    projectID
+    projectIdentifier
+    versionFull {
+      id
+    }
+  }
+}

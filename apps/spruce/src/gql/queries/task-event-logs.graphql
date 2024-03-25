@@ -1,0 +1,23 @@
+query TaskEventLogs($id: String!, $execution: Int) {
+  task(taskId: $id, execution: $execution) {
+    execution
+    id
+    taskLogs {
+      eventLogs {
+        data {
+          hostId
+          jiraIssue
+          jiraLink
+          podId
+          priority
+          status
+          timestamp
+          userId
+        }
+        eventType
+        id
+        timestamp
+      }
+    }
+  }
+}

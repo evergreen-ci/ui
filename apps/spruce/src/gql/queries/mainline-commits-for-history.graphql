@@ -1,0 +1,52 @@
+#import "../fragments/upstreamProject.graphql"
+
+query MainlineCommitsForHistory(
+  $mainlineCommitsOptions: MainlineCommitsOptions!
+  $buildVariantOptions: BuildVariantOptions!
+) {
+  mainlineCommits(
+    options: $mainlineCommitsOptions
+    buildVariantOptions: $buildVariantOptions
+  ) {
+    nextPageOrderNumber
+    prevPageOrderNumber
+    versions {
+      rolledUpVersions {
+        author
+        createTime
+        gitTags {
+          pusher
+          tag
+        }
+        id
+        message
+        order
+        revision
+        ...UpstreamProject
+      }
+      version {
+        author
+        buildVariants(options: $buildVariantOptions) {
+          displayName
+          tasks {
+            displayName
+            execution
+            id
+            status
+          }
+          variant
+        }
+        createTime
+        gitTags {
+          pusher
+          tag
+        }
+        id
+        message
+        order
+        revision
+        ...UpstreamProject
+      }
+    }
+  }
+}

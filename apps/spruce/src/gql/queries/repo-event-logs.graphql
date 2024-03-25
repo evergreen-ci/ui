@@ -1,0 +1,17 @@
+#import "../fragments/projectSettings/projectEventSettings.graphql"
+
+query RepoEventLogs($id: String!, $limit: Int, $before: Time) {
+  repoEvents(id: $id, limit: $limit, before: $before) {
+    count
+    eventLogEntries {
+      after {
+        ...ProjectEventSettings
+      }
+      before {
+        ...ProjectEventSettings
+      }
+      timestamp
+      user
+    }
+  }
+}

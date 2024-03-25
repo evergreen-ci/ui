@@ -1,0 +1,29 @@
+query VersionTaskDurations(
+  $versionId: String!
+  $taskFilterOptions: TaskFilterOptions!
+) {
+  version(id: $versionId) {
+    id
+    tasks(options: $taskFilterOptions) {
+      count
+      data {
+        buildVariantDisplayName
+        displayName
+        execution
+        id
+        startTime
+        status
+        subRows: executionTasksFull {
+          buildVariantDisplayName
+          displayName
+          execution
+          id
+          startTime
+          status
+          timeTaken
+        }
+        timeTaken
+      }
+    }
+  }
+}

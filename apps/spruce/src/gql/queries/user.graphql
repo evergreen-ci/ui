@@ -1,0 +1,10 @@
+query User {
+  user {
+    displayName
+    emailAddress
+    permissions {
+      canEditAdminSettings
+    }
+    userId
+  }
+}

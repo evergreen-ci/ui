@@ -1,0 +1,27 @@
+fragment ProjectTriggersSettings on Project {
+  triggers {
+    alias
+    buildVariantRegex
+    configFile
+    dateCutoff
+    level
+    project
+    status
+    taskRegex
+    unscheduleDownstreamVersions
+  }
+}
+
+fragment RepoTriggersSettings on RepoRef {
+  triggers {
+    alias
+    buildVariantRegex
+    configFile
+    dateCutoff
+    level
+    project
+    status
+    taskRegex
+    unscheduleDownstreamVersions
+  }
+}

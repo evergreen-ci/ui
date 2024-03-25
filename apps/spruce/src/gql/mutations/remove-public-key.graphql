@@ -1,0 +1,6 @@
+mutation RemovePublicKey($keyName: String!) {
+  removePublicKey(keyName: $keyName) {
+    key
+    name
+  }
+}

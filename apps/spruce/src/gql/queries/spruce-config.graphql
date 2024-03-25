@@ -1,0 +1,44 @@
+query SpruceConfig {
+  spruceConfig {
+    banner
+    bannerTheme
+    containerPools {
+      pools {
+        distro
+        id
+        maxContainers
+        port
+      }
+    }
+    jira {
+      email
+      host
+    }
+    keys {
+      location
+      name
+    }
+    providers {
+      aws {
+        maxVolumeSizePerUser
+        pod {
+          ecs {
+            maxCPU
+            maxMemoryMb
+          }
+        }
+      }
+    }
+    slack {
+      name
+    }
+    spawnHost {
+      spawnHostsPerUser
+      unexpirableHostsPerUser
+      unexpirableVolumesPerUser
+    }
+    ui {
+      defaultProject
+    }
+  }
+}

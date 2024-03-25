@@ -1,0 +1,3 @@
+mutation BuildBaronCreateTicket($taskId: String!, $execution: Int) {
+  bbCreateTicket(taskId: $taskId, execution: $execution)
+}

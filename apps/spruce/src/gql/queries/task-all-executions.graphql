@@ -1,0 +1,9 @@
+query TaskAllExecutions($taskId: String!) {
+  taskAllExecutions(taskId: $taskId) {
+    activatedTime
+    execution
+    id
+    ingestTime
+    status
+  }
+}

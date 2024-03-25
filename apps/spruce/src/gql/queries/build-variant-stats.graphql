@@ -1,0 +1,13 @@
+query BuildVariantStats($id: String!) {
+  version(id: $id) {
+    buildVariantStats(options: {}) {
+      displayName
+      statusCounts {
+        count
+        status
+      }
+      variant
+    }
+    id
+  }
+}

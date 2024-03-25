@@ -1,0 +1,13 @@
+#import "../fragments/logMessage.graphql"
+
+query AgentLogs($id: String!, $execution: Int) {
+  task(taskId: $id, execution: $execution) {
+    execution
+    id
+    taskLogs {
+      agentLogs {
+        ...LogMessage
+      }
+    }
+  }
+}

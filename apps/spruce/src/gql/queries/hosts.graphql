@@ -1,0 +1,47 @@
+query Hosts(
+  $hostId: String
+  $distroId: String
+  $currentTaskId: String
+  $statuses: [String!]
+  $startedBy: String
+  $sortBy: HostSortBy
+  $sortDir: SortDirection
+  $page: Int
+  $limit: Int
+) {
+  hosts(
+    hostId: $hostId
+    distroId: $distroId
+    currentTaskId: $currentTaskId
+    statuses: $statuses
+    startedBy: $startedBy
+    sortBy: $sortBy
+    sortDir: $sortDir
+    page: $page
+    limit: $limit
+  ) {
+    filteredHostsCount
+    hosts {
+      distro {
+        bootstrapMethod
+        id
+      }
+      distroId
+      elapsed
+      hostUrl
+      id
+      noExpiration
+      provider
+      runningTask {
+        id
+        name
+      }
+      startedBy
+      status
+      tag
+      totalIdleTime
+      uptime
+    }
+    totalHostsCount
+  }
+}

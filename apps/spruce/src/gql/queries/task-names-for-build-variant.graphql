@@ -1,0 +1,9 @@
+query TaskNamesForBuildVariant(
+  $projectIdentifier: String!
+  $buildVariant: String!
+) {
+  taskNamesForBuildVariant(
+    projectIdentifier: $projectIdentifier
+    buildVariant: $buildVariant
+  )
+}

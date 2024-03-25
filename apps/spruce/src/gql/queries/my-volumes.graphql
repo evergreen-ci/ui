@@ -1,0 +1,22 @@
+query MyVolumes {
+  myVolumes {
+    availabilityZone
+    createdBy
+    creationTime
+    deviceName
+    displayName
+    expiration
+    homeVolume
+    host {
+      displayName
+      id
+      noExpiration
+    }
+    hostID
+    id
+    migrating
+    noExpiration
+    size
+    type
+  }
+}

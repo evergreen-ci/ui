@@ -1,0 +1,43 @@
+fragment ProjectGeneralSettings on Project {
+  batchTime
+  branch
+  deactivatePrevious
+  disabledStatsCache
+  dispatchingDisabled
+  displayName
+  enabled
+  owner
+  patchingDisabled
+  remotePath
+  repo
+  repotrackerDisabled
+  spawnHostScriptPath
+  stepbackBisect
+  stepbackDisabled
+  taskSync {
+    configEnabled
+    patchEnabled
+  }
+  versionControlEnabled
+}
+
+fragment RepoGeneralSettings on RepoRef {
+  batchTime
+  deactivatePrevious
+  disabledStatsCache
+  dispatchingDisabled
+  displayName
+  owner
+  patchingDisabled
+  remotePath
+  repo
+  repotrackerDisabled
+  spawnHostScriptPath
+  stepbackBisect
+  stepbackDisabled
+  taskSync {
+    configEnabled
+    patchEnabled
+  }
+  versionControlEnabled
+}

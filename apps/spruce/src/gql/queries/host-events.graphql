@@ -1,0 +1,31 @@
+query HostEvents($id: String!, $tag: String!, $limit: Int, $page: Int) {
+  hostEvents(hostId: $id, hostTag: $tag, limit: $limit, page: $page) {
+    count
+    eventLogEntries {
+      data {
+        agentBuild
+        agentRevision
+        duration
+        execution
+        hostname
+        jasperRevision
+        logs
+        monitorOp
+        newStatus
+        oldStatus
+        provisioningMethod
+        successful
+        taskId
+        taskPid
+        taskStatus
+        user
+      }
+      eventType
+      id
+      processedAt
+      resourceId
+      resourceType
+      timestamp
+    }
+  }
+}

@@ -1,0 +1,39 @@
+#import "../fragments/basePatch.graphql"
+
+query ConfigurePatch($id: String!) {
+  patch(id: $id) {
+    ...BasePatch
+    childPatchAliases {
+      alias
+      patchId
+    }
+    childPatches {
+      id
+      projectIdentifier
+      variantsTasks {
+        name
+        tasks
+      }
+    }
+    patchTriggerAliases {
+      alias
+      childProjectId
+      childProjectIdentifier
+      variantsTasks {
+        name
+        tasks
+      }
+    }
+    project {
+      variants {
+        displayName
+        name
+        tasks
+      }
+    }
+    projectIdentifier
+    time {
+      submittedAt
+    }
+  }
+}
