@@ -55,8 +55,8 @@
   },
   "dependencies": {
     "@apollo/client": "3.8.4",
-    "@emotion/css": "11.11.2",
-    "@emotion/react": "11.11.1",
+    "@emotion/css": "11.11.0",
+    "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.0",
     "@leafygreen-ui/badge": "8.0.2",
     "@leafygreen-ui/banner": "7.0.4",
