@@ -221,11 +221,6 @@ export const mapUmbrellaStatusColors: Pick<
     border: purple.dark3,
     text: purple.light3,
   },
-  [TaskStatus.UndispatchedUmbrella]: {
-    fill: gray.light3,
-    border: gray.light2,
-    text: gray.dark1,
-  },
   [TaskStatus.ScheduledUmbrella]: {
     fill: gray.dark1,
     border: gray.dark2,
