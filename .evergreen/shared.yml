@@ -1,0 +1,424 @@
+functions:
+  assume-ec2-role:
+    command: ec2.assume_role
+    params:
+      role_arn: ${role_arn}
+
+  check-codegen:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      script: |
+        ${PREPARE_SHELL}
+        chmod +x check_codegen.sh
+        ./check_codegen.sh
+
+  get-project:
+    command: git.get_project
+    type: setup
+    params:
+      directory: ui
+      shallow_clone: true
+
+  prod-deploy-parsley:
+    command: shell.exec
+    params:
+      working_dir: ui/apps/parsley
+      env:
+        BUCKET: ${parsley_bucket}
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+        EXECUTION: ${execution}
+        DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
+        AUTHOR_EMAIL: ${author_email}
+      script: |
+        ${PREPARE_SHELL}
+        yarn deploy:prod
+
+  prod-deploy-spruce:
+    command: shell.exec
+    params:
+      working_dir: ui/apps/spruce
+      env:
+        BUCKET: ${spruce_bucket}
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+        EXECUTION: ${execution}
+        DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
+        AUTHOR_EMAIL: ${author_email}
+      script: |
+        ${PREPARE_SHELL}
+        yarn deploy:prod
+
+  run-make-background:
+    command: subprocess.exec
+    params:
+      working_dir: ui/evergreen
+      binary: make
+      args: ["${make_args|}", "${target}"]
+      background: true
+      env:
+        SETTINGS_OVERRIDE: file
+        GOROOT: ${goroot}
+
+  run-logkeeper:
+    command: shell.exec
+    params:
+      working_dir: ui/logkeeper
+      background: true
+      script: go run main/logkeeper.go --localPath _bucketdata
+      shell: bash
+      env:
+        GOROOT: ${goroot}
+        PATH: ${goroot}/bin:$PATH
+        LK_CORS_ORIGINS: http:\/\/localhost:\d+
+
+  seed-logkeeper:
+    command: s3.get
+    type: setup
+    params:
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
+      extract_to: ui/logkeeper
+      remote_file: _bucketdata.tar.gz
+      bucket: parsley-test
+
+  setup-credentials-parsley:
+    command: shell.exec
+    params:
+      working_dir: ui/apps/parsley
+      env:
+        PARSLEY_SENTRY_AUTH_TOKEN: ${PARSLEY_SENTRY_AUTH_TOKEN}
+        REACT_APP_PARSLEY_SENTRY_DSN: ${REACT_APP_PARSLEY_SENTRY_DSN}
+        NEW_RELIC_ACCOUNT_ID: ${NEW_RELIC_ACCOUNT_ID}
+        NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+        NEW_RELIC_TRUST_KEY: ${NEW_RELIC_TRUST_KEY}
+        PARSLEY_NEW_RELIC_AGENT_ID: ${PARSLEY_NEW_RELIC_AGENT_ID}
+        PARSLEY_NEW_RELIC_APPLICATION_ID: ${PARSLEY_NEW_RELIC_APPLICATION_ID}
+        DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
+        BUCKET: ${parsley_bucket}
+        EVERGREEN_API_SERVER_HOST: ${evergreen_api_server_host}
+        EVERGREEN_UI_SERVER_HOST: ${evergreen_ui_server_host}
+        EVERGREEN_API_KEY: ${evergreen_api_key}
+        EVERGREEN_USER: ${evergreen_user}
+      script: |
+        echo "Generating .env-cmdrc.json"
+        node scripts/setup-credentials.js
+
+        echo "populating evergreen.yml"
+        chmod +x ./scripts/create-evergreen-yml.sh
+        ./scripts/create-evergreen-yml.sh
+        echo "Done populating evergreen.yml"
+
+  setup-credentials-spruce:
+    command: shell.exec
+    params:
+      working_dir: ui/apps/spruce
+      env:
+        SPRUCE_SENTRY_AUTH_TOKEN: ${SPRUCE_SENTRY_AUTH_TOKEN}
+        REACT_APP_SPRUCE_SENTRY_DSN: ${REACT_APP_SPRUCE_SENTRY_DSN}
+        NEW_RELIC_ACCOUNT_ID: ${NEW_RELIC_ACCOUNT_ID}
+        NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+        NEW_RELIC_TRUST_KEY: ${NEW_RELIC_TRUST_KEY}
+        SPRUCE_NEW_RELIC_AGENT_ID: ${SPRUCE_NEW_RELIC_AGENT_ID}
+        SPRUCE_NEW_RELIC_APPLICATION_ID: ${SPRUCE_NEW_RELIC_APPLICATION_ID}
+        REACT_APP_DEPLOYS_EMAIL: ${REACT_APP_DEPLOYS_EMAIL}
+        REACT_APP_HONEYCOMB_BASE_URL: ${REACT_APP_HONEYCOMB_BASE_URL}
+        EVERGREEN_API_SERVER_HOST: ${evergreen_api_server_host}
+        EVERGREEN_UI_SERVER_HOST: ${evergreen_ui_server_host}
+        EVERGREEN_API_KEY: ${evergreen_api_key}
+        EVERGREEN_USER: ${evergreen_user}
+      script: |
+        echo "Generating .env-cmdrc.json"
+        node scripts/setup-credentials.js
+
+        echo "populating evergreen.yml"
+        chmod +x ./scripts/create-evergreen-yml.sh
+        ./scripts/create-evergreen-yml.sh
+        echo "Done populating evergreen.yml"
+
+  setup-mongodb:
+    - command: subprocess.exec
+      type: setup
+      params:
+        env:
+          gobin: ${goroot}/bin/go
+          MONGODB_URL: ${mongodb_url_2204}
+          MONGODB_DECOMPRESS: ${decompress}
+        working_dir: ui/evergreen
+        command: make get-mongodb
+    - command: subprocess.exec
+      type: setup
+      params:
+        env:
+          gobin: ${goroot}/bin/go
+          MONGOSH_URL: ${mongosh_url_2204}
+          MONGOSH_DECOMPRESS: ${decompress}
+        working_dir: ui/evergreen
+        command: make get-mongosh
+    - command: subprocess.exec
+      type: setup
+      params:
+        background: true
+        working_dir: ui/evergreen
+        command: make start-mongod
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: ui/evergreen
+        command: make configure-mongod
+    - command: shell.exec
+      type: setup
+      params:
+        shell: bash
+        script: |
+          ${PREPARE_SHELL}
+          cd $PROJECT_DIRECTORY
+          mkdir mongodb-tools && cd mongodb-tools
+          curl ${mongodb_tools_url} -o mongodb-tools.tgz
+          ${decompress} mongodb-tools.tgz
+          mv ./mongodb-*/bin/* .
+
+  setup-node:
+    - command: subprocess.exec
+      params:
+        binary: bash
+        args:
+          - ui/${app_dir}/scripts/prepare-shell.sh
+    - command: expansions.update
+      params:
+        file: expansion.yml
+    - command: shell.exec
+      params:
+        shell: bash
+        script: |
+          ${PREPARE_SHELL}
+
+          # Fetch NVM and install it into this task's .nvm directory
+          # Once downloaded, source nvm and install yarn
+          git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+          cd "$NVM_DIR"
+          git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          cd -
+
+          # Retry the download for Node in case it flakes.
+          for i in {1..5}; do
+            nvm install --no-progress --default ${node_version}
+            [[ $? -eq 0 ]] && break
+            echo "Attempt $i of 5 to install Node failed"
+            sleep 10
+          done
+          npm install -g yarn
+
+  symlink:
+    command: shell.exec
+    params:
+      working_dir: ui
+      shell: bash
+      script: |
+        ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema
+
+  wait-for-evergreen:
+    command: shell.exec
+    type: setup
+    params:
+      exec_timeout_secs: 600
+      working_dir: ui/${app_dir}
+      script: ./scripts/wait-for-evergreen.sh
+
+  yarn-build:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn build:local
+
+  yarn-build-storybook:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      script: |
+        ${PREPARE_SHELL}
+        # TODO: Standardize Storybook script name in Spruce and Parsley
+        yarn build-storybook || yarn storybook:build
+
+  yarn-codegen:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        chmod +x ./scripts/check_codegen.sh
+        ./scripts/check_codegen.sh
+
+  yarn-cypress:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        # Allow spec filtering for an intentional patch.
+        if [[ "${requester}" == "patch" ]]; then
+          yarn cy:run --reporter junit --spec "${cypress_spec}"
+        else
+          yarn cy:run --reporter junit
+        fi
+
+  yarn-eslint:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn eslint:strict
+
+  yarn-install:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn install
+
+  yarn-preview:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      background: true
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn preview
+
+  yarn-serve:
+    command: shell.exec
+    type: setup
+    params:
+      working_dir: ui/${app_dir}
+      background: true
+      script: |
+        ${PREPARE_SHELL}
+        yarn serve
+
+  yarn-snapshot:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      script: |
+        ${PREPARE_SHELL}
+        yarn test --ci --testPathPattern=snapshot.test.ts
+
+  yarn-test:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      script: |
+        ${PREPARE_SHELL}
+        yarn test --ci --testPathIgnorePatterns=snapshot.test.ts
+
+  yarn-tsc:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      script: |
+        ${PREPARE_SHELL}
+        yarn check-types
+
+  yarn-verify-backend:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      shell: bash
+      script: |
+        ${PREPARE_SHELL}
+        yarn verify-backend
+
+tasks:
+  - name: check_codegen_parsley
+    commands:
+      - func: symlink
+      - func: yarn-codegen
+
+  - name: check_codegen_spruce
+    commands:
+      - func: symlink
+      - func: check-codegen
+
+  - name: compile
+    commands:
+      - func: symlink
+      - func: yarn-build
+
+  - name: deploy_prod_parsley
+    commands:
+      - func: setup-credentials-parsley
+      - func: symlink
+      - func: prod-deploy-parsley
+
+  - name: deploy_prod_spruce
+    commands:
+      - func: setup-credentials-spruce
+      - func: symlink
+      - func: prod-deploy-spruce
+
+  - name: e2e_test_parsley
+    commands:
+      - func: setup-mongodb
+      - func: run-make-background
+        vars:
+          target: local-evergreen
+      - func: seed-logkeeper
+      - func: run-logkeeper
+      - func: yarn-build
+      - func: yarn-preview
+      - func: wait-for-evergreen
+      - func: yarn-verify-backend
+      - func: yarn-cypress
+
+  - name: e2e_test_spruce
+    commands:
+      - func: setup-mongodb
+      - func: run-make-background
+        vars:
+          target: local-evergreen
+      - func: symlink
+      - func: seed-logkeeper
+      - func: run-logkeeper
+      - func: yarn-build
+      - func: yarn-serve
+      - func: wait-for-evergreen
+      - func: yarn-cypress
+
+  - name: lint
+    commands:
+      - func: symlink
+      - func: yarn-eslint
+
+  - name: snapshots
+    commands:
+      - func: yarn-snapshot
+      - func: attach-test-results
+
+  - name: storybook
+    commands:
+      - func: yarn-build-storybook
+
+  - name: test
+    commands:
+    - func: yarn-test
+
+  - name: type_check
+    commands:
+      - func: symlink
+      - func: yarn-tsc
+
