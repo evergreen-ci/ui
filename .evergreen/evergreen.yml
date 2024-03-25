@@ -23,7 +23,7 @@ pre:
   - func: yarn-install
 
 post:
-    # - func: attach-codegen-diff
+  - func: attach-codegen-diff
   - func: attach-cypress-results
   - func: attach-logkeeper-logs
   - func: attach-source-map
