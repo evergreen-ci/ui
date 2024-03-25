@@ -6,19 +6,19 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
     class="css-14zx4vh"
   >
     <div
-      class="leafygreen-ui-1nkq8lt css-6lshyd"
+      class="leafygreen-ui-1iyoj2o css-6lshyd"
     >
       <button
-        aria-controls="select-1-menu"
-        aria-describedby="select-1-description"
+        aria-controls="select-193-menu"
+        aria-describedby="select-193-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-3qrx9g"
+        class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
         data-cy="searchbar-select"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-2"
+        id="select-194"
         type="button"
         value="filter"
       >
@@ -26,13 +26,13 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-1qmzz4y"
+          class="leafygreen-ui-16tr4y"
         >
           <div
             class="leafygreen-ui-obh8q1"
           >
             <div
-              class="leafygreen-ui-17aj16e"
+              class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
             >
               Filter
             </div>
@@ -40,7 +40,7 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-4dp7tf"
+            class="leafygreen-ui-fn50nl"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"
@@ -172,19 +172,19 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
     class="css-14zx4vh"
   >
     <div
-      class="leafygreen-ui-1nkq8lt css-6lshyd"
+      class="leafygreen-ui-1iyoj2o css-6lshyd"
     >
       <button
-        aria-controls="select-3-menu"
-        aria-describedby="select-3-description"
+        aria-controls="select-196-menu"
+        aria-describedby="select-196-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-3qrx9g"
+        class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
         data-cy="searchbar-select"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-4"
+        id="select-197"
         type="button"
         value="filter"
       >
@@ -192,13 +192,13 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-1qmzz4y"
+          class="leafygreen-ui-16tr4y"
         >
           <div
             class="leafygreen-ui-obh8q1"
           >
             <div
-              class="leafygreen-ui-17aj16e"
+              class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
             >
               Filter
             </div>
@@ -206,7 +206,7 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
           <svg
             alt=""
             aria-hidden="true"
-            class="leafygreen-ui-4dp7tf"
+            class="leafygreen-ui-fn50nl"
             height="16"
             role="presentation"
             viewBox="0 0 16 16"
