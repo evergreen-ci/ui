@@ -25,11 +25,11 @@ pre:
 post:
   - func: attach-codegen-diff
   - func: attach-cypress-results
+  - func: attach-email
   - func: attach-logkeeper-logs
   - func: attach-source-map
   - func: attach-storybook
   - func: attach-test-results
-    # - func: attach-email
 
 include:
   - filename: .evergreen/shared.yml
@@ -51,7 +51,7 @@ buildvariants:
       - evergreen
       - logkeeper
     tasks:
-      - name: check_codegen_spruce
+      - name: check_codegen
       - name: compile
       - name: e2e_test_spruce
       - name: lint
@@ -80,7 +80,7 @@ buildvariants:
       - evergreen
       - logkeeper
     tasks:
-      - name: check_codegen_parsley
+      - name: check_codegen
       - name: compile
       - name: e2e_test_parsley
       - name: lint

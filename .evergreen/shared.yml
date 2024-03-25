@@ -10,8 +10,7 @@ functions:
       working_dir: ui/${app_dir}
       script: |
         ${PREPARE_SHELL}
-        chmod +x check_codegen.sh
-        ./check_codegen.sh
+        ./scripts/check_codegen.sh
 
   get-project:
     command: git.get_project
@@ -248,16 +247,6 @@ functions:
         # TODO: Standardize Storybook script name in Spruce and Parsley
         yarn build-storybook || yarn storybook:build
 
-  yarn-codegen:
-    command: shell.exec
-    params:
-      working_dir: ui/${app_dir}
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        chmod +x ./scripts/check_codegen.sh
-        ./scripts/check_codegen.sh
-
   yarn-cypress:
     command: shell.exec
     params:
@@ -344,12 +333,7 @@ functions:
         yarn verify-backend
 
 tasks:
-  - name: check_codegen_parsley
-    commands:
-      - func: symlink
-      - func: yarn-codegen
-
-  - name: check_codegen_spruce
+  - name: check_codegen
     commands:
       - func: symlink
       - func: check-codegen
