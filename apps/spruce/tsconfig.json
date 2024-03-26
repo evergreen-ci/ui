@@ -4,8 +4,16 @@
     "baseUrl": "src",
     "strict": false
   },
-  "exclude": ["node_modules"],
-  "include": ["config", "src", "test_utils"],
+  "exclude": [
+    "node_modules",
+    "vite.config.ts"
+  ],
+  "include": [
+    "src",
+    "test_utils/index.tsx",
+    "test_utils/custom-queries.ts",
+    "config/jest/setupTests.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
