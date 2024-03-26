@@ -92,7 +92,7 @@
     "@leafygreen-ui/skeleton-loader": "1.1.0",
     "@leafygreen-ui/table": "12.5.0",
     "@leafygreen-ui/tabs": "11.0.4",
-    "@leafygreen-ui/text-area": "8.0.21",
+    "@leafygreen-ui/text-area": "8.1.2",
     "@leafygreen-ui/text-input": "12.1.12",
     "@leafygreen-ui/toast": "6.1.4",
     "@leafygreen-ui/toggle": "10.0.17",

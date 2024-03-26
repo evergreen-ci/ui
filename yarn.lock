@@ -3138,7 +3138,7 @@
     "@leafygreen-ui/emotion" "^4.0.7"
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon@^11.12.4", "@leafygreen-ui/icon@^11.12.5", "@leafygreen-ui/icon@^11.13.1", "@leafygreen-ui/icon@^11.15.0", "@leafygreen-ui/icon@^11.16.1", "@leafygreen-ui/icon@^11.17.0", "@leafygreen-ui/icon@^11.22.1", "@leafygreen-ui/icon@^11.22.2", "@leafygreen-ui/icon@^11.23.0", "@leafygreen-ui/icon@^11.25.0", "@leafygreen-ui/icon@^11.25.1", "@leafygreen-ui/icon@^11.27.0", "@leafygreen-ui/icon@^11.27.1", "@leafygreen-ui/icon@^11.28.0", "@leafygreen-ui/icon@^11.29.1":
+"@leafygreen-ui/icon@^11.12.4", "@leafygreen-ui/icon@^11.12.5", "@leafygreen-ui/icon@^11.13.1", "@leafygreen-ui/icon@^11.15.0", "@leafygreen-ui/icon@^11.16.1", "@leafygreen-ui/icon@^11.17.0", "@leafygreen-ui/icon@^11.22.1", "@leafygreen-ui/icon@^11.22.2", "@leafygreen-ui/icon@^11.23.0", "@leafygreen-ui/icon@^11.25.0", "@leafygreen-ui/icon@^11.25.1", "@leafygreen-ui/icon@^11.27.1", "@leafygreen-ui/icon@^11.28.0", "@leafygreen-ui/icon@^11.29.1":
   version "11.29.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.29.1.tgz#f61115a5b0b36310a5ffb008bf51dd9ae8982917"
   integrity sha512-bCfeJ3mndU5wHayMWfkVWo0NXhPpBpHIG53aox/eRterqLvWg6jWyiuF930MHbyWDNEXC9Qw1WD637kZ93mmog==
@@ -3684,18 +3684,18 @@
     "@leafygreen-ui/tokens" "^2.2.0"
     "@leafygreen-ui/typography" "^18.0.1"
 
-"@leafygreen-ui/text-area@8.0.21":
-  version "8.0.21"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-8.0.21.tgz#098a434d45d6092e1e54f0e1f0d3603477848e37"
-  integrity sha512-1gzzGt3dvNWzT3mhOrmjs3oKt+wruGs6Yq3Ij0gYwEzosSQc81dNwlPimN5S1Lzsu5aCbn4cgaQPuYi47QcLcw==
+"@leafygreen-ui/text-area@8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-8.1.2.tgz#f2d024599f8f2b6b1772327b3b86dd29ad19ed22"
+  integrity sha512-vugmKn5Av+ddAlOIGalvwXsXFRoG1mwNurA+73X0f8iUUueQAc/AXrYGFShz8XkM4NxjOdqFTVnZO3GSsIx7Og==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.7"
     "@leafygreen-ui/hooks" "^8.0.0"
-    "@leafygreen-ui/icon" "^11.27.0"
+    "@leafygreen-ui/icon" "^12.0.0"
     "@leafygreen-ui/lib" "^13.0.0"
     "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.2.0"
-    "@leafygreen-ui/typography" "^18.0.0"
+    "@leafygreen-ui/tokens" "^2.4.0"
+    "@leafygreen-ui/typography" "^18.2.3"
 
 "@leafygreen-ui/text-input@12.1.12":
   version "12.1.12"
