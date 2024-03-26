@@ -38,22 +38,22 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                   >
                     <label
                       class="leafygreen-ui-nf64md"
-                      for="select-191"
-                      id="select-190-label"
+                      for="select-4"
+                      id="select-3-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-190-menu"
-                    aria-describedby="select-190-description"
+                    aria-controls="select-3-menu"
+                    aria-describedby="select-3-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-190-label"
+                    aria-labelledby="select-3-label"
                     class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-191"
+                    id="select-4"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -284,13 +284,13 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                 >
                   <label
                     class="leafygreen-ui-1fi5x3a"
-                    for="textarea-192"
+                    for="textarea-2"
                   >
                     Valid Projects
                   </label>
                   <textarea
                     class="leafygreen-ui-18em0fn"
-                    id="textarea-192"
+                    id="textarea-2"
                     rows="5"
                     title="Valid Projects"
                   />
@@ -579,7 +579,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-193"
+                        aria-describedby="lg-3"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--0"
@@ -606,7 +606,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-194"
+                        aria-describedby="lg-4"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--1"

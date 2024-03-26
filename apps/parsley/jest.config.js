@@ -17,7 +17,6 @@ module.exports = {
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
   testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{js,jsx,ts,tsx}"],
-  testRunner: "<rootDir>/node_modules/jest-circus/runner.js",
   transform: {
     "^.+\\.graphql$": "@graphql-tools/jest-transform",
     "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "ts-jest",
