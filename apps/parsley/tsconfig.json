@@ -1,37 +1,10 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react", // enables css prop on JSX
-    "baseUrl": "src",
-    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "src"
   },
-  "include": [
-    "src",
-    "config/jest/setup.ts",
-  ],
-  "exclude": [
-    "node_modules",
-    "vite.config.ts",
-    "cypress.config.ts"
-  ],
+  "include": ["config", "src", "test_utils"],
+  "exclude": ["node_modules"],
   "references": [
     {
       "path": "./tsconfig.node.json"
