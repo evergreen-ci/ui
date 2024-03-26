@@ -85,7 +85,7 @@ else
   fi
   echo "Getting commits between $BASE_COMMIT and $CURRENT_COMMIT_HASH"
   # get all commits since the base commit
-  git log --no-merges "$BASE_COMMIT".."$CURRENT_COMMIT_HASH" --pretty="%h %s" > body.txt
+  git log --no-merges "$BASE_COMMIT".."$CURRENT_COMMIT_HASH" --pretty="%h %s" -- . > body.txt
 fi
 
 
