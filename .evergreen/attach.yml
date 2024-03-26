@@ -1,0 +1,170 @@
+functions:
+  attach-codegen-diff:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
+      local_files_include_filter: ["ui/${app_dir}/bin/codegen.diff"]
+      remote_file: ${build_variant}/${task_id}/${execution}/codegen/
+      bucket: evg-bucket-evergreen-ui
+      content_type: text/plain
+      permissions: public-read
+
+  attach-cypress-results:
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: ["ui/${app_dir}/cypress/screenshots/*"]
+        remote_file: ${build_variant}/${task_id}/${execution}/
+        bucket: evg-bucket-evergreen-ui
+        content_type: image/png
+        permissions: public-read
+        display_name: "screenshot:"
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: ["ui/${app_dir}/cypress/videos/*"]
+        remote_file: ${build_variant}/${task_id}/${execution}/
+        bucket: evg-bucket-evergreen-ui
+        content_type: video/mp4
+        permissions: public-read
+        display_name: "video:"
+    - command: attach.xunit_results
+      params:
+        files:
+          - "./ui/${app_dir}/bin/cypress/*.xml"
+
+  attach-email:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
+      local_files_include_filter: ["ui/${app_dir}/body.txt"]
+      remote_file: ${build_variant}/${task_id}/${execution}/
+      bucket: evg-bucket-evergreen-ui
+      content_type: text/plain
+      permissions: public-read
+
+  attach-logkeeper-logs:
+     command: s3.put
+     type: system
+     params:
+       aws_key: ${AWS_ACCESS_KEY_ID}
+       aws_secret: ${AWS_SECRET_ACCESS_KEY}
+       aws_session_token: ${AWS_SESSION_TOKEN}
+       local_file: ui/${app_dir}/logkeeper/logkeeperapp.log
+       remote_file: ${build_variant}/${task_id}/${execution}/logkeeperapp.log
+       bucket: evg-bucket-evergreen-ui
+       content_type: text/plain
+       permissions: public-read
+
+  attach-source-map:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
+      local_file: "ui/${app_dir}/build/source_map.html"
+      remote_file: ${build_variant}/${task_id}/${execution}/source_map.html
+      bucket: evg-bucket-evergreen-ui
+      content_type: text/html
+      permissions: public-read
+      display_name: source_map
+
+  attach-storybook:
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: ["ui/${app_dir}/storybook-static/*.html"]
+        remote_file: ${build_variant}/${task_id}/${execution}/storybook/
+        bucket: evg-bucket-evergreen-ui
+        content_type: text/html
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter:
+          [
+            "ui/${app_dir}/storybook-static/**/*.js$",
+            "ui/${app_dir}/storybook-static/**/*.mjs$",
+          ]
+        remote_file: ${build_variant}/${task_id}/${execution}/storybook/
+        bucket: evg-bucket-evergreen-ui
+        content_type: application/javascript
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: ["ui/${app_dir}/storybook-static/**/*.js.map"]
+        remote_file: ${build_variant}/${task_id}/${execution}/storybook/
+        bucket: evg-bucket-evergreen-ui
+        content_type: application/json
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: ["ui/${app_dir}/storybook-static/**/*.css"]
+        remote_file: ${build_variant}/${task_id}/${execution}/storybook/
+        bucket: evg-bucket-evergreen-ui
+        content_type: text/css
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: ["ui/${app_dir}/storybook-static/**/*.json"]
+        remote_file: ${build_variant}/${task_id}/${execution}/storybook/
+        bucket: evg-bucket-evergreen-ui
+        content_type: application/json
+        permissions: public-read
+        preserve_path: true
+    - command: s3.put
+      type: system
+      params:
+        aws_key: ${AWS_ACCESS_KEY_ID}
+        aws_secret: ${AWS_SECRET_ACCESS_KEY}
+        aws_session_token: ${AWS_SESSION_TOKEN}
+        local_files_include_filter: [
+          "ui/${app_dir}/storybook-static/**/*.woff",
+          "ui/${app_dir}/storybook-static/**/*.woff2"
+        ]
+        remote_file: ${build_variant}/${task_id}/${execution}/storybook/
+        bucket: evg-bucket-evergreen-ui
+        content_type: font/woff2
+        permissions: public-read
+        preserve_path: true
+
+  attach-test-results:
+    command: attach.xunit_results
+    params:
+      files:
+        - "./ui/${app_dir}/bin/jest/*.xml"

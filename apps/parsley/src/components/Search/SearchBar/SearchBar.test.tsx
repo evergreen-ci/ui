@@ -9,7 +9,10 @@ describe("searchbar", () => {
 
   it("disables properly", () => {
     render(<SearchBar disabled />);
-    expect(screen.getByDataCy("searchbar-select")).toBeDisabled();
+    expect(screen.getByDataCy("searchbar-select")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
     expect(screen.getByDataCy("searchbar-input")).toBeDisabled();
   });
   it("should be able to paginate forwards by pressing Enter and keep focus", async () => {

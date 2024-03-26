@@ -7,6 +7,11 @@ const user = {
 const toastDataCy = "toast";
 
 Cypress.Commands.add("addFilter", (filter: string) => {
+  cy.dataCy("searchbar-select").should(
+    "not.have.attr",
+    "aria-disabled",
+    "true",
+  );
   cy.dataCy("searchbar-select").click();
   cy.dataCy("filter-option").click();
   cy.dataCy("searchbar-input")
@@ -16,6 +21,11 @@ Cypress.Commands.add("addFilter", (filter: string) => {
 });
 
 Cypress.Commands.add("addHighlight", (highlight: string) => {
+  cy.dataCy("searchbar-select").should(
+    "not.have.attr",
+    "aria-disabled",
+    "true",
+  );
   cy.dataCy("searchbar-select").click();
   cy.dataCy("highlight-option").click();
   cy.dataCy("searchbar-input")

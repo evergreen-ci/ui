@@ -1,0 +1,100 @@
+command_type: test
+
+ignore:
+  - "*.md"
+  - ".github/*"
+
+modules:
+  - name: evergreen
+    owner: evergreen-ci
+    repo: evergreen
+    branch: main
+    auto_update: true
+  - name: logkeeper
+    owner: evergreen-ci
+    repo: logkeeper
+    branch: main
+    auto_update: true
+
+pre:
+  - func: assume-ec2-role
+  - func: get-project
+  - func: setup-node
+  - func: yarn-install
+
+post:
+  - func: assume-ec2-role
+  - func: attach-codegen-diff
+  - func: attach-cypress-results
+  - func: attach-email
+  - func: attach-logkeeper-logs
+  - func: attach-source-map
+  - func: attach-storybook
+  - func: attach-test-results
+
+include:
+  - filename: .evergreen/shared.yml
+  - filename: .evergreen/attach.yml
+
+buildvariants:
+  - name: spruce
+    display_name: Spruce
+    run_on:
+      - ubuntu2204-large
+    expansions:
+      app_dir: apps/spruce
+      goroot: /opt/golang/go1.20
+      mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.8.0.tgz
+      mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.2.tgz
+      mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.0.2-linux-x64.tgz
+      node_version: 20.10.0
+    modules:
+      - evergreen
+      - logkeeper
+    tasks:
+      - name: check_codegen
+      - name: compile
+      - name: e2e_test_spruce
+      - name: lint
+      - name: snapshots
+      - name: storybook
+      - name: test
+      - name: type_check
+      - name: deploy_prod_spruce
+        git_tag_only: true
+        patchable: false
+        priority: 100
+
+  - name: parsley
+    display_name: Parsley
+    expansions:
+      app_dir: apps/parsley
+      goroot: /opt/golang/go1.20
+      mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.8.0.tgz
+      mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.2.tgz
+      mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.0.2-linux-x64.tgz
+      node_version: 20.10.0
+    run_on:
+      - ubuntu2204-large
+      - ubuntu2204-small
+    modules:
+      - evergreen
+      - logkeeper
+    tasks:
+      - name: check_codegen
+      - name: compile
+      - name: e2e_test_parsley
+      - name: lint
+      - name: snapshots
+      - name: storybook
+      - name: test
+      - name: type_check
+      - name: deploy_prod_parsley
+        git_tag_only: true
+        patchable: false
+        priority: 100
+
+parameters:
+  - key: cypress_spec
+    value: cypress/integration/**/*
+    description: Specify the Cypress spec files to run for user submitted patches running the e2e_test task.

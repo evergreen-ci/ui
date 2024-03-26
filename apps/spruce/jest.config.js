@@ -8,7 +8,6 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   moduleNameMapper: {
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
-    "^nanoid$": "<rootDir>/node_modules/nanoid/index.cjs",
     "^antd/es/(.*)$": "antd/lib/$1",
   },
   modulePaths: ["<rootDir>/src"],
@@ -18,7 +17,6 @@ module.exports = {
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
   testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{js,jsx,ts,tsx}"],
-  testRunner: "<rootDir>/node_modules/jest-circus/runner.js",
   transform: {
     "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
@@ -43,4 +41,14 @@ module.exports = {
   ],
   globalSetup: "<rootDir>/global-setup.js",
   testTimeout: 30000,
+  reporters: [
+    "default",
+    [
+      "jest-junit",
+      {
+        outputDirectory: "bin/jest",
+        outputName: "junit.xml",
+      },
+    ],
+  ],
 };
