@@ -3380,20 +3380,15 @@
     "@leafygreen-ui/typography" "^16.5.4"
     lodash "^4.17.21"
 
-"@leafygreen-ui/palette@4.0.7":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-4.0.7.tgz#1739d29411b8ba02a2be756e198f10c242428bb0"
-  integrity sha512-rBeAk4Tk3t9pYqXYKqVZfma/MH1SBtt02BxAL6TpJb8wQ+i5zap6o1Gnb3nF9LAG7sA0+OHfr1B5uSvr63GGqw==
+"@leafygreen-ui/palette@4.0.9", "@leafygreen-ui/palette@^4.0.0", "@leafygreen-ui/palette@^4.0.4", "@leafygreen-ui/palette@^4.0.7":
+  version "4.0.9"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-4.0.9.tgz#b349b022fbc6579fd7494fe429d0d658e4854916"
+  integrity sha512-D0eHY+wllK0Fyj2/xiHmiLtfsklTCjQXupZN6UrhveUK4BoNC2Wf9t0cnoFCP7W2rpBItvdPs4fthj9lxUOqDg==
 
 "@leafygreen-ui/palette@^3.4.5", "@leafygreen-ui/palette@^3.4.7":
   version "3.4.7"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.4.7.tgz#7c4a619ca0cb7a9785326dcb67e012369b3d92d6"
   integrity sha512-AsvPlbvF7CERiZbAQR8hy3lAJ2/rieXI3cO0jsOwV8ztDqYNotKAdLujyr/NviudrRUenYiXrLizIKVlSPUMuA==
-
-"@leafygreen-ui/palette@^4.0.0", "@leafygreen-ui/palette@^4.0.4", "@leafygreen-ui/palette@^4.0.7":
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-4.0.8.tgz#d1c6fd46cd13c7813032dfef36200369edbf88e8"
-  integrity sha512-f7aA6lT5xbK/fta6Lv0YRKCdhupl1c9xK9W2bW12dt8FLwOUELAdLnu3UvgMFBcC4SP/t/B7j/Qwz0X5R6lfkA==
 
 "@leafygreen-ui/polymorphic@^1.2.0", "@leafygreen-ui/polymorphic@^1.3.2", "@leafygreen-ui/polymorphic@^1.3.6":
   version "1.3.6"
