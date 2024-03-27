@@ -19,6 +19,13 @@ const emptyState = new Array(days.length).fill(false);
 
 type DayPickerState = Array<boolean>;
 
+/**
+ * Allows selecting days of the week
+ * @param props - React props
+ * @param props.defaultState - optionally specifies the initial selected days
+ * @param props.onChange - optionally calls a side effect function with the new selection state when a change is made
+ * @returns DayPicker - DayPicker component
+ */
 export const DayPicker: React.FC<{
   defaultState?: DayPickerState;
   onChange?: (value: DayPickerState) => void;
