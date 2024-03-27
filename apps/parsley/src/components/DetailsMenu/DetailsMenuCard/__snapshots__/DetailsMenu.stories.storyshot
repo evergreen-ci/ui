@@ -345,7 +345,7 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
             >
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-1qjl8rb"
+                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
                 data-cy="jira-button"
                 type="button"
               >
@@ -378,7 +378,7 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
               </button>
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-1qjl8rb"
+                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
                 data-cy="job-logs-button"
                 target="_blank"
                 type="button"
@@ -414,7 +414,7 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
               </button>
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-1qjl8rb"
+                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
                 data-cy="raw-log-button"
                 target="_blank"
                 type="button"
@@ -450,7 +450,7 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
               </button>
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-1qjl8rb"
+                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
                 data-cy="html-log-button"
                 target="_blank"
                 type="button"
@@ -844,7 +844,7 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
             >
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-1qjl8rb"
+                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
                 data-cy="jira-button"
                 type="button"
               >
@@ -877,7 +877,7 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
               </button>
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-1qjl8rb"
+                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
                 data-cy="job-logs-button"
                 target="_blank"
                 type="button"
@@ -913,7 +913,7 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
               </button>
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-1qjl8rb"
+                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
                 data-cy="raw-log-button"
                 target="_blank"
                 type="button"
@@ -949,7 +949,7 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
               </button>
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-1qjl8rb"
+                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
                 data-cy="html-log-button"
                 target="_blank"
                 type="button"

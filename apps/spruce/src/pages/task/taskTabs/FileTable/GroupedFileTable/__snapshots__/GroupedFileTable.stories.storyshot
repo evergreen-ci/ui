@@ -63,7 +63,7 @@ exports[`Snapshot Tests GroupedFileTable.stories DefaultTable 1`] = `
         <tbody>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-vi96c4"
+            class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-0"
@@ -93,7 +93,7 @@ exports[`Snapshot Tests GroupedFileTable.stories DefaultTable 1`] = `
                   </a>
                   <button
                     aria-disabled="true"
-                    class="lg-ui-button-0000 leafygreen-ui-1x3ok4"
+                    class="lg-ui-button-0000 leafygreen-ui-1vou6i4 leafygreen-ui-cssveg"
                     data-cy="parsley-link"
                     target="_blank"
                     type="button"
@@ -113,7 +113,7 @@ exports[`Snapshot Tests GroupedFileTable.stories DefaultTable 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-vi96c4"
+            class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-1"
@@ -143,7 +143,7 @@ exports[`Snapshot Tests GroupedFileTable.stories DefaultTable 1`] = `
                   </a>
                   <a
                     aria-disabled="false"
-                    class="lg-ui-button-0000 leafygreen-ui-q3ln33"
+                    class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
                     data-cy="parsley-link"
                     href="parsley_link"
                     target="_blank"

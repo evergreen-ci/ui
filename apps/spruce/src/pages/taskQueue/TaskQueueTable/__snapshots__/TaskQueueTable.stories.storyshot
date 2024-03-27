@@ -237,7 +237,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-1"
@@ -531,7 +531,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-3"
@@ -825,7 +825,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-5"
@@ -1119,7 +1119,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-7"
@@ -1413,7 +1413,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-9"
@@ -1707,7 +1707,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-11"
@@ -2001,7 +2001,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-13"
@@ -2295,7 +2295,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-15"
@@ -2589,7 +2589,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-17"
@@ -2883,7 +2883,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-19"
@@ -3177,7 +3177,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-21"
@@ -3471,7 +3471,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-23"
@@ -3765,7 +3765,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-25"
@@ -4059,7 +4059,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-27"
@@ -4353,7 +4353,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
           </tr>
           <tr
             aria-hidden="false"
-            class="leafygreen-ui-1c7isjx"
+            class="leafygreen-ui-16yodxz leafygreen-ui-1t7kozd"
             data-cy="leafygreen-table-row"
             data-selected="false"
             id="lg-table-row-29"
