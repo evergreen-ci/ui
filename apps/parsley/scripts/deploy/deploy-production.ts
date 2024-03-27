@@ -64,7 +64,7 @@ const evergreenDeploy = async () => {
       console.log(
         green(
           `Track deploy progress at ${underline(
-            "https://spruce.mongodb.com/commits/parsley?requester=git_tag_request",
+            "https://spruce.mongodb.com/commits/evergreen-ui?requester=git_tag_request",
           )}`,
         ),
       );
