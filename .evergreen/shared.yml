@@ -405,4 +405,3 @@ tasks:
     commands:
       - func: symlink
       - func: yarn-tsc
-

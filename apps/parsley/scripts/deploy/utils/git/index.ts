@@ -7,7 +7,7 @@ import { execSync } from "child_process";
  */
 const getCommitMessages = (currentlyDeployedCommit: string) => {
   const commitMessages = execSync(
-    `git log ${currentlyDeployedCommit}..HEAD --oneline`,
+    `git log ${currentlyDeployedCommit}..HEAD --oneline -- .`,
     { encoding: "utf-8" }
   ).toString();
   return commitMessages;
