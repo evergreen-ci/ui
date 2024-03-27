@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
 import { navBarHeight } from "components/Header/Navbar";
 import { MetadataCard, MetadataTitle } from "components/MetadataCard";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -13,15 +12,16 @@ import { BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
 import VariantTaskGroup from "./VariantTaskGroup";
 
-const BuildVariantCard: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-
+interface BuildVariantCardProps {
+  versionId: string;
+}
+const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     BuildVariantStatsQuery,
     BuildVariantStatsQueryVariables
   >(BUILD_VARIANTS_STATS, {
     fetchPolicy: "cache-and-network",
-    variables: { id },
+    variables: { id: versionId },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -38,7 +38,7 @@ const BuildVariantCard: React.FC = () => {
               displayName={displayName}
               statusCounts={statusCounts}
               variant={variant}
-              versionId={id}
+              versionId={versionId}
             />
           ),
         )}

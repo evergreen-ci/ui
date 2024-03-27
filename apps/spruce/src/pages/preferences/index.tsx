@@ -7,13 +7,19 @@ import {
   SideNavItem,
   PageWrapper,
 } from "components/styles";
-import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
+import {
+  PreferencesTabRoutes,
+  getPreferencesRoute,
+  slugs,
+} from "constants/routes";
 import { usePageTitle } from "hooks";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
 const Preferences: React.FC = () => {
   usePageTitle("Preferences");
-  const { tab } = useParams<{ tab: string }>();
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: PreferencesTabRoutes;
+  }>();
   const { sendEvent } = usePreferencesAnalytics();
 
   return (

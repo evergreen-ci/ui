@@ -5,7 +5,7 @@ import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { getVersionRoute } from "constants/routes";
+import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
@@ -26,13 +26,13 @@ interface Props {
 const tabMap = ({
   childPatches,
   numFailedChildPatches,
-  patchId,
   taskCount,
+  versionId,
 }: {
   taskCount: number;
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
   numFailedChildPatches: number;
-  patchId: string;
+  versionId: string;
 }) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
@@ -56,7 +56,7 @@ const tabMap = ({
       data-cy="changes-tab"
       key="changes-tab"
     >
-      <CodeChanges patchId={patchId} />
+      <CodeChanges patchId={versionId} />
     </Tab>
   ),
   [PatchTab.Downstream]: (
@@ -86,9 +86,12 @@ export const VersionTabs: React.FC<Props> = ({
   isPatch,
   taskCount,
 }) => {
-  const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
+  const { [slugs.versionId]: versionId, [slugs.tab]: tab } = useParams<{
+    [slugs.versionId]: string;
+    [slugs.tab]: PatchTab;
+  }>();
   const { search } = useLocation();
-  const { sendEvent } = useVersionAnalytics(id);
+  const { sendEvent } = useVersionAnalytics(versionId);
   const navigate = useNavigate();
 
   const tabIsActive = useMemo(
@@ -109,9 +112,9 @@ export const VersionTabs: React.FC<Props> = ({
       taskCount,
       childPatches,
       numFailedChildPatches,
-      patchId: id,
+      versionId,
     });
-  }, [taskCount, childPatches, id]);
+  }, [taskCount, childPatches, versionId]);
 
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
@@ -124,7 +127,7 @@ export const VersionTabs: React.FC<Props> = ({
   useEffect(() => {
     // If tab is not valid, set to task tab.
     if (!isValidTab) {
-      navigate(getVersionRoute(id), { replace: true });
+      navigate(getVersionRoute(versionId), { replace: true });
     }
     // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update state here.
     else if (selectedTab !== activeTabs.indexOf(tab)) {
@@ -136,7 +139,7 @@ export const VersionTabs: React.FC<Props> = ({
   const selectNewTab = (newTabIndex: number) => {
     const queryParams = parseQueryString(search);
     const newTab = activeTabs[newTabIndex];
-    const newRoute = getVersionRoute(id, {
+    const newRoute = getVersionRoute(versionId, {
       tab: newTab as PatchTab,
       ...queryParams,
     });

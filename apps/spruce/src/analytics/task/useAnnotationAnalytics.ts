@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { slugs } from "constants/routes";
 import {
   BuildBaronQuery,
   BuildBaronQueryVariables,
@@ -26,21 +27,21 @@ type Action =
   | { name: "Add Task Annotation Suspected Issue" };
 
 export const useAnnotationAnalytics = () => {
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.taskId]: taskId } = useParams();
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
 
   const { data: eventData } = useQuery<
     AnnotationEventDataQuery,
     AnnotationEventDataQueryVariables
   >(ANNOTATION_EVENT_DATA, {
-    variables: { taskId: id, execution },
+    variables: { taskId, execution },
     fetchPolicy: "cache-first",
   });
 
   const { data: bbData } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
     BUILD_BARON,
     {
-      variables: { taskId: id, execution },
+      variables: { taskId, execution },
       fetchPolicy: "cache-first",
     },
   );
@@ -49,7 +50,7 @@ export const useAnnotationAnalytics = () => {
   const { buildBaronConfigured } = bbData?.buildBaron || {};
 
   return useAnalyticsRoot<Action>("Annotations", {
-    taskId: id,
+    taskId,
     annotation,
     bbConfigured: buildBaronConfigured,
   });
