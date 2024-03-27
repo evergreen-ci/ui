@@ -72,11 +72,19 @@ export const getParsleyTestLogURL = (buildId: string, testId: string) =>
 export const getParsleyBuildLogURL = (buildId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/all`;
 
+/**
+ * Generates a URL for accessing a trace in the Honeycomb dashboard.
+ * 
+ * @param {string} traceId - The ID of the trace.
+ * @param {Date} startTs - The start timestamp of the trace. Note that this timestamp is truncated to the nearest second.
+ * @param {Date} endTs - The end timestamp of the trace. Note that this timestamp is rounded up to the nearest second.
+ * @returns {string} The URL for accessing the trace in the Honeycomb dashboard.
+ */
 export const getHoneycombTraceUrl = (
   traceId: string,
   startTs: Date,
   endTs: Date,
-) =>
+): string =>
   `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
     new Date(startTs),
   )}&trace_end_ts=${getUnixTime(new Date(endTs)) + 1}`;
