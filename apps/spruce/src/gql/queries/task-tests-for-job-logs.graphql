@@ -1,0 +1,18 @@
+query TaskTestsForJobLogs($id: String!, $execution: Int) {
+  task(taskId: $id, execution: $execution) {
+    execution
+    id
+    tests(opts: {}) {
+      testResults {
+        groupID
+        id
+        logs {
+          url
+          urlParsley
+        }
+        testFile
+      }
+      totalTestCount
+    }
+  }
+}

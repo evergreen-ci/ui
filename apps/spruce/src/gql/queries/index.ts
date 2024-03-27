@@ -65,6 +65,7 @@ import TASK_NAMES_FOR_BUILD_VARIANT from "./task-names-for-build-variant.graphql
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
 import TASK_STATUSES from "./task-statuses.graphql";
 import TASK_TEST_SAMPLE from "./task-test-sample.graphql";
+import TASK_TESTS_FOR_JOB_LOGS from "./task-tests-for-job-logs.graphql";
 import TASK_TESTS from "./task-tests.graphql";
 import TASK from "./task.graphql";
 import UNSCHEDULED_TASKS from "./undispatched-tasks.graphql";
@@ -147,6 +148,7 @@ export {
   TASK_NAMES_FOR_BUILD_VARIANT,
   TASK_QUEUE_DISTROS,
   TASK_STATUSES,
+  TASK_TESTS_FOR_JOB_LOGS,
   TASK_TEST_SAMPLE,
   TASK_TESTS,
   TASK,
