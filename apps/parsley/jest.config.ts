@@ -1,33 +1,35 @@
-module.exports = {
+import type { Config } from "jest";
+
+const config: Config = {
+  displayName: "parsley",
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!<rootDir>/node_modules/",
-    "!<rootDir>/src/{index.tsx,react-app-env.d.ts}",
+    "!<rootDir>/src/{main.tsx,vite-env.d.ts}",
   ],
-  coverageReporters: ["text"],
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
+  moduleFileExtensions: ["json", "js", "jsx", "ts", "tsx"],
   moduleNameMapper: {
-    "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
-    "^antd/es/(.*)$": "antd/lib/$1",
+    "^uuid$": "<rootDir>/node_modules/uuid/dist/index.js",
   },
   modulePaths: ["<rootDir>/src"],
+  setupFiles: ["./jest.setup.ts"],
+  preset: "ts-jest",
   resetMocks: true,
-  setupFiles: ["react-app-polyfill/jsdom", "jest-canvas-mock"],
   setupFilesAfterEnv: ["<rootDir>/config/jest/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
   testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{js,jsx,ts,tsx}"],
   transform: {
-    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
+    "^.+\\.graphql$": "@graphql-tools/jest-transform",
+    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "ts-jest",
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
     "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)":
-      "<rootDir>/config/jest/fileTransform.js",
+      "<rootDir>/config/jest/svgTransform.js",
   },
   transformIgnorePatterns: [
     `<rootDir>/node_modules/(?!${[
       // jest doesn't officially support ESM so ignore ansi_up: https://jestjs.io/docs/ecmascript-modules
       "ansi_up",
-      "antd",
       // The following modules are all related to the query-string package.
       "query-string",
       "decode-uri-component",
@@ -35,20 +37,6 @@ module.exports = {
       "filter-obj",
     ].join("|")})`,
   ],
-  watchPlugins: [
-    "jest-watch-typeahead/filename",
-    "jest-watch-typeahead/testname",
-  ],
-  globalSetup: "<rootDir>/global-setup.js",
-  testTimeout: 30000,
-  reporters: [
-    "default",
-    [
-      "jest-junit",
-      {
-        outputDirectory: "bin/jest",
-        outputName: "junit.xml",
-      },
-    ],
-  ],
 };
+
+export default config;
