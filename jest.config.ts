@@ -13,6 +13,7 @@ const config: Config = {
       },
     ],
   ],
+  testEnvironment: "jsdom",
   testTimeout: 30000,
   watchPlugins: [
     "jest-watch-typeahead/filename",

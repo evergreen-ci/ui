@@ -1,4 +1,5 @@
 import type { Config } from "jest";
+import { jsWithTs as tsjPreset } from "ts-jest/presets";
 
 const config: Config = {
   displayName: "parsley",
@@ -7,21 +8,21 @@ const config: Config = {
     "!<rootDir>/node_modules/",
     "!<rootDir>/src/{main.tsx,vite-env.d.ts}",
   ],
-  moduleFileExtensions: ["json", "js", "jsx", "ts", "tsx"],
+  moduleFileExtensions: ["tsx", "ts", "json", "js", "jsx"],
   moduleNameMapper: {
     "^uuid$": "<rootDir>/node_modules/uuid/dist/index.js",
   },
   modulePaths: ["<rootDir>/src"],
-  setupFiles: ["./jest.setup.ts"],
-  preset: "ts-jest",
+  setupFiles: ["./config/jest/jest.setup.ts"],
+  preset: "ts-jest/presets/js-with-ts",
   resetMocks: true,
   setupFilesAfterEnv: ["<rootDir>/config/jest/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
-  testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{js,jsx,ts,tsx}"],
+  testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{ts,tsx}"],
   transform: {
+    "^.+\\.[tj]sx?$": ["ts-jest", { isolatedModules: true }],
     "^.+\\.graphql$": "@graphql-tools/jest-transform",
-    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "ts-jest",
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
     "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)":
       "<rootDir>/config/jest/svgTransform.js",
