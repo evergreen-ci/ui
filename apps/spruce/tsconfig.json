@@ -1,38 +1,8 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "plugins": [
-      {
-        "name": "@styled/typescript-styled-plugin"
-      }
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "strictNullChecks": false,
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react",
-    "types": [
-      "node",
-      "jest",
-      "@testing-library/jest-dom",
-      "new-relic-browser"
-    ],
     "baseUrl": "src",
-    "noFallthroughCasesInSwitch": true,
+    "strict": false
   },
   "exclude": [
     "node_modules",
@@ -41,8 +11,8 @@
   "include": [
     "src",
     "test_utils/index.tsx",
-    "test_utils/custom-queries.ts", 
-    "config/jest/setupTests.ts",
+    "test_utils/custom-queries.ts",
+    "config/jest/setupTests.ts"
   ],
   "references": [
     {
