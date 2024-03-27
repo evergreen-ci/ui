@@ -79,7 +79,7 @@ export const getHoneycombTraceUrl = (
 ) =>
   `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
     new Date(startTs),
-  )}&trace_end_ts=${getUnixTime(new Date(endTs))}`;
+  )}&trace_end_ts=${getUnixTime(new Date(endTs)) + 1}`;
 
 export const getHoneycombSystemMetricsUrl = (
   taskId: string,
