@@ -80,7 +80,7 @@
     "react-dropzone": "14.2.3",
     "react-router-dom": "6.11.2",
     "react-virtuoso": "4.6.2",
-    "xss": "1.0.14"
+    "xss": "1.0.15"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.11.0",
