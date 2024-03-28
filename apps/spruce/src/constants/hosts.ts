@@ -49,3 +49,5 @@ export const hostStatuses: Status[] = [
     key: HostStatus.Decommissioned,
   },
 ];
+
+export const MCI_USER = "mci";
