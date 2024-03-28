@@ -8,6 +8,7 @@ import {
   PageWrapper,
   PageContent,
 } from "components/styles";
+import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import { PodQuery, PodQueryVariables } from "gql/generated/types";
 import { POD } from "gql/queries";
@@ -17,9 +18,9 @@ import Metadata from "./Metadata";
 
 const Container = () => {
   const dispatchToast = useToastContext();
-  const { id } = useParams<{ id: string }>();
+  const { [slugs.podId]: podId } = useParams();
   const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(POD, {
-    variables: { podId: id },
+    variables: { podId },
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading the host: ${err.message}`,
@@ -27,12 +28,12 @@ const Container = () => {
     },
   });
   const { pod } = data || {};
-  const { id: podId, status } = pod || {};
+  const { id, status } = pod || {};
   return (
     <PageWrapper data-cy="host-page">
       <PageTitle
-        title={`Container: ${podId}`}
-        pageTitle={`Container: ${podId}`}
+        title={`Container: ${id}`}
+        pageTitle={`Container: ${id}`}
         size="large"
         loading={loading}
         badge={<PodStatusBadge status={status as PodStatus} />}

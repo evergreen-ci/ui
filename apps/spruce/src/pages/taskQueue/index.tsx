@@ -7,7 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import { PageWrapper, StyledRouterLink } from "components/styles";
-import { getTaskQueueRoute, getAllHostsRoute } from "constants/routes";
+import { getTaskQueueRoute, getAllHostsRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -27,7 +27,7 @@ import TaskQueueTable from "./TaskQueueTable";
 const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
 
-  const { distro } = useParams<{ distro: string }>();
+  const { [slugs.distroId]: distroId } = useParams();
   const [taskId] = useQueryParam<string | undefined>(
     QueryParams.TaskId,
     undefined,
@@ -37,7 +37,7 @@ const TaskQueue = () => {
     TaskQueueDistro | undefined
   >(undefined);
   const dispatchToast = useToastContext();
-  usePageTitle(`Task Queue - ${distro}`);
+  usePageTitle(`Task Queue - ${distroId}`);
   const { data: distrosData, loading: loadingDistrosData } = useQuery<
     TaskQueueDistrosQuery,
     TaskQueueDistrosQueryVariables
@@ -46,9 +46,9 @@ const TaskQueue = () => {
     onCompleted: (data) => {
       const { taskQueueDistros } = data;
       const firstDistroInList = taskQueueDistros[0]?.id;
-      const defaultDistro = distro ?? firstDistroInList;
+      const defaultDistro = distroId ?? firstDistroInList;
       setSelectedDistro(taskQueueDistros.find((d) => d.id === defaultDistro));
-      if (distro === undefined) {
+      if (distroId === undefined) {
         navigate(getTaskQueueRoute(defaultDistro));
       }
     },
@@ -62,8 +62,8 @@ const TaskQueue = () => {
     DistroTaskQueueQueryVariables
   >(DISTRO_TASK_QUEUE, {
     fetchPolicy: "cache-and-network",
-    variables: { distroId: distro },
-    skip: !distro,
+    variables: { distroId },
+    skip: !distroId,
     onError: (err) => {
       dispatchToast.error(
         `There was an error loading task queue: ${err.message}`,
@@ -117,8 +117,8 @@ const TaskQueue = () => {
         /* Only show name & link if distro exists. */
         !loadingDistrosData && (
           <TableHeader>
-            <StyledH3>{distro}</StyledH3>
-            <StyledRouterLink to={getAllHostsRoute({ distroId: distro })}>
+            <StyledH3>{distroId}</StyledH3>
+            <StyledRouterLink to={getAllHostsRoute({ distroId })}>
               View hosts
             </StyledRouterLink>
           </TableHeader>
