@@ -69,7 +69,7 @@ const Day: React.FC<{
   handleClick: () => void;
   selected: boolean;
 }> = ({ day, handleClick, selected }) => (
-  <Circle htmlFor={day} selected={selected}>
+  <Circle htmlFor={day} selected={selected} title={day}>
     <InvisibleInput
       aria-checked={selected}
       id={day}
