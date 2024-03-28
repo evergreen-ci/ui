@@ -7,6 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import { PageWrapper, StyledRouterLink } from "components/styles";
+import { MCI_USER } from "constants/hosts";
 import { getTaskQueueRoute, getAllHostsRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -118,7 +119,9 @@ const TaskQueue = () => {
         !loadingDistrosData && (
           <TableHeader>
             <StyledH3>{distroId}</StyledH3>
-            <StyledRouterLink to={getAllHostsRoute({ distroId })}>
+            <StyledRouterLink
+              to={getAllHostsRoute({ distroId, startedBy: MCI_USER })}
+            >
               View hosts
             </StyledRouterLink>
           </TableHeader>

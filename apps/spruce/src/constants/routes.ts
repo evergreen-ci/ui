@@ -192,6 +192,7 @@ interface GetAllHostsRouteOptions {
   distroId?: string;
   statuses?: string[];
   currentTaskId?: string;
+  startedBy?: string;
 }
 
 export const getAllHostsRoute = (options?: GetAllHostsRouteOptions) => {
