@@ -12,6 +12,7 @@ import {
 } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
@@ -29,7 +30,7 @@ import { TaskTabs } from "./task/TaskTabs";
 const { parseQueryString } = queryString;
 
 export const Task = () => {
-  const { id } = useParams<{ id: string; tab: string | null }>();
+  const { [slugs.taskId]: taskId } = useParams();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
   const location = useLocation();
@@ -42,7 +43,7 @@ export const Task = () => {
     TaskQuery,
     TaskQueryVariables
   >(TASK, {
-    variables: { taskId: id, execution: selectedExecution },
+    variables: { taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "network-only",
     onError: (err) =>
@@ -105,7 +106,7 @@ export const Task = () => {
         <PageSider>
           {latestExecution > 0 && (
             <ExecutionSelect
-              id={id}
+              id={taskId}
               currentExecution={selectedExecution}
               latestExecution={latestExecution}
               updateExecution={(n: number) => {
@@ -116,7 +117,12 @@ export const Task = () => {
               }}
             />
           )}
-          <Metadata taskId={id} task={task} loading={loading} error={error} />
+          <Metadata
+            taskId={taskId}
+            task={task}
+            loading={loading}
+            error={error}
+          />
         </PageSider>
         <LogWrapper>
           <PageContent>

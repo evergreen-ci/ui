@@ -91,7 +91,7 @@ exports[`Snapshot Tests SubHeader.stories TaskFileLog 1`] = `
           />
         </svg>
         <a
-          class="lg-ui-0001 leafygreen-ui-qaub7z"
+          class="lg-ui-0001 leafygreen-ui-cssveg leafygreen-ui-1320234"
           data-cy="task-breadcrumb"
           href="test-evergreen.com/task/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/0?redirect_spruce_users=true"
           target="_self"
@@ -230,7 +230,7 @@ exports[`Snapshot Tests SubHeader.stories TaskLog 1`] = `
           />
         </svg>
         <a
-          class="lg-ui-0001 leafygreen-ui-qaub7z"
+          class="lg-ui-0001 leafygreen-ui-cssveg leafygreen-ui-1320234"
           data-cy="task-breadcrumb"
           href="test-evergreen.com/task/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/0?redirect_spruce_users=true"
           target="_self"
@@ -345,7 +345,7 @@ exports[`Snapshot Tests SubHeader.stories TestLog 1`] = `
           />
         </svg>
         <a
-          class="lg-ui-0001 leafygreen-ui-qaub7z"
+          class="lg-ui-0001 leafygreen-ui-cssveg leafygreen-ui-1320234"
           data-cy="task-breadcrumb"
           href="test-evergreen.com/task/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/0?redirect_spruce_users=true"
           target="_self"
