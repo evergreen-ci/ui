@@ -8144,6 +8144,16 @@ export type RepotrackerErrorQuery = {
   };
 };
 
+export type SecretFieldsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SecretFieldsQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    secretFields: Array<string>;
+  } | null;
+};
+
 export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SpawnExpirationInfoQuery = {
