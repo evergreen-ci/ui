@@ -8,6 +8,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
     <label
       class="css-eetc9q-Circle emi64ys1"
       for="Sunday"
+      title="Sunday"
     >
       <input
         aria-checked="false"
@@ -20,6 +21,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
     <label
       class="css-eetc9q-Circle emi64ys1"
       for="Monday"
+      title="Monday"
     >
       <input
         aria-checked="false"
@@ -32,6 +34,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
     <label
       class="css-eetc9q-Circle emi64ys1"
       for="Tuesday"
+      title="Tuesday"
     >
       <input
         aria-checked="false"
@@ -44,6 +47,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
     <label
       class="css-eetc9q-Circle emi64ys1"
       for="Wednesday"
+      title="Wednesday"
     >
       <input
         aria-checked="false"
@@ -56,6 +60,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
     <label
       class="css-eetc9q-Circle emi64ys1"
       for="Thursday"
+      title="Thursday"
     >
       <input
         aria-checked="false"
@@ -68,6 +73,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
     <label
       class="css-eetc9q-Circle emi64ys1"
       for="Friday"
+      title="Friday"
     >
       <input
         aria-checked="false"
@@ -80,6 +86,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
     <label
       class="css-eetc9q-Circle emi64ys1"
       for="Saturday"
+      title="Saturday"
     >
       <input
         aria-checked="false"
