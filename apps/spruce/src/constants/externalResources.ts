@@ -74,11 +74,10 @@ export const getParsleyBuildLogURL = (buildId: string) =>
 
 /**
  * Generates a URL for accessing a trace in the Honeycomb dashboard.
- * 
- * @param {string} traceId - The ID of the trace.
- * @param {Date} startTs - The start timestamp of the trace. Note that this timestamp is truncated to the nearest second.
- * @param {Date} endTs - The end timestamp of the trace. Note that this timestamp is rounded up to the nearest second.
- * @returns {string} The URL for accessing the trace in the Honeycomb dashboard.
+ * @param traceId - The ID of the trace.
+ * @param startTs - The start timestamp of the trace. Note that this timestamp is truncated to the nearest second.
+ * @param endTs - The end timestamp of the trace. Note that this timestamp is rounded up to the nearest second.
+ * @returns The URL for accessing the trace in the Honeycomb dashboard.
  */
 export const getHoneycombTraceUrl = (
   traceId: string,
