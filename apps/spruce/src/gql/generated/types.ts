@@ -1268,6 +1268,7 @@ export type MutationSchedulePatchTasksArgs = {
 
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
@@ -1420,10 +1421,12 @@ export type ParsleyFilterInput = {
 /** ParsleySettings contains information about a user's settings for Parsley. */
 export type ParsleySettings = {
   __typename?: "ParsleySettings";
+  jumpToFailingLineEnabled: Scalars["Boolean"]["output"];
   sectionsEnabled: Scalars["Boolean"]["output"];
 };
 
 export type ParsleySettingsInput = {
+  jumpToFailingLineEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   sectionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -1892,6 +1895,7 @@ export enum ProjectSettingsAccess {
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  projectId?: InputMaybe<Scalars["String"]["input"]>;
   projectRef?: InputMaybe<ProjectInput>;
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
@@ -2029,7 +2033,8 @@ export type QueryGithubProjectConflictsArgs = {
 };
 
 export type QueryHasVersionArgs = {
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  patchId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryHostArgs = {
@@ -2065,7 +2070,8 @@ export type QueryMainlineCommitsArgs = {
 };
 
 export type QueryPatchArgs = {
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  patchId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryPodArgs = {
@@ -2088,12 +2094,14 @@ export type QueryProjectSettingsArgs = {
 
 export type QueryRepoEventsArgs = {
   before?: InputMaybe<Scalars["Time"]["input"]>;
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
+  repoId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryRepoSettingsArgs = {
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  repoId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryTaskArgs = {
@@ -2120,7 +2128,8 @@ export type QueryUserArgs = {
 };
 
 export type QueryVersionArgs = {
-  id: Scalars["String"]["input"];
+  id?: InputMaybe<Scalars["String"]["input"]>;
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type RepoCommitQueueParams = {
@@ -2242,6 +2251,7 @@ export type RepoSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectRef?: InputMaybe<RepoRefInput>;
+  repoId?: InputMaybe<Scalars["String"]["input"]>;
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
 };

@@ -1,5 +1,4 @@
 import type { Config } from "jest";
-import { jsWithTs as tsjPreset } from "ts-jest/presets";
 
 const config: Config = {
   displayName: "parsley",
