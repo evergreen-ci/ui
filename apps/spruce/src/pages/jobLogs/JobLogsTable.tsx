@@ -26,7 +26,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   loading,
   tests,
 }) => {
-  const { sendEvent } = useJobLogsAnalytics();
+  const { sendEvent } = useJobLogsAnalytics(isLogkeeper);
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
@@ -67,7 +67,6 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
             onClick={() => {
               sendEvent({
                 name: "Clicked Parsley test log link",
-                buildId,
               });
             }}
             hideExternalIcon
