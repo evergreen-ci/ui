@@ -66,13 +66,6 @@ export const getParsleyTaskLogLink = (
   execution: number,
 ) => `${getParsleyUrl()}/evergreen/${taskId}/${execution}/${logType}`;
 
-export const getParsleyTestLogURLForResmokeLogs = (
-  taskId: string,
-  execution: number,
-  testId: string,
-  groupId: string,
-) => `${getParsleyUrl()}/test/${taskId}/${execution}/${testId}/${groupId}`;
-
 export const getParsleyLogkeeperTestLogURL = (
   buildId: string,
   testId: string,
