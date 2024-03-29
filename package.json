@@ -10,6 +10,9 @@
       "**/storybook-addon-apollo-client"
     ]
   },
+  "scripts": {
+    "test": "jest"
+  },
   "resolutions": {
     "@tanstack/react-table": "8.9.3",
     "@types/react": "18.2.0",
