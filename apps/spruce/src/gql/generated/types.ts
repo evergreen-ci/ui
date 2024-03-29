@@ -8428,17 +8428,12 @@ export type TaskTestsForJobLogsQuery = {
     id: string;
     tests: {
       __typename?: "TaskTestResult";
-      totalTestCount: number;
       testResults: Array<{
         __typename?: "TestResult";
         groupID?: string | null;
         id: string;
         testFile: string;
-        logs: {
-          __typename?: "TestLog";
-          url?: string | null;
-          urlParsley?: string | null;
-        };
+        logs: { __typename?: "TestLog"; urlParsley?: string | null };
       }>;
     };
   } | null;

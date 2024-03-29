@@ -7,12 +7,10 @@ query TaskTestsForJobLogs($id: String!, $execution: Int) {
         groupID
         id
         logs {
-          url
           urlParsley
         }
         testFile
       }
-      totalTestCount
     }
   }
 }
