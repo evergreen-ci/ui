@@ -53,12 +53,12 @@ export const Content: React.FC = () => (
       <Route path={routes.host} element={<Host />} />
       <Route path={routes.hosts} element={<Hosts />} />
       <Route path={routes.jobLogs} element={null}>
-        <Route path={`:${slugs.buildId}`} element={<JobLogs />}>
+        <Route path={`:${slugs.buildId}`} element={<JobLogs isLogkeeper />}>
           <Route path={`:${slugs.groupId}`} element={null} />
         </Route>
         <Route
           path={`:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`}
-          element={<JobLogs />}
+          element={<JobLogs isLogkeeper={false} />}
         />
       </Route>
       <Route path={routes.myPatches} element={<MyPatches />} />

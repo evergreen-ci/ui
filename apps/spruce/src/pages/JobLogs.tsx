@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Body, H3 } from "@leafygreen-ui/typography";
@@ -9,51 +8,48 @@ import { getParsleyBuildLogURL } from "constants/externalResources";
 import { getTaskRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
-import {
-  LogkeeperBuildMetadataQuery,
-  LogkeeperBuildMetadataQueryVariables,
-} from "gql/generated/types";
-import { LOGKEEPER_BUILD_METADATA } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { JobLogsTable } from "./jobLogs/JobLogsTable";
+import useJobLogsPageData from "./jobLogs/useJobLogs";
 
-export const JobLogs = () => {
-  const { [slugs.buildId]: buildId } = useParams();
+interface JobLogsProps {
+  isLogkeeper: boolean;
+}
+export const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
+  const {
+    [slugs.buildId]: buildIdFromParams,
+    [slugs.taskId]: taskIdFromParams,
+    [slugs.execution]: executionFromParams,
+    [slugs.groupId]: groupIdFromParams,
+  } = useParams();
+
   const dispatchToast = useToastContext();
   const { sendEvent } = useJobLogsAnalytics();
 
-  usePageTitle(`Job Logs - ${buildId}`);
+  usePageTitle(`Job Logs - ${buildIdFromParams}`);
 
-  const { data } = useQuery<
-    LogkeeperBuildMetadataQuery,
-    LogkeeperBuildMetadataQueryVariables
-  >(LOGKEEPER_BUILD_METADATA, {
-    variables: { buildId },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error retrieving logs for this build: ${err.message}`,
-      );
-    },
-  });
-
-  if (!data) return null;
-
-  const {
-    logkeeperBuildMetadata: { buildNum, builder, taskExecution, taskId, tests },
-  } = data;
+  const { execution, loading, resultsToRender, taskId, title } =
+    useJobLogsPageData({
+      buildId: buildIdFromParams,
+      execution: executionFromParams,
+      groupId: groupIdFromParams,
+      onError: (err) => {
+        dispatchToast.error(err);
+      },
+      taskId: taskIdFromParams,
+      isLogkeeper,
+    });
 
   return (
     <PageWrapper>
       <ContentWrapper>
         <TaskMetadata>
-          <H3>
-            {builder} – {buildNum}
-          </H3>
+          <H3>{title}</H3>
           {taskId && (
             <Body>
               Task:{" "}
               <StyledRouterLink
-                to={getTaskRoute(taskId, { execution: taskExecution })}
+                to={getTaskRoute(taskId, { execution })}
                 data-cy="task-link"
               >
                 {taskId}
@@ -61,20 +57,31 @@ export const JobLogs = () => {
             </Body>
           )}
         </TaskMetadata>
-
-        <CompleteLogsLink>
-          <Button
-            href={getParsleyBuildLogURL(buildId)}
-            data-cy="complete-test-logs-link"
-            target="_blank"
-            onClick={() => {
-              sendEvent({ name: "Clicked complete logs link", buildId });
-            }}
-          >
-            Complete logs for all tests
-          </Button>
-        </CompleteLogsLink>
-        <JobLogsTable buildId={buildId} tests={tests} />
+        {isLogkeeper && (
+          <CompleteLogsLink>
+            <Button
+              href={getParsleyBuildLogURL(buildIdFromParams)}
+              data-cy="complete-test-logs-link"
+              target="_blank"
+              onClick={() => {
+                sendEvent({
+                  name: "Clicked complete logs link",
+                  buildId: buildIdFromParams,
+                });
+              }}
+            >
+              Complete logs for all tests
+            </Button>
+          </CompleteLogsLink>
+        )}
+        <JobLogsTable
+          buildId={buildIdFromParams}
+          tests={resultsToRender}
+          taskID={taskId}
+          execution={execution}
+          isLogkeeper={isLogkeeper}
+          loading={loading}
+        />
       </ContentWrapper>
     </PageWrapper>
   );
