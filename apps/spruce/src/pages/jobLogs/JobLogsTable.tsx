@@ -4,10 +4,7 @@ import { Link } from "@leafygreen-ui/typography";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
-import {
-  getParsleyLogkeeperTestLogURL,
-  getParsleyTestLogURLForResmokeLogs,
-} from "constants/externalResources";
+import { getParsleyLogkeeperTestLogURL } from "constants/externalResources";
 import { JobLogsTableTestResult } from "./types";
 
 interface JobLogsTableProps {
@@ -21,10 +18,8 @@ interface JobLogsTableProps {
 
 export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   buildId,
-  execution,
   isLogkeeper,
   loading,
-  taskID,
   tests,
 }) => {
   const { sendEvent } = useJobLogsAnalytics();
@@ -64,12 +59,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         accessorKey: "testFile",
         cell: ({ getValue, row }) => (
           <Link
-            href={getParsleyTestLogURLForResmokeLogs(
-              taskID,
-              execution,
-              row.original.id,
-              row.original.groupID,
-            )}
+            href={row.original?.logs?.urlParsley}
             onClick={() => {
               sendEvent({
                 name: "Clicked Parsley test log link",
