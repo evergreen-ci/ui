@@ -12,7 +12,7 @@ describe("repo data", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(repoForm, "repo")).toStrictEqual(repoResult);
+    expect(formToGql(repoForm, true, "repo")).toStrictEqual(repoResult);
   });
 });
 
@@ -22,7 +22,9 @@ describe("project data", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, false, "project")).toStrictEqual(
+      projectResult,
+    );
   });
 });
 
@@ -63,7 +65,8 @@ const projectForm: PluginsFormState = {
   ],
 };
 
-const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
+const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
+  projectId: "project",
   projectRef: {
     id: "project",
     perfEnabled: true,
@@ -135,7 +138,8 @@ const repoForm: PluginsFormState = {
   ],
 };
 
-const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
+const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
+  repoId: "repo",
   projectRef: {
     id: "repo",
     perfEnabled: true,

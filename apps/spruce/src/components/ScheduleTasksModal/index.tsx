@@ -81,7 +81,9 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
         loadingTaskData || loadingScheduleTasksMutation || !selectedTasks.size
       }
       onConfirm={() => {
-        scheduleTasks({ variables: { taskIds: Array.from(selectedTasks) } });
+        scheduleTasks({
+          variables: { taskIds: Array.from(selectedTasks), versionId },
+        });
       }}
     >
       <ContentWrapper>
