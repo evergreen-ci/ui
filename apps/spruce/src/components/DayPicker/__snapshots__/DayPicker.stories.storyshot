@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Tests DayPicker.stories Default 1`] = `
+<div>
+  <div
+    class="css-8cvf0s-Container emi64ys2"
+  >
+    <label
+      class="css-eetc9q-Circle emi64ys1"
+      for="Sunday"
+      title="Sunday"
+    >
+      <input
+        aria-checked="false"
+        class="css-1ym9dwn-InvisibleInput emi64ys0"
+        id="Sunday"
+        type="checkbox"
+      />
+      S
+    </label>
+    <label
+      class="css-eetc9q-Circle emi64ys1"
+      for="Monday"
+      title="Monday"
+    >
+      <input
+        aria-checked="false"
+        class="css-1ym9dwn-InvisibleInput emi64ys0"
+        id="Monday"
+        type="checkbox"
+      />
+      M
+    </label>
+    <label
+      class="css-eetc9q-Circle emi64ys1"
+      for="Tuesday"
+      title="Tuesday"
+    >
+      <input
+        aria-checked="false"
+        class="css-1ym9dwn-InvisibleInput emi64ys0"
+        id="Tuesday"
+        type="checkbox"
+      />
+      T
+    </label>
+    <label
+      class="css-eetc9q-Circle emi64ys1"
+      for="Wednesday"
+      title="Wednesday"
+    >
+      <input
+        aria-checked="false"
+        class="css-1ym9dwn-InvisibleInput emi64ys0"
+        id="Wednesday"
+        type="checkbox"
+      />
+      W
+    </label>
+    <label
+      class="css-eetc9q-Circle emi64ys1"
+      for="Thursday"
+      title="Thursday"
+    >
+      <input
+        aria-checked="false"
+        class="css-1ym9dwn-InvisibleInput emi64ys0"
+        id="Thursday"
+        type="checkbox"
+      />
+      T
+    </label>
+    <label
+      class="css-eetc9q-Circle emi64ys1"
+      for="Friday"
+      title="Friday"
+    >
+      <input
+        aria-checked="false"
+        class="css-1ym9dwn-InvisibleInput emi64ys0"
+        id="Friday"
+        type="checkbox"
+      />
+      F
+    </label>
+    <label
+      class="css-eetc9q-Circle emi64ys1"
+      for="Saturday"
+      title="Saturday"
+    >
+      <input
+        aria-checked="false"
+        class="css-1ym9dwn-InvisibleInput emi64ys0"
+        id="Saturday"
+        type="checkbox"
+      />
+      S
+    </label>
+  </div>
+</div>
+`;
