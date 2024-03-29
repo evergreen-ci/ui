@@ -1,7 +1,8 @@
+#import "../fragments/baseTask.graphql"
+
 query TaskTestsForJobLogs($id: String!, $execution: Int) {
   task(taskId: $id, execution: $execution) {
-    execution
-    id
+    ...BaseTask
     tests(opts: {}) {
       testResults {
         groupID

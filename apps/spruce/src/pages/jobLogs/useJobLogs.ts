@@ -24,6 +24,7 @@ type JobLogsPageData = {
   title: string;
   resultsToRender: JobLogsTableTestResult[];
   loading: boolean;
+  status: string;
 };
 const useJobLogsPageData = ({
   buildId,
@@ -52,10 +53,13 @@ const useJobLogsPageData = ({
     TaskTestsForJobLogsQueryVariables
   >(TASK_TESTS_FOR_JOB_LOGS, {
     variables: {
-      id: taskId,
-      execution: executionAsInt,
+      id: taskId || logkeeperData?.logkeeperBuildMetadata?.taskId || "",
+      execution:
+        executionAsInt ||
+        logkeeperData?.logkeeperBuildMetadata?.taskExecution ||
+        0,
     },
-    skip: isLogkeeper,
+    skip: loadingLogkeeper && isLogkeeper,
     onError: (err) => {
       onError(
         `There was an error retrieving logs for this task: ${err.message}`,
@@ -65,16 +69,17 @@ const useJobLogsPageData = ({
 
   const { logkeeperBuildMetadata } = logkeeperData || {};
 
-  const { task: evergreenTestResults } = testResultsData || {};
+  const { task: evergreenTask } = testResultsData || {};
 
   const resultsToRender = getFormattedTestResults(
     logkeeperBuildMetadata?.tests,
-    evergreenTestResults?.tests?.testResults,
+    evergreenTask?.tests?.testResults,
     groupId,
   );
 
   const title = getTitle(isLogkeeper, {
     logkeeperBuildMetadata,
+    evergreenTask,
     groupId,
   });
   return {
@@ -86,6 +91,7 @@ const useJobLogsPageData = ({
       : executionAsInt,
     resultsToRender,
     title,
+    status: evergreenTask?.status,
     loading: loadingEvergreen || loadingLogkeeper,
   };
 };

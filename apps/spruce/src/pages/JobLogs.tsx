@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Body, H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
-import { PageWrapper, StyledRouterLink } from "components/styles";
+import { PageTitle } from "components/PageTitle";
+import { PageWrapper } from "components/styles";
+import TaskStatusBadge from "components/TaskStatusBadge";
 import { getParsleyBuildLogURL } from "constants/externalResources";
 import { getTaskRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
-import { usePageTitle } from "hooks";
 import { JobLogsTable } from "./jobLogs/JobLogsTable";
 import useJobLogsPageData from "./jobLogs/useJobLogs";
 
@@ -26,9 +26,7 @@ export const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useJobLogsAnalytics(isLogkeeper);
 
-  usePageTitle(`Job Logs - ${buildIdFromParams || groupIdFromParams}`);
-
-  const { execution, loading, resultsToRender, taskId, title } =
+  const { execution, loading, resultsToRender, status, taskId, title } =
     useJobLogsPageData({
       buildId: buildIdFromParams,
       execution: executionFromParams,
@@ -43,20 +41,21 @@ export const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
   return (
     <PageWrapper>
       <ContentWrapper>
-        <TaskMetadata>
-          <H3>{title}</H3>
-          {taskId && (
-            <Body>
-              Task:{" "}
-              <StyledRouterLink
-                to={getTaskRoute(taskId, { execution })}
-                data-cy="task-link"
-              >
-                {taskId}
-              </StyledRouterLink>
-            </Body>
-          )}
-        </TaskMetadata>
+        <PageTitle
+          pageTitle={`Job Logs - ${buildIdFromParams || groupIdFromParams}`}
+          title={title}
+          badge={<TaskStatusBadge status={status} />}
+          loading={loading}
+          size="large"
+          buttons={
+            <Button
+              href={getTaskRoute(taskId, { execution })}
+              data-cy="task-link"
+            >
+              Task Page
+            </Button>
+          }
+        />
         {isLogkeeper && (
           <CompleteLogsLink>
             <Button

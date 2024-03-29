@@ -8424,8 +8424,13 @@ export type TaskTestsForJobLogsQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
+    buildVariant: string;
+    buildVariantDisplayName?: string | null;
+    displayName: string;
     execution: number;
     id: string;
+    revision?: string | null;
+    status: string;
     tests: {
       __typename?: "TaskTestResult";
       testResults: Array<{

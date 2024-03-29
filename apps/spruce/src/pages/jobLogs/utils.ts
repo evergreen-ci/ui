@@ -14,16 +14,20 @@ const getTitle = (
     logkeeperBuildMetadata:
       | LogkeeperBuildMetadataQuery["logkeeperBuildMetadata"]
       | undefined;
+    evergreenTask: TaskTestsForJobLogsQuery["task"] | undefined;
     groupId: string | undefined;
   },
 ) => {
   switch (isLogkeeper) {
     case true: {
-      const { buildNum, builder } = options.logkeeperBuildMetadata;
-      return `${builder} - ${buildNum}`;
+      const { displayName } = options.evergreenTask || {};
+      const { buildNum, builder } = options.logkeeperBuildMetadata || {};
+      return `${builder} - ${buildNum} - ${displayName}`;
     }
-    case false:
-      return `Job Logs - ${options.groupId}`;
+    case false: {
+      const { displayName } = options.evergreenTask || {};
+      return `Job Logs - ${displayName} - ${options.groupId}`;
+    }
     default:
       return "Job Logs";
   }
