@@ -92,7 +92,6 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
     <BaseTable
       table={table}
       shouldAlternateRowColor
-      placeholder="No test results found."
       loading={loading}
       emptyComponent={
         <TablePlaceholder message="No logs found for this job." />
