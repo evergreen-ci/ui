@@ -9,19 +9,24 @@ import {
 } from "./types";
 
 const getTitle = (
-  logkeeperBuildMetadataData: LogkeeperBuildMetadataQuery | undefined,
-  taskTestsForJobLogsData: TaskTestsForJobLogsQuery | undefined,
-  groupId: string | undefined,
+  isLogkeeper: boolean,
+  options: {
+    logkeeperBuildMetadata:
+      | LogkeeperBuildMetadataQuery["logkeeperBuildMetadata"]
+      | undefined;
+    groupId: string | undefined;
+  },
 ) => {
-  if (!logkeeperBuildMetadataData || !taskTestsForJobLogsData) {
-    return "Job Logs";
+  switch (isLogkeeper) {
+    case true: {
+      const { buildNum, builder } = options.logkeeperBuildMetadata;
+      return `${builder} - ${buildNum}`;
+    }
+    case false:
+      return `Job Logs - ${options.groupId}`;
+    default:
+      return "Job Logs";
   }
-  if (logkeeperBuildMetadataData.logkeeperBuildMetadata) {
-    const { logkeeperBuildMetadata } = logkeeperBuildMetadataData;
-    const { buildNum, builder } = logkeeperBuildMetadata;
-    return `${builder} - ${buildNum}`;
-  }
-  return `Job Logs - ${groupId}`;
 };
 
 const getFormattedTestResults = (

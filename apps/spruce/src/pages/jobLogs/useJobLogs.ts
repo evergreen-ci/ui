@@ -73,7 +73,10 @@ const useJobLogsPageData = ({
     groupId,
   );
 
-  const title = getTitle(logkeeperData, testResultsData, groupId);
+  const title = getTitle(isLogkeeper, {
+    logkeeperBuildMetadata,
+    groupId,
+  });
   return {
     taskId: isLogkeeper
       ? logkeeperData?.logkeeperBuildMetadata?.taskId

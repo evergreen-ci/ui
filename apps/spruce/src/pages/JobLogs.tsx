@@ -24,7 +24,7 @@ export const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
   } = useParams();
 
   const dispatchToast = useToastContext();
-  const { sendEvent } = useJobLogsAnalytics();
+  const { sendEvent } = useJobLogsAnalytics(isLogkeeper);
 
   usePageTitle(`Job Logs - ${buildIdFromParams}`);
 
