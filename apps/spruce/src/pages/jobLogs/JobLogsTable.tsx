@@ -5,7 +5,11 @@ import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { getParsleyLogkeeperTestLogURL } from "constants/externalResources";
-import { JobLogsTableTestResult } from "./types";
+import {
+  EvergreenTestResult,
+  JobLogsTableTestResult,
+  LogkeeperTestResult,
+} from "./types";
 
 interface JobLogsTableProps {
   buildId?: string;
@@ -26,7 +30,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const logkeeperColumns: LGColumnDef<JobLogsTableTestResult>[] = useMemo(
+  const logkeeperColumns: LGColumnDef<LogkeeperTestResult>[] = useMemo(
     () => [
       {
         header: "Test Name",
@@ -52,7 +56,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
     [buildId, sendEvent],
   );
 
-  const evergreenColumns: LGColumnDef<JobLogsTableTestResult>[] = useMemo(
+  const evergreenColumns: LGColumnDef<EvergreenTestResult>[] = useMemo(
     () => [
       {
         header: "Test Name",
@@ -79,7 +83,9 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   );
 
   const table = useLeafyGreenTable<JobLogsTableTestResult>({
-    columns: isLogkeeper ? logkeeperColumns : evergreenColumns,
+    columns: (isLogkeeper
+      ? logkeeperColumns
+      : evergreenColumns) as LGColumnDef<JobLogsTableTestResult>[],
     data: tests,
     containerRef: tableContainerRef,
   });

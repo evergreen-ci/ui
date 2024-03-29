@@ -8,8 +8,8 @@ type EvergreenTestResult = {
   id: string;
   testFile: string;
   groupID?: string;
-  logs: {
-    urlParsley: string;
+  logs?: {
+    urlParsley?: string;
   };
 };
 
