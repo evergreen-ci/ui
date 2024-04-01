@@ -43,6 +43,7 @@ const projectForm: GCQFormState = {
   github: {
     prTestingEnabled: null,
     manualPrTestingEnabled: null,
+    oldestAllowedMergeBase: "abc",
     prTesting: {
       githubPrAliasesOverride: true,
       githubPrAliases: [
@@ -144,6 +145,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
     id: "project",
     prTestingEnabled: null,
     manualPrTestingEnabled: null,
+    oldestAllowedMergeBase: "abc",
     githubChecksEnabled: null,
     gitTagVersionsEnabled: null,
     gitTagAuthorizedUsers: ["privileged"],
@@ -199,6 +201,7 @@ const repoForm: GCQFormState = {
   github: {
     prTestingEnabled: false,
     manualPrTestingEnabled: false,
+    oldestAllowedMergeBase: "abc",
     prTesting: {
       githubPrAliasesOverride: true,
       githubPrAliases: [],
@@ -311,6 +314,7 @@ const mergedForm: GCQFormState = {
   github: {
     prTestingEnabled: null,
     manualPrTestingEnabled: null,
+    oldestAllowedMergeBase: "abc",
     prTesting: {
       githubPrAliasesOverride: true,
       githubPrAliases: [
