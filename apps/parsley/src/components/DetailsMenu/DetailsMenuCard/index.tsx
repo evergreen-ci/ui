@@ -13,7 +13,6 @@ import {
 import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { isProduction } from "utils/environmentVariables";
-import { reportError } from "utils/errorReporting";
 import ButtonRow from "./ButtonRow";
 import CLIInstructions from "./CLIInstructions";
 import SearchRangeInput from "./SearchRangeInput";
