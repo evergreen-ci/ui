@@ -25,7 +25,7 @@ describe("Task Queue", () => {
     cy.visit("/task-queue/debian71-test");
     cy.contains("View hosts")
       .should("have.attr", "href")
-      .and("eq", "/hosts?distroId=debian71-test");
+      .and("eq", "/hosts?distroId=debian71-test&startedBy=mci");
   });
 
   it("Searching for a distro shows results that match search term", () => {
