@@ -2761,12 +2761,7 @@
     "@leafygreen-ui/tokens" "^2.0.1"
     "@leafygreen-ui/typography" "^16.1.0"
 
-"@leafygreen-ui/box@^3.1.1", "@leafygreen-ui/box@^3.1.4", "@leafygreen-ui/box@^3.1.8":
-  version "3.1.8"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.1.8.tgz#33e6dedbe3ee510ce88ffade0a3a9e68a96103a9"
-  integrity sha512-qfjwhrie+mUrS2H+Qp98iQKBPoZtNpFmlGBYgg59sVOzotFvyvqwxlf/JcaNGo+v7nyOhC2XAHui0ywf9cScKw==
-
-"@leafygreen-ui/box@^3.1.9":
+"@leafygreen-ui/box@^3.1.1", "@leafygreen-ui/box@^3.1.4", "@leafygreen-ui/box@^3.1.8", "@leafygreen-ui/box@^3.1.9":
   version "3.1.9"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.1.9.tgz#9199a03e4f8059eae62e48b8227e7cad9f66f94b"
   integrity sha512-hY05VQKDVhqqBH/Dz1kxonjQmqrMR9URa3Dw3YgdLbVUd1hMQkoWbplamiE4S4vq2+81SQBgNw53i+/Vd0Cl0g==
@@ -3513,35 +3508,19 @@
     lodash "^4.17.21"
     polished "^4.2.2"
 
-"@leafygreen-ui/segmented-control@8.2.6":
-  version "8.2.6"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/segmented-control/-/segmented-control-8.2.6.tgz#9f64c2fcbfcd7c15c8192f3d0575b1dbcbe2f733"
-  integrity sha512-s1/K0pY2YW90Dh7sMst4xuUYQqIW1LWFQyoqpDyjVZV8RuqQbYq9BzTSNkrb3njq6JpHGOhmvT7wFrqoMljMvw==
+"@leafygreen-ui/segmented-control@8.2.11":
+  version "8.2.11"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/segmented-control/-/segmented-control-8.2.11.tgz#e92577b464c20f64a584dc211a32e88d2f1f508d"
+  integrity sha512-ShZQ5vyWJc17Ibp/99cV9qpwHcED/X8xYZ8K1WFou0XaBB+EixjU1C4o7zJfKevmZ5V3D6AGw6E87mFzNTqiqQ==
   dependencies:
-    "@leafygreen-ui/box" "^3.1.8"
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^8.0.0"
-    "@leafygreen-ui/icon" "^11.23.0"
-    "@leafygreen-ui/lib" "^11.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.2.0"
-    "@leafygreen-ui/typography" "^17.0.0"
-    lodash "^4.17.21"
-    polished "^4.2.2"
-
-"@leafygreen-ui/segmented-control@8.2.8":
-  version "8.2.8"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/segmented-control/-/segmented-control-8.2.8.tgz#1b86bff983acdd3bf31a3fa9f8ba09770919ae73"
-  integrity sha512-81fJMvox7HBRMgErE3YZ0IBSRY5ge99LTjtBHBLz1GiAJKwX9Wa3QboVOuHQAdj0vj/RFW7D9qE7QY1klfZJEA==
-  dependencies:
-    "@leafygreen-ui/box" "^3.1.8"
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^8.0.0"
-    "@leafygreen-ui/icon" "^11.23.0"
-    "@leafygreen-ui/lib" "^13.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.2.0"
-    "@leafygreen-ui/typography" "^18.0.0"
+    "@leafygreen-ui/box" "^3.1.9"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/hooks" "^8.1.3"
+    "@leafygreen-ui/icon" "^12.0.1"
+    "@leafygreen-ui/lib" "^13.3.0"
+    "@leafygreen-ui/palette" "^4.0.9"
+    "@leafygreen-ui/tokens" "^2.5.2"
+    "@leafygreen-ui/typography" "^18.3.0"
     lodash "^4.17.21"
     polished "^4.2.2"
 
