@@ -14,7 +14,8 @@ type Action =
   | { name: "Toggled Pretty Print"; on: boolean }
   | { name: "Toggled Filter Logic"; logic: FilterLogic }
   | { name: "Toggled Expandable Rows"; on: boolean }
-  | { name: "Toggled Zebra Stripes"; on: boolean };
+  | { name: "Toggled Zebra Stripes"; on: boolean }
+  | { name: "Toggled Jump to Failing Line"; on: boolean };
 
 export const usePreferencesAnalytics = () =>
   useAnalyticsRoot<Action>("Preferences");

@@ -1,8 +1,19 @@
 import { forwardRef, useState } from "react";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tab, Tabs } from "@leafygreen-ui/tabs";
 import { H3 } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
+import {
+  ParsleySettingsInput,
+  UpdateParsleySettingsMutation,
+  UpdateParsleySettingsMutationVariables,
+} from "gql/generated/types";
+import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
+import { useParsleySettings } from "hooks/useParsleySettings";
+import { isProduction } from "utils/environmentVariables";
+import { reportError } from "utils/errorReporting";
 import ButtonRow from "./ButtonRow";
 import CLIInstructions from "./CLIInstructions";
 import SearchRangeInput from "./SearchRangeInput";
@@ -10,11 +21,12 @@ import {
   CaseSensitiveToggle,
   ExpandableRowsToggle,
   FilterLogicToggle,
+  JumpToFailingLineToggle,
   PrettyPrintToggle,
+  WordWrapFormatToggle,
   WrapToggle,
+  ZebraStripingToggle,
 } from "./Toggles";
-import WordWrapFormatToggle from "./Toggles/WordWrapFormatToggle";
-import ZebraStripingToggle from "./Toggles/ZebraStripingToggle";
 
 interface DetailsMenuProps {
   "data-cy"?: string;
@@ -23,6 +35,31 @@ interface DetailsMenuProps {
 const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
   ({ "data-cy": dataCy }, ref) => {
     const [selectedTab, setSelectedTab] = useState(0);
+
+    const { settings } = useParsleySettings();
+    const { jumpToFailingLineEnabled = true } = settings ?? {};
+
+    const dispatchToast = useToastContext();
+    const [updateParsleySettings] = useMutation<
+      UpdateParsleySettingsMutation,
+      UpdateParsleySettingsMutationVariables
+    >(UPDATE_PARSLEY_SETTINGS, {
+      onError: (err) => {
+        dispatchToast.warning(`Failed to save preferences: ${err.message}`);
+      },
+      refetchQueries: ["ParsleySettings"],
+    });
+
+    const updateSettings = (newSettings: ParsleySettingsInput) => {
+      updateParsleySettings({
+        variables: {
+          opts: {
+            parsleySettings: newSettings,
+          },
+        },
+      });
+    };
+
     return (
       <Container ref={ref} data-cy={dataCy}>
         <H3>Parsley Settings</H3>
@@ -45,6 +82,12 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
           <Tab data-cy="log-viewing-tab" name="Log Viewing">
             <Row>
               <Column>
+                {!isProduction() && (
+                  <JumpToFailingLineToggle
+                    checked={jumpToFailingLineEnabled}
+                    updateSettings={updateSettings}
+                  />
+                )}
                 <WrapToggle />
                 <WordWrapFormatToggle />
                 <PrettyPrintToggle />
