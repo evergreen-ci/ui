@@ -37,7 +37,7 @@ const config: Config = {
       "filter-obj",
     ].join("|")})`,
   ],
-  globalSetup: "<rootDir>/global-setup.js",
+  globalSetup: "<rootDir>/config/jest/global-setup.js",
 };
 
 export default config;
