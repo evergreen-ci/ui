@@ -5155,6 +5155,7 @@ export type SchedulePatchMutation = {
 
 export type ScheduleTasksMutationVariables = Exact<{
   taskIds: Array<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 }>;
 
 export type ScheduleTasksMutation = {
