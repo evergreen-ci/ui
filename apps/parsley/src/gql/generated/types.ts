@@ -507,6 +507,7 @@ export type EditSpawnHostInput = {
   publicKey?: InputMaybe<PublicKeyInput>;
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
+  sleepSchedule?: InputMaybe<SleepScheduleInput>;
   volume?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -707,6 +708,7 @@ export type Host = {
   persistentDnsName: Scalars["String"]["output"];
   provider: Scalars["String"]["output"];
   runningTask?: Maybe<TaskInfo>;
+  sleepSchedule?: Maybe<SleepSchedule>;
   startedBy: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
   tag: Scalars["String"]["output"];
@@ -2361,6 +2363,27 @@ export type SlackConfig = {
   name?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type SleepSchedule = {
+  __typename?: "SleepSchedule";
+  dailyStartTime: Scalars["String"]["output"];
+  dailyStopTime: Scalars["String"]["output"];
+  permanentlyExempt: Scalars["Boolean"]["output"];
+  shouldKeepOff: Scalars["Boolean"]["output"];
+  temporarilyExemptUntil?: Maybe<Scalars["Time"]["output"]>;
+  timeZone: Scalars["String"]["output"];
+  wholeWeekdaysOff: Array<Scalars["Int"]["output"]>;
+};
+
+export type SleepScheduleInput = {
+  dailyStartTime: Scalars["String"]["input"];
+  dailyStopTime: Scalars["String"]["input"];
+  permanentlyExempt: Scalars["Boolean"]["input"];
+  shouldKeepOff: Scalars["Boolean"]["input"];
+  temporarilyExemptUntil?: InputMaybe<Scalars["Time"]["input"]>;
+  timeZone: Scalars["String"]["input"];
+  wholeWeekdaysOff: Array<Scalars["Int"]["input"]>;
+};
+
 export enum SortDirection {
   Asc = "ASC",
   Desc = "DESC",
@@ -2400,6 +2423,7 @@ export type SpawnHostInput = {
   region: Scalars["String"]["input"];
   savePublicKey: Scalars["Boolean"]["input"];
   setUpScript?: InputMaybe<Scalars["String"]["input"]>;
+  sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
   taskSync?: InputMaybe<Scalars["Boolean"]["input"]>;
