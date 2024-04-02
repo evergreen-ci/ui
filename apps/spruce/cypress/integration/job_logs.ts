@@ -1,41 +1,71 @@
 const buildId = "7e208050e166b1a9025c817b67eee48d";
 const invalidBuildId = "9b07c7f9677e49ddae4c53076ca4f4ca";
+const taskIdWithResmokeLogs =
+  "mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29";
 
 describe("Job logs page", () => {
-  beforeEach(() => {
-    cy.visit(`job-logs/${buildId}`);
+  describe("Logkeeper job logs page", () => {
+    beforeEach(() => {
+      cy.visit(`job-logs/${buildId}`);
+    });
+
+    it("renders a table with test links", () => {
+      cy.dataCy("leafygreen-table-row").should("have.length", 105);
+
+      // Sort is not enabled
+      cy.get("th")
+        .should("have.length", 1)
+        .then((th) => {
+          cy.wrap(th).should("not.have.attr", "aria-sort");
+        });
+
+      cy.dataCy("complete-test-logs-link")
+        .should("have.attr", "href")
+        .then((href) => {
+          cy.wrap(href).should(
+            "contain",
+            "/resmoke/7e208050e166b1a9025c817b67eee48d/all",
+          );
+        });
+    });
+    it("visiting an invalid job logs page shows an error toast", () => {
+      cy.visit(`job-logs/${invalidBuildId}`);
+      cy.validateToast(
+        "error",
+        "There was an error retrieving logs for this build: Logkeeper returned HTTP status 404",
+      );
+    });
   });
+  describe("Evergreen job logs page", () => {
+    beforeEach(() => {
+      cy.visit(`job-logs/${taskIdWithResmokeLogs}/0/job0`);
+    });
+    it("renders a table with test links", () => {
+      cy.dataCy("leafygreen-table-row").should("have.length", 655);
 
-  it("renders a table with test links", () => {
-    cy.dataCy("job-logs-table-row").should("have.length", 105);
+      // Sort is not enabled
+      cy.get("th")
+        .should("have.length", 1)
+        .then((th) => {
+          cy.wrap(th).should("not.have.attr", "aria-sort");
+        });
 
-    // Sort is not enabled
-    cy.get("th")
-      .should("have.length", 1)
-      .then((th) => {
-        cy.wrap(th).should("not.have.attr", "aria-sort");
-      });
-
-    cy.dataCy("complete-test-logs-link")
-      .should("have.attr", "href")
-      .then((href) => {
-        cy.wrap(href).should(
-          "contain",
-          "/resmoke/7e208050e166b1a9025c817b67eee48d/all",
-        );
-      });
-  });
-});
-
-describe("Invalid job logs page", () => {
-  beforeEach(() => {
-    cy.visit(`job-logs/${invalidBuildId}`);
-  });
-
-  it("shows an error toast", () => {
-    cy.validateToast(
-      "error",
-      "There was an error retrieving logs for this build: Logkeeper returned HTTP status 404",
-    );
+      // ALl logs link does not work and will be completed in https://jira.mongodb.org/browse/DEVPROD-5949
+      // cy.dataCy("complete-test-logs-link")
+      //   .should("have.attr", "href")
+      //   .then((href) => {
+      //     cy.wrap(href).should(
+      //       "contain",
+      //       "/resmoke/7e208050e166b1a9025c817b67eee48d/all",
+      //     );
+      //   });
+    });
+    it("visiting an invalid job logs page shows an error toast", () => {
+      cy.visit(`job-logs/DNE/0/job0`);
+      cy.validateToast(
+        "error",
+        "There was an error retrieving logs for this task: task not found",
+      );
+    });
   });
 });

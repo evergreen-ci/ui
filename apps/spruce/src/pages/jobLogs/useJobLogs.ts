@@ -59,7 +59,8 @@ const useJobLogsPageData = ({
         logkeeperData?.logkeeperBuildMetadata?.taskExecution ||
         0,
     },
-    skip: loadingLogkeeper && isLogkeeper,
+    // Skip the query if we're in logkeeper mode and the logkeeper query is still loading
+    skip: isLogkeeper && (loadingLogkeeper || logkeeperData === undefined),
     onError: (err) => {
       onError(
         `There was an error retrieving logs for this task: ${err.message}`,

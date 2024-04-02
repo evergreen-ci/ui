@@ -42,7 +42,7 @@ export const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
     <PageWrapper>
       <ContentWrapper>
         <PageTitle
-          pageTitle={`Job Logs - ${buildIdFromParams || groupIdFromParams}`}
+          pageTitle={title}
           title={title}
           badge={<TaskStatusBadge status={status} />}
           loading={loading}
@@ -56,7 +56,7 @@ export const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
             </Button>
           }
         />
-        {isLogkeeper && (
+        {isLogkeeper && resultsToRender.length > 0 && (
           <CompleteLogsLink>
             <Button
               href={getParsleyBuildLogURL(buildIdFromParams)}
