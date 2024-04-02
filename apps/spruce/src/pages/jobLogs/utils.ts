@@ -22,6 +22,9 @@ const getTitle = (
     case true: {
       const { displayName } = options.evergreenTask || {};
       const { buildNum, builder } = options.logkeeperBuildMetadata || {};
+      if (!builder || !buildNum || !displayName) {
+        return "Job Logs";
+      }
       return `${builder} - ${buildNum} - ${displayName}`;
     }
     case false: {
