@@ -1,25 +1,27 @@
-module.exports = {
+import type { Config } from "jest";
+
+const config: Config = {
+  displayName: "parsley",
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!<rootDir>/node_modules/",
     "!<rootDir>/src/{main.tsx,vite-env.d.ts}",
   ],
-  coverageReporters: ["text"],
-  moduleFileExtensions: ["json", "js", "jsx", "ts", "tsx"],
+  moduleFileExtensions: ["tsx", "ts", "json", "js", "jsx"],
   moduleNameMapper: {
     "^uuid$": "<rootDir>/node_modules/uuid/dist/index.js",
   },
   modulePaths: ["<rootDir>/src"],
-  setupFiles: ["./jest.setup.ts"],
-  preset: "ts-jest",
+  setupFiles: ["./config/jest/jest.setup.ts"],
+  preset: "ts-jest/presets/js-with-ts",
   resetMocks: true,
   setupFilesAfterEnv: ["<rootDir>/config/jest/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
-  testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{js,jsx,ts,tsx}"],
+  testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{ts,tsx}"],
   transform: {
+    "^.+\\.[tj]sx?$": ["ts-jest", { isolatedModules: true }],
     "^.+\\.graphql$": "@graphql-tools/jest-transform",
-    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "ts-jest",
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
     "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)":
       "<rootDir>/config/jest/svgTransform.js",
@@ -35,20 +37,6 @@ module.exports = {
       "filter-obj",
     ].join("|")})`,
   ],
-  watchPlugins: [
-    "jest-watch-typeahead/filename",
-    "jest-watch-typeahead/testname",
-  ],
-
-  // Set the output directory for generating test results.
-  reporters: [
-    "default",
-    [
-      "jest-junit",
-      {
-        outputDirectory: "bin/jest",
-        outputName: "junit.xml",
-      },
-    ],
-  ],
 };
+
+export default config;
