@@ -1,9 +1,9 @@
-const buildId = "7e208050e166b1a9025c817b67eee48d";
-const invalidBuildId = "9b07c7f9677e49ddae4c53076ca4f4ca";
-const taskIdWithResmokeLogs =
-  "mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29";
-
 describe("Job logs page", () => {
+  const buildId = "7e208050e166b1a9025c817b67eee48d";
+  const invalidBuildId = "9b07c7f9677e49ddae4c53076ca4f4ca";
+  const taskIdWithResmokeLogs =
+    "mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29";
+
   describe("Logkeeper job logs page", () => {
     beforeEach(() => {
       cy.visit(`job-logs/${buildId}`);
