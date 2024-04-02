@@ -8,6 +8,7 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
+import { MCI_USER } from "constants/hosts";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
 
@@ -81,5 +82,3 @@ export const Metadata: React.FC<{
 const Italic = styled.i`
   color: ${gray.light1};
 `;
-
-const MCI_USER = "mci";
