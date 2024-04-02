@@ -95,6 +95,3 @@ const ContentWrapper = styled.div`
   justify-content: center;
   padding: ${size.s};
 `;
-const TaskMetadata = styled.div`
-  word-break: break-all;
-`;
