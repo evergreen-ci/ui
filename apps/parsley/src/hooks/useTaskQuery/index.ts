@@ -37,11 +37,12 @@ export const useTaskQuery = ({
   logType,
   taskID,
 }: UseTaskQueryProps): UseTaskQueryReturnType => {
+  const isResmoke = logType === LogTypes.RESMOKE_LOGS
   const { data: taskData, loading: taskLoading } = useQuery<
     TaskQuery,
     TaskQueryVariables
   >(GET_TASK, {
-    skip: logType === LogTypes.RESMOKE_LOGS || !taskID,
+    skip: isResmoke || !taskID,
     variables: { execution: Number(execution), taskId: String(taskID) },
   });
 
