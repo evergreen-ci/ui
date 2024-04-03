@@ -50,6 +50,6 @@ describe("A project id should redirect to the project identifier", () => {
   });
 
   it("Redirects to the project identifier", () => {
-    cy.url().should("include", "parsley");
+    cy.url().should("include", getGeneralRoute("parsley"));
   });
 });
