@@ -33,7 +33,7 @@ const TitleTypography: React.FC<TitleTypographyProps> = ({
   }
 };
 
-export const PageTitle: React.FC<Props> = ({
+const PageTitle: React.FC<Props> = ({
   badge,
   buttons,
   children,
@@ -86,3 +86,5 @@ const PageHeader = styled.div<TitleTypographyProps>`
 const TitleWrapper = styled.span<TitleTypographyProps>`
   max-width: ${(props) => (props.size === "medium" ? "70%" : "100%")};
 `;
+
+export default PageTitle;

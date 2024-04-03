@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
-import { PageTitle } from "components/PageTitle";
+import PageTitle from "components/PageTitle";
 import { PageWrapper } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { getParsleyBuildLogURL } from "constants/externalResources";
