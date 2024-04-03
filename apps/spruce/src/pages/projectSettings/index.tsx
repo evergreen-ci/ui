@@ -47,14 +47,14 @@ const ProjectSettings: React.FC = () => {
     }>();
   // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
   const isIdentifierAnId = validateObjectId(identifier);
-  const [isPotentiallyARepo, setIsPotentiallyARepo] = useState<boolean>(false);
+  const [isRepo, setIsRepo] = useState<boolean>(false);
 
   const { sendEvent } = useProjectSettingsAnalytics();
 
   useProjectRedirect({
     shouldRedirect: isIdentifierAnId,
     onError: () => {
-      setIsPotentiallyARepo(true);
+      setIsRepo(true);
     },
     sendAnalyticsEvent: (projectId: string, projectIdentifier: string) => {
       sendEvent({
@@ -83,7 +83,7 @@ const ProjectSettings: React.FC = () => {
 
   // Assign project type in order to show/hide elements that should only appear for repos, attached projects, etc.
   let projectType: ProjectType;
-  if (isPotentiallyARepo) {
+  if (isRepo) {
     projectType = ProjectType.Repo;
   } else if (projectData?.projectSettings?.projectRef?.repoRefId) {
     projectType = ProjectType.AttachedProject;
