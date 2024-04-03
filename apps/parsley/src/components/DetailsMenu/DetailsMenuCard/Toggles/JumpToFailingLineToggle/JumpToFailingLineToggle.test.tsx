@@ -14,7 +14,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("jump to failing line toggle", () => {
-  it("should render as checked based on props", () => {
+  it("should render as checked when 'checked' prop is true", () => {
     render(<JumpToFailingLineToggle checked updateSettings={jest.fn()} />, {
       wrapper,
     });
@@ -24,7 +24,7 @@ describe("jump to failing line toggle", () => {
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-checked", "true");
   });
 
-  it("should render as unchecked based on propsd", () => {
+  it("should render as unchecked when 'checked' prop is false", () => {
     render(
       <JumpToFailingLineToggle checked={false} updateSettings={jest.fn()} />,
       { wrapper },

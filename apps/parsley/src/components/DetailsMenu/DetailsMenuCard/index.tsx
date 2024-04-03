@@ -1,16 +1,8 @@
 import { forwardRef, useState } from "react";
-import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tab, Tabs } from "@leafygreen-ui/tabs";
 import { H3 } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
-import { useToastContext } from "context/toast";
-import {
-  ParsleySettingsInput,
-  UpdateParsleySettingsMutation,
-  UpdateParsleySettingsMutationVariables,
-} from "gql/generated/types";
-import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { isProduction } from "utils/environmentVariables";
 import ButtonRow from "./ButtonRow";
@@ -35,29 +27,8 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
   ({ "data-cy": dataCy }, ref) => {
     const [selectedTab, setSelectedTab] = useState(0);
 
-    const { settings } = useParsleySettings();
+    const { settings, updateSettings } = useParsleySettings();
     const { jumpToFailingLineEnabled = true } = settings ?? {};
-
-    const dispatchToast = useToastContext();
-    const [updateParsleySettings] = useMutation<
-      UpdateParsleySettingsMutation,
-      UpdateParsleySettingsMutationVariables
-    >(UPDATE_PARSLEY_SETTINGS, {
-      onError: (err) => {
-        dispatchToast.warning(`Failed to save preferences: ${err.message}`);
-      },
-      refetchQueries: ["ParsleySettings"],
-    });
-
-    const updateSettings = (newSettings: ParsleySettingsInput) => {
-      updateParsleySettings({
-        variables: {
-          opts: {
-            parsleySettings: newSettings,
-          },
-        },
-      });
-    };
 
     return (
       <Container ref={ref} data-cy={dataCy}>
