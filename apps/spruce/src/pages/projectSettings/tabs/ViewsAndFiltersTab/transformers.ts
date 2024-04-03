@@ -28,7 +28,8 @@ export const gqlToForm = ((data, { projectType }) => {
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = (({ parsleyFilters, view }, id) => ({
+export const formToGql = (({ parsleyFilters, view }, isRepo, id) => ({
+  ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
     id,
     parsleyFilters: parsleyFilters.map(

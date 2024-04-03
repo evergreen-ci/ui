@@ -19,7 +19,7 @@ describe("repo data", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(repoForm, "repo")).toStrictEqual(repoResult);
+    expect(formToGql(repoForm, true, "repo")).toStrictEqual(repoResult);
   });
 });
 
@@ -31,7 +31,9 @@ describe("project data", () => {
   });
 
   it("correctly converts from a form to GQL and omits empty strings", () => {
-    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, false, "project")).toStrictEqual(
+      projectResult,
+    );
   });
 
   it("correctly merges project and repo form states", () => {
@@ -139,7 +141,11 @@ const projectForm: GCQFormState = {
   },
 };
 
-const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
+const projectResult: Pick<
+  ProjectSettingsInput,
+  "projectId" | "projectRef" | "aliases"
+> = {
+  projectId: "project",
   projectRef: {
     id: "project",
     prTestingEnabled: null,
@@ -275,37 +281,39 @@ const repoForm: GCQFormState = {
   },
 };
 
-const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
-  projectRef: {
-    id: "repo",
-    prTestingEnabled: false,
-    manualPrTestingEnabled: false,
-    githubChecksEnabled: true,
-    gitTagVersionsEnabled: false,
-    gitTagAuthorizedUsers: ["admin"],
-    gitTagAuthorizedTeams: [],
-    commitQueue: {
-      enabled: true,
-      message: "Commit Queue Message",
-      mergeMethod: "squash",
-      mergeQueue: MergeQueue.Github,
+const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
+  {
+    repoId: "repo",
+    projectRef: {
+      id: "repo",
+      prTestingEnabled: false,
+      manualPrTestingEnabled: false,
+      githubChecksEnabled: true,
+      gitTagVersionsEnabled: false,
+      gitTagAuthorizedUsers: ["admin"],
+      gitTagAuthorizedTeams: [],
+      commitQueue: {
+        enabled: true,
+        message: "Commit Queue Message",
+        mergeMethod: "squash",
+        mergeQueue: MergeQueue.Github,
+      },
     },
-  },
-  aliases: [
-    {
-      id: "2",
-      alias: "__github_checks",
-      description: "",
-      gitTag: "",
-      remotePath: "",
-      task: "",
-      taskTags: ["tTag"],
-      variant: "",
-      variantTags: ["vTag"],
-      parameters: [],
-    },
-  ],
-};
+    aliases: [
+      {
+        id: "2",
+        alias: "__github_checks",
+        description: "",
+        gitTag: "",
+        remotePath: "",
+        task: "",
+        taskTags: ["tTag"],
+        variant: "",
+        variantTags: ["vTag"],
+        parameters: [],
+      },
+    ],
+  };
 
 const mergedForm: GCQFormState = {
   github: {

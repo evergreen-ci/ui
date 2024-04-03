@@ -32,8 +32,7 @@
     "verify-backend": "./scripts/verify-backend.sh",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "env-cmd -e local -r .env-cmdrc.local.json storybook build",
-    "test": "jest --watchAll=false",
-    "test:watch": "jest --watch --verbose",
+    "test": "yarn --cwd='../..' test --selectProjects parsley",
     "postversion": "scripts/push-version.sh"
   },
   "dependencies": {
@@ -102,7 +101,7 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.1.2",
     "@testing-library/user-event": "14.5.1",
-    "@types/jest": "29.5.5",
+    "@types/jest": "29.5.12",
     "@types/jest-specific-snapshot": "0.5.9",
     "@types/js-cookie": "3.0.4",
     "@types/lodash.debounce": "4.0.7",

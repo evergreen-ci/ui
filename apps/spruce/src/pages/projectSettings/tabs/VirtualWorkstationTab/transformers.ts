@@ -29,8 +29,10 @@ export const gqlToForm = ((data, options) => {
 
 export const formToGql = ((
   { commands: { setupCommands, setupCommandsOverride }, gitClone },
+  isRepo,
   id,
 ) => ({
+  ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
     id,
     workstationConfig: {
