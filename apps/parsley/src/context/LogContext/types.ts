@@ -1,4 +1,9 @@
-import { FilterLogic, LogRenderingTypes, LogTypes, WordWrapFormat } from "constants/enums";
+import {
+  FilterLogic,
+  LogRenderingTypes,
+  LogTypes,
+  WordWrapFormat,
+} from "constants/enums";
 
 interface SearchState {
   searchTerm?: RegExp;

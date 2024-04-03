@@ -8,7 +8,8 @@ const PrettyPrintToggle: React.FC = () => {
   const { logMetadata, preferences } = useLogContext();
 
   const { prettyPrint, setPrettyPrint } = preferences;
-  const disablePrettyPrint = logMetadata?.renderingType !== LogRenderingTypes.Resmoke;
+  const disablePrettyPrint =
+    logMetadata?.renderingType !== LogRenderingTypes.Resmoke;
 
   return (
     <BaseToggle
