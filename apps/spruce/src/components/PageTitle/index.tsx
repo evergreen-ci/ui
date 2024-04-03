@@ -8,9 +8,9 @@ type Size = "large" | "medium";
 
 interface Props {
   loading: boolean;
-  title: string | JSX.Element | React.ReactNodeArray;
+  title: string | JSX.Element | React.ReactNode[];
   pageTitle?: string;
-  subtitle?: JSX.Element;
+  subtitle?: string | JSX.Element | React.ReactNode[];
   badge: JSX.Element;
   buttons?: JSX.Element;
   size?: Size;

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import PageTitle from "components/PageTitle";
@@ -42,8 +43,8 @@ export const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
     <PageWrapper>
       <ContentWrapper>
         <PageTitle
-          pageTitle={title}
-          title={title}
+          pageTitle={`Job Logs - ${title}`}
+          title="Job Logs"
           badge={<TaskStatusBadge status={status} />}
           loading={loading}
           size="large"
@@ -55,6 +56,7 @@ export const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
               Task page
             </Button>
           }
+          subtitle={<H3>{title}</H3>}
         />
         {isLogkeeper && resultsToRender.length > 0 && (
           <CompleteLogsLink>

@@ -23,16 +23,16 @@ const getTitle = (
       const { displayName } = options.evergreenTask || {};
       const { buildNum, builder } = options.logkeeperBuildMetadata || {};
       if (!builder || !buildNum || !displayName) {
-        return "Job Logs";
+        return "";
       }
       return `${builder} - ${buildNum} - ${displayName}`;
     }
     case false: {
       const { displayName } = options.evergreenTask || {};
-      return `Job Logs - ${displayName} - ${options.groupId}`;
+      return `${displayName} - ${options.groupId}`;
     }
     default:
-      return "Job Logs";
+      return "";
   }
 };
 
