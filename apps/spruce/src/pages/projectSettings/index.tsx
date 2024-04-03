@@ -45,16 +45,15 @@ const ProjectSettings: React.FC = () => {
       [slugs.projectIdentifier]: string | null;
       [slugs.tab]: ProjectSettingsTabRoutes;
     }>();
-  // If the path includes an Object ID, this page represents a repo and we should not attempt to fetch a project.
-  const isIdentifierId = validateObjectId(identifier);
+  // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
+  const isIdentifierAnId = validateObjectId(identifier);
   const [isPotentiallyARepo, setIsPotentiallyARepo] = useState<boolean>(false);
 
   const { sendEvent } = useProjectSettingsAnalytics();
 
   useProjectRedirect({
-    shouldRedirect: isIdentifierId,
-    onError: (e) => {
-      // dispatchToast.error(e.message);
+    shouldRedirect: isIdentifierAnId,
+    onError: () => {
       setIsPotentiallyARepo(true);
     },
     sendAnalyticsEvent: (projectId: string, projectIdentifier: string) => {
@@ -70,7 +69,7 @@ const ProjectSettings: React.FC = () => {
     ProjectSettingsQuery,
     ProjectSettingsQueryVariables
   >(PROJECT_SETTINGS, {
-    skip: isIdentifierId,
+    skip: isIdentifierAnId,
     variables: { identifier },
     onError: (e) => {
       dispatchToast.error(
