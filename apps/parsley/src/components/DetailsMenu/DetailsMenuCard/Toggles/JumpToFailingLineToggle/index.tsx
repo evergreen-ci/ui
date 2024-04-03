@@ -15,7 +15,7 @@ const JumpToFailingLineToggle: React.FC<JumpToFailingLineToggleProps> = ({
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   const { logMetadata } = useLogContext();
-  const isTaskLog = logMetadata?.logType !== LogTypes.EVERGREEN_TASK_LOGS;
+  const isTaskLog = logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS;
 
   return (
     <BaseToggle

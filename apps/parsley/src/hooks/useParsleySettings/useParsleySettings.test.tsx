@@ -1,4 +1,4 @@
-import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   UpdateParsleySettingsMutation,
