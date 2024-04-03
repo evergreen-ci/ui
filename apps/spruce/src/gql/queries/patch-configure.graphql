@@ -1,7 +1,7 @@
 #import "../fragments/basePatch.graphql"
 
 query ConfigurePatch($id: String!) {
-  patch(id: $id) {
+  patch(patchId: $id) {
     ...BasePatch
     childPatchAliases {
       alias

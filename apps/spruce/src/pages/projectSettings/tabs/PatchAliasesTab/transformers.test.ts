@@ -15,7 +15,7 @@ describe("repo data", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(repoForm, "repo")).toStrictEqual(repoResult);
+    expect(formToGql(repoForm, true, "repo")).toStrictEqual(repoResult);
   });
 });
 
@@ -27,7 +27,9 @@ describe("project data", () => {
   });
 
   it("correctly converts from a form to GQL and omits empty strings", () => {
-    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, false, "project")).toStrictEqual(
+      projectResult,
+    );
   });
 });
 
@@ -42,7 +44,11 @@ const projectForm: PatchAliasesFormState = {
   },
 };
 
-const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
+const projectResult: Pick<
+  ProjectSettingsInput,
+  "projectId" | "projectRef" | "aliases"
+> = {
+  projectId: "project",
   projectRef: {
     id: "project",
     patchTriggerAliases: null,
@@ -105,43 +111,45 @@ const repoForm: PatchAliasesFormState = {
   },
 };
 
-const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
-  projectRef: {
-    id: "repo",
-    patchTriggerAliases: [
+const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
+  {
+    repoId: "repo",
+    projectRef: {
+      id: "repo",
+      patchTriggerAliases: [
+        {
+          alias: "alias1",
+          childProjectIdentifier: "spruce",
+          taskSpecifiers: [
+            {
+              patchAlias: "alias2",
+              taskRegex: "",
+              variantRegex: "",
+            },
+            {
+              patchAlias: "",
+              taskRegex: ".*",
+              variantRegex: ".*",
+            },
+          ],
+          status: "success",
+          parentAsModule: "",
+        },
+      ],
+      githubTriggerAliases: ["alias1"],
+    },
+    aliases: [
       {
-        alias: "alias1",
-        childProjectIdentifier: "spruce",
-        taskSpecifiers: [
-          {
-            patchAlias: "alias2",
-            taskRegex: "",
-            variantRegex: "",
-          },
-          {
-            patchAlias: "",
-            taskRegex: ".*",
-            variantRegex: ".*",
-          },
-        ],
-        status: "success",
-        parentAsModule: "",
+        id: "4",
+        alias: "my alias name",
+        description: "my description",
+        gitTag: "",
+        variant: "",
+        task: "",
+        remotePath: "",
+        parameters: [],
+        variantTags: ["okay"],
+        taskTags: ["hi"],
       },
     ],
-    githubTriggerAliases: ["alias1"],
-  },
-  aliases: [
-    {
-      id: "4",
-      alias: "my alias name",
-      description: "my description",
-      gitTag: "",
-      variant: "",
-      task: "",
-      remotePath: "",
-      parameters: [],
-      variantTags: ["okay"],
-      taskTags: ["hi"],
-    },
-  ],
-};
+  };
