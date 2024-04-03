@@ -8,9 +8,9 @@ import { ApolloMock } from "types/gql";
 import { useProjectRedirect } from ".";
 
 const useJointHook = (props: Parameters<typeof useProjectRedirect>[0]) => {
-  const { isRedirecting } = useProjectRedirect({ ...props });
+  const { attemptedRedirect, isRedirecting } = useProjectRedirect({ ...props });
   const { pathname, search } = useLocation();
-  return { isRedirecting, pathname, search };
+  return { isRedirecting, pathname, search, attemptedRedirect };
 };
 
 const ProviderWrapper: React.FC<{
@@ -39,6 +39,7 @@ describe("useProjectRedirect", () => {
     );
     expect(result.current).toMatchObject({
       isRedirecting: false,
+      attemptedRedirect: false,
       pathname: "/commits/my-project",
       search: "",
     });
@@ -58,12 +59,14 @@ describe("useProjectRedirect", () => {
     );
     expect(result.current).toMatchObject({
       isRedirecting: true,
+      attemptedRedirect: false,
       pathname: "/commits/5f74d99ab2373627c047c5e5",
       search: "",
     });
     await waitFor(() => {
       expect(result.current).toMatchObject({
         isRedirecting: false,
+        attemptedRedirect: true,
         pathname: "/commits/my-project",
         search: "",
       });
@@ -89,12 +92,14 @@ describe("useProjectRedirect", () => {
     );
     expect(result.current).toMatchObject({
       isRedirecting: false,
+      attemptedRedirect: false,
       pathname: "/commits/5f74d99ab2373627c047c5e5",
       search: "",
     });
     await waitFor(() => {
       expect(result.current).toMatchObject({
         isRedirecting: false,
+        attemptedRedirect: false,
         pathname: "/commits/5f74d99ab2373627c047c5e5",
         search: "",
       });
@@ -118,12 +123,14 @@ describe("useProjectRedirect", () => {
     );
     expect(result.current).toMatchObject({
       isRedirecting: true,
+      attemptedRedirect: false,
       pathname: "/commits/5f74d99ab2373627c047c5e5",
       search: "?taskName=thirdparty",
     });
     await waitFor(() => {
       expect(result.current).toMatchObject({
         isRedirecting: false,
+        attemptedRedirect: true,
         pathname: "/commits/my-project",
         search: "?taskName=thirdparty",
       });
@@ -148,12 +155,14 @@ describe("useProjectRedirect", () => {
     );
     expect(result.current).toMatchObject({
       isRedirecting: true,
+      attemptedRedirect: false,
       pathname: "/commits/5e6bb9e23066155a993e0f1a",
       search: "",
     });
     await waitFor(() => {
       expect(result.current).toMatchObject({
         isRedirecting: false,
+        attemptedRedirect: true,
         pathname: "/commits/5e6bb9e23066155a993e0f1a",
         search: "",
       });
