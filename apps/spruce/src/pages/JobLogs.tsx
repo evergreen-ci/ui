@@ -52,7 +52,7 @@ export const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
               href={getTaskRoute(taskId, { execution })}
               data-cy="task-link"
             >
-              Task Page
+              Task page
             </Button>
           }
         />
