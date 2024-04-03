@@ -179,7 +179,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     batchTime: 12,
     remotePath: "evergreen.yml",
     spawnHostScriptPath: "/test/path",
-    oldestAllowedMergeBase: "",
+    oldestAllowedMergeBase: "abc",
     dispatchingDisabled: true,
     versionControlEnabled: false,
     deactivatePrevious: true,

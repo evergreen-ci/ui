@@ -347,7 +347,8 @@ export const getFormSchema = (
           ),
         },
         oldestAllowedMergeBase: {
-          "ui:description": OldestAllowedMergeBaseDescription,
+          "ui:description":
+            "Specify the oldest commit SHA on your project branch that is allowed to be a merge base for a PR",
           "ui:optional": true,
           ...placeholderIf(repoData?.github?.oldestAllowedMergeBase),
           ...hideIf(
@@ -681,12 +682,5 @@ const GitHubMergeQueueDescription = (
     GitHub merge queue, you will need to complete the additional steps outlined
     in the <StyledLink href={githubMergeQueueDocumentationUrl}>docs</StyledLink>
     .
-  </>
-);
-
-const OldestAllowedMergeBaseDescription = (
-  <>
-    Specify the oldest commit SHA on your project branch that is allowed to be a
-    merge base for a PR
   </>
 );

@@ -295,6 +295,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
       gitTagVersionsEnabled: false,
       gitTagAuthorizedUsers: ["admin"],
       gitTagAuthorizedTeams: [],
+      oldestAllowedMergeBase: "abc",
       commitQueue: {
         enabled: true,
         message: "Commit Queue Message",
