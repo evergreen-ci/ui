@@ -44,15 +44,10 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
   >(GET_TEST_LOG_URL_AND_RENDERING_TYPE, {
-    skip: !(
-      logType === LogTypes.EVERGREEN_TEST_LOGS &&
-      taskID &&
-      Number.isInteger(execution) &&
-      testID
-    ),
+    skip: !(logType === LogTypes.EVERGREEN_TEST_LOGS && testID),
     variables: {
       execution,
-      taskID: taskID as string,
+      taskID,
       testName: `^${testID}$`,
     },
   });
