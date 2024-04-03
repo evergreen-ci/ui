@@ -68,6 +68,7 @@ export const formToGql = ((
     historicalTaskDataCaching: { disabledStatsCache },
     projectFlags,
   },
+  isRepo,
   id,
 ) => {
   const projectRef: ProjectInput = {
@@ -101,5 +102,5 @@ export const formToGql = ((
     disabledStatsCache,
   };
 
-  return { projectRef };
+  return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
 }) satisfies FormToGqlFunction<Tab>;

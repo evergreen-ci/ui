@@ -1,10 +1,12 @@
-module.exports = {
+import type { Config } from "jest";
+
+const config: Config = {
+  displayName: "spruce",
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!<rootDir>/node_modules/",
     "!<rootDir>/src/{index.tsx,react-app-env.d.ts}",
   ],
-  coverageReporters: ["text"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   moduleNameMapper: {
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
@@ -16,7 +18,7 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/config/jest/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
-  testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{js,jsx,ts,tsx}"],
+  testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{ts,tsx}"],
   transform: {
     "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
@@ -35,20 +37,7 @@ module.exports = {
       "filter-obj",
     ].join("|")})`,
   ],
-  watchPlugins: [
-    "jest-watch-typeahead/filename",
-    "jest-watch-typeahead/testname",
-  ],
-  globalSetup: "<rootDir>/global-setup.js",
-  testTimeout: 30000,
-  reporters: [
-    "default",
-    [
-      "jest-junit",
-      {
-        outputDirectory: "bin/jest",
-        outputName: "junit.xml",
-      },
-    ],
-  ],
+  globalSetup: "<rootDir>/config/jest/global-setup.js",
 };
+
+export default config;

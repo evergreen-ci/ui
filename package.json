@@ -3,8 +3,15 @@
   "repository": "https://github.com/evergreen-ci/ui",
   "private": true,
   "workspaces": {
-    "packages": ["apps/*"],
-    "nohoist": ["**/storybook-addon-apollo-client"]
+    "packages": [
+      "apps/*"
+    ],
+    "nohoist": [
+      "**/storybook-addon-apollo-client"
+    ]
+  },
+  "scripts": {
+    "test": "jest"
   },
   "resolutions": {
     "@tanstack/react-table": "8.9.3",

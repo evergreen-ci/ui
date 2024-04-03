@@ -1,7 +1,7 @@
 #import "../fragments/moduleCodeChanges.graphql"
 
 query CodeChanges($id: String!) {
-  patch(id: $id) {
+  patch(patchId: $id) {
     id
     moduleCodeChanges {
       ...ModuleCodeChange

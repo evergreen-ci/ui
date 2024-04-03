@@ -310,10 +310,10 @@ functions:
   yarn-test:
     command: shell.exec
     params:
-      working_dir: ui/${app_dir}
+      working_dir: ui
       script: |
         ${PREPARE_SHELL}
-        yarn test --ci --testPathIgnorePatterns=snapshot.test.ts
+        yarn test --ci --testPathIgnorePatterns=snapshot.test.ts --selectProjects ${build_variant}
 
   yarn-tsc:
     command: shell.exec
