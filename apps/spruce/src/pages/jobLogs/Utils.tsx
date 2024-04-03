@@ -37,7 +37,7 @@ const getTitle = (
       const { displayName } = options.evergreenTask || {};
       return (
         <>
-          <span title="Task display name">{displayName}</span>
+          <span title="Task display name">{displayName}</span> -{" "}
           <span title="Group ID">{options.groupId}</span>
         </>
       );
