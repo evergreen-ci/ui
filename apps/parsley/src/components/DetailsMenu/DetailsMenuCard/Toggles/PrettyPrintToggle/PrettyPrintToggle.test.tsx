@@ -1,5 +1,5 @@
 import Cookie from "js-cookie";
-import { LogRenderingTypes, LogTypes } from "constants/enums";
+import { LogRenderingTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import {
   act,
