@@ -105,7 +105,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
 
   const onClick = () => {
     const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
-    const newData = formToGql(formData, id);
+    const newData = formToGql(formData, isRepo, id);
     const save = (update, section) =>
       isRepo
         ? saveRepoSection({

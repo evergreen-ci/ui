@@ -1,5 +1,5 @@
 query PatchTaskStatuses($id: String!) {
-  patch(id: $id) {
+  patch(patchId: $id) {
     baseTaskStatuses
     id
     taskStatuses

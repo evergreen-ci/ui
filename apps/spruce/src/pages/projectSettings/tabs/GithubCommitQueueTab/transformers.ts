@@ -130,6 +130,7 @@ export const formToGql = ((
       users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
     },
   },
+  isRepo,
   id,
 ) => {
   const projectRef: ProjectInput = {
@@ -185,6 +186,7 @@ export const formToGql = ((
   ];
 
   return {
+    ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef,
     aliases,
   };

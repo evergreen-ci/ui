@@ -138,17 +138,18 @@ export const gqlToForm = ((data, { projectType }) => {
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = ((formState, projectId) => {
+export const formToGql = ((formState, isRepo, id) => {
   const { banner, buildBreakSettings, subscriptions } = formState;
   const projectRef: ProjectInput = {
-    id: projectId,
+    id,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
     ...(banner && { banner: banner.bannerData }),
   };
   const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
-    getGqlPayload(projectId),
+    getGqlPayload(id),
   );
   return {
+    ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef,
     subscriptions: transformedSubscriptions,
   };
