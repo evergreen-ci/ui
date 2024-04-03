@@ -43,7 +43,7 @@ const PageTitle: React.FC<Props> = ({
 
   return loading ? (
     <PageHeader size={size}>
-      <Skeleton active paragraph={{ rows: 0 }} />
+      <Skeleton />
     </PageHeader>
   ) : (
     <Container size={size}>
