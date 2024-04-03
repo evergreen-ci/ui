@@ -25,11 +25,22 @@ const getTitle = (
       if (!builder || !buildNum || !displayName) {
         return "";
       }
-      return `${builder} - ${buildNum} - ${displayName}`;
+      return (
+        <>
+          <span title="Builder">{builder}</span> -{" "}
+          <span title="Build number">{buildNum}</span> -{" "}
+          <span title="Task display name">{displayName}</span>
+        </>
+      );
     }
     case false: {
       const { displayName } = options.evergreenTask || {};
-      return `${displayName} - ${options.groupId}`;
+      return (
+        <>
+          <span title="Task display name">{displayName}</span>
+          <span title="Group ID">{options.groupId}</span>
+        </>
+      );
     }
     default:
       return "";

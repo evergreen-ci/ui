@@ -7,7 +7,7 @@ import {
 } from "gql/generated/types";
 import { LOGKEEPER_BUILD_METADATA, TASK_TESTS_FOR_JOB_LOGS } from "gql/queries";
 import { JobLogsTableTestResult } from "./types";
-import { getFormattedTestResults, getTitle } from "./utils";
+import { getFormattedTestResults, getTitle } from "./Utils";
 
 interface UseJobLogsPageParams {
   isLogkeeper: boolean;
@@ -21,7 +21,7 @@ interface UseJobLogsPageParams {
 type JobLogsPageData = {
   taskId: string;
   execution: number;
-  title: string;
+  title: JSX.Element | string;
   resultsToRender: JobLogsTableTestResult[];
   loading: boolean;
   status: string;
