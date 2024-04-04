@@ -65,16 +65,25 @@ export const gqlToForm = ((data, { projectType }) => {
 
 export const formToGql = ((
   { periodicBuilds, periodicBuildsOverride },
-  projectId,
+  isRepo,
+  id,
 ) => ({
+  ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
-    id: projectId,
+    id,
     periodicBuilds: periodicBuildsOverride
       ? periodicBuilds.map(
-          ({ alias, configFile, id, interval, message, nextRunTime }) => ({
+          ({
             alias,
             configFile,
-            id: id || "",
+            id: periodicBuildId,
+            interval,
+            message,
+            nextRunTime,
+          }) => ({
+            alias,
+            configFile,
+            id: periodicBuildId || "",
             message,
             nextRunTime: new Date(nextRunTime),
             ...(interval.specifier === IntervalSpecifier.Cron

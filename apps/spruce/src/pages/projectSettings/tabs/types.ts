@@ -2,6 +2,7 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   ProjectSettingsInput,
   ProjectSettingsQuery,
+  RepoSettingsInput,
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { AccessFormState } from "./AccessTab/types";
@@ -51,8 +52,9 @@ export type GqlToFormFunction<T extends WritableProjectSettingsType> = (
 
 export type FormToGqlFunction<T extends WritableProjectSettingsType> = (
   form: FormStateMap[T],
+  isRepo: boolean,
   id?: string,
-) => ProjectSettingsInput;
+) => ProjectSettingsInput | RepoSettingsInput;
 
 const { EventLog, ...WritableProjectSettingsTabs } = ProjectSettingsTabRoutes;
 export { WritableProjectSettingsTabs };

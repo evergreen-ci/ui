@@ -21,7 +21,7 @@ export const gqlToForm = ((data) => {
   };
 }) satisfies GqlToFormFunction<Tab>;
 
-export const formToGql = (({ vars: varsData }, id) => {
+export const formToGql = (({ vars: varsData }, isRepo, id) => {
   const vars = varsData.reduce(
     (acc, { isAdminOnly, isDisabled, isPrivate, varName, varValue }) => {
       if (!varName || !varValue) return acc;
@@ -45,6 +45,7 @@ export const formToGql = (({ vars: varsData }, id) => {
     },
   );
   return {
+    ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef: { id },
     vars,
   };

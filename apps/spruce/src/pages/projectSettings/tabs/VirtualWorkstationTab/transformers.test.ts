@@ -14,7 +14,9 @@ describe("project data", () => {
   });
 
   it("correctly converts from a form to GQL and omits empty strings", () => {
-    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, false, "project")).toStrictEqual(
+      projectResult,
+    );
   });
 });
 
@@ -26,7 +28,7 @@ describe("repo data", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(repoForm, "repo")).toStrictEqual(repoResult);
+    expect(formToGql(repoForm, true, "repo")).toStrictEqual(repoResult);
   });
 });
 
@@ -43,7 +45,8 @@ const projectForm: VWFormState = {
   },
 };
 
-const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
+const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
+  projectId: "project",
   projectRef: {
     id: "project",
     workstationConfig: {
@@ -66,7 +69,8 @@ const repoForm: VWFormState = {
   },
 };
 
-const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
+const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
+  repoId: "repo",
   projectRef: {
     id: "repo",
     workstationConfig: {

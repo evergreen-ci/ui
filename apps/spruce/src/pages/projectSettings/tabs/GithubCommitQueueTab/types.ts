@@ -16,6 +16,7 @@ export interface GCQFormState {
         githubPrAliases: Array<AliasFormType>;
       };
     };
+    oldestAllowedMergeBase: string;
     githubTriggerAliases: ProjectPatchAliasSettingsFragment["patchTriggerAliases"];
     githubChecksEnabled: boolean;
     githubChecks: {

@@ -1696,6 +1696,7 @@ export type Project = {
   isFavorite: Scalars["Boolean"]["output"];
   manualPrTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   notifyOnBuildFailure?: Maybe<Scalars["Boolean"]["output"]>;
+  oldestAllowedMergeBase: Scalars["String"]["output"];
   owner: Scalars["String"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
@@ -1832,6 +1833,7 @@ export type ProjectInput = {
   identifier?: InputMaybe<Scalars["String"]["input"]>;
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
+  oldestAllowedMergeBase?: InputMaybe<Scalars["String"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
   parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
@@ -2168,6 +2170,7 @@ export type RepoRef = {
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
+  oldestAllowedMergeBase: Scalars["String"]["output"];
   owner: Scalars["String"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
@@ -2211,6 +2214,7 @@ export type RepoRefInput = {
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
+  oldestAllowedMergeBase?: InputMaybe<Scalars["String"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
   parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
