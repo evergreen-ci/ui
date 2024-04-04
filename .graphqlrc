@@ -1,2 +1,2 @@
-schema: "**/sdlschema/**/*.graphql"
-documents: "**/**/src/gql/**/*.graphql"
+schema: "apps/*/sdlschema/**/*.graphql"
+documents: "apps/*/**/src/gql/**/*.graphql"
