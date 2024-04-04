@@ -35,7 +35,7 @@ describe("jump to failing line toggle", () => {
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-checked", "false");
   });
 
-  it("should disable toggle if logType is not task", () => {
+  it("should disable toggle if logType is not Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
       <JumpToFailingLineToggle checked updateSettings={jest.fn()} />,
@@ -50,7 +50,7 @@ describe("jump to failing line toggle", () => {
     expect(jumpToFailingLineToggle).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("should not disable toggle if logType is task", () => {
+  it("should enable toggle if logType is Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
       <JumpToFailingLineToggle checked updateSettings={jest.fn()} />,

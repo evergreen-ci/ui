@@ -12,14 +12,14 @@ import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
 import { PARSLEY_SETTINGS } from "gql/queries";
 
 type UseParsleySettingsReturnType = {
-  settings: Partial<ParsleySettings>; // TODO: Remove Partial<> after completion of DEVPROD-1113.
+  settings: Partial<ParsleySettings>; // TODO: Remove Partial after completion of DEVPROD-1113.
   updateSettings: (settings: ParsleySettingsInput) => void;
 };
 
 /**
- * `useParsleySettings` returns settings for the current user from the database.
- * Eventually we want to include the preferences stored in LogContext in database. This means
- * that preferences will no longer have to be stored centrally in the context.
+ * `useParsleySettings` fetches settings for the current user from the database.
+ * Eventually we will move the preferences stored in LogContext into the database.
+ * This means that preferences will no longer have to be stored centrally in the context.
  * @returns Parsley settings for the user, function for updating Parsley settings
  */
 const useParsleySettings = (): UseParsleySettingsReturnType => {

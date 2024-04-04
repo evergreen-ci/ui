@@ -17,7 +17,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("useParsleySettings", () => {
-  it("properly fetches user settings", async () => {
+  it("fetches user settings", async () => {
     RenderFakeToastContext();
 
     const { result } = renderHook(() => useParsleySettings(), { wrapper });
@@ -26,7 +26,7 @@ describe("useParsleySettings", () => {
     });
   });
 
-  it("dispatches warning toast if failed to save preferences", async () => {
+  it("dispatches warning toast if an error occurs when saving preferences", async () => {
     const { dispatchToast } = RenderFakeToastContext();
 
     const { result } = renderHook(() => useParsleySettings(), { wrapper });

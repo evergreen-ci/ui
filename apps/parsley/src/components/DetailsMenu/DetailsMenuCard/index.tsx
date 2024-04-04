@@ -52,17 +52,17 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
           <Tab data-cy="log-viewing-tab" name="Log Viewing">
             <Row>
               <Column>
+                <WrapToggle />
+                <WordWrapFormatToggle />
+                <PrettyPrintToggle />
+                <ExpandableRowsToggle />
+                <ZebraStripingToggle />
                 {!isProduction() && (
                   <JumpToFailingLineToggle
                     checked={jumpToFailingLineEnabled}
                     updateSettings={updateSettings}
                   />
                 )}
-                <WrapToggle />
-                <WordWrapFormatToggle />
-                <PrettyPrintToggle />
-                <ExpandableRowsToggle />
-                <ZebraStripingToggle />
               </Column>
             </Row>
           </Tab>
