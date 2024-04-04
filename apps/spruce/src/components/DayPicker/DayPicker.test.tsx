@@ -77,13 +77,14 @@ describe("daypicker", () => {
   });
 
   it("disables widget", async () => {
-    const user = userEvent.setup();
     const onChange = jest.fn();
     render(<DayPicker disabled onChange={onChange} />);
-    expect(screen.getByLabelText("M")).toHaveAttribute("aria-checked", "false");
 
-    await user.click(screen.getByText("M"));
-    expect(screen.getByLabelText("M")).toHaveAttribute("aria-checked", "false");
-    expect(onChange).toHaveBeenCalledTimes(0);
+    const days = screen.getAllByRole("checkbox");
+    expect(days).toHaveLength(7);
+    days.forEach((day) => {
+      expect(day).toHaveAttribute("aria-checked", "false");
+      expect(day).toBeDisabled();
+    });
   });
 });
