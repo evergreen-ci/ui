@@ -1,4 +1,5 @@
 import { execSync } from "child_process";
+import { resolve } from "path";
 
 /**
  * `getCommitMessages` returns a string of all commit messages between the currently deployed commit and HEAD.
@@ -8,7 +9,7 @@ import { execSync } from "child_process";
 const getCommitMessages = (currentlyDeployedCommit: string) => {
   const commitMessages = execSync(
     `git log ${currentlyDeployedCommit}..HEAD --oneline -- .`,
-    { encoding: "utf-8" }
+    { encoding: "utf-8" },
   ).toString();
   return commitMessages;
 };
@@ -19,10 +20,10 @@ const getCommitMessages = (currentlyDeployedCommit: string) => {
  * @returns - the currently deployed commit
  */
 const getCurrentlyDeployedCommit = () => {
-  const currentlyDeployedCommit = execSync(
-    "bash scripts/deploy/get-current-deployed-commit.sh",
-    { encoding: "utf-8" }
-  )
+  const filePath = resolve(__dirname, "../../get-current-deployed-commit.sh");
+  const currentlyDeployedCommit = execSync(`bash ${filePath}`, {
+    encoding: "utf-8",
+  })
     .toString()
     .trim();
   return currentlyDeployedCommit;

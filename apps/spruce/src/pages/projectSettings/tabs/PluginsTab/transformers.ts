@@ -54,6 +54,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = ((
   { buildBaronSettings, externalLinks, performanceSettings },
+  isRepo,
   id,
 ) => {
   const projectRef: ProjectInput = {
@@ -79,7 +80,7 @@ export const formToGql = ((
           }))
         : null,
   };
-  return { projectRef };
+  return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
 }) satisfies FormToGqlFunction<Tab>;
 
 // conditionally include the buildBaronSettings field based on the useBuildBaron boolean

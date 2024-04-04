@@ -1,7 +1,7 @@
 #import "../fragments/baseTask.graphql"
 
-mutation ScheduleTasks($taskIds: [String!]!) {
-  scheduleTasks(taskIds: $taskIds) {
+mutation ScheduleTasks($taskIds: [String!]!, $versionId: String!) {
+  scheduleTasks(taskIds: $taskIds, versionId: $versionId) {
     ...BaseTask
   }
 }
