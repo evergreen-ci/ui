@@ -24,12 +24,14 @@ type DayPickerState = Array<boolean>;
  * @param props - React props
  * @param props.defaultState - optionally specifies the initial selected days
  * @param props.onChange - optionally calls a side effect function with the new selection state when a change is made
+ * @param props.disabled - optionally disable interacting with the entire component
  * @returns DayPicker - DayPicker component
  */
 export const DayPicker: React.FC<{
   defaultState?: DayPickerState;
+  disabled?: boolean;
   onChange?: (value: DayPickerState) => void;
-}> = ({ defaultState = emptyState, onChange }) => {
+}> = ({ defaultState = emptyState, disabled, onChange }) => {
   const [selectedDays, setSelectedDays] =
     useState<DayPickerState>(defaultState);
 
@@ -50,6 +52,7 @@ export const DayPicker: React.FC<{
       {days.map((day, i) => (
         <Day
           day={day}
+          disabled={!!disabled}
           handleClick={() => handleClick(i)}
           key={day}
           selected={selectedDays[i]}
@@ -66,12 +69,14 @@ const Container = styled.div`
 
 const Day: React.FC<{
   day: string;
+  disabled: boolean;
   handleClick: () => void;
   selected: boolean;
-}> = ({ day, handleClick, selected }) => (
+}> = ({ day, disabled, handleClick, selected }) => (
   <Circle htmlFor={day} selected={selected} title={day}>
     <InvisibleInput
       aria-checked={selected}
+      disabled={disabled}
       id={day}
       onChange={handleClick}
       type="checkbox"
@@ -80,32 +85,40 @@ const Day: React.FC<{
   </Circle>
 );
 
-const Circle = styled.label<{ selected?: boolean }>`
+const Circle = styled.label<{ selected: boolean }>`
   all: unset;
   align-items: center;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  cursor: pointer;
   display: flex;
   font-weight: bold;
   height: 2rem;
   justify-content: center;
   transition: ${transitionDuration.default}ms all ease-in-out;
 
-  :hover {
-    background-color: ${gray.light1};
+  :has(:enabled) {
+    cursor: pointer;
+
+    ${({ selected }) =>
+      selected
+        ? `
+/* !important allows the selected color to override the :hover color upon clicking */
+background-color: ${gray.dark3} !important;
+color: ${white};
+`
+        : `background-color: ${gray.light2};`}
+
+    :hover {
+      background-color: ${gray.light1};
+    }
   }
 
-  ${({ selected }) =>
-    selected
-      ? `
-    /* !important allows the selected color to override the :hover color upon clicking */
-  background-color: ${gray.dark3} !important;
-  color: ${white};
-`
-      : `
-  background-color: ${gray.light2};
-    `}
+  :has(:disabled) {
+    ${({ selected }) => selected && `background-color: ${gray.light2}`};
+
+    color: ${gray.light1};
+    cursor: not-allowed;
+  }
 `;
 
 const InvisibleInput = styled.input`
