@@ -34,7 +34,7 @@
     "staging": "env-cmd -e devStaging -r .env-cmdrc.local.json yarn start",
     "start": "vite",
     "storybook": "storybook dev -p 6006",
-    "test": "yarn --cwd='../..' test --selectProjects spruce",
+    "test": "yarn --cwd='../..' test --selectProjects spruce --watchAll=false",
     "postversion": "scripts/push-version.sh"
   },
   "browserslist": {
