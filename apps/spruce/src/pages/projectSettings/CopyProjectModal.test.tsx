@@ -300,6 +300,7 @@ const projectSettingsMock: ApolloMock<
           batchTime: 60,
           remotePath: ".arst.yml",
           spawnHostScriptPath: "",
+          oldestAllowedMergeBase: "",
           dispatchingDisabled: false,
           versionControlEnabled: false,
           deactivatePrevious: true,
