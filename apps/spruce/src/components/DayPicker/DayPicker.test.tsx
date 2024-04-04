@@ -75,4 +75,15 @@ describe("daypicker", () => {
       false,
     ]);
   });
+
+  it("disables widget", async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    render(<DayPicker disabled onChange={onChange} />);
+    expect(screen.getByLabelText("M")).toHaveAttribute("aria-checked", "false");
+
+    await user.click(screen.getByText("M"));
+    expect(screen.getByLabelText("M")).toHaveAttribute("aria-checked", "false");
+    expect(onChange).toHaveBeenCalledTimes(0);
+  });
 });
