@@ -1,4 +1,9 @@
-import { FilterLogic, LogTypes, WordWrapFormat } from "constants/enums";
+import {
+  FilterLogic,
+  LogRenderingTypes,
+  LogTypes,
+  WordWrapFormat,
+} from "constants/enums";
 
 interface SearchState {
   searchTerm?: RegExp;
@@ -13,13 +18,12 @@ interface LogMetadata {
   execution?: string;
   fileName?: string;
   htmlLogURL?: string;
-  isUploadedLog?: boolean;
   jobLogsURL?: string;
   legacyJobLogsURL?: string;
   logType?: LogTypes;
   origin?: string;
   rawLogURL?: string;
-  renderingType?: string;
+  renderingType?: LogRenderingTypes;
   taskID?: string;
   testID?: string;
 }

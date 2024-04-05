@@ -3252,6 +3252,21 @@ export type BaseTaskFragment = {
   };
 };
 
+export type UpdateParsleySettingsMutationVariables = Exact<{
+  opts: UpdateParsleySettingsInput;
+}>;
+
+export type UpdateParsleySettingsMutation = {
+  __typename?: "Mutation";
+  updateParsleySettings?: {
+    __typename?: "UpdateParsleySettingsPayload";
+    parsleySettings?: {
+      __typename?: "ParsleySettings";
+      jumpToFailingLineEnabled: boolean;
+    } | null;
+  } | null;
+};
+
 export type LogkeeperTaskQueryVariables = Exact<{
   buildId: Scalars["String"]["input"];
 }>;
@@ -3338,6 +3353,8 @@ export type TestLogUrlAndRenderingTypeQuery = {
       testResults: Array<{
         __typename?: "TestResult";
         id: string;
+        status: string;
+        testFile: string;
         logs: {
           __typename?: "TestLog";
           renderingType?: string | null;
@@ -3354,6 +3371,20 @@ export type UserQueryVariables = Exact<{ [key: string]: never }>;
 export type UserQuery = {
   __typename?: "Query";
   user: { __typename?: "User"; userId: string };
+};
+
+export type ParsleySettingsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ParsleySettingsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    parsleySettings: {
+      __typename?: "ParsleySettings";
+      jumpToFailingLineEnabled: boolean;
+    };
+  };
 };
 
 export type ProjectFiltersQueryVariables = Exact<{
