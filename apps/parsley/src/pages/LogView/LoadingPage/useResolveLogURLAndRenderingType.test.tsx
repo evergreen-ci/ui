@@ -378,6 +378,35 @@ describe("useResolveLogURLAndRenderingType", () => {
   });
 });
 
+it("generates evergreen all logs URL", async () => {
+  const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+    <MockedProvider mocks={[evergreenTaskMock, evergreenTaskMock]}>
+      {children}
+    </MockedProvider>
+  );
+  const { result } = renderHook(
+    () =>
+      useResolveLogURLAndRenderingType({
+        execution: "0",
+        groupID: "job0",
+        logType: LogTypes.EVERGREEN_ALL_LOGS,
+        taskID: "a-task-id",
+      }),
+    {
+      wrapper,
+    },
+  );
+  await waitFor(() => {
+    expect(result.current).toMatchObject({
+      downloadURL: "test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
+      htmlLogURL: "",
+      jobLogsURL: "",
+      legacyJobLogsURL: "",
+      loading: false,
+      rawLogURL: "test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
+    });
+  });
+});
 const getExistingResmokeTestLogURLMock: ApolloMock<
   TestLogUrlAndRenderingTypeQuery,
   TestLogUrlAndRenderingTypeQueryVariables

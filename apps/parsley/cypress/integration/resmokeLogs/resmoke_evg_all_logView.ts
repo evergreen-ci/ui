@@ -10,6 +10,11 @@ describe("Basic resmoke log view", () => {
       cy.dataCy("ansii-row").should("not.exist");
     });
 
+    it("the HTML log button is disabled", () => {
+        cy.toggleDetailsPanel(true);
+        cy.dataCy("html-log-button").should("be.disabled");
+    })
+
     it("should show the group ID in the breadcrumb", () => {
         cy.dataCy("group-breadcrumb").should("be.visible").contains("job0");
     });
