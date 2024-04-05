@@ -23,6 +23,7 @@ const routes = {
   login: paths.login,
   resmokeLogs: `${paths.resmokeLogs}/:${slugs.buildID}/test/:${slugs.testID}`,
   resmokeLogsAll: `${paths.resmokeLogs}/:${slugs.buildID}/all`,
+  evgResmokeLogsAll: `${paths.resmokeLogs}/:${slugs.taskID}/:${slugs.execution}/:${slugs.groupID}/all`,
   root: paths.home,
   taskFiles: `${paths.taskFile}/:${slugs.taskID}/:${slugs.execution}/:${slugs.fileName}`,
   testLogs: `${paths.testLogs}/:${slugs.taskID}/:${slugs.execution}/:${slugs.testID}`,

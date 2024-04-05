@@ -134,3 +134,5 @@ export {
   getEvergreenTestLogURL,
   getResmokeLogURL,
 };
+
+export const getEvergreenAllLogsURL = (taskID: string, execution: string | number, groupID: string) => `${evergreenURL}/rest/v2/tasks/${taskID}/build/TestLogs/${groupID}?execution=${execution}`

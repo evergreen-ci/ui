@@ -22,6 +22,7 @@ interface Props {
   taskID: string;
   testID?: string;
   fileName?: string;
+  groupID?: string;
 }
 
 export const EvergreenTaskSubHeader: React.FC<Props> = ({
@@ -31,6 +32,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
   logType,
   taskID,
   testID,
+  groupID
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   const { loading: isLoadingTask, task: taskData } = useTaskQuery({
@@ -39,7 +41,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     logType,
     taskID,
   });
-
+  
   const { data: testData, loading: isLoadingTest } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
@@ -142,6 +144,14 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
           },
         ]
       : []),
+      ...(groupID
+        ? [
+            {
+              "data-cy": "group-breadcrumb",
+              text: groupID,
+            },
+          ]
+        : []),
   ];
 
   return (
