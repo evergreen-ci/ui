@@ -133,7 +133,7 @@ export const useResolveLogURLAndRenderingType = ({
       break;
     }
     case LogTypes.EVERGREEN_ALL_LOGS: {
-      if(!taskID || !execution || !groupID) {
+      if (!taskID || !execution || !groupID) {
         break;
       }
       downloadURL = getEvergreenAllLogsURL(taskID, execution, groupID);

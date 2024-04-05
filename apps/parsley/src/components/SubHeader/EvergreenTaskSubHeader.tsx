@@ -41,7 +41,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     logType,
     taskID,
   });
-  
+
   const { data: testData, loading: isLoadingTest } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
@@ -144,14 +144,14 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
           },
         ]
       : []),
-      ...(groupID
-        ? [
-            {
-              "data-cy": "group-breadcrumb",
-              text: groupID,
-            },
-          ]
-        : []),
+    ...(groupID
+      ? [
+          {
+            "data-cy": "group-breadcrumb",
+            text: groupID,
+          },
+        ]
+      : []),
   ];
 
   return (
