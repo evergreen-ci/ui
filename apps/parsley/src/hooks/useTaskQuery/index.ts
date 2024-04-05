@@ -50,7 +50,7 @@ export const useTaskQuery = ({
     LogkeeperTaskQuery,
     LogkeeperTaskQueryVariables
   >(GET_LOGKEEPER_TASK, {
-    skip: logType !== LogTypes.LOGKEEPER_LOGS || !buildID,
+    skip: !isLogkeeper || !buildID,
     variables: { buildId: String(buildID) },
   });
 
