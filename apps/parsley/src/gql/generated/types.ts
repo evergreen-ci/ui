@@ -3353,6 +3353,8 @@ export type TestLogUrlAndRenderingTypeQuery = {
       testResults: Array<{
         __typename?: "TestResult";
         id: string;
+        status: string;
+        testFile: string;
         logs: {
           __typename?: "TestLog";
           renderingType?: string | null;
