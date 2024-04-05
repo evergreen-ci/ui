@@ -31,7 +31,7 @@ export const DayPicker: React.FC<{
   defaultState?: DayPickerState;
   disabled?: boolean;
   onChange?: (value: DayPickerState) => void;
-}> = ({ defaultState = emptyState, disabled, onChange }) => {
+}> = ({ defaultState = emptyState, disabled = false, onChange }) => {
   const [selectedDays, setSelectedDays] =
     useState<DayPickerState>(defaultState);
 
@@ -52,7 +52,7 @@ export const DayPicker: React.FC<{
       {days.map((day, i) => (
         <Day
           day={day}
-          disabled={!!disabled}
+          disabled={disabled}
           handleClick={() => handleClick(i)}
           key={day}
           selected={selectedDays[i]}

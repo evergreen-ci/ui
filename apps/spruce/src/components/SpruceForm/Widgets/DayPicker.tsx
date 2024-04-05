@@ -3,13 +3,14 @@ import { DayPicker } from "components/DayPicker";
 import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
 
-export const DayPickerWidget: React.FC<
-  {
-    options: {
-      format?: string;
-    };
-  } & SpruceWidgetProps
-> = ({ disabled, id, label, onChange, options, readonly }) => {
+export const DayPickerWidget: React.FC<SpruceWidgetProps> = ({
+  disabled,
+  id,
+  label,
+  onChange,
+  options,
+  readonly,
+}) => {
   const { description, elementWrapperCSS, showLabel } = options;
 
   const isDisabled = disabled || readonly;
