@@ -18,21 +18,21 @@ import { shortenGithash, trimStringFromMiddle } from "utils/string";
 interface Props {
   buildID: string;
   execution: number;
+  fileName?: string;
+  groupID?: string;
   logType?: LogTypes;
   taskID: string;
   testID?: string;
-  fileName?: string;
-  groupID?: string;
 }
 
 export const EvergreenTaskSubHeader: React.FC<Props> = ({
   buildID,
   execution,
   fileName,
+  groupID,
   logType,
   taskID,
   testID,
-  groupID
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   const { loading: isLoadingTask, task: taskData } = useTaskQuery({
