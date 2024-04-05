@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { PageTitle } from "components/PageTitle";
+import PageTitle from "components/PageTitle";
 import PodStatusBadge from "components/PodStatusBadge";
 import {
   PageLayout,
