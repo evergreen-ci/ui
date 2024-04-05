@@ -6,8 +6,8 @@ import {
   TaskTestsForJobLogsQueryVariables,
 } from "gql/generated/types";
 import { LOGKEEPER_BUILD_METADATA, TASK_TESTS_FOR_JOB_LOGS } from "gql/queries";
-import { JobLogsTableTestResult } from "./types";
-import { getFormattedTestResults, getTitle } from "./Utils";
+import { JobLogsMetadata, JobLogsTableTestResult } from "./types";
+import { getFormattedTestResults, getTitle, getMetadata } from "./utils";
 
 interface UseJobLogsPageParams {
   isLogkeeper: boolean;
@@ -25,6 +25,7 @@ type JobLogsPageData = {
   resultsToRender: JobLogsTableTestResult[];
   loading: boolean;
   status: string;
+  metadata: JobLogsMetadata;
 };
 const useJobLogsPageData = ({
   buildId,
@@ -78,11 +79,13 @@ const useJobLogsPageData = ({
     groupId,
   );
 
-  const title = getTitle(isLogkeeper, {
+  const metadata = getMetadata(isLogkeeper, {
     logkeeperBuildMetadata,
     evergreenTask,
     groupId,
+    buildId,
   });
+  const title = getTitle(isLogkeeper, metadata);
   return {
     taskId: isLogkeeper
       ? logkeeperData?.logkeeperBuildMetadata?.taskId
@@ -94,6 +97,7 @@ const useJobLogsPageData = ({
     title,
     status: evergreenTask?.status,
     loading: loadingEvergreen || loadingLogkeeper,
+    metadata,
   };
 };
 
