@@ -12,11 +12,14 @@ describe("Basic resmoke log view", () => {
 
     it("the HTML log button is disabled", () => {
         cy.toggleDetailsPanel(true);
-        cy.dataCy("html-log-button").should("be.disabled");
+        cy.dataCy("html-log-button").should("have.attr", "aria-disabled", "true");
     })
 
-    it("should show the group ID in the breadcrumb", () => {
-        cy.dataCy("group-breadcrumb").should("be.visible").contains("job0");
+    it("should show the project, patch, task, and group the breadcrumb", () => {
+      cy.dataCy("project-breadcrumb").contains("mongodb-mongo-master").should("be.visible");
+      cy.dataCy("version-breadcrumb").contains("Patch 1994").should("be.visible");
+      cy.dataCy("task-breadcrumb").contains("jsCore").should("be.visible");
+      cy.dataCy("group-breadcrumb").contains("job0").should("be.visible");
     });
   });
   
