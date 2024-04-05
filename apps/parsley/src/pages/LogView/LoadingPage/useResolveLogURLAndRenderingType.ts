@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
+  getEVGJobLogsURL,
   getJobLogsURL,
   getLegacyJobLogsURL,
 } from "constants/externalURLTemplates";
@@ -138,6 +139,7 @@ export const useResolveLogURLAndRenderingType = ({
       }
       downloadURL = getEvergreenAllLogsURL(taskID, execution, groupID);
       rawLogURL = downloadURL;
+      jobLogsURL = getEVGJobLogsURL(taskID, execution, groupID);
       renderingType = LogRenderingTypes.Resmoke;
       break;
     }
