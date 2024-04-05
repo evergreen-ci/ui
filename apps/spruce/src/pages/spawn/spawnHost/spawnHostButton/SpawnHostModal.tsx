@@ -8,7 +8,6 @@ import {
   getFormSchema,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
-  validateSpawnHostForm,
   FormState,
 } from "components/Spawn/spawnHostModal";
 import { SpruceForm } from "components/SpruceForm";
@@ -69,6 +68,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   });
 
   const [formState, setFormState] = useState<FormState>({});
+  const [hasError, setHasError] = useState(true);
 
   const selectedDistro = useMemo(
     () =>
@@ -123,13 +123,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       title="Spawn New Host"
       open={open}
       data-cy="spawn-host-modal"
-      submitDisabled={
-        !validateSpawnHostForm(
-          formState,
-          false,
-          selectedDistro?.isVirtualWorkStation,
-        ) || loadingSpawnHost
-      }
+      submitDisabled={hasError || loadingSpawnHost}
       onCancel={() => {
         setOpen(false);
       }}
@@ -142,7 +136,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
-          console.log(errors);
+          setHasError(errors.length > 0);
         }}
       />
     </ConfirmationModal>

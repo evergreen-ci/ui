@@ -66,7 +66,7 @@ export const DistroDropdown: React.FC<DistroEnum & EnumSpruceWidgetProps> = ({
 
 // Bucketize distros into admin-only, workstation, and Non-Workstation buckets. Admin-only takes precedence over workstation.
 const categorizeDistros = (distros: DistroValue[]) =>
-  distros.reduce(
+  distros?.reduce(
     (accum, { adminOnly, isVirtualWorkStation, name }) => {
       // Default to standard distro
       let categoryIndex = 1;

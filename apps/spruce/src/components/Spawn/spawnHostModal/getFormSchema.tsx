@@ -76,6 +76,7 @@ export const getFormSchema = ({
           title: "Distro",
           default: distroIdQueryParam,
           enum: distros?.map(({ name }) => name),
+          minLength: 1,
         },
         region: {
           type: "string" as "string",
@@ -88,6 +89,7 @@ export const getFormSchema = ({
               enum: [r],
             })) || []),
           ],
+          minLength: 1,
         },
         publicKeySection: {
           title: "",
@@ -125,6 +127,7 @@ export const getFormSchema = ({
                       default: myPublicKeys?.length
                         ? myPublicKeys[0]?.name
                         : "",
+                      minLength: 1,
                       oneOf:
                         myPublicKeys?.length > 0
                           ? myPublicKeys.map((d) => ({
@@ -151,6 +154,7 @@ export const getFormSchema = ({
                       title: "Public key",
                       type: "string" as "string",
                       default: "",
+                      minLength: 1,
                     },
                     savePublicKey: {
                       title: "Save Public Key",
@@ -164,11 +168,20 @@ export const getFormSchema = ({
                         {
                           properties: {
                             savePublicKey: {
+                              enum: [false],
+                            },
+                          },
+                        },
+                        {
+                          properties: {
+                            savePublicKey: {
                               enum: [true],
                             },
                             newPublicKeyName: {
                               title: "Key name",
                               type: "string" as "string",
+                              default: "",
+                              minLength: 1,
                             },
                           },
                         },
@@ -204,6 +217,8 @@ export const getFormSchema = ({
                     userdataScript: {
                       title: "Userdata Script",
                       type: "string" as "string",
+                      default: "",
+                      minLength: 1,
                     },
                   },
                 },
@@ -239,12 +254,14 @@ export const getFormSchema = ({
                     setupScript: {
                       title: "Setup Script",
                       type: "string" as "string",
+                      default: "",
+                      minLength: 1,
                     },
                   },
                 },
                 {
                   properties: {
-                    runUserdataScript: {
+                    defineSetupScriptCheckbox: {
                       enum: [false],
                     },
                   },
@@ -304,6 +321,7 @@ export const getFormSchema = ({
               type: "string" as "string",
               title: "Expiration",
               default: getDefaultExpiration(),
+              minLength: 6,
             },
           },
           dependencies: {
@@ -313,9 +331,6 @@ export const getFormSchema = ({
                   properties: {
                     noExpiration: {
                       enum: [false],
-                    },
-                    expiration: {
-                      readOnly: false,
                     },
                   },
                 },
@@ -386,6 +401,7 @@ export const getFormSchema = ({
                     },
                   },
                   {
+                    required: ["volumeSize"],
                     properties: {
                       selectExistingVolume: {
                         enum: [false],
@@ -394,6 +410,7 @@ export const getFormSchema = ({
                         title: "Volume size (GB)",
                         type: "number" as "number",
                         default: DEFAULT_VOLUME_SIZE,
+                        minimum: 1,
                       },
                     },
                   },

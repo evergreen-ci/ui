@@ -8,7 +8,6 @@ import {
   getFormSchema,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
-  validateSpawnHostForm,
 } from "components/Spawn/spawnHostModal";
 import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
@@ -33,7 +32,10 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   setOpen,
   volume,
 }) => {
-  const [{ form, page }, dispatch] = useReducer(reducer, initialState);
+  const [{ form, hasError, page }, dispatch] = useReducer(
+    reducer,
+    initialState,
+  );
   const onPageOne = page === Page.First;
 
   const dispatchToast = useToastContext();
@@ -157,11 +159,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     <ConfirmationModal
       title={title}
       open={open}
-      submitDisabled={
-        !validateSpawnHostForm(form, true) ||
-        loadingMigration ||
-        volume.migrating
-      }
+      submitDisabled={hasError || loadingMigration || volume.migrating}
       onConfirm={onConfirm}
       data-cy="migrate-modal"
       buttonText={buttonText}
@@ -176,8 +174,9 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
           schema={schema}
           uiSchema={uiSchema}
           formData={form}
-          onChange={({ formData }) => {
+          onChange={({ errors, formData }) => {
             dispatch({ type: "setForm", payload: formData });
+            dispatch({ type: "setHasError", payload: errors.length > 0 });
           }}
         />
       )}
