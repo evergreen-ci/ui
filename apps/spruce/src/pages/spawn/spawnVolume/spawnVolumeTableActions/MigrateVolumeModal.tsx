@@ -65,14 +65,21 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     () => formSchemaInput.distros?.filter((d) => d.isVirtualWorkStation),
     [formSchemaInput.distros],
   );
+
+  const selectedDistro = useMemo(
+    () => distros.find(({ name }) => name === form?.distro),
+    [distros, form.distro],
+  );
+
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     distros,
     isMigration: true,
-    isVirtualWorkstation: !!form?.distro?.isVirtualWorkstation,
+    isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     userAwsRegion: AZToRegion(volume.availabilityZone),
   });
   useVirtualWorkstationDefaultExpiration({
+    isVirtualWorkstation: selectedDistro?.isVirtualWorkStation,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
     formState: form,
     setFormState: (formState) =>
@@ -87,6 +94,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
 
   const migrateVolume = useCallback(() => {
     const mutationInput = formToGql({
+      isVirtualWorkStation: !!selectedDistro?.isVirtualWorkStation,
       formData: form,
       myPublicKeys: formSchemaInput.myPublicKeys,
       migrateVolumeId: volume.id,
@@ -112,6 +120,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     volume,
     migrateVolumeMutation,
     sendEvent,
+    selectedDistro?.isVirtualWorkStation,
   ]);
 
   const title = onPageOne

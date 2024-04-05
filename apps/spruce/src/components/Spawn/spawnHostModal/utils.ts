@@ -21,8 +21,9 @@ export const validateSpawnHostForm = (
     userdataScriptSection,
   }: FormState,
   isMigration?: boolean,
+  isVirtualWorkstation?: boolean,
 ) => {
-  const hasDistro = !!distro?.value;
+  const hasDistro = !!distro;
   const hasRegion = !!region;
   const hasPublicKey = publicKeySection?.useExisting
     ? !!publicKeySection?.publicKeyNameDropdown
@@ -52,7 +53,7 @@ export const validateSpawnHostForm = (
     hasValidPublicKeyName &&
     hasValidUserdataScript &&
     hasValidSetupScript &&
-    (distro?.isVirtualWorkstation ? hasValidHomeVolumeDetails : true) &&
+    (isVirtualWorkstation ? hasValidHomeVolumeDetails : true) &&
     hasValidExpiration
   );
 };

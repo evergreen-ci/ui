@@ -11,22 +11,34 @@ describe("validateSpawnHostForm", () => {
   it("a home volume name or size must be provided after selecting a virtual workstation distro when not migrating a volume", () => {
     expect(validateSpawnHostForm(validVirtualWorkstationForm)).toBe(true);
     expect(
-      validateSpawnHostForm({
-        ...validVirtualWorkstationForm,
-        homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
-      }),
+      validateSpawnHostForm(
+        {
+          ...validVirtualWorkstationForm,
+          homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
+        },
+        false,
+        true,
+      ),
     ).toBe(false);
     expect(
-      validateSpawnHostForm({
-        ...validVirtualWorkstationForm,
-        homeVolumeDetails: { selectExistingVolume: false, volumeSize: 0 },
-      }),
+      validateSpawnHostForm(
+        {
+          ...validVirtualWorkstationForm,
+          homeVolumeDetails: { selectExistingVolume: false, volumeSize: 0 },
+        },
+        false,
+        true,
+      ),
     ).toBe(false);
     expect(
-      validateSpawnHostForm({
-        ...validVirtualWorkstationForm,
-        homeVolumeDetails: { selectExistingVolume: false, volumeSize: 1 },
-      }),
+      validateSpawnHostForm(
+        {
+          ...validVirtualWorkstationForm,
+          homeVolumeDetails: { selectExistingVolume: false, volumeSize: 1 },
+        },
+        false,
+        true,
+      ),
     ).toBe(true);
   });
   it("home volume inputs are not required when migrating a volume", () => {
@@ -37,6 +49,7 @@ describe("validateSpawnHostForm", () => {
           homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
         },
         true,
+        true,
       ),
     ).toBe(true);
     expect(
@@ -45,6 +58,7 @@ describe("validateSpawnHostForm", () => {
           ...validVirtualWorkstationForm,
           homeVolumeDetails: { selectExistingVolume: false, volumeSize: 0 },
         },
+        true,
         true,
       ),
     ).toBe(true);
@@ -55,6 +69,7 @@ describe("validateSpawnHostForm", () => {
           homeVolumeDetails: { selectExistingVolume: false, volumeSize: 1 },
         },
         true,
+        true,
       ),
     ).toBe(true);
   });
@@ -62,7 +77,7 @@ describe("validateSpawnHostForm", () => {
     expect(
       validateSpawnHostForm({
         ...validForm,
-        distro: { value: "", isVirtualWorkstation: false, adminOnly: false },
+        distro: "",
       }),
     ).toBe(false);
   });
@@ -189,11 +204,7 @@ describe("validateSpawnHostForm", () => {
 });
 
 const validForm: FormState = {
-  distro: {
-    value: "ubuntu-workstation",
-    isVirtualWorkstation: true,
-    adminOnly: false,
-  },
+  distro: "ubuntu-workstation",
   region: "us-east-1a",
   publicKeySection: {
     useExisting: true,
@@ -208,11 +219,7 @@ const validForm: FormState = {
   },
 };
 const validVirtualWorkstationForm: FormState = {
-  distro: {
-    value: "ubuntu-workstation",
-    isVirtualWorkstation: true,
-    adminOnly: false,
-  },
+  distro: "ubuntu-workstation",
   region: "us-east-1a",
   publicKeySection: {
     useExisting: true,

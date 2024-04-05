@@ -74,24 +74,8 @@ export const getFormSchema = ({
         distro: {
           type: "string" as "string",
           title: "Distro",
-          default: distroIdQueryParam
-            ? {
-                value: distroIdQueryParam,
-                isVirtualWorkstation: !!distros?.find(
-                  (v) =>
-                    v.name === distroIdQueryParam && v.isVirtualWorkStation,
-                ),
-              }
-            : null,
-          oneOf: [
-            ...(distros?.map((d) => ({
-              type: "string" as "string",
-              title: d.name,
-              enum: [d.name],
-              isVirtualWorkstation: d.isVirtualWorkStation,
-              adminOnly: d.adminOnly,
-            })) || []),
-          ],
+          default: distroIdQueryParam,
+          enum: distros?.map(({ name }) => name),
         },
         region: {
           type: "string" as "string",
@@ -449,6 +433,7 @@ export const getFormSchema = ({
         "ui:widget": DistroDropdown,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:data-cy": "distro-input",
+        "ui:distros": distros,
       },
       region: {
         "ui:data-cy": "region-select",
