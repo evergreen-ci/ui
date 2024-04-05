@@ -1,0 +1,2 @@
+schema: "apps/*/sdlschema/**/*.graphql"
+documents: "apps/*/**/src/gql/**/*.graphql"
