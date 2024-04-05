@@ -10,6 +10,7 @@ query TaskTestsForJobLogs($id: String!, $execution: Int) {
         logs {
           urlParsley
         }
+        status
         testFile
       }
     }

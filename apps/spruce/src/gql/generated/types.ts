@@ -8500,6 +8500,7 @@ export type TaskTestsForJobLogsQuery = {
         __typename?: "TestResult";
         groupID?: string | null;
         id: string;
+        status: string;
         testFile: string;
         logs: { __typename?: "TestLog"; urlParsley?: string | null };
       }>;

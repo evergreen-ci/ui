@@ -4,6 +4,7 @@ import { Link } from "@leafygreen-ui/typography";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
+import TestStatusBadge from "components/TestStatusBadge";
 import { getParsleyLogkeeperTestLogURL } from "constants/externalResources";
 import {
   EvergreenTestResult,
@@ -74,6 +75,13 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
             {getValue() as string}
           </Link>
         ),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+      {
+        header: "Status",
+        accessorKey: "status",
+        cell: ({ getValue }) => <TestStatusBadge status={getValue() as any} />,
         enableColumnFilter: false,
         enableSorting: false,
       },
