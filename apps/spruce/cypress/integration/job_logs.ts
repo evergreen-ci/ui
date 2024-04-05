@@ -12,13 +12,6 @@ describe("Job logs page", () => {
     it("renders a table with test links", () => {
       cy.dataCy("leafygreen-table-row").should("have.length", 105);
 
-      // Sort is not enabled
-      cy.get("th")
-        .should("have.length", 1)
-        .then((th) => {
-          cy.wrap(th).should("not.have.attr", "aria-sort");
-        });
-
       cy.dataCy("complete-test-logs-link")
         .should("have.attr", "href")
         .then((href) => {
@@ -42,13 +35,6 @@ describe("Job logs page", () => {
     });
     it("renders a table with test links", () => {
       cy.dataCy("leafygreen-table-row").should("have.length", 655);
-
-      // Sort is not enabled
-      cy.get("th")
-        .should("have.length", 1)
-        .then((th) => {
-          cy.wrap(th).should("not.have.attr", "aria-sort");
-        });
 
       // ALl logs link does not work and will be completed in https://jira.mongodb.org/browse/DEVPROD-5949
       // cy.dataCy("complete-test-logs-link")

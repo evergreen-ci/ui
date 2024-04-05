@@ -26,8 +26,9 @@ export const Metadata: React.FC<{
         <MetadataItem>Build number: {metadata.buildNum}</MetadataItem>
       )}
       {metadata.allLogsURL && (
-        <MetadataItem data-cy="complete-test-logs-link">
+        <MetadataItem>
           <StyledLink
+            data-cy="complete-test-logs-link"
             href={metadata.allLogsURL}
             target="_blank"
             onClick={() => {
