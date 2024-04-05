@@ -19,8 +19,6 @@ interface UseJobLogsPageParams {
 }
 
 type JobLogsPageData = {
-  taskId: string;
-  execution: number;
   title: JSX.Element | string;
   resultsToRender: JobLogsTableTestResult[];
   loading: boolean;
@@ -87,12 +85,6 @@ const useJobLogsPageData = ({
   });
   const title = getTitle(isLogkeeper, metadata);
   return {
-    taskId: isLogkeeper
-      ? logkeeperData?.logkeeperBuildMetadata?.taskId
-      : taskId,
-    execution: isLogkeeper
-      ? logkeeperData?.logkeeperBuildMetadata?.taskExecution
-      : executionAsInt,
     resultsToRender,
     title,
     status: evergreenTask?.status,

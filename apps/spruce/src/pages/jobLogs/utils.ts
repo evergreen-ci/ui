@@ -22,25 +22,29 @@ const getMetadata = (
     buildId: string | undefined;
   },
 ) => {
-  const { displayName, status } = options.evergreenTask || {};
+  const { displayName, execution, id, status } = options.evergreenTask || {};
 
   if (isLogkeeper) {
     const { buildNum, builder } = options.logkeeperBuildMetadata || {};
     return {
+      allLogsURL: getParsleyBuildLogURL(builder),
       builder,
+      buildId: options.buildId,
       buildNum,
       displayName,
-      taskStatus: status as TaskStatus,
-      allLogsURL: getParsleyBuildLogURL(builder),
+      execution,
       isLogkeeper,
-      buildId: options.buildId,
+      taskId: id,
+      taskStatus: status as TaskStatus,
     };
   }
   return {
     displayName,
+    execution,
     groupID: options.groupId,
-    taskStatus: status as TaskStatus,
     isLogkeeper,
+    taskId: id,
+    taskStatus: status as TaskStatus,
   };
 };
 

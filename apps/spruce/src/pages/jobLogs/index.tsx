@@ -30,17 +30,16 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
 
   const dispatchToast = useToastContext();
 
-  const { execution, loading, metadata, resultsToRender, taskId, title } =
-    useJobLogsPageData({
-      buildId: buildIdFromParams,
-      execution: executionFromParams,
-      groupId: groupIdFromParams,
-      onError: (err) => {
-        dispatchToast.error(err);
-      },
-      taskId: taskIdFromParams,
-      isLogkeeper,
-    });
+  const { loading, metadata, resultsToRender, title } = useJobLogsPageData({
+    buildId: buildIdFromParams,
+    execution: executionFromParams,
+    groupId: groupIdFromParams,
+    onError: (err) => {
+      dispatchToast.error(err);
+    },
+    taskId: taskIdFromParams,
+    isLogkeeper,
+  });
 
   return (
     <PageWrapper>
@@ -58,7 +57,9 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
         }
         buttons={
           <Button
-            href={getTaskRoute(taskId, { execution })}
+            href={getTaskRoute(metadata.taskId, {
+              execution: metadata.execution,
+            })}
             data-cy="task-link"
           >
             Task page
@@ -75,8 +76,6 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
             <JobLogsTable
               buildId={buildIdFromParams}
               tests={resultsToRender}
-              taskID={taskId}
-              execution={execution}
               isLogkeeper={isLogkeeper}
               loading={loading}
             />

@@ -14,11 +14,9 @@ import {
 
 interface JobLogsTableProps {
   buildId?: string;
-  tests: JobLogsTableTestResult[];
-  taskID: string;
-  execution: number;
   isLogkeeper: boolean;
   loading: boolean;
+  tests: JobLogsTableTestResult[];
 }
 
 export const JobLogsTable: React.FC<JobLogsTableProps> = ({

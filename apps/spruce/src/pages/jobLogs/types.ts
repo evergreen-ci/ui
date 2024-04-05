@@ -21,8 +21,10 @@ type JobLogsMetadata = {
   buildId?: string;
   buildNum?: number;
   displayName?: string;
+  execution: number;
   groupID?: string;
   isLogkeeper: boolean;
+  taskId: string;
   taskStatus?: TaskStatus;
 };
 type JobLogsTableTestResult = LogkeeperTestResult | EvergreenTestResult;
