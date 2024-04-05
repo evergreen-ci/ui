@@ -27,7 +27,7 @@ const getMetadata = (
   if (isLogkeeper) {
     const { buildNum, builder } = options.logkeeperBuildMetadata || {};
     return {
-      allLogsURL: getParsleyBuildLogURL(builder),
+      allLogsURL: getParsleyBuildLogURL(options.buildId),
       builder,
       buildId: options.buildId,
       buildNum,
