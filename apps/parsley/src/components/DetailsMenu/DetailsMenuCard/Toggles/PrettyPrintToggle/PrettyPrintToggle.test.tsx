@@ -1,5 +1,5 @@
 import Cookie from "js-cookie";
-import { LogTypes } from "constants/enums";
+import { LogRenderingTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import {
   act,
@@ -42,21 +42,21 @@ describe("pretty print toggle", () => {
     );
     render(<Component />, { wrapper });
     act(() => {
-      hook.current.setLogMetadata({ logType: LogTypes.EVERGREEN_TASK_LOGS });
+      hook.current.setLogMetadata({ renderingType: LogRenderingTypes.Default });
     });
 
     const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
     expect(prettyPrintToggle).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("should not disable the toggle if the logType is resmoke", () => {
+  it("should not disable the toggle if the renderingType is resmoke", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
       <PrettyPrintToggle />,
     );
     render(<Component />, { wrapper });
     act(() => {
-      hook.current.setLogMetadata({ logType: LogTypes.RESMOKE_LOGS });
+      hook.current.setLogMetadata({ renderingType: LogRenderingTypes.Resmoke });
     });
 
     const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
@@ -71,7 +71,7 @@ describe("pretty print toggle", () => {
     );
     const { router } = render(<Component />, { wrapper });
     act(() => {
-      hook.current.setLogMetadata({ logType: LogTypes.RESMOKE_LOGS });
+      hook.current.setLogMetadata({ renderingType: LogRenderingTypes.Resmoke });
     });
     const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
 
