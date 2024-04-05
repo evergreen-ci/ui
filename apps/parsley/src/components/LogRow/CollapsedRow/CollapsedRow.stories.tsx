@@ -101,7 +101,7 @@ const CollapsedResmokeRowStory = (
   const { setWrap } = preferences;
 
   useEffect(() => {
-    setLogMetadata({ logType: LogTypes.RESMOKE_LOGS });
+    setLogMetadata({ logType: LogTypes.LOGKEEPER_LOGS });
     ingestLines(resmokeLogLines, LogRenderingTypes.Resmoke);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

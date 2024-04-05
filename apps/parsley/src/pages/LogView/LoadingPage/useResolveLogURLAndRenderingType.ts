@@ -115,7 +115,7 @@ export const useResolveLogURLAndRenderingType = ({
   let legacyJobLogsURL = "";
   let renderingType: LogRenderingTypes = LogRenderingTypes.Default;
   switch (logType) {
-    case LogTypes.RESMOKE_LOGS: {
+    case LogTypes.LOGKEEPER_LOGS: {
       if (buildID && testID) {
         rawLogURL = getResmokeLogURL(buildID, { raw: true, testID });
         htmlLogURL = getResmokeLogURL(buildID, { html: true, testID });

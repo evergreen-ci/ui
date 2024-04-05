@@ -76,7 +76,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
 
   let currentTest: { testFile: string; status: string } | null = null;
   switch (logType) {
-    case LogTypes.RESMOKE_LOGS:
+    case LogTypes.LOGKEEPER_LOGS:
       currentTest =
         taskData?.tests?.testResults?.find((test) =>
           test?.logs?.urlRaw?.match(new RegExp(`${testID}`)),

@@ -42,7 +42,7 @@ describe("jump to failing line toggle", () => {
     );
     render(<Component />, { wrapper });
     act(() => {
-      hook.current.setLogMetadata({ logType: LogTypes.RESMOKE_LOGS });
+      hook.current.setLogMetadata({ logType: LogTypes.LOGKEEPER_LOGS });
     });
     const jumpToFailingLineToggle = screen.getByDataCy(
       "jump-to-failing-line-toggle",

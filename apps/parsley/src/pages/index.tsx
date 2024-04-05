@@ -59,11 +59,11 @@ const Content: React.FC = () => {
           path={routes.testLogs}
         />
         <Route
-          element={<LogView logType={LogTypes.RESMOKE_LOGS} />}
+          element={<LogView logType={LogTypes.LOGKEEPER_LOGS} />}
           path={routes.resmokeLogs}
         />
         <Route
-          element={<LogView logType={LogTypes.RESMOKE_LOGS} />}
+          element={<LogView logType={LogTypes.LOGKEEPER_LOGS} />}
           path={routes.resmokeLogsAll}
         />
         <Route element={<NotFound />} path="*" />
