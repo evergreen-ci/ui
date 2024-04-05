@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import PageTitle from "components/PageTitle";
 import {
@@ -8,6 +9,7 @@ import {
   PageSider,
   PageWrapper,
 } from "components/styles";
+import TaskStatusBadge from "components/TaskStatusBadge";
 import { getTaskRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -48,6 +50,12 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
         loading={loading}
         size="large"
         badge={null}
+        subtitle={
+          <SubtitleContainer>
+            <H3>{metadata.displayName}</H3>{" "}
+            <TaskStatusBadge status={metadata.taskStatus} />
+          </SubtitleContainer>
+        }
         buttons={
           <Button
             href={getTaskRoute(taskId, { execution })}
@@ -83,4 +91,10 @@ const StyledPageLayout = styled(PageLayout)`
   padding-top: ${size.m};
 `;
 
+const SubtitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: ${size.s};
+`;
 export default JobLogs;

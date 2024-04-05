@@ -5,7 +5,6 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
-import TaskStatusBadge from "components/TaskStatusBadge";
 import { JobLogsMetadata } from "./types";
 
 export const Metadata: React.FC<{
@@ -17,14 +16,6 @@ export const Metadata: React.FC<{
   return (
     <MetadataCard loading={loading}>
       <MetadataTitle>Job log details</MetadataTitle>
-      {metadata.displayName && (
-        <MetadataItem>Task: {metadata.displayName}</MetadataItem>
-      )}
-      {metadata.taskStatus && (
-        <MetadataItem>
-          Task Status: <TaskStatusBadge status={metadata.taskStatus} />
-        </MetadataItem>
-      )}
       {metadata.groupID && (
         <MetadataItem>Group: {metadata.groupID}</MetadataItem>
       )}
