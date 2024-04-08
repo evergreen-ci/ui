@@ -4,6 +4,11 @@ import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import {
+  getEnabledHoursCount,
+  maxUptimeHours,
+  validateUptimeSchedule,
+} from "components/Spawn";
+import {
   formToGql,
   getFormSchema,
   useLoadFormSchemaData,
@@ -20,6 +25,7 @@ import {
 } from "gql/generated/types";
 import { SPAWN_HOST } from "gql/mutations";
 import { SPAWN_TASK } from "gql/queries";
+import { useUserTimeZone } from "hooks";
 import { omit } from "utils/object";
 import { getString, parseQueryString } from "utils/queryString";
 
@@ -34,6 +40,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
+  const timeZone = useUserTimeZone();
 
   // Handle distroId, taskId query param
   const { search } = useLocation();
@@ -72,8 +79,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const selectedDistro = useMemo(
     () =>
-      formSchemaInput?.distros?.find(({ name }) => name === formState.distro),
-    [formSchemaInput.distros, formState.distro],
+      formSchemaInput?.distros?.find(
+        ({ name }) => name === formState?.requiredSection?.distro,
+      ),
+    [formSchemaInput.distros, formState?.requiredSection?.distro],
   );
 
   useVirtualWorkstationDefaultExpiration({
@@ -83,12 +92,22 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
   });
 
+  const hostUptimeErrors = validateUptimeSchedule({
+    enabledWeekdays:
+      formState?.expirationDetails?.hostUptime?.sleepSchedule?.enabledWeekdays,
+    ...formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection,
+    useDefaultUptimeSchedule:
+      formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
+  });
+
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     distroIdQueryParam,
+    hostUptimeErrors,
     isMigration: false,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,
+    timeZone,
     useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
     useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
   });
@@ -103,6 +122,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       formData: formState,
       myPublicKeys: formSchemaInput.myPublicKeys,
       spawnTaskData: spawnTaskData?.task,
+      timeZone,
     });
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
@@ -138,7 +158,31 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           setFormState(formData);
           setHasError(errors.length > 0);
         }}
+        validate={validate}
       />
     </ConfirmationModal>
   );
+};
+
+const validate = ({ expirationDetails }, errors) => {
+  const { hostUptime } = expirationDetails ?? {};
+  if (!hostUptime) return errors;
+
+  const {
+    sleepSchedule: { enabledWeekdays, timeSelection },
+    useDefaultUptimeSchedule,
+  } = hostUptime;
+
+  if (!useDefaultUptimeSchedule) {
+    const { enabledHoursCount } = getEnabledHoursCount({
+      enabledWeekdays,
+      ...timeSelection,
+      useDefaultUptimeSchedule,
+    });
+    if (enabledHoursCount > maxUptimeHours) {
+      errors.hostUptime?.sleepSchedule?.addError("Insufficient hours");
+    }
+  }
+
+  return errors;
 };

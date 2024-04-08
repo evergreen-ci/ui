@@ -10,6 +10,7 @@ export const DayPickerWidget: React.FC<SpruceWidgetProps> = ({
   onChange,
   options,
   readonly,
+  value,
 }) => {
   const { description, elementWrapperCSS, showLabel } = options;
 
@@ -25,7 +26,11 @@ export const DayPickerWidget: React.FC<SpruceWidgetProps> = ({
         </div>
       )}
       {description && <Description>{description}</Description>}
-      <DayPicker onChange={onChange} disabled={isDisabled} />
+      <DayPicker
+        defaultState={value}
+        disabled={isDisabled}
+        onChange={onChange}
+      />
     </ElementWrapper>
   );
 };
