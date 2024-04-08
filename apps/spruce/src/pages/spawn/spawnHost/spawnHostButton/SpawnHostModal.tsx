@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
@@ -8,7 +8,6 @@ import {
   getFormSchema,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
-  validateSpawnHostForm,
   FormState,
 } from "components/Spawn/spawnHostModal";
 import { SpruceForm } from "components/SpruceForm";
@@ -69,8 +68,16 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   });
 
   const [formState, setFormState] = useState<FormState>({});
+  const [hasError, setHasError] = useState(true);
+
+  const selectedDistro = useMemo(
+    () =>
+      formSchemaInput?.distros?.find(({ name }) => name === formState.distro),
+    [formSchemaInput.distros, formState.distro],
+  );
 
   useVirtualWorkstationDefaultExpiration({
+    isVirtualWorkstation: selectedDistro?.isVirtualWorkStation,
     setFormState,
     formState,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
@@ -80,7 +87,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     ...formSchemaInput,
     distroIdQueryParam,
     isMigration: false,
-    isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
+    isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,
     useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
     useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
@@ -92,6 +99,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const spawnHost = () => {
     const mutationInput = formToGql({
+      isVirtualWorkStation: selectedDistro?.isVirtualWorkStation,
       formData: formState,
       myPublicKeys: formSchemaInput.myPublicKeys,
       spawnTaskData: spawnTaskData?.task,
@@ -115,9 +123,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       title="Spawn New Host"
       open={open}
       data-cy="spawn-host-modal"
-      submitDisabled={
-        !validateSpawnHostForm(formState, false) || loadingSpawnHost
-      }
+      submitDisabled={hasError || loadingSpawnHost}
       onCancel={() => {
         setOpen(false);
       }}
@@ -128,8 +134,9 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         schema={schema}
         uiSchema={uiSchema}
         formData={formState}
-        onChange={({ formData }) => {
+        onChange={({ errors, formData }) => {
           setFormState(formData);
+          setHasError(errors.length > 0);
         }}
       />
     </ConfirmationModal>

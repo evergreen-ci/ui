@@ -9,6 +9,7 @@ import { FormState } from "./types";
 import { validateTask } from "./utils";
 
 interface Props {
+  isVirtualWorkStation: boolean;
   formData: FormState;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   spawnTaskData?: SpawnTaskQuery["task"];
@@ -16,6 +17,7 @@ interface Props {
 }
 export const formToGql = ({
   formData,
+  isVirtualWorkStation,
   migrateVolumeId,
   myPublicKeys,
   spawnTaskData,
@@ -30,7 +32,6 @@ export const formToGql = ({
     setupScriptSection,
     userdataScriptSection,
   } = formData || {};
-  const isVirtualWorkStation = !!distro?.isVirtualWorkstation;
   return {
     isVirtualWorkStation,
     userDataScript: userdataScriptSection?.runUserdataScript
@@ -64,7 +65,7 @@ export const formToGql = ({
     },
     savePublicKey:
       !publicKeySection?.useExisting && !!publicKeySection?.savePublicKey,
-    distroId: distro?.value,
+    distroId: distro,
     region,
     taskId:
       loadData?.loadDataOntoHostAtStartup && validateTask(spawnTaskData)

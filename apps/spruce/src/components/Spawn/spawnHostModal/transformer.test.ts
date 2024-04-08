@@ -2,9 +2,10 @@ import { formToGql } from "./transformer";
 
 describe("spawn host modal", () => {
   it("correctly converts from a form to GQL", () => {
-    data.forEach(({ formData, mutationInput }) => {
+    data.forEach(({ formData, mutationInput }, i) => {
       expect(
         formToGql({
+          isVirtualWorkStation: i === 0,
           formData,
           myPublicKeys,
           spawnTaskData: null,
@@ -14,9 +15,10 @@ describe("spawn host modal", () => {
   });
   it("migrate volume id should be reflected in the gql output when supplied", () => {
     const migrateVolumeId = "some_volume";
-    data.forEach(({ formData, mutationInput }) => {
+    data.forEach(({ formData, mutationInput }, i) => {
       expect(
         formToGql({
+          isVirtualWorkStation: i === 0,
           formData,
           myPublicKeys,
           spawnTaskData: null,
@@ -36,11 +38,7 @@ const myPublicKeys = [{ name: "a_key", key: "key value" }];
 const data = [
   {
     formData: {
-      distro: {
-        value: "ubuntu1804-workstation",
-        isVirtualWorkstation: true,
-        adminOnly: false,
-      },
+      distro: "ubuntu1804-workstation",
       region: "us-east-1",
       publicKeySection: {
         useExisting: false,
@@ -91,11 +89,7 @@ const data = [
   },
   {
     formData: {
-      distro: {
-        value: "rhel71-power8-large",
-        isVirtualWorkstation: false,
-        adminOnly: false,
-      },
+      distro: "rhel71-power8-large",
       region: "rofl-east",
       publicKeySection: {
         useExisting: true,

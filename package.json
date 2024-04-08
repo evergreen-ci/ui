@@ -12,7 +12,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "test": "jest"
+    "test": "jest --watchAll=false"
   },
   "resolutions": {
     "@tanstack/react-table": "8.9.3",
