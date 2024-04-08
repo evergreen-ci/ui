@@ -10,7 +10,12 @@ type Action =
   | { name: "Detach project from repo"; repoOwner: string; repoName: string }
   | { name: "Move project to new repo"; repoOwner: string; repoName: string }
   | { name: "Create new project" }
-  | { name: "Duplicate project"; projectIdToCopy: string };
+  | { name: "Duplicate project"; projectIdToCopy: string }
+  | {
+      name: "Redirect to project identifier";
+      projectId: string;
+      projectIdentifier: string;
+    };
 
 export const useProjectSettingsAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
