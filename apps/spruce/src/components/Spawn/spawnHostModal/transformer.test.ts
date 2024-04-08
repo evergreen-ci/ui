@@ -5,7 +5,7 @@ describe("spawn host modal", () => {
     data.forEach(({ formData, mutationInput }, i) => {
       expect(
         formToGql({
-          isVirtualWorkStation: !i,
+          isVirtualWorkStation: i === 0,
           formData,
           myPublicKeys,
           spawnTaskData: null,
@@ -18,7 +18,7 @@ describe("spawn host modal", () => {
     data.forEach(({ formData, mutationInput }, i) => {
       expect(
         formToGql({
-          isVirtualWorkStation: !i,
+          isVirtualWorkStation: i === 0,
           formData,
           myPublicKeys,
           spawnTaskData: null,

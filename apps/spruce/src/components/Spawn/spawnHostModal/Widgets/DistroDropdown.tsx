@@ -43,7 +43,7 @@ export const DistroDropdown: React.FC<DistroEnum & EnumSpruceWidgetProps> = ({
         data-cy={dataCy}
         onChange={onChange}
         options={searchableOptions}
-        searchFunc={(items, match) =>
+        searchFunc={(items: DistroGroup[], match: string) =>
           items.map((e) => ({
             ...e,
             distros: e.distros.filter((d: string) =>
@@ -64,8 +64,13 @@ export const DistroDropdown: React.FC<DistroEnum & EnumSpruceWidgetProps> = ({
   );
 };
 
+type DistroGroup = {
+  title: string;
+  distros: string[];
+};
+
 // Bucketize distros into admin-only, workstation, and Non-Workstation buckets. Admin-only takes precedence over workstation.
-const categorizeDistros = (distros: DistroValue[]) =>
+const categorizeDistros = (distros: DistroValue[]): DistroGroup[] =>
   distros?.reduce(
     (accum, { adminOnly, isVirtualWorkStation, name }) => {
       // Default to standard distro

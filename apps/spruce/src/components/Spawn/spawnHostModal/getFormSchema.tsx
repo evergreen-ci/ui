@@ -383,6 +383,7 @@ export const getFormSchema = ({
                         title: "Volume",
                         type: "string" as "string",
                         default: availableVolumes[0]?.id ?? "",
+                        minLength: 1,
                         oneOf:
                           availableVolumes.length > 0
                             ? availableVolumes.map((v) => ({
