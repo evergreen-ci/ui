@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { size as tokenSize } from "constants/tokens";
 import { usePageTitle } from "hooks";
 
@@ -8,17 +8,13 @@ type Size = "large" | "medium";
 
 interface Props {
   loading: boolean;
-  title: string | JSX.Element | React.ReactNodeArray;
+  title: string | JSX.Element | React.ReactNode[];
   pageTitle?: string;
+  subtitle?: string | JSX.Element | React.ReactNode[];
   badge: JSX.Element;
   buttons?: JSX.Element;
   size?: Size;
   children?: React.ReactNode;
-}
-
-interface TitleTypographyProps {
-  size: Size;
-  children: React.ReactNode | string;
 }
 
 const TitleTypography: React.FC<TitleTypographyProps> = ({
@@ -33,40 +29,49 @@ const TitleTypography: React.FC<TitleTypographyProps> = ({
   }
 };
 
-export const PageTitle: React.FC<Props> = ({
+const PageTitle: React.FC<Props> = ({
   badge,
   buttons,
   children,
   loading,
   pageTitle = "Evergreen",
   size = "medium",
+  subtitle,
   title,
 }) => {
   usePageTitle(pageTitle);
 
-  return (
-    <>
-      {loading && (
-        <PageHeader size={size}>
-          <Skeleton active paragraph={{ rows: 0 }} />
-        </PageHeader>
-      )}
-      {!loading && (
-        <PageHeader size={size}>
-          <TitleWrapper size={size}>
-            <TitleTypography size={size}>
-              <span data-cy="page-title">{title}</span>
-              {children}
-              <BadgeWrapper size={size}>{badge}</BadgeWrapper>
-            </TitleTypography>
-          </TitleWrapper>
-          {buttons ?? null}
-        </PageHeader>
-      )}
-    </>
+  return loading ? (
+    <PageHeader size={size}>
+      <Skeleton />
+    </PageHeader>
+  ) : (
+    <Container size={size}>
+      <PageHeader size={size}>
+        <TitleWrapper size={size}>
+          <TitleTypography size={size}>
+            <span data-cy="page-title">{title}</span>
+            {children}
+            <BadgeWrapper size={size}>{badge}</BadgeWrapper>
+          </TitleTypography>
+        </TitleWrapper>
+        {buttons ?? null}
+      </PageHeader>
+      {subtitle}
+    </Container>
   );
 };
 
+interface TitleTypographyProps {
+  size: Size;
+  children: React.ReactNode | string;
+}
+const Container = styled.div<TitleTypographyProps>`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: ${(props) =>
+    props.size === "medium" ? tokenSize.m : tokenSize.l};
+`;
 const BadgeWrapper = styled.div<TitleTypographyProps>`
   display: inline-flex;
   margin-left: ${({ size }) => (size === "large" ? tokenSize.m : tokenSize.s)};
@@ -75,8 +80,6 @@ const BadgeWrapper = styled.div<TitleTypographyProps>`
 `;
 
 const PageHeader = styled.div<TitleTypographyProps>`
-  margin-bottom: ${(props) =>
-    props.size === "medium" ? tokenSize.m : tokenSize.l};
   ${({ size }) => size === "large" && `margin-top: ${tokenSize.s};`}
   display: flex;
   justify-content: space-between;
@@ -86,3 +89,5 @@ const PageHeader = styled.div<TitleTypographyProps>`
 const TitleWrapper = styled.span<TitleTypographyProps>`
   max-width: ${(props) => (props.size === "medium" ? "70%" : "100%")};
 `;
+
+export default PageTitle;

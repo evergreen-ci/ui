@@ -6,5 +6,8 @@ export default {
 } satisfies CustomMeta<typeof DayPicker>;
 
 export const Default: CustomStoryObj<typeof DayPicker> = {
-  render: () => <DayPicker />,
+  render: (args) => <DayPicker {...args} />,
+  args: {
+    disabled: false,
+  },
 };

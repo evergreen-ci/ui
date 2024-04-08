@@ -8,7 +8,7 @@ import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
 import HostStatusBadge from "components/HostStatusBadge";
-import { PageTitle } from "components/PageTitle";
+import PageTitle from "components/PageTitle";
 import {
   PageWrapper,
   PageSider,

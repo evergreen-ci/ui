@@ -8478,6 +8478,36 @@ export type TaskTestSampleQuery = {
   }> | null;
 };
 
+export type TaskTestsForJobLogsQueryVariables = Exact<{
+  id: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskTestsForJobLogsQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    buildVariant: string;
+    buildVariantDisplayName?: string | null;
+    displayName: string;
+    execution: number;
+    id: string;
+    revision?: string | null;
+    status: string;
+    tests: {
+      __typename?: "TaskTestResult";
+      testResults: Array<{
+        __typename?: "TestResult";
+        groupID?: string | null;
+        id: string;
+        status: string;
+        testFile: string;
+        logs: { __typename?: "TestLog"; urlParsley?: string | null };
+      }>;
+    };
+  } | null;
+};
+
 export type TaskTestsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
