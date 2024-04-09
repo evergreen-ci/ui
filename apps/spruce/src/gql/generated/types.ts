@@ -1268,7 +1268,7 @@ export type MutationSchedulePatchTasksArgs = {
 
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
-  versionId?: InputMaybe<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
@@ -1897,7 +1897,7 @@ export enum ProjectSettingsAccess {
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  projectId?: InputMaybe<Scalars["String"]["input"]>;
+  projectId: Scalars["String"]["input"];
   projectRef?: InputMaybe<ProjectInput>;
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
@@ -2035,8 +2035,7 @@ export type QueryGithubProjectConflictsArgs = {
 };
 
 export type QueryHasVersionArgs = {
-  id?: InputMaybe<Scalars["String"]["input"]>;
-  patchId?: InputMaybe<Scalars["String"]["input"]>;
+  patchId: Scalars["String"]["input"];
 };
 
 export type QueryHostArgs = {
@@ -2072,8 +2071,7 @@ export type QueryMainlineCommitsArgs = {
 };
 
 export type QueryPatchArgs = {
-  id?: InputMaybe<Scalars["String"]["input"]>;
-  patchId?: InputMaybe<Scalars["String"]["input"]>;
+  patchId: Scalars["String"]["input"];
 };
 
 export type QueryPodArgs = {
@@ -2096,14 +2094,12 @@ export type QueryProjectSettingsArgs = {
 
 export type QueryRepoEventsArgs = {
   before?: InputMaybe<Scalars["Time"]["input"]>;
-  id?: InputMaybe<Scalars["String"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
-  repoId?: InputMaybe<Scalars["String"]["input"]>;
+  repoId: Scalars["String"]["input"];
 };
 
 export type QueryRepoSettingsArgs = {
-  id?: InputMaybe<Scalars["String"]["input"]>;
-  repoId?: InputMaybe<Scalars["String"]["input"]>;
+  repoId: Scalars["String"]["input"];
 };
 
 export type QueryTaskArgs = {
@@ -2130,8 +2126,7 @@ export type QueryUserArgs = {
 };
 
 export type QueryVersionArgs = {
-  id?: InputMaybe<Scalars["String"]["input"]>;
-  versionId?: InputMaybe<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type RepoCommitQueueParams = {
@@ -2255,7 +2250,7 @@ export type RepoSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectRef?: InputMaybe<RepoRefInput>;
-  repoId?: InputMaybe<Scalars["String"]["input"]>;
+  repoId: Scalars["String"]["input"];
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
 };
