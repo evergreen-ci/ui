@@ -1,4 +1,4 @@
-import { DateTimePicker } from "./DateTimePicker";
+import { DateTimePicker, TimePicker } from "./DateTimePicker";
 import { DayPickerWidget } from "./DayPicker";
 import {
   LeafyGreenTextInput,
@@ -14,6 +14,7 @@ import { MultiSelect } from "./MultiSelect";
 const widgets = {
   DateTimeWidget: DateTimePicker,
   DayPickerWidget,
+  TimeWidget: TimePicker,
   TextWidget: LeafyGreenTextInput,
   TextareaWidget: LeafyGreenTextArea,
   CheckboxWidget: LeafyGreenCheckBox,

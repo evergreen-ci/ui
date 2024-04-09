@@ -453,7 +453,8 @@ export type DistroInput = {
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
-  sshKey: Scalars["String"]["input"];
+  /** @deprecated removing this field shortly */
+  sshKey?: InputMaybe<Scalars["String"]["input"]>;
   sshOptions: Array<Scalars["String"]["input"]>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
@@ -2462,7 +2463,8 @@ export type SpruceConfig = {
   containerPools?: Maybe<ContainerPoolsConfig>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
-  keys: Array<SshKey>;
+  /** @deprecated removing this field shortly */
+  keys?: Maybe<Array<SshKey>>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;

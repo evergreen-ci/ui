@@ -69,8 +69,8 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   );
 
   const selectedDistro = useMemo(
-    () => distros?.find(({ name }) => name === form?.distro),
-    [distros, form.distro],
+    () => distros?.find(({ name }) => name === form?.requiredSection?.distro),
+    [distros, form?.requiredSection?.distro],
   );
 
   const { schema, uiSchema } = getFormSchema({
