@@ -10,15 +10,18 @@ const defaultEndTime = new Date();
 defaultEndTime.setHours(20, 0, 0, 0);
 
 type HostUptimeProps = {
-  hostUptimeErrors: { [key: string]: string[] };
+  hostUptimeValidation?: {
+    enabledHoursCount: number;
+    errors: string[];
+    warnings: string[];
+  };
   timeZone?: string;
   totalUptimeHours?: number;
 };
 
 export const getHostUptimeSchema = ({
-  hostUptimeErrors,
+  hostUptimeValidation,
   timeZone,
-  totalUptimeHours,
 }: HostUptimeProps) => ({
   schema: {
     type: "object" as "object",
@@ -84,10 +87,7 @@ export const getHostUptimeSchema = ({
           },
         },
       },
-      timeZone: {
-        type: "null" as "null",
-      },
-      totalUptimeHours: {
+      details: {
         type: "null" as "null",
       },
     },
@@ -110,6 +110,9 @@ export const getHostUptimeSchema = ({
     },
   },
   uiSchema: {
+    useDefaultUptimeSchedule: {
+      "ui:bold": true,
+    },
     sleepSchedule: {
       enabledWeekdays: {
         "ui:addable": false,
@@ -152,27 +155,27 @@ export const getHostUptimeSchema = ({
         },
       },
     },
-    timeZone: {
-      "ui:descriptionNode": <TimeZone timeZone={timeZone} />,
-      "ui:showLabel": false,
-    },
-    totalUptimeHours: {
+    details: {
       "ui:descriptionNode": (
-        <TotalUptimeHours totalUptimeHours={totalUptimeHours} />
+        <Details
+          timeZone={timeZone}
+          totalUptimeHours={hostUptimeValidation?.enabledHoursCount}
+        />
       ),
       "ui:showLabel": false,
-      ...hostUptimeErrors,
+      "ui:warnings": hostUptimeValidation?.warnings,
+      "ui:errors": hostUptimeValidation?.errors,
     },
   },
 });
 
-const TotalUptimeHours: React.FC<{ totalUptimeHours: number }> = ({
+const Details: React.FC<{ timeZone: string; totalUptimeHours: number }> = ({
+  timeZone,
   totalUptimeHours,
-}) => <>Count: {totalUptimeHours}</>;
-
-const TimeZone: React.FC<{ timeZone: string }> = ({ timeZone }) => (
+}) => (
   <>
     All times are displayed in{" "}
-    <Badge>{prettifyTimeZone.get(timeZone) ?? timeZone}</Badge>
+    <Badge>{prettifyTimeZone.get(timeZone) ?? timeZone}</Badge> •{" "}
+    {totalUptimeHours} host uptime hours per week
   </>
 );

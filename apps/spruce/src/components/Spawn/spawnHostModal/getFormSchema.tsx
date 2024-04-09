@@ -8,6 +8,7 @@ import {
   SpawnTaskQuery,
   MyVolumesQuery,
 } from "gql/generated/types";
+import { isProduction } from "utils/environmentVariables";
 import { shortenGithash } from "utils/string";
 import { getHostUptimeSchema } from "../getFormSchema";
 import { getDefaultExpiration } from "../utils";
@@ -24,7 +25,11 @@ interface Props {
     isVirtualWorkStation: boolean;
     name?: string;
   }[];
-  hostUptimeErrors?: { [key: string]: string[] };
+  hostUptimeValidation?: {
+    enabledHoursCount: number;
+    errors: string[];
+    warnings: string[];
+  };
   isMigration: boolean;
   isVirtualWorkstation: boolean;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
@@ -42,7 +47,7 @@ export const getFormSchema = ({
   disableExpirationCheckbox,
   distroIdQueryParam,
   distros,
-  hostUptimeErrors,
+  hostUptimeValidation,
   isMigration,
   isVirtualWorkstation,
   myPublicKeys,
@@ -66,7 +71,7 @@ export const getFormSchema = ({
   const availableVolumes = volumes
     ? volumes.filter((v) => v.homeVolume && !v.hostID)
     : [];
-  const hostUptime = getHostUptimeSchema({ hostUptimeErrors, timeZone });
+  const hostUptime = getHostUptimeSchema({ hostUptimeValidation, timeZone });
 
   return {
     fields: {},
@@ -244,7 +249,7 @@ export const getFormSchema = ({
                     noExpiration: {
                       enum: [true],
                     },
-                    hostUptime: hostUptime.schema,
+                    ...(!isProduction() && { hostUptime: hostUptime.schema }),
                   },
                 },
               ],

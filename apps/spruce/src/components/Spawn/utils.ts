@@ -44,29 +44,42 @@ export const validateUptimeSchedule = ({
   runContinuously,
   startTime,
   useDefaultUptimeSchedule,
-}: ValidateInput): { [key: string]: string[] } => {
-  if (useDefaultUptimeSchedule) {
-    return {};
-  }
-
+}: ValidateInput): {
+  enabledHoursCount: number;
+  errors: string[];
+  warnings: string[];
+} => {
   const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount({
     enabledWeekdays,
     endTime,
     runContinuously,
     startTime,
   });
+
+  if (useDefaultUptimeSchedule) {
+    return {
+      enabledHoursCount,
+      errors: [],
+      warnings: [],
+    };
+  }
+
   if (enabledHoursCount > maxUptimeHours) {
     // Return error based on whether runContinously enabled
     if (runContinuously) {
       return {
-        "ui:errors": ["Please pause your host for at least 1 day per week."],
+        enabledHoursCount,
+        errors: ["Please pause your host for at least 1 day per week."],
+        warnings: [],
       };
     }
     const hourlyRequirement = Math.floor(maxUptimeHours / enabledWeekdaysCount);
     return {
-      "ui:errors": [
+      enabledHoursCount,
+      errors: [
         `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
       ],
+      warnings: [],
     };
   }
 
@@ -74,20 +87,28 @@ export const validateUptimeSchedule = ({
     // Return warning based on whether runContinuously enabled
     if (runContinuously) {
       return {
-        "ui:warnings": ["Consider pausing your host for 2 days per week."],
+        enabledHoursCount,
+        errors: [],
+        warnings: ["Consider pausing your host for 2 days per week."],
       };
     }
     const hourlySuggestion = Math.floor(
       suggestedUptimeHours / enabledWeekdaysCount,
     );
     return {
-      "ui:warnings": [
+      enabledHoursCount,
+      errors: [],
+      warnings: [
         `Consider running your host for ${hourlySuggestion} hours per day or fewer.`,
       ],
     };
   }
   // No error
-  return {};
+  return {
+    enabledHoursCount,
+    errors: [],
+    warnings: [],
+  };
 };
 
 export const getEnabledHoursCount = ({

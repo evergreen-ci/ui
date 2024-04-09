@@ -92,7 +92,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
   });
 
-  const hostUptimeErrors = validateUptimeSchedule({
+  const hostUptimeValidation = validateUptimeSchedule({
     enabledWeekdays:
       formState?.expirationDetails?.hostUptime?.sleepSchedule?.enabledWeekdays,
     ...formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection,
@@ -103,7 +103,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     distroIdQueryParam,
-    hostUptimeErrors,
+    hostUptimeValidation,
     isMigration: false,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,
