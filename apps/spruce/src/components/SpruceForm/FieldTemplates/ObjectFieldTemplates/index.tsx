@@ -24,23 +24,16 @@ export const ObjectFieldTemplate = ({
   const tooltipTitle = uiSchema["ui:tooltipTitle"] ?? null;
   return (
     <fieldset css={uiSchema["ui:fieldSetCSS"]} id={idSchema.$id}>
-      {(uiSchema["ui:title"] || title) &&
-        (tooltipTitle ? (
-          <TitleContainer>
-            <TitleField
-              id={`${idSchema.$id}__title`}
-              title={title || uiSchema["ui:title"]}
-              required={required}
-            />
-            <InfoSprinkle>{tooltipTitle}</InfoSprinkle>
-          </TitleContainer>
-        ) : (
+      {(uiSchema["ui:title"] || title) && (
+        <TitleContainer>
           <TitleField
             id={`${idSchema.$id}__title`}
             title={title || uiSchema["ui:title"]}
             required={required}
           />
-        ))}
+          {tooltipTitle && <InfoSprinkle>{tooltipTitle}</InfoSprinkle>}
+        </TitleContainer>
+      )}
       {description && (
         <DescriptionField
           id={`${idSchema.$id}__description`}

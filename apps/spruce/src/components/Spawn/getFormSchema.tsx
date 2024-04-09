@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import Badge from "@leafygreen-ui/badge";
+import { Body } from "@leafygreen-ui/typography";
 import widgets from "components/SpruceForm/Widgets";
 import { prettifyTimeZone } from "constants/fieldMaps";
 import { size } from "constants/tokens";
@@ -121,19 +122,11 @@ export const getHostUptimeSchema = ({
       },
       timeSelection: {
         "ui:fieldSetCSS": css`
-          align-items: flex-end;
+          align-items: center;
           display: flex;
           gap: ${size.xs};
-
           > * {
             width: fit-content;
-          }
-
-          > h6 {
-            font-size: 0.8rem;
-            font-weight: normal;
-            margin-top: 0;
-            padding-bottom: ${size.s};
           }
         `,
         startTime: {
@@ -146,11 +139,15 @@ export const getHostUptimeSchema = ({
           "ui:useUtc": false,
           "ui:widget": widgets.TimeWidget,
         },
+        or: {
+          "ui:showLabel": false,
+          "ui:descriptionNode": <Body>or</Body>,
+        },
         runContinuously: {
           "ui:elementWrapperCSS": css`
-            padding-bottom: 10px;
-            width: fit-content;
+            margin-bottom: 0;
             white-space: nowrap;
+            width: fit-content;
           `,
         },
       },
