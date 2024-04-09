@@ -3,11 +3,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import {
-  getEnabledHoursCount,
-  maxUptimeHours,
-  validateUptimeSchedule,
-} from "components/Spawn";
+import { maxUptimeHours, validateUptimeSchedule } from "components/Spawn";
 import {
   formToGql,
   getFormSchema,
@@ -15,7 +11,7 @@ import {
   useVirtualWorkstationDefaultExpiration,
   FormState,
 } from "components/Spawn/spawnHostModal";
-import { SpruceForm } from "components/SpruceForm";
+import { SpruceForm, ValidateProps } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
 import {
   SpawnHostMutation,
@@ -92,13 +88,19 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
   });
 
-  const hostUptimeValidation = validateUptimeSchedule({
-    enabledWeekdays:
-      formState?.expirationDetails?.hostUptime?.sleepSchedule?.enabledWeekdays,
-    ...formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection,
-    useDefaultUptimeSchedule:
-      formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
-  });
+  const hostUptimeValidation = useMemo(
+    () =>
+      validateUptimeSchedule({
+        enabledWeekdays:
+          formState?.expirationDetails?.hostUptime?.sleepSchedule
+            ?.enabledWeekdays,
+        ...formState?.expirationDetails?.hostUptime?.sleepSchedule
+          ?.timeSelection,
+        useDefaultUptimeSchedule:
+          formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
+      }),
+    [formState?.expirationDetails?.hostUptime],
+  );
 
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
@@ -158,31 +160,28 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           setFormState(formData);
           setHasError(errors.length > 0);
         }}
-        validate={validate}
+        // @ts-expect-error rjsf v4 has insufficient typing for its validator
+        validate={validate(hostUptimeValidation?.enabledHoursCount ?? 0)}
       />
     </ConfirmationModal>
   );
 };
 
-const validate = ({ expirationDetails }, errors) => {
-  const { hostUptime } = expirationDetails ?? {};
-  if (!hostUptime) return errors;
+const validate = (enabledHoursCount: number) =>
+  (({ expirationDetails }, errors) => {
+    const { hostUptime } = expirationDetails ?? {};
+    if (!hostUptime) return errors;
 
-  const {
-    sleepSchedule: { enabledWeekdays, timeSelection },
-    useDefaultUptimeSchedule,
-  } = hostUptime;
+    const { useDefaultUptimeSchedule } = hostUptime;
 
-  if (!useDefaultUptimeSchedule) {
-    const { enabledHoursCount } = getEnabledHoursCount({
-      enabledWeekdays,
-      ...timeSelection,
-      useDefaultUptimeSchedule,
-    });
-    if (enabledHoursCount > maxUptimeHours) {
-      errors.hostUptime?.sleepSchedule?.addError("Insufficient hours");
+    if (!useDefaultUptimeSchedule) {
+      if (enabledHoursCount > maxUptimeHours) {
+        console.log(errors);
+        errors.expirationDetails?.hostUptime?.sleepSchedule?.addError(
+          "Insufficient hours",
+        );
+      }
     }
-  }
 
-  return errors;
-};
+    return errors;
+  }) satisfies ValidateProps<FormState>;

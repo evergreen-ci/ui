@@ -111,7 +111,7 @@ export const validateUptimeSchedule = ({
   };
 };
 
-export const getEnabledHoursCount = ({
+const getEnabledHoursCount = ({
   enabledWeekdays,
   endTime,
   runContinuously,

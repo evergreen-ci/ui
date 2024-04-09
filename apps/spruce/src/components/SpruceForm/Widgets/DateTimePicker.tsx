@@ -130,4 +130,5 @@ export const TimePicker: React.FC<
 };
 
 // Fixes bug where DatePicker won't handle onClick events
-const getPopupContainer = (triggerNode: HTMLElement) => triggerNode.parentNode;
+const getPopupContainer = (triggerNode: HTMLElement) =>
+  triggerNode.parentNode.parentNode;
