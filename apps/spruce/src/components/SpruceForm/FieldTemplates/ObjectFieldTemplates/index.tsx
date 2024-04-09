@@ -1,6 +1,7 @@
 /* eslint-disable jsdoc/valid-types */
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import { Accordion } from "components/Accordion";
@@ -20,15 +21,26 @@ export const ObjectFieldTemplate = ({
 }: ObjectFieldTemplateProps) => {
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
+  const tooltipTitle = uiSchema["ui:tooltipTitle"] ?? null;
   return (
     <fieldset css={uiSchema["ui:fieldSetCSS"]} id={idSchema.$id}>
-      {(uiSchema["ui:title"] || title) && (
-        <TitleField
-          id={`${idSchema.$id}__title`}
-          title={title || uiSchema["ui:title"]}
-          required={required}
-        />
-      )}
+      {(uiSchema["ui:title"] || title) &&
+        (tooltipTitle ? (
+          <TitleContainer>
+            <TitleField
+              id={`${idSchema.$id}__title`}
+              title={title || uiSchema["ui:title"]}
+              required={required}
+            />
+            <InfoSprinkle>{tooltipTitle}</InfoSprinkle>
+          </TitleContainer>
+        ) : (
+          <TitleField
+            id={`${idSchema.$id}__title`}
+            title={title || uiSchema["ui:title"]}
+            required={required}
+          />
+        ))}
       {description && (
         <DescriptionField
           id={`${idSchema.$id}__description`}
@@ -49,6 +61,12 @@ export const ObjectFieldTemplate = ({
     </fieldset>
   );
 };
+
+const TitleContainer = styled.div`
+  align-items: baseline;
+  display: flex;
+  gap: ${size.xs};
+`;
 
 /**
  * `CardFieldTemplate` is a custom ObjectFieldTemplate that renders a card with a title and a list of properties.

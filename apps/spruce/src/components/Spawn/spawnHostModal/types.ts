@@ -15,7 +15,7 @@ export type FormState = {
     expiration?: string;
     hostUptime?: {
       useDefaultUptimeSchedule: boolean;
-      sleepSchedule: {
+      sleepSchedule?: {
         enabledWeekdays: boolean[];
         timeSelection: {
           startTime: string;

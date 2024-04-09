@@ -523,10 +523,10 @@ export const getFormSchema = ({
         },
       },
       expirationDetails: {
+        "ui:tooltipTitle": noExpirationCheckboxTooltip ?? "",
         noExpiration: {
-          "ui:disabled": disableExpirationCheckbox,
-          "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
-          "ui:data-cy": "never-expire-checkbox",
+          "ui:enumDisabled": disableExpirationCheckbox ? [true] : null,
+          "ui:data-cy": "expirable-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
         },
         hostUptime: hostUptime.uiSchema,
