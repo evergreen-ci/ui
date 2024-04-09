@@ -108,11 +108,9 @@ export const TimePicker: React.FC<
   return (
     <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
-        <div>
-          <Label disabled={isDisabled} htmlFor={id}>
-            {label}
-          </Label>
-        </div>
+        <Label disabled={isDisabled} htmlFor={id}>
+          {label}
+        </Label>
       )}
       {description && <Description>{description}</Description>}
       <AntdTimePicker

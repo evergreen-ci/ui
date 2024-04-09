@@ -176,7 +176,6 @@ const validate = (enabledHoursCount: number) =>
 
     if (!useDefaultUptimeSchedule) {
       if (enabledHoursCount > maxUptimeHours) {
-        console.log(errors);
         errors.expirationDetails?.hostUptime?.sleepSchedule?.addError(
           "Insufficient hours",
         );

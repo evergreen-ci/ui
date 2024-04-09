@@ -44,9 +44,10 @@ export const formToGql = ({
       ? null
       : new Date(expirationDetails?.expiration),
     noExpiration: expirationDetails?.noExpiration,
-    sleepSchedule: expirationDetails?.noExpiration
-      ? getSleepSchedule(hostUptime, timeZone)
-      : null,
+    sleepSchedule:
+      expirationDetails?.noExpiration && hostUptime
+        ? getSleepSchedule(hostUptime, timeZone)
+        : null,
     volumeId:
       migrateVolumeId ||
       (isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
