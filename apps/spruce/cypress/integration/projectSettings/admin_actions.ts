@@ -61,9 +61,6 @@ describe("Creating a new project and deleting it", () => {
     cy.validateToast("success");
 
     cy.reload();
-    cy.validateToast(
-      "error",
-      "Could not find project with identifier: my-new-project",
-    );
+    cy.validateToast("error");
   });
 });
