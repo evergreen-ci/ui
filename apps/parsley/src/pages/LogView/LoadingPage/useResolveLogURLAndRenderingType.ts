@@ -2,8 +2,8 @@ import { useQuery } from "@apollo/client";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
   getEVGJobLogsURL,
-  getJobLogsURL,
   getLegacyJobLogsURL,
+  getLogkeeperJobLogsURL,
 } from "constants/externalURLTemplates";
 import {
   constructEvergreenTaskLogURL,
@@ -126,7 +126,7 @@ export const useResolveLogURLAndRenderingType = ({
         htmlLogURL = getResmokeLogURL(buildID, { html: true });
       }
       if (buildID) {
-        jobLogsURL = getJobLogsURL(buildID);
+        jobLogsURL = getLogkeeperJobLogsURL(buildID);
         legacyJobLogsURL = getLegacyJobLogsURL(buildID);
       }
       downloadURL = rawLogURL;
