@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Navigate } from "react-router-dom";
+import { useProjectSettingsAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {
@@ -25,6 +27,7 @@ import {
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
+import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { validators } from "utils";
 import { ProjectSettingsProvider } from "./Context";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
@@ -42,14 +45,31 @@ const ProjectSettings: React.FC = () => {
       [slugs.projectIdentifier]: string | null;
       [slugs.tab]: ProjectSettingsTabRoutes;
     }>();
-  // If the path includes an Object ID, this page represents a repo and we should not attempt to fetch a project.
-  const isRepo = validateObjectId(identifier);
+  // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
+  const identifierIsObjectId = validateObjectId(identifier);
+  const [isRepo, setIsRepo] = useState<boolean>(false);
+
+  const { sendEvent } = useProjectSettingsAnalytics();
+
+  useProjectRedirect({
+    shouldRedirect: identifierIsObjectId,
+    onError: () => {
+      setIsRepo(true);
+    },
+    sendAnalyticsEvent: (projectId: string, projectIdentifier: string) => {
+      sendEvent({
+        name: "Redirect to project identifier",
+        projectId,
+        projectIdentifier,
+      });
+    },
+  });
 
   const { data: projectData, loading: projectLoading } = useQuery<
     ProjectSettingsQuery,
     ProjectSettingsQueryVariables
   >(PROJECT_SETTINGS, {
-    skip: isRepo,
+    skip: identifierIsObjectId,
     variables: { identifier },
     onError: (e) => {
       dispatchToast.error(

@@ -6,11 +6,12 @@ export enum Page {
 }
 
 interface State {
+  hasError: boolean;
   page: Page;
   form: FormState;
 }
 
-export const initialState = { page: Page.First, form: {} };
+export const initialState = { page: Page.First, form: {}, hasError: true };
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -23,6 +24,8 @@ export const reducer = (state: State, action: Action): State => {
       return { ...state, page: Page.First };
     case "setForm":
       return { ...state, form: action.payload };
+    case "setHasError":
+      return { ...state, hasError: action.payload };
     case "resetForm":
       return { ...state, form: {} };
     default:
@@ -34,4 +37,5 @@ type Action =
   | { type: "goToNextPage" }
   | { type: "resetForm" }
   | { type: "resetPage" }
+  | { type: "setHasError"; payload: boolean }
   | { type: "setForm"; payload: FormState };
