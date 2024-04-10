@@ -453,7 +453,8 @@ export type DistroInput = {
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
-  sshKey: Scalars["String"]["input"];
+  /** @deprecated removing this field shortly */
+  sshKey?: InputMaybe<Scalars["String"]["input"]>;
   sshOptions: Array<Scalars["String"]["input"]>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
@@ -1270,7 +1271,7 @@ export type MutationSchedulePatchTasksArgs = {
 
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
-  versionId?: InputMaybe<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
@@ -1899,7 +1900,7 @@ export enum ProjectSettingsAccess {
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  projectId?: InputMaybe<Scalars["String"]["input"]>;
+  projectId: Scalars["String"]["input"];
   projectRef?: InputMaybe<ProjectInput>;
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
@@ -2037,8 +2038,7 @@ export type QueryGithubProjectConflictsArgs = {
 };
 
 export type QueryHasVersionArgs = {
-  id?: InputMaybe<Scalars["String"]["input"]>;
-  patchId?: InputMaybe<Scalars["String"]["input"]>;
+  patchId: Scalars["String"]["input"];
 };
 
 export type QueryHostArgs = {
@@ -2074,8 +2074,7 @@ export type QueryMainlineCommitsArgs = {
 };
 
 export type QueryPatchArgs = {
-  id?: InputMaybe<Scalars["String"]["input"]>;
-  patchId?: InputMaybe<Scalars["String"]["input"]>;
+  patchId: Scalars["String"]["input"];
 };
 
 export type QueryPodArgs = {
@@ -2098,14 +2097,12 @@ export type QueryProjectSettingsArgs = {
 
 export type QueryRepoEventsArgs = {
   before?: InputMaybe<Scalars["Time"]["input"]>;
-  id?: InputMaybe<Scalars["String"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
-  repoId?: InputMaybe<Scalars["String"]["input"]>;
+  repoId: Scalars["String"]["input"];
 };
 
 export type QueryRepoSettingsArgs = {
-  id?: InputMaybe<Scalars["String"]["input"]>;
-  repoId?: InputMaybe<Scalars["String"]["input"]>;
+  repoId: Scalars["String"]["input"];
 };
 
 export type QueryTaskArgs = {
@@ -2132,8 +2129,7 @@ export type QueryUserArgs = {
 };
 
 export type QueryVersionArgs = {
-  id?: InputMaybe<Scalars["String"]["input"]>;
-  versionId?: InputMaybe<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type RepoCommitQueueParams = {
@@ -2257,7 +2253,7 @@ export type RepoSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectRef?: InputMaybe<RepoRefInput>;
-  repoId?: InputMaybe<Scalars["String"]["input"]>;
+  repoId: Scalars["String"]["input"];
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
 };
@@ -2467,7 +2463,8 @@ export type SpruceConfig = {
   containerPools?: Maybe<ContainerPoolsConfig>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
-  keys: Array<SshKey>;
+  /** @deprecated removing this field shortly */
+  keys?: Maybe<Array<SshKey>>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
@@ -8266,7 +8263,11 @@ export type SpruceConfigQuery = {
       email?: string | null;
       host?: string | null;
     } | null;
-    keys: Array<{ __typename?: "SSHKey"; location: string; name: string }>;
+    keys?: Array<{
+      __typename?: "SSHKey";
+      location: string;
+      name: string;
+    }> | null;
     providers?: {
       __typename?: "CloudProviderConfig";
       aws?: {
