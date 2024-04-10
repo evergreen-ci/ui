@@ -82,7 +82,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
       }
       onConfirm={() => {
         scheduleTasks({
-          variables: { taskIds: Array.from(selectedTasks), versionId },
+          variables: { taskIds: Array.from(selectedTasks) },
         });
       }}
     >

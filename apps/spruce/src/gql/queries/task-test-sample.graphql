@@ -1,5 +1,5 @@
 query TaskTestSample($tasks: [String!]!, $filters: [TestFilter!]!) {
-  taskTestSample(tasks: $tasks, filters: $filters) {
+  taskTestSample(taskIds: $tasks, filters: $filters) {
     execution
     matchingFailedTestNames
     taskId

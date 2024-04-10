@@ -1271,7 +1271,7 @@ export type MutationSchedulePatchTasksArgs = {
 
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
-  versionId: Scalars["String"]["input"];
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
@@ -2121,7 +2121,8 @@ export type QueryTaskNamesForBuildVariantArgs = {
 
 export type QueryTaskTestSampleArgs = {
   filters: Array<TestFilter>;
-  tasks: Array<Scalars["String"]["input"]>;
+  taskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type QueryUserArgs = {
@@ -5164,7 +5165,6 @@ export type SchedulePatchMutation = {
 
 export type ScheduleTasksMutationVariables = Exact<{
   taskIds: Array<Scalars["String"]["input"]>;
-  versionId: Scalars["String"]["input"];
 }>;
 
 export type ScheduleTasksMutation = {
