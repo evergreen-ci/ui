@@ -127,17 +127,18 @@ const getEvergreenTaskFileURL = (
   fileName: string,
 ) => `${evergreenURL}/task_file_raw/${taskID}/${execution}/${fileName}`;
 
-export {
-  constructEvergreenTaskLogURL,
-  getEvergreenTaskFileURL,
-  getEvergreenTaskLogURL,
-  getEvergreenTestLogURL,
-  getResmokeLogURL,
-};
-
-export const getEvergreenAllLogsURL = (
+const getCompleteLogsURL = (
   taskID: string,
   execution: string | number,
   groupID: string,
 ) =>
   `${evergreenURL}/rest/v2/tasks/${taskID}/build/TestLogs/${groupID}?execution=${execution}`;
+
+export {
+  constructEvergreenTaskLogURL,
+  getCompleteLogsURL,
+  getEvergreenTaskFileURL,
+  getEvergreenTaskLogURL,
+  getEvergreenTestLogURL,
+  getResmokeLogURL,
+};
