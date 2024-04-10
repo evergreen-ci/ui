@@ -5829,7 +5829,6 @@ export type DistroQuery = {
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
-    sshKey: string;
     sshOptions: Array<string>;
     user: string;
     userSpawnAllowed: boolean;
@@ -8263,11 +8262,6 @@ export type SpruceConfigQuery = {
       email?: string | null;
       host?: string | null;
     } | null;
-    keys?: Array<{
-      __typename?: "SSHKey";
-      location: string;
-      name: string;
-    }> | null;
     providers?: {
       __typename?: "CloudProviderConfig";
       aws?: {
