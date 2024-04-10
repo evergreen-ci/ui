@@ -133,7 +133,7 @@ export const useResolveLogURLAndRenderingType = ({
       renderingType = LogRenderingTypes.Resmoke;
       break;
     }
-    case LogTypes.EVERGREEN_ALL_LOGS: {
+    case LogTypes.EVERGREEN_COMPLETE_LOGS: {
       if (!taskID || !execution || !groupID) {
         break;
       }

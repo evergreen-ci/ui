@@ -67,7 +67,7 @@ const Content: React.FC = () => {
           path={routes.resmokeLogsAll}
         />
         <Route
-          element={<LogView logType={LogTypes.EVERGREEN_ALL_LOGS} />}
+          element={<LogView logType={LogTypes.EVERGREEN_COMPLETE_LOGS} />}
           path={routes.evgResmokeLogsAll}
         />
         <Route element={<NotFound />} path="*" />

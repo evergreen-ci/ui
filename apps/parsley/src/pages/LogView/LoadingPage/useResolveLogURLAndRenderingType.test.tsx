@@ -400,7 +400,7 @@ describe("useResolveLogURLAndRenderingType", () => {
         useResolveLogURLAndRenderingType({
           execution: "0",
           groupID: "job0",
-          logType: LogTypes.EVERGREEN_ALL_LOGS,
+          logType: LogTypes.EVERGREEN_COMPLETE_LOGS,
           taskID: "a-task-id",
         }),
       {
