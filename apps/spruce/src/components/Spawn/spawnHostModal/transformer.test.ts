@@ -1,4 +1,6 @@
+import { SpawnHostInput } from "gql/generated/types";
 import { formToGql } from "./transformer";
+import { FormState } from "./types";
 
 describe("spawn host modal", () => {
   it("correctly converts from a form to GQL", () => {
@@ -9,6 +11,7 @@ describe("spawn host modal", () => {
           formData,
           myPublicKeys,
           spawnTaskData: null,
+          timeZone: "America/New_York",
         }),
       ).toStrictEqual(mutationInput);
     });
@@ -23,6 +26,7 @@ describe("spawn host modal", () => {
           myPublicKeys,
           spawnTaskData: null,
           migrateVolumeId,
+          timeZone: "America/New_York",
         }),
       ).toStrictEqual({
         ...mutationInput,
@@ -35,11 +39,13 @@ describe("spawn host modal", () => {
 
 const myPublicKeys = [{ name: "a_key", key: "key value" }];
 
-const data = [
+const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
   {
     formData: {
-      distro: "ubuntu1804-workstation",
-      region: "us-east-1",
+      requiredSection: {
+        distro: "ubuntu1804-workstation",
+        region: "us-east-1",
+      },
       publicKeySection: {
         useExisting: false,
         newPublicKey: "blah blahsart",
@@ -85,12 +91,15 @@ const data = [
       setUpScript: "setup!!!",
       spawnHostsStartedByTask: false,
       taskSync: false,
+      sleepSchedule: null,
     },
   },
   {
     formData: {
-      distro: "rhel71-power8-large",
-      region: "rofl-east",
+      requiredSection: {
+        distro: "rhel71-power8-large",
+        region: "rofl-east",
+      },
       publicKeySection: {
         useExisting: true,
         publicKeyNameDropdown: "a_key",
@@ -100,7 +109,9 @@ const data = [
       setupScriptSection: { defineSetupScriptCheckbox: false },
       expirationDetails: {
         noExpiration: true,
-        expiration: "Wed Oct 19 2022 08:56:42 GMT-0400 (Eastern Daylight Time)",
+        hostUptime: {
+          useDefaultUptimeSchedule: true,
+        },
       },
       homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
     },
@@ -123,6 +134,14 @@ const data = [
       setUpScript: null,
       spawnHostsStartedByTask: false,
       taskSync: false,
+      sleepSchedule: {
+        dailyStartTime: "08:00",
+        dailyStopTime: "20:00",
+        permanentlyExempt: false,
+        timeZone: "America/New_York",
+        shouldKeepOff: false,
+        wholeWeekdaysOff: [0, 6],
+      },
     },
   },
 ];
