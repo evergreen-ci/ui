@@ -85,14 +85,6 @@ describe("Task table", () => {
     });
   });
 
-  ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach((sortBy) => {
-    // TODO: This test doesn't work bc of issues with assertCorrectRequestVariables.
-    // Remove skip in DEVPROD-597.
-    it.skip(`Fetches tasks sorted by ${sortBy} when ${sortBy} header is clicked`, () => {
-      // clickSorterAndAssertTasksAreFetched(sortBy);
-    });
-  });
-
   describe("Changing page number", () => {
     // Instead of checking the entire table rows lets just check if the elements on the table have changed
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
