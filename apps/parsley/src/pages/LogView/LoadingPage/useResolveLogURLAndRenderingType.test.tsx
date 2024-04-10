@@ -412,7 +412,7 @@ describe("useResolveLogURLAndRenderingType", () => {
         downloadURL:
           "test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
         htmlLogURL: "",
-        jobLogsURL: "",
+        jobLogsURL: "test-spruce.com/job-logs/a-task-id/0/job0",
         legacyJobLogsURL: "",
         loading: false,
         rawLogURL:
