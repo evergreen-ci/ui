@@ -2,7 +2,7 @@ query VersionTaskDurations(
   $versionId: String!
   $taskFilterOptions: TaskFilterOptions!
 ) {
-  version(id: $versionId) {
+  version(versionId: $versionId) {
     id
     tasks(options: $taskFilterOptions) {
       count

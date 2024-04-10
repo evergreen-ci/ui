@@ -17,6 +17,7 @@ describe("project data", () => {
         {
           vars: [...form.vars, {} as Unpacked<VariablesFormState["vars"]>],
         },
+        false,
         "project",
       ),
     ).toStrictEqual(result);
@@ -42,13 +43,15 @@ const form: VariablesFormState = {
   ],
 };
 
-const result: Pick<ProjectSettingsInput, "projectRef" | "vars"> = {
-  projectRef: {
-    id: "project",
-  },
-  vars: {
-    vars: { test_name: "", test_two: "val" },
-    privateVarsList: ["test_name"],
-    adminOnlyVarsList: ["test_name"],
-  },
-};
+const result: Pick<ProjectSettingsInput, "projectId" | "projectRef" | "vars"> =
+  {
+    projectId: "project",
+    projectRef: {
+      id: "project",
+    },
+    vars: {
+      vars: { test_name: "", test_two: "val" },
+      privateVarsList: ["test_name"],
+      adminOnlyVarsList: ["test_name"],
+    },
+  };

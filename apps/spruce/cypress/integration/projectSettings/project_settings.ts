@@ -40,3 +40,16 @@ describe("A project that has GitHub webhooks disabled", () => {
     cy.get("input").should("be.disabled");
   });
 });
+
+describe("A project id should redirect to the project identifier", () => {
+  const projectId = "602d70a2b2373672ee493189";
+  const origin = getGeneralRoute(projectId);
+
+  beforeEach(() => {
+    cy.visit(origin);
+  });
+
+  it("Redirects to the project identifier", () => {
+    cy.url().should("include", getGeneralRoute("parsley"));
+  });
+});

@@ -1,66 +1,53 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Overline } from "@leafygreen-ui/typography";
-import SearchableDropdown, {
-  SearchableDropdownProps,
-} from "components/SearchableDropdown";
+import SearchableDropdown from "components/SearchableDropdown";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
-import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
+import { EnumSpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import { size } from "constants/tokens";
 
 const { gray } = palette;
 
 interface DistroValue {
-  value: string;
-  isVirtualWorkstation: boolean;
-}
-interface OptionValue {
-  title: string;
-  distros: DistroValue[];
+  adminOnly: boolean;
+  isVirtualWorkStation: boolean;
+  name: string;
 }
 
 interface DistroEnum {
   options: {
-    enumOptions: Array<{
-      schema: {
-        adminOnly: boolean;
-        isVirtualWorkstation: boolean;
-      };
-      label: string;
-      value: string;
-    }>;
+    distros: DistroValue[];
   };
 }
 
-export const DistroDropdown: React.FC<
-  DistroEnum &
-    SpruceWidgetProps & {
-      options: Pick<SearchableDropdownProps<string>, "data-cy">;
-    }
-> = ({ label, onChange, options, ...rest }) => {
+export const DistroDropdown: React.FC<DistroEnum & EnumSpruceWidgetProps> = ({
+  label,
+  onChange,
+  options,
+  value,
+}) => {
   const {
     ariaLabelledBy,
     "data-cy": dataCy,
+    distros: distroList,
     elementWrapperCSS,
-    enumOptions,
   } = options;
 
-  const searchableOptions = categorizeDistros(enumOptions);
-  const selectedDistro = rest.value?.value;
+  const searchableOptions = categorizeDistros(distroList);
   return (
     <StyledElementWrapper css={elementWrapperCSS}>
       <SearchableDropdown
-        valuePlaceholder={selectedDistro || "Select a distro"}
+        valuePlaceholder={value || "Select a distro"}
         label={ariaLabelledBy ? undefined : label}
-        value={selectedDistro}
+        value={value}
         data-cy={dataCy}
         onChange={onChange}
         options={searchableOptions}
-        searchFunc={(items, match) =>
+        searchFunc={(items: DistroGroup[], match: string) =>
           items.map((e) => ({
             ...e,
-            distros: e.distros.filter(({ value }) =>
-              value.toLowerCase().includes(match.toLowerCase()),
+            distros: e.distros.filter((d: string) =>
+              d.toLowerCase().includes(match.toLowerCase()),
             ),
           }))
         }
@@ -77,21 +64,24 @@ export const DistroDropdown: React.FC<
   );
 };
 
-// Bucketize distros into admin-only, workstation, and Non-Workstation buckets. Admin-only takes precedence over workstation.
-const categorizeDistros = (distros: DistroEnum["options"]["enumOptions"]) =>
-  distros.reduce<OptionValue[]>(
-    (accum, { schema, value }) => {
-      const { adminOnly, isVirtualWorkstation } = schema;
+type DistroGroup = {
+  title: string;
+  distros: string[];
+};
 
+// Bucketize distros into admin-only, workstation, and Non-Workstation buckets. Admin-only takes precedence over workstation.
+const categorizeDistros = (distros: DistroValue[]): DistroGroup[] =>
+  distros?.reduce(
+    (accum, { adminOnly, isVirtualWorkStation, name }) => {
       // Default to standard distro
       let categoryIndex = 1;
       if (adminOnly) {
         categoryIndex = 2;
-      } else if (isVirtualWorkstation) {
+      } else if (isVirtualWorkStation) {
         categoryIndex = 0;
       }
 
-      accum[categoryIndex].distros.push({ value, isVirtualWorkstation });
+      accum[categoryIndex].distros.push(name);
 
       return accum;
     },
@@ -104,8 +94,8 @@ const categorizeDistros = (distros: DistroEnum["options"]["enumOptions"]) =>
 
 const DropdownOption: React.FC<{
   title: string;
-  distros: DistroValue[];
-  onClick: (distro: DistroValue) => void;
+  distros: string[];
+  onClick: (distro: string) => void;
 }> = ({ distros, onClick, title }) =>
   distros.length > 0 ? (
     <OptionContainer key={title}>
@@ -114,10 +104,10 @@ const DropdownOption: React.FC<{
         {distros.map((d) => (
           <Option
             onClick={() => onClick(d)}
-            key={d.value}
-            data-cy={`distro-option-${d.value}`}
+            key={d}
+            data-cy={`distro-option-${d}`}
           >
-            {d.value}
+            {d}
           </Option>
         ))}
       </ListContainer>

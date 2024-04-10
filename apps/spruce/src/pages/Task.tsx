@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
-import { PageTitle } from "components/PageTitle";
+import PageTitle from "components/PageTitle";
 import {
   PageWrapper,
   PageContent,

@@ -5,7 +5,7 @@ import Banner from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import { PageTitle } from "components/PageTitle";
+import PageTitle from "components/PageTitle";
 import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
 import { getCommitQueueRoute, slugs } from "constants/routes";

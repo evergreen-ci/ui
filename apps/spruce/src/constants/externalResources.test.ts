@@ -1,13 +1,13 @@
 import {
   getParsleyBuildLogURL,
-  getParsleyTestLogURL,
+  getParsleyLogkeeperTestLogURL,
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "./externalResources";
 
-describe("getParsleyTestLogURL", () => {
+describe("getParsleyLogkeeperTestLogURL", () => {
   it("generates the correct url", () => {
-    expect(getParsleyTestLogURL("myBuildId", "myTestId")).toBe(
+    expect(getParsleyLogkeeperTestLogURL("myBuildId", "myTestId")).toBe(
       "/resmoke/myBuildId/test/myTestId",
     );
   });
