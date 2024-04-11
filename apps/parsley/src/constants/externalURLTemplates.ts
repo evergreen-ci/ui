@@ -17,7 +17,7 @@ const getEvergreenTaskURL = (taskID: string, execution: string | number) => {
 const getLogkeeperJobLogsURL = (buildID: string) =>
   `${spruceURL}/job-logs/${buildID}`;
 
-const getEVGJobLogsURL = (
+const getEvergreenJobLogsURL = (
   taskID: string,
   execution: string | number,
   groupID: string,
@@ -30,5 +30,5 @@ export {
   getEvergreenTaskURL,
   getLogkeeperJobLogsURL,
   getLegacyJobLogsURL,
-  getEVGJobLogsURL,
+  getEvergreenJobLogsURL,
 };
