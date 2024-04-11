@@ -23,7 +23,7 @@ const routes = {
   evergreenLogs: `${paths.evergreenLogs}/:${slugs.taskID}/:${slugs.execution}/:${slugs.origin}`,
   login: paths.login,
   logkeeperLogs: `${paths.resmokeLogs}/:${slugs.buildID}/test/:${slugs.testID}`,
-  resmokeLogsAll: `${paths.resmokeLogs}/:${slugs.buildID}/all`,
+  logkeeperLogsAll: `${paths.resmokeLogs}/:${slugs.buildID}/all`,
   root: paths.home,
   taskFiles: `${paths.taskFile}/:${slugs.taskID}/:${slugs.execution}/:${slugs.fileName}`,
   testLogs: `${paths.testLogs}/:${slugs.taskID}/:${slugs.execution}/:${slugs.testID}`,
