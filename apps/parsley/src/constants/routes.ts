@@ -19,8 +19,8 @@ enum slugs {
 }
 
 const routes = {
+  completeLogs: `${paths.resmokeLogs}/:${slugs.taskID}/:${slugs.execution}/:${slugs.groupID}/all`,
   evergreenLogs: `${paths.evergreenLogs}/:${slugs.taskID}/:${slugs.execution}/:${slugs.origin}`,
-  evgResmokeLogsAll: `${paths.resmokeLogs}/:${slugs.taskID}/:${slugs.execution}/:${slugs.groupID}/all`,
   login: paths.login,
   resmokeLogs: `${paths.resmokeLogs}/:${slugs.buildID}/test/:${slugs.testID}`,
   resmokeLogsAll: `${paths.resmokeLogs}/:${slugs.buildID}/all`,
