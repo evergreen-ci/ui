@@ -7,7 +7,7 @@ import {
 } from "constants/externalURLTemplates";
 import {
   constructEvergreenTaskLogURL,
-  getCompleteLogsURL,
+  getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
   getEvergreenTestLogURL,
@@ -137,7 +137,7 @@ export const useResolveLogURLAndRenderingType = ({
       if (!taskID || !execution || !groupID) {
         break;
       }
-      downloadURL = getCompleteLogsURL(taskID, execution, groupID);
+      downloadURL = getEvergreenCompleteLogsURL(taskID, execution, groupID);
       rawLogURL = downloadURL;
       jobLogsURL = getEvergreenJobLogsURL(taskID, execution, groupID);
       renderingType = LogRenderingTypes.Resmoke;

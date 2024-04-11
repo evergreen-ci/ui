@@ -127,7 +127,7 @@ const getEvergreenTaskFileURL = (
   fileName: string,
 ) => `${evergreenURL}/task_file_raw/${taskID}/${execution}/${fileName}`;
 
-const getCompleteLogsURL = (
+const getEvergreenCompleteLogsURL = (
   taskID: string,
   execution: string | number,
   groupID: string,
@@ -136,7 +136,7 @@ const getCompleteLogsURL = (
 
 export {
   constructEvergreenTaskLogURL,
-  getCompleteLogsURL,
+  getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
   getEvergreenTestLogURL,
