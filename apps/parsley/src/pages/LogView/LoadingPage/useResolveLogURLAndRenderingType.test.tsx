@@ -389,7 +389,7 @@ describe("useResolveLogURLAndRenderingType", () => {
     });
   });
 
-  it("generates evergreen all logs URL", async () => {
+  it("generates evergreen complete logs URL", async () => {
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MockedProvider mocks={[evergreenTaskMock, evergreenTaskMock]}>
         {children}
