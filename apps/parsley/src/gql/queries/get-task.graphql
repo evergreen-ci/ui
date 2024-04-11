@@ -3,6 +3,10 @@
 query Task($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
     ...BaseTask
+    details {
+      description
+      status
+    }
     logs {
       agentLogLink
       allLogLink

@@ -36,7 +36,14 @@ describe("useLogContext", () => {
   });
 
   describe("ingesting logs", () => {
-    const lines = ["foo", "bar", "baz"];
+    const lines = [
+      "foo",
+      "baz",
+      "bar",
+      "[2023/01/02 10:42:29.414] Command 'shell.exec' in function 'check-codegen' (step 2 of 2) failed: shell script encountered problem: exit code 1.",
+      "hello",
+      "world",
+    ];
     it("should add ingested logs to the list of logs", () => {
       const wrapper: React.FC<{ children: React.ReactNode }> = ({
         children,
@@ -49,7 +56,9 @@ describe("useLogContext", () => {
       act(() => {
         result.current.ingestLines(lines, LogRenderingTypes.Default);
       });
-      expect(result.current.processedLogLines).toStrictEqual([0, 1, 2]);
+      expect(result.current.processedLogLines).toStrictEqual([
+        0, 1, 2, 3, 4, 5,
+      ]);
       expect(result.current.lineCount).toBe(lines.length);
       for (let i = 0; i < lines.length; i++) {
         const line = result.current.processedLogLines[i];
@@ -58,6 +67,25 @@ describe("useLogContext", () => {
         // line is not an array we confirmed it above
         expect(result.current.getLine(line as number)).toStrictEqual(lines[i]);
       }
+    });
+
+    it("should save the failing log line number", () => {
+      const wrapper: React.FC<{ children: React.ReactNode }> = ({
+        children,
+      }) => (
+        <Router>
+          <LogContextProvider>{children}</LogContextProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => useLogContext(), { wrapper });
+      act(() => {
+        result.current.ingestLines(
+          lines,
+          LogRenderingTypes.Default,
+          "'shell.exec' in function 'check-codegen' (step 2 of 2)",
+        );
+      });
+      expect(result.current.failingLine).toBe(3);
     });
 
     it("should set hasLogs to true if logs exist and false otherwise.", () => {

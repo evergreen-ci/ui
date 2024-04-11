@@ -49,6 +49,8 @@ type HookResult = {
   loading: boolean;
   /** The rendering logic to use for the log when available */
   renderingType: LogRenderingTypes;
+  /** The failing command in the log, if available */
+  failingCommand: string;
 };
 
 /**
@@ -116,6 +118,7 @@ export const useResolveLogURLAndRenderingType = ({
   let jobLogsURL = "";
   let legacyJobLogsURL = "";
   let renderingType: LogRenderingTypes = LogRenderingTypes.Default;
+  let failingCommand = "";
   switch (logType) {
     case LogTypes.LOGKEEPER_LOGS: {
       if (buildID && testID) {
@@ -190,6 +193,10 @@ export const useResolveLogURLAndRenderingType = ({
             text: false,
           });
       renderingType = LogRenderingTypes.Default;
+      failingCommand =
+        task?.details?.status === "failed" && task?.details?.description
+          ? task.details.description
+          : "";
       break;
     }
     case LogTypes.EVERGREEN_TEST_LOGS: {
@@ -239,6 +246,7 @@ export const useResolveLogURLAndRenderingType = ({
 
   return {
     downloadURL,
+    failingCommand,
     htmlLogURL,
     jobLogsURL,
     legacyJobLogsURL,

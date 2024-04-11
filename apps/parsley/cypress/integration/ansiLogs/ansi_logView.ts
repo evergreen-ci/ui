@@ -253,3 +253,17 @@ describe("Sharing lines", () => {
     cy.dataCy("range-upper-bound").should("have.value", "2");
   });
 });
+
+describe("failing log line", () => {
+  const logLink =
+    "/evergreen/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/task";
+
+  beforeEach(() => {
+    cy.visit(logLink);
+    cy.dataCy("line-index-1").should("exist").should("be.visible");
+  });
+
+  it("should show the failing line in bookmarks bar", () => {
+    cy.dataCy("bookmark-list").should("contain", "9614");
+  });
+});

@@ -28,7 +28,15 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
         data-cy="bookmark-list"
       >
         <div
-          class="css-194lywn"
+          class="css-1fmnfd"
+          data-cy="bookmark-0"
+        >
+          <span>
+            0
+          </span>
+        </div>
+        <div
+          class="css-1fmnfd"
           data-cy="bookmark-4"
         >
           <span>
@@ -36,7 +44,7 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           </span>
         </div>
         <div
-          class="css-194lywn"
+          class="css-1fmnfd"
           data-cy="bookmark-5"
         >
           <span>
@@ -44,7 +52,7 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           </span>
         </div>
         <div
-          class="css-194lywn"
+          class="css-1fmnfd"
           data-cy="bookmark-6"
         >
           <span>
@@ -52,7 +60,7 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           </span>
         </div>
         <div
-          class="css-194lywn"
+          class="css-1fmnfd"
           data-cy="bookmark-7"
         >
           <span>
@@ -60,7 +68,7 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           </span>
         </div>
         <div
-          class="css-194lywn"
+          class="css-1fmnfd"
           data-cy="bookmark-21"
         >
           <span>
@@ -87,7 +95,7 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           </svg>
         </div>
         <div
-          class="css-194lywn"
+          class="css-1fmnfd"
           data-cy="bookmark-24"
         >
           <span>
@@ -95,7 +103,7 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           </span>
         </div>
         <div
-          class="css-194lywn"
+          class="css-1fmnfd"
           data-cy="bookmark-30"
         >
           <span>
@@ -103,7 +111,7 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           </span>
         </div>
         <div
-          class="css-194lywn"
+          class="css-1fmnfd"
           data-cy="bookmark-85"
         >
           <span>

@@ -18,6 +18,7 @@ describe("filterLogs", () => {
         bookmarks: [],
         expandableRows: true,
         expandedLines: [],
+        failingLine: undefined,
         logLines,
         matchingLines: undefined,
         shareLine: undefined,
@@ -31,6 +32,7 @@ describe("filterLogs", () => {
         bookmarks: [],
         expandableRows: false,
         expandedLines: [],
+        failingLine: undefined,
         logLines,
         matchingLines: new Set([1, 2, 3]),
         shareLine: undefined,
@@ -44,6 +46,7 @@ describe("filterLogs", () => {
         bookmarks: [],
         expandableRows: true,
         expandedLines: [],
+        failingLine: undefined,
         logLines,
         matchingLines: new Set([]),
         shareLine: undefined,
@@ -58,6 +61,7 @@ describe("filterLogs", () => {
           bookmarks: [7],
           expandableRows: true,
           expandedLines: [],
+          failingLine: undefined,
           logLines,
           matchingLines: new Set([1]),
           shareLine: undefined,
@@ -71,6 +75,7 @@ describe("filterLogs", () => {
           bookmarks: [],
           expandableRows: true,
           expandedLines: [],
+          failingLine: undefined,
           logLines,
           matchingLines: new Set([1]),
           shareLine: 7,
@@ -78,12 +83,26 @@ describe("filterLogs", () => {
       ).toStrictEqual([[0], 1, [2, 3, 4, 5, 6], 7]);
     });
 
+    it("should not collapse the failing line", () => {
+      expect(
+        filterLogs({
+          bookmarks: [],
+          expandableRows: true,
+          expandedLines: [],
+          failingLine: 7,
+          logLines,
+          matchingLines: new Set([1]),
+          shareLine: undefined,
+        }),
+      ).toStrictEqual([[0], 1, [2, 3, 4, 5, 6], 7]);
+    });
     it("should not collapse expanded lines", () => {
       expect(
         filterLogs({
           bookmarks: [],
           expandableRows: true,
           expandedLines: [[4, 6]],
+          failingLine: undefined,
           logLines,
           matchingLines: new Set([1]),
           shareLine: undefined,

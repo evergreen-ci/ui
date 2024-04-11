@@ -18,16 +18,22 @@ interface UseTaskQueryProps {
   buildID?: string;
 }
 
+type TaskType = BaseTaskFragment & {
+  logs?: TaskLogLinks;
+  tests?: {
+    testResults?: TaskTestResult["testResults"];
+  };
+  details?:
+    | {
+        description?: string | null | undefined;
+        status: string;
+      }
+    | null
+    | undefined;
+};
+
 type UseTaskQueryReturnType = {
-  task:
-    | (BaseTaskFragment & {
-        logs?: TaskLogLinks;
-        tests?: {
-          testResults?: TaskTestResult["testResults"];
-        };
-      })
-    | undefined
-    | null;
+  task: TaskType | undefined | null;
   loading: boolean;
 };
 

@@ -9,6 +9,7 @@ type FilterLogsParams = {
   shareLine: number | undefined;
   expandedLines: ExpandedLines;
   expandableRows: boolean;
+  failingLine: number | null | undefined;
 };
 
 /**
@@ -20,6 +21,7 @@ type FilterLogsParams = {
  * @param options.shareLine - a line number representing a share line
  * @param options.expandedLines - an array of intervals representing expanded ranges
  * @param options.expandableRows - specifies if expandable rows is enabled
+ * @param options.failingLine - a line number representing the failing line
  * @returns an array of numbers that indicates which log lines should be displayed, and which log lines
  * should be collapsed
  */
@@ -28,6 +30,7 @@ const filterLogs = (options: FilterLogsParams): (number | number[])[] => {
     bookmarks,
     expandableRows,
     expandedLines,
+    failingLine,
     logLines,
     matchingLines,
     shareLine,
@@ -45,6 +48,7 @@ const filterLogs = (options: FilterLogsParams): (number | number[])[] => {
     if (
       bookmarks.includes(idx) ||
       shareLine === idx ||
+      failingLine === idx ||
       isExpanded(idx, expandedLines)
     ) {
       arr.push(idx);
