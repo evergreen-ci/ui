@@ -18,16 +18,18 @@ import { shortenGithash, trimStringFromMiddle } from "utils/string";
 interface Props {
   buildID: string;
   execution: number;
+  fileName?: string;
+  groupID?: string;
   logType?: LogTypes;
   taskID: string;
   testID?: string;
-  fileName?: string;
 }
 
 export const EvergreenTaskSubHeader: React.FC<Props> = ({
   buildID,
   execution,
   fileName,
+  groupID,
   logType,
   taskID,
   testID,
@@ -76,7 +78,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
 
   let currentTest: { testFile: string; status: string } | null = null;
   switch (logType) {
-    case LogTypes.RESMOKE_LOGS:
+    case LogTypes.LOGKEEPER_LOGS:
       currentTest =
         taskData?.tests?.testResults?.find((test) =>
           test?.logs?.urlRaw?.match(new RegExp(`${testID}`)),
@@ -139,6 +141,14 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
           {
             "data-cy": "file-breadcrumb",
             text: fileName,
+          },
+        ]
+      : []),
+    ...(groupID
+      ? [
+          {
+            "data-cy": "group-breadcrumb",
+            text: groupID,
           },
         ]
       : []),

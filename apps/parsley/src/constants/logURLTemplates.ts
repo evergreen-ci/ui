@@ -127,8 +127,23 @@ const getEvergreenTaskFileURL = (
   fileName: string,
 ) => `${evergreenURL}/task_file_raw/${taskID}/${execution}/${fileName}`;
 
+/**
+ * getEvergreenCompleteLogsURL constructs an Evergreen URL to download complete logs for a task.
+ * @param taskID - the task ID
+ * @param execution - the execution number of the task
+ * @param groupID - the group ID of the task
+ * @returns an Evergreen URL of the format /rest/v2/tasks/${taskID}/build/TestLogs/${groupID}?execution=${execution}
+ */
+const getEvergreenCompleteLogsURL = (
+  taskID: string,
+  execution: string | number,
+  groupID: string,
+) =>
+  `${evergreenURL}/rest/v2/tasks/${taskID}/build/TestLogs/${groupID}?execution=${execution}`;
+
 export {
   constructEvergreenTaskLogURL,
+  getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
   getEvergreenTestLogURL,

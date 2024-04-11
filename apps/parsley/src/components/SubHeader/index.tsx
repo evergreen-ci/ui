@@ -11,7 +11,7 @@ const { gray } = palette;
 interface SubHeaderProps {}
 const SubHeader: React.FC<SubHeaderProps> = () => {
   const { isUploadedLog, logMetadata } = useLogContext();
-  const { buildID, execution, fileName, logType, taskID, testID } =
+  const { buildID, execution, fileName, groupID, logType, taskID, testID } =
     logMetadata || {};
 
   return (
@@ -39,6 +39,7 @@ const SubHeader: React.FC<SubHeaderProps> = () => {
               buildID={buildID as string}
               execution={Number(execution)}
               fileName={fileName}
+              groupID={groupID}
               logType={logType}
               taskID={taskID}
               testID={testID as string}

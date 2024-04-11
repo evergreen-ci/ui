@@ -29,7 +29,7 @@ const getCLICommand = (logMetadata: LogMetadata) => {
         return "";
       }
       return `evergreen buildlogger fetch --task_id ${taskID} --execution ${execution} --test_name ${testID}`;
-    case LogTypes.RESMOKE_LOGS:
+    case LogTypes.LOGKEEPER_LOGS:
       if (!buildID) {
         return "";
       }
