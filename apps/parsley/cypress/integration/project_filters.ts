@@ -35,6 +35,6 @@ describe("project filters", () => {
     cy.visit(`${resmokeLogLink}?filters=100D%255Cd`);
     cy.contains("View project filters").click();
     cy.dataCy("project-filters-modal").should("be.visible");
-    cy.getInputByLabel("D\\d").should("be.disabled");
+    cy.getInputByLabel("D\\d").should("have.attr", "aria-disabled", "true");
   });
 });
