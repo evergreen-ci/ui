@@ -39,7 +39,7 @@ describe("renderHtml", () => {
       <>
         {renderHtml("test <span data-cy='element'>string</span>", {
           // @ts-expect-error - This is expecting a react component but its an Emotion component which are virtually the same thing
-          transformMap: { span: Component },
+          transform: { span: Component },
         })}
       </>,
     );
