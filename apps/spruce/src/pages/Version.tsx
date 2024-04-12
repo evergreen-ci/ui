@@ -3,7 +3,7 @@ import { useLazyQuery, useQuery } from "@apollo/client";
 import { useParams, Navigate } from "react-router-dom";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
-import { PageTitle } from "components/PageTitle";
+import PageTitle from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import {
   PageWrapper,

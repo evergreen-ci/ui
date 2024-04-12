@@ -1,16 +1,29 @@
 export type FormState = {
-  distro?: {
-    adminOnly: boolean;
-    isVirtualWorkstation: boolean;
-    value: string;
+  requiredSection?: {
+    distro?: string;
+    region?: string;
   };
-  region?: string;
   publicKeySection?: {
     useExisting: boolean;
     newPublicKey?: string;
     publicKeyNameDropdown?: string;
     savePublicKey?: boolean;
     newPublicKeyName?: string;
+  };
+  expirationDetails?: {
+    noExpiration: boolean;
+    expiration?: string;
+    hostUptime?: {
+      useDefaultUptimeSchedule: boolean;
+      sleepSchedule?: {
+        enabledWeekdays: boolean[];
+        timeSelection: {
+          startTime: string;
+          endTime: string;
+          runContinuously: boolean;
+        };
+      };
+    };
   };
   userdataScriptSection?: {
     runUserdataScript: boolean;
@@ -19,10 +32,6 @@ export type FormState = {
   setupScriptSection?: {
     defineSetupScriptCheckbox: boolean;
     setupScript?: string;
-  };
-  expirationDetails?: {
-    noExpiration: boolean;
-    expiration?: string;
   };
   homeVolumeDetails?: {
     selectExistingVolume: boolean;

@@ -1,7 +1,7 @@
 #import "../fragments/upstreamProject.graphql"
 
 query Version($id: String!) {
-  version(id: $id) {
+  version(versionId: $id) {
     activated
     author
     authorEmail

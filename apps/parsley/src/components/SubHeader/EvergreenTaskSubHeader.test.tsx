@@ -36,7 +36,7 @@ describe("evergreen task subheader", () => {
         <EvergreenTaskSubHeader
           buildID="7e208050e166b1a9025c817b67eee48d"
           execution={0}
-          logType={LogTypes.RESMOKE_LOGS}
+          logType={LogTypes.LOGKEEPER_LOGS}
           taskID="mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24"
           testID="1716e11b4f8a4541c5e2faf70affbfab"
         />

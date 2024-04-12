@@ -6,7 +6,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
     class="css-8cvf0s-Container emi64ys2"
   >
     <label
-      class="css-eetc9q-Circle emi64ys1"
+      class="css-1u74sbj-Circle emi64ys1"
       for="Sunday"
       title="Sunday"
     >
@@ -19,7 +19,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
       S
     </label>
     <label
-      class="css-eetc9q-Circle emi64ys1"
+      class="css-1u74sbj-Circle emi64ys1"
       for="Monday"
       title="Monday"
     >
@@ -32,7 +32,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
       M
     </label>
     <label
-      class="css-eetc9q-Circle emi64ys1"
+      class="css-1u74sbj-Circle emi64ys1"
       for="Tuesday"
       title="Tuesday"
     >
@@ -45,7 +45,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
       T
     </label>
     <label
-      class="css-eetc9q-Circle emi64ys1"
+      class="css-1u74sbj-Circle emi64ys1"
       for="Wednesday"
       title="Wednesday"
     >
@@ -58,7 +58,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
       W
     </label>
     <label
-      class="css-eetc9q-Circle emi64ys1"
+      class="css-1u74sbj-Circle emi64ys1"
       for="Thursday"
       title="Thursday"
     >
@@ -71,7 +71,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
       T
     </label>
     <label
-      class="css-eetc9q-Circle emi64ys1"
+      class="css-1u74sbj-Circle emi64ys1"
       for="Friday"
       title="Friday"
     >
@@ -84,7 +84,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
       F
     </label>
     <label
-      class="css-eetc9q-Circle emi64ys1"
+      class="css-1u74sbj-Circle emi64ys1"
       for="Saturday"
       title="Saturday"
     >

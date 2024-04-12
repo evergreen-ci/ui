@@ -85,6 +85,10 @@ export const getFormSchema = (
                 repoData?.github?.manualPrTestingEnabled,
               ),
             },
+            oldestAllowedMergeBase: {
+              type: "string" as "string",
+              title: "Oldest Allowed Merge Base",
+            },
             prTesting: {
               type: "object" as "object",
               title: "GitHub Patch Definitions",
@@ -340,6 +344,22 @@ export const getFormSchema = (
             formData?.github?.manualPrTestingEnabled,
             repoData?.github?.manualPrTestingEnabled,
             "PR Testing",
+          ),
+        },
+        oldestAllowedMergeBase: {
+          "ui:description":
+            "Specify the oldest commit SHA on your project branch that is allowed to be a merge base for a PR",
+          "ui:optional": true,
+          ...placeholderIf(repoData?.github?.oldestAllowedMergeBase),
+          ...hideIf(
+            fieldDisabled(
+              formData?.github?.prTestingEnabled,
+              repoData?.github?.prTestingEnabled,
+            ) &&
+              fieldDisabled(
+                formData?.github?.manualPrTestingEnabled,
+                repoData?.github?.manualPrTestingEnabled,
+              ),
           ),
         },
         prTesting: {

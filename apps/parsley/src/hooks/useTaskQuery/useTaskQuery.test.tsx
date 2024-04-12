@@ -41,7 +41,7 @@ describe("useTaskQuery", () => {
       () =>
         useTaskQuery({
           buildID: "7e208050e166b1a9025c817b67eee48d",
-          logType: LogTypes.RESMOKE_LOGS,
+          logType: LogTypes.LOGKEEPER_LOGS,
         }),
       {
         wrapper,

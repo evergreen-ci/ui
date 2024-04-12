@@ -60,6 +60,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
 
 export const formToGql = ((
   { patchAliases, patchTriggerAliases: ptaData },
+  isRepo,
   id,
 ) => {
   const aliases = transformAliases(
@@ -98,6 +99,7 @@ export const formToGql = ((
     : null;
 
   return {
+    ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef: { id, patchTriggerAliases, githubTriggerAliases },
     aliases,
   };

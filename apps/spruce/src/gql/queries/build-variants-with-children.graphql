@@ -1,5 +1,5 @@
 query BuildVariantsWithChildren($id: String!) {
-  version(id: $id) {
+  version(versionId: $id) {
     buildVariants(options: {}) {
       displayName
       tasks {
