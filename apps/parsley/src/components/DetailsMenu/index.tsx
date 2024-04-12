@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
+import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { palette } from "@leafygreen-ui/palette";
+import Cookie from "js-cookie";
 import PopoverButton from "components/PopoverButton";
+import { HAS_SEEN_JUMP_TO_FAILING_LINE_GUIDE_CUE } from "constants/cookies";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParam } from "hooks/useQueryParam";
 import DetailsMenuCard from "./DetailsMenuCard";
@@ -21,6 +24,12 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
     undefined,
   );
   const [changeVisible, setChangeVisible] = useState(false);
+
+  const [openGuideCue, setOpenGuideCue] = useState(
+    Cookie.get(HAS_SEEN_JUMP_TO_FAILING_LINE_GUIDE_CUE) !== "true",
+  );
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const detailsMenuRef = useRef<HTMLDivElement>(null);
   const firstUpdate = useRef(true);
 
@@ -40,14 +49,39 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
   }, [lowerRange, upperRange]);
 
   return (
-    <AnimatedPopoverButton
-      buttonText="Details"
-      disabled={disabled}
-      variant={changeVisible ? "primary" : "default"}
-      {...rest}
-    >
-      <DetailsMenuCard ref={detailsMenuRef} data-cy="details-menu" />
-    </AnimatedPopoverButton>
+    <>
+      <AnimatedPopoverButton
+        buttonRef={buttonRef}
+        buttonText="Details"
+        disabled={disabled}
+        variant={changeVisible ? "primary" : "default"}
+        {...rest}
+      >
+        <DetailsMenuCard ref={detailsMenuRef} data-cy="details-menu" />
+      </AnimatedPopoverButton>
+      {/* TODO: Remove in DEVPROD-6185. */}
+      <GuideCue
+        currentStep={1}
+        data-cy="jump-to-failing-line-guide-cue"
+        numberOfSteps={1}
+        onPrimaryButtonClick={() => {
+          Cookie.set(HAS_SEEN_JUMP_TO_FAILING_LINE_GUIDE_CUE, "true", {
+            expires: 365,
+          });
+          setOpenGuideCue(false);
+        }}
+        open={openGuideCue}
+        refEl={buttonRef}
+        setOpen={setOpenGuideCue}
+        title="Jump to Failing Line is Enabled"
+        tooltipAlign="bottom"
+        tooltipJustify="end"
+      >
+        A new feature <HighlightedText>Jump to Failing Line</HighlightedText>{" "}
+        has been enabled for all users by default. Toggle it on or off via the
+        menu.
+      </GuideCue>
+    </>
   );
 };
 
@@ -67,4 +101,9 @@ const AnimatedPopoverButton = styled(PopoverButton)`
     }
   `}
 `;
+
+const HighlightedText = styled.span`
+  color: ${green.base};
+`;
+
 export default DetailsMenu;

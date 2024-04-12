@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { render, screen, userEvent, waitFor } from "test_utils";
 import PopoverButton from ".";
 
@@ -5,7 +6,9 @@ describe("popoverButton", () => {
   it("opens a popover when clicked", async () => {
     const user = userEvent.setup();
     render(
-      <PopoverButton buttonText="Open Popover">Some content</PopoverButton>,
+      <PopoverButton buttonRef={createRef()} buttonText="Open Popover">
+        Some content
+      </PopoverButton>,
     );
     const button = screen.getByRole("button", {
       name: "Open Popover",
@@ -19,7 +22,11 @@ describe("popoverButton", () => {
     const user = userEvent.setup();
     const onClick = jest.fn();
     render(
-      <PopoverButton buttonText="Open Popover" onClick={onClick}>
+      <PopoverButton
+        buttonRef={createRef()}
+        buttonText="Open Popover"
+        onClick={onClick}
+      >
         Some content
       </PopoverButton>,
     );

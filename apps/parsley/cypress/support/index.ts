@@ -111,4 +111,5 @@ beforeEach(() => {
   cy.login();
   cy.setCookie("has-opened-drawer", "true");
   cy.setCookie("has-seen-searchbar-guide-cue", "true");
+  cy.setCookie("has-seen-jump-to-failing-line-guide-cue", "true");
 });

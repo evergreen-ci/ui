@@ -12,12 +12,12 @@ import { isCollapsedRow } from "utils/collapsedRow";
  */
 export const findLineIndex = (
   processedLines: ProcessedLogLines,
-  lineNumber: number | undefined,
+  lineNumber: number | undefined | null,
   start: number = 0,
   end: number = processedLines.length - 1,
 ): number => {
   // Line number was not found in the array.
-  if (lineNumber === undefined || start > end) {
+  if (lineNumber === undefined || lineNumber === null || start > end) {
     return -1;
   }
 
