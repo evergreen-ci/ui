@@ -48,7 +48,7 @@ export const highlightHtml = (
 
         const highlightedHtml = renderHtml(highlightedText, {
           preserveAttributes: ["mark"],
-          transform: {
+          transformMap: {
             mark: Highlight as unknown as React.ReactNode,
           },
         });
