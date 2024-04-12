@@ -1,5 +1,5 @@
 query IsPatchConfigured($id: String!) {
-  patch(id: $id) {
+  patch(patchId: $id) {
     activated
     alias
     id

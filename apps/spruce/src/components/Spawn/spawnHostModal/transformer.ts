@@ -1,5 +1,6 @@
 import {
   MyPublicKeysQuery,
+  SleepScheduleInput,
   SpawnTaskQuery,
   SpawnHostMutationVariables,
 } from "gql/generated/types";
@@ -9,28 +10,31 @@ import { FormState } from "./types";
 import { validateTask } from "./utils";
 
 interface Props {
+  isVirtualWorkStation: boolean;
   formData: FormState;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   spawnTaskData?: SpawnTaskQuery["task"];
   migrateVolumeId?: string;
+  timeZone?: string;
 }
 export const formToGql = ({
   formData,
+  isVirtualWorkStation,
   migrateVolumeId,
   myPublicKeys,
   spawnTaskData,
+  timeZone,
 }: Props): SpawnHostMutationVariables["spawnHostInput"] => {
   const {
-    distro,
     expirationDetails,
     homeVolumeDetails,
     loadData,
     publicKeySection,
-    region,
+    requiredSection: { distro, region },
     setupScriptSection,
     userdataScriptSection,
   } = formData || {};
-  const isVirtualWorkStation = !!distro?.isVirtualWorkstation;
+  const { hostUptime } = expirationDetails;
   return {
     isVirtualWorkStation,
     userDataScript: userdataScriptSection?.runUserdataScript
@@ -40,6 +44,10 @@ export const formToGql = ({
       ? null
       : new Date(expirationDetails?.expiration),
     noExpiration: expirationDetails?.noExpiration,
+    sleepSchedule:
+      expirationDetails?.noExpiration && hostUptime
+        ? getSleepSchedule(hostUptime, timeZone)
+        : null,
     volumeId:
       migrateVolumeId ||
       (isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
@@ -64,7 +72,7 @@ export const formToGql = ({
     },
     savePublicKey:
       !publicKeySection?.useExisting && !!publicKeySection?.savePublicKey,
-    distroId: distro?.value,
+    distroId: distro,
     region,
     taskId:
       loadData?.loadDataOntoHostAtStartup && validateTask(spawnTaskData)
@@ -82,4 +90,56 @@ export const formToGql = ({
     ),
     taskSync: !!(loadData?.loadDataOntoHostAtStartup && loadData?.taskSync),
   };
+};
+
+const getSleepSchedule = (
+  {
+    sleepSchedule,
+    useDefaultUptimeSchedule,
+  }: FormState["expirationDetails"]["hostUptime"],
+  timeZone: string,
+): SleepScheduleInput => {
+  if (useDefaultUptimeSchedule) {
+    return getDefaultSleepSchedule({ timeZone });
+  }
+
+  const {
+    enabledWeekdays,
+    timeSelection: { endTime, runContinuously, startTime },
+  } = sleepSchedule;
+
+  const schedule = {
+    permanentlyExempt: false,
+    shouldKeepOff: false,
+    timeZone,
+    wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
+      if (!isEnabled) {
+        accum.push(i);
+      }
+      return accum;
+    }, []),
+  } as SleepScheduleInput;
+
+  if (!runContinuously) {
+    const startDate = new Date(startTime);
+    const stopDate = new Date(endTime);
+    schedule.dailyStartTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
+    schedule.dailyStopTime = `${stopDate.getHours()}:${stopDate.getMinutes()}`;
+  }
+
+  return schedule;
+};
+
+const getDefaultSleepSchedule = ({ timeZone }): SleepScheduleInput => {
+  const sleepSchedule: SleepScheduleInput = {
+    dailyStartTime: "08:00",
+    dailyStopTime: "20:00",
+    permanentlyExempt: false,
+    // TODO: Add pause
+    shouldKeepOff: false,
+    timeZone,
+    wholeWeekdaysOff: [0, 6],
+  };
+
+  return sleepSchedule;
 };

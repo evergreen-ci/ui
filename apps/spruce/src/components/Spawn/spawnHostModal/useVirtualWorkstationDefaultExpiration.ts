@@ -4,16 +4,17 @@ import { getDefaultExpiration } from "../utils";
 import { FormState } from "./types";
 
 interface Props {
-  setFormState: (formState: FormState) => void;
-  formState: FormState;
   disableExpirationCheckbox: boolean;
+  formState: FormState;
+  isVirtualWorkstation: boolean;
+  setFormState: (formState: FormState) => void;
 }
 export const useVirtualWorkstationDefaultExpiration = ({
   disableExpirationCheckbox,
   formState,
+  isVirtualWorkstation,
   setFormState,
 }: Props) => {
-  const isVirtualWorkstation = !!formState?.distro?.isVirtualWorkstation;
   // Default virtual workstations to unexpirable upon selection if possible
   const prevIsVirtualWorkStation = usePrevious(isVirtualWorkstation);
   useEffect(() => {

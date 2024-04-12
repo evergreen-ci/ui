@@ -10,7 +10,7 @@ describe("containers", () => {
     expect(gqlToForm(projectBase)).toStrictEqual(projectFormBase);
   });
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(projectFormBase, "spruce")).toStrictEqual(
+    expect(formToGql(projectFormBase, false, "spruce")).toStrictEqual(
       projectResultBase,
     );
   });
@@ -29,6 +29,7 @@ const projectFormBase: ContainersFormState = {
 };
 
 const projectResultBase: ProjectSettingsInput = {
+  projectId: "spruce",
   projectRef: {
     id: "spruce",
     containerSizeDefinitions: [

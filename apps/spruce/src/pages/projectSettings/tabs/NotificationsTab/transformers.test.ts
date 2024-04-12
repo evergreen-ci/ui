@@ -20,7 +20,9 @@ describe("project data", () => {
   });
 
   it("correctly converts from a form to GQL when a banner value exists in the form", () => {
-    expect(formToGql({ ...projectFormBase, banner }, "spruce")).toStrictEqual({
+    expect(
+      formToGql({ ...projectFormBase, banner }, false, "spruce"),
+    ).toStrictEqual({
       ...projectResultBase,
       projectRef: {
         ...projectResultBase.projectRef,
@@ -30,7 +32,7 @@ describe("project data", () => {
   });
 
   it("correctly converts from a form to GQL when the subscriptions field is empty", () => {
-    expect(formToGql(projectFormBase, "spruce")).toStrictEqual(
+    expect(formToGql(projectFormBase, false, "spruce")).toStrictEqual(
       projectResultBase,
     );
   });
@@ -88,7 +90,9 @@ describe("project data", () => {
       ],
     };
 
-    expect(formToGql(projectForm, "spruce")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, false, "spruce")).toStrictEqual(
+      projectResult,
+    );
   });
 
   it("handles jira issue subscriptions", () => {
@@ -150,7 +154,9 @@ describe("project data", () => {
         },
       ],
     };
-    expect(formToGql(projectForm, "spruce")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, false, "spruce")).toStrictEqual(
+      projectResult,
+    );
   });
   it("handles webhook subscriptions", () => {
     const projectForm = {
@@ -230,7 +236,9 @@ describe("project data", () => {
       ],
     };
 
-    expect(formToGql(projectForm, "spruce")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, false, "spruce")).toStrictEqual(
+      projectResult,
+    );
   });
 });
 
@@ -242,6 +250,7 @@ const projectFormBase: NotificationsFormState = {
 };
 
 const projectResultBase: ProjectSettingsInput = {
+  projectId: "spruce",
   projectRef: {
     id: "spruce",
     notifyOnBuildFailure: null,

@@ -8,7 +8,7 @@ import { SiderCard, wordBreakCss } from "components/styles";
 import { Divider } from "components/styles/divider";
 
 interface Props {
-  error: ApolloError;
+  error?: ApolloError;
   loading?: boolean;
   children: React.ReactNode;
 }

@@ -87,7 +87,7 @@ describe("cliInstructions", () => {
       hook.current.setLogMetadata({
         buildID: "buildId",
         execution: "0",
-        logType: LogTypes.RESMOKE_LOGS,
+        logType: LogTypes.LOGKEEPER_LOGS,
         taskID: "taskId",
         testID: "testId",
       });

@@ -216,6 +216,7 @@ const ScrollableList = styled.div`
 `;
 
 const Wrapper = styled.div`
+  margin-top: ${size.xxs};
   width: ${(props: { width?: string }): string =>
     props.width ? props.width : ""};
 `;
