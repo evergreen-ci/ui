@@ -8,30 +8,38 @@ import {
   SpawnTaskQuery,
   MyVolumesQuery,
 } from "gql/generated/types";
+import { isProduction } from "utils/environmentVariables";
 import { shortenGithash } from "utils/string";
+import { getHostUptimeSchema } from "../getFormSchema";
 import { getDefaultExpiration } from "../utils";
 import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
 
 interface Props {
+  awsRegions: string[];
+  disableExpirationCheckbox: boolean;
+  distroIdQueryParam?: string;
   distros: {
     adminOnly: boolean;
     isVirtualWorkStation: boolean;
     name?: string;
   }[];
-  awsRegions: string[];
-  disableExpirationCheckbox: boolean;
-  distroIdQueryParam?: string;
-  isVirtualWorkstation: boolean;
-  noExpirationCheckboxTooltip: string;
-  myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
-  spawnTaskData?: SpawnTaskQuery["task"];
-  userAwsRegion?: string;
-  volumes: MyVolumesQuery["myVolumes"];
+  hostUptimeValidation?: {
+    enabledHoursCount: number;
+    errors: string[];
+    warnings: string[];
+  };
   isMigration: boolean;
+  isVirtualWorkstation: boolean;
+  myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
+  noExpirationCheckboxTooltip: string;
+  spawnTaskData?: SpawnTaskQuery["task"];
+  timeZone?: string;
   useSetupScript?: boolean;
   useProjectSetupScript?: boolean;
+  userAwsRegion?: string;
+  volumes: MyVolumesQuery["myVolumes"];
 }
 
 export const getFormSchema = ({
@@ -39,11 +47,13 @@ export const getFormSchema = ({
   disableExpirationCheckbox,
   distroIdQueryParam,
   distros,
+  hostUptimeValidation,
   isMigration,
   isVirtualWorkstation,
   myPublicKeys,
   noExpirationCheckboxTooltip,
   spawnTaskData,
+  timeZone,
   useProjectSetupScript = false,
   useSetupScript = false,
   userAwsRegion,
@@ -61,58 +71,47 @@ export const getFormSchema = ({
   const availableVolumes = volumes
     ? volumes.filter((v) => v.homeVolume && !v.hostID)
     : [];
+  const hostUptime = getHostUptimeSchema({ hostUptimeValidation, timeZone });
 
   return {
     fields: {},
     schema: {
       type: "object" as "object",
       properties: {
-        requiredHostInformationTitle: {
-          title: "Required Host Information",
-          type: "null",
-        },
-        distro: {
-          type: "string" as "string",
-          title: "Distro",
-          default: distroIdQueryParam
-            ? {
-                value: distroIdQueryParam,
-                isVirtualWorkstation: !!distros?.find(
-                  (v) =>
-                    v.name === distroIdQueryParam && v.isVirtualWorkStation,
-                ),
-              }
-            : null,
-          oneOf: [
-            ...(distros?.map((d) => ({
+        requiredSection: {
+          type: "object" as "object",
+          title: "",
+          properties: {
+            distro: {
               type: "string" as "string",
-              title: d.name,
-              enum: [d.name],
-              isVirtualWorkstation: d.isVirtualWorkStation,
-              adminOnly: d.adminOnly,
-            })) || []),
-          ],
-        },
-        region: {
-          type: "string" as "string",
-          title: "Region",
-          default: userAwsRegion || (awsRegions?.length && awsRegions[0]),
-          oneOf: [
-            ...(awsRegions?.map((r) => ({
+              title: "Distro",
+              default: distroIdQueryParam,
+              enum: distros?.map(({ name }) => name),
+              minLength: 1,
+            },
+            region: {
               type: "string" as "string",
-              title: r,
-              enum: [r],
-            })) || []),
-          ],
+              title: "Region",
+              default: userAwsRegion || (awsRegions?.length && awsRegions[0]),
+              oneOf: [
+                ...(awsRegions?.map((r) => ({
+                  type: "string" as "string",
+                  title: r,
+                  enum: [r],
+                })) || []),
+              ],
+              minLength: 1,
+            },
+          },
         },
         publicKeySection: {
-          title: "",
           type: "object",
+          title: "Key selection",
           properties: {
             useExisting: {
-              title: "Key selection",
               default: true,
               type: "boolean" as "boolean",
+              title: "",
               oneOf: [
                 {
                   type: "boolean" as "boolean",
@@ -141,6 +140,7 @@ export const getFormSchema = ({
                       default: myPublicKeys?.length
                         ? myPublicKeys[0]?.name
                         : "",
+                      minLength: 1,
                       oneOf:
                         myPublicKeys?.length > 0
                           ? myPublicKeys.map((d) => ({
@@ -167,6 +167,7 @@ export const getFormSchema = ({
                       title: "Public key",
                       type: "string" as "string",
                       default: "",
+                      minLength: 1,
                     },
                     savePublicKey: {
                       title: "Save Public Key",
@@ -180,16 +181,75 @@ export const getFormSchema = ({
                         {
                           properties: {
                             savePublicKey: {
+                              enum: [false],
+                            },
+                          },
+                        },
+                        {
+                          properties: {
+                            savePublicKey: {
                               enum: [true],
                             },
                             newPublicKeyName: {
                               title: "Key name",
                               type: "string" as "string",
+                              default: "",
+                              minLength: 1,
                             },
                           },
                         },
                       ],
                     },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        expirationDetails: {
+          title: "Expiration Details",
+          type: "object" as "object",
+          properties: {
+            noExpiration: {
+              default: false,
+              type: "boolean" as "boolean",
+              title: "",
+              oneOf: [
+                {
+                  type: "boolean" as "boolean",
+                  title: "Expirable Host",
+                  enum: [false],
+                },
+                {
+                  type: "boolean" as "boolean",
+                  title: "Unexpirable Host",
+                  enum: [true],
+                },
+              ],
+            },
+          },
+          dependencies: {
+            noExpiration: {
+              oneOf: [
+                {
+                  properties: {
+                    noExpiration: {
+                      enum: [false],
+                    },
+                    expiration: {
+                      type: "string" as "string",
+                      title: "Expiration",
+                      default: getDefaultExpiration(),
+                      minLength: 6,
+                    },
+                  },
+                },
+                {
+                  properties: {
+                    noExpiration: {
+                      enum: [true],
+                    },
+                    ...(!isProduction() && { hostUptime: hostUptime.schema }),
                   },
                 },
               ],
@@ -220,6 +280,8 @@ export const getFormSchema = ({
                     userdataScript: {
                       title: "Userdata Script",
                       type: "string" as "string",
+                      default: "",
+                      minLength: 1,
                     },
                   },
                 },
@@ -255,12 +317,14 @@ export const getFormSchema = ({
                     setupScript: {
                       title: "Setup Script",
                       type: "string" as "string",
+                      default: "",
+                      minLength: 1,
                     },
                   },
                 },
                 {
                   properties: {
-                    runUserdataScript: {
+                    defineSetupScriptCheckbox: {
                       enum: [false],
                     },
                   },
@@ -307,48 +371,6 @@ export const getFormSchema = ({
             },
           },
         }),
-        expirationDetails: {
-          title: "",
-          type: "object" as "object",
-          properties: {
-            noExpiration: {
-              default: false,
-              type: "boolean" as "boolean",
-              title: "Never expire",
-            },
-            expiration: {
-              type: "string" as "string",
-              title: "Expiration",
-              default: getDefaultExpiration(),
-            },
-          },
-          dependencies: {
-            noExpiration: {
-              oneOf: [
-                {
-                  properties: {
-                    noExpiration: {
-                      enum: [false],
-                    },
-                    expiration: {
-                      readOnly: false,
-                    },
-                  },
-                },
-                {
-                  properties: {
-                    noExpiration: {
-                      enum: [true],
-                    },
-                    expiration: {
-                      readOnly: true,
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
         ...(shouldRenderVolumeSelection && {
           homeVolumeDetails: {
             type: "object" as "object",
@@ -384,6 +406,7 @@ export const getFormSchema = ({
                         title: "Volume",
                         type: "string" as "string",
                         default: availableVolumes[0]?.id ?? "",
+                        minLength: 1,
                         oneOf:
                           availableVolumes.length > 0
                             ? availableVolumes.map((v) => ({
@@ -402,6 +425,7 @@ export const getFormSchema = ({
                     },
                   },
                   {
+                    required: ["volumeSize"],
                     properties: {
                       selectExistingVolume: {
                         enum: [false],
@@ -410,6 +434,7 @@ export const getFormSchema = ({
                         title: "Volume size (GB)",
                         type: "number" as "number",
                         default: DEFAULT_VOLUME_SIZE,
+                        minimum: 1,
                       },
                     },
                   },
@@ -445,17 +470,23 @@ export const getFormSchema = ({
       },
     },
     uiSchema: {
-      distro: {
-        "ui:widget": DistroDropdown,
-        "ui:elementWrapperCSS": dropdownWrapperClassName,
-        "ui:data-cy": "distro-input",
-      },
-      region: {
-        "ui:data-cy": "region-select",
-        "ui:disabled": isMigration,
-        "ui:elementWrapperCSS": dropdownWrapperClassName,
-        "ui:placeholder": "Select a region",
-        "ui:allowDeselect": false,
+      requiredSection: {
+        "ui:fieldSetCSS": css`
+          display: flex;
+        `,
+        distro: {
+          "ui:widget": DistroDropdown,
+          "ui:elementWrapperCSS": dropdownWrapperClassName,
+          "ui:data-cy": "distro-input",
+          "ui:distros": distros,
+        },
+        region: {
+          "ui:data-cy": "region-select",
+          "ui:disabled": isMigration,
+          "ui:elementWrapperCSS": dropdownWrapperClassName,
+          "ui:placeholder": "Select a region",
+          "ui:allowDeselect": false,
+        },
       },
       publicKeySection: {
         useExisting: {
@@ -492,11 +523,13 @@ export const getFormSchema = ({
         },
       },
       expirationDetails: {
+        "ui:tooltipTitle": noExpirationCheckboxTooltip ?? "",
         noExpiration: {
-          "ui:disabled": disableExpirationCheckbox,
-          "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
-          "ui:data-cy": "never-expire-checkbox",
+          "ui:enumDisabled": disableExpirationCheckbox ? [true] : null,
+          "ui:data-cy": "expirable-radio-box",
+          "ui:widget": widgets.RadioBoxWidget,
         },
+        hostUptime: hostUptime.uiSchema,
         expiration: {
           "ui:disableBefore": add(today, { days: 1 }),
           "ui:disableAfter": add(today, { days: 30 }),

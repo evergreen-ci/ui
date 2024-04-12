@@ -1,5 +1,5 @@
 import { usePreferencesAnalytics } from "analytics";
-import { LogTypes } from "constants/enums";
+import { LogRenderingTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import BaseToggle from "../BaseToggle";
 
@@ -8,8 +8,8 @@ const PrettyPrintToggle: React.FC = () => {
   const { logMetadata, preferences } = useLogContext();
 
   const { prettyPrint, setPrettyPrint } = preferences;
-  const { logType } = logMetadata || {};
-  const disablePrettyPrint = logType !== LogTypes.RESMOKE_LOGS;
+  const disablePrettyPrint =
+    logMetadata?.renderingType !== LogRenderingTypes.Resmoke;
 
   return (
     <BaseToggle

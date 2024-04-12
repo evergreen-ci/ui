@@ -16,7 +16,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
         novalidate=""
       >
         <div
-          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v0"
+          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v1"
           id=" root"
         >
           <fieldset
@@ -24,7 +24,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
             id="root"
           >
             <div
-              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v1"
               id=" root_cloneMethod"
             >
               <div
@@ -38,22 +38,22 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                   >
                     <label
                       class="leafygreen-ui-nf64md"
-                      for="select-4"
-                      id="select-3-label"
+                      for="select-191"
+                      id="select-190-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-3-menu"
-                    aria-describedby="select-3-description"
+                    aria-controls="select-190-menu"
+                    aria-describedby="select-190-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-3-label"
+                    aria-labelledby="select-190-label"
                     class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-4"
+                    id="select-191"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -92,7 +92,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-array css-mg3yql-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-array css-mg3yql-DefaultFieldContainer eny4k1v1"
               id=" root_expansions"
             >
               <h6
@@ -145,7 +145,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                   class="css-nbhfvd-ArrayItemRow e1jxkcec7"
                 >
                   <div
-                    class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v0"
+                    class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v1"
                     id=" root_expansions_0"
                   >
                     <fieldset
@@ -153,7 +153,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                       id="root_expansions_0"
                     >
                       <div
-                        class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
+                        class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v1"
                         id=" root_expansions_0_key"
                       >
                         <div
@@ -193,7 +193,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                         </div>
                       </div>
                       <div
-                        class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
+                        class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v1"
                         id=" root_expansions_0_value"
                       >
                         <div
@@ -273,7 +273,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v1"
               id=" root_validProjects"
             >
               <div
@@ -284,13 +284,13 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                 >
                   <label
                     class="leafygreen-ui-1fi5x3a"
-                    for="textarea-2"
+                    for="textarea-192"
                   >
                     Valid Projects
                   </label>
                   <textarea
                     class="leafygreen-ui-18em0fn"
-                    id="textarea-2"
+                    id="textarea-192"
                     rows="5"
                     title="Valid Projects"
                   />
@@ -321,7 +321,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
         novalidate=""
       >
         <div
-          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v0"
+          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v1"
           id=" root"
         >
           <fieldset
@@ -329,7 +329,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
             id="root"
           >
             <div
-              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v1"
               id=" root_distroIsCluster"
             >
               <div
@@ -340,16 +340,16 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-1"
-                    id="checkbox-1-label"
+                    for="checkbox-193"
+                    id="checkbox-193-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-1-label"
+                      aria-labelledby="checkbox-193-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-1"
+                      id="checkbox-193"
                       type="checkbox"
                     />
                     <div
@@ -377,7 +377,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                       class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
                     />
                     <span
-                      class="leafygreen-ui-1wmrjan"
+                      class="leafygreen-ui-187di61"
                     >
                       Mark distro as a cluster (jobs are not run on this host, used for special purposes).
                     </span>
@@ -386,7 +386,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v1"
               id=" root_disableShallowClone"
             >
               <div
@@ -397,16 +397,16 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-2"
-                    id="checkbox-2-label"
+                    for="checkbox-194"
+                    id="checkbox-194-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-2-label"
+                      aria-labelledby="checkbox-194-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-2"
+                      id="checkbox-194"
                       type="checkbox"
                     />
                     <div
@@ -434,7 +434,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                       class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
                     />
                     <span
-                      class="leafygreen-ui-1wmrjan"
+                      class="leafygreen-ui-187di61"
                     >
                       Disable shallow clone for this distro.
                     </span>
@@ -443,7 +443,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v1"
               id=" root_disableQueue"
             >
               <div
@@ -454,16 +454,16 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-3"
-                    id="checkbox-3-label"
+                    for="checkbox-195"
+                    id="checkbox-195-label"
                   >
                     <input
                       aria-checked="false"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-3-label"
+                      aria-labelledby="checkbox-195-label"
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-3"
+                      id="checkbox-195"
                       type="checkbox"
                     />
                     <div
@@ -491,7 +491,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                       class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
                     />
                     <span
-                      class="leafygreen-ui-1wmrjan"
+                      class="leafygreen-ui-187di61"
                     >
                       Disable queueing this distro. Tasks already in the task queue will be removed.
                     </span>
@@ -500,7 +500,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v1"
               id=" root_decommissionHosts"
             >
               <div
@@ -511,17 +511,17 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-4"
-                    id="checkbox-4-label"
+                    for="checkbox-196"
+                    id="checkbox-196-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-4-label"
+                      aria-labelledby="checkbox-196-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-4"
+                      id="checkbox-196"
                       type="checkbox"
                     />
                     <div
@@ -549,7 +549,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                       class="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
                     />
                     <span
-                      class="leafygreen-ui-1wmrjan"
+                      class="leafygreen-ui-187di61"
                     >
                       Decommission hosts of this distro for this update
                     </span>
@@ -558,7 +558,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
               </div>
             </div>
             <div
-              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v1"
               id=" root_reprovisionMethod"
             >
               <div
@@ -579,7 +579,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-3"
+                        aria-describedby="lg-197"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--0"
@@ -606,7 +606,7 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
                     >
                       <input
                         aria-checked="false"
-                        aria-describedby="lg-4"
+                        aria-describedby="lg-198"
                         aria-disabled="false"
                         class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                         id="radio-group--1"
@@ -651,7 +651,7 @@ exports[`Snapshot Tests SpruceForm.stories Example3 1`] = `
         novalidate=""
       >
         <div
-          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v0"
+          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v1"
           id=" root"
         >
           <fieldset
@@ -659,7 +659,7 @@ exports[`Snapshot Tests SpruceForm.stories Example3 1`] = `
             id="root"
           >
             <div
-              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v0"
+              class="form-group field field-boolean css-mg3yql-DefaultFieldContainer eny4k1v1"
               id=" root_visible"
             >
               <div
@@ -670,17 +670,17 @@ exports[`Snapshot Tests SpruceForm.stories Example3 1`] = `
                 >
                   <label
                     class="leafygreen-ui-75mjfl"
-                    for="checkbox-5"
-                    id="checkbox-5-label"
+                    for="checkbox-199"
+                    id="checkbox-199-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-5-label"
+                      aria-labelledby="checkbox-199-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-5"
+                      id="checkbox-199"
                       type="checkbox"
                     />
                     <div
@@ -708,7 +708,7 @@ exports[`Snapshot Tests SpruceForm.stories Example3 1`] = `
                       class="lg-ui-ripple-0000 leafygreen-ui-11wjzqe"
                     />
                     <span
-                      class="leafygreen-ui-1wmrjan"
+                      class="leafygreen-ui-187di61"
                     >
                       This is the only visible page element
                     </span>

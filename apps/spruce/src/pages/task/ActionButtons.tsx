@@ -70,7 +70,7 @@ export const ActionButtons: React.FC<Props> = ({
     versionMetadata,
   } = task || {};
 
-  const { isPatch, order } = versionMetadata || {};
+  const { id: versionId, isPatch, order } = versionMetadata || {};
   const { identifier: projectIdentifier } = project || {};
   const isPatchOnCommitQueue = requester === commitQueueRequester;
   const allExecutionTasksSucceeded =
@@ -88,7 +88,7 @@ export const ActionButtons: React.FC<Props> = ({
     ScheduleTasksMutation,
     ScheduleTasksMutationVariables
   >(SCHEDULE_TASKS, {
-    variables: { taskIds: [taskId] },
+    variables: { taskIds: [taskId], versionId },
     onCompleted: () => {
       dispatchToast.success("Task marked as scheduled");
     },
