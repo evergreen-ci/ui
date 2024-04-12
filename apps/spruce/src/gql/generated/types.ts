@@ -1887,11 +1887,6 @@ export type ProjectSettings = {
   vars?: Maybe<ProjectVars>;
 };
 
-export enum ProjectSettingsAccess {
-  Edit = "EDIT",
-  View = "VIEW",
-}
-
 /**
  * ProjectSettingsInput is the input to the saveProjectSettingsForSection mutation.
  * It contains information about project settings (e.g. Build Baron configurations, subscriptions, etc) and is used to
