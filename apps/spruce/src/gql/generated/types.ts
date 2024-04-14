@@ -1887,11 +1887,6 @@ export type ProjectSettings = {
   vars?: Maybe<ProjectVars>;
 };
 
-export enum ProjectSettingsAccess {
-  Edit = "EDIT",
-  View = "VIEW",
-}
-
 /**
  * ProjectSettingsInput is the input to the saveProjectSettingsForSection mutation.
  * It contains information about project settings (e.g. Build Baron configurations, subscriptions, etc) and is used to
@@ -5829,7 +5824,6 @@ export type DistroQuery = {
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
-    sshKey: string;
     sshOptions: Array<string>;
     user: string;
     userSpawnAllowed: boolean;
@@ -8263,11 +8257,6 @@ export type SpruceConfigQuery = {
       email?: string | null;
       host?: string | null;
     } | null;
-    keys?: Array<{
-      __typename?: "SSHKey";
-      location: string;
-      name: string;
-    }> | null;
     providers?: {
       __typename?: "CloudProviderConfig";
       aws?: {

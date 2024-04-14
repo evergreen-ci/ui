@@ -80,7 +80,7 @@ describe("projectFiltersModal", () => {
     });
     const checkbox = screen.getAllByRole("checkbox")[0];
     expect(checkbox).toBeChecked();
-    expect(checkbox).toBeDisabled();
+    expect(checkbox).toHaveAttribute("aria-disabled", "true");
   });
 
   it("disables submit button when no filters have been selected", async () => {

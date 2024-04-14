@@ -1,11 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
-  getJobLogsURL,
+  getEvergreenJobLogsURL,
   getLegacyJobLogsURL,
+  getLogkeeperJobLogsURL,
 } from "constants/externalURLTemplates";
 import {
   constructEvergreenTaskLogURL,
+  getEvergreenCompleteLogsURL,
   getEvergreenTaskFileURL,
   getEvergreenTaskLogURL,
   getEvergreenTestLogURL,
@@ -115,7 +117,7 @@ export const useResolveLogURLAndRenderingType = ({
   let legacyJobLogsURL = "";
   let renderingType: LogRenderingTypes = LogRenderingTypes.Default;
   switch (logType) {
-    case LogTypes.RESMOKE_LOGS: {
+    case LogTypes.LOGKEEPER_LOGS: {
       if (buildID && testID) {
         rawLogURL = getResmokeLogURL(buildID, { raw: true, testID });
         htmlLogURL = getResmokeLogURL(buildID, { html: true, testID });
@@ -124,10 +126,20 @@ export const useResolveLogURLAndRenderingType = ({
         htmlLogURL = getResmokeLogURL(buildID, { html: true });
       }
       if (buildID) {
-        jobLogsURL = getJobLogsURL(buildID);
+        jobLogsURL = getLogkeeperJobLogsURL(buildID);
         legacyJobLogsURL = getLegacyJobLogsURL(buildID);
       }
       downloadURL = rawLogURL;
+      renderingType = LogRenderingTypes.Resmoke;
+      break;
+    }
+    case LogTypes.EVERGREEN_COMPLETE_LOGS: {
+      if (!taskID || !execution || !groupID) {
+        break;
+      }
+      downloadURL = getEvergreenCompleteLogsURL(taskID, execution, groupID);
+      rawLogURL = downloadURL;
+      jobLogsURL = getEvergreenJobLogsURL(taskID, execution, groupID);
       renderingType = LogRenderingTypes.Resmoke;
       break;
     }

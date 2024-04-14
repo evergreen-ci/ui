@@ -51,7 +51,7 @@ describe("parse log select", () => {
 
   it("clicking the 'Process Log' button calls the onParse function", async () => {
     const user = userEvent.setup();
-    mockedGet.mockImplementation(() => LogTypes.RESMOKE_LOGS);
+    mockedGet.mockImplementation(() => LogTypes.LOGKEEPER_LOGS);
     const onParse = jest.fn();
     render(
       <ParseLogSelect
