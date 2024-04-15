@@ -9,8 +9,8 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
       class="leafygreen-ui-1iyoj2o css-6lshyd"
     >
       <button
-        aria-controls="select-193-menu"
-        aria-describedby="select-193-description"
+        aria-controls="select-197-menu"
+        aria-describedby="select-197-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
@@ -18,7 +18,7 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
         class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
         data-cy="searchbar-select"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-194"
+        id="select-198"
         type="button"
         value="filter"
       >
@@ -175,8 +175,8 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
       class="leafygreen-ui-1iyoj2o css-6lshyd"
     >
       <button
-        aria-controls="select-196-menu"
-        aria-describedby="select-196-description"
+        aria-controls="select-200-menu"
+        aria-describedby="select-200-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
@@ -184,7 +184,7 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
         class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
         data-cy="searchbar-select"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-197"
+        id="select-201"
         type="button"
         value="filter"
       >
