@@ -29,14 +29,6 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
       >
         <div
           class="css-1fmnfd"
-          data-cy="bookmark-0"
-        >
-          <span>
-            0
-          </span>
-        </div>
-        <div
-          class="css-1fmnfd"
           data-cy="bookmark-4"
         >
           <span>
@@ -65,6 +57,14 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
         >
           <span>
             7
+          </span>
+        </div>
+        <div
+          class="css-zayph7"
+          data-cy="bookmark-10"
+        >
+          <span>
+            10
           </span>
         </div>
         <div
