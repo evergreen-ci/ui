@@ -30,9 +30,10 @@ exports[`Snapshot Tests AnsiRow.stories MultiLines 1`] = `
 exports[`Snapshot Tests AnsiRow.stories SingleLine 1`] = `
 <div>
   <div
-    class="css-1dojz0v"
+    class="css-g181ky"
     data-bookmarked="false"
     data-cy="log-row-0"
+    data-failed="false"
     data-highlighted="false"
     data-shared="false"
   >

@@ -26,7 +26,7 @@ const JumpToFailingLineToggle: React.FC<JumpToFailingLineToggleProps> = ({
         updateSettings({ jumpToFailingLineEnabled: value });
         sendEvent({ name: "Toggled Jump to Failing Line", on: value });
       }}
-      tooltip="Toggle scroll to failing line on page load. Only available for task logs."
+      tooltip="Automatically scroll to the failing log line on page load. Only available for task logs."
       value={checked}
     />
   );
