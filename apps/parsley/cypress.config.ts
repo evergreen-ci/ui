@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+import { execSync } from "child_process";
 
 export default defineConfig({
   projectId: "i1oeyf",
@@ -14,4 +15,20 @@ export default defineConfig({
   viewportWidth: 1280,
   viewportHeight: 800,
   videoCompression: false,
+  setupNodeEvents(on) {
+    on("before:run", () => {
+      try {
+        execSync("yarn evg-db-ops --dump");
+      } catch (e) {
+        console.error(e);
+      }
+    });
+    on("after:run", () => {
+      try {
+        execSync("yarn evg-db-ops --clean-up");
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  },
 });
