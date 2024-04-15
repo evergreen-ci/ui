@@ -86,6 +86,10 @@ describe("useLogContext", () => {
         );
       });
       expect(result.current.failingLine).toBe(3);
+      act(() => {
+        result.current.ingestLines(lines, LogRenderingTypes.Default);
+      });
+      expect(result.current.failingLine).toBeUndefined();
     });
 
     it("should set hasLogs to true if logs exist and false otherwise.", () => {

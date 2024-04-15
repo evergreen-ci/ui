@@ -33,7 +33,7 @@ type TaskType = BaseTaskFragment & {
 };
 
 type UseTaskQueryReturnType = {
-  task: TaskType | undefined | null;
+  task: TaskType | null | undefined;
   loading: boolean;
 };
 
