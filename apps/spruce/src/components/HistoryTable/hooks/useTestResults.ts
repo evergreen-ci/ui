@@ -20,6 +20,7 @@ const { convertArrayToObject } = array;
 const useTestResults = (rowIndex: number) => {
   const { getItem, historyTableFilters } = useHistoryTable();
   let taskIds: string[] = [];
+  let versionId = "";
   const hasTestFilters = historyTableFilters.length > 0;
   const [taskTestMap, setTaskTestMap] = useState<{
     [taskId: string]: TaskTestResultSample;
@@ -30,14 +31,17 @@ const useTestResults = (rowIndex: number) => {
     taskIds = commit.commit.buildVariants.flatMap((buildVariant) =>
       buildVariant.tasks.map((task) => task.id),
     );
+    versionId = commit.commit.id;
   }
+
   const hasDataToQuery = taskIds.length > 0;
   const { loading } = useQuery<
     TaskTestSampleQuery,
     TaskTestSampleQueryVariables
   >(TASK_TEST_SAMPLE, {
     variables: {
-      tasks: taskIds,
+      versionId,
+      taskIds,
       filters: historyTableFilters,
     },
     skip: !hasDataToQuery,

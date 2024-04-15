@@ -8455,8 +8455,9 @@ export type TaskStatusesQuery = {
 };
 
 export type TaskTestSampleQueryVariables = Exact<{
-  tasks: Array<Scalars["String"]["input"]>;
+  taskIds: Array<Scalars["String"]["input"]>;
   filters: Array<TestFilter>;
+  versionId: Scalars["String"]["input"];
 }>;
 
 export type TaskTestSampleQuery = {
