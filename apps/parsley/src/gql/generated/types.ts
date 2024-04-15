@@ -2116,7 +2116,9 @@ export type QueryTaskNamesForBuildVariantArgs = {
 
 export type QueryTaskTestSampleArgs = {
   filters: Array<TestFilter>;
-  tasks: Array<Scalars["String"]["input"]>;
+  taskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryUserArgs = {
