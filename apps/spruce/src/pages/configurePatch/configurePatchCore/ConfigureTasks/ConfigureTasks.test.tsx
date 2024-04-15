@@ -328,7 +328,7 @@ describe("configureTasks", () => {
       expect(screen.getByText("ubuntu2204-large")).toBeInTheDocument();
       const checkbox = screen.getByLabelText("e2e_test");
       expect(checkbox).toBeInTheDocument();
-      expect(checkbox).toBeDisabled();
+      expect(checkbox).toHaveAttribute("aria-disabled", "true");
     });
     it("should automatically select all tasks for an alias if the alias is selected", () => {
       const selectedBuildVariants = ["parsley"];
