@@ -14,6 +14,7 @@ type RowRendererFunction = (props: {
 const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
   const {
     expandLines,
+    failingLine,
     getLine,
     getResmokeLineColor,
     logMetadata,
@@ -66,6 +67,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
 
     return (
       <Row
+        failingLine={failingLine}
         getLine={getLine}
         getResmokeLineColor={getResmokeLineColor}
         highlightRegex={highlightRegex}

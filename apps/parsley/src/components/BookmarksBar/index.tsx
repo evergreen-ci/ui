@@ -13,7 +13,7 @@ import { findLineIndex } from "utils/findLineIndex";
 const { gray, green, red } = palette;
 
 interface BookmarksBarProps {
-  failingLine: number | null;
+  failingLine?: number;
   lineCount: number;
   processedLogLines: (number | number[])[];
   scrollToLine: (scrollIndex: number) => void;

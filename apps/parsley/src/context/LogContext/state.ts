@@ -11,9 +11,8 @@ import { LogMetadata, SearchState } from "./types";
 interface LogState {
   colorMapping?: Record<string, string>;
   expandedLines: ExpandedLines;
-  failingLine: number | null;
+  failingLine?: number;
   hasLogs: boolean | null;
-  lineNumber?: number;
   logMetadata?: LogMetadata;
   logs: string[];
   searchState: SearchState;
@@ -39,7 +38,6 @@ type Action =
 
 const initialState = (initialLogLines?: string[]): LogState => ({
   expandedLines: [],
-  failingLine: null,
   hasLogs: null,
   logs: initialLogLines || [],
   searchState: {
@@ -89,7 +87,7 @@ const reducer = (state: LogState, action: Action): LogState => {
         ? processedLogs.findIndex((line) =>
             isFailingLine(line, action.failingCommand),
           )
-        : null;
+        : undefined;
 
       return {
         ...state,

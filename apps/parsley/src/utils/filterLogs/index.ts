@@ -9,7 +9,7 @@ type FilterLogsParams = {
   shareLine: number | undefined;
   expandedLines: ExpandedLines;
   expandableRows: boolean;
-  failingLine: number | null | undefined;
+  failingLine: number | undefined;
 };
 
 /**

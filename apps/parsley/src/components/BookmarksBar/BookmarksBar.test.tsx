@@ -5,7 +5,6 @@ describe("bookmarks bar", () => {
   it("should not add bookmarks if there are no log lines", async () => {
     const { router } = renderWithRouterMatch(
       <BookmarksBar
-        failingLine={0}
         lineCount={0}
         processedLogLines={[]}
         scrollToLine={jest.fn()}
@@ -19,7 +18,6 @@ describe("bookmarks bar", () => {
   it("should add a single bookmark of 0 if there is only a single log line", async () => {
     const { router } = renderWithRouterMatch(
       <BookmarksBar
-        failingLine={0}
         lineCount={1}
         processedLogLines={[1]}
         scrollToLine={jest.fn()}
@@ -33,7 +31,6 @@ describe("bookmarks bar", () => {
   it("should set 0 and last log line as the initial bookmarks", async () => {
     const { router } = renderWithRouterMatch(
       <BookmarksBar
-        failingLine={0}
         lineCount={11}
         processedLogLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
         scrollToLine={jest.fn()}
@@ -70,7 +67,6 @@ describe("bookmarks bar", () => {
     const user = userEvent.setup();
     const { router } = renderWithRouterMatch(
       <BookmarksBar
-        failingLine={0}
         lineCount={11}
         processedLogLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
         scrollToLine={jest.fn()}
@@ -88,7 +84,6 @@ describe("bookmarks bar", () => {
     const scrollToLine = jest.fn();
     renderWithRouterMatch(
       <BookmarksBar
-        failingLine={0}
         lineCount={5}
         processedLogLines={[0, 1, 2, 3, 4]}
         scrollToLine={scrollToLine}
@@ -107,7 +102,6 @@ describe("bookmarks bar", () => {
     const scrollToLine = jest.fn();
     renderWithRouterMatch(
       <BookmarksBar
-        failingLine={0}
         lineCount={5}
         processedLogLines={[[0, 1, 2], 3, 4]}
         scrollToLine={scrollToLine}

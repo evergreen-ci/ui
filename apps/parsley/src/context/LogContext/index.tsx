@@ -38,7 +38,7 @@ import { getNextPage } from "./utils";
 
 interface LogContextState {
   expandedLines: ExpandedLines;
-  failingLine: number | null;
+  failingLine: number | undefined;
   isUploadedLog: boolean;
   hasLogs: boolean | null;
   lineCount: number;

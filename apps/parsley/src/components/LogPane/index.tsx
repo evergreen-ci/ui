@@ -32,7 +32,8 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       // code below describes one-time events.
       setTimeout(() => {
         const jumpToLine =
-          shareLine ?? (settings.jumpToFailingLineEnabled ? failingLine : null);
+          shareLine ??
+          (settings.jumpToFailingLineEnabled ? failingLine : undefined);
         const initialScrollIndex = findLineIndex(processedLogLines, jumpToLine);
         if (initialScrollIndex > -1) {
           leaveBreadcrumb(
