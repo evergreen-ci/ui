@@ -19,7 +19,7 @@ describe("highlight filter toggle", () => {
     mockedGet.mockImplementation(() => "");
     render(<HighlightFiltersToggle />, { wrapper });
     const highlightFiltersToggle = screen.getByDataCy(
-      "highlight-filter-toggle",
+      "highlight-filters-toggle",
     );
     expect(highlightFiltersToggle).toHaveAttribute("aria-checked", "false");
   });
@@ -27,7 +27,7 @@ describe("highlight filter toggle", () => {
   it("should read from the cookie properly", () => {
     render(<HighlightFiltersToggle />, { wrapper });
     const highlightFiltersToggle = screen.getByDataCy(
-      "highlight-filter-toggle",
+      "highlight-filters-toggle",
     );
     expect(highlightFiltersToggle).toHaveAttribute("aria-checked", "true");
   });

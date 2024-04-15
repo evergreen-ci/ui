@@ -18,11 +18,11 @@ const HighlightFiltersToggle: React.FC = () => {
   };
   return (
     <BaseToggle
-      data-cy="highlight-filter-toggle"
+      data-cy="highlight-filters-toggle"
       label="Add Highlights To Filters"
-      leftLabel="ON"
+      leftLabel="OFF"
       onChange={onChange}
-      rightLabel="OFF"
+      rightLabel="ON"
       tooltip="Automatically add matching highlights to filters"
       value={isChecked}
     />
