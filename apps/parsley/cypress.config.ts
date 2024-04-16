@@ -8,6 +8,22 @@ export default defineConfig({
     supportFile: "cypress/support/index.ts",
     specPattern: "cypress/integration/**/*.ts",
     experimentalStudio: true,
+    setupNodeEvents(on) {
+      on("before:run", () => {
+        try {
+          execSync("yarn evg-db-ops --dump");
+        } catch (e) {
+          console.error(e);
+        }
+      });
+      on("after:run", () => {
+        try {
+          execSync("yarn evg-db-ops --clean-up");
+        } catch (e) {
+          console.error(e);
+        }
+      });
+    },
   },
   reporterOptions: {
     mochaFile: "bin/cypress/cypress-[hash].xml",
@@ -15,20 +31,4 @@ export default defineConfig({
   viewportWidth: 1280,
   viewportHeight: 800,
   videoCompression: false,
-  setupNodeEvents(on) {
-    on("before:run", () => {
-      try {
-        execSync("yarn evg-db-ops --dump");
-      } catch (e) {
-        console.error(e);
-      }
-    });
-    on("after:run", () => {
-      try {
-        execSync("yarn evg-db-ops --clean-up");
-      } catch (e) {
-        console.error(e);
-      }
-    });
-  },
 });
