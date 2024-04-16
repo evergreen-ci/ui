@@ -1,3 +1,546 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDefault 1`] = `<div />`;
+exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDefault 1`] = `
+<div>
+  <div
+    class="css-d31jx9-FlexRow ek3m3u40"
+  >
+    <div
+      class="css-pjeyga-StyledInput ek3m3u42 leafygreen-ui-90q1a7"
+    >
+      <div
+        class="leafygreen-ui-e3fvh5"
+      >
+        <label
+          class="leafygreen-ui-t01kw4"
+          for="textinput-8"
+        >
+          Patch Name
+        </label>
+      </div>
+      <div
+        class="leafygreen-ui-lzja97"
+      >
+        <input
+          aria-invalid="false"
+          autocomplete="on"
+          class="leafygreen-ui-1kmfbzh"
+          data-cy="patch-name-input"
+          id="textinput-8"
+          required=""
+          type="text"
+          value="test"
+        />
+        <div
+          class="lg-ui-icon-selector-0000 leafygreen-ui-11c7q5r"
+        />
+      </div>
+    </div>
+    <div
+      class="css-8i32g1-ButtonWrapper ek3m3u41"
+    >
+      <button
+        aria-disabled="true"
+        class="lg-ui-button-0000 leafygreen-ui-ln4wk1"
+        data-cy="schedule-patch"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-v95oty"
+        >
+          Schedule
+        </div>
+      </button>
+    </div>
+  </div>
+  <section
+    class="ant-layout ant-layout-has-sider css-1aoao0r-PageLayout-whiteBackground e1xf068s9"
+  >
+    <aside
+      class="ant-layout-sider ant-layout-sider-dark css-1vgfpw2-PageSider-whiteBackground e1xf068s8"
+      style="flex: 0 0 275px; max-width: 275px; min-width: 275px; width: 275px;"
+    >
+      <div
+        class="ant-layout-sider-children"
+      >
+        <div
+          class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+        >
+          <div>
+            <p
+              class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+            >
+              Patch Metadata
+            </p>
+            <hr
+              class="css-qqg5h5-Divider eb6szep0"
+            />
+          </div>
+          <p
+            class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+          >
+            Submitted by: 
+            mohamed.khelif
+          </p>
+          <p
+            class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+          >
+            Submitted at: 
+            2020-08-28T15:00:17Z
+          </p>
+          <p
+            class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+          >
+            Project:
+             
+            <a
+              class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+              href="/project/spruce/patches"
+            >
+              <span>
+                spruce
+              </span>
+            </a>
+          </p>
+        </div>
+        <div
+          class="css-1rkkuaq-DisableWrapper e1xdo4m90"
+          data-cy="build-variant-select-wrapper"
+        >
+          <span
+            class="css-1etd4q7-UserSelectWrapper e1xdo4m91"
+          >
+            <div
+              class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1ecxdul"
+            >
+              <div
+                class="css-993586-Container-cardSidePadding e14bc6yx5"
+              >
+                <p
+                  class="leafygreen-ui-1miy0xp"
+                >
+                  Select Build Variants and Tasks
+                </p>
+                <p
+                  class="leafygreen-ui-110o31d"
+                  data-lgid="lg-description"
+                >
+                  Use Shift + Click to edit multiple variants simultaneously.
+                </p>
+                <hr
+                  class="css-qqg5h5-Divider eb6szep0"
+                />
+              </div>
+              <div
+                class="css-1xp9bbh-ScrollableBuildVariantContainer e14bc6yx0"
+              >
+                <div
+                  class="css-9u3o4h-BuildVariant-cardSidePadding e14bc6yx3"
+                  data-cy="build-variant-list-item"
+                  data-selected="true"
+                >
+                  <div
+                    class="css-xk6ynb-VariantName e14bc6yx2"
+                  >
+                    <p
+                      class="leafygreen-ui-1miy0xp"
+                    >
+                      Ubuntu 20.04
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="css-yy9i1r-BuildVariant-cardSidePadding e14bc6yx3"
+                  data-cy="build-variant-list-item"
+                  data-selected="false"
+                >
+                  <div
+                    class="css-xk6ynb-VariantName e14bc6yx2"
+                  >
+                    <p
+                      class="leafygreen-ui-1tb6tuo"
+                    >
+                      Ubuntu 22.04
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1ecxdul"
+            >
+              <div
+                class="css-993586-Container-cardSidePadding e14bc6yx5"
+              >
+                <p
+                  class="leafygreen-ui-1miy0xp"
+                >
+                  Select Downstream Tasks
+                </p>
+                <p
+                  class="leafygreen-ui-110o31d"
+                  data-lgid="lg-description"
+                >
+                  Use Shift + Click to edit multiple variants simultaneously.
+                </p>
+                <hr
+                  class="css-qqg5h5-Divider eb6szep0"
+                />
+              </div>
+              <div
+                class="css-1xp9bbh-ScrollableBuildVariantContainer e14bc6yx0"
+              >
+                <div
+                  class="css-yy9i1r-BuildVariant-cardSidePadding e14bc6yx3"
+                  data-cy="trigger-alias-list-item"
+                  data-selected="false"
+                >
+                  <div
+                    class="css-xk6ynb-VariantName e14bc6yx2"
+                  >
+                    <p
+                      class="leafygreen-ui-1tb6tuo"
+                    >
+                      evergreen (evergreen)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </aside>
+    <section
+      class="ant-layout css-1aoao0r-PageLayout-whiteBackground e1xf068s9"
+    >
+      <main
+        class="ant-layout-content css-8bxtim-PageContent e1xf068s7"
+      >
+        <div
+          class="css-1svlhkk-StyledTabs e1g8s93l0"
+        >
+          <div
+            class="leafygreen-ui-1knbux5"
+          >
+            <div
+              aria-label="Configure Patch Tabs"
+              aria-orientation="horizontal"
+              class="leafygreen-ui-dy551c"
+              role="tablist"
+            >
+              <button
+                aria-controls="tab-panel-1"
+                aria-selected="true"
+                class="leafygreen-ui-1eowt3k"
+                data-cy="tasks-tab"
+                data-text="Configure"
+                id="tab-2"
+                name="Configure"
+                role="tab"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-cjddr"
+                >
+                  Configure
+                </div>
+              </button>
+              <button
+                aria-controls="tab-panel-3"
+                aria-selected="false"
+                class="leafygreen-ui-7ok9wl"
+                data-cy="changes-tab"
+                data-text="Changes"
+                id="tab-4"
+                name="Changes"
+                role="tab"
+                tabindex="-1"
+              >
+                <div
+                  class="leafygreen-ui-cjddr"
+                >
+                  Changes
+                </div>
+              </button>
+              <button
+                aria-controls="tab-panel-5"
+                aria-selected="false"
+                class="leafygreen-ui-7ok9wl"
+                data-cy="parameters-tab"
+                data-text="Parameters"
+                id="tab-6"
+                name="Parameters"
+                role="tab"
+                tabindex="-1"
+              >
+                <div
+                  class="leafygreen-ui-cjddr"
+                >
+                  Parameters
+                </div>
+              </button>
+            </div>
+            <div
+              class="leafygreen-ui-1sg2lsz"
+            />
+          </div>
+          <div>
+            <div
+              aria-labelledby="tab-2"
+              data-cy="tasks-tab"
+              id="tab-panel-1"
+              role="tabpanel"
+            >
+              <div
+                class="css-17881ib-TabContentWrapper-cardSidePadding eoqkpw12"
+              >
+                <div
+                  class="css-1ln61zq-Actions eoqkpw16"
+                >
+                  <div
+                    class="eoqkpw13 css-1pn85ix-TextInputWrapper-StyledTextInput e13gwrw81"
+                  >
+                    <div
+                      class="leafygreen-ui-90q1a7"
+                    >
+                      <div
+                        class="leafygreen-ui-lzja97"
+                      >
+                        <input
+                          aria-invalid="false"
+                          aria-labelledby="search-tasks"
+                          autocomplete="on"
+                          class="leafygreen-ui-1kmfbzh"
+                          data-cy="task-filter-input"
+                          id="textinput-10"
+                          placeholder="Search tasks regex"
+                          required=""
+                          type="text"
+                          value=""
+                        />
+                        <div
+                          class="lg-ui-icon-selector-0000 leafygreen-ui-11c7q5r"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="css-4bamt4-IconWrapper e13gwrw80"
+                    >
+                      <button
+                        aria-disabled="false"
+                        aria-label="Select plus button"
+                        class="leafygreen-ui-76dd2i"
+                        tabindex="0"
+                      >
+                        <div
+                          class="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Plus Icon"
+                            class=""
+                            fill="none"
+                            height="16"
+                            role="img"
+                            viewBox="0 0 16 16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="leafygreen-ui-55kazc css-1oxhyic-InlineCheckbox eoqkpw10"
+                  >
+                    <label
+                      class="leafygreen-ui-75mjfl"
+                      for="checkbox-258"
+                      id="checkbox-258-label"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="checkbox"
+                        aria-labelledby="checkbox-258-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        data-cy="select-all-checkbox"
+                        id="checkbox-258"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                      >
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                      <span
+                        class="leafygreen-ui-187di61"
+                      >
+                        <div
+                          class="css-118tpd3-LabelContainer eoqkpw15"
+                        >
+                          Select all tasks in this variant
+                        </div>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <small
+                  class="css-xwgr3h-StyledDisclaimer eoqkpw14 leafygreen-ui-6flbwy"
+                  data-cy="selected-task-disclaimer"
+                >
+                  0 tasks across 0 build variants, 0 trigger aliases
+                </small>
+                <div
+                  class="css-1t9ftr3-TaskLayoutGrid ew7x3ml0"
+                  data-cy="configurePatch-tasks"
+                >
+                  <div
+                    class="leafygreen-ui-55kazc"
+                  >
+                    <label
+                      class="leafygreen-ui-75mjfl"
+                      for="checkbox-259"
+                      id="checkbox-259-label"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="checkbox"
+                        aria-labelledby="checkbox-259-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        data-cy="task-checkbox"
+                        id="checkbox-259"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                      >
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                      <span
+                        class="leafygreen-ui-187di61"
+                      >
+                        e2e_test
+                      </span>
+                    </label>
+                  </div>
+                  <div
+                    class="leafygreen-ui-55kazc"
+                  >
+                    <label
+                      class="leafygreen-ui-75mjfl"
+                      for="checkbox-260"
+                      id="checkbox-260-label"
+                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="checkbox"
+                        aria-labelledby="checkbox-260-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        data-cy="task-checkbox"
+                        id="checkbox-260"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                      >
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                      <span
+                        class="leafygreen-ui-187di61"
+                      >
+                        test
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="tab-4"
+              data-cy="changes-tab"
+              id="tab-panel-3"
+              role="tabpanel"
+            />
+            <div
+              aria-labelledby="tab-6"
+              data-cy="parameters-tab"
+              id="tab-panel-5"
+              role="tabpanel"
+            />
+          </div>
+        </div>
+      </main>
+    </section>
+  </section>
+</div>
+`;
