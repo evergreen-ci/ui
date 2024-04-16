@@ -22,7 +22,7 @@ describe("useParsleySettings", () => {
 
     const { result } = renderHook(() => useParsleySettings(), { wrapper });
     await waitFor(() => {
-      expect(result.current.settings.jumpToFailingLineEnabled).toBe(true);
+      expect(result.current?.settings?.jumpToFailingLineEnabled).toBe(true);
     });
   });
 

@@ -30,6 +30,7 @@ interface BaseRowProps extends Omit<LogRowProps, "getLine"> {
  * @param BaseRowProps.children - the text to be rendered
  * @param BaseRowProps."data-cy" - data-cy attribute to be added to the row
  * @param BaseRowProps.lineIndex - the index of the line in the log
+ * @param BaseRowProps.failingLine - the failing log line number
  * @param BaseRowProps.highlightRegex - the regex to be highlighted
  * @param BaseRowProps.lineNumber - the line number of the line in the log
  * @param BaseRowProps.searchLine - the line number of the line that was searched for
@@ -45,6 +46,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
   children,
   color,
   "data-cy": dataCyText,
+  failingLine,
   highlightRegex,
   lineIndex,
   lineNumber,
@@ -69,9 +71,10 @@ const BaseRow: React.FC<BaseRowProps> = ({
   );
   const inRange = isLineInRange(range, lineNumber);
 
-  const shared = shareLine === lineNumber;
   const bookmarked = bookmarks.includes(lineNumber);
+  const failed = failingLine === lineNumber;
   const highlighted = searchLine === lineIndex;
+  const shared = shareLine === lineNumber;
 
   // Clicking link icon should set or unset the share line.
   const handleClick = useCallback(() => {
@@ -113,8 +116,10 @@ const BaseRow: React.FC<BaseRowProps> = ({
       bookmarked={bookmarked}
       data-bookmarked={bookmarked}
       data-cy={`log-row-${lineNumber}`}
+      data-failed={failed}
       data-highlighted={highlighted}
       data-shared={shared}
+      failed={failed}
       highlighted={highlighted || isLineBetweenSelectedLines}
       onDoubleClick={handleDoubleClick}
       shared={shared}
@@ -149,9 +154,10 @@ const BaseRow: React.FC<BaseRowProps> = ({
 BaseRow.displayName = "BaseRow";
 
 const RowContainer = styled.div<{
-  shared: boolean;
   bookmarked: boolean;
+  failed: boolean;
   highlighted: boolean;
+  shared: boolean;
 }>`
   display: flex;
   align-items: flex-start;
@@ -161,6 +167,7 @@ const RowContainer = styled.div<{
   font-size: ${fontSize.m};
   padding-left: 1px;
 
+  ${({ failed }) => failed && `background-color: ${yellow.light3};`}
   ${({ shared }) => shared && `background-color: ${yellow.light3};`}
   ${({ bookmarked }) => bookmarked && `background-color: ${yellow.light3};`}
   ${({ highlighted }) => highlighted && `background-color: ${red.light3};`}

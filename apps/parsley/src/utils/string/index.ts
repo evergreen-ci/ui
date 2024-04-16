@@ -127,3 +127,15 @@ export const trimSeverity = (line: string) => {
   }
   return line;
 };
+
+/**
+ * Determines if a given log line is a failing log line.
+ * @param line - log line to evaluate
+ * @param failingCommand - failing command that originates from TaskEndDetails
+ * @returns true if line is the failing log line, false otherwise
+ */
+export const isFailingLine = (line: string, failingCommand: string) => {
+  const failedExpression = `${failingCommand} failed`;
+  const timeoutExpression = `${failingCommand} stopped early`;
+  return line.includes(failedExpression) || line.includes(timeoutExpression);
+};

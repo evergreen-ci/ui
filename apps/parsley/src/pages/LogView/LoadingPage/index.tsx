@@ -36,6 +36,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
   const { ingestLines, setLogMetadata } = useLogContext();
   const {
     downloadURL,
+    failingCommand,
     htmlLogURL,
     jobLogsURL,
     legacyJobLogsURL,
@@ -88,7 +89,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
         taskID: taskID || logkeeperMetadata?.task_id,
         testID,
       });
-      ingestLines(data, renderingType);
+      ingestLines(data, renderingType, failingCommand);
     }
     if (error) {
       dispatchToast.error(error);
@@ -115,6 +116,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     setLogMetadata,
     taskID,
     testID,
+    failingCommand,
   ]);
 
   if (isLoadingLog || isLoadingEvergreen) {

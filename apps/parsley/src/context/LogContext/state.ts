@@ -5,20 +5,26 @@ import { LogRenderingTypes } from "constants/enums";
 import { ExpandedLines } from "types/logs";
 import { mergeIntervals } from "utils/expandedLines";
 import { getColorMapping, processResmokeLine } from "utils/resmoke";
+import { isFailingLine } from "utils/string";
 import { LogMetadata, SearchState } from "./types";
 
 interface LogState {
   colorMapping?: Record<string, string>;
   expandedLines: ExpandedLines;
+  failingLine?: number;
   hasLogs: boolean | null;
-  lineNumber?: number;
   logMetadata?: LogMetadata;
   logs: string[];
   searchState: SearchState;
 }
 
 type Action =
-  | { type: "INGEST_LOGS"; logs: string[]; renderingType: LogRenderingTypes }
+  | {
+      type: "INGEST_LOGS";
+      logs: string[];
+      renderingType: LogRenderingTypes;
+      failingCommand: string;
+    }
   | { type: "CLEAR_LOGS" }
   | { type: "SET_FILE_NAME"; fileName: string }
   | { type: "SET_LOG_METADATA"; logMetadata: LogMetadata }
@@ -76,9 +82,17 @@ const reducer = (state: LogState, action: Action): LogState => {
           processedLogs = action.logs;
           break;
       }
+
+      const failingLine = action.failingCommand
+        ? processedLogs.findIndex((line) =>
+            isFailingLine(line, action.failingCommand),
+          )
+        : undefined;
+
       return {
         ...state,
         colorMapping: colorMap,
+        failingLine,
         hasLogs: processedLogs.length !== 0,
         logMetadata: {
           ...state.logMetadata,

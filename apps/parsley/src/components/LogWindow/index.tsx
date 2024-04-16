@@ -12,6 +12,7 @@ const LogWindow: React.FC = () => {
     clearExpandedLines,
     collapseLines,
     expandedLines,
+    failingLine,
     hasLogs,
     lineCount,
     processedLogLines,
@@ -26,6 +27,7 @@ const LogWindow: React.FC = () => {
         expandedLines={expandedLines}
       />
       <BookmarksBar
+        failingLine={failingLine}
         lineCount={lineCount}
         processedLogLines={processedLogLines}
         scrollToLine={scrollToLine}

@@ -1,5 +1,9 @@
-query TaskTestSample($tasks: [String!]!, $filters: [TestFilter!]!) {
-  taskTestSample(tasks: $tasks, filters: $filters) {
+query TaskTestSample(
+  $taskIds: [String!]!
+  $filters: [TestFilter!]!
+  $versionId: String!
+) {
+  taskTestSample(taskIds: $taskIds, filters: $filters, versionId: $versionId) {
     execution
     matchingFailedTestNames
     taskId

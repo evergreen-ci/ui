@@ -3313,6 +3313,11 @@ export type TaskQuery = {
     id: string;
     patchNumber?: number | null;
     status: string;
+    details?: {
+      __typename?: "TaskEndDetail";
+      description?: string | null;
+      status: string;
+    } | null;
     logs: {
       __typename?: "TaskLogLinks";
       agentLogLink?: string | null;
