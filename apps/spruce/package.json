@@ -97,7 +97,7 @@
     "@leafygreen-ui/toggle": "10.0.17",
     "@leafygreen-ui/tokens": "2.5.2",
     "@leafygreen-ui/tooltip": "10.0.10",
-    "@leafygreen-ui/typography": "17.0.1",
+    "@leafygreen-ui/typography": "19.0.0",
     "@rjsf/core": "4.2.3",
     "@sentry/react": "7.56.0",
     "@sentry/types": "7.98.0",

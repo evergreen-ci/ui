@@ -7,6 +7,7 @@ exports[`Snapshot Tests SearchableDropdown.stories CustomOption 1`] = `
   >
     <label
       class="leafygreen-ui-1fi5x3a"
+      data-lgid="lg-label"
       for="searchable-dropdown-Custom option select"
     >
       Custom option select
@@ -77,6 +78,7 @@ exports[`Snapshot Tests SearchableDropdown.stories Default 1`] = `
   >
     <label
       class="leafygreen-ui-1fi5x3a"
+      data-lgid="lg-label"
       for="searchable-dropdown-Searchable Dropdown"
     >
       Searchable Dropdown

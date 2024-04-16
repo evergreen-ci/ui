@@ -6,12 +6,10 @@ exports[`Snapshot Tests ParametersModal.stories Default 1`] = `
     class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
   >
     <span
-      class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+      class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
       data-cy="parameters-link"
     >
-      <span
-        class="leafygreen-ui-1ewnca3"
-      >
+      <span>
         Patch Parameters
       </span>
     </span>
