@@ -393,6 +393,7 @@ export type Distro = {
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
   validProjects: Array<Maybe<Scalars["String"]["output"]>>;
+  warnings: Scalars["String"]["output"];
   workDir: Scalars["String"]["output"];
 };
 
