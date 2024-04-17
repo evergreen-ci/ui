@@ -36,6 +36,7 @@ export const Default: CustomStoryObj<typeof BookmarksBar> = {
     scrollToLine: { action: "scrollToLine" },
   },
   args: {
+    failingLine: 10,
     lineCount: 100,
     processedLogLines,
   },

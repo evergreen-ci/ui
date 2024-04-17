@@ -39,6 +39,7 @@ import { getNextPage } from "./utils";
 
 interface LogContextState {
   expandedLines: ExpandedLines;
+  failingLine: number | undefined;
   isUploadedLog: boolean;
   hasLogs: boolean | null;
   lineCount: number;
@@ -60,7 +61,11 @@ interface LogContextState {
   expandLines: (expandedLines: ExpandedLines) => void;
   getLine: (lineNumber: number) => string | undefined;
   getResmokeLineColor: (lineNumber: number) => string | undefined;
-  ingestLines: (logs: string[], renderingType: LogRenderingTypes) => void;
+  ingestLines: (
+    logs: string[],
+    renderingType: LogRenderingTypes,
+    failingCommand?: string,
+  ) => void;
   paginate: (dir: DIRECTION) => void;
   scrollToLine: (lineNumber: number) => void;
   setFileName: (fileName: string) => void;
@@ -152,6 +157,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           bookmarks,
           expandableRows,
           expandedLines: state.expandedLines,
+          failingLine: state.failingLine,
           logLines: state.logs,
           matchingLines,
           shareLine,
@@ -161,6 +167,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       state.logs.length,
+      state.failingLine,
       matchingLines,
       stringifiedBookmarks,
       shareLine,
@@ -230,8 +237,17 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       : undefined;
 
   const ingestLines = useCallback(
-    (lines: string[], renderingType: LogRenderingTypes) => {
-      dispatch({ logs: lines, renderingType, type: "INGEST_LOGS" });
+    (
+      lines: string[],
+      renderingType: LogRenderingTypes,
+      failingCommand?: string,
+    ) => {
+      dispatch({
+        failingCommand: failingCommand ?? "",
+        logs: lines,
+        renderingType,
+        type: "INGEST_LOGS",
+      });
     },
     [dispatch],
   );
@@ -245,6 +261,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   const memoizedContext = useMemo(
     () => ({
       expandedLines: state.expandedLines,
+      failingLine: state.failingLine,
       hasLogs: state.hasLogs,
       lineCount: state.logs.length,
       listRef,
@@ -337,6 +354,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       searchResults,
       zebraStriping,
       state.expandedLines,
+      state.failingLine,
       state.hasLogs,
       state.logMetadata,
       state.logs.length,

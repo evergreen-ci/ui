@@ -388,7 +388,6 @@ export type Distro = {
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];
-  sshKey: Scalars["String"]["output"];
   sshOptions: Array<Scalars["String"]["output"]>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
@@ -453,8 +452,6 @@ export type DistroInput = {
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
-  /** @deprecated removing this field shortly */
-  sshKey?: InputMaybe<Scalars["String"]["input"]>;
   sshOptions: Array<Scalars["String"]["input"]>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
@@ -2116,7 +2113,9 @@ export type QueryTaskNamesForBuildVariantArgs = {
 
 export type QueryTaskTestSampleArgs = {
   filters: Array<TestFilter>;
-  tasks: Array<Scalars["String"]["input"]>;
+  taskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryUserArgs = {
@@ -2301,12 +2300,6 @@ export enum RoundingRule {
   Up = "UP",
 }
 
-export type SshKey = {
-  __typename?: "SSHKey";
-  location: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-};
-
 /** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
@@ -2458,8 +2451,6 @@ export type SpruceConfig = {
   containerPools?: Maybe<ContainerPoolsConfig>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
-  /** @deprecated removing this field shortly */
-  keys?: Maybe<Array<SshKey>>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
@@ -8453,8 +8444,9 @@ export type TaskStatusesQuery = {
 };
 
 export type TaskTestSampleQueryVariables = Exact<{
-  tasks: Array<Scalars["String"]["input"]>;
+  taskIds: Array<Scalars["String"]["input"]>;
   filters: Array<TestFilter>;
+  versionId: Scalars["String"]["input"];
 }>;
 
 export type TaskTestSampleQuery = {

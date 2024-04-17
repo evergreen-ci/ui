@@ -2,11 +2,13 @@ import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { VirtuosoMockContext } from "react-virtuoso";
 import { useLogContext } from "context/LogContext";
+import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import LogPane from ".";
 
 export default {
   component: LogPane,
+  decorators: [WithToastContext],
 } satisfies CustomMeta<typeof LogPane>;
 
 const list = Array.from({ length: 10000 }, (_, i) => `${i}`);

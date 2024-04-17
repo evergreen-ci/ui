@@ -337,7 +337,8 @@ const noFilterData: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      tasks: [
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      taskIds: [
         "some_id_1",
         "some_id_2",
         "some_id_3",
@@ -371,7 +372,8 @@ const withMatchingFilter: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      tasks: [
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      taskIds: [
         "some_id_1",
         "some_id_2",
         "some_id_3",
@@ -407,7 +409,8 @@ const withNonMatchingFilter: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      tasks: [
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      taskIds: [
         "some_id_1",
         "some_id_2",
         "some_id_3",
