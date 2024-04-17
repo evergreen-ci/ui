@@ -27,6 +27,9 @@ interface UseResolveLogURLAndRenderingTypeProps {
   buildID?: string;
   execution?: string;
   fileName?: string;
+  // This groupID represents the groupID given from the URL and is used for rendering Complete Logs.
+  // A test log also has a coreresponding groupID but and it is not passed into the application as
+  // and is accessed from a test result query directly.
   groupID?: string;
   logType: string;
   origin?: string;
@@ -59,7 +62,7 @@ type HookResult = {
  * @param UseResolveLogURLAndRenderingTypeProps.buildID - The build ID of the log
  * @param UseResolveLogURLAndRenderingTypeProps.execution - The execution number of the log
  * @param UseResolveLogURLAndRenderingTypeProps.fileName - The name of the file being viewed
- * @param UseResolveLogURLAndRenderingTypeProps.groupID - The group ID of the test
+ * @param UseResolveLogURLAndRenderingTypeProps.groupID - The group ID of the test given from the URL
  * @param UseResolveLogURLAndRenderingTypeProps.logType - The type of log being viewed
  * @param UseResolveLogURLAndRenderingTypeProps.origin - The origin of the log
  * @param UseResolveLogURLAndRenderingTypeProps.taskID - The task ID of the log
@@ -203,21 +206,17 @@ export const useResolveLogURLAndRenderingType = ({
       if (!taskID || !execution || !testID || isLoadingTest || !testData) {
         break;
       }
-      const {
-        renderingType: renderingTypeFromQuery,
-        url,
-        urlRaw,
-      } = testData?.task?.tests.testResults[0]?.logs || {};
+      const { groupID: groupIDFromQuery, logs } =
+        testData?.task?.tests.testResults[0] || {};
+      const { renderingType: renderingTypeFromQuery, url, urlRaw } = logs || {};
       rawLogURL =
         urlRaw ??
         getEvergreenTestLogURL(taskID, execution, testID, {
-          groupID,
           text: true,
         });
       htmlLogURL =
         url ??
         getEvergreenTestLogURL(taskID, execution, testID, {
-          groupID,
           text: false,
         });
       downloadURL = rawLogURL;
@@ -237,6 +236,13 @@ export const useResolveLogURLAndRenderingType = ({
             unsupportedRenderingType: renderingTypeFromQuery,
           },
         }).severe();
+      }
+      if (groupIDFromQuery) {
+        jobLogsURL = getEvergreenJobLogsURL(
+          taskID,
+          execution,
+          groupIDFromQuery,
+        );
       }
       break;
     }
