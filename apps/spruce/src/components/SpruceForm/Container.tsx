@@ -16,7 +16,11 @@ export const SpruceFormContainer: React.FC<ContainerProps> = ({
   title,
 }) => (
   <div>
-    {title && <SettingsCardTitle id={id}>{title}</SettingsCardTitle>}
+    {title && (
+      <a href={`#${id}`}>
+        <SettingsCardTitle id={id}>{title}</SettingsCardTitle>
+      </a>
+    )}
     {description}
     <SettingsCard data-cy={dataCy}>{children}</SettingsCard>
   </div>
