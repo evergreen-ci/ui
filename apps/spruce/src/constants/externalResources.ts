@@ -74,6 +74,12 @@ export const getParsleyLogkeeperTestLogURL = (
 export const getParsleyBuildLogURL = (buildId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/all`;
 
+export const getParsleyCompleteLogsURL = (
+  taskID: string,
+  execution: number | string,
+  groupID: string,
+) => `${getParsleyUrl()}/resmoke/${taskID}/${execution}/${groupID}/all`;
+
 /**
  * Generates a URL for accessing a trace in the Honeycomb dashboard.
  * @param traceId - The ID of the trace.

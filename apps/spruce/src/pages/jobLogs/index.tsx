@@ -69,7 +69,11 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
 
       <StyledPageLayout hasSider>
         <PageSider>
-          <Metadata metadata={metadata} loading={loading} />
+          <Metadata
+            metadata={metadata}
+            loading={loading}
+            isLogkeeper={isLogkeeper}
+          />
         </PageSider>
         <PageLayout>
           <PageContent>

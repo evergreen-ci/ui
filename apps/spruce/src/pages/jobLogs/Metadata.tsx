@@ -5,13 +5,22 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
+import { getParsleyCompleteLogsURL } from "constants/externalResources";
 import { JobLogsMetadata } from "./types";
 
 export const Metadata: React.FC<{
   loading: boolean;
   metadata: JobLogsMetadata;
-}> = ({ loading, metadata }) => {
+  isLogkeeper: boolean;
+}> = ({ isLogkeeper, loading, metadata }) => {
   const { sendEvent } = useJobLogsAnalytics(metadata.isLogkeeper);
+  const { execution, groupID, taskId } = metadata;
+  let completeLogsURL = "";
+  if (!isLogkeeper) {
+    completeLogsURL = getParsleyCompleteLogsURL(taskId, execution, groupID);
+  } else if (metadata.allLogsURL) {
+    completeLogsURL = metadata.allLogsURL;
+  }
 
   return (
     <MetadataCard loading={loading}>
@@ -25,16 +34,19 @@ export const Metadata: React.FC<{
       {metadata.buildNum && (
         <MetadataItem>Build number: {metadata.buildNum}</MetadataItem>
       )}
-      {metadata.allLogsURL && (
+      {completeLogsURL && (
         <MetadataItem>
           <StyledLink
             data-cy="complete-test-logs-link"
-            href={metadata.allLogsURL}
+            href={completeLogsURL}
             target="_blank"
             onClick={() => {
               sendEvent({
                 name: "Clicked complete logs link",
                 buildId: metadata.buildId,
+                taskId,
+                execution,
+                groupID,
               });
             }}
           >
