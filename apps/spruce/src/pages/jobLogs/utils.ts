@@ -1,4 +1,7 @@
-import { getParsleyBuildLogURL } from "constants/externalResources";
+import {
+  getParsleyBuildLogURL,
+  getParsleyCompleteLogsURL,
+} from "constants/externalResources";
 import {
   LogkeeperBuildMetadataQuery,
   TaskTestsForJobLogsQuery,
@@ -21,13 +24,13 @@ const getMetadata = (
     groupId: string | undefined;
     buildId: string | undefined;
   },
-) => {
+): JobLogsMetadata => {
   const { displayName, execution, id, status } = options.evergreenTask || {};
 
   if (isLogkeeper) {
     const { buildNum, builder } = options.logkeeperBuildMetadata || {};
     return {
-      allLogsURL: getParsleyBuildLogURL(options.buildId),
+      completeLogsURL: getParsleyBuildLogURL(options.buildId),
       builder,
       buildId: options.buildId,
       buildNum,
@@ -39,6 +42,7 @@ const getMetadata = (
     };
   }
   return {
+    completeLogsURL: getParsleyCompleteLogsURL(id, execution, options.groupId),
     displayName,
     execution,
     groupID: options.groupId,

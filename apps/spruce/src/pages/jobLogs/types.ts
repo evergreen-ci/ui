@@ -16,7 +16,7 @@ type EvergreenTestResult = {
 };
 
 type JobLogsMetadata = {
-  allLogsURL?: string;
+  completeLogsURL: string;
   builder?: string;
   buildId?: string;
   buildNum?: number;
