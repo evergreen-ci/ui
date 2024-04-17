@@ -27,9 +27,7 @@ interface UseResolveLogURLAndRenderingTypeProps {
   buildID?: string;
   execution?: string;
   fileName?: string;
-  // This groupID represents the groupID given from the URL and is used for rendering Complete Logs.
-  // A test log also has a coreresponding groupID but and it is not passed into the application as
-  // and is accessed from a test result query directly.
+  // This groupID comes from the application URL.
   groupID?: string;
   logType: string;
   origin?: string;
