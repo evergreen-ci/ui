@@ -17,7 +17,7 @@ interface LogMetadata {
   buildID?: string;
   execution?: string;
   fileName?: string;
-  groupIDForCompleteLogs?: string;
+  groupID?: string;
   htmlLogURL?: string;
   jobLogsURL?: string;
   legacyJobLogsURL?: string;
