@@ -186,7 +186,7 @@ functions:
       params:
         binary: bash
         args:
-          - ui/${app_dir}/scripts/prepare-shell.sh
+          - ui/scripts/prepare-shell.sh
     - command: expansions.update
       params:
         file: expansion.yml
