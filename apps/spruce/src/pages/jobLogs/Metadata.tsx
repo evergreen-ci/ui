@@ -5,22 +5,13 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
-import { getParsleyCompleteLogsURL } from "constants/externalResources";
 import { JobLogsMetadata } from "./types";
 
 export const Metadata: React.FC<{
   loading: boolean;
   metadata: JobLogsMetadata;
-  isLogkeeper: boolean;
-}> = ({ isLogkeeper, loading, metadata }) => {
+}> = ({ loading, metadata }) => {
   const { sendEvent } = useJobLogsAnalytics(metadata.isLogkeeper);
-  const { execution, groupID, taskId } = metadata;
-  let completeLogsURL = "";
-  if (!isLogkeeper) {
-    completeLogsURL = getParsleyCompleteLogsURL(taskId, execution, groupID);
-  } else if (metadata.allLogsURL) {
-    completeLogsURL = metadata.allLogsURL;
-  }
 
   return (
     <MetadataCard loading={loading}>
@@ -34,26 +25,24 @@ export const Metadata: React.FC<{
       {metadata.buildNum && (
         <MetadataItem>Build number: {metadata.buildNum}</MetadataItem>
       )}
-      {completeLogsURL && (
-        <MetadataItem>
-          <StyledLink
-            data-cy="complete-test-logs-link"
-            href={completeLogsURL}
-            target="_blank"
-            onClick={() => {
-              sendEvent({
-                name: "Clicked complete logs link",
-                buildId: metadata.buildId,
-                taskId,
-                execution,
-                groupID,
-              });
-            }}
-          >
-            Complete logs for all tests
-          </StyledLink>
-        </MetadataItem>
-      )}
+      <MetadataItem>
+        <StyledLink
+          data-cy="complete-test-logs-link"
+          href={metadata.completeLogsURL}
+          target="_blank"
+          onClick={() => {
+            sendEvent({
+              name: "Clicked complete logs link",
+              buildId: metadata.buildId,
+              taskId: metadata.taskId,
+              execution: metadata.execution,
+              groupID: metadata.groupID,
+            });
+          }}
+        >
+          Complete logs for all tests
+        </StyledLink>
+      </MetadataItem>
     </MetadataCard>
   );
 };
