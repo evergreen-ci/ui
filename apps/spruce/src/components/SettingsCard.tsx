@@ -10,10 +10,20 @@ export const SettingsCardTitle = styled(H3)<H3Props>`
   margin: ${size.m} 0 ${size.s} 0;
   :hover {
     ::after {
+      color: ${gray.dark2};
       content: "#";
       margin-left: ${size.xs};
-      color: ${gray.dark2};
+      opacity: 1;
+      transition: opacity 0.2s ease-in-out;
     }
+  }
+
+  ::after {
+    color: ${gray.dark2};
+    content: "#";
+    margin-left: ${size.xs};
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
   }
 `;
 
