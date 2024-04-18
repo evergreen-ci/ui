@@ -5,7 +5,7 @@ import {
   MetadataItem,
   MetadataTitle,
 } from "components/MetadataCard";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink, WordBreak } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { PodQuery } from "gql/generated/types";
 
@@ -34,7 +34,7 @@ const Metadata: React.FC<{
         <MetadataItem>
           Running Task:{" "}
           <StyledRouterLink to={taskLink}>
-            {runningTaskDisplayName}
+            <WordBreak all>{runningTaskDisplayName}</WordBreak>
           </StyledRouterLink>
         </MetadataItem>
       )}

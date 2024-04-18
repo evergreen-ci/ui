@@ -19,12 +19,10 @@ exports[`Snapshot Tests Pages/Spawn/Spawn Host Card Default 1`] = `
           i-04ade558e1e26b0ad
            (
           <a
-            class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+            class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
             href="/host/i-04ade558e1e26b0ad"
           >
-            <span
-              class="leafygreen-ui-1ewnca3"
-            >
+            <span>
               Event Log
             </span>
           </a>
@@ -189,12 +187,10 @@ exports[`Snapshot Tests Pages/Spawn/Spawn Host Card Default 1`] = `
       <div>
         <span>
           <a
-            class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+            class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
             href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
           >
-            <span
-              class="leafygreen-ui-1ewnca3"
-            >
+            <span>
               vol-0ea662ac92f611ed4
             </span>
           </a>
@@ -214,13 +210,11 @@ exports[`Snapshot Tests Pages/Spawn/Spawn Host Card Default 1`] = `
           class="css-1m51o3m-IDEContainer e1lzwbb81"
         >
           <a
-            class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+            class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
             href="/host/i-04ade558e1e26b0ad/ide"
             target="_self"
           >
-            <span
-              class="leafygreen-ui-1ewnca3"
-            >
+            <span>
               Open IDE (Deprecated)
             </span>
           </a>

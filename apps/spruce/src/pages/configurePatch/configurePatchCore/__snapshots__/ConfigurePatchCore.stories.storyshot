@@ -97,12 +97,10 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
             Project:
              
             <a
-              class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
               href="/project/spruce/patches"
             >
-              <span
-                class="leafygreen-ui-1ewnca3"
-              >
+              <span>
                 spruce
               </span>
             </a>
@@ -128,6 +126,7 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                 </p>
                 <p
                   class="leafygreen-ui-110o31d"
+                  data-lgid="lg-description"
                 >
                   Use Shift + Click to edit multiple variants simultaneously.
                 </p>
@@ -183,6 +182,7 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                 </p>
                 <p
                   class="leafygreen-ui-110o31d"
+                  data-lgid="lg-description"
                 >
                   Use Shift + Click to edit multiple variants simultaneously.
                 </p>

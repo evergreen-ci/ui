@@ -64,7 +64,7 @@
     "@leafygreen-ui/toast": "6.1.24",
     "@leafygreen-ui/toggle": "10.0.4",
     "@leafygreen-ui/tooltip": "10.0.10",
-    "@leafygreen-ui/typography": "16.5.0",
+    "@leafygreen-ui/typography": "19.0.0",
     "@sentry/react": "7.84.0",
     "ansi_up": "6.0.2",
     "graphql": "16.8.1",

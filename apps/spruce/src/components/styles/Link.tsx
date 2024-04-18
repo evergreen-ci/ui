@@ -9,6 +9,8 @@ export const StyledLink = (props) => (
     css={css`
       // Override LeafyGreen's font-weight declaration for Link
       font-weight: inherit;
+      font-size: inherit;
+      line-height: inherit;
     `}
     {...props}
   />
@@ -20,6 +22,8 @@ export const ShortenedRouterLink = styled(StyledRouterLink)<{
   width?: number;
 }>`
   span {
+    display: inline-block;
+    vertical-align: bottom;
     max-width: ${({ width }) => `${width ?? 200}px`};
     overflow: hidden;
     text-overflow: ellipsis;

@@ -33,7 +33,7 @@ export const Feedback: React.FC = () => {
       <StyledLink target="_blank" href={jiraImprovementUrl}>
         Suggest an improvement
       </StyledLink>{" "}
-      or
+      or{" "}
       <StyledLink target="_blank" href={jiraBugUrl}>
         report a bug
       </StyledLink>
