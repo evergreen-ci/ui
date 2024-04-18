@@ -203,7 +203,7 @@ const columns = [
           data-cy="current-task-link"
           to={getTaskRoute(task?.id)}
         >
-          <WordBreak>{task?.name}</WordBreak>
+          <WordBreak all>{task?.name}</WordBreak>
         </StyledRouterLink>
       ) : (
         ""
