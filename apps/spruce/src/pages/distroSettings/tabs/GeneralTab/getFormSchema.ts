@@ -64,7 +64,7 @@ export const getFormSchema = (
             title: "Notes",
             default: "",
           },
-          warnings: {
+          warningNote: {
             type: "string" as "string",
             title: "Warnings",
             default: "",
@@ -116,7 +116,7 @@ export const getFormSchema = (
         "ui:rows": 7,
         "ui:widget": "textarea",
       },
-      warnings: {
+      warningNote: {
         "ui:rows": 2,
         "ui:widget": "textarea",
       },

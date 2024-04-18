@@ -11,7 +11,7 @@ export interface GeneralFormState {
     disableShallowClone: boolean;
     disabled: boolean;
     note: string;
-    warnings: string;
+    warningNote: string;
   };
 }
 

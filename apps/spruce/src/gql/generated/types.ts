@@ -392,7 +392,7 @@ export type Distro = {
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
   validProjects: Array<Maybe<Scalars["String"]["output"]>>;
-  warnings: Scalars["String"]["output"];
+  warningNote: Scalars["String"]["output"];
   workDir: Scalars["String"]["output"];
 };
 
@@ -457,6 +457,7 @@ export type DistroInput = {
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
   validProjects: Array<Scalars["String"]["input"]>;
+  warningNote?: InputMaybe<Scalars["String"]["input"]>;
   workDir: Scalars["String"]["input"];
 };
 
@@ -5820,7 +5821,7 @@ export type DistroQuery = {
     user: string;
     userSpawnAllowed: boolean;
     validProjects: Array<string | null>;
-    warnings: string;
+    warningNote: string;
     workDir: string;
     bootstrapSettings: {
       __typename?: "BootstrapSettings";

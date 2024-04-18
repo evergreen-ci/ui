@@ -14,7 +14,7 @@ export const gqlToForm = ((data) => {
     isCluster,
     name,
     note,
-    warnings,
+    warningNote,
   } = data;
 
   return {
@@ -30,7 +30,7 @@ export const gqlToForm = ((data) => {
       disableShallowClone,
       disabled,
       note,
-      warnings,
+      warningNote,
     },
   };
 }) satisfies GqlToFormFunction<Tab>;
@@ -44,7 +44,7 @@ export const formToGql = ((
   adminOnly: distroOptions.adminOnly,
   aliases: distroAliases.aliases,
   note: distroOptions.note,
-  warnings: distroOptions.warnings,
+  warningNote: distroOptions.warningNote,
   isCluster: distroOptions.isCluster,
   disableShallowClone: distroOptions.disableShallowClone,
   disabled: distroOptions.disabled,
