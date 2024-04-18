@@ -1,4 +1,5 @@
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
+import { transformTitleToId } from "./utils";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ export const SpruceFormContainer: React.FC<ContainerProps> = ({
 }) => (
   <div>
     {title && (
-      <a href={`#${id}`}>
+      <a href={`#${transformTitleToId(title)}`} id={transformTitleToId(title)}>
         <SettingsCardTitle id={id}>{title}</SettingsCardTitle>
       </a>
     )}
