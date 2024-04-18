@@ -474,7 +474,7 @@ const DependsOnContainer = styled.div`
   margin-top: ${size.s};
 `;
 
-const HoneycombLinkContainer = styled.div`
+const HoneycombLinkContainer = styled.span`
   display: flex;
   flex-direction: column;
 `;
