@@ -25,23 +25,24 @@ export const Metadata: React.FC<{
       {metadata.buildNum && (
         <MetadataItem>Build number: {metadata.buildNum}</MetadataItem>
       )}
-      {metadata.allLogsURL && (
-        <MetadataItem>
-          <StyledLink
-            data-cy="complete-test-logs-link"
-            href={metadata.allLogsURL}
-            target="_blank"
-            onClick={() => {
-              sendEvent({
-                name: "Clicked complete logs link",
-                buildId: metadata.buildId,
-              });
-            }}
-          >
-            Complete logs for all tests
-          </StyledLink>
-        </MetadataItem>
-      )}
+      <MetadataItem>
+        <StyledLink
+          data-cy="complete-test-logs-link"
+          href={metadata.completeLogsURL}
+          target="_blank"
+          onClick={() => {
+            sendEvent({
+              name: "Clicked complete logs link",
+              buildId: metadata.buildId,
+              taskId: metadata.taskId,
+              execution: metadata.execution,
+              groupID: metadata.groupID,
+            });
+          }}
+        >
+          Complete logs for all tests
+        </StyledLink>
+      </MetadataItem>
     </MetadataCard>
   );
 };

@@ -3,7 +3,7 @@ import { filterGroupedFiles } from "./utils";
 describe("filterGroupedFiles", () => {
   it("should return an empty array if groupedFiles is empty", () => {
     const groupedFiles = [];
-    const result = filterGroupedFiles(groupedFiles, "");
+    const result = filterGroupedFiles(groupedFiles, /(?:)/);
     expect(result).toStrictEqual([]);
   });
   it("should return the original array if search term is empty", () => {
@@ -18,7 +18,7 @@ describe("filterGroupedFiles", () => {
         ],
       },
     ];
-    const result = filterGroupedFiles(groupedFiles, "");
+    const result = filterGroupedFiles(groupedFiles, /(?:)/);
     expect(result).toStrictEqual(groupedFiles);
   });
   it("should filter the array if search term is not empty", () => {
@@ -37,7 +37,7 @@ describe("filterGroupedFiles", () => {
         ],
       },
     ];
-    const search = "some_file_name";
+    const search = /some_file_name/;
     const result = filterGroupedFiles(groupedFiles, search);
     expect(result).toStrictEqual([
       {
@@ -80,7 +80,7 @@ describe("filterGroupedFiles", () => {
         ],
       },
     ];
-    const search = "some_file_name";
+    const search = /some_file_name/;
     const result = filterGroupedFiles(groupedFiles, search);
     expect(result).toStrictEqual([
       {
@@ -132,7 +132,7 @@ describe("filterGroupedFiles", () => {
         ],
       },
     ];
-    const search = "some_matching_file_name";
+    const search = /some_matching_file_name/;
     const result = filterGroupedFiles(groupedFiles, search);
     expect(result).toStrictEqual([
       {
