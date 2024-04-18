@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
-import { StyledLink, StyledRouterLink } from "components/styles";
-import { getHostRoute, getPodRoute } from "constants/routes";
+import {
+  StyledLink,
+  StyledRouterLink,
+  ShortenedRouterLink,
+} from "components/styles";
+import { getHostRoute, getPodRoute, getTaskRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TaskEventLogEntry } from "gql/generated/types";
 import { useDateFormat } from "hooks";
@@ -12,13 +16,34 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
   timestamp,
 }) => {
   const getDateCopy = useDateFormat();
-  const { hostId, jiraIssue, jiraLink, podId, priority, status, userId } = data;
+  const {
+    blockedOn,
+    hostId,
+    jiraIssue,
+    jiraLink,
+    podId,
+    priority,
+    status,
+    userId,
+  } = data;
   const route = podId ? getPodRoute(podId) : getHostRoute(hostId);
   const containerOrHostCopy = podId ? "container" : "host";
   let message: JSX.Element;
   switch (eventType) {
     case TaskEventType.TaskBlocked:
-      message = <>Task is blocked.</>;
+      message = (
+        <>
+          Task is blocked on{" "}
+          <ShortenedRouterLink
+            title={blockedOn}
+            to={getTaskRoute(blockedOn)}
+            width={500}
+          >
+            {blockedOn}
+          </ShortenedRouterLink>
+          .
+        </>
+      );
       break;
     case TaskEventType.TaskFinished:
       message = (

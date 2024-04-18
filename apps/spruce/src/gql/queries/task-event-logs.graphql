@@ -5,6 +5,7 @@ query TaskEventLogs($id: String!, $execution: Int) {
     taskLogs {
       eventLogs {
         data {
+          blockedOn
           hostId
           jiraIssue
           jiraLink
