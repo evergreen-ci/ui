@@ -292,14 +292,12 @@ exports[`Snapshot Tests TasksTable.stories BaseTaskTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some Fancy ID
                           </span>
@@ -338,12 +336,10 @@ exports[`Snapshot Tests TasksTable.stories BaseTaskTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/ubuntu1604"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Ubuntu 16.04
                         </span>
                       </a>
@@ -366,14 +362,12 @@ exports[`Snapshot Tests TasksTable.stories BaseTaskTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id_2?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some other Fancy ID
                           </span>
@@ -412,12 +406,10 @@ exports[`Snapshot Tests TasksTable.stories BaseTaskTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/ubuntu1604"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Ubuntu 16.04
                         </span>
                       </a>
@@ -440,14 +432,12 @@ exports[`Snapshot Tests TasksTable.stories BaseTaskTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id_3?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some different Fancy ID
                           </span>
@@ -486,12 +476,10 @@ exports[`Snapshot Tests TasksTable.stories BaseTaskTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/Windows"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Windows 97
                         </span>
                       </a>
@@ -800,14 +788,12 @@ exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some Fancy ID
                           </span>
@@ -846,12 +832,10 @@ exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/ubuntu1604"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Ubuntu 16.04
                         </span>
                       </a>
@@ -874,14 +858,12 @@ exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id_2?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some other Fancy ID
                           </span>
@@ -920,12 +902,10 @@ exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/ubuntu1604"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Ubuntu 16.04
                         </span>
                       </a>
@@ -948,14 +928,12 @@ exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id_3?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some different Fancy ID
                           </span>
@@ -994,12 +972,10 @@ exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/Windows"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Windows 97
                         </span>
                       </a>
@@ -1022,14 +998,12 @@ exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id_4?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some Fancy Display Task
                           </span>
@@ -1068,12 +1042,10 @@ exports[`Snapshot Tests TasksTable.stories ExecutionTasksTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/Windows"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Windows 97
                         </span>
                       </a>
@@ -1382,14 +1354,12 @@ exports[`Snapshot Tests TasksTable.stories VersionTasksTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some Fancy ID
                           </span>
@@ -1428,12 +1398,10 @@ exports[`Snapshot Tests TasksTable.stories VersionTasksTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/ubuntu1604"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Ubuntu 16.04
                         </span>
                       </a>
@@ -1456,14 +1424,12 @@ exports[`Snapshot Tests TasksTable.stories VersionTasksTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id_2?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some other Fancy ID
                           </span>
@@ -1502,12 +1468,10 @@ exports[`Snapshot Tests TasksTable.stories VersionTasksTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/ubuntu1604"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Ubuntu 16.04
                         </span>
                       </a>
@@ -1530,14 +1494,12 @@ exports[`Snapshot Tests TasksTable.stories VersionTasksTable 1`] = `
                         type="button"
                       />
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/task/some_id_3?execution=0"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           <span
-                            class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                            class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                           >
                             Some different Fancy ID
                           </span>
@@ -1576,12 +1538,10 @@ exports[`Snapshot Tests TasksTable.stories VersionTasksTable 1`] = `
                       class="ant-table-cell cy-task-table-col-VARIANT"
                     >
                       <a
-                        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                         href="/variant-history/evg/Windows"
                       >
-                        <span
-                          class="leafygreen-ui-1ewnca3"
-                        >
+                        <span>
                           Windows 97
                         </span>
                       </a>

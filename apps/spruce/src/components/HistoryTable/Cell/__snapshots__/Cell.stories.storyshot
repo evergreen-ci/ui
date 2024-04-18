@@ -7,12 +7,10 @@ exports[`Snapshot Tests components/HistoryTable/Cell ColumnHeaderCellStory 1`] =
     data-cy="header-cell"
   >
     <a
-      class="lg-ui-0001 leafygreen-ui-cssveg css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+      class="lg-ui-0001 leafygreen-ui-cssveg css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
       href="https://spruce.mongodb.com"
     >
-      <span
-        class="leafygreen-ui-1ewnca3"
-      >
+      <span>
         displayName
       </span>
     </a>

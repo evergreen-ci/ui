@@ -9,12 +9,10 @@ exports[`Snapshot Tests Breadcrumbs.stories Default 1`] = `
       class="leafygreen-ui-cssveg"
     >
       <a
-        class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
         href="/commits/spruce"
       >
-        <span
-          class="leafygreen-ui-1ewnca3"
-        >
+        <span>
           spruce
         </span>
       </a>
