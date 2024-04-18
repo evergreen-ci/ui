@@ -360,7 +360,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   data-cy="jira-link"
                   href="https://undefined/browse/EVG-14901"
                   rel="noopener noreferrer"
@@ -499,7 +499,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
                 class="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1tb6tuo"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   data-cy="jira-link"
                   href="https://undefined/browse/EVG-14799"
                   rel="noopener noreferrer"
@@ -647,7 +647,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=929"
               >
@@ -695,7 +695,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=929"
               >
@@ -743,7 +743,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=929"
               >
@@ -800,7 +800,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=928"
               >
@@ -848,7 +848,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=928"
               >
@@ -896,7 +896,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=928"
               >
@@ -957,7 +957,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=926"
               >
@@ -1005,7 +1005,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=926"
               >
@@ -1053,7 +1053,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=926"
               >
@@ -1110,7 +1110,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=925"
               >
@@ -1158,7 +1158,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=925"
               >
@@ -1206,7 +1206,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=925"
               >
@@ -1263,7 +1263,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_000?selectedCommit=924"
               >
@@ -1311,7 +1311,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_001?selectedCommit=924"
               >
@@ -1359,7 +1359,7 @@ exports[`Snapshot Tests Pages/Commits/Project Health Page Default 1`] = `
               class="css-8bv1t4-Container e1e552r21"
             >
               <a
-                class="lg-ui-0001 e1e552r23 css-1bgotq7-StyledLink-Label leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 e1e552r23 css-2hfyqk-StyledLink-Label leafygreen-ui-sv8tvj"
                 data-cy="variant-header"
                 href="/variant-history/spruce/bv_002?selectedCommit=924"
               >

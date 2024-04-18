@@ -181,12 +181,12 @@ exports[`Snapshot Tests ExecutionTasksTable.stories MultipleExecutions 1`] = `
               data-state="entered"
             >
               <a
-                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                 href="/task/some_id_5?execution=14"
               >
                 <span>
                   <span
-                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     Some fancy execution task
                   </span>
@@ -238,7 +238,7 @@ exports[`Snapshot Tests ExecutionTasksTable.stories MultipleExecutions 1`] = `
               data-state="entered"
             >
               <a
-                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                 href="/variant-history/undefined/Windows"
               >
                 <span>
@@ -264,12 +264,12 @@ exports[`Snapshot Tests ExecutionTasksTable.stories MultipleExecutions 1`] = `
               data-state="entered"
             >
               <a
-                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                 href="/task/some_id_6?execution=12"
               >
                 <span>
                   <span
-                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     Another execution task
                   </span>
@@ -321,7 +321,7 @@ exports[`Snapshot Tests ExecutionTasksTable.stories MultipleExecutions 1`] = `
               data-state="entered"
             >
               <a
-                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                 href="/variant-history/undefined/Windows"
               >
                 <span>
@@ -518,12 +518,12 @@ exports[`Snapshot Tests ExecutionTasksTable.stories SingleExecution 1`] = `
               data-state="entered"
             >
               <a
-                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                 href="/task/some_id_5?execution=5"
               >
                 <span>
                   <span
-                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     Some fancy execution task
                   </span>
@@ -569,7 +569,7 @@ exports[`Snapshot Tests ExecutionTasksTable.stories SingleExecution 1`] = `
               data-state="entered"
             >
               <a
-                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                 href="/variant-history/undefined/Windows"
               >
                 <span>
@@ -595,12 +595,12 @@ exports[`Snapshot Tests ExecutionTasksTable.stories SingleExecution 1`] = `
               data-state="entered"
             >
               <a
-                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                 href="/task/some_id_6?execution=5"
               >
                 <span>
                   <span
-                    class="css-1n07wk9-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     Another execution task
                   </span>
@@ -646,7 +646,7 @@ exports[`Snapshot Tests ExecutionTasksTable.stories SingleExecution 1`] = `
               data-state="entered"
             >
               <a
-                class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                 href="/variant-history/undefined/Windows"
               >
                 <span>

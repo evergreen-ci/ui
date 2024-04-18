@@ -122,7 +122,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_0"
                   >
@@ -163,12 +163,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -200,12 +200,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -263,7 +263,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_1"
                   >
@@ -304,12 +304,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -341,12 +341,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -404,7 +404,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_2"
                   >
@@ -445,12 +445,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -482,12 +482,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -545,7 +545,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_3"
                   >
@@ -586,12 +586,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -623,12 +623,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -686,7 +686,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_4"
                   >
@@ -727,12 +727,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -764,12 +764,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -827,7 +827,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_5"
                   >
@@ -868,12 +868,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -905,12 +905,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -968,7 +968,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_6"
                   >
@@ -1009,12 +1009,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -1046,12 +1046,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -1109,7 +1109,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_7"
                   >
@@ -1150,12 +1150,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -1187,12 +1187,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -1250,7 +1250,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_8"
                   >
@@ -1291,12 +1291,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -1328,12 +1328,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -1391,7 +1391,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_9"
                   >
@@ -1432,12 +1432,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -1469,12 +1469,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -1532,7 +1532,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_10"
                   >
@@ -1573,12 +1573,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -1610,12 +1610,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -1673,7 +1673,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_11"
                   >
@@ -1714,12 +1714,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -1751,12 +1751,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -1814,7 +1814,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_12"
                   >
@@ -1855,12 +1855,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -1892,12 +1892,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -1955,7 +1955,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_13"
                   >
@@ -1996,12 +1996,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -2033,12 +2033,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -2096,7 +2096,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_14"
                   >
@@ -2137,12 +2137,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -2174,12 +2174,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -2237,7 +2237,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_15"
                   >
@@ -2278,12 +2278,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -2315,12 +2315,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -2378,7 +2378,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_16"
                   >
@@ -2419,12 +2419,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -2456,12 +2456,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -2519,7 +2519,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_17"
                   >
@@ -2560,12 +2560,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -2597,12 +2597,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -2660,7 +2660,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_18"
                   >
@@ -2701,12 +2701,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -2738,12 +2738,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -2801,7 +2801,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_19"
                   >
@@ -2842,12 +2842,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -2879,12 +2879,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -2942,7 +2942,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_20"
                   >
@@ -2983,12 +2983,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -3020,12 +3020,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -3083,7 +3083,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_21"
                   >
@@ -3124,12 +3124,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -3161,12 +3161,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -3224,7 +3224,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_22"
                   >
@@ -3265,12 +3265,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -3302,12 +3302,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -3365,7 +3365,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_23"
                   >
@@ -3406,12 +3406,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -3443,12 +3443,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -3506,7 +3506,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_24"
                   >
@@ -3547,12 +3547,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -3584,12 +3584,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -3647,7 +3647,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_25"
                   >
@@ -3688,12 +3688,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -3725,12 +3725,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -3788,7 +3788,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_26"
                   >
@@ -3829,12 +3829,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -3866,12 +3866,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -3929,7 +3929,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_27"
                   >
@@ -3970,12 +3970,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -4007,12 +4007,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -4070,7 +4070,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_28"
                   >
@@ -4111,12 +4111,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -4148,12 +4148,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -4211,7 +4211,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_29"
                   >
@@ -4252,12 +4252,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -4289,12 +4289,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>
@@ -4352,7 +4352,7 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                     data-cy="current-task-link"
                     href="/task/task_30"
                   >
@@ -4393,12 +4393,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe
                     </span>
@@ -4430,12 +4430,12 @@ exports[`Snapshot Tests TaskQueueTable.stories Default 1`] = `
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
                   href="/user/admin/patches"
                 >
                   <span>
                     <span
-                      class="css-vgecki-WordBreak-wordBreakCss e142uq4k0"
+                      class="css-16elo4e-WordBreak-wordBreakCss e142uq4k0"
                     >
                       admin
                     </span>

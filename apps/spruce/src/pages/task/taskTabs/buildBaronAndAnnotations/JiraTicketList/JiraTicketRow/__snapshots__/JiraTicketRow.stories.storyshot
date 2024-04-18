@@ -7,7 +7,7 @@ exports[`Snapshot Tests JiraTicketRow.stories Default 1`] = `
     data-cy="jira-ticket-row"
   >
     <a
-      class="lg-ui-0001 e1fnmnn30 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
+      class="lg-ui-0001 e1fnmnn30 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
       data-cy="DEVPROD-123"
       href="https://undefined/browse/DEVPROD-123"
       rel="noopener noreferrer"

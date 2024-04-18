@@ -23,7 +23,7 @@ exports[`Snapshot Tests Pages/Version/BuildVariantCard Default 1`] = `
         data-cy="patch-build-variant"
       >
         <a
-          class="lg-ui-0001 css-fvumu-StyledLink-wordBreakCss leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1743udc-StyledLink-wordBreakCss leafygreen-ui-sv8tvj"
           data-cy="build-variant-display-name"
           href="/version/version/tasks?page=0&variant=%5Elint%24"
         >
@@ -90,7 +90,7 @@ exports[`Snapshot Tests Pages/Version/BuildVariantCard Default 1`] = `
         data-cy="patch-build-variant"
       >
         <a
-          class="lg-ui-0001 css-fvumu-StyledLink-wordBreakCss leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1743udc-StyledLink-wordBreakCss leafygreen-ui-sv8tvj"
           data-cy="build-variant-display-name"
           href="/version/version/tasks?page=0&variant=%5Eubuntu1604%24"
         >
@@ -182,7 +182,7 @@ exports[`Snapshot Tests Pages/Version/BuildVariantCard Default 1`] = `
         data-cy="patch-build-variant"
       >
         <a
-          class="lg-ui-0001 css-fvumu-StyledLink-wordBreakCss leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1743udc-StyledLink-wordBreakCss leafygreen-ui-sv8tvj"
           data-cy="build-variant-display-name"
           href="/version/version/tasks?page=0&variant=%5Evariant%24"
         >

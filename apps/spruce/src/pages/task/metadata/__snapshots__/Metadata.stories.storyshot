@@ -25,7 +25,7 @@ exports[`Snapshot Tests Metadata.stories ContainerizedTask 1`] = `
         Build Variant:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
@@ -41,7 +41,7 @@ exports[`Snapshot Tests Metadata.stories ContainerizedTask 1`] = `
         Project:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
@@ -116,7 +116,7 @@ exports[`Snapshot Tests Metadata.stories ContainerizedTask 1`] = `
         Container:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-pod-link"
           href="/container/pod_id"
           target="_self"
@@ -156,7 +156,7 @@ exports[`Snapshot Tests Metadata.stories Default 1`] = `
         Build Variant:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
@@ -172,7 +172,7 @@ exports[`Snapshot Tests Metadata.stories Default 1`] = `
         Project:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
@@ -247,7 +247,7 @@ exports[`Snapshot Tests Metadata.stories Default 1`] = `
         Distro:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-distro-link"
           href="/distro/ubuntu1604-small/settings/general"
         >
@@ -269,7 +269,7 @@ exports[`Snapshot Tests Metadata.stories Default 1`] = `
         Host:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-host-link"
           href="/host/i-0e0e62799806e037d"
           target="_self"
@@ -283,7 +283,7 @@ exports[`Snapshot Tests Metadata.stories Default 1`] = `
         class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
       >
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-spawn-host-link"
           href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         >
@@ -322,7 +322,7 @@ exports[`Snapshot Tests Metadata.stories WithAbortMessage 1`] = `
         Build Variant:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
@@ -338,7 +338,7 @@ exports[`Snapshot Tests Metadata.stories WithAbortMessage 1`] = `
         Project:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
@@ -413,7 +413,7 @@ exports[`Snapshot Tests Metadata.stories WithAbortMessage 1`] = `
         Distro:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-distro-link"
           href="/distro/ubuntu1604-small/settings/general"
         >
@@ -435,7 +435,7 @@ exports[`Snapshot Tests Metadata.stories WithAbortMessage 1`] = `
         Host:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-host-link"
           href="/host/i-0e0e62799806e037d"
           target="_self"
@@ -449,7 +449,7 @@ exports[`Snapshot Tests Metadata.stories WithAbortMessage 1`] = `
         class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
       >
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-spawn-host-link"
           href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         >
@@ -488,7 +488,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
         Build Variant:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
@@ -504,7 +504,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
         Project:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
@@ -579,7 +579,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
         Distro:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-distro-link"
           href="/distro/ubuntu1604-small/settings/general"
         >
@@ -601,7 +601,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
         Host:
          
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-host-link"
           href="/host/i-0e0e62799806e037d"
           target="_self"
@@ -615,7 +615,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
         class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
       >
         <a
-          class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
           data-cy="task-spawn-host-link"
           href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         >
@@ -625,7 +625,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
         </a>
       </p>
       <div
-        class="css-5f1fjg-DependsOnContainer ebphozh1"
+        class="css-5f1fjg-DependsOnContainer ebphozh2"
         data-cy="depends-on-container"
       >
         <div>
@@ -661,7 +661,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
             class="css-19njn6m-RightContainer e1dgw5p62"
           >
             <a
-              class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
               data-cy="depends-on-link"
               href="/task/some_task_id_1"
             >
@@ -718,7 +718,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
             class="css-19njn6m-RightContainer e1dgw5p62"
           >
             <a
-              class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
               data-cy="depends-on-link"
               href="/task/some_task_id_2"
             >
@@ -767,7 +767,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
             class="css-19njn6m-RightContainer e1dgw5p62"
           >
             <a
-              class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
               data-cy="depends-on-link"
               href="/task/some_task_id_3"
             >
@@ -814,7 +814,7 @@ exports[`Snapshot Tests Metadata.stories WithDependencies 1`] = `
             class="css-19njn6m-RightContainer e1dgw5p62"
           >
             <a
-              class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-sv8tvj"
+              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
               data-cy="depends-on-link"
               href="/task/some_task_id_4"
             >

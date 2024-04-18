@@ -43,7 +43,7 @@ exports[`Snapshot Tests CustomCreatedTickets.stories Default 1`] = `
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0001 e1ch0kli2 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
+        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
         data-cy="DEVPROD-1"
         href="https://spruce.mongodb.com"
         target="_blank"
@@ -100,7 +100,7 @@ exports[`Snapshot Tests CustomCreatedTickets.stories Default 1`] = `
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0001 e1ch0kli2 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
+        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
         data-cy="DEVPROD-2"
         href="https://spruce.mongodb.com"
         target="_blank"
