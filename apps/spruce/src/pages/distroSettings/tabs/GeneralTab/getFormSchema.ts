@@ -119,6 +119,8 @@ export const getFormSchema = (
       warningNote: {
         "ui:rows": 2,
         "ui:widget": "textarea",
+        "ui:description":
+          "This will be displayed to users when selecting this distro as part of evergreen yml validation.",
       },
     },
   },
