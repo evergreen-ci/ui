@@ -6,10 +6,10 @@ import type { GroupedFiles } from "./types";
  * @param search - the search string
  * @returns - a new array of groupedFiles that contain the search string
  */
-const filterGroupedFiles = (groupedFiles: GroupedFiles[], search: string) =>
+const filterGroupedFiles = (groupedFiles: GroupedFiles[], search: RegExp) =>
   groupedFiles.reduce((acc, groupedFile) => {
     const filteredFiles = groupedFile?.files?.filter((file) =>
-      file.name.toLowerCase().includes(search.toLowerCase()),
+      search.test(file.name),
     );
     if (filteredFiles?.length) {
       acc.push({
