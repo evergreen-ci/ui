@@ -3340,6 +3340,7 @@ export type TestLogUrlAndRenderingTypeQuery = {
       __typename?: "TaskTestResult";
       testResults: Array<{
         __typename?: "TestResult";
+        groupID?: string | null;
         id: string;
         status: string;
         testFile: string;
