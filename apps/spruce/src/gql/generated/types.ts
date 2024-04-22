@@ -8343,6 +8343,7 @@ export type TaskEventLogsQuery = {
         timestamp?: Date | null;
         data: {
           __typename?: "TaskEventLogData";
+          blockedOn?: string | null;
           hostId?: string | null;
           jiraIssue?: string | null;
           jiraLink?: string | null;
