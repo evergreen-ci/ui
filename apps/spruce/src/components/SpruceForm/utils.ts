@@ -23,3 +23,11 @@ export const getFields = (
     : properties.map(({ content }) => content);
 
 export const STANDARD_FIELD_WIDTH = 400;
+
+/**
+ * `transformTitleToId` transforms a title into a string that can be used as an id.
+ * @param title - the title to transform
+ * @returns - a string with spaces replaced by hyphens and all lowercase
+ */
+export const transformTitleToId = (title: string): string =>
+  title.toLowerCase().replace(/ /g, "-");
