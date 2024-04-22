@@ -1,0 +1,3 @@
+mutation UnscheduleVersionTasks($versionId: String!, $abort: Boolean!) {
+  unscheduleVersionTasks(versionId: $versionId, abort: $abort)
+}

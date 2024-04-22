@@ -10,24 +10,24 @@ import {
 import { SCHEDULE_UNDISPATCHED_BASE_TASKS } from "gql/mutations";
 
 interface Props {
-  patchId: string;
+  versionId: string;
   disabled: boolean;
 }
 
 export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
   disabled,
-  patchId,
+  versionId,
 }) => {
   const dispatchToast = useToastContext();
   const [open, setOpen] = useState(false);
   const menuItemRef = useRef<HTMLDivElement>(null);
 
-  const [scheduleBasePatchTasks] = useMutation<
+  const [scheduleBaseVersionTasks] = useMutation<
     ScheduleUndispatchedBaseTasksMutation,
     ScheduleUndispatchedBaseTasksMutationVariables
   >(SCHEDULE_UNDISPATCHED_BASE_TASKS, {
-    onCompleted({ scheduleUndispatchedBaseTasks }) {
-      const successMessage = `Successfully scheduled ${scheduleUndispatchedBaseTasks.length} tasks`;
+    onCompleted({ scheduleUndispatchedBaseVersionTasks }) {
+      const successMessage = `Successfully scheduled ${scheduleUndispatchedBaseVersionTasks.length} tasks`;
       dispatchToast.success(successMessage);
     },
     onError({ message }) {
@@ -36,7 +36,7 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
   });
 
   const onConfirm = () => {
-    scheduleBasePatchTasks({ variables: { patchId } });
+    scheduleBaseVersionTasks({ variables: { versionId } });
   };
 
   return (

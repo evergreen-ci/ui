@@ -43,13 +43,13 @@ import SCHEDULE_PATCH from "./schedule-patch.graphql";
 import SCHEDULE_TASKS from "./schedule-tasks.graphql";
 import SCHEDULE_UNDISPATCHED_BASE_TASKS from "./schedule-undispatched-base-tasks.graphql";
 import SET_LAST_REVISION from "./set-last-revision.graphql";
-import SET_PATCH_PRIORITY from "./set-patch-priority.graphql";
 import SET_PATCH_VISIBILITY from "./set-patch-visibility.graphql";
 import SET_TASK_PRIORITY from "./set-task-priority.graphql";
+import SET_VERSION_PRIORITY from "./set-version-priority.graphql";
 import SPAWN_HOST from "./spawn-host.graphql";
 import SPAWN_VOLUME from "./spawn-volume.graphql";
-import UNSCHEDULE_PATCH_TASKS from "./unschedule-patch-tasks.graphql";
 import UNSCHEDULE_TASK from "./unschedule-task.graphql";
+import UNSCHEDULE_VERSION_TASKS from "./unschedule-version-tasks.graphql";
 import UPDATE_HOST_STATUS from "./update-host-status.graphql";
 import UPDATE_PATCH_DESCRIPTION from "./update-patch-description.graphql";
 import UPDATE_PUBLIC_KEY from "./update-public-key.graphql";
@@ -103,12 +103,12 @@ export {
   SCHEDULE_TASKS,
   SCHEDULE_UNDISPATCHED_BASE_TASKS,
   SET_LAST_REVISION,
-  SET_PATCH_PRIORITY,
+  SET_VERSION_PRIORITY,
   SET_PATCH_VISIBILITY,
   SET_TASK_PRIORITY,
   SPAWN_HOST,
   SPAWN_VOLUME,
-  UNSCHEDULE_PATCH_TASKS,
+  UNSCHEDULE_VERSION_TASKS,
   UNSCHEDULE_TASK,
   UPDATE_HOST_STATUS,
   UPDATE_PATCH_DESCRIPTION,
