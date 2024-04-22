@@ -3,11 +3,16 @@
 exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
 <div>
   <div>
-    <h3
-      class="css-18p6yz-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
+    <a
+      href="#distro-projects"
+      id="distro-projects"
     >
-      Distro Projects
-    </h3>
+      <h3
+        class="css-17gedve-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
+      >
+        Distro Projects
+      </h3>
+    </a>
     <div
       class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
     >
@@ -308,11 +313,16 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
 exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
 <div>
   <div>
-    <h3
-      class="css-18p6yz-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
+    <a
+      href="#admin-options"
+      id="admin-options"
     >
-      Admin Options
-    </h3>
+      <h3
+        class="css-17gedve-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
+      >
+        Admin Options
+      </h3>
+    </a>
     <div
       class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
     >
@@ -638,11 +648,16 @@ exports[`Snapshot Tests SpruceForm.stories Example2 1`] = `
 exports[`Snapshot Tests SpruceForm.stories Example3 1`] = `
 <div>
   <div>
-    <h3
-      class="css-18p6yz-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
+    <a
+      href="#ui-options"
+      id="ui-options"
     >
-      UI Options
-    </h3>
+      <h3
+        class="css-17gedve-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
+      >
+        UI Options
+      </h3>
+    </a>
     <div
       class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
     >
