@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import PageSizeSelector, {
-  usePageSizeSelector,
-} from "components/PageSizeSelector";
+import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { size } from "constants/tokens";
+import useTablePagination from "hooks/useTablePagination";
 
 interface Props {
   filteredCount: number;
@@ -29,10 +28,10 @@ const TableControl: React.FC<Props> = ({
   page,
   totalCount,
 }) => {
-  const setPageSize = usePageSizeSelector();
+  const { setPageLimit } = useTablePagination();
 
   const handlePageSizeChange = (pageSize: number) => {
-    setPageSize(pageSize);
+    setPageLimit(pageSize);
     onPageSizeChange?.(pageSize);
   };
   const onClearAll = () => {

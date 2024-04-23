@@ -3,9 +3,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import Cookies from "js-cookie";
 import { Analytics } from "analytics/addPageAction";
-import PageSizeSelector, {
-  usePageSizeSelector,
-} from "components/PageSizeSelector";
+import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import {
@@ -17,6 +15,7 @@ import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
+import useTablePagination from "hooks/useTablePagination";
 import { PatchPageQueryParams } from "types/patch";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
@@ -49,7 +48,7 @@ export const PatchesPage: React.FC<Props> = ({
   pageType,
   patches,
 }) => {
-  const setPageSize = usePageSizeSelector();
+  const { setPageLimit } = useTablePagination();
   const cookie =
     pageType === "project"
       ? INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES
@@ -93,7 +92,7 @@ export const PatchesPage: React.FC<Props> = ({
   };
 
   const handlePageSizeChange = (pageSize: number): void => {
-    setPageSize(pageSize);
+    setPageLimit(pageSize);
     analyticsObject.sendEvent({ name: "Change Page Size" });
   };
 

@@ -8,9 +8,7 @@ import { useHostsTableAnalytics } from "analytics";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
-import PageSizeSelector, {
-  usePageSizeSelector,
-} from "components/PageSizeSelector";
+import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import {
   TableControlOuterRow,
@@ -28,7 +26,7 @@ import { getFilters, useQueryVariables, getSorting } from "./utils";
 const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
   usePageTitle("Hosts");
-  const setPageSize = usePageSizeSelector();
+  const { setPageLimit } = useTablePagination();
   const queryVariables = useQueryVariables();
   const { currentTaskId, distroId, hostId, startedBy, statuses } =
     queryVariables;
@@ -85,7 +83,7 @@ const Hosts: React.FC = () => {
   }, [selectedHosts]);
 
   const handlePageSizeChange = (pageSize: number): void => {
-    setPageSize(pageSize);
+    setPageLimit(pageSize);
     hostsTableAnalytics.sendEvent({ name: "Change Page Size" });
   };
 
