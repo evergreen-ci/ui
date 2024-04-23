@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "4.1.7",
+  "version": "4.1.8",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -154,7 +154,7 @@
     "@types/js-cookie": "^3.0.4",
     "@types/lodash.debounce": "4.0.7",
     "@types/lodash.throttle": "^4.1.9",
-    "@types/new-relic-browser": "0.1212.2",
+    "@types/new-relic-browser": "1.230.4",
     "@types/node": "^20.11.30",
     "@types/pluralize": "0.0.33",
     "@types/prompts": "2.4.9",

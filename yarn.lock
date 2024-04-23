@@ -6457,15 +6457,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-5.1.2.tgz#07508b45797cb81ec3f273011b054cd0755eddca"
   integrity sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==
 
-"@types/new-relic-browser@0.1212.2":
-  version "0.1212.2"
-  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-0.1212.2.tgz#3409836f618bdd4961cc0efad546968f28b3bf97"
-  integrity sha512-SI9Zwlbtk522vbDyBCkpGrqFf+QDWkBWM9zOd+/hHX8WvsvUuoqa5aFjbT1jfES8l2Kb6rO6M6I6NcEO+Qrt1g==
-
-"@types/new-relic-browser@1.230.2":
-  version "1.230.2"
-  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-1.230.2.tgz#fd1306a6fa0c7d389fb3a2e52c66cb4073086942"
-  integrity sha512-nXFhoy/nr8RW6oMJ+g8ct7OhWQLPEUczcEUUNC1YGGv0/IOREOoSwrcOGJGEEkF5KIjGLnILpruqAX48n/1cTQ==
+"@types/new-relic-browser@1.230.4":
+  version "1.230.4"
+  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-1.230.4.tgz#46070a56b1c9cb3e23abd3b305194d23a1b47b9d"
+  integrity sha512-dsYvm01NyEu9zoIODMQUz7KAhRFFRFY9ZCz6uEDb/SeVylSNHn8P2wbUI71CtNs3PFUrvWOHYR7oAIyceOQ6jg==
 
 "@types/node-fetch@^2.6.4":
   version "2.6.11"
