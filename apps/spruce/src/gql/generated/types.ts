@@ -8688,6 +8688,7 @@ export type TaskQuery = {
       displayName: string;
       execution: number;
       id: string;
+      projectIdentifier?: string | null;
       status: string;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
