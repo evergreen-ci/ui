@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { RECENT_PAGE_SIZE_KEY } from "constants/index";
 import { PaginationQueryParams } from "constants/queryParams";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
@@ -19,14 +20,17 @@ const useTablePagination = () => {
    * `setPageLimit` updates the page size query param and saves the page size to local storage
    * @param pageSize - the new page size
    */
-  const setPageLimit = (pageSize: number) => {
-    localStorage.setItem(RECENT_PAGE_SIZE_KEY, pageSize.toString());
-    setQueryParams({
-      ...queryParams,
-      [PaginationQueryParams.Limit]: pageSize,
-      [PaginationQueryParams.Page]: 0,
-    });
-  };
+  const setPageLimit = useCallback(
+    (pageSize: number) => {
+      localStorage.setItem(RECENT_PAGE_SIZE_KEY, pageSize.toString());
+      setQueryParams({
+        ...queryParams,
+        [PaginationQueryParams.Limit]: pageSize,
+        [PaginationQueryParams.Page]: 0,
+      });
+    },
+    [queryParams, setQueryParams],
+  );
 
   return { page, limit, setPageLimit, setPage };
 };
