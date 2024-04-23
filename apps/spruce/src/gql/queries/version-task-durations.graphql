@@ -18,6 +18,7 @@ query VersionTaskDurations(
           displayName
           execution
           id
+          projectIdentifier
           startTime
           status
           timeTaken
