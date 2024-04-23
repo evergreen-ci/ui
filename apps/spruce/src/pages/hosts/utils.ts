@@ -1,13 +1,14 @@
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
+import { useLocation } from "react-router-dom";
 import {
   HostSortBy,
   HostsQueryVariables,
   SortDirection,
 } from "gql/generated/types";
+import useTablePagination from "hooks/useTablePagination";
 import { mapQueryParamToId } from "types/host";
 import { toArray } from "utils/array";
 import { getString, parseQueryString } from "utils/queryString";
-import { getLimitFromSearch, getPageFromSearch } from "utils/url";
 
 type QueryParam = keyof HostsQueryVariables;
 
@@ -27,7 +28,9 @@ const getSortDir = (sortDirParam: string | string[]): SortDirection => {
     : SortDirection.Asc; // default sortDir value
 };
 
-const getQueryVariables = (search: string): HostsQueryVariables => {
+const useQueryVariables = (): HostsQueryVariables => {
+  const { limit, page } = useTablePagination();
+  const { search } = useLocation();
   const {
     currentTaskId,
     distroId,
@@ -46,8 +49,8 @@ const getQueryVariables = (search: string): HostsQueryVariables => {
     startedBy: getString(startedBy),
     sortBy: getSortBy(sortBy),
     sortDir: getSortDir(sortDir),
-    page: getPageFromSearch(search),
-    limit: getLimitFromSearch(search),
+    page,
+    limit,
   };
 };
 
@@ -75,4 +78,4 @@ const getSorting = ({ sortBy, sortDir }: HostsQueryVariables): SortingState => [
   { id: sortBy, desc: sortDir === SortDirection.Desc },
 ];
 
-export { getFilters, getQueryVariables, getSorting };
+export { getFilters, useQueryVariables, getSorting };

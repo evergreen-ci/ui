@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { useLocation } from "react-router-dom";
 import { useHostsTableAnalytics } from "analytics";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
@@ -24,14 +23,13 @@ import { HOSTS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import useTablePagination from "hooks/useTablePagination";
 import { HostsTable } from "pages/hosts/HostsTable";
-import { getFilters, getQueryVariables, getSorting } from "./utils";
+import { getFilters, useQueryVariables, getSorting } from "./utils";
 
 const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
   usePageTitle("Hosts");
-  const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
-  const queryVariables = getQueryVariables(search);
+  const queryVariables = useQueryVariables();
   const { currentTaskId, distroId, hostId, startedBy, statuses } =
     queryVariables;
 
