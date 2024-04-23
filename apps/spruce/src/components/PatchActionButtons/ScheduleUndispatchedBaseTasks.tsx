@@ -26,8 +26,8 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
     ScheduleUndispatchedBaseTasksMutation,
     ScheduleUndispatchedBaseTasksMutationVariables
   >(SCHEDULE_UNDISPATCHED_BASE_TASKS, {
-    onCompleted({ scheduleUndispatchedBaseVersionTasks }) {
-      const successMessage = `Successfully scheduled ${scheduleUndispatchedBaseVersionTasks.length} tasks`;
+    onCompleted({ scheduleUndispatchedBaseTasks }) {
+      const successMessage = `Successfully scheduled ${scheduleUndispatchedBaseTasks.length} tasks`;
       dispatchToast.success(successMessage);
     },
     onError({ message }) {

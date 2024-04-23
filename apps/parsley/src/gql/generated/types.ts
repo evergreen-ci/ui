@@ -1052,9 +1052,7 @@ export type Mutation = {
   saveSubscription: Scalars["Boolean"]["output"];
   schedulePatch: Patch;
   scheduleTasks: Array<Task>;
-  /** @deprecated Use scheduleUndispatchedBaseVersionTasks instead */
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
-  scheduleUndispatchedBaseVersionTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
   setLastRevision: SetLastRevisionPayload;
   /** @deprecated Use setVersionPriority instead */
@@ -1275,11 +1273,8 @@ export type MutationScheduleTasksArgs = {
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
-  patchId: Scalars["String"]["input"];
-};
-
-export type MutationScheduleUndispatchedBaseVersionTasksArgs = {
-  versionId: Scalars["String"]["input"];
+  patchId?: InputMaybe<Scalars["String"]["input"]>;
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationSetAnnotationMetadataLinksArgs = {
