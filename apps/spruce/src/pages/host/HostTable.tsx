@@ -4,14 +4,13 @@ import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useHostsTableAnalytics } from "analytics";
-import PageSizeSelector, {
-  usePageSizeSelector,
-} from "components/PageSizeSelector";
+import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { BaseTable } from "components/Table/BaseTable";
 import { size } from "constants/tokens";
 import { HostEventsQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
+import useTablePagination from "hooks/useTablePagination";
 import { HostCard } from "pages/host/HostCard";
 import { HostEventString } from "pages/host/HostEventString";
 import { Unpacked } from "types/utils";
@@ -28,7 +27,7 @@ export const HostTable: React.FC<{
 }> = ({ error, eventData, eventsCount, limit, loading, page }) => {
   const isHostPage = true;
   const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
-  const setPageSize = usePageSizeSelector();
+  const { setPageLimit } = useTablePagination();
   const getDateCopy = useDateFormat();
   const logEntries = useMemo(
     () => eventData?.hostEvents?.eventLogEntries ?? [],
@@ -36,7 +35,7 @@ export const HostTable: React.FC<{
   );
 
   const handlePageSizeChange = (pageSize: number): void => {
-    setPageSize(pageSize);
+    setPageLimit(pageSize);
     hostsTableAnalytics.sendEvent({ name: "Change Page Size" });
   };
 
