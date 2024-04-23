@@ -8968,7 +8968,6 @@ export type VersionTaskDurationsQuery = {
           displayName: string;
           execution: number;
           id: string;
-          projectIdentifier?: string | null;
           startTime?: Date | null;
           status: string;
           timeTaken?: number | null;
