@@ -14,6 +14,7 @@ describe("useTablePagination", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   it("should return the default page and limit", () => {
     const { result } = renderHook(() => useTablePagination(), { wrapper });
 

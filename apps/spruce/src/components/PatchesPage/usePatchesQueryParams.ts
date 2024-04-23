@@ -1,10 +1,9 @@
 import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesInput } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
+import useTablePagination from "hooks/useTablePagination";
 import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
-import { getLimitFromSearch, getPageFromSearch } from "utils/url";
 
 /**
  * usePatchesQueryParams is used alongside the Patches Page to transform URL state
@@ -16,18 +15,18 @@ export const usePatchesQueryParams = (): Omit<
   Required<PatchesInput>,
   "includeCommitQueue" | "onlyCommitQueue"
 > => {
-  const { search } = useLocation();
   const [patchName] = useQueryParam<string>(PatchPageQueryParams.PatchName, "");
   const [rawStatuses] = useQueryParam<string[]>(
     PatchPageQueryParams.Statuses,
     [],
   );
   const [hidden] = useQueryParam(PatchPageQueryParams.Hidden, false);
+  const { limit, page } = useTablePagination();
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
-    limit: getLimitFromSearch(search),
+    limit,
     includeHidden: hidden || Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
-    page: getPageFromSearch(search),
+    page,
     patchName: `${patchName}`,
     statuses,
   };
