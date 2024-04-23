@@ -392,6 +392,7 @@ export type Distro = {
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
   validProjects: Array<Maybe<Scalars["String"]["output"]>>;
+  warningNote: Scalars["String"]["output"];
   workDir: Scalars["String"]["output"];
 };
 
@@ -456,6 +457,7 @@ export type DistroInput = {
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
   validProjects: Array<Scalars["String"]["input"]>;
+  warningNote?: InputMaybe<Scalars["String"]["input"]>;
   workDir: Scalars["String"]["input"];
 };
 
@@ -2113,9 +2115,8 @@ export type QueryTaskNamesForBuildVariantArgs = {
 
 export type QueryTaskTestSampleArgs = {
   filters: Array<TestFilter>;
-  taskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  versionId?: InputMaybe<Scalars["String"]["input"]>;
+  taskIds: Array<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type QueryUserArgs = {
@@ -8342,6 +8343,7 @@ export type TaskEventLogsQuery = {
         timestamp?: Date | null;
         data: {
           __typename?: "TaskEventLogData";
+          blockedOn?: string | null;
           hostId?: string | null;
           jiraIssue?: string | null;
           jiraLink?: string | null;
@@ -8686,6 +8688,7 @@ export type TaskQuery = {
       displayName: string;
       execution: number;
       id: string;
+      projectIdentifier?: string | null;
       status: string;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };

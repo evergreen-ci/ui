@@ -27,16 +27,28 @@ describe("External Links", () => {
     });
   });
   describe("should render links to external pages when viewing an evergreen test log", () => {
-    beforeEach(() => {
-      cy.visit(
-        "/test/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/0/JustAFakeTestInALonelyWorld",
-      );
+    it("should disable the link to the job logs page since when there are no resmoke logs", () => {
+      cy.visit(evgTestLogWithoutGroupID);
       cy.toggleDetailsPanel(true);
-    });
-    it("should disable the link to the job logs page since there are no resmoke logs", () => {
       cy.dataCy("job-logs-button").should("have.attr", "aria-disabled", "true");
     });
+    it("should enable the link to the job logs page when there are resmoke logs", () => {
+      cy.visit(evgTestLogWithGroupID);
+      cy.toggleDetailsPanel(true);
+      cy.dataCy("job-logs-button").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+      cy.dataCy("job-logs-button").should(
+        "have.attr",
+        "href",
+        "http://localhost:3000/job-logs/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/job0",
+      );
+    });
     it("should render links to the log files", () => {
+      cy.visit(evgTestLogWithoutGroupID);
+      cy.toggleDetailsPanel(true);
       cy.dataCy("raw-log-button").should("be.visible");
       cy.dataCy("raw-log-button").should("not.be.disabled");
       cy.dataCy("raw-log-button").should(
@@ -52,6 +64,10 @@ describe("External Links", () => {
         "http://localhost:9090/test_log/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/0?test_name=JustAFakeTestInALonelyWorld#L0",
       );
     });
+    const evgTestLogWithoutGroupID =
+      "/test/spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35/0/JustAFakeTestInALonelyWorld";
+    const evgTestLogWithGroupID =
+      "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
   });
   describe("should render links to external pages when viewing a resmoke test log", () => {
     beforeEach(() => {

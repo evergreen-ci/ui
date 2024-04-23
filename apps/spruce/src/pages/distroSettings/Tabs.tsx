@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { useParams, Routes, Route, Navigate } from "react-router-dom";
 import { DistroSettingsTabRoutes, slugs } from "constants/routes";
 import { DistroQuery } from "gql/generated/types";
+import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { useDistroSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { NavigationModal } from "./NavigationModal";
@@ -29,6 +30,7 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
 
   const tabData = useMemo(() => getTabData(distro), [distro]);
 
+  useScrollToAnchor();
   useEffect(() => {
     setInitialData(tabData);
   }, [setInitialData, tabData]);

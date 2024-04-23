@@ -5,7 +5,6 @@ import { H3 } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import ButtonRow from "./ButtonRow";
-import CLIInstructions from "./CLIInstructions";
 import SearchRangeInput from "./SearchRangeInput";
 import {
   CaseSensitiveToggle,
@@ -48,7 +47,6 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
               </Column>
             </Row>
             <ButtonRow />
-            <CLIInstructions />
           </Tab>
           <Tab data-cy="log-viewing-tab" name="Log Viewing">
             <Row>

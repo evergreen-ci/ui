@@ -10,14 +10,12 @@ exports[`Snapshot Tests AnnotationTicketRowWithAction.stories Default 1`] = `
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0001 e1ch0kli2 css-1ced1jn-StyledLink-JiraSummaryLink leafygreen-ui-1gfngq5"
+        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
         data-cy="EVG-123"
         href="https://www.google.com"
         target="_blank"
       >
-        <span
-          class="leafygreen-ui-1ewnca3"
-        >
+        <span>
           EVG-123
           : summary
         </span>
