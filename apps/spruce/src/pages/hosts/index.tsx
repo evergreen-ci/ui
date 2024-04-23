@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
 import { useLocation } from "react-router-dom";
 import { useHostsTableAnalytics } from "analytics";
 import { UpdateStatusModal } from "components/Hosts";
@@ -20,21 +19,12 @@ import {
   PageWrapper,
 } from "components/styles";
 import { size } from "constants/tokens";
-import {
-  HostsQuery,
-  HostsQueryVariables,
-  HostSortBy,
-  SortDirection,
-} from "gql/generated/types";
+import { HostsQuery, HostsQueryVariables } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { usePageTitle } from "hooks";
+import useTablePagination from "hooks/useTablePagination";
 import { HostsTable } from "pages/hosts/HostsTable";
-import { mapQueryParamToId } from "types/host";
-import { array, queryString, url } from "utils";
-
-const { toArray } = array;
-const { getLimitFromSearch, getPageFromSearch } = url;
-const { getString, parseQueryString } = queryString;
+import { getFilters, getQueryVariables, getSorting } from "./utils";
 
 const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
@@ -42,7 +32,7 @@ const Hosts: React.FC = () => {
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
   const queryVariables = getQueryVariables(search);
-  const { currentTaskId, distroId, hostId, limit, page, startedBy, statuses } =
+  const { currentTaskId, distroId, hostId, startedBy, statuses } =
     queryVariables;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -119,6 +109,7 @@ const Hosts: React.FC = () => {
   const totalHostsCount = hosts?.totalHostsCount ?? 0;
   const filteredHostCount = hosts?.filteredHostsCount ?? 0;
 
+  const { limit, page } = useTablePagination();
   return (
     <PageWrapper data-cy="hosts-page">
       <H2>Evergreen Hosts</H2>
@@ -189,72 +180,6 @@ const Hosts: React.FC = () => {
     </PageWrapper>
   );
 };
-
-type QueryParam = keyof HostsQueryVariables;
-
-const getSortBy = (sortByParam: string | string[] = ""): HostSortBy => {
-  const sortBy = getString(sortByParam) as HostSortBy;
-
-  return Object.values(HostSortBy).includes(sortBy)
-    ? sortBy
-    : HostSortBy.Status; // default sortBy value
-};
-
-const getSortDir = (sortDirParam: string | string[]): SortDirection => {
-  const sortDir = getString(sortDirParam) as SortDirection;
-
-  return Object.values(SortDirection).includes(sortDir)
-    ? sortDir
-    : SortDirection.Asc; // default sortDir value
-};
-
-const getQueryVariables = (search: string): HostsQueryVariables => {
-  const {
-    currentTaskId,
-    distroId,
-    hostId,
-    sortBy,
-    sortDir,
-    startedBy,
-    statuses,
-  } = parseQueryString(search) as { [key in QueryParam]: string | string[] };
-
-  return {
-    hostId: getString(hostId),
-    distroId: getString(distroId),
-    currentTaskId: getString(currentTaskId),
-    statuses: toArray(statuses),
-    startedBy: getString(startedBy),
-    sortBy: getSortBy(sortBy),
-    sortDir: getSortDir(sortDir),
-    page: getPageFromSearch(search),
-    limit: getLimitFromSearch(search),
-  };
-};
-
-/**
- * `getFilters` converts query param values into react-table's column filters state.
- * @param queryParams - query params from the URL
- * @returns - react-table's filtering state
- */
-const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState =>
-  Object.entries(mapQueryParamToId).reduce((accum, [param, id]) => {
-    if (queryParams[param]?.length) {
-      return [...accum, { id, value: queryParams[param] }];
-    }
-    return accum;
-  }, []);
-
-/**
- * `getSorting` converts query param values into react-table's sorting state.
- * @param queryParams - query params from the URL
- * @param queryParams.sortBy - key indicating the field that is being sorted
- * @param queryParams.sortDir - direction of the sort
- * @returns - react-table's sorting state
- */
-const getSorting = ({ sortBy, sortDir }: HostsQueryVariables): SortingState => [
-  { id: sortBy, desc: sortDir === SortDirection.Desc },
-];
 
 const SubtitleDataWrapper = styled.div`
   display: flex;
