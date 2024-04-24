@@ -54,7 +54,9 @@ CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
 PREVIOUS_DEPLOYED_COMMIT=''
 PREVIOUS_TAG=''
 BASE_COMMIT=''
-
+GIT_ROOT=$(git rev-parse --show-toplevel)
+APP_DIR="$GIT_ROOT/apps/parsley"
+PACKAGES_DIR="$GIT_ROOT/packages"
 
 # Get the previous deployed commit hash from bin/previous_deploy.txt
 # If the file does not exist, then use the previous tag from git
@@ -85,7 +87,7 @@ else
   fi
   echo "Getting commits between $BASE_COMMIT and $CURRENT_COMMIT_HASH"
   # get all commits since the base commit
-  git log --no-merges "$BASE_COMMIT".."$CURRENT_COMMIT_HASH" --pretty="%h %s" -- . > body.txt
+  git log --no-merges "$BASE_COMMIT".."$CURRENT_COMMIT_HASH" --pretty="%h %s" -- "$APP_DIR" -- "$PACKAGES_DIR" > body.txt
 fi
 
 
