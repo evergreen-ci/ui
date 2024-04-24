@@ -43,7 +43,6 @@ module.exports = {
         ignoreMiddleExtensions: true,
       },
     ],
-    "cypress/unsafe-to-chain-command": WARN,
     "jest/max-expects": [
       WARN,
       {

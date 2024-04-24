@@ -18,7 +18,7 @@ module.exports = {
     // Airbnb includes some helpful rules for ESLint and React that aren't covered by recommended.
     // See https://github.com/airbnb/javascript/tree/master/packages for specific rules.
     "airbnb",
-    "plugin:prettier/recommended", // Note: prettier must ALWAYS be the last extension.
+    "prettier",
   ],
   ignorePatterns: [
     "bin",
@@ -30,7 +30,6 @@ module.exports = {
   overrides: [
     // For React Typescript files in src.
     {
-      extends: [],
       files: ["src/**/*.ts", "src/**/*.tsx"],
       parserOptions: {
         project: ["./tsconfig.json"],
@@ -43,13 +42,10 @@ module.exports = {
         "sort-destructure-keys",
       ],
       rules: {
-        // Rules for emotion.
         "@emotion/import-from-emotion": ERROR,
         "@emotion/no-vanilla": errorIfStrict,
         "@emotion/pkg-renaming": ERROR,
         "@emotion/syntax-preference": [errorIfStrict, "string"],
-
-        // Rules for accessibility.
         "jsx-a11y/anchor-is-valid": errorIfStrict,
         "jsx-a11y/aria-props": errorIfStrict,
         "jsx-a11y/aria-role": [errorIfStrict, { ignoreNonDom: false }],
@@ -57,25 +53,22 @@ module.exports = {
           errorIfStrict,
           { some: ["nesting", "id"] },
         ],
-
-        // Check rules of Hooks
         "react-hooks/exhaustive-deps": WARN,
-        // Rules for React Hooks.
-        "react-hooks/rules-of-hooks": ERROR, // Warn useMemo, useEffect dependencies
+        "react-hooks/rules-of-hooks": ERROR,
 
-        // Rules for React.
-        "react/destructuring-assignment": OFF, // Allow use of dot notation, for example user.id (airbnb rule)
+        // Disable some Airbnb rules
+        "react/destructuring-assignment": OFF,
         "react/function-component-definition": [
           errorIfStrict,
           {
-            namedComponents: "arrow-function", // Allow named components with arrow functions (airbnb rule)
+            namedComponents: "arrow-function",
           },
         ],
-        "react/jsx-filename-extension": [1, { extensions: [".tsx"] }], // Allow JSX in TSX file (airbnb rule)
-        "react/jsx-props-no-spreading": OFF, // Allow spreading props like {...props} (airbnb rule)
-        "react/prop-types": OFF, // (airbnb rule)
-        "react/react-in-jsx-scope": OFF, // Disable because there is no need to import React in React 17+ (airbnb rule)
-        "react/require-default-props": OFF, // Allow not setting defaults for props (airbnb rule)
+        "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
+        "react/jsx-props-no-spreading": OFF,
+        "react/prop-types": OFF,
+        "react/react-in-jsx-scope": OFF,
+        "react/require-default-props": OFF,
 
         "sort-destructure-keys/sort-destructure-keys": [
           errorIfStrict,
@@ -110,6 +103,9 @@ module.exports = {
       parserOptions: {
         project: "cypress/tsconfig.json",
       },
+      rules: {
+        "cypress/unsafe-to-chain-command": WARN,
+      },
     },
     // For GraphQL files.
     {
@@ -135,7 +131,6 @@ module.exports = {
   },
   plugins: ["@typescript-eslint"],
   rules: {
-    // Rules for ESLint.
     "arrow-body-style": [
       errorIfStrict,
       "as-needed",
@@ -215,9 +210,6 @@ module.exports = {
       },
     ],
     "import/prefer-default-export": OFF,
-
-    // Rules for prettier.
-    "prettier/prettier": errorIfStrict, // Makes Prettier issues warnings rather than errors.
   },
   settings: {
     "import/resolver": {
