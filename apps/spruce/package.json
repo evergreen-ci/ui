@@ -24,7 +24,7 @@
     "check-schema-and-codegen": "ts-node scripts/check-schema-and-codegen/script.ts",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
-    "eslint:strict": "STRICT=1 eslint '*.{js,ts,tsx}' 'src/**/*.ts?(x)' 'scripts/**/*.js' 'cypress/**/*.ts' 'src/gql/**/*.graphql'",
+    "eslint:strict": "STRICT=1 eslint .",
     "evg-db-ops": "yarn --cwd='../..' evg-db-ops",
     "prepare": "yarn --cwd='../..' prepare",
     "prettier-run": "prettier --write",
@@ -48,9 +48,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "dependencies": {
     "@apollo/client": "3.8.4",

@@ -1,5 +1,5 @@
-import { getGeneralRoute, project, saveButtonEnabled } from "./constants";
 import { clickSave } from "../../utils";
+import { getGeneralRoute, project, saveButtonEnabled } from "./constants";
 
 describe("Project Settings when not defaulting to repo", () => {
   const origin = getGeneralRoute(project);

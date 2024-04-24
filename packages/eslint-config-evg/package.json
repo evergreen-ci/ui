@@ -1,0 +1,6 @@
+{
+  "name": "eslint-config-evg",
+  "version": "0.0.0",
+  "main": "config.js",
+  "private": true
+}
