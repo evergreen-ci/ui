@@ -20,11 +20,10 @@ const config: Config = {
   testEnvironment: "jsdom",
   testMatch: ["<rootDir>/{src,scripts}/**/*.{spec,test}.{ts,tsx}"],
   transform: {
-    "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)":
-      "<rootDir>/config/jest/svgTransform.js",
     "^.+\\.[tj]sx?$": ["ts-jest", { isolatedModules: true }],
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
     "^.+\\.graphql$": "@graphql-tools/jest-transform",
+    "^.+\\.svg$": "<rootDir>/config/jest/svgTransform.js",
   },
   transformIgnorePatterns: [
     `<rootDir>/node_modules/(?!${[

@@ -22,8 +22,7 @@ const config: Config = {
   transform: {
     "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-    "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)":
-      "<rootDir>/config/jest/fileTransform.js",
+    "^.+\\.svg$": "<rootDir>/config/jest/svgTransform.js",
   },
   transformIgnorePatterns: [
     `<rootDir>/node_modules/(?!${[
