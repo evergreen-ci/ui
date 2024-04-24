@@ -71,6 +71,7 @@ query Task($taskId: String!, $execution: Int) {
       displayName
       execution
       id
+      projectIdentifier
       status
     }
     expectedDuration

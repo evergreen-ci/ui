@@ -8343,6 +8343,7 @@ export type TaskEventLogsQuery = {
         timestamp?: Date | null;
         data: {
           __typename?: "TaskEventLogData";
+          blockedOn?: string | null;
           hostId?: string | null;
           jiraIssue?: string | null;
           jiraLink?: string | null;
@@ -8687,6 +8688,7 @@ export type TaskQuery = {
       displayName: string;
       execution: number;
       id: string;
+      projectIdentifier?: string | null;
       status: string;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
