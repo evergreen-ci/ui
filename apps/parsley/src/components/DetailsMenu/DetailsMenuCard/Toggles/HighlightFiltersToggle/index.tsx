@@ -15,7 +15,7 @@ const HighlightFiltersToggle: React.FC = () => {
   return (
     <BaseToggle
       data-cy="highlight-filters-toggle"
-      label="Add Highlights To Filters"
+      label="Highlight Filters"
       leftLabel="OFF"
       onChange={onChange}
       rightLabel="ON"
