@@ -7,7 +7,7 @@ import {
   MetadataItem,
   MetadataTitle,
 } from "components/MetadataCard";
-import { StyledLink } from "components/styles";
+import { StyledLink, WordBreak } from "components/styles";
 import { MCI_USER } from "constants/hosts";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
@@ -68,7 +68,7 @@ export const Metadata: React.FC<{
           Current Task:{" "}
           {runningTaskName ? (
             <StyledLink data-cy="running-task-link" href={taskLink}>
-              {runningTaskName}
+              <WordBreak all>{runningTaskName}</WordBreak>
             </StyledLink>
           ) : (
             <Italic>none</Italic>

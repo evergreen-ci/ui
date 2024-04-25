@@ -392,7 +392,7 @@ export type Distro = {
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
   validProjects: Array<Maybe<Scalars["String"]["output"]>>;
-  warnings: Scalars["String"]["output"];
+  warningNote: Scalars["String"]["output"];
   workDir: Scalars["String"]["output"];
 };
 
@@ -457,6 +457,7 @@ export type DistroInput = {
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
   validProjects: Array<Scalars["String"]["input"]>;
+  warningNote?: InputMaybe<Scalars["String"]["input"]>;
   workDir: Scalars["String"]["input"];
 };
 
@@ -1050,19 +1051,22 @@ export type Mutation = {
   saveRepoSettingsForSection: RepoSettings;
   saveSubscription: Scalars["Boolean"]["output"];
   schedulePatch: Patch;
-  schedulePatchTasks?: Maybe<Scalars["String"]["output"]>;
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
   setLastRevision: SetLastRevisionPayload;
+  /** @deprecated Use setVersionPriority instead */
   setPatchPriority?: Maybe<Scalars["String"]["output"]>;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
   setTaskPriority: Task;
+  setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"]["output"];
+  /** @deprecated Use unscheduleVersionTasks instead */
   unschedulePatchTasks?: Maybe<Scalars["String"]["output"]>;
   unscheduleTask: Task;
+  unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateHostStatus: Scalars["Int"]["output"];
   updateParsleySettings?: Maybe<UpdateParsleySettingsPayload>;
   updatePublicKey: Array<PublicKey>;
@@ -1263,17 +1267,14 @@ export type MutationSchedulePatchArgs = {
   patchId: Scalars["String"]["input"];
 };
 
-export type MutationSchedulePatchTasksArgs = {
-  patchId: Scalars["String"]["input"];
-};
-
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
   versionId: Scalars["String"]["input"];
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
-  patchId: Scalars["String"]["input"];
+  patchId?: InputMaybe<Scalars["String"]["input"]>;
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationSetAnnotationMetadataLinksArgs = {
@@ -1301,6 +1302,11 @@ export type MutationSetTaskPriorityArgs = {
   taskId: Scalars["String"]["input"];
 };
 
+export type MutationSetVersionPriorityArgs = {
+  priority: Scalars["Int"]["input"];
+  versionId: Scalars["String"]["input"];
+};
+
 export type MutationSpawnHostArgs = {
   spawnHostInput?: InputMaybe<SpawnHostInput>;
 };
@@ -1316,6 +1322,11 @@ export type MutationUnschedulePatchTasksArgs = {
 
 export type MutationUnscheduleTaskArgs = {
   taskId: Scalars["String"]["input"];
+};
+
+export type MutationUnscheduleVersionTasksArgs = {
+  abort: Scalars["Boolean"]["input"];
+  versionId: Scalars["String"]["input"];
 };
 
 export type MutationUpdateHostStatusArgs = {
@@ -2114,9 +2125,8 @@ export type QueryTaskNamesForBuildVariantArgs = {
 
 export type QueryTaskTestSampleArgs = {
   filters: Array<TestFilter>;
-  taskIds?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  versionId?: InputMaybe<Scalars["String"]["input"]>;
+  taskIds: Array<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type QueryUserArgs = {
@@ -3341,6 +3351,7 @@ export type TestLogUrlAndRenderingTypeQuery = {
       __typename?: "TaskTestResult";
       testResults: Array<{
         __typename?: "TestResult";
+        groupID?: string | null;
         id: string;
         status: string;
         testFile: string;

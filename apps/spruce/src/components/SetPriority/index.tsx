@@ -10,23 +10,23 @@ import Popconfirm from "components/Popconfirm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
-  SetPatchPriorityMutation,
-  SetPatchPriorityMutationVariables,
+  SetVersionPriorityMutation,
+  SetVersionPriorityMutationVariables,
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
 } from "gql/generated/types";
-import { SET_PATCH_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
+import { SET_VERSION_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
 
 const { gray, red, yellow } = palette;
 
 type SetPriorityProps = (
   | {
-      patchId: string;
+      versionId: string;
       taskId?: never;
     }
   | {
       taskId: string;
-      patchId?: never;
+      versionId?: never;
     }
 ) & {
   initialPriority?: number;
@@ -36,10 +36,10 @@ type SetPriorityProps = (
 const SetPriority: React.FC<SetPriorityProps> = ({
   disabled,
   initialPriority = 0,
-  patchId,
   taskId,
+  versionId,
 }) => {
-  const { sendEvent: sendPatchEvent } = useVersionAnalytics(patchId);
+  const { sendEvent: sendVersionEvent } = useVersionAnalytics(versionId);
   const { sendEvent: sendTaskEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
 
@@ -48,17 +48,18 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
   const menuItemRef = useRef<HTMLDivElement>(null);
 
-  const [setPatchPriority, { loading: loadingSetPatchPriority }] = useMutation<
-    SetPatchPriorityMutation,
-    SetPatchPriorityMutationVariables
-  >(SET_PATCH_PRIORITY, {
-    onCompleted: () => {
-      dispatchToast.success(`Priority was set to ${priority}`);
-    },
-    onError: (err) => {
-      dispatchToast.error(`Error setting priority: ${err.message}`);
-    },
-  });
+  const [setVersionPriority, { loading: loadingSetVersionPriority }] =
+    useMutation<
+      SetVersionPriorityMutation,
+      SetVersionPriorityMutationVariables
+    >(SET_VERSION_PRIORITY, {
+      onCompleted: () => {
+        dispatchToast.success(`Priority was set to ${priority}`);
+      },
+      onError: (err) => {
+        dispatchToast.error(`Error setting priority: ${err.message}`);
+      },
+    });
 
   const [setTaskPriority, { loading: loadingSetTaskPriority }] = useMutation<
     SetTaskPriorityMutation,
@@ -81,8 +82,8 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       setTaskPriority({ variables: { taskId, priority } });
       sendTaskEvent({ name: "Set Priority", priority });
     } else {
-      setPatchPriority({ variables: { patchId, priority } });
-      sendPatchEvent({ name: "Set Priority", priority });
+      setVersionPriority({ variables: { versionId, priority } });
+      sendVersionEvent({ name: "Set Priority", priority });
     }
   };
 
@@ -100,7 +101,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
           active={open}
           data-cy={`prioritize-${dataCy}`}
           disabled={
-            disabled || loadingSetPatchPriority || loadingSetTaskPriority
+            disabled || loadingSetVersionPriority || loadingSetTaskPriority
           }
           onClick={() => setOpen(!open)}
         >

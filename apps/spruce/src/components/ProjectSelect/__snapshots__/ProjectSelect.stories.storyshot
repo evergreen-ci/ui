@@ -7,6 +7,7 @@ exports[`Snapshot Tests ProjectSelect.stories Default 1`] = `
   >
     <label
       class="leafygreen-ui-1fi5x3a"
+      data-lgid="lg-label"
       for="searchable-dropdown-Project"
     >
       Project
@@ -77,6 +78,7 @@ exports[`Snapshot Tests ProjectSelect.stories WithClickableHeader 1`] = `
   >
     <label
       class="leafygreen-ui-1fi5x3a"
+      data-lgid="lg-label"
       for="searchable-dropdown-Project"
     >
       Project

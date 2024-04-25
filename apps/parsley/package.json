@@ -1,7 +1,7 @@
 {
   "name": "parsley",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.1.2",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
     "build": "tsc && GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
@@ -64,7 +64,7 @@
     "@leafygreen-ui/toast": "6.1.24",
     "@leafygreen-ui/toggle": "10.0.4",
     "@leafygreen-ui/tooltip": "10.0.10",
-    "@leafygreen-ui/typography": "16.5.0",
+    "@leafygreen-ui/typography": "19.0.0",
     "@sentry/react": "7.84.0",
     "ansi_up": "6.0.2",
     "graphql": "16.8.1",
@@ -106,7 +106,7 @@
     "@types/jest-specific-snapshot": "0.5.9",
     "@types/js-cookie": "3.0.4",
     "@types/lodash.debounce": "4.0.7",
-    "@types/new-relic-browser": "1.230.2",
+    "@types/new-relic-browser": "1.230.4",
     "@types/node": "^20.11.30",
     "@types/pluralize": "0.0.31",
     "@types/prompts": "2.4.4",
@@ -152,7 +152,7 @@
     "vite": "4.5.2",
     "vite-plugin-checker": "0.6.2",
     "vite-plugin-env-compatible": "1.1.1",
-    "vite-tsconfig-paths": "4.3.1",
+    "vite-tsconfig-paths": "4.3.2",
     "web-streams-polyfill": "^3.2.1",
     "whatwg-fetch": "3.6.17"
   },

@@ -2,10 +2,7 @@ describe("task history", () => {
   it("shows an error message if mainline commit history could not be retrieved", () => {
     cy.visit("/task-history/bogus-project/bogus-task");
     cy.dataCy("loading-cell").should("have.length", 0);
-    cy.validateToast(
-      "error",
-      "There was an error loading the task history: Could not find project with id: bogus-project",
-    );
+    cy.validateToast("error", "There was an error loading the task history");
   });
 
   it("link from task page should link to the commit and scroll to it", () => {

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
+import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { NavigationModal } from "./NavigationModal";
@@ -57,6 +58,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     [projectData, projectType, repoData],
   );
 
+  useScrollToAnchor();
   useEffect(() => {
     const projectOrRepoData: {
       [T in WritableProjectSettingsType]: FormStateMap[T];

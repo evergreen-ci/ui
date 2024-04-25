@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Skeleton } from "antd";
+import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
@@ -217,7 +217,7 @@ const ProjectSettings: React.FC = () => {
             repoData={repoData?.repoSettings}
           />
         ) : (
-          <Skeleton />
+          <FormSkeleton />
         )}
       </PageWrapper>
     </ProjectSettingsProvider>
