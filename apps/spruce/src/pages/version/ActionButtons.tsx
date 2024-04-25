@@ -35,14 +35,14 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       patchId={versionId}
       disabled={!canReconfigure}
     />,
-    <UnscheduleTasks patchId={versionId} key="unschedule-tasks" />,
-    <DisableTasks key="disable-tasks" patchId={versionId} />,
+    <UnscheduleTasks versionId={versionId} key="unschedule-tasks" />,
+    <DisableTasks key="disable-tasks" versionId={versionId} />,
     <ScheduleUndispatchedBaseTasks
       key="schedule-undispatched-base-tasks"
-      patchId={versionId}
+      versionId={versionId}
       disabled={!isPatch}
     />,
-    <SetPriority patchId={versionId} key="priority" />,
+    <SetPriority versionId={versionId} key="priority" />,
     <EnqueuePatch
       patchId={versionId}
       commitMessage={patchDescription}

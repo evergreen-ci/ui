@@ -7,33 +7,33 @@ import { useVersionAnalytics } from "analytics";
 import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
-  UnschedulePatchTasksMutation,
-  UnschedulePatchTasksMutationVariables,
+  UnscheduleVersionTasksMutation,
+  UnscheduleVersionTasksMutationVariables,
 } from "gql/generated/types";
-import { UNSCHEDULE_PATCH_TASKS } from "gql/mutations";
+import { UNSCHEDULE_VERSION_TASKS } from "gql/mutations";
 
 interface props {
-  patchId: string;
-  refetchQueries?: string[];
   disabled?: boolean;
+  refetchQueries?: string[];
+  versionId: string;
 }
 export const UnscheduleTasks: React.FC<props> = ({
   disabled,
-  patchId,
   refetchQueries = [],
+  versionId,
 }) => {
   const dispatchToast = useToastContext();
-  const { sendEvent } = useVersionAnalytics(patchId);
+  const { sendEvent } = useVersionAnalytics(versionId);
 
   const [abort, setAbort] = useState(true);
   const [open, setOpen] = useState(false);
   const menuItemRef = useRef<HTMLDivElement>(null);
 
-  const [unschedulePatchTasks, { loading: loadingUnschedulePatchTasks }] =
+  const [unscheduleVersionTasks, { loading: loadingUnscheduleVersionTasks }] =
     useMutation<
-      UnschedulePatchTasksMutation,
-      UnschedulePatchTasksMutationVariables
-    >(UNSCHEDULE_PATCH_TASKS, {
+      UnscheduleVersionTasksMutation,
+      UnscheduleVersionTasksMutationVariables
+    >(UNSCHEDULE_VERSION_TASKS, {
       onCompleted: () => {
         dispatchToast.success(
           `All tasks were unscheduled ${
@@ -49,7 +49,7 @@ export const UnscheduleTasks: React.FC<props> = ({
     });
 
   const onConfirm = () => {
-    unschedulePatchTasks({ variables: { patchId, abort } });
+    unscheduleVersionTasks({ variables: { versionId, abort } });
     sendEvent({ name: "Unschedule", abort });
   };
 
@@ -59,7 +59,7 @@ export const UnscheduleTasks: React.FC<props> = ({
         <MenuItem
           active={open}
           data-cy="unschedule-patch"
-          disabled={disabled || loadingUnschedulePatchTasks}
+          disabled={disabled || loadingUnscheduleVersionTasks}
           onClick={() => setOpen(!open)}
         >
           Unschedule all tasks

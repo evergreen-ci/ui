@@ -1,12 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
-  SetPatchPriorityMutation,
-  SetPatchPriorityMutationVariables,
+  SetVersionPriorityMutation,
+  SetVersionPriorityMutationVariables,
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
 } from "gql/generated/types";
-import { SET_PATCH_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
+import { SET_VERSION_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import SetPriority from ".";
@@ -16,8 +16,8 @@ describe("setPriority", () => {
     it("shows default message", async () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={[setPatchPriority]}>
-          <SetPriority patchId="patch_id" />
+        <MockedProvider mocks={[setVersionPriority]}>
+          <SetPriority versionId="version_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -34,8 +34,8 @@ describe("setPriority", () => {
     it("shows warning message", async () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={[setPatchPriority]}>
-          <SetPriority patchId="patch_id" />
+        <MockedProvider mocks={[setVersionPriority]}>
+          <SetPriority versionId="version_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -52,8 +52,8 @@ describe("setPriority", () => {
     it("shows admin message", async () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
-        <MockedProvider mocks={[setPatchPriority]}>
-          <SetPriority patchId="patch_id" />
+        <MockedProvider mocks={[setVersionPriority]}>
+          <SetPriority versionId="version_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -70,8 +70,8 @@ describe("setPriority", () => {
     it("successfully sets priority", async () => {
       const user = userEvent.setup();
       const { Component, dispatchToast } = RenderFakeToastContext(
-        <MockedProvider mocks={[setPatchPriority]}>
-          <SetPriority patchId="patch_id" />
+        <MockedProvider mocks={[setVersionPriority]}>
+          <SetPriority versionId="version_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);
@@ -187,17 +187,17 @@ describe("setPriority", () => {
   });
 });
 
-const setPatchPriority: ApolloMock<
-  SetPatchPriorityMutation,
-  SetPatchPriorityMutationVariables
+const setVersionPriority: ApolloMock<
+  SetVersionPriorityMutation,
+  SetVersionPriorityMutationVariables
 > = {
   request: {
-    query: SET_PATCH_PRIORITY,
-    variables: { patchId: "patch_id", priority: 99 },
+    query: SET_VERSION_PRIORITY,
+    variables: { versionId: "version_id", priority: 99 },
   },
   result: {
     data: {
-      setPatchPriority: "patch_id",
+      setVersionPriority: "version_id",
     },
   },
 };
