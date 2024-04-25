@@ -1,5 +1,5 @@
-mutation ScheduleUndispatchedBaseTasks($patchId: String!) {
-  scheduleUndispatchedBaseTasks(patchId: $patchId) {
+mutation ScheduleUndispatchedBaseTasks($versionId: String!) {
+  scheduleUndispatchedBaseTasks(versionId: $versionId) {
     execution
     id
     status

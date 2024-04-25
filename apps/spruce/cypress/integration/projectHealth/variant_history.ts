@@ -2,10 +2,7 @@ describe("variant history", () => {
   it("shows an error message if mainline commit history could not be retrieved", () => {
     cy.visit("/variant-history/bogus-project/bogus-variant");
     cy.dataCy("loading-cell").should("have.length", 0);
-    cy.validateToast(
-      "error",
-      "There was an error loading the variant history: Could not find project with id: bogus-project",
-    );
+    cy.validateToast("error", "There was an error loading the variant history");
   });
 
   it("should link to a specific commit from the project health page", () => {

@@ -1051,19 +1051,22 @@ export type Mutation = {
   saveRepoSettingsForSection: RepoSettings;
   saveSubscription: Scalars["Boolean"]["output"];
   schedulePatch: Patch;
-  schedulePatchTasks?: Maybe<Scalars["String"]["output"]>;
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
   setLastRevision: SetLastRevisionPayload;
+  /** @deprecated Use setVersionPriority instead */
   setPatchPriority?: Maybe<Scalars["String"]["output"]>;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
   setTaskPriority: Task;
+  setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"]["output"];
+  /** @deprecated Use unscheduleVersionTasks instead */
   unschedulePatchTasks?: Maybe<Scalars["String"]["output"]>;
   unscheduleTask: Task;
+  unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateHostStatus: Scalars["Int"]["output"];
   updateParsleySettings?: Maybe<UpdateParsleySettingsPayload>;
   updatePublicKey: Array<PublicKey>;
@@ -1264,17 +1267,14 @@ export type MutationSchedulePatchArgs = {
   patchId: Scalars["String"]["input"];
 };
 
-export type MutationSchedulePatchTasksArgs = {
-  patchId: Scalars["String"]["input"];
-};
-
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
   versionId: Scalars["String"]["input"];
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
-  patchId: Scalars["String"]["input"];
+  patchId?: InputMaybe<Scalars["String"]["input"]>;
+  versionId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationSetAnnotationMetadataLinksArgs = {
@@ -1302,6 +1302,11 @@ export type MutationSetTaskPriorityArgs = {
   taskId: Scalars["String"]["input"];
 };
 
+export type MutationSetVersionPriorityArgs = {
+  priority: Scalars["Int"]["input"];
+  versionId: Scalars["String"]["input"];
+};
+
 export type MutationSpawnHostArgs = {
   spawnHostInput?: InputMaybe<SpawnHostInput>;
 };
@@ -1317,6 +1322,11 @@ export type MutationUnschedulePatchTasksArgs = {
 
 export type MutationUnscheduleTaskArgs = {
   taskId: Scalars["String"]["input"];
+};
+
+export type MutationUnscheduleVersionTasksArgs = {
+  abort: Scalars["Boolean"]["input"];
+  versionId: Scalars["String"]["input"];
 };
 
 export type MutationUpdateHostStatusArgs = {
@@ -5169,7 +5179,7 @@ export type ScheduleTasksMutation = {
 };
 
 export type ScheduleUndispatchedBaseTasksMutationVariables = Exact<{
-  patchId: Scalars["String"]["input"];
+  versionId: Scalars["String"]["input"];
 }>;
 
 export type ScheduleUndispatchedBaseTasksMutation = {
@@ -5193,16 +5203,6 @@ export type SetLastRevisionMutation = {
     __typename?: "SetLastRevisionPayload";
     mergeBaseRevision: string;
   };
-};
-
-export type SetPatchPriorityMutationVariables = Exact<{
-  patchId: Scalars["String"]["input"];
-  priority: Scalars["Int"]["input"];
-}>;
-
-export type SetPatchPriorityMutation = {
-  __typename?: "Mutation";
-  setPatchPriority?: string | null;
 };
 
 export type SetPatchVisibilityMutationVariables = Exact<{
@@ -5234,6 +5234,16 @@ export type SetTaskPriorityMutation = {
   };
 };
 
+export type SetVersionPriorityMutationVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  priority: Scalars["Int"]["input"];
+}>;
+
+export type SetVersionPriorityMutation = {
+  __typename?: "Mutation";
+  setVersionPriority?: string | null;
+};
+
 export type SpawnHostMutationVariables = Exact<{
   spawnHostInput?: InputMaybe<SpawnHostInput>;
 }>;
@@ -5252,16 +5262,6 @@ export type SpawnVolumeMutation = {
   spawnVolume: boolean;
 };
 
-export type UnschedulePatchTasksMutationVariables = Exact<{
-  patchId: Scalars["String"]["input"];
-  abort: Scalars["Boolean"]["input"];
-}>;
-
-export type UnschedulePatchTasksMutation = {
-  __typename?: "Mutation";
-  unschedulePatchTasks?: string | null;
-};
-
 export type UnscheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
 }>;
@@ -5269,6 +5269,16 @@ export type UnscheduleTaskMutationVariables = Exact<{
 export type UnscheduleTaskMutation = {
   __typename?: "Mutation";
   unscheduleTask: { __typename?: "Task"; execution: number; id: string };
+};
+
+export type UnscheduleVersionTasksMutationVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  abort: Scalars["Boolean"]["input"];
+}>;
+
+export type UnscheduleVersionTasksMutation = {
+  __typename?: "Mutation";
+  unscheduleVersionTasks?: string | null;
 };
 
 export type UpdateHostStatusMutationVariables = Exact<{

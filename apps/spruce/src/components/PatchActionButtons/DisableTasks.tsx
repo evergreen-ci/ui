@@ -5,32 +5,32 @@ import { Body } from "@leafygreen-ui/typography";
 import Popconfirm from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
-  SetPatchPriorityMutation,
-  SetPatchPriorityMutationVariables,
+  SetVersionPriorityMutation,
+  SetVersionPriorityMutationVariables,
 } from "gql/generated/types";
-import { SET_PATCH_PRIORITY } from "gql/mutations";
+import { SET_VERSION_PRIORITY } from "gql/mutations";
 
 interface Props {
-  patchId: string;
+  versionId: string;
   refetchQueries?: string[];
 }
 export const DisableTasks: React.FC<Props> = ({
-  patchId,
   refetchQueries = [],
+  versionId,
 }) => {
   const dispatchToast = useToastContext();
   const [open, setOpen] = useState(false);
   const menuItemRef = useRef<HTMLDivElement>(null);
 
-  const [disablePatch] = useMutation<
-    SetPatchPriorityMutation,
-    SetPatchPriorityMutationVariables
-  >(SET_PATCH_PRIORITY, {
+  const [disableVersion] = useMutation<
+    SetVersionPriorityMutation,
+    SetVersionPriorityMutationVariables
+  >(SET_VERSION_PRIORITY, {
     onCompleted: () => {
-      dispatchToast.success(`Tasks in this patch were disabled`);
+      dispatchToast.success("Tasks in this version were disabled");
     },
     onError: (err) => {
-      dispatchToast.error(`Unable to disable patch tasks: ${err.message}`);
+      dispatchToast.error(`Unable to disable version's tasks: ${err.message}`);
     },
     refetchQueries,
   });
@@ -49,8 +49,8 @@ export const DisableTasks: React.FC<Props> = ({
       <Popconfirm
         align="left"
         onConfirm={() => {
-          disablePatch({
-            variables: { patchId, priority: -1 },
+          disableVersion({
+            variables: { versionId, priority: -1 },
           });
         }}
         open={open}
