@@ -83,6 +83,7 @@ query Distro($distroId: String!) {
     user
     userSpawnAllowed
     validProjects
+    warningNote
     workDir
   }
 }
