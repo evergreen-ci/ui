@@ -1,7 +1,7 @@
 {
   "name": "parsley",
   "private": true,
-  "version": "2.1.1",
+  "version": "2.1.2",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
     "build": "tsc && GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
@@ -105,7 +105,7 @@
     "@types/js-cookie": "3.0.4",
     "@types/lodash.debounce": "4.0.7",
     "@types/new-relic-browser": "1.230.4",
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.7",
     "@types/pluralize": "0.0.31",
     "@types/prompts": "2.4.4",
     "@types/react": "18.0.15",

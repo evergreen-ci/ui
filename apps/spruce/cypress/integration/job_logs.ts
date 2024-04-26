@@ -49,7 +49,7 @@ describe("Job logs page", () => {
       cy.visit(`job-logs/DNE/0/job0`);
       cy.validateToast(
         "error",
-        "There was an error retrieving logs for this task: task not found",
+        "There was an error retrieving logs for this task",
       );
     });
   });
