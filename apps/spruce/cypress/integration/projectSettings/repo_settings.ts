@@ -89,9 +89,17 @@ describe("Repo Settings", () => {
           .scrollIntoView();
         cy.get("@patchDefAccordion").click();
         cy.dataCy("variant-tags-input").should("have.value", "vtag");
-        cy.dataCy("variant-tags-input").should("be.disabled");
+        cy.dataCy("variant-tags-input").should(
+          "have.attr",
+          "aria-disabled",
+          "true",
+        );
         cy.dataCy("task-tags-input").should("have.value", "ttag");
-        cy.dataCy("task-tags-input").should("be.disabled");
+        cy.dataCy("task-tags-input").should(
+          "have.attr",
+          "aria-disabled",
+          "true",
+        );
         cy.contains(
           "A GitHub Patch Definition must be specified for this feature to run.",
         ).should("not.exist");
@@ -202,7 +210,9 @@ describe("Repo Settings", () => {
         .parentsUntil("div")
         .first()
         .click({ force: true });
-      cy.dataCy("expandable-card").find("input").should("be.disabled");
+      cy.dataCy("expandable-card")
+        .find("input")
+        .should("have.attr", "aria-disabled", "true");
       cy.dataCy("expandable-card").find("button").should("be.disabled");
     });
 

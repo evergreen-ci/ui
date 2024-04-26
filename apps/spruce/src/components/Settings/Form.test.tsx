@@ -56,10 +56,10 @@ describe("context-based form", () => {
     render(<Component tab="bar" validate={barValidator} />, {
       wrapper: TestProvider,
     });
-    await user.clear(screen.getByLabelText("Age"));
-    expect(screen.getByLabelText("Age")).toHaveValue("");
+    await user.clear(screen.getAllByLabelText("Age")[0]);
+    expect(screen.getAllByLabelText("Age")[0]).toHaveValue("");
     expect(screen.queryByText("Invalid Age!")).not.toBeInTheDocument();
-    await user.type(screen.getByLabelText("Age"), "30");
+    await user.type(screen.getAllByLabelText("Age")[0], "30");
     expect(screen.getByText("Invalid Age!")).toBeInTheDocument();
   });
 
@@ -67,8 +67,14 @@ describe("context-based form", () => {
     render(<Component tab="bar" disabled />, {
       wrapper: TestProvider,
     });
-    expect(screen.getByLabelText("Name")).toBeDisabled();
-    expect(screen.getByLabelText("Age")).toBeDisabled();
+    expect(screen.getAllByLabelText("Name")[0]).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    expect(screen.getAllByLabelText("Age")[0]).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
   });
 });
 
