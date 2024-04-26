@@ -13,7 +13,10 @@ describe("searchbar", () => {
       "aria-disabled",
       "true",
     );
-    expect(screen.getByDataCy("searchbar-input")).toBeDisabled();
+    expect(screen.getByDataCy("searchbar-input")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
   });
   it("should be able to paginate forwards by pressing Enter and keep focus", async () => {
     const user = userEvent.setup();
