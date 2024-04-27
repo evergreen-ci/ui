@@ -26,7 +26,7 @@ import { EventCopy } from "./EventCopy";
 const EventsTable: React.FC<{}> = () => {
   const getDateCopy = useDateFormat();
 
-  const { limit, page, setPageLimit } = useTablePagination();
+  const { limit, page, setLimit } = useTablePagination();
   const { [slugs.podId]: podId } = useParams();
   const dispatchToast = useToastContext();
   const { data: podEventsData } = useQuery<
@@ -59,7 +59,7 @@ const EventsTable: React.FC<{}> = () => {
           <PageSizeSelector
             data-cy="pod-events-page-size-selector"
             value={limit}
-            onChange={setPageLimit}
+            onChange={setLimit}
           />
         </TableControlInnerRow>
       </TableTitle>

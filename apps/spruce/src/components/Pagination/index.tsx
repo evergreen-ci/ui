@@ -29,7 +29,7 @@ const Pagination: React.FC<Props> = ({
   totalResults,
 }) => {
   const { setPage } = useTablePagination();
-  const handleChange = onChange || ((p: number) => setPage(p));
+  const handleChange = onChange || setPage;
   const numPages = Math.ceil(totalResults / pageSize);
 
   const handlePrevClick = () => {

@@ -17,10 +17,10 @@ const useTablePagination = () => {
   );
 
   /**
-   * `setPageLimit` updates the page size query param and saves the page size to local storage
+   * `setLimit` updates the page size query param and saves the page size to local storage
    * @param pageSize - the new page size
    */
-  const setPageLimit = useCallback(
+  const setLimit = useCallback(
     (pageSize: number) => {
       localStorage.setItem(RECENT_PAGE_SIZE_KEY, pageSize.toString());
       setQueryParams({
@@ -32,7 +32,7 @@ const useTablePagination = () => {
     [queryParams, setQueryParams],
   );
 
-  return { page, limit, setPageLimit, setPage };
+  return { page, limit, setLimit, setPage };
 };
 
 export default useTablePagination;

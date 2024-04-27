@@ -26,7 +26,7 @@ import { getFilters, useQueryVariables, getSorting } from "./utils";
 const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
   usePageTitle("Hosts");
-  const { setPageLimit } = useTablePagination();
+  const { setLimit } = useTablePagination();
   const queryVariables = useQueryVariables();
   const { currentTaskId, distroId, hostId, startedBy, statuses } =
     queryVariables;
@@ -83,7 +83,7 @@ const Hosts: React.FC = () => {
   }, [selectedHosts]);
 
   const handlePageSizeChange = (pageSize: number): void => {
-    setPageLimit(pageSize);
+    setLimit(pageSize);
     hostsTableAnalytics.sendEvent({ name: "Change Page Size" });
   };
 

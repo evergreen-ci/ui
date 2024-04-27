@@ -48,7 +48,7 @@ export const PatchesPage: React.FC<Props> = ({
   pageType,
   patches,
 }) => {
-  const { setPageLimit } = useTablePagination();
+  const { setLimit } = useTablePagination();
   const cookie =
     pageType === "project"
       ? INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES
@@ -92,7 +92,7 @@ export const PatchesPage: React.FC<Props> = ({
   };
 
   const handlePageSizeChange = (pageSize: number): void => {
-    setPageLimit(pageSize);
+    setLimit(pageSize);
     analyticsObject.sendEvent({ name: "Change Page Size" });
   };
 

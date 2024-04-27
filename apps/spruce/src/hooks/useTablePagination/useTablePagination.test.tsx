@@ -36,7 +36,7 @@ describe("useTablePagination", () => {
     const { result } = renderHook(() => useTablePagination(), { wrapper });
 
     act(() => {
-      result.current.setPageLimit(50);
+      result.current.setLimit(50);
     });
 
     expect(result.current.limit).toBe(50);

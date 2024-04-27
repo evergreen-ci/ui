@@ -28,10 +28,10 @@ const TableControl: React.FC<Props> = ({
   page,
   totalCount,
 }) => {
-  const { setPageLimit } = useTablePagination();
+  const { setLimit } = useTablePagination();
 
   const handlePageSizeChange = (pageSize: number) => {
-    setPageLimit(pageSize);
+    setLimit(pageSize);
     onPageSizeChange?.(pageSize);
   };
   const onClearAll = () => {

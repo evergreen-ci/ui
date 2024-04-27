@@ -27,7 +27,7 @@ export const HostTable: React.FC<{
 }> = ({ error, eventData, eventsCount, limit, loading, page }) => {
   const isHostPage = true;
   const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
-  const { setPageLimit } = useTablePagination();
+  const { setLimit } = useTablePagination();
   const getDateCopy = useDateFormat();
   const logEntries = useMemo(
     () => eventData?.hostEvents?.eventLogEntries ?? [],
@@ -35,7 +35,7 @@ export const HostTable: React.FC<{
   );
 
   const handlePageSizeChange = (pageSize: number): void => {
-    setPageLimit(pageSize);
+    setLimit(pageSize);
     hostsTableAnalytics.sendEvent({ name: "Change Page Size" });
   };
 
