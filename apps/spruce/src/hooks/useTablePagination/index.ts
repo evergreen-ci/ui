@@ -6,7 +6,9 @@ import { getDefaultPageSize } from "utils/url";
 
 /**
  * `useTablePagination` is a hook that manages the page and page size query params
- * @returns - an object containing the current page, page size, and functions to update the page and page size
+ * It also saves the page size to local storage so that it can be remembered between sessions
+ * Updating the page size will reset the page to 0
+ * @returns - an object containing the current page, page size limit, and functions to update the page and page limit
  */
 const useTablePagination = () => {
   const [queryParams, setQueryParams] = useQueryParams();

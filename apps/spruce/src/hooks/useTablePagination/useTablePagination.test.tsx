@@ -45,4 +45,16 @@ describe("useTablePagination", () => {
       "50",
     );
   });
+  it("should reset the page when the limit is updated", () => {
+    const { result } = renderHook(() => useTablePagination(), { wrapper });
+
+    act(() => {
+      result.current.setPage(2);
+    });
+
+    act(() => {
+      result.current.setLimit(50);
+    });
+    expect(result.current.page).toBe(0);
+  });
 });
