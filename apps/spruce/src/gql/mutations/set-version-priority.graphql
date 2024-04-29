@@ -1,0 +1,3 @@
+mutation SetVersionPriority($versionId: String!, $priority: Int!) {
+  setVersionPriority(versionId: $versionId, priority: $priority)
+}

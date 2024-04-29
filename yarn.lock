@@ -1925,23 +1925,6 @@
     parse-filepath "^1.0.2"
     tslib "~2.6.0"
 
-"@graphql-eslint/eslint-plugin@3.18.0":
-  version "3.18.0"
-  resolved "https://registry.yarnpkg.com/@graphql-eslint/eslint-plugin/-/eslint-plugin-3.18.0.tgz#071b5580d1d47ac0f25fd4296fea4105ddd8e401"
-  integrity sha512-riEEfRycc0+pWxcEWqHi8woRxzg1xZqAfh9DRACJUR7bTN8dmc1N04i7+pvW4sevClUFYC2wuL1Vtr+DwzXLUg==
-  dependencies:
-    "@babel/code-frame" "^7.18.6"
-    "@graphql-tools/code-file-loader" "^7.3.6"
-    "@graphql-tools/graphql-tag-pluck" "^7.3.6"
-    "@graphql-tools/utils" "^9.0.0"
-    chalk "^4.1.2"
-    debug "^4.3.4"
-    fast-glob "^3.2.12"
-    graphql-config "^4.4.0"
-    graphql-depth-limit "^1.1.0"
-    lodash.lowercase "^4.3.0"
-    tslib "^2.4.1"
-
 "@graphql-eslint/eslint-plugin@3.20.1":
   version "3.20.1"
   resolved "https://registry.yarnpkg.com/@graphql-eslint/eslint-plugin/-/eslint-plugin-3.20.1.tgz#5ae22ee54a5624b852a7cb5f52a103da6384c643"
@@ -6478,15 +6461,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-5.1.2.tgz#07508b45797cb81ec3f273011b054cd0755eddca"
   integrity sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==
 
-"@types/new-relic-browser@0.1212.2":
-  version "0.1212.2"
-  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-0.1212.2.tgz#3409836f618bdd4961cc0efad546968f28b3bf97"
-  integrity sha512-SI9Zwlbtk522vbDyBCkpGrqFf+QDWkBWM9zOd+/hHX8WvsvUuoqa5aFjbT1jfES8l2Kb6rO6M6I6NcEO+Qrt1g==
-
-"@types/new-relic-browser@1.230.2":
-  version "1.230.2"
-  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-1.230.2.tgz#fd1306a6fa0c7d389fb3a2e52c66cb4073086942"
-  integrity sha512-nXFhoy/nr8RW6oMJ+g8ct7OhWQLPEUczcEUUNC1YGGv0/IOREOoSwrcOGJGEEkF5KIjGLnILpruqAX48n/1cTQ==
+"@types/new-relic-browser@1.230.4":
+  version "1.230.4"
+  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-1.230.4.tgz#46070a56b1c9cb3e23abd3b305194d23a1b47b9d"
+  integrity sha512-dsYvm01NyEu9zoIODMQUz7KAhRFFRFY9ZCz6uEDb/SeVylSNHn8P2wbUI71CtNs3PFUrvWOHYR7oAIyceOQ6jg==
 
 "@types/node-fetch@^2.6.4":
   version "2.6.11"
@@ -6496,10 +6474,10 @@
     "@types/node" "*"
     form-data "^4.0.0"
 
-"@types/node@*", "@types/node@^20.11.30":
-  version "20.11.30"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.30.tgz#9c33467fc23167a347e73834f788f4b9f399d66f"
-  integrity sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==
+"@types/node@*", "@types/node@^20.12.7":
+  version "20.12.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.7.tgz#04080362fa3dd6c5822061aa3124f5c152cff384"
+  integrity sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -16299,12 +16277,7 @@ ts-node@10.9.1:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-tsconfck@^2.1.0:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/tsconfck/-/tsconfck-2.1.2.tgz#f667035874fa41d908c1fe4d765345fcb1df6e35"
-  integrity sha512-ghqN1b0puy3MhhviwO2kGF8SeMDNhEbnKxjK7h6+fvY9JAxqvXi8y5NAHSQv687OVboS2uZIByzGd45/YxrRHg==
-
-tsconfck@^3.0.1:
+tsconfck@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/tsconfck/-/tsconfck-3.0.3.tgz#d9bda0e87d05b1c360e996c9050473c7e6f8084f"
   integrity sha512-4t0noZX9t6GcPTfBAbIbbIU4pfpCwh0ueq3S4O/5qXI1VwK1outmxhe9dOiEWqMz3MW2LKgDTpqWV+37IWuVbA==
@@ -16841,23 +16814,14 @@ vite-plugin-imp@2.4.0:
     param-case "^3.0.4"
     pascal-case "^3.1.2"
 
-vite-tsconfig-paths@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/vite-tsconfig-paths/-/vite-tsconfig-paths-4.2.0.tgz#bd2647d3eadafb65a10fc98a2ca565211f2eaf63"
-  integrity sha512-jGpus0eUy5qbbMVGiTxCL1iB9ZGN6Bd37VGLJU39kTDD6ZfULTTb1bcc5IeTWqWJKiWV5YihCaibeASPiGi8kw==
+vite-tsconfig-paths@4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/vite-tsconfig-paths/-/vite-tsconfig-paths-4.3.2.tgz#321f02e4b736a90ff62f9086467faf4e2da857a9"
+  integrity sha512-0Vd/a6po6Q+86rPlntHye7F31zA2URZMbH8M3saAZ/xR9QoGN/L21bxEGfXdWmFdNkqPpRdxFT7nmNe12e9/uA==
   dependencies:
     debug "^4.1.1"
     globrex "^0.1.2"
-    tsconfck "^2.1.0"
-
-vite-tsconfig-paths@4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/vite-tsconfig-paths/-/vite-tsconfig-paths-4.3.1.tgz#28762938151e7c80aec9d70c57e65ddce43a576f"
-  integrity sha512-cfgJwcGOsIxXOLU/nELPny2/LUD/lcf1IbfyeKTv2bsupVbTH/xpFtdQlBmIP1GEK2CjjLxYhFfB+QODFAx5aw==
-  dependencies:
-    debug "^4.1.1"
-    globrex "^0.1.2"
-    tsconfck "^3.0.1"
+    tsconfck "^3.0.3"
 
 vite@4.5.2:
   version "4.5.2"

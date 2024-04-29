@@ -37,7 +37,7 @@ export const DropdownMenu: React.FC<Props> = ({
     <ScheduleTasks key="schedule" versionId={patchId} disabled={!hasVersion} />,
     <UnscheduleTasks
       key="unschedule"
-      patchId={patchId}
+      versionId={patchId}
       refetchQueries={refetchQueries}
       disabled={!hasVersion}
     />,
