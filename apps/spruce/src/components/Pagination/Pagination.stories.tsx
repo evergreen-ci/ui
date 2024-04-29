@@ -12,7 +12,7 @@ const DefaultImpl = (args: React.ComponentProps<typeof Pagination>) => {
 
   return (
     <>
-      <p>Query Params: {page}</p>
+      <p>useTablePagination: {page}</p>
       <Pagination {...args} currentPage={page} />
     </>
   );
