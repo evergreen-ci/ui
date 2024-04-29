@@ -3,7 +3,7 @@ import {
   SortOrder,
   TaskSortCategory,
 } from "gql/generated/types";
-import useTablePagination from "hooks/useTablePagination";
+import usePagination from "hooks/usePagination";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString, array } from "utils";
 
@@ -14,7 +14,7 @@ export const useQueryVariables = (
   search: string,
   versionId: string,
 ): VersionTasksQueryVariables => {
-  const { limit, page } = useTablePagination();
+  const { limit, page } = usePagination();
   const queryParams = parseQueryString(search);
   const {
     [PatchTasksQueryParams.Duration]: duration,

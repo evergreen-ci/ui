@@ -2,9 +2,9 @@ import { MemoryRouter } from "react-router-dom";
 import { RECENT_PAGE_SIZE_KEY } from "constants/index";
 import { renderHook, act } from "test_utils";
 import { getDefaultPageSize } from "utils/url";
-import useTablePagination from "./index";
+import usePagination from "./index";
 
-describe("useTablePagination", () => {
+describe("usePagination", () => {
   const wrapper = ({ children }) => <MemoryRouter>{children}</MemoryRouter>;
 
   beforeEach(() => {
@@ -16,14 +16,14 @@ describe("useTablePagination", () => {
   });
 
   it("should return the default page and limit", () => {
-    const { result } = renderHook(() => useTablePagination(), { wrapper });
+    const { result } = renderHook(() => usePagination(), { wrapper });
 
     expect(result.current.page).toBe(0);
     expect(result.current.limit).toBe(getDefaultPageSize());
   });
 
   it("should update the page", () => {
-    const { result } = renderHook(() => useTablePagination(), { wrapper });
+    const { result } = renderHook(() => usePagination(), { wrapper });
 
     act(() => {
       result.current.setPage(2);
@@ -33,7 +33,7 @@ describe("useTablePagination", () => {
   });
 
   it("should update the limit and save it to localStorage", () => {
-    const { result } = renderHook(() => useTablePagination(), { wrapper });
+    const { result } = renderHook(() => usePagination(), { wrapper });
 
     act(() => {
       result.current.setLimit(50);
@@ -46,7 +46,7 @@ describe("useTablePagination", () => {
     );
   });
   it("should reset the page when the limit is updated", () => {
-    const { result } = renderHook(() => useTablePagination(), { wrapper });
+    const { result } = renderHook(() => usePagination(), { wrapper });
 
     act(() => {
       result.current.setPage(2);

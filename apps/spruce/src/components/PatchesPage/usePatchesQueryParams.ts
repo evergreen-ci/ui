@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { PatchesInput } from "gql/generated/types";
+import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
-import useTablePagination from "hooks/useTablePagination";
 import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
 
 /**
@@ -21,7 +21,7 @@ export const usePatchesQueryParams = (): Omit<
     [],
   );
   const [hidden] = useQueryParam(PatchPageQueryParams.Hidden, false);
-  const { limit, page } = useTablePagination();
+  const { limit, page } = usePagination();
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
     limit,

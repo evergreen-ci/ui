@@ -25,7 +25,7 @@ import {
   HostEventsQueryVariables,
 } from "gql/generated/types";
 import { HOST, HOST_EVENTS } from "gql/queries/index";
-import useTablePagination from "hooks/useTablePagination";
+import usePagination from "hooks/usePagination";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
@@ -56,7 +56,7 @@ const Host: React.FC = () => {
   const sshCommand = `ssh ${user}@${sshAddress}`;
   const tag = host?.tag ?? "";
 
-  const { limit, page } = useTablePagination();
+  const { limit, page } = usePagination();
   // Query hostEvent data
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
     HostEventsQuery,

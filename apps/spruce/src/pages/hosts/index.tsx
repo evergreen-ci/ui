@@ -19,14 +19,14 @@ import { size } from "constants/tokens";
 import { HostsQuery, HostsQueryVariables } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { usePageTitle } from "hooks";
-import useTablePagination from "hooks/useTablePagination";
+import usePagination from "hooks/usePagination";
 import { HostsTable } from "pages/hosts/HostsTable";
 import { getFilters, useQueryVariables, getSorting } from "./utils";
 
 const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
   usePageTitle("Hosts");
-  const { setLimit } = useTablePagination();
+  const { setLimit } = usePagination();
   const queryVariables = useQueryVariables();
   const { currentTaskId, distroId, hostId, startedBy, statuses } =
     queryVariables;
@@ -105,7 +105,7 @@ const Hosts: React.FC = () => {
   const totalHostsCount = hosts?.totalHostsCount ?? 0;
   const filteredHostCount = hosts?.filteredHostsCount ?? 0;
 
-  const { limit, page } = useTablePagination();
+  const { limit, page } = usePagination();
   return (
     <PageWrapper data-cy="hosts-page">
       <H2>Evergreen Hosts</H2>

@@ -5,7 +5,7 @@ import {
   HostsQueryVariables,
   SortDirection,
 } from "gql/generated/types";
-import useTablePagination from "hooks/useTablePagination";
+import usePagination from "hooks/usePagination";
 import { mapQueryParamToId } from "types/host";
 import { toArray } from "utils/array";
 import { getString, parseQueryString } from "utils/queryString";
@@ -29,7 +29,7 @@ const getSortDir = (sortDirParam: string | string[]): SortDirection => {
 };
 
 const useQueryVariables = (): HostsQueryVariables => {
-  const { limit, page } = useTablePagination();
+  const { limit, page } = usePagination();
   const { search } = useLocation();
   const {
     currentTaskId,

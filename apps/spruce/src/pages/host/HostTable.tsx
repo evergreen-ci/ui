@@ -10,7 +10,7 @@ import { BaseTable } from "components/Table/BaseTable";
 import { size } from "constants/tokens";
 import { HostEventsQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import useTablePagination from "hooks/useTablePagination";
+import usePagination from "hooks/usePagination";
 import { HostCard } from "pages/host/HostCard";
 import { HostEventString } from "pages/host/HostEventString";
 import { Unpacked } from "types/utils";
@@ -27,7 +27,7 @@ export const HostTable: React.FC<{
 }> = ({ error, eventData, eventsCount, limit, loading, page }) => {
   const isHostPage = true;
   const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
-  const { setLimit } = useTablePagination();
+  const { setLimit } = usePagination();
   const getDateCopy = useDateFormat();
   const logEntries = useMemo(
     () => eventData?.hostEvents?.eventLogEntries ?? [],

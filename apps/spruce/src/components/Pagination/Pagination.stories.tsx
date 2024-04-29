@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useTablePagination from "hooks/useTablePagination";
+import usePagination from "hooks/usePagination";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import Pagination from ".";
 
@@ -8,11 +8,11 @@ export default {
 } satisfies CustomMeta<typeof Pagination>;
 
 const DefaultImpl = (args: React.ComponentProps<typeof Pagination>) => {
-  const { page } = useTablePagination();
+  const { page } = usePagination();
 
   return (
     <>
-      <p>useTablePagination: {page}</p>
+      <p>usePagination: {page}</p>
       <Pagination {...args} currentPage={page} />
     </>
   );

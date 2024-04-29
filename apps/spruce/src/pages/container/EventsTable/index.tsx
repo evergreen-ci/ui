@@ -20,13 +20,13 @@ import { useToastContext } from "context/toast";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
 import { POD_EVENTS } from "gql/queries";
 import { useDateFormat } from "hooks";
-import useTablePagination from "hooks/useTablePagination";
+import usePagination from "hooks/usePagination";
 import { EventCopy } from "./EventCopy";
 
 const EventsTable: React.FC<{}> = () => {
   const getDateCopy = useDateFormat();
 
-  const { limit, page, setLimit } = useTablePagination();
+  const { limit, page, setLimit } = usePagination();
   const { [slugs.podId]: podId } = useParams();
   const dispatchToast = useToastContext();
   const { data: podEventsData } = useQuery<

@@ -14,8 +14,8 @@ import {
 import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
+import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
-import useTablePagination from "hooks/useTablePagination";
 import { PatchPageQueryParams } from "types/patch";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
@@ -48,7 +48,7 @@ export const PatchesPage: React.FC<Props> = ({
   pageType,
   patches,
 }) => {
-  const { setLimit } = useTablePagination();
+  const { setLimit } = usePagination();
   const cookie =
     pageType === "project"
       ? INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES
