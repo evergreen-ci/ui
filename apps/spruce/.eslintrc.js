@@ -13,7 +13,6 @@ module.exports = {
       extends: "plugin:@graphql-eslint/operations-recommended",
       rules: {
         "@graphql-eslint/selection-set-depth": OFF,
-        "@graphql-eslint/no-deprecated": WARN,
       },
     },
   ],

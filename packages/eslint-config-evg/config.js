@@ -23,17 +23,17 @@ module.exports = {
   ignorePatterns: [
     "bin",
     "build",
+    "coverage",
+    "dist",
     "public",
     "sdlschema",
     "src/gql/generated/types.ts",
+    "storybook-static",
   ],
   overrides: [
     // For React Typescript files in src.
     {
       files: ["src/**/*.ts", "src/**/*.tsx"],
-      parserOptions: {
-        project: ["./tsconfig.json"],
-      },
       plugins: [
         "jsx-a11y",
         "react",
@@ -101,7 +101,7 @@ module.exports = {
       extends: ["plugin:cypress/recommended"],
       files: ["cypress/**/*.ts"],
       parserOptions: {
-        project: "cypress/tsconfig.json",
+        project: "./apps/*/cypress/tsconfig.json",
       },
       rules: {
         "cypress/unsafe-to-chain-command": WARN,
@@ -116,6 +116,7 @@ module.exports = {
           ERROR,
           { selections: ["OperationDefinition", "FragmentDefinition"] },
         ],
+        "@graphql-eslint/no-deprecated": WARN,
         // Following rule can possibly be removed after ESLint updates.
         "spaced-comment": OFF,
       },
@@ -127,7 +128,9 @@ module.exports = {
       jsx: true,
     },
     ecmaVersion: "latest",
+    project: ["./apps/*/tsconfig.json", "./packages/*/tsconfig.json"],
     sourceType: "module",
+    tsConfigRootDir: __dirname,
   },
   plugins: ["@typescript-eslint"],
   rules: {
