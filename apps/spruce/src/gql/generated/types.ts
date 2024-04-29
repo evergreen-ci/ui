@@ -5830,6 +5830,7 @@ export type DistroQuery = {
     user: string;
     userSpawnAllowed: boolean;
     validProjects: Array<string | null>;
+    warningNote: string;
     workDir: string;
     bootstrapSettings: {
       __typename?: "BootstrapSettings";
