@@ -90,7 +90,7 @@ exports[`Snapshot Tests Pagination.stories Controlled 1`] = `
 exports[`Snapshot Tests Pagination.stories Default 1`] = `
 <div>
   <p>
-    useTablePagination: 
+    usePagination: 
     0
   </p>
   <div
