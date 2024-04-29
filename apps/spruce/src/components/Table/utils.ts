@@ -1,8 +1,6 @@
 import { OnChangeFn } from "@tanstack/react-table";
 
 export enum TableQueryParams {
-  Limit = "limit",
-  Page = "page",
   SortBy = "sortBy",
   SortDir = "sortDir",
   Sorts = "sorts",
