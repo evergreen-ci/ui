@@ -347,7 +347,7 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
                     <h6
                       class="css-1vhit7t leafygreen-ui-19p3n10"
                     >
-                      Add Highlights To Filters
+                      Highlight Filters
                     </h6>
                     <span
                       aria-disabled="true"
@@ -386,7 +386,7 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
                     <button
                       aria-checked="false"
                       aria-disabled="false"
-                      aria-labelledby="Add Highlights To Filters Toggle"
+                      aria-labelledby="Highlight Filters Toggle"
                       class="lg-ui-toggle-button-0000 leafygreen-ui-1pz71rg"
                       data-cy="highlight-filters-toggle"
                       role="switch"
@@ -928,7 +928,7 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                     <h6
                       class="css-1vhit7t leafygreen-ui-19p3n10"
                     >
-                      Add Highlights To Filters
+                      Highlight Filters
                     </h6>
                     <span
                       aria-disabled="true"
@@ -967,7 +967,7 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                     <button
                       aria-checked="false"
                       aria-disabled="false"
-                      aria-labelledby="Add Highlights To Filters Toggle"
+                      aria-labelledby="Highlight Filters Toggle"
                       class="lg-ui-toggle-button-0000 leafygreen-ui-1pz71rg"
                       data-cy="highlight-filters-toggle"
                       role="switch"
