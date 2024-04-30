@@ -135,6 +135,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                               <button
                                 aria-checked="true"
                                 aria-disabled="false"
+                                aria-label="Hide filter"
                                 aria-labelledby=":r1:"
                                 class="lg-ui-toggle-button-0000 leafygreen-ui-qt4gv"
                                 role="switch"
