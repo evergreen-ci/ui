@@ -17,7 +17,9 @@ const getCommitMessages = (currentlyDeployedCommit: string) => {
   const commitMessages = execSync(
     `git log ${currentlyDeployedCommit}..HEAD --oneline -- ${appDir} -- ${packagesDir}`,
     { encoding: "utf-8" },
-  ).toString();
+  )
+    .toString()
+    .trim();
   return commitMessages;
 };
 
