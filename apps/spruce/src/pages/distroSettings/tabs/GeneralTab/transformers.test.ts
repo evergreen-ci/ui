@@ -26,6 +26,7 @@ const generalForm: GeneralFormState = {
     disableShallowClone: true,
     disabled: false,
     note: "distro note",
+    warningNote: "distro warnings",
   },
 };
 

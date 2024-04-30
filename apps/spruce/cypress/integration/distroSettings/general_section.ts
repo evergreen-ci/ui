@@ -1,5 +1,6 @@
 import { save } from "./utils";
 
+// TODO: https://jira.mongodb.org/browse/DEVPROD-6656 - Uncomment the Warnings assertions when the backend supports it
 describe("general section", () => {
   beforeEach(() => {
     cy.visit("/distro/localhost/settings/general");
@@ -16,6 +17,7 @@ describe("general section", () => {
     cy.contains("button", "Add alias").click();
     cy.getInputByLabel("Alias").type("localhost-alias");
     cy.getInputByLabel("Notes").type("this is a note");
+    // cy.getInputByLabel("Warnings").type("this is a warning");
     cy.getInputByLabel("Disable shallow clone for this distro").check({
       force: true,
     });
@@ -27,6 +29,7 @@ describe("general section", () => {
     cy.reload();
     cy.getInputByLabel("Alias").should("have.value", "localhost-alias");
     cy.getInputByLabel("Notes").should("have.value", "this is a note");
+    // cy.getInputByLabel("Warnings").should("have.value", "this is a warning");
     cy.getInputByLabel("Disable shallow clone for this distro").should(
       "be.checked",
     );
@@ -35,6 +38,7 @@ describe("general section", () => {
     // Undo changes.
     cy.dataCy("delete-item-button").click();
     cy.getInputByLabel("Notes").clear();
+    // cy.getInputByLabel("Warnings").clear();
     cy.getInputByLabel("Disable shallow clone for this distro").uncheck({
       force: true,
     });
