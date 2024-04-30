@@ -31,7 +31,6 @@ describe("filters", () => {
       />,
     );
     await user.click(screen.getByLabelText("Edit filter"));
-    expect(screen.queryByText(defaultFilter.expression)).toBeNull();
     expect(screen.getByDataCy("edit-filter-name")).toBeInTheDocument();
     expect(screen.getByDataCy("edit-filter-name")).toHaveValue(
       defaultFilter.expression,
@@ -107,7 +106,7 @@ describe("filters", () => {
         filter={defaultFilter}
       />,
     );
-    expect(screen.getByLabelText("Visibility Icon")).toBeInTheDocument();
+    expect(screen.getByLabelText("Hide filter")).toBeInTheDocument();
     await user.click(screen.getByLabelText("Hide filter"));
     expect(editFilter).toHaveBeenCalledTimes(1);
     expect(editFilter).toHaveBeenCalledWith("visible", false, defaultFilter);
@@ -254,5 +253,29 @@ describe("filters", () => {
       screen.queryByText("Invalid Regular Expression: Unterminated group"),
     ).not.toBeInTheDocument();
     expect(confirmButton).toHaveAttribute("aria-disabled", "false");
+  });
+  it("should reset the component state when the user cancels editing", async () => {
+    const user = userEvent.setup();
+    const editFilter = jest.fn();
+    render(
+      <FilterGroup
+        deleteFilter={jest.fn()}
+        editFilter={editFilter}
+        filter={defaultFilter}
+      />,
+    );
+    await user.click(screen.getByLabelText("Edit filter"));
+    expect(screen.getByDataCy("edit-filter-name")).toHaveValue(
+      defaultFilter.expression,
+    );
+    await user.clear(screen.getByDataCy("edit-filter-name"));
+    expect(screen.getByText("Filter cannot be empty")).toBeInTheDocument();
+    const cancelButton = screen.getByRole("button", {
+      name: "Cancel",
+    });
+    await user.click(cancelButton);
+    expect(screen.getByText(defaultFilter.expression)).toBeInTheDocument();
+    expect(screen.queryByDataCy("edit-filter-name")).toBeNull();
+    expect(screen.queryByText("Filter cannot be empty")).toBeNull();
   });
 });

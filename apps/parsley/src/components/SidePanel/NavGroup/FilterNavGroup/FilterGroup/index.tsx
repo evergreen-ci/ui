@@ -53,6 +53,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
   const resetEditState = () => {
     setIsEditing(false);
     setNewFilterExpression(expression);
+    setIsValid(validateRegexp(expression));
   };
 
   const handleSubmit = () => {
@@ -101,6 +102,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           </Body>
           <IconButtonContainer>
             <Toggle
+              aria-label={visible ? "Hide filter" : "Show filter"}
               aria-labelledby={id}
               checked={visible}
               disabled={!isValid}
