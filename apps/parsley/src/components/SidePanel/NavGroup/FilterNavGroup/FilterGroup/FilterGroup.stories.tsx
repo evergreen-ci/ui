@@ -13,7 +13,7 @@ export const Default: CustomStoryObj<typeof FilterGroup> = {
     editFilter: () => {},
     filter: {
       caseSensitive: CaseSensitivity.Sensitive,
-      expression: ".*",
+      expression: "Some Filter Expression",
       matchType: MatchType.Exact,
       visible: true,
     },
