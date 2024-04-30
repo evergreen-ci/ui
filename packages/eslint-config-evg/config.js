@@ -213,6 +213,7 @@ module.exports = {
       },
     ],
     "import/prefer-default-export": OFF,
+    "prettier/prettier": errorIfStrict,
   },
   settings: {
     "import/resolver": {
