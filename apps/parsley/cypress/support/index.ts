@@ -45,7 +45,8 @@ declare global {
        * @example cy.editBounds({ lower: 5, upper: 10 })
        */
       editBounds(bounds: { upper?: string; lower?: string }): void;
-      /** Custom command to determine if an element is not contained in the viewport.
+      /**
+       * Custom command to determine if an element is not contained in the viewport.
        * @example cy.isNotContainedInViewport()
        * @example cy.isNotContainedInViewport().should('be.visible')
        */

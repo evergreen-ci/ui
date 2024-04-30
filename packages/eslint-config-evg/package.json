@@ -1,0 +1,29 @@
+{
+  "name": "eslint-config-evg",
+  "version": "0.0.0",
+  "main": "config.js",
+  "private": true,
+  "dependencies": {
+    "@emotion/eslint-plugin": "11.11.0",
+    "@graphql-eslint/eslint-plugin": "3.20.1",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "eslint": "8.31.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jest": "27.2.1",
+    "eslint-plugin-jsdoc": "48.0.2",
+    "eslint-plugin-jsx-a11y": "6.8.0",
+    "eslint-plugin-prettier": "5.1.3",
+    "eslint-plugin-react": "7.30.1",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-sort-destructure-keys": "^1.5.0",
+    "eslint-plugin-storybook": "0.6.12",
+    "eslint-plugin-testing-library": "^5.10.1",
+    "graphql": "16.8.1",
+    "prettier": "3.2.2",
+    "typescript": "5.1.3"
+  }
+}

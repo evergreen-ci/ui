@@ -3,7 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import generatePicker from "antd/es/date-picker/generatePicker";
 import dateFnsGenerateConfig from "rc-picker/lib/generate/dateFns";
 import { size } from "constants/tokens";
-import "antd/es/date-picker/style/index";
+import "antd/es/date-picker/style/index.css";
 
 const { gray } = palette;
 

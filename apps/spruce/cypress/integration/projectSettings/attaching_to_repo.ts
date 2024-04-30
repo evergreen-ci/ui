@@ -1,5 +1,5 @@
-import { getGeneralRoute, project } from "./constants";
 import { clickSave } from "../../utils";
+import { getGeneralRoute, project } from "./constants";
 
 describe("Attaching Spruce to a repo", () => {
   const origin = getGeneralRoute(project);
