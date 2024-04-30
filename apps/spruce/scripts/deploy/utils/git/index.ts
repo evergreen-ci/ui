@@ -9,7 +9,9 @@ import { resolve } from "path";
 const getCommitMessages = (currentlyDeployedCommit: string) => {
   const gitRoot = execSync(`git rev-parse --show-toplevel`, {
     encoding: "utf-8",
-  }).toString();
+  })
+    .toString()
+    .trim();
   const appDir = resolve(gitRoot, "apps", "spruce");
   const packagesDir = resolve(gitRoot, "packages");
   const commitMessages = execSync(
