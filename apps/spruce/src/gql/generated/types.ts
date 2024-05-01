@@ -1055,16 +1055,12 @@ export type Mutation = {
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
   setLastRevision: SetLastRevisionPayload;
-  /** @deprecated Use setVersionPriority instead */
-  setPatchPriority?: Maybe<Scalars["String"]["output"]>;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
   setTaskPriority: Task;
   setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"]["output"];
-  /** @deprecated Use unscheduleVersionTasks instead */
-  unschedulePatchTasks?: Maybe<Scalars["String"]["output"]>;
   unscheduleTask: Task;
   unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateHostStatus: Scalars["Int"]["output"];
@@ -1273,8 +1269,7 @@ export type MutationScheduleTasksArgs = {
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
-  patchId?: InputMaybe<Scalars["String"]["input"]>;
-  versionId?: InputMaybe<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type MutationSetAnnotationMetadataLinksArgs = {
@@ -1285,11 +1280,6 @@ export type MutationSetAnnotationMetadataLinksArgs = {
 
 export type MutationSetLastRevisionArgs = {
   opts: SetLastRevisionInput;
-};
-
-export type MutationSetPatchPriorityArgs = {
-  patchId: Scalars["String"]["input"];
-  priority: Scalars["Int"]["input"];
 };
 
 export type MutationSetPatchVisibilityArgs = {
@@ -1313,11 +1303,6 @@ export type MutationSpawnHostArgs = {
 
 export type MutationSpawnVolumeArgs = {
   spawnVolumeInput: SpawnVolumeInput;
-};
-
-export type MutationUnschedulePatchTasksArgs = {
-  abort: Scalars["Boolean"]["input"];
-  patchId: Scalars["String"]["input"];
 };
 
 export type MutationUnscheduleTaskArgs = {
