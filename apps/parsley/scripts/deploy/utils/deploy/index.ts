@@ -32,7 +32,9 @@ const runDeploy = () => {
   } else {
     const email = execSync("git config user.email", {
       encoding: "utf-8",
-    }).toString();
+    })
+      .toString()
+      .trim();
     console.log(yellow(`Dry run mode enabled. Sending email to ${email}`));
     execSync(`DEPLOYS_EMAIL=${email} ./scripts/deploy/email.sh`, {
       stdio: "inherit",

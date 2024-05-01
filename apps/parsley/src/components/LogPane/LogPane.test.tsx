@@ -10,6 +10,7 @@ import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import LogPane from ".";
 
 const list = Array.from({ length: 100 }, (_, i) => `${i}`);
+const virtuosoConfig = { itemHeight: 10, viewportHeight: 500 };
 
 const RowRenderer = (index: number) => (
   <pre key={index}>Some Line: {index}</pre>
@@ -17,9 +18,7 @@ const RowRenderer = (index: number) => (
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={[parsleySettingsMock]}>
-    <VirtuosoMockContext.Provider
-      value={{ itemHeight: 10, viewportHeight: 500 }}
-    >
+    <VirtuosoMockContext.Provider value={virtuosoConfig}>
       <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
     </VirtuosoMockContext.Provider>
   </MockedProvider>

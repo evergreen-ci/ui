@@ -8,8 +8,8 @@ import { size } from "constants/tokens";
 import { useFilterParam } from "hooks/useFilterParam";
 import { Filter } from "types/logs";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
-import FilterGroup from "./FilterGroup";
 import BaseNavGroup from "../BaseNavGroup";
+import FilterGroup from "./FilterGroup";
 
 const { green } = palette;
 
