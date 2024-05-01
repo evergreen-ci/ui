@@ -37,12 +37,14 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
               >
                 <div
                   class="leafygreen-ui-1iyoj2o"
+                  data-lgid="lg-select"
                 >
                   <div
                     class="leafygreen-ui-e3fvh5"
                   >
                     <label
                       class="leafygreen-ui-nf64md"
+                      data-lgid="lg-label"
                       for="select-191"
                       id="select-190-label"
                     >
@@ -56,7 +58,8 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                     aria-expanded="false"
                     aria-invalid="false"
                     aria-labelledby="select-190-label"
-                    class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
+                    class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+                    data-lgid="lg-button"
                     data-testid="leafygreen-ui-select-menubutton"
                     id="select-191"
                     type="button"
@@ -73,6 +76,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                       >
                         <div
                           class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
+                          data-lgid="lg-select-button_text"
                         >
                           Legacy SSH
                         </div>
@@ -93,6 +97,13 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
                       </svg>
                     </div>
                   </button>
+                  <div
+                    aria-live="polite"
+                    aria-relevant="all"
+                    class="leafygreen-ui-11ydt2g"
+                    data-lgid="lg-form_field-feedback"
+                    data-testid="lg-form_field-feedback"
+                  />
                 </div>
               </div>
             </div>
