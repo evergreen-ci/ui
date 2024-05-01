@@ -27,6 +27,7 @@ export const getFormSchema = (
           identifier: {
             type: "string" as "string",
             title: "Image",
+            default: "",
           },
         },
       },
