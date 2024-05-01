@@ -2,11 +2,8 @@ import { defineConfig } from "cypress";
 import { execSync } from "child_process";
 
 export default defineConfig({
-  projectId: "i1oeyf",
   e2e: {
     baseUrl: "http://localhost:4173",
-    supportFile: "cypress/support/index.ts",
-    specPattern: "cypress/integration/**/*.ts",
     experimentalStudio: true,
     setupNodeEvents(on) {
       on("before:run", () => {
@@ -24,11 +21,14 @@ export default defineConfig({
         }
       });
     },
+    specPattern: "cypress/integration/**/*.ts",
+    supportFile: "cypress/support/index.ts",
   },
+  projectId: "i1oeyf",
   reporterOptions: {
     mochaFile: "bin/cypress/cypress-[hash].xml",
   },
-  viewportWidth: 1280,
-  viewportHeight: 800,
   videoCompression: false,
+  viewportHeight: 800,
+  viewportWidth: 1280,
 });

@@ -9,11 +9,11 @@ import { QueryParams } from "constants/queryParams";
 import { fontSize, size } from "constants/tokens";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
 import { useQueryParam } from "hooks/useQueryParam";
+import { LogRowProps } from "../types";
+import { isLineInRange } from "../utils";
 import Highlighter from "./Highlighter";
 import LineNumber from "./LineNumber";
 import SharingMenu from "./SharingMenu";
-import { LogRowProps } from "../types";
-import { isLineInRange } from "../utils";
 
 const { red, yellow } = palette;
 

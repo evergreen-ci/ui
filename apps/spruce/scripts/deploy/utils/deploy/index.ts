@@ -1,7 +1,7 @@
 import { execSync } from "child_process";
 import { yellow } from "../../../utils/colors";
-import { getCurrentCommit, getCurrentlyDeployedCommit } from "../git";
 import { isDryRun } from "../environment";
+import { getCurrentCommit, getCurrentlyDeployedCommit } from "../git";
 
 /**
  * `runDeploy` is a helper function that actually performs the deploy.
@@ -32,7 +32,9 @@ const runDeploy = () => {
   } else {
     const email = execSync("git config user.email", {
       encoding: "utf-8",
-    }).toString();
+    })
+      .toString()
+      .trim();
     console.log(yellow(`Dry run mode enabled. Sending email to ${email}`));
     execSync(`DEPLOYS_EMAIL=${email} ./scripts/deploy/email.sh`, {
       stdio: "inherit",

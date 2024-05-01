@@ -1,10 +1,10 @@
+import { clickSave } from "../../utils";
 import {
   getAccessRoute,
   project,
   projectUseRepoEnabled,
   saveButtonEnabled,
 } from "./constants";
-import { clickSave } from "../../utils";
 
 describe("Access page", () => {
   const origin = getAccessRoute(projectUseRepoEnabled);

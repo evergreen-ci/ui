@@ -1,3 +1,4 @@
+import { clickSave } from "../../utils";
 import {
   getAccessRoute,
   getGeneralRoute,
@@ -5,7 +6,6 @@ import {
   repo,
   saveButtonEnabled,
 } from "./constants";
-import { clickSave } from "../../utils";
 
 describe("Repo Settings", () => {
   const origin = getGeneralRoute(repo);

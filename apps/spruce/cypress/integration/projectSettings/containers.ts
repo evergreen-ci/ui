@@ -1,5 +1,5 @@
-import { getContainersRoute, saveButtonEnabled } from "./constants";
 import { clickSave } from "../../utils";
+import { getContainersRoute, saveButtonEnabled } from "./constants";
 
 describe("Containers", () => {
   const destination = getContainersRoute("spruce");

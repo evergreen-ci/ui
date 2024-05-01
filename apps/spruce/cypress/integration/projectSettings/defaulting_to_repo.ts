@@ -1,3 +1,4 @@
+import { clickSave } from "../../utils";
 import {
   getGeneralRoute,
   getVirtualWorkstationRoute,
@@ -5,7 +6,6 @@ import {
   repo,
   saveButtonEnabled,
 } from "./constants";
-import { clickSave } from "../../utils";
 
 describe("Project Settings when defaulting to repo", () => {
   const origin = getGeneralRoute(projectUseRepoEnabled);
