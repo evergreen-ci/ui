@@ -278,4 +278,30 @@ describe("filters", () => {
     expect(screen.queryByDataCy("edit-filter-name")).toBeNull();
     expect(screen.queryByText("Filter cannot be empty")).toBeNull();
   });
+  it("if the filter group is collapsed, editing should expand it", async () => {
+    const user = userEvent.setup();
+    const editFilter = jest.fn();
+    render(
+      <FilterGroup
+        deleteFilter={jest.fn()}
+        editFilter={editFilter}
+        filter={defaultFilter}
+      />,
+    );
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    await user.click(screen.getByDataCy("accordion-toggle"));
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
+    await user.click(screen.getByLabelText("Edit filter"));
+
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+  });
 });

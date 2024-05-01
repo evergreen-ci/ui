@@ -14,7 +14,6 @@ import { useLogWindowAnalytics } from "analytics";
 import Accordion from "components/Accordion";
 import Icon from "components/Icon";
 import IconWithTooltip from "components/IconWithTooltip";
-import { TextEllipsis } from "components/styles";
 import { CaseSensitivity, MatchType } from "constants/enums";
 import { size } from "constants/tokens";
 import { Filter } from "types/logs";
@@ -43,6 +42,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
   const [newFilterExpression, setNewFilterExpression] = useState(expression);
   const [isEditing, setIsEditing] = useState(false);
   const [isValid, setIsValid] = useState(true);
+  const [openAccordion, setOpenAccordion] = useState(true);
   const id = useId();
   useEffect(() => {
     if (expression) {
@@ -72,24 +72,12 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
   return (
     <Accordion
       defaultOpen
-      onToggle={({ isVisible }) =>
-        sendEvent({ name: "Toggled Filter", open: isVisible })
-      }
+      onToggle={({ isVisible }) => {
+        sendEvent({ name: "Toggled Filter", open: isVisible });
+        setOpenAccordion(isVisible);
+      }}
+      open={openAccordion}
       title={
-        <>
-          {showTooltip && (
-            <IconWithTooltip color={red.base} glyph="ImportantWithCircle">
-              Invalid filter expression, please update it!
-              <Error>{validationMessage}</Error>
-            </IconWithTooltip>
-          )}
-          <TextEllipsis>
-            <Body weight="medium">{expression}</Body>
-          </TextEllipsis>
-        </>
-      }
-      titleTag={AccordionTitle}
-      toggledTitle={
         <>
           {showTooltip && (
             <IconWithTooltip color={red.base} glyph="ImportantWithCircle">
@@ -115,7 +103,12 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
               aria-label="Edit filter"
               onClick={(e) => {
                 e.stopPropagation();
-                setIsEditing(true);
+                if (isEditing) {
+                  resetEditState();
+                } else {
+                  setIsEditing(true);
+                }
+                setOpenAccordion(true);
               }}
               title="Edit filter"
             >
@@ -135,6 +128,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           </IconButtonContainer>
         </>
       }
+      titleTag={AccordionTitle}
     >
       <AccordionContent>
         {isEditing && (
