@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { validateUptimeSchedule } from "components/Spawn";
 import {
   FormState,
   computeDiff,
@@ -9,6 +10,7 @@ import {
   getFormSchema,
   useLoadFormData,
 } from "components/Spawn/editHostModal";
+import { getHostUptimeFromGql } from "components/Spawn/utils";
 import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
 import {
@@ -16,6 +18,7 @@ import {
   EditSpawnHostMutationVariables,
 } from "gql/generated/types";
 import { EDIT_SPAWN_HOST } from "gql/mutations";
+import { useUserTimeZone } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { omit } from "utils/object";
@@ -32,6 +35,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useSpawnAnalytics();
+  const timeZone = useUserTimeZone();
 
   const {
     disableExpirationCheckbox,
@@ -54,18 +58,33 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 
   const initialFormState = {
     hostName: host.displayName ?? "",
-    expirationDetails: {
-      expiration: host.expiration ? host.expiration.toString() : null,
-      noExpiration: host.noExpiration,
-    },
     instanceType: host.instanceType ?? "",
     volume: "",
     rdpPassword: "",
     userTags,
+    expirationDetails: {
+      expiration: host.expiration ? host.expiration.toString() : null,
+      noExpiration: host.noExpiration,
+      hostUptime: getHostUptimeFromGql(host.sleepSchedule),
+    },
     publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };
 
   const [formState, setFormState] = useState<FormState>(initialFormState);
+
+  const hostUptimeValidation = useMemo(
+    () =>
+      validateUptimeSchedule({
+        enabledWeekdays:
+          formState?.expirationDetails?.hostUptime?.sleepSchedule
+            ?.enabledWeekdays,
+        ...formState?.expirationDetails?.hostUptime?.sleepSchedule
+          ?.timeSelection,
+        useDefaultUptimeSchedule:
+          formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
+      }),
+    [formState?.expirationDetails?.hostUptime],
+  );
 
   const { schema, uiSchema } = getFormSchema({
     canEditInstanceType: host.status === HostStatus.Stopped,
@@ -73,9 +92,11 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       host.distro.isWindows && host.status === HostStatus.Running,
     canEditSshKeys: host.status === HostStatus.Running,
     disableExpirationCheckbox,
+    hostUptimeValidation,
     instanceTypes: instanceTypes ?? [],
     myPublicKeys: publicKeys ?? [],
     noExpirationCheckboxTooltip,
+    timeZone,
     volumes,
   });
 
@@ -103,6 +124,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     hostId: host.id,
     myPublicKeys: publicKeys,
     oldUserTags: userTags,
+    timeZone,
   });
 
   const currEditState = formToGql({
@@ -110,6 +132,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     hostId: host.id,
     myPublicKeys: publicKeys,
     oldUserTags: userTags,
+    timeZone,
   });
 
   const [hasChanges, mutationParams] = computeDiff(

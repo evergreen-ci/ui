@@ -3,6 +3,7 @@ import {
   EditSpawnHostMutationVariables,
 } from "gql/generated/types";
 import { string } from "utils";
+import { getSleepSchedule } from "../utils";
 import { FormState } from "./types";
 
 const { stripNewLines } = string;
@@ -12,12 +13,14 @@ interface Props {
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   formData: FormState;
   oldUserTags: { key: string; value: string }[];
+  timeZone?: string;
 }
 export const formToGql = ({
   formData,
   hostId,
   myPublicKeys,
   oldUserTags,
+  timeZone,
 }: Props): EditSpawnHostMutationVariables => {
   const {
     expirationDetails,
@@ -29,7 +32,7 @@ export const formToGql = ({
     volume,
   } = formData || {};
 
-  const { expiration, noExpiration } = expirationDetails;
+  const { expiration, hostUptime, noExpiration } = expirationDetails;
   const {
     newPublicKey = "",
     newPublicKeyName = "",
@@ -66,5 +69,9 @@ export const formToGql = ({
         : stripNewLines(newPublicKey),
     },
     savePublicKey: !useExisting && savePublicKey,
+    sleepSchedule:
+      noExpiration && hostUptime
+        ? getSleepSchedule(hostUptime, timeZone)
+        : null,
   };
 };

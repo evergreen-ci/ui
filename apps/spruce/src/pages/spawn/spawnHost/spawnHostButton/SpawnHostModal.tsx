@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { maxUptimeHours, validateUptimeSchedule } from "components/Spawn";
+import { validateUptimeSchedule } from "components/Spawn";
 import {
   formToGql,
   getFormSchema,
@@ -161,26 +161,19 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           setHasError(errors.length > 0);
         }}
         // @ts-expect-error rjsf v4 has insufficient typing for its validator
-        validate={validate(hostUptimeValidation?.enabledHoursCount ?? 0)}
+        validate={validate(hostUptimeValidation?.errors)}
       />
     </ConfirmationModal>
   );
 };
 
-const validate = (enabledHoursCount: number) =>
-  (({ expirationDetails }, errors) => {
-    const { hostUptime } = expirationDetails ?? {};
-    if (!hostUptime) return errors;
+const validate = (errorArray: string[]) =>
+  ((_, errors) => {
+    if (errorArray.length === 0) return errors;
 
-    const { useDefaultUptimeSchedule } = hostUptime;
-
-    if (!useDefaultUptimeSchedule) {
-      if (enabledHoursCount > maxUptimeHours) {
-        errors.expirationDetails?.hostUptime?.sleepSchedule?.addError(
-          "Insufficient hours",
-        );
-      }
-    }
+    errors.expirationDetails?.hostUptime?.sleepSchedule?.addError(
+      "Insufficient hours",
+    );
 
     return errors;
   }) satisfies ValidateProps<FormState>;

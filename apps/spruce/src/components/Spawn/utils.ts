@@ -1,9 +1,27 @@
-import { differenceInHours } from "date-fns";
+import { differenceInHours, parse } from "date-fns";
+import { SleepScheduleInput } from "gql/generated/types";
+import { MyHost } from "types/spawn";
 
 const daysInWeek = 7;
 const hoursInDay = 24;
-export const maxUptimeHours = (daysInWeek - 1) * hoursInDay;
+const maxUptimeHours = (daysInWeek - 1) * hoursInDay;
 const suggestedUptimeHours = (daysInWeek - 2) * hoursInDay;
+const defaultStartHour = 8;
+const defaultStopHour = 20;
+export const defaultStartDate = new Date(null, null, null, defaultStartHour);
+export const defaultStopDate = new Date(null, null, null, defaultStopHour);
+
+export type HostUptime = {
+  useDefaultUptimeSchedule: boolean;
+  sleepSchedule?: {
+    enabledWeekdays: boolean[];
+    timeSelection: {
+      startTime: string;
+      stopTime: string;
+      runContinuously: boolean;
+    };
+  };
+};
 
 interface GetNoExpirationCheckboxTooltipCopyProps {
   disableExpirationCheckbox: boolean;
@@ -32,7 +50,7 @@ export const getDefaultExpiration = () => {
 
 type ValidateInput = {
   enabledWeekdays: boolean[];
-  endTime: string;
+  stopTime: string;
   runContinuously: boolean;
   startTime: string;
   useDefaultUptimeSchedule: boolean;
@@ -40,9 +58,9 @@ type ValidateInput = {
 
 export const validateUptimeSchedule = ({
   enabledWeekdays,
-  endTime,
   runContinuously,
   startTime,
+  stopTime,
   useDefaultUptimeSchedule,
 }: ValidateInput): {
   enabledHoursCount: number;
@@ -51,7 +69,7 @@ export const validateUptimeSchedule = ({
 } => {
   const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount({
     enabledWeekdays,
-    endTime,
+    stopTime,
     runContinuously,
     startTime,
   });
@@ -113,17 +131,125 @@ export const validateUptimeSchedule = ({
 
 const getEnabledHoursCount = ({
   enabledWeekdays,
-  endTime,
   runContinuously,
   startTime,
+  stopTime,
 }: Omit<ValidateInput, "useDefaultUptimeSchedule">) => {
   const enabledWeekdaysCount =
     enabledWeekdays?.filter((day) => day).length ?? 0;
   const enabledHoursCount = runContinuously
     ? enabledWeekdaysCount * hoursInDay
-    : enabledWeekdaysCount * getDailyUptime({ startTime, endTime });
+    : enabledWeekdaysCount * getDailyUptime({ startTime, stopTime });
   return { enabledHoursCount, enabledWeekdaysCount };
 };
 
-const getDailyUptime = ({ endTime, startTime }) =>
-  differenceInHours(new Date(endTime), new Date(startTime));
+const getDailyUptime = ({ startTime, stopTime }) =>
+  differenceInHours(new Date(stopTime), new Date(startTime));
+
+export const getSleepSchedule = (
+  { sleepSchedule, useDefaultUptimeSchedule }: HostUptime,
+  timeZone: string,
+): SleepScheduleInput => {
+  if (useDefaultUptimeSchedule) {
+    return getDefaultSleepSchedule({ timeZone });
+  }
+
+  const {
+    enabledWeekdays,
+    timeSelection: { runContinuously, startTime, stopTime },
+  } = sleepSchedule;
+
+  const schedule: SleepScheduleInput = {
+    dailyStartTime: "",
+    dailyStopTime: "",
+    permanentlyExempt: false,
+    shouldKeepOff: false,
+    timeZone,
+    wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
+      if (!isEnabled) {
+        accum.push(i);
+      }
+      return accum;
+    }, []),
+  };
+
+  if (!runContinuously) {
+    const startDate = new Date(startTime);
+    const stopDate = new Date(stopTime);
+    schedule.dailyStartTime = toTimeString(startDate);
+    schedule.dailyStopTime = toTimeString(stopDate);
+  }
+
+  return schedule;
+};
+
+const toTimeString = (date: Date): string =>
+  date.toLocaleTimeString([], {
+    hour: "2-digit",
+    hour12: false,
+    minute: "2-digit",
+  });
+
+const getDefaultSleepSchedule = ({ timeZone }): SleepScheduleInput => {
+  const sleepSchedule: SleepScheduleInput = {
+    dailyStartTime: toTimeString(defaultStartDate),
+    dailyStopTime: toTimeString(defaultStopDate),
+    permanentlyExempt: false,
+    // TODO: Add pause
+    shouldKeepOff: false,
+    timeZone,
+    wholeWeekdaysOff: [0, 6],
+  };
+
+  return sleepSchedule;
+};
+
+export const getHostUptimeFromGql = (
+  sleepSchedule: MyHost["sleepSchedule"],
+): HostUptime => {
+  if (!sleepSchedule) return null;
+
+  if (matchesDefaultUptimeSchedule(sleepSchedule)) {
+    return {
+      useDefaultUptimeSchedule: true,
+    };
+  }
+
+  const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
+
+  return {
+    useDefaultUptimeSchedule: false,
+    sleepSchedule: {
+      enabledWeekdays: new Array(7)
+        .fill(false)
+        .map((_, i) => !wholeWeekdaysOff.includes(i)),
+      timeSelection:
+        dailyStartTime && dailyStopTime
+          ? {
+              startTime: parse(dailyStartTime, "HH:mm", new Date()).toString(),
+              stopTime: parse(dailyStopTime, "HH:mm", new Date()).toString(),
+              runContinuously: false,
+            }
+          : {
+              startTime: defaultStartDate.toString(),
+              stopTime: defaultStopDate.toString(),
+              runContinuously: true,
+            },
+    },
+  };
+};
+
+const matchesDefaultUptimeSchedule = (
+  sleepSchedule: MyHost["sleepSchedule"],
+): boolean => {
+  const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
+
+  if (
+    [...wholeWeekdaysOff].sort().toString() !== new Array([0, 6]).toString()
+  ) {
+    return false;
+  }
+  if (dailyStartTime !== "08:00") return false;
+  if (dailyStopTime !== "20:00") return false;
+  return true;
+};

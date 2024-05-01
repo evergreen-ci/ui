@@ -1,8 +1,19 @@
 export type FormState = {
   hostName?: string;
   expirationDetails?: {
-    expiration?: string;
     noExpiration: boolean;
+    expiration?: string;
+    hostUptime?: {
+      useDefaultUptimeSchedule: boolean;
+      sleepSchedule?: {
+        enabledWeekdays: boolean[];
+        timeSelection: {
+          startTime: string;
+          stopTime: string;
+          runContinuously: boolean;
+        };
+      };
+    };
   };
   instanceType?: string;
   volume?: string;
