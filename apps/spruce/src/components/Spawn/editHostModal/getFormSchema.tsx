@@ -49,7 +49,11 @@ export const getFormSchema = ({
     noExpirationCheckboxTooltip,
     timeZone,
   });
-  const publicKeys = getPublicKeySchema({ canEditSshKeys, myPublicKeys });
+  const publicKeys = getPublicKeySchema({
+    canEditSshKeys,
+    myPublicKeys,
+    required: false,
+  });
 
   return {
     fields: {},

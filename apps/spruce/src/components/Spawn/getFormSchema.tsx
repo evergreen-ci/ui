@@ -274,11 +274,13 @@ const datePickerCSS = css`
 type PublicKeyProps = {
   canEditSshKeys?: boolean;
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
+  required?: boolean;
 };
 
 export const getPublicKeySchema = ({
   canEditSshKeys = true,
   myPublicKeys,
+  required = true,
 }: PublicKeyProps) => ({
   schema: {
     type: "object" as "object",
@@ -314,7 +316,7 @@ export const getPublicKeySchema = ({
                 title: "Choose key",
                 type: "string" as "string",
                 default: myPublicKeys?.length ? myPublicKeys[0]?.name : "",
-                minLength: 1,
+                minLength: required ? 1 : 0,
                 oneOf:
                   myPublicKeys?.length > 0
                     ? [
@@ -388,18 +390,18 @@ export const getPublicKeySchema = ({
     },
   },
   uiSchema: {
+    "ui:disabled": !canEditSshKeys,
     useExisting: {
       "ui:widget": widgets.RadioBoxWidget,
       "ui:description": !canEditSshKeys
         ? "SSH keys can only be added when the host is running."
         : "",
-      "ui:disabled": !canEditSshKeys,
     },
     publicKeyNameDropdown: {
       "ui:elementWrapperCSS": dropdownWrapperClassName,
       "ui:data-cy": "key-select",
       "ui:allowDeselect": false,
-      "ui:disabled": !canEditSshKeys || myPublicKeys.length === 0,
+      "ui:disabled": myPublicKeys.length === 0,
       "ui:description":
         canEditSshKeys && myPublicKeys.length === 0 ? "No keys available." : "",
     },
@@ -407,7 +409,6 @@ export const getPublicKeySchema = ({
       "ui:widget": "textarea",
       "ui:elementWrapperCSS": textAreaWrapperClassName,
       "ui:data-cy": "key-value-text-area",
-      "ui:disabled": !canEditSshKeys,
     },
   },
 });

@@ -2,7 +2,11 @@ import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { validateUptimeSchedule } from "components/Spawn";
+import {
+  getHostUptimeFromGql,
+  validateUptimeSchedule,
+  validator,
+} from "components/Spawn";
 import {
   FormState,
   computeDiff,
@@ -10,7 +14,6 @@ import {
   getFormSchema,
   useLoadFormData,
 } from "components/Spawn/editHostModal";
-import { getHostUptimeFromGql } from "components/Spawn/utils";
 import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
 import {
@@ -71,6 +74,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   };
 
   const [formState, setFormState] = useState<FormState>(initialFormState);
+  const [hasError, setHasError] = useState(true);
 
   const hostUptimeValidation = useMemo(
     () =>
@@ -161,7 +165,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       title="Edit Host Details"
       open={visible}
       data-cy="edit-spawn-host-modal"
-      submitDisabled={!hasChanges || loadingSpawnHost}
+      submitDisabled={!hasChanges || hasError || loadingSpawnHost}
       onCancel={() => {
         onCancel();
         setFormState(initialFormState);
@@ -173,9 +177,12 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         schema={schema}
         uiSchema={uiSchema}
         formData={formState}
-        onChange={({ formData }) => {
+        onChange={({ errors, formData }) => {
           setFormState(formData);
+          setHasError(errors.length > 0);
         }}
+        // @ts-expect-error rjsf v4 has insufficient typing for its validator
+        validate={validator}
       />
     </ConfirmationModal>
   );
