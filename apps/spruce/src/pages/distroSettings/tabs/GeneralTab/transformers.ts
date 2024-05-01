@@ -11,6 +11,7 @@ export const gqlToForm = ((data) => {
     aliases,
     disableShallowClone,
     disabled,
+    imageId,
     isCluster,
     name,
     note,
@@ -20,6 +21,9 @@ export const gqlToForm = ((data) => {
   return {
     distroName: {
       identifier: name,
+    },
+    distroImage: {
+      identifier: imageId,
     },
     distroAliases: {
       aliases,
@@ -36,11 +40,12 @@ export const gqlToForm = ((data) => {
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
-  { distroAliases, distroName, distroOptions },
+  { distroAliases, distroImage, distroName, distroOptions },
   distro,
 ) => ({
   ...distro,
   name: distroName.identifier,
+  imageId: distroImage.identifier,
   adminOnly: distroOptions.adminOnly,
   aliases: distroAliases.aliases,
   note: distroOptions.note,

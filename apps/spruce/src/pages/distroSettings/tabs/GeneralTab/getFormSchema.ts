@@ -20,6 +20,16 @@ export const getFormSchema = (
           },
         },
       },
+      distroImage: {
+        type: "object" as "object",
+        title: "Image",
+        properties: {
+          identifier: {
+            type: "string" as "string",
+            title: "Image",
+          },
+        },
+      },
       distroAliases: {
         type: "object" as "object",
         title: "Aliases",
@@ -82,6 +92,12 @@ export const getFormSchema = (
             "Distro is a container pool, so it cannot be spawned for tasks.",
           ],
         }),
+      },
+    },
+    distroImage: {
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      identifier: {
+        "ui:description": "The image from which this distro inherits.",
       },
     },
     distroAliases: {

@@ -2,6 +2,9 @@ export interface GeneralFormState {
   distroName: {
     identifier: string;
   };
+  distroImage: {
+    identifier: string;
+  };
   distroAliases: {
     aliases: string[];
   };

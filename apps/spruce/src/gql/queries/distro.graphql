@@ -59,6 +59,7 @@ query Distro($distroId: String!) {
       configPath
       schedulerHost
     }
+    imageId
     isCluster
     isVirtualWorkStation
     mountpoints

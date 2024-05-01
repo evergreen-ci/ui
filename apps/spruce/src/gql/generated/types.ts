@@ -378,6 +378,7 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
+  imageId?: Maybe<Scalars["String"]["output"]>;
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   mountpoints?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
@@ -443,6 +444,7 @@ export type DistroInput = {
   homeVolumeSettings: HomeVolumeSettingsInput;
   hostAllocatorSettings: HostAllocatorSettingsInput;
   iceCreamSettings: IceCreamSettingsInput;
+  imageId?: InputMaybe<Scalars["String"]["input"]>;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
@@ -5802,6 +5804,7 @@ export type DistroQuery = {
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
+    imageId?: string | null;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
     mountpoints?: Array<string | null> | null;
