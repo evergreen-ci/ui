@@ -57,12 +57,21 @@ const EventsTable: React.FC<{}> = () => {
       {
         header: "Date",
         accessorKey: "timestamp",
-        cell: ({ getValue }) => getDateCopy(getValue() as Date),
+        cell: ({ getValue, row }) => (
+          <span data-cy={`${row.original.eventType}-time`}>
+            {getDateCopy(getValue() as Date)}
+          </span>
+        ),
       },
       {
         header: "Event",
         accessorKey: "eventType",
-        cell: ({ row }) => <EventCopy event={row.original} />,
+        cell: ({ getValue, row }) => (
+          <EventCopy
+            data-cy={`event-type-${getValue()}`}
+            event={row.original}
+          />
+        ),
       },
     ],
     [getDateCopy],
