@@ -60,6 +60,12 @@ export const getGithubCommitUrl = (
   githash: string,
 ) => `https://github.com/${owner}/${repo}/commit/${githash}`;
 
+export const getGithubMergeQueueUrl = (
+  owner: string,
+  repo: string,
+  branch: string,
+) => `https://github.com/${owner}/${repo}/queue/${branch}`;
+
 export const getParsleyTaskLogLink = (
   logType: LogTypes,
   taskId: string,

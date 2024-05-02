@@ -9048,6 +9048,7 @@ export type VersionQuery = {
     project: string;
     projectIdentifier: string;
     repo: string;
+    requester: string;
     revision: string;
     startTime?: Date | null;
     status: string;
@@ -9109,6 +9110,7 @@ export type VersionQuery = {
     } | null;
     projectMetadata?: {
       __typename?: "Project";
+      branch: string;
       id: string;
       owner: string;
       repo: string;

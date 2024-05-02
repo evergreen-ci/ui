@@ -7,7 +7,11 @@ import {
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
-import { getGithubCommitUrl } from "constants/externalResources";
+import {
+  getGithubCommitUrl,
+  getGithubMergeQueueUrl,
+} from "constants/externalResources";
+import { githubMergeRequester } from "constants/patch";
 import {
   getCommitQueueRoute,
   getProjectPatchesRoute,
@@ -48,6 +52,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     project,
     projectIdentifier,
     projectMetadata,
+    requester,
     revision,
     startTime,
     upstreamProject,
@@ -66,7 +71,10 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     version: upstreamVersion,
   } = upstreamProject || {};
 
-  const { owner, repo } = projectMetadata || {};
+  const { branch, owner, repo } = projectMetadata || {};
+
+  const isGithubMergePatch = requester === githubMergeRequester;
+
   return (
     <MetadataCard loading={loading} error={null}>
       <MetadataTitle>
@@ -128,17 +136,12 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         </StyledRouterLink>
       </MetadataItem>
       {isPatch ? (
-        <MetadataItem>
-          Base commit:{" "}
-          <InlineCode
-            as={Link}
-            data-cy="patch-base-commit"
-            onClick={() => sendEvent({ name: "Click Base Commit Link" })}
-            to={getVersionRoute(baseVersion?.id)}
-          >
-            {shortenGithash(revision)}
-          </InlineCode>
-        </MetadataItem>
+        <BaseCommitMetadata
+          baseVersionId={baseVersion?.id}
+          isGithubMergePatch={isGithubMergePatch}
+          onClick={() => sendEvent({ name: "Click Base Commit Link" })}
+          revision={revision}
+        />
       ) : (
         <MetadataItem>
           Previous commit:{" "}
@@ -150,6 +153,16 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           >
             {shortenGithash(previousVersion?.revision)}
           </InlineCode>
+        </MetadataItem>
+      )}
+      {isGithubMergePatch && (
+        <MetadataItem>
+          <StyledLink
+            href={getGithubMergeQueueUrl(owner, repo, branch)}
+            data-cy="github-merge-queue-link"
+          >
+            GitHub Merge Queue
+          </StyledLink>
         </MetadataItem>
       )}
       {!isPatch && (
@@ -211,6 +224,43 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         </MetadataItem>
       )}
     </MetadataCard>
+  );
+};
+
+interface BaseCommitMetadataProps {
+  baseVersionId: string;
+  isGithubMergePatch: boolean;
+  onClick: () => void;
+  revision: string;
+}
+
+const BaseCommitMetadata: React.FC<BaseCommitMetadataProps> = ({
+  baseVersionId,
+  isGithubMergePatch,
+  onClick,
+  revision,
+}) => {
+  const isPending = isGithubMergePatch && !baseVersionId;
+
+  return (
+    <MetadataItem>
+      Base commit:{" "}
+      {isPending ? (
+        <InlineCode data-cy="patch-base-commit">
+          {shortenGithash(revision)}
+        </InlineCode>
+      ) : (
+        <InlineCode
+          as={Link}
+          data-cy="patch-base-commit"
+          onClick={onClick}
+          to={getVersionRoute(baseVersionId)}
+        >
+          {shortenGithash(revision)}
+        </InlineCode>
+      )}
+      {isPending && " (pending)"}
+    </MetadataItem>
   );
 };
 
