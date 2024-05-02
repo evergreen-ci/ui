@@ -3,6 +3,7 @@ export {
   getNoExpirationCheckboxTooltipCopy,
 } from "./utils";
 export {
+  defaultSleepSchedule,
   defaultStartDate,
   defaultStopDate,
   getHostUptimeFromGql,

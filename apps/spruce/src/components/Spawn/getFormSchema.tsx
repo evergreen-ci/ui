@@ -170,11 +170,11 @@ const Details: React.FC<{ timeZone: string; totalUptimeHours: number }> = ({
   timeZone,
   totalUptimeHours,
 }) => (
-  <>
+  <div data-cy="host-uptime-details">
     All times are displayed in{" "}
     <Badge>{prettifyTimeZone.get(timeZone) ?? timeZone}</Badge> •{" "}
     {totalUptimeHours} host uptime hours per week
-  </>
+  </div>
 );
 
 type ExpirationProps = {

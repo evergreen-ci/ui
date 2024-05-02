@@ -126,7 +126,10 @@ export const getSleepSchedule = (
   timeZone: string,
 ): SleepScheduleInput => {
   if (useDefaultUptimeSchedule) {
-    return getDefaultSleepSchedule({ timeZone });
+    return {
+      ...defaultSleepSchedule,
+      timeZone,
+    };
   }
 
   const {
@@ -168,18 +171,13 @@ const toTimeString = (date: Date): string =>
     minute: "2-digit",
   });
 
-const getDefaultSleepSchedule = ({ timeZone }): SleepScheduleInput => {
-  const sleepSchedule: SleepScheduleInput = {
-    dailyStartTime: toTimeString(defaultStartDate),
-    dailyStopTime: toTimeString(defaultStopDate),
-    permanentlyExempt: false,
-    // TODO: Add pause
-    shouldKeepOff: false,
-    timeZone,
-    wholeWeekdaysOff: [0, 6],
-  };
-
-  return sleepSchedule;
+export const defaultSleepSchedule: Omit<SleepScheduleInput, "timeZone"> = {
+  dailyStartTime: toTimeString(defaultStartDate),
+  dailyStopTime: toTimeString(defaultStopDate),
+  permanentlyExempt: false,
+  // TODO: Add pause
+  shouldKeepOff: false,
+  wholeWeekdaysOff: [0, 6],
 };
 
 export const getHostUptimeFromGql = (
