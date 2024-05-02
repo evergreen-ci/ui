@@ -73,4 +73,4 @@ describe("Container events", () => {
   });
 });
 
-const allRows = "[data-cy=container-events] > tbody > tr";
+const allRows = "[data-cy=container-events-table] > tbody > tr";
