@@ -5,7 +5,7 @@ functions:
       role_arn: ${ASSUME_ROLE_ARN}
 
   check-codegen:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       script: |
@@ -20,7 +20,7 @@ functions:
       shallow_clone: true
 
   prod-deploy-parsley:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/apps/parsley
       env:
@@ -36,7 +36,7 @@ functions:
         yarn deploy:prod
 
   prod-deploy-spruce:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/apps/spruce
       env:
@@ -63,7 +63,7 @@ functions:
         GOROOT: ${goroot}
 
   run-logkeeper:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/logkeeper
       background: true
@@ -86,7 +86,7 @@ functions:
       bucket: parsley-test
 
   setup-credentials-parsley:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/apps/parsley
       env:
@@ -113,7 +113,7 @@ functions:
         echo "Done populating evergreen.yml"
 
   setup-credentials-spruce:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/apps/spruce
       env:
@@ -169,7 +169,7 @@ functions:
       params:
         working_dir: ui/evergreen
         command: make configure-mongod
-    - command: shell.exec
+    - command: subprocess.exec
       type: setup
       params:
         shell: bash
@@ -190,7 +190,7 @@ functions:
     - command: expansions.update
       params:
         file: expansion.yml
-    - command: shell.exec
+    - command: subprocess.exec
       params:
         shell: bash
         script: |
@@ -214,7 +214,7 @@ functions:
           npm install -g yarn
 
   symlink:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui
       shell: bash
@@ -222,7 +222,7 @@ functions:
         ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema
 
   wait-for-evergreen:
-    command: shell.exec
+    command: subprocess.exec
     type: setup
     params:
       exec_timeout_secs: 600
@@ -230,7 +230,7 @@ functions:
       script: ./scripts/wait-for-evergreen.sh
 
   yarn-build:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       shell: bash
@@ -239,7 +239,7 @@ functions:
         yarn build:local
 
   yarn-build-storybook:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       script: |
@@ -248,7 +248,7 @@ functions:
         yarn build-storybook || yarn storybook:build
 
   yarn-cypress:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       shell: bash
@@ -262,7 +262,7 @@ functions:
         fi
 
   yarn-eslint:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       shell: bash
@@ -271,7 +271,7 @@ functions:
         yarn eslint:strict
 
   yarn-install:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       shell: bash
@@ -280,7 +280,7 @@ functions:
         yarn install
 
   yarn-preview:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       background: true
@@ -290,7 +290,7 @@ functions:
         yarn preview
 
   yarn-serve:
-    command: shell.exec
+    command: subprocess.exec
     type: setup
     params:
       working_dir: ui/${app_dir}
@@ -300,7 +300,7 @@ functions:
         yarn serve
 
   yarn-snapshot:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       script: |
@@ -308,7 +308,7 @@ functions:
         yarn test --ci --testPathPattern=snapshot.test.ts
 
   yarn-test:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui
       script: |
@@ -316,7 +316,7 @@ functions:
         yarn test --ci --testPathIgnorePatterns=snapshot.test.ts --selectProjects ${build_variant}
 
   yarn-tsc:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       script: |
@@ -324,7 +324,7 @@ functions:
         yarn check-types
 
   yarn-verify-backend:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui/${app_dir}
       shell: bash
