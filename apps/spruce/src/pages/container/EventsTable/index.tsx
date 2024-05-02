@@ -65,10 +65,9 @@ const EventsTable: React.FC<{}> = () => {
       },
       {
         header: "Event",
-        accessorKey: "eventType",
-        cell: ({ getValue, row }) => (
+        cell: ({ row }) => (
           <EventCopy
-            data-cy={`event-type-${getValue()}`}
+            data-cy={`event-type-${row.original.eventType}`}
             event={row.original}
           />
         ),
