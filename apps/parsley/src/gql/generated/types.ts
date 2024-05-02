@@ -2599,10 +2599,12 @@ export type TaskTestsArgs = {
 export type TaskAnnotationSettings = {
   __typename?: "TaskAnnotationSettings";
   fileTicketWebhook: Webhook;
+  jiraCustomFields?: Maybe<Array<JiraField>>;
 };
 
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
+  jiraCustomFields?: InputMaybe<Array<JiraFieldInput>>;
 };
 
 export type TaskContainerCreationOpts = {
