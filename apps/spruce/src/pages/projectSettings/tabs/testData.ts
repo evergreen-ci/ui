@@ -80,7 +80,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       ticketCreateIssueType: JiraTicketType.Epic,
     },
     taskAnnotationSettings: {
-      jiraCustomFields: [],
       fileTicketWebhook: {
         endpoint: null,
         secret: null,
@@ -215,12 +214,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       ticketCreateIssueType: JiraTicketType.Epic,
     },
     taskAnnotationSettings: {
-      jiraCustomFields: [
-        {
-          field: "customField",
-          displayText: "Custom Field",
-        },
-      ],
       fileTicketWebhook: {
         endpoint: "endpoint",
         secret: "secret",

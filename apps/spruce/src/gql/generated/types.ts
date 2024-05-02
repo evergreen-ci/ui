@@ -853,17 +853,6 @@ export type JiraConfig = {
   host?: Maybe<Scalars["String"]["output"]>;
 };
 
-export type JiraField = {
-  __typename?: "JiraField";
-  displayText: Scalars["String"]["output"];
-  field: Scalars["String"]["output"];
-};
-
-export type JiraFieldInput = {
-  displayText: Scalars["String"]["input"];
-  field: Scalars["String"]["input"];
-};
-
 export type JiraIssueSubscriber = {
   __typename?: "JiraIssueSubscriber";
   issueType: Scalars["String"]["output"];
@@ -2599,12 +2588,10 @@ export type TaskTestsArgs = {
 export type TaskAnnotationSettings = {
   __typename?: "TaskAnnotationSettings";
   fileTicketWebhook: Webhook;
-  jiraCustomFields?: Maybe<Array<JiraField>>;
 };
 
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
-  jiraCustomFields?: InputMaybe<Array<JiraFieldInput>>;
 };
 
 export type TaskContainerCreationOpts = {
@@ -3775,11 +3762,6 @@ export type ProjectSettingsFieldsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -3977,11 +3959,6 @@ export type RepoSettingsFieldsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -4238,11 +4215,6 @@ export type ProjectPluginsSettingsFragment = {
       endpoint: string;
       secret: string;
     };
-    jiraCustomFields?: Array<{
-      __typename?: "JiraField";
-      displayText: string;
-      field: string;
-    }> | null;
   };
 };
 
@@ -4268,11 +4240,6 @@ export type RepoPluginsSettingsFragment = {
       endpoint: string;
       secret: string;
     };
-    jiraCustomFields?: Array<{
-      __typename?: "JiraField";
-      displayText: string;
-      field: string;
-    }> | null;
   };
 };
 
@@ -4379,11 +4346,6 @@ export type ProjectEventSettingsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6851,11 +6813,6 @@ export type ProjectEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7065,11 +7022,6 @@ export type ProjectEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7358,11 +7310,6 @@ export type ProjectSettingsQuery = {
           endpoint: string;
           secret: string;
         };
-        jiraCustomFields?: Array<{
-          __typename?: "JiraField";
-          displayText: string;
-          field: string;
-        }> | null;
       };
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -7620,11 +7567,6 @@ export type RepoEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7834,11 +7776,6 @@ export type RepoEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -8053,11 +7990,6 @@ export type RepoSettingsQuery = {
           endpoint: string;
           secret: string;
         };
-        jiraCustomFields?: Array<{
-          __typename?: "JiraField";
-          displayText: string;
-          field: string;
-        }> | null;
       };
       triggers: Array<{
         __typename?: "TriggerAlias";
