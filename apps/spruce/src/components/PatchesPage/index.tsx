@@ -108,6 +108,7 @@ export const PatchesPage: React.FC<Props> = ({
           onChange={(value) => setAndSubmitInputValue(value)}
           data-cy="patch-description-input"
           validator={validateRegexp}
+          validatorErrorMessage="Invalid regex"
         />
         <StatusSelector />
         {filterComp}
