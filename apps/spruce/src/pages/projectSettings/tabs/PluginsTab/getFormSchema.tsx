@@ -32,6 +32,7 @@ const requesters = [
 ];
 
 export const getFormSchema = (
+  isRepo: boolean,
   jiraEmail?: string,
   repoData?: PluginsFormState,
 ): ReturnType<GetFormSchema> => ({
@@ -225,8 +226,8 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       perfEnabled: {
         "ui:widget": widgets.RadioBoxWidget,
-        "ui:description":
-          "Enable the performance plugin (this requires the project to have matching ID and identifier).",
+        "ui:disabled": isRepo,
+        "ui:description": `Enable the performance plugin (this requires the project to have matching ID and identifier). ${isRepo && "This setting is disabled at the repo level."}`,
       },
     },
     buildBaronSettings: {
