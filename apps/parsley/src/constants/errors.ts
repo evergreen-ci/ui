@@ -6,4 +6,4 @@ export const LOG_LINE_TOO_LARGE_WARNING = `Parsley was unable to process one or 
 )}. They have been trimmed to fit the limit.`;
 
 export const LOG_FILE_DOWNLOAD_TOO_LARGE_WARNING =
-  "Parsley was only able to partially download this log. Use the Evergreen CLI command in the details menu to download the log onto your machine.";
+  "Parsley was only able to partially download this log. You can use a command line tool to download the file from the raw URL found in the 'Details' menu.";
