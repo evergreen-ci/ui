@@ -17,9 +17,10 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const table = useLeafyGreenTable<Parameter>({
+    columns,
     containerRef: tableContainerRef,
     data: parameters,
-    columns,
+    enableColumnFilters: false,
   });
 
   return (
