@@ -113,6 +113,8 @@ describe("Bookmarking and selecting lines", () => {
 
   it("should be able to clear bookmarks", () => {
     cy.dataCy("clear-bookmarks").click();
+    cy.dataCy("clear-bookmarks-popconfirm").should("be.visible");
+    cy.contains("button", "Yes").click();
     cy.location("search").should("equal", "");
   });
 });

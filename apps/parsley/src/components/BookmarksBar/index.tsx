@@ -66,6 +66,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
   return (
     <Container>
       <Popconfirm
+        data-cy="clear-bookmarks-popconfirm"
         onConfirm={() => {
           setBookmarks([]);
           sendEvent({ name: "Cleared All Bookmarks" });
