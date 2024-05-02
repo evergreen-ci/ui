@@ -53,7 +53,9 @@ describe("useLastExecutedTask", () => {
         }),
     });
 
-    expect(result.current.task).toBeUndefined();
+    await waitFor(() => {
+      expect(result.current.task).toBeUndefined();
+    });
   });
 });
 

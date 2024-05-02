@@ -58,7 +58,9 @@ describe("useBreakingTask", () => {
         }),
     });
 
-    expect(result.current.task).toBeUndefined();
+    await waitFor(() => {
+      expect(result.current.task).toBeUndefined();
+    });
   });
 });
 

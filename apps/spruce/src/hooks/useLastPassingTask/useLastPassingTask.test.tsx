@@ -54,7 +54,9 @@ describe("useLastPassingTask", () => {
         }),
     });
 
-    expect(result.current.task).toBeUndefined();
+    await waitFor(() => {
+      expect(result.current.task).toBeUndefined();
+    });
   });
 });
 
