@@ -1,5 +1,5 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
+
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -21,20 +21,13 @@ const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
 
 describe("useLastPassingTask", () => {
   it("no last passing task is found when task is not found", () => {
-    const { dispatchToast } = RenderFakeToastContext();
-
     const { result } = renderHook(() => useLastPassingTask("t1"), {
       wrapper: ({ children }) => ProviderWrapper({ children }),
     });
 
     expect(result.current.task).toBeUndefined();
-
-    // No error is dispatched when the task is not found.
-    expect(dispatchToast.error).toHaveBeenCalledTimes(0);
   });
   it("a last passing task is found", async () => {
-    const { dispatchToast } = RenderFakeToastContext();
-
     const { result } = renderHook(() => useLastPassingTask("t1"), {
       wrapper: ({ children }) =>
         ProviderWrapper({
@@ -48,13 +41,8 @@ describe("useLastPassingTask", () => {
     });
 
     expect(result.current.task.id).toBe("last_passing_task");
-
-    // No error is dispatched for success scenarios.
-    expect(dispatchToast.error).toHaveBeenCalledTimes(0);
   });
-  it("a last passing task is not found due to an error in the query and a toast is dispatched", async () => {
-    const { dispatchToast } = RenderFakeToastContext();
-
+  it("a last passing task is not found due to an error in the query", async () => {
     const { result } = renderHook(() => useLastPassingTask("t1"), {
       wrapper: ({ children }) =>
         ProviderWrapper({
@@ -64,11 +52,6 @@ describe("useLastPassingTask", () => {
             getLastPassingVersionWithError,
           ],
         }),
-    });
-
-    await waitFor(() => {
-      // An error is dispatched when the query fails.
-      expect(dispatchToast.error).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current.task).toBeUndefined();

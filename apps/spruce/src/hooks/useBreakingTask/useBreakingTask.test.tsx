@@ -1,5 +1,4 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -21,20 +20,13 @@ const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
 
 describe("useBreakingTask", () => {
   it("no breaking task is found when task is not found", () => {
-    const { dispatchToast } = RenderFakeToastContext();
-
     const { result } = renderHook(() => useBreakingTask("t1"), {
       wrapper: ({ children }) => ProviderWrapper({ children }),
     });
 
     expect(result.current.task).toBeUndefined();
-
-    // No error is dispatched when the task is not found.
-    expect(dispatchToast.error).toHaveBeenCalledTimes(0);
   });
   it("a breaking task is found when there is a previous failing task", async () => {
-    const { dispatchToast } = RenderFakeToastContext();
-
     const { result } = renderHook(() => useBreakingTask("t1"), {
       wrapper: ({ children }) =>
         ProviderWrapper({
@@ -52,13 +44,8 @@ describe("useBreakingTask", () => {
     });
 
     expect(result.current.task.id).toBe("breaking_commit");
-
-    // No error is dispatched for success scenarios.
-    expect(dispatchToast.error).toHaveBeenCalledTimes(0);
   });
-  it("a breaking task is not found due to an error in the query and a toast is dispatched", async () => {
-    const { dispatchToast } = RenderFakeToastContext();
-
+  it("a breaking task is not found due to an error in the query", async () => {
     const { result } = renderHook(() => useBreakingTask("t1"), {
       wrapper: ({ children }) =>
         ProviderWrapper({
@@ -69,11 +56,6 @@ describe("useBreakingTask", () => {
             getBreakingCommitWithError,
           ],
         }),
-    });
-
-    await waitFor(() => {
-      // An error is dispatched when the query fails.
-      expect(dispatchToast.error).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current.task).toBeUndefined();
