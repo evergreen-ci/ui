@@ -32,7 +32,7 @@ export const getFormSchema = (
       properties: {
         buildBreakSettings: {
           type: "object" as "object",
-          title: "Performance Plugins",
+          title: "",
           properties: {
             notifyOnBuildFailure: {
               type: ["boolean", "null"],
