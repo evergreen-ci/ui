@@ -853,6 +853,17 @@ export type JiraConfig = {
   host?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type JiraField = {
+  __typename?: "JiraField";
+  displayText: Scalars["String"]["output"];
+  field: Scalars["String"]["output"];
+};
+
+export type JiraFieldInput = {
+  displayText: Scalars["String"]["input"];
+  field: Scalars["String"]["input"];
+};
+
 export type JiraIssueSubscriber = {
   __typename?: "JiraIssueSubscriber";
   issueType: Scalars["String"]["output"];
@@ -2588,10 +2599,12 @@ export type TaskTestsArgs = {
 export type TaskAnnotationSettings = {
   __typename?: "TaskAnnotationSettings";
   fileTicketWebhook: Webhook;
+  jiraCustomFields?: Maybe<Array<JiraField>>;
 };
 
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
+  jiraCustomFields?: InputMaybe<Array<JiraFieldInput>>;
 };
 
 export type TaskContainerCreationOpts = {
