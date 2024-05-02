@@ -1,5 +1,4 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
