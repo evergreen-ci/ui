@@ -75,6 +75,9 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
       onToggle={({ isVisible }) => {
         sendEvent({ name: "Toggled Filter", open: isVisible });
         setOpenAccordion(isVisible);
+        if (isEditing) {
+          resetEditState();
+        }
       }}
       open={openAccordion}
       title={

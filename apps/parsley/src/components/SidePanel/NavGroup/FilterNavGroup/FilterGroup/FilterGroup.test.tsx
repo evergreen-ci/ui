@@ -304,4 +304,28 @@ describe("filters", () => {
       "true",
     );
   });
+  it("if the user is editing a filter and collapses the group, the edit should be cancelled", async () => {
+    const user = userEvent.setup();
+    const editFilter = jest.fn();
+    render(
+      <FilterGroup
+        deleteFilter={jest.fn()}
+        editFilter={editFilter}
+        filter={defaultFilter}
+      />,
+    );
+    await user.click(screen.getByLabelText("Edit filter"));
+    expect(screen.getByDataCy("edit-filter-name")).toBeInTheDocument();
+    await user.click(screen.getByDataCy("accordion-toggle"));
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "falseq",
+    );
+    await user.click(screen.getByDataCy("accordion-toggle"));
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    expect(screen.queryByDataCy("edit-filter-name")).toBeNull();
+  });
 });
