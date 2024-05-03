@@ -1,14 +1,9 @@
+import { useMemo, useRef } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import {
-  V10Table as Table,
-  V10TableHeader as TableHeader,
-  V10Row as Row,
-  V10Cell as Cell,
-  V11Adapter,
-  V10HeaderRow as HeaderRow,
-} from "@leafygreen-ui/table";
+import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { fontFamilies } from "@leafygreen-ui/tokens";
+import { BaseTable } from "components/Table/BaseTable";
 import { getEventDiffLines } from "./eventLogDiffs";
 import { Event, EventDiffLine, EventValue } from "./types";
 
@@ -17,51 +12,31 @@ type TableProps = {
   before: Event["before"];
 };
 
-export const EventDiffTable: React.FC<TableProps> = ({ after, before }) => (
-  <V11Adapter shouldAlternateRowColor>
-    <Table
-      data={getEventDiffLines(before, after)}
+export const EventDiffTable: React.FC<TableProps> = ({ after, before }) => {
+  const eventLogEntries = useMemo(
+    () => getEventDiffLines(before, after) ?? [],
+    [after, before],
+  );
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable<EventDiffLine>({
+    columns,
+    containerRef: tableContainerRef,
+    data: eventLogEntries,
+    defaultColumn: {
+      enableColumnFilter: false,
+    },
+  });
+
+  return (
+    <BaseTable
       data-cy="event-diff-table"
-      columns={
-        <HeaderRow>
-          <TableHeader
-            key="key"
-            label="Property"
-            sortBy={(datum: EventDiffLine) => datum.key}
-          />
-          <TableHeader
-            key="before"
-            label="Before"
-            sortBy={(datum: EventDiffLine) => JSON.stringify(datum.before)}
-          />
-          <TableHeader
-            key="after"
-            label="After"
-            sortBy={(datum: EventDiffLine) => JSON.stringify(datum.after)}
-          />
-        </HeaderRow>
-      }
-    >
-      {({ datum }) => (
-        <Row key={datum.key} data-cy="event-log-table-row">
-          <Cell>
-            <CellText>{datum.key}</CellText>
-          </Cell>
-          <Cell>
-            <CellText>{renderEventValue(datum.before)}</CellText>
-          </Cell>
-          <Cell>
-            {renderEventValue(datum.after) === null ? (
-              <Badge variant={Variant.Red}>Deleted</Badge>
-            ) : (
-              <CellText>{renderEventValue(datum.after)}</CellText>
-            )}
-          </Cell>
-        </Row>
-      )}
-    </Table>
-  </V11Adapter>
-);
+      data-cy-row="event-log-table-row"
+      shouldAlternateRowColor
+      table={table}
+    />
+  );
+};
 
 const CellText = styled.span`
   font-family: ${fontFamilies.code};
@@ -92,3 +67,28 @@ const renderEventValue = (value: EventValue): string => {
 
   return JSON.stringify(value);
 };
+
+const columns: LGColumnDef<EventDiffLine>[] = [
+  {
+    header: "Property",
+    accessorKey: "key",
+    cell: ({ getValue }) => <CellText>{getValue() as string}</CellText>,
+  },
+  {
+    header: "Before",
+    accessorKey: "before",
+    cell: ({ getValue }) => (
+      <CellText>{renderEventValue(getValue() as EventValue)}</CellText>
+    ),
+  },
+  {
+    header: "After",
+    accessorKey: "after",
+    cell: ({ getValue }) =>
+      getValue() === null || getValue() === undefined ? (
+        <Badge variant={Variant.Red}>Deleted</Badge>
+      ) : (
+        <CellText>{renderEventValue(getValue() as EventValue)}</CellText>
+      ),
+  },
+];
