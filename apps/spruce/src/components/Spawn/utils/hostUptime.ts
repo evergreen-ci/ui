@@ -177,6 +177,7 @@ export const defaultSleepSchedule: Omit<SleepScheduleInput, "timeZone"> = {
   permanentlyExempt: false,
   // TODO: Add pause
   shouldKeepOff: false,
+  temporarilyExemptUntil: null,
   wholeWeekdaysOff: [0, 6],
 };
 

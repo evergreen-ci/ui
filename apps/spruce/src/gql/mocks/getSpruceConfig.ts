@@ -91,6 +91,7 @@ export const getUserSettingsMock: ApolloMock<
         region: "us-east-1",
         slackMemberId: "1234",
         slackUsername: "user",
+        timeFormat: "H:mm:ss",
         timezone: "America/New_York",
         useSpruceOptions: {
           __typename: "UseSpruceOptions",
