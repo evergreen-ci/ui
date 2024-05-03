@@ -401,9 +401,11 @@ export const getPublicKeySchema = ({
       "ui:elementWrapperCSS": dropdownWrapperClassName,
       "ui:data-cy": "key-select",
       "ui:allowDeselect": false,
-      "ui:disabled": myPublicKeys.length === 0,
+      "ui:disabled": myPublicKeys?.length === 0,
       "ui:description":
-        canEditSshKeys && myPublicKeys.length === 0 ? "No keys available." : "",
+        canEditSshKeys && myPublicKeys?.length === 0
+          ? "No keys available."
+          : "",
     },
     newPublicKey: {
       "ui:widget": "textarea",
