@@ -143,6 +143,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
           <Button
             onClick={() => setDefaultModalOpen(true)}
             data-cy="default-to-repo-button"
+            title="Clicking this button will open a confirmation modal with more information."
           >
             Default to Repo on Page
           </Button>
