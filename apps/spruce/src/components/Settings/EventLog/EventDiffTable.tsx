@@ -73,6 +73,7 @@ const columns: LGColumnDef<EventDiffLine>[] = [
     header: "Property",
     accessorKey: "key",
     cell: ({ getValue }) => <CellText>{getValue() as string}</CellText>,
+    enableSorting: true,
   },
   {
     header: "Before",
