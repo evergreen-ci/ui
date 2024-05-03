@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { finishedTaskStatuses } from "constants/task";
-import { useToastContext } from "context/toast";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -14,7 +13,6 @@ import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommit
 import { isFinishedTaskStatus } from "utils/statuses";
 
 export const useLastExecutedTask = (taskId: string) => {
-  const dispatchToast = useToastContext();
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
     BaseVersionAndTaskQueryVariables
@@ -45,11 +43,6 @@ export const useLastExecutedTask = (taskId: string) => {
         ...bvOptionsBase,
         statuses: finishedTaskStatuses,
       },
-    },
-    onError: (err) => {
-      dispatchToast.error(
-        `Could not fetch last task execution: '${err.message}'`,
-      );
     },
   });
   const task = getTaskFromMainlineCommitsQuery(lastExecutedTaskData);

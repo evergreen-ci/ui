@@ -132,8 +132,8 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
               Case
             </div>
             <div
-              aria-label="segmented-control-200"
-              aria-owns="segmented-control-200-0 segmented-control-200-1"
+              aria-label="segmented-control-201"
+              aria-owns="segmented-control-201-0 segmented-control-201-1"
               class="leafygreen-ui-18en4yf"
               role="tablist"
             >
@@ -149,7 +149,7 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
                     aria-controls="Toggle case sensitivity"
                     aria-selected="false"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-200-0"
+                    id="segmented-control-201-0"
                     role="tab"
                     tabindex="-1"
                     type="button"
@@ -178,7 +178,7 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
                     aria-controls="Toggle case sensitivity"
                     aria-selected="true"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-200-1"
+                    id="segmented-control-201-1"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -212,8 +212,8 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
               Match
             </div>
             <div
-              aria-label="segmented-control-201"
-              aria-owns="segmented-control-201-0 segmented-control-201-1"
+              aria-label="segmented-control-202"
+              aria-owns="segmented-control-202-0 segmented-control-202-1"
               class="leafygreen-ui-18en4yf"
               role="tablist"
             >
@@ -229,7 +229,7 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
                     aria-controls="Toggle match type"
                     aria-selected="true"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-201-0"
+                    id="segmented-control-202-0"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -258,7 +258,7 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
                     aria-controls="Toggle match type"
                     aria-selected="false"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-201-1"
+                    id="segmented-control-202-1"
                     role="tab"
                     tabindex="-1"
                     type="button"

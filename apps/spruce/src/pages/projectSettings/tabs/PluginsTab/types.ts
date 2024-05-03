@@ -5,12 +5,6 @@ export interface PluginsFormState {
     perfEnabled: boolean | null;
   };
   buildBaronSettings: {
-    taskAnnotationSettings: {
-      jiraCustomFields: Array<{
-        field: string;
-        displayText: string;
-      }>;
-    };
     useBuildBaron: boolean | null;
     ticketSearchProjects: Array<{ searchProject: string }>;
     ticketCreateProject: {

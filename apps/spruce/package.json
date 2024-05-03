@@ -163,7 +163,7 @@
     "babel-preset-react-app": "^10.0.1",
     "camelcase": "^6.1.0",
     "cypress": "12.17.1",
-    "eslint": "8.31.0",
+    "eslint": "8.56.0",
     "eslint-config-evg": "*",
     "eslint-plugin-check-file": "2.6.2",
     "eslint-plugin-prettier": "5.1.3",

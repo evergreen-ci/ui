@@ -14,15 +14,6 @@ export const gqlToForm = ((data) => {
       perfEnabled: projectRef?.perfEnabled,
     },
     buildBaronSettings: {
-      taskAnnotationSettings: {
-        jiraCustomFields:
-          projectRef?.taskAnnotationSettings?.jiraCustomFields?.map(
-            ({ displayText, field }) => ({
-              field,
-              displayText,
-            }),
-          ) ?? [],
-      },
       useBuildBaron:
         projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint === "",
       ticketSearchProjects:
@@ -66,10 +57,6 @@ export const formToGql = ((
         buildBaronSettings.useBuildBaron,
         buildBaronSettings.fileTicketWebhook,
       ),
-      jiraCustomFields:
-        buildBaronSettings.taskAnnotationSettings?.jiraCustomFields
-          .map(({ displayText, field }) => ({ field, displayText }))
-          .filter((str) => !!str),
     },
     externalLinks:
       externalLinks.length > 0
