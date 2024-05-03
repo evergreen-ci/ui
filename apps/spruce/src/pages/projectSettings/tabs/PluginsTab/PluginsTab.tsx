@@ -21,6 +21,7 @@ export const PluginsTab: React.FC<TabProps> = ({
   const formSchema = useMemo(
     () =>
       getFormSchema(
+        projectType === ProjectType.Repo,
         jiraEmail,
         projectType === ProjectType.AttachedProject ? repoData : null,
       ),

@@ -118,7 +118,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
               ticketCreateIssueType: "",
             },
             taskAnnotationSettings: {
-              jiraCustomFields: null,
               fileTicketWebhook: {
                 endpoint: "",
                 secret: "",
@@ -206,7 +205,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
               ticketCreateIssueType: "",
             },
             taskAnnotationSettings: {
-              jiraCustomFields: null,
               fileTicketWebhook: {
                 endpoint: "",
                 secret: "",

@@ -6,9 +6,9 @@
   "dependencies": {
     "@emotion/eslint-plugin": "11.11.0",
     "@graphql-eslint/eslint-plugin": "3.20.1",
-    "@typescript-eslint/eslint-plugin": "5.62.0",
-    "@typescript-eslint/parser": "5.62.0",
-    "eslint": "8.31.0",
+    "@typescript-eslint/eslint-plugin": "7.8.0",
+    "@typescript-eslint/parser": "7.8.0",
+    "eslint": "8.56.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-cypress": "^2.12.1",

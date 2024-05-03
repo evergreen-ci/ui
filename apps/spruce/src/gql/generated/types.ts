@@ -3775,11 +3775,6 @@ export type ProjectSettingsFieldsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -3977,11 +3972,6 @@ export type RepoSettingsFieldsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -4238,11 +4228,6 @@ export type ProjectPluginsSettingsFragment = {
       endpoint: string;
       secret: string;
     };
-    jiraCustomFields?: Array<{
-      __typename?: "JiraField";
-      displayText: string;
-      field: string;
-    }> | null;
   };
 };
 
@@ -4268,11 +4253,6 @@ export type RepoPluginsSettingsFragment = {
       endpoint: string;
       secret: string;
     };
-    jiraCustomFields?: Array<{
-      __typename?: "JiraField";
-      displayText: string;
-      field: string;
-    }> | null;
   };
 };
 
@@ -4379,11 +4359,6 @@ export type ProjectEventSettingsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -6862,11 +6837,6 @@ export type ProjectEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7076,11 +7046,6 @@ export type ProjectEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7369,11 +7334,6 @@ export type ProjectSettingsQuery = {
           endpoint: string;
           secret: string;
         };
-        jiraCustomFields?: Array<{
-          __typename?: "JiraField";
-          displayText: string;
-          field: string;
-        }> | null;
       };
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -7631,11 +7591,6 @@ export type RepoEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7845,11 +7800,6 @@ export type RepoEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -8064,11 +8014,6 @@ export type RepoSettingsQuery = {
           endpoint: string;
           secret: string;
         };
-        jiraCustomFields?: Array<{
-          __typename?: "JiraField";
-          displayText: string;
-          field: string;
-        }> | null;
       };
       triggers: Array<{
         __typename?: "TriggerAlias";
@@ -9059,6 +9004,7 @@ export type VersionQuery = {
     project: string;
     projectIdentifier: string;
     repo: string;
+    requester: string;
     revision: string;
     startTime?: Date | null;
     status: string;
@@ -9120,6 +9066,7 @@ export type VersionQuery = {
     } | null;
     projectMetadata?: {
       __typename?: "Project";
+      branch: string;
       id: string;
       owner: string;
       repo: string;
