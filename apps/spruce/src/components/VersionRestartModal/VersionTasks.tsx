@@ -57,9 +57,9 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
   ) : null;
 };
 
-// 350px represents the height to subtract to prevent an overflow on the modal
+// 425px represents the height to subtract to prevent an overflow on the modal
 const ContentWrapper = styled.div`
-  max-height: calc(100vh - 350px);
+  max-height: calc(100vh - 425px);
   overflow-y: auto;
 `;
 
