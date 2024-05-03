@@ -13,7 +13,7 @@ interface Props {
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   formData: FormState;
   oldUserTags: { key: string; value: string }[];
-  timeZone?: string;
+  timeZone: string;
 }
 export const formToGql = ({
   formData,

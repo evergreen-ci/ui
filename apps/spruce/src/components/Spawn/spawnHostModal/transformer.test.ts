@@ -138,6 +138,7 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
         dailyStartTime: "08:00",
         dailyStopTime: "20:00",
         permanentlyExempt: false,
+        temporarilyExemptUntil: null,
         timeZone: "America/New_York",
         shouldKeepOff: false,
         wholeWeekdaysOff: [0, 6],

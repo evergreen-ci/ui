@@ -137,12 +137,13 @@ export const getSleepSchedule = (
     timeSelection: { runContinuously, startTime, stopTime },
   } = sleepSchedule;
 
-  const schedule: SleepScheduleInput = {
-    dailyStartTime: "",
-    dailyStopTime: "",
+  return {
+    dailyStartTime: runContinuously ? "" : toTimeString(new Date(startTime)),
+    dailyStopTime: runContinuously ? "" : toTimeString(new Date(stopTime)),
     permanentlyExempt: false,
-    shouldKeepOff: false,
+    temporarilyExemptUntil: null,
     timeZone,
+    shouldKeepOff: false,
     wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
       if (!isEnabled) {
         accum.push(i);
@@ -150,15 +151,6 @@ export const getSleepSchedule = (
       return accum;
     }, []),
   };
-
-  if (!runContinuously) {
-    const startDate = new Date(startTime);
-    const stopDate = new Date(stopTime);
-    schedule.dailyStartTime = toTimeString(startDate);
-    schedule.dailyStopTime = toTimeString(stopDate);
-  }
-
-  return schedule;
 };
 
 const getDailyUptime = ({ startTime, stopTime }) =>
