@@ -319,7 +319,7 @@ describe("filters", () => {
     await user.click(screen.getByDataCy("accordion-toggle"));
     expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
       "aria-expanded",
-      "falseq",
+      "false",
     );
     await user.click(screen.getByDataCy("accordion-toggle"));
     expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
