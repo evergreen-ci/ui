@@ -12,9 +12,9 @@ import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
-import { onChangeHandler, TableQueryParams } from "components/Table/utils";
+import { onChangeHandler } from "components/Table/utils";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { PaginationQueryParams } from "constants/queryParams";
+import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,

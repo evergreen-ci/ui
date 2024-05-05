@@ -1,11 +1,5 @@
 import { OnChangeFn } from "@tanstack/react-table";
 
-export enum TableQueryParams {
-  SortBy = "sortBy",
-  SortDir = "sortDir",
-  Sorts = "sorts",
-}
-
 /**
  * `onChangeHandler` simplifies applying a side effect with one of react-table's callback functions (e.g. onColumnFiltersChange, onSortingChange).
  * @param setState - state updater as returned by a React useState hook.

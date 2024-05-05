@@ -1,6 +1,5 @@
 import { SortingState } from "@tanstack/react-table";
-import { TableQueryParams } from "components/Table/utils";
-import { PaginationQueryParams } from "constants/queryParams";
+import { TableQueryParams, PaginationQueryParams } from "constants/queryParams";
 import { SortDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 import { queryString } from "utils";
