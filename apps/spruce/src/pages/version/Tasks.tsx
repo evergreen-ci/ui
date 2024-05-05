@@ -5,6 +5,7 @@ import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { PaginationQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
@@ -49,7 +50,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       [PatchTasksQueryParams.Variant]: undefined,
       [PatchTasksQueryParams.Statuses]: undefined,
       [PatchTasksQueryParams.BaseStatuses]: undefined,
-      [PatchTasksQueryParams.Page]: undefined,
+      [PaginationQueryParams.Page]: undefined,
       [PatchTasksQueryParams.Duration]: undefined,
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
