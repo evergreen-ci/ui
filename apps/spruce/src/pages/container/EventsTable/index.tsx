@@ -1,19 +1,13 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import {
-  V10Table as Table,
-  V10TableHeader as TableHeader,
-  V10Row as Row,
-  V10Cell as Cell,
-  V10HeaderRow as HeaderRow,
-  V11Adapter,
-} from "@leafygreen-ui/table";
+import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { SiderCard, TableControlInnerRow } from "components/styles";
+import { BaseTable } from "components/Table/BaseTable";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -21,7 +15,12 @@ import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
 import { POD_EVENTS } from "gql/queries";
 import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";
+import { Unpacked } from "types/utils";
 import { EventCopy } from "./EventCopy";
+
+type ContainerEvent = Unpacked<
+  PodEventsQuery["pod"]["events"]["eventLogEntries"]
+>;
 
 const EventsTable: React.FC<{}> = () => {
   const getDateCopy = useDateFormat();
@@ -29,7 +28,8 @@ const EventsTable: React.FC<{}> = () => {
   const { limit, page, setLimit } = usePagination();
   const { [slugs.podId]: podId } = useParams();
   const dispatchToast = useToastContext();
-  const { data: podEventsData } = useQuery<
+
+  const { data: podEventsData, loading } = useQuery<
     PodEventsQuery,
     PodEventsQueryVariables
   >(POD_EVENTS, {
@@ -45,6 +45,41 @@ const EventsTable: React.FC<{}> = () => {
     () => podEventsData?.pod.events ?? { eventLogEntries: [], count: 0 },
     [podEventsData?.pod?.events],
   );
+
+  const columns: LGColumnDef<ContainerEvent>[] = useMemo(
+    () => [
+      {
+        header: "Date",
+        accessorKey: "timestamp",
+        cell: ({ getValue, row }) => (
+          <span data-cy={`${row.original.eventType}-time`}>
+            {getDateCopy(getValue() as Date)}
+          </span>
+        ),
+      },
+      {
+        header: "Event",
+        cell: ({ row }) => (
+          <EventCopy
+            data-cy={`event-type-${row.original.eventType}`}
+            event={row.original}
+          />
+        ),
+      },
+    ],
+    [getDateCopy],
+  );
+
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const table = useLeafyGreenTable<ContainerEvent>({
+    columns,
+    containerRef: tableContainerRef,
+    data: eventLogEntries ?? [],
+    defaultColumn: {
+      enableColumnFilter: false,
+    },
+    manualPagination: true,
+  });
 
   return (
     <SiderCard>
@@ -63,30 +98,14 @@ const EventsTable: React.FC<{}> = () => {
           />
         </TableControlInnerRow>
       </TableTitle>
-
-      <V11Adapter shouldAlternateRowColor>
-        <Table
-          data-cy="container-events"
-          data={eventLogEntries}
-          columns={
-            <HeaderRow>
-              <TableHeader key="date" dataType="date" label="Date" />
-              <TableHeader key="event" label="Event" />
-            </HeaderRow>
-          }
-        >
-          {({ datum }) => (
-            <Row data-cy={`event-type-${datum.eventType}`} key={datum.id}>
-              <Cell data-cy={`${datum.eventType}-time`}>
-                {getDateCopy(datum.timestamp)}
-              </Cell>
-              <Cell>
-                <EventCopy event={datum} />
-              </Cell>
-            </Row>
-          )}
-        </Table>
-      </V11Adapter>
+      <BaseTable
+        data-cy-table="container-events-table"
+        data-loading={loading}
+        loading={loading}
+        loadingRows={limit}
+        shouldAlternateRowColor
+        table={table}
+      />
     </SiderCard>
   );
 };

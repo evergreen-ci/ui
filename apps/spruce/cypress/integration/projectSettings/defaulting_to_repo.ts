@@ -1,3 +1,4 @@
+import { clickSave } from "../../utils";
 import {
   getGeneralRoute,
   getVirtualWorkstationRoute,
@@ -5,7 +6,6 @@ import {
   repo,
   saveButtonEnabled,
 } from "./constants";
-import { clickSave } from "../../utils";
 
 describe("Project Settings when defaulting to repo", () => {
   const origin = getGeneralRoute(projectUseRepoEnabled);
@@ -220,7 +220,10 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("navitem-github-commitqueue").click();
       cy.dataCy("default-to-repo-button").click();
       cy.dataCy("default-to-repo-modal").should("be.visible");
-      cy.dataCy("default-to-repo-modal").contains("button", "Confirm").click();
+      cy.getInputByLabel('Type "confirm" to confirm your action').type(
+        "confirm",
+      );
+      cy.dataCy("default-to-repo-modal").contains("Confirm").click();
       cy.validateToast("success", "Successfully defaulted page to repo");
       cy.dataCy("accordion-toggle").scrollIntoView();
       cy.dataCy("accordion-toggle")

@@ -1,9 +1,9 @@
+import { clickSave } from "../../utils";
 import {
   getGeneralRoute,
   getGithubCommitQueueRoute,
   project,
 } from "./constants";
-import { clickSave } from "../../utils";
 
 describe("Renaming the identifier", () => {
   const origin = getGeneralRoute(project);

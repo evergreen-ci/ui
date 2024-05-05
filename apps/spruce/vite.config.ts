@@ -1,15 +1,15 @@
-import { defineConfig } from "vite";
+import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
-import * as fs from "fs";
-import path from "path";
-import vitePluginImp from "vite-plugin-imp";
-import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
-import envCompatible from "vite-plugin-env-compatible";
-import checker from "vite-plugin-checker";
 import { visualizer } from "rollup-plugin-visualizer";
+import { defineConfig } from "vite";
+import checker from "vite-plugin-checker";
+import envCompatible from "vite-plugin-env-compatible";
+import vitePluginImp from "vite-plugin-imp";
 import tsconfigPaths from "vite-tsconfig-paths";
 import dns from "dns";
+import * as fs from "fs";
+import path from "path";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.

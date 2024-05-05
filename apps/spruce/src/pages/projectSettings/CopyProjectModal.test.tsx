@@ -323,7 +323,6 @@ const projectSettingsMock: ApolloMock<
             ticketCreateIssueType: "",
           },
           taskAnnotationSettings: {
-            jiraCustomFields: null,
             fileTicketWebhook: {
               endpoint: "",
               secret: "",

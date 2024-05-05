@@ -113,6 +113,8 @@ describe("Bookmarking and selecting lines", () => {
 
   it("should be able to clear bookmarks", () => {
     cy.dataCy("clear-bookmarks").click();
+    cy.dataCy("clear-bookmarks-popconfirm").should("be.visible");
+    cy.contains("button", "Yes").click();
     cy.location("search").should("equal", "");
   });
 });
@@ -260,15 +262,6 @@ describe("jump to failing log line", () => {
 
   beforeEach(() => {
     cy.visit(logLink);
-  });
-
-  it("shows guide cue based on cookie", () => {
-    cy.setCookie("has-seen-jump-to-failing-line-guide-cue", "false");
-    cy.dataCy("jump-to-failing-line-guide-cue").should("be.visible");
-
-    cy.setCookie("has-seen-jump-to-failing-line-guide-cue", "true");
-    cy.reload();
-    cy.dataCy("jump-to-failing-line-guide-cue").should("not.exist");
   });
 
   it("should jump to failing log line based on user setting", () => {
