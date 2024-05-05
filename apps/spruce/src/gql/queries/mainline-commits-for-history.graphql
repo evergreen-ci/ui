@@ -1,5 +1,3 @@
-#import "../fragments/upstreamProject.graphql"
-
 query MainlineCommitsForHistory(
   $mainlineCommitsOptions: MainlineCommitsOptions!
   $buildVariantOptions: BuildVariantOptions!
@@ -22,7 +20,6 @@ query MainlineCommitsForHistory(
         message
         order
         revision
-        ...UpstreamProject
       }
       version {
         author

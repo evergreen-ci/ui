@@ -6272,17 +6272,6 @@ export type MainlineCommitsForHistoryQuery = {
           pusher: string;
           tag: string;
         }> | null;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
       }> | null;
       version?: {
         __typename?: "Version";
@@ -6350,17 +6339,6 @@ export type MainlineCommitsQuery = {
         message: string;
         order: number;
         revision: string;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
       }> | null;
       version?: {
         __typename?: "Version";
