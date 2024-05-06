@@ -5,13 +5,11 @@ import {
   SegmentedControl,
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
-import queryString from "query-string";
-import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { getParsleyTaskLogLink } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { TaskLogLinks } from "gql/generated/types";
-import { useUpdateURLQueryParams } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { LogTypes, QueryParams } from "types/task";
 import {
   EventLog,
@@ -38,27 +36,17 @@ interface Props {
 }
 export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
   const { sendEvent } = useTaskAnalytics();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const { search } = useLocation();
-  const parsed = queryString.parse(search);
-  const logTypeParam = (parsed[QueryParams.LogType] || "")
-    .toString()
-    .toLowerCase() as LogTypes;
-
-  const [currentLog, setCurrentLog] = useState<LogTypes>(
-    Object.values(LogTypes).includes(logTypeParam)
-      ? logTypeParam
-      : DEFAULT_LOG_TYPE,
+  const [currentLog, setCurrentLog] = useQueryParam<LogTypes>(
+    QueryParams.LogType,
+    DEFAULT_LOG_TYPE,
   );
   const [noLogs, setNoLogs] = useState(false);
 
   const onChangeLog = (value: string): void => {
-    const nextLogType = value as LogTypes;
-    setCurrentLog(nextLogType);
-    updateQueryParams({ [QueryParams.LogType]: nextLogType });
+    setCurrentLog(value as LogTypes);
     sendEvent({
       name: "Select Logs Type",
-      logType: nextLogType,
+      logType: value as LogTypes,
     });
   };
 
