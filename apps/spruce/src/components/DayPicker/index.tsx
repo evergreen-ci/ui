@@ -2,19 +2,11 @@ import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { transitionDuration } from "@leafygreen-ui/tokens";
+import { days } from "constants/fieldMaps";
 import { size } from "constants/tokens";
 
 const { gray, white } = palette;
 
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
 const emptyState = new Array(days.length).fill(false);
 
 type DayPickerState = Array<boolean>;

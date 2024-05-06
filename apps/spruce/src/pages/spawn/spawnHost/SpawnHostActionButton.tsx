@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
+import { isTomorrow, parse } from "date-fns";
 import { useSpawnAnalytics } from "analytics";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
+import { days } from "constants/fieldMaps";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,
@@ -72,18 +78,23 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     refetchQueries: ["MyVolumes"],
   });
 
-  const onClick = (a) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleClick =
+    (a: SpawnHostStatusActions, shouldKeepOff?: boolean) =>
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
-    updateSpawnHostStatus({
-      variables: {
-        hostId: host.id,
-        action: a,
-      },
-    });
-  };
+      spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
+      updateSpawnHostStatus({
+        variables: {
+          updateSpawnHostStatusInput: {
+            hostId: host.id,
+            action: a,
+            shouldKeepOff,
+          },
+        },
+      });
+    };
 
   let checkboxLabel = "";
   if (host.noExpiration && host.distro?.isVirtualWorkStation) {
@@ -97,19 +108,67 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const [checkboxAcknowledged, setCheckboxAcknowledged] =
     useState(!checkboxLabel);
 
+  const [sleepModalOpen, setSleepModalOpen] = useState(false);
+  const [shouldKeepOff, setShouldKeepOff] = useState(false);
+
+  const nextStartDate: Date = getNextHostStart(host?.sleepSchedule);
+  const nextStartDay: string = isTomorrow(nextStartDate)
+    ? "tomorrow"
+    : days[nextStartDate.getDay()];
+  const nextStartTime: string = `${nextStartDate.getHours()}:${nextStartDate.getMinutes().toString().padStart(2, "0")}`;
+
   return (
     <>
-      {action ? (
-        <Button
-          disabled={loading}
-          leftGlyph={<Icon glyph={glyph} />}
-          size={Size.XSmall}
-          onClick={onClick(action)}
-        />
-      ) : null}
+      {host?.sleepSchedule && action === SpawnHostStatusActions.Stop ? (
+        <>
+          <Button
+            disabled={loading || host.status === HostStatus.Stopping}
+            leftGlyph={<Icon glyph={glyph} />}
+            size={Size.XSmall}
+            onClick={() => setSleepModalOpen((o) => !o)}
+          />
+          <ConfirmationModal
+            buttonText={`Pause host ${shouldKeepOff ? "indefinitely" : `until ${nextStartDay}`}`}
+            open={sleepModalOpen}
+            onCancel={() => setSleepModalOpen(false)}
+            // @ts-expect-error
+            onConfirm={handleClick(action, shouldKeepOff)}
+            setOpen={setSleepModalOpen}
+            title="Configure Host Pause"
+          >
+            <P>
+              Since this host has a sleep schedule configured, by default it
+              will wake up at the next scheduled start time. If you won&rsquo;t
+              need it then, you can pause indefinitely and manually restart it
+              at a later date.
+            </P>
+
+            {/* LG's radio group does not support boolean values, so cast the state to a string for use by the component */}
+            <RadioGroup
+              onChange={(e) => setShouldKeepOff(e.target.value === "true")}
+              value={`${shouldKeepOff}`}
+            >
+              <Radio value="false">
+                Start host at its next scheduled time ({nextStartDay} at{" "}
+                {nextStartTime})
+              </Radio>
+              <Radio value="true">Pause host indefinitely</Radio>
+            </RadioGroup>
+          </ConfirmationModal>
+        </>
+      ) : (
+        action && (
+          <Button
+            disabled={loading || host.status === HostStatus.Stopping}
+            leftGlyph={<Icon glyph={glyph} />}
+            size={Size.XSmall}
+            onClick={handleClick(action)}
+          />
+        )
+      )}
       <Popconfirm
         confirmDisabled={!checkboxAcknowledged}
-        onConfirm={onClick(SpawnHostStatusActions.Terminate)}
+        onConfirm={handleClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button
             size={Size.XSmall}
@@ -149,4 +208,19 @@ const mapStatusToGlyph = {
   [HostStatus.Stopped]: "Play",
 };
 
+const getNextHostStart = ({
+  dailyStartTime,
+  wholeWeekdaysOff,
+}: MyHost["sleepSchedule"]): Date => {
+  const nextStartDay = parse(dailyStartTime, "HH:mm", new Date());
+  do {
+    nextStartDay.setDate(nextStartDay.getDate() + 1);
+  } while (wholeWeekdaysOff.includes(nextStartDay.getDay()));
+  return nextStartDay;
+};
+
 const copyPrefix = "I understand that this host is";
+
+const P = styled.p`
+  margin-bottom: ${size.s};
+`;

@@ -1330,8 +1330,9 @@ export type MutationUpdatePublicKeyArgs = {
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
-  action: SpawnHostStatusActions;
-  hostId: Scalars["String"]["input"];
+  action?: InputMaybe<SpawnHostStatusActions>;
+  hostId?: InputMaybe<Scalars["String"]["input"]>;
+  updateSpawnHostStatusInput?: InputMaybe<UpdateSpawnHostStatusInput>;
 };
 
 export type MutationUpdateUserSettingsArgs = {
@@ -2919,6 +2920,12 @@ export type UpdateParsleySettingsInput = {
 export type UpdateParsleySettingsPayload = {
   __typename?: "UpdateParsleySettingsPayload";
   parsleySettings?: Maybe<ParsleySettings>;
+};
+
+export type UpdateSpawnHostStatusInput = {
+  action: SpawnHostStatusActions;
+  hostId: Scalars["String"]["input"];
+  shouldKeepOff?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /**
@@ -5292,8 +5299,7 @@ export type UpdatePublicKeyMutation = {
 };
 
 export type UpdateSpawnHostStatusMutationVariables = Exact<{
-  hostId: Scalars["String"]["input"];
-  action: SpawnHostStatusActions;
+  updateSpawnHostStatusInput: UpdateSpawnHostStatusInput;
 }>;
 
 export type UpdateSpawnHostStatusMutation = {
@@ -6446,6 +6452,16 @@ export type MyHostsQuery = {
     tag: string;
     uptime?: Date | null;
     user?: string | null;
+    sleepSchedule?: {
+      __typename?: "SleepSchedule";
+      dailyStartTime: string;
+      dailyStopTime: string;
+      permanentlyExempt: boolean;
+      shouldKeepOff: boolean;
+      temporarilyExemptUntil?: Date | null;
+      timeZone: string;
+      wholeWeekdaysOff: Array<number>;
+    } | null;
     distro?: {
       __typename?: "DistroInfo";
       id?: string | null;

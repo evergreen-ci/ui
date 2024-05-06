@@ -3,5 +3,14 @@
 query MyHosts {
   myHosts {
     ...BaseSpawnHost
+    sleepSchedule {
+      dailyStartTime
+      dailyStopTime
+      permanentlyExempt
+      shouldKeepOff
+      temporarilyExemptUntil
+      timeZone
+      wholeWeekdaysOff
+    }
   }
 }
