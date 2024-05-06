@@ -3,10 +3,8 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
-import { useLocation, useParams } from "react-router-dom";
-import PageSizeSelector, {
-  usePageSizeSelector,
-} from "components/PageSizeSelector";
+import { useParams } from "react-router-dom";
+import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { SiderCard, TableControlInnerRow } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
@@ -16,11 +14,9 @@ import { useToastContext } from "context/toast";
 import { PodEventsQuery, PodEventsQueryVariables } from "gql/generated/types";
 import { POD_EVENTS } from "gql/queries";
 import { useDateFormat } from "hooks";
+import usePagination from "hooks/usePagination";
 import { Unpacked } from "types/utils";
-import { url } from "utils";
 import { EventCopy } from "./EventCopy";
-
-const { getLimitFromSearch, getPageFromSearch } = url;
 
 type ContainerEvent = Unpacked<
   PodEventsQuery["pod"]["events"]["eventLogEntries"]
@@ -28,10 +24,8 @@ type ContainerEvent = Unpacked<
 
 const EventsTable: React.FC<{}> = () => {
   const getDateCopy = useDateFormat();
-  const { search } = useLocation();
-  const setPageSize = usePageSizeSelector();
-  const page = getPageFromSearch(search);
-  const limit = getLimitFromSearch(search);
+
+  const { limit, page, setLimit } = usePagination();
   const { [slugs.podId]: podId } = useParams();
   const dispatchToast = useToastContext();
 
@@ -100,7 +94,7 @@ const EventsTable: React.FC<{}> = () => {
           <PageSizeSelector
             data-cy="pod-events-page-size-selector"
             value={limit}
-            onChange={setPageSize}
+            onChange={setLimit}
           />
         </TableControlInnerRow>
       </TableTitle>

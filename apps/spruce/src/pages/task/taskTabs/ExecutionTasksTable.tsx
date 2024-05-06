@@ -4,9 +4,10 @@ import { SortingState, Sorting } from "@tanstack/react-table";
 import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
-import { TableQueryParams, onChangeHandler } from "components/Table/utils";
+import { onChangeHandler } from "components/Table/utils";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
+import { TableQueryParams } from "constants/queryParams";
 import {
   TaskQuery,
   TaskSortCategory,
