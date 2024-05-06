@@ -45,7 +45,8 @@ declare global {
        * @example cy.editBounds({ lower: 5, upper: 10 })
        */
       editBounds(bounds: { upper?: string; lower?: string }): void;
-      /** Custom command to determine if an element is not contained in the viewport.
+      /**
+       * Custom command to determine if an element is not contained in the viewport.
        * @example cy.isNotContainedInViewport()
        * @example cy.isNotContainedInViewport().should('be.visible')
        */
@@ -107,8 +108,27 @@ declare global {
   }
 }
 
-beforeEach(() => {
-  cy.login();
-  cy.setCookie("has-opened-drawer", "true");
-  cy.setCookie("has-seen-searchbar-guide-cue", "true");
-});
+// Close over beforeEach and afterEach to encapsulate mutationDispatched
+(() => {
+  let mutationDispatched: boolean;
+  beforeEach(() => {
+    cy.login();
+    cy.setCookie("has-opened-drawer", "true");
+    cy.setCookie("has-seen-searchbar-guide-cue", "true");
+    cy.setCookie("has-seen-jump-to-failing-line-guide-cue", "true");
+    mutationDispatched = false;
+    cy.intercept("POST", "/graphql/query", (req) => {
+      const isMutation = req.body.query?.startsWith("mutation");
+      if (isMutation) {
+        mutationDispatched = true;
+      }
+    });
+  });
+
+  afterEach(() => {
+    if (mutationDispatched) {
+      cy.log("A mutation was detected. Restoring EVG.");
+      cy.exec("yarn evg-db-ops --restore");
+    }
+  });
+})();

@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import { PAGE_SIZES } from "constants/index";
 import { zIndex } from "constants/tokens";
-import usePageSizeSelector from "./usePageSizeSelector";
 
 interface Props {
   value: number;
@@ -37,5 +36,4 @@ const StyledSelect = styled(Select)`
   width: 120px;
 `;
 
-export { usePageSizeSelector };
 export default PageSizeSelector;

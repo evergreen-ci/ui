@@ -2,6 +2,7 @@ import {
   copyToClipboard,
   getBytesAsString,
   getJiraFormat,
+  isFailingLine,
   shortenGithash,
   stringIntersection,
   trimLogLineToMaxSize,
@@ -158,5 +159,42 @@ describe("trimSeverity", () => {
     ).toBe(
       "[2022/12/05 20:03:30.138] + '[' amazon2-cloud-small = amazon2-cloud-large ']'",
     );
+  });
+});
+
+describe("isFailingLine", () => {
+  it("should return true for a failing line", () => {
+    expect(
+      isFailingLine(
+        "[2023/01/02 10:42:29.414] Command 'subprocess.exec' in function 'run-evergreen' (step 1.3 of 4) failed: process encountered problem: exit code 2.",
+        "'subprocess.exec' in function 'run-evergreen' (step 1.3 of 4)",
+      ),
+    ).toBe(true);
+    expect(
+      isFailingLine(
+        "[2023/01/02 10:42:29.414] Command 'shell.exec' in function 'cypress-test' (step 7.5 of 9) stopped early: context canceled.",
+        "'shell.exec' in function 'cypress-test' (step 7.5 of 9)",
+      ),
+    ).toBe(true);
+    expect(
+      isFailingLine(
+        "[2023/01/02 10:42:29.414] Command 'shell.exec' in function 'attach-cypress-results' (step 3.3 of 8) in block 'post' failed: shell script encountered problem: exit code 1.",
+        "'shell.exec' in function 'attach-cypress-results' (step 3.3 of 8) in block 'post'",
+      ),
+    ).toBe(true);
+  });
+  it("should return false if not a failing line", () => {
+    expect(
+      isFailingLine(
+        "[2023/01/02 10:42:29.414] Running command 'shell.exec' in function 'check-codegen' (step 2 of 2).",
+        "'shell.exec' in function 'check-codegen' (step 2 of 2)",
+      ),
+    ).toBe(false);
+    expect(
+      isFailingLine(
+        "[2023/01/02 10:42:29.414] Finished command 'shell.exec' in function 'check-codegen' (step 2 of 2).",
+        "'shell.exec' in function 'check-codegen' (step 2 of 2)",
+      ),
+    ).toBe(false);
   });
 });

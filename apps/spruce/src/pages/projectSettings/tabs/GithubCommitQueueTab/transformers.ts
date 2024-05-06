@@ -40,6 +40,7 @@ export const gqlToForm = ((data, options) => {
     gitTagVersionsEnabled,
     githubChecksEnabled,
     manualPrTestingEnabled,
+    oldestAllowedMergeBase,
     prTestingEnabled,
   } = projectRef;
 
@@ -75,6 +76,7 @@ export const gqlToForm = ((data, options) => {
         githubCheckAliases,
       },
       gitTagVersionsEnabled,
+      oldestAllowedMergeBase,
       users: {
         gitTagAuthorizedUsersOverride:
           projectType !== ProjectType.AttachedProject ||
@@ -121,12 +123,14 @@ export const formToGql = ((
       githubChecks,
       githubChecksEnabled,
       manualPrTestingEnabled,
+      oldestAllowedMergeBase,
       prTesting,
       prTestingEnabled,
       teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
       users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
     },
   },
+  isRepo,
   id,
 ) => {
   const projectRef: ProjectInput = {
@@ -135,6 +139,7 @@ export const formToGql = ((
     manualPrTestingEnabled,
     githubChecksEnabled,
     gitTagVersionsEnabled,
+    oldestAllowedMergeBase,
     gitTagAuthorizedUsers: gitTagAuthorizedUsersOverride
       ? gitTagAuthorizedUsers
       : null,
@@ -181,6 +186,7 @@ export const formToGql = ((
   ];
 
   return {
+    ...(isRepo ? { repoId: id } : { projectId: id }),
     projectRef,
     aliases,
   };

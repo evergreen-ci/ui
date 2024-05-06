@@ -85,6 +85,7 @@ export enum slugs {
   projectIdentifier = "projectIdentifier",
   tab = "tab",
   taskId = "taskId",
+  execution = "execution",
   taskName = "taskName",
   variantName = "variantName",
   versionId = "versionId",
@@ -117,7 +118,7 @@ export const routes = {
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.hostId}`,
   hosts: paths.hosts,
-  jobLogs: `${paths.jobLogs}/:${slugs.buildId}`,
+  jobLogs: paths.jobLogs,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
   patch: `${paths.patch}/:${slugs.versionId}`,
@@ -192,6 +193,7 @@ interface GetAllHostsRouteOptions {
   distroId?: string;
   statuses?: string[];
   currentTaskId?: string;
+  startedBy?: string;
 }
 
 export const getAllHostsRoute = (options?: GetAllHostsRouteOptions) => {

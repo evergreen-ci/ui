@@ -3,18 +3,19 @@ import styled from "@emotion/styled";
 import { Tab, Tabs } from "@leafygreen-ui/tabs";
 import { H3 } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
+import { useParsleySettings } from "hooks/useParsleySettings";
 import ButtonRow from "./ButtonRow";
-import CLIInstructions from "./CLIInstructions";
 import SearchRangeInput from "./SearchRangeInput";
 import {
   CaseSensitiveToggle,
   ExpandableRowsToggle,
   FilterLogicToggle,
+  JumpToFailingLineToggle,
   PrettyPrintToggle,
+  WordWrapFormatToggle,
   WrapToggle,
+  ZebraStripingToggle,
 } from "./Toggles";
-import WordWrapFormatToggle from "./Toggles/WordWrapFormatToggle";
-import ZebraStripingToggle from "./Toggles/ZebraStripingToggle";
 
 interface DetailsMenuProps {
   "data-cy"?: string;
@@ -23,6 +24,10 @@ interface DetailsMenuProps {
 const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
   ({ "data-cy": dataCy }, ref) => {
     const [selectedTab, setSelectedTab] = useState(0);
+
+    const { settings, updateSettings } = useParsleySettings();
+    const { jumpToFailingLineEnabled = true } = settings ?? {};
+
     return (
       <Container ref={ref} data-cy={dataCy}>
         <H3>Parsley Settings</H3>
@@ -40,7 +45,6 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
               </Column>
             </Row>
             <ButtonRow />
-            <CLIInstructions />
           </Tab>
           <Tab data-cy="log-viewing-tab" name="Log Viewing">
             <Row>
@@ -50,6 +54,10 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                 <PrettyPrintToggle />
                 <ExpandableRowsToggle />
                 <ZebraStripingToggle />
+                <JumpToFailingLineToggle
+                  checked={jumpToFailingLineEnabled}
+                  updateSettings={updateSettings}
+                />
               </Column>
             </Row>
           </Tab>

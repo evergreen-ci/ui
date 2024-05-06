@@ -165,6 +165,11 @@ export const timeZones = [
   },
 ];
 
+// Access a time zone's readable name by its key value
+export const prettifyTimeZone = new Map(
+  timeZones.map(({ str, value }) => [value, str]),
+);
+
 export const listOfDateFormatStrings = [
   "MM-dd-yyyy",
   "dd-MM-yyyy",

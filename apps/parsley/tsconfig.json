@@ -5,7 +5,8 @@
   },
   "include": [
     "src",
-    "config/jest/setup.ts"
+    "config/jest/setup.ts",
+    "config/jest/setupTests.ts"
   ],
   "exclude": [
     "node_modules",

@@ -1,7 +1,7 @@
-const path = require("path");
+const httpProxy = require("http-proxy");
 const handler = require("serve-handler");
 const http = require("http");
-const httpProxy = require("http-proxy");
+const path = require("path");
 
 const proxy = httpProxy.createProxyServer({});
 

@@ -18,16 +18,22 @@ interface UseTaskQueryProps {
   buildID?: string;
 }
 
+type TaskType = BaseTaskFragment & {
+  logs?: TaskLogLinks;
+  tests?: {
+    testResults?: TaskTestResult["testResults"];
+  };
+  details?:
+    | {
+        description?: string | null | undefined;
+        status: string;
+      }
+    | null
+    | undefined;
+};
+
 type UseTaskQueryReturnType = {
-  task:
-    | (BaseTaskFragment & {
-        logs?: TaskLogLinks;
-        tests?: {
-          testResults?: TaskTestResult["testResults"];
-        };
-      })
-    | undefined
-    | null;
+  task: TaskType | null | undefined;
   loading: boolean;
 };
 
@@ -37,13 +43,12 @@ export const useTaskQuery = ({
   logType,
   taskID,
 }: UseTaskQueryProps): UseTaskQueryReturnType => {
-  const isResmoke = logType === LogTypes.RESMOKE_LOGS;
-
+  const isLogkeeper = logType === LogTypes.LOGKEEPER_LOGS;
   const { data: taskData, loading: taskLoading } = useQuery<
     TaskQuery,
     TaskQueryVariables
   >(GET_TASK, {
-    skip: isResmoke || !taskID,
+    skip: isLogkeeper || !taskID,
     variables: { execution: Number(execution), taskId: String(taskID) },
   });
 
@@ -51,7 +56,7 @@ export const useTaskQuery = ({
     LogkeeperTaskQuery,
     LogkeeperTaskQueryVariables
   >(GET_LOGKEEPER_TASK, {
-    skip: !isResmoke || !buildID,
+    skip: !isLogkeeper || !buildID,
     variables: { buildId: String(buildID) },
   });
 

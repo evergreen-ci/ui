@@ -243,7 +243,8 @@ const noFilterData: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      tasks: [
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      taskIds: [
         "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_race_detector_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
@@ -275,7 +276,8 @@ const withMatchingFilter: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      tasks: [
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      taskIds: [
         "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_race_detector_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
@@ -309,7 +311,8 @@ const withNonMatchingFilter: ApolloMock<
   request: {
     query: TASK_TEST_SAMPLE,
     variables: {
-      tasks: [
+      versionId: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
+      taskIds: [
         "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_race_detector_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",

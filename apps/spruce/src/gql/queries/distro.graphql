@@ -79,11 +79,11 @@ query Distro($distroId: String!) {
     providerSettingsList
     setup
     setupAsSudo
-    sshKey
     sshOptions
     user
     userSpawnAllowed
     validProjects
+    warningNote
     workDir
   }
 }

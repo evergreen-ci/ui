@@ -21,6 +21,8 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
     undefined,
   );
   const [changeVisible, setChangeVisible] = useState(false);
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const detailsMenuRef = useRef<HTMLDivElement>(null);
   const firstUpdate = useRef(true);
 
@@ -41,6 +43,7 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
 
   return (
     <AnimatedPopoverButton
+      buttonRef={buttonRef}
       buttonText="Details"
       disabled={disabled}
       variant={changeVisible ? "primary" : "default"}
@@ -67,4 +70,5 @@ const AnimatedPopoverButton = styled(PopoverButton)`
     }
   `}
 `;
+
 export default DetailsMenu;

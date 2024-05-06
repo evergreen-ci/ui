@@ -7,12 +7,13 @@ exports[`Snapshot Tests ProjectSelect.stories Default 1`] = `
   >
     <label
       class="leafygreen-ui-1fi5x3a"
+      data-lgid="lg-label"
       for="searchable-dropdown-Project"
     >
       Project
     </label>
     <div
-      class="css-gte0m8-Wrapper e17dnzmx4"
+      class="css-7yazxp-Wrapper e17dnzmx4"
     >
       <div
         class="css-1ry038z-Container e1yw4j304"
@@ -77,12 +78,13 @@ exports[`Snapshot Tests ProjectSelect.stories WithClickableHeader 1`] = `
   >
     <label
       class="leafygreen-ui-1fi5x3a"
+      data-lgid="lg-label"
       for="searchable-dropdown-Project"
     >
       Project
     </label>
     <div
-      class="css-gte0m8-Wrapper e17dnzmx4"
+      class="css-7yazxp-Wrapper e17dnzmx4"
     >
       <div
         class="css-1ry038z-Container e1yw4j304"

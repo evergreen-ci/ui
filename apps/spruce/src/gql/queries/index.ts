@@ -52,6 +52,7 @@ import MY_PUBLIC_KEYS from "./public-keys.graphql";
 import REPO_EVENT_LOGS from "./repo-event-logs.graphql";
 import REPO_SETTINGS from "./repo-settings.graphql";
 import REPOTRACKER_ERROR from "./repotracker-error.graphql";
+import SECRET_FIELDS from "./secret-fields.graphql";
 import SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
 import SPAWN_TASK from "./spawn-task.graphql";
 import SPRUCE_CONFIG from "./spruce-config.graphql";
@@ -65,6 +66,7 @@ import TASK_NAMES_FOR_BUILD_VARIANT from "./task-names-for-build-variant.graphql
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
 import TASK_STATUSES from "./task-statuses.graphql";
 import TASK_TEST_SAMPLE from "./task-test-sample.graphql";
+import TASK_TESTS_FOR_JOB_LOGS from "./task-tests-for-job-logs.graphql";
 import TASK_TESTS from "./task-tests.graphql";
 import TASK from "./task.graphql";
 import UNSCHEDULED_TASKS from "./undispatched-tasks.graphql";
@@ -147,6 +149,7 @@ export {
   TASK_NAMES_FOR_BUILD_VARIANT,
   TASK_QUEUE_DISTROS,
   TASK_STATUSES,
+  TASK_TESTS_FOR_JOB_LOGS,
   TASK_TEST_SAMPLE,
   TASK_TESTS,
   TASK,
@@ -162,4 +165,5 @@ export {
   VERSION_TASKS,
   VERSION,
   VIEWABLE_PROJECTS,
+  SECRET_FIELDS,
 };

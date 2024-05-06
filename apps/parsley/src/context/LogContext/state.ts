@@ -1,24 +1,30 @@
 import { useReducer } from "react";
 import Cookie from "js-cookie";
 import { CASE_SENSITIVE } from "constants/cookies";
-import { LogTypes } from "constants/enums";
+import { LogRenderingTypes } from "constants/enums";
 import { ExpandedLines } from "types/logs";
 import { mergeIntervals } from "utils/expandedLines";
 import { getColorMapping, processResmokeLine } from "utils/resmoke";
+import { isFailingLine } from "utils/string";
 import { LogMetadata, SearchState } from "./types";
 
 interface LogState {
   colorMapping?: Record<string, string>;
   expandedLines: ExpandedLines;
+  failingLine?: number;
   hasLogs: boolean | null;
-  lineNumber?: number;
   logMetadata?: LogMetadata;
   logs: string[];
   searchState: SearchState;
 }
 
 type Action =
-  | { type: "INGEST_LOGS"; logs: string[]; logType: LogTypes }
+  | {
+      type: "INGEST_LOGS";
+      logs: string[];
+      renderingType: LogRenderingTypes;
+      failingCommand: string;
+    }
   | { type: "CLEAR_LOGS" }
   | { type: "SET_FILE_NAME"; fileName: string }
   | { type: "SET_LOG_METADATA"; logMetadata: LogMetadata }
@@ -47,8 +53,8 @@ const reducer = (state: LogState, action: Action): LogState => {
     case "INGEST_LOGS": {
       let processedLogs;
       let colorMap;
-      switch (action.logType) {
-        case LogTypes.RESMOKE_LOGS: {
+      switch (action.renderingType) {
+        case LogRenderingTypes.Resmoke: {
           const transformedLogs = action.logs.reduce(
             (acc, logLine) => {
               const processedLogLine = processResmokeLine(logLine);
@@ -71,17 +77,26 @@ const reducer = (state: LogState, action: Action): LogState => {
           colorMap = transformedLogs.colorMap;
           break;
         }
+        case LogRenderingTypes.Default:
         default:
           processedLogs = action.logs;
           break;
       }
+
+      const failingLine = action.failingCommand
+        ? processedLogs.findIndex((line) =>
+            isFailingLine(line, action.failingCommand),
+          )
+        : undefined;
+
       return {
         ...state,
         colorMapping: colorMap,
+        failingLine,
         hasLogs: processedLogs.length !== 0,
         logMetadata: {
           ...state.logMetadata,
-          logType: action.logType,
+          renderingType: action.renderingType,
         },
         logs: processedLogs,
       };

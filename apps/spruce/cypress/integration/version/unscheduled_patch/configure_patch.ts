@@ -497,7 +497,11 @@ describe("Configure Patch Page", () => {
 
       it("Should show one disabled task", () => {
         cy.dataCy("alias-task-checkbox").should("have.length", 1);
-        cy.dataCy("alias-task-checkbox").should("have.attr", "disabled");
+        cy.dataCy("alias-task-checkbox").should(
+          "have.attr",
+          "aria-disabled",
+          "true",
+        );
         cy.dataCy("alias-task-checkbox").should("not.be.checked");
       });
 

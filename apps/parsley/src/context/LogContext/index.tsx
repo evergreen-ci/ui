@@ -18,7 +18,12 @@ import {
   WRAP_FORMAT,
   ZEBRA_STRIPING,
 } from "constants/cookies";
-import { FilterLogic, LogTypes, WordWrapFormat } from "constants/enums";
+import {
+  FilterLogic,
+  LogRenderingTypes,
+  LogTypes,
+  WordWrapFormat,
+} from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useQueryParam } from "hooks/useQueryParam";
@@ -33,6 +38,8 @@ import { getNextPage } from "./utils";
 
 interface LogContextState {
   expandedLines: ExpandedLines;
+  failingLine: number | undefined;
+  isUploadedLog: boolean;
   hasLogs: boolean | null;
   lineCount: number;
   listRef: React.RefObject<PaginatedVirtualListRef>;
@@ -53,7 +60,11 @@ interface LogContextState {
   expandLines: (expandedLines: ExpandedLines) => void;
   getLine: (lineNumber: number) => string | undefined;
   getResmokeLineColor: (lineNumber: number) => string | undefined;
-  ingestLines: (logs: string[], logType: LogTypes) => void;
+  ingestLines: (
+    logs: string[],
+    renderingType: LogRenderingTypes,
+    failingCommand?: string,
+  ) => void;
   paginate: (dir: DIRECTION) => void;
   scrollToLine: (lineNumber: number) => void;
   setFileName: (fileName: string) => void;
@@ -142,6 +153,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           bookmarks,
           expandableRows,
           expandedLines: state.expandedLines,
+          failingLine: state.failingLine,
           logLines: state.logs,
           matchingLines,
           shareLine,
@@ -151,6 +163,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       state.logs.length,
+      state.failingLine,
       matchingLines,
       stringifiedBookmarks,
       shareLine,
@@ -220,8 +233,17 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       : undefined;
 
   const ingestLines = useCallback(
-    (lines: string[], logType: LogTypes) => {
-      dispatch({ logType, logs: lines, type: "INGEST_LOGS" });
+    (
+      lines: string[],
+      renderingType: LogRenderingTypes,
+      failingCommand?: string,
+    ) => {
+      dispatch({
+        failingCommand: failingCommand ?? "",
+        logs: lines,
+        renderingType,
+        type: "INGEST_LOGS",
+      });
     },
     [dispatch],
   );
@@ -235,6 +257,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   const memoizedContext = useMemo(
     () => ({
       expandedLines: state.expandedLines,
+      failingLine: state.failingLine,
       hasLogs: state.hasLogs,
       lineCount: state.logs.length,
       listRef,
@@ -293,6 +316,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       getLine,
       getResmokeLineColor,
       ingestLines,
+      isUploadedLog: state.logMetadata?.logType === LogTypes.LOCAL_UPLOAD,
       paginate: (direction: DIRECTION) => {
         const { searchIndex, searchRange } = state.searchState;
         if (searchIndex !== undefined && searchRange !== undefined) {
@@ -321,6 +345,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       searchResults,
       zebraStriping,
       state.expandedLines,
+      state.failingLine,
       state.hasLogs,
       state.logMetadata,
       state.logs.length,

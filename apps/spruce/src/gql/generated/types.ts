@@ -388,11 +388,11 @@ export type Distro = {
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];
-  sshKey: Scalars["String"]["output"];
   sshOptions: Array<Scalars["String"]["output"]>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
   validProjects: Array<Maybe<Scalars["String"]["output"]>>;
+  warningNote: Scalars["String"]["output"];
   workDir: Scalars["String"]["output"];
 };
 
@@ -453,11 +453,11 @@ export type DistroInput = {
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
-  sshKey: Scalars["String"]["input"];
   sshOptions: Array<Scalars["String"]["input"]>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
   validProjects: Array<Scalars["String"]["input"]>;
+  warningNote?: InputMaybe<Scalars["String"]["input"]>;
   workDir: Scalars["String"]["input"];
 };
 
@@ -507,6 +507,7 @@ export type EditSpawnHostInput = {
   publicKey?: InputMaybe<PublicKeyInput>;
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
+  sleepSchedule?: InputMaybe<SleepScheduleInput>;
   volume?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -707,6 +708,7 @@ export type Host = {
   persistentDnsName: Scalars["String"]["output"];
   provider: Scalars["String"]["output"];
   runningTask?: Maybe<TaskInfo>;
+  sleepSchedule?: Maybe<SleepSchedule>;
   startedBy: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
   tag: Scalars["String"]["output"];
@@ -1049,19 +1051,18 @@ export type Mutation = {
   saveRepoSettingsForSection: RepoSettings;
   saveSubscription: Scalars["Boolean"]["output"];
   schedulePatch: Patch;
-  schedulePatchTasks?: Maybe<Scalars["String"]["output"]>;
   scheduleTasks: Array<Task>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   setAnnotationMetadataLinks: Scalars["Boolean"]["output"];
   setLastRevision: SetLastRevisionPayload;
-  setPatchPriority?: Maybe<Scalars["String"]["output"]>;
   /** setPatchVisibility takes a list of patch ids and a boolean to set the visibility on the my patches queries */
   setPatchVisibility: Array<Patch>;
   setTaskPriority: Task;
+  setVersionPriority?: Maybe<Scalars["String"]["output"]>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"]["output"];
-  unschedulePatchTasks?: Maybe<Scalars["String"]["output"]>;
   unscheduleTask: Task;
+  unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
   updateHostStatus: Scalars["Int"]["output"];
   updateParsleySettings?: Maybe<UpdateParsleySettingsPayload>;
   updatePublicKey: Array<PublicKey>;
@@ -1262,16 +1263,13 @@ export type MutationSchedulePatchArgs = {
   patchId: Scalars["String"]["input"];
 };
 
-export type MutationSchedulePatchTasksArgs = {
-  patchId: Scalars["String"]["input"];
-};
-
 export type MutationScheduleTasksArgs = {
   taskIds: Array<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
-  patchId: Scalars["String"]["input"];
+  versionId: Scalars["String"]["input"];
 };
 
 export type MutationSetAnnotationMetadataLinksArgs = {
@@ -1284,11 +1282,6 @@ export type MutationSetLastRevisionArgs = {
   opts: SetLastRevisionInput;
 };
 
-export type MutationSetPatchPriorityArgs = {
-  patchId: Scalars["String"]["input"];
-  priority: Scalars["Int"]["input"];
-};
-
 export type MutationSetPatchVisibilityArgs = {
   hidden: Scalars["Boolean"]["input"];
   patchIds: Array<Scalars["String"]["input"]>;
@@ -1299,6 +1292,11 @@ export type MutationSetTaskPriorityArgs = {
   taskId: Scalars["String"]["input"];
 };
 
+export type MutationSetVersionPriorityArgs = {
+  priority: Scalars["Int"]["input"];
+  versionId: Scalars["String"]["input"];
+};
+
 export type MutationSpawnHostArgs = {
   spawnHostInput?: InputMaybe<SpawnHostInput>;
 };
@@ -1307,13 +1305,13 @@ export type MutationSpawnVolumeArgs = {
   spawnVolumeInput: SpawnVolumeInput;
 };
 
-export type MutationUnschedulePatchTasksArgs = {
-  abort: Scalars["Boolean"]["input"];
-  patchId: Scalars["String"]["input"];
-};
-
 export type MutationUnscheduleTaskArgs = {
   taskId: Scalars["String"]["input"];
+};
+
+export type MutationUnscheduleVersionTasksArgs = {
+  abort: Scalars["Boolean"]["input"];
+  versionId: Scalars["String"]["input"];
 };
 
 export type MutationUpdateHostStatusArgs = {
@@ -1420,10 +1418,12 @@ export type ParsleyFilterInput = {
 /** ParsleySettings contains information about a user's settings for Parsley. */
 export type ParsleySettings = {
   __typename?: "ParsleySettings";
+  jumpToFailingLineEnabled: Scalars["Boolean"]["output"];
   sectionsEnabled: Scalars["Boolean"]["output"];
 };
 
 export type ParsleySettingsInput = {
+  jumpToFailingLineEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   sectionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
@@ -1691,6 +1691,7 @@ export type Project = {
   isFavorite: Scalars["Boolean"]["output"];
   manualPrTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   notifyOnBuildFailure?: Maybe<Scalars["Boolean"]["output"]>;
+  oldestAllowedMergeBase: Scalars["String"]["output"];
   owner: Scalars["String"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
@@ -1827,6 +1828,7 @@ export type ProjectInput = {
   identifier?: InputMaybe<Scalars["String"]["input"]>;
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
+  oldestAllowedMergeBase?: InputMaybe<Scalars["String"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
   parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
@@ -1879,11 +1881,6 @@ export type ProjectSettings = {
   vars?: Maybe<ProjectVars>;
 };
 
-export enum ProjectSettingsAccess {
-  Edit = "EDIT",
-  View = "VIEW",
-}
-
 /**
  * ProjectSettingsInput is the input to the saveProjectSettingsForSection mutation.
  * It contains information about project settings (e.g. Build Baron configurations, subscriptions, etc) and is used to
@@ -1892,6 +1889,7 @@ export enum ProjectSettingsAccess {
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  projectId: Scalars["String"]["input"];
   projectRef?: InputMaybe<ProjectInput>;
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
@@ -2029,7 +2027,7 @@ export type QueryGithubProjectConflictsArgs = {
 };
 
 export type QueryHasVersionArgs = {
-  id: Scalars["String"]["input"];
+  patchId: Scalars["String"]["input"];
 };
 
 export type QueryHostArgs = {
@@ -2065,7 +2063,7 @@ export type QueryMainlineCommitsArgs = {
 };
 
 export type QueryPatchArgs = {
-  id: Scalars["String"]["input"];
+  patchId: Scalars["String"]["input"];
 };
 
 export type QueryPodArgs = {
@@ -2088,12 +2086,12 @@ export type QueryProjectSettingsArgs = {
 
 export type QueryRepoEventsArgs = {
   before?: InputMaybe<Scalars["Time"]["input"]>;
-  id: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
+  repoId: Scalars["String"]["input"];
 };
 
 export type QueryRepoSettingsArgs = {
-  id: Scalars["String"]["input"];
+  repoId: Scalars["String"]["input"];
 };
 
 export type QueryTaskArgs = {
@@ -2112,7 +2110,8 @@ export type QueryTaskNamesForBuildVariantArgs = {
 
 export type QueryTaskTestSampleArgs = {
   filters: Array<TestFilter>;
-  tasks: Array<Scalars["String"]["input"]>;
+  taskIds: Array<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 };
 
 export type QueryUserArgs = {
@@ -2120,7 +2119,7 @@ export type QueryUserArgs = {
 };
 
 export type QueryVersionArgs = {
-  id: Scalars["String"]["input"];
+  versionId: Scalars["String"]["input"];
 };
 
 export type RepoCommitQueueParams = {
@@ -2157,6 +2156,7 @@ export type RepoRef = {
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
   notifyOnBuildFailure: Scalars["Boolean"]["output"];
+  oldestAllowedMergeBase: Scalars["String"]["output"];
   owner: Scalars["String"]["output"];
   parsleyFilters?: Maybe<Array<ParsleyFilter>>;
   patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
@@ -2200,6 +2200,7 @@ export type RepoRefInput = {
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   notifyOnBuildFailure?: InputMaybe<Scalars["Boolean"]["input"]>;
+  oldestAllowedMergeBase?: InputMaybe<Scalars["String"]["input"]>;
   owner?: InputMaybe<Scalars["String"]["input"]>;
   parsleyFilters?: InputMaybe<Array<ParsleyFilterInput>>;
   patchTriggerAliases?: InputMaybe<Array<PatchTriggerAliasInput>>;
@@ -2242,6 +2243,7 @@ export type RepoSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectRef?: InputMaybe<RepoRefInput>;
+  repoId: Scalars["String"]["input"];
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
 };
@@ -2294,12 +2296,6 @@ export enum RoundingRule {
   Up = "UP",
 }
 
-export type SshKey = {
-  __typename?: "SSHKey";
-  location: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-};
-
 /** SaveDistroInput is the input to the saveDistro mutation. */
 export type SaveDistroInput = {
   distro: DistroInput;
@@ -2351,6 +2347,27 @@ export type SlackConfig = {
   name?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type SleepSchedule = {
+  __typename?: "SleepSchedule";
+  dailyStartTime: Scalars["String"]["output"];
+  dailyStopTime: Scalars["String"]["output"];
+  permanentlyExempt: Scalars["Boolean"]["output"];
+  shouldKeepOff: Scalars["Boolean"]["output"];
+  temporarilyExemptUntil?: Maybe<Scalars["Time"]["output"]>;
+  timeZone: Scalars["String"]["output"];
+  wholeWeekdaysOff: Array<Scalars["Int"]["output"]>;
+};
+
+export type SleepScheduleInput = {
+  dailyStartTime: Scalars["String"]["input"];
+  dailyStopTime: Scalars["String"]["input"];
+  permanentlyExempt: Scalars["Boolean"]["input"];
+  shouldKeepOff: Scalars["Boolean"]["input"];
+  temporarilyExemptUntil?: InputMaybe<Scalars["Time"]["input"]>;
+  timeZone: Scalars["String"]["input"];
+  wholeWeekdaysOff: Array<Scalars["Int"]["input"]>;
+};
+
 export enum SortDirection {
   Asc = "ASC",
   Desc = "DESC",
@@ -2390,6 +2407,7 @@ export type SpawnHostInput = {
   region: Scalars["String"]["input"];
   savePublicKey: Scalars["Boolean"]["input"];
   setUpScript?: InputMaybe<Scalars["String"]["input"]>;
+  sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
   taskSync?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2429,7 +2447,6 @@ export type SpruceConfig = {
   containerPools?: Maybe<ContainerPoolsConfig>;
   githubOrgs: Array<Scalars["String"]["output"]>;
   jira?: Maybe<JiraConfig>;
-  keys: Array<SshKey>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
@@ -3551,6 +3568,7 @@ export type ProjectGithubSettingsFragment = {
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled?: boolean | null;
   manualPrTestingEnabled?: boolean | null;
+  oldestAllowedMergeBase: string;
   prTestingEnabled?: boolean | null;
   commitQueue: {
     __typename?: "CommitQueueParams";
@@ -3569,6 +3587,7 @@ export type RepoGithubSettingsFragment = {
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled: boolean;
   manualPrTestingEnabled: boolean;
+  oldestAllowedMergeBase: string;
   prTestingEnabled: boolean;
   commitQueue: {
     __typename?: "RepoCommitQueueParams";
@@ -3590,6 +3609,7 @@ export type ProjectGithubCommitQueueFragment = {
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
     manualPrTestingEnabled?: boolean | null;
+    oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
     commitQueue: {
       __typename?: "CommitQueueParams";
@@ -3612,6 +3632,7 @@ export type RepoGithubCommitQueueFragment = {
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled: boolean;
     manualPrTestingEnabled: boolean;
+    oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
     commitQueue: {
       __typename?: "RepoCommitQueueParams";
@@ -3634,6 +3655,7 @@ export type ProjectEventGithubCommitQueueFragment = {
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
     manualPrTestingEnabled?: boolean | null;
+    oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
     commitQueue: {
       __typename?: "CommitQueueParams";
@@ -3693,6 +3715,7 @@ export type ProjectSettingsFieldsFragment = {
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
     manualPrTestingEnabled?: boolean | null;
+    oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
     containerSizeDefinitions?: Array<{
       __typename?: "ContainerResources";
@@ -3752,11 +3775,6 @@ export type ProjectSettingsFieldsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -3899,6 +3917,7 @@ export type RepoSettingsFieldsFragment = {
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled: boolean;
     manualPrTestingEnabled: boolean;
+    oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
     containerSizeDefinitions?: Array<{
       __typename?: "ContainerResources";
@@ -3953,11 +3972,6 @@ export type RepoSettingsFieldsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -4214,11 +4228,6 @@ export type ProjectPluginsSettingsFragment = {
       endpoint: string;
       secret: string;
     };
-    jiraCustomFields?: Array<{
-      __typename?: "JiraField";
-      displayText: string;
-      field: string;
-    }> | null;
   };
 };
 
@@ -4244,11 +4253,6 @@ export type RepoPluginsSettingsFragment = {
       endpoint: string;
       secret: string;
     };
-    jiraCustomFields?: Array<{
-      __typename?: "JiraField";
-      displayText: string;
-      field: string;
-    }> | null;
   };
 };
 
@@ -4301,6 +4305,7 @@ export type ProjectEventSettingsFragment = {
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
     manualPrTestingEnabled?: boolean | null;
+    oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
     taskSync: {
       __typename?: "TaskSyncOptions";
@@ -4354,11 +4359,6 @@ export type ProjectEventSettingsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -5121,6 +5121,7 @@ export type SchedulePatchMutation = {
 
 export type ScheduleTasksMutationVariables = Exact<{
   taskIds: Array<Scalars["String"]["input"]>;
+  versionId: Scalars["String"]["input"];
 }>;
 
 export type ScheduleTasksMutation = {
@@ -5138,7 +5139,7 @@ export type ScheduleTasksMutation = {
 };
 
 export type ScheduleUndispatchedBaseTasksMutationVariables = Exact<{
-  patchId: Scalars["String"]["input"];
+  versionId: Scalars["String"]["input"];
 }>;
 
 export type ScheduleUndispatchedBaseTasksMutation = {
@@ -5162,16 +5163,6 @@ export type SetLastRevisionMutation = {
     __typename?: "SetLastRevisionPayload";
     mergeBaseRevision: string;
   };
-};
-
-export type SetPatchPriorityMutationVariables = Exact<{
-  patchId: Scalars["String"]["input"];
-  priority: Scalars["Int"]["input"];
-}>;
-
-export type SetPatchPriorityMutation = {
-  __typename?: "Mutation";
-  setPatchPriority?: string | null;
 };
 
 export type SetPatchVisibilityMutationVariables = Exact<{
@@ -5203,6 +5194,16 @@ export type SetTaskPriorityMutation = {
   };
 };
 
+export type SetVersionPriorityMutationVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  priority: Scalars["Int"]["input"];
+}>;
+
+export type SetVersionPriorityMutation = {
+  __typename?: "Mutation";
+  setVersionPriority?: string | null;
+};
+
 export type SpawnHostMutationVariables = Exact<{
   spawnHostInput?: InputMaybe<SpawnHostInput>;
 }>;
@@ -5221,16 +5222,6 @@ export type SpawnVolumeMutation = {
   spawnVolume: boolean;
 };
 
-export type UnschedulePatchTasksMutationVariables = Exact<{
-  patchId: Scalars["String"]["input"];
-  abort: Scalars["Boolean"]["input"];
-}>;
-
-export type UnschedulePatchTasksMutation = {
-  __typename?: "Mutation";
-  unschedulePatchTasks?: string | null;
-};
-
 export type UnscheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
 }>;
@@ -5238,6 +5229,16 @@ export type UnscheduleTaskMutationVariables = Exact<{
 export type UnscheduleTaskMutation = {
   __typename?: "Mutation";
   unscheduleTask: { __typename?: "Task"; execution: number; id: string };
+};
+
+export type UnscheduleVersionTasksMutationVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  abort: Scalars["Boolean"]["input"];
+}>;
+
+export type UnscheduleVersionTasksMutation = {
+  __typename?: "Mutation";
+  unscheduleVersionTasks?: string | null;
 };
 
 export type UpdateHostStatusMutationVariables = Exact<{
@@ -5785,11 +5786,11 @@ export type DistroQuery = {
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
-    sshKey: string;
     sshOptions: Array<string>;
     user: string;
     userSpawnAllowed: boolean;
     validProjects: Array<string | null>;
+    warningNote: string;
     workDir: string;
     bootstrapSettings: {
       __typename?: "BootstrapSettings";
@@ -6771,6 +6772,7 @@ export type ProjectEventLogsQuery = {
           gitTagAuthorizedUsers?: Array<string> | null;
           gitTagVersionsEnabled?: boolean | null;
           manualPrTestingEnabled?: boolean | null;
+          oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
           taskSync: {
             __typename?: "TaskSyncOptions";
@@ -6824,11 +6826,6 @@ export type ProjectEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -6984,6 +6981,7 @@ export type ProjectEventLogsQuery = {
           gitTagAuthorizedUsers?: Array<string> | null;
           gitTagVersionsEnabled?: boolean | null;
           manualPrTestingEnabled?: boolean | null;
+          oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
           taskSync: {
             __typename?: "TaskSyncOptions";
@@ -7037,11 +7035,6 @@ export type ProjectEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7270,6 +7263,7 @@ export type ProjectSettingsQuery = {
       gitTagAuthorizedUsers?: Array<string> | null;
       gitTagVersionsEnabled?: boolean | null;
       manualPrTestingEnabled?: boolean | null;
+      oldestAllowedMergeBase: string;
       prTestingEnabled?: boolean | null;
       containerSizeDefinitions?: Array<{
         __typename?: "ContainerResources";
@@ -7329,11 +7323,6 @@ export type ProjectSettingsQuery = {
           endpoint: string;
           secret: string;
         };
-        jiraCustomFields?: Array<{
-          __typename?: "JiraField";
-          displayText: string;
-          field: string;
-        }> | null;
       };
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -7537,6 +7526,7 @@ export type RepoEventLogsQuery = {
           gitTagAuthorizedUsers?: Array<string> | null;
           gitTagVersionsEnabled?: boolean | null;
           manualPrTestingEnabled?: boolean | null;
+          oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
           taskSync: {
             __typename?: "TaskSyncOptions";
@@ -7590,11 +7580,6 @@ export type RepoEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7750,6 +7735,7 @@ export type RepoEventLogsQuery = {
           gitTagAuthorizedUsers?: Array<string> | null;
           gitTagVersionsEnabled?: boolean | null;
           manualPrTestingEnabled?: boolean | null;
+          oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
           taskSync: {
             __typename?: "TaskSyncOptions";
@@ -7803,11 +7789,6 @@ export type RepoEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7967,6 +7948,7 @@ export type RepoSettingsQuery = {
       gitTagAuthorizedUsers?: Array<string> | null;
       gitTagVersionsEnabled: boolean;
       manualPrTestingEnabled: boolean;
+      oldestAllowedMergeBase: string;
       prTestingEnabled: boolean;
       containerSizeDefinitions?: Array<{
         __typename?: "ContainerResources";
@@ -8021,11 +8003,6 @@ export type RepoSettingsQuery = {
           endpoint: string;
           secret: string;
         };
-        jiraCustomFields?: Array<{
-          __typename?: "JiraField";
-          displayText: string;
-          field: string;
-        }> | null;
       };
       triggers: Array<{
         __typename?: "TriggerAlias";
@@ -8144,6 +8121,16 @@ export type RepotrackerErrorQuery = {
   };
 };
 
+export type SecretFieldsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SecretFieldsQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    secretFields: Array<string>;
+  } | null;
+};
+
 export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SpawnExpirationInfoQuery = {
@@ -8203,7 +8190,6 @@ export type SpruceConfigQuery = {
       email?: string | null;
       host?: string | null;
     } | null;
-    keys: Array<{ __typename?: "SSHKey"; location: string; name: string }>;
     providers?: {
       __typename?: "CloudProviderConfig";
       aws?: {
@@ -8298,6 +8284,7 @@ export type TaskEventLogsQuery = {
         timestamp?: Date | null;
         data: {
           __typename?: "TaskEventLogData";
+          blockedOn?: string | null;
           hostId?: string | null;
           jiraIssue?: string | null;
           jiraLink?: string | null;
@@ -8400,8 +8387,9 @@ export type TaskStatusesQuery = {
 };
 
 export type TaskTestSampleQueryVariables = Exact<{
-  tasks: Array<Scalars["String"]["input"]>;
+  taskIds: Array<Scalars["String"]["input"]>;
   filters: Array<TestFilter>;
+  versionId: Scalars["String"]["input"];
 }>;
 
 export type TaskTestSampleQuery = {
@@ -8413,6 +8401,36 @@ export type TaskTestSampleQuery = {
     taskId: string;
     totalTestCount: number;
   }> | null;
+};
+
+export type TaskTestsForJobLogsQueryVariables = Exact<{
+  id: Scalars["String"]["input"];
+  execution?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type TaskTestsForJobLogsQuery = {
+  __typename?: "Query";
+  task?: {
+    __typename?: "Task";
+    buildVariant: string;
+    buildVariantDisplayName?: string | null;
+    displayName: string;
+    execution: number;
+    id: string;
+    revision?: string | null;
+    status: string;
+    tests: {
+      __typename?: "TaskTestResult";
+      testResults: Array<{
+        __typename?: "TestResult";
+        groupID?: string | null;
+        id: string;
+        status: string;
+        testFile: string;
+        logs: { __typename?: "TestLog"; urlParsley?: string | null };
+      }>;
+    };
+  } | null;
 };
 
 export type TaskTestsQueryVariables = Exact<{
@@ -8611,6 +8629,7 @@ export type TaskQuery = {
       displayName: string;
       execution: number;
       id: string;
+      projectIdentifier?: string | null;
       status: string;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
@@ -8974,6 +8993,7 @@ export type VersionQuery = {
     project: string;
     projectIdentifier: string;
     repo: string;
+    requester: string;
     revision: string;
     startTime?: Date | null;
     status: string;
@@ -9035,6 +9055,7 @@ export type VersionQuery = {
     } | null;
     projectMetadata?: {
       __typename?: "Project";
+      branch: string;
       id: string;
       owner: string;
       repo: string;

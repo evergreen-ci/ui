@@ -250,7 +250,8 @@ describe("Spawn volume page", () => {
         "true",
       );
     });
-    it("clicking cancel during confirmation renders the Migrate modal form", () => {
+    // TODO the availability zone defined in Evergreen's test data for this volume is invalid, making it impossible to submit the form. Re-enable these tests when the data is fixed.
+    it.skip("clicking cancel during confirmation renders the Migrate modal form", () => {
       cy.dataCy(
         "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
       ).click();
@@ -264,7 +265,7 @@ describe("Spawn volume page", () => {
       cy.dataCy("migrate-modal").contains("Cancel").click({ force: true });
       cy.dataCy("distro-input").should("be.visible");
     });
-    it("open the Migrate modal and spawn a host", () => {
+    it.skip("open the Migrate modal and spawn a host", () => {
       cy.dataCy(
         "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
       ).click();

@@ -1,13 +1,11 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { SearchInput } from "@leafygreen-ui/search-input";
 import Cookies from "js-cookie";
 import { Analytics } from "analytics/addPageAction";
-import PageSizeSelector, {
-  usePageSizeSelector,
-} from "components/PageSizeSelector";
+import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
+import TextInputWithValidation from "components/TextInputWithValidation";
 import {
   INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
   INCLUDE_COMMIT_QUEUE_USER_PATCHES,
@@ -16,8 +14,10 @@ import {
 import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
+import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchPageQueryParams } from "types/patch";
+import { validateRegexp } from "utils/validators";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
 import { usePatchesQueryParams } from "./usePatchesQueryParams";
@@ -49,7 +49,7 @@ export const PatchesPage: React.FC<Props> = ({
   pageType,
   patches,
 }) => {
-  const setPageSize = usePageSizeSelector();
+  const { setLimit } = usePagination();
   const cookie =
     pageType === "project"
       ? INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES
@@ -65,7 +65,7 @@ export const PatchesPage: React.FC<Props> = ({
       Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
     );
   const { limit, page } = usePatchesQueryParams();
-  const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
+  const { setAndSubmitInputValue } = useFilterInputChangeHandler({
     urlParam: PatchPageQueryParams.PatchName,
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
@@ -93,7 +93,7 @@ export const PatchesPage: React.FC<Props> = ({
   };
 
   const handlePageSizeChange = (pageSize: number): void => {
-    setPageSize(pageSize);
+    setLimit(pageSize);
     analyticsObject.sendEvent({ name: "Change Page Size" });
   };
 
@@ -101,12 +101,13 @@ export const PatchesPage: React.FC<Props> = ({
     <PageWrapper>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween hasAdditionalFilterComp={!!filterComp}>
-        <SearchInput
+        <TextInputWithValidation
           aria-label="Search patch descriptions"
           placeholder="Patch description regex"
-          onChange={(e) => setAndSubmitInputValue(e.target.value)}
-          value={inputValue}
+          onChange={(value) => setAndSubmitInputValue(value)}
           data-cy="patch-description-input"
+          validator={validateRegexp}
+          validatorErrorMessage="Invalid regex"
         />
         <StatusSelector />
         {filterComp}

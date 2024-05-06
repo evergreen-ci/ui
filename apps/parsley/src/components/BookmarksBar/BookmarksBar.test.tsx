@@ -41,25 +41,26 @@ describe("bookmarks bar", () => {
     });
   });
 
-  it("should properly display sorted bookmarks and shareLine", () => {
+  it("should properly display sorted bookmarks, shareLine, and failingLine", () => {
     renderWithRouterMatch(
       <BookmarksBar
+        failingLine={3}
         lineCount={11}
         processedLogLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
         scrollToLine={jest.fn()}
       />,
       {
-        route: "?bookmarks=1,7&shareLine=5",
+        route: "?bookmarks=1&shareLine=5",
       },
     );
     const { children } = screen.getByDataCy("bookmark-list");
     expect(children).toHaveLength(3);
     expect((children.item(0) as Element).textContent).toContain("1");
-    expect((children.item(1) as Element).textContent).toContain("5");
-    expect((children.item(1) as Element).children.item(1)).toStrictEqual(
+    expect((children.item(1) as Element).textContent).toContain("3");
+    expect((children.item(2) as Element).textContent).toContain("5");
+    expect((children.item(2) as Element).children.item(1)).toStrictEqual(
       screen.getByLabelText("Link Icon"),
     );
-    expect((children.item(2) as Element).textContent).toContain("7");
   });
 
   it("should be able to clear all bookmarks without removing share line", async () => {
@@ -75,6 +76,10 @@ describe("bookmarks bar", () => {
       },
     );
     await user.click(screen.getByDataCy("clear-bookmarks"));
+    expect(
+      screen.queryByText("Are you sure you want to clear all bookmarks?"),
+    ).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Yes" }));
     expect(router.state.location.search).toBe("?shareLine=5");
   });
 

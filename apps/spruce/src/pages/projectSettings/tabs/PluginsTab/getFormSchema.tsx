@@ -32,6 +32,7 @@ const requesters = [
 ];
 
 export const getFormSchema = (
+  isRepo: boolean,
   jiraEmail?: string,
   repoData?: PluginsFormState,
 ): ReturnType<GetFormSchema> => ({
@@ -57,33 +58,6 @@ export const getFormSchema = (
         type: "object" as "object",
         title: "Ticket Creation",
         properties: {
-          taskAnnotationSettings: {
-            title: "",
-            type: "object" as "object",
-            properties: {
-              jiraCustomFields: {
-                type: "array" as "array",
-                title: "Custom JIRA Fields",
-                items: {
-                  type: "object" as "object",
-                  properties: {
-                    field: {
-                      type: "string" as "string",
-                      title: "Field",
-                      minLength: 1,
-                      default: "",
-                    },
-                    displayText: {
-                      type: "string" as "string",
-                      title: "Display Text",
-                      minLength: 1,
-                      default: "",
-                    },
-                  },
-                },
-              },
-            },
-          },
           useBuildBaron: {
             type: "boolean" as "boolean",
             oneOf: radioBoxOptions([
@@ -225,25 +199,13 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       perfEnabled: {
         "ui:widget": widgets.RadioBoxWidget,
-        "ui:description":
-          "Enable the performance plugin (this requires the project to have matching ID and identifier).",
+        "ui:disabled": isRepo,
+        "ui:description": `Enable the performance plugin (this requires the project to have matching ID and identifier). ${isRepo && "This setting is disabled at the repo level."}`,
       },
     },
     buildBaronSettings: {
       "ui:rootFieldId": "buildBaron",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      taskAnnotationSettings: {
-        "ui:rootFieldId": "taskAnnotation",
-        jiraCustomFields: {
-          "ui:description":
-            "Add any custom JIRA fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
-          "ui:addButtonText": "Add Custom JIRA Field",
-          "ui:orderable": false,
-          items: {
-            "ui:label": false,
-          },
-        },
-      },
       useBuildBaron: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:showLabel": false,

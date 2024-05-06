@@ -67,21 +67,21 @@ functions:
     params:
       working_dir: ui/logkeeper
       background: true
-      script: go run main/logkeeper.go --localPath _bucketdata
+      script: go run main/logkeeper.go --localPath ../evergreen/_bucketdata
       shell: bash
       env:
         GOROOT: ${goroot}
         PATH: ${goroot}/bin:$PATH
         LK_CORS_ORIGINS: http:\/\/localhost:\d+
 
-  seed-logkeeper:
+  seed-bucket-data:
     command: s3.get
     type: setup
     params:
       aws_key: ${AWS_ACCESS_KEY_ID}
       aws_secret: ${AWS_SECRET_ACCESS_KEY}
       aws_session_token: ${AWS_SESSION_TOKEN}
-      extract_to: ui/logkeeper
+      extract_to: ui/evergreen
       remote_file: _bucketdata.tar.gz
       bucket: parsley-test
 
@@ -186,7 +186,7 @@ functions:
       params:
         binary: bash
         args:
-          - ui/${app_dir}/scripts/prepare-shell.sh
+          - ui/scripts/prepare-shell.sh
     - command: expansions.update
       params:
         file: expansion.yml
@@ -310,10 +310,10 @@ functions:
   yarn-test:
     command: shell.exec
     params:
-      working_dir: ui/${app_dir}
+      working_dir: ui
       script: |
         ${PREPARE_SHELL}
-        yarn test --ci --testPathIgnorePatterns=snapshot.test.ts
+        yarn test --ci --testPathIgnorePatterns=snapshot.test.ts --selectProjects ${build_variant}
 
   yarn-tsc:
     command: shell.exec
@@ -361,7 +361,7 @@ tasks:
       - func: run-make-background
         vars:
           target: local-evergreen
-      - func: seed-logkeeper
+      - func: seed-bucket-data
       - func: run-logkeeper
       - func: yarn-build
       - func: yarn-preview
@@ -376,7 +376,7 @@ tasks:
         vars:
           target: local-evergreen
       - func: symlink
-      - func: seed-logkeeper
+      - func: seed-bucket-data
       - func: run-logkeeper
       - func: yarn-build
       - func: yarn-serve

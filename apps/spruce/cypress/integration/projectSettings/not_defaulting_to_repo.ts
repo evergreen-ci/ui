@@ -1,5 +1,5 @@
-import { getGeneralRoute, project, saveButtonEnabled } from "./constants";
 import { clickSave } from "../../utils";
+import { getGeneralRoute, project, saveButtonEnabled } from "./constants";
 
 describe("Project Settings when not defaulting to repo", () => {
   const origin = getGeneralRoute(project);
@@ -59,8 +59,12 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-value-input").should("have.value", "{REDACTED}");
       cy.dataCy("var-name-input").should("be.disabled");
       cy.dataCy("var-value-input").should("be.disabled");
-      cy.dataCy("var-private-input").should("be.disabled");
-      cy.dataCy("var-admin-input").should("be.disabled");
+      cy.dataCy("var-private-input").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
+      cy.dataCy("var-admin-input").should("have.attr", "aria-disabled", "true");
     });
 
     it("Typing a duplicate variable name will disable saving and show an error message", () => {

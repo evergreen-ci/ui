@@ -1,15 +1,25 @@
 import { execSync } from "child_process";
+import { resolve } from "path";
 
 /**
  * `getCommitMessages` returns a string of all commit messages between the currently deployed commit and HEAD.
  * @param currentlyDeployedCommit - the currently deployed commit
- * @returns - a string of all commit messages between the currently deployed commit and HEAD
+ * @returns - a string of all commit messages between the currently deployed commit and HEAD. Commits are limited to those in the app's directory and the shared packages directory.
  */
 const getCommitMessages = (currentlyDeployedCommit: string) => {
+  const gitRoot = execSync(`git rev-parse --show-toplevel`, {
+    encoding: "utf-8",
+  })
+    .toString()
+    .trim();
+  const appDir = resolve(gitRoot, "apps", "parsley");
+  const packagesDir = resolve(gitRoot, "packages");
   const commitMessages = execSync(
-    `git log ${currentlyDeployedCommit}..HEAD --oneline -- .`,
-    { encoding: "utf-8" }
-  ).toString();
+    `git log ${currentlyDeployedCommit}..HEAD --oneline -- ${appDir} -- ${packagesDir}`,
+    { encoding: "utf-8" },
+  )
+    .toString()
+    .trim();
   return commitMessages;
 };
 
@@ -19,10 +29,10 @@ const getCommitMessages = (currentlyDeployedCommit: string) => {
  * @returns - the currently deployed commit
  */
 const getCurrentlyDeployedCommit = () => {
-  const currentlyDeployedCommit = execSync(
-    "bash scripts/deploy/get-current-deployed-commit.sh",
-    { encoding: "utf-8" }
-  )
+  const filePath = resolve(__dirname, "../../get-current-deployed-commit.sh");
+  const currentlyDeployedCommit = execSync(`bash ${filePath}`, {
+    encoding: "utf-8",
+  })
     .toString()
     .trim();
   return currentlyDeployedCommit;

@@ -3,24 +3,6 @@ import {
   DEFAULT_PAGE_SIZE,
   RECENT_PAGE_SIZE_KEY,
 } from "constants/index";
-import { parseQueryString } from "utils/queryString";
-
-const pageKey = "page";
-const limitKey = "limit";
-
-export const getPageFromSearch = (search: string): number => {
-  const parsed = parseQueryString(search);
-  const page = parseInt((parsed[pageKey] ?? "").toString(), 10);
-  return !Number.isNaN(page) && page >= 0 ? page : 0;
-};
-
-export const getLimitFromSearch = (search: string): number => {
-  const parsed = parseQueryString(search);
-  const limit = parseInt((parsed[limitKey] ?? "").toString(), 10);
-  return !Number.isNaN(limit) && PAGE_SIZES.includes(limit)
-    ? limit
-    : getDefaultPageSize();
-};
 
 // Takes a query param and a value and returns an array
 // if the query param already contains the value it does not modify it otherwise

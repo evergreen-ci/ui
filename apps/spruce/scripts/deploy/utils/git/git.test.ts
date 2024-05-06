@@ -6,7 +6,7 @@ describe("getCurrentlyDeployedCommit", () => {
   it("should return the currently deployed commit", () => {
     const currentlyDeployedCommit = getCurrentlyDeployedCommit();
     const currentlyDeployedCommitIsHash = currentlyDeployedCommitRegex.test(
-      currentlyDeployedCommit
+      currentlyDeployedCommit,
     );
     expect(currentlyDeployedCommitIsHash).toBeTruthy();
   });

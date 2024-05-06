@@ -87,6 +87,7 @@ const distroData: DistroQuery["distro"] = {
   isVirtualWorkStation: false,
   name: "rhel71-power8-large",
   note: "distro note",
+  warningNote: "distro warnings",
   plannerSettings: {
     commitQueueFactor: 0,
     expectedRuntimeFactor: 0,
@@ -111,7 +112,6 @@ const distroData: DistroQuery["distro"] = {
   ],
   setup: "ls -alF",
   setupAsSudo: true,
-  sshKey: "fakeSshKey",
   sshOptions: ["BatchMode=yes", "ConnectTimeout=10"],
   user: "admin",
   userSpawnAllowed: false,

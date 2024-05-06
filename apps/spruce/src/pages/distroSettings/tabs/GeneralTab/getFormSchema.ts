@@ -64,6 +64,11 @@ export const getFormSchema = (
             title: "Notes",
             default: "",
           },
+          warningNote: {
+            type: "string" as "string",
+            title: "Warnings",
+            default: "",
+          },
         },
       },
     },
@@ -110,6 +115,13 @@ export const getFormSchema = (
       note: {
         "ui:rows": 7,
         "ui:widget": "textarea",
+      },
+      warningNote: {
+        "ui:rows": 2,
+        // TODO: https://jira.mongodb.org/browse/DEVPROD-6656 - Swap this to textarea when the backend supports it
+        "ui:widget": "hidden",
+        "ui:description":
+          "This will be displayed to users when selecting this distro as part of evergreen yml validation.",
       },
     },
   },

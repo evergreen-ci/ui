@@ -167,4 +167,4 @@ functions:
     command: attach.xunit_results
     params:
       files:
-        - "./ui/${app_dir}/bin/jest/*.xml"
+        - "./ui/bin/jest/*.xml"

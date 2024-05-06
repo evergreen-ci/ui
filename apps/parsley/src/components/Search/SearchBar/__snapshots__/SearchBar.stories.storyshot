@@ -7,18 +7,20 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
   >
     <div
       class="leafygreen-ui-1iyoj2o css-6lshyd"
+      data-lgid="lg-select"
     >
       <button
-        aria-controls="select-193-menu"
-        aria-describedby="select-193-description"
+        aria-controls="select-194-menu"
+        aria-describedby="select-194-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
+        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
+        data-lgid="lg-button"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-194"
+        id="select-195"
         type="button"
         value="filter"
       >
@@ -33,6 +35,7 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
           >
             <div
               class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
+              data-lgid="lg-select-button_text"
             >
               Filter
             </div>
@@ -53,6 +56,13 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
           </svg>
         </div>
       </button>
+      <div
+        aria-live="polite"
+        aria-relevant="all"
+        class="leafygreen-ui-11ydt2g"
+        data-lgid="lg-form_field-feedback"
+        data-testid="lg-form_field-feedback"
+      />
     </div>
     <div
       class="css-1xm32e0"
@@ -173,18 +183,20 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
   >
     <div
       class="leafygreen-ui-1iyoj2o css-6lshyd"
+      data-lgid="lg-select"
     >
       <button
-        aria-controls="select-196-menu"
-        aria-describedby="select-196-description"
+        aria-controls="select-197-menu"
+        aria-describedby="select-197-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
+        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
+        data-lgid="lg-button"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-197"
+        id="select-198"
         type="button"
         value="filter"
       >
@@ -199,6 +211,7 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
           >
             <div
               class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
+              data-lgid="lg-select-button_text"
             >
               Filter
             </div>
@@ -219,6 +232,13 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
           </svg>
         </div>
       </button>
+      <div
+        aria-live="polite"
+        aria-relevant="all"
+        class="leafygreen-ui-11ydt2g"
+        data-lgid="lg-form_field-feedback"
+        data-testid="lg-form_field-feedback"
+      />
     </div>
     <div
       class="css-1xm32e0"

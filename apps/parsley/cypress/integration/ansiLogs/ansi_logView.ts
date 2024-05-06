@@ -113,6 +113,8 @@ describe("Bookmarking and selecting lines", () => {
 
   it("should be able to clear bookmarks", () => {
     cy.dataCy("clear-bookmarks").click();
+    cy.dataCy("clear-bookmarks-popconfirm").should("be.visible");
+    cy.contains("button", "Yes").click();
     cy.location("search").should("equal", "");
   });
 });
@@ -251,5 +253,28 @@ describe("Sharing lines", () => {
     cy.toggleDetailsPanel(true);
     cy.dataCy("range-lower-bound").should("have.value", "1");
     cy.dataCy("range-upper-bound").should("have.value", "2");
+  });
+});
+
+describe("jump to failing log line", () => {
+  const logLink =
+    "/evergreen/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/task";
+
+  beforeEach(() => {
+    cy.visit(logLink);
+  });
+
+  it("should jump to failing log line based on user setting", () => {
+    cy.clickToggle("jump-to-failing-line-toggle", false, "log-viewing");
+    cy.reload();
+    cy.dataCy("bookmark-list").should("contain", "9614");
+    cy.dataCy("log-row-0").should("be.visible");
+    cy.dataCy("log-row-9614").should("not.exist");
+
+    cy.clickToggle("jump-to-failing-line-toggle", true, "log-viewing");
+    cy.reload();
+    cy.dataCy("bookmark-list").should("contain", "9614");
+    cy.dataCy("log-row-9614").should("be.visible");
+    cy.dataCy("log-row-0").should("not.exist");
   });
 });

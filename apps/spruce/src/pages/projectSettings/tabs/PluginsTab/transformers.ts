@@ -14,15 +14,6 @@ export const gqlToForm = ((data) => {
       perfEnabled: projectRef?.perfEnabled,
     },
     buildBaronSettings: {
-      taskAnnotationSettings: {
-        jiraCustomFields:
-          projectRef?.taskAnnotationSettings?.jiraCustomFields?.map(
-            ({ displayText, field }) => ({
-              field,
-              displayText,
-            }),
-          ) ?? [],
-      },
       useBuildBaron:
         projectRef?.taskAnnotationSettings?.fileTicketWebhook?.endpoint === "",
       ticketSearchProjects:
@@ -54,6 +45,7 @@ export const gqlToForm = ((data) => {
 
 export const formToGql = ((
   { buildBaronSettings, externalLinks, performanceSettings },
+  isRepo,
   id,
 ) => {
   const projectRef: ProjectInput = {
@@ -65,10 +57,6 @@ export const formToGql = ((
         buildBaronSettings.useBuildBaron,
         buildBaronSettings.fileTicketWebhook,
       ),
-      jiraCustomFields:
-        buildBaronSettings.taskAnnotationSettings?.jiraCustomFields
-          .map(({ displayText, field }) => ({ field, displayText }))
-          .filter((str) => !!str),
     },
     externalLinks:
       externalLinks.length > 0
@@ -79,7 +67,7 @@ export const formToGql = ((
           }))
         : null,
   };
-  return { projectRef };
+  return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
 }) satisfies FormToGqlFunction<Tab>;
 
 // conditionally include the buildBaronSettings field based on the useBuildBaron boolean

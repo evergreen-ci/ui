@@ -1,6 +1,6 @@
 import Cookie from "js-cookie";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { LogTypes } from "constants/enums";
+import { LogRenderingTypes } from "constants/enums";
 import { act, renderHook, waitFor } from "test_utils";
 import { isCollapsedRow } from "utils/collapsedRow";
 import { LogContextProvider, useLogContext } from ".";
@@ -36,7 +36,14 @@ describe("useLogContext", () => {
   });
 
   describe("ingesting logs", () => {
-    const lines = ["foo", "bar", "baz"];
+    const lines = [
+      "foo",
+      "baz",
+      "bar",
+      "[2023/01/02 10:42:29.414] Command 'shell.exec' in function 'check-codegen' (step 2 of 2) failed: shell script encountered problem: exit code 1.",
+      "hello",
+      "world",
+    ];
     it("should add ingested logs to the list of logs", () => {
       const wrapper: React.FC<{ children: React.ReactNode }> = ({
         children,
@@ -47,9 +54,11 @@ describe("useLogContext", () => {
       );
       const { result } = renderHook(() => useLogContext(), { wrapper });
       act(() => {
-        result.current.ingestLines(lines, LogTypes.EVERGREEN_TASK_LOGS);
+        result.current.ingestLines(lines, LogRenderingTypes.Default);
       });
-      expect(result.current.processedLogLines).toStrictEqual([0, 1, 2]);
+      expect(result.current.processedLogLines).toStrictEqual([
+        0, 1, 2, 3, 4, 5,
+      ]);
       expect(result.current.lineCount).toBe(lines.length);
       for (let i = 0; i < lines.length; i++) {
         const line = result.current.processedLogLines[i];
@@ -58,6 +67,29 @@ describe("useLogContext", () => {
         // line is not an array we confirmed it above
         expect(result.current.getLine(line as number)).toStrictEqual(lines[i]);
       }
+    });
+
+    it("should save the failing log line number", () => {
+      const wrapper: React.FC<{ children: React.ReactNode }> = ({
+        children,
+      }) => (
+        <Router>
+          <LogContextProvider>{children}</LogContextProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => useLogContext(), { wrapper });
+      act(() => {
+        result.current.ingestLines(
+          lines,
+          LogRenderingTypes.Default,
+          "'shell.exec' in function 'check-codegen' (step 2 of 2)",
+        );
+      });
+      expect(result.current.failingLine).toBe(3);
+      act(() => {
+        result.current.ingestLines(lines, LogRenderingTypes.Default);
+      });
+      expect(result.current.failingLine).toBeUndefined();
     });
 
     it("should set hasLogs to true if logs exist and false otherwise.", () => {
@@ -71,11 +103,11 @@ describe("useLogContext", () => {
       const { result } = renderHook(() => useLogContext(), { wrapper });
       expect(result.current.hasLogs).toBeNull();
       act(() => {
-        result.current.ingestLines(lines, LogTypes.EVERGREEN_TASK_LOGS);
+        result.current.ingestLines(lines, LogRenderingTypes.Default);
       });
       expect(result.current.hasLogs).toBe(true);
       act(() => {
-        result.current.ingestLines([], LogTypes.EVERGREEN_TASK_LOGS);
+        result.current.ingestLines([], LogRenderingTypes.Default);
       });
       expect(result.current.hasLogs).toBe(false);
     });
@@ -123,7 +155,7 @@ describe("useLogContext", () => {
         `[j0:s0] {"t":{"$date":"2022-09-13T16:57:46.855+00:00"},"s":"I",  "c":"-",        "id":20883,   "ctx":"conn188","msg":"Interrupted operation as its client disconnected","attr":{"opId":6047}}`,
       ];
       act(() => {
-        result.current.ingestLines(lines, LogTypes.RESMOKE_LOGS);
+        result.current.ingestLines(lines, LogRenderingTypes.Resmoke);
       });
       const resmokeLines = [
         `[j0:s0:n1] | 2022-09-13T16:57:46.852+00:00 D2 REPL_HB  4615670     [ReplCoord-1] "Sending heartbeat","attr":{"requestId":3705,"target":"localhost:20003","heartbeatObj":{"replSetHeartbeat":"shard-rs0","configVersion":5,"configTerm":3,"hbv":1,"from":"localhost:20004","fromId":1,"term":3,"primaryId":1}}`,
@@ -153,7 +185,7 @@ describe("useLogContext", () => {
         `[j0:s0] {"t":{"$date":"2022-09-13T16:57:46.855+00:00"},"s":"I",  "c":"-",        "id":20883,   "ctx":"conn188","msg":"Interrupted operation as its client disconnected","attr":{"opId":6047}}`,
       ];
       act(() => {
-        result.current.ingestLines(lines, LogTypes.RESMOKE_LOGS);
+        result.current.ingestLines(lines, LogRenderingTypes.Resmoke);
       });
       expect(result.current.getResmokeLineColor(0)).toBe("#00A35C");
       expect(result.current.getResmokeLineColor(1)).toBeUndefined();

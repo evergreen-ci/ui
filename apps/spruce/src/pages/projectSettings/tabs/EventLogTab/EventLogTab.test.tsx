@@ -94,6 +94,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             displayName: "Spruce",
             batchTime: 60,
             remotePath: ".evergreen.yml",
+            oldestAllowedMergeBase: "",
             spawnHostScriptPath: "",
             dispatchingDisabled: false,
             versionControlEnabled: false,
@@ -117,7 +118,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
               ticketCreateIssueType: "",
             },
             taskAnnotationSettings: {
-              jiraCustomFields: null,
               fileTicketWebhook: {
                 endpoint: "",
                 secret: "",
@@ -182,6 +182,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             batchTime: 30,
             remotePath: ".srat.yml",
             spawnHostScriptPath: "",
+            oldestAllowedMergeBase: "",
             dispatchingDisabled: false,
             versionControlEnabled: false,
             deactivatePrevious: true,
@@ -204,7 +205,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
               ticketCreateIssueType: "",
             },
             taskAnnotationSettings: {
-              jiraCustomFields: null,
               fileTicketWebhook: {
                 endpoint: "",
                 secret: "",

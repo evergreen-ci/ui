@@ -1,13 +1,13 @@
 import {
   getParsleyBuildLogURL,
-  getParsleyTestLogURL,
+  getParsleyLogkeeperTestLogURL,
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "./externalResources";
 
-describe("getParsleyTestLogURL", () => {
+describe("getParsleyLogkeeperTestLogURL", () => {
   it("generates the correct url", () => {
-    expect(getParsleyTestLogURL("myBuildId", "myTestId")).toBe(
+    expect(getParsleyLogkeeperTestLogURL("myBuildId", "myTestId")).toBe(
       "/resmoke/myBuildId/test/myTestId",
     );
   });
@@ -19,7 +19,7 @@ describe("getParsleyBuildLogURL", () => {
   });
 });
 
-describe("getTaskTraceUrl", () => {
+describe("getHoneycombTraceUrl", () => {
   it("generates the correct url", () => {
     expect(
       getHoneycombTraceUrl(
@@ -28,7 +28,7 @@ describe("getTaskTraceUrl", () => {
         new Date("2023-07-07T19:09:00"),
       ),
     ).toBe(
-      "/datasets/evergreen-agent/trace?trace_id=abcdef&trace_start_ts=1688756921&trace_end_ts=1688756940",
+      "/datasets/evergreen-agent/trace?trace_id=abcdef&trace_start_ts=1688756921&trace_end_ts=1688756941",
     );
   });
 });

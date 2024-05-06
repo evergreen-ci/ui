@@ -375,34 +375,36 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           >
             Finished tasks link to Honeycomb.
           </GuideCue>
-          <StyledLink
-            ref={triggerRef}
-            data-cy="task-trace-link"
-            href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
-            onClick={() => {
-              onHideCue();
-              taskAnalytics.sendEvent({ name: "Click Trace Link" });
-            }}
-            hideExternalIcon={false}
-          >
-            Honeycomb Trace
-          </StyledLink>
-          <StyledLink
-            data-cy="task-metrics-link"
-            href={getHoneycombSystemMetricsUrl(
-              taskId,
-              diskDevices,
-              startTime,
-              finishTime,
-            )}
-            onClick={() => {
-              onHideCue();
-              taskAnalytics.sendEvent({ name: "Click Trace Metrics Link" });
-            }}
-            hideExternalIcon={false}
-          >
-            Honeycomb System Metrics
-          </StyledLink>
+          <HoneycombLinkContainer>
+            <StyledLink
+              ref={triggerRef}
+              data-cy="task-trace-link"
+              href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
+              onClick={() => {
+                onHideCue();
+                taskAnalytics.sendEvent({ name: "Click Trace Link" });
+              }}
+              hideExternalIcon={false}
+            >
+              Honeycomb Trace
+            </StyledLink>
+            <StyledLink
+              data-cy="task-metrics-link"
+              href={getHoneycombSystemMetricsUrl(
+                taskId,
+                diskDevices,
+                startTime,
+                finishTime,
+              )}
+              onClick={() => {
+                onHideCue();
+                taskAnalytics.sendEvent({ name: "Click Trace Metrics Link" });
+              }}
+              hideExternalIcon={false}
+            >
+              Honeycomb System Metrics
+            </StyledLink>
+          </HoneycombLinkContainer>
         </MetadataItem>
       )}
       {stepback && <Stepback taskId={taskId} />}
@@ -470,6 +472,11 @@ const hostTaskStrandedMessage =
 
 const DependsOnContainer = styled.div`
   margin-top: ${size.s};
+`;
+
+const HoneycombLinkContainer = styled.span`
+  display: flex;
+  flex-direction: column;
 `;
 
 const OOMTrackerMessage = styled(MetadataItem)`

@@ -44,6 +44,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     notifyOnBuildFailure: null,
     batchTime: 0,
     remotePath: null,
+    oldestAllowedMergeBase: "abc",
     spawnHostScriptPath: null,
     dispatchingDisabled: null,
     versionControlEnabled: true,
@@ -79,7 +80,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       ticketCreateIssueType: JiraTicketType.Epic,
     },
     taskAnnotationSettings: {
-      jiraCustomFields: [],
       fileTicketWebhook: {
         endpoint: null,
         secret: null,
@@ -178,6 +178,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     batchTime: 12,
     remotePath: "evergreen.yml",
     spawnHostScriptPath: "/test/path",
+    oldestAllowedMergeBase: "abc",
     dispatchingDisabled: true,
     versionControlEnabled: false,
     deactivatePrevious: true,
@@ -213,12 +214,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       ticketCreateIssueType: JiraTicketType.Epic,
     },
     taskAnnotationSettings: {
-      jiraCustomFields: [
-        {
-          field: "customField",
-          displayText: "Custom Field",
-        },
-      ],
       fileTicketWebhook: {
         endpoint: "endpoint",
         secret: "secret",

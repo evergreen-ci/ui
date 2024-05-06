@@ -97,12 +97,10 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
             Project:
              
             <a
-              class="lg-ui-0001 css-16hif17-StyledLink leafygreen-ui-1gfngq5"
+              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
               href="/project/spruce/patches"
             >
-              <span
-                class="leafygreen-ui-1ewnca3"
-              >
+              <span>
                 spruce
               </span>
             </a>
@@ -128,6 +126,7 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                 </p>
                 <p
                   class="leafygreen-ui-110o31d"
+                  data-lgid="lg-description"
                 >
                   Use Shift + Click to edit multiple variants simultaneously.
                 </p>
@@ -183,6 +182,7 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                 </p>
                 <p
                   class="leafygreen-ui-110o31d"
+                  data-lgid="lg-description"
                 >
                   Use Shift + Click to edit multiple variants simultaneously.
                 </p>
@@ -365,17 +365,17 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-16"
-                      id="checkbox-16-label"
+                      for="checkbox-258"
+                      id="checkbox-258-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-16-label"
+                        aria-labelledby="checkbox-258-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="select-all-checkbox"
-                        id="checkbox-16"
+                        id="checkbox-258"
                         type="checkbox"
                       />
                       <div
@@ -403,7 +403,7 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                         class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
                       />
                       <span
-                        class="leafygreen-ui-1wmrjan"
+                        class="leafygreen-ui-187di61"
                       >
                         <div
                           class="css-118tpd3-LabelContainer eoqkpw15"
@@ -429,17 +429,17 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-17"
-                      id="checkbox-17-label"
+                      for="checkbox-259"
+                      id="checkbox-259-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-17-label"
+                        aria-labelledby="checkbox-259-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-17"
+                        id="checkbox-259"
                         type="checkbox"
                       />
                       <div
@@ -467,7 +467,7 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                         class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
                       />
                       <span
-                        class="leafygreen-ui-1wmrjan"
+                        class="leafygreen-ui-187di61"
                       >
                         e2e_test
                       </span>
@@ -478,17 +478,17 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-18"
-                      id="checkbox-18-label"
+                      for="checkbox-260"
+                      id="checkbox-260-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-18-label"
+                        aria-labelledby="checkbox-260-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-18"
+                        id="checkbox-260"
                         type="checkbox"
                       />
                       <div
@@ -516,7 +516,7 @@ exports[`Snapshot Tests pages/configurePatch/configurePatchCore ConfigureTasksDe
                         class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
                       />
                       <span
-                        class="leafygreen-ui-1wmrjan"
+                        class="leafygreen-ui-187di61"
                       >
                         test
                       </span>

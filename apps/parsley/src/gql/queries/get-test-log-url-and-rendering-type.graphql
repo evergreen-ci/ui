@@ -7,12 +7,15 @@ query TestLogURLAndRenderingType(
     id
     tests(opts: { testName: $testName, excludeDisplayNames: true }) {
       testResults {
+        groupID
         id
         logs {
           renderingType
           url
           urlRaw
         }
+        status
+        testFile
       }
     }
   }

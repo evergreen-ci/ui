@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { Divider } from "components/styles/divider";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { BuildVariantsWithChildrenQuery } from "gql/generated/types";
@@ -37,21 +38,29 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
         selectedBaseStatuses={baseStatusFilterTerm || []}
         selectedStatuses={versionStatusFilterTerm || []}
       />
-      {[...buildVariants]
-        .sort((a, b) => a.displayName.localeCompare(b.displayName))
-        .map((patchBuildVariant) => (
-          <BuildVariantAccordion
-            versionId={versionId}
-            key={`accordion_${patchBuildVariant.variant}`}
-            tasks={patchBuildVariant.tasks}
-            displayName={patchBuildVariant.displayName}
-            selectedTasks={tasks}
-            toggleSelectedTask={toggleSelectedTask}
-          />
-        ))}
-      <Divider />
+      <ContentWrapper>
+        {[...buildVariants]
+          .sort((a, b) => a.displayName.localeCompare(b.displayName))
+          .map((patchBuildVariant) => (
+            <BuildVariantAccordion
+              versionId={versionId}
+              key={`accordion_${patchBuildVariant.variant}`}
+              tasks={patchBuildVariant.tasks}
+              displayName={patchBuildVariant.displayName}
+              selectedTasks={tasks}
+              toggleSelectedTask={toggleSelectedTask}
+            />
+          ))}
+        <Divider />
+      </ContentWrapper>
     </>
   ) : null;
 };
+
+// 425px represents the height to subtract to prevent an overflow on the modal
+const ContentWrapper = styled.div`
+  max-height: calc(100vh - 425px);
+  overflow-y: auto;
+`;
 
 export default VersionTasks;

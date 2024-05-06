@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import Button, { ButtonProps } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import Popover from "@leafygreen-ui/popover";
@@ -9,8 +9,11 @@ interface PopoverButtonProps extends Omit<ButtonProps, "children"> {
   children: React.ReactNode;
   onClick?: () => void;
   buttonText: React.ReactNode | string;
+  buttonRef: RefObject<HTMLButtonElement>;
 }
+
 const PopoverButton: React.FC<PopoverButtonProps> = ({
+  buttonRef,
   buttonText,
   children,
   onClick,
@@ -18,7 +21,6 @@ const PopoverButton: React.FC<PopoverButtonProps> = ({
   ...rest
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutside([buttonRef, popoverRef], () => {
@@ -29,6 +31,7 @@ const PopoverButton: React.FC<PopoverButtonProps> = ({
     setIsOpen(!isOpen);
     onClick?.();
   };
+
   return (
     <Button
       ref={buttonRef}

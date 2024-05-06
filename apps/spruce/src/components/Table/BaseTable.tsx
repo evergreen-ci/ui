@@ -165,7 +165,9 @@ export const BaseTable = forwardRef(
         </StyledTable>
         {!loading &&
           rows.length === 0 &&
-          (emptyComponent || "No data to display")}
+          (emptyComponent || (
+            <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
+          ))}
       </>
     );
   },
@@ -228,6 +230,10 @@ const RenderableRow = <T extends LGRowData>({
 
 const StyledTable = styled(Table)`
   transition: none !important;
+`;
+
+const DefaultEmptyMessage = styled.span`
+  margin-left: ${size.l};
 `;
 
 const StyledExpandedContent = styled(ExpandedContent)`

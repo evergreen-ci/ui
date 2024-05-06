@@ -13,6 +13,13 @@ describe("using the distro dropdown", () => {
     cy.location("pathname").should("not.contain", "localhost");
     cy.location("pathname").should("contain", "rhel71-power8-large");
   });
+  it("navigates to the task queue for the selected distro", () => {
+    cy.dataCy("navitem-task-queue-link").should(
+      "have.attr",
+      "href",
+      "/task-queue/localhost",
+    );
+  });
 
   describe("warning modal", () => {
     it("warns when navigating away from distro settings with unsaved changes and allows returning to distro settings", () => {

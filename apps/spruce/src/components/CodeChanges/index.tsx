@@ -42,7 +42,11 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
     return <div id="patch-error">{error.message}</div>;
   }
   if (!moduleCodeChanges.length) {
-    return <Title className="cy-no-code-changes">No code changes</Title>;
+    return (
+      <Title className="cy-no-code-changes">
+        Code changes do not exist, or are too large to display.
+      </Title>
+    );
   }
   return (
     <div data-cy="code-changes">

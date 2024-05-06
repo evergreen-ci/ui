@@ -1,30 +1,36 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
+import Popconfirm from "components/Popconfirm";
 import { QueryParams } from "constants/queryParams";
 import { size, zIndex } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { findLineIndex } from "utils/findLineIndex";
 
-const { gray, green } = palette;
+const { gray, green, red } = palette;
 
 interface BookmarksBarProps {
+  failingLine?: number;
   lineCount: number;
   processedLogLines: (number | number[])[];
   scrollToLine: (scrollIndex: number) => void;
 }
 
 const BookmarksBar: React.FC<BookmarksBarProps> = ({
+  failingLine,
   lineCount,
   processedLogLines,
   scrollToLine,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
 
+  const clearButtonRef = useRef(null);
+  const [clearButtonConfirmationOpen, setClearButtonConfirmationOpen] =
+    useState(false);
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -45,10 +51,9 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const lineNumbers =
-    shareLine !== undefined
-      ? Array.from(new Set([...bookmarks, shareLine])).sort((a, b) => a - b)
-      : bookmarks;
+  const lineNumbers = Array.from(
+    new Set([...bookmarks, shareLine ?? 0, failingLine ?? 0]),
+  ).sort((a, b) => a - b);
 
   // Finds the corresponding index of a line number and scrolls to it.
   const scrollToIndex = (lineNumber: number): void => {
@@ -60,15 +65,25 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
 
   return (
     <Container>
+      <Popconfirm
+        data-cy="clear-bookmarks-popconfirm"
+        onConfirm={() => {
+          setBookmarks([]);
+          sendEvent({ name: "Cleared All Bookmarks" });
+        }}
+        open={clearButtonConfirmationOpen}
+        refEl={clearButtonRef}
+        setOpen={setClearButtonConfirmationOpen}
+      >
+        <div>Are you sure you want to clear all bookmarks?</div>
+      </Popconfirm>
       <Tooltip
         popoverZIndex={zIndex.tooltip}
         trigger={
           <StyledButton
+            ref={clearButtonRef}
             data-cy="clear-bookmarks"
-            onClick={() => {
-              setBookmarks([]);
-              sendEvent({ name: "Cleared All Bookmarks" });
-            }}
+            onClick={() => setClearButtonConfirmationOpen(true)}
             size="xsmall"
           >
             Clear
@@ -82,6 +97,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
           <LogLineNumber
             key={`bookmark-${l}`}
             data-cy={`bookmark-${l}`}
+            failed={l === failingLine}
             onClick={() => {
               sendEvent({ name: "Navigated With Bookmark" });
               scrollToIndex(l);
@@ -108,7 +124,7 @@ const LogLineContainer = styled.div`
   overflow-y: scroll;
 `;
 
-const LogLineNumber = styled.div`
+const LogLineNumber = styled.div<{ failed: boolean }>`
   display: flex;
   align-items: center;
   font-size: 13px;
@@ -117,6 +133,7 @@ const LogLineNumber = styled.div`
   :hover {
     color: ${green.dark1};
   }
+  ${({ failed }) => failed && `color: ${red.base};`}
 `;
 
 const StyledIcon = styled(Icon)`

@@ -9,7 +9,11 @@ export const wikiBaseUrl =
 
 export const wikiUrl = `${wikiBaseUrl}/Home`;
 
-export const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-and-Distro-Settings`;
+const projectSettingsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration`;
+
+export const projectDistroSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Project-and-Distro-Settings`;
+
+export const projectSettingsRepoSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Repo-Level-Settings`;
 
 export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
 
@@ -60,26 +64,47 @@ export const getGithubCommitUrl = (
   githash: string,
 ) => `https://github.com/${owner}/${repo}/commit/${githash}`;
 
+export const getGithubMergeQueueUrl = (
+  owner: string,
+  repo: string,
+  branch: string,
+) => `https://github.com/${owner}/${repo}/queue/${branch}`;
+
 export const getParsleyTaskLogLink = (
   logType: LogTypes,
   taskId: string,
   execution: number,
 ) => `${getParsleyUrl()}/evergreen/${taskId}/${execution}/${logType}`;
 
-export const getParsleyTestLogURL = (buildId: string, testId: string) =>
-  `${getParsleyUrl()}/resmoke/${buildId}/test/${testId}`;
+export const getParsleyLogkeeperTestLogURL = (
+  buildId: string,
+  testId: string,
+) => `${getParsleyUrl()}/resmoke/${buildId}/test/${testId}`;
 
 export const getParsleyBuildLogURL = (buildId: string) =>
   `${getParsleyUrl()}/resmoke/${buildId}/all`;
 
+export const getParsleyCompleteLogsURL = (
+  taskID: string,
+  execution: number | string,
+  groupID: string,
+) => `${getParsleyUrl()}/resmoke/${taskID}/${execution}/${groupID}/all`;
+
+/**
+ * Generates a URL for accessing a trace in the Honeycomb dashboard.
+ * @param traceId - The ID of the trace.
+ * @param startTs - The start timestamp of the trace. Note that this timestamp is truncated to the nearest second.
+ * @param endTs - The end timestamp of the trace. Note that this timestamp is rounded up to the nearest second.
+ * @returns The URL for accessing the trace in the Honeycomb dashboard.
+ */
 export const getHoneycombTraceUrl = (
   traceId: string,
   startTs: Date,
   endTs: Date,
-) =>
+): string =>
   `${getHoneycombBaseURL()}/datasets/evergreen-agent/trace?trace_id=${traceId}&trace_start_ts=${getUnixTime(
     new Date(startTs),
-  )}&trace_end_ts=${getUnixTime(new Date(endTs))}`;
+  )}&trace_end_ts=${getUnixTime(new Date(endTs)) + 1}`;
 
 export const getHoneycombSystemMetricsUrl = (
   taskId: string,

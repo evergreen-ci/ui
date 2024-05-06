@@ -12,6 +12,7 @@ interface LogRowProps extends RootRowProps {
   getLine: (index: number) => string | undefined;
   scrollToLine: (lineNumber: number) => void;
 
+  failingLine?: number;
   highlightRegex?: RegExp;
   lineNumber: number;
   range: {

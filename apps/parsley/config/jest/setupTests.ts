@@ -1,9 +1,10 @@
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 
 // The following two variables are dummy values used in auth.test.tsx.
 process.env.REACT_APP_EVERGREEN_URL = "test-evergreen.com";
 process.env.REACT_APP_GRAPHQL_URL = "test-graphql.com";
+process.env.REACT_APP_SPRUCE_URL = "test-spruce.com";
 
 if (process.env.CI) {
   // Avoid printing debug statements when running tests.

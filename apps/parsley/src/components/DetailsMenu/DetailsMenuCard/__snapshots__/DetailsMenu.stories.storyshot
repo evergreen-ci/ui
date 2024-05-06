@@ -25,12 +25,12 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
             role="tablist"
           >
             <button
-              aria-controls="tab-panel-2"
+              aria-controls="tab-panel-3"
               aria-selected="true"
               class="leafygreen-ui-oq6if2"
               data-cy="search-and-filter-tab"
               data-text="Search & Filter"
-              id="tab-3"
+              id="tab-4"
               name="Search & Filter"
               role="tab"
               tabindex="0"
@@ -42,12 +42,12 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
               </div>
             </button>
             <button
-              aria-controls="tab-panel-4"
+              aria-controls="tab-panel-5"
               aria-selected="false"
               class="leafygreen-ui-1vvp6ij"
               data-cy="log-viewing-tab"
               data-text="Log Viewing"
-              id="tab-5"
+              id="tab-6"
               name="Log Viewing"
               role="tab"
               tabindex="-1"
@@ -69,9 +69,9 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
         </div>
         <div>
           <div
-            aria-labelledby="tab-3"
+            aria-labelledby="tab-4"
             data-cy="search-and-filter-tab"
-            id="tab-panel-2"
+            id="tab-panel-3"
             role="tabpanel"
           >
             <div
@@ -487,9 +487,9 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="tab-5"
+            aria-labelledby="tab-6"
             data-cy="log-viewing-tab"
-            id="tab-panel-4"
+            id="tab-panel-5"
             role="tabpanel"
           />
         </div>
@@ -524,12 +524,12 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
             role="tablist"
           >
             <button
-              aria-controls="tab-panel-20"
+              aria-controls="tab-panel-21"
               aria-selected="true"
               class="leafygreen-ui-oq6if2"
               data-cy="search-and-filter-tab"
               data-text="Search & Filter"
-              id="tab-21"
+              id="tab-22"
               name="Search & Filter"
               role="tab"
               tabindex="0"
@@ -541,12 +541,12 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
               </div>
             </button>
             <button
-              aria-controls="tab-panel-22"
+              aria-controls="tab-panel-23"
               aria-selected="false"
               class="leafygreen-ui-1vvp6ij"
               data-cy="log-viewing-tab"
               data-text="Log Viewing"
-              id="tab-23"
+              id="tab-24"
               name="Log Viewing"
               role="tab"
               tabindex="-1"
@@ -568,9 +568,9 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
         </div>
         <div>
           <div
-            aria-labelledby="tab-21"
+            aria-labelledby="tab-22"
             data-cy="search-and-filter-tab"
-            id="tab-panel-20"
+            id="tab-panel-21"
             role="tabpanel"
           >
             <div
@@ -984,30 +984,11 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                 </div>
               </button>
             </div>
-            <label
-              class="leafygreen-ui-gd3h51"
-              for="code-1"
-            >
-              Fetch the log via CLI
-            </label>
-            <div
-              class="css-1ago99h leafygreen-ui-s93xmp"
-            >
-              <code
-                class="leafygreen-ui-4f6y2t"
-                id="code-1"
-              >
-                evergreen buildlogger fetch --task_id mci_ubuntu1604_test_model_task_5f4d3b4f562343215f7f5f3d_20_08_25_15_50_10 --execution 0 --test_name TestModelGetArtifacts
-              </code>
-              <span
-                class="leafygreen-ui-11qmwnb"
-              />
-            </div>
           </div>
           <div
-            aria-labelledby="tab-23"
+            aria-labelledby="tab-24"
             data-cy="log-viewing-tab"
-            id="tab-panel-22"
+            id="tab-panel-23"
             role="tabpanel"
           />
         </div>

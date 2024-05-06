@@ -15,10 +15,6 @@ fragment ProjectPluginsSettings on Project {
       endpoint
       secret
     }
-    jiraCustomFields {
-      displayText
-      field
-    }
   }
 }
 
@@ -38,10 +34,6 @@ fragment RepoPluginsSettings on RepoRef {
     fileTicketWebhook {
       endpoint
       secret
-    }
-    jiraCustomFields {
-      displayText
-      field
     }
   }
 }

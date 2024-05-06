@@ -36,6 +36,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
   const { ingestLines, setLogMetadata } = useLogContext();
   const {
     downloadURL,
+    failingCommand,
     htmlLogURL,
     jobLogsURL,
     legacyJobLogsURL,
@@ -56,7 +57,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     useFetch<LogkeeperMetadata>(
       getResmokeLogURL(buildID || "", { metadata: true, testID }),
       {
-        skip: buildID === undefined,
+        skip: logType !== LogTypes.LOGKEEPER_LOGS || buildID === undefined,
       },
     );
 
@@ -77,8 +78,8 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
         buildID,
         execution: execution || String(logkeeperMetadata?.execution || 0),
         fileName,
+        groupID,
         htmlLogURL,
-        isUploadedLog: false,
         jobLogsURL,
         legacyJobLogsURL,
         logType,
@@ -88,7 +89,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
         taskID: taskID || logkeeperMetadata?.task_id,
         testID,
       });
-      ingestLines(data, logType);
+      ingestLines(data, renderingType, failingCommand);
     }
     if (error) {
       dispatchToast.error(error);
@@ -100,6 +101,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     error,
     execution,
     fileName,
+    groupID,
     htmlLogURL,
     ingestLines,
     isLoadingLogkeeperMetadata,
@@ -114,6 +116,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
     setLogMetadata,
     taskID,
     testID,
+    failingCommand,
   ]);
 
   if (isLoadingLog || isLoadingEvergreen) {
