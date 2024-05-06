@@ -1,3 +1,5 @@
+#import "../fragments/upstreamProject.graphql"
+
 query MainlineCommitsForHistory(
   $mainlineCommitsOptions: MainlineCommitsOptions!
   $buildVariantOptions: BuildVariantOptions!
