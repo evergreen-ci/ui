@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import PageTitle from "components/PageTitle";
@@ -17,33 +17,30 @@ import { useToastContext } from "context/toast";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { usePolling } from "hooks";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useQueryParam } from "hooks/useQueryParam";
 import { PageDoesNotExist } from "pages/NotFound";
 import { RequiredQueryParams, TaskStatus } from "types/task";
-import { queryString } from "utils";
 import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
 import { ExecutionSelect } from "./task/executionDropdown/ExecutionSelector";
 import { Metadata } from "./task/metadata";
 import { TaskTabs } from "./task/TaskTabs";
 
-const { parseQueryString } = queryString;
-
 export const Task = () => {
   const { [slugs.taskId]: taskId } = useParams();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
-  const location = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
+  const [execution, setExecution] = useQueryParam<number>(
+    RequiredQueryParams.Execution,
+    0,
+  );
 
   // Query task data
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskQuery,
     TaskQueryVariables
   >(TASK, {
-    variables: { taskId, execution: selectedExecution },
+    variables: { taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "network-only",
     onError: (err) =>
@@ -107,13 +104,11 @@ export const Task = () => {
           {latestExecution > 0 && (
             <ExecutionSelect
               id={taskId}
-              currentExecution={selectedExecution}
+              currentExecution={execution}
               latestExecution={latestExecution}
               updateExecution={(n: number) => {
                 taskAnalytics.sendEvent({ name: "Change Execution" });
-                updateQueryParams({
-                  execution: `${n}`,
-                });
+                setExecution(n);
               }}
             />
           )}
