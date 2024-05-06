@@ -4,12 +4,12 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Pagination from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
-import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   getFacetedUniqueValues,
   getFilteredRowModel,
   filterFns,
-} from "@tanstack/react-table";
+  useLeafyGreenTable,
+} from "@leafygreen-ui/table";
 import Icon from "components/Icon";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { ShortenedRouterLink } from "components/styles";

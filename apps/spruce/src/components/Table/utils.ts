@@ -1,4 +1,4 @@
-import { OnChangeFn } from "@tanstack/react-table";
+import { OnChangeFn } from "@leafygreen-ui/table";
 
 export enum TableQueryParams {
   Limit = "limit",
