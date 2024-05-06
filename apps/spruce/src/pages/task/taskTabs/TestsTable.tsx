@@ -12,8 +12,9 @@ import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
-import { onChangeHandler, TableQueryParams } from "components/Table/utils";
+import { onChangeHandler } from "components/Table/utils";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,
@@ -263,9 +264,9 @@ const getQueryVariables = (
     id: taskId,
     execution: queryParamAsNumber(execution),
     sort,
-    limitNum: getLimit(queryParams[TableQueryParams.Limit]),
+    limitNum: getLimit(queryParams[PaginationQueryParams.Limit]),
     statusList,
     testName,
-    pageNum: getPage(queryParams[TableQueryParams.Page]),
+    pageNum: getPage(queryParams[PaginationQueryParams.Page]),
   };
 };

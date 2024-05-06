@@ -1,5 +1,5 @@
 import { SortingState } from "@leafygreen-ui/table";
-import { TableQueryParams } from "components/Table/utils";
+import { TableQueryParams, PaginationQueryParams } from "constants/queryParams";
 import { SortDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 import { queryString } from "utils";
@@ -26,7 +26,7 @@ export const useTableSort = (props?: Props): CallbackType => {
 
     const nextQueryParams = {
       ...queryParams,
-      [TableQueryParams.Page]: "0",
+      [PaginationQueryParams.Page]: "0",
       [TableQueryParams.Sorts]: undefined,
       [TableQueryParams.SortDir]: undefined,
       [TableQueryParams.SortBy]: undefined,
