@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { InputFilterProps } from "components/Table/Filters";
 import TasksTable from "components/TasksTable";
+import { PaginationQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
 import { Task, VersionTasksQuery, SortOrder } from "gql/generated/types";
 import {
@@ -67,7 +68,7 @@ export const PatchTasksTable: React.FC<Props> = ({
   const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
     updateQueryParams({
       sorts: toSortString(sorter),
-      [PatchTasksQueryParams.Page]: "0",
+      [PaginationQueryParams.Page]: "0",
     });
   };
 
