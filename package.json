@@ -17,9 +17,7 @@
     "test": "jest --watchAll=false"
   },
   "resolutions": {
-    "@tanstack/react-table": "8.9.3",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.0"
+    "@tanstack/react-table": "8.9.3"
   },
   "devDependencies": {
     "husky": "9.0.11",
