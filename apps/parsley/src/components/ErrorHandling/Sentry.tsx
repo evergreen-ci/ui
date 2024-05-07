@@ -18,6 +18,18 @@ import ErrorFallback from "./ErrorFallback";
 const initializeSentry = () => {
   try {
     init({
+      beforeBreadcrumb: (breadcrumb, hint) => {
+        if (breadcrumb?.category?.startsWith("ui")) {
+          const { target } = hint?.event ?? {};
+          if (target.dataset.cy) {
+            // eslint-disable-next-line no-param-reassign
+            breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy=${target.dataset.cy}]`;
+          }
+          // eslint-disable-next-line no-param-reassign
+          breadcrumb.data = processHtmlAttributes(target);
+        }
+        return breadcrumb;
+      },
       debug: !isProduction(),
       dsn: getSentryDSN(),
       environment: getReleaseStage() || "development",
@@ -30,6 +42,17 @@ const initializeSentry = () => {
 
 const isInitialized = () => !!getClient();
 
+const processHtmlAttributes = (htmlElement: HTMLElement) => {
+  const { ariaLabel, dataset, title } = htmlElement ?? {};
+  return {
+    ...(ariaLabel && { ariaLabel }),
+    ...(dataset &&
+      Object.keys(dataset).length > 0 && {
+        dataset: htmlElement.dataset,
+      }),
+    ...(title && { title }),
+  };
+};
 export type ErrorInput = {
   err: Error;
   fingerprint?: string[];

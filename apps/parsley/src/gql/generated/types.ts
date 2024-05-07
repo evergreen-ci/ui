@@ -1330,8 +1330,9 @@ export type MutationUpdatePublicKeyArgs = {
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
-  action: SpawnHostStatusActions;
-  hostId: Scalars["String"]["input"];
+  action?: InputMaybe<SpawnHostStatusActions>;
+  hostId?: InputMaybe<Scalars["String"]["input"]>;
+  updateSpawnHostStatusInput?: InputMaybe<UpdateSpawnHostStatusInput>;
 };
 
 export type MutationUpdateUserSettingsArgs = {
@@ -2919,6 +2920,12 @@ export type UpdateParsleySettingsInput = {
 export type UpdateParsleySettingsPayload = {
   __typename?: "UpdateParsleySettingsPayload";
   parsleySettings?: Maybe<ParsleySettings>;
+};
+
+export type UpdateSpawnHostStatusInput = {
+  action: SpawnHostStatusActions;
+  hostId: Scalars["String"]["input"];
+  shouldKeepOff?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /**

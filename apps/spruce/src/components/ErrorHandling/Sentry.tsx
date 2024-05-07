@@ -16,6 +16,18 @@ const { getReleaseStage, getSentryDSN, isProduction } = environmentVariables;
 const initializeSentry = () => {
   try {
     init({
+      beforeBreadcrumb: (breadcrumb, hint) => {
+        if (breadcrumb?.category?.startsWith("ui")) {
+          const { target } = hint?.event ?? {};
+          if (target.dataset.cy) {
+            // eslint-disable-next-line no-param-reassign
+            breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy=${target.dataset.cy}]`;
+          }
+          // eslint-disable-next-line no-param-reassign
+          breadcrumb.data = processHtmlAttributes(target);
+        }
+        return breadcrumb;
+      },
       dsn: getSentryDSN(),
       debug: !isProduction(),
       normalizeDepth: 5,
@@ -27,6 +39,18 @@ const initializeSentry = () => {
 };
 
 const isInitialized = () => !!getCurrentHub().getClient();
+
+const processHtmlAttributes = (htmlElement: HTMLElement) => {
+  const { ariaLabel, dataset, title } = htmlElement ?? {};
+  return {
+    ...(ariaLabel && { ariaLabel }),
+    ...(dataset &&
+      Object.keys(dataset).length > 0 && {
+        dataset: htmlElement.dataset,
+      }),
+    ...(title && { title }),
+  };
+};
 
 export type ErrorInput = {
   err: Error;
