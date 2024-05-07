@@ -3,7 +3,7 @@
 exports[`Snapshot Tests BaseTable.stories Default 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd862"
     tabindex="0"
   >
     <table
@@ -6738,7 +6738,7 @@ exports[`Snapshot Tests BaseTable.stories Default 1`] = `
 exports[`Snapshot Tests BaseTable.stories EmptyState 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd862"
     tabindex="0"
   >
     <table
@@ -6966,14 +6966,18 @@ exports[`Snapshot Tests BaseTable.stories EmptyState 1`] = `
       <tbody />
     </table>
   </div>
-  No data to display
+  <span
+    class="css-2tacef-DefaultEmptyMessage e1bwwd861"
+  >
+    No data to display
+  </span>
 </div>
 `;
 
 exports[`Snapshot Tests BaseTable.stories Loading 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd862"
     tabindex="0"
   >
     <table
@@ -7408,7 +7412,7 @@ exports[`Snapshot Tests BaseTable.stories Loading 1`] = `
 exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd862"
     tabindex="0"
   >
     <table
@@ -8124,7 +8128,7 @@ exports[`Snapshot Tests BaseTable.stories LongContent 1`] = `
 exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd862"
     tabindex="0"
   >
     <table
@@ -16407,7 +16411,7 @@ exports[`Snapshot Tests BaseTable.stories NestedRows 1`] = `
 exports[`Snapshot Tests BaseTable.stories VirtualTable 1`] = `
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd leafygreen-ui-13vi68r css-1wf6e6y-StyledTable e1bwwd861"
+    class="leafygreen-ui-1xn4uvd leafygreen-ui-13vi68r css-1wf6e6y-StyledTable e1bwwd862"
     tabindex="0"
   >
     <table

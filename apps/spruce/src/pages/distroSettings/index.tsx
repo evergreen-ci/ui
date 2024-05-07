@@ -2,15 +2,18 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
+import Icon from "components/Icon";
 import {
   SideNav,
   SideNavGroup,
   SideNavItem,
   PageWrapper,
 } from "components/styles";
+import { SideNavItemLink } from "components/styles/SideNav";
 import {
   DistroSettingsTabRoutes,
   getDistroSettingsRoute,
+  getTaskQueueRoute,
   slugs,
 } from "constants/routes";
 import { size } from "constants/tokens";
@@ -72,6 +75,14 @@ const DistroSettings: React.FC = () => {
               {getTabTitle(tab).title}
             </SideNavItem>
           ))}
+        </SideNavGroup>
+        <SideNavGroup glyph={<Icon glyph="Link" />} header="Links">
+          <SideNavItemLink
+            to={getTaskQueueRoute(distroId)}
+            data-cy="navitem-task-queue-link"
+          >
+            Task Queue
+          </SideNavItemLink>
         </SideNavGroup>
       </SideNav>
       <PageWrapper data-cy="distro-settings-page">

@@ -1,19 +1,20 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useQuery } from "@apollo/client";
-import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
+  ColumnFiltering,
   ColumnFiltersState,
-  Filters,
-  Sorting,
+  RowSorting,
   SortingState,
-} from "@tanstack/react-table";
+  useLeafyGreenTable,
+} from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
-import { onChangeHandler, TableQueryParams } from "components/Table/utils";
+import { onChangeHandler } from "components/Table/utils";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,
@@ -36,8 +37,8 @@ import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 
 const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
   queryString;
-const { getDefaultOptions: getDefaultFiltering } = Filters;
-const { getDefaultOptions: getDefaultSorting } = Sorting;
+const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
+const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface TestsTableProps {
   task: TaskQuery["task"];
@@ -263,9 +264,9 @@ const getQueryVariables = (
     id: taskId,
     execution: queryParamAsNumber(execution),
     sort,
-    limitNum: getLimit(queryParams[TableQueryParams.Limit]),
+    limitNum: getLimit(queryParams[PaginationQueryParams.Limit]),
     statusList,
     testName,
-    pageNum: getPage(queryParams[TableQueryParams.Page]),
+    pageNum: getPage(queryParams[PaginationQueryParams.Page]),
   };
 };
