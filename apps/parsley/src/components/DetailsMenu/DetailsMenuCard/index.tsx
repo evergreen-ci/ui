@@ -12,6 +12,7 @@ import {
   FilterLogicToggle,
   JumpToFailingLineToggle,
   PrettyPrintToggle,
+  SectionsToggle,
   WordWrapFormatToggle,
   WrapToggle,
   ZebraStripingToggle,
@@ -26,7 +27,8 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
     const [selectedTab, setSelectedTab] = useState(0);
 
     const { settings, updateSettings } = useParsleySettings();
-    const { jumpToFailingLineEnabled = true } = settings ?? {};
+    const { jumpToFailingLineEnabled = true, sectionsEnabled = true } =
+      settings ?? {};
 
     return (
       <Container ref={ref} data-cy={dataCy}>
@@ -56,6 +58,10 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                 <ZebraStripingToggle />
                 <JumpToFailingLineToggle
                   checked={jumpToFailingLineEnabled}
+                  updateSettings={updateSettings}
+                />
+                <SectionsToggle
+                  checked={sectionsEnabled}
                   updateSettings={updateSettings}
                 />
               </Column>
