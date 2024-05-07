@@ -15,6 +15,7 @@ import {
   useLoadFormData,
 } from "components/Spawn/editHostModal";
 import { SpruceForm } from "components/SpruceForm";
+import { defaultTimeZone } from "constants/fieldMaps";
 import { useToastContext } from "context/toast";
 import {
   EditSpawnHostMutation,
@@ -38,7 +39,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useSpawnAnalytics();
-  const timeZone = useUserTimeZone();
+  const timeZone = useUserTimeZone() || defaultTimeZone;
 
   const {
     disableExpirationCheckbox,
@@ -76,7 +77,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   };
 
   const [formState, setFormState] = useState<FormState>(initialFormState);
-  const [hasError, setHasError] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   const hostUptimeValidation = useMemo(
     () =>
