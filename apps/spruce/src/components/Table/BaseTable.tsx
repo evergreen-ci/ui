@@ -10,6 +10,7 @@ import {
   HeaderRow,
   type LGRowData,
   Row,
+  type RowData,
   Table,
   TableBody,
   type TableProps,
@@ -17,7 +18,6 @@ import {
   VirtualItem,
   LeafyGreenTableRow,
 } from "@leafygreen-ui/table";
-import { RowData } from "@tanstack/react-table";
 import {
   TableFilterPopover,
   TableSearchPopover,
