@@ -1,7 +1,7 @@
 export {
   getDefaultExpiration,
   getNoExpirationCheckboxTooltipCopy,
-} from "./utils";
+} from "./expiration";
 export {
   defaultSleepSchedule,
   defaultStartDate,

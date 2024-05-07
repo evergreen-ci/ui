@@ -31,7 +31,6 @@ describe("edit spawn host modal", () => {
         dailyStopTime: "17:00",
         permanentlyExempt: false,
         shouldKeepOff: false,
-        temporarilyExemptUntil: null,
         timeZone: "America/New_York",
         wholeWeekdaysOff: [0, 5, 6],
       },

@@ -12,7 +12,6 @@ import {
   getExpirationDetailsSchema,
   getPublicKeySchema,
 } from "../getFormSchema";
-import { getDefaultExpiration } from "../utils";
 import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
@@ -73,9 +72,7 @@ export const getFormSchema = ({
     ? volumes.filter((v) => v.homeVolume && !v.hostID)
     : [];
 
-  const defaultExpiration = getDefaultExpiration();
   const expirationDetails = getExpirationDetailsSchema({
-    defaultExpiration,
     disableExpirationCheckbox,
     hostUptimeValidation,
     noExpirationCheckboxTooltip,

@@ -7,7 +7,11 @@ import { prettifyTimeZone } from "constants/fieldMaps";
 import { size } from "constants/tokens";
 import { MyPublicKeysQuery } from "gql/generated/types";
 import { isProduction } from "utils/environmentVariables";
-import { defaultStartDate, defaultStopDate } from "./utils";
+import {
+  defaultStartDate,
+  defaultStopDate,
+  getDefaultExpiration,
+} from "./utils";
 
 const today = new Date();
 
@@ -178,7 +182,6 @@ const Details: React.FC<{ timeZone: string; totalUptimeHours: number }> = ({
 );
 
 type ExpirationProps = {
-  defaultExpiration: string;
   disableExpirationCheckbox: boolean;
   hostUptimeValidation?: {
     enabledHoursCount: number;
@@ -190,12 +193,12 @@ type ExpirationProps = {
 };
 
 export const getExpirationDetailsSchema = ({
-  defaultExpiration,
   disableExpirationCheckbox,
   hostUptimeValidation,
   noExpirationCheckboxTooltip,
   timeZone,
 }: ExpirationProps) => {
+  const defaultExpiration = getDefaultExpiration();
   const hostUptime = getHostUptimeSchema({ hostUptimeValidation, timeZone });
   return {
     schema: {

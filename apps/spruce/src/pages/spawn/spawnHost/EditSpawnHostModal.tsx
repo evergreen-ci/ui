@@ -68,7 +68,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     expirationDetails: {
       expiration: host.expiration ? host.expiration.toString() : null,
       noExpiration: host.noExpiration,
-      hostUptime: getHostUptimeFromGql(host.sleepSchedule),
+      hostUptime: host.noExpiration
+        ? getHostUptimeFromGql(host.sleepSchedule)
+        : null,
     },
     publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };

@@ -9,7 +9,6 @@ import {
   getExpirationDetailsSchema,
   getPublicKeySchema,
 } from "../getFormSchema";
-import { getDefaultExpiration } from "../utils";
 
 interface Props {
   canEditInstanceType: boolean;
@@ -40,10 +39,7 @@ export const getFormSchema = ({
   timeZone,
   volumes,
 }: Props): ReturnType<GetFormSchema> => {
-  const defaultExpiration = getDefaultExpiration();
-
   const expirationDetails = getExpirationDetailsSchema({
-    defaultExpiration,
     disableExpirationCheckbox,
     hostUptimeValidation,
     noExpirationCheckboxTooltip,
@@ -153,7 +149,6 @@ export const getFormSchema = ({
         ),
         "ui:orderable": false,
         items: {
-          "ui:id": "testing",
           "ui:elementWrapperCSS": css`
             display: flex;
             gap: ${size.s};

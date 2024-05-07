@@ -7,6 +7,7 @@ const daysInWeek = 7;
 const hoursInDay = 24;
 const defaultStartHour = 8;
 const defaultStopHour = 20;
+const defaultScheduleWeeklyHourCount = 60;
 
 const suggestedUptimeHours = (daysInWeek - 2) * hoursInDay;
 export const maxUptimeHours = (daysInWeek - 1) * hoursInDay;
@@ -45,20 +46,20 @@ export const validateUptimeSchedule = ({
   errors: string[];
   warnings: string[];
 } => {
+  if (useDefaultUptimeSchedule) {
+    return {
+      enabledHoursCount: defaultScheduleWeeklyHourCount,
+      errors: [],
+      warnings: [],
+    };
+  }
+
   const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount({
     enabledWeekdays,
     stopTime,
     runContinuously,
     startTime,
   });
-
-  if (useDefaultUptimeSchedule) {
-    return {
-      enabledHoursCount,
-      errors: [],
-      warnings: [],
-    };
-  }
 
   if (enabledHoursCount > maxUptimeHours) {
     // Return error based on whether runContinously enabled
@@ -141,7 +142,6 @@ export const getSleepSchedule = (
     dailyStartTime: runContinuously ? "" : toTimeString(new Date(startTime)),
     dailyStopTime: runContinuously ? "" : toTimeString(new Date(stopTime)),
     permanentlyExempt: false,
-    temporarilyExemptUntil: null,
     timeZone,
     shouldKeepOff: false,
     wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
@@ -169,7 +169,6 @@ export const defaultSleepSchedule: Omit<SleepScheduleInput, "timeZone"> = {
   permanentlyExempt: false,
   // TODO: Add pause
   shouldKeepOff: false,
-  temporarilyExemptUntil: null,
   wholeWeekdaysOff: [0, 6],
 };
 
@@ -195,8 +194,16 @@ export const getHostUptimeFromGql = (
       timeSelection:
         dailyStartTime && dailyStopTime
           ? {
-              startTime: parse(dailyStartTime, "HH:mm", new Date()).toString(),
-              stopTime: parse(dailyStopTime, "HH:mm", new Date()).toString(),
+              startTime: parse(
+                dailyStartTime,
+                "HH:mm",
+                new Date(null, null),
+              ).toString(),
+              stopTime: parse(
+                dailyStopTime,
+                "HH:mm",
+                new Date(null, null),
+              ).toString(),
               runContinuously: false,
             }
           : {
@@ -208,24 +215,25 @@ export const getHostUptimeFromGql = (
   };
 };
 
-const matchesDefaultUptimeSchedule = (
+export const matchesDefaultUptimeSchedule = (
   sleepSchedule: MyHost["sleepSchedule"],
 ): boolean => {
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
   if (
-    [...wholeWeekdaysOff].sort().toString() !== new Array([0, 6]).toString()
+    [...wholeWeekdaysOff].sort().toString() !==
+    defaultSleepSchedule.wholeWeekdaysOff.toString()
   ) {
     return false;
   }
-  if (dailyStartTime !== "08:00") return false;
-  if (dailyStopTime !== "20:00") return false;
+  if (dailyStartTime !== defaultSleepSchedule.dailyStartTime) return false;
+  if (dailyStopTime !== defaultSleepSchedule.dailyStopTime) return false;
   return true;
 };
 
 export const validator = (({ expirationDetails }, errors) => {
-  const { hostUptime } = expirationDetails ?? {};
-  if (!hostUptime) return errors;
+  const { hostUptime, noExpiration } = expirationDetails ?? {};
+  if (noExpiration === false) return errors;
 
   const { sleepSchedule, useDefaultUptimeSchedule } = hostUptime;
   const { enabledWeekdays, timeSelection } = sleepSchedule;
@@ -244,4 +252,6 @@ export const validator = (({ expirationDetails }, errors) => {
   }
 
   return errors;
-}) satisfies ValidateProps<{ expirationDetails?: { hostUptime: HostUptime } }>;
+}) satisfies ValidateProps<{
+  expirationDetails?: { hostUptime?: HostUptime; noExpiration: boolean };
+}>;
