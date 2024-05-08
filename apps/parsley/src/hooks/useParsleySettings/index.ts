@@ -12,7 +12,7 @@ import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
 import { PARSLEY_SETTINGS } from "gql/queries";
 
 type UseParsleySettingsReturnType = {
-  settings: Partial<ParsleySettings> | null | undefined; // TODO: Correct types after completion of DEVPROD-1113.
+  settings: ParsleySettings | undefined;
   updateSettings: (settings: ParsleySettingsInput) => void;
 };
 
