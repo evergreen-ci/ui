@@ -14,13 +14,13 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("sections toggle", () => {
-  it("should render as checked based on props", () => {
+  it("should render as checked when 'checked' prop is true", () => {
     render(<SectionsToggle checked updateSettings={jest.fn()} />, { wrapper });
     const sectionsToggle = screen.getByDataCy("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-checked", "true");
   });
 
-  it("should render as unchecked based on props", () => {
+  it("should render as unchecked when 'checked' prop is false", () => {
     render(<SectionsToggle checked={false} updateSettings={jest.fn()} />, {
       wrapper,
     });
@@ -28,7 +28,7 @@ describe("sections toggle", () => {
     expect(sectionsToggle).toHaveAttribute("aria-checked", "false");
   });
 
-  it("should disable toggle if logType is not task", () => {
+  it("should disable toggle if logType is not Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
       <SectionsToggle checked updateSettings={jest.fn()} />,
@@ -41,7 +41,7 @@ describe("sections toggle", () => {
     expect(sectionsToggle).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("should not disable toggle if logType is task", () => {
+  it("should enable toggle if logType is Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
       <SectionsToggle checked updateSettings={jest.fn()} />,
