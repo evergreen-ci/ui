@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import {
+  defaultSleepSchedule,
   getHostUptimeFromGql,
   validateUptimeSchedule,
   validator,
@@ -50,6 +51,11 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   } = useLoadFormData(host);
 
   const instanceTypes = instanceTypesData?.instanceTypes ?? [];
+  // The list of instance types provided by Evergreen can be out-of-date, so make sure the instance type in use is considered valid by RJSF
+  if (!instanceTypes.includes(host.instanceType)) {
+    instanceTypes.push(host.instanceType);
+  }
+
   const volumes =
     volumesData?.myVolumes?.filter(
       (v) => v.availabilityZone === host.availabilityZone && v.hostID === "",
@@ -71,7 +77,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       noExpiration: host.noExpiration,
       hostUptime: host.noExpiration
         ? getHostUptimeFromGql(host.sleepSchedule)
-        : null,
+        : getHostUptimeFromGql({ ...defaultSleepSchedule, timeZone }),
     },
     publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };

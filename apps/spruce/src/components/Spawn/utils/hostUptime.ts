@@ -2,6 +2,7 @@ import { differenceInHours, parse } from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
 import { SleepScheduleInput } from "gql/generated/types";
 import { MyHost } from "types/spawn";
+import { arraySymmetricDifference } from "utils/array";
 
 const daysInWeek = 7;
 const hoursInDay = 24;
@@ -175,18 +176,10 @@ export const defaultSleepSchedule: Omit<SleepScheduleInput, "timeZone"> = {
 export const getHostUptimeFromGql = (
   sleepSchedule: MyHost["sleepSchedule"],
 ): HostUptime => {
-  if (!sleepSchedule) return null;
-
-  if (matchesDefaultUptimeSchedule(sleepSchedule)) {
-    return {
-      useDefaultUptimeSchedule: true,
-    };
-  }
-
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
   return {
-    useDefaultUptimeSchedule: false,
+    useDefaultUptimeSchedule: matchesDefaultUptimeSchedule(sleepSchedule),
     sleepSchedule: {
       enabledWeekdays: new Array(7)
         .fill(false)
@@ -221,8 +214,10 @@ export const matchesDefaultUptimeSchedule = (
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
   if (
-    [...wholeWeekdaysOff].sort().toString() !==
-    defaultSleepSchedule.wholeWeekdaysOff.toString()
+    arraySymmetricDifference(
+      wholeWeekdaysOff,
+      defaultSleepSchedule.wholeWeekdaysOff,
+    ).length > 0
   ) {
     return false;
   }
@@ -233,7 +228,7 @@ export const matchesDefaultUptimeSchedule = (
 
 export const validator = (({ expirationDetails }, errors) => {
   const { hostUptime, noExpiration } = expirationDetails ?? {};
-  if (noExpiration === false) return errors;
+  if (!hostUptime || noExpiration === false) return errors;
 
   const { sleepSchedule, useDefaultUptimeSchedule } = hostUptime;
   const { enabledWeekdays, timeSelection } = sleepSchedule;
