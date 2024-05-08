@@ -22,7 +22,7 @@ export const getFormSchema = (
       },
       distroImage: {
         type: "object" as "object",
-        title: "Image",
+        title: "",
         properties: {
           identifier: {
             type: "string" as "string",
