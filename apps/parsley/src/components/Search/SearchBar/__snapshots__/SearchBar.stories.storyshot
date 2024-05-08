@@ -73,7 +73,7 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
         <button
           aria-disabled="false"
           aria-labelledby="View search suggestions"
-          class="leafygreen-ui-1xt2asn"
+          class="leafygreen-ui-76dd2i"
           data-cy="search-suggestion-button"
           tabindex="0"
           title="View search suggestions"
@@ -249,7 +249,7 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
         <button
           aria-disabled="false"
           aria-labelledby="View search suggestions"
-          class="leafygreen-ui-1xt2asn"
+          class="leafygreen-ui-76dd2i"
           data-cy="search-suggestion-button"
           tabindex="0"
           title="View search suggestions"
@@ -327,7 +327,7 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
           <button
             aria-disabled="true"
             aria-label="Select plus"
-            class="leafygreen-ui-beb9er"
+            class="leafygreen-ui-188u3gu"
             data-cy="searchbar-submit"
             tabindex="0"
           >
