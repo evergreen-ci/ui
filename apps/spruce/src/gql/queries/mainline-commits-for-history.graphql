@@ -22,7 +22,6 @@ query MainlineCommitsForHistory(
         message
         order
         revision
-        ...UpstreamProject
       }
       version {
         author
