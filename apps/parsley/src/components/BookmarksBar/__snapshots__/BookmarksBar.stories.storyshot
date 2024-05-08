@@ -31,7 +31,9 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           class="css-1fmnfd"
           data-cy="bookmark-4"
         >
-          <span>
+          <span
+            data-bookmark="4"
+          >
             4
           </span>
         </div>
@@ -39,7 +41,9 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           class="css-1fmnfd"
           data-cy="bookmark-5"
         >
-          <span>
+          <span
+            data-bookmark="5"
+          >
             5
           </span>
         </div>
@@ -47,7 +51,9 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           class="css-1fmnfd"
           data-cy="bookmark-6"
         >
-          <span>
+          <span
+            data-bookmark="6"
+          >
             6
           </span>
         </div>
@@ -55,7 +61,9 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           class="css-1fmnfd"
           data-cy="bookmark-7"
         >
-          <span>
+          <span
+            data-bookmark="7"
+          >
             7
           </span>
         </div>
@@ -63,7 +71,9 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           class="css-zayph7"
           data-cy="bookmark-10"
         >
-          <span>
+          <span
+            data-bookmark="10"
+          >
             10
           </span>
         </div>
@@ -71,7 +81,9 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           class="css-1fmnfd"
           data-cy="bookmark-21"
         >
-          <span>
+          <span
+            data-bookmark="21"
+          >
             21
           </span>
           <svg
@@ -98,7 +110,9 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           class="css-1fmnfd"
           data-cy="bookmark-24"
         >
-          <span>
+          <span
+            data-bookmark="24"
+          >
             24
           </span>
         </div>
@@ -106,7 +120,9 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           class="css-1fmnfd"
           data-cy="bookmark-30"
         >
-          <span>
+          <span
+            data-bookmark="30"
+          >
             30
           </span>
         </div>
@@ -114,7 +130,9 @@ exports[`Snapshot Tests BookmarksBar.stories Default 1`] = `
           class="css-1fmnfd"
           data-cy="bookmark-85"
         >
-          <span>
+          <span
+            data-bookmark="85"
+          >
             85
           </span>
         </div>
