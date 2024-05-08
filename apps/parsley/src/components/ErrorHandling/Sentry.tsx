@@ -14,10 +14,23 @@ import {
   isProduction,
 } from "utils/environmentVariables";
 import ErrorFallback from "./ErrorFallback";
+import { processHtmlAttributes } from "./utils";
 
 const initializeSentry = () => {
   try {
     init({
+      beforeBreadcrumb: (breadcrumb, hint) => {
+        if (breadcrumb?.category?.startsWith("ui")) {
+          const { target } = hint?.event ?? {};
+          if (target?.dataset?.cy) {
+            // eslint-disable-next-line no-param-reassign
+            breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy="${target.dataset.cy}"]`;
+          }
+          // eslint-disable-next-line no-param-reassign
+          breadcrumb.data = processHtmlAttributes(target);
+        }
+        return breadcrumb;
+      },
       debug: !isProduction(),
       dsn: getSentryDSN(),
       environment: getReleaseStage() || "development",

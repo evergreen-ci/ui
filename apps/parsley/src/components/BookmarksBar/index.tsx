@@ -103,7 +103,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
               scrollToIndex(l);
             }}
           >
-            <span>{l}</span>
+            <span data-bookmark={l}>{l}</span>
             {l === shareLine && <StyledIcon glyph="Link" size="small" />}
           </LogLineNumber>
         ))}
