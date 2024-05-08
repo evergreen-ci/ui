@@ -10,6 +10,7 @@ import type { Scope, SeverityLevel } from "@sentry/react";
 import type { Context, Primitive } from "@sentry/types";
 import { environmentVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
+import { processHtmlAttributes } from "./utils";
 
 const { getReleaseStage, getSentryDSN, isProduction } = environmentVariables;
 
@@ -19,9 +20,9 @@ const initializeSentry = () => {
       beforeBreadcrumb: (breadcrumb, hint) => {
         if (breadcrumb?.category?.startsWith("ui")) {
           const { target } = hint?.event ?? {};
-          if (target.dataset.cy) {
+          if (target?.dataset?.cy) {
             // eslint-disable-next-line no-param-reassign
-            breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy=${target.dataset.cy}]`;
+            breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy="${target.dataset.cy}"]`;
           }
           // eslint-disable-next-line no-param-reassign
           breadcrumb.data = processHtmlAttributes(target);
@@ -39,18 +40,6 @@ const initializeSentry = () => {
 };
 
 const isInitialized = () => !!getCurrentHub().getClient();
-
-const processHtmlAttributes = (htmlElement: HTMLElement) => {
-  const { ariaLabel, dataset, title } = htmlElement ?? {};
-  return {
-    ...(ariaLabel && { ariaLabel }),
-    ...(dataset &&
-      Object.keys(dataset).length > 0 && {
-        dataset: htmlElement.dataset,
-      }),
-    ...(title && { title }),
-  };
-};
 
 export type ErrorInput = {
   err: Error;
