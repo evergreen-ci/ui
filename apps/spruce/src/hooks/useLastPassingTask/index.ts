@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import { useToastContext } from "context/toast";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -13,8 +12,6 @@ import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 
 export const useLastPassingTask = (taskId: string) => {
-  const dispatchToast = useToastContext();
-
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
     BaseVersionAndTaskQueryVariables
@@ -45,9 +42,6 @@ export const useLastPassingTask = (taskId: string) => {
         ...bvOptionsBase,
         statuses: [TaskStatus.Succeeded],
       },
-    },
-    onError: (err) => {
-      dispatchToast.error(`Last passing version unavailable: '${err.message}'`);
     },
   });
   const task = getTaskFromMainlineCommitsQuery(lastPassingTaskData);

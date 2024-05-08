@@ -5,6 +5,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { PaginationQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -50,7 +51,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
       [PatchTasksQueryParams.Variant]: undefined,
       [PatchTasksQueryParams.Statuses]: undefined,
       [PatchTasksQueryParams.BaseStatuses]: undefined,
-      [PatchTasksQueryParams.Page]: undefined,
+      [PaginationQueryParams.Page]: undefined,
       [PatchTasksQueryParams.Duration]: "DESC",
       [PatchTasksQueryParams.Sorts]: undefined,
     });

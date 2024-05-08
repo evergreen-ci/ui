@@ -10,8 +10,8 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
       data-lgid="lg-select"
     >
       <button
-        aria-controls="select-193-menu"
-        aria-describedby="select-193-description"
+        aria-controls="select-194-menu"
+        aria-describedby="select-194-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
@@ -20,7 +20,7 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
         data-cy="searchbar-select"
         data-lgid="lg-button"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-194"
+        id="select-195"
         type="button"
         value="filter"
       >
@@ -73,7 +73,7 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
         <button
           aria-disabled="false"
           aria-labelledby="View search suggestions"
-          class="leafygreen-ui-1xt2asn"
+          class="leafygreen-ui-76dd2i"
           data-cy="search-suggestion-button"
           tabindex="0"
           title="View search suggestions"
@@ -186,8 +186,8 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
       data-lgid="lg-select"
     >
       <button
-        aria-controls="select-196-menu"
-        aria-describedby="select-196-description"
+        aria-controls="select-197-menu"
+        aria-describedby="select-197-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
@@ -196,7 +196,7 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
         data-cy="searchbar-select"
         data-lgid="lg-button"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-197"
+        id="select-198"
         type="button"
         value="filter"
       >
@@ -249,7 +249,7 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
         <button
           aria-disabled="false"
           aria-labelledby="View search suggestions"
-          class="leafygreen-ui-1xt2asn"
+          class="leafygreen-ui-76dd2i"
           data-cy="search-suggestion-button"
           tabindex="0"
           title="View search suggestions"
@@ -327,7 +327,7 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
           <button
             aria-disabled="true"
             aria-label="Select plus"
-            class="leafygreen-ui-beb9er"
+            class="leafygreen-ui-188u3gu"
             data-cy="searchbar-submit"
             tabindex="0"
           >

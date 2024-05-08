@@ -40,7 +40,7 @@ exports[`Snapshot Tests ResmokeRow.stories SingleLine 1`] = `
     <button
       aria-disabled="false"
       aria-label="Share link"
-      class="css-xrue4o leafygreen-ui-1xt2asn"
+      class="css-xrue4o leafygreen-ui-76dd2i"
       tabindex="0"
     >
       <div

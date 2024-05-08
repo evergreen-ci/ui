@@ -9,7 +9,11 @@ export const wikiBaseUrl =
 
 export const wikiUrl = `${wikiBaseUrl}/Home`;
 
-export const projectDistroSettingsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-and-Distro-Settings`;
+const projectSettingsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration`;
+
+export const projectDistroSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Project-and-Distro-Settings`;
+
+export const projectSettingsRepoSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Repo-Level-Settings`;
 
 export const versionControlDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#version-control`;
 
@@ -59,6 +63,12 @@ export const getGithubCommitUrl = (
   repo: string,
   githash: string,
 ) => `https://github.com/${owner}/${repo}/commit/${githash}`;
+
+export const getGithubMergeQueueUrl = (
+  owner: string,
+  repo: string,
+  branch: string,
+) => `https://github.com/${owner}/${repo}/queue/${branch}`;
 
 export const getParsleyTaskLogLink = (
   logType: LogTypes,

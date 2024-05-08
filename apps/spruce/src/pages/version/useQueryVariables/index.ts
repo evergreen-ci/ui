@@ -3,17 +3,18 @@ import {
   SortOrder,
   TaskSortCategory,
 } from "gql/generated/types";
+import usePagination from "hooks/usePagination";
 import { PatchTasksQueryParams } from "types/task";
-import { queryString, url, array } from "utils";
+import { queryString, array } from "utils";
 
 const { getString, parseQueryString, parseSortString } = queryString;
-const { getLimitFromSearch, getPageFromSearch } = url;
 const { toArray } = array;
 
 export const useQueryVariables = (
   search: string,
   versionId: string,
 ): VersionTasksQueryVariables => {
+  const { limit, page } = usePagination();
   const queryParams = parseQueryString(search);
   const {
     [PatchTasksQueryParams.Duration]: duration,
@@ -42,8 +43,8 @@ export const useQueryVariables = (
       statuses: toArray(statuses),
       baseStatuses: toArray(baseStatuses),
       sorts: sortsToApply,
-      page: getPageFromSearch(search),
-      limit: getLimitFromSearch(search),
+      limit,
+      page,
     },
   };
 };

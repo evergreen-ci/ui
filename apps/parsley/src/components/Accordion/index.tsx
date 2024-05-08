@@ -16,6 +16,7 @@ interface AccordionProps {
   title: React.ReactNode;
   titleTag?: React.FC;
   toggledTitle?: React.ReactNode;
+  open?: boolean;
 }
 
 const Accordion: React.FC<AccordionProps> = ({
@@ -24,12 +25,22 @@ const Accordion: React.FC<AccordionProps> = ({
   "data-cy": dataCy,
   defaultOpen = false,
   onToggle = () => {},
+  open,
   subtitle,
   title,
   titleTag,
   toggledTitle,
 }) => {
-  const [accordionOpen, setAccordionOpen] = useState(defaultOpen);
+  const isControlled = open !== undefined;
+
+  const [uncontrolledAccordionOpen, setUncontrolledAccordionOpen] =
+    useState(defaultOpen);
+
+  // When controlled, use the open prop. Otherwise, use the uncontrolled state
+  const accordionOpen = isControlled ? open : uncontrolledAccordionOpen;
+  const setAccordionOpen = isControlled
+    ? () => {}
+    : setUncontrolledAccordionOpen;
 
   const TitleTag = titleTag ?? "span";
   const titleToShow = toggledTitle && accordionOpen ? toggledTitle : title;

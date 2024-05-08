@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
@@ -25,12 +25,10 @@ import {
   HostEventsQueryVariables,
 } from "gql/generated/types";
 import { HOST, HOST_EVENTS } from "gql/queries/index";
+import usePagination from "hooks/usePagination";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
-import { url } from "utils";
-
-const { getLimitFromSearch, getPageFromSearch } = url;
 
 const Host: React.FC = () => {
   const dispatchToast = useToastContext();
@@ -58,10 +56,7 @@ const Host: React.FC = () => {
   const sshCommand = `ssh ${user}@${sshAddress}`;
   const tag = host?.tag ?? "";
 
-  const { search } = useLocation();
-
-  const page = getPageFromSearch(search);
-  const limit = getLimitFromSearch(search);
+  const { limit, page } = usePagination();
   // Query hostEvent data
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
     HostEventsQuery,
