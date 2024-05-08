@@ -3254,6 +3254,7 @@ export type UpdateParsleySettingsMutation = {
     parsleySettings?: {
       __typename?: "ParsleySettings";
       jumpToFailingLineEnabled: boolean;
+      sectionsEnabled: boolean;
     } | null;
   } | null;
 };
@@ -3380,6 +3381,7 @@ export type ParsleySettingsQuery = {
     parsleySettings: {
       __typename?: "ParsleySettings";
       jumpToFailingLineEnabled: boolean;
+      sectionsEnabled: boolean;
     };
   };
 };
