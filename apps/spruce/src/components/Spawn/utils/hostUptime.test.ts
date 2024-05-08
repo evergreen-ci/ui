@@ -148,6 +148,16 @@ describe("getHostUptimeFromGql", () => {
       wholeWeekdaysOff: [0, 6],
     };
     expect(getHostUptimeFromGql(sched)).toStrictEqual({
+      sleepSchedule: {
+        enabledWeekdays: [false, true, true, true, true, true, false],
+        timeSelection: {
+          runContinuously: false,
+          startTime:
+            "Mon Jan 01 1900 08:00:00 GMT+0000 (Coordinated Universal Time)",
+          stopTime:
+            "Mon Jan 01 1900 20:00:00 GMT+0000 (Coordinated Universal Time)",
+        },
+      },
       useDefaultUptimeSchedule: true,
     });
   });

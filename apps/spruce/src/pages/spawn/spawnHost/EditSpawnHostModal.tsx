@@ -50,10 +50,10 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     volumesData,
   } = useLoadFormData(host);
 
-  const instanceTypes = instanceTypesData?.instanceTypes ?? [];
+  let instanceTypes = instanceTypesData?.instanceTypes ?? [];
   // The list of instance types provided by Evergreen can be out-of-date, so make sure the instance type in use is considered valid by RJSF
   if (!instanceTypes.includes(host.instanceType)) {
-    instanceTypes.push(host.instanceType);
+    instanceTypes = [...instanceTypes, host.instanceType];
   }
 
   const volumes =
