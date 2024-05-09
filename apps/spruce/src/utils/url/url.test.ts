@@ -1,26 +1,4 @@
-import { RECENT_PAGE_SIZE_KEY } from "constants/index";
-import { getLimitFromSearch, upsertQueryParam } from ".";
-
-describe("getLimitFromSearch", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-
-  it("should return the value of the 'limit' query variable from the given search string if it is a valid page size.", () => {
-    expect(getLimitFromSearch("&limit=10")).toBe(10);
-    expect(getLimitFromSearch("&limit=20")).toBe(20);
-    expect(getLimitFromSearch("&limit=50")).toBe(50);
-    expect(getLimitFromSearch("&limit=100")).toBe(100);
-  });
-
-  it("should return the recent page size value in local storage when the value in local storage is a valid page size and the given search string does not contain a valid limit,", () => {
-    localStorage.setItem(RECENT_PAGE_SIZE_KEY, "50");
-    expect(getLimitFromSearch("&limit=11")).toBe(50);
-    expect(getLimitFromSearch("&limit")).toBe(50);
-    expect(getLimitFromSearch("&limit=0")).toBe(50);
-    expect(getLimitFromSearch("")).toBe(50);
-  });
-});
+import { upsertQueryParam } from ".";
 
 describe("upsertQueryParam", () => {
   it("should return the value when params aren't passed in", () => {

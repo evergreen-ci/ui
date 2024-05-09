@@ -1,11 +1,12 @@
 import { useRef, useMemo } from "react";
-import { LeafyGreenTable, useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
+  ColumnFiltering,
   ColumnFiltersState,
-  Filters,
-  Sorting,
+  RowSorting,
   SortingState,
-} from "@tanstack/react-table";
+  LeafyGreenTable,
+  useLeafyGreenTable,
+} from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
@@ -19,8 +20,8 @@ import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
 import { Action } from "./reducer";
 
-const { getDefaultOptions: getDefaultFiltering } = Filters;
-const { getDefaultOptions: getDefaultSorting } = Sorting;
+const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
+const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface DownstreamTasksTableProps {
   childPatchId: string;

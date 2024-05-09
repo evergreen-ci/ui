@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import Button, { Variant } from "@leafygreen-ui/button";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
@@ -9,12 +8,12 @@ import {
   SegmentedControl,
 } from "@leafygreen-ui/segmented-control";
 import TextInput from "@leafygreen-ui/text-input";
-import { Body, BodyProps, Error } from "@leafygreen-ui/typography";
+import Toggle from "@leafygreen-ui/toggle";
+import { Body, Error } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import Accordion from "components/Accordion";
 import Icon from "components/Icon";
 import IconWithTooltip from "components/IconWithTooltip";
-import { TextEllipsis } from "components/styles";
 import { CaseSensitivity, MatchType } from "constants/enums";
 import { size } from "constants/tokens";
 import { Filter } from "types/logs";
@@ -43,7 +42,8 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
   const [newFilterExpression, setNewFilterExpression] = useState(expression);
   const [isEditing, setIsEditing] = useState(false);
   const [isValid, setIsValid] = useState(true);
-
+  const [openAccordion, setOpenAccordion] = useState(true);
+  const id = useId();
   useEffect(() => {
     if (expression) {
       setIsValid(validateRegexp(expression));
@@ -53,6 +53,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
   const resetEditState = () => {
     setIsEditing(false);
     setNewFilterExpression(expression);
+    setIsValid(validateRegexp(expression));
   };
 
   const handleSubmit = () => {
@@ -71,56 +72,52 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
   return (
     <Accordion
       defaultOpen
-      onToggle={({ isVisible }) =>
-        sendEvent({ name: "Toggled Filter", open: isVisible })
-      }
+      onToggle={({ isVisible }) => {
+        sendEvent({ name: "Toggled Filter", open: isVisible });
+        setOpenAccordion(isVisible);
+        if (isEditing) {
+          resetEditState();
+        }
+      }}
+      open={openAccordion}
       title={
         <>
-          <Badge>Filter</Badge>
           {showTooltip && (
             <IconWithTooltip color={red.base} glyph="ImportantWithCircle">
               Invalid filter expression, please update it!
               <Error>{validationMessage}</Error>
             </IconWithTooltip>
           )}
-          <TextEllipsis>{expression}</TextEllipsis>
-        </>
-      }
-      titleTag={AccordionTitle}
-      toggledTitle={
-        <>
-          <Badge>Filter</Badge>
-          {showTooltip && (
-            <IconWithTooltip color={red.base} glyph="ImportantWithCircle">
-              Invalid filter expression, please update it!
-              <Error>{validationMessage}</Error>
-            </IconWithTooltip>
-          )}
+          <Body id={id} weight="medium">
+            {expression}
+          </Body>
           <IconButtonContainer>
+            <Toggle
+              aria-label={visible ? "Hide filter" : "Show filter"}
+              aria-labelledby={id}
+              checked={visible}
+              disabled={!isValid}
+              onChange={() => editFilter("visible", !visible, filter)}
+              onClick={(e) => e.stopPropagation()}
+              size="xsmall"
+              title={visible ? "Hide filter" : "Show filter"}
+            />
             <IconButton
               aria-label="Edit filter"
               onClick={(e) => {
                 e.stopPropagation();
-                setIsEditing(true);
+                if (isEditing) {
+                  resetEditState();
+                } else {
+                  setIsEditing(true);
+                }
+                setOpenAccordion(true);
               }}
               title="Edit filter"
             >
               <Icon fill={gray.base} glyph="Edit" />
             </IconButton>
-            <IconButton
-              aria-label={visible ? "Hide filter" : "Show filter"}
-              disabled={!isValid}
-              onClick={(e) => {
-                e.stopPropagation();
-                editFilter("visible", !visible, filter);
-              }}
-              title={visible ? "Hide filter" : "Show filter"}
-            >
-              <Icon
-                fill={gray.base}
-                glyph={isValid && visible ? "Visibility" : "ClosedEye"}
-              />
-            </IconButton>
+
             <IconButton
               aria-label="Delete filter"
               onClick={(e) => {
@@ -134,9 +131,10 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           </IconButtonContainer>
         </>
       }
+      titleTag={AccordionTitle}
     >
       <AccordionContent>
-        {isEditing ? (
+        {isEditing && (
           <>
             <StyledTextInput
               aria-label="Edit filter name"
@@ -172,8 +170,6 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
               </Button>
             </ButtonWrapper>
           </>
-        ) : (
-          <StyledBody>{expression}</StyledBody>
         )}
 
         <StyledSegmentedControl
@@ -236,10 +232,6 @@ const IconButtonContainer = styled.div`
 const StyledTextInput = styled(TextInput)`
   margin-top: ${size.xxs};
   width: 100%;
-`;
-
-const StyledBody = styled(Body)<BodyProps>`
-  word-break: break-all;
 `;
 
 const ButtonWrapper = styled.div`

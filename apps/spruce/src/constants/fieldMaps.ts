@@ -1,3 +1,5 @@
+export const defaultTimeZone = "America/New_York";
+
 export const timeZones = [
   {
     str: "Coordinated Universal Time",
@@ -33,7 +35,7 @@ export const timeZones = [
   },
   {
     str: "Eastern Time",
-    value: "America/New_York",
+    value: defaultTimeZone,
   },
   {
     str: "Venezuela",

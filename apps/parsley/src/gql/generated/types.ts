@@ -378,6 +378,7 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
+  imageId?: Maybe<Scalars["String"]["output"]>;
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   mountpoints?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
@@ -443,6 +444,7 @@ export type DistroInput = {
   homeVolumeSettings: HomeVolumeSettingsInput;
   hostAllocatorSettings: HostAllocatorSettingsInput;
   iceCreamSettings: IceCreamSettingsInput;
+  imageId?: InputMaybe<Scalars["String"]["input"]>;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
@@ -851,17 +853,6 @@ export type JiraConfig = {
   __typename?: "JiraConfig";
   email?: Maybe<Scalars["String"]["output"]>;
   host?: Maybe<Scalars["String"]["output"]>;
-};
-
-export type JiraField = {
-  __typename?: "JiraField";
-  displayText: Scalars["String"]["output"];
-  field: Scalars["String"]["output"];
-};
-
-export type JiraFieldInput = {
-  displayText: Scalars["String"]["input"];
-  field: Scalars["String"]["input"];
 };
 
 export type JiraIssueSubscriber = {
@@ -1330,8 +1321,9 @@ export type MutationUpdatePublicKeyArgs = {
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
-  action: SpawnHostStatusActions;
-  hostId: Scalars["String"]["input"];
+  action?: InputMaybe<SpawnHostStatusActions>;
+  hostId?: InputMaybe<Scalars["String"]["input"]>;
+  updateSpawnHostStatusInput?: InputMaybe<UpdateSpawnHostStatusInput>;
 };
 
 export type MutationUpdateUserSettingsArgs = {
@@ -2599,12 +2591,10 @@ export type TaskTestsArgs = {
 export type TaskAnnotationSettings = {
   __typename?: "TaskAnnotationSettings";
   fileTicketWebhook: Webhook;
-  jiraCustomFields?: Maybe<Array<JiraField>>;
 };
 
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
-  jiraCustomFields?: InputMaybe<Array<JiraFieldInput>>;
 };
 
 export type TaskContainerCreationOpts = {
@@ -2919,6 +2909,12 @@ export type UpdateParsleySettingsInput = {
 export type UpdateParsleySettingsPayload = {
   __typename?: "UpdateParsleySettingsPayload";
   parsleySettings?: Maybe<ParsleySettings>;
+};
+
+export type UpdateSpawnHostStatusInput = {
+  action: SpawnHostStatusActions;
+  hostId: Scalars["String"]["input"];
+  shouldKeepOff?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /**

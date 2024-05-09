@@ -40,7 +40,7 @@ export const DayPicker: React.FC<{
   );
 
   return (
-    <Container>
+    <Container data-cy="daypicker">
       {days.map((day, i) => (
         <Day
           day={day}

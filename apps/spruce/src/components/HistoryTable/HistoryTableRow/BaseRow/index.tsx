@@ -11,7 +11,6 @@ type BaseRowEventHandlers = {
   onClickGithash: () => void;
   onClickFoldedGithash: () => void;
   onClickUpstreamProject: () => void;
-  onClickFoldedUpstreamProject: () => void;
   onClickJiraTicket: () => void;
   onClickFoldedJiraTicket: () => void;
   onToggleFoldedCommit: (s: { isVisible: boolean }) => void;
@@ -36,7 +35,6 @@ const BaseRow: React.FC<RowProps> = ({
   const {
     onClickFoldedGithash,
     onClickFoldedJiraTicket,
-    onClickFoldedUpstreamProject,
     onClickGithash,
     onClickJiraTicket,
     onClickUpstreamProject,
@@ -91,7 +89,6 @@ const BaseRow: React.FC<RowProps> = ({
             onToggleFoldedCommit({ isVisible: expanded });
             toggleRowExpansion(rowIndex, expanded);
           }}
-          onClickUpstreamProject={onClickFoldedUpstreamProject}
         />
       );
     default:
