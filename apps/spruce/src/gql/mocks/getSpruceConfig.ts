@@ -4,7 +4,7 @@ import {
   UserSettingsQuery,
   UserSettingsQueryVariables,
 } from "gql/generated/types";
-import { SPRUCE_CONFIG } from "gql/queries";
+import { SPRUCE_CONFIG, USER_SETTINGS } from "gql/queries";
 import { ApolloMock } from "types/gql";
 
 export const getSpruceConfigMock: ApolloMock<
@@ -67,8 +67,8 @@ export const getUserSettingsMock: ApolloMock<
   UserSettingsQueryVariables
 > = {
   request: {
-    query: SPRUCE_CONFIG,
-    variables: null,
+    query: USER_SETTINGS,
+    variables: {},
   },
   result: {
     data: {
@@ -82,6 +82,7 @@ export const getUserSettingsMock: ApolloMock<
         notifications: {
           __typename: "Notifications",
           buildBreak: "",
+          commitQueue: "",
           patchFinish: "",
           patchFirstFailure: "",
           spawnHostExpiration: "",
@@ -90,6 +91,7 @@ export const getUserSettingsMock: ApolloMock<
         region: "us-east-1",
         slackMemberId: "1234",
         slackUsername: "user",
+        timeFormat: "H:mm:ss",
         timezone: "America/New_York",
         useSpruceOptions: {
           __typename: "UseSpruceOptions",

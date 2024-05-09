@@ -4782,6 +4782,7 @@ export type EditSpawnHostMutationVariables = Exact<{
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
   publicKey?: InputMaybe<PublicKeyInput>;
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sleepSchedule?: InputMaybe<SleepScheduleInput>;
 }>;
 
 export type EditSpawnHostMutation = {
@@ -6418,6 +6419,16 @@ export type MyHostsQuery = {
     tag: string;
     uptime?: Date | null;
     user?: string | null;
+    sleepSchedule?: {
+      __typename?: "SleepSchedule";
+      dailyStartTime: string;
+      dailyStopTime: string;
+      permanentlyExempt: boolean;
+      shouldKeepOff: boolean;
+      temporarilyExemptUntil?: Date | null;
+      timeZone: string;
+      wholeWeekdaysOff: Array<number>;
+    } | null;
     distro?: {
       __typename?: "DistroInfo";
       id?: string | null;
