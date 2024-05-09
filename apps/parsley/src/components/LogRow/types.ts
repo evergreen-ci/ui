@@ -1,14 +1,18 @@
 import { WordWrapFormat } from "constants/enums";
 
-/**
- * RootRowProps are the props that are passed to the root LogRow component.
- * These props are used to render any type of LogRow and should always be passed to the root LogRow component.
- */
-interface RootRowProps {
-  lineIndex: number;
+enum RowType {
+  LogLine,
+  SectionHeader,
+  SkippedLines,
 }
 
-interface LogRowProps extends RootRowProps {
+interface Row {
+  lineIndex: number;
+  lineStart: number;
+  rowType: RowType;
+}
+
+interface LogLineRow extends Row {
   getLine: (index: number) => string | undefined;
   scrollToLine: (lineNumber: number) => void;
 
@@ -25,4 +29,13 @@ interface LogRowProps extends RootRowProps {
   wrap: boolean;
 }
 
-export type { RootRowProps, LogRowProps };
+interface SkippedLinesRow extends Row {
+  lineEnd: number;
+}
+
+interface SectionHeaderRow extends Row {
+  lineEnd: number;
+}
+
+export type { LogLineRow, SkippedLinesRow, SectionHeaderRow };
+export { RowType };

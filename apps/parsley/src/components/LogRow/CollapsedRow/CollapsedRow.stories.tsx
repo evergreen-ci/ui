@@ -8,6 +8,7 @@ import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import { ExpandedLine, ExpandedLines } from "types/logs";
 import CollapsedRow from ".";
+import { RowType } from "../types";
 
 export default {
   component: CollapsedRow,
@@ -33,7 +34,10 @@ const CollapsedRowStory = (args: React.ComponentProps<typeof CollapsedRow>) => {
       <CollapsedRow
         collapsedLines={rows}
         expandLines={expandLines}
+        lineEnd={rows[rows.length - 1]}
         lineIndex={args.lineIndex}
+        lineStart={rows[0]}
+        rowType={RowType.SkippedLines}
       />
     </Container>
   );

@@ -1,6 +1,7 @@
 import { LogContextProvider } from "context/LogContext";
 import { renderWithRouterMatch, screen, userEvent } from "test_utils";
 import CollapsedRow from ".";
+import { RowType } from "../types";
 
 const wrapper = (logs: string[]) => {
   const provider = ({ children }: { children: React.ReactNode }) => (
@@ -15,7 +16,6 @@ describe("collapsedRow", () => {
       <CollapsedRow
         {...collapsedProps}
         collapsedLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        lineIndex={0}
       />,
       {
         wrapper: wrapper(logLines),
@@ -32,7 +32,6 @@ describe("collapsedRow", () => {
         {...collapsedProps}
         collapsedLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
         expandLines={expandLines}
-        lineIndex={0}
       />,
       {
         wrapper: wrapper(logLines),
@@ -58,7 +57,6 @@ describe("collapsedRow", () => {
         {...collapsedProps}
         collapsedLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
         expandLines={expandLines}
-        lineIndex={0}
       />,
       {
         wrapper: wrapper(logLines),
@@ -74,11 +72,7 @@ describe("collapsedRow", () => {
 
   it("should not disable `Expand 5 Above and Below` button if there are less than 10 log lines in the collapsed row", async () => {
     renderWithRouterMatch(
-      <CollapsedRow
-        {...collapsedProps}
-        collapsedLines={[0, 1, 2]}
-        lineIndex={0}
-      />,
+      <CollapsedRow {...collapsedProps} collapsedLines={[0, 1, 2]} />,
       {
         wrapper: wrapper(logLines),
       },
@@ -106,4 +100,8 @@ const logLines = [
 
 const collapsedProps = {
   expandLines: jest.fn(),
+  lineEnd: 10,
+  lineIndex: 0,
+  lineStart: 0,
+  rowType: RowType.SkippedLines,
 };

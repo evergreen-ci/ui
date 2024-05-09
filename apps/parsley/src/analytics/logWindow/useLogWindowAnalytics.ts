@@ -25,7 +25,9 @@ type Action =
   | { name: "Applied Search Suggestion"; suggestion: string }
   | { name: "Expanded Lines"; option: "All" | "Five"; lineCount: number }
   | { name: "Collapsed Lines" }
-  | { name: "Paginated Through Search Results"; direction: DIRECTION };
+  | { name: "Paginated Through Search Results"; direction: DIRECTION }
+  | { name: "Focused Section"; functionName: string }
+  | { name: "Opened Section"; functionName: string };
 
 export const useLogWindowAnalytics = () =>
   useAnalyticsRoot<Action>("LogWindow");

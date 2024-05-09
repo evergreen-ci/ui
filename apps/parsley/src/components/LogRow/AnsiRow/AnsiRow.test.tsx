@@ -7,6 +7,7 @@ import {
   screen,
 } from "test_utils";
 import AnsiRow from ".";
+import { RowType } from "../types";
 
 type RenderRowOptions = {
   routerOptions?: RenderWithRouterMatchOptions;
@@ -139,8 +140,10 @@ const ansiProps = {
   getLine: (index: number) => logLines[index],
   scrollToLine: jest.fn(),
 
+  lineStart: 0,
   prettyPrint: false,
   range: { lowerRange: 0 },
+  rowType: RowType.LogLine,
   wordWrapFormat: WordWrapFormat.Standard,
   wrap: false,
 };

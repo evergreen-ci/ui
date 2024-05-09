@@ -7,6 +7,7 @@ import {
   screen,
 } from "test_utils";
 import ResmokeRow from ".";
+import { RowType } from "../types";
 
 const renderRow = (
   props: React.ComponentProps<typeof ResmokeRow>,
@@ -92,8 +93,10 @@ const resmokeProps = {
   getResmokeLineColor: jest.fn(),
   scrollToLine: jest.fn(),
 
+  lineStart: 0,
   prettyPrint: false,
   range: { lowerRange: 0 },
+  rowType: RowType.LogLine,
   wordWrapFormat: WordWrapFormat.Standard,
   wrap: false,
 };

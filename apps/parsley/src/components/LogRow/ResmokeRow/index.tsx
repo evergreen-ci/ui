@@ -2,9 +2,9 @@ import BaseRow from "components/LogRow/BaseRow";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParam } from "hooks/useQueryParam";
 import { formatPrettyPrint } from "utils/prettyPrint";
-import { LogRowProps } from "../types";
+import { LogLineRow } from "../types";
 
-interface ResmokeRowProps extends LogRowProps {
+interface ResmokeRowProps extends LogLineRow {
   prettyPrint: boolean;
   getResmokeLineColor: (lineNumber: number) => string | undefined;
 }

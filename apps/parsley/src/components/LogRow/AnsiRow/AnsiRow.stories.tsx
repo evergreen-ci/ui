@@ -8,6 +8,7 @@ import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import AnsiRow from ".";
 import { ParsleyRow } from "../RowRenderer";
+import { RowType } from "../types";
 
 export default {
   component: AnsiRow,
@@ -38,7 +39,9 @@ const SingleLineStory = (args: any) => {
       highlightRegex={undefined}
       lineIndex={0}
       lineNumber={0}
+      lineStart={0}
       range={{ lowerRange: 0 }}
+      rowType={RowType.LogLine}
       scrollToLine={scrollToLine}
       searchTerm={undefined}
       wordWrapFormat={args.wordWrapFormat}

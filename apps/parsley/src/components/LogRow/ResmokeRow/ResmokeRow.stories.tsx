@@ -8,6 +8,7 @@ import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
 import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import ResmokeRow from ".";
+import { RowType } from "../types";
 
 export default {
   component: ResmokeRow,
@@ -39,8 +40,10 @@ const SingleLineStory = (args: any) => {
       highlightRegex={undefined}
       lineIndex={8}
       lineNumber={8}
+      lineStart={0}
       prettyPrint={args.prettyPrint}
       range={{ lowerRange: 0 }}
+      rowType={RowType.LogLine}
       scrollToLine={scrollToLine}
       searchTerm={undefined}
       wordWrapFormat={args.wordWrapFormat}

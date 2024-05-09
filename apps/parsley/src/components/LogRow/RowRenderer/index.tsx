@@ -6,6 +6,7 @@ import { isCollapsedRow } from "utils/collapsedRow";
 import AnsiRow from "../AnsiRow";
 import CollapsedRow from "../CollapsedRow";
 import ResmokeRow from "../ResmokeRow";
+import { RowType } from "../types";
 
 type RowRendererFunction = (props: {
   processedLogLines: ProcessedLogLines;
@@ -60,7 +61,10 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
         <CollapsedRow
           collapsedLines={processedLogLine}
           expandLines={expandLines}
+          lineEnd={processedLogLine[processedLogLine.length - 1]}
           lineIndex={index}
+          lineStart={processedLogLine[0]}
+          rowType={RowType.SkippedLines}
         />
       );
     }
@@ -73,8 +77,10 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
         highlightRegex={highlightRegex}
         lineIndex={index}
         lineNumber={processedLogLine}
+        lineStart={processedLogLine}
         prettyPrint={prettyPrint}
         range={range}
+        rowType={RowType.LogLine}
         scrollToLine={scrollToLine}
         searchLine={searchLine}
         searchTerm={searchRegex}

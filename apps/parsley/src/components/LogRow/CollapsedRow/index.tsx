@@ -6,11 +6,11 @@ import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { ExpandedLines } from "types/logs";
-import { RootRowProps } from "../types";
+import { SkippedLinesRow } from "../types";
 
 const SKIP_NUMBER = 5;
 
-interface CollapsedRowProps extends RootRowProps {
+interface CollapsedRowProps extends SkippedLinesRow {
   collapsedLines: number[];
   expandLines: (expandedLines: ExpandedLines) => void;
 }
