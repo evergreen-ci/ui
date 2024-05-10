@@ -1,4 +1,3 @@
-import "cypress-real-events";
 import "./commands";
 
 declare global {

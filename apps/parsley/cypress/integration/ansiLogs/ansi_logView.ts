@@ -59,7 +59,11 @@ describe("Bookmarking and selecting lines", () => {
   const logLink =
     "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
   beforeEach(() => {
-    cy.visit(logLink);
+    cy.visit(logLink, {
+      onBeforeLoad(win: Window): void {
+        cy.spy(win.navigator.clipboard, "writeText").as("writeText");
+      },
+    });
   });
 
   it("should default to bookmarking 0 and the last log line on load", () => {
@@ -104,8 +108,7 @@ describe("Bookmarking and selecting lines", () => {
       "[2022/03/02 17:05:21.050] running setup group because we have a new independent task";
 
     cy.toggleDetailsPanel(true);
-    // Need to fire a real click here because the copy to clipboard
-    cy.dataCy("jira-button").realClick();
+    cy.dataCy("jira-button").click();
     cy.assertValueCopiedToClipboard(
       `{noformat}\n${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine297}\n{noformat}`,
     );
@@ -205,7 +208,11 @@ describe("Sharing lines", () => {
     "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
 
   beforeEach(() => {
-    cy.visit(logLink);
+    cy.visit(logLink, {
+      onBeforeLoad(win: Window): void {
+        cy.spy(win.navigator.clipboard, "writeText").as("writeText");
+      },
+    });
     cy.dataCy("line-index-1").should("exist").should("be.visible");
   });
 
@@ -226,10 +233,10 @@ describe("Sharing lines", () => {
     cy.dataCy("sharing-menu").should("be.visible");
     cy.contains("Copy selected contents").should("be.visible");
     // Need to fire a real click here because the copy to clipboard
-    cy.contains("Copy selected contents").realClick();
+    cy.contains("Copy selected contents").click();
     cy.validateToast("success", "Copied 2 lines to clipboard", true);
     cy.assertValueCopiedToClipboard(
-      `{noformat}\n[2022/03/02 17:01:58.587] Starting task spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12, execution 0.\n[2022/03/02 17:01:58.701] Running pre-task commands.\n{noformat}`,
+      "{noformat}\n[2022/03/02 17:01:58.587] Starting task spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12, execution 0.\n[2022/03/02 17:01:58.701] Running pre-task commands.\n{noformat}",
     );
   });
   it("should be able to copy a link to the selected lines", () => {
@@ -237,8 +244,7 @@ describe("Sharing lines", () => {
     cy.dataCy("line-index-2").click({ shiftKey: true });
     cy.dataCy("sharing-menu").should("be.visible");
     cy.contains("Copy share link to selected lines").should("be.visible");
-    // Need to fire a real click here because the copy to clipboard
-    cy.contains("Copy share link to selected lines").realClick();
+    cy.contains("Copy share link to selected lines").click();
     cy.validateToast("success", "Copied link to clipboard", true);
     cy.assertValueCopiedToClipboard(
       "http://localhost:4173/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task?bookmarks=0%2C297&selectedLineRange=L1-L2&shareLine=1",
