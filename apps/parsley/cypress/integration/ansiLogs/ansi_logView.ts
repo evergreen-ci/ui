@@ -59,11 +59,7 @@ describe("Bookmarking and selecting lines", () => {
   const logLink =
     "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
   beforeEach(() => {
-    cy.visit(logLink, {
-      onBeforeLoad(win: Window): void {
-        cy.spy(win.navigator.clipboard, "writeText").as("writeText");
-      },
-    });
+    cy.visit(logLink);
   });
 
   it("should default to bookmarking 0 and the last log line on load", () => {
@@ -208,11 +204,7 @@ describe("Sharing lines", () => {
     "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
 
   beforeEach(() => {
-    cy.visit(logLink, {
-      onBeforeLoad(win: Window): void {
-        cy.spy(win.navigator.clipboard, "writeText").as("writeText");
-      },
-    });
+    cy.visit(logLink);
     cy.dataCy("line-index-1").should("exist").should("be.visible");
   });
 

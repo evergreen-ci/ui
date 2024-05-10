@@ -106,11 +106,7 @@ describe("Bookmarking and selecting lines", () => {
   const logLink =
     "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
   beforeEach(() => {
-    cy.visit(logLink, {
-      onBeforeLoad(win: Window): void {
-        cy.spy(win.navigator.clipboard, "writeText").as("writeText");
-      },
-    });
+    cy.visit(logLink);
   });
 
   it("should default to bookmarking 0 and the last log line on load", () => {
@@ -272,11 +268,7 @@ describe("Sharing lines", () => {
     "/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab";
 
   beforeEach(() => {
-    cy.visit(logLink, {
-      onBeforeLoad(win: Window): void {
-        cy.spy(win.navigator.clipboard, "writeText").as("writeText");
-      },
-    });
+    cy.visit(logLink);
   });
 
   it("should present a share button with a menu when a line is selected", () => {

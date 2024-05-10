@@ -106,11 +106,7 @@ describe("Bookmarking and selecting lines", () => {
   const logLink =
     "/resmoke/7e208050e166b1a9025c817b67eee48d/test/1716e11b4f8a4541c5e2faf70affbfab";
   beforeEach(() => {
-    cy.visit(logLink, {
-      onBeforeLoad(win: Window): void {
-        cy.spy(win.navigator.clipboard, "writeText").as("writeText");
-      },
-    });
+    cy.visit(logLink);
   });
 
   it("should default to bookmarking 0 and the last log line on load", () => {
@@ -272,11 +268,7 @@ describe("Sharing lines", () => {
     "/resmoke/7e208050e166b1a9025c817b67eee48d/test/1716e11b4f8a4541c5e2faf70affbfab";
 
   beforeEach(() => {
-    cy.visit(logLink, {
-      onBeforeLoad(win: Window): void {
-        cy.spy(win.navigator.clipboard, "writeText").as("writeText");
-      },
-    });
+    cy.visit(logLink);
   });
 
   it("should present a share button with a menu when a line is selected", () => {
