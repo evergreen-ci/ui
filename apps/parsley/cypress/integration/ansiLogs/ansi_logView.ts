@@ -224,7 +224,6 @@ describe("Sharing lines", () => {
     cy.dataCy("line-index-2").click({ shiftKey: true });
     cy.dataCy("sharing-menu").should("be.visible");
     cy.contains("Copy selected contents").should("be.visible");
-    // Need to fire a real click here because the copy to clipboard
     cy.contains("Copy selected contents").click();
     cy.validateToast("success", "Copied 2 lines to clipboard", true);
     cy.assertValueCopiedToClipboard(
