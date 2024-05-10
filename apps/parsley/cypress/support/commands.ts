@@ -203,5 +203,5 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add("assertValueCopiedToClipboard", (value: string) => {
-  cy.get("@writeText").should("be.calledWithExactly", value);
+  cy.get("@writeText").should("have.been.calledOnceWith", value);
 });
