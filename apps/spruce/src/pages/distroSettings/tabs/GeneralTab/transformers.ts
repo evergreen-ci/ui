@@ -20,10 +20,10 @@ export const gqlToForm = ((data) => {
 
   return {
     distroName: {
-      identifier: name,
+      name,
     },
     distroImage: {
-      identifier: imageId,
+      image: imageId,
     },
     distroAliases: {
       aliases,
@@ -44,8 +44,8 @@ export const formToGql = ((
   distro,
 ) => ({
   ...distro,
-  name: distroName.identifier,
-  imageId: distroImage.identifier,
+  name: distroName.name,
+  imageId: distroImage.image,
   adminOnly: distroOptions.adminOnly,
   aliases: distroAliases.aliases,
   note: distroOptions.note,

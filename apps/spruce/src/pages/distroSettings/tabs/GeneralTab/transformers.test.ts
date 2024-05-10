@@ -15,10 +15,10 @@ describe("general tab", () => {
 
 const generalForm: GeneralFormState = {
   distroName: {
-    identifier: "rhel71-power8-large",
+    name: "rhel71-power8-large",
   },
   distroImage: {
-    identifier: "rhel71-power8",
+    image: "rhel71-power8",
   },
   distroAliases: {
     aliases: ["rhel71-power8", "rhel71-power8-build"],

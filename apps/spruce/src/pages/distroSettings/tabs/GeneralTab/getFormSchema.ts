@@ -13,7 +13,7 @@ export const getFormSchema = (
         type: "object" as "object",
         title: "",
         properties: {
-          identifier: {
+          name: {
             type: "string" as "string",
             title: "Identifier",
             readOnly: true,
@@ -24,7 +24,7 @@ export const getFormSchema = (
         type: "object" as "object",
         title: "",
         properties: {
-          identifier: {
+          image: {
             type: "string" as "string",
             title: "Image",
             default: "",
@@ -87,7 +87,7 @@ export const getFormSchema = (
   uiSchema: {
     distroName: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      identifier: {
+      name: {
         ...(isContainerDistro && {
           "ui:warnings": [
             "Distro is a container pool, so it cannot be spawned for tasks.",
@@ -97,7 +97,7 @@ export const getFormSchema = (
     },
     distroImage: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      identifier: {
+      image: {
         "ui:description": "The image from which this distro inherits.",
       },
     },
