@@ -5,6 +5,7 @@ import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   defaultSleepSchedule,
   getHostUptimeFromGql,
+  isNullSleepSchedule,
   validateUptimeSchedule,
   validator,
 } from "components/Spawn";
@@ -75,9 +76,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     expirationDetails: {
       expiration: host.expiration ? host.expiration.toString() : null,
       noExpiration: host.noExpiration,
-      hostUptime: host.noExpiration
-        ? getHostUptimeFromGql(host.sleepSchedule)
-        : getHostUptimeFromGql({ ...defaultSleepSchedule, timeZone }),
+      hostUptime: isNullSleepSchedule(host?.sleepSchedule)
+        ? getHostUptimeFromGql(defaultSleepSchedule)
+        : getHostUptimeFromGql(host.sleepSchedule),
     },
     publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };

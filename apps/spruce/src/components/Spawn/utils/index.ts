@@ -7,7 +7,9 @@ export {
   defaultStartDate,
   defaultStopDate,
   getHostUptimeFromGql,
+  getNextHostStart,
   getSleepSchedule,
+  isNullSleepSchedule,
   validateUptimeSchedule,
   validator,
 } from "./hostUptime";

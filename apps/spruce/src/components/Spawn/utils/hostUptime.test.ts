@@ -1,5 +1,6 @@
 import {
   getHostUptimeFromGql,
+  getNextHostStart,
   getSleepSchedule,
   matchesDefaultUptimeSchedule,
   validateUptimeSchedule,
@@ -334,6 +335,72 @@ describe("validateUptimeSchedule", () => {
       enabledHoursCount: 168,
       errors: ["Please pause your host for at least 1 day per week."],
       warnings: [],
+    });
+  });
+});
+
+describe("getNextHostStart", () => {
+  it("calculates the next start with time", () => {
+    const sched = {
+      dailyStartTime: "08:00",
+      dailyStopTime: "20:00",
+      permanentlyExempt: true,
+      shouldKeepOff: true,
+      timeZone: "America/New_York",
+      wholeWeekdaysOff: [0, 6],
+    };
+    const monday = new Date(null, null);
+    expect(getNextHostStart(sched, monday)).toStrictEqual({
+      nextStartDay: "Tuesday",
+      nextStartTime: "8:00",
+    });
+  });
+
+  it("calculates the next start with time when current day is off", () => {
+    const sched = {
+      dailyStartTime: "08:00",
+      dailyStopTime: "20:00",
+      permanentlyExempt: true,
+      shouldKeepOff: true,
+      timeZone: "America/New_York",
+      wholeWeekdaysOff: [0, 1, 6],
+    };
+    const monday = new Date(null, null);
+    expect(getNextHostStart(sched, monday)).toStrictEqual({
+      nextStartDay: "Tuesday",
+      nextStartTime: "8:00",
+    });
+  });
+
+  it("calculates the next start when running continuously", () => {
+    const sched = {
+      dailyStartTime: "",
+      dailyStopTime: "",
+      permanentlyExempt: true,
+      shouldKeepOff: true,
+      timeZone: "America/New_York",
+      wholeWeekdaysOff: [0, 6],
+    };
+    const monday = new Date(null, null);
+    expect(getNextHostStart(sched, monday)).toStrictEqual({
+      nextStartDay: "Monday",
+      nextStartTime: null,
+    });
+  });
+
+  it("calculates the next start when running continuously and current day is off", () => {
+    const sched = {
+      dailyStartTime: "",
+      dailyStopTime: "",
+      permanentlyExempt: true,
+      shouldKeepOff: true,
+      timeZone: "America/New_York",
+      wholeWeekdaysOff: [0, 1, 6],
+    };
+    const monday = new Date(null, null);
+    expect(getNextHostStart(sched, monday)).toStrictEqual({
+      nextStartDay: "Tuesday",
+      nextStartTime: null,
     });
   });
 });

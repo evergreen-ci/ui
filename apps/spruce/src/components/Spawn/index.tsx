@@ -4,6 +4,7 @@ export { MountVolumeSelect } from "./MountVolumeSelect";
 export {
   defaultSleepSchedule,
   getHostUptimeFromGql,
+  isNullSleepSchedule,
   validateUptimeSchedule,
   validator,
 } from "./utils";

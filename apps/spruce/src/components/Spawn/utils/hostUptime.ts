@@ -1,7 +1,8 @@
-import { differenceInHours, parse } from "date-fns";
+import { differenceInHours, isTomorrow, parse } from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
-import { SleepScheduleInput } from "gql/generated/types";
-import { MyHost } from "types/spawn";
+import { days } from "constants/fieldMaps";
+import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";
+import { Optional } from "types/utils";
 import { arraySymmetricDifference } from "utils/array";
 
 const daysInWeek = 7;
@@ -164,7 +165,7 @@ const toTimeString = (date: Date): string =>
     minute: "2-digit",
   });
 
-export const defaultSleepSchedule: Omit<SleepScheduleInput, "timeZone"> = {
+export const defaultSleepSchedule: Optional<SleepScheduleInput, "timeZone"> = {
   dailyStartTime: toTimeString(defaultStartDate),
   dailyStopTime: toTimeString(defaultStopDate),
   permanentlyExempt: false,
@@ -174,7 +175,7 @@ export const defaultSleepSchedule: Omit<SleepScheduleInput, "timeZone"> = {
 };
 
 export const getHostUptimeFromGql = (
-  sleepSchedule: MyHost["sleepSchedule"],
+  sleepSchedule: Optional<SleepSchedule, "timeZone">,
 ): HostUptime => {
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
@@ -209,7 +210,7 @@ export const getHostUptimeFromGql = (
 };
 
 export const matchesDefaultUptimeSchedule = (
-  sleepSchedule: MyHost["sleepSchedule"],
+  sleepSchedule: Optional<SleepSchedule, "timeZone">,
 ): boolean => {
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
@@ -250,3 +251,51 @@ export const validator = (({ expirationDetails }, errors) => {
 }) satisfies ValidateProps<{
   expirationDetails?: { hostUptime?: HostUptime; noExpiration: boolean };
 }>;
+
+export const isNullSleepSchedule = (
+  sleepSchedule: Optional<SleepSchedule, "timeZone">,
+) => {
+  if (!sleepSchedule) return true;
+
+  const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
+  if (dailyStartTime !== "") return false;
+  if (dailyStopTime !== "") return false;
+  if (arraySymmetricDifference(wholeWeekdaysOff, []).length > 0) return false;
+  return true;
+};
+
+export const getNextHostStart = (
+  { dailyStartTime, wholeWeekdaysOff }: SleepSchedule,
+  todayDate: Date,
+): {
+  nextStartDay: string;
+  nextStartTime: string | null;
+} => {
+  if (dailyStartTime) {
+    const nextStartDate = parse(dailyStartTime, "HH:mm", todayDate);
+    do {
+      nextStartDate.setDate(nextStartDate.getDate() + 1);
+    } while (wholeWeekdaysOff.includes(nextStartDate.getDay()));
+    const nextStartDay: string = isTomorrow(nextStartDate)
+      ? "tomorrow"
+      : days[nextStartDate.getDay()];
+    const nextStartTime: string = `${nextStartDate.getHours()}:${nextStartDate.getMinutes().toString().padStart(2, "0")}`;
+    return { nextStartDay, nextStartTime };
+  }
+
+  const nextStartDate = todayDate;
+  if (!wholeWeekdaysOff.includes(nextStartDate.getDay())) {
+    // Find the next planned off day in the schedule
+    do {
+      nextStartDate.setDate(nextStartDate.getDate() + 1);
+    } while (!wholeWeekdaysOff.includes(nextStartDate.getDay()));
+  }
+  // Find the first active day after that break
+  do {
+    nextStartDate.setDate(nextStartDate.getDate() + 1);
+  } while (wholeWeekdaysOff.includes(nextStartDate.getDay()));
+  const nextStartDay: string = isTomorrow(nextStartDate)
+    ? "tomorrow"
+    : days[nextStartDate.getDay()];
+  return { nextStartDay, nextStartTime: null };
+};
