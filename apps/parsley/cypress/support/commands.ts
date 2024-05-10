@@ -38,6 +38,10 @@ Cypress.Commands.add("addSearch", (search: string) => {
   cy.dataCy("searchbar-input").type(`${search}`);
 });
 
+Cypress.Commands.add("assertValueCopiedToClipboard", (value: string) => {
+  cy.get("@writeText").should("have.been.calledOnceWith", value);
+});
+
 Cypress.Commands.add("clearBounds", () => {
   cy.toggleDetailsPanel(true);
 
@@ -202,6 +206,14 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add("assertValueCopiedToClipboard", (value: string) => {
-  cy.get("@writeText").should("have.been.calledOnceWith", value);
+Cypress.Commands.overwrite("visit", (originalVisit, url, options = {}) => {
+  const opts = {
+    onBeforeLoad(win: Window): void {
+      // Mock clipboard API.
+      cy.spy(win.navigator.clipboard, "writeText").as("writeText");
+    },
+    ...options,
+  };
+  // @ts-ignore - Cypress detects the wrong definition for the original function.
+  return originalVisit(url, opts);
 });
