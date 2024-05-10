@@ -12,6 +12,7 @@ mutation EditSpawnHost(
   $servicePassword: String
   $publicKey: PublicKeyInput
   $savePublicKey: Boolean
+  $sleepSchedule: SleepScheduleInput
 ) {
   editSpawnHost(
     spawnHost: {
@@ -26,6 +27,7 @@ mutation EditSpawnHost(
       servicePassword: $servicePassword
       publicKey: $publicKey
       savePublicKey: $savePublicKey
+      sleepSchedule: $sleepSchedule
     }
   ) {
     ...BaseSpawnHost

@@ -22,7 +22,6 @@ interface FoldedCommitProps {
   }) => void;
   onClickJiraTicket?: () => void;
   onClickGithash?: () => void;
-  onClickUpstreamProject?: () => void;
 }
 const FoldedCommit: React.FC<FoldedCommitProps> = ({
   data,
@@ -30,7 +29,6 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
   numVisibleCols,
   onClickGithash,
   onClickJiraTicket,
-  onClickUpstreamProject,
   onToggleFoldedCommit = () => {},
   selected,
 }) => {
@@ -57,8 +55,6 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
           message={commit.message}
           onClickGithash={onClickGithash}
           onClickJiraTicket={onClickJiraTicket}
-          onClickUpstreamProject={onClickUpstreamProject}
-          upstreamProject={commit.upstreamProject}
           versionId={commit.id}
         />
       </LabelCellContainer>

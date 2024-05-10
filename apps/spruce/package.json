@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "4.1.14",
+  "version": "4.1.15",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -120,7 +120,7 @@
     "react-dom": "18.2.0",
     "react-router-dom": "6.16.0",
     "react-string-replace": "1.1.1",
-    "react-virtuoso": "^4.3.11"
+    "react-virtuoso": "^4.7.10"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
