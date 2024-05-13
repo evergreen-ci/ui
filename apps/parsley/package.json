@@ -137,7 +137,7 @@
     "typescript": "5.1.3",
     "vite": "4.5.2",
     "vite-plugin-checker": "0.6.2",
-    "vite-plugin-env-compatible": "1.1.1",
+    "vite-plugin-env-compatible": "2.0.1",
     "vite-tsconfig-paths": "4.3.2",
     "web-streams-polyfill": "^3.2.1",
     "whatwg-fetch": "3.6.17"
