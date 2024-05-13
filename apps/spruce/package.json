@@ -136,7 +136,7 @@
     "@storybook/addon-actions": "7.6.6",
     "@storybook/addon-essentials": "7.6.6",
     "@storybook/addon-interactions": "7.6.6",
-    "@storybook/addon-links": "7.6.6",
+    "@storybook/addon-links": "8.0.10",
     "@storybook/react": "7.6.6",
     "@storybook/react-vite": "7.6.6",
     "@storybook/testing-library": "0.2.2",
