@@ -1,4 +1,4 @@
-import { OnChangeFn } from "@tanstack/react-table";
+import { OnChangeFn } from "@leafygreen-ui/table";
 
 /**
  * `onChangeHandler` simplifies applying a side effect with one of react-table's callback functions (e.g. onColumnFiltersChange, onSortingChange).

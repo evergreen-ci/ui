@@ -31,6 +31,7 @@ describe("should initialize error handlers according to release stage", () => {
     initializeErrorHandling();
 
     expect(Sentry.init).toHaveBeenCalledWith({
+      beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: false,
       normalizeDepth: 5,
@@ -46,6 +47,7 @@ describe("should initialize error handlers according to release stage", () => {
     initializeErrorHandling();
 
     expect(Sentry.init).toHaveBeenCalledWith({
+      beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
       normalizeDepth: 5,
@@ -61,6 +63,7 @@ describe("should initialize error handlers according to release stage", () => {
     initializeErrorHandling();
 
     expect(Sentry.init).toHaveBeenCalledWith({
+      beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
       normalizeDepth: 5,

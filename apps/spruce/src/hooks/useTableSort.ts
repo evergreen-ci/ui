@@ -1,4 +1,4 @@
-import { SortingState } from "@tanstack/react-table";
+import { SortingState } from "@leafygreen-ui/table";
 import { TableQueryParams, PaginationQueryParams } from "constants/queryParams";
 import { SortDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";

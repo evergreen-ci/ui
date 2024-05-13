@@ -3,8 +3,6 @@ import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   MyHostsQuery,
   MyHostsQueryVariables,
-  MyVolumesQuery,
-  MyVolumesQueryVariables,
   SpawnVolumeMutation,
   SpawnVolumeMutationVariables,
   SubnetAvailabilityZonesQuery,
@@ -12,8 +10,9 @@ import {
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { getUserMock } from "gql/mocks/getUser";
+import { myVolumesQueryMock } from "gql/mocks/myVolumesQuery";
 import { SPAWN_VOLUME } from "gql/mutations";
-import { MY_HOSTS, SUBNET_AVAILABILITY_ZONES, MY_VOLUMES } from "gql/queries";
+import { MY_HOSTS, SUBNET_AVAILABILITY_ZONES } from "gql/queries";
 import {
   userEvent,
   renderWithRouterMatch as render,
@@ -350,61 +349,6 @@ const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
     },
   },
 };
-
-const myVolumesQueryMock: ApolloMock<MyVolumesQuery, MyVolumesQueryVariables> =
-  {
-    request: { query: MY_VOLUMES, variables: {} },
-    result: {
-      data: {
-        myVolumes: [
-          {
-            id: "vol-0228202a15111023c",
-            displayName: "",
-            createdBy: "arjrsatun.psratatel",
-            type: "gp2",
-            availabilityZone: "us-east-1d",
-            size: 200,
-            expiration: new Date("2020-11-12T18:19:39Z"),
-            deviceName: null,
-            hostID: "i-0d5d29bf2e7ee342d",
-            host: {
-              displayName: "hai",
-              id: "i-0d5d29bf2e7ee342d",
-              noExpiration: false,
-              __typename: "Host",
-            },
-            noExpiration: false,
-            homeVolume: false,
-            creationTime: new Date("2020-11-05T18:19:39Z"),
-            migrating: false,
-            __typename: "Volume",
-          },
-          {
-            id: "vol-0d7b1973c71a7cccb",
-            displayName: "ramen",
-            createdBy: "arrastrjun.prastatel",
-            type: "gp2",
-            availabilityZone: "us-east-1d",
-            size: 100,
-            expiration: new Date("2020-11-12T18:24:09Z"),
-            deviceName: null,
-            hostID: "i-0d5d29bf2e7ee342d",
-            host: {
-              displayName: "hai",
-              id: "i-0d5d29bf2e7ee342d",
-              noExpiration: false,
-              __typename: "Host",
-            },
-            noExpiration: false,
-            homeVolume: false,
-            migrating: false,
-            creationTime: new Date("2020-11-05T18:18:36Z"),
-            __typename: "Volume",
-          },
-        ],
-      },
-    },
-  };
 
 const subnetZonesMock: ApolloMock<
   SubnetAvailabilityZonesQuery,

@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useQuery } from "@apollo/client";
-import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
+  ColumnFiltering,
   ColumnFiltersState,
-  Filters,
-  Sorting,
+  RowSorting,
   SortingState,
-} from "@tanstack/react-table";
+  useLeafyGreenTable,
+} from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
@@ -37,8 +37,8 @@ import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 
 const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
   queryString;
-const { getDefaultOptions: getDefaultFiltering } = Filters;
-const { getDefaultOptions: getDefaultSorting } = Sorting;
+const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
+const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface TestsTableProps {
   task: TaskQuery["task"];

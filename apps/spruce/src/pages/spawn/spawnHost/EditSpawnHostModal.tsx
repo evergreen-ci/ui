@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import {
+  defaultSleepSchedule,
+  getHostUptimeFromGql,
+  validateUptimeSchedule,
+  validator,
+} from "components/Spawn";
 import {
   FormState,
   computeDiff,
@@ -10,12 +16,14 @@ import {
   useLoadFormData,
 } from "components/Spawn/editHostModal";
 import { SpruceForm } from "components/SpruceForm";
+import { defaultTimeZone } from "constants/fieldMaps";
 import { useToastContext } from "context/toast";
 import {
   EditSpawnHostMutation,
   EditSpawnHostMutationVariables,
 } from "gql/generated/types";
 import { EDIT_SPAWN_HOST } from "gql/mutations";
+import { useUserTimeZone } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { omit } from "utils/object";
@@ -32,6 +40,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useSpawnAnalytics();
+  const timeZone = useUserTimeZone() || defaultTimeZone;
 
   const {
     disableExpirationCheckbox,
@@ -41,7 +50,12 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     volumesData,
   } = useLoadFormData(host);
 
-  const instanceTypes = instanceTypesData?.instanceTypes ?? [];
+  let instanceTypes = instanceTypesData?.instanceTypes ?? [];
+  // The list of instance types provided by Evergreen can be out-of-date, so make sure the instance type in use is considered valid by RJSF
+  if (!instanceTypes.includes(host.instanceType)) {
+    instanceTypes = [...instanceTypes, host.instanceType];
+  }
+
   const volumes =
     volumesData?.myVolumes?.filter(
       (v) => v.availabilityZone === host.availabilityZone && v.hostID === "",
@@ -54,18 +68,36 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 
   const initialFormState = {
     hostName: host.displayName ?? "",
-    expirationDetails: {
-      expiration: host.expiration ? host.expiration.toString() : null,
-      noExpiration: host.noExpiration,
-    },
     instanceType: host.instanceType ?? "",
     volume: "",
     rdpPassword: "",
     userTags,
+    expirationDetails: {
+      expiration: host.expiration ? host.expiration.toString() : null,
+      noExpiration: host.noExpiration,
+      hostUptime: host.noExpiration
+        ? getHostUptimeFromGql(host.sleepSchedule)
+        : getHostUptimeFromGql({ ...defaultSleepSchedule, timeZone }),
+    },
     publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };
 
   const [formState, setFormState] = useState<FormState>(initialFormState);
+  const [hasError, setHasError] = useState(false);
+
+  const hostUptimeValidation = useMemo(
+    () =>
+      validateUptimeSchedule({
+        enabledWeekdays:
+          formState?.expirationDetails?.hostUptime?.sleepSchedule
+            ?.enabledWeekdays,
+        ...formState?.expirationDetails?.hostUptime?.sleepSchedule
+          ?.timeSelection,
+        useDefaultUptimeSchedule:
+          formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
+      }),
+    [formState?.expirationDetails?.hostUptime],
+  );
 
   const { schema, uiSchema } = getFormSchema({
     canEditInstanceType: host.status === HostStatus.Stopped,
@@ -73,9 +105,11 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       host.distro.isWindows && host.status === HostStatus.Running,
     canEditSshKeys: host.status === HostStatus.Running,
     disableExpirationCheckbox,
+    hostUptimeValidation,
     instanceTypes: instanceTypes ?? [],
     myPublicKeys: publicKeys ?? [],
     noExpirationCheckboxTooltip,
+    timeZone,
     volumes,
   });
 
@@ -103,6 +137,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     hostId: host.id,
     myPublicKeys: publicKeys,
     oldUserTags: userTags,
+    timeZone,
   });
 
   const currEditState = formToGql({
@@ -110,6 +145,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     hostId: host.id,
     myPublicKeys: publicKeys,
     oldUserTags: userTags,
+    timeZone,
   });
 
   const [hasChanges, mutationParams] = computeDiff(
@@ -138,7 +174,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       title="Edit Host Details"
       open={visible}
       data-cy="edit-spawn-host-modal"
-      submitDisabled={!hasChanges || loadingSpawnHost}
+      submitDisabled={!hasChanges || hasError || loadingSpawnHost}
       onCancel={() => {
         onCancel();
         setFormState(initialFormState);
@@ -150,9 +186,12 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         schema={schema}
         uiSchema={uiSchema}
         formData={formState}
-        onChange={({ formData }) => {
+        onChange={({ errors, formData }) => {
           setFormState(formData);
+          setHasError(errors.length > 0);
         }}
+        // @ts-expect-error rjsf v4 has insufficient typing for its validator
+        validate={validator}
       />
     </ConfirmationModal>
   );

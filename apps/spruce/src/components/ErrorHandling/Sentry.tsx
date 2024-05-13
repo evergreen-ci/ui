@@ -10,12 +10,25 @@ import type { Scope, SeverityLevel } from "@sentry/react";
 import type { Context, Primitive } from "@sentry/types";
 import { environmentVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
+import { processHtmlAttributes } from "./utils";
 
 const { getReleaseStage, getSentryDSN, isProduction } = environmentVariables;
 
 const initializeSentry = () => {
   try {
     init({
+      beforeBreadcrumb: (breadcrumb, hint) => {
+        if (breadcrumb?.category?.startsWith("ui")) {
+          const { target } = hint?.event ?? {};
+          if (target?.dataset?.cy) {
+            // eslint-disable-next-line no-param-reassign
+            breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy="${target.dataset.cy}"]`;
+          }
+          // eslint-disable-next-line no-param-reassign
+          breadcrumb.data = processHtmlAttributes(target);
+        }
+        return breadcrumb;
+      },
       dsn: getSentryDSN(),
       debug: !isProduction(),
       normalizeDepth: 5,

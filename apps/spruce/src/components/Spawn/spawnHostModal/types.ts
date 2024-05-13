@@ -1,3 +1,5 @@
+import { HostUptime } from "../utils";
+
 export type FormState = {
   requiredSection?: {
     distro?: string;
@@ -13,17 +15,7 @@ export type FormState = {
   expirationDetails?: {
     noExpiration: boolean;
     expiration?: string;
-    hostUptime?: {
-      useDefaultUptimeSchedule: boolean;
-      sleepSchedule?: {
-        enabledWeekdays: boolean[];
-        timeSelection: {
-          startTime: string;
-          endTime: string;
-          runContinuously: boolean;
-        };
-      };
-    };
+    hostUptime?: HostUptime;
   };
   userdataScriptSection?: {
     runUserdataScript: boolean;

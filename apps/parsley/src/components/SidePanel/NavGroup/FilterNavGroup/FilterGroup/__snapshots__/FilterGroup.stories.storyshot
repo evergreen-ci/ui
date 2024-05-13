@@ -55,7 +55,7 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
           <button
             aria-disabled="false"
             aria-label="Edit filter"
-            class="leafygreen-ui-1xt2asn"
+            class="leafygreen-ui-76dd2i"
             tabindex="0"
             title="Edit filter"
           >
@@ -82,7 +82,7 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
           <button
             aria-disabled="false"
             aria-label="Delete filter"
-            class="leafygreen-ui-1xt2asn"
+            class="leafygreen-ui-76dd2i"
             tabindex="0"
             title="Delete filter"
           >

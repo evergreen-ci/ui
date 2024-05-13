@@ -1,12 +1,12 @@
 import { useMemo, useRef } from "react";
-import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   ColumnFiltersState,
-  Filters,
-  Sorting,
+  ColumnFiltering,
+  RowSorting,
   SortingState,
   getFacetedMinMaxValues,
-} from "@tanstack/react-table";
+  useLeafyGreenTable,
+} from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
@@ -21,8 +21,8 @@ import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { TaskDurationCell } from "./TaskDurationCell";
 
-const { getDefaultOptions: getDefaultFiltering } = Filters;
-const { getDefaultOptions: getDefaultSorting } = Sorting;
+const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
+const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface Props {
   tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];
