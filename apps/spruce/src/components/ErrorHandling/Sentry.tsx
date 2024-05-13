@@ -1,10 +1,10 @@
 import {
   captureException,
   ErrorBoundary as SentryErrorBoundary,
-  getCurrentHub,
   init,
   setTags,
   withScope,
+  isInitialized,
 } from "@sentry/react";
 import type { Scope, SeverityLevel } from "@sentry/react";
 import type { Context, Primitive } from "@sentry/types";
@@ -38,8 +38,6 @@ const initializeSentry = () => {
     console.error("Failed to initialize Sentry", e);
   }
 };
-
-const isInitialized = () => !!getCurrentHub().getClient();
 
 export type ErrorInput = {
   err: Error;
