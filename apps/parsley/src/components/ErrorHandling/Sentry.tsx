@@ -1,8 +1,8 @@
 import {
   ErrorBoundary as SentryErrorBoundary,
   captureException,
-  getClient,
   init,
+  isInitialized,
   setTags,
   withScope,
 } from "@sentry/react";
@@ -40,8 +40,6 @@ const initializeSentry = () => {
     console.error("Failed to initialize Sentry", e);
   }
 };
-
-const isInitialized = () => !!getClient();
 
 export type ErrorInput = {
   err: Error;
