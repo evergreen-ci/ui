@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > IconWithTooltip.stories > Default 1`] = `
 <div>
   <div
     class="css-rtde4j"
@@ -9,7 +9,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Activity Feed Icon"
@@ -38,7 +38,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Add File Icon"
@@ -67,7 +67,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="All Products Icon"
@@ -94,7 +94,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Apps Icon"
@@ -123,7 +123,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Array Icon"
@@ -150,7 +150,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Arrow Down Icon"
@@ -177,7 +177,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Arrow Left Icon"
@@ -204,7 +204,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Arrow Right Icon"
@@ -231,7 +231,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Arrow Up Icon"
@@ -258,7 +258,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Beaker Icon"
@@ -287,7 +287,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Bell Icon"
@@ -316,7 +316,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Biometric Icon"
@@ -345,7 +345,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Boolean Icon"
@@ -374,7 +374,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Building Icon"
@@ -403,7 +403,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Bulb Icon"
@@ -434,7 +434,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Calendar Icon"
@@ -471,7 +471,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Camera Icon"
@@ -504,7 +504,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Cap Icon"
@@ -535,7 +535,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Caret Down Icon"
@@ -562,7 +562,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Caret Left Icon"
@@ -589,7 +589,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Caret Right Icon"
@@ -616,7 +616,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Caret Up Icon"
@@ -643,7 +643,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Chart Filled Icon"
@@ -672,7 +672,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Charts Icon"
@@ -699,7 +699,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Checkmark Icon"
@@ -728,7 +728,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Checkmark With Circle Icon"
@@ -757,7 +757,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Chevron Down Icon"
@@ -786,7 +786,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Chevron Left Icon"
@@ -815,7 +815,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Chevron Right Icon"
@@ -844,7 +844,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Chevron Up Icon"
@@ -873,7 +873,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Clock Icon"
@@ -902,7 +902,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Clock With Arrow Icon"
@@ -933,7 +933,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Clone Icon"
@@ -964,7 +964,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Cloud Icon"
@@ -991,7 +991,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Code Icon"
@@ -1017,7 +1017,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Code Block Icon"
@@ -1050,7 +1050,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Colon Icon"
@@ -1077,7 +1077,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Connect Icon"
@@ -1106,7 +1106,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Copy Icon"
@@ -1135,7 +1135,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Credit Card Icon"
@@ -1162,7 +1162,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Curly Braces Icon"
@@ -1189,7 +1189,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Cursor Icon"
@@ -1218,7 +1218,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Dashboard Icon"
@@ -1245,7 +1245,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Database Icon"
@@ -1279,7 +1279,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Diagram Icon"
@@ -1306,7 +1306,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Diagram2 Icon"
@@ -1333,7 +1333,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Diagram3 Icon"
@@ -1362,7 +1362,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Disconnect Icon"
@@ -1389,7 +1389,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Download Icon"
@@ -1418,7 +1418,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Drag Icon"
@@ -1445,7 +1445,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Edit Icon"
@@ -1472,7 +1472,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Ellipsis Icon"
@@ -1501,7 +1501,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Email Icon"
@@ -1532,7 +1532,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Export Icon"
@@ -1563,7 +1563,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Favorite Icon"
@@ -1590,7 +1590,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Federation Icon"
@@ -1617,7 +1617,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="File Icon"
@@ -1647,7 +1647,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Filter Icon"
@@ -1676,7 +1676,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Full Screen Enter Icon"
@@ -1702,7 +1702,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Full Screen Exit Icon"
@@ -1728,7 +1728,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Folder Icon"
@@ -1755,7 +1755,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Gauge Icon"
@@ -1782,7 +1782,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Globe Americas Icon"
@@ -1810,7 +1810,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Government Building Icon"
@@ -1843,7 +1843,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Hash Icon"
@@ -1871,7 +1871,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Highlight Icon"
@@ -1898,7 +1898,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Home Icon"
@@ -1931,7 +1931,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Horizontal Drag Icon"
@@ -1958,7 +1958,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Import Icon"
@@ -1989,7 +1989,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Important With Circle Icon"
@@ -2018,7 +2018,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Info With Circle Icon"
@@ -2047,7 +2047,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Invite User Icon"
@@ -2078,7 +2078,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Key Icon"
@@ -2107,7 +2107,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Laptop Icon"
@@ -2140,7 +2140,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Lightning Bolt Icon"
@@ -2167,7 +2167,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Link Icon"
@@ -2198,7 +2198,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="List Icon"
@@ -2225,7 +2225,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Lock Icon"
@@ -2254,7 +2254,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Log In Icon"
@@ -2289,7 +2289,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Log Out Icon"
@@ -2324,7 +2324,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Magnifying Glass Icon"
@@ -2353,7 +2353,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Megaphone Icon"
@@ -2382,7 +2382,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Menu Icon"
@@ -2409,7 +2409,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Minus Icon"
@@ -2436,7 +2436,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Mobile Icon"
@@ -2465,7 +2465,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Multi Direction Arrow Icon"
@@ -2496,7 +2496,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Multi Layers Icon"
@@ -2523,7 +2523,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Nav Collapse Icon"
@@ -2556,7 +2556,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Nav Expand Icon"
@@ -2589,7 +2589,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="No Filter Icon"
@@ -2616,7 +2616,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Not Allowed Icon"
@@ -2645,7 +2645,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Note Icon"
@@ -2678,7 +2678,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Open New Tab Icon"
@@ -2709,7 +2709,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Pause Icon"
@@ -2736,7 +2736,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Person Icon"
@@ -2767,7 +2767,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Person Group Icon"
@@ -2793,7 +2793,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Person With Lock Icon"
@@ -2826,7 +2826,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Pin Icon"
@@ -2853,7 +2853,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Play Icon"
@@ -2880,7 +2880,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Plus Icon"
@@ -2909,7 +2909,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Plus With Circle Icon"
@@ -2938,7 +2938,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Question Mark With Circle Icon"
@@ -2967,7 +2967,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Read Icon"
@@ -2998,7 +2998,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Redo Icon"
@@ -3025,7 +3025,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Refresh Icon"
@@ -3052,7 +3052,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Relationship Icon"
@@ -3079,7 +3079,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Replica Set Icon"
@@ -3108,7 +3108,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Resize Icon"
@@ -3137,7 +3137,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Return Icon"
@@ -3164,7 +3164,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Save Icon"
@@ -3197,7 +3197,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Serverless Icon"
@@ -3224,7 +3224,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Sharded Cluster Icon"
@@ -3253,7 +3253,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Settings Icon"
@@ -3282,7 +3282,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Shell Icon"
@@ -3308,7 +3308,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="SMS Icon"
@@ -3337,7 +3337,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Sort Ascending Icon"
@@ -3364,7 +3364,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Sort Descending Icon"
@@ -3391,7 +3391,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Sparkle Icon"
@@ -3418,7 +3418,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Split Horizontal Icon"
@@ -3447,7 +3447,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Split Vertical Icon"
@@ -3476,7 +3476,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Stitch Icon"
@@ -3503,7 +3503,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="String Icon"
@@ -3530,7 +3530,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Support Icon"
@@ -3559,7 +3559,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Sweep Icon"
@@ -3588,7 +3588,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Table Icon"
@@ -3617,7 +3617,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Tag Icon"
@@ -3646,7 +3646,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Thumbs Down Icon"
@@ -3675,7 +3675,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Thumbs Up Icon"
@@ -3704,7 +3704,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Time Series Icon"
@@ -3731,7 +3731,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Time Series Collection Icon"
@@ -3766,7 +3766,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Trash Icon"
@@ -3795,7 +3795,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Undo Icon"
@@ -3822,7 +3822,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="University Icon"
@@ -3849,7 +3849,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Unlock Icon"
@@ -3878,7 +3878,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Unsorted Icon"
@@ -3905,7 +3905,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Up Down Carets Icon"
@@ -3932,7 +3932,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Upload Icon"
@@ -3961,7 +3961,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Vertical Ellipsis Icon"
@@ -3990,7 +3990,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Visibility Icon"
@@ -4019,7 +4019,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Visibility Off Icon"
@@ -4048,7 +4048,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Warning Icon"
@@ -4077,7 +4077,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Wizard Icon"
@@ -4106,7 +4106,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Wrench Icon"
@@ -4135,7 +4135,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Write Icon"
@@ -4166,7 +4166,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="X Icon"
@@ -4195,7 +4195,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="XWith Circle Icon"
@@ -4224,7 +4224,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Closed Eye Icon"
@@ -4263,7 +4263,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="ArrowWithCircle Icon"
@@ -4288,7 +4288,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Expand Icon"
@@ -4323,7 +4323,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           aria-label="Evergreen Icon"
@@ -4359,7 +4359,7 @@ exports[`Snapshot Tests IconWithTooltip.stories Default 1`] = `
       class="css-141et6l"
     >
       <div
-        class="leafygreen-ui-cssveg css-1sg2lsz"
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
           fill="none"

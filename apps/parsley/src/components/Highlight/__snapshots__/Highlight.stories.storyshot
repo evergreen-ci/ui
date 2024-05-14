@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > Highlight.stories > AllColors 1`] = `
 <div>
   <div>
     <div>
       Should be
        
       <mark
-        class="css-1ksw08g"
+        class="css-sd7oz2-Highlight e1fp893c0"
         color="#71F6BA"
         data-cy="highlight"
       >
@@ -18,7 +18,7 @@ exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
       Should be
        
       <mark
-        class="css-17byylf"
+        class="css-1ri799q-Highlight e1fp893c0"
         color="#C3E7FE"
         data-cy="highlight"
       >
@@ -29,7 +29,7 @@ exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
       Should be
        
       <mark
-        class="css-1y88103"
+        class="css-jwry9x-Highlight e1fp893c0"
         color="#FFEAE5"
         data-cy="highlight"
       >
@@ -40,7 +40,7 @@ exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
       Should be
        
       <mark
-        class="css-9h2dxy"
+        class="css-e2k0v6-Highlight e1fp893c0"
         color="#FFEC9E"
         data-cy="highlight"
       >
@@ -51,7 +51,7 @@ exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
       Should be
        
       <mark
-        class="css-139h9nl"
+        class="css-f411kt-Highlight e1fp893c0"
         color="#C0FAE6"
         data-cy="highlight"
       >
@@ -62,7 +62,7 @@ exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
       Should be
        
       <mark
-        class="css-1okxez6"
+        class="css-1es4y0d-Highlight e1fp893c0"
         color="#F1D4FD"
         data-cy="highlight"
       >
@@ -73,7 +73,7 @@ exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
       Should be
        
       <mark
-        class="css-9tvxfk"
+        class="css-19z8gvp-Highlight e1fp893c0"
         color="#0498EC"
         data-cy="highlight"
       >
@@ -84,7 +84,7 @@ exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
       Should be
        
       <mark
-        class="css-o384z0"
+        class="css-64ldmn-Highlight e1fp893c0"
         color="#E3FCF7"
         data-cy="highlight"
       >
@@ -95,7 +95,7 @@ exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
       Should be
        
       <mark
-        class="css-isit1e"
+        class="css-1faqh9b-Highlight e1fp893c0"
         color="#FFCDC7"
         data-cy="highlight"
       >
@@ -106,12 +106,12 @@ exports[`Snapshot Tests Highlight.stories AllColors 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests Highlight.stories DefaultHighlight 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > Highlight.stories > DefaultHighlight 1`] = `
 <div>
   <span>
     Should be 
     <mark
-      class="css-isit1e"
+      class="css-1faqh9b-Highlight e1fp893c0"
       color="#FFCDC7"
       data-cy="highlight"
     >

@@ -28,12 +28,12 @@
     "prepare": "yarn --cwd='../..' prepare",
     "prettier": "prettier --write",
     "preview": "serve -s dist -p 4173",
-    "snapshot": "jest snapshot.test.ts --watchAll=false",
+    "snapshot": "vitest run snapshot.test.ts",
     "start": "vite",
     "verify-backend": "./scripts/verify-backend.sh",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "env-cmd -e local -r .env-cmdrc.local.json storybook build",
-    "test": "yarn --cwd='../..' test --selectProjects parsley --watchAll=false",
+    "test": "vitest run --typecheck=false",
     "postversion": "scripts/push-version.sh"
   },
   "dependencies": {

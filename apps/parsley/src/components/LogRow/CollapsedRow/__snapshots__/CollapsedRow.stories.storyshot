@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests CollapsedRow.stories CollapsedAnsiRow 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > CollapsedRow.stories > CollapsedAnsiRow 1`] = `
 <div>
   <div
     class="css-1mysoqc"
@@ -27,7 +27,7 @@ exports[`Snapshot Tests CollapsedRow.stories CollapsedAnsiRow 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests CollapsedRow.stories CollapsedResmokeRow 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > CollapsedRow.stories > CollapsedResmokeRow 1`] = `
 <div>
   <div
     class="css-1mysoqc"
@@ -54,22 +54,22 @@ exports[`Snapshot Tests CollapsedRow.stories CollapsedResmokeRow 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests CollapsedRow.stories CollapsedRowSingle 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > CollapsedRow.stories > CollapsedRowSingle 1`] = `
 <div>
   <div
     class="css-1mysoqc"
   >
     <div
-      class="css-aapse8"
+      class="css-1ub034c-CollapsedLineWrapper ehechrq2"
       data-cy="collapsed-row-0-99"
     >
       <p
-        class="css-end8kr leafygreen-ui-1tb6tuo"
+        class="css-1g17aaf-StyledBody ehechrq1 leafygreen-ui-1tb6tuo"
       >
         100 Lines Skipped
       </p>
       <div
-        class="css-10oczdc"
+        class="css-1gi9ejr-ButtonContainer ehechrq0"
       >
         <button
           aria-disabled="false"

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests AnsiRow.stories MultiLines 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > AnsiRow.stories > MultiLines 1`] = `
 <div>
   <div
     class="css-1mysoqc"
@@ -27,10 +27,10 @@ exports[`Snapshot Tests AnsiRow.stories MultiLines 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests AnsiRow.stories SingleLine 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > AnsiRow.stories > SingleLine 1`] = `
 <div>
   <div
-    class="css-g181ky"
+    class="css-1s8k69e-RowContainer e11863j13"
     data-bookmarked="false"
     data-cy="log-row-0"
     data-failed="false"
@@ -40,7 +40,7 @@ exports[`Snapshot Tests AnsiRow.stories SingleLine 1`] = `
     <button
       aria-disabled="false"
       aria-label="Share link"
-      class="css-xrue4o leafygreen-ui-76dd2i"
+      class="css-benkut-MenuIcon e11863j10 leafygreen-ui-76dd2i"
       tabindex="0"
     >
       <div
@@ -48,7 +48,7 @@ exports[`Snapshot Tests AnsiRow.stories SingleLine 1`] = `
       >
         <svg
           aria-label="Link Icon"
-          class="css-e6tumk"
+          class="css-1629su4-ShareIcon e11863j12"
           data-cy="log-link-0"
           fill="none"
           height="14"
@@ -69,12 +69,12 @@ exports[`Snapshot Tests AnsiRow.stories SingleLine 1`] = `
       </div>
     </button>
     <pre
-      class="css-d6bqxu"
+      class="css-aekejs-Index e1r3i87w0"
       data-cy="line-index-0"
       title="Use shift+click to select multiple lines"
     />
     <pre
-      class="css-14vbqx7"
+      class="css-xz3lfn-StyledPre e11863j11"
     >
       <span
         data-cy="ansi-row"

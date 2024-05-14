@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > DetailsMenu.stories > Default 1`] = `
 <div>
   <div
     class="leafygreen-ui-1ecxdul"
     style="max-width: 750px;"
   >
     <div
-      class="css-1yypzp8"
+      class="css-vnviqw-Container eb0fe5t2"
     >
       <h3
         class="leafygreen-ui-feh85s"
@@ -75,19 +75,19 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
             role="tabpanel"
           >
             <div
-              class="css-167okcj"
+              class="css-1pljvuj-Row eb0fe5t1"
             >
               <div
-                class="css-1ago99h"
+                class="css-1wy4ud6-Column eb0fe5t0"
               >
                 <div
-                  class="css-qzhvvy"
+                  class="css-vhomhu-DetailRow-StyledDetailRow egajxj64"
                 >
                   <div
-                    class="css-1sg2lsz"
+                    class="css-1m0k94u-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-1vhit7t leafygreen-ui-19p3n10"
+                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Range
                     </h6>
@@ -118,13 +118,13 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
                     </span>
                   </div>
                   <div
-                    class="css-1iyoj2o"
+                    class="css-1bqh3hf-RangeInputContainer egajxj63"
                   >
                     <div
-                      class="css-1sg2lsz"
+                      class="css-500t56-RangeInputWrapper egajxj62"
                     >
                       <div
-                        class="css-1b84j75 leafygreen-ui-90q1a7"
+                        class="css-1esou8m-RangeInput egajxj61 leafygreen-ui-90q1a7"
                       >
                         <div
                           class="leafygreen-ui-lzja97"
@@ -148,7 +148,7 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
                         </div>
                       </div>
                       <div
-                        class="css-1b84j75 leafygreen-ui-90q1a7"
+                        class="css-1esou8m-RangeInput egajxj61 leafygreen-ui-90q1a7"
                       >
                         <div
                           class="leafygreen-ui-lzja97"
@@ -175,13 +175,13 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
                   </div>
                 </div>
                 <div
-                  class="css-91jh6a"
+                  class="css-1lfkm0d-DetailRow e1fnsar2"
                 >
                   <div
-                    class="css-1sg2lsz"
+                    class="css-1m0k94u-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-1vhit7t leafygreen-ui-19p3n10"
+                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Case Sensitive
                     </h6>
@@ -212,10 +212,10 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
                     </span>
                   </div>
                   <div
-                    class="css-1sg2lsz"
+                    class="css-ar0usj-ToggleWrapper ebcb7uy0"
                   >
                     <small
-                      class="css-155nmlp leafygreen-ui-6flbwy"
+                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       OFF
                     </small>
@@ -250,20 +250,20 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
                       </div>
                     </button>
                     <small
-                      class="css-155nmlp leafygreen-ui-6flbwy"
+                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       ON
                     </small>
                   </div>
                 </div>
                 <div
-                  class="css-91jh6a"
+                  class="css-1lfkm0d-DetailRow e1fnsar2"
                 >
                   <div
-                    class="css-1sg2lsz"
+                    class="css-1m0k94u-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-1vhit7t leafygreen-ui-19p3n10"
+                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Filter Logic
                     </h6>
@@ -294,10 +294,10 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
                     </span>
                   </div>
                   <div
-                    class="css-1sg2lsz"
+                    class="css-ar0usj-ToggleWrapper ebcb7uy0"
                   >
                     <small
-                      class="css-155nmlp leafygreen-ui-6flbwy"
+                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       AND
                     </small>
@@ -332,7 +332,7 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
                       </div>
                     </button>
                     <small
-                      class="css-155nmlp leafygreen-ui-6flbwy"
+                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       OR
                     </small>
@@ -341,7 +341,7 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
               </div>
             </div>
             <div
-              class="css-91jh6a"
+              class="css-1lfkm0d-DetailRow e1fnsar2"
             >
               <button
                 aria-disabled="true"
@@ -499,14 +499,14 @@ exports[`Snapshot Tests DetailsMenu.stories Default 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > DetailsMenu.stories > WithDownloadedLog 1`] = `
 <div>
   <div
     class="leafygreen-ui-1ecxdul"
     style="max-width: 750px;"
   >
     <div
-      class="css-1yypzp8"
+      class="css-vnviqw-Container eb0fe5t2"
     >
       <h3
         class="leafygreen-ui-feh85s"
@@ -574,19 +574,19 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
             role="tabpanel"
           >
             <div
-              class="css-167okcj"
+              class="css-1pljvuj-Row eb0fe5t1"
             >
               <div
-                class="css-1ago99h"
+                class="css-1wy4ud6-Column eb0fe5t0"
               >
                 <div
-                  class="css-qzhvvy"
+                  class="css-vhomhu-DetailRow-StyledDetailRow egajxj64"
                 >
                   <div
-                    class="css-1sg2lsz"
+                    class="css-1m0k94u-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-1vhit7t leafygreen-ui-19p3n10"
+                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Range
                     </h6>
@@ -617,13 +617,13 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                     </span>
                   </div>
                   <div
-                    class="css-1iyoj2o"
+                    class="css-1bqh3hf-RangeInputContainer egajxj63"
                   >
                     <div
-                      class="css-1sg2lsz"
+                      class="css-500t56-RangeInputWrapper egajxj62"
                     >
                       <div
-                        class="css-1b84j75 leafygreen-ui-90q1a7"
+                        class="css-1esou8m-RangeInput egajxj61 leafygreen-ui-90q1a7"
                       >
                         <div
                           class="leafygreen-ui-lzja97"
@@ -647,7 +647,7 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                         </div>
                       </div>
                       <div
-                        class="css-1b84j75 leafygreen-ui-90q1a7"
+                        class="css-1esou8m-RangeInput egajxj61 leafygreen-ui-90q1a7"
                       >
                         <div
                           class="leafygreen-ui-lzja97"
@@ -674,13 +674,13 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                   </div>
                 </div>
                 <div
-                  class="css-91jh6a"
+                  class="css-1lfkm0d-DetailRow e1fnsar2"
                 >
                   <div
-                    class="css-1sg2lsz"
+                    class="css-1m0k94u-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-1vhit7t leafygreen-ui-19p3n10"
+                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Case Sensitive
                     </h6>
@@ -711,10 +711,10 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                     </span>
                   </div>
                   <div
-                    class="css-1sg2lsz"
+                    class="css-ar0usj-ToggleWrapper ebcb7uy0"
                   >
                     <small
-                      class="css-155nmlp leafygreen-ui-6flbwy"
+                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       OFF
                     </small>
@@ -749,20 +749,20 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                       </div>
                     </button>
                     <small
-                      class="css-155nmlp leafygreen-ui-6flbwy"
+                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       ON
                     </small>
                   </div>
                 </div>
                 <div
-                  class="css-91jh6a"
+                  class="css-1lfkm0d-DetailRow e1fnsar2"
                 >
                   <div
-                    class="css-1sg2lsz"
+                    class="css-1m0k94u-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-1vhit7t leafygreen-ui-19p3n10"
+                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Filter Logic
                     </h6>
@@ -793,10 +793,10 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                     </span>
                   </div>
                   <div
-                    class="css-1sg2lsz"
+                    class="css-ar0usj-ToggleWrapper ebcb7uy0"
                   >
                     <small
-                      class="css-155nmlp leafygreen-ui-6flbwy"
+                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       AND
                     </small>
@@ -831,7 +831,7 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
                       </div>
                     </button>
                     <small
-                      class="css-155nmlp leafygreen-ui-6flbwy"
+                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       OR
                     </small>
@@ -840,7 +840,7 @@ exports[`Snapshot Tests DetailsMenu.stories WithDownloadedLog 1`] = `
               </div>
             </div>
             <div
-              class="css-91jh6a"
+              class="css-1lfkm0d-DetailRow e1fnsar2"
             >
               <button
                 aria-disabled="true"

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests SharingMenu.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > SharingMenu.stories > Default 1`] = `
 <div>
   <button
     aria-disabled="false"
     aria-expanded="true"
     aria-haspopup="true"
     aria-label="Expand share menu"
-    class="css-xrue4o leafygreen-ui-76dd2i"
+    class="css-benkut-MenuIcon ev9qq3j1 leafygreen-ui-76dd2i"
     data-cy="sharing-menu-button"
     tabindex="0"
   >

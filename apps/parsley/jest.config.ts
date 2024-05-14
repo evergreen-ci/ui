@@ -14,7 +14,7 @@ const config: Config = {
   modulePaths: ["<rootDir>/src"],
   preset: "ts-jest/presets/js-with-ts",
   resetMocks: true,
-  setupFiles: ["./config/jest/vi.setup.ts"],
+  setupFiles: ["./config/jest/setupTests.ts"],
   setupFilesAfterEnv: ["<rootDir>/config/jest/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",

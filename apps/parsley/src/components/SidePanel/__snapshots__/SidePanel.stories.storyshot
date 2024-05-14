@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests SidePanel.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > SidePanel.stories > Default 1`] = `
 <div>
   <div
     class="css-3ieiu4"
   >
     <div
-      class="lg-ui-side-nav-0000 css-18wdk2z leafygreen-ui-f85pfm"
+      class="lg-ui-side-nav-0000 css-xwi42p-StyledSideNav e1ga8mgi1 leafygreen-ui-f85pfm"
       data-testid="side-nav-container"
     >
       <div
@@ -24,10 +24,10 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
               class="leafygreen-ui-138pepl"
             >
               <div
-                class="css-6eonsj"
+                class="css-1spoa9y-PaddedContainer e1ga8mgi0"
               >
                 <li
-                  class="leafygreen-ui-la0n3e css-1hr1o5a"
+                  class="leafygreen-ui-la0n3e css-1e1ebgh-StyledSideNavGroup e15kq6cl3"
                 >
                   <div
                     class="leafygreen-ui-g6ml2m"
@@ -64,11 +64,11 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                         class="leafygreen-ui-1tm4spc"
                       >
                         <div
-                          class="css-1sg2lsz"
+                          class="css-rk3jif-NavGroupHeader e15kq6cl2"
                           data-cy="filters-nav-group-header"
                         >
                           <div
-                            class="css-10scxvy"
+                            class="css-101mp63-NavGroupTitle e15kq6cl1"
                           >
                             Filters
                           </div>
@@ -78,7 +78,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                             1
                           </div>
                           <div
-                            class="css-hggi9n"
+                            class="css-wk93a7-ModalTrigger e12xhjo61"
                             role="button"
                             tabindex="0"
                           >
@@ -93,18 +93,18 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                     class="leafygreen-ui-bdnco"
                   >
                     <div
-                      class="css-1c7ipt7"
+                      class="css-zkmo5p-FilterWrapper e12xhjo60"
                       data-cy="filter-active filter"
                     >
                       <div>
                         <div
-                          class="css-8km4up"
+                          class="css-16i4gmg-AccordionToggle e1bamyem4"
                           data-cy="accordion-toggle"
                           role="button"
                         >
                           <svg
                             aria-label="Chevron Right Icon"
-                            class="leafygreen-ui-jc2z8v css-1lhul1p"
+                            class="leafygreen-ui-jc2z8v css-7x45r8-AccordionIcon e1bamyem3"
                             fill="none"
                             height="14"
                             open=""
@@ -121,7 +121,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                             />
                           </svg>
                           <div
-                            class="css-fmhxew"
+                            class="css-1kr6vj4-AccordionTitle e12rc5wm5"
                           >
                             <p
                               class="leafygreen-ui-1miy0xp"
@@ -130,7 +130,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                               active filter
                             </p>
                             <div
-                              class="css-g5sccu"
+                              class="css-1sof2u0-IconButtonContainer e12rc5wm3"
                             >
                               <button
                                 aria-checked="true"
@@ -207,18 +207,18 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                         </div>
                         <div
                           aria-expanded="true"
-                          class="css-hvdwbs"
+                          class="css-8qz5n0-AnimatedAccordion e1bamyem2"
                           data-cy="accordion-collapse-container"
                           height="0"
                         >
                           <div
-                            class="css-ci461p"
+                            class="css-1nylm8s-ContentsContainer e1bamyem1"
                           >
                             <div
-                              class="css-ma2i7n"
+                              class="css-2ra843-AccordionContent e12rc5wm4"
                             >
                               <div
-                                class="leafygreen-ui-ozfao7 css-79ds1c"
+                                class="leafygreen-ui-ozfao7 css-7tm8v2-StyledSegmentedControl e12rc5wm0"
                               >
                                 <div
                                   class="leafygreen-ui-jmb2kp"
@@ -298,7 +298,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                                 </div>
                               </div>
                               <div
-                                class="leafygreen-ui-ozfao7 css-79ds1c"
+                                class="leafygreen-ui-ozfao7 css-7tm8v2-StyledSegmentedControl e12rc5wm0"
                               >
                                 <div
                                   class="leafygreen-ui-jmb2kp"
@@ -385,7 +385,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                   </ul>
                 </li>
                 <li
-                  class="leafygreen-ui-la0n3e css-1hr1o5a"
+                  class="leafygreen-ui-la0n3e css-1e1ebgh-StyledSideNavGroup e15kq6cl3"
                 >
                   <div
                     class="leafygreen-ui-g6ml2m"
@@ -427,11 +427,11 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                         class="leafygreen-ui-1tm4spc"
                       >
                         <div
-                          class="css-1sg2lsz"
+                          class="css-rk3jif-NavGroupHeader e15kq6cl2"
                           data-cy="expanded-lines-nav-group-header"
                         >
                           <div
-                            class="css-10scxvy"
+                            class="css-101mp63-NavGroupTitle e15kq6cl1"
                           >
                             Expanded Lines
                           </div>
@@ -449,7 +449,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                     class="leafygreen-ui-bdnco"
                   >
                     <div
-                      class="css-ewb44i"
+                      class="css-1l273jb-ExpandedLine e12x67qh0"
                       data-cy="expanded-row-1-to-10"
                     >
                       <button
@@ -492,7 +492,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                   </ul>
                 </li>
                 <li
-                  class="leafygreen-ui-la0n3e css-1hr1o5a"
+                  class="leafygreen-ui-la0n3e css-1e1ebgh-StyledSideNavGroup e15kq6cl3"
                 >
                   <div
                     class="leafygreen-ui-g6ml2m"
@@ -527,11 +527,11 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                         class="leafygreen-ui-1tm4spc"
                       >
                         <div
-                          class="css-1sg2lsz"
+                          class="css-rk3jif-NavGroupHeader e15kq6cl2"
                           data-cy="highlight-nav-group-header"
                         >
                           <div
-                            class="css-10scxvy"
+                            class="css-101mp63-NavGroupTitle e15kq6cl1"
                           >
                             Highlighted Terms
                           </div>
@@ -549,7 +549,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                     class="leafygreen-ui-bdnco"
                   >
                     <div
-                      class="css-ewb44i"
+                      class="css-1acwkob-HighlightedTerm e1yx6qqn1"
                     >
                       <button
                         aria-disabled="false"
@@ -581,7 +581,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                         </div>
                       </button>
                       <mark
-                        class="css-1irhuyo"
+                        class="css-a1j4jw-Highlight-StyledHighlight e1yx6qqn0"
                         color="#71F6BA"
                         data-cy="side-nav-highlight"
                       >
@@ -589,7 +589,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                       </mark>
                     </div>
                     <div
-                      class="css-ewb44i"
+                      class="css-1acwkob-HighlightedTerm e1yx6qqn1"
                     >
                       <button
                         aria-disabled="false"
@@ -621,7 +621,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                         </div>
                       </button>
                       <mark
-                        class="css-123ogo0"
+                        class="css-11fpwli-Highlight-StyledHighlight e1yx6qqn0"
                         color="#C3E7FE"
                         data-cy="side-nav-highlight"
                       >

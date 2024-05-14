@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests SearchBar.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > SearchBar.stories > Default 1`] = `
 <div>
   <div
-    class="css-14zx4vh"
+    class="css-4c6myl-Container etjwcg15"
   >
     <div
-      class="leafygreen-ui-1iyoj2o css-6lshyd"
+      class="leafygreen-ui-1iyoj2o css-1y59ez7-StyledSelect etjwcg14"
       data-lgid="lg-select"
     >
       <button
@@ -65,10 +65,10 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
       />
     </div>
     <div
-      class="css-1xm32e0"
+      class="css-b6dwfd-InputWrapper etjwcg13"
     >
       <div
-        class="css-xvgrqg"
+        class="css-jww8p9-IconButtonWrapper etjwcg11"
       >
         <button
           aria-disabled="false"
@@ -119,10 +119,10 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
         </button>
       </div>
       <div
-        class="css-1xm32e0"
+        class="css-mk4qpy-TextInputWrapper e1j7n2io1"
       >
         <div
-          class="css-z4vplf leafygreen-ui-90q1a7"
+          class="css-j29pku-StyledInput etjwcg12 leafygreen-ui-90q1a7"
         >
           <div
             class="leafygreen-ui-lzja97"
@@ -163,10 +163,10 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
           </div>
         </div>
         <div
-          class="css-1kijwh"
+          class="css-4bamt4-IconWrapper e1j7n2io0"
         >
           <div
-            class="leafygreen-ui-cssveg css-1a9hvxo"
+            class="leafygreen-ui-cssveg css-122v0mq-IconPlaceholder etjwcg10"
             data-cy="searchbar-error"
           />
         </div>
@@ -176,13 +176,13 @@ exports[`Snapshot Tests SearchBar.stories Default 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > SearchBar.stories > WithSearchSuggestions 1`] = `
 <div>
   <div
-    class="css-14zx4vh"
+    class="css-4c6myl-Container etjwcg15"
   >
     <div
-      class="leafygreen-ui-1iyoj2o css-6lshyd"
+      class="leafygreen-ui-1iyoj2o css-1y59ez7-StyledSelect etjwcg14"
       data-lgid="lg-select"
     >
       <button
@@ -241,10 +241,10 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
       />
     </div>
     <div
-      class="css-1xm32e0"
+      class="css-b6dwfd-InputWrapper etjwcg13"
     >
       <div
-        class="css-xvgrqg"
+        class="css-jww8p9-IconButtonWrapper etjwcg11"
       >
         <button
           aria-disabled="false"
@@ -295,10 +295,10 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
         </button>
       </div>
       <div
-        class="css-1xm32e0"
+        class="css-mk4qpy-TextInputWrapper e1j7n2io1"
       >
         <div
-          class="css-z4vplf leafygreen-ui-90q1a7"
+          class="css-j29pku-StyledInput etjwcg12 leafygreen-ui-90q1a7"
         >
           <div
             class="leafygreen-ui-lzja97"
@@ -322,7 +322,7 @@ exports[`Snapshot Tests SearchBar.stories WithSearchSuggestions 1`] = `
           </div>
         </div>
         <div
-          class="css-1kijwh"
+          class="css-4bamt4-IconWrapper e1j7n2io0"
         >
           <button
             aria-disabled="true"

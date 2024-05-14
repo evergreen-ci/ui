@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > FilterGroup.stories > Default 1`] = `
 <div>
   <div>
     <div
-      class="css-8km4up"
+      class="css-16i4gmg-AccordionToggle e1bamyem4"
       data-cy="accordion-toggle"
       role="button"
     >
       <svg
         aria-label="Chevron Right Icon"
-        class="leafygreen-ui-jc2z8v css-1lhul1p"
+        class="leafygreen-ui-jc2z8v css-7x45r8-AccordionIcon e1bamyem3"
         fill="none"
         height="14"
         open=""
@@ -27,7 +27,7 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
         />
       </svg>
       <div
-        class="css-fmhxew"
+        class="css-1kr6vj4-AccordionTitle e12rc5wm5"
       >
         <p
           class="leafygreen-ui-1miy0xp"
@@ -36,7 +36,7 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
           Some Filter Expression
         </p>
         <div
-          class="css-g5sccu"
+          class="css-1sof2u0-IconButtonContainer e12rc5wm3"
         >
           <button
             aria-checked="true"
@@ -113,18 +113,18 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
     </div>
     <div
       aria-expanded="true"
-      class="css-hvdwbs"
+      class="css-8qz5n0-AnimatedAccordion e1bamyem2"
       data-cy="accordion-collapse-container"
       height="0"
     >
       <div
-        class="css-ci461p"
+        class="css-1nylm8s-ContentsContainer e1bamyem1"
       >
         <div
-          class="css-ma2i7n"
+          class="css-2ra843-AccordionContent e12rc5wm4"
         >
           <div
-            class="leafygreen-ui-ozfao7 css-79ds1c"
+            class="leafygreen-ui-ozfao7 css-7tm8v2-StyledSegmentedControl e12rc5wm0"
           >
             <div
               class="leafygreen-ui-jmb2kp"
@@ -204,7 +204,7 @@ exports[`Snapshot Tests FilterGroup.stories Default 1`] = `
             </div>
           </div>
           <div
-            class="leafygreen-ui-ozfao7 css-79ds1c"
+            class="leafygreen-ui-ozfao7 css-7tm8v2-StyledSegmentedControl e12rc5wm0"
           >
             <div
               class="leafygreen-ui-jmb2kp"

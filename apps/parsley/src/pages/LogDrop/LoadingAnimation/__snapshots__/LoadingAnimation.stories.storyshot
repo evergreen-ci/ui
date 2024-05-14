@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests LoadingAnimation.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > LoadingAnimation.stories > Default 1`] = `
 <div>
   <div
-    class="css-10b6qd6"
+    class="css-3wayjx-AnimateIn e1y8h5k0"
   >
     <p
-      class="css-ahy7pu leafygreen-ui-1tb6tuo"
+      class="css-77ij7v-StyledBody e1y8h5k1 leafygreen-ui-1tb6tuo"
     >
       Loading log...
     </p>
     <div
-      class="css-k7jz0p"
+      class="css-1oek7rh-Container e1twv7mv1"
     >
       <div
-        class="css-1i15wrg"
+        class="css-125dksu-Bar-indeterminateAnimation e1twv7mv0"
       />
     </div>
   </div>

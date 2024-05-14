@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests ProjectFiltersModal.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > ProjectFiltersModal.stories > Default 1`] = `
 <div>
   <button
     type="button"
@@ -10,7 +10,7 @@ exports[`Snapshot Tests ProjectFiltersModal.stories Default 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests ProjectFiltersModal.stories Empty 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > ProjectFiltersModal.stories > Empty 1`] = `
 <div>
   <button
     type="button"

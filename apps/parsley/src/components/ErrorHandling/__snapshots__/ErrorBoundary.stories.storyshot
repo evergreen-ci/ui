@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests ErrorBoundary.stories ErrorBoundaryTemplate 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > ErrorBoundary.stories > ErrorBoundaryTemplate 1`] = `
 <div>
   <div>
     Test
@@ -15,26 +15,26 @@ exports[`Snapshot Tests ErrorBoundary.stories ErrorBoundaryTemplate 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests ErrorBoundary.stories Template 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > ErrorBoundary.stories > Template 1`] = `
 <div>
   <div>
     <div
-      class="css-1xl0rym"
+      class="css-1ow8p7h-Text e1o4p11d0"
     >
       <h1
-        class="css-1t9xarj leafygreen-ui-yk169t"
+        class="css-15usbh5-StyledHeader e1o4p11d3 leafygreen-ui-yk169t"
       >
         Error
       </h1>
       <h2
-        class="css-1t9xarj leafygreen-ui-oaqrgz"
+        class="css-15lzim1-StyledSubtitle e1o4p11d2 leafygreen-ui-oaqrgz"
       >
         Ouch! That's gotta hurt,
         <br />
          sorry about that!
       </h2>
       <a
-        class="css-fp08na"
+        class="css-137t5xh-StyledLink e1o4p11d1"
         href="/"
       >
         Back To Home
@@ -42,7 +42,7 @@ exports[`Snapshot Tests ErrorBoundary.stories Template 1`] = `
     </div>
     <img
       alt="Error Background"
-      src="errorPage.svg"
+      src="/src/components/ErrorHandling/errorPage.svg"
     />
   </div>
 </div>

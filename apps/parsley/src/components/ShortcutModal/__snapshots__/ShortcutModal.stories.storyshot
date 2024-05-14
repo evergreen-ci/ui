@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests ShortcutModal.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > ShortcutModal.stories > Default 1`] = `
 <div>
   <button
     type="button"

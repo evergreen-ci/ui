@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests SubHeader.stories TaskFileLog 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > SubHeader.stories > TaskFileLog 1`] = `
 <div>
   <div
-    class="css-rbu5o8"
+    class="css-10b9k3f-Container e10jpr500"
     data-cy="log-header"
   >
     <div
-      class="css-1xawlld"
+      class="css-1by3w5x-Header e10jpr501"
     >
       <svg
         aria-label="File Icon"
@@ -28,7 +28,7 @@ exports[`Snapshot Tests SubHeader.stories TaskFileLog 1`] = `
         />
       </svg>
       <nav
-        class="css-44gx6g"
+        class="css-pf8nsc-Container e1gmm4v30"
         data-cy="breadcrumb-container"
       >
         <div
@@ -42,14 +42,14 @@ exports[`Snapshot Tests SubHeader.stories TaskFileLog 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests SubHeader.stories TaskLog 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > SubHeader.stories > TaskLog 1`] = `
 <div>
   <div
-    class="css-rbu5o8"
+    class="css-10b9k3f-Container e10jpr500"
     data-cy="log-header"
   >
     <div
-      class="css-1xawlld"
+      class="css-1by3w5x-Header e10jpr501"
     >
       <svg
         aria-label="File Icon"
@@ -70,7 +70,7 @@ exports[`Snapshot Tests SubHeader.stories TaskLog 1`] = `
         />
       </svg>
       <nav
-        class="css-44gx6g"
+        class="css-pf8nsc-Container e1gmm4v30"
         data-cy="breadcrumb-container"
       />
     </div>
@@ -78,14 +78,14 @@ exports[`Snapshot Tests SubHeader.stories TaskLog 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests SubHeader.stories TestLog 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > SubHeader.stories > TestLog 1`] = `
 <div>
   <div
-    class="css-rbu5o8"
+    class="css-10b9k3f-Container e10jpr500"
     data-cy="log-header"
   >
     <div
-      class="css-1xawlld"
+      class="css-1by3w5x-Header e10jpr501"
     >
       <svg
         aria-label="File Icon"
@@ -106,7 +106,7 @@ exports[`Snapshot Tests SubHeader.stories TestLog 1`] = `
         />
       </svg>
       <nav
-        class="css-44gx6g"
+        class="css-pf8nsc-Container e1gmm4v30"
         data-cy="breadcrumb-container"
       />
     </div>
@@ -114,14 +114,14 @@ exports[`Snapshot Tests SubHeader.stories TestLog 1`] = `
 </div>
 `;
 
-exports[`Snapshot Tests SubHeader.stories UploadedLog 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > SubHeader.stories > UploadedLog 1`] = `
 <div>
   <div
-    class="css-rbu5o8"
+    class="css-10b9k3f-Container e10jpr500"
     data-cy="log-header"
   >
     <div
-      class="css-1xawlld"
+      class="css-1by3w5x-Header e10jpr501"
     >
       <svg
         aria-label="File Icon"
@@ -142,7 +142,7 @@ exports[`Snapshot Tests SubHeader.stories UploadedLog 1`] = `
         />
       </svg>
       <nav
-        class="css-44gx6g"
+        class="css-pf8nsc-Container e1gmm4v30"
         data-cy="breadcrumb-container"
       >
         <div

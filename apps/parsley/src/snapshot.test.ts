@@ -1,5 +1,4 @@
 import { composeStories } from "@storybook/react";
-import * as glob from "glob";
 import "jest-specific-snapshot";
 import path from "path";
 import { act, render } from "test_utils";
@@ -31,11 +30,19 @@ const compose = (
 };
 
 const getAllStoryFiles = () => {
-  const storyFiles = glob.sync(path.join(__dirname, "**/*.stories.tsx"));
-  return storyFiles.map((filePath) => {
-    // eslint-disable-next-line import/no-dynamic-require, global-require
-    const storyFile: StoryFile = require(filePath);
-    return { filePath, storyFile };
+  const storyFiles = Object.entries(
+    // @ts-expect-error
+    import.meta.glob<StoryFile>("./**/*.stories.tsx", {
+      eager: true,
+    }),
+  );
+
+  return storyFiles.map(([filePath, storyFile]) => {
+    const storyDir = path.dirname(filePath);
+    const componentName = path
+      .basename(filePath)
+      .replace(/\.(stories|story)\.[^/.]+$/, "");
+    return { componentName, filePath, storyDir, storyFile };
   });
 };
 

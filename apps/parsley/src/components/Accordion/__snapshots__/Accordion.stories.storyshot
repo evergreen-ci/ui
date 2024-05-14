@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot Tests Accordion.stories Default 1`] = `
+exports[`src/snapshot.test.ts > Snapshot Tests > Accordion.stories > Default 1`] = `
 <div>
   <div>
     <div
-      class="css-8km4up"
+      class="css-16i4gmg-AccordionToggle e1bamyem4"
       data-cy="accordion-toggle"
       role="button"
     >
       <svg
         aria-label="Chevron Right Icon"
-        class="leafygreen-ui-jc2z8v css-tgrklh"
+        class="leafygreen-ui-jc2z8v css-lltsma-AccordionIcon e1bamyem3"
         fill="none"
         height="14"
         role="img"
@@ -30,18 +30,18 @@ exports[`Snapshot Tests Accordion.stories Default 1`] = `
       </span>
     </div>
     <div
-      class="css-ci461p"
+      class="css-6lu23-SubtitleContainer e1bamyem0"
     >
       Subtitle
     </div>
     <div
       aria-expanded="false"
-      class="css-jyczqg"
+      class="css-157mz43-AnimatedAccordion e1bamyem2"
       data-cy="accordion-collapse-container"
       height="0"
     >
       <div
-        class="css-ci461p"
+        class="css-1nylm8s-ContentsContainer e1bamyem1"
       >
         Accordion content
       </div>
