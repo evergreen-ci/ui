@@ -38,6 +38,10 @@ Cypress.Commands.add("addSearch", (search: string) => {
   cy.dataCy("searchbar-input").type(`${search}`);
 });
 
+Cypress.Commands.add("assertValueCopiedToClipboard", (value: string) => {
+  cy.get("@writeText").should("have.been.calledOnceWith", value);
+});
+
 Cypress.Commands.add("clearBounds", () => {
   cy.toggleDetailsPanel(true);
 
@@ -202,13 +206,14 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add("assertValueCopiedToClipboard", (value: string) => {
-  cy.window().then((win) => {
-    win.navigator.clipboard.readText().then((text) => {
-      expect(text).to.eq(value);
-    });
-  });
-  // This wait is necessary to ensure the clipboard has time to be read
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(50);
+Cypress.Commands.overwrite("visit", (originalVisit, url, options = {}) => {
+  const opts = {
+    onBeforeLoad(win: Window): void {
+      // Mock clipboard API.
+      cy.spy(win.navigator.clipboard, "writeText").as("writeText");
+    },
+    ...options,
+  };
+  // @ts-ignore - TypeScript detects the wrong definition for the original function.
+  return originalVisit(url, opts);
 });
