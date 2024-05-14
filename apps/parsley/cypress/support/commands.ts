@@ -214,6 +214,6 @@ Cypress.Commands.overwrite("visit", (originalVisit, url, options = {}) => {
     },
     ...options,
   };
-  // @ts-ignore - Cypress detects the wrong definition for the original function.
+  // @ts-ignore - TypeScript detects the wrong definition for the original function.
   return originalVisit(url, opts);
 });
