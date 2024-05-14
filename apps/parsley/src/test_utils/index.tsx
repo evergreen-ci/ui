@@ -95,6 +95,21 @@ const renderWithRouterMatch = (
   };
 };
 
+const overwriteFakeTimers = () => {
+  // Temporarily workaround for bug in @testing-library/react when use user-event with `vi.useFakeTimers()`
+  // https://github.com/testing-library/react-testing-library/issues/1197
+  const globalJest = globalThis.jest;
+
+  globalThis.jest = {
+    ...globalThis.jest,
+    advanceTimersByTime: vi.advanceTimersByTime.bind(vi),
+  };
+
+  return () => {
+    globalThis.jest = globalJest;
+  };
+};
+
 export {
   act,
   fireEvent,
@@ -105,6 +120,7 @@ export {
   userEvent,
   waitFor,
   customWithin as within,
+  overwriteFakeTimers,
 };
 
 export type { RenderWithRouterMatchOptions };

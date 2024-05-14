@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/react";
+import { overwriteFakeTimers } from "test_utils";
 import { mockEnvironmentVariables } from "test_utils/utils";
 import {
   SentryBreadcrumb,
@@ -9,13 +10,17 @@ import {
 const { cleanup, mockEnv } = mockEnvironmentVariables();
 
 describe("error reporting", () => {
+  beforeAll(() => {
+    overwriteFakeTimers();
+  });
+
   beforeEach(() => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
-    jest.spyOn(Sentry, "captureException");
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(Sentry, "captureException");
   });
   afterEach(() => {
     cleanup();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("should log errors into console when not in production", () => {
@@ -36,7 +41,7 @@ describe("error reporting", () => {
 
   it("should report errors to Sentry when in production", () => {
     mockEnv("NODE_ENV", "production");
-    jest.spyOn(Sentry, "captureException").mockImplementation(jest.fn());
+    vi.spyOn(Sentry, "captureException").mockImplementation(vi.fn());
 
     const err = new Error("test error");
     const result = reportError(err);
@@ -48,7 +53,7 @@ describe("error reporting", () => {
 
   it("supports context field", () => {
     mockEnv("NODE_ENV", "production");
-    jest.spyOn(Sentry, "captureException").mockImplementation(jest.fn());
+    vi.spyOn(Sentry, "captureException").mockImplementation(vi.fn());
     const err = {
       message: "GraphQL Error",
       name: "Error Name",
@@ -64,8 +69,8 @@ describe("error reporting", () => {
 
   it("supports tags", () => {
     mockEnv("NODE_ENV", "production");
-    jest.spyOn(Sentry, "captureException").mockImplementation(jest.fn());
-    jest.spyOn(Sentry, "setTags").mockImplementation(jest.fn());
+    vi.spyOn(Sentry, "captureException").mockImplementation(vi.fn());
+    vi.spyOn(Sentry, "setTags").mockImplementation(vi.fn());
     const err = {
       message: "GraphQL Error",
       name: "Error Name",
@@ -84,12 +89,12 @@ describe("error reporting", () => {
 
 describe("breadcrumbs", () => {
   beforeEach(() => {
-    jest.spyOn(console, "debug").mockImplementation(() => {});
-    jest.spyOn(Sentry, "addBreadcrumb");
+    vi.spyOn(console, "debug").mockImplementation(() => {});
+    vi.spyOn(Sentry, "addBreadcrumb");
   });
   afterEach(() => {
     cleanup();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("should log breadcrumbs into console when not in production", () => {
@@ -107,9 +112,9 @@ describe("breadcrumbs", () => {
   });
 
   it("should report breadcrumbs to Sentry when in production", () => {
-    jest.useFakeTimers().setSystemTime(new Date("2020-01-01"));
+    vi.useFakeTimers().setSystemTime(new Date("2020-01-01"));
     mockEnv("NODE_ENV", "production");
-    jest.spyOn(Sentry, "addBreadcrumb").mockImplementation(jest.fn());
+    vi.spyOn(Sentry, "addBreadcrumb").mockImplementation(vi.fn());
 
     const message = "my message";
     const type = SentryBreadcrumb.Info;
@@ -122,14 +127,14 @@ describe("breadcrumbs", () => {
       timestamp: 1577836800,
       type: "info",
     });
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it("warns when 'from' or 'to' fields are missing with a navigation breadcrumb", () => {
-    jest.useFakeTimers().setSystemTime(new Date("2020-01-01"));
-    jest.spyOn(console, "warn").mockImplementation(() => {});
+    vi.useFakeTimers().setSystemTime(new Date("2020-01-01"));
+    vi.spyOn(console, "warn").mockImplementation(() => {});
     mockEnv("NODE_ENV", "production");
-    jest.spyOn(Sentry, "addBreadcrumb").mockImplementation(jest.fn());
+    vi.spyOn(Sentry, "addBreadcrumb").mockImplementation(vi.fn());
 
     const message = "navigation message";
     const type = SentryBreadcrumb.Navigation;
@@ -150,6 +155,6 @@ describe("breadcrumbs", () => {
       timestamp: 1577836800,
       type,
     });
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 });

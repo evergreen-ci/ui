@@ -5,7 +5,12 @@ import { LogContextProvider, useLogContext } from "context/LogContext";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { useQueryParam } from "hooks/useQueryParam";
 import { parsleySettingsMock } from "test_data/parsleySettings";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
+import {
+  overwriteFakeTimers,
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "test_utils";
 import { renderComponentWithHook } from "test_utils/TestHooks";
 import DetailsMenu from ".";
 
@@ -52,6 +57,10 @@ const renderDetailsMenu = () => {
 };
 
 describe("detailsMenu", () => {
+  beforeAll(() => {
+    overwriteFakeTimers();
+  });
+
   it("should render a details menu button", () => {
     renderDetailsMenu();
     expect(screen.getByText("Details")).toBeInTheDocument();
@@ -69,7 +78,7 @@ describe("detailsMenu", () => {
     expect(screen.getByDataCy("details-menu")).toBeInTheDocument();
   });
   it("updating search range should flash the details button", async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const { hook } = renderDetailsMenu();
     expect(screen.queryByDataCy("details-menu")).not.toBeInTheDocument();
@@ -82,7 +91,7 @@ describe("detailsMenu", () => {
       hook.current.useQueryParam[1](1);
     });
     expect(detailsButton).toHaveAttribute("data-variant", "primary");
-    jest.runAllTimers();
+    vi.runAllTimers();
     await waitFor(() => {
       expect(detailsButton).toHaveAttribute("data-variant", "default");
     });

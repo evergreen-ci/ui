@@ -8,11 +8,11 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    jest: true,
     node: true,
   },
   extends: [
     "eslint:recommended",
+    "plugin:testing-library/react",
     "plugin:import/recommended",
     "plugin:jsdoc/recommended-typescript-error",
     // Airbnb includes some helpful rules for ESLint and React that aren't covered by recommended.
@@ -74,18 +74,6 @@ module.exports = {
           errorIfStrict,
           { caseSensitive: true },
         ],
-      },
-    },
-    // For Jest files.
-    {
-      extends: ["plugin:testing-library/react", "plugin:jest/all"],
-      files: ["src/**/*.test.ts", "src/**/*.test.tsx"],
-      rules: {
-        "@typescript-eslint/unbound-method": OFF,
-        "jest/no-hooks": OFF,
-        "jest/no-mocks-import": OFF,
-        "jest/prefer-expect-assertions": OFF,
-        "jest/unbound-method": OFF,
       },
     },
     // For Storybook files.

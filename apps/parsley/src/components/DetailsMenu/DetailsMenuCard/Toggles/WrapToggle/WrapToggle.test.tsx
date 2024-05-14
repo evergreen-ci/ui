@@ -1,10 +1,11 @@
 import Cookie from "js-cookie";
+import { MockInstance } from "vitest";
 import { LogContextProvider } from "context/LogContext";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import WrapToggle from ".";
 
-jest.mock("js-cookie");
-const mockedSet = Cookie.set as unknown as jest.Mock<string>;
+vi.mock("js-cookie");
+const mockedSet = vi.spyOn(Cookie, "set") as MockInstance;
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>

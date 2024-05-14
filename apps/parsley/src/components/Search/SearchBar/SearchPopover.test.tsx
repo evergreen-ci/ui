@@ -12,7 +12,7 @@ describe("search popover", () => {
 
   it("should call onClick when option is clicked", async () => {
     const user = userEvent.setup();
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(
       <SearchPopover
         onClick={onClick}
@@ -31,7 +31,7 @@ describe("search popover", () => {
 
   it("should be able to submit an option with enter", async () => {
     const user = userEvent.setup();
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(
       <SearchPopover
         onClick={onClick}
@@ -53,7 +53,7 @@ describe("search popover", () => {
 
   it("should be able to submit an option with spacebar", async () => {
     const user = userEvent.setup();
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(
       <SearchPopover
         onClick={onClick}

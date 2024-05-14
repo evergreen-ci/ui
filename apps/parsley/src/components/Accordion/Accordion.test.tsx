@@ -37,7 +37,7 @@ describe("accordion", () => {
 
   it("calls onToggle when accordion is toggled", async () => {
     const user = userEvent.setup();
-    const onToggle = jest.fn();
+    const onToggle = vi.fn();
     render(
       <Accordion onToggle={onToggle} title="accordion title">
         accordion content
@@ -87,7 +87,7 @@ describe("accordion", () => {
     );
   });
   it("when controlled, accordion should call a callback when the user toggles it open or closed", async () => {
-    const onToggle = jest.fn();
+    const onToggle = vi.fn();
     const user = userEvent.setup();
     render(
       <Accordion onToggle={onToggle} open title="accordion title">

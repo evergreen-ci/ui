@@ -44,6 +44,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const isValid = validator(input);
   const debounceSearch = useRef(
     debounce((value: string) => {
+      console.log("HELLO!");
       onChange(value);
     }, 500),
   ).current;

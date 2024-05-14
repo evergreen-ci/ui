@@ -1,4 +1,3 @@
-/* eslint-disable jest/require-hook */
 import { composeStories } from "@storybook/react";
 import * as glob from "glob";
 import "jest-specific-snapshot";
@@ -50,25 +49,24 @@ const options = {
 
 describe(`${options.suite}`, () => {
   beforeEach(() => {
-    const mockIntersectionObserver = jest.fn((callback) => {
+    const mockIntersectionObserver = vi.fn((callback) => {
       callback([
         {
           isIntersecting: true,
         },
       ]);
       return {
-        disconnect: jest.fn(),
-        observe: jest.fn(),
-        unobserve: jest.fn(),
+        disconnect: vi.fn(),
+        observe: vi.fn(),
+        unobserve: vi.fn(),
       };
     });
 
-    // @ts-expect-error
-    window.IntersectionObserver = mockIntersectionObserver;
+    vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
   });
 
   afterAll(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
   getAllStoryFiles().forEach((params) => {
     const { filePath, storyFile } = params;

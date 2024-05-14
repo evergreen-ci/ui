@@ -14,7 +14,7 @@ const renderRow = (
 ) =>
   renderWithRouterMatch(<Row {...props} />, {
     ...routerOptions,
-    wrapper: ({ children }: { children: React.ReactElement }) => (
+    wrapper: ({ children }: { children: React.ReactNode }) => (
       <MultiLineSelectContextProvider>
         {children}
       </MultiLineSelectContextProvider>
@@ -36,7 +36,7 @@ describe("row", () => {
 
   it("clicking log line link updates the url and and scrolls to the line", async () => {
     const user = userEvent.setup();
-    const scrollToLine = jest.fn();
+    const scrollToLine = vi.fn();
     const { router } = renderRow(
       {
         ...rowProps,
@@ -165,7 +165,7 @@ const rowProps = {
     lowerRange: 0,
     upperRange: undefined,
   },
-  scrollToLine: jest.fn(),
+  scrollToLine: vi.fn(),
   wordWrapFormat: WordWrapFormat.Standard,
   wrap: false,
 };

@@ -1,5 +1,6 @@
 import {
   act,
+  overwriteFakeTimers,
   render,
   renderHook,
   screen,
@@ -33,12 +34,16 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("toast", () => {
+  beforeAll(() => {
+    overwriteFakeTimers();
+  });
+
   const closeIconLabel = "Close Message";
   it("should error when rendered outside of ToastProvider context", () => {
     // This test intentionally throws an error, so we need to mock the error object to prevent it
     // from flooding the test runner.
     const errorObject = console.error;
-    jest.spyOn(console, "error").mockImplementation();
+    vi.spyOn(console, "error").mockImplementation(() => {});
     const { Component } = renderComponentWithHook();
     expect(() => render(<Component />)).toThrow(
       "useToastContext must be used within a ToastProvider",
@@ -167,7 +172,7 @@ describe("toast", () => {
 
     it("should trigger a callback function onClose", async () => {
       const user = userEvent.setup();
-      const onClose = jest.fn();
+      const onClose = vi.fn();
       const { Component, hook } = renderComponentWithHook();
       render(<Component />, {
         wrapper,
@@ -185,7 +190,7 @@ describe("toast", () => {
     });
 
     it("should close on its own after a timeout has completed", async () => {
-      jest.useFakeTimers();
+      vi.useFakeTimers();
 
       const { Component, hook } = renderComponentWithHook();
       render(<Component />, {
@@ -198,14 +203,14 @@ describe("toast", () => {
 
       // Advance timer so that the timeout is triggered.
       act(() => {
-        jest.advanceTimersByTime(TOAST_TIMEOUT);
+        vi.advanceTimersByTime(TOAST_TIMEOUT);
       });
       await waitFor(() => {
         expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
 
       // Reset to use real timers.
-      jest.useRealTimers();
+      vi.useRealTimers();
     });
   });
 });

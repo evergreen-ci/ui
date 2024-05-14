@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -92,5 +93,12 @@ export default defineConfig({
       ),
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+  },
+  test: {
+    environment: "jsdom",
+    globals: true,
+    // https://vitest.dev/guide/common-errors.html#failed-to-terminate-worker
+    pool: "forks",
+    setupFiles: "./config/vitest/setupTests.ts",
   },
 });
