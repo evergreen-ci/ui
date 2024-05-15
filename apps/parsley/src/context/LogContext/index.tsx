@@ -36,6 +36,33 @@ import useLogState from "./state";
 import { DIRECTION, LogMetadata, Preferences, SearchState } from "./types";
 import { getNextPage } from "./utils";
 
+// @ts-ignore
+// eslint-disable-next-line import/order,import/extensions
+import jq from "jq-web/jq.wasm.js";
+
+const isValidJSON = (input: string): boolean => {
+  try {
+    JSON.parse(input);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+// eslint-disable-next-line arrow-body-style
+const JQRAW = (lines: string[], filter: string): string[] => {
+  return lines.map((line: string): string => {
+    if (!isValidJSON(line)) {
+      return line;
+    }
+
+    const jqOut = jq.raw(line, filter, ["-c"]);
+    console.log(`line: “${line}”; filter: “${filter}”; result=“${jqOut}”`);
+
+    return jqOut;
+  });
+};
+
 interface LogContextState {
   expandedLines: ExpandedLines;
   failingLine: number | undefined;
@@ -103,6 +130,8 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     undefined,
   );
 
+  const [jqPreFilter] = useQueryParam(QueryParams.JQPreFilter, "");
+
   // Wrap settings are evaluated after the logs have initially rendered - see LogPane component.
   const [wrap, setWrap] = useState(false);
   const [filterLogic, setFilterLogic] = useQueryParam(
@@ -135,15 +164,23 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   const stringifiedBookmarks = bookmarks.toString();
   const stringifiedExpandedLines = state.expandedLines.toString();
 
+  // eslint-disable-next-line prefer-destructuring
+  let logs = state.logs;
+  if (jqPreFilter) {
+    try {
+      logs = JQRAW(
+        logs.filter((line) => line),
+        jqPreFilter,
+      );
+    } catch (e) {
+      console.warn("jq error", e);
+    }
+  }
+
   const matchingLines = useMemo(
     () => getMatchingLines(state.logs, filters, filterLogic),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      stringifiedFilters,
-      stringifiedExpandedLines,
-      state.logs.length,
-      filterLogic,
-    ],
+    [stringifiedFilters, stringifiedExpandedLines, logs.length, filterLogic],
   );
 
   useEffect(
@@ -154,7 +191,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           expandableRows,
           expandedLines: state.expandedLines,
           failingLine: state.failingLine,
-          logLines: state.logs,
+          logLines: logs,
           matchingLines,
           shareLine,
         }),
@@ -162,9 +199,10 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      state.logs.length,
+      logs.length,
       state.failingLine,
       matchingLines,
+      jqPreFilter,
       stringifiedBookmarks,
       shareLine,
       stringifiedExpandedLines,
@@ -173,9 +211,9 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   );
 
   const getLine = useCallback(
-    (lineNumber: number) => state.logs[lineNumber],
+    (lineNumber: number) => logs[lineNumber],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state.logs.length],
+    [jqPreFilter, logs.length],
   );
 
   const getResmokeLineColor = useCallback(

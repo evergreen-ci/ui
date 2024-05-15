@@ -45,6 +45,7 @@ const Search: React.FC = () => {
   const { parsleyFilters } = project || {};
 
   const handleOnSubmit = (selected: string, value: string) => {
+    console.log("Search/handleOnSubmit", selected, value);
     switch (selected) {
       case SearchBarActions.Filter:
         if (!filters.some((f) => f.expression === value)) {
@@ -84,6 +85,7 @@ const Search: React.FC = () => {
   };
 
   const handleOnChange = (value: string) => {
+    console.log("applied search in handleOnChange", value);
     setSearch(value);
     sendEvent({ name: "Applied Search", searchExpression: value });
     leaveBreadcrumb(

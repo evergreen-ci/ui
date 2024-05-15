@@ -5,6 +5,7 @@ import { H3 } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import ButtonRow from "./ButtonRow";
+import JQPreFilter from "./JQPreFilter";
 import SearchRangeInput from "./SearchRangeInput";
 import {
   CaseSensitiveToggle,
@@ -40,6 +41,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
             <Row>
               <Column>
                 <SearchRangeInput />
+                <JQPreFilter />
                 <CaseSensitiveToggle />
                 <FilterLogicToggle />
               </Column>

@@ -10,6 +10,7 @@ enum QueryParams {
   LowerRange = "lower",
   UpperRange = "upper",
   SelectedLineRange = "selectedLineRange",
+  JQPreFilter = "jqPreFilter",
 }
 
 export { QueryParams };

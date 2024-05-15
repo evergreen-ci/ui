@@ -7,6 +7,7 @@ import {
 
 interface SearchState {
   searchTerm?: RegExp;
+  searchRawText?: string;
   searchIndex?: number;
   searchRange?: number;
   hasSearch: boolean;
