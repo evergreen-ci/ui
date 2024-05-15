@@ -80,8 +80,7 @@ describe("should not initialize if the client is already running", () => {
   });
 
   it("does not initialize Sentry twice", () => {
-    // @ts-expect-error - Type error occurs because the entire return value of getCurrentHub is not mocked
-    jest.spyOn(Sentry, "getClient").mockReturnValue(true);
+    jest.spyOn(Sentry, "isInitialized").mockReturnValue(true);
     initializeErrorHandling();
     expect(Sentry.init).not.toHaveBeenCalled();
   });
