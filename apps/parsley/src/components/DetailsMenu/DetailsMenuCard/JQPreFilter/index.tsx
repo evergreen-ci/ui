@@ -14,7 +14,7 @@ const JQPreFilter: React.FC = () => {
     if (newVal === "") {
       setJQPreFilter(undefined);
     } else {
-      setJQPreFilter(newVal.trim());
+      setJQPreFilter(newVal);
     }
   };
 

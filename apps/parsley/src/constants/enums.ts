@@ -24,7 +24,6 @@ enum MatchType {
 
 enum SearchBarActions {
   Filter = "filter",
-  FilterJQ = "filter-jq",
   Highlight = "highlight",
 }
 

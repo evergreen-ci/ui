@@ -74,7 +74,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   );
 
   const handleChangeSelect = (value: string) => {
-    console.log("handleChangeSelect", value);
     setSelected(value as SearchBarActions);
     leaveBreadcrumb("search-bar-select", { value }, SentryBreadcrumb.User);
   };
@@ -92,7 +91,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   const handleOnChange = (value: string) => {
-    console.log("search change", value);
     setInput(value);
     if (validator(value)) {
       debounceSearch(value);
@@ -134,14 +132,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           data-cy="filter-option"
           value={SearchBarActions.Filter}
         >
-          Filter (Regexp)
-        </Option>
-        <Option
-          key={SearchBarActions.FilterJQ}
-          data-cy="filter-jq-option"
-          value={SearchBarActions.FilterJQ}
-        >
-          Filter (JQ)
+          Filter
         </Option>
         <Option
           key={SearchBarActions.Highlight}
