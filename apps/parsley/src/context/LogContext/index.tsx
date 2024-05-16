@@ -38,7 +38,7 @@ import { getNextPage } from "./utils";
 
 // @ts-ignore
 // eslint-disable-next-line import/order,import/extensions
-import jq from "jq-web/jq.js";
+import jq from "utils/jq";
 
 const isValidJSON = (input: string): boolean => {
   try {
@@ -53,7 +53,7 @@ const isValidJSON = (input: string): boolean => {
 // async, but I don’t know React well enough to do that.
 let jqraw: Function;
 
-jq.then((jqMod: any) => {
+(jq as any).then((jqMod: any) => {
   jqraw = jqMod.raw;
 });
 
