@@ -2,7 +2,6 @@ import { createRef } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
 import { VirtuosoMockContext } from "react-virtuoso";
-import { MockInstance } from "vitest";
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
@@ -32,7 +31,6 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 describe("logPane", () => {
   beforeAll(() => {
@@ -40,7 +38,8 @@ describe("logPane", () => {
   });
 
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "true");
+    // @ts-expect-error
+    vi.spyOn(Cookie, "get").mockReturnValue("true");
   });
 
   afterEach(() => {

@@ -95,9 +95,13 @@ const renderWithRouterMatch = (
   };
 };
 
+/**
+ * `overwriteFakeTimers` is a workaround for a bug in @testing-libray/react.
+ * It prevents Vitest's fake timers from functioning with user-event.
+ * https://github.com/testing-library/react-testing-library/issues/1197
+ * @returns an anonymous function overwriting jsdon's Jest field
+ */
 const overwriteFakeTimers = () => {
-  // Temporarily workaround for bug in @testing-library/react when use user-event with `vi.useFakeTimers()`
-  // https://github.com/testing-library/react-testing-library/issues/1197
   const globalJest = globalThis.jest;
 
   globalThis.jest = {
