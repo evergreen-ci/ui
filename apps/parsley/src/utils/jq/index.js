@@ -4805,4 +4805,5 @@ if (typeof exports === 'object' && typeof module === 'object')
 else if (typeof exports === 'object')
   exports["jq"] = jq;
 
+// FG: Hacky-hack!!
 export default jq;
