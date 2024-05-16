@@ -1,7 +1,5 @@
 import * as toast from "..";
-
-const { useToastContext } = toast;
-type DispatchToast = ReturnType<typeof useToastContext>;
+import { useToastContext } from "..";
 
 /**
  * RenderFakeToastContext is a utility that takes a React Component which uses useToastContext and returns a
@@ -11,13 +9,13 @@ type DispatchToast = ReturnType<typeof useToastContext>;
  * @param Component - A React Component which uses useToastContext
  * @returns an object with the Component, the mocked useToastContext, and the dispatchToast methods
  */
-const RenderFakeToastContext = (Component?: React.ReactElement) => {
-  const dispatchToast: DispatchToast = {
-    success: jest.fn(),
+const RenderFakeToastContext = (Component: React.ReactElement = <div />) => {
+  const dispatchToast: ReturnType<typeof useToastContext> = {
     error: jest.fn(),
     info: jest.fn(),
-    warning: jest.fn(),
     progress: jest.fn(),
+    success: jest.fn(),
+    warning: jest.fn(),
   };
 
   const useToastContextSpied = jest
@@ -28,8 +26,8 @@ const RenderFakeToastContext = (Component?: React.ReactElement) => {
 
   return {
     Component: () => Component,
-    useToastContext: useToastContextSpied,
     dispatchToast,
+    useToastContext: useToastContextSpied,
   };
 };
 
