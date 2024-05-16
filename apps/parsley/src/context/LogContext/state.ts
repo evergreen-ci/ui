@@ -150,7 +150,6 @@ const reducer = (state: LogState, action: Action): LogState => {
           hasSearch,
           searchIndex: undefined,
           searchRange: undefined,
-          searchRawText: action.searchTerm,
           searchTerm: hasSearch ? searchTerm : undefined,
         },
       };
