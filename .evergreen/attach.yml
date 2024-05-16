@@ -167,4 +167,10 @@ functions:
     command: attach.xunit_results
     params:
       files:
+        - "./ui/bin/vite/*.xml"
+
+  attach-test-results-jest:
+    command: attach.xunit_results
+    params:
+      files:
         - "./ui/bin/jest/*.xml"

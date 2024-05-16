@@ -14,7 +14,8 @@
   "scripts": {
     "evg-db-ops": "./scripts/evg-db-ops.sh",
     "prepare": "husky",
-    "test": "jest --watchAll=false"
+    "test": "vitest --typecheck=false --exclude=snapshot.test.ts",
+    "test:jest": "jest --watchAll=false"
   },
   "resolutions": {
     "@types/react": "18.2.0",

@@ -31,6 +31,7 @@ post:
   - func: attach-source-map
   - func: attach-storybook
   - func: attach-test-results
+  - func: attach-test-results-jest
 
 include:
   - filename: .evergreen/shared.yml
@@ -56,9 +57,9 @@ buildvariants:
       - name: compile
       - name: e2e_test_spruce
       - name: lint
-      - name: snapshots
+      - name: snapshots-jest
       - name: storybook
-      - name: test
+      - name: test-jest
       - name: type_check
       - name: deploy_prod_spruce
         git_tag_only: true
@@ -85,9 +86,9 @@ buildvariants:
       - name: compile
       - name: e2e_test_parsley
       - name: lint
-      - name: snapshots-vitest
+      - name: snapshots
       - name: storybook
-      - name: test-vitest
+      - name: test
       - name: type_check
       - name: deploy_prod_parsley
         git_tag_only: true
