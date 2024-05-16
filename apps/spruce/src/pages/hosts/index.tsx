@@ -62,11 +62,9 @@ const Hosts: React.FC = () => {
       const bootstrapMethod = host?.distro?.bootstrapMethod;
       if (
         !(
+          (bootstrapMethod === "ssh" || bootstrapMethod === "user-data") &&
           // @ts-ignore: FIXME. This comment was added by an automated script.
-          (
-            host?.status === "running" &&
-            (bootstrapMethod === "ssh" || bootstrapMethod === "user-data")
-          )
+          host?.status === "running"
         )
       ) {
         canRestart = false;

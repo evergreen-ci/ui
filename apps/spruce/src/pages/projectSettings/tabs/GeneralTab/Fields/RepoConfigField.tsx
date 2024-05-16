@@ -118,6 +118,5 @@ const ButtonRow = styled.div`
 `;
 
 const Container = styled.div<{ hasButtons: boolean }>`
-  // @ts-ignore: FIXME. This comment was added by an automated script.
-  ${({ hasButtons }): string => hasButtons && `margin-bottom: ${size.m};`}
+  ${({ hasButtons }) => hasButtons && `margin-bottom: ${size.m};`}
 `;
