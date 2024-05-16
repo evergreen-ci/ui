@@ -19,18 +19,18 @@ export const checkSchemaAndCodegenCore = async (): Promise<number> => {
     const hasLatestCommit = await checkIsAncestor(commit);
     if (!hasLatestCommit) {
       console.error(
-        `${failCopy} Your local Evergreen code is missing commit ${commit}. Pull Evergreen and run 'yarn codegen'.`
+        `${failCopy} Your local Evergreen code is missing commit ${commit}. Pull Evergreen and run 'yarn codegen'.`,
       );
       return 1;
     }
     // Finally check to see if 'yarn codegen' was ran.
     const filenames = [await generateTypes(), existingTypesFileName];
     const [file1, file2] = filenames.map((filename) =>
-      fs.readFileSync(filename)
+      fs.readFileSync(filename),
     );
     if (!file1.equals(file2)) {
       console.error(
-        `${failCopy} Your GQL types file (${existingTypesFileName}) is outdated. Run 'yarn codegen'.`
+        `${failCopy} Your GQL types file (${existingTypesFileName}) is outdated. Run 'yarn codegen'.`,
       );
       return 1;
     }
