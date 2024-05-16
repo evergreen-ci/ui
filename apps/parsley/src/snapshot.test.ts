@@ -1,5 +1,5 @@
 import { composeStories } from "@storybook/react";
-import "jest-specific-snapshot";
+import { expect } from "vitest";
 import path from "path";
 import { act, render, stubGetClientRects } from "test_utils";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
@@ -79,6 +79,7 @@ describe(`${options.suite}`, () => {
   afterAll(() => {
     vi.restoreAllMocks();
   });
+
   getAllStoryFiles().forEach((params) => {
     const { filePath, storyFile } = params;
     const meta = storyFile.default;
@@ -86,7 +87,8 @@ describe(`${options.suite}`, () => {
 
     const storyBookFileBaseName = path
       .basename(filePath)
-      .replace(/\.[^/.]+$/, "");
+      .replace(/\.stories\.[^/.]+$/, "");
+
     // storyName is either the title of the story or the name of the file without the extension
     const storyName = title || storyBookFileBaseName;
     if (
@@ -125,9 +127,9 @@ describe(`${options.suite}`, () => {
           const snapshotPath = path.join(
             storyDirectory,
             options.snapshotsDirName,
-            `${storyBookFileBaseName}${options.snapshotExtension}`,
+            `${storyBookFileBaseName}_${name}${options.snapshotExtension}`,
           );
-          expect(container).toMatchSpecificSnapshot(snapshotPath);
+          expect(container).toMatchFileSnapshot(snapshotPath);
         });
       });
     });

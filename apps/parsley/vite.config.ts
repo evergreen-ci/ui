@@ -97,8 +97,7 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
-    // https://vitest.dev/guide/common-errors.html#failed-to-terminate-worker
-    pool: "forks",
+    pool: "forks", // https://vitest.dev/guide/common-errors.html#failed-to-terminate-worker
     setupFiles: "./config/vitest/setupTests.ts",
   },
 });
