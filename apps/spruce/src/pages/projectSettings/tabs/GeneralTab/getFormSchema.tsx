@@ -50,6 +50,7 @@ export const getFormSchema = (
                 type: "string" as "string",
                 title: "Owner",
                 format: "noSpaces",
+                // @ts-ignore: FIXME. This comment was added by an automated script.
                 minLength: getMinLength(projectType, repoData, "owner"),
                 default: "",
               },
@@ -57,6 +58,7 @@ export const getFormSchema = (
                 type: "string" as "string",
                 title: "Repository",
                 format: "noSpaces",
+                // @ts-ignore: FIXME. This comment was added by an automated script.
                 minLength: getMinLength(projectType, repoData, "repo"),
                 default: "",
               },
@@ -110,6 +112,7 @@ export const getFormSchema = (
                 title: "Version Control",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   repoData?.generalConfiguration?.other?.versionControlEnabled,
                 ),
               },
@@ -126,6 +129,7 @@ export const getFormSchema = (
             title: "Dispatching",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               repoData?.projectFlags?.dispatchingDisabled,
               true,
             ),
@@ -139,6 +143,7 @@ export const getFormSchema = (
                 title: "Repotracker",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   repoData?.projectFlags?.repotracker?.repotrackerDisabled,
                   true,
                 ),
@@ -157,6 +162,7 @@ export const getFormSchema = (
                 title: "Old Task on Success",
                 oneOf: radioBoxOptions(
                   ["Unschedule", "Don't Unschedule"],
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   repoData?.projectFlags?.scheduling?.deactivatePrevious,
                 ),
               },
@@ -165,6 +171,7 @@ export const getFormSchema = (
                 title: "Stepback",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   repoData?.projectFlags?.scheduling?.stepbackDisabled,
                   true,
                 ),
@@ -174,6 +181,7 @@ export const getFormSchema = (
                 title: "Stepback Bisection",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   repoData?.projectFlags?.scheduling?.stepbackBisection,
                 ),
               },
@@ -193,6 +201,7 @@ export const getFormSchema = (
                 title: "Patching",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   repoData?.projectFlags?.patch?.patchingDisabled,
                   true,
                 ),
@@ -208,6 +217,7 @@ export const getFormSchema = (
                 title: "Project Config Commands",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   repoData?.projectFlags?.taskSync.configEnabled,
                 ),
               },
@@ -216,6 +226,7 @@ export const getFormSchema = (
                 title: "Task in Patches",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   repoData?.projectFlags?.taskSync.patchEnabled,
                 ),
               },
@@ -232,6 +243,7 @@ export const getFormSchema = (
             title: "Cache Daily Task Statistics",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               repoData?.historicalTaskDataCaching?.disabledStatsCache,
               true,
             ),
@@ -273,17 +285,20 @@ export const getFormSchema = (
         },
         owner: {
           ...placeholderIf(
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             repoData?.generalConfiguration?.repositoryInfo?.owner,
           ),
         },
         repo: {
           "ui:data-cy": "repo-input",
           ...placeholderIf(
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             repoData?.generalConfiguration?.repositoryInfo?.repo,
           ),
         },
       },
       branch: {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         ...placeholderIf(repoData?.generalConfiguration?.branch),
       },
       other: {
@@ -302,11 +317,13 @@ export const getFormSchema = (
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
           "ui:data-cy": "batch-time-input",
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           ...placeholderIf(repoData?.generalConfiguration?.other?.batchTime),
         },
         remotePath: {
           "ui:description":
             "Path to yaml file where project tasks, variants, and other settings are defined.",
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           ...placeholderIf(repoData?.generalConfiguration?.other?.remotePath),
         },
         spawnHostScriptPath: {
@@ -315,6 +332,7 @@ export const getFormSchema = (
           "ui:data-cy": "spawn-host-input",
           "ui:optional": true,
           ...placeholderIf(
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             repoData?.generalConfiguration?.other?.spawnHostScriptPath,
           ),
         },

@@ -25,6 +25,7 @@ describe("deduplicateTasks", () => {
       { task1: false, task2: false },
       { task3: false, task4: true },
     ];
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(deduplicateTasks(tasks, [], /(?:)/)).toStrictEqual({
       task1: {
         checkboxState: CheckboxState.Unchecked,
@@ -49,6 +50,7 @@ describe("deduplicateTasks", () => {
       { task1: false, task2: false },
       { task2: false, task3: false },
     ];
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(deduplicateTasks(tasks, [], /(?:)/)).toStrictEqual({
       task1: {
         checkboxState: CheckboxState.Unchecked,
@@ -69,6 +71,7 @@ describe("deduplicateTasks", () => {
       { task1: false, task2: false },
       { task2: true, task3: false },
     ];
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(deduplicateTasks(tasks, [], /(?:)/)).toStrictEqual({
       task1: {
         checkboxState: CheckboxState.Unchecked,
@@ -94,6 +97,7 @@ describe("deduplicateTasks", () => {
       { tasks: ["task3"], name: "variant2" },
     ];
     expect(
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       deduplicateTasks(tasks, previouslyActivatedBuildvariants, /(?:)/),
     ).toStrictEqual({
       task1: {
@@ -115,6 +119,7 @@ describe("deduplicateTasks", () => {
       { task1: false, task2: false },
       { task2: false, task3: false },
     ];
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(deduplicateTasks(tasks, [], /task1/)).toStrictEqual({
       task1: {
         checkboxState: CheckboxState.Unchecked,

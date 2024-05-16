@@ -17,16 +17,20 @@ const migrateSuccessStatus = (status: string) => {
   return status ?? "";
 };
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
   if (!data) return null;
 
   const {
     aliases,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     projectRef: { githubTriggerAliases, patchTriggerAliases },
   } = data;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { projectType } = options;
   const isAttachedProject = projectType === ProjectType.AttachedProject;
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { patchAliases } = sortAliases(aliases);
 
   return {
@@ -40,9 +44,11 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
     patchTriggerAliases: {
       aliasesOverride: !isAttachedProject || !!patchTriggerAliases,
       aliases:
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         patchTriggerAliases?.map((p) => ({
           ...p,
           taskSpecifiers:
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             p.taskSpecifiers?.map((t) => ({
               ...t,
               specifier: t.patchAlias
@@ -56,6 +62,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
         })) ?? [],
     },
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
@@ -68,6 +75,7 @@ export const formToGql = ((
     patchAliases.aliasesOverride,
   );
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const githubTriggerAliases = [];
   const patchTriggerAliases = ptaData.aliasesOverride
     ? ptaData.aliases.map((a) => {
@@ -100,7 +108,9 @@ export const formToGql = ((
 
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     projectRef: { id, patchTriggerAliases, githubTriggerAliases },
     aliases,
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

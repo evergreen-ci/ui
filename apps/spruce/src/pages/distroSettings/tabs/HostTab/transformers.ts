@@ -68,11 +68,13 @@ export const gqlToForm = ((data) => {
     },
     allocation: hostAllocatorSettings,
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
   { allocation, bootstrapSettings, setup, sshConfig },
   distro,
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 ) => ({
   ...distro,
   arch: setup.arch,

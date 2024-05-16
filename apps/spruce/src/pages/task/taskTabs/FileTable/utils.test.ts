@@ -2,7 +2,9 @@ import { filterGroupedFiles } from "./utils";
 
 describe("filterGroupedFiles", () => {
   it("should return an empty array if groupedFiles is empty", () => {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     const groupedFiles = [];
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     const result = filterGroupedFiles(groupedFiles, /(?:)/);
     expect(result).toStrictEqual([]);
   });

@@ -14,7 +14,9 @@ export const Default: CustomStoryObj<typeof Metadata> = {
       <Metadata
         {...args}
         task={taskQuery.task}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         taskId={taskQuery.task.id}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         error={null}
       />
     </Container>
@@ -26,6 +28,7 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
     <Container>
       <Metadata
         {...args}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         task={{
           ...taskQuery.task,
           dependsOn: [
@@ -59,7 +62,9 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
             },
           ],
         }}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         taskId={taskQuery.task.id}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         error={null}
       />
     </Container>
@@ -73,12 +78,16 @@ export const WithAbortMessage: CustomStoryObj<
     <Container>
       <Metadata
         {...args}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         task={{
           ...taskQuery.task,
           aborted: true,
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           abortInfo: abortInfoMap[abortInfoSelection],
         }}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         taskId={taskQuery.task.id}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         error={null}
       />
     </Container>
@@ -108,13 +117,16 @@ export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
           ...taskQuery.task,
           hostId: null,
           ami: null,
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           distroId: null,
           pod: {
             id: "pod_id",
           },
           spawnHostLink: null,
         }}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         taskId={taskQuery.task.id}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         error={null}
       />
     </Container>

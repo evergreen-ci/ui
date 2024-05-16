@@ -44,6 +44,7 @@ const extraFieldsFormToGql = (
   }
   const extraFields = {};
   extraFieldsToInclude.forEach((e) => {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     extraFields[e.key] = extraFieldsForm[e.key].toString();
   });
   return extraFields;
@@ -65,6 +66,7 @@ export const getGqlPayload = (
   } = event;
 
   const triggerData = extraFieldsFormToGql(
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     extraFields,
     formState.event.extraFields,
   );
@@ -75,6 +77,7 @@ export const getGqlPayload = (
   );
 
   const method = formState.notification.notificationSelect;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const subscriber = formState.notification[getTargetForMethod(method)];
 
   const selectors =
@@ -105,6 +108,7 @@ export const getGqlPayload = (
 export const hasInitialError = (formState: FormState) => {
   const trigger = formState.event.eventSelect;
   const method = formState.notification.notificationSelect;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const target = formState.notification[getTargetForMethod(method)];
   if (!trigger || !method || !target) {
     return true;

@@ -7,6 +7,7 @@ export const gqlToForm = ((data) => {
   if (!data) return null;
 
   const {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     vars: { adminOnlyVars, privateVars, vars },
   } = data;
 
@@ -19,6 +20,7 @@ export const gqlToForm = ((data) => {
       isDisabled: privateVars.includes(varName),
     })),
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = (({ vars: varsData }, isRepo, id) => {
@@ -28,13 +30,16 @@ export const formToGql = (({ vars: varsData }, isRepo, id) => {
 
       let val = varValue;
       if (isPrivate) {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         acc.privateVarsList.push(varName);
         // Overwrite {REDACTED} for variables that have been previously saved as private variables
         if (isDisabled) val = "";
       }
       if (isAdminOnly) {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         acc.adminOnlyVarsList.push(varName);
       }
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       acc.vars[varName] = val;
       return acc;
     },
@@ -49,4 +54,5 @@ export const formToGql = (({ vars: varsData }, isRepo, id) => {
     projectRef: { id },
     vars,
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

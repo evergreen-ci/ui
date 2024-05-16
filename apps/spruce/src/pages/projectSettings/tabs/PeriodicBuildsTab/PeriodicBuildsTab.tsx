@@ -11,6 +11,7 @@ const getInitialFormState = (
   projectData: TabProps["projectData"],
   repoData: TabProps["repoData"],
 ): PeriodicBuildsFormState => {
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
   return projectData;
@@ -29,6 +30,7 @@ export const PeriodicBuildsTab: React.FC<TabProps> = ({
   );
 
   const formSchema = useMemo(
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     () => getFormSchema(projectType, timezone),
     [projectType, timezone],
   );

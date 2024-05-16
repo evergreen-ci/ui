@@ -48,6 +48,7 @@ describe("foldedCommit", () => {
         />
       </MockedProvider>,
     );
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("Expand 5 inactive"));
     expect(screen.queryByText("Expand 5 inactive")).toBeNull();
     expect(screen.getByText("Collapse 5 inactive")).toBeInTheDocument();

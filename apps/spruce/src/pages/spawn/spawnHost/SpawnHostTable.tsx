@@ -60,6 +60,7 @@ const columns = [
     header: "Host",
     accessorKey: "id",
     enableSorting: true,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) => {
       const id = getValue();
       return row.original.distro?.isVirtualWorkStation ? (
@@ -74,20 +75,25 @@ const columns = [
   },
   {
     header: "Distro",
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     accessorFn: ({ distro: { id } }) => id,
     enableSorting: true,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
   },
   {
     header: "Status",
     accessorKey: "status",
     enableSorting: true,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => <HostStatusBadge status={getValue()} />,
   },
   {
     header: "Expires In",
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     accessorFn: ({ expiration }) => new Date(expiration),
     enableSorting: true,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) =>
       row.original.noExpiration
         ? DoesNotExpire
@@ -95,12 +101,15 @@ const columns = [
   },
   {
     header: "Uptime",
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     accessorFn: ({ uptime }) => new Date(uptime),
     enableSorting: true,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => formatDistanceToNow(getValue()),
   },
   {
     header: "Actions",
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     cell: ({ row }) => <SpawnHostTableActions host={row.original} />,
   },
 ];

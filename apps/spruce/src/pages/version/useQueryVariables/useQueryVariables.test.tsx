@@ -6,6 +6,7 @@ import { useQueryVariables } from ".";
 describe("useQueryVariables", () => {
   const search =
     "page=0&limit=20&sorts=NAME%3AASC%3BSTATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3AASC&statuses=success&taskName=generate";
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const wrapper = ({ children }) => (
     <MemoryRouter initialEntries={[`?${search}`]}>{children}</MemoryRouter>
   );

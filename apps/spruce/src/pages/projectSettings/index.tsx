@@ -41,11 +41,13 @@ const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
   const dispatchToast = useToastContext();
   const { [slugs.projectIdentifier]: identifier, [slugs.tab]: tab } =
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     useParams<{
       [slugs.projectIdentifier]: string | null;
       [slugs.tab]: ProjectSettingsTabRoutes;
     }>();
   // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const identifierIsObjectId = validateObjectId(identifier);
   const [isRepo, setIsRepo] = useState<boolean>(false);
 
@@ -70,6 +72,7 @@ const ProjectSettings: React.FC = () => {
     ProjectSettingsQueryVariables
   >(PROJECT_SETTINGS, {
     skip: identifierIsObjectId,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     variables: { identifier },
     onError: (e) => {
       dispatchToast.error(
@@ -96,17 +99,20 @@ const ProjectSettings: React.FC = () => {
     RepoSettingsQueryVariables
   >(REPO_SETTINGS, {
     skip: projectLoading || projectType === ProjectType.Project,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     variables: { repoId },
     onError: (e) => {
       dispatchToast.error(`There was an error loading ${repoId}: ${e.message}`);
     },
   });
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   if (!tabRouteValues.includes(tab)) {
     return (
       <Navigate
         replace
         to={getProjectSettingsRoute(
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           identifier,
           ProjectSettingsTabRoutes.General,
         )}
@@ -137,72 +143,91 @@ const ProjectSettings: React.FC = () => {
 
   return (
     <ProjectSettingsProvider>
+      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={identifier} />
       <SideNav aria-label="Project Settings" widthOverride={250}>
         <ButtonsContainer>
           <ProjectSelect
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             selectedProjectIdentifier={projectLabel}
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
           <CreateDuplicateProjectButton
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             id={project?.projectRef?.id}
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             label={projectLabel}
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             owner={owner}
             projectType={projectType}
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             repo={repo}
           />
         </ButtonsContainer>
 
         <SideNavGroup>
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.General}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Access}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Variables}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.GithubCommitQueue}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Notifications}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.PatchAliases}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.VirtualWorkstation}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Containers}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.ViewsAndFilters}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.ProjectTriggers}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.PeriodicBuilds}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Plugins}
           />
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.EventLog}

@@ -45,6 +45,7 @@ describe("waterfallTaskStatusIcon", () => {
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
     const user = userEvent.setup();
     render(<Content status="failed" hasCedarResults />);
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(
@@ -90,12 +91,14 @@ describe("waterfallTaskStatusIcon", () => {
     (removeGlobalHighlightStyle as jest.Mock).mockImplementationOnce(() => {});
 
     render(<Content status="failed" hasCedarResults />);
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(injectGlobalHighlightStyle).toHaveBeenCalledTimes(1);
     });
     expect(injectGlobalHighlightStyle).toHaveBeenCalledWith(props.identifier);
 
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.unhover(screen.queryByDataCy("waterfall-task-status-icon"));
     expect(removeGlobalHighlightStyle).toHaveBeenCalledTimes(1);
   });

@@ -47,6 +47,7 @@ const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
   selectedBuildVariantTasks: {},
   patchParams: null,
   selectedTab,
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   disableBuildVariantSelect: tabToIndexMap[selectedTab] === PatchTab.Tasks,
 });
 
@@ -128,11 +129,13 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab }>();
 
   const { id, project } = patch;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { variants } = project;
 
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       selectedTab: tabToIndexMap[tab || PatchTab.Configure],
     }),
   );
@@ -158,6 +161,7 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
         description: patch.description,
         buildVariants: [variants[0]?.name],
         params: patch.parameters,
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         variantTasks: initializeTaskState(variants, patch.variantsTasks),
         aliases: initializeAliasState(patch.patchTriggerAliases),
       });
@@ -180,6 +184,7 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     });
   const setSelectedTab = (i: number) =>
     dispatch({ type: "setSelectedTab", tabIndex: i });
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const setPatchParams = (params) =>
     dispatch({ type: "setPatchParams", params });
 
@@ -196,6 +201,7 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     setSelectedAliases,
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     setSelectedTab,
   };
 };

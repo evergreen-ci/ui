@@ -30,10 +30,12 @@ export const formToGql = ({
     homeVolumeDetails,
     loadData,
     publicKeySection,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     requiredSection: { distro, region },
     setupScriptSection,
     userdataScriptSection,
   } = formData || {};
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { hostUptime } = expirationDetails;
   return {
     isVirtualWorkStation,
@@ -42,11 +44,14 @@ export const formToGql = ({
       : null,
     expiration: expirationDetails?.noExpiration
       ? null
-      : new Date(expirationDetails?.expiration),
+      : // @ts-ignore: FIXME. This comment was added by an automated script.
+        new Date(expirationDetails?.expiration),
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     noExpiration: expirationDetails?.noExpiration,
     sleepSchedule:
       expirationDetails?.noExpiration && hostUptime
-        ? getSleepSchedule(hostUptime, timeZone)
+        ? // @ts-ignore: FIXME. This comment was added by an automated script.
+          getSleepSchedule(hostUptime, timeZone)
         : null,
     volumeId:
       migrateVolumeId ||
@@ -58,17 +63,21 @@ export const formToGql = ({
       isVirtualWorkStation &&
       (!homeVolumeDetails?.selectExistingVolume ||
         !homeVolumeDetails?.volumeSelect)
-        ? homeVolumeDetails.volumeSize || DEFAULT_VOLUME_SIZE
+        ? // @ts-ignore: FIXME. This comment was added by an automated script.
+          homeVolumeDetails.volumeSize || DEFAULT_VOLUME_SIZE
         : null,
     publicKey: {
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       name: publicKeySection?.useExisting
         ? publicKeySection?.publicKeyNameDropdown
         : publicKeySection?.newPublicKeyName ?? "",
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       key: publicKeySection?.useExisting
         ? myPublicKeys.find(
             ({ name }) => name === publicKeySection?.publicKeyNameDropdown,
           )?.key
-        : stripNewLines(publicKeySection.newPublicKey),
+        : // @ts-ignore: FIXME. This comment was added by an automated script.
+          stripNewLines(publicKeySection.newPublicKey),
     },
     savePublicKey:
       !publicKeySection?.useExisting && !!publicKeySection?.savePublicKey,
@@ -76,7 +85,8 @@ export const formToGql = ({
     region,
     taskId:
       loadData?.loadDataOntoHostAtStartup && validateTask(spawnTaskData)
-        ? spawnTaskData.id
+        ? // @ts-ignore: FIXME. This comment was added by an automated script.
+          spawnTaskData.id
         : null,
     useProjectSetupScript: !!(
       loadData?.loadDataOntoHostAtStartup &&

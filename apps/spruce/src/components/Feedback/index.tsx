@@ -15,7 +15,9 @@ export const Feedback: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const jiraBugUrl = getJiraBugUrl(jiraHost);
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const jiraImprovementUrl = getJiraImprovementUrl(jiraHost);
 
   return (

@@ -24,17 +24,23 @@ export const AuthenticationCard = () => {
     return <Skeleton active paragraph={{ rows: 6 }} />;
   }
   const config = get(data, "userConfig");
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const authCode = `user: "${config.user}"
+      // @ts-ignore: FIXME. This comment was added by an automated script.
 api_key: "${config.api_key}"
+      // @ts-ignore: FIXME. This comment was added by an automated script.
 api_server_host: "${config.api_server_host}"
+      // @ts-ignore: FIXME. This comment was added by an automated script.
 ui_server_host: "${config.ui_server_host}"
 `;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const resetKey = async (e) => {
     e.preventDefault();
     sendEvent({ name: "Reset Key" });
     await post(`/settings/newkey`, {});
     refetch();
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const downloadFile = (e) => {
     sendEvent({ name: "Download Auth File" });
     // This creates a text blob with the contents of `authCode`

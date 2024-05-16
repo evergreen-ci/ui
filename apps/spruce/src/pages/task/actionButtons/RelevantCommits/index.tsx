@@ -22,17 +22,21 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
 
   const { baseTask, versionMetadata } = task ?? {};
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { loading: parentLoading, task: parentTask } = useParentTask(task.id);
 
   const { loading: passingLoading, task: lastPassingTask } = useLastPassingTask(
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     task.id,
   );
 
   const { loading: breakingLoading, task: breakingTask } = useBreakingTask(
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     task.id,
   );
 
   const { loading: executedLoading, task: lastExecutedTask } =
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     useLastExecutedTask(task.id);
 
   const linkObject = useMemo(

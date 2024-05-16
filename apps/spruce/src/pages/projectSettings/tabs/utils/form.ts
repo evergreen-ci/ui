@@ -1,5 +1,6 @@
 import { SpruceFormProps } from "components/SpruceForm/types";
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 export const insertIf = (condition, ...elements) => (condition ? elements : []);
 
 const radioBoxOption = (title: string, value: boolean) => ({
@@ -17,6 +18,7 @@ const radioBoxOption = (title: string, value: boolean) => ({
  */
 export const radioBoxOptions = (
   options: [string, string],
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   field: boolean = undefined,
   invert: boolean = false,
 ): Array<SpruceFormProps["schema"]> => [
@@ -29,6 +31,7 @@ export const radioBoxOptions = (
         ? options[+invert]
         : options[+!invert]
       ).toLowerCase()})`,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       null,
     ),
   ),

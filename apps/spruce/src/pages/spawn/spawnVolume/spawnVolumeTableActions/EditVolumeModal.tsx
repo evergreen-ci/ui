@@ -52,6 +52,7 @@ export const EditVolumeModal: React.FC<Props> = ({
   const initialState = useMemo(
     () => ({
       expirationDetails: {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         expiration: new Date(volume?.expiration).toString(),
         noExpiration: volume.noExpiration,
       },
@@ -78,6 +79,7 @@ export const EditVolumeModal: React.FC<Props> = ({
 
   const { schema, uiSchema } = getFormSchema({
     disableExpirationCheckbox,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     noExpirationCheckboxTooltip,
     hasName: !!initialState?.name?.length,
   });
@@ -103,6 +105,7 @@ export const EditVolumeModal: React.FC<Props> = ({
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           setFormErrors(errors);
         }}
       />

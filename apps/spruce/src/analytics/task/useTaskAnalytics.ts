@@ -74,6 +74,7 @@ export const useTaskAnalytics = () => {
 
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
   const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     variables: { taskId, execution },
     fetchPolicy: "cache-first",
   });
@@ -81,6 +82,7 @@ export const useTaskAnalytics = () => {
   const {
     failedTestCount,
     latestExecution,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     project: { identifier } = { identifier: null },
     status: taskStatus,
   } = eventData?.task || {};

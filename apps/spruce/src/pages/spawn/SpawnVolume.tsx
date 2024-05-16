@@ -34,6 +34,7 @@ export const SpawnVolume = () => {
     ({ migrating }) => migrating,
   );
   usePolling({
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     startPolling,
     stopPolling,
     refetch,
@@ -48,6 +49,7 @@ export const SpawnVolume = () => {
   const volumeLimit = spruceConfig?.providers?.aws?.maxVolumeSizePerUser;
   const totalVolumeSize = volumes.reduce((acc, volume) => acc + volume.size, 0);
   const maxSpawnableLimit =
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     volumeLimit - totalVolumeSize >= 0 ? volumeLimit - totalVolumeSize : 0;
   const mountedCount = volumes.filter((v) => v.hostID).length ?? 0;
   const unmountedCount = volumes.filter((v) => !v.hostID).length ?? 0;
@@ -68,6 +70,7 @@ export const SpawnVolume = () => {
         </BadgeWrapper>
       </TitleContainer>
       <SpawnVolumeButton
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         volumeLimit={volumeLimit}
         maxSpawnableLimit={maxSpawnableLimit}
       />

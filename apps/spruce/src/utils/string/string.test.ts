@@ -332,6 +332,7 @@ describe("shortenGithash", () => {
     expect(shortenGithash("012")).toBe("012");
   });
   it("handles undefined input", () => {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(shortenGithash(undefined)).toBeUndefined();
   });
 });

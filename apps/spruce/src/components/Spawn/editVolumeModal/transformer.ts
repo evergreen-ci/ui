@@ -11,6 +11,7 @@ export const formToGql = (
     expirationDetails = {} as FormState["expirationDetails"],
     name = "",
   } = updatedFields;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { expiration, noExpiration } = expirationDetails;
 
   return {

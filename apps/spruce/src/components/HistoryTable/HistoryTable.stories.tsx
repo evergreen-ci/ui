@@ -33,6 +33,7 @@ interface HistoryTableWrapperProps {
   type?: "variant" | "task";
 }
 const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { addColumns, ingestNewCommits } = useHistoryTable();
   const [isLoading, setIsLoading] = useState(false);
   const [oldData, setOldData] = useState(mainlineCommitData);
@@ -51,6 +52,7 @@ const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
 
   const loadMore = useCallback(() => {
     setIsLoading(true);
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     timeoutRef.current = setTimeout(() => {
       setIsLoading(false);
       const newData = generateNewCommitData(oldData);
@@ -63,6 +65,7 @@ const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
   return (
     <div style={{ height: 600, width: "100%", border: "red 1px solid" }}>
       <HistoryTable loadMoreItems={loadMore} loading={isLoading}>
+        {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
         {type === "task" ? TaskHistoryRow : VariantHistoryRow}
       </HistoryTable>
     </div>

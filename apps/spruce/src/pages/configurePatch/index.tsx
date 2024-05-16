@@ -23,6 +23,7 @@ const ConfigurePatch: React.FC = () => {
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
   >(PATCH_CONFIGURE, {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     variables: { id: patchId },
     onError(err) {
       dispatchToast.error(err.message);
@@ -33,7 +34,9 @@ const ConfigurePatch: React.FC = () => {
   usePageTitle(`Configure Patch`);
 
   // Can't configure a mainline version so should redirect to the version page
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   if (!validateObjectId(patchId)) {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     return <Navigate to={getVersionRoute(patchId)} />;
   }
 
@@ -44,13 +47,17 @@ const ConfigurePatch: React.FC = () => {
     return <PageDoesNotExist />;
   }
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   if (patch.alias === commitQueueAlias) {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     return <Navigate to={getVersionRoute(patchId)} />;
   }
 
   return (
     <PageWrapper>
+      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={patch?.projectIdentifier} />
+      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
       <ConfigurePatchCore patch={patch} />
     </PageWrapper>
   );

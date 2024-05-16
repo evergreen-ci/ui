@@ -32,13 +32,16 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { [slugs.versionId]: versionId } = useParams();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const versionAnalytics = useVersionAnalytics(versionId);
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const queryVariables = useQueryVariables(search, versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
     updateQueryParams({
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Duration]: undefined,
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
@@ -46,11 +49,17 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const clearQueryParams = () => {
     updateQueryParams({
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.TaskName]: undefined,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Variant]: undefined,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Statuses]: undefined,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.BaseStatuses]: undefined,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       [PaginationQueryParams.Page]: undefined,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Duration]: undefined,
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
@@ -71,6 +80,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { isPatch, tasks } = version || {};
@@ -82,7 +92,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         <TableControl
           filteredCount={count}
           totalCount={taskCount}
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           limit={limit}
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           page={page}
           label="tasks"
           onClear={clearQueryParams}
@@ -96,7 +108,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       shouldShowBottomTableControl={tasksData.length > 10}
     >
       <PatchTasksTable
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         isPatch={isPatch}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         sorts={sorts}
         tasks={tasksData}
         loading={tasksData.length === 0 && loading}

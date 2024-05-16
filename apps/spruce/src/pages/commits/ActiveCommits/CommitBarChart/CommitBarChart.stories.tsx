@@ -15,6 +15,7 @@ export default {
 export const Default: StoryObj<typeof CommitBarChart> = {
   render: ({ chartType }) => (
     <FlexRowContainer>
+      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
       {versions.map((item) => (
         <CommitBarChart
           key={item.version.id}

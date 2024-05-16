@@ -34,6 +34,7 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
           setIsModalVisible(false);
           setMenuOpen(false);
         }}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         resourceId={projectIdentifier}
         sendAnalyticsEvent={(subscription) =>
           sendEvent({ name: "Add Notification", subscription })

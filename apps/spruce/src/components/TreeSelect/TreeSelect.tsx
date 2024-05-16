@@ -56,6 +56,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
             const { target } = findNode({ value, tData });
             if (target.children) {
               return accum.filter(
+                // @ts-ignore: FIXME. This comment was added by an automated script.
                 (v) => !target.children.find((child) => child.value === v),
               );
             }
@@ -118,6 +119,7 @@ const renderCheckboxes = ({
 }): JSX.Element[] => {
   const rows: JSX.Element[] = [];
   tData.forEach((entry) => {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
   });
   return rows;
@@ -204,6 +206,7 @@ const handleOnChange = ({
     }
   } else if (isParent) {
     // has list of children
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     const childrenValues = target.children.map((child) => child.value);
     if (isAlreadyChecked) {
       onChange(
@@ -288,6 +291,7 @@ const findNode = ({
     if (curr.value === value) {
       return {
         target: curr,
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         parent: null,
         siblings: tData.filter((v) => v.value !== value),
       };
@@ -304,7 +308,9 @@ const findNode = ({
     }
   }
   return {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     target: null,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     parent: null,
     siblings: [],
   };
@@ -316,6 +322,7 @@ const getAllValues = (tData: TreeDataEntry[]): string[] =>
     const childrenValues = currNode.children
       ? currNode.children.map((child) => child.value)
       : [];
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     return accum.concat([currNode.value]).concat(childrenValues);
   }, []);
 

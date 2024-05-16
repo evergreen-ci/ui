@@ -37,6 +37,7 @@ const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
 const execution = 0;
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 let matchMedia;
 describe("buildBaronContent", () => {
   beforeAll(() => {
@@ -44,6 +45,7 @@ describe("buildBaronContent", () => {
   });
 
   afterEach(() => {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     matchMedia.clear();
     jest.restoreAllMocks();
   });
@@ -52,6 +54,7 @@ describe("buildBaronContent", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           annotation={null}
           taskId={taskId}
           execution={execution}
@@ -75,6 +78,7 @@ describe("buildBaronContent", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           annotation={null}
           taskId={taskId}
           execution={execution}
@@ -88,6 +92,7 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("file-ticket-button"));
     expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
     await user.click(screen.getByRole("button", { name: "Yes" }));
@@ -100,6 +105,7 @@ describe("buildBaronContent", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           annotation={null}
           taskId={taskId}
           execution={execution}

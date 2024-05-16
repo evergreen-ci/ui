@@ -123,6 +123,7 @@ describe("repoConfigField", () => {
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip"),
     ).not.toBeInTheDocument();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("attach-repo-button"));
     await waitFor(() => {
       expect(
@@ -148,6 +149,7 @@ describe("repoConfigField", () => {
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip"),
     ).not.toBeInTheDocument();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("attach-repo-button"));
     await waitFor(() => {
       expect(
@@ -179,6 +181,7 @@ describe("repoConfigField", () => {
     expect(screen.queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
 
     await screen.findByDataCy("move-repo-button");
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("move-repo-button"));
     await waitFor(() => {
       expect(screen.queryByDataCy("move-repo-modal")).toBeVisible();
@@ -232,6 +235,7 @@ describe("repoConfigField", () => {
         "evergreen-ci",
       );
       await selectLGOption("new-owner-select", "10gen");
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
       expect(
         screen.getByRole("button", {
@@ -248,6 +252,7 @@ describe("repoConfigField", () => {
       render(<Component />);
 
       expect(screen.queryByDataCy("attach-repo-modal")).not.toBeInTheDocument();
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("attach-repo-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("attach-repo-modal")).toBeVisible();

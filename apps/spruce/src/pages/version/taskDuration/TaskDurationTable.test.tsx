@@ -31,6 +31,7 @@ describe("taskDurationTable", () => {
     const expandRowButton = within(
       screen.queryAllByDataCy("leafygreen-table-row")[0],
     ).queryByRole("button");
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(expandRowButton);
     expect(screen.queryByText("check_codegen_execution_task")).toBeVisible();
   });

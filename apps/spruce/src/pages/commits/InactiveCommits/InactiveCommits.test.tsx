@@ -16,6 +16,7 @@ const RenderInactiveCommitButton = ({
   hasFilters?: boolean;
 }) => (
   <MockedProvider>
+    {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
     <InactiveCommitButton hasFilters={hasFilters} rolledUpVersions={versions} />
   </MockedProvider>
 );
@@ -39,6 +40,7 @@ describe("inactiveCommitButton", () => {
     render(<RenderInactiveCommitButton versions={versions} />);
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("inactive-commits-button"));
     await waitFor(() => {
       expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
@@ -54,6 +56,7 @@ describe("inactiveCommitButton", () => {
     );
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("inactive-commits-button"));
     await waitFor(() => {
       expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
@@ -69,6 +72,7 @@ describe("inactiveCommitButton", () => {
     render(<RenderInactiveCommitButton versions={versions} />);
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("inactive-commits-button"));
     await waitFor(() => {
       expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
@@ -84,6 +88,7 @@ describe("inactiveCommitButton", () => {
     render(<RenderInactiveCommitButton versions={versions} />);
 
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("inactive-commits-button"));
     await waitFor(() => {
       expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();
@@ -92,6 +97,7 @@ describe("inactiveCommitButton", () => {
       MAX_COMMIT_COUNT,
     );
     expect(screen.queryByDataCy("inactive-commits-modal")).toBeNull();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("hidden-commits"));
     await waitFor(() => {
       expect(screen.queryByDataCy("inactive-commits-modal")).toBeVisible();
@@ -109,6 +115,7 @@ describe("inactiveCommitButton", () => {
     const user = userEvent.setup();
     render(<RenderInactiveCommitButton versions={versions.slice(0, 1)} />);
     expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeNull();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("inactive-commits-button"));
     await waitFor(() => {
       expect(screen.queryByDataCy("inactive-commits-tooltip")).toBeVisible();

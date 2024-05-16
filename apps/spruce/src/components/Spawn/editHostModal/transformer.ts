@@ -32,19 +32,27 @@ export const formToGql = ({
     volume,
   } = formData || {};
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { expiration, hostUptime, noExpiration } = expirationDetails;
   const {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     newPublicKey = "",
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     newPublicKeyName = "",
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     publicKeyNameDropdown = "",
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     savePublicKey = false,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     useExisting,
   } = publicKeySection;
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const addedTags = newUserTags.filter((n) =>
     oldUserTags.every((o) => n.key !== o.key || n.value !== o.value),
   );
   const deletedTags = oldUserTags.filter((o) =>
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     newUserTags.every((n) => n.key !== o.key || n.value !== o.value),
   );
 

@@ -77,6 +77,7 @@ export const getGqlPayload =
     subscription: Unpacked<NotificationsFormState["subscriptions"]>,
   ): SubscriptionInput => {
     const { subscriptionData } = subscription || {};
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     const event = projectTriggers[subscriptionData?.event?.eventSelect];
     const {
       extraFields,
@@ -87,16 +88,19 @@ export const getGqlPayload =
 
     const triggerData = extraFieldsFormToGql(
       extraFields,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       subscriptionData?.event?.extraFields,
     );
 
     const regexData = regexFormToGql(
       !!regexSelectors,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       subscriptionData?.event?.regexSelector,
     );
 
     const method = subscriptionData?.notification?.notificationSelect;
     const subscriber = getTargetForMethod(
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       method,
       subscriptionData?.notification,
     );
@@ -111,11 +115,14 @@ export const getGqlPayload =
     return {
       id: subscriptionData?.id,
       owner_type: "project",
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       regex_selectors: regexData,
       resource_type: resourceType,
       selectors: [{ type: "project", data: projectId }, ...selectors],
       subscriber: {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         type: method,
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         target: subscriber,
         webhookSubscriber:
           method === NotificationMethods.WEBHOOK

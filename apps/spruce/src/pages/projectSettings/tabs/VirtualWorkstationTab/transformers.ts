@@ -12,9 +12,11 @@ export const gqlToForm = ((data, options) => {
 
   const {
     projectRef: {
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       workstationConfig: { gitClone, setupCommands },
     },
   } = data;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { projectType } = options;
 
   return {
@@ -25,6 +27,7 @@ export const gqlToForm = ((data, options) => {
       setupCommands: setupCommands?.map(omitTypename) ?? [],
     },
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
@@ -34,6 +37,7 @@ export const formToGql = ((
 ) => ({
   ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     id,
     workstationConfig: {
       gitClone,

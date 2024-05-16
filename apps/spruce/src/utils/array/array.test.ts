@@ -48,6 +48,7 @@ describe("deduplicatedAppend", () => {
 describe("convertObjectToArray", () => {
   it("should return an empty array for an empty object", () => {
     expect(convertObjectToArray({})).toStrictEqual([]);
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(convertObjectToArray(undefined)).toStrictEqual([]);
   });
   it("should split out singular array values in objects into an array of their own objects", () => {
@@ -71,6 +72,7 @@ describe("convertObjectToArray", () => {
 describe("convertArrayToObject", () => {
   it("should return an empty object if provided with an empty array", () => {
     expect(convertArrayToObject([], "someKey")).toStrictEqual({});
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(convertArrayToObject(undefined, "someKey")).toStrictEqual({});
   });
   it("should take a singular array element and return an object with one element", () => {
@@ -144,6 +146,7 @@ describe("mapStringArrayToObject", () => {
   });
   it("should return an empty object if provided with an empty array", () => {
     expect(mapStringArrayToObject([], "someKey")).toStrictEqual({});
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(mapStringArrayToObject(undefined, "someKey")).toStrictEqual({});
   });
 });

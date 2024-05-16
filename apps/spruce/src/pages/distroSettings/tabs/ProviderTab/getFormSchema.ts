@@ -60,6 +60,7 @@ export const getFormSchema = ({
       },
     },
     dependencies: {
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       provider: {
         oneOf: [
           {

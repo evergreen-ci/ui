@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import { Skeleton } from "antd";
+// @ts-ignore: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
@@ -56,6 +57,7 @@ export const NotificationsTab: React.FC = () => {
     return null;
   }
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
 
@@ -90,12 +92,14 @@ export const NotificationsTab: React.FC = () => {
         <StyledTextInput
           label="Slack Username"
           onChange={handleFieldUpdate(setSlackUsernameField)}
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           value={slackUsernameField}
           data-cy="slack-username-field"
         />
         <StyledTextInput
           label="Slack Member ID"
           onChange={handleFieldUpdate(setSlackMemberIdField)}
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           value={slackMemberIdField}
           description="Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'."
           data-cy="slack-member-id-field"
@@ -119,6 +123,7 @@ export const NotificationsTab: React.FC = () => {
   );
 };
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 const handleFieldUpdate = (stateUpdate) => (e) => {
   if (typeof e === "string") {
     stateUpdate(e); // Antd select just passes in the value string instead of an event

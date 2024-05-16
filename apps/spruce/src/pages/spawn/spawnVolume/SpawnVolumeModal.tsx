@@ -79,14 +79,17 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         (status === HostStatus.Running || status === HostStatus.Stopped),
     )
     .map(({ displayName, id }) => ({ id, displayName }))
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
   const { schema, uiSchema } = getFormSchema({
     maxSpawnableLimit,
     availabilityZones,
     types,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     hosts: availableHosts,
     disableExpirationCheckbox,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     noExpirationCheckboxTooltip,
   });
 

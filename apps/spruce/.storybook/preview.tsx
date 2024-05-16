@@ -63,5 +63,6 @@ export const decorators: Decorator[] = [
     });
     return <RouterProvider router={memoryRouter} />;
   },
+      // @ts-ignore: FIXME. This comment was added by an automated script.
   WithApolloClient,
 ];

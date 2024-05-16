@@ -39,6 +39,7 @@ export const getFormSchema = (
               title: "Build Break Notifications",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
+                // @ts-ignore: FIXME. This comment was added by an automated script.
                 repoData?.buildBreakSettings?.notifyOnBuildFailure,
               ),
             },

@@ -28,13 +28,16 @@ export const groupStatusesByUmbrellaStatus = (
     if (counts[umbrellaStatus]) {
       counts[umbrellaStatus].count += stat.count;
       counts[umbrellaStatus].statuses = deduplicatedAppend(
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         taskStatusToCopy[stat.status],
         counts[umbrellaStatus].statuses,
       );
     } else {
       counts[umbrellaStatus] = {
         count: stat.count,
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         statuses: toArray(taskStatusToCopy[stat.status]),
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         color: mapTaskToBarchartColor[umbrellaStatus],
         umbrellaStatus: umbrellaStatus as TaskStatus,
         statusCounts: {},

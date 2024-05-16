@@ -68,6 +68,7 @@ const repoForm: PeriodicBuildsFormState = {
       id: "456",
       interval: {
         specifier: IntervalSpecifier.Cron,
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         intervalHours: null,
         cron: "*/5 * * * *",
       },

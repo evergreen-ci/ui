@@ -14,6 +14,7 @@ export const Default: CustomStoryObj<typeof PodStatusBadge> = {
     <Container>
       {Object.keys(PodStatus).map((status) => (
         <Wrapper key={`badge_${status}`}>
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <PodStatusBadge status={PodStatus[status]} />
         </Wrapper>
       ))}

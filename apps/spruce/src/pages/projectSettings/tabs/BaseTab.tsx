@@ -20,6 +20,7 @@ export const BaseTab = <T extends WritableProjectSettingsType>({
   usePopulateForm(initialFormState, tab);
 
   return (
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     <Form<WritableProjectSettingsType, FormStateMap>
       {...rest}
       state={state}

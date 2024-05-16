@@ -9,6 +9,7 @@ import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { EventLogTab } from "./EventLogTab";
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 const Wrapper = ({ children, mocks = [query()] }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );

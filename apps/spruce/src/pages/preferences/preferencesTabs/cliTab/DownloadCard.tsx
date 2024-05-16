@@ -33,10 +33,12 @@ export const DownloadCard = () => {
   if (loading) {
     return <Skeleton active paragraph={{ rows: 6 }} />;
   }
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { clientConfig } = data;
   const { clientBinaries } = clientConfig || {};
   const topBinaries = clientBinaries.filter(filterBinaries);
   const otherBinaries = clientBinaries.filter(
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     (binary) => !filterBinaries(binary),
   );
 
@@ -53,13 +55,16 @@ export const DownloadCard = () => {
         </Body>
       </CardDescription>
       <CardGroup>
+        {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
         {topBinaries.map((binary) => (
           <CliDownloadBox
             key={`downloadBox_${binary.url}`}
             title={
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               prettyDisplayNameTop[binary.displayName] || binary.displayName
             }
             link={binary.url}
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             description={descriptions[binary.displayName]}
           />
         ))}
@@ -93,6 +98,7 @@ const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
             downloadName: title,
           });
         }}
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         href={link}
         disabled={!link}
         as="a"
@@ -118,6 +124,7 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
           onClick={() => {
             sendEvent({
               name: "CLI Download Link",
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               downloadName: binary.displayName,
             });
           }}
@@ -142,6 +149,7 @@ const prettyDisplayNameTop = {
 };
 
 const filterBinaries = (binary: ClientBinary) =>
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   /darwin_arm64\/|linux_amd64\/|windows_amd64\//.test(binary.url);
 
 const CardGroup = styled.div`

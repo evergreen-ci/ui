@@ -19,6 +19,7 @@ export const Default: CustomStoryObj<typeof TaskStatusBadge> = {
       <Container>
         {taskStatuses.map((status) => (
           <Wrapper key={`badge_${status}`}>
+            {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
             <TaskStatusBadge status={TaskStatus[status]} />
           </Wrapper>
         ))}

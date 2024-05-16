@@ -13,6 +13,7 @@ export const useOnClickOutside = (
      * This function checks if the click is outside of the provided refs.
      * @param event - click event
      */
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     function handleClickOutside(event): void {
       const isNotFocused = refs.every(
         (ref) => ref.current && !ref.current.contains(event.target as Node),

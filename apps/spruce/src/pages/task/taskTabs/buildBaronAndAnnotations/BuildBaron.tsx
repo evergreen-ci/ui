@@ -32,6 +32,7 @@ const BuildBaron: React.FC<Props> = ({
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
       {(data || annotation) && (
         <BuildBaronContent
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           bbData={data?.buildBaron}
           taskId={taskId}
           execution={execution}

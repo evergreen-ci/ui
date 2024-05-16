@@ -14,6 +14,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
 
   const isRepo = projectType === ProjectType.Repo;
   const { allEventsFetched, events, fetchMore } = useProjectSettingsEvents(
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     identifier,
     isRepo,
     limit,
@@ -24,6 +25,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
   return (
     <EventLog
       allEventsFetched={allEventsFetched}
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       events={events}
       handleFetchMore={() => {
         fetchMore({

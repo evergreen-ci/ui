@@ -28,6 +28,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         sortedBuildVariantGroups: getSortedBuildVariantGroups(action.taskData),
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         allTasks: action.taskData?.version?.tasks?.data.map(({ id }) => id),
       };
     case "toggleTask":
@@ -69,16 +70,20 @@ export const initialState: State = {
 const getSortedBuildVariantGroups = (
   data?: UndispatchedTasksQuery,
 ): BVGroupEntry[] => {
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const bvGroups: BVGroupsInterface = data?.version?.tasks?.data.reduce(
     (acc, task) => {
       const { buildVariant, buildVariantDisplayName, displayName, id } = task;
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       if (!acc[buildVariant]) {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         acc[buildVariant] = {
           tasks: [{ id, displayName }],
           buildVariantDisplayName,
           buildVariant,
         };
       } else {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         acc[buildVariant].tasks.push({ id, displayName });
       }
       return acc;

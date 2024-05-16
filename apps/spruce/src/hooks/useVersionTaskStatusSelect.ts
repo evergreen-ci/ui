@@ -103,18 +103,23 @@ export const useVersionTaskStatusSelect = (
     const selected = taskIds[taskVersion];
 
     if (typeof selected === "string") {
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       if (newState[taskVersion][selected]) {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         newState[taskVersion][selected] = false;
       } else {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         newState[taskVersion][selected] = true;
       }
     } else {
       // Enter this condition when a parent checkbox is clicked.
       // If every task is already checked, uncheck them. Otherwise, check them.
       const nextCheckedState = !selected.every(
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         (selectedId) => selectedTasks[taskVersion][selectedId],
       );
       selected.forEach((selectedId) => {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         newState[taskVersion][selectedId] = nextCheckedState;
       });
     }
@@ -147,6 +152,7 @@ export const useVersionTaskStatusSelect = (
           reduceBuildVariants({
             parentTasksChanged:
               versionBuildVariants !== prevVersionBuildVariants,
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             buildVariants: cv.buildVariants,
             versionStatusFilterTerm: versionStatusFilterTerm[childId],
             baseStatusFilterTerm: baseStatusFilterTerm[childId],
@@ -155,6 +161,7 @@ export const useVersionTaskStatusSelect = (
         newTaskSelect[childId] = childNextState;
       });
 
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       dispatch({ type: "setSelectedTasks", data: newTaskSelect });
     }
   }, [
@@ -222,9 +229,11 @@ const reduceBuildVariants = (filterDetails: reduceInput) => {
     baseStatusFilterTerm?.length ? baseStatuses.has(status) : true;
 
   const isSelected = (task: task) =>
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     hasFilter && hasStatus(task.status) && hasBaseStatus(task.baseStatus);
 
   if (versionStatusFilterTerm || baseStatusFilterTerm || parentTasksChanged) {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     const taskReducer = (acc, task: task) => ({
       ...acc,
       [task.id]: isSelected(task),
@@ -237,6 +246,7 @@ const reduceBuildVariants = (filterDetails: reduceInput) => {
 
     // Iterate through VersionBuildVariants and determine if a task should be
     // selected or not based on if the task status correlates with the 2 filters.
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     const reducedVariants = buildVariants?.reduce(bvReducer, {
       ...selectedTasks,
     });

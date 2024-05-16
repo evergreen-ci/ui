@@ -29,6 +29,7 @@ export const SpawnHost = () => {
     ({ volumes }) => !!volumes.find(({ migrating }) => migrating),
   );
   usePolling({
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     startPolling,
     stopPolling,
     refetch,

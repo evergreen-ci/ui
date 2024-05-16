@@ -26,8 +26,10 @@ describe("leaveBreadcrumbLinkMapFn", () => {
       const response = { data: { result: "Success" }, errors: null };
 
       const mappedFn = leaveBreadcrumbMapFn(
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         { variables: unfilteredVariables, ...operation },
         secretFields,
+        // @ts-ignore: FIXME. This comment was added by an automated script.
       )(response);
 
       expect(mappedFn).toStrictEqual(response);

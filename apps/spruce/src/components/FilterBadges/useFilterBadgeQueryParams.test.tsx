@@ -69,6 +69,7 @@ describe("filterBadges - queryParams", () => {
     expect(badge).toHaveTextContent("buildVariants: variant1");
     const closeBadge = screen.queryByDataCy("close-badge");
     expect(closeBadge).toBeInTheDocument();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(closeBadge);
 
     expect(screen.queryByDataCy("filter-badge")).toBeNull();
@@ -106,6 +107,7 @@ describe("filterBadges - queryParams", () => {
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(4);
 
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("clear-all-filters"));
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(0);
@@ -124,6 +126,7 @@ describe("filterBadges - queryParams", () => {
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(4);
 
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("clear-all-filters"));
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(0);

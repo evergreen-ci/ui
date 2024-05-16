@@ -41,6 +41,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   if (error) {
     return <div id="patch-error">{error.message}</div>;
   }
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   if (!moduleCodeChanges.length) {
     return (
       <Title className="cy-no-code-changes">
@@ -50,6 +51,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   }
   return (
     <div data-cy="code-changes">
+      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
       {moduleCodeChanges.map((modCodeChange) => {
         const { branchName, fileDiffs, htmlLink, rawLink } = modCodeChange;
 

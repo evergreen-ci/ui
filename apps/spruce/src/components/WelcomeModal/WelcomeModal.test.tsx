@@ -82,8 +82,10 @@ describe("welcomeModal", () => {
     );
     expect(screen.getByText("Slide 1")).toBeVisible();
     expect(screen.queryByDataCy("carousel-dot-1")).toBeVisible();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("carousel-dot-1"));
     expect(screen.getByText("Slide 2")).toBeVisible();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("carousel-dot-0"));
     expect(screen.getByText("Slide 1")).toBeVisible();
   });

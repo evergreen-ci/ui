@@ -34,6 +34,7 @@ const { green, red } = palette;
 
 const FileDiffTextContainer = styled("span")`
   ${(props: { type: string; hasValue: boolean }): string =>
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     props.hasValue &&
     (props.type === "+" ? `color: ${green.dark1};` : `color: ${red.base};`)}
   &:nth-of-type(2) {

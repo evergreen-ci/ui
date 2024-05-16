@@ -24,6 +24,7 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
     variables: { id: versionId },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
 

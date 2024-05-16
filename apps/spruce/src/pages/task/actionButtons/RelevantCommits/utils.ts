@@ -46,6 +46,7 @@ export const getTaskFromMainlineCommitsQuery = (
   data: LastMainlineCommitQuery,
 ): CommitTask => {
   const buildVariants =
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     data?.mainlineCommits.versions.find(({ version }) => version)?.version
       .buildVariants ?? [];
   if (buildVariants.length > 1) {
@@ -53,10 +54,12 @@ export const getTaskFromMainlineCommitsQuery = (
       new Error("Multiple build variants matched previous commit search."),
     ).warning();
   }
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   if (buildVariants[0]?.tasks.length > 1) {
     reportError(
       new Error("Multiple tasks matched previous commit search."),
     ).warning();
   }
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   return buildVariants[0]?.tasks[0];
 };

@@ -22,6 +22,7 @@ export const PluginsTab: React.FC<TabProps> = ({
     () =>
       getFormSchema(
         projectType === ProjectType.Repo,
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         jiraEmail,
         projectType === ProjectType.AttachedProject ? repoData : null,
       ),
@@ -31,6 +32,7 @@ export const PluginsTab: React.FC<TabProps> = ({
   return (
     <BaseTab
       formSchema={formSchema}
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       initialFormState={initialFormState}
       tab={tab}
       validate={validate}

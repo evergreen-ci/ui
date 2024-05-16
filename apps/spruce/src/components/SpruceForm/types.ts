@@ -23,6 +23,7 @@ export type SpruceFormProps<A = any> = Pick<
 > &
   Partial<FormProps<A>> & { customFormatFields?: CustomFormatFields };
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 export type GetFormSchema = (...any) => {
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];

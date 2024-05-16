@@ -36,6 +36,7 @@ export const ProjectPatches = () => {
     ProjectPatchesQueryVariables
   >(PROJECT_PATCHES, {
     variables: {
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       projectIdentifier,
       patchesInput: {
         ...patchesInput,
@@ -49,10 +50,12 @@ export const ProjectPatches = () => {
       );
     },
   });
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
   const { displayName, patches } = data?.project ?? {};
   return (
     <>
+      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <PatchesPage
         analyticsObject={analyticsObject}
@@ -62,6 +65,7 @@ export const ProjectPatches = () => {
         filterComp={
           <ProjectSelect
             getRoute={getProjectPatchesRoute}
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             selectedProjectIdentifier={projectIdentifier}
             showLabel={false}
             onSubmit={() => {

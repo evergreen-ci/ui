@@ -32,6 +32,7 @@ export const SideNavItemLink: React.FC<SideNavItemProps> = ({
   glyph,
   ...props
 }) => (
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   <StyledSideNavItemLink as={Link} {...props}>
     <StyledBody weight="medium">{children}</StyledBody>
     <Icon glyph="ArrowRight" />

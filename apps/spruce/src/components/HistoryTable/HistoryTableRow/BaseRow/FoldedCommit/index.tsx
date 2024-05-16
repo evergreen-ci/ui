@@ -44,6 +44,7 @@ const FoldedCommit: React.FC<FoldedCommitProps> = ({
     [numVisibleCols],
   );
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const commits = rolledUpCommits.map((commit) => (
     <StyledRowContainer key={commit.id} data-cy="folded-commit">
       <LabelCellContainer>

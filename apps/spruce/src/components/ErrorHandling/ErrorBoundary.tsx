@@ -12,6 +12,7 @@ class DefaultErrorBoundary extends Component<
   DefaultErrorBoundaryProps,
   { hasError: boolean }
 > {
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -22,6 +23,7 @@ class DefaultErrorBoundary extends Component<
     return { hasError: true };
   }
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   componentDidCatch(error, errorInfo) {
     console.error({ error, errorInfo });
   }

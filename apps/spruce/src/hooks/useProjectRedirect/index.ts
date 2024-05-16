@@ -30,6 +30,7 @@ export const useProjectRedirect = ({
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const needsRedirect = validateObjectId(projectIdentifier) && shouldRedirect;
 
   const [attemptedRedirect, setAttemptedRedirect] = useState(false);
@@ -37,15 +38,18 @@ export const useProjectRedirect = ({
   const { loading } = useQuery<ProjectQuery, ProjectQueryVariables>(PROJECT, {
     skip: !needsRedirect,
     variables: {
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       idOrIdentifier: projectIdentifier,
     },
     onCompleted: (projectData) => {
       const { identifier } = projectData.project;
       const currentUrl = location.pathname.concat(location.search);
       const redirectPathname = currentUrl.replace(
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         projectIdentifier,
         identifier,
       );
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       sendAnalyticsEvent(projectIdentifier, identifier);
       navigate(redirectPathname, { replace: true });
       setAttemptedRedirect(true);

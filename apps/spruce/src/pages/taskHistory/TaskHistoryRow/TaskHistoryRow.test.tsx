@@ -32,6 +32,7 @@ const initialState: HistoryTableReducerState = {
   columnLimit: 7,
   historyTableFilters: [],
   commitCount: 10,
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   selectedCommit: null,
 };
 
@@ -149,6 +150,7 @@ describe("taskHistoryRow", () => {
       );
     });
 
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("history-table-icon"));
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
@@ -195,6 +197,7 @@ describe("taskHistoryRow", () => {
     });
 
     expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("history-table-icon"));
     await waitFor(() => {
       expect(screen.queryByText("TestJiraIntegration")).toBeVisible();

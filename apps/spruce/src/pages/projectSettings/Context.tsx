@@ -53,10 +53,13 @@ const useProjectSettingsContext = (): SettingsState<
       "useProjectSettingsContext must be used within a ProjectSettingsProvider",
     );
   }
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   return context;
 };
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 const useHasUnsavedTab = getUseHasUnsavedTab(ProjectSettingsContext);
+// @ts-ignore: FIXME. This comment was added by an automated script.
 const usePopulateForm = getUsePopulateForm(ProjectSettingsContext);
 
 export {

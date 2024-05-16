@@ -39,6 +39,7 @@ export const InputFilter = ({
     if (visible && inputEl?.current) {
       // timeout prevents race condition with antd table animation
       const timer = setTimeout(() => {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         inputEl.current.focus();
       }, 100);
       return () => clearTimeout(timer);

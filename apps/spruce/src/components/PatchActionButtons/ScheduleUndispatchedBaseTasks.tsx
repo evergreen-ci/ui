@@ -27,6 +27,7 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
     ScheduleUndispatchedBaseTasksMutationVariables
   >(SCHEDULE_UNDISPATCHED_BASE_TASKS, {
     onCompleted({ scheduleUndispatchedBaseTasks }) {
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       const successMessage = `Successfully scheduled ${scheduleUndispatchedBaseTasks.length} tasks`;
       dispatchToast.success(successMessage);
     },

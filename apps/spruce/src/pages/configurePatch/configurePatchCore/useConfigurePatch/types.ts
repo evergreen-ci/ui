@@ -3,6 +3,7 @@ import { Unpacked } from "types/utils";
 
 // Extract the type of a child patch and append alias field
 export interface ChildPatchAliased
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   extends Unpacked<ConfigurePatchQuery["patch"]["childPatches"]> {
   alias: string;
 }

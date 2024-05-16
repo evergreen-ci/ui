@@ -17,6 +17,7 @@ export const gqlToForm = ((data) => {
     },
     dispatcherSettings,
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
@@ -34,4 +35,5 @@ export const formToGql = ((
     },
     dispatcherSettings,
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

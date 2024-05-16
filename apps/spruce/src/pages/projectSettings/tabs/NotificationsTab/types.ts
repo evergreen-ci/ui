@@ -47,6 +47,7 @@ export interface NotificationsFormState {
 // This utils file contains functions used to process the form state.
 export type SubscriptionData = Unpacked<
   NotificationsFormState["subscriptions"]
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 >["subscriptionData"];
 
 export type TabProps = {

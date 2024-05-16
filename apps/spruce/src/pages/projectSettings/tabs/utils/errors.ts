@@ -14,6 +14,7 @@ export const findDuplicateIndices = <T = { [key: string]: any }>(
       (val, index, arr) =>
         val !== "" && arr.lastIndexOf(val) !== index && index,
     )
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     .filter((index) => array[index]);
   return duplicateIndices;
 };

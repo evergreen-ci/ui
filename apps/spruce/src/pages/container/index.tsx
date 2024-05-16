@@ -20,6 +20,7 @@ const Container = () => {
   const dispatchToast = useToastContext();
   const { [slugs.podId]: podId } = useParams();
   const { data, error, loading } = useQuery<PodQuery, PodQueryVariables>(POD, {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     variables: { podId },
     onError: (err) => {
       dispatchToast.error(
@@ -40,6 +41,7 @@ const Container = () => {
       />
       <PageLayout hasSider>
         <PageSider width={350}>
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <Metadata loading={loading} pod={pod} error={error} />
         </PageSider>
         <PageLayout>

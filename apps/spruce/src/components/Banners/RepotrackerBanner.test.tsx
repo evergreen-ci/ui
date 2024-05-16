@@ -28,6 +28,7 @@ describe("repotracker banner", () => {
   afterEach(() => {
     const bannerContainer = document.getElementById("banner-container");
     const body = document.body as HTMLElement;
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     body.removeChild(bannerContainer);
   });
 
@@ -100,6 +101,7 @@ describe("repotracker banner", () => {
       expect(screen.queryByDataCy("repotracker-error-trigger")).toBeVisible();
 
       // Open modal.
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("repotracker-error-trigger"));
       await waitFor(() => {
         expect(screen.queryByDataCy("repotracker-error-modal")).toBeVisible();

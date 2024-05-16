@@ -10,6 +10,7 @@ jest.mock("js-cookie");
 const { get } = Cookie;
 const mockedGet = get as unknown as jest.Mock<string>;
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 const Provider = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
 );

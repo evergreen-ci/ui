@@ -26,6 +26,7 @@ const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface Props {
   execution: number;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   executionTasksFull: TaskQuery["task"]["executionTasksFull"];
   isPatch: boolean;
 }
@@ -55,6 +56,7 @@ export const ExecutionTasksTable: React.FC<Props> = ({
 
   const uniqueExecutions = new Set([
     execution,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     ...executionTasksFull.map((t) => t.execution),
   ]);
 
@@ -74,6 +76,7 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   );
 
   const tableSortHandler = useTableSort({
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sort Execution Tasks Table",
@@ -97,6 +100,7 @@ export const ExecutionTasksTable: React.FC<Props> = ({
       isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
       maxMultiSortColCount: 2,
       onSortingChange: onChangeHandler<SortingState>(
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         (s) => getDefaultSorting(table).onSortingChange(s),
         tableSortHandler,
       ),

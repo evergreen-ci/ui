@@ -25,6 +25,7 @@ export const TaskLink: React.FC<TaskLinkProps> = ({
   >
     <WordBreakAll>{taskName}</WordBreakAll>
     {showTaskExecutionLabel && (
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       <Body>Execution {formatZeroIndexForDisplay(execution)}</Body>
     )}
   </StyledRouterLink>

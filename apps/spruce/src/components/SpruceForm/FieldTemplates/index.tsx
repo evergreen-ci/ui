@@ -11,6 +11,7 @@ export * from "./ObjectFieldTemplates";
 const { gray } = palette;
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
+// @ts-ignore: FIXME. This comment was added by an automated script.
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   children,
   classNames,

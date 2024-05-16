@@ -24,6 +24,7 @@ describe("treeSelect", () => {
     const onChange = jest.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("Pass")).toBeInTheDocument();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("Pass"));
     expect(onChange).toHaveBeenCalledWith(["pass"]);
   });
@@ -33,6 +34,7 @@ describe("treeSelect", () => {
     const onChange = jest.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("All")).toBeInTheDocument();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("All"));
     expect(onChange).toHaveBeenCalledWith([
       "all",
@@ -65,6 +67,7 @@ describe("treeSelect", () => {
     expect(screen.queryByLabelText("Failing Umbrella")).toBeChecked();
     expect(screen.queryByLabelText("System Failure")).toBeChecked();
     expect(screen.queryByLabelText("Fail")).toBeChecked();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("Fail"));
     expect(onChange).toHaveBeenCalledWith(["system-failure"]);
   });
@@ -76,6 +79,7 @@ describe("treeSelect", () => {
       <TreeSelect onChange={onChange} state={[]} tData={nestedTreeData} />,
     );
     expect(screen.getByText("Failing Umbrella")).toBeInTheDocument();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("Failing Umbrella"));
     expect(onChange).toHaveBeenCalledWith([
       "failing-umbrella",

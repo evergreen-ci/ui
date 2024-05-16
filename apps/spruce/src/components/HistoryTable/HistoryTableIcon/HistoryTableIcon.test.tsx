@@ -11,6 +11,7 @@ describe("historyTableIcon", () => {
     );
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(icon);
     expect(onClick).toHaveBeenCalledWith();
   });
@@ -20,6 +21,7 @@ describe("historyTableIcon", () => {
     render(<HistoryTableIcon status={TaskStatus.Succeeded} />);
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.hover(icon);
     expect(screen.queryByText("test a")).not.toBeInTheDocument();
   });
@@ -34,6 +36,7 @@ describe("historyTableIcon", () => {
     );
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.hover(icon);
     await waitFor(() => {
       expect(screen.queryByText("test a")).toBeVisible();

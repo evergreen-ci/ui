@@ -21,6 +21,7 @@ export const Icons: CustomStoryObj<IconTooltipProps> = {
     <Container>
       {Object.keys(glyphs).map((name) => (
         <IconContainer key={name}>
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <IconTooltip glyph={name} size={s} {...rest}>
             {children}
           </IconTooltip>

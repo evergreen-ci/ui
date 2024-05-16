@@ -154,6 +154,7 @@ describe("columnHeaders (Variant History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByText(trimmedTaskName));
     await waitFor(() => {
       expect(screen.queryByText(longTaskName)).toBeVisible();

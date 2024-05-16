@@ -16,6 +16,7 @@ import AnnotationTicketsList from ".";
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
 const execution = 1;
+// @ts-ignore: FIXME. This comment was added by an automated script.
 let matchMedia;
 
 describe("annotationTicketsList", () => {
@@ -24,6 +25,7 @@ describe("annotationTicketsList", () => {
   });
 
   afterEach(() => {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     matchMedia.clear();
     jest.restoreAllMocks();
   });

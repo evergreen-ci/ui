@@ -13,6 +13,7 @@ const useColumns = <T>(allColumns: T[], accessFunc: (column: T) => string) => {
     () => parseQueryString(search),
     [search],
   );
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { addColumns } = useHistoryTable();
 
   const selectedColumnsInQuery = useMemo(

@@ -24,7 +24,9 @@ const ordering = [
 
 const greyStatusIndex = 3.5;
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 export const sortTasks = (a, b): number => {
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const findGroup = (status) => {
     const groupIndex = ordering.findIndex((statusGroup) =>
       statusGroup.has(status),

@@ -8,6 +8,7 @@ import type { GroupedFiles } from "./types";
  */
 const filterGroupedFiles = (groupedFiles: GroupedFiles[], search: RegExp) =>
   groupedFiles.reduce((acc, groupedFile) => {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     const filteredFiles = groupedFile?.files?.filter((file) =>
       search.test(file.name),
     );

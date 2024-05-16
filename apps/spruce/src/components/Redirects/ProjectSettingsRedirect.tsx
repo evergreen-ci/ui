@@ -25,6 +25,7 @@ export const ProjectSettingsRedirect: React.FC = () => {
       return (
         <Navigate
           to={getProjectSettingsRoute(
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             viewableProjectRefs[0].projects[0].identifier,
             ProjectSettingsTabRoutes.General,
           )}

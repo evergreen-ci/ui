@@ -62,6 +62,7 @@ export const CommitChart: React.FC<Props> = ({ hasTaskFilter, versions }) => {
   const defaultOpenAccordion =
     Cookies.get(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION) === "true" ||
     Cookies.get(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION) === undefined;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const onToggleAccordion = ({ isVisible }) =>
     Cookies.set(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION, isVisible.toString());
 
@@ -79,21 +80,26 @@ export const CommitChart: React.FC<Props> = ({ hasTaskFilter, versions }) => {
       >
         <ChartWrapper>
           <FlexRowContainer>
+            {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
             {versions.map((commit) => (
               <CommitWrapper
                 key={getCommitKey(commit)}
                 width={getCommitWidth(commit)}
               >
                 <RenderCommitsChart
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   hasTaskFilter={hasTaskFilter}
                   commit={commit}
                   chartType={chartType}
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   max={max}
+                  // @ts-ignore: FIXME. This comment was added by an automated script.
                   groupedResult={versionToGroupedTaskStatsMap}
                 />
               </CommitWrapper>
             ))}
           </FlexRowContainer>
+          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
           <GridLabel chartType={chartType} max={max} numDashedLine={5} />
           <Grid numDashedLine={5} />
           <AbsoluteContainer>

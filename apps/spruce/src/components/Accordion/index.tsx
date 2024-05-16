@@ -100,8 +100,10 @@ const AnimatedAccordion = styled.div<{
   /* This is used to calculate a fixed height for the Accordion since height
       transitions require a fixed height for their end height */
   max-height: ${({ hide }): string => (hide ? "0px" : "9999px")};
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   overflow-y: ${({ hide }): string => hide && "hidden"};
   ${({ disableAnimation, hide }): string =>
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     !disableAnimation &&
     `transition: ${
       hide
@@ -111,9 +113,11 @@ const AnimatedAccordion = styled.div<{
 `;
 const ContentsContainer = styled.div`
   margin-left: ${(props: { indent: boolean }): string =>
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     props.indent && size.s};
 `;
 
 const SubtitleContainer = styled.div<{ showCaret: boolean }>`
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   ${({ showCaret }): string => showCaret && `margin-left: ${size.s};`}
 `;

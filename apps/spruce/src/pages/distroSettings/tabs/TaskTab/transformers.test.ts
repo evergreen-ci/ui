@@ -40,6 +40,7 @@ const form: TaskFormState = {
   },
 };
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 const gql: DistroInput = {
   ...distroData,
   finderSettings: {

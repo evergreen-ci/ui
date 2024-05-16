@@ -42,6 +42,7 @@ const TaskHistoryContents: React.FC = () => {
     [slugs.projectIdentifier]: projectIdentifier,
     [slugs.taskName]: taskName,
   } = useParams();
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { ingestNewCommits } = useHistoryTable();
   usePageTitle(`Task History | ${projectIdentifier} | ${taskName}`);
   useTestFilters();
@@ -58,11 +59,13 @@ const TaskHistoryContents: React.FC = () => {
   >(MAINLINE_COMMITS_FOR_HISTORY, {
     variables: {
       mainlineCommitsOptions: {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         projectIdentifier,
         limit: 10,
         shouldCollapse: true,
       },
       buildVariantOptions: {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         tasks: [applyStrictRegex(taskName)],
         includeBaseTasks: false,
       },
@@ -75,6 +78,7 @@ const TaskHistoryContents: React.FC = () => {
         {
           projectIdentifier,
           taskName,
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           numCommits: mainlineCommits.versions.length,
         },
         SentryBreadcrumb.UI,
@@ -101,12 +105,14 @@ const TaskHistoryContents: React.FC = () => {
       );
       refetch({
         mainlineCommitsOptions: {
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           projectIdentifier,
           limit: 10,
           skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
           shouldCollapse: true,
         },
         buildVariantOptions: {
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           tasks: [applyStrictRegex(taskName)],
           includeBaseTasks: false,
         },
@@ -116,6 +122,7 @@ const TaskHistoryContents: React.FC = () => {
 
   return (
     <PageWrapper>
+      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <CenterPage>
         <PageHeader>
@@ -129,7 +136,9 @@ const TaskHistoryContents: React.FC = () => {
               }}
             />
             <BuildVariantSelector
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               projectIdentifier={projectIdentifier}
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               taskName={taskName}
             />
           </PageHeaderContent>
@@ -159,7 +168,9 @@ const TaskHistoryContents: React.FC = () => {
         </PaginationFilterWrapper>
         <div>
           <ColumnHeaders
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             projectIdentifier={projectIdentifier}
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             taskName={taskName}
           />
           <TableWrapper>
@@ -168,6 +179,7 @@ const TaskHistoryContents: React.FC = () => {
               loading={loading}
               finalRowCopy="End of task history"
             >
+              {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
               {TaskHistoryRow}
             </HistoryTable>
           </TableWrapper>

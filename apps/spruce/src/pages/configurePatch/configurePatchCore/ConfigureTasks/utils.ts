@@ -132,6 +132,7 @@ const getVisibleAliases = (
   const visiblePatches = {};
   Object.entries(selectedAliases).forEach(([alias]) => {
     if (selectedBuildVariants.includes(alias)) {
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       visiblePatches[alias] = selectedAliases[alias]
         ? CheckboxState.Checked
         : CheckboxState.Unchecked;

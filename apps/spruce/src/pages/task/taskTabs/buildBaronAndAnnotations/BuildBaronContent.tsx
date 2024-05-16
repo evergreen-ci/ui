@@ -72,6 +72,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         <CustomCreatedTickets
           taskId={taskId}
           execution={execution}
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           tickets={customTickets}
         />
       ) : (
@@ -79,11 +80,12 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
           taskId={taskId}
           execution={execution}
           buildBaronConfigured={bbData?.buildBaronConfigured}
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           tickets={bbTickets}
         />
       )}
-
       <AnnotationNote
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         note={annotation?.note}
         taskId={taskId}
         execution={execution}
@@ -105,6 +107,7 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         setSelectedRowKey={setSelectedRowKey}
         annotation={annotation}
       />
+      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
       {bbData?.searchReturnInfo?.issues.length > 0 && (
         <JiraIssueTable bbData={bbData} />
       )}

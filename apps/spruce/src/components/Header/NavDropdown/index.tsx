@@ -38,6 +38,7 @@ const NavDropdownItem: React.FC<NavDropdownItemType> = ({
       {text}
     </MenuItem>
   ) : (
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     <MenuItem as="a" data-cy={itemDataCy} onClick={closeMenu} href={href}>
       {text}
     </MenuItem>

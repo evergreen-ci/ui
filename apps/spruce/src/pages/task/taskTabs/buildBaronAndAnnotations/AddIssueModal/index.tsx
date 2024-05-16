@@ -59,6 +59,7 @@ export const AddIssueModal: React.FC<Props> = ({
   >(ADD_ANNOTATION, {
     onCompleted: () => {
       dispatchToast.success(`Successfully added ${issueString}`);
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       setSelectedRowKey(issueKey);
       closeModal();
       annotationAnalytics.sendEvent({ name: analyticsType });
@@ -78,6 +79,7 @@ export const AddIssueModal: React.FC<Props> = ({
   const handleSubmit = () => {
     const apiIssue: IssueLinkInput = {
       url: formState.url,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       issueKey,
       confidenceScore: toDecimal(formState.advancedOptions.confidenceScore),
     };

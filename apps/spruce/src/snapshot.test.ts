@@ -8,6 +8,7 @@ import { act, render } from "test_utils";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import * as projectAnnotations from "../.storybook/preview";
 
+// @ts-ignore: FIXME. This comment was added by an automated script.
 let matchMedia;
 
 type StoryFile = {
@@ -74,6 +75,7 @@ describe(`${options.suite}`, () => {
   });
 
   afterAll(() => {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     matchMedia.clear();
     jest.restoreAllMocks();
   });
@@ -88,6 +90,7 @@ describe(`${options.suite}`, () => {
     // storyName is either the title of the story or the name of the file without the extension
     const storyName = title || storyBookFileBaseName;
     if (
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       options.storyKindRegex.test(title) ||
       meta.parameters?.storyshots?.disable
     ) {

@@ -15,6 +15,7 @@ const useJumpToCommit = () => {
   const skipOrderNumber =
     parseInt(getString(skipOrderNumberParam), 10) || undefined;
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const { setSelectedCommit } = useHistoryTable();
   useEffect(() => {
     if (skipOrderNumber) {

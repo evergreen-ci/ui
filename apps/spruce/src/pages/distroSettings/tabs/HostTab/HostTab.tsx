@@ -24,6 +24,7 @@ export const HostTab: React.FC<TabProps> = ({ distroData, provider }) => {
     <BaseTab
       formSchema={formSchema}
       initialFormState={distroData}
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       validate={validate}
     />
   );

@@ -75,11 +75,15 @@ const CommitChartLabel: React.FC<Props> = ({
           <StyledRouterLink
             onClick={onClickUpstreamProject}
             to={getTriggerRoute({
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               triggerType,
               upstreamTask,
               upstreamVersion,
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               upstreamRevision,
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               upstreamOwner,
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               upstreamRepo,
             })}
           >
@@ -91,6 +95,7 @@ const CommitChartLabel: React.FC<Props> = ({
       <LabelText>
         {jiraLinkify(
           shortenMessage ? shortenedMessage : message,
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           jiraHost,
           onClickJiraTicket,
         )}

@@ -11,6 +11,7 @@ const getInitialFormState = (
   projectData: TabProps["projectData"],
   repoData: TabProps["repoData"],
 ): VWFormState => {
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   if (!projectData) return repoData;
   if (repoData) {
     return {
@@ -40,6 +41,7 @@ export const VirtualWorkstationTab: React.FC<TabProps> = ({
       getFormSchema(
         identifier,
         projectType,
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         projectType === ProjectType.AttachedProject ? repoData : null,
       ),
     [identifier, projectType, repoData],

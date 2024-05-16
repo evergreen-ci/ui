@@ -37,11 +37,13 @@ export const gqlToForm = ((data) => {
       warningNote,
     },
   };
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
   { distroAliases, distroImage, distroName, distroOptions },
   distro,
+  // @ts-ignore: FIXME. This comment was added by an automated script.
 ) => ({
   ...distro,
   name: distroName.name,

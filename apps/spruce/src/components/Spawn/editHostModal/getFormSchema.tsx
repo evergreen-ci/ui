@@ -114,7 +114,9 @@ export const getFormSchema = ({
             },
           },
         },
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         expirationDetails: expirationDetails.schema,
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         publicKeySection: publicKeys.schema,
       },
     },

@@ -38,6 +38,7 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
   return (
     <Container>
       <NavigationModal />
+      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
       <Header tab={tab} distro={distro} />
       <Routes>
         <Route
@@ -49,6 +50,7 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           element={
             <GeneralTab
               distroData={tabData[DistroSettingsTabRoutes.General]}
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               minimumHosts={distro.hostAllocatorSettings.minimumHosts}
             />
           }
@@ -67,6 +69,7 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           element={
             <TaskTab
               distroData={tabData[DistroSettingsTabRoutes.Task]}
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               provider={distro.provider}
             />
           }
@@ -76,6 +79,7 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
           element={
             <HostTab
               distroData={tabData[DistroSettingsTabRoutes.Host]}
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               provider={distro.provider}
             />
           }
@@ -99,6 +103,7 @@ const getTabData = (data: Props["distro"]): FormStateMap =>
   Object.keys(gqlToFormMap).reduce(
     (obj, tab) => ({
       ...obj,
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       [tab]: gqlToFormMap[tab](data),
     }),
     {} as FormStateMap,

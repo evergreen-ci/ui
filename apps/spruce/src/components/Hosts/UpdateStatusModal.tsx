@@ -31,6 +31,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
 }) => {
   const dispatchToast = useToastContext();
 
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   const [status, setHostStatus] = useState<UpdateHostStatus>(null);
 
   const [notes, setNotesValue] = useState<string>("");
@@ -38,6 +39,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
   const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
 
   const resetForm = () => {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     setHostStatus(null);
     setNotesValue("");
   };

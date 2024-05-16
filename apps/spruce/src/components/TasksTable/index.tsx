@@ -31,6 +31,7 @@ interface TasksTableProps {
   isPatch: boolean;
   loading?: boolean;
   onClickTaskLink?: (taskId: string) => void;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   onColumnHeaderClick?: (sortField) => void;
   onExpand?: (expanded: boolean) => void;
   showTaskExecutionLabel?: boolean;
@@ -88,7 +89,9 @@ const TasksTable: React.FC<TasksTableProps> = ({
           })
     }
     getPopupContainer={(trigger: HTMLElement) => trigger}
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     dataSource={tasks}
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     onChange={tableChangeHandler}
     childrenColumnName="executionTasksFull"
     expandable={{
@@ -103,6 +106,7 @@ interface GetColumnDefsParams {
   baseStatusSelectorProps?: TreeSelectProps;
   isPatch: boolean;
   onClickTaskLink: (s: string) => void;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   onColumnHeaderClick?: (sortField) => void;
   showTaskExecutionLabel?: boolean;
   statusSelectorProps?: TreeSelectProps;
@@ -209,7 +213,9 @@ const getColumnDefs = ({
       status && (
         <TaskStatusBadge
           status={status}
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           id={baseTask.id}
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           execution={baseTask.execution}
         />
       ),
@@ -244,6 +250,7 @@ const getColumnDefs = ({
         condition={buildVariant !== mergeTaskVariant}
         wrapper={(children) => (
           <StyledRouterLink
+            // @ts-ignore: FIXME. This comment was added by an automated script.
             to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
           >
             {children}
@@ -308,6 +315,7 @@ const getColumnDefsWithSort = ({
     variantInputProps,
   }).map((columnDef) => ({
     ...columnDef,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     ...sortProps[columnDef.key],
   }));
 };

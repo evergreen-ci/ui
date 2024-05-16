@@ -88,6 +88,7 @@ export const ActionButtons: React.FC<Props> = ({
     ScheduleTasksMutation,
     ScheduleTasksMutationVariables
   >(SCHEDULE_TASKS, {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     variables: { taskIds: [taskId], versionId },
     onCompleted: () => {
       dispatchToast.success("Task marked as scheduled");
@@ -101,6 +102,7 @@ export const ActionButtons: React.FC<Props> = ({
     UnscheduleTaskMutation,
     UnscheduleTaskMutationVariables
   >(UNSCHEDULE_TASK, {
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     variables: { taskId },
     onCompleted: () => {
       dispatchToast.success("Task marked as unscheduled");
@@ -115,6 +117,7 @@ export const ActionButtons: React.FC<Props> = ({
     AbortTaskMutationVariables
   >(ABORT_TASK, {
     variables: {
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       taskId,
     },
     onCompleted: () => {
@@ -131,6 +134,7 @@ export const ActionButtons: React.FC<Props> = ({
   >(RESTART_TASK, {
     onCompleted: (data) => {
       const { latestExecution, priority } = data.restartTask;
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       if (priority < 0) {
         dispatchToast.warning(
           "Task scheduled to restart, but is disabled. Enable the task to run.",
@@ -151,6 +155,7 @@ export const ActionButtons: React.FC<Props> = ({
   >(SET_TASK_PRIORITY, {
     onCompleted: (data) => {
       dispatchToast.success(
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         data.setTaskPriority.priority >= 0
           ? `Priority for task updated to ${data.setTaskPriority.priority}`
           : `Task was successfully disabled`,
@@ -177,6 +182,7 @@ export const ActionButtons: React.FC<Props> = ({
   });
 
   const HistoryLink = useLGButtonRouterLink(
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     getTaskHistoryRoute(projectIdentifier, displayName, {
       selectedCommit: !isPatch && order,
       visibleColumns: [buildVariant],
@@ -220,6 +226,7 @@ export const ActionButtons: React.FC<Props> = ({
       disabled={disabled || !canDisable}
       onClick={() => {
         setTaskPriority({
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
         });
       }}
@@ -231,6 +238,7 @@ export const ActionButtons: React.FC<Props> = ({
     >
       {initialPriority < 0 ? "Enable" : "Disable"}
     </DropdownItem>,
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     <SetPriority
       key="set-task-priority"
       taskId={taskId}
@@ -242,6 +250,7 @@ export const ActionButtons: React.FC<Props> = ({
       data-cy="override-dependencies"
       disabled={disabled || !canOverrideDependencies}
       onClick={() => {
+        // @ts-ignore: FIXME. This comment was added by an automated script.
         overrideTaskDependencies({ variables: { taskId } });
       }}
     >
@@ -297,6 +306,7 @@ export const ActionButtons: React.FC<Props> = ({
           >
             <MenuItem
               onClick={() => {
+                // @ts-ignore: FIXME. This comment was added by an automated script.
                 restartTask({ variables: { taskId, failedOnly: false } });
                 taskAnalytics.sendEvent({ name: "Restart" });
               }}
@@ -305,6 +315,7 @@ export const ActionButtons: React.FC<Props> = ({
             </MenuItem>
             <MenuItem
               onClick={() => {
+                // @ts-ignore: FIXME. This comment was added by an automated script.
                 restartTask({ variables: { taskId, failedOnly: true } });
                 taskAnalytics.sendEvent({ name: "Restart" });
               }}
@@ -320,6 +331,7 @@ export const ActionButtons: React.FC<Props> = ({
             disabled={disabled || !canRestart || isPatchOnCommitQueue}
             loading={loadingRestartTask}
             onClick={() => {
+              // @ts-ignore: FIXME. This comment was added by an automated script.
               restartTask({ variables: { taskId, failedOnly: false } });
               taskAnalytics.sendEvent({ name: "Restart" });
             }}
