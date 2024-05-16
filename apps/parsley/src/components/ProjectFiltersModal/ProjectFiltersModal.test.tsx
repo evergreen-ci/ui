@@ -12,6 +12,7 @@ import {
   act,
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   userEvent,
   waitFor,
 } from "test_utils";
@@ -29,6 +30,9 @@ const wrapper = (mocks: MockedProviderProps["mocks"]) => {
 };
 
 describe("projectFiltersModal", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
   it("shows message when no filters are defined in project", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,

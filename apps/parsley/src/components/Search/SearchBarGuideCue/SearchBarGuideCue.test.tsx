@@ -1,6 +1,6 @@
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
-import { render, screen, waitFor } from "test_utils";
+import { render, screen, stubGetClientRects, waitFor } from "test_utils";
 import SearchBarGuideCue from ".";
 
 vi.mock("js-cookie");
@@ -12,16 +12,7 @@ describe("search bar guide cue", () => {
   });
 
   it("shows the guide cue if the user has not seen it before", async () => {
-    // focus-trap only offers legacy CommonJS exports so it can't be mocked by Vitest.
-    // Instead, spoof focus-trap into thinking there is a node attached.
-    // https://stackoverflow.com/a/75527964
-    const { getClientRects } = HTMLElement.prototype;
-    HTMLElement.prototype.getClientRects = function () {
-      return {
-        ...getClientRects.apply(this),
-        length: 1,
-      };
-    };
+    stubGetClientRects();
 
     mockedGet.mockImplementation(() => "false");
     render(<SearchBarGuideCue />);

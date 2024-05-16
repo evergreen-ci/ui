@@ -1,7 +1,7 @@
 import { composeStories } from "@storybook/react";
 import "jest-specific-snapshot";
 import path from "path";
-import { act, render } from "test_utils";
+import { act, render, stubGetClientRects } from "test_utils";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import * as projectAnnotations from "../.storybook/preview";
 
@@ -55,6 +55,10 @@ const options = {
 };
 
 describe(`${options.suite}`, () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   beforeEach(() => {
     const mockIntersectionObserver = vi.fn((callback) => {
       callback([

@@ -307,6 +307,14 @@ functions:
         ${PREPARE_SHELL}
         yarn test --ci --testPathPattern=snapshot.test.ts
 
+  yarn-snapshot-vitest:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      script: |
+        ${PREPARE_SHELL}
+        yarn test snapshot.test.ts
+
   yarn-test:
     command: shell.exec
     params:
@@ -314,6 +322,14 @@ functions:
       script: |
         ${PREPARE_SHELL}
         yarn test --ci --testPathIgnorePatterns=snapshot.test.ts --selectProjects ${build_variant}
+
+  yarn-test-vitest:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      script: |
+        ${PREPARE_SHELL}
+        yarn vitest --typecheck=false --exclude=snapshot.test.ts
 
   yarn-tsc:
     command: shell.exec
@@ -393,6 +409,11 @@ tasks:
       - func: yarn-snapshot
       - func: attach-test-results
 
+  - name: snapshots-vitest
+    commands:
+      - func: yarn-snapshot-vitest
+      - func: attach-test-results
+
   - name: storybook
     commands:
       - func: yarn-build-storybook
@@ -400,6 +421,10 @@ tasks:
   - name: test
     commands:
     - func: yarn-test
+
+  - name: test-vitest
+    commands:
+    - func: yarn-test-vitest
 
   - name: type_check
     commands:

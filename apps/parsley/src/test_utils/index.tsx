@@ -110,6 +110,22 @@ const overwriteFakeTimers = () => {
   };
 };
 
+/**
+ * `stubGetClientRects` fixes a fallbackFocus error introduced by focus-trap.
+ * focus-trap only offers legacy CommonJS exports so it can't be mocked by Vitest.
+ * Instead, spoof focus-trap into thinking there is a node attached.
+ * https://stackoverflow.com/a/75527964
+ */
+const stubGetClientRects = () => {
+  const { getClientRects } = HTMLElement.prototype;
+  HTMLElement.prototype.getClientRects = function () {
+    return {
+      ...getClientRects.apply(this),
+      length: 1,
+    };
+  };
+};
+
 export {
   act,
   fireEvent,
@@ -121,6 +137,7 @@ export {
   waitFor,
   customWithin as within,
   overwriteFakeTimers,
+  stubGetClientRects,
 };
 
 export type { RenderWithRouterMatchOptions };

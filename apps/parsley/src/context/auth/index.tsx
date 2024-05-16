@@ -94,14 +94,18 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       credentials: "include",
       method: "GET",
       redirect: "manual",
-    }).then(() => {
-      setIsAuthenticated(false);
-      if (isDevelopmentBuild()) {
-        navigate("/login");
-      } else {
-        window.location.href = `${evergreenURL}/login`;
-      }
-    });
+    })
+      .then(() => {
+        setIsAuthenticated(false);
+        if (isDevelopmentBuild()) {
+          navigate("/login");
+        } else {
+          window.location.href = `${evergreenURL}/login`;
+        }
+      })
+      .catch((err: Error) => {
+        console.error(err);
+      });
   }, [navigate]);
 
   const memoizedContext = useMemo(

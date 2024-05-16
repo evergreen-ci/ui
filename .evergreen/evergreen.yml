@@ -85,9 +85,9 @@ buildvariants:
       - name: compile
       - name: e2e_test_parsley
       - name: lint
-      - name: snapshots
+      - name: snapshots-vitest
       - name: storybook
-      - name: test
+      - name: test-vitest
       - name: type_check
       - name: deploy_prod_parsley
         git_tag_only: true
