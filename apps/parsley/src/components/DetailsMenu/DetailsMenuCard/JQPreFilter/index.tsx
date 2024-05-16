@@ -20,14 +20,14 @@ const JQPreFilter: React.FC = () => {
 
   return (
     <StyledDetailRow>
-      <DetailsLabel label="Pre-filter the log with JQ.">
-        JQ Pre-Filter
+      <DetailsLabel label="Pre-filter the log with jq.">
+        jq Pre-Filter
       </DetailsLabel>
 
       <JQPreFilterContainer>
         <TextArea
           description="Parsley will pre-filter your log file with this filter."
-          label="JQ Pre-Filter"
+          label="jq Pre-Filter"
           onChange={(e) => updateJQPreFilter(e.target.value)}
           value={jqPreFilter ?? ""}
         />

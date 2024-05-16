@@ -7,7 +7,6 @@ export const parseQueryString = (
   options: ParseOptions = {},
 ) => {
   const parseOptions: ParseOptions = {
-    arrayFormat: "comma",
     parseBooleans: true,
     parseNumbers: true,
     ...options,
@@ -20,7 +19,6 @@ export const stringifyQuery = (
   options: StringifyOptions = {},
 ) =>
   queryString.stringify(object, {
-    arrayFormat: "comma",
     skipEmptyString: true,
     skipNull: true,
     ...options,

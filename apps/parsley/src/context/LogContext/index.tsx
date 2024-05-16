@@ -38,7 +38,7 @@ import { getNextPage } from "./utils";
 
 // @ts-ignore
 // eslint-disable-next-line import/order,import/extensions
-import jq from "jq-web/jq.wasm.js";
+import jq from "jq-web/jq.js";
 
 const isValidJSON = (input: string): boolean => {
   try {
@@ -49,6 +49,14 @@ const isValidJSON = (input: string): boolean => {
   }
 };
 
+// This is a horrible hack. Ideally anything that uses jqraw should be
+// async, but I don’t know React well enough to do that.
+let jqraw: Function;
+
+jq.then((jqMod: any) => {
+  jqraw = jqMod.raw;
+});
+
 // eslint-disable-next-line arrow-body-style
 const JQRAW = (lines: string[], filter: string): string[] => {
   return lines.map((line: string): string => {
@@ -56,8 +64,7 @@ const JQRAW = (lines: string[], filter: string): string[] => {
       return line;
     }
 
-    const jqOut = jq.raw(line, filter, ["-c"]);
-    console.log(`line: “${line}”; filter: “${filter}”; result=“${jqOut}”`);
+    const jqOut = jqraw(line, filter, ["-c"]);
 
     return jqOut;
   });
@@ -130,7 +137,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     undefined,
   );
 
-  const [jqPreFilter] = useQueryParam(QueryParams.JQPreFilter, "");
+  const [jqPreFilter] = useQueryParam(QueryParams.JQPreFilter, undefined);
 
   // Wrap settings are evaluated after the logs have initially rendered - see LogPane component.
   const [wrap, setWrap] = useState(false);
