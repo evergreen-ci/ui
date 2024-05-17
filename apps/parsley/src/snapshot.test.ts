@@ -129,7 +129,7 @@ describe(`${options.suite}`, () => {
             options.snapshotsDirName,
             `${storyBookFileBaseName}_${name}${options.snapshotExtension}`,
           );
-          expect(container).toMatchFileSnapshot(snapshotPath);
+          await expect(container).toMatchFileSnapshot(snapshotPath);
         });
       });
     });
