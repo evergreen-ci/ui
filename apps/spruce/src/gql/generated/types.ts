@@ -317,10 +317,23 @@ export type CreateDistroInput = {
  */
 export type CreateProjectInput = {
   id?: InputMaybe<Scalars["String"]["input"]>;
-  identifier: Scalars["String"]["input"];
+  identifier?: InputMaybe<Scalars["String"]["input"]>;
   owner: Scalars["String"]["input"];
   repo: Scalars["String"]["input"];
   repoRefId?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+/** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
+export type DeactivateStepbackTaskInput = {
+  buildVariantName: Scalars["String"]["input"];
+  projectId: Scalars["String"]["input"];
+  taskName: Scalars["String"]["input"];
+};
+
+/** DefaultSectionToRepoInput is the input to the defaultSectionToRepo mutation. */
+export type DefaultSectionToRepoInput = {
+  projectId: Scalars["String"]["input"];
+  section: ProjectSettingsSection;
 };
 
 /** DeleteDistroInput is the input to the deleteDistro mutation. */
@@ -1074,7 +1087,8 @@ export type MutationAddAnnotationIssueArgs = {
 };
 
 export type MutationAddFavoriteProjectArgs = {
-  identifier: Scalars["String"]["input"];
+  identifier?: InputMaybe<Scalars["String"]["input"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationAttachProjectToNewRepoArgs = {
@@ -1117,14 +1131,16 @@ export type MutationCreatePublicKeyArgs = {
 };
 
 export type MutationDeactivateStepbackTaskArgs = {
-  buildVariantName: Scalars["String"]["input"];
-  projectId: Scalars["String"]["input"];
-  taskName: Scalars["String"]["input"];
+  buildVariantName?: InputMaybe<Scalars["String"]["input"]>;
+  opts?: InputMaybe<DeactivateStepbackTaskInput>;
+  projectId?: InputMaybe<Scalars["String"]["input"]>;
+  taskName?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationDefaultSectionToRepoArgs = {
-  projectId: Scalars["String"]["input"];
-  section: ProjectSettingsSection;
+  opts?: InputMaybe<DefaultSectionToRepoInput>;
+  projectId?: InputMaybe<Scalars["String"]["input"]>;
+  section?: InputMaybe<ProjectSettingsSection>;
 };
 
 export type MutationDeleteDistroArgs = {
@@ -1184,8 +1200,9 @@ export type MutationOverrideTaskDependenciesArgs = {
 };
 
 export type MutationPromoteVarsToRepoArgs = {
-  projectId: Scalars["String"]["input"];
-  varNames: Array<Scalars["String"]["input"]>;
+  opts?: InputMaybe<PromoteVarsToRepoInput>;
+  projectId?: InputMaybe<Scalars["String"]["input"]>;
+  varNames?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type MutationRemoveAnnotationIssueArgs = {
@@ -1196,7 +1213,8 @@ export type MutationRemoveAnnotationIssueArgs = {
 };
 
 export type MutationRemoveFavoriteProjectArgs = {
-  identifier: Scalars["String"]["input"];
+  identifier?: InputMaybe<Scalars["String"]["input"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationRemoveItemFromCommitQueueArgs = {
@@ -1881,7 +1899,7 @@ export type ProjectSettings = {
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  projectId: Scalars["String"]["input"];
+  projectId?: InputMaybe<Scalars["String"]["input"]>;
   projectRef?: InputMaybe<ProjectInput>;
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
@@ -1913,6 +1931,12 @@ export type ProjectVarsInput = {
   adminOnlyVarsList?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
   privateVarsList?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
   vars?: InputMaybe<Scalars["StringMap"]["input"]>;
+};
+
+/** PromoteVarsToRepoInput is the input to the promoteVarsToRepo mutation. */
+export type PromoteVarsToRepoInput = {
+  projectId: Scalars["String"]["input"];
+  varNames: Array<Scalars["String"]["input"]>;
 };
 
 export enum Provider {
@@ -2068,12 +2092,14 @@ export type QueryProjectArgs = {
 
 export type QueryProjectEventsArgs = {
   before?: InputMaybe<Scalars["Time"]["input"]>;
-  identifier: Scalars["String"]["input"];
+  identifier?: InputMaybe<Scalars["String"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryProjectSettingsArgs = {
-  identifier: Scalars["String"]["input"];
+  identifier?: InputMaybe<Scalars["String"]["input"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryRepoEventsArgs = {
@@ -6691,7 +6717,7 @@ export type ProjectBannerQuery = {
 };
 
 export type ProjectEventLogsQueryVariables = Exact<{
-  identifier: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   before?: InputMaybe<Scalars["Time"]["input"]>;
 }>;
