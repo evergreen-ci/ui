@@ -14,7 +14,7 @@
   "scripts": {
     "evg-db-ops": "./scripts/evg-db-ops.sh",
     "prepare": "husky",
-    "test": "vitest --typecheck=false --exclude=snapshot.test.ts",
+    "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts",
     "test:jest": "jest --watchAll=false"
   },
   "resolutions": {

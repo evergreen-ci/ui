@@ -321,7 +321,7 @@ functions:
       working_dir: ui
       script: |
         ${PREPARE_SHELL}
-        yarn test --project=${build_variant} --reporter=default --reporter=junit --outputFile=./bin/vite/*.xml
+        yarn test --project=${build_variant} --reporter=default --reporter=junit --outputFile=./bin/vite/junit.xml
 
   yarn-test-jest:
     command: shell.exec
