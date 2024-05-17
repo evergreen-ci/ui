@@ -1,11 +1,6 @@
-import { overwriteFakeTimers } from "test_utils";
 import debounce from ".";
 
 describe("debounce", () => {
-  beforeAll(() => {
-    overwriteFakeTimers();
-  });
-
   beforeEach(() => {
     vi.useFakeTimers();
   });

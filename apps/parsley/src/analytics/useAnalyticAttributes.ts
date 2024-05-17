@@ -24,5 +24,5 @@ export const useAnalyticAttributes = () => {
     if (renderingType !== undefined) {
       newrelic.setCustomAttribute("renderingType", renderingType);
     }
-  }, [userId, logType, window?.newrelic, renderingType]);
+  }, [userId, logType, renderingType]);
 };

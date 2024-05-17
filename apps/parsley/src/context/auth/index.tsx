@@ -104,7 +104,8 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         }
       })
       .catch((err: Error) => {
-        console.error(err);
+        leaveBreadcrumb("logoutAndRedirect", { err }, SentryBreadcrumb.Error);
+        reportError(err).severe();
       });
   }, [navigate]);
 

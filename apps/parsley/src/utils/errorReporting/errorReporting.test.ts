@@ -1,5 +1,4 @@
 import * as Sentry from "@sentry/react";
-import { overwriteFakeTimers } from "test_utils";
 import { mockEnvironmentVariables } from "test_utils/utils";
 import {
   SentryBreadcrumb,
@@ -10,10 +9,6 @@ import {
 const { cleanup, mockEnv } = mockEnvironmentVariables();
 
 describe("error reporting", () => {
-  beforeAll(() => {
-    overwriteFakeTimers();
-  });
-
   beforeEach(() => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     vi.spyOn(Sentry, "captureException");

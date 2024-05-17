@@ -96,25 +96,6 @@ const renderWithRouterMatch = (
 };
 
 /**
- * `overwriteFakeTimers` is a workaround for a bug in @testing-libray/react.
- * It prevents Vitest's fake timers from functioning with user-event.
- * https://github.com/testing-library/react-testing-library/issues/1197
- * @returns an anonymous function overwriting jsdon's Jest field
- */
-const overwriteFakeTimers = () => {
-  const globalJest = globalThis.jest;
-
-  globalThis.jest = {
-    ...globalThis.jest,
-    advanceTimersByTime: vi.advanceTimersByTime.bind(vi),
-  };
-
-  return () => {
-    globalThis.jest = globalJest;
-  };
-};
-
-/**
  * `stubGetClientRects` fixes a fallbackFocus error introduced by focus-trap.
  * focus-trap only offers legacy CommonJS exports so it can't be mocked by Vitest.
  * Instead, spoof focus-trap into thinking there is a node attached.
@@ -122,6 +103,7 @@ const overwriteFakeTimers = () => {
  */
 const stubGetClientRects = () => {
   const { getClientRects } = HTMLElement.prototype;
+  // eslint-disable-next-line func-names
   HTMLElement.prototype.getClientRects = function () {
     return {
       ...getClientRects.apply(this),
@@ -140,7 +122,6 @@ export {
   userEvent,
   waitFor,
   customWithin as within,
-  overwriteFakeTimers,
   stubGetClientRects,
 };
 

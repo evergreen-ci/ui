@@ -1,18 +1,8 @@
 import { DIRECTION } from "context/LogContext/types";
-import {
-  overwriteFakeTimers,
-  render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
+import { render, screen, userEvent, waitFor } from "test_utils";
 import SearchBar from ".";
 
 describe("searchbar", () => {
-  beforeAll(() => {
-    overwriteFakeTimers();
-  });
-
   afterEach(() => {
     vi.useRealTimers();
   });

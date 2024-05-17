@@ -1,6 +1,5 @@
 import {
   act,
-  overwriteFakeTimers,
   render,
   renderHook,
   screen,
@@ -34,10 +33,6 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("toast", () => {
-  beforeAll(() => {
-    overwriteFakeTimers();
-  });
-
   const closeIconLabel = "Close Message";
   it("should error when rendered outside of ToastProvider context", () => {
     // This test intentionally throws an error, so we need to mock the error object to prevent it

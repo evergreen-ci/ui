@@ -31,7 +31,6 @@ post:
   - func: attach-source-map
   - func: attach-storybook
   - func: attach-test-results
-  - func: attach-test-results-jest
 
 include:
   - filename: .evergreen/shared.yml

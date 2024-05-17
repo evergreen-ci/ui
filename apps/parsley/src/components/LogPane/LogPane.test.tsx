@@ -6,13 +6,7 @@ import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { parsleySettingsMock } from "test_data/parsleySettings";
-import {
-  act,
-  overwriteFakeTimers,
-  renderWithRouterMatch as render,
-  screen,
-  waitFor,
-} from "test_utils";
+import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import LogPane from ".";
 
 const list = Array.from({ length: 100 }, (_, i) => `${i}`);
@@ -33,10 +27,6 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 vi.mock("js-cookie");
 
 describe("logPane", () => {
-  beforeAll(() => {
-    overwriteFakeTimers();
-  });
-
   beforeEach(() => {
     // @ts-expect-error
     vi.spyOn(Cookie, "get").mockReturnValue("true");
@@ -129,9 +119,7 @@ describe("logPane", () => {
         route: "?shareLine=5",
         wrapper,
       });
-      act(() => {
-        vi.advanceTimersByTime(100);
-      });
+      vi.advanceTimersByTime(100);
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalledTimes(1);
       });

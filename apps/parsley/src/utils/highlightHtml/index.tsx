@@ -46,7 +46,6 @@ export const highlightHtml = (
           );
         }
 
-        // eslint-disable-next-line testing-library/render-result-naming-convention
         const highlightedHtml = renderHtml(highlightedText, {
           preserveAttributes: ["mark"],
           transform: {

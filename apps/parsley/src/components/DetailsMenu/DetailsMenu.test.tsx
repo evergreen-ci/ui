@@ -5,12 +5,7 @@ import { LogContextProvider, useLogContext } from "context/LogContext";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { useQueryParam } from "hooks/useQueryParam";
 import { parsleySettingsMock } from "test_data/parsleySettings";
-import {
-  overwriteFakeTimers,
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-} from "test_utils";
+import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { renderComponentWithHook } from "test_utils/TestHooks";
 import DetailsMenu from ".";
 
@@ -57,10 +52,6 @@ const renderDetailsMenu = () => {
 };
 
 describe("detailsMenu", () => {
-  beforeAll(() => {
-    overwriteFakeTimers();
-  });
-
   it("should render a details menu button", () => {
     renderDetailsMenu();
     expect(screen.getByText("Details")).toBeInTheDocument();

@@ -12,7 +12,6 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
-    "plugin:testing-library/react",
     "plugin:import/recommended",
     "plugin:jsdoc/recommended-typescript-error",
     // Airbnb includes some helpful rules for ESLint and React that aren't covered by recommended.
@@ -75,6 +74,11 @@ module.exports = {
           { caseSensitive: true },
         ],
       },
+    },
+    // For test files
+    {
+      files: ["src/**/*.test.ts?(x)"],
+      extends: ["plugin:testing-library/react"],
     },
     // For Storybook files.
     {
