@@ -95,6 +95,23 @@ const renderWithRouterMatch = (
   };
 };
 
+/**
+ * `stubGetClientRects` fixes a fallbackFocus error introduced by focus-trap.
+ * focus-trap only offers legacy CommonJS exports so it can't be mocked by Vitest.
+ * Instead, spoof focus-trap into thinking there is a node attached.
+ * https://stackoverflow.com/a/75527964
+ */
+const stubGetClientRects = () => {
+  const { getClientRects } = HTMLElement.prototype;
+  // eslint-disable-next-line func-names
+  HTMLElement.prototype.getClientRects = function () {
+    return {
+      ...getClientRects.apply(this),
+      length: 1,
+    };
+  };
+};
+
 export {
   act,
   fireEvent,
@@ -105,6 +122,7 @@ export {
   userEvent,
   waitFor,
   customWithin as within,
+  stubGetClientRects,
 };
 
 export type { RenderWithRouterMatchOptions };

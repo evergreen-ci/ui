@@ -14,7 +14,7 @@ describe("copyToClipboard", () => {
   it("should copy the correct text", () => {
     Object.defineProperty(navigator, "clipboard", {
       value: {
-        writeText: jest.fn(),
+        writeText: vi.fn(),
       },
     });
     copyToClipboard("copy text");

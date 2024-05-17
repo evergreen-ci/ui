@@ -34,7 +34,7 @@
     "staging": "env-cmd -e devStaging -r .env-cmdrc.local.json yarn start",
     "start": "vite",
     "storybook": "storybook dev -p 6006",
-    "test": "yarn --cwd='../..' test --selectProjects spruce --watchAll=false",
+    "test": "yarn --cwd='../..' test:jest --selectProjects spruce --watchAll=false",
     "postversion": "scripts/push-version.sh"
   },
   "browserslist": {
@@ -142,7 +142,7 @@
     "@storybook/testing-library": "0.2.2",
     "@styled/typescript-styled-plugin": "1.0.1",
     "@testing-library/jest-dom": "6.4.2",
-    "@testing-library/react": "14.0.0",
+    "@testing-library/react": "14.1.2",
     "@testing-library/user-event": "14.5.1",
     "@types/jest": "29.5.12",
     "@types/jest-specific-snapshot": "0.5.9",

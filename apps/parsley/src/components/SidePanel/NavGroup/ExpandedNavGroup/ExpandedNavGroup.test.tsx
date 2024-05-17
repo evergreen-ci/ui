@@ -48,7 +48,7 @@ describe("expanded lines", () => {
 
   it("deleting an expanded line should call collapseLines", async () => {
     const user = userEvent.setup();
-    const collapseLines = jest.fn();
+    const collapseLines = vi.fn();
     render(
       <ExpandedNavGroup
         {...props}
@@ -63,6 +63,6 @@ describe("expanded lines", () => {
 });
 
 const props = {
-  collapseLines: jest.fn(),
+  collapseLines: vi.fn(),
   expandedLines: [],
 };

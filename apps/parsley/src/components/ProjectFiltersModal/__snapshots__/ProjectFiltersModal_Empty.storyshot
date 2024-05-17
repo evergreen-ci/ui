@@ -1,0 +1,7 @@
+<div>
+  <button
+    type="button"
+  >
+    Open modal
+  </button>
+</div>

@@ -1,9 +1,10 @@
 import Cookie from "js-cookie";
-import { render, screen, waitFor } from "test_utils";
+import { MockInstance } from "vitest";
+import { render, screen, stubGetClientRects, waitFor } from "test_utils";
 import SearchBarGuideCue from ".";
 
-jest.mock("js-cookie");
-const mockedGet = Cookie.get as unknown as jest.Mock<string>;
+vi.mock("js-cookie");
+const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 describe("search bar guide cue", () => {
   beforeEach(() => {
@@ -11,6 +12,8 @@ describe("search bar guide cue", () => {
   });
 
   it("shows the guide cue if the user has not seen it before", async () => {
+    stubGetClientRects();
+
     mockedGet.mockImplementation(() => "false");
     render(<SearchBarGuideCue />);
     await waitFor(() => {
