@@ -158,7 +158,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
       </CommitTitleText>
       <CommitBodyText>
         {v.ignored && <StyledIcon data-cy="ignored-icon" glyph="Ignored" />}
-        {v.author} -
+        {v.author} -{" "}
         {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({

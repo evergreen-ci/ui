@@ -61,7 +61,7 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
             <Row key={taskStatus}>
               <TaskStatusIcon status={taskStatus} size={16} />
               <span>
-                <Count>{taskCount}</Count>
+                <Count>{taskCount}</Count>{" "}
                 {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
                 {taskStatusToCopy[taskStatus] ?? taskStatus}
               </span>
