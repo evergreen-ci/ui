@@ -4,10 +4,10 @@ import { leaveBreadcrumbMapFn } from "./logGQLToSentryLink";
 
 describe("leaveBreadcrumbLinkMapFn", () => {
   beforeEach(() => {
-    jest.spyOn(ErrorReporting, "leaveBreadcrumb");
+    vi.spyOn(ErrorReporting, "leaveBreadcrumb");
   });
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("leaveBreadcrumb function uses a list of secret fields to filter GQL req variables", () => {
@@ -20,8 +20,8 @@ describe("leaveBreadcrumbLinkMapFn", () => {
         operationName: "TestOperation",
         extensions: {},
         query: null,
-        setContext: jest.fn(),
-        getContext: jest.fn(),
+        setContext: vi.fn(),
+        getContext: vi.fn(),
       };
       const response = { data: { result: "Success" }, errors: null };
 

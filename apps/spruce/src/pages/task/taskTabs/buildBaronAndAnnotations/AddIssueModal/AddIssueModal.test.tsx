@@ -9,6 +9,7 @@ import { ADD_ANNOTATION } from "gql/mutations";
 import {
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   userEvent,
   waitFor,
 } from "test_utils";
@@ -32,11 +33,15 @@ const AddIssueModal = (
   </MockedProvider>
 );
 describe("addIssueModal", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   it("should have submit disabled by default when all the fields are empty", async () => {
     const { Component } = RenderFakeToastContext(
       <AddIssueModal
-        closeModal={jest.fn()}
-        setSelectedRowKey={jest.fn()}
+        closeModal={vi.fn()}
+        setSelectedRowKey={vi.fn()}
         isIssue
       />,
     );
@@ -58,8 +63,8 @@ describe("addIssueModal", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <AddIssueModal
-        closeModal={jest.fn()}
-        setSelectedRowKey={jest.fn()}
+        closeModal={vi.fn()}
+        setSelectedRowKey={vi.fn()}
         isIssue
       />,
     );
@@ -85,8 +90,8 @@ describe("addIssueModal", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <AddIssueModal
-        closeModal={jest.fn()}
-        setSelectedRowKey={jest.fn()}
+        closeModal={vi.fn()}
+        setSelectedRowKey={vi.fn()}
         isIssue
       />,
     );
@@ -120,10 +125,10 @@ describe("addIssueModal", () => {
 
   it("should be able to successfully add annotation", async () => {
     const user = userEvent.setup();
-    const setSelectedRowKey = jest.fn();
+    const setSelectedRowKey = vi.fn();
     const { Component, dispatchToast } = RenderFakeToastContext(
       <AddIssueModal
-        closeModal={jest.fn()}
+        closeModal={vi.fn()}
         setSelectedRowKey={setSelectedRowKey}
         isIssue
       />,
@@ -143,7 +148,9 @@ describe("addIssueModal", () => {
     const confirmButton = screen.getByRole("button", {
       name: "Add issue",
     });
-    expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
+    await waitFor(() => {
+      expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
+    });
     await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     expect(setSelectedRowKey).toHaveBeenCalledWith("EVG-123");

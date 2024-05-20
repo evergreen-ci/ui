@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
@@ -150,5 +151,14 @@ export default defineConfig({
         javascriptEnabled: true, // enable LESS {@import ...}
       },
     },
+  },
+  test: {
+    environment: "jsdom",
+    globals: true,
+    globalSetup: "./config/vitest/global-setup.ts",
+    outputFile: { junit: "./bin/vitest/junit.xml" },
+    pool: "forks", // https://vitest.dev/guide/common-errors.html#failed-to-terminate-worker
+    reporters: ["default", "junit"],
+    setupFiles: "./config/vitest/setupTests.ts",
   },
 });

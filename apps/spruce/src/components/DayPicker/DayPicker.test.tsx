@@ -5,7 +5,7 @@ const defaultState = [false, true, true, true, true, true, false];
 
 describe("daypicker", () => {
   it("renders an unselected daypicker", () => {
-    render(<DayPicker onChange={jest.fn()} />);
+    render(<DayPicker onChange={vi.fn()} />);
     const days = screen.getAllByRole("checkbox");
     expect(days).toHaveLength(7);
     days.forEach((day) => {
@@ -14,7 +14,7 @@ describe("daypicker", () => {
   });
 
   it("renders a daypicker with default days selected", () => {
-    render(<DayPicker defaultState={defaultState} onChange={jest.fn()} />);
+    render(<DayPicker defaultState={defaultState} onChange={vi.fn()} />);
 
     const days = screen.getAllByRole("checkbox");
     expect(days).toHaveLength(7);
@@ -30,7 +30,7 @@ describe("daypicker", () => {
 
   it("toggles selected days on click", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(<DayPicker onChange={onChange} />);
     expect(screen.getByLabelText("M")).toHaveAttribute("aria-checked", "false");
 
@@ -75,7 +75,7 @@ describe("daypicker", () => {
   });
 
   it("disables widget", () => {
-    render(<DayPicker disabled onChange={jest.fn()} />);
+    render(<DayPicker disabled onChange={vi.fn()} />);
 
     const days = screen.getAllByRole("checkbox");
     expect(days).toHaveLength(7);

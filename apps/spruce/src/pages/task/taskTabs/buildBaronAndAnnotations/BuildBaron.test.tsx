@@ -45,7 +45,7 @@ describe("buildBaronContent", () => {
 
   afterEach(() => {
     matchMedia.clear();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("the BuildBaron component renders without crashing.", () => {

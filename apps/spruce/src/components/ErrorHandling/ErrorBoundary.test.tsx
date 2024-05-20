@@ -7,13 +7,13 @@ const { cleanup } = mockEnvironmentVariables();
 
 describe("default error boundary", () => {
   beforeEach(() => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
-    jest.spyOn(Sentry, "captureException");
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(Sentry, "captureException");
   });
 
   afterEach(() => {
     cleanup();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("should render the passed in component", () => {

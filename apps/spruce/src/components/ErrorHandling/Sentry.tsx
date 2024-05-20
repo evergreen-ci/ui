@@ -8,11 +8,13 @@ import {
 } from "@sentry/react";
 import type { Scope, SeverityLevel } from "@sentry/react";
 import type { Context, Primitive } from "@sentry/types";
-import { environmentVariables } from "utils";
+import {
+  getReleaseStage,
+  getSentryDSN,
+  isProduction,
+} from "utils/environmentVariables";
 import ErrorFallback from "./ErrorFallback";
 import { processHtmlAttributes } from "./utils";
-
-const { getReleaseStage, getSentryDSN, isProduction } = environmentVariables;
 
 const initializeSentry = () => {
   try {

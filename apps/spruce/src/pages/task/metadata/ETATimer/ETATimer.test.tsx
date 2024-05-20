@@ -3,13 +3,13 @@ import ETATimer from ".";
 
 describe("etaTimer", () => {
   beforeEach(() => {
-    jest.useFakeTimers();
-    jest.spyOn(global, "setInterval");
-    jest.spyOn(global, "clearInterval");
+    vi.useFakeTimers();
+    vi.spyOn(global, "setInterval");
+    vi.spyOn(global, "clearInterval");
   });
   afterEach(() => {
-    jest.useRealTimers();
-    jest.restoreAllMocks();
+    vi.useRealTimers();
+    vi.restoreAllMocks();
   });
   it("counts down", async () => {
     const startTime = new Date();
@@ -19,13 +19,13 @@ describe("etaTimer", () => {
     );
     expect(screen.getByText("ETA: 10s")).toBeInTheDocument();
     act(() => {
-      jest.runOnlyPendingTimers();
+      vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
       expect(screen.getByText("ETA: 9s")).toBeInTheDocument();
     });
     act(() => {
-      jest.runOnlyPendingTimers();
+      vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
       expect(screen.getByText("ETA: 8s")).toBeInTheDocument();
@@ -39,13 +39,13 @@ describe("etaTimer", () => {
     );
     expect(screen.getByText("ETA: 1s")).toBeInTheDocument();
     act(() => {
-      jest.runOnlyPendingTimers();
+      vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
       expect(screen.getByText("ETA: 0s")).toBeInTheDocument();
     });
     expect(global.clearInterval).toHaveBeenCalledWith(expect.any(Number));
-    expect(jest.getTimerCount()).toBe(0);
+    expect(vi.getTimerCount()).toBe(0);
   });
   it("if the eta has been exceeded, it does not render", () => {
     render(<ETATimer startTime={new Date()} expectedDuration={0} />);

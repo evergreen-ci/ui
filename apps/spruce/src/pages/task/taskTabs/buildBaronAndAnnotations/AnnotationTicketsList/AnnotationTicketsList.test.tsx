@@ -25,7 +25,7 @@ describe("annotationTicketsList", () => {
 
   afterEach(() => {
     matchMedia.clear();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("should display the link and jiraIssue key while waiting for data to fetch", async () => {

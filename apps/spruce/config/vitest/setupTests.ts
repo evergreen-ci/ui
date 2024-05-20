@@ -1,5 +1,6 @@
 // jest-dom adds custom jest matchers for asserting on DOM nodes. Works for vitest too!
 import "@testing-library/jest-dom";
+import "vitest-canvas-mock";
 
 // The following two variables are dummy values used in auth.test.tsx.
 process.env.REACT_APP_EVERGREEN_URL = "http://test-evergreen.com";
@@ -26,9 +27,7 @@ if (process.env.CI) {
 // Workaround for a bug in @testing-library/react.
 // It prevents Vitest's fake timers from functioning with user-event.
 // https://github.com/testing-library/react-testing-library/issues/1197
-// @ts-expect-error
 globalThis.jest = {
-  // @ts-expect-error
   ...globalThis.jest,
   advanceTimersByTime: vi.advanceTimersByTime.bind(vi),
 };

@@ -17,6 +17,7 @@ import {
   userEvent,
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   waitFor,
 } from "test_utils";
 import { selectLGOption } from "test_utils/utils";
@@ -24,6 +25,10 @@ import { ApolloMock } from "types/gql";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
 describe("spawnVolumeModal", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   it("does not render the Spawn Volume Modal when the visible prop is false", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal

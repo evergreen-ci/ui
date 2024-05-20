@@ -1,4 +1,3 @@
-/* eslint-disable jest/require-hook */
 import { composeStories } from "@storybook/react";
 import * as glob from "glob";
 import "jest-specific-snapshot";
@@ -56,16 +55,16 @@ describe(`${options.suite}`, () => {
     matchMedia = new MatchMediaMock();
   });
   beforeEach(() => {
-    const mockIntersectionObserver = jest.fn((callback) => {
+    const mockIntersectionObserver = vi.fn((callback) => {
       callback([
         {
           isIntersecting: true,
         },
       ]);
       return {
-        observe: jest.fn(),
-        unobserve: jest.fn(),
-        disconnect: jest.fn(),
+        observe: vi.fn(),
+        unobserve: vi.fn(),
+        disconnect: vi.fn(),
       };
     });
 
@@ -75,7 +74,7 @@ describe(`${options.suite}`, () => {
 
   afterAll(() => {
     matchMedia.clear();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
   getAllStoryFiles().forEach((params) => {
     const { filePath, storyFile } = params;
@@ -125,7 +124,7 @@ describe(`${options.suite}`, () => {
             options.snapshotsDirName,
             `${storyBookFileBaseName}${options.snapshotExtension}`,
           );
-          expect(container).toMatchSpecificSnapshot(snapshotPath);
+          expect(container).toMatchFileSnapshot(snapshotPath);
         });
       });
     });

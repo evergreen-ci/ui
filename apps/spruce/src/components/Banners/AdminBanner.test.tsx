@@ -7,7 +7,7 @@ const mock = getSpruceConfigMock;
 
 describe("site banner", () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("renders a warning banner", async () => {

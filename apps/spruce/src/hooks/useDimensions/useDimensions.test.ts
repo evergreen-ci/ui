@@ -7,10 +7,9 @@ describe("useDimensions", () => {
 
   beforeEach(() => {
     // @ts-ignore next-line
-    window.requestAnimationFrame = jest.fn((cb) => cb()); // eslint-disable-line jest/prefer-spy-on
-    disconnectSpy = jest.fn();
-    // eslint-disable-next-line jest/prefer-spy-on
-    window.ResizeObserver = jest.fn().mockImplementation((l) => {
+    window.requestAnimationFrame = vi.fn((cb) => cb());
+    disconnectSpy = vi.fn();
+    window.ResizeObserver = vi.fn().mockImplementation((l) => {
       listener = l;
       return {
         observe: () => {},

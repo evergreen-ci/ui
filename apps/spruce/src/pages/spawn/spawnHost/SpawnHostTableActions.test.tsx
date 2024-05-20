@@ -10,13 +10,13 @@ const hostUrl = "ec2-54-242-162-135.compute-1.amazonaws.com";
 
 describe("copySSHCommandButton", () => {
   afterEach(() => {
-    jest.clearAllTimers();
+    vi.clearAllTimers();
   });
 
   it("tooltip text should change after clicking on the copy button", async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     const user = userEvent.setup({
-      advanceTimers: jest.advanceTimersByTime,
+      advanceTimers: vi.advanceTimersByTime,
       writeToClipboard: true,
     });
     render(
@@ -48,12 +48,12 @@ describe("copySSHCommandButton", () => {
 
     // Advance timer so that the original tooltip text will show.
     act(() => {
-      jest.advanceTimersByTime(10 * SECOND);
+      vi.advanceTimersByTime(10 * SECOND);
     });
     expect(
       screen.getByText("Must be on VPN to connect to host"),
     ).toBeInTheDocument();
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it("should disable the Copy SSH Button if there is no host URL", async () => {
