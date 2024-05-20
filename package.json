@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "apps/*"
+      "apps/*",
+      "packages/*"
     ],
     "nohoist": [
       "**/storybook-addon-apollo-client"
@@ -13,10 +14,10 @@
   "scripts": {
     "evg-db-ops": "./scripts/evg-db-ops.sh",
     "prepare": "husky",
-    "test": "jest --watchAll=false"
+    "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts",
+    "test:jest": "jest --watchAll=false"
   },
   "resolutions": {
-    "@tanstack/react-table": "8.9.3",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0"
   },

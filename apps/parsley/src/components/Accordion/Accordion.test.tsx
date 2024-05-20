@@ -37,7 +37,7 @@ describe("accordion", () => {
 
   it("calls onToggle when accordion is toggled", async () => {
     const user = userEvent.setup();
-    const onToggle = jest.fn();
+    const onToggle = vi.fn();
     render(
       <Accordion onToggle={onToggle} title="accordion title">
         accordion content
@@ -65,5 +65,40 @@ describe("accordion", () => {
       </Accordion>,
     );
     expect(screen.getByDataCy("my-custom-tag")).toBeInTheDocument();
+  });
+  it("when controlled, accordion should be open if open prop is true", () => {
+    const { rerender } = render(
+      <Accordion open title="accordion title">
+        accordion content
+      </Accordion>,
+    );
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    rerender(
+      <Accordion open={false} title="accordion title">
+        accordion content
+      </Accordion>,
+    );
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
+  });
+  it("when controlled, accordion should call a callback when the user toggles it open or closed", async () => {
+    const onToggle = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <Accordion onToggle={onToggle} open title="accordion title">
+        accordion content
+      </Accordion>,
+    );
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    await user.click(screen.getByDataCy("accordion-toggle"));
+    expect(onToggle).toHaveBeenCalledTimes(1);
   });
 });

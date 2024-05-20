@@ -4,6 +4,7 @@ exports[`Snapshot Tests PageSizeSelector.stories Default 1`] = `
 <div>
   <div
     class="leafygreen-ui-1iyoj2o css-5krlfz-StyledSelect ekttol50"
+    data-lgid="lg-select"
   >
     <button
       aria-controls="select-184-menu"
@@ -12,7 +13,8 @@ exports[`Snapshot Tests PageSizeSelector.stories Default 1`] = `
       aria-expanded="false"
       aria-invalid="false"
       aria-labelledby="page-size-select"
-      class="lg-ui-button-0000 leafygreen-ui-1rmc7qb"
+      class="lg-ui-button-0000 leafygreen-ui-c19aul"
+      data-lgid="lg-button"
       data-testid="leafygreen-ui-select-menubutton"
       id="select-185"
       type="button"
@@ -29,6 +31,7 @@ exports[`Snapshot Tests PageSizeSelector.stories Default 1`] = `
         >
           <div
             class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
+            data-lgid="lg-select-button_text"
           >
             10 / page
           </div>
@@ -49,6 +52,13 @@ exports[`Snapshot Tests PageSizeSelector.stories Default 1`] = `
         </svg>
       </div>
     </button>
+    <div
+      aria-live="polite"
+      aria-relevant="all"
+      class="leafygreen-ui-11ydt2g"
+      data-lgid="lg-form_field-feedback"
+      data-testid="lg-form_field-feedback"
+    />
   </div>
 </div>
 `;

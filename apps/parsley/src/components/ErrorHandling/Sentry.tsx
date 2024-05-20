@@ -1,8 +1,8 @@
 import {
   ErrorBoundary as SentryErrorBoundary,
   captureException,
-  getClient,
   init,
+  isInitialized,
   setTags,
   withScope,
 } from "@sentry/react";
@@ -14,10 +14,23 @@ import {
   isProduction,
 } from "utils/environmentVariables";
 import ErrorFallback from "./ErrorFallback";
+import { processHtmlAttributes } from "./utils";
 
 const initializeSentry = () => {
   try {
     init({
+      beforeBreadcrumb: (breadcrumb, hint) => {
+        if (breadcrumb?.category?.startsWith("ui")) {
+          const { target } = hint?.event ?? {};
+          if (target?.dataset?.cy) {
+            // eslint-disable-next-line no-param-reassign
+            breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy="${target.dataset.cy}"]`;
+          }
+          // eslint-disable-next-line no-param-reassign
+          breadcrumb.data = processHtmlAttributes(target);
+        }
+        return breadcrumb;
+      },
       debug: !isProduction(),
       dsn: getSentryDSN(),
       environment: getReleaseStage() || "development",
@@ -27,8 +40,6 @@ const initializeSentry = () => {
     console.error("Failed to initialize Sentry", e);
   }
 };
-
-const isInitialized = () => !!getClient();
 
 export type ErrorInput = {
   err: Error;

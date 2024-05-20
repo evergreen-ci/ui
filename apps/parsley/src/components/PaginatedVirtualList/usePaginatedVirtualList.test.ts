@@ -47,7 +47,7 @@ describe("usePaginatedVirtualList", () => {
 
   describe("scrolling to the next page", () => {
     it("should reflect offset when not on the first page and should scroll to compensate for offset", () => {
-      const scrollToIndexMock = jest.fn();
+      const scrollToIndexMock = vi.fn();
       const { result } = renderHook(() =>
         usePaginatedVirtualList({
           paginationOffset,
@@ -75,7 +75,7 @@ describe("usePaginatedVirtualList", () => {
       );
     });
     it("should not scroll to next page if on last page", () => {
-      const scrollToIndexMock = jest.fn();
+      const scrollToIndexMock = vi.fn();
       const { result } = renderHook(() =>
         usePaginatedVirtualList({
           paginationOffset,
@@ -131,7 +131,7 @@ describe("usePaginatedVirtualList", () => {
       expect(result.current.currentPage).toBe(2);
     });
     it("should not scroll to next page if there is only one page", () => {
-      const scrollToIndexMock = jest.fn();
+      const scrollToIndexMock = vi.fn();
       const { result } = renderHook(() =>
         usePaginatedVirtualList({
           paginationOffset: 100,
@@ -174,7 +174,7 @@ describe("usePaginatedVirtualList", () => {
 
   describe("scrolling to the previous page", () => {
     it("should reflect offset when not on the first page and should scroll to compensate for offset", () => {
-      const scrollToIndexMock = jest.fn();
+      const scrollToIndexMock = vi.fn();
       const { result } = renderHook(() =>
         usePaginatedVirtualList({
           paginationOffset,
@@ -212,7 +212,7 @@ describe("usePaginatedVirtualList", () => {
       });
     });
     it("should not scroll to previous page if on first page", () => {
-      const scrollToIndexMock = jest.fn();
+      const scrollToIndexMock = vi.fn();
       const { result } = renderHook(() =>
         usePaginatedVirtualList({
           paginationOffset,
@@ -280,7 +280,7 @@ describe("usePaginatedVirtualList", () => {
     });
 
     it("scrolling to a line on a different page should not trigger a double scroll", async () => {
-      const scrollToIndexMock = jest.fn();
+      const scrollToIndexMock = vi.fn();
       const { result } = renderHook(() =>
         usePaginatedVirtualList({
           paginationOffset,

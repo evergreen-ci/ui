@@ -51,7 +51,7 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       restricted: {
         "ui:description":
-          "Logged-in users by default will not be able to access this project. Access must be granted via MANA.",
+          "If restricted, logged-in users by default will not be able to access this project. Access must be granted via MANA.",
         "ui:widget": widgets.RadioBoxWidget,
       },
     },

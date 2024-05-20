@@ -123,18 +123,33 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                           <div
                             class="css-fmhxew"
                           >
-                            <div
-                              class="leafygreen-ui-ohl2hc"
+                            <p
+                              class="leafygreen-ui-1miy0xp"
+                              id=":r0:"
                             >
-                              Filter
-                            </div>
+                              active filter
+                            </p>
                             <div
                               class="css-g5sccu"
                             >
                               <button
+                                aria-checked="true"
+                                aria-disabled="false"
+                                aria-label="Hide filter"
+                                aria-labelledby=":r0:"
+                                class="lg-ui-toggle-button-0000 leafygreen-ui-qt4gv"
+                                role="switch"
+                                title="Hide filter"
+                                type="button"
+                              >
+                                <div
+                                  class="leafygreen-ui-130cqp8"
+                                />
+                              </button>
+                              <button
                                 aria-disabled="false"
                                 aria-label="Edit filter"
-                                class="leafygreen-ui-1xt2asn"
+                                class="leafygreen-ui-76dd2i"
                                 tabindex="0"
                                 title="Edit filter"
                               >
@@ -160,37 +175,8 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                               </button>
                               <button
                                 aria-disabled="false"
-                                aria-label="Hide filter"
-                                class="leafygreen-ui-1xt2asn"
-                                tabindex="0"
-                                title="Hide filter"
-                              >
-                                <div
-                                  class="leafygreen-ui-xhlipt"
-                                >
-                                  <svg
-                                    aria-label="Visibility Icon"
-                                    class="leafygreen-ui-a4wnk0"
-                                    fill="none"
-                                    height="16"
-                                    role="img"
-                                    viewBox="0 0 16 16"
-                                    width="16"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      clip-rule="evenodd"
-                                      d="M8 2.008c3.934 0 6.473 3.129 7.455 4.583l.043.064C15.713 6.97 16 7.391 16 8s-.287 1.03-.502 1.345l-.043.064c-.982 1.454-3.521 4.583-7.455 4.583S1.527 10.863.545 9.41l-.043-.064C.287 9.03 0 8.609 0 8s.287-1.03.502-1.345l.043-.064C1.527 5.137 4.066 2.008 8 2.008ZM9.13 4.13A5.147 5.147 0 0 0 8 4.005C5.75 4.005 3.927 5.794 3.927 8c0 2.206 1.824 3.995 4.073 3.995 2.25 0 4.073-1.789 4.073-3.995 0-2.206-1.824-3.995-4.073-3.995.378 0 .756.045 1.13.126ZM8 10.996c1.687 0 3.055-1.341 3.055-2.996S9.687 5.004 8 5.004 4.945 6.345 4.945 8 6.313 10.996 8 10.996Z"
-                                      fill="currentColor"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
-                                </div>
-                              </button>
-                              <button
-                                aria-disabled="false"
                                 aria-label="Delete filter"
-                                class="leafygreen-ui-1xt2asn"
+                                class="leafygreen-ui-76dd2i"
                                 tabindex="0"
                                 title="Delete filter"
                               >
@@ -231,11 +217,6 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                             <div
                               class="css-ma2i7n"
                             >
-                              <p
-                                class="css-28y54x leafygreen-ui-1tb6tuo"
-                              >
-                                active filter
-                              </p>
                               <div
                                 class="leafygreen-ui-ozfao7 css-79ds1c"
                               >
@@ -474,7 +455,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                       <button
                         aria-disabled="false"
                         aria-label="Delete range"
-                        class="leafygreen-ui-1xt2asn"
+                        class="leafygreen-ui-76dd2i"
                         tabindex="0"
                       >
                         <div
@@ -573,7 +554,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                       <button
                         aria-disabled="false"
                         aria-label="Delete highlight"
-                        class="leafygreen-ui-1xt2asn"
+                        class="leafygreen-ui-76dd2i"
                         data-cy="delete-highlight-button"
                         tabindex="0"
                       >
@@ -613,7 +594,7 @@ exports[`Snapshot Tests SidePanel.stories Default 1`] = `
                       <button
                         aria-disabled="false"
                         aria-label="Delete highlight"
-                        class="leafygreen-ui-1xt2asn"
+                        class="leafygreen-ui-76dd2i"
                         data-cy="delete-highlight-button"
                         tabindex="0"
                       >

@@ -4,13 +4,22 @@ import { resolve } from "path";
 /**
  * `getCommitMessages` returns a string of all commit messages between the currently deployed commit and HEAD.
  * @param currentlyDeployedCommit - the currently deployed commit
- * @returns - a string of all commit messages between the currently deployed commit and HEAD
+ * @returns - a string of all commit messages between the currently deployed commit and HEAD. Commits are limited to those in the app's directory and the shared packages directory.
  */
 const getCommitMessages = (currentlyDeployedCommit: string) => {
+  const gitRoot = execSync(`git rev-parse --show-toplevel`, {
+    encoding: "utf-8",
+  })
+    .toString()
+    .trim();
+  const appDir = resolve(gitRoot, "apps", "parsley");
+  const packagesDir = resolve(gitRoot, "packages");
   const commitMessages = execSync(
-    `git log ${currentlyDeployedCommit}..HEAD --oneline -- .`,
+    `git log ${currentlyDeployedCommit}..HEAD --oneline -- ${appDir} -- ${packagesDir}`,
     { encoding: "utf-8" },
-  ).toString();
+  )
+    .toString()
+    .trim();
   return commitMessages;
 };
 

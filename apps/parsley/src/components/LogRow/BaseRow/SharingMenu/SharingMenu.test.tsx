@@ -96,7 +96,7 @@ describe("sharingMenu", () => {
     ).toBeInTheDocument();
     await user.click(screen.getByText("Copy share link to selected lines"));
     const clipboardText = await navigator.clipboard.readText();
-    expect(clipboardText).toBe("http://localhost/?shareLine=1");
+    expect(clipboardText).toBe("http://localhost:3000/?shareLine=1");
   });
   it("clicking `only search on range` should update the url with the range", async () => {
     const user = userEvent.setup();

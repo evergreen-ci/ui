@@ -12,6 +12,7 @@ export default {
 } satisfies CustomMeta<typeof LogPane>;
 
 const list = Array.from({ length: 10000 }, (_, i) => `${i}`);
+const virtuosoConfig = { itemHeight: 18, viewportHeight: 500 };
 
 const RowRenderer = (index: number) => <pre key={index}>{index}</pre>;
 
@@ -24,9 +25,7 @@ const Container = styled.div`
 export const Default: CustomStoryObj<typeof LogPane> = {
   args: {},
   render: (args) => (
-    <VirtuosoMockContext.Provider
-      value={{ itemHeight: 18, viewportHeight: 500 }}
-    >
+    <VirtuosoMockContext.Provider value={virtuosoConfig}>
       <Container>
         <LogPane {...args} rowCount={list.length} rowRenderer={RowRenderer} />
       </Container>
@@ -47,9 +46,7 @@ const LogPaneWithZebraStriping = (args: any) => {
 export const ZebraStriping: CustomStoryObj<typeof LogPane> = {
   args: {},
   render: (args) => (
-    <VirtuosoMockContext.Provider
-      value={{ itemHeight: 18, viewportHeight: 500 }}
-    >
+    <VirtuosoMockContext.Provider value={virtuosoConfig}>
       <Container>
         <LogPaneWithZebraStriping
           {...args}

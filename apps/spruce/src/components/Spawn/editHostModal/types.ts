@@ -1,8 +1,11 @@
+import { HostUptime } from "../utils";
+
 export type FormState = {
   hostName?: string;
   expirationDetails?: {
-    expiration?: string;
     noExpiration: boolean;
+    expiration?: string;
+    hostUptime?: HostUptime;
   };
   instanceType?: string;
   volume?: string;

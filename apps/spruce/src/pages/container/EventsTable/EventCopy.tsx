@@ -6,9 +6,13 @@ import { Unpacked } from "types/utils";
 import { reportError } from "utils/errorReporting";
 
 interface EventCopyProps {
+  "data-cy": string;
   event: Unpacked<PodEventsQuery["pod"]["events"]["eventLogEntries"]>;
 }
-export const EventCopy: React.FC<EventCopyProps> = ({ event }) => {
+export const EventCopy: React.FC<EventCopyProps> = ({
+  "data-cy": dataCy,
+  event,
+}) => {
   const { data, eventType } = event;
   const taskLink = (
     <ShortenedRouterLink
@@ -21,21 +25,21 @@ export const EventCopy: React.FC<EventCopyProps> = ({ event }) => {
   switch (eventType) {
     case PodEvent.StatusChange:
       return (
-        <span>
+        <span data-cy={dataCy}>
           Container status changed from <b>{data?.oldStatus}</b> to{" "}
           <b>{data?.newStatus}</b>.
         </span>
       );
     case PodEvent.ContainerTaskFinished:
       return (
-        <span>
+        <span data-cy={dataCy}>
           Task {taskLink} finished with status <b>{data?.taskStatus}</b>.
         </span>
       );
     case PodEvent.ClearedTask:
-      return <span>Task {taskLink} cleared.</span>;
+      return <span data-cy={dataCy}>Task {taskLink} cleared.</span>;
     case PodEvent.AssignedTask:
-      return <span>Task {taskLink} assigned.</span>;
+      return <span data-cy={dataCy}>Task {taskLink} assigned.</span>;
     default:
       reportError(
         new Error(`Unrecognized pod event type: ${eventType}`),

@@ -1,44 +1,43 @@
 import {
   captureException,
   ErrorBoundary as SentryErrorBoundary,
-  getCurrentHub,
   init,
-  Replay,
   setTags,
   withScope,
+  isInitialized,
 } from "@sentry/react";
 import type { Scope, SeverityLevel } from "@sentry/react";
 import type { Context, Primitive } from "@sentry/types";
 import { environmentVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
+import { processHtmlAttributes } from "./utils";
 
 const { getReleaseStage, getSentryDSN, isProduction } = environmentVariables;
 
 const initializeSentry = () => {
-  const releaseStage = getReleaseStage() || "development";
-  const productionEnv = isProduction();
   try {
     init({
+      beforeBreadcrumb: (breadcrumb, hint) => {
+        if (breadcrumb?.category?.startsWith("ui")) {
+          const { target } = hint?.event ?? {};
+          if (target?.dataset?.cy) {
+            // eslint-disable-next-line no-param-reassign
+            breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy="${target.dataset.cy}"]`;
+          }
+          // eslint-disable-next-line no-param-reassign
+          breadcrumb.data = processHtmlAttributes(target);
+        }
+        return breadcrumb;
+      },
       dsn: getSentryDSN(),
-      debug: !productionEnv,
+      debug: !isProduction(),
       normalizeDepth: 5,
-      environment: releaseStage,
-      replaysSessionSampleRate: 0,
-      replaysOnErrorSampleRate: productionEnv ? 0.6 : 1.0,
-      integrations: [
-        new Replay({
-          blockAllMedia: productionEnv,
-          maskAllInputs: productionEnv,
-          maskAllText: productionEnv,
-        }),
-      ],
+      environment: getReleaseStage() || "development",
     });
   } catch (e) {
     console.error("Failed to initialize Sentry", e);
   }
 };
-
-const isInitialized = () => !!getCurrentHub().getClient();
 
 export type ErrorInput = {
   err: Error;

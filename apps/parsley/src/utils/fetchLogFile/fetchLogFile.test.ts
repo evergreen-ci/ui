@@ -1,7 +1,7 @@
 import { StreamedFetchOptions, fetchLogFile } from ".";
 
 describe("fetchLogFile", () => {
-  const mockFetch = jest.fn();
+  const mockFetch = vi.fn();
   const mockAbortController = new AbortController();
 
   const options: StreamedFetchOptions = {
@@ -14,15 +14,13 @@ describe("fetchLogFile", () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("should fetch the log file and return it as an array of strings", async () => {
     const readableStream = createReadableStream(["Hello\nWorld"]);
 
     const response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
 
@@ -58,11 +56,9 @@ describe("fetchLogFile", () => {
   it("should call onProgress with the number of bytes received", async () => {
     const readableStream = createReadableStream(["Hello", " World"]);
     const response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
-    const mockOnProgress = jest.fn();
+    const mockOnProgress = vi.fn();
     await fetchLogFile(url, { ...options, onProgress: mockOnProgress });
 
     expect(mockOnProgress).toHaveBeenCalledTimes(2);
@@ -73,8 +69,6 @@ describe("fetchLogFile", () => {
   it("should ensure partial lines in chunks are not split and are returned as a single line", async () => {
     let readableStream = createReadableStream(["Hello W", "orld"]);
     let response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
 
@@ -89,8 +83,6 @@ describe("fetchLogFile", () => {
       "\nof the emergency broadcast system",
     ]);
     response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
 
@@ -106,11 +98,9 @@ describe("fetchLogFile", () => {
   it("should call onIncompleteDownload if the log file is not fully downloaded", async () => {
     const readableStream = createReadableStream(["Hello", " W"]);
     const response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
-    const mockOnIncompleteDownload = jest.fn();
+    const mockOnIncompleteDownload = vi.fn();
     const fetchLogFileResult = await fetchLogFile(url, {
       ...options,
       downloadSizeLimit: 4,

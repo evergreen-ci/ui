@@ -2,8 +2,8 @@ import { AnsiUp } from "ansi_up";
 import linkifyHtml from "linkify-html";
 import BaseRow from "components/LogRow/BaseRow";
 import { trimSeverity } from "utils/string";
-import { getSeverityMapping, mapLogLevelToColor } from "./utils";
 import { LogRowProps } from "../types";
+import { getSeverityMapping, mapLogLevelToColor } from "./utils";
 
 interface AnsiRowProps extends LogRowProps {}
 

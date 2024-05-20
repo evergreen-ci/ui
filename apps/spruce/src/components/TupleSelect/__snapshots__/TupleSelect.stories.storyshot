@@ -19,6 +19,7 @@ exports[`Snapshot Tests TupleSelect.stories Default 1`] = `
     >
       <div
         class="leafygreen-ui-1iyoj2o css-1scwv0u-GroupedSelect e5gn9hl1"
+        data-lgid="lg-select"
       >
         <button
           aria-controls="select-211-menu"
@@ -27,8 +28,9 @@ exports[`Snapshot Tests TupleSelect.stories Default 1`] = `
           aria-expanded="false"
           aria-invalid="false"
           aria-labelledby="Tuple Select"
-          class="lg-ui-button-0000 leafygreen-ui-1bkgt4w"
+          class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
           data-cy="tuple-select-dropdown"
+          data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
           id="select-212"
           type="button"
@@ -45,6 +47,7 @@ exports[`Snapshot Tests TupleSelect.stories Default 1`] = `
             >
               <div
                 class="lg-ui-select-menu-0000 leafygreen-ui-17aj16e"
+                data-lgid="lg-select-button_text"
               >
                 Build Variant
               </div>
@@ -65,6 +68,13 @@ exports[`Snapshot Tests TupleSelect.stories Default 1`] = `
             </svg>
           </div>
         </button>
+        <div
+          aria-live="polite"
+          aria-relevant="all"
+          class="leafygreen-ui-11ydt2g"
+          data-lgid="lg-form_field-feedback"
+          data-testid="lg-form_field-feedback"
+        />
       </div>
       <div
         class="e5gn9hl0 css-47706i-TextInputWrapper-GroupedTextInput e13gwrw81"
