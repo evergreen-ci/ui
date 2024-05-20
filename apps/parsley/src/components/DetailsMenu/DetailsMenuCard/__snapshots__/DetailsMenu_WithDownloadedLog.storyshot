@@ -22,12 +22,12 @@
             role="tablist"
           >
             <button
-              aria-controls="tab-panel-21"
+              aria-controls="tab-panel-37"
               aria-selected="true"
               class="leafygreen-ui-oq6if2"
               data-cy="search-and-filter-tab"
               data-text="Search & Filter"
-              id="tab-22"
+              id="tab-38"
               name="Search & Filter"
               role="tab"
               tabindex="0"
@@ -39,12 +39,12 @@
               </div>
             </button>
             <button
-              aria-controls="tab-panel-23"
+              aria-controls="tab-panel-39"
               aria-selected="false"
               class="leafygreen-ui-1vvp6ij"
               data-cy="log-viewing-tab"
               data-text="Log Viewing"
-              id="tab-24"
+              id="tab-40"
               name="Log Viewing"
               role="tab"
               tabindex="-1"
@@ -66,9 +66,9 @@
         </div>
         <div>
           <div
-            aria-labelledby="tab-22"
+            aria-labelledby="tab-38"
             data-cy="search-and-filter-tab"
-            id="tab-panel-21"
+            id="tab-panel-37"
             role="tabpanel"
           >
             <div
@@ -121,51 +121,67 @@
                       class="css-500t56-RangeInputWrapper egajxj62"
                     >
                       <div
-                        class="css-1esou8m-RangeInput egajxj61 leafygreen-ui-90q1a7"
+                        aria-labelledby="Range Lower Bound"
+                        class="leafygreen-ui-1br9h7w css-1esou8m-RangeInput egajxj61"
+                        data-lgid="lg-text_input"
                       >
                         <div
-                          class="leafygreen-ui-lzja97"
+                          class="leafygreen-ui-1iyoj2o"
+                        />
+                        <div
+                          class="leafygreen-ui-1c0ck9t"
                         >
-                          <input
-                            aria-invalid="false"
-                            aria-labelledby="Range Lower Bound"
-                            autocomplete="on"
-                            class="leafygreen-ui-lkup3q"
-                            data-cy="range-lower-bound"
-                            id="textinput-7"
-                            min="0"
-                            placeholder="0"
-                            required=""
-                            type="number"
-                            value=""
-                          />
                           <div
-                            class="lg-ui-icon-selector-0000 leafygreen-ui-dhxvhh"
-                          />
+                            class="leafygreen-ui-1ago99h"
+                          >
+                            <input
+                              aria-describedby=""
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-labelledby="Range Lower Bound"
+                              autocomplete="on"
+                              class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+                              data-cy="range-lower-bound"
+                              id="lg-form-field-input-60"
+                              min="0"
+                              placeholder="0"
+                              required=""
+                              type="number"
+                              value=""
+                            />
+                          </div>
                         </div>
                       </div>
                       <div
-                        class="css-1esou8m-RangeInput egajxj61 leafygreen-ui-90q1a7"
+                        aria-labelledby="Range Upper Bound"
+                        class="leafygreen-ui-1br9h7w css-1esou8m-RangeInput egajxj61"
+                        data-lgid="lg-text_input"
                       >
                         <div
-                          class="leafygreen-ui-lzja97"
+                          class="leafygreen-ui-1iyoj2o"
+                        />
+                        <div
+                          class="leafygreen-ui-1c0ck9t"
                         >
-                          <input
-                            aria-invalid="false"
-                            aria-labelledby="Range Upper Bound"
-                            autocomplete="on"
-                            class="leafygreen-ui-lkup3q"
-                            data-cy="range-upper-bound"
-                            id="textinput-8"
-                            min="0"
-                            placeholder="100"
-                            required=""
-                            type="number"
-                            value=""
-                          />
                           <div
-                            class="lg-ui-icon-selector-0000 leafygreen-ui-dhxvhh"
-                          />
+                            class="leafygreen-ui-1ago99h"
+                          >
+                            <input
+                              aria-describedby=""
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-labelledby="Range Upper Bound"
+                              autocomplete="on"
+                              class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+                              data-cy="range-upper-bound"
+                              id="lg-form-field-input-64"
+                              min="0"
+                              placeholder="100"
+                              required=""
+                              type="number"
+                              value=""
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -484,9 +500,9 @@
             </div>
           </div>
           <div
-            aria-labelledby="tab-24"
+            aria-labelledby="tab-40"
             data-cy="log-viewing-tab"
-            id="tab-panel-23"
+            id="tab-panel-39"
             role="tabpanel"
           />
         </div>
