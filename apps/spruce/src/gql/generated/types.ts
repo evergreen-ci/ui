@@ -58,6 +58,10 @@ export enum AccessLevel {
   View = "VIEW",
 }
 
+export type AddFavoriteProjectInput = {
+  projectIdentifier: Scalars["String"]["input"];
+};
+
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
@@ -317,7 +321,7 @@ export type CreateDistroInput = {
  */
 export type CreateProjectInput = {
   id?: InputMaybe<Scalars["String"]["input"]>;
-  identifier?: InputMaybe<Scalars["String"]["input"]>;
+  identifier: Scalars["String"]["input"];
   owner: Scalars["String"]["input"];
   repo: Scalars["String"]["input"];
   repoRefId?: InputMaybe<Scalars["String"]["input"]>;
@@ -1088,7 +1092,7 @@ export type MutationAddAnnotationIssueArgs = {
 
 export type MutationAddFavoriteProjectArgs = {
   identifier?: InputMaybe<Scalars["String"]["input"]>;
-  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
+  opts?: InputMaybe<AddFavoriteProjectInput>;
 };
 
 export type MutationAttachProjectToNewRepoArgs = {
@@ -1214,7 +1218,7 @@ export type MutationRemoveAnnotationIssueArgs = {
 
 export type MutationRemoveFavoriteProjectArgs = {
   identifier?: InputMaybe<Scalars["String"]["input"]>;
-  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
+  opts?: InputMaybe<RemoveFavoriteProjectInput>;
 };
 
 export type MutationRemoveItemFromCommitQueueArgs = {
@@ -1899,7 +1903,7 @@ export type ProjectSettings = {
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  projectId?: InputMaybe<Scalars["String"]["input"]>;
+  projectId: Scalars["String"]["input"];
   projectRef?: InputMaybe<ProjectInput>;
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
@@ -2138,6 +2142,10 @@ export type QueryUserArgs = {
 
 export type QueryVersionArgs = {
   versionId: Scalars["String"]["input"];
+};
+
+export type RemoveFavoriteProjectInput = {
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 export type RepoCommitQueueParams = {
@@ -4613,7 +4621,7 @@ export type AddAnnotationIssueMutation = {
 };
 
 export type AddFavoriteProjectMutationVariables = Exact<{
-  identifier: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 }>;
 
 export type AddFavoriteProjectMutation = {
@@ -4948,7 +4956,7 @@ export type RemoveAnnotationIssueMutation = {
 };
 
 export type RemoveFavoriteProjectMutationVariables = Exact<{
-  identifier: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 }>;
 
 export type RemoveFavoriteProjectMutation = {
