@@ -3,7 +3,7 @@ import Button from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import usePagination from "hooks/usePagination";
 
 interface Props {
   currentPage: number;
@@ -28,10 +28,8 @@ const Pagination: React.FC<Props> = ({
   pageSize,
   totalResults,
 }) => {
-  const updateQueryParams = useUpdateURLQueryParams();
-  const handleChange =
-    onChange ||
-    ((page: number) => updateQueryParams({ page: page.toString() }));
+  const { setPage } = usePagination();
+  const handleChange = onChange || setPage;
   const numPages = Math.ceil(totalResults / pageSize);
 
   const handlePrevClick = () => {

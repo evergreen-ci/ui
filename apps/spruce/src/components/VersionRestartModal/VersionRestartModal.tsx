@@ -202,7 +202,7 @@ const ConfirmationMessage = styled(Body)<BodyProps>`
   padding: ${size.s} 0;
 `;
 
-export const TitleContainer = styled.div`
+const TitleContainer = styled.div`
   margin-top: ${size.s};
 `;
 

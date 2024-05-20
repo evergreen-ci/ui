@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -15,7 +16,6 @@ dns.setDefaultResultOrder("ipv4first");
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    sourcemap: true,
     rollupOptions: {
       plugins: [
         injectVariablesInHTML({
@@ -33,31 +33,26 @@ export default defineConfig({
         }),
       ],
     },
+    sourcemap: true,
   },
-  // The resolve field for @leafygreen-ui/emotion is to prevent LG from pulling in SSR dependencies.
-  // It can be potentially removed upon the completion of https://jira.mongodb.org/browse/PD-1543.
-  resolve: {
-    alias: {
-      "@leafygreen-ui/emotion": path.resolve(
-        __dirname,
-        "./config/leafygreen-ui/emotion.ts",
-      ),
-    },
-    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
-  },
+
   plugins: [
     tsconfigPaths(),
     react({
-      jsxImportSource: "@emotion/react", // Enables use of css prop on JSX.
       babel: {
         // @emotion/babel-plugin injects styled component names (e.g. "StyledSelect") into HTML for dev
         // environments only. It can be toggled for production environments by modifying the parameter
         // autoLabel. (https://emotion.sh/docs/@emotion/babel-plugin)
         plugins: ["@emotion/babel-plugin", "import-graphql"],
       },
-      exclude: /\.stories\.tsx?$/, // Exclude storybook stories from fast refresh.
-      include: ["**/*.tsx", "**/*.ts"], // Only Typescript files should use fast refresh.
+      // Exclude storybook stories from fast refresh.
+      exclude: /\.stories\.tsx?$/,
       fastRefresh: true,
+      // Only Typescript files should use fast refresh.
+      include: ["**/*.tsx", "**/*.ts"],
+
+      // Enables use of css prop on JSX.
+      jsxImportSource: "@emotion/react",
     }),
     envCompatible({
       prefix: "REACT_APP_",
@@ -70,9 +65,9 @@ export default defineConfig({
       template: "treemap",
     }),
     sentryVitePlugin({
+      authToken: process.env.PARSLEY_SENTRY_AUTH_TOKEN,
       org: "mongodb-org",
       project: "parsley",
-      authToken: process.env.PARSLEY_SENTRY_AUTH_TOKEN,
       release: {
         name: process.env.npm_package_version,
       },
@@ -81,9 +76,28 @@ export default defineConfig({
       },
     }),
   ],
+
   // Setting jsxImportSource to @emotion/react raises a warning in the console. This line silences
   // the warning. (https://github.com/vitejs/vite/issues/8644)
   esbuild: {
     logOverride: { "this-is-undefined-in-esm": "silent" },
+  },
+
+  // The resolve field for @leafygreen-ui/emotion is to prevent LG from pulling in SSR dependencies.
+  // It can be potentially removed upon the completion of https://jira.mongodb.org/browse/PD-1543.
+  resolve: {
+    alias: {
+      "@leafygreen-ui/emotion": path.resolve(
+        __dirname,
+        "./config/leafygreen-ui/emotion.ts",
+      ),
+    },
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
+  },
+  test: {
+    environment: "jsdom",
+    globals: true,
+    pool: "forks", // https://vitest.dev/guide/common-errors.html#failed-to-terminate-worker
+    setupFiles: "./config/vitest/setupTests.ts",
   },
 });

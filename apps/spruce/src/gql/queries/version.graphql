@@ -69,11 +69,13 @@ query Version($id: String!) {
     project
     projectIdentifier
     projectMetadata {
+      branch
       id
       owner
       repo
     }
     repo
+    requester
     revision
     startTime
     status

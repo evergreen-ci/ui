@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { maxUptimeHours, validateUptimeSchedule } from "components/Spawn";
+import { validateUptimeSchedule, validator } from "components/Spawn";
 import {
   formToGql,
   getFormSchema,
@@ -11,7 +11,8 @@ import {
   useVirtualWorkstationDefaultExpiration,
   FormState,
 } from "components/Spawn/spawnHostModal";
-import { SpruceForm, ValidateProps } from "components/SpruceForm";
+import { SpruceForm } from "components/SpruceForm";
+import { defaultTimeZone } from "constants/fieldMaps";
 import { useToastContext } from "context/toast";
 import {
   SpawnHostMutation,
@@ -36,7 +37,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
-  const timeZone = useUserTimeZone();
+  const timeZone = useUserTimeZone() || defaultTimeZone;
 
   // Handle distroId, taskId query param
   const { search } = useLocation();
@@ -161,26 +162,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           setHasError(errors.length > 0);
         }}
         // @ts-expect-error rjsf v4 has insufficient typing for its validator
-        validate={validate(hostUptimeValidation?.enabledHoursCount ?? 0)}
+        validate={validator}
       />
     </ConfirmationModal>
   );
 };
-
-const validate = (enabledHoursCount: number) =>
-  (({ expirationDetails }, errors) => {
-    const { hostUptime } = expirationDetails ?? {};
-    if (!hostUptime) return errors;
-
-    const { useDefaultUptimeSchedule } = hostUptime;
-
-    if (!useDefaultUptimeSchedule) {
-      if (enabledHoursCount > maxUptimeHours) {
-        errors.expirationDetails?.hostUptime?.sleepSchedule?.addError(
-          "Insufficient hours",
-        );
-      }
-    }
-
-    return errors;
-  }) satisfies ValidateProps<FormState>;

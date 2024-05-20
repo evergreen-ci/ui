@@ -14,22 +14,20 @@ const textMessage =
   "Fetched a multiline log file\nSome more lines\nAnd some more";
 
 describe("useLogDownloader", () => {
-  const mockFetch = jest.fn();
+  const mockFetch = vi.fn();
 
   beforeEach(() => {
     global.fetch = mockFetch;
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("gets a good response from the log source and returns the array of log lines", async () => {
     const readableStream = createReadableStream([textMessage]);
 
     const response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
 
@@ -49,10 +47,10 @@ describe("useLogDownloader", () => {
     ]);
   });
   it("gets a bad response from the api and returns an error", async () => {
-    const mockFetchPromise = jest
+    const mockFetchPromise = vi
       .fn()
       .mockRejectedValue(new Error("Something went wrong"));
-    jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+    vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
     // RenderFakeToastContext is a mock of the ToastContext
     RenderFakeToastContext();
@@ -69,8 +67,6 @@ describe("useLogDownloader", () => {
     const readableStream = createReadableStream(["chunk1", "chunk2"]);
 
     const response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
 
@@ -90,8 +86,6 @@ describe("useLogDownloader", () => {
     const readableStream = createReadableStream(["chunk1\n", "chunk2\n", ""]);
 
     const response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
 
@@ -111,8 +105,6 @@ describe("useLogDownloader", () => {
     const readableStream = createReadableStream(["chunk1\n", "chunk2\n"]);
 
     const response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
 
@@ -142,8 +134,6 @@ describe("useLogDownloader", () => {
     ]);
 
     const response = new Response(readableStream, { status: 200 });
-    // @ts-expect-error
-    response.body = readableStream;
 
     mockFetch.mockResolvedValue(response);
 

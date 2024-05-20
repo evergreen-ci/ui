@@ -1,3 +1,4 @@
+import { clickSave } from "../../utils";
 import {
   getAccessRoute,
   getGeneralRoute,
@@ -5,7 +6,6 @@ import {
   repo,
   saveButtonEnabled,
 } from "./constants";
-import { clickSave } from "../../utils";
 
 describe("Repo Settings", () => {
   const origin = getGeneralRoute(repo);
@@ -202,7 +202,10 @@ describe("Repo Settings", () => {
       cy.visit(getAccessRoute(projectUseRepoEnabled));
       cy.dataCy("default-to-repo-button").click();
       cy.dataCy("default-to-repo-modal").should("be.visible");
-      cy.dataCy("default-to-repo-modal").contains("button", "Confirm").click();
+      cy.getInputByLabel('Type "confirm" to confirm your action').type(
+        "confirm",
+      );
+      cy.dataCy("default-to-repo-modal").contains("Confirm").click();
       cy.validateToast("success", "Successfully defaulted page to repo");
       cy.dataCy("navitem-patch-aliases").click();
       cy.dataCy("expandable-card-title").contains("my alias name");

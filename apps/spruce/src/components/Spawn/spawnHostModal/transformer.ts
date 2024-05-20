@@ -1,10 +1,10 @@
 import {
   MyPublicKeysQuery,
-  SleepScheduleInput,
   SpawnTaskQuery,
   SpawnHostMutationVariables,
 } from "gql/generated/types";
 import { stripNewLines } from "utils/string";
+import { getSleepSchedule } from "../utils";
 import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { FormState } from "./types";
 import { validateTask } from "./utils";
@@ -90,56 +90,4 @@ export const formToGql = ({
     ),
     taskSync: !!(loadData?.loadDataOntoHostAtStartup && loadData?.taskSync),
   };
-};
-
-const getSleepSchedule = (
-  {
-    sleepSchedule,
-    useDefaultUptimeSchedule,
-  }: FormState["expirationDetails"]["hostUptime"],
-  timeZone: string,
-): SleepScheduleInput => {
-  if (useDefaultUptimeSchedule) {
-    return getDefaultSleepSchedule({ timeZone });
-  }
-
-  const {
-    enabledWeekdays,
-    timeSelection: { endTime, runContinuously, startTime },
-  } = sleepSchedule;
-
-  const schedule = {
-    permanentlyExempt: false,
-    shouldKeepOff: false,
-    timeZone,
-    wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
-      if (!isEnabled) {
-        accum.push(i);
-      }
-      return accum;
-    }, []),
-  } as SleepScheduleInput;
-
-  if (!runContinuously) {
-    const startDate = new Date(startTime);
-    const stopDate = new Date(endTime);
-    schedule.dailyStartTime = `${startDate.getHours()}:${startDate.getMinutes()}`;
-    schedule.dailyStopTime = `${stopDate.getHours()}:${stopDate.getMinutes()}`;
-  }
-
-  return schedule;
-};
-
-const getDefaultSleepSchedule = ({ timeZone }): SleepScheduleInput => {
-  const sleepSchedule: SleepScheduleInput = {
-    dailyStartTime: "08:00",
-    dailyStopTime: "20:00",
-    permanentlyExempt: false,
-    // TODO: Add pause
-    shouldKeepOff: false,
-    timeZone,
-    wholeWeekdaysOff: [0, 6],
-  };
-
-  return sleepSchedule;
 };

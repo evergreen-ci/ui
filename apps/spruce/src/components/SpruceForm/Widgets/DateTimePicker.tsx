@@ -116,6 +116,7 @@ export const TimePicker: React.FC<
       <AntdTimePicker
         // @ts-expect-error
         getPopupContainer={getPopupContainer}
+        id={id}
         data-cy="time-picker"
         format={format}
         onChange={handleChange}

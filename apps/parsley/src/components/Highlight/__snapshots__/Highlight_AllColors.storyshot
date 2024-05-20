@@ -1,0 +1,103 @@
+<div>
+  <div>
+    <div>
+      Should be
+       
+      <mark
+        class="css-sd7oz2-Highlight e1fp893c0"
+        color="#71F6BA"
+        data-cy="highlight"
+      >
+        highlighted
+      </mark>
+    </div>
+    <div>
+      Should be
+       
+      <mark
+        class="css-1ri799q-Highlight e1fp893c0"
+        color="#C3E7FE"
+        data-cy="highlight"
+      >
+        highlighted
+      </mark>
+    </div>
+    <div>
+      Should be
+       
+      <mark
+        class="css-jwry9x-Highlight e1fp893c0"
+        color="#FFEAE5"
+        data-cy="highlight"
+      >
+        highlighted
+      </mark>
+    </div>
+    <div>
+      Should be
+       
+      <mark
+        class="css-e2k0v6-Highlight e1fp893c0"
+        color="#FFEC9E"
+        data-cy="highlight"
+      >
+        highlighted
+      </mark>
+    </div>
+    <div>
+      Should be
+       
+      <mark
+        class="css-f411kt-Highlight e1fp893c0"
+        color="#C0FAE6"
+        data-cy="highlight"
+      >
+        highlighted
+      </mark>
+    </div>
+    <div>
+      Should be
+       
+      <mark
+        class="css-1es4y0d-Highlight e1fp893c0"
+        color="#F1D4FD"
+        data-cy="highlight"
+      >
+        highlighted
+      </mark>
+    </div>
+    <div>
+      Should be
+       
+      <mark
+        class="css-19z8gvp-Highlight e1fp893c0"
+        color="#0498EC"
+        data-cy="highlight"
+      >
+        highlighted
+      </mark>
+    </div>
+    <div>
+      Should be
+       
+      <mark
+        class="css-64ldmn-Highlight e1fp893c0"
+        color="#E3FCF7"
+        data-cy="highlight"
+      >
+        highlighted
+      </mark>
+    </div>
+    <div>
+      Should be
+       
+      <mark
+        class="css-1faqh9b-Highlight e1fp893c0"
+        color="#FFCDC7"
+        data-cy="highlight"
+      >
+        highlighted
+      </mark>
+    </div>
+  </div>
+</div>

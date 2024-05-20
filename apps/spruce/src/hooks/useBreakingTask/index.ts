@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import { useToastContext } from "context/toast";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -15,8 +14,6 @@ import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommit
 import { isFailedTaskStatus } from "utils/statuses";
 
 export const useBreakingTask = (taskId: string) => {
-  const dispatchToast = useToastContext();
-
   const { data: taskData } = useQuery<
     BaseVersionAndTaskQuery,
     BaseVersionAndTaskQueryVariables
@@ -53,9 +50,6 @@ export const useBreakingTask = (taskId: string) => {
         ...bvOptionsBase,
         statuses: [TaskStatus.Failed],
       },
-    },
-    onError: (err) => {
-      dispatchToast.error(`Breaking commit unavailable: '${err.message}'`);
     },
   });
   const task = getTaskFromMainlineCommitsQuery(breakingTaskData);

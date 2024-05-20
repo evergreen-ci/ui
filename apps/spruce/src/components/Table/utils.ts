@@ -1,12 +1,4 @@
-import { OnChangeFn } from "@tanstack/react-table";
-
-export enum TableQueryParams {
-  Limit = "limit",
-  Page = "page",
-  SortBy = "sortBy",
-  SortDir = "sortDir",
-  Sorts = "sorts",
-}
+import { OnChangeFn } from "@leafygreen-ui/table";
 
 /**
  * `onChangeHandler` simplifies applying a side effect with one of react-table's callback functions (e.g. onColumnFiltersChange, onSortingChange).

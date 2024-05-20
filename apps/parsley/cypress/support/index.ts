@@ -1,4 +1,3 @@
-import "cypress-real-events";
 import "./commands";
 
 declare global {
@@ -19,6 +18,11 @@ declare global {
        * @example cy.addSearch('mySearch')
        */
       addSearch(search: string): void;
+      /**
+       * Custom command to validate that a value was copied to the clipboard.
+       * @example cy.assertValueCopiedToClipboard("This is some text")
+       */
+      assertValueCopiedToClipboard(text: string): void;
       /**
        * Custom command to click one of the toggles in the Details Menu panel.
        * @param toggleDataCy The data-cy attribute of the toggle to click.
@@ -45,7 +49,8 @@ declare global {
        * @example cy.editBounds({ lower: 5, upper: 10 })
        */
       editBounds(bounds: { upper?: string; lower?: string }): void;
-      /** Custom command to determine if an element is not contained in the viewport.
+      /**
+       * Custom command to determine if an element is not contained in the viewport.
        * @example cy.isNotContainedInViewport()
        * @example cy.isNotContainedInViewport().should('be.visible')
        */
@@ -98,11 +103,6 @@ declare global {
         message?: string,
         shouldClose?: boolean,
       ): void;
-      /**
-       * Custom command to validate that a value was copied to the clipboard.
-       * @example cy.assertValueCopiedToClipboard("This is some text")
-       */
-      assertValueCopiedToClipboard(text: string): void;
     }
   }
 }

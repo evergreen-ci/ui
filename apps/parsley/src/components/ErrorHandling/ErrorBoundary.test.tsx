@@ -6,11 +6,11 @@ const { cleanup } = mockEnvironmentVariables();
 
 describe("default error boundary", () => {
   beforeEach(() => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(console, "error").mockImplementation(() => {});
   });
   afterEach(() => {
     cleanup();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
   it("should render the passed in component", () => {
     const TestComponent = () => <div>Hello</div>;

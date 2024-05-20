@@ -29,7 +29,7 @@ reseed_database() {
 dump_database() {
     clean_up
     # Use 'mongodump' to create a database dump.
-    if ! mongodump --uri="$URI" -o "$DUMP_ROOT"; then
+    if ! mongodump --quiet --uri="$URI" -o "$DUMP_ROOT"; then
         echo "Error creating dump from $DB_NAME db."
         exit 1
     fi

@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
+import Popconfirm from "components/Popconfirm";
 import { QueryParams } from "constants/queryParams";
 import { size, zIndex } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
@@ -27,6 +28,9 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
 
+  const clearButtonRef = useRef(null);
+  const [clearButtonConfirmationOpen, setClearButtonConfirmationOpen] =
+    useState(false);
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -61,15 +65,25 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
 
   return (
     <Container>
+      <Popconfirm
+        data-cy="clear-bookmarks-popconfirm"
+        onConfirm={() => {
+          setBookmarks([]);
+          sendEvent({ name: "Cleared All Bookmarks" });
+        }}
+        open={clearButtonConfirmationOpen}
+        refEl={clearButtonRef}
+        setOpen={setClearButtonConfirmationOpen}
+      >
+        <div>Are you sure you want to clear all bookmarks?</div>
+      </Popconfirm>
       <Tooltip
         popoverZIndex={zIndex.tooltip}
         trigger={
           <StyledButton
+            ref={clearButtonRef}
             data-cy="clear-bookmarks"
-            onClick={() => {
-              setBookmarks([]);
-              sendEvent({ name: "Cleared All Bookmarks" });
-            }}
+            onClick={() => setClearButtonConfirmationOpen(true)}
             size="xsmall"
           >
             Clear
@@ -89,7 +103,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
               scrollToIndex(l);
             }}
           >
-            <span>{l}</span>
+            <span data-bookmark={l}>{l}</span>
             {l === shareLine && <StyledIcon glyph="Link" size="small" />}
           </LogLineNumber>
         ))}

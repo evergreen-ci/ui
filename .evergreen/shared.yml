@@ -305,6 +305,14 @@ functions:
       working_dir: ui/${app_dir}
       script: |
         ${PREPARE_SHELL}
+        yarn snapshot --reporter=default --reporter=junit --outputFile=../bin/vite/*.xml
+
+  yarn-snapshot-jest:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      script: |
+        ${PREPARE_SHELL}
         yarn test --ci --testPathPattern=snapshot.test.ts
 
   yarn-test:
@@ -313,7 +321,15 @@ functions:
       working_dir: ui
       script: |
         ${PREPARE_SHELL}
-        yarn test --ci --testPathIgnorePatterns=snapshot.test.ts --selectProjects ${build_variant}
+        yarn test --project=${build_variant} --reporter=default --reporter=junit --outputFile=./bin/vite/junit.xml
+
+  yarn-test-jest:
+    command: shell.exec
+    params:
+      working_dir: ui
+      script: |
+        ${PREPARE_SHELL}
+        yarn test:jest --ci --testPathIgnorePatterns=snapshot.test.ts --selectProjects ${build_variant}
 
   yarn-tsc:
     command: shell.exec
@@ -391,7 +407,10 @@ tasks:
   - name: snapshots
     commands:
       - func: yarn-snapshot
-      - func: attach-test-results
+
+  - name: snapshots-jest
+    commands:
+      - func: yarn-snapshot-jest
 
   - name: storybook
     commands:
@@ -400,6 +419,10 @@ tasks:
   - name: test
     commands:
     - func: yarn-test
+
+  - name: test-jest
+    commands:
+    - func: yarn-test-jest
 
   - name: type_check
     commands:

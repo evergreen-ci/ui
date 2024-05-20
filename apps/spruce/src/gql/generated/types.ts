@@ -378,6 +378,7 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
+  imageId?: Maybe<Scalars["String"]["output"]>;
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   mountpoints?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
@@ -443,6 +444,7 @@ export type DistroInput = {
   homeVolumeSettings: HomeVolumeSettingsInput;
   hostAllocatorSettings: HostAllocatorSettingsInput;
   iceCreamSettings: IceCreamSettingsInput;
+  imageId?: InputMaybe<Scalars["String"]["input"]>;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
@@ -851,17 +853,6 @@ export type JiraConfig = {
   __typename?: "JiraConfig";
   email?: Maybe<Scalars["String"]["output"]>;
   host?: Maybe<Scalars["String"]["output"]>;
-};
-
-export type JiraField = {
-  __typename?: "JiraField";
-  displayText: Scalars["String"]["output"];
-  field: Scalars["String"]["output"];
-};
-
-export type JiraFieldInput = {
-  displayText: Scalars["String"]["input"];
-  field: Scalars["String"]["input"];
 };
 
 export type JiraIssueSubscriber = {
@@ -1330,8 +1321,9 @@ export type MutationUpdatePublicKeyArgs = {
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
-  action: SpawnHostStatusActions;
-  hostId: Scalars["String"]["input"];
+  action?: InputMaybe<SpawnHostStatusActions>;
+  hostId?: InputMaybe<Scalars["String"]["input"]>;
+  updateSpawnHostStatusInput?: InputMaybe<UpdateSpawnHostStatusInput>;
 };
 
 export type MutationUpdateUserSettingsArgs = {
@@ -2599,12 +2591,10 @@ export type TaskTestsArgs = {
 export type TaskAnnotationSettings = {
   __typename?: "TaskAnnotationSettings";
   fileTicketWebhook: Webhook;
-  jiraCustomFields?: Maybe<Array<JiraField>>;
 };
 
 export type TaskAnnotationSettingsInput = {
   fileTicketWebhook?: InputMaybe<WebhookInput>;
-  jiraCustomFields?: InputMaybe<Array<JiraFieldInput>>;
 };
 
 export type TaskContainerCreationOpts = {
@@ -2919,6 +2909,12 @@ export type UpdateParsleySettingsInput = {
 export type UpdateParsleySettingsPayload = {
   __typename?: "UpdateParsleySettingsPayload";
   parsleySettings?: Maybe<ParsleySettings>;
+};
+
+export type UpdateSpawnHostStatusInput = {
+  action: SpawnHostStatusActions;
+  hostId: Scalars["String"]["input"];
+  shouldKeepOff?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /**
@@ -3775,11 +3771,6 @@ export type ProjectSettingsFieldsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -3977,11 +3968,6 @@ export type RepoSettingsFieldsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers: Array<{
       __typename?: "TriggerAlias";
@@ -4238,11 +4224,6 @@ export type ProjectPluginsSettingsFragment = {
       endpoint: string;
       secret: string;
     };
-    jiraCustomFields?: Array<{
-      __typename?: "JiraField";
-      displayText: string;
-      field: string;
-    }> | null;
   };
 };
 
@@ -4268,11 +4249,6 @@ export type RepoPluginsSettingsFragment = {
       endpoint: string;
       secret: string;
     };
-    jiraCustomFields?: Array<{
-      __typename?: "JiraField";
-      displayText: string;
-      field: string;
-    }> | null;
   };
 };
 
@@ -4379,11 +4355,6 @@ export type ProjectEventSettingsFragment = {
         endpoint: string;
         secret: string;
       };
-      jiraCustomFields?: Array<{
-        __typename?: "JiraField";
-        displayText: string;
-        field: string;
-      }> | null;
     };
     triggers?: Array<{
       __typename?: "TriggerAlias";
@@ -4813,6 +4784,7 @@ export type EditSpawnHostMutationVariables = Exact<{
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
   publicKey?: InputMaybe<PublicKeyInput>;
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sleepSchedule?: InputMaybe<SleepScheduleInput>;
 }>;
 
 export type EditSpawnHostMutation = {
@@ -5802,6 +5774,7 @@ export type DistroQuery = {
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
+    imageId?: string | null;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
     mountpoints?: Array<string | null> | null;
@@ -6297,17 +6270,6 @@ export type MainlineCommitsForHistoryQuery = {
           pusher: string;
           tag: string;
         }> | null;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
       }> | null;
       version?: {
         __typename?: "Version";
@@ -6375,17 +6337,6 @@ export type MainlineCommitsQuery = {
         message: string;
         order: number;
         revision: string;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
       }> | null;
       version?: {
         __typename?: "Version";
@@ -6471,6 +6422,16 @@ export type MyHostsQuery = {
     tag: string;
     uptime?: Date | null;
     user?: string | null;
+    sleepSchedule?: {
+      __typename?: "SleepSchedule";
+      dailyStartTime: string;
+      dailyStopTime: string;
+      permanentlyExempt: boolean;
+      shouldKeepOff: boolean;
+      temporarilyExemptUntil?: Date | null;
+      timeZone: string;
+      wholeWeekdaysOff: Array<number>;
+    } | null;
     distro?: {
       __typename?: "DistroInfo";
       id?: string | null;
@@ -6851,11 +6812,6 @@ export type ProjectEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7065,11 +7021,6 @@ export type ProjectEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7358,11 +7309,6 @@ export type ProjectSettingsQuery = {
           endpoint: string;
           secret: string;
         };
-        jiraCustomFields?: Array<{
-          __typename?: "JiraField";
-          displayText: string;
-          field: string;
-        }> | null;
       };
       triggers?: Array<{
         __typename?: "TriggerAlias";
@@ -7620,11 +7566,6 @@ export type RepoEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -7834,11 +7775,6 @@ export type RepoEventLogsQuery = {
               endpoint: string;
               secret: string;
             };
-            jiraCustomFields?: Array<{
-              __typename?: "JiraField";
-              displayText: string;
-              field: string;
-            }> | null;
           };
           triggers?: Array<{
             __typename?: "TriggerAlias";
@@ -8053,11 +7989,6 @@ export type RepoSettingsQuery = {
           endpoint: string;
           secret: string;
         };
-        jiraCustomFields?: Array<{
-          __typename?: "JiraField";
-          displayText: string;
-          field: string;
-        }> | null;
       };
       triggers: Array<{
         __typename?: "TriggerAlias";
@@ -9048,6 +8979,7 @@ export type VersionQuery = {
     project: string;
     projectIdentifier: string;
     repo: string;
+    requester: string;
     revision: string;
     startTime?: Date | null;
     status: string;
@@ -9109,6 +9041,7 @@ export type VersionQuery = {
     } | null;
     projectMetadata?: {
       __typename?: "Project";
+      branch: string;
       id: string;
       owner: string;
       repo: string;

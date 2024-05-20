@@ -41,9 +41,6 @@ const projectForm: PluginsFormState = {
     },
     ticketSearchProjects: [],
     useBuildBaron: false,
-    taskAnnotationSettings: {
-      jiraCustomFields: [],
-    },
     fileTicketWebhook: {
       endpoint: null,
       secret: null,
@@ -71,7 +68,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     id: "project",
     perfEnabled: true,
     taskAnnotationSettings: {
-      jiraCustomFields: [],
       fileTicketWebhook: {
         endpoint: null,
         secret: null,
@@ -109,14 +105,6 @@ const repoForm: PluginsFormState = {
       issueType: "Epic",
     },
     useBuildBaron: false,
-    taskAnnotationSettings: {
-      jiraCustomFields: [
-        {
-          field: "customField",
-          displayText: "Custom Field",
-        },
-      ],
-    },
     fileTicketWebhook: {
       endpoint: "endpoint",
       secret: "secret",
@@ -144,12 +132,6 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     id: "repo",
     perfEnabled: true,
     taskAnnotationSettings: {
-      jiraCustomFields: [
-        {
-          field: "customField",
-          displayText: "Custom Field",
-        },
-      ],
       fileTicketWebhook: {
         endpoint: "endpoint",
         secret: "secret",
