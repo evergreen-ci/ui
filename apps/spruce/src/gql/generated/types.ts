@@ -7226,7 +7226,7 @@ export type ProjectPatchesQuery = {
 };
 
 export type ProjectSettingsQueryVariables = Exact<{
-  identifier: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 }>;
 
 export type ProjectSettingsQuery = {

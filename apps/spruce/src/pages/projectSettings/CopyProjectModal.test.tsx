@@ -280,7 +280,7 @@ const projectSettingsMock: ApolloMock<
   request: {
     query: PROJECT_SETTINGS,
     variables: {
-      identifier: newProjectIdentifier,
+      projectIdentifier: newProjectIdentifier,
     },
   },
   result: {

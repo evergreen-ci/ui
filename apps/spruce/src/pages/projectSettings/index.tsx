@@ -40,13 +40,13 @@ const { validateObjectId } = validators;
 const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
   const dispatchToast = useToastContext();
-  const { [slugs.projectIdentifier]: identifier, [slugs.tab]: tab } =
+  const { [slugs.projectIdentifier]: projectIdentifier, [slugs.tab]: tab } =
     useParams<{
       [slugs.projectIdentifier]: string | null;
       [slugs.tab]: ProjectSettingsTabRoutes;
     }>();
   // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
-  const identifierIsObjectId = validateObjectId(identifier);
+  const identifierIsObjectId = validateObjectId(projectIdentifier);
   const [isRepo, setIsRepo] = useState<boolean>(false);
 
   const { sendEvent } = useProjectSettingsAnalytics();
@@ -56,7 +56,8 @@ const ProjectSettings: React.FC = () => {
     onError: () => {
       setIsRepo(true);
     },
-    sendAnalyticsEvent: (projectId: string, projectIdentifier: string) => {
+    // TODO: Fix this analytics event logic
+    sendAnalyticsEvent: (projectId: string) => {
       sendEvent({
         name: "Redirect to project identifier",
         projectId,
@@ -70,16 +71,16 @@ const ProjectSettings: React.FC = () => {
     ProjectSettingsQueryVariables
   >(PROJECT_SETTINGS, {
     skip: identifierIsObjectId,
-    variables: { identifier },
+    variables: { projectIdentifier },
     onError: (e) => {
       dispatchToast.error(
-        `There was an error loading the project ${identifier}: ${e.message}`,
+        `There was an error loading the project ${projectIdentifier}: ${e.message}`,
       );
     },
   });
 
   const repoId =
-    projectData?.projectSettings?.projectRef?.repoRefId || identifier;
+    projectData?.projectSettings?.projectRef?.repoRefId || projectIdentifier;
 
   // Assign project type in order to show/hide elements that should only appear for repos, attached projects, etc.
   let projectType: ProjectType;
@@ -107,7 +108,7 @@ const ProjectSettings: React.FC = () => {
       <Navigate
         replace
         to={getProjectSettingsRoute(
-          identifier,
+          projectIdentifier,
           ProjectSettingsTabRoutes.General,
         )}
       />
@@ -115,7 +116,7 @@ const ProjectSettings: React.FC = () => {
   }
 
   const sharedProps = {
-    identifier,
+    projectIdentifier,
     currentTab: tab,
   };
   const project =
@@ -133,11 +134,11 @@ const ProjectSettings: React.FC = () => {
 
   // If current project is a repo, use "owner/repo" since repos lack identifiers
   const projectLabel =
-    projectType === ProjectType.Repo ? `${owner}/${repo}` : identifier;
+    projectType === ProjectType.Repo ? `${owner}/${repo}` : projectIdentifier;
 
   return (
     <ProjectSettingsProvider>
-      <ProjectBanner projectIdentifier={identifier} />
+      <ProjectBanner projectIdentifier={projectIdentifier} />
       <SideNav aria-label="Project Settings" widthOverride={250}>
         <ButtonsContainer>
           <ProjectSelect
@@ -226,14 +227,14 @@ const ProjectSettings: React.FC = () => {
 
 const ProjectSettingsNavItem: React.FC<{
   currentTab: ProjectSettingsTabRoutes;
-  identifier: string;
+  projectIdentifier: string;
   tab: ProjectSettingsTabRoutes;
   title?: string;
-}> = ({ currentTab, identifier, tab, title }) => (
+}> = ({ currentTab, projectIdentifier, tab, title }) => (
   <SideNavItem
     active={tab === currentTab}
     as={Link}
-    to={getProjectSettingsRoute(identifier, tab)}
+    to={getProjectSettingsRoute(projectIdentifier, tab)}
     data-cy={`navitem-${tab}`}
   >
     {title || getTabTitle(tab).title}
