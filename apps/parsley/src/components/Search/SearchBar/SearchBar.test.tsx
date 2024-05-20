@@ -1,3 +1,4 @@
+import { getTestUtils } from "@leafygreen-ui/text-input";
 import { DIRECTION } from "context/LogContext/types";
 import { render, screen, userEvent, waitFor } from "test_utils";
 import SearchBar from ".";
@@ -9,14 +10,12 @@ describe("searchbar", () => {
 
   it("disables properly", () => {
     render(<SearchBar disabled />);
+    const { isDisabled } = getTestUtils();
     expect(screen.getByDataCy("searchbar-select")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
-    expect(screen.getByDataCy("searchbar-input")).toHaveAttribute(
-      "aria-disabled",
-      "true",
-    );
+    expect(isDisabled()).toBe(true);
   });
   it("should be able to paginate forwards by pressing Enter and keep focus", async () => {
     const user = userEvent.setup();
