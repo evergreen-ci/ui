@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const EVENT_LIMIT = 15;
+export const EVENT_LIMIT = 45;
 
 export const useEvents = (limit: number) => {
   const [allEventsFetched, setAllEventsFetched] = useState(false);
