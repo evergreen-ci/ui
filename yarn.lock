@@ -3425,23 +3425,24 @@
     prop-types "^15.8.1"
     react-transition-group "^4.4.5"
 
-"@leafygreen-ui/number-input@1.0.18":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/number-input/-/number-input-1.0.18.tgz#9564ffb4f46b81f9fbd389bef0ed9cf112ccb853"
-  integrity sha512-93Jd8b9it0wp5pgqjYUooAiMJ8MH8TuLkvyfIADJ49l1tgBhfSyPE8/qbGAIAYvxn3Hhc7OgUz8TlUrOWgHWiw==
+"@leafygreen-ui/number-input@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/number-input/-/number-input-2.0.0.tgz#982fc8d0114bac0171234a41cd0c589df933c621"
+  integrity sha512-PKUfh5Q7URkxahNGc6doWIHs0K6cNmYycFtz9TzhUEyVvGPOZyKxK7HFBlK1pSRsHV+SPhOBxnY4+wZVcyjdoQ==
   dependencies:
-    "@leafygreen-ui/a11y" "^1.4.11"
-    "@leafygreen-ui/button" "^21.0.10"
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^8.0.1"
-    "@leafygreen-ui/icon" "^11.25.0"
-    "@leafygreen-ui/lib" "^13.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/popover" "^11.1.1"
-    "@leafygreen-ui/select" "^11.1.0"
-    "@leafygreen-ui/tokens" "^2.2.0"
-    "@leafygreen-ui/tooltip" "^11.0.0"
-    "@leafygreen-ui/typography" "^18.0.1"
+    "@leafygreen-ui/a11y" "^1.4.13"
+    "@leafygreen-ui/button" "^21.2.0"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/form-field" "^1.2.0"
+    "@leafygreen-ui/hooks" "^8.1.3"
+    "@leafygreen-ui/icon" "^12.0.1"
+    "@leafygreen-ui/lib" "^13.3.0"
+    "@leafygreen-ui/palette" "^4.0.9"
+    "@leafygreen-ui/popover" "^11.3.1"
+    "@leafygreen-ui/select" "^12.0.0"
+    "@leafygreen-ui/tokens" "^2.6.0"
+    "@leafygreen-ui/tooltip" "^11.0.4"
+    "@leafygreen-ui/typography" "^19.1.0"
     lodash "^4.17.21"
 
 "@leafygreen-ui/pagination@1.0.12":
@@ -3598,7 +3599,7 @@
     lodash "^4.17.21"
     polished "^4.2.2"
 
-"@leafygreen-ui/select@12.0.0":
+"@leafygreen-ui/select@12.0.0", "@leafygreen-ui/select@^12.0.0":
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/select/-/select-12.0.0.tgz#8df5ae0fad8e781cb55fda7e012666ba74ec566b"
   integrity sha512-qr4mYIh9zXfgzp6kb8vuoDWxnAetk8c5YcGvrA4EScgKW3HhShQdyXO7V2gbGIoaGtl920E9jJj+IUkf8oDxSw==
@@ -3639,7 +3640,7 @@
     polished "^4.1.3"
     react-is "^18.0.1"
 
-"@leafygreen-ui/select@^11.0.1", "@leafygreen-ui/select@^11.1.0":
+"@leafygreen-ui/select@^11.0.1":
   version "11.2.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/select/-/select-11.2.2.tgz#1bfefdafe04f61594a698e66ba044e997b23c0d3"
   integrity sha512-lyFlXtP0gUacs0fI6aXkCdJKdAKoiYDsVAbF0LUS9yiE6ej7frWYibkJ2w1AV2WtIH3Ovm1hYQjNRqvBD7Ca9w==
@@ -3882,19 +3883,19 @@
     lodash "^4.17.21"
     polished "^4.2.2"
 
-"@leafygreen-ui/tooltip@^11.0.0":
-  version "11.0.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-11.0.2.tgz#a509ae89fc2a2d61eb1d678191e547529fdf3d5d"
-  integrity sha512-ka/x23w4tODgGVihjaJ5FKXARpBt3b7ir9NgGVSwMRIBTFHXqeSQo9WMwZWT3U94W9L7mHj6BCMxxuenNLu+cg==
+"@leafygreen-ui/tooltip@^11.0.0", "@leafygreen-ui/tooltip@^11.0.4":
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-11.0.4.tgz#0008b61cc0f2447e620705e15caf444529485537"
+  integrity sha512-oVzkqCKqTqL/jS90+D3dCjvguRKnbI6zrEtzGj4ve0DzRfTlM6qKJj56gFjoJ0uFrkra5s2OPL+3HbUgIPL26A==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^8.1.2"
-    "@leafygreen-ui/icon" "^12.0.0"
-    "@leafygreen-ui/lib" "^13.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/popover" "^11.3.0"
-    "@leafygreen-ui/tokens" "^2.5.1"
-    "@leafygreen-ui/typography" "^18.2.3"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/hooks" "^8.1.3"
+    "@leafygreen-ui/icon" "^12.0.1"
+    "@leafygreen-ui/lib" "^13.3.0"
+    "@leafygreen-ui/palette" "^4.0.9"
+    "@leafygreen-ui/popover" "^11.3.1"
+    "@leafygreen-ui/tokens" "^2.5.2"
+    "@leafygreen-ui/typography" "^19.0.0"
     lodash "^4.17.21"
     polished "^4.2.2"
 
@@ -4518,10 +4519,10 @@
     "@sentry/types" "7.114.0"
     "@sentry/utils" "7.114.0"
 
-"@sentry/babel-plugin-component-annotate@2.16.0":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@sentry/babel-plugin-component-annotate/-/babel-plugin-component-annotate-2.16.0.tgz#c831713b85516fb3f9da2985836ddf444dc634e6"
-  integrity sha512-+uy1qPkA5MSNgJ0L9ur/vNTydfdHwHnBX2RQ+0thsvkqf90fU788YjkkXwUiBBNuqNyI69JiOW6frixAWy7oUg==
+"@sentry/babel-plugin-component-annotate@2.16.1":
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/@sentry/babel-plugin-component-annotate/-/babel-plugin-component-annotate-2.16.1.tgz#da3bf4ec1c1dc68a97d6a7e27bd710001d6b07fb"
+  integrity sha512-pJka66URsqQbk6hTs9H1XFpUeI0xxuqLYf9Dy5pRGNHSJMtfv91U+CaYSWt03aRRMGDXMduh62zAAY7Wf0HO+A==
 
 "@sentry/browser@7.114.0":
   version "7.114.0"
@@ -4537,18 +4538,18 @@
     "@sentry/types" "7.114.0"
     "@sentry/utils" "7.114.0"
 
-"@sentry/bundler-plugin-core@2.16.0":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@sentry/bundler-plugin-core/-/bundler-plugin-core-2.16.0.tgz#0c33e7a054fb56e43bd160ac141f71dfebf6dda5"
-  integrity sha512-dhgIZsIR3L9KnE2OO5JJm6hPtStAjEPYKQsZzxRr69uVhd9xAvfXeXr0afKVNVEcIDksas6yMgHqwQ2wOXFIAg==
+"@sentry/bundler-plugin-core@2.16.1":
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/@sentry/bundler-plugin-core/-/bundler-plugin-core-2.16.1.tgz#9e053ac33954535c0f0e96fa7a7330a9e7ebac2e"
+  integrity sha512-n6z8Ts3T9HROLuY7tVEYpBKvS+P7+b8NdqxP7QBcwp2nuPUlN5Ola1ivFjk1p5a7wRYeN9zM8orGe4l2HeNfYA==
   dependencies:
     "@babel/core" "^7.18.5"
-    "@sentry/babel-plugin-component-annotate" "2.16.0"
+    "@sentry/babel-plugin-component-annotate" "2.16.1"
     "@sentry/cli" "^2.22.3"
     dotenv "^16.3.1"
     find-up "^5.0.0"
     glob "^9.3.2"
-    magic-string "0.27.0"
+    magic-string "0.30.8"
     unplugin "1.0.1"
 
 "@sentry/cli-darwin@2.31.0":
@@ -4656,12 +4657,12 @@
   dependencies:
     "@sentry/types" "7.114.0"
 
-"@sentry/vite-plugin@2.16.0":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@sentry/vite-plugin/-/vite-plugin-2.16.0.tgz#6650caa49460d47c2b032bdb95f74b9279e2cfc1"
-  integrity sha512-/7rFTpasql9fJ1KbruF0yDESKV/ojvOP9pL/qqwUffvA9iy9Bvw3kYzzyzd1YsiCiVBgftoCsFTKPcvL3A4rwQ==
+"@sentry/vite-plugin@2.16.1":
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/@sentry/vite-plugin/-/vite-plugin-2.16.1.tgz#47beb0d3472d053465764bfed495fe2f98189716"
+  integrity sha512-RSIyeqFG3PR5iJsZnagQxzOhM22z1Kh9DG+HQQsfVrxokzrWKRu/G17O2MIDh2I5iYEaL0Fkd/9RAXE4/b0aVg==
   dependencies:
-    "@sentry/bundler-plugin-core" "2.16.0"
+    "@sentry/bundler-plugin-core" "2.16.1"
     unplugin "1.0.1"
 
 "@sinclair/typebox@^0.27.8":
@@ -4869,21 +4870,12 @@
     polished "^4.2.2"
     ts-dedent "^2.2.0"
 
-"@storybook/addon-links@7.6.6":
-  version "7.6.6"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-7.6.6.tgz#9343bcbece713e1499e219a5a0cfc174d6b89f9b"
-  integrity sha512-NEcqOz6zZ1dJnCcVmYdaQTAMAGIb8NFAZGnr9DU0q+t4B1fTaWUgqLtBM5V6YqIrXGSC/oKLpjWUkS5UpswlHA==
+"@storybook/addon-links@8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-8.1.1.tgz#a14b0e01ce25a93e8e2ce64bd7efbc578230b411"
+  integrity sha512-pY6iDCzb10gaAxhzwfkB+iKJzuDYeZBG2gftt1vIoPSXr/VtkU7HLOb9PNige0ioO3szxV0bqTxFdonzMXCOTA==
   dependencies:
-    "@storybook/csf" "^0.1.2"
-    "@storybook/global" "^5.0.0"
-    ts-dedent "^2.0.0"
-
-"@storybook/addon-links@7.6.9":
-  version "7.6.9"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-7.6.9.tgz#51f5befd211320296404e566c6b5e6e6b5fc6d9c"
-  integrity sha512-s6XR1Y9y2B84S5jzV61MgWm4A/aOl5BMs5alFTtSIwQGSAr/gLtvITfyfMNA+QCfNBcBn5arY4o0GDiBoC+dhQ==
-  dependencies:
-    "@storybook/csf" "^0.1.2"
+    "@storybook/csf" "^0.1.7"
     "@storybook/global" "^5.0.0"
     ts-dedent "^2.0.0"
 
@@ -5723,10 +5715,10 @@
   dependencies:
     lodash "^4.17.15"
 
-"@storybook/csf@^0.1.0", "@storybook/csf@^0.1.2":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.3.tgz#79047a4dece94ba7c8e78003723e9bd9e071379a"
-  integrity sha512-IPZvXXo4b3G+gpmgBSBqVM81jbp2ePOKsvhgJdhyZJtkYQCII7rg9KKLQhvBQM5sLaF1eU6r0iuwmyynC9d9SA==
+"@storybook/csf@^0.1.0", "@storybook/csf@^0.1.2", "@storybook/csf@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@storybook/csf/-/csf-0.1.7.tgz#dcc6c16a353bc09c8c619ba1a23ba93b2aab0b9d"
+  integrity sha512-53JeLZBibjQxi0Ep+/AJTfxlofJlxy1jXcSKENlnKxHjWEYyHQCumMP5yTFjf7vhNnMjEpV3zx6t23ssFiGRyw==
   dependencies:
     type-fest "^2.19.0"
 
@@ -12388,19 +12380,19 @@ lz-string@^1.5.0:
   resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.5.0.tgz#c1ab50f77887b712621201ba9fd4e3a6ed099941"
   integrity sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==
 
-magic-string@0.27.0, magic-string@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.27.0.tgz#e4a3413b4bab6d98d2becffd48b4a257effdbbf3"
-  integrity sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==
-  dependencies:
-    "@jridgewell/sourcemap-codec" "^1.4.13"
-
-magic-string@^0.30.0:
+magic-string@0.30.8, magic-string@^0.30.0:
   version "0.30.8"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.30.8.tgz#14e8624246d2bedba70d5462aa99ac9681844613"
   integrity sha512-ISQTe55T2ao7XtlAStud6qwYPZjE4GK1S/BeVPus4jrq6JuOnQ00YKQC581RWhR122W7msZV263KzVeLoqidyQ==
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.4.15"
+
+magic-string@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.27.0.tgz#e4a3413b4bab6d98d2becffd48b4a257effdbbf3"
+  integrity sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==
+  dependencies:
+    "@jridgewell/sourcemap-codec" "^1.4.13"
 
 magic-string@^0.30.5:
   version "0.30.10"
