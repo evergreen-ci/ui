@@ -23,19 +23,6 @@ export enum PatchTasksQueryParams {
   Duration = "duration",
 }
 
-export const mapFilterParamToId = {
-  [RequiredQueryParams.Statuses]: TestSortCategory.Status,
-  [RequiredQueryParams.TestName]: TestSortCategory.TestName,
-} as const;
-
-export const mapIdToFilterParam = Object.entries(mapFilterParamToId).reduce(
-  (accum, [id, param]) => ({
-    ...accum,
-    [param]: id,
-  }),
-  {},
-);
-
 export type TableOnChange<D> = TableProps<D>["onChange"];
 
 export enum TaskTab {

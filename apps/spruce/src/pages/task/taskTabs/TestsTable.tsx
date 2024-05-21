@@ -24,19 +24,16 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
-import { useTableSort, useUpdateURLQueryParams, usePolling } from "hooks";
+import { useTableSort, usePolling } from "hooks";
+import usePagination from "hooks/usePagination";
 import { useQueryParams } from "hooks/useQueryParam";
-import {
-  RequiredQueryParams,
-  mapFilterParamToId,
-  mapIdToFilterParam,
-} from "types/task";
+import { RequiredQueryParams } from "types/task";
 import { TestStatus } from "types/test";
 import { queryString } from "utils";
+import { ParsedQueryStringValue, toSortString } from "utils/queryString";
 import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 
-const { getLimit, getPage, getString, parseSortString, queryParamAsNumber } =
-  queryString;
+const { parseSortString } = queryString;
 const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
@@ -46,40 +43,40 @@ interface TestsTableProps {
 
 export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { pathname } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
   const { sendEvent } = useTaskAnalytics();
 
   const [queryParams, setQueryParams] = useQueryParams();
-  const queryVariables = getQueryVariables(queryParams, task.id);
-  const { execution, limitNum, pageNum, sort } = queryVariables;
-  const sortBy = sort?.[0]?.sortBy;
+  const queryVariables = useTestsTableQueryVariables(
+    queryParams,
+    task.id,
+    task.execution,
+  );
+  const { limitNum, pageNum, sort } = queryVariables;
 
-  const appliedDefaultSort = useRef(null);
+  const appliedDefaultSort = useRef(false);
   useEffect(() => {
-    // Avoid race condition where this hook overwrites TaskTabs setting a default execution.
-    if (execution == null) {
-      return;
+    if (!appliedDefaultSort.current) {
+      // Avoid race condition where this hook overwrites TaskTabs setting a default execution.
+      if (task.execution == null) {
+        return;
+      }
+      if (sort.length === 0 && appliedDefaultSort.current === null) {
+        setQueryParams({
+          [TableQueryParams.Sorts]: toSortString(
+            [{ sortBy: TestSortCategory.Status, direction: SortDirection.Asc }],
+            "sortBy",
+          ),
+        });
+      }
+      appliedDefaultSort.current = true;
     }
-
-    if (
-      sortBy === undefined &&
-      updateQueryParams &&
-      appliedDefaultSort.current !== pathname
-    ) {
-      appliedDefaultSort.current = pathname;
-      updateQueryParams({
-        [TableQueryParams.SortBy]: TestSortCategory.Status,
-        [TableQueryParams.SortDir]: SortDirection.Asc,
-      });
-    }
-  }, [pathname, updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(TASK_TESTS, {
     variables: queryVariables,
-    skip: queryVariables.execution === null,
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -91,7 +88,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const updateFilters = (filterState: ColumnFiltersState) => {
     const updatedParams = {
       ...queryParams,
-      page: "0",
+      page: 0,
       ...emptyFilterQueryParams,
     };
 
@@ -197,76 +194,77 @@ const emptyFilterQueryParams = {
   [RequiredQueryParams.Statuses]: undefined,
 };
 
-const getInitialState = (queryParams: {
-  [key: string]: any;
-}): {
+const getInitialState = (
+  queryParams: ParsedQueryStringValue,
+): {
   initialFilters: ColumnFiltersState;
   initialSorting: SortingState;
 } => {
-  const {
-    [TableQueryParams.SortBy]: sortBy,
-    [TableQueryParams.SortDir]: sortDir,
-  } = queryParams;
+  const { [TableQueryParams.Sorts]: sortBy } = queryParams;
 
+  const parsedSort = parseSortString(sortBy as string, "id");
+
+  const initialSort = parsedSort.map(({ direction, id }) => ({
+    id,
+    desc: direction === SortDirection.Desc,
+  }));
+  const initialFilters = Object.entries(mapFilterParamToId).reduce(
+    (accum, [param, id]) => {
+      if (typeof queryParams[param] === "string") {
+        return [...accum, { id, value: queryParams[param] }];
+      }
+      return accum;
+    },
+    [],
+  );
   return {
-    initialSorting:
-      sortBy && sortDir
-        ? [{ id: sortBy, desc: sortDir === SortDirection.Desc }]
-        : [{ id: TestSortCategory.Status, desc: false }],
-    initialFilters: Object.entries(mapFilterParamToId).reduce(
-      (accum, [param, id]) => {
-        if (queryParams[param]?.length) {
-          return [...accum, { id, value: queryParams[param] }];
-        }
-        return accum;
-      },
-      [],
-    ),
+    initialSorting: initialSort || [
+      { id: TestSortCategory.Status, desc: false },
+    ],
+    initialFilters,
   };
 };
 
-const getQueryVariables = (
-  queryParams: { [key: string]: any },
+const useTestsTableQueryVariables = (
+  queryParams: ParsedQueryStringValue,
   taskId: string,
-): TaskTestsQueryVariables => {
-  // Detemining sort category
-  const parsedSortBy = getString(queryParams[TableQueryParams.SortBy]);
-  const testSortCategories: string[] = Object.values(TestSortCategory);
-  const sortBy = testSortCategories.includes(parsedSortBy)
-    ? (parsedSortBy as TestSortCategory)
-    : undefined;
-  const sorts = queryParams[TableQueryParams.Sorts];
+  execution: number,
+) => {
+  const { limit, page } = usePagination();
+  // Determining sort category
 
-  // Determining sort direction
-  const parsedDirection = getString(queryParams[TableQueryParams.SortDir]);
-  const direction =
-    parsedDirection === SortDirection.Desc
-      ? SortDirection.Desc
-      : SortDirection.Asc;
+  const sort = parseSortString(
+    queryParams[TableQueryParams.Sorts] as string,
+    "sortBy",
+  );
 
-  let sort = [];
-  if (sortBy && direction) {
-    sort = [{ sortBy, direction }];
-  } else if (sorts) {
-    sort = parseSortString(sorts, {
-      sortByKey: "sortBy",
-      sortDirKey: "direction",
-    });
-  }
+  const testName = (queryParams[RequiredQueryParams.TestName] as string) || "";
+  const rawStatuses = queryParams[RequiredQueryParams.Statuses] as string;
 
-  const testName = getString(queryParams[RequiredQueryParams.TestName]);
-  const rawStatuses = queryParams[RequiredQueryParams.Statuses];
   const statusList = (
     Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
   ).filter((v) => v && v !== TestStatus.All);
-  const execution = queryParams[RequiredQueryParams.Execution];
+
   return {
     id: taskId,
-    execution: queryParamAsNumber(execution),
     sort,
-    limitNum: getLimit(queryParams[PaginationQueryParams.Limit]),
+    limitNum: limit,
     statusList,
+    execution,
     testName,
-    pageNum: getPage(queryParams[PaginationQueryParams.Page]),
-  };
+    pageNum: page,
+  } satisfies TaskTestsQueryVariables;
 };
+
+const mapFilterParamToId = {
+  [RequiredQueryParams.Statuses]: TestSortCategory.Status,
+  [RequiredQueryParams.TestName]: TestSortCategory.TestName,
+} as const;
+
+const mapIdToFilterParam = Object.entries(mapFilterParamToId).reduce(
+  (accum, [id, param]) => ({
+    ...accum,
+    [param]: id,
+  }),
+  {},
+);
