@@ -1,12 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "types": ["vitest/globals"]
   },
   "include": [
     "src",
-    "config/jest/setup.ts",
-    "config/jest/setupTests.ts"
+    "./config/vitest/setupTests.ts"
   ],
   "exclude": [
     "node_modules",

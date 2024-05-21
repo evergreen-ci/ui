@@ -1,13 +1,20 @@
 import debounce from ".";
 
-jest.useFakeTimers();
 describe("debounce", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("should debounce the function", () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const debouncedFn = debounce(fn, 100);
     debouncedFn();
     expect(fn).not.toHaveBeenCalled();
-    jest.runAllTimers();
+    vi.runAllTimers();
     expect(fn).toHaveBeenCalledWith();
   });
 });

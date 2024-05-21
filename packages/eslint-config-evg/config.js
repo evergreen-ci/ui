@@ -8,7 +8,6 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    jest: true,
     node: true,
   },
   extends: [
@@ -76,17 +75,10 @@ module.exports = {
         ],
       },
     },
-    // For Jest files.
+    // For test files
     {
-      extends: ["plugin:testing-library/react", "plugin:jest/all"],
-      files: ["src/**/*.test.ts", "src/**/*.test.tsx"],
-      rules: {
-        "@typescript-eslint/unbound-method": OFF,
-        "jest/no-hooks": OFF,
-        "jest/no-mocks-import": OFF,
-        "jest/prefer-expect-assertions": OFF,
-        "jest/unbound-method": OFF,
-      },
+      files: ["src/**/*.test.ts?(x)"],
+      extends: ["plugin:testing-library/react"],
     },
     // For Storybook files.
     {

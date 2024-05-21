@@ -12,6 +12,7 @@ import {
   act,
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   userEvent,
   waitFor,
 } from "test_utils";
@@ -29,10 +30,13 @@ const wrapper = (mocks: MockedProviderProps["mocks"]) => {
 };
 
 describe("projectFiltersModal", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
   it("shows message when no filters are defined in project", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <ProjectFiltersModal open setOpen={jest.fn()} />,
+      <ProjectFiltersModal open setOpen={vi.fn()} />,
     );
     render(<Component />, {
       wrapper: wrapper([noFiltersMock, evergreenTaskMock]),
@@ -46,7 +50,7 @@ describe("projectFiltersModal", () => {
   it("lists all of a project's filters", async () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <ProjectFiltersModal open setOpen={jest.fn()} />,
+      <ProjectFiltersModal open setOpen={vi.fn()} />,
     );
     render(<Component />, {
       wrapper: wrapper([projectFiltersMock, evergreenTaskMock]),
@@ -64,7 +68,7 @@ describe("projectFiltersModal", () => {
     const user = userEvent.setup();
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <ProjectFiltersModal open setOpen={jest.fn()} />,
+      <ProjectFiltersModal open setOpen={vi.fn()} />,
     );
     render(<Component />, {
       route: "?filters=100my_filter_1",
@@ -86,7 +90,7 @@ describe("projectFiltersModal", () => {
   it("disables submit button when no filters have been selected", async () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <ProjectFiltersModal open setOpen={jest.fn()} />,
+      <ProjectFiltersModal open setOpen={vi.fn()} />,
     );
     render(<Component />, {
       wrapper: wrapper([projectFiltersMock, evergreenTaskMock]),
@@ -104,7 +108,7 @@ describe("projectFiltersModal", () => {
     const user = userEvent.setup();
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <ProjectFiltersModal open setOpen={jest.fn()} />,
+      <ProjectFiltersModal open setOpen={vi.fn()} />,
     );
     const { router } = render(<Component />, {
       route: "?filters=100original",

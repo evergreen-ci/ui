@@ -1,0 +1,8 @@
+<div>
+  <div
+    class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ewuhjas0 leafygreen-ui-n4itms"
+    data-cy="task-status-badge"
+  >
+    Succeeded
+  </div>
+</div>

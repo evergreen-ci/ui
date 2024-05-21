@@ -2,7 +2,7 @@ import type { Config } from "jest";
 
 const config: Config = {
   coverageReporters: ["text"],
-  projects: ["<rootDir>/apps/*"],
+  projects: ["<rootDir>/apps/spruce"],
   reporters: [
     "default",
     [
