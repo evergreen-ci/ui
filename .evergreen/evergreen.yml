@@ -56,9 +56,9 @@ buildvariants:
       - name: compile
       - name: e2e_test_spruce
       - name: lint
-      - name: snapshots
+      - name: snapshots-jest
       - name: storybook
-      - name: test
+      - name: test-jest
       - name: type_check
       - name: deploy_prod_spruce
         git_tag_only: true

@@ -5773,6 +5773,7 @@ export type DistroQuery = {
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
+    imageId?: string | null;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
     mountpoints?: Array<string | null> | null;

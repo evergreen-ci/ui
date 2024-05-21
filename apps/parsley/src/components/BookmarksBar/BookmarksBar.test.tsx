@@ -7,7 +7,7 @@ describe("bookmarks bar", () => {
       <BookmarksBar
         lineCount={0}
         processedLogLines={[]}
-        scrollToLine={jest.fn()}
+        scrollToLine={vi.fn()}
       />,
     );
     await waitFor(() => {
@@ -20,7 +20,7 @@ describe("bookmarks bar", () => {
       <BookmarksBar
         lineCount={1}
         processedLogLines={[1]}
-        scrollToLine={jest.fn()}
+        scrollToLine={vi.fn()}
       />,
     );
     await waitFor(() => {
@@ -33,7 +33,7 @@ describe("bookmarks bar", () => {
       <BookmarksBar
         lineCount={11}
         processedLogLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        scrollToLine={jest.fn()}
+        scrollToLine={vi.fn()}
       />,
     );
     await waitFor(() => {
@@ -47,7 +47,7 @@ describe("bookmarks bar", () => {
         failingLine={3}
         lineCount={11}
         processedLogLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        scrollToLine={jest.fn()}
+        scrollToLine={vi.fn()}
       />,
       {
         route: "?bookmarks=1&shareLine=5",
@@ -69,7 +69,7 @@ describe("bookmarks bar", () => {
       <BookmarksBar
         lineCount={11}
         processedLogLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        scrollToLine={jest.fn()}
+        scrollToLine={vi.fn()}
       />,
       {
         route: "?bookmarks=1,3&shareLine=5",
@@ -85,7 +85,7 @@ describe("bookmarks bar", () => {
 
   it("should call scrollToLine when clicking on a log line (with no collapsed lines)", async () => {
     const user = userEvent.setup();
-    const scrollToLine = jest.fn();
+    const scrollToLine = vi.fn();
     renderWithRouterMatch(
       <BookmarksBar
         lineCount={5}
@@ -103,7 +103,7 @@ describe("bookmarks bar", () => {
 
   it("should call scrollToLine when clicking on a log line (with collapsed lines)", async () => {
     const user = userEvent.setup();
-    const scrollToLine = jest.fn();
+    const scrollToLine = vi.fn();
     renderWithRouterMatch(
       <BookmarksBar
         lineCount={5}

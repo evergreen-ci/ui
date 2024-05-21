@@ -6,11 +6,11 @@ const { cleanup, mockEnv } = mockEnvironmentVariables();
 
 describe("should initialize error handlers according to release stage", () => {
   beforeEach(() => {
-    jest.spyOn(Sentry, "init").mockImplementation(jest.fn());
+    vi.spyOn(Sentry, "init").mockImplementation(vi.fn());
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
     cleanup();
   });
 
@@ -70,18 +70,17 @@ describe("should initialize error handlers according to release stage", () => {
 
 describe("should not initialize if the client is already running", () => {
   beforeEach(() => {
-    jest.spyOn(Sentry, "init").mockImplementation(jest.fn());
+    vi.spyOn(Sentry, "init").mockImplementation(vi.fn());
     mockEnv("NODE_ENV", "production");
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
     cleanup();
   });
 
   it("does not initialize Sentry twice", () => {
-    // @ts-expect-error - Type error occurs because the entire return value of getCurrentHub is not mocked
-    jest.spyOn(Sentry, "getClient").mockReturnValue(true);
+    vi.spyOn(Sentry, "isInitialized").mockReturnValue(true);
     initializeErrorHandling();
     expect(Sentry.init).not.toHaveBeenCalled();
   });

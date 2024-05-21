@@ -19,6 +19,7 @@ const distroData: DistroQuery["distro"] = {
   aliases: ["rhel71-power8", "rhel71-power8-build"],
   arch: Arch.Linux_64Bit,
   authorizedKeysFile: "",
+  imageId: "rhel71-power8",
   bootstrapSettings: {
     clientDir: "/home/evg/client",
     communication: CommunicationMethod.LegacySsh,

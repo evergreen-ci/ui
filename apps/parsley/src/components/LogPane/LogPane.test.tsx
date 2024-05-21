@@ -24,17 +24,17 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   </MockedProvider>
 );
 
-jest.mock("js-cookie");
-const mockedGet = Cookie.get as unknown as jest.Mock<string>;
+vi.mock("js-cookie");
 
 describe("logPane", () => {
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "true");
+    // @ts-expect-error
+    vi.spyOn(Cookie, "get").mockReturnValue("true");
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
-    jest.useRealTimers();
+    vi.restoreAllMocks();
+    vi.useRealTimers();
   });
 
   it("should render the virtualized list with the passed in row type", () => {
@@ -47,13 +47,13 @@ describe("logPane", () => {
   });
 
   it("should execute wrap functionality after log pane loads", async () => {
-    jest.useFakeTimers();
-    const mockedLogContext = jest.spyOn(logContext, "useLogContext");
-    const mockedSetWrap = jest.fn();
+    vi.useFakeTimers();
+    const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+    const mockedSetWrap = vi.fn();
 
-    // @ts-ignore-error - Only mocking a subset of useLogContext needed for this test.
     mockedLogContext.mockImplementation(() => ({
-      listRef: createRef<null>(),
+      listRef: createRef(),
+      // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       preferences: {
         setWrap: mockedSetWrap,
       },
@@ -64,7 +64,7 @@ describe("logPane", () => {
     render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
       wrapper,
     });
-    jest.advanceTimersByTime(100);
+    vi.advanceTimersByTime(100);
     await waitFor(() => {
       expect(mockedSetWrap).toHaveBeenCalledTimes(1);
     });
@@ -72,16 +72,16 @@ describe("logPane", () => {
 
   describe("should execute scroll functionality after log pane loads", () => {
     it("scrolls to failing line if jumpToFailingLineEnabled is true", async () => {
-      jest.useFakeTimers();
-      const mockedLogContext = jest.spyOn(logContext, "useLogContext");
-      const mockedScrollToLine = jest.fn();
+      vi.useFakeTimers();
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      const mockedScrollToLine = vi.fn();
 
-      // @ts-ignore-error - Only mocking a subset of useLogContext needed for this test.
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
-        listRef: createRef<null>(),
+        listRef: createRef(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
-          setWrap: jest.fn(),
+          setWrap: vi.fn(),
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
@@ -91,7 +91,7 @@ describe("logPane", () => {
       render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
         wrapper,
       });
-      jest.advanceTimersByTime(100);
+      vi.advanceTimersByTime(100);
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalledTimes(1);
       });
@@ -99,16 +99,16 @@ describe("logPane", () => {
     });
 
     it("scrolls to share line, which takes precedence over failing line", async () => {
-      jest.useFakeTimers();
-      const mockedLogContext = jest.spyOn(logContext, "useLogContext");
-      const mockedScrollToLine = jest.fn();
+      vi.useFakeTimers();
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      const mockedScrollToLine = vi.fn();
 
-      // @ts-ignore-error - Only mocking a subset of useLogContext needed for this test.
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
-        listRef: createRef<null>(),
+        listRef: createRef(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
-          setWrap: jest.fn(),
+          setWrap: vi.fn(),
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
@@ -119,7 +119,7 @@ describe("logPane", () => {
         route: "?shareLine=5",
         wrapper,
       });
-      jest.advanceTimersByTime(100);
+      vi.advanceTimersByTime(100);
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalledTimes(1);
       });

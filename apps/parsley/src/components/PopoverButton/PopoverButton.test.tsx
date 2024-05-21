@@ -20,7 +20,7 @@ describe("popoverButton", () => {
   });
   it("calls the passed in event handler when the button is clicked", async () => {
     const user = userEvent.setup();
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(
       <PopoverButton
         buttonRef={createRef()}

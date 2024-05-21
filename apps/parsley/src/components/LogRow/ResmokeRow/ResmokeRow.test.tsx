@@ -14,7 +14,7 @@ const renderRow = (
 ) =>
   renderWithRouterMatch(<ResmokeRow {...props} />, {
     ...options,
-    wrapper: ({ children }: { children: React.ReactElement }) => (
+    wrapper: ({ children }: { children: React.ReactNode }) => (
       <LogContextProvider initialLogLines={logLines}>
         <MultiLineSelectContextProvider>
           {children}
@@ -42,7 +42,7 @@ describe("resmokeRow", () => {
     expect(screen.getByText(logLines[1])).toBeInTheDocument();
   });
   it("should apply syntax highlighting to resmoke lines if they have a color", () => {
-    const getResmokeLineColor = jest.fn().mockReturnValue("#ff0000");
+    const getResmokeLineColor = vi.fn().mockReturnValue("#ff0000");
     renderRow(
       { ...resmokeProps, getResmokeLineColor, lineIndex: 7, lineNumber: 7 },
       {},
@@ -89,8 +89,8 @@ const logLines = [
 
 const resmokeProps = {
   getLine: (index: number) => logLines[index],
-  getResmokeLineColor: jest.fn(),
-  scrollToLine: jest.fn(),
+  getResmokeLineColor: vi.fn(),
+  scrollToLine: vi.fn(),
 
   prettyPrint: false,
   range: { lowerRange: 0 },
