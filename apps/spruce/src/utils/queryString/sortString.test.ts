@@ -1,51 +1,50 @@
-import { SorterResult } from "antd/es/table/interface";
-import { SortDirection, TaskSortCategory, Task } from "gql/generated/types";
+import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { parseSortString, toSortString } from "./sortString";
 
 describe("parseSortString", () => {
   it("should parse a sort string with multiple sorts", () => {
-    expect(parseSortString("NAME:ASC;STATUS:DESC")).toStrictEqual([
+    expect(parseSortString("NAME:ASC;STATUS:DESC", "columnKey")).toStrictEqual([
       {
-        Key: TaskSortCategory.Name,
-        Direction: SortDirection.Asc,
+        columnKey: TaskSortCategory.Name,
+        direction: SortDirection.Asc,
       },
       {
-        Key: TaskSortCategory.Status,
-        Direction: SortDirection.Desc,
+        columnKey: TaskSortCategory.Status,
+        direction: SortDirection.Desc,
       },
     ]);
   });
   it("should not parse an invalid sort string", () => {
-    expect(parseSortString("FOO:ASC")).toStrictEqual([]);
+    expect(parseSortString("FOO:fase", "columnKey")).toStrictEqual([]);
   });
 });
 
 describe("toSortString", () => {
   it("should convert a sort value into a sort string", () => {
-    const input: SorterResult<Task> = {
+    const input = {
       columnKey: TaskSortCategory.Name,
-      order: "descend",
+      direction: SortDirection.Desc,
     };
-    expect(toSortString(input)).toBe("NAME:DESC");
+    expect(toSortString([input], "columnKey")).toBe("NAME:DESC");
   });
   it("should return undefined when there is an invalid sort value", () => {
-    const unsetSort: SorterResult<Task> = {
+    const unsetSort = {
       columnKey: TaskSortCategory.Status,
-      order: undefined,
+      direction: undefined,
     };
-    expect(toSortString(unsetSort)).toBeUndefined();
+    expect(toSortString([unsetSort], "columnKey")).toBe("");
   });
   it("should take a multi sort and convert it into a sort string", () => {
-    const multiSort: SorterResult<Task>[] = [
+    const multiSort = [
       {
         columnKey: TaskSortCategory.Status,
-        order: undefined,
+        direction: undefined,
       },
       {
         columnKey: TaskSortCategory.BaseStatus,
-        order: "ascend",
+        direction: SortDirection.Asc,
       },
     ];
-    expect(toSortString(multiSort)).toBe("BASE_STATUS:ASC");
+    expect(toSortString(multiSort, "columnKey")).toBe("BASE_STATUS:ASC");
   });
 });
