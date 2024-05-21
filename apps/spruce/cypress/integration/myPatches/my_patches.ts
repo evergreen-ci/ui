@@ -75,32 +75,31 @@ describe("My Patches Page", () => {
     it("Clicking the patch submission selector updates the URL, and renders patches", () => {
       cy.visit(MY_PATCHES_ROUTE);
       cy.dataCy("requester-selector").click();
-      const patchTitle = "main: EVG-7823 add a commit queue message (#4048)";
-      cy.dataCy("patch-card").first().contains(patchTitle);
+      const cliPatchTitle = "main: EVG-7823 add a commit queue message (#4048)";
+      const prPatchTitle =
+        "evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
+      cy.dataCy("patch-card").first().contains(cliPatchTitle);
       cy.dataCy("tree-select-options").contains("PR Commits").click();
       urlSearchParamsAreUpdated({
         pathname: MY_PATCHES_ROUTE,
         paramName: "requesters",
         search: "github_pull_request",
       });
-      cy.dataCy("patch-card")
-        .first()
-        .contains(
-          "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)",
-        );
+      cy.dataCy("patch-card").first().contains(prPatchTitle);
       cy.dataCy("tree-select-options").contains("All").click();
       urlSearchParamsAreUpdated({
         pathname: MY_PATCHES_ROUTE,
         paramName: "requesters",
         search: "all,github_pull_request,patch_request",
       });
+      cy.dataCy("patch-card").first().contains(cliPatchTitle);
       cy.dataCy("tree-select-options").contains("CLI").click();
       urlSearchParamsAreUpdated({
         pathname: MY_PATCHES_ROUTE,
         paramName: "requesters",
         search: "github_pull_request",
       });
-      cy.dataCy("patch-card").first().contains(patchTitle);
+      cy.dataCy("patch-card").first().contains(prPatchTitle);
     });
   });
   describe("Commit queue checkbox", () => {
