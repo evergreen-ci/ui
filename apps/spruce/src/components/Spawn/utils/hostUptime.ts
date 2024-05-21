@@ -252,6 +252,13 @@ export const validator = (({ expirationDetails }, errors) => {
   expirationDetails?: { hostUptime?: HostUptime; noExpiration: boolean };
 }>;
 
+/**
+ * isNullSleepSchedule indicates that the sleep schedule is unset.
+ * TODO: When sleep schedules are generally released, we should instead check whether noExpiration is set.
+ * Until then, noExpiration is insufficient because a user may have an unexpirable host running without a sleep schedule.
+ * @param sleepSchedule - sleepSchedule as returned from Evergreen
+ * @returns boolean indicating whether the sleep schedule is effectively unset.
+ */
 export const isNullSleepSchedule = (
   sleepSchedule: Optional<SleepSchedule, "timeZone">,
 ) => {

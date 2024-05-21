@@ -23,9 +23,13 @@ export const PauseSleepScheduleModal: React.FC<{
   return (
     <ConfirmationModal
       buttonText={`Pause host ${shouldKeepOff ? "indefinitely" : `until ${nextStartDay}`}`}
+      data-cy="pause-sleep-schedule-modal"
       open={open}
       onCancel={() => setOpen(false)}
-      onConfirm={() => handleConfirm(shouldKeepOff)}
+      onConfirm={() => {
+        handleConfirm(shouldKeepOff);
+        setOpen(false);
+      }}
       setOpen={setOpen}
       title="Configure Host Pause"
     >
@@ -41,8 +45,11 @@ export const PauseSleepScheduleModal: React.FC<{
         value={`${shouldKeepOff}`}
       >
         <Radio value="false">
-          Start host at its next scheduled time ({nextStartDay}
-          {nextStartTime && ` at ${nextStartTime}`})
+          Start host at its next scheduled time&nbsp;
+          <span data-cy="next-start">
+            ({nextStartDay}
+            {nextStartTime && ` at ${nextStartTime}`})
+          </span>
         </Radio>
         <Radio value="true">Pause host indefinitely</Radio>
       </RadioGroup>

@@ -5,6 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
+import { isNullSleepSchedule } from "components/Spawn";
 import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,
@@ -73,23 +74,18 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     refetchQueries: ["MyVolumes"],
   });
 
-  const handleClick =
-    (a: SpawnHostStatusActions, shouldKeepOff?: boolean) =>
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
-      updateSpawnHostStatus({
-        variables: {
-          updateSpawnHostStatusInput: {
-            hostId: host.id,
-            action: a,
-            shouldKeepOff,
-          },
+  const handleClick = (a: SpawnHostStatusActions, shouldKeepOff?: boolean) => {
+    spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
+    updateSpawnHostStatus({
+      variables: {
+        updateSpawnHostStatusInput: {
+          hostId: host.id,
+          action: a,
+          shouldKeepOff,
         },
-      });
-    };
+      },
+    });
+  };
 
   let checkboxLabel = "";
   if (host.noExpiration && host.distro?.isVirtualWorkStation) {
@@ -107,9 +103,12 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
 
   return (
     <>
-      {host.noExpiration && action === SpawnHostStatusActions.Stop ? (
+      {/* TODO: Replace with noExpiration check when sleep schedules are deployed */}
+      {!isNullSleepSchedule(host?.sleepSchedule) &&
+      action === SpawnHostStatusActions.Stop ? (
         <>
           <Button
+            data-cy="pause-unexpirable-host-button"
             disabled={loading || host.status === HostStatus.Stopping}
             leftGlyph={<Icon glyph={glyph} />}
             size={Size.XSmall}
@@ -130,13 +129,13 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
             disabled={loading || host.status === HostStatus.Stopping}
             leftGlyph={<Icon glyph={glyph} />}
             size={Size.XSmall}
-            onClick={handleClick(action)}
+            onClick={() => handleClick(action)}
           />
         )
       )}
       <Popconfirm
         confirmDisabled={!checkboxAcknowledged}
-        onConfirm={handleClick(SpawnHostStatusActions.Terminate)}
+        onConfirm={() => handleClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button
             size={Size.XSmall}
