@@ -42,9 +42,11 @@ const PageTitle: React.FC<Props> = ({
   usePageTitle(pageTitle);
 
   return loading ? (
-    <PageHeader size={size}>
-      <Skeleton />
-    </PageHeader>
+    <Container size={size}>
+      <PageHeader size={size}>
+        <Skeleton />
+      </PageHeader>
+    </Container>
   ) : (
     <Container size={size}>
       <PageHeader size={size}>
