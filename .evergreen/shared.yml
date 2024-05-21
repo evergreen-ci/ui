@@ -305,7 +305,7 @@ functions:
       working_dir: ui/${app_dir}
       script: |
         ${PREPARE_SHELL}
-        yarn snapshot --reporter=default
+        yarn snapshot
 
   yarn-test:
     command: shell.exec

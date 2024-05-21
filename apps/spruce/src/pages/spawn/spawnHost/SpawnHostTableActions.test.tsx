@@ -42,8 +42,10 @@ describe("copySSHCommandButton", () => {
 
     // Click on button to copy the SSH command and change tooltip message.
     await user.click(copySSHButton);
-    const clipboardText = await navigator.clipboard.readText();
-    expect(clipboardText).toBe(`ssh ${testUser}@${hostUrl}`);
+    await waitFor(async () => {
+      const clipboardText = await navigator.clipboard.readText();
+      expect(clipboardText).toBe(`ssh ${testUser}@${hostUrl}`);
+    });
     expect(screen.getByText("Copied!")).toBeInTheDocument();
 
     // Advance timer so that the original tooltip text will show.

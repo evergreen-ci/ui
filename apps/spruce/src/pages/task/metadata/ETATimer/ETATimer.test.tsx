@@ -44,7 +44,7 @@ describe("etaTimer", () => {
     await waitFor(() => {
       expect(screen.getByText("ETA: 0s")).toBeInTheDocument();
     });
-    expect(global.clearInterval).toHaveBeenCalledWith(expect.any(Number));
+    expect(global.clearInterval).toHaveBeenCalledTimes(2);
     expect(vi.getTimerCount()).toBe(0);
   });
   it("if the eta has been exceeded, it does not render", () => {
