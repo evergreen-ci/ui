@@ -2,9 +2,7 @@ import { SortingState } from "@leafygreen-ui/table";
 import { TableQueryParams, PaginationQueryParams } from "constants/queryParams";
 import { SortDirection } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
-import { queryString } from "utils";
-
-const { getSortString } = queryString;
+import { toSortString } from "utils/queryString";
 
 interface Props {
   sendAnalyticsEvents?: (sorter?: SortingState) => void;
@@ -21,7 +19,7 @@ type CallbackType = (sorter: SortingState) => void;
 export const useTableSort = (props?: Props): CallbackType => {
   const [queryParams, setQueryParams] = useQueryParams();
 
-  const tableChangeHandler = ((sorter: SortingState) => {
+  const tableChangeHandler = (sorter: SortingState) => {
     props?.sendAnalyticsEvents?.(sorter);
 
     const nextQueryParams = {
@@ -32,24 +30,15 @@ export const useTableSort = (props?: Props): CallbackType => {
       [TableQueryParams.SortBy]: undefined,
     };
 
-    if (sorter.length === 1) {
-      const { desc, id } = sorter[0];
-      nextQueryParams[TableQueryParams.SortDir] = desc
-        ? SortDirection.Desc
-        : SortDirection.Asc;
-      nextQueryParams[TableQueryParams.SortBy] = id;
-    } else if (sorter.length) {
-      const sortString = sorter
-        .map(({ desc, id }) =>
-          getSortString(id, desc ? SortDirection.Desc : SortDirection.Asc),
-        )
-        .filter(Boolean)
-        .join(";");
+    if (sorter.length) {
+      const sortArray = sorter.map(({ desc, id }) => ({
+        id,
+        direction: desc ? SortDirection.Desc : SortDirection.Asc,
+      }));
 
-      nextQueryParams[TableQueryParams.Sorts] = sortString;
+      nextQueryParams[TableQueryParams.Sorts] = toSortString(sortArray, "id");
     }
     setQueryParams(nextQueryParams);
-  }) satisfies CallbackType;
-
+  };
   return tableChangeHandler;
 };
