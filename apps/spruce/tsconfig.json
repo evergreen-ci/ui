@@ -3,7 +3,10 @@
   "compilerOptions": {
     "baseUrl": "src",
     "strict": false,
-    "types": ["vitest/globals"]
+    "types": [
+      "vitest/globals",
+      "vitest/jsdom"
+    ]
   },
   "exclude": [
     "node_modules",

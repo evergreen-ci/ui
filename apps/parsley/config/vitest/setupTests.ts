@@ -1,4 +1,4 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes. Works for vitest too!
+// jest-dom adds custom matchers for asserting on DOM nodes. Works for Vitest too!
 import "@testing-library/jest-dom";
 
 // The following two variables are dummy values used in auth.test.tsx.
