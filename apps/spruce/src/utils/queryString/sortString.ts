@@ -36,7 +36,7 @@ export const parseSortString = <K extends string>(
   str: string,
   key: K,
 ): WithDirection<K>[] => {
-  const arr = str.split(";").map((item) => {
+  const arr = (str || "").split(";").map((item) => {
     const [sortKey, direction] = item.split(":");
     if (!sortKey || !direction) {
       return undefined;

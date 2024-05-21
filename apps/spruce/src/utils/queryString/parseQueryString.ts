@@ -1,14 +1,18 @@
-import queryString from "query-string";
+import queryString, { ParsedQuery } from "query-string";
 import { PAGE_SIZES } from "constants/index";
 import { getDefaultPageSize } from "utils/url";
 
 interface ParseQueryString {
   [key: string]: string | string[];
 }
+export type ParsedQueryStringValue = ParsedQuery<string | boolean | number>;
+
 export const parseQueryString = (search: string): ParseQueryString =>
   queryString.parse(search, { arrayFormat: "comma" });
 
-export const parseQueryStringAsValue = (search: string) =>
+export const parseQueryStringAsValue = (
+  search: string,
+): ParsedQueryStringValue =>
   queryString.parse(search, {
     arrayFormat: "comma",
     parseBooleans: true,
