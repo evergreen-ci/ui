@@ -56,10 +56,9 @@ describe("deploy-production", () => {
     it("should deploy if new commits, user confirms and create tag succeeds", async () => {
       vi.mocked(getCommitMessages).mockReturnValue("getCommitMessages result");
       vi.mocked(prompts).mockResolvedValue({ value: true });
-      vi.mocked(tagUtils.createTagAndPush).mockResolvedValue();
       const createTagAndPushMock = vi
-        .spyOn(tagUtils, "createTagAndPush")
-        .mockImplementation(() => true);
+        .mocked(tagUtils.createTagAndPush)
+        .mockImplementation(() => {});
       vi.mocked(getCurrentlyDeployedCommit).mockReturnValue(
         "getCurrentlyDeployedCommit mock",
       );

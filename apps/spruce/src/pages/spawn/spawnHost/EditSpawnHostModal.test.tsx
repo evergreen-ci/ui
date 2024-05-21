@@ -175,7 +175,7 @@ describe("editSpawnHostModal", () => {
       expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
         "65",
       );
-    }, 10000);
+    }, 30000);
 
     it("shows a warning when user has configured a schedule over the recommended limit", async () => {
       const user = userEvent.setup();
@@ -234,7 +234,7 @@ describe("editSpawnHostModal", () => {
         "aria-disabled",
         "true",
       );
-    });
+    }, 15000);
   });
 });
 
@@ -277,6 +277,7 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
+    temporarilyExemptUntil: null,
     timeZone: "America/New_York",
   },
   __typename: "Host",

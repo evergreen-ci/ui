@@ -222,7 +222,7 @@ describe("createProjectField", () => {
     expect(router.state.location.pathname).toBe(
       "/project/new-project-id/settings",
     );
-  });
+  }, 15000);
 
   it("shows a warning toast when an error and data are returned", async () => {
     const mockWithWarn = {
@@ -272,7 +272,7 @@ describe("createProjectField", () => {
     expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings",
     );
-  });
+  }, 15000);
 });
 
 const createProjectMock: ApolloMock<

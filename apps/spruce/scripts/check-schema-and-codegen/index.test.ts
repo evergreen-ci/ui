@@ -1,10 +1,12 @@
-import fs from "fs";
+import { readFileSync } from "fs";
 import { checkSchemaAndCodegenCore } from ".";
-import { checkIsAncestor, getLatestCommitFromRemote } from "./utils";
+import {
+  checkIsAncestor,
+  generateTypes,
+  getLatestCommitFromRemote,
+} from "./utils";
 
-vi.mock("fs", () => ({
-  readFileSync: vi.fn().mockReturnValue(Buffer.from("file-contents")),
-}));
+vi.mock("fs");
 vi.mock("path", () => ({
   resolve: vi.fn().mockReturnValue("{path.resolve()}"),
 }));
@@ -19,10 +21,16 @@ describe("checkSchemaAndCodegen", () => {
   let consoleErrorSpy;
   beforeEach(() => {
     consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.mocked(readFileSync).mockReturnValue(Buffer.from("file-contents"));
     vi.mocked(checkIsAncestor).mockResolvedValue(true);
+    vi.mocked(generateTypes).mockResolvedValue("./types.ts");
     vi.mocked(getLatestCommitFromRemote).mockResolvedValue(
       "{getLatestCommitFromRemote()}",
     );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("returns 0 when offline", async () => {
@@ -45,7 +53,7 @@ describe("checkSchemaAndCodegen", () => {
 
   it("returns 1 when checkIsAncestor is false and the files are different", async () => {
     vi.mocked(checkIsAncestor).mockResolvedValue(false);
-    vi.mocked(fs.readFileSync)
+    vi.mocked(readFileSync)
       .mockReturnValueOnce(Buffer.from("content1"))
       .mockReturnValueOnce(Buffer.from("content2"));
     await expect(checkSchemaAndCodegenCore()).resolves.toBe(1);
@@ -59,7 +67,7 @@ describe("checkSchemaAndCodegen", () => {
   });
 
   it("returns 1 when checkIsAncestor returns true and the files are different", async () => {
-    vi.mocked(fs.readFileSync)
+    vi.mocked(readFileSync)
       .mockReturnValueOnce(Buffer.from("content1"))
       .mockReturnValueOnce(Buffer.from("content2"));
     await expect(checkSchemaAndCodegenCore()).resolves.toBe(1);

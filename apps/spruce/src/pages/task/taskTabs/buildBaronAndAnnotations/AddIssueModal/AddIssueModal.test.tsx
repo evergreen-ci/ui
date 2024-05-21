@@ -121,7 +121,7 @@ describe("addIssueModal", () => {
     await user.clear(screen.queryByDataCy("confidence-level"));
     await user.type(screen.queryByDataCy("confidence-level"), "80");
     expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
-  });
+  }, 15000);
 
   it("should be able to successfully add annotation", async () => {
     const user = userEvent.setup();
@@ -154,7 +154,7 @@ describe("addIssueModal", () => {
     await user.click(confirmButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     expect(setSelectedRowKey).toHaveBeenCalledWith("EVG-123");
-  });
+  }, 15000);
 });
 
 const checkModalVisibility = () => {

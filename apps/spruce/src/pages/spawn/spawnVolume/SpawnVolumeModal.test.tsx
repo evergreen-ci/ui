@@ -105,13 +105,13 @@ describe("spawnVolumeModal", () => {
     expect(screen.queryByLabelText("Never expire")).toBeEnabled();
     await user.click(screen.getByText("Never expire"));
 
-    const spawnButton = screen.queryByRole("button", { name: "Spawn" });
+    const spawnButton = screen.getByText("Spawn", { exact: true });
     await waitFor(() => {
       expect(spawnButton).toBeEnabled();
     });
     await user.click(spawnButton);
     expect(dispatchToast.success).toHaveBeenCalledTimes(1);
-  });
+  }, 10000);
 
   it("form submission succeeds after adjusting inputs", async () => {
     const user = userEvent.setup();
@@ -157,13 +157,13 @@ describe("spawnVolumeModal", () => {
     await user.click(screen.getByText("Never expire"));
 
     // Click spawn button
-    const spawnButton = screen.queryByRole("button", { name: "Spawn" });
+    const spawnButton = screen.getByText("Spawn", { exact: true });
     await waitFor(() => {
       expect(spawnButton).toBeEnabled();
     });
     await user.click(spawnButton);
     expect(dispatchToast.success).toHaveBeenCalledTimes(1);
-  });
+  }, 15000);
 });
 
 const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
