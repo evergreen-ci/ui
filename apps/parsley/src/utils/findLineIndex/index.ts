@@ -1,4 +1,4 @@
-import { ProcessedLogLines } from "types/logs";
+import { ProcessedLogLines, isSkippedLinesRow } from "types/logs";
 import { isCollapsedRow } from "utils/collapsedRow";
 
 /**
@@ -27,8 +27,12 @@ export const findLineIndex = (
   // If the item is a collapsed row, we'll shift our search depending on the first and last line numbers
   // in the collapsed row.
   if (isCollapsedRow(midItem)) {
-    const firstItem = midItem[0];
-    const lastItem = midItem[midItem.length - 1];
+    const firstItem = isSkippedLinesRow(midItem)
+      ? midItem.lineStart
+      : midItem[0];
+    const lastItem = isSkippedLinesRow(midItem)
+      ? midItem.lineEnd
+      : midItem[midItem.length - 1];
     if (firstItem <= lineNumber && lineNumber <= lastItem) {
       return midIdx;
     }

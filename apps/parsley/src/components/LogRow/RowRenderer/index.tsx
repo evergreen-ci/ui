@@ -1,7 +1,11 @@
 import { LogRenderingTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
-import { ProcessedLogLines } from "types/logs";
+import {
+  ProcessedLogLines,
+  getSkippedLinesRange,
+  isSkippedLinesRow,
+} from "types/logs";
 import { isCollapsedRow } from "utils/collapsedRow";
 import AnsiRow from "../AnsiRow";
 import CollapsedRow from "../CollapsedRow";
@@ -56,9 +60,12 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
   const result = (index: number) => {
     const processedLogLine = processedLogLines[index];
     if (isCollapsedRow(processedLogLine)) {
+      const collapseLines = isSkippedLinesRow(processedLogLine)
+        ? getSkippedLinesRange(processedLogLine)
+        : processedLogLine;
       return (
         <CollapsedRow
-          collapsedLines={processedLogLine}
+          collapsedLines={collapseLines}
           expandLines={expandLines}
           lineIndex={index}
         />
