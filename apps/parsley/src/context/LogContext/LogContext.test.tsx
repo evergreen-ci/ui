@@ -3,7 +3,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { MockInstance } from "vitest";
 import { LogRenderingTypes } from "constants/enums";
 import { act, renderHook, waitFor } from "test_utils";
-import { isCollapsedRow } from "utils/collapsedRow";
+import { isCollapsedRow } from "utils/logRowTypes";
 import { LogContextProvider, useLogContext } from ".";
 import { DIRECTION } from "./types";
 

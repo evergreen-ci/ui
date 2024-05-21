@@ -1,3 +1,4 @@
+import { ProcessedLogLines } from "types/logs";
 import searchLogs from ".";
 
 describe("searchLogs", () => {
@@ -57,10 +58,15 @@ describe("searchLogs", () => {
   it("should not match on folded lines and should return the processedLogLine index", () => {
     const lines = ["line 1", "line 2", "line 3", "line 4"];
     const getLine = vi.fn((index: number) => lines[index]);
+    const processedLogLines: ProcessedLogLines = [
+      0,
+      { lineEnd: 3, lineStart: 1, rowType: "SkippedLines" },
+      3,
+    ];
     const options = {
       getLine,
       lowerBound: 0,
-      processedLogLines: [0, [1, 2], 3],
+      processedLogLines,
       searchRegex: /line/,
     };
     const matchingIndices = searchLogs(options);
@@ -72,10 +78,15 @@ describe("searchLogs", () => {
   it("should not search lines that are folded or if they are out of the range", () => {
     const lines = ["line 1", "line 2", "line 3", "line 4"];
     const getLine = vi.fn((index: number) => lines[index]);
+    const processedLogLines: ProcessedLogLines = [
+      0,
+      { lineEnd: 3, lineStart: 1, rowType: "SkippedLines" },
+      3,
+    ];
     const options = {
       getLine,
       lowerBound: 0,
-      processedLogLines: [0, [1, 2], 3],
+      processedLogLines,
       searchRegex: /line/,
       upperBound: 1,
     };

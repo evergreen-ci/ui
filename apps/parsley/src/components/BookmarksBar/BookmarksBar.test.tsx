@@ -107,7 +107,11 @@ describe("bookmarks bar", () => {
     renderWithRouterMatch(
       <BookmarksBar
         lineCount={5}
-        processedLogLines={[[0, 1, 2], 3, 4]}
+        processedLogLines={[
+          { lineEnd: 3, lineStart: 0, rowType: "SkippedLines" },
+          3,
+          4,
+        ]}
         scrollToLine={scrollToLine}
       />,
       {

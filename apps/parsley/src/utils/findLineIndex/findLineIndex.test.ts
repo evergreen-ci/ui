@@ -1,6 +1,15 @@
+import { ProcessedLogLines } from "types/logs";
 import { findLineIndex } from ".";
 
-const processedLines = [0, [1, 2], 3, [4, 5], 6, [7, 8, 9], 10];
+const processedLines: ProcessedLogLines = [
+  0,
+  { lineEnd: 3, lineStart: 1, rowType: "SkippedLines" },
+  3,
+  { lineEnd: 5, lineStart: 4, rowType: "SkippedLines" },
+  6,
+  { lineEnd: 10, lineStart: 5, rowType: "SkippedLines" },
+  10,
+];
 
 describe("findLineIndex", () => {
   it("should correctly determine index when line number exists in array", () => {

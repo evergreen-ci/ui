@@ -1,3 +1,4 @@
+import { ProcessedLogLines } from "types/logs";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
 describe("getLinesInProcessedLogLinesFromSelectedLines", () => {
@@ -20,7 +21,13 @@ describe("getLinesInProcessedLogLinesFromSelectedLines", () => {
     expect(result).toStrictEqual([2, 3]);
   });
   it("should not return collapsed lines", () => {
-    const processedLogLines = [1, 2, [3], 4, 5];
+    const processedLogLines: ProcessedLogLines = [
+      1,
+      2,
+      { lineEnd: 4, lineStart: 3, rowType: "SkippedLines" },
+      4,
+      5,
+    ];
     const selectedLines = { endingLine: 4, startingLine: 2 };
     const result = getLinesInProcessedLogLinesFromSelectedLines(
       processedLogLines,

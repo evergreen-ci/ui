@@ -6,7 +6,7 @@ import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import { ExpandedLine, ExpandedLines } from "types/logs";
+import { ProcessedLogLines } from "types/logs";
 import CollapsedRow from ".";
 
 export default {
@@ -15,25 +15,18 @@ export default {
 } satisfies CustomMeta<typeof CollapsedRow>;
 
 const CollapsedRowStory = (args: React.ComponentProps<typeof CollapsedRow>) => {
-  const [rows, setRows] = useState(args.collapsedLines);
-  const expandLines = (expandedLines: ExpandedLines) => {
-    const withinRange = (index: number, line: ExpandedLine) =>
-      index >= line[0] && index <= line[1];
-
-    const intervals = rows.filter(
-      (line) =>
-        !withinRange(line, expandedLines[0]) &&
-        !withinRange(line, expandedLines[1]),
-    );
-    setRows(intervals);
+  const [rows, setRows] = useState([args.lineStart, args.lineEnd]);
+  const expandLines = () => {
+    setRows([rows[0] + 5, rows[1] - 5]);
   };
 
   return (
     <Container>
       <CollapsedRow
-        collapsedLines={rows}
         expandLines={expandLines}
+        lineEnd={rows[1]}
         lineIndex={args.lineIndex}
+        lineStart={rows[0]}
       />
     </Container>
   );
@@ -44,8 +37,9 @@ export const CollapsedRowSingle: CustomStoryObj<typeof CollapsedRow> = {
     expandLines: { action: "expandLines" },
   },
   args: {
+    lineEnd: 100,
     // Initialize an array with 100 collapsed lines.
-    collapsedLines: Array.from({ length: 100 }, (_, i) => i),
+    lineStart: 0,
   },
   render: (args) => <CollapsedRowStory {...args} />,
 };
@@ -157,7 +151,14 @@ const resmokeLogLines = [
   "[j0:sec1] Starting mongod on port 20002...",
 ];
 
-const collapsedLogLines = [0, 1, 2, [3, 4, 5], 6, 7];
+const collapsedLogLines: ProcessedLogLines = [
+  0,
+  1,
+  2,
+  { lineEnd: 6, lineStart: 3, rowType: "SkippedLines" },
+  6,
+  7,
+];
 
 const Container = styled.div`
   height: 400px;
