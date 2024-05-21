@@ -195,6 +195,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         </AddButtonContainer>
       )}
       <ArrayContainer
+        id={id}
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}
         data-cy={arrayDataCy}

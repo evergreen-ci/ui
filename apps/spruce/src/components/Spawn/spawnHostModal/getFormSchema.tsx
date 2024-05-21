@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { add } from "date-fns";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -8,10 +7,11 @@ import {
   SpawnTaskQuery,
   MyVolumesQuery,
 } from "gql/generated/types";
-import { isProduction } from "utils/environmentVariables";
 import { shortenGithash } from "utils/string";
-import { getHostUptimeSchema } from "../getFormSchema";
-import { getDefaultExpiration } from "../utils";
+import {
+  getExpirationDetailsSchema,
+  getPublicKeySchema,
+} from "../getFormSchema";
 import { DEFAULT_VOLUME_SIZE } from "./constants";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
@@ -71,7 +71,14 @@ export const getFormSchema = ({
   const availableVolumes = volumes
     ? volumes.filter((v) => v.homeVolume && !v.hostID)
     : [];
-  const hostUptime = getHostUptimeSchema({ hostUptimeValidation, timeZone });
+
+  const expirationDetails = getExpirationDetailsSchema({
+    disableExpirationCheckbox,
+    hostUptimeValidation,
+    noExpirationCheckboxTooltip,
+    timeZone,
+  });
+  const publicKeys = getPublicKeySchema({ myPublicKeys });
 
   return {
     fields: {},
@@ -104,158 +111,8 @@ export const getFormSchema = ({
             },
           },
         },
-        publicKeySection: {
-          type: "object",
-          title: "Key selection",
-          properties: {
-            useExisting: {
-              default: true,
-              type: "boolean" as "boolean",
-              title: "",
-              oneOf: [
-                {
-                  type: "boolean" as "boolean",
-                  title: "Use existing key",
-                  enum: [true],
-                },
-                {
-                  type: "boolean" as "boolean",
-                  title: "Add new key",
-                  enum: [false],
-                },
-              ],
-            },
-          },
-          dependencies: {
-            useExisting: {
-              oneOf: [
-                {
-                  properties: {
-                    useExisting: {
-                      enum: [true],
-                    },
-                    publicKeyNameDropdown: {
-                      title: "Choose key",
-                      type: "string" as "string",
-                      default: myPublicKeys?.length
-                        ? myPublicKeys[0]?.name
-                        : "",
-                      minLength: 1,
-                      oneOf:
-                        myPublicKeys?.length > 0
-                          ? myPublicKeys.map((d) => ({
-                              type: "string" as "string",
-                              title: d.name,
-                              enum: [d.name],
-                            }))
-                          : [
-                              {
-                                type: "string" as "string",
-                                title: "No keys available.",
-                                enum: [""],
-                              },
-                            ],
-                    },
-                  },
-                },
-                {
-                  properties: {
-                    useExisting: {
-                      enum: [false],
-                    },
-                    newPublicKey: {
-                      title: "Public key",
-                      type: "string" as "string",
-                      default: "",
-                      minLength: 1,
-                    },
-                    savePublicKey: {
-                      title: "Save Public Key",
-                      type: "boolean" as "boolean",
-                      default: false,
-                    },
-                  },
-                  dependencies: {
-                    savePublicKey: {
-                      oneOf: [
-                        {
-                          properties: {
-                            savePublicKey: {
-                              enum: [false],
-                            },
-                          },
-                        },
-                        {
-                          properties: {
-                            savePublicKey: {
-                              enum: [true],
-                            },
-                            newPublicKeyName: {
-                              title: "Key name",
-                              type: "string" as "string",
-                              default: "",
-                              minLength: 1,
-                            },
-                          },
-                        },
-                      ],
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
-        expirationDetails: {
-          title: "Expiration Details",
-          type: "object" as "object",
-          properties: {
-            noExpiration: {
-              default: false,
-              type: "boolean" as "boolean",
-              title: "",
-              oneOf: [
-                {
-                  type: "boolean" as "boolean",
-                  title: "Expirable Host",
-                  enum: [false],
-                },
-                {
-                  type: "boolean" as "boolean",
-                  title: "Unexpirable Host",
-                  enum: [true],
-                },
-              ],
-            },
-          },
-          dependencies: {
-            noExpiration: {
-              oneOf: [
-                {
-                  properties: {
-                    noExpiration: {
-                      enum: [false],
-                    },
-                    expiration: {
-                      type: "string" as "string",
-                      title: "Expiration",
-                      default: getDefaultExpiration(),
-                      minLength: 6,
-                    },
-                  },
-                },
-                {
-                  properties: {
-                    noExpiration: {
-                      enum: [true],
-                    },
-                    ...(!isProduction() && { hostUptime: hostUptime.schema }),
-                  },
-                },
-              ],
-            },
-          },
-        },
+        publicKeySection: publicKeys.schema,
+        expirationDetails: expirationDetails.schema,
         optionalInformationTitle: {
           title: "Optional Host Details",
           type: "null",
@@ -471,7 +328,7 @@ export const getFormSchema = ({
     },
     uiSchema: {
       requiredSection: {
-        "ui:fieldSetCSS": css`
+        "ui:elementWrapperCSS": css`
           display: flex;
         `,
         distro: {
@@ -488,22 +345,7 @@ export const getFormSchema = ({
           "ui:allowDeselect": false,
         },
       },
-      publicKeySection: {
-        useExisting: {
-          "ui:widget": widgets.RadioBoxWidget,
-        },
-        publicKeyNameDropdown: {
-          "ui:elementWrapperCSS": dropdownWrapperClassName,
-          "ui:data-cy": "key-select",
-          "ui:allowDeselect": false,
-          "ui:disabled": myPublicKeys?.length === 0,
-        },
-        newPublicKey: {
-          "ui:widget": LeafyGreenTextArea,
-          "ui:elementWrapperCSS": textAreaWrapperClassName,
-          "ui:data-cy": "key-value-text-area",
-        },
-      },
+      publicKeySection: publicKeys.uiSchema,
       userdataScriptSection: {
         userdataScript: {
           "ui:widget": LeafyGreenTextArea,
@@ -522,24 +364,10 @@ export const getFormSchema = ({
           "ui:data-cy": "setup-script-text-area",
         },
       },
-      expirationDetails: {
-        "ui:tooltipTitle": noExpirationCheckboxTooltip ?? "",
-        noExpiration: {
-          "ui:enumDisabled": disableExpirationCheckbox ? [true] : null,
-          "ui:data-cy": "expirable-radio-box",
-          "ui:widget": widgets.RadioBoxWidget,
-        },
-        hostUptime: hostUptime.uiSchema,
-        expiration: {
-          "ui:disableBefore": add(today, { days: 1 }),
-          "ui:disableAfter": add(today, { days: 30 }),
-          "ui:widget": "date-time",
-          "ui:elementWrapperCSS": datePickerCSS,
-        },
-      },
+      expirationDetails: expirationDetails.uiSchema,
       ...(hasValidTask && {
         loadData: {
-          "ui:fieldSetCSS": loadDataFieldSetCSS,
+          "ui:elementWrapperCSS": loadDataFieldSetCSS,
           loadDataOntoHostAtStartup: {
             "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
             "ui:customLabel": (
@@ -614,9 +442,3 @@ const childCheckboxCSS = css`
 const loadDataFieldSetCSS = css`
   margin-bottom: 20px;
 `;
-const datePickerCSS = css`
-  position: relative;
-  z-index: 1;
-`;
-
-const today = new Date();

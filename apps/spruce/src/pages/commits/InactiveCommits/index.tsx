@@ -7,7 +7,7 @@ import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHea
 import { DisplayModal } from "components/DisplayModal";
 import Icon from "components/Icon";
 import { StyledRouterLink } from "components/styles";
-import { getVersionRoute, getTriggerRoute } from "constants/routes";
+import { getVersionRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { CommitRolledUpVersions } from "types/commits";
@@ -152,23 +152,6 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         </StyledRouterLink>{" "}
         {getDateCopy(v.createTime, { omitTimezone: true })}
       </CommitTitleText>
-      {v.upstreamProject && (
-        <>
-          Triggered from:{" "}
-          <StyledRouterLink
-            to={getTriggerRoute({
-              upstreamOwner: v.upstreamProject.owner,
-              upstreamRepo: v.upstreamProject.repo,
-              triggerType: v.upstreamProject.triggerType,
-              upstreamRevision: v.upstreamProject.revision,
-              upstreamTask: v.upstreamProject.task,
-              upstreamVersion: v.upstreamProject.version,
-            })}
-          >
-            {v.upstreamProject.project}
-          </StyledRouterLink>
-        </>
-      )}
       <CommitBodyText>
         {v.ignored && <StyledIcon data-cy="ignored-icon" glyph="Ignored" />}
         {v.author} -{" "}

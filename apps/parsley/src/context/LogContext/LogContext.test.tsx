@@ -1,13 +1,14 @@
 import Cookie from "js-cookie";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MockInstance } from "vitest";
 import { LogRenderingTypes } from "constants/enums";
 import { act, renderHook, waitFor } from "test_utils";
 import { isCollapsedRow } from "utils/collapsedRow";
 import { LogContextProvider, useLogContext } from ".";
 import { DIRECTION } from "./types";
 
-jest.mock("js-cookie");
-const mockedGet = Cookie.get as unknown as jest.Mock<string>;
+vi.mock("js-cookie");
+const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const Router = ({
   children,

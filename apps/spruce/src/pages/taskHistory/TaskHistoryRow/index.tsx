@@ -48,13 +48,6 @@ const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
           commitType: "active",
         });
       },
-      onClickFoldedUpstreamProject: () => {
-        sendEvent({
-          name: "Click commit label",
-          link: "upstream project",
-          commitType: "inactive",
-        });
-      },
       onClickJiraTicket: () => {
         sendEvent({
           name: "Click commit label",

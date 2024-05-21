@@ -15,7 +15,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe("jump to failing line toggle", () => {
   it("should render as checked when 'checked' prop is true", () => {
-    render(<JumpToFailingLineToggle checked updateSettings={jest.fn()} />, {
+    render(<JumpToFailingLineToggle checked updateSettings={vi.fn()} />, {
       wrapper,
     });
     const jumpToFailingLineToggle = screen.getByDataCy(
@@ -26,7 +26,7 @@ describe("jump to failing line toggle", () => {
 
   it("should render as unchecked when 'checked' prop is false", () => {
     render(
-      <JumpToFailingLineToggle checked={false} updateSettings={jest.fn()} />,
+      <JumpToFailingLineToggle checked={false} updateSettings={vi.fn()} />,
       { wrapper },
     );
     const jumpToFailingLineToggle = screen.getByDataCy(
@@ -38,7 +38,7 @@ describe("jump to failing line toggle", () => {
   it("should disable toggle if logType is not Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <JumpToFailingLineToggle checked updateSettings={jest.fn()} />,
+      <JumpToFailingLineToggle checked updateSettings={vi.fn()} />,
     );
     render(<Component />, { wrapper });
     act(() => {
@@ -53,7 +53,7 @@ describe("jump to failing line toggle", () => {
   it("should enable toggle if logType is Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <JumpToFailingLineToggle checked updateSettings={jest.fn()} />,
+      <JumpToFailingLineToggle checked updateSettings={vi.fn()} />,
     );
     render(<Component />, { wrapper });
     act(() => {
@@ -67,7 +67,7 @@ describe("jump to failing line toggle", () => {
 
   it("should call update function with correct parameters, without updating the URL", async () => {
     const user = userEvent.setup();
-    const updateSettings = jest.fn();
+    const updateSettings = vi.fn();
 
     const { Component, hook } = renderComponentWithHook(
       useLogContext,

@@ -156,6 +156,7 @@ exports[`Snapshot Tests SpruceForm.stories Example1 1`] = `
               </div>
               <div
                 class="css-1mmfwj9-ArrayContainer e1jxkcec5"
+                id="root_expansions"
               >
                 <div
                   class="css-nbhfvd-ArrayItemRow e1jxkcec7"

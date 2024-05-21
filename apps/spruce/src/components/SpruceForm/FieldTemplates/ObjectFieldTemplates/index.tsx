@@ -23,7 +23,7 @@ export const ObjectFieldTemplate = ({
   const warnings = uiSchema["ui:warnings"] ?? [];
   const tooltipTitle = uiSchema["ui:tooltipTitle"] ?? null;
   return (
-    <fieldset css={uiSchema["ui:fieldSetCSS"]} id={idSchema.$id}>
+    <fieldset css={uiSchema["ui:elementWrapperCSS"]} id={idSchema.$id}>
       {(uiSchema["ui:title"] || title) && (
         <TitleContainer>
           <TitleField

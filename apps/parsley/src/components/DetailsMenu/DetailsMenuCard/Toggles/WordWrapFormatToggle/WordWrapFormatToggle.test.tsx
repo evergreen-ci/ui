@@ -1,4 +1,5 @@
 import Cookie from "js-cookie";
+import { MockInstance } from "vitest";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import {
   act,
@@ -9,8 +10,8 @@ import {
 import { renderComponentWithHook } from "test_utils/TestHooks";
 import WordWrapFormatToggle from ".";
 
-jest.mock("js-cookie");
-const mockedGet = Cookie.get as unknown as jest.Mock<string>;
+vi.mock("js-cookie");
+const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>

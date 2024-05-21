@@ -11,14 +11,14 @@ import { useToastContext } from "..";
  */
 const RenderFakeToastContext = (Component: React.ReactElement = <div />) => {
   const dispatchToast: ReturnType<typeof useToastContext> = {
-    error: jest.fn(),
-    info: jest.fn(),
-    progress: jest.fn(),
-    success: jest.fn(),
-    warning: jest.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+    progress: vi.fn(),
+    success: vi.fn(),
+    warning: vi.fn(),
   };
 
-  const useToastContextSpied = jest
+  const useToastContextSpied = vi
     .spyOn(toast, "useToastContext")
     .mockImplementation(() => ({
       ...dispatchToast,

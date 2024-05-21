@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
-import { useLeafyGreenTable } from "@leafygreen-ui/table";
 import {
   ColumnFiltersState,
-  Filters,
+  ColumnFiltering,
   RowSelectionState,
-  Sorting,
+  RowSorting,
   SortingState,
-} from "@tanstack/react-table";
+  useLeafyGreenTable,
+} from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
 import { useHostsTableAnalytics } from "analytics";
 import { StyledRouterLink, WordBreak } from "components/styles";
@@ -22,8 +22,8 @@ import { Unpacked } from "types/utils";
 
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
 
-const { getDefaultOptions: getDefaultFiltering } = Filters;
-const { getDefaultOptions: getDefaultSorting } = Sorting;
+const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
+const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface Props {
   initialFilters: ColumnFiltersState;
