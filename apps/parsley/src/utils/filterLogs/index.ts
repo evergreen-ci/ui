@@ -1,11 +1,6 @@
-import {
-  ExpandedLines,
-  ProcessedLogLines,
-  isNumberArray,
-  isSkippedLinesRow,
-} from "types/logs";
-import { isCollapsedRow } from "utils/collapsedRow";
+import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import { isExpanded } from "utils/expandedLines";
+import { isSkippedLinesRow } from "utils/logRowTypes";
 
 type FilterLogsParams = {
   logLines: string[];
@@ -69,14 +64,10 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
     if (expandableRows) {
       // If the line doesn't match the filters, collapse it.
       const previousItem = arr[arr.length - 1];
-      if (isCollapsedRow(previousItem)) {
-        if (isNumberArray(previousItem)) {
-          previousItem.push(idx);
-        } else if (isSkippedLinesRow(previousItem)) {
-          previousItem.lineEnd = idx;
-        }
+      if (isSkippedLinesRow(previousItem)) {
+        previousItem.lineEnd = idx + 1;
       } else {
-        arr.push([idx]);
+        arr.push({ lineEnd: idx + 1, lineStart: idx, rowType: "SkippedLines" });
       }
     }
     return arr;

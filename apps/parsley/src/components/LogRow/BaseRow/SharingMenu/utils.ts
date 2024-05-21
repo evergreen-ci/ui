@@ -1,6 +1,6 @@
 import { ProcessedLogLines, SelectedLineRange } from "types/logs";
-import { isCollapsedRow } from "utils/collapsedRow";
 import { findLineIndex } from "utils/findLineIndex";
+import { isCollapsedRow } from "utils/logRowTypes";
 
 const getLinesInProcessedLogLinesFromSelectedLines = (
   processedLogLines: ProcessedLogLines,

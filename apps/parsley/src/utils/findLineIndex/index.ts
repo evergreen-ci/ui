@@ -1,5 +1,5 @@
-import { ProcessedLogLines, isSkippedLinesRow } from "types/logs";
-import { isCollapsedRow } from "utils/collapsedRow";
+import { ProcessedLogLines } from "types/logs";
+import { isCollapsedRow } from "utils/logRowTypes";
 
 /**
  * `findLineIndex` employs binary search to search for the index of a line number within the
@@ -27,12 +27,8 @@ export const findLineIndex = (
   // If the item is a collapsed row, we'll shift our search depending on the first and last line numbers
   // in the collapsed row.
   if (isCollapsedRow(midItem)) {
-    const firstItem = isSkippedLinesRow(midItem)
-      ? midItem.lineStart
-      : midItem[0];
-    const lastItem = isSkippedLinesRow(midItem)
-      ? midItem.lineEnd
-      : midItem[midItem.length - 1];
+    const firstItem = midItem.lineStart;
+    const lastItem = midItem.lineEnd;
     if (firstItem <= lineNumber && lineNumber <= lastItem) {
       return midIdx;
     }

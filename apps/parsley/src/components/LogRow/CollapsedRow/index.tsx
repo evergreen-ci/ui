@@ -11,21 +11,21 @@ import { RootRowProps } from "../types";
 const SKIP_NUMBER = 5;
 
 interface CollapsedRowProps extends RootRowProps {
-  collapsedLines: number[];
   expandLines: (expandedLines: ExpandedLines) => void;
+  lineStart: number;
+  lineEnd: number;
 }
 
 const CollapsedRow: React.FC<CollapsedRowProps> = ({
-  collapsedLines,
   expandLines,
+  lineEnd,
+  lineStart,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [, startTransition] = useTransition();
 
-  const numCollapsed = collapsedLines.length;
-  const start = collapsedLines[0];
-  const end = collapsedLines[collapsedLines.length - 1];
-
+  const numCollapsed = lineEnd - lineStart;
+  const lineEndInclusive = lineEnd - 1;
   const canExpandFive = SKIP_NUMBER * 2 < numCollapsed;
   const lineText =
     numCollapsed !== 1 ? `${numCollapsed} Lines Skipped` : "1 Line Skipped";
@@ -34,12 +34,12 @@ const CollapsedRow: React.FC<CollapsedRowProps> = ({
     if (canExpandFive) {
       startTransition(() =>
         expandLines([
-          [start, start + (SKIP_NUMBER - 1)],
-          [end - (SKIP_NUMBER - 1), end],
+          [lineStart, lineStart + (SKIP_NUMBER - 1)],
+          [lineEndInclusive - (SKIP_NUMBER - 1), lineEndInclusive],
         ]),
       );
     } else {
-      startTransition(() => expandLines([[start, end]]));
+      startTransition(() => expandLines([[lineStart, lineEndInclusive]]));
     }
     sendEvent({
       lineCount: canExpandFive ? SKIP_NUMBER * 2 : numCollapsed,
@@ -49,7 +49,7 @@ const CollapsedRow: React.FC<CollapsedRowProps> = ({
   };
 
   const expandAll = () => {
-    startTransition(() => expandLines([[start, end]]));
+    startTransition(() => expandLines([[lineStart, lineEndInclusive]]));
     sendEvent({
       lineCount: numCollapsed,
       name: "Expanded Lines",
@@ -58,7 +58,9 @@ const CollapsedRow: React.FC<CollapsedRowProps> = ({
   };
 
   return (
-    <CollapsedLineWrapper data-cy={`collapsed-row-${start}-${end}`}>
+    <CollapsedLineWrapper
+      data-cy={`collapsed-row-${lineStart}-${lineEndInclusive}`}
+    >
       <StyledBody>{lineText}</StyledBody>
       <ButtonContainer>
         <Button
