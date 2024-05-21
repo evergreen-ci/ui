@@ -150,8 +150,7 @@ describe("Bookmarking and selecting lines", () => {
     const logLine11079 = `[j0:s1] | 2022-09-21T12:50:28.489+00:00 I  NETWORK  22944       [conn60] "Connection ended","attr":{"remote":"127.0.0.1:47362","uuid":{"uuid":{"$uuid":"b28d7d9f-03b6-4f93-a7cd-5e1948135f69"}},"connectionId":60,"connectionCount":2}`;
 
     cy.dataCy("details-button").click();
-    // Need to fire a real click here because the copy to clipboard
-    cy.dataCy("jira-button").realClick();
+    cy.dataCy("jira-button").click();
     cy.assertValueCopiedToClipboard(
       `{noformat}\n${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine11079}\n{noformat}`,
     );
@@ -288,11 +287,10 @@ describe("Sharing lines", () => {
     cy.dataCy("line-index-2").click({ shiftKey: true });
     cy.dataCy("sharing-menu").should("be.visible");
     cy.contains("Copy selected contents").should("be.visible");
-    // Need to fire a real click here because the copy to clipboard
-    cy.contains("Copy selected contents").realClick();
+    cy.contains("Copy selected contents").click();
     cy.validateToast("success", "Copied 2 lines to clipboard", true);
     cy.assertValueCopiedToClipboard(
-      `{noformat}\n+------------------------------------------+--------+-----+-----+\n|full_name                                 |name    |port |pid  |\n{noformat}`,
+      "{noformat}\n+------------------------------------------+--------+-----+-----+\n|full_name                                 |name    |port |pid  |\n{noformat}",
     );
   });
   it("should be able to copy a link to the selected lines", () => {
@@ -300,8 +298,7 @@ describe("Sharing lines", () => {
     cy.dataCy("line-index-2").click({ shiftKey: true });
     cy.dataCy("sharing-menu").should("be.visible");
     cy.contains("Copy share link to selected lines").should("be.visible");
-    // Need to fire a real click here because the copy to clipboard
-    cy.contains("Copy share link to selected lines").realClick();
+    cy.contains("Copy share link to selected lines").click();
     cy.validateToast("success", "Copied link to clipboard", true);
     cy.assertValueCopiedToClipboard(
       "http://localhost:4173/resmoke/7e208050e166b1a9025c817b67eee48d/test/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C11079&selectedLineRange=L1-L2&shareLine=1",

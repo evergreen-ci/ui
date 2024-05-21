@@ -8,6 +8,7 @@ describe("edit spawn host modal", () => {
         hostId: "host_id",
         myPublicKeys,
         oldUserTags,
+        timeZone: "America/New_York",
       }),
     ).toStrictEqual({
       hostId: "host_id",
@@ -25,6 +26,14 @@ describe("edit spawn host modal", () => {
       expiration: null,
       noExpiration: true,
       servicePassword: "password-123",
+      sleepSchedule: {
+        dailyStartTime: "09:00",
+        dailyStopTime: "17:00",
+        permanentlyExempt: false,
+        shouldKeepOff: false,
+        timeZone: "America/New_York",
+        wholeWeekdaysOff: [0, 5, 6],
+      },
       publicKey: {
         name: "a_key",
         key: "key value",
@@ -46,6 +55,17 @@ const formState = {
   expirationDetails: {
     noExpiration: true,
     expiration: "Wed Oct 19 2022 08:56:42 GMT-0400 (Eastern Daylight Time)",
+    hostUptime: {
+      useDefaultUptimeSchedule: false,
+      sleepSchedule: {
+        enabledWeekdays: [false, true, true, true, true, false, false],
+        timeSelection: {
+          startTime: "Fri May 03 2024 09:00:00",
+          stopTime: "Fri May 03 2024 17:00:00",
+          runContinuously: false,
+        },
+      },
+    },
   },
   instanceType: "m4.xlarge",
   volume: "my-volume-id",

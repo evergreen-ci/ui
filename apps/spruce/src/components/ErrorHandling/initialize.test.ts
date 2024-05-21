@@ -31,6 +31,7 @@ describe("should initialize error handlers according to release stage", () => {
     initializeErrorHandling();
 
     expect(Sentry.init).toHaveBeenCalledWith({
+      beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: false,
       normalizeDepth: 5,
@@ -46,6 +47,7 @@ describe("should initialize error handlers according to release stage", () => {
     initializeErrorHandling();
 
     expect(Sentry.init).toHaveBeenCalledWith({
+      beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
       normalizeDepth: 5,
@@ -61,6 +63,7 @@ describe("should initialize error handlers according to release stage", () => {
     initializeErrorHandling();
 
     expect(Sentry.init).toHaveBeenCalledWith({
+      beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
       normalizeDepth: 5,
@@ -81,9 +84,7 @@ describe("should not initialize if the client is already running", () => {
   });
 
   it("does not initialize Sentry twice", () => {
-    const mockClient = { getClient: jest.fn(() => true) };
-    // @ts-expect-error - Type error occurs because the entire return value of getCurrentHub is not mocked
-    jest.spyOn(Sentry, "getCurrentHub").mockReturnValue(mockClient);
+    jest.spyOn(Sentry, "isInitialized").mockReturnValue(true);
     initializeErrorHandling();
     expect(Sentry.init).not.toHaveBeenCalled();
   });

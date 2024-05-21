@@ -7,12 +7,27 @@ const errorIfStrict = process.env.STRICT ? ERROR : WARN;
 module.exports = {
   root: true,
   extends: ["evg"],
+  env: {
+    jest: true,
+  },
   overrides: [
     {
       files: ["src/gql/**/*.graphql"],
       extends: "plugin:@graphql-eslint/operations-recommended",
       rules: {
         "@graphql-eslint/selection-set-depth": OFF,
+      },
+    },
+    // For Jest files.
+    {
+      extends: ["plugin:testing-library/react", "plugin:jest/all"],
+      files: ["src/**/*.test.ts", "src/**/*.test.tsx"],
+      rules: {
+        "@typescript-eslint/unbound-method": OFF,
+        "jest/no-hooks": OFF,
+        "jest/no-mocks-import": OFF,
+        "jest/prefer-expect-assertions": OFF,
+        "jest/unbound-method": OFF,
       },
     },
   ],

@@ -69,7 +69,7 @@ describe("detailsMenu", () => {
     expect(screen.getByDataCy("details-menu")).toBeInTheDocument();
   });
   it("updating search range should flash the details button", async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const { hook } = renderDetailsMenu();
     expect(screen.queryByDataCy("details-menu")).not.toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("detailsMenu", () => {
       hook.current.useQueryParam[1](1);
     });
     expect(detailsButton).toHaveAttribute("data-variant", "primary");
-    jest.runAllTimers();
+    vi.runAllTimers();
     await waitFor(() => {
       expect(detailsButton).toHaveAttribute("data-variant", "default");
     });

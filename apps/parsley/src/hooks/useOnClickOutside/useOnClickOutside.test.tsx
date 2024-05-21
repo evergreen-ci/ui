@@ -7,7 +7,7 @@ describe("useOnClickOutside", () => {
     it("executes callback when clicking outside element", async () => {
       const user = userEvent.setup();
       const body = document.body as HTMLElement;
-      const callback = jest.fn();
+      const callback = vi.fn();
       const ref = createRef<HTMLDivElement>();
       render(<div ref={ref}> Test ref </div>);
       renderHook(() => useOnClickOutside([ref], callback));
@@ -16,7 +16,7 @@ describe("useOnClickOutside", () => {
     });
     it("does not execute callback when clicking inside element", async () => {
       const user = userEvent.setup();
-      const callback = jest.fn();
+      const callback = vi.fn();
       const ref = createRef<HTMLDivElement>();
       render(<div ref={ref}> Test ref </div>);
 
@@ -29,7 +29,7 @@ describe("useOnClickOutside", () => {
     it("executes callback when clicking outside elements", async () => {
       const user = userEvent.setup();
       const body = document.body as HTMLElement;
-      const callback = jest.fn();
+      const callback = vi.fn();
       const ref1 = createRef<HTMLDivElement>();
       const ref2 = createRef<HTMLDivElement>();
       render(
@@ -45,7 +45,7 @@ describe("useOnClickOutside", () => {
     });
     it("does not execute callback when clicking inside elements", async () => {
       const user = userEvent.setup();
-      const callback = jest.fn();
+      const callback = vi.fn();
       const ref1 = createRef<HTMLDivElement>();
       const ref2 = createRef<HTMLDivElement>();
       render(

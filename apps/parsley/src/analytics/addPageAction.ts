@@ -26,7 +26,6 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
   { name, ...actionProps }: A,
   properties: P & RequiredProperties,
 ) => {
-  const { newrelic } = window;
   const { search } = window.location;
   const attributesToSend = {
     ...properties,
@@ -34,11 +33,11 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
     ...actionProps,
   };
 
-  if (typeof newrelic !== "object") {
+  if (typeof window?.newrelic !== "object") {
     // These will only print when new relic is not available such as during local development
     console.log("ANALYTICS EVENT ", { attributesToSend, name });
     return;
   }
 
-  newrelic.addPageAction(name, attributesToSend);
+  window.newrelic.addPageAction(name, attributesToSend);
 };

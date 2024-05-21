@@ -4784,6 +4784,7 @@ export type EditSpawnHostMutationVariables = Exact<{
   servicePassword?: InputMaybe<Scalars["String"]["input"]>;
   publicKey?: InputMaybe<PublicKeyInput>;
   savePublicKey?: InputMaybe<Scalars["Boolean"]["input"]>;
+  sleepSchedule?: InputMaybe<SleepScheduleInput>;
 }>;
 
 export type EditSpawnHostMutation = {
@@ -5773,6 +5774,7 @@ export type DistroQuery = {
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
+    imageId?: string | null;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
     mountpoints?: Array<string | null> | null;
@@ -6268,17 +6270,6 @@ export type MainlineCommitsForHistoryQuery = {
           pusher: string;
           tag: string;
         }> | null;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
       }> | null;
       version?: {
         __typename?: "Version";
@@ -6346,17 +6337,6 @@ export type MainlineCommitsQuery = {
         message: string;
         order: number;
         revision: string;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
       }> | null;
       version?: {
         __typename?: "Version";
@@ -6442,6 +6422,16 @@ export type MyHostsQuery = {
     tag: string;
     uptime?: Date | null;
     user?: string | null;
+    sleepSchedule?: {
+      __typename?: "SleepSchedule";
+      dailyStartTime: string;
+      dailyStopTime: string;
+      permanentlyExempt: boolean;
+      shouldKeepOff: boolean;
+      temporarilyExemptUntil?: Date | null;
+      timeZone: string;
+      wholeWeekdaysOff: Array<number>;
+    } | null;
     distro?: {
       __typename?: "DistroInfo";
       id?: string | null;

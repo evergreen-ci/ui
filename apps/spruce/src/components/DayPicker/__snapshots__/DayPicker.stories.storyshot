@@ -4,6 +4,7 @@ exports[`Snapshot Tests DayPicker.stories Default 1`] = `
 <div>
   <div
     class="css-8cvf0s-Container emi64ys2"
+    data-cy="daypicker"
   >
     <label
       class="css-1u74sbj-Circle emi64ys1"

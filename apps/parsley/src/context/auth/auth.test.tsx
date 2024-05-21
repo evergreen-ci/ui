@@ -36,13 +36,13 @@ describe("auth", () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
     cleanup();
   });
 
   it("should error when rendered outside of AuthProvider", () => {
     const errorObject = console.error;
-    jest.spyOn(console, "error").mockImplementation();
+    vi.spyOn(console, "error").mockImplementation(() => {});
     expect(() => renderHook(() => useAuthContext())).toThrow(
       "useAuthContext must be used within an AuthProvider",
     );
@@ -50,8 +50,8 @@ describe("auth", () => {
   });
 
   it("should execute a query against GraphQL upon mount to check if user is authenticated", () => {
-    const mockFetchPromise = jest.fn().mockResolvedValue({});
-    jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+    const mockFetchPromise = vi.fn().mockResolvedValue({});
+    vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
     renderHook(() => useAuthContext(), { wrapper });
 
@@ -60,8 +60,8 @@ describe("auth", () => {
   });
 
   it("should authenticate the user if the GraphQL query succeeds", async () => {
-    const mockFetchPromise = jest.fn().mockResolvedValue({ ok: true });
-    jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+    const mockFetchPromise = vi.fn().mockResolvedValue({ ok: true });
+    vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
     const { result } = renderHook(() => useAuthContext(), {
       wrapper,
@@ -75,8 +75,8 @@ describe("auth", () => {
   });
 
   it("should not authenticate the user if the GraphQL query fails", async () => {
-    const mockFetchPromise = jest.fn().mockResolvedValue({ ok: false });
-    jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+    const mockFetchPromise = vi.fn().mockResolvedValue({ ok: false });
+    vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
     const { result } = renderHook(() => useAuthContext(), {
       wrapper,
@@ -89,8 +89,8 @@ describe("auth", () => {
 
   describe("devLogin", () => {
     it("should authenticate when the response is successful", async () => {
-      const mockFetchPromise = jest.fn().mockResolvedValue({ ok: true });
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+      const mockFetchPromise = vi.fn().mockResolvedValue({ ok: true });
+      vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
       const { result } = renderHook(() => useAuthContext(), {
         wrapper,
@@ -103,8 +103,8 @@ describe("auth", () => {
     });
 
     it("should not authenticate when the response is unsuccessful", async () => {
-      const mockFetchPromise = jest.fn().mockResolvedValue({ ok: false });
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+      const mockFetchPromise = vi.fn().mockResolvedValue({ ok: false });
+      vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
       const { result } = renderHook(() => useAuthContext(), {
         wrapper,
@@ -118,10 +118,10 @@ describe("auth", () => {
   describe("logoutAndRedirect", () => {
     it("should redirect to the Parsley /login page locally", async () => {
       mockEnv("NODE_ENV", "development");
-      const mockFetchPromise = jest.fn().mockResolvedValue({});
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
-      const mockNavigate = jest.fn();
-      jest.spyOn(router, "useNavigate").mockImplementation(() => mockNavigate);
+      const mockFetchPromise = vi.fn().mockResolvedValue({});
+      vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+      const mockNavigate = vi.fn();
+      vi.spyOn(router, "useNavigate").mockImplementation(() => mockNavigate);
 
       const { result } = renderHook(() => useAuthContext(), { wrapper });
 
@@ -134,8 +134,8 @@ describe("auth", () => {
 
     it("should redirect to the Evergreen /login page otherwise", async () => {
       mockEnv("NODE_ENV", "production");
-      const mockFetchPromise = jest.fn().mockResolvedValue({});
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+      const mockFetchPromise = vi.fn().mockResolvedValue({});
+      vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
       renderHook(() => useAuthContext(), {
         wrapper,

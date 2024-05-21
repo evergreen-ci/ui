@@ -1,4 +1,3 @@
-import { execSync } from "child_process";
 import { getCurrentlyDeployedCommit } from ".";
 
 const currentlyDeployedCommitRegex = /^[0-9a-f]{40}$/;
