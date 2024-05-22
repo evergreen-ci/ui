@@ -37,8 +37,8 @@ export const CollapsedRowSingle: CustomStoryObj<typeof CollapsedRow> = {
     expandLines: { action: "expandLines" },
   },
   args: {
-    lineEnd: 100,
     // Initialize an array with 100 collapsed lines.
+    lineEnd: 100,
     lineStart: 0,
   },
   render: (args) => <CollapsedRowStory {...args} />,
