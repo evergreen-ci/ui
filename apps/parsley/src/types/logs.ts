@@ -6,6 +6,7 @@ type ExpandedLines = ExpandedLine[];
 interface SkippedLinesRow {
   rowType: "SkippedLines";
   lineStart: number;
+  // LineEnd is exclusive
   lineEnd: number;
 }
 
