@@ -23,7 +23,7 @@ const renderRow = (
 ) =>
   renderWithRouterMatch(<AnsiRow {...props} />, {
     ...options.routerOptions,
-    wrapper: ({ children }: { children: React.ReactElement }) => (
+    wrapper: ({ children }: { children: React.ReactNode }) => (
       <LogContextProvider initialLogLines={logLines}>
         <MultiLineSelectContextProvider>
           {children}
@@ -138,7 +138,7 @@ const priorityLogLines = [
 
 const ansiProps = {
   getLine: (index: number) => logLines[index],
-  scrollToLine: jest.fn(),
+  scrollToLine: vi.fn(),
 
   lineStart: 0,
   prettyPrint: false,

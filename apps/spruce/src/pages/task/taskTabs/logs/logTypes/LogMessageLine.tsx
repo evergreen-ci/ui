@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { AnsiUp } from "ansi_up";
-import { format, utcToZonedTime } from "date-fns-tz";
+import { format, toZonedTime } from "date-fns-tz";
 import parse from "html-react-parser";
 import linkifyHtml from "linkify-html";
 import { LogMessageFragment } from "gql/generated/types";
@@ -17,7 +17,7 @@ export const LogMessageLine: React.FC<LogMessageFragment> = ({
 }) => {
   const tz = useUserTimeZone();
   const time = timestamp
-    ? `[${format(new Date(utcToZonedTime(timestamp, tz)), FORMAT_STR, {
+    ? `[${format(new Date(toZonedTime(timestamp, tz)), FORMAT_STR, {
         timeZone: tz,
       })}] `
     : "";

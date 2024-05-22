@@ -18,7 +18,7 @@ const addFavoriteMock: ApolloMock<
 > = {
   request: {
     query: ADD_FAVORITE_PROJECT,
-    variables: { identifier: "evergreen" },
+    variables: { projectIdentifier: "evergreen" },
   },
   result: {
     data: {
@@ -40,7 +40,7 @@ const removeFavoriteMock: ApolloMock<
 > = {
   request: {
     query: REMOVE_FAVORITE_PROJECT,
-    variables: { identifier: "evergreen" },
+    variables: { projectIdentifier: "evergreen" },
   },
   result: {
     data: {

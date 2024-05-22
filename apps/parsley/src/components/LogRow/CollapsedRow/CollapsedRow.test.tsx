@@ -26,7 +26,7 @@ describe("collapsedRow", () => {
 
   it("should call expandLines function with the correct arguments when expanding 5 lines", async () => {
     const user = userEvent.setup();
-    const expandLines = jest.fn();
+    const expandLines = vi.fn();
     renderWithRouterMatch(
       <CollapsedRow
         {...collapsedProps}
@@ -51,7 +51,7 @@ describe("collapsedRow", () => {
 
   it("should call expandLines function with the correct arguments when expanding all lines", async () => {
     const user = userEvent.setup();
-    const expandLines = jest.fn();
+    const expandLines = vi.fn();
     renderWithRouterMatch(
       <CollapsedRow
         {...collapsedProps}
@@ -99,7 +99,7 @@ const logLines = [
 ];
 
 const collapsedProps = {
-  expandLines: jest.fn(),
+  expandLines: vi.fn(),
   lineEnd: 10,
   lineIndex: 0,
   lineStart: 0,

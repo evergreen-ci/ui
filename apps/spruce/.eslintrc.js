@@ -42,12 +42,6 @@ module.exports = {
         ignoreMiddleExtensions: true,
       },
     ],
-    "jest/max-expects": [
-      WARN,
-      {
-        max: 10,
-      },
-    ],
     "react/display-name": OFF,
     "react/no-unstable-nested-components": OFF, // This rule should be removed as part of EVG-17265.
     "react/sort-comp": [

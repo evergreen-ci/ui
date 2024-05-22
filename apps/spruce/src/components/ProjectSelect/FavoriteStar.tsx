@@ -14,14 +14,14 @@ import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 const { gray, green } = palette;
 
 interface FavoriteStarProps {
-  identifier: string;
+  projectIdentifier: string;
   isFavorite: boolean;
   ["data-cy"]?: string;
 }
 export const FavoriteStar: React.FC<FavoriteStarProps> = ({
   "data-cy": dataCy,
-  identifier,
   isFavorite,
+  projectIdentifier,
 }) => {
   const dispatchToast = useToastContext();
 
@@ -53,9 +53,9 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
   const onClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (isFavorite) {
-      removeFavoriteProject({ variables: { identifier } });
+      removeFavoriteProject({ variables: { projectIdentifier } });
     } else {
-      addFavoriteProject({ variables: { identifier } });
+      addFavoriteProject({ variables: { projectIdentifier } });
     }
   };
   return (

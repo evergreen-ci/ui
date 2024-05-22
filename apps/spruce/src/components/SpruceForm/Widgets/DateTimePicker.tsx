@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Description, Label } from "@leafygreen-ui/typography";
-import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
+import { toZonedTime, fromZonedTime } from "date-fns-tz";
 import DatePicker from "components/DatePicker";
 import AntdTimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
@@ -25,10 +25,10 @@ export const DateTimePicker: React.FC<
   } = options;
 
   const timezone = useUserTimeZone();
-  const currentDateTime = utcToZonedTime(new Date(value || null), timezone);
+  const currentDateTime = toZonedTime(new Date(value || null), timezone);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) => {
-    onChange(zonedTimeToUtc(d, timezone).toString());
+    onChange(fromZonedTime(d, timezone).toString());
   };
 
   const disabledDate = (current) => {
@@ -94,12 +94,12 @@ export const TimePicker: React.FC<
   } = options;
   const timezone = useUserTimeZone();
   const currentDateTime = useUtc
-    ? utcToZonedTime(new Date(value || null), timezone)
+    ? toZonedTime(new Date(value || null), timezone)
     : new Date(value || null);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) => {
     if (useUtc) {
-      onChange(zonedTimeToUtc(d, timezone).toString());
+      onChange(fromZonedTime(d, timezone).toString());
     } else {
       onChange(d.toString());
     }
@@ -116,6 +116,7 @@ export const TimePicker: React.FC<
       <AntdTimePicker
         // @ts-expect-error
         getPopupContainer={getPopupContainer}
+        id={id}
         data-cy="time-picker"
         format={format}
         onChange={handleChange}

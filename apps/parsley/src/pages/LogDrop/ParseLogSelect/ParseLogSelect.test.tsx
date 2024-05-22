@@ -1,10 +1,11 @@
 import Cookie from "js-cookie";
+import { MockInstance } from "vitest";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import ParseLogSelect from ".";
 
-jest.mock("js-cookie");
-const mockedGet = Cookie.get as unknown as jest.Mock<string>;
+vi.mock("js-cookie");
+const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 describe("parse log select", () => {
   it("defaults to 'Select...' option if cookie is unset", () => {
@@ -12,8 +13,8 @@ describe("parse log select", () => {
     render(
       <ParseLogSelect
         fileName="filename.txt"
-        onCancel={jest.fn()}
-        onParse={jest.fn()}
+        onCancel={vi.fn()}
+        onParse={vi.fn()}
       />,
     );
     expect(screen.getByText("Select...")).toBeInTheDocument();
@@ -28,8 +29,8 @@ describe("parse log select", () => {
     render(
       <ParseLogSelect
         fileName="filename.txt"
-        onCancel={jest.fn()}
-        onParse={jest.fn()}
+        onCancel={vi.fn()}
+        onParse={vi.fn()}
       />,
     );
     expect(screen.getByText("Raw")).toBeInTheDocument();
@@ -41,8 +42,8 @@ describe("parse log select", () => {
     render(
       <ParseLogSelect
         fileName="filename.txt"
-        onCancel={jest.fn()}
-        onParse={jest.fn()}
+        onCancel={vi.fn()}
+        onParse={vi.fn()}
       />,
     );
     expect(screen.getByText("Resmoke")).toBeInTheDocument();
@@ -52,11 +53,11 @@ describe("parse log select", () => {
   it("clicking the 'Process Log' button calls the onParse function", async () => {
     const user = userEvent.setup();
     mockedGet.mockImplementation(() => LogTypes.LOGKEEPER_LOGS);
-    const onParse = jest.fn();
+    const onParse = vi.fn();
     render(
       <ParseLogSelect
         fileName="filename.txt"
-        onCancel={jest.fn()}
+        onCancel={vi.fn()}
         onParse={onParse}
       />,
     );
@@ -66,12 +67,12 @@ describe("parse log select", () => {
 
   it("clicking the 'Cancel' button calls the onCancel function", async () => {
     const user = userEvent.setup();
-    const onCancel = jest.fn();
+    const onCancel = vi.fn();
     render(
       <ParseLogSelect
         fileName="filename.txt"
         onCancel={onCancel}
-        onParse={jest.fn()}
+        onParse={vi.fn()}
       />,
     );
     await user.click(screen.getByRole("button", { name: "Cancel" }));

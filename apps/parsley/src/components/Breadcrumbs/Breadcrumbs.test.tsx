@@ -77,7 +77,7 @@ describe("breadcrumbs", () => {
 
   it("clicking on a tooltip with a link and event handler should call the event", async () => {
     const user = userEvent.setup();
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     const breadcrumbs = [{ "data-cy": "bc", onClick, text: "test", to: "/" }];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText("test")).toBeInTheDocument();

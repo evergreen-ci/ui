@@ -92,13 +92,13 @@ ln -s <path_to_evergreen_repo>/graphql/schema sdlschema
 
 ## Testing
 
-Spruce has a combination of unit tests using Jest, and integration tests using
+Spruce has a combination of unit tests using Vitest and integration tests using
 Cypress.
 
 ### Unit tests
 
-Unit tests are used to test individual features in isolation. We utilize the
-[Jest Test Runner](https://jestjs.io/) to execute our unit tests and generate
+Unit tests are used to test individual features in isolation. We utilize
+[Vitest](https://vitest.dev) to execute our unit tests and generate
 reports.
 
 There are 3 types of unit tests you may encounter in this codebase.
@@ -131,9 +131,9 @@ which will wait for your hook to rerender before allowing a test to proceed.
 These are the most basic of tests. They do not require any special libraries to
 run and often just test standard JavaScript functions.
 
-- You can run all unit tests using `yarn test`
-- You can run a specific unit test using `yarn test -t <test_name>`
-- You can run Jest in watch mode using `yarn test:watch` This will open an
+- You can run all unit tests using `yarn test run`
+- You can run a specific unit test using `yarn test run <test_name>`
+- You can run Vitest in watch mode using `yarn test`. This will open an
   interactive CLI that can be used to automatically run tests as you update them.
 
 ### E2E tests
@@ -168,7 +168,7 @@ Snapshot tests are automatically generated when we create Storybook stories.
 These tests create a snapshot of the UI and compare them to previous snapshots
 which are stored as files along side your Storybook stories in a `__snapshots__`
 directory. They try to catch unexpected UI regressions. Read more about them
-[here](https://jestjs.io/docs/snapshot-testing).
+[here](https://vitest.dev/guide/snapshot.html#snapshot).
 
 ## How to get data for your feature
 

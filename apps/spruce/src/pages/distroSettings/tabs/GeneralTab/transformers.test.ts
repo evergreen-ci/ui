@@ -15,7 +15,10 @@ describe("general tab", () => {
 
 const generalForm: GeneralFormState = {
   distroName: {
-    identifier: "rhel71-power8-large",
+    name: "rhel71-power8-large",
+  },
+  distroImage: {
+    image: "rhel71-power8",
   },
   distroAliases: {
     aliases: ["rhel71-power8", "rhel71-power8-build"],
@@ -33,6 +36,7 @@ const generalForm: GeneralFormState = {
 const generalGql: DistroInput = {
   ...distroData,
   name: "rhel71-power8-large",
+  imageId: "rhel71-power8",
   adminOnly: false,
   aliases: ["rhel71-power8", "rhel71-power8-build"],
   isCluster: false,

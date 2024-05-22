@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import differenceInMilliseconds from "date-fns/differenceInMilliseconds";
+import { differenceInMilliseconds } from "date-fns";
 
 /**
  * `useRunningTime` is a hook that returns the time elapsed since the start time. It refreshes every second.

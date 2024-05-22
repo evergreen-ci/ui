@@ -104,8 +104,7 @@ describe("Bookmarking and selecting lines", () => {
       "[2022/03/02 17:05:21.050] running setup group because we have a new independent task";
 
     cy.toggleDetailsPanel(true);
-    // Need to fire a real click here because the copy to clipboard
-    cy.dataCy("jira-button").realClick();
+    cy.dataCy("jira-button").click();
     cy.assertValueCopiedToClipboard(
       `{noformat}\n${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine297}\n{noformat}`,
     );
@@ -225,11 +224,10 @@ describe("Sharing lines", () => {
     cy.dataCy("line-index-2").click({ shiftKey: true });
     cy.dataCy("sharing-menu").should("be.visible");
     cy.contains("Copy selected contents").should("be.visible");
-    // Need to fire a real click here because the copy to clipboard
-    cy.contains("Copy selected contents").realClick();
+    cy.contains("Copy selected contents").click();
     cy.validateToast("success", "Copied 2 lines to clipboard", true);
     cy.assertValueCopiedToClipboard(
-      `{noformat}\n[2022/03/02 17:01:58.587] Starting task spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12, execution 0.\n[2022/03/02 17:01:58.701] Running pre-task commands.\n{noformat}`,
+      "{noformat}\n[2022/03/02 17:01:58.587] Starting task spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12, execution 0.\n[2022/03/02 17:01:58.701] Running pre-task commands.\n{noformat}",
     );
   });
   it("should be able to copy a link to the selected lines", () => {
@@ -237,8 +235,7 @@ describe("Sharing lines", () => {
     cy.dataCy("line-index-2").click({ shiftKey: true });
     cy.dataCy("sharing-menu").should("be.visible");
     cy.contains("Copy share link to selected lines").should("be.visible");
-    // Need to fire a real click here because the copy to clipboard
-    cy.contains("Copy share link to selected lines").realClick();
+    cy.contains("Copy share link to selected lines").click();
     cy.validateToast("success", "Copied link to clipboard", true);
     cy.assertValueCopiedToClipboard(
       "http://localhost:4173/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task?bookmarks=0%2C297&selectedLineRange=L1-L2&shareLine=1",
@@ -277,4 +274,26 @@ describe("jump to failing log line", () => {
     cy.dataCy("log-row-9614").should("be.visible");
     cy.dataCy("log-row-0").should("not.exist");
   });
+});
+
+describe("sections", () => {
+  beforeEach(() => {
+    const logLink =
+      "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
+    cy.visit(logLink);
+  });
+
+  it("Can enable/disable sections", () => {
+    cy.toggleDetailsPanel(true);
+    cy.contains("Log Viewing").click();
+    cy.dataCy("sections-toggle")
+      .should("have.attr", "aria-disabled", "false")
+      .should("have.attr", "aria-checked", "true");
+    cy.dataCy("sections-toggle").click();
+    cy.dataCy("sections-toggle").should("have.attr", "aria-checked", "false");
+    cy.dataCy("sections-toggle").click();
+    cy.dataCy("sections-toggle").should("have.attr", "aria-checked", "true");
+  });
+
+  // TODO: Check for section headers when the sectioning logic is implemented.
 });

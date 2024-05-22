@@ -94,14 +94,19 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       credentials: "include",
       method: "GET",
       redirect: "manual",
-    }).then(() => {
-      setIsAuthenticated(false);
-      if (isDevelopmentBuild()) {
-        navigate("/login");
-      } else {
-        window.location.href = `${evergreenURL}/login`;
-      }
-    });
+    })
+      .then(() => {
+        setIsAuthenticated(false);
+        if (isDevelopmentBuild()) {
+          navigate("/login");
+        } else {
+          window.location.href = `${evergreenURL}/login`;
+        }
+      })
+      .catch((err: Error) => {
+        leaveBreadcrumb("logoutAndRedirect", { err }, SentryBreadcrumb.Error);
+        reportError(err).severe();
+      });
   }, [navigate]);
 
   const memoizedContext = useMemo(

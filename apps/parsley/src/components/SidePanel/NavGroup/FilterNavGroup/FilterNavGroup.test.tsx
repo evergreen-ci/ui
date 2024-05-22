@@ -15,7 +15,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("filters", () => {
-  jest.setTimeout(10000);
+  vi.setConfig({ testTimeout: 10000 });
   const user = userEvent.setup();
 
   it("shows a message when no filters have been applied", () => {
@@ -114,7 +114,7 @@ describe("filters", () => {
   });
 
   it("deleting a filter should call clearExpandedLines if there are no longer any filters applied", async () => {
-    const clearExpandedLines = jest.fn();
+    const clearExpandedLines = vi.fn();
     const { router } = render(
       <FilterNavGroup {...props} clearExpandedLines={clearExpandedLines} />,
       {
@@ -129,5 +129,5 @@ describe("filters", () => {
 });
 
 const props = {
-  clearExpandedLines: jest.fn(),
+  clearExpandedLines: vi.fn(),
 };

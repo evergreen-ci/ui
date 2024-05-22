@@ -6,11 +6,11 @@ const { cleanup, mockEnv } = mockEnvironmentVariables();
 
 describe("should initialize error handlers according to release stage", () => {
   beforeEach(() => {
-    jest.spyOn(Sentry, "init").mockImplementation(jest.fn());
+    vi.spyOn(Sentry, "init").mockImplementation(vi.fn());
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
     cleanup();
   });
 
@@ -31,6 +31,7 @@ describe("should initialize error handlers according to release stage", () => {
     initializeErrorHandling();
 
     expect(Sentry.init).toHaveBeenCalledWith({
+      beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: false,
       normalizeDepth: 5,
@@ -46,6 +47,7 @@ describe("should initialize error handlers according to release stage", () => {
     initializeErrorHandling();
 
     expect(Sentry.init).toHaveBeenCalledWith({
+      beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
       normalizeDepth: 5,
@@ -61,6 +63,7 @@ describe("should initialize error handlers according to release stage", () => {
     initializeErrorHandling();
 
     expect(Sentry.init).toHaveBeenCalledWith({
+      beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
       normalizeDepth: 5,
@@ -71,19 +74,17 @@ describe("should initialize error handlers according to release stage", () => {
 
 describe("should not initialize if the client is already running", () => {
   beforeEach(() => {
-    jest.spyOn(Sentry, "init").mockImplementation(jest.fn());
+    vi.spyOn(Sentry, "init").mockImplementation(vi.fn());
     mockEnv("NODE_ENV", "production");
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
     cleanup();
   });
 
   it("does not initialize Sentry twice", () => {
-    const mockClient = { getClient: jest.fn(() => true) };
-    // @ts-expect-error - Type error occurs because the entire return value of getCurrentHub is not mocked
-    jest.spyOn(Sentry, "getCurrentHub").mockReturnValue(mockClient);
+    vi.spyOn(Sentry, "isInitialized").mockReturnValue(true);
     initializeErrorHandling();
     expect(Sentry.init).not.toHaveBeenCalled();
   });

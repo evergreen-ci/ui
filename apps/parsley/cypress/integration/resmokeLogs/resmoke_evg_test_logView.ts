@@ -150,8 +150,7 @@ describe("Bookmarking and selecting lines", () => {
     const logLine1638 = `[ContinuousStepdown:job0] Pausing the stepdown thread.`;
 
     cy.dataCy("details-button").click();
-    // Need to fire a real click here because the copy to clipboard
-    cy.dataCy("jira-button").realClick();
+    cy.dataCy("jira-button").click();
     cy.assertValueCopiedToClipboard(
       `{noformat}\n${logLine0}\n...\n${logLine10}\n${logLine11}\n...\n${logLine1638}\n{noformat}`,
     );
@@ -288,11 +287,10 @@ describe("Sharing lines", () => {
     cy.dataCy("line-index-2").click({ shiftKey: true });
     cy.dataCy("sharing-menu").should("be.visible");
     cy.contains("Copy selected contents").should("be.visible");
-    // Need to fire a real click here because the copy to clipboard
-    cy.contains("Copy selected contents").realClick();
+    cy.contains("Copy selected contents").click();
     cy.validateToast("success", "Copied 2 lines to clipboard", true);
     cy.assertValueCopiedToClipboard(
-      `{noformat}\n+------------------------------------------+--------+-----+-----+\n|full_name                                 |name    |port |pid  |\n{noformat}`,
+      "{noformat}\n+------------------------------------------+--------+-----+-----+\n|full_name                                 |name    |port |pid  |\n{noformat}",
     );
   });
   it("should be able to copy a link to the selected lines", () => {
@@ -300,8 +298,7 @@ describe("Sharing lines", () => {
     cy.dataCy("line-index-2").click({ shiftKey: true });
     cy.dataCy("sharing-menu").should("be.visible");
     cy.contains("Copy share link to selected lines").should("be.visible");
-    // Need to fire a real click here because the copy to clipboard
-    cy.contains("Copy share link to selected lines").realClick();
+    cy.contains("Copy share link to selected lines").click();
     cy.validateToast("success", "Copied link to clipboard", true);
     cy.assertValueCopiedToClipboard(
       "http://localhost:4173/test/mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24/0/1716e11b4f8a4541c5e2faf70affbfab?bookmarks=0%2C12568&selectedLineRange=L1-L2&shareLine=1",

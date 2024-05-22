@@ -1,9 +1,7 @@
-/* eslint-disable jest/require-hook */
 import { composeStories } from "@storybook/react";
-import * as glob from "glob";
-import "jest-specific-snapshot";
+import { expect } from "vitest";
 import path from "path";
-import { act, render } from "test_utils";
+import { act, render, stubGetClientRects } from "test_utils";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import * as projectAnnotations from "../.storybook/preview";
 
@@ -32,11 +30,19 @@ const compose = (
 };
 
 const getAllStoryFiles = () => {
-  const storyFiles = glob.sync(path.join(__dirname, "**/*.stories.tsx"));
-  return storyFiles.map((filePath) => {
-    // eslint-disable-next-line import/no-dynamic-require, global-require
-    const storyFile: StoryFile = require(filePath);
-    return { filePath, storyFile };
+  const storyFiles = Object.entries(
+    // @ts-expect-error
+    import.meta.glob<StoryFile>("./**/*.stories.tsx", {
+      eager: true,
+    }),
+  );
+
+  return storyFiles.map(([filePath, storyFile]) => {
+    const storyDir = path.dirname(filePath);
+    const componentName = path
+      .basename(filePath)
+      .replace(/\.(stories|story)\.[^/.]+$/, "");
+    return { componentName, filePath, storyDir, storyFile };
   });
 };
 
@@ -49,27 +55,31 @@ const options = {
 };
 
 describe(`${options.suite}`, () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   beforeEach(() => {
-    const mockIntersectionObserver = jest.fn((callback) => {
+    const mockIntersectionObserver = vi.fn((callback) => {
       callback([
         {
           isIntersecting: true,
         },
       ]);
       return {
-        disconnect: jest.fn(),
-        observe: jest.fn(),
-        unobserve: jest.fn(),
+        disconnect: vi.fn(),
+        observe: vi.fn(),
+        unobserve: vi.fn(),
       };
     });
 
-    // @ts-expect-error
-    window.IntersectionObserver = mockIntersectionObserver;
+    vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
   });
 
   afterAll(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
+
   getAllStoryFiles().forEach((params) => {
     const { filePath, storyFile } = params;
     const meta = storyFile.default;
@@ -77,7 +87,8 @@ describe(`${options.suite}`, () => {
 
     const storyBookFileBaseName = path
       .basename(filePath)
-      .replace(/\.[^/.]+$/, "");
+      .replace(/\.stories\.[^/.]+$/, "");
+
     // storyName is either the title of the story or the name of the file without the extension
     const storyName = title || storyBookFileBaseName;
     if (
@@ -116,9 +127,9 @@ describe(`${options.suite}`, () => {
           const snapshotPath = path.join(
             storyDirectory,
             options.snapshotsDirName,
-            `${storyBookFileBaseName}${options.snapshotExtension}`,
+            `${storyBookFileBaseName}_${name}${options.snapshotExtension}`,
           );
-          expect(container).toMatchSpecificSnapshot(snapshotPath);
+          await expect(container).toMatchFileSnapshot(snapshotPath);
         });
       });
     });

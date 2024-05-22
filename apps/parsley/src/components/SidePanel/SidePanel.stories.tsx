@@ -53,8 +53,8 @@ const Story = ({ ...args }) => {
   );
 };
 export const Default: CustomStoryObj<typeof SidePanel> = {
-  play: () => {
-    userEvent.keyboard("[[");
+  play: async () => {
+    await userEvent.keyboard("[[");
   },
   render: (args) => <Story {...args} />,
 };
