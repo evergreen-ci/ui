@@ -79,27 +79,27 @@ describe("My Patches Page", () => {
       const prPatchTitle =
         "evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
       cy.dataCy("patch-card").first().contains(cliPatchTitle);
-      cy.dataCy("tree-select-options").contains("PR Commits").click();
+      cy.dataCy("github_pull_request-option").click();
       urlSearchParamsAreUpdated({
         pathname: MY_PATCHES_ROUTE,
         paramName: "requesters",
         search: "github_pull_request",
       });
       cy.dataCy("patch-card").first().contains(prPatchTitle);
-      cy.dataCy("tree-select-options").contains("All").click();
+      cy.dataCy("patch_request-option").click();
       urlSearchParamsAreUpdated({
         pathname: MY_PATCHES_ROUTE,
         paramName: "requesters",
-        search: "all,github_pull_request,patch_request",
+        search: "github_pull_request,patch_request",
       });
       cy.dataCy("patch-card").first().contains(cliPatchTitle);
-      cy.dataCy("tree-select-options").contains("CLI").click();
+      cy.dataCy("github_pull_request-option").click();
       urlSearchParamsAreUpdated({
         pathname: MY_PATCHES_ROUTE,
         paramName: "requesters",
-        search: "github_pull_request",
+        search: "patch_request",
       });
-      cy.dataCy("patch-card").first().contains(prPatchTitle);
+      cy.dataCy("patch-card").first().contains(cliPatchTitle);
     });
   });
   describe("Commit queue checkbox", () => {

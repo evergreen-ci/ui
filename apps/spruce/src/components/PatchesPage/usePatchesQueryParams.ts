@@ -4,7 +4,6 @@ import { PatchesInput } from "gql/generated/types";
 import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
-import { ALL_REQUESTERS } from "./RequesterSelector";
 
 /**
  * usePatchesQueryParams is used alongside the Patches Page to transform URL state
@@ -21,13 +20,10 @@ export const usePatchesQueryParams = (): Omit<
     PatchPageQueryParams.Statuses,
     [],
   );
-  const [rawRequesters] = useQueryParam<string[]>(
+  const [requesters] = useQueryParam<string[]>(
     PatchPageQueryParams.Requesters,
     [],
   );
-  const requesters = rawRequesters.includes(ALL_REQUESTERS)
-    ? []
-    : rawRequesters.filter((v) => v); // Don't filter if "all" is present in params
   const [hidden] = useQueryParam(PatchPageQueryParams.Hidden, false);
   const { limit, page } = usePagination();
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);

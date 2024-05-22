@@ -58,18 +58,22 @@ export enum AccessLevel {
   View = "VIEW",
 }
 
+export type AddFavoriteProjectInput = {
+  projectIdentifier: Scalars["String"]["input"];
+};
+
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
  */
 export type Annotation = {
   __typename?: "Annotation";
-  createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  createdIssues?: Maybe<Array<IssueLink>>;
   id: Scalars["String"]["output"];
-  issues?: Maybe<Array<Maybe<IssueLink>>>;
-  metadataLinks?: Maybe<Array<Maybe<MetadataLink>>>;
+  issues?: Maybe<Array<IssueLink>>;
+  metadataLinks?: Maybe<Array<MetadataLink>>;
   note?: Maybe<Note>;
-  suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  suspectedIssues?: Maybe<Array<IssueLink>>;
   taskExecution: Scalars["Int"]["output"];
   taskId: Scalars["String"]["output"];
   webhookConfigured: Scalars["Boolean"]["output"];
@@ -323,6 +327,19 @@ export type CreateProjectInput = {
   repoRefId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+/** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
+export type DeactivateStepbackTaskInput = {
+  buildVariantName: Scalars["String"]["input"];
+  projectId: Scalars["String"]["input"];
+  taskName: Scalars["String"]["input"];
+};
+
+/** DefaultSectionToRepoInput is the input to the defaultSectionToRepo mutation. */
+export type DefaultSectionToRepoInput = {
+  projectId: Scalars["String"]["input"];
+  section: ProjectSettingsSection;
+};
+
 /** DeleteDistroInput is the input to the deleteDistro mutation. */
 export type DeleteDistroInput = {
   distroId: Scalars["String"]["input"];
@@ -381,7 +398,7 @@ export type Distro = {
   imageId?: Maybe<Scalars["String"]["output"]>;
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
-  mountpoints?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
+  mountpoints?: Maybe<Array<Scalars["String"]["output"]>>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
@@ -392,7 +409,7 @@ export type Distro = {
   sshOptions: Array<Scalars["String"]["output"]>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
-  validProjects: Array<Maybe<Scalars["String"]["output"]>>;
+  validProjects: Array<Scalars["String"]["output"]>;
   warningNote: Scalars["String"]["output"];
   workDir: Scalars["String"]["output"];
 };
@@ -447,7 +464,7 @@ export type DistroInput = {
   imageId?: InputMaybe<Scalars["String"]["input"]>;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
-  mountpoints?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+  mountpoints?: InputMaybe<Array<Scalars["String"]["input"]>>;
   name: Scalars["String"]["input"];
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
@@ -650,7 +667,7 @@ export type GithubUserInput = {
 export type GroupedBuildVariant = {
   __typename?: "GroupedBuildVariant";
   displayName: Scalars["String"]["output"];
-  tasks?: Maybe<Array<Maybe<Task>>>;
+  tasks?: Maybe<Array<Task>>;
   variant: Scalars["String"]["output"];
 };
 
@@ -1074,7 +1091,8 @@ export type MutationAddAnnotationIssueArgs = {
 };
 
 export type MutationAddFavoriteProjectArgs = {
-  identifier: Scalars["String"]["input"];
+  identifier?: InputMaybe<Scalars["String"]["input"]>;
+  opts?: InputMaybe<AddFavoriteProjectInput>;
 };
 
 export type MutationAttachProjectToNewRepoArgs = {
@@ -1117,14 +1135,16 @@ export type MutationCreatePublicKeyArgs = {
 };
 
 export type MutationDeactivateStepbackTaskArgs = {
-  buildVariantName: Scalars["String"]["input"];
-  projectId: Scalars["String"]["input"];
-  taskName: Scalars["String"]["input"];
+  buildVariantName?: InputMaybe<Scalars["String"]["input"]>;
+  opts?: InputMaybe<DeactivateStepbackTaskInput>;
+  projectId?: InputMaybe<Scalars["String"]["input"]>;
+  taskName?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationDefaultSectionToRepoArgs = {
-  projectId: Scalars["String"]["input"];
-  section: ProjectSettingsSection;
+  opts?: InputMaybe<DefaultSectionToRepoInput>;
+  projectId?: InputMaybe<Scalars["String"]["input"]>;
+  section?: InputMaybe<ProjectSettingsSection>;
 };
 
 export type MutationDeleteDistroArgs = {
@@ -1184,8 +1204,9 @@ export type MutationOverrideTaskDependenciesArgs = {
 };
 
 export type MutationPromoteVarsToRepoArgs = {
-  projectId: Scalars["String"]["input"];
-  varNames: Array<Scalars["String"]["input"]>;
+  opts?: InputMaybe<PromoteVarsToRepoInput>;
+  projectId?: InputMaybe<Scalars["String"]["input"]>;
+  varNames?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type MutationRemoveAnnotationIssueArgs = {
@@ -1196,7 +1217,8 @@ export type MutationRemoveAnnotationIssueArgs = {
 };
 
 export type MutationRemoveFavoriteProjectArgs = {
-  identifier: Scalars["String"]["input"];
+  identifier?: InputMaybe<Scalars["String"]["input"]>;
+  opts?: InputMaybe<RemoveFavoriteProjectInput>;
 };
 
 export type MutationRemoveItemFromCommitQueueArgs = {
@@ -1374,7 +1396,7 @@ export type NotificationsInput = {
 export type OomTrackerInfo = {
   __typename?: "OomTrackerInfo";
   detected: Scalars["Boolean"]["output"];
-  pids?: Maybe<Array<Maybe<Scalars["Int"]["output"]>>>;
+  pids?: Maybe<Array<Scalars["Int"]["output"]>>;
 };
 
 export enum OverallocatedRule {
@@ -1452,7 +1474,7 @@ export type Patch = {
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
   variants: Array<Scalars["String"]["output"]>;
-  variantsTasks: Array<Maybe<VariantTask>>;
+  variantsTasks: Array<VariantTask>;
   versionFull?: Maybe<Version>;
 };
 
@@ -1462,7 +1484,7 @@ export type Patch = {
  */
 export type PatchConfigure = {
   description: Scalars["String"]["input"];
-  parameters?: InputMaybe<Array<InputMaybe<ParameterInput>>>;
+  parameters?: InputMaybe<Array<ParameterInput>>;
   patchTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variantsTasks: Array<VariantTasks>;
 };
@@ -1660,7 +1682,7 @@ export type PreconditionScriptInput = {
 /** Project models single repository on GitHub. */
 export type Project = {
   __typename?: "Project";
-  admins?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
+  admins?: Maybe<Array<Scalars["String"]["output"]>>;
   banner?: Maybe<ProjectBanner>;
   batchTime: Scalars["Int"]["output"];
   branch: Scalars["String"]["output"];
@@ -1814,9 +1836,7 @@ export type ProjectInput = {
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]["input"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   githubChecksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  githubTriggerAliases?: InputMaybe<
-    Array<InputMaybe<Scalars["String"]["input"]>>
-  >;
+  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   identifier?: InputMaybe<Scalars["String"]["input"]>;
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -1911,9 +1931,15 @@ export type ProjectVars = {
 };
 
 export type ProjectVarsInput = {
-  adminOnlyVarsList?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-  privateVarsList?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+  adminOnlyVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  privateVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
   vars?: InputMaybe<Scalars["StringMap"]["input"]>;
+};
+
+/** PromoteVarsToRepoInput is the input to the promoteVarsToRepo mutation. */
+export type PromoteVarsToRepoInput = {
+  projectId: Scalars["String"]["input"];
+  varNames: Array<Scalars["String"]["input"]>;
 };
 
 export enum Provider {
@@ -1941,13 +1967,13 @@ export type Query = {
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
-  buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
+  buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
   commitQueue: CommitQueue;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
-  distros: Array<Maybe<Distro>>;
+  distros: Array<Distro>;
   githubProjectConflicts: GithubProjectConflicts;
   hasVersion: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
@@ -1964,7 +1990,7 @@ export type Query = {
   project: Project;
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
-  projects: Array<Maybe<GroupedProjects>>;
+  projects: Array<GroupedProjects>;
   repoEvents: ProjectEvents;
   repoSettings: RepoSettings;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -1978,7 +2004,7 @@ export type Query = {
   userConfig?: Maybe<UserConfig>;
   userSettings?: Maybe<UserSettings>;
   version: Version;
-  viewableProjectRefs: Array<Maybe<GroupedProjects>>;
+  viewableProjectRefs: Array<GroupedProjects>;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -2069,12 +2095,14 @@ export type QueryProjectArgs = {
 
 export type QueryProjectEventsArgs = {
   before?: InputMaybe<Scalars["Time"]["input"]>;
-  identifier: Scalars["String"]["input"];
+  identifier?: InputMaybe<Scalars["String"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryProjectSettingsArgs = {
-  identifier: Scalars["String"]["input"];
+  identifier?: InputMaybe<Scalars["String"]["input"]>;
+  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryRepoEventsArgs = {
@@ -2113,6 +2141,10 @@ export type QueryUserArgs = {
 
 export type QueryVersionArgs = {
   versionId: Scalars["String"]["input"];
+};
+
+export type RemoveFavoriteProjectInput = {
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 export type RepoCommitQueueParams = {
@@ -3047,8 +3079,8 @@ export type Version = {
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
-  buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
-  childVersions?: Maybe<Array<Maybe<Version>>>;
+  buildVariants?: Maybe<Array<GroupedBuildVariant>>;
+  childVersions?: Maybe<Array<Version>>;
   createTime: Scalars["Time"]["output"];
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
@@ -3172,7 +3204,7 @@ export type WebhookInput = {
 
 export type WebhookSubscriber = {
   __typename?: "WebhookSubscriber";
-  headers: Array<Maybe<WebhookHeader>>;
+  headers: Array<WebhookHeader>;
   minDelayMs: Scalars["Int"]["output"];
   retries: Scalars["Int"]["output"];
   secret: Scalars["String"]["output"];
@@ -3181,7 +3213,7 @@ export type WebhookSubscriber = {
 };
 
 export type WebhookSubscriberInput = {
-  headers: Array<InputMaybe<WebhookHeaderInput>>;
+  headers: Array<WebhookHeaderInput>;
   minDelayMs?: InputMaybe<Scalars["Int"]["input"]>;
   retries?: InputMaybe<Scalars["Int"]["input"]>;
   secret: Scalars["String"]["input"];
