@@ -47,13 +47,13 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
 
   const { showBuildBaron } = useBuildBaronVariables({
     task: {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       id,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       execution,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       status,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       canModifyAnnotation,
       hasAnnotation: !!annotation,
     },
@@ -62,7 +62,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const tabMap = {
     [TaskTab.Logs]: (
       <Tab name="Logs" data-cy="task-logs-tab" key="task-logs-tab">
-        {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <Logs taskId={id} execution={execution} logLinks={logLinks} />
       </Tab>
     ),
@@ -95,10 +95,10 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
         key="execution-tasks-tab"
       >
         <ExecutionTasksTable
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           execution={execution}
           executionTasksFull={executionTasksFull}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           isPatch={versionMetadata?.isPatch}
         />
       </Tab>
@@ -122,7 +122,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
         data-cy="task-files-tab"
         key="task-files-tab"
       >
-        {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <FileTable taskId={id} execution={execution} />
       </Tab>
     ),
@@ -133,13 +133,13 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
         key="task-build-baron-tab"
       >
         <BuildBaron
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={annotation}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           taskId={id}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           execution={execution}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           userCanModify={canModifyAnnotation}
         />
       </Tab>
@@ -150,7 +150,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
         data-cy="trend-charts-tab"
         key="trend-charts-tab"
       >
-        {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <TrendChartsPlugin taskId={id} />
       </Tab>
     ),
@@ -166,7 +166,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   };
 
   const activeTabs = Object.keys(tabMap).filter(
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     (tab) => tabIsActive[tab],
   ) as TaskTab[];
 
@@ -175,7 +175,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     defaultTab = activeTabs.indexOf(urlTab);
   } else if (isDisplayTask) {
     defaultTab = activeTabs.indexOf(TaskTab.ExecutionTasks);
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
   } else if (totalTestCount > 0) {
     defaultTab = activeTabs.indexOf(TaskTab.Tests);
   }
@@ -201,14 +201,14 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
       if (
         id === task?.id &&
         query.execution === undefined &&
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         task.latestExecution !== undefined
       ) {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         params.execution = task.latestExecution;
       }
 
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       const newRoute = getTaskRoute(id, params);
       navigate(newRoute, { replace: true });
 
@@ -227,7 +227,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
       setSelected={setSelectedTab}
       aria-label="Task Page Tabs"
     >
-      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {activeTabs.map((tab: string) => tabMap[tab])}
     </StyledTabs>
   );

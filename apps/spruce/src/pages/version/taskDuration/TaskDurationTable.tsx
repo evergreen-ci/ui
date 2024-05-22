@@ -36,9 +36,9 @@ export const TaskDurationTable: React.FC<Props> = ({
   tasks,
 }) => {
   const { [slugs.versionId]: versionId } = useParams();
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
 
   const [queryParams, setQueryParams] = useQueryParams();
@@ -48,9 +48,9 @@ export const TaskDurationTable: React.FC<Props> = ({
     [], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
 
   const updateFilters = (filterState: ColumnFiltersState) => {
@@ -63,7 +63,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     };
 
     filterState.forEach(({ id, value }) => {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       updatedParams[id] = value;
     });
 
@@ -72,7 +72,7 @@ export const TaskDurationTable: React.FC<Props> = ({
   };
 
   const setSorting = (s: SortingState) =>
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultSorting(table).onSortingChange(s);
 
   const updateSort = (sortState: SortingState) => {
@@ -83,7 +83,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     };
 
     sortState.forEach(({ desc, id }) => {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
     });
 
@@ -99,10 +99,10 @@ export const TaskDurationTable: React.FC<Props> = ({
         size: 250,
         enableColumnFilter: true,
         cell: ({
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           getValue,
           row: {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             original: { id },
           },
         }) => <TaskLink taskId={id} taskName={getValue()} />,
@@ -118,7 +118,7 @@ export const TaskDurationTable: React.FC<Props> = ({
         header: "Status",
         size: 120,
         enableColumnFilter: true,
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ getValue }) => <TaskStatusBadge status={getValue()} />,
         meta: {
           treeSelect: {
@@ -147,12 +147,12 @@ export const TaskDurationTable: React.FC<Props> = ({
         enableSorting: true,
         size: 250,
         cell: ({
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           column,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           getValue,
           row: {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             original: { status },
           },
         }) => (
@@ -168,13 +168,13 @@ export const TaskDurationTable: React.FC<Props> = ({
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const table = useLeafyGreenTable<
     VersionTaskDurationsQuery["version"]["tasks"]["data"][0]
   >({
     columns,
     containerRef: tableContainerRef,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     data: tasks ?? [],
     defaultColumn: {
       // Handle bug in sorting order
@@ -190,7 +190,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     manualPagination: true,
     manualSorting: true,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setFilters,
       (updatedState) => {
         updateFilters(updatedState);
@@ -198,7 +198,7 @@ export const TaskDurationTable: React.FC<Props> = ({
       },
     ),
     onSortingChange: onChangeHandler<SortingState>(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSorting,
       (updatedState) => {
         updateSort(updatedState);

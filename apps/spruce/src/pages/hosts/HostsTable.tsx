@@ -56,16 +56,16 @@ export const HostsTable: React.FC<Props> = ({
   };
 
   const setSorting = (s: SortingState) =>
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultSorting(table).onSortingChange(s);
 
   const tableSortHandler = useTableSort({
     sendAnalyticsEvents: () => sendEvent({ name: "Sort Hosts" }),
   });
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
 
   const updateFilters = (filterState: ColumnFiltersState) => {
@@ -76,9 +76,9 @@ export const HostsTable: React.FC<Props> = ({
     };
 
     filterState.forEach(({ id, value }) => {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       const key = mapIdToFilterParam[id];
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       updatedParams[key] = value;
     });
 
@@ -87,7 +87,7 @@ export const HostsTable: React.FC<Props> = ({
   };
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const table = useLeafyGreenTable<Host>({
     columns,
     containerRef: tableContainerRef,
@@ -111,7 +111,7 @@ export const HostsTable: React.FC<Props> = ({
     manualPagination: true,
     manualSorting: true,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setFilters,
       (updatedState) => {
         updateFilters(updatedState);
@@ -123,7 +123,7 @@ export const HostsTable: React.FC<Props> = ({
       updateRowSelection,
     ),
     onSortingChange: onChangeHandler<SortingState>(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSorting,
       (updatedState) => {
         tableSortHandler(updatedState);
@@ -154,7 +154,7 @@ const columns = [
     header: "ID",
     accessorKey: "id",
     id: HostSortBy.Id,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }): JSX.Element => {
       const id = getValue();
       return (
@@ -205,7 +205,7 @@ const columns = [
     header: "Current Task",
     accessorKey: "runningTask",
     id: HostSortBy.CurrentTask,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
       const task = getValue();
       return task?.id !== null ? (
@@ -233,7 +233,7 @@ const columns = [
     header: "Elapsed",
     accessorKey: "elapsed",
     id: HostSortBy.Elapsed,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
       const elapsed = getValue();
       return elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A";
@@ -247,7 +247,7 @@ const columns = [
     header: "Uptime",
     accessorKey: "uptime",
     id: HostSortBy.Uptime,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
       const uptime = getValue();
       return uptime ? formatDistanceToNow(new Date(uptime)) : "N/A";
@@ -261,7 +261,7 @@ const columns = [
     header: "Idle Time",
     accessorKey: "totalIdleTime",
     id: HostSortBy.IdleTime,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
       const totalIdleTime = getValue();
       return totalIdleTime
@@ -277,7 +277,7 @@ const columns = [
     header: "Owner",
     accessorKey: "startedBy",
     id: HostSortBy.Owner,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
     enableColumnFilter: true,
     enableSorting: true,

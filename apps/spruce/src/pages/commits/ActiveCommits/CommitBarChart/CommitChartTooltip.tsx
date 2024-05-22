@@ -38,7 +38,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
           <FlexColumnContainer key={color} data-cy="current-status-count">
             <TotalCount
               status={umbrellaStatus}
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               eta={
                 umbrellaStatus === TaskStatus.RunningUmbrella && eta
                   ? eta
@@ -59,7 +59,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
           <TotalCount
             key={umbrellaStatus}
             status={umbrellaStatus}
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             color={mapTaskToBarchartColor[umbrellaStatus]}
             count={0}
             active={false}
@@ -87,7 +87,7 @@ export const TotalCount: React.FC<TotalCountProps> = ({
   <TotalCountContainer active={active}>
     <Circle color={color} />
     <StatusText css={sharedCss}>
-      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <div>{`Total ${taskStatusToCopy[status]}`}</div>
       {eta &&
         `(${msToDuration(new Date(eta).valueOf() - Date.now())} remaining)`}

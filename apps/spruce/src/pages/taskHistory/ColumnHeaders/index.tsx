@@ -50,22 +50,20 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
     },
   });
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { columnLimit, visibleColumns } = useHistoryTable();
   const { buildVariantsForTaskName } = columnData || {};
 
   const activeColumns = useColumns(
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     buildVariantsForTaskName,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
     ({ buildVariant }) => buildVariant,
   );
-  // @ts-ignore: FIXME. This comment was added by an automated script.
   const columnMap = convertArrayToObject(activeColumns, "buildVariant");
   return (
     <RowContainer>
       <LabelCellContainer />
-      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {visibleColumns.map((vc) => {
         const cell = columnMap[vc];
         if (!cell) {

@@ -25,7 +25,7 @@ export const NewDistroButton: React.FC = () => {
     UserDistroSettingsPermissionsQuery,
     UserDistroSettingsPermissionsQueryVariables
   >(USER_DISTRO_SETTINGS_PERMISSIONS, {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { distroId },
   });
   const {

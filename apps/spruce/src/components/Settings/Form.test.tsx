@@ -53,7 +53,7 @@ describe("context-based form", () => {
 
   it("applies a validate function that shows an error message", async () => {
     const user = userEvent.setup();
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     render(<Component tab="bar" validate={barValidator} />, {
       wrapper: TestProvider,
     });

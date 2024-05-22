@@ -3,7 +3,7 @@ import { Unpacked } from "types/utils";
 
 export interface FoldedCommitsRow {
   type: rowType.FOLDED_COMMITS;
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   rolledUpCommits: Unpacked<mainlineCommits["versions"]>["rolledUpVersions"];
   date: Date;
   selected: boolean;
@@ -18,7 +18,7 @@ export interface DateSeparatorRow {
 
 export interface CommitRow {
   type: rowType.COMMIT;
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   commit: Unpacked<mainlineCommits["versions"]>["version"];
   date: Date;
   selected: boolean;

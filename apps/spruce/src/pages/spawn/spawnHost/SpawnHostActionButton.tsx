@@ -22,9 +22,9 @@ import { MyHost } from "types/spawn";
 export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const dispatchToast = useToastContext();
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const glyph = mapStatusToGlyph[host.status];
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const action = mapStatusToAction[host.status];
   const canTerminate = host.status !== HostStatus.Terminated;
 
@@ -44,7 +44,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     },
   });
   usePolling({
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     startPolling,
     stopPolling,
     refetch,
@@ -75,7 +75,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     refetchQueries: ["MyVolumes"],
   });
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const onClick = (a) => (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -113,7 +113,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       ) : null}
       <Popconfirm
         confirmDisabled={!checkboxAcknowledged}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         onConfirm={onClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button

@@ -41,9 +41,9 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
       data-cy="execution-select"
       disabled={executionsLoading}
       key={currentExecution}
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       onChange={(selected: number | null) => {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         updateExecution(selected);
       }}
       placeholder="Choose an execution"
@@ -55,7 +55,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
         const optionText = `Execution ${formatZeroIndexForDisplay(
           singleExecution.execution,
         )} - ${getDateCopy(
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           singleExecution.activatedTime ?? singleExecution.ingestTime,
           { omitTimezone: true },
         )}`;

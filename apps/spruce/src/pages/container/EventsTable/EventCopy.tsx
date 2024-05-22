@@ -17,7 +17,7 @@ export const EventCopy: React.FC<EventCopyProps> = ({
   const taskLink = (
     <ShortenedRouterLink
       title={data.taskID}
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       to={getTaskRoute(data.taskID, { execution: data.taskExecution })}
     >
       {data.taskID}

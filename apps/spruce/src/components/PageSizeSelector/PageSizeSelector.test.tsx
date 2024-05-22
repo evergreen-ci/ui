@@ -14,7 +14,7 @@ describe("pageSizeSelector", () => {
     );
     await user.click(screen.getByRole("button", { name: "10 / page" }));
     expect(screen.queryByText("20 / page")).toBeVisible();
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("20 / page"));
     expect(onChange).toHaveBeenCalledWith(20);
   });

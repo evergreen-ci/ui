@@ -15,14 +15,14 @@ const cache = new InMemoryCache({
   },
 });
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const SameUserProvider = ({ children }) => (
   <MockedProvider mocks={[getUserMock, sameUserMock]} cache={cache}>
     {children}
   </MockedProvider>
 );
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const OtherUserProvider = ({ children }) => (
   <MockedProvider mocks={[getUserMock, otherUserMock]} cache={cache}>
     {children}
@@ -77,7 +77,7 @@ const sameUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
         userId: "admin",
         displayName: "Evergreen Admin",
       },
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       currentUser: getUserMock.result.data.user,
     },
   },
@@ -97,7 +97,7 @@ const otherUserMock: ApolloMock<OtherUserQuery, OtherUserQueryVariables> = {
         userId: "john.doe",
         displayName: "John Doe",
       },
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       currentUser: getUserMock.result.data.user,
     },
   },

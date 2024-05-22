@@ -51,7 +51,7 @@ const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
   selectedBuildVariantTasks: {},
   patchParams: null,
   selectedTab,
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   disableBuildVariantSelect: tabToIndexMap[selectedTab] === PatchTab.Tasks,
 });
 
@@ -121,7 +121,7 @@ const tabToIndexMap = {
 
 // Extract the type of a child patch and append alias field
 export interface ChildPatchAliased
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   extends Unpacked<ConfigurePatchQuery["patch"]["childPatches"]> {
   alias: string;
 }
@@ -154,16 +154,16 @@ export const useConfigurePatch = (
 ): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab | null }>();
 
   const { id, project } = patch;
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { variants } = project;
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       selectedTab: tabToIndexMap[tab || PatchTab.Configure],
     }),
   );
@@ -189,7 +189,6 @@ export const useConfigurePatch = (
         description: patch.description,
         buildVariants: [variants[0]?.name],
         params: patch.parameters,
-        // @ts-ignore: FIXME. This comment was added by an automated script.
         variantTasks: initializeTaskState(variants, patch.variantsTasks),
         aliases: initializeAliasState(patch.patchTriggerAliases),
       });
@@ -228,7 +227,7 @@ export const useConfigurePatch = (
     setSelectedAliases,
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setSelectedTab,
   };
 };
@@ -236,13 +235,13 @@ export const useConfigurePatch = (
 // Takes in variant tasks and default selected tasks and returns an object
 // With merged variant and default selected tasks auto selected.
 const initializeTaskState = (
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   variantTasks: ConfigurePatchQuery["patch"]["project"]["variants"],
   defaultSelectedTasks: VariantTask[],
 ) => {
   const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
   return variantTasks.reduce(
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     (prev, { name: variant, tasks }) => ({
       ...prev,
       [variant]: {

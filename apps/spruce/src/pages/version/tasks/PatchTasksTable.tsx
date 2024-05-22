@@ -31,7 +31,7 @@ export const PatchTasksTable: React.FC<Props> = ({
 }) => {
   const { [slugs.versionId]: versionId } = useParams();
   const updateQueryParams = useUpdateURLQueryParams();
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
   const filterHookProps = {
     resetPage: true,
@@ -46,7 +46,7 @@ export const PatchTasksTable: React.FC<Props> = ({
     urlParam: PatchTasksQueryParams.BaseStatuses,
     ...filterHookProps,
   });
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { baseStatuses, currentStatuses } = useTaskStatuses({ versionId });
   const statusSelectorProps = {
     state: currentStatusesFilter.inputValue,
@@ -69,7 +69,7 @@ export const PatchTasksTable: React.FC<Props> = ({
 
   const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
     updateQueryParams({
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       sorts: toSortString(sorter),
       [PaginationQueryParams.Page]: "0",
     });
@@ -95,9 +95,9 @@ export const PatchTasksTable: React.FC<Props> = ({
     <TasksTable
       isPatch={isPatch}
       sorts={sorts}
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       tableChangeHandler={tableChangeHandler}
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       tasks={tasks}
       loading={loading}
       onExpand={(expanded) => {

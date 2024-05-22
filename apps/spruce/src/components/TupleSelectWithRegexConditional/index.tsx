@@ -30,7 +30,7 @@ const TupleSelectWithRegexConditional: React.FC<
     category: string;
     value: string;
   }) => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onSubmit({ category, value: isRegex ? value : escapeRegex(value) });
   };
 

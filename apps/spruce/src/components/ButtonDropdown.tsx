@@ -37,7 +37,7 @@ export const ButtonDropdown: React.FC<Props> = ({
     popoverZIndex={zIndex.popover}
     adjustOnMutation
     open={open}
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setOpen={setOpen}
   >
     {dropdownItems}

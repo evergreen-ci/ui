@@ -13,9 +13,9 @@ const defaultScheduleWeeklyHourCount = 60;
 const suggestedUptimeHours = (daysInWeek - 2) * hoursInDay;
 export const maxUptimeHours = (daysInWeek - 1) * hoursInDay;
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const defaultStartDate = new Date(null, null, null, defaultStartHour);
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const defaultStopDate = new Date(null, null, null, defaultStopHour);
 
 export type HostUptime = {
@@ -137,9 +137,9 @@ export const getSleepSchedule = (
   }
 
   const {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     enabledWeekdays,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     timeSelection: { runContinuously, startTime, stopTime },
   } = sleepSchedule;
 
@@ -149,7 +149,7 @@ export const getSleepSchedule = (
     permanentlyExempt: false,
     timeZone,
     shouldKeepOff: false,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
       if (!isEnabled) {
         accum.push(i);
@@ -159,7 +159,7 @@ export const getSleepSchedule = (
   };
 };
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const getDailyUptime = ({ startTime, stopTime }) =>
   differenceInHours(new Date(stopTime), new Date(startTime));
 
@@ -182,7 +182,7 @@ export const defaultSleepSchedule: Omit<SleepScheduleInput, "timeZone"> = {
 export const getHostUptimeFromGql = (
   sleepSchedule: MyHost["sleepSchedule"],
 ): HostUptime => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
   return {
@@ -197,13 +197,13 @@ export const getHostUptimeFromGql = (
               startTime: parse(
                 dailyStartTime,
                 "HH:mm",
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 new Date(null, null),
               ).toString(),
               stopTime: parse(
                 dailyStopTime,
                 "HH:mm",
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 new Date(null, null),
               ).toString(),
               runContinuously: false,
@@ -220,7 +220,7 @@ export const getHostUptimeFromGql = (
 export const matchesDefaultUptimeSchedule = (
   sleepSchedule: MyHost["sleepSchedule"],
 ): boolean => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
   if (
@@ -241,7 +241,7 @@ export const validator = (({ expirationDetails }, errors) => {
   if (!hostUptime || noExpiration === false) return errors;
 
   const { sleepSchedule, useDefaultUptimeSchedule } = hostUptime;
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { enabledWeekdays, timeSelection } = sleepSchedule;
 
   if (useDefaultUptimeSchedule) {
@@ -254,7 +254,7 @@ export const validator = (({ expirationDetails }, errors) => {
   });
 
   if (enabledHoursCount > maxUptimeHours) {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     errors.expirationDetails?.hostUptime?.addError("Insufficient hours");
   }
 

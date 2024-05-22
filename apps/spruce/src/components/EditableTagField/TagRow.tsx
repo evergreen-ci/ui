@@ -26,7 +26,7 @@ export const TagRow: React.FC<TagRowProps> = ({
   onUpdateTag,
   tag,
 }) => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const [state, dispatch] = useReducer(reducer, getInitialState(tag, isNewTag));
 
   const tagId = useMemo(() => crypto.randomUUID(), []);
@@ -45,7 +45,7 @@ export const TagRow: React.FC<TagRowProps> = ({
                 id={`tag_key_${tagId}`}
                 value={key}
                 onChange={(e) =>
-                  // @ts-ignore: FIXME. This comment was added by an automated script.
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
                   dispatch({ type: "updateTag", key: e.target.value })
                 }
                 data-cy="user-tag-key-field"
@@ -59,7 +59,7 @@ export const TagRow: React.FC<TagRowProps> = ({
                 id={`tag_value_${tagId}`}
                 value={value}
                 onChange={(e) =>
-                  // @ts-ignore: FIXME. This comment was added by an automated script.
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
                   dispatch({ type: "updateTag", value: e.target.value })
                 }
                 data-cy="user-tag-value-field"
@@ -72,7 +72,7 @@ export const TagRow: React.FC<TagRowProps> = ({
                 aria-label="Update tag"
                 disabled={
                   !isInputValid ||
-                  // @ts-ignore: FIXME. This comment was added by an automated script.
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
                   ((isNewTag || key !== tag.key) && !isValidKey(key))
                 }
               >
@@ -80,14 +80,14 @@ export const TagRow: React.FC<TagRowProps> = ({
                   glyph="Checkmark"
                   data-cy="user-tag-edit-icon"
                   onClick={() => {
-                    // @ts-ignore: FIXME. This comment was added by an automated script.
+                    // @ts-expect-error: FIXME. This comment was added by an automated script.
                     dispatch({
                       type: isNewTag ? "cancelNewTag" : "inActive",
                     });
-                    // @ts-ignore: FIXME. This comment was added by an automated script.
+                    // @ts-expect-error: FIXME. This comment was added by an automated script.
                     onUpdateTag(
                       { key, value },
-                      // @ts-ignore: FIXME. This comment was added by an automated script.
+                      // @ts-expect-error: FIXME. This comment was added by an automated script.
                       !isNewTag && key !== tag.key ? tag.key : undefined,
                     );
                   }}
@@ -99,9 +99,9 @@ export const TagRow: React.FC<TagRowProps> = ({
                   glyph="Trash"
                   onClick={
                     isNewTag
-                      ? // @ts-ignore: FIXME. This comment was added by an automated script.
+                      ? // @ts-expect-error: FIXME. This comment was added by an automated script.
                         () => dispatch({ type: "cancelNewTag" })
-                      : // @ts-ignore: FIXME. This comment was added by an automated script.
+                      : // @ts-expect-error: FIXME. This comment was added by an automated script.
                         () => onDelete(tag.key)
                   }
                   data-cy="user-tag-trash-icon"
@@ -114,7 +114,7 @@ export const TagRow: React.FC<TagRowProps> = ({
       {!shouldShowNewTag && (
         <ButtonContainer>
           <PlusButton
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             onClick={() => dispatch({ type: "newTag" })}
             data-cy="add-tag-button"
           >

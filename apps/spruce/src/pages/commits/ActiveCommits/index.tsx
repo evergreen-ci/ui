@@ -83,7 +83,7 @@ export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
 
       const buildVariant = groupedBuildVariants[v];
       const variantStats = groupedBuildVariantStats[v];
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       const { displayName, variant } = buildVariant ?? variantStats;
 
       return (
@@ -92,11 +92,11 @@ export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
           height={height}
           variant={variant}
           buildVariantDisplayName={displayName}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           groupedVariantStats={variantStats}
           versionId={id}
           projectIdentifier={projectIdentifier}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           tasks={buildVariant?.tasks}
           order={order}
         />

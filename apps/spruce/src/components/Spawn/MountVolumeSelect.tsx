@@ -41,7 +41,7 @@ export const MountVolumeSelect = ({
       dispatchToast.error(`There was an error loading hosts: ${e.message}`);
     },
   });
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   // set host dropdown options
@@ -54,7 +54,7 @@ export const MountVolumeSelect = ({
       const opts = data.myHosts
         // Filter hosts that do not have the same availability zone as the volume.
         .filter(({ availabilityZone, status }) =>
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           canUpdateHost(status, availabilityZone),
         )
         // Map host to a displayName and ID for the dropdown <Option />

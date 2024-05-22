@@ -20,9 +20,9 @@ type Action =
 
 type cacheShape = Map<
   number,
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   | mainlineCommits["versions"][0]["version"]
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   | mainlineCommits["versions"][0]["rolledUpVersions"][0]
 >;
 export interface HistoryTableReducerState {
@@ -31,7 +31,7 @@ export interface HistoryTableReducerState {
   columns: string[];
   columnLimit: number;
   commitCount: number;
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   loadedCommits: mainlineCommits["versions"];
   pageCount: number;
   processedCommits: CommitRowType[];
@@ -61,33 +61,33 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       // This also performantly handles deduplication of commits at the expense of memory
       const updatedObjectCache = objectifyCommits(
         state.commitCache,
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         action.commits.versions,
       );
       if (updatedObjectCache.size > state.commitCache.size) {
         // Check if our selected commit has been loaded
         const { processedCommits, selectedCommitRowIndex } = processCommits({
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           newCommits: action.commits.versions,
           existingCommits: state.processedCommits,
           selectedCommitOrder: state.selectedCommit?.order,
         });
         let { commitCount } = state;
         // If there are no previous commits, we can set the commitCount to be the first commit's order.
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         if (action.commits.prevPageOrderNumber == null) {
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           for (let i = 0; i < action.commits.versions.length; i++) {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             if (action.commits.versions[i].version) {
               // We set the commitCount to double the order number just so we have room for non commit rows (date separators) and (folded commits)
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               commitCount = action.commits.versions[i].version.order * 2;
               break;
             }
           }
           // if we have no more commits we have processed everything and know how many commits we have so set the value to that
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
         } else if (action.commits.nextPageOrderNumber == null) {
           commitCount = processedCommits.length;
         }
@@ -224,16 +224,16 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
 // This is used to performantly track if we have seen a commit before and avoid duplicating it
 const objectifyCommits = (
   cache: cacheShape,
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   newCommits: mainlineCommits["versions"],
 ) => {
   const obj = new Map(cache);
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   newCommits.forEach((commit) => {
     if (commit.version) {
       obj.set(commit.version.order, commit.version);
     } else if (commit.rolledUpVersions) {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       commit.rolledUpVersions.forEach((version) => {
         obj.set(version.order, version);
       });
@@ -247,7 +247,7 @@ const commitOrderToRowIndex = (order: number, commit: CommitRowType) => {
     return commit.commit.order === order;
   }
   if (commit.type === rowType.FOLDED_COMMITS) {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     return commit.rolledUpCommits.some((elem) => elem.order === order);
   }
   return false;

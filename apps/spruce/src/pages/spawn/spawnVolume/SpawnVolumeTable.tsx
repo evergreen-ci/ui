@@ -65,20 +65,20 @@ const sortByHost = (a: TableVolume, b: TableVolume) =>
 const columns = [
   {
     header: "Volume",
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ displayName, id }) => displayName || id,
     enableSorting: true,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => (
       <WordBreak data-cy="vol-name">{getValue()}</WordBreak>
     ),
   },
   {
     header: "Mounted On",
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ host, hostID }) => host?.displayName || hostID,
     enableSorting: true,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) => {
       const hostId = row.original.hostID;
       return (
@@ -97,7 +97,7 @@ const columns = [
     header: "Status",
     accessorKey: "hostID",
     enableSorting: true,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) => {
       const hostId = getValue();
       const { migrating } = row.original;
@@ -106,10 +106,10 @@ const columns = [
   },
   {
     header: "Expires In",
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     accessorFn: ({ expiration }) => new Date(expiration),
     enableSorting: true,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue, row }) => {
       const expiration = getValue();
       const { noExpiration } = row.original;
@@ -120,7 +120,7 @@ const columns = [
   },
   {
     header: "Actions",
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ row }) => <SpawnVolumeTableActions volume={row.original} />,
   },
 ];

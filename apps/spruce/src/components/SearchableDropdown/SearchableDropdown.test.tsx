@@ -29,12 +29,12 @@ describe("searchableDropdown", () => {
     expect(
       screen.queryByDataCy("searchable-dropdown-options"),
     ).not.toBeInTheDocument();
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(
       screen.getByDataCy("searchable-dropdown-options"),
     ).toBeInTheDocument();
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(
       screen.queryByDataCy("searchable-dropdown-options"),
@@ -53,7 +53,7 @@ describe("searchableDropdown", () => {
     expect(
       screen.queryByDataCy("searchable-dropdown-options"),
     ).not.toBeInTheDocument();
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(
       screen.getByDataCy("searchable-dropdown-options"),
@@ -65,7 +65,7 @@ describe("searchableDropdown", () => {
       2,
     );
     await user.type(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("searchable-dropdown-search-input"),
       "spru",
     );
@@ -84,24 +84,24 @@ describe("searchableDropdown", () => {
       }),
     );
     // use text input to filter and click on document body (which closes the dropdown).
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
       2,
     );
     await user.type(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("searchable-dropdown-search-input"),
       "spru",
     );
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
       1,
     );
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("spruce"));
 
     // when reopening the dropdown, the text input should be cleared and all options should be visible.
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("searchable-dropdown"));
     expect(screen.queryAllByDataCy("searchable-dropdown-option")).toHaveLength(
       2,
@@ -114,7 +114,7 @@ describe("searchableDropdown", () => {
   it("should use custom search function when passed in", async () => {
     const user = userEvent.setup();
     const searchFunc = vi.fn((options, match) =>
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       options.filter((o) => o === match),
     );
     render(
@@ -125,14 +125,14 @@ describe("searchableDropdown", () => {
         searchFunc,
       }),
     );
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("searchable-dropdown"));
 
     expect(
       screen.getByDataCy("searchable-dropdown-search-input"),
     ).toBeInTheDocument();
     await user.type(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("searchable-dropdown-search-input"),
       "spruce",
     );
@@ -157,12 +157,12 @@ describe("searchableDropdown", () => {
       expect(
         screen.queryByDataCy("searchable-dropdown-options"),
       ).not.toBeInTheDocument();
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.getByDataCy("searchable-dropdown-options"),
       ).toBeInTheDocument();
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByText("spruce"));
       expect(onChange).toHaveBeenCalledWith("spruce");
       expect(
@@ -189,24 +189,24 @@ describe("searchableDropdown", () => {
         }),
       );
       // use text input to filter and select an option.
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(2);
       await user.type(
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         screen.queryByDataCy("searchable-dropdown-search-input"),
         "spru",
       );
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(1);
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByText("spruce"));
 
       // when reopening the dropdown, the text input should be cleared and all options should be visible.
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option"),
@@ -225,7 +225,7 @@ describe("searchableDropdown", () => {
           options: ["evergreen", "spruce"],
         }),
       );
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option"),
@@ -249,12 +249,12 @@ describe("searchableDropdown", () => {
       expect(
         screen.queryByDataCy("searchable-dropdown-options"),
       ).not.toBeInTheDocument();
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.getByDataCy("searchable-dropdown-options"),
       ).toBeInTheDocument();
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByText("spruce"));
       expect(onChange).toHaveBeenCalledWith(["spruce"]);
 
@@ -278,7 +278,7 @@ describe("searchableDropdown", () => {
           allowMultiSelect: true,
         }),
       );
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByText("evergreen"));
       expect(onChange).toHaveBeenCalledWith(["spruce", "evergreen"]);
     });
@@ -294,20 +294,20 @@ describe("searchableDropdown", () => {
         }),
       );
       // use text input to filter and select an option.
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(3);
       await user.type(
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         screen.queryByDataCy("searchable-dropdown-search-input"),
         "s",
       );
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option"),
       ).toHaveLength(2);
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByText("spruce"));
 
       // the dropdown should not be closed and the search state should not be reset.
@@ -329,7 +329,7 @@ describe("searchableDropdown", () => {
           allowMultiSelect: true,
         }),
       );
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(
         screen.queryAllByDataCy("searchable-dropdown-option"),
@@ -366,7 +366,7 @@ describe("searchableDropdown", () => {
           ),
         }),
       );
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
       expect(screen.getByText("Evergreen")).toBeInTheDocument();
       expect(screen.getByText("Spruce")).toBeInTheDocument();
@@ -402,11 +402,11 @@ describe("searchableDropdown", () => {
           ),
         }),
       );
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("searchable-dropdown"));
 
       expect(screen.getByText("Spruce")).toBeInTheDocument();
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByText("Spruce"));
       expect(onChange).toHaveBeenCalledWith("spruce");
     });
@@ -417,7 +417,7 @@ describe("searchableDropdown", () => {
           value: "evergreen",
           onChange: vi.fn(),
           options: ["evergreen", "spruce"],
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           buttonRenderer: (option: string) => (
             <b className="just-a-test">{option}</b>
           ),

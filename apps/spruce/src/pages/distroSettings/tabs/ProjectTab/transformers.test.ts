@@ -31,7 +31,7 @@ const form: ProjectFormState = {
   validProjects: [],
 };
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const gql: DistroInput = {
   ...distroData,
   expansions: [

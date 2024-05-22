@@ -63,7 +63,7 @@ const TaskQueue = () => {
     DistroTaskQueueQueryVariables
   >(DISTRO_TASK_QUEUE, {
     fetchPolicy: "cache-and-network",
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { distroId },
     skip: !distroId,
     onError: (err) => {
@@ -100,11 +100,11 @@ const TaskQueue = () => {
               onClick={onClick}
             />
           )}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           onChange={onChangeDistroSelection}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={selectedDistro}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           buttonRenderer={(option: TaskQueueDistro) => (
             <DistroLabel>
               <StyledBadge>{`${option?.taskCount || 0} ${
@@ -133,7 +133,7 @@ const TaskQueue = () => {
       }
       {!loadingTaskQueueItems && (
         <TaskQueueTable
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           taskQueue={taskQueueItemsData?.distroTaskQueue}
           taskId={taskId}
         />

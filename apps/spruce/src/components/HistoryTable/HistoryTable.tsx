@@ -27,21 +27,21 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   loading,
 }) => {
   const {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onChangeTableWidth,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     processedCommitCount,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     processedCommits,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     selectedCommit,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     visibleColumns,
   } = useHistoryTable();
 
   const ref = useRef<HTMLDivElement>(null);
   const listRef = useRef<VirtuosoHandle>(null);
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const size = useDimensions(ref);
   const throttledOnChangeTableWidth = useMemo(
     () => throttle(onChangeTableWidth, 400),
@@ -104,7 +104,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
                 numLoadingRows={10}
               />
             ) : (
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               <EndOfHistoryRow>{finalRowCopy}</EndOfHistoryRow>
             ),
         }}

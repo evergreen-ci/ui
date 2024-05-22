@@ -33,13 +33,13 @@ const useJobLogsPageData = ({
   onError,
   taskId,
 }: UseJobLogsPageParams): JobLogsPageData => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const executionAsInt = parseInt(execution, 10);
   const { data: logkeeperData, loading: loadingLogkeeper } = useQuery<
     LogkeeperBuildMetadataQuery,
     LogkeeperBuildMetadataQueryVariables
   >(LOGKEEPER_BUILD_METADATA, {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { buildId },
     skip: !isLogkeeper,
     onError: (err) => {
@@ -75,7 +75,7 @@ const useJobLogsPageData = ({
 
   const resultsToRender = getFormattedTestResults(
     logkeeperBuildMetadata?.tests,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     evergreenTask?.tests?.testResults,
     groupId,
   );
@@ -90,7 +90,7 @@ const useJobLogsPageData = ({
   return {
     resultsToRender,
     title,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     status: evergreenTask?.status,
     loading: loadingEvergreen || loadingLogkeeper,
     metadata,

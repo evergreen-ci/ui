@@ -49,7 +49,7 @@ export const CreateProjectModal: React.FC<Props> = ({
   const { data: gitOrgs } = useQuery<GithubOrgsQuery>(GITHUB_ORGS, {
     skip: !open,
   });
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { spruceConfig: { githubOrgs = [] } = {} } = gitOrgs ?? {};
 
   const form = modalFormDefinition(githubOrgs);

@@ -18,7 +18,7 @@ const { convertArrayToObject } = array;
  * @returns getTaskMetadata - a function that given a task id returns the test results for that task
  */
 const useTestResults = (rowIndex: number) => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { getItem, historyTableFilters } = useHistoryTable();
   let taskIds: string[] = [];
   let versionId = "";
@@ -29,9 +29,9 @@ const useTestResults = (rowIndex: number) => {
 
   const commit = getItem(rowIndex);
   if (commit && commit.type === rowType.COMMIT && commit.commit) {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     taskIds = commit.commit.buildVariants.flatMap((buildVariant) =>
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       buildVariant.tasks.map((task) => task.id),
     );
     versionId = commit.commit.id;

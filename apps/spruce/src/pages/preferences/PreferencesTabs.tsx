@@ -14,12 +14,12 @@ import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 
 export const PreferencesTabs: React.FC = () => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { [slugs.tab]: tab } = useParams<{
     [slugs.tab]: PreferencesTabRoutes | null;
   }>();
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { subtitle, title } = getTitle(tab);
   return (
     <>

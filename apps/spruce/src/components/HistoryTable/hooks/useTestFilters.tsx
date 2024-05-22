@@ -9,7 +9,7 @@ const { toArray } = array;
 
 const useTestFilters = () => {
   const { search } = useLocation();
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { setHistoryTableFilters } = useHistoryTable();
   useEffect(() => {
     const queryParams = parseQueryString(search);

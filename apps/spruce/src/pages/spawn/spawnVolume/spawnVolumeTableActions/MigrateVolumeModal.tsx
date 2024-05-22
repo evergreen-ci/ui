@@ -42,7 +42,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   const { sendEvent } = useSpawnAnalytics();
 
   const { formSchemaInput, loading: loadingFormData } = useLoadFormSchemaData({
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     host: volume.host,
   });
   const [migrateVolumeMutation, { loading: loadingMigration }] = useMutation<
@@ -65,27 +65,25 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   });
 
   const distros = useMemo(
-    // @ts-ignore: FIXME. This comment was added by an automated script.
     () => formSchemaInput.distros?.filter((d) => d.isVirtualWorkStation),
     [formSchemaInput.distros],
   );
 
   const selectedDistro = useMemo(
-    // @ts-ignore: FIXME. This comment was added by an automated script.
     () => distros?.find(({ name }) => name === form?.requiredSection?.distro),
     [distros, form?.requiredSection?.distro],
   );
 
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     distros,
     isMigration: true,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     userAwsRegion: AZToRegion(volume.availabilityZone),
   });
   useVirtualWorkstationDefaultExpiration({
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     isVirtualWorkstation: selectedDistro?.isVirtualWorkStation,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
     formState: form,
@@ -103,14 +101,14 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     const mutationInput = formToGql({
       isVirtualWorkStation: !!selectedDistro?.isVirtualWorkStation,
       formData: form,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       myPublicKeys: formSchemaInput.myPublicKeys,
       migrateVolumeId: volume.id,
     });
     sendEvent({
       name: "Spawned a host",
       isMigration: true,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       params: omit(mutationInput, [
         "publicKey",
         "userDataScript",
@@ -119,7 +117,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     });
     migrateVolumeMutation({
       variables: {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         spawnHostInput: mutationInput,
         volumeId: volume.id,
       },

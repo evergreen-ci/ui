@@ -32,7 +32,7 @@ describe("copySSHCommandButton", () => {
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
 
     // Hover over button to trigger tooltip.
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe("copySSHCommandButton", () => {
     ).toBeInTheDocument();
 
     // Click on button to copy the SSH command and change tooltip message.
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(copySSHButton);
     await waitFor(async () => {
       const clipboardText = await navigator.clipboard.readText();
@@ -66,7 +66,7 @@ describe("copySSHCommandButton", () => {
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
           user={testUser}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           hostUrl={undefined}
           hostStatus={HostStatus.Starting}
         />
@@ -76,7 +76,7 @@ describe("copySSHCommandButton", () => {
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
@@ -101,7 +101,7 @@ describe("copySSHCommandButton", () => {
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();

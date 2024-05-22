@@ -58,11 +58,11 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
         </GroupedSelect>
         <GroupedTextInput
           id="filter-input"
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           aria-label={selectedOption.displayName}
           data-cy="tuple-select-input"
           type="search"
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           placeholder={selectedOption.placeHolderText}
           validator={validator}
           validatorErrorMessage={validatorErrorMessage}

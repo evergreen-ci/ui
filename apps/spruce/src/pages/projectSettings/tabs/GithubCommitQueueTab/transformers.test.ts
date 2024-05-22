@@ -70,7 +70,7 @@ const projectForm: GCQFormState = {
       ],
     },
     githubTriggerAliases: [],
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubChecksEnabled: null,
     githubChecks: {
       githubCheckAliasesOverride: false,
@@ -353,7 +353,7 @@ const mergedForm: GCQFormState = {
       },
     },
     githubTriggerAliases: [],
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubChecksEnabled: null,
     githubChecks: {
       githubCheckAliasesOverride: false,

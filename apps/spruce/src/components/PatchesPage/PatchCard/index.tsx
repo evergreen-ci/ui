@@ -56,14 +56,14 @@ export const PatchCard: React.FC<Props> = ({
   status,
   versionFull,
 }) => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const createDate = new Date(createTime);
   const getDateCopy = useDateFormat();
   const { id: versionId, taskStatusStats } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? [],
   );
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const isUnconfigured = isPatchUnconfigured({ alias, activated });
   let patchProject = null;
   if (pageType === "project") {
@@ -95,7 +95,7 @@ export const PatchCard: React.FC<Props> = ({
       status={umbrellaStatus}
       count={count}
       statusCounts={statusCounts}
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       href={getVersionRoute(versionId, {
         statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
       })}

@@ -40,7 +40,7 @@ export const GeneralTab: React.FC<TabProps> = ({
   const formSchema = useMemo(
     () =>
       getFormSchema(
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectId,
         projectType,
         identifierHasChanges,
@@ -60,7 +60,7 @@ export const GeneralTab: React.FC<TabProps> = ({
 
   return (
     <BaseTab
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       initialFormState={initialFormState}
       formSchema={formSchema}
       tab={tab}
@@ -81,7 +81,7 @@ const validate = (projectType: ProjectType) =>
 
     // Ensure that both attached and unattached projects have a branch specified if they are enabled.
     if (enabled && !branch) {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       errors.generalConfiguration.branch.addError(
         "A branch is required for enabled projects.",
       );

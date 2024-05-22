@@ -159,9 +159,9 @@ const getHostUptimeSchema = ({
     details: {
       "ui:descriptionNode": (
         <Details
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           timeZone={timeZone}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           totalUptimeHours={hostUptimeValidation?.enabledHoursCount}
         />
       ),

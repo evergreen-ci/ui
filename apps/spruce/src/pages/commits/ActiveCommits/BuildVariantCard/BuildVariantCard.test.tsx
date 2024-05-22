@@ -47,10 +47,10 @@ describe("buildVariantCard", () => {
       </MockedProvider>,
     );
 
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("build-variant-icon-container"));
     expect(injectGlobalDimStyle).toHaveBeenCalledTimes(1);
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.unhover(screen.queryByDataCy("build-variant-icon-container"));
     expect(removeGlobalDimStyle).toHaveBeenCalledTimes(1);
   });

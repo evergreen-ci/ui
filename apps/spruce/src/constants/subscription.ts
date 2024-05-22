@@ -11,10 +11,10 @@ export const getSubscriberText = (subscriberWrapper: SubscriberWrapper) => {
     case NotificationMethods.EMAIL:
       return subscriber.emailSubscriber;
     case NotificationMethods.WEBHOOK:
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       return subscriber.webhookSubscriber.url;
     case NotificationMethods.JIRA_ISSUE:
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       return subscriber.jiraIssueSubscriber.project;
     default:
       return "";

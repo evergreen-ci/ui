@@ -42,7 +42,6 @@ const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
   const suspectedIssues = data?.task?.annotation?.suspectedIssues;
   return (
     <AnnotationTickets
-      // @ts-ignore: FIXME. This comment was added by an automated script.
       tickets={suspectedIssues || annotation?.suspectedIssues || []}
       taskId={taskId}
       execution={execution}

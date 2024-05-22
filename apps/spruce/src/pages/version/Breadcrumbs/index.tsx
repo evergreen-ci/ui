@@ -22,7 +22,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
 }) => {
   const { author, isPatch, projectIdentifier, revision } =
     versionMetadata ?? {};
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const breadcrumbRoot = useBreadcrumbRoot(isPatch, author, projectIdentifier);
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
@@ -38,7 +38,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   };
 
   const commitBreadcrumb = {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     text: shortenGithash(revision),
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
@@ -50,7 +50,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
   };
 
   const breadcrumbs: Breadcrumb[] = [
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     breadcrumbRoot,
     isPatch ? patchBreadcrumb : commitBreadcrumb,
   ];

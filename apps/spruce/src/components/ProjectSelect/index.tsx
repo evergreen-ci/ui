@@ -49,7 +49,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
     : projectsLoading;
 
   const allProjects = getProjects(
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     projectsData,
     viewableProjectsData,
     isProjectSettingsPage,
@@ -71,7 +71,6 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
         const { groupDisplayName, projects: pg, repo } = g;
 
         const newProjects = pg.filter(
-          // @ts-ignore: FIXME. This comment was added by an automated script.
           (p) =>
             groupDisplayName.toLowerCase().includes(value.toLowerCase()) ||
             p.displayName.toLowerCase().includes(value.toLowerCase()) ||
@@ -98,7 +97,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   return (
     <SearchableDropdown
       label={showLabel ? "Project" : null}
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       value={
         selectedProject?.displayName ||
         selectedProject?.identifier ||
@@ -116,7 +115,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
           name={projectGroup.groupDisplayName}
           onClick={onClick}
           repoIdentifier={projectGroup?.repo?.id}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           canClickOnRepoGroup={isProjectSettingsPage && projectGroup?.repo?.id}
         />
       )}
@@ -129,20 +128,17 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
 };
 
 const getFavoriteProjects = (projectGroups: ProjectsQuery["projects"]) =>
-  // @ts-ignore: FIXME. This comment was added by an automated script.
   projectGroups?.flatMap((g) => g.projects.filter((p) => p.isFavorite));
 
 // Split a list of projects into two arrays, one of enabled projects and one of disabled projects
 const filterDisabledProjects = (
   projects: Unpacked<
     ViewableProjectRefsQuery["viewableProjectRefs"]
-    // @ts-ignore: FIXME. This comment was added by an automated script.
   >["projects"],
 ) =>
   projects.reduce(
-    // @ts-ignore: FIXME. This comment was added by an automated script.
     ([enabled, disabled], project) =>
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       project.enabled === false
         ? [enabled, [...disabled, project]]
         : [[...enabled, project], disabled],
@@ -153,11 +149,8 @@ type ViewableProjectRef = Unpacked<
   ViewableProjectRefsQuery["viewableProjectRefs"]
 >;
 interface GetProjectsResult {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
   groupDisplayName: ViewableProjectRef["groupDisplayName"];
-  // @ts-ignore: FIXME. This comment was added by an automated script.
   projects: ViewableProjectRef["projects"];
-  // @ts-ignore: FIXME. This comment was added by an automated script.
   repo?: ViewableProjectRef["repo"];
 }
 type GetProjectsType = (
@@ -166,7 +159,6 @@ type GetProjectsType = (
   isProjectSettingsPage: boolean,
 ) => GetProjectsResult[];
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
 const getProjects: GetProjectsType = (
   projectsData,
   viewableProjectsData,
@@ -186,17 +178,15 @@ const getProjects: GetProjectsType = (
   // For Project Settings pages, move disabled projects to the bottom of the dropdown
   const projectGroups = viewableProjectsData?.viewableProjectRefs ?? [];
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const disabledProjects = [];
   const enabledProjectGroups = projectGroups.map((projectGroup) => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const [enabled, disabled] = filterDisabledProjects(projectGroup.projects);
     disabledProjects.push(...disabled);
     return {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
       groupDisplayName: projectGroup.groupDisplayName,
       projects: enabled,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
       repo: projectGroup.repo,
     };
   });
@@ -208,7 +198,7 @@ const getProjects: GetProjectsType = (
     },
     ...enabledProjectGroups,
     ...(disabledProjects.length
-      ? // @ts-ignore: FIXME. This comment was added by an automated script.
+      ? // @ts-expect-error: FIXME. This comment was added by an automated script.
         [{ groupDisplayName: "Disabled Projects", projects: disabledProjects }]
       : []),
   ];

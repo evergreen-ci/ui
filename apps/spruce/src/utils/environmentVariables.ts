@@ -10,7 +10,7 @@ export const getApiUrl: () => string = () =>
  * @returns - The application's DSN
  */
 export const getSentryDSN: () => string = () =>
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   process.env.REACT_APP_SPRUCE_SENTRY_DSN;
 
 /**
@@ -31,7 +31,7 @@ export const getSignalProcessingUrl: () => string = () =>
  * @returns - Returns the Spruce URL
  */
 export const getSpruceURL: () => string = () =>
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   process.env.REACT_APP_SPRUCE_URL;
 
 /**
@@ -113,7 +113,7 @@ export const getHoneycombBaseURL = () =>
  * however in prod and staging and we want the login domain to be evergreen.com
  */
 export const getLoginDomain = (): string =>
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   isDevelopmentBuild() || getReleaseStage() === "local"
     ? process.env.REACT_APP_SPRUCE_URL
     : process.env.REACT_APP_UI_URL;

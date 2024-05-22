@@ -113,7 +113,7 @@ export const getFormSchema = (
   },
 });
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const getDescription = (projectType: ProjectType): string => {
   if (projectType === ProjectType.Repo) {
     return "Variables defined here will be used by all branches attached to this project, unless a variable is specifically overridden in the branch.";

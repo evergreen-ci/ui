@@ -21,14 +21,14 @@ type Props = {
 export function isInStepback(task: TaskQuery["task"]) {
   // The 'lastFailingStepbackTaskId' is set for all stepback tasks except the first one.
   const hasLastStepback =
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     task?.stepbackInfo?.lastFailingStepbackTaskId?.length > 0;
 
   // The 'nextStepbackTaskId' is only set when the next task in stepback is running/finished.
   // This happens in the beginning of stepback or them middle of stepback. This condition is
   // covering for the beginning of stepback.
   const isBeginningStepback =
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     task?.stepbackInfo?.nextStepbackTaskId?.length > 0;
 
   // If the task is in stepback or beginning stepback, it is counted as in stepback.

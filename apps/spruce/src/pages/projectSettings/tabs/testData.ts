@@ -32,7 +32,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     enabled: false,
     owner: "evergreen-ci",
     repo: "evergreen",
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     branch: null,
     containerSizeDefinitions: [
       {
@@ -41,14 +41,14 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         memoryMb: 1024,
       },
     ],
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     displayName: null,
     notifyOnBuildFailure: null,
     batchTime: 0,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     remotePath: null,
     oldestAllowedMergeBase: "abc",
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     spawnHostScriptPath: null,
     dispatchingDisabled: null,
     versionControlEnabled: true,
@@ -79,16 +79,16 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     },
     perfEnabled: true,
     buildBaronSettings: {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       ticketCreateProject: null,
       ticketSearchProjects: [],
       ticketCreateIssueType: JiraTicketType.Epic,
     },
     taskAnnotationSettings: {
       fileTicketWebhook: {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         endpoint: null,
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         secret: null,
       },
     },

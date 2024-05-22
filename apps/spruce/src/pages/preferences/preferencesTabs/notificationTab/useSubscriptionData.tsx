@@ -39,7 +39,7 @@ export const useSubscriptionData = () => {
 
   const subscriptions = useMemo(
     () =>
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       processSubscriptionData(data?.user?.subscriptions, globalSubscriptionIds),
     [data?.user?.subscriptions, globalSubscriptionIds],
   );

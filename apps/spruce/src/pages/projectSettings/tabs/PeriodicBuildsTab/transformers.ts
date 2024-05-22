@@ -19,12 +19,12 @@ const getTitle = (
   return intervalHours ? `Every ${intervalHours} hours` : cron;
 };
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const gqlToForm = ((data, { projectType }) => {
   if (!data) return null;
 
   const {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     projectRef: { periodicBuilds },
   } = data;
 
@@ -34,19 +34,19 @@ export const gqlToForm = ((data, { projectType }) => {
     periodicBuilds:
       periodicBuilds?.map(
         ({
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           alias,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           configFile,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           cron,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           id,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           intervalHours,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           message,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           nextRunTime,
         }) => ({
           alias,
@@ -70,7 +70,7 @@ export const gqlToForm = ((data, { projectType }) => {
         }),
       ) ?? [],
   };
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
@@ -80,7 +80,7 @@ export const formToGql = ((
 ) => ({
   ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     periodicBuilds: periodicBuildsOverride
       ? periodicBuilds.map(

@@ -4,21 +4,21 @@ import { Event, EventDiffLine, EventValue } from "./types";
 
 const { omitTypename } = string;
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const isObject = (val) => val && typeof val === "object" && !Array.isArray(val);
 
 const addDelimiter = (a: string, b: string): string => (a ? `${a}.${b}` : b);
 
 const getDiffProperties = (eventObj: object): string[] => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const paths = (obj = {}, head = "") =>
     Object.entries(obj).reduce((event, [key, value]) => {
       const fullPath = addDelimiter(head, key);
 
       return isObject(value)
-        ? // @ts-ignore: FIXME. This comment was added by an automated script.
+        ? // @ts-expect-error: FIXME. This comment was added by an automated script.
           event.concat(paths(value, fullPath))
-        : // @ts-ignore: FIXME. This comment was added by an automated script.
+        : // @ts-expect-error: FIXME. This comment was added by an automated script.
           event.concat(fullPath);
     }, []);
   return paths(eventObj);
@@ -28,7 +28,7 @@ const formatArrayElements = (eventKey: string): string =>
   eventKey.replace(/.[0-9]./g, (x) => `[${x[1]}].`);
 
 const getNestedObject = (nestedObj: object, pathArr: string[]): EventValue =>
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   pathArr.reduce((obj, key) => (obj ? obj[key] : undefined), nestedObj);
 
 export const getEventDiffLines = (

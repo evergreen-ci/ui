@@ -90,7 +90,7 @@ const ConfigureTasks: React.FC<Props> = ({
     );
     return deduplicateTasks(
       tasks,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       previouslySelectedVariants,
       new RegExp(search),
     );
@@ -295,7 +295,7 @@ const ConfigureTasks: React.FC<Props> = ({
         <DisabledVariantTasksList
           data-cy="child-patch-task-checkbox"
           status={CheckboxState.Checked}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           variantTasks={currentChildPatches[0].variantsTasks}
         />
       )}

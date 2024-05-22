@@ -46,7 +46,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
     window.addEventListener("keydown", keyDownCb);
     window.addEventListener("keyup", keyUpCb);
     return () => {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       window.removeEventListener("keyDown", keyDownCb);
       window.removeEventListener("keyup", keyUpCb);
     };
@@ -97,11 +97,11 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
           selectedMenuItems={selectedBuildVariants}
           data-cy="build-variant-list-item"
         />
-        {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {aliases?.length > 0 && (
           <BuildVariantCard
             onClick={getClickVariantHandler}
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             menuItems={aliases}
             title="Select Downstream Tasks"
             selectedMenuItems={selectedBuildVariants}
@@ -121,7 +121,7 @@ interface UserSelectWrapperProps {
 
 const UserSelectWrapper = styled.span<UserSelectWrapperProps>`
   ${(props: UserSelectWrapperProps): string =>
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     props.isHotKeyPressed && "user-select: none;"}
 `;
 

@@ -23,7 +23,7 @@ export const Default: CustomStoryObj<typeof Pagination> = {
   args: {
     totalResults: 100,
     pageSize: 10,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onChange: null,
   },
 };

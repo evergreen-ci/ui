@@ -30,7 +30,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
 
   const [variantSearch] = useQueryParam<string | null>(
     PatchTasksQueryParams.Variant,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     undefined,
   );
   const [sorts] = useQueryParam(PatchTasksQueryParams.Sorts, undefined);
@@ -38,7 +38,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
     PatchTasksQueryParams.Statuses,
     [],
   );
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const hasStatusFilter = statusSearch.length > 0;
   const hasVariantFilter = variantSearch !== undefined;
 
@@ -74,7 +74,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
           ({ count, statusCounts: groupedStatusCounts, umbrellaStatus }) => {
             const hasStatusFilterForUmbrellaStatus = isUmbrellaStatusSet(
               umbrellaStatus,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               statusSearch,
             );
             // A badge is active if the variant is selected and the status is selected

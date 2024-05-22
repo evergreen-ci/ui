@@ -12,7 +12,7 @@ import { ApolloMock } from "types/gql";
 import { ProjectType } from "../utils";
 import { EventLogTab } from "./EventLogTab";
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const Wrapper = ({ children, mocks = [] }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
@@ -20,7 +20,7 @@ const Wrapper = ({ children, mocks = [] }) => (
 describe("loading events", () => {
   it("does not show a load more button when the event count is less than the limit", async () => {
     const { Component } = RenderFakeToastContext(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       <Wrapper mocks={[mock()]}>
         <EventLogTab projectType={ProjectType.AttachedProject} />
       </Wrapper>,
@@ -41,7 +41,7 @@ describe("loading events", () => {
   it("shows a 'Load more' button when the number of events loaded meets the limit", async () => {
     const limit = 1;
     const { Component } = RenderFakeToastContext(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       <Wrapper mocks={[mock(limit)]}>
         <EventLogTab projectType={ProjectType.AttachedProject} limit={limit} />
       </Wrapper>,

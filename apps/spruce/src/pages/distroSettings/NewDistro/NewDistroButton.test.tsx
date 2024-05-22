@@ -69,7 +69,7 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("new-distro-button"));
       expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
     });
@@ -83,10 +83,10 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("new-distro-button"));
       expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("create-distro-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("create-distro-modal")).toBeVisible();
@@ -103,10 +103,10 @@ describe("new distro button", () => {
       });
 
       await screen.findByText("New distro");
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("new-distro-button"));
       expect(screen.queryByDataCy("new-distro-menu")).toBeVisible();
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("copy-distro-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("copy-distro-modal")).toBeVisible();

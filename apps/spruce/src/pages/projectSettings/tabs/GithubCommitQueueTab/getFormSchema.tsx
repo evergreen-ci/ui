@@ -74,7 +74,7 @@ export const getFormSchema = (
               title: "Automated Testing",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 repoData?.github?.prTestingEnabled,
               ),
             },
@@ -83,7 +83,7 @@ export const getFormSchema = (
               title: "Manual Testing",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 repoData?.github?.manualPrTestingEnabled,
               ),
             },
@@ -100,7 +100,7 @@ export const getFormSchema = (
                   "Override Repo Patch Definition",
                   "Default to Repo Patch Definition",
                 ],
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 aliasArray.schema,
               ),
             },
@@ -127,7 +127,7 @@ export const getFormSchema = (
               ...overrideRadioBox(
                 "githubCheckAliases",
                 ["Override Repo Definition", "Default to Repo Definition"],
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 aliasArray.schema,
               ),
             },
@@ -141,7 +141,7 @@ export const getFormSchema = (
               type: ["boolean", "null"],
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 repoData?.github?.gitTagVersionsEnabled,
               ),
             },
@@ -188,7 +188,7 @@ export const getFormSchema = (
               ...overrideRadioBox(
                 "gitTagAliases",
                 ["Override Repo Git Tags", "Default to Repo Git Tags"],
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 gitTagArray.schema,
               ),
             },
@@ -202,7 +202,7 @@ export const getFormSchema = (
               type: ["boolean", "null"],
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 repoData?.commitQueue?.enabled,
               ),
             },
@@ -313,7 +313,7 @@ export const getFormSchema = (
                           "Override Repo Patch Definition",
                           "Default to Repo Patch Definition",
                         ],
-                        // @ts-ignore: FIXME. This comment was added by an automated script.
+                        // @ts-expect-error: FIXME. This comment was added by an automated script.
                         aliasArray.schema,
                       ),
                     },
@@ -336,7 +336,7 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
 
           ...githubConflictErrorStyling(
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             githubProjectConflicts?.prTestingIdentifiers,
             formData?.github?.prTestingEnabled,
             repoData?.github?.prTestingEnabled,
@@ -349,7 +349,7 @@ export const getFormSchema = (
           "ui:description":
             "Patches can be run manually by commenting ‘evergreen patch’ on the PR even if automated testing isn't enabled.",
           ...githubConflictErrorStyling(
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             githubProjectConflicts?.prTestingIdentifiers,
             formData?.github?.manualPrTestingEnabled,
             repoData?.github?.manualPrTestingEnabled,
@@ -360,17 +360,17 @@ export const getFormSchema = (
           "ui:description":
             "Specify the oldest commit SHA on your project branch that is allowed to be a merge base for a PR",
           "ui:optional": true,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           ...placeholderIf(repoData?.github?.oldestAllowedMergeBase),
           ...hideIf(
             fieldDisabled(
               formData?.github?.prTestingEnabled,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               repoData?.github?.prTestingEnabled,
             ) &&
               fieldDisabled(
                 formData?.github?.manualPrTestingEnabled,
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 repoData?.github?.manualPrTestingEnabled,
               ),
           ),
@@ -379,17 +379,17 @@ export const getFormSchema = (
           ...hideIf(
             fieldDisabled(
               formData?.github?.prTestingEnabled,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               repoData?.github?.prTestingEnabled,
             ) &&
               fieldDisabled(
                 formData?.github?.manualPrTestingEnabled,
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 repoData?.github?.manualPrTestingEnabled,
               ),
           ),
           ...errorStyling(
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             formData?.github?.prTestingEnabled,
             formData?.github?.prTesting?.githubPrAliasesOverride,
             formData?.github?.prTesting?.githubPrAliases,
@@ -440,7 +440,7 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
 
           ...githubConflictErrorStyling(
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             githubProjectConflicts?.commitCheckIdentifiers,
             formData?.github?.githubChecksEnabled,
             repoData?.github?.githubChecksEnabled,
@@ -451,7 +451,7 @@ export const getFormSchema = (
           ...hideIf(
             fieldDisabled(
               formData?.github?.githubChecksEnabled,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               repoData?.github?.githubChecksEnabled,
             ),
           ),
@@ -459,7 +459,7 @@ export const getFormSchema = (
             formData?.github?.githubChecksEnabled,
             formData?.github?.githubChecks?.githubCheckAliasesOverride,
             formData?.github?.githubChecks?.githubCheckAliases,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             repoData?.github?.githubChecks?.githubCheckAliases,
             "Commit Check Definition",
           ),
@@ -488,7 +488,7 @@ export const getFormSchema = (
           "Add User",
           repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
           formData?.github?.gitTagVersionsEnabled,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           repoData?.github?.gitTagVersionsEnabled,
         ),
         teams: userTeamStyling(
@@ -496,19 +496,19 @@ export const getFormSchema = (
           "Add Team",
           repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
           formData?.github?.gitTagVersionsEnabled,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           repoData?.github?.gitTagVersionsEnabled,
         ),
         gitTags: {
           ...hideIf(
             fieldDisabled(
               formData?.github?.gitTagVersionsEnabled,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               repoData?.github?.gitTagVersionsEnabled,
             ),
           ),
           ...errorStyling(
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             formData?.github?.gitTagVersionsEnabled,
             formData?.github?.gitTags?.gitTagAliasesOverride,
             formData?.github?.gitTags?.gitTagAliases,
@@ -538,7 +538,7 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           "ui:data-cy": "cq-enabled-radio-box",
           ...githubConflictErrorStyling(
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             githubProjectConflicts?.commitQueueIdentifiers,
             formData?.commitQueue?.enabled,
             repoData?.commitQueue?.enabled,
@@ -548,7 +548,7 @@ export const getFormSchema = (
         message: {
           "ui:description": "Shown in commit queue CLI commands & web UI",
           "ui:data-cy": "cq-message-input",
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           ...placeholderIf(repoData?.commitQueue?.message),
         },
         mergeSettings: {
@@ -563,7 +563,7 @@ export const getFormSchema = (
         },
         patchDefinitions: {
           ...errorStyling(
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             formData?.commitQueue?.enabled,
             formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
             formData?.commitQueue?.patchDefinitions?.commitQueueAliases,

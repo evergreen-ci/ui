@@ -19,7 +19,7 @@ interface CardItem {
 }
 
 const CardField: React.FC<CardItem> = ({ label, value }) =>
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   value !== undefined && (
     <FieldContainer>
       <FieldName>{label}</FieldName>

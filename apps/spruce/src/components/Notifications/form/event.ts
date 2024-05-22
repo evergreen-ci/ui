@@ -59,7 +59,7 @@ const buildSelect = {
   oneOf: [
     ...Object.keys(requesterSubscriberOptions).map((r) => ({
       type: "string" as "string",
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       title: requesterSubscriberOptions[r],
       enum: [r],
     })),
@@ -73,7 +73,7 @@ const failureSelect = {
   oneOf: [
     ...Object.keys(failureTypeSubscriberOptions).map((f) => ({
       type: "string" as "string",
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       title: failureTypeSubscriberOptions[f],
       enum: [f],
     })),

@@ -42,7 +42,7 @@ export const useQueryVariables = (
       taskName: getString(taskName),
       statuses: toArray(statuses),
       baseStatuses: toArray(baseStatuses),
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       sorts: sortsToApply,
       limit,
       page,

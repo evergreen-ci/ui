@@ -49,7 +49,7 @@ export const getFormSchema = (
             title: "",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               repoData?.performanceSettings?.perfEnabled,
             ),
           },
@@ -249,11 +249,11 @@ export const getFormSchema = (
         "ui:description":
           "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
         endpoint: placeholderIf(
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint,
         ),
         secret: placeholderIf(
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           repoData?.buildBaronSettings?.fileTicketWebhook?.secret,
         ),
       },

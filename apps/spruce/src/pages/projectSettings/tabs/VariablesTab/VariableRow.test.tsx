@@ -29,7 +29,7 @@ describe("variable row field template", () => {
     render(
       <VariableRow
         formData={{ varName: "test" }}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         properties={mockProperties}
         uiSchema={mockUiSchema}
       />,
@@ -41,7 +41,7 @@ describe("variable row field template", () => {
     render(
       <VariableRow
         formData={{ varName: "" }}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         properties={mockProperties}
         uiSchema={mockUiSchema}
       />,

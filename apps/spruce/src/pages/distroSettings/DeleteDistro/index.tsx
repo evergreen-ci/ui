@@ -75,7 +75,7 @@ export const DeleteDistro: React.FC = () => {
     UserDistroSettingsPermissionsQuery,
     UserDistroSettingsPermissionsQueryVariables
   >(USER_DISTRO_SETTINGS_PERMISSIONS, {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { distroId },
   });
   const isAdmin = data?.user?.permissions?.distroPermissions?.admin;
@@ -84,7 +84,7 @@ export const DeleteDistro: React.FC = () => {
     <>
       <Modal
         closeModal={() => setOpen(false)}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         distroId={distroId}
         open={open}
       />

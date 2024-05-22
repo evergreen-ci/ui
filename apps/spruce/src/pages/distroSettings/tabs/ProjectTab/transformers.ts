@@ -12,10 +12,10 @@ export const gqlToForm = ((data) => {
     expansions,
     validProjects,
   };
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const formToGql = (({ expansions, validProjects }, distro) => ({
   ...distro,
   expansions,

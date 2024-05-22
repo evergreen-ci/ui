@@ -85,7 +85,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       visibleColumns,
     },
     dispatch,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
   ] = useReducer(reducer, initialState);
 
   const isItemLoaded = (index: number) => processedCommitCount > index;
@@ -93,7 +93,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   const getItem = (index: number) => processedCommits[index];
 
   const onChangeTableWidth = useCallback((width: number) => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     dispatch({ type: "onChangeTableWidth", width });
   }, []);
   const historyTableState = useMemo(
@@ -112,28 +112,28 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       selectedCommit,
       visibleColumns,
       addColumns: (columns: string[]) =>
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         dispatch({ type: "addColumns", columns }),
       ingestNewCommits: (
         commits: MainlineCommitsForHistoryQuery["mainlineCommits"],
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
       ) => dispatch({ type: "ingestNewCommits", commits }),
       markSelectedRowVisited: () =>
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         dispatch({ type: "markSelectedRowVisited" }),
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       nextPage: () => dispatch({ type: "nextPageColumns" }),
       onChangeTableWidth,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       previousPage: () => dispatch({ type: "prevPageColumns" }),
       setSelectedCommit: (order: number) =>
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         dispatch({ type: "setSelectedCommit", order }),
       setHistoryTableFilters: (filters: TestFilter[]) =>
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         dispatch({ type: "setHistoryTableFilters", filters }),
       toggleRowExpansion: (rowIndex: number, expanded: boolean) => {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         dispatch({
           type: "toggleRowExpansion",
           rowIndex,

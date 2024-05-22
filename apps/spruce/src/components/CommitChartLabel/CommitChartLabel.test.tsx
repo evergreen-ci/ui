@@ -4,7 +4,7 @@ import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { shortenGithash } from "utils/string";
 import CommitChartLabel from ".";
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const RenderCommitChartLabel = ({ version }) => (
   <MockedProvider mocks={[getSpruceConfigMock]}>
     <CommitChartLabel
@@ -69,7 +69,7 @@ describe("commitChartLabel", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
 
     expect(screen.queryByDataCy("long-commit-message-tooltip")).toBeNull();
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("more"));
     await waitFor(() => {
       expect(

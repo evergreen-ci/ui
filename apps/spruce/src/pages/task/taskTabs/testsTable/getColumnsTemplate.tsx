@@ -16,7 +16,7 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
     header: "Name",
     accessorKey: "testFile",
     id: TestSortCategory.TestName,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => <WordBreak>{getValue()}</WordBreak>,
     enableColumnFilter: true,
     enableSorting: true,
@@ -34,7 +34,7 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
     id: TestSortCategory.Status,
     enableColumnFilter: true,
     enableSorting: true,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => <TestStatusBadge status={getValue()} />,
     meta: {
       treeSelect: {
@@ -46,12 +46,12 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
   },
   {
     header: () =>
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       `${task.versionMetadata.isPatch ? "Base" : "Previous"} Status`,
     accessorKey: "baseStatus",
     id: TestSortCategory.BaseStatus,
     enableSorting: true,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => {
       const status = getValue();
       return status && <TestStatusBadge status={status} />;
@@ -65,7 +65,7 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
     accessorKey: "duration",
     id: TestSortCategory.Duration,
     enableSorting: true,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }): string => {
       const ms = getValue() * 1000;
       return msToDuration(Math.trunc(ms));
@@ -77,7 +77,7 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
   {
     header: "Logs",
     sorter: false,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ row }) => <LogsColumn testResult={row.original} task={task} />,
     meta: {
       width: "20%",

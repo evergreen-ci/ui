@@ -22,7 +22,7 @@ describe("host tab", () => {
   });
 
   it("correctly converts from GQL to a form when mountpoints is null", () => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(gqlToForm({ ...distroData, mountpoints: null })).toStrictEqual({
       ...form,
       setup: { ...form.setup, mountpoints: [] },
@@ -84,5 +84,5 @@ const form: HostFormState = {
   },
 };
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const gql: DistroInput = distroData;

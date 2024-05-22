@@ -17,7 +17,7 @@ export const Default: CustomStoryObj<typeof TextInputWithGlyph> = {
   },
 };
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const Input = (props) => {
   const [value, setValue] = useState("");
   return (

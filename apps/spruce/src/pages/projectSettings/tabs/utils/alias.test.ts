@@ -62,7 +62,7 @@ describe("transformAliases", () => {
     expect(
       transformAliases(
         [
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           {
             id: "456",
             variants: {

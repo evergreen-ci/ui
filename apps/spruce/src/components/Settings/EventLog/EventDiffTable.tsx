@@ -47,7 +47,7 @@ const CellText = styled.span`
 
 const renderEventValue = (value: EventValue): string => {
   if (value === null || value === undefined) {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     return null;
   }
   if (typeof value === "boolean") {

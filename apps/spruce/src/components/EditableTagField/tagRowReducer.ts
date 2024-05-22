@@ -52,7 +52,7 @@ export const reducer = (state: State, action: Action) => {
     case "inActive":
       return { ...state, canSave: false };
     case "cancelNewTag":
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       return getInitialState(undefined, true);
     default:
       throw new Error("Unknown action type");

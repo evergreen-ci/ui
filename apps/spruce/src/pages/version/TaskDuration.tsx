@@ -33,9 +33,9 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const { search } = useLocation();
 
   const updateQueryParams = useUpdateURLQueryParams();
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionAnalytics = useVersionAnalytics(versionId);
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const queryVariables = useQueryVariables(search, versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page } = queryVariables.taskFilterOptions;
@@ -43,25 +43,25 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   useEffect(() => {
     updateQueryParams({
       [PatchTasksQueryParams.Duration]: "DESC",
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Sorts]: undefined,
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {
     updateQueryParams({
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.TaskName]: undefined,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Variant]: undefined,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Statuses]: undefined,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.BaseStatuses]: undefined,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PaginationQueryParams.Page]: undefined,
       [PatchTasksQueryParams.Duration]: "DESC",
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Sorts]: undefined,
     });
   };
@@ -77,7 +77,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { tasks } = version || {};
@@ -89,9 +89,9 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
       <TableControl
         filteredCount={count}
         totalCount={taskCount}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         limit={limit}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         page={page}
         label="tasks"
         onClear={clearQueryParams}
@@ -104,7 +104,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
       <TaskDurationTable
         tasks={tasksData}
         loading={loading}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         numLoadingRows={limit}
       />
       {shouldShowBottomTableControl && (
@@ -112,10 +112,10 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
           <TableControl
             filteredCount={count}
             totalCount={taskCount}
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             limit={limit}
             label="tasks"
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             page={page}
             onClear={clearQueryParams}
             onPageSizeChange={() => {

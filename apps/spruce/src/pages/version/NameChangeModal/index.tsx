@@ -57,7 +57,7 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
         onCancel={() => setIsOpen(false)}
         onConfirm={() => {
           updateDescription({
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             variables: { patchId, description: newPatchName },
           });
         }}

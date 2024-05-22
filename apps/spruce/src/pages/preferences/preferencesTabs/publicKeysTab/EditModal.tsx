@@ -91,7 +91,7 @@ export const EditModal: React.FC<EditModalProps> = ({
     ) {
       inputErrors.push(DUPLICATE_KEY_NAME);
     }
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     if (!validateSSHPublicKey(keyValue)) {
       inputErrors.push(INVALID_SSH_KEY);
     }
@@ -105,17 +105,17 @@ export const EditModal: React.FC<EditModalProps> = ({
   };
 
   const onClickSave = () => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const nextKeyInfo = { name: keyName, key: stripNewLines(keyValue) };
     if (replaceKeyName) {
       sendEvent({ name: "Update public key" });
       updatePublicKey({
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         variables: { targetKeyName: replaceKeyName, updateInfo: nextKeyInfo },
       });
     } else {
       sendEvent({ name: "Create new public key" });
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       createPublicKey({ variables: { publicKeyInput: nextKeyInfo } });
     }
     closeModal();

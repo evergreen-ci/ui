@@ -8,11 +8,11 @@ interface TestStatusBadgeProps {
 
 const TestStatusBadge: React.FC<TestStatusBadgeProps> = ({ status }) => (
   <Badge
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variant={statusToBadgeColor[status?.toLowerCase()] || Variant.LightGray}
     key={status}
   >
-    {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+    {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
     {statusCopy[status?.toLowerCase()] || status}
   </Badge>
 );

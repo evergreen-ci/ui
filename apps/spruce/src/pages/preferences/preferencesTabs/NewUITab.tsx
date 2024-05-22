@@ -67,7 +67,7 @@ export const NewUITab: React.FC = () => {
     <SettingsCard>
       <PreferenceItem>
         <Toggle
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           checked={spruceV1}
           disabled={updateLoading}
           onChange={handleOnChangeNewUI}

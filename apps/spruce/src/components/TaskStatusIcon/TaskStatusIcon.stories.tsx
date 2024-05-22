@@ -27,7 +27,7 @@ export const Default: CustomStoryObj<TaskStatusIconProps> = {
       <Container>
         {taskStatuses.map((status) => (
           <IconContainer key={status}>
-            {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             <TaskStatusIcon status={TaskStatus[status]} size={s} />
             <span>{status}</span>
           </IconContainer>

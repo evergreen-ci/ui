@@ -81,7 +81,7 @@ const categorizeDistros = (distros: DistroValue[]): DistroGroup[] =>
         categoryIndex = 0;
       }
 
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       accum[categoryIndex].distros.push(name);
 
       return accum;

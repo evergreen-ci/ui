@@ -29,7 +29,7 @@ describe("dropdown", () => {
     expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
     await user.click(button);
     expect(screen.getByText("Some Children")).toBeInTheDocument();
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("Some Children"));
     expect(screen.getByText("Some Children")).toBeInTheDocument();
   });

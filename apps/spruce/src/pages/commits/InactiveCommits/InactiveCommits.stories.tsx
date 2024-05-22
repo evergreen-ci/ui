@@ -7,7 +7,7 @@ export default {
 } satisfies CustomMeta<typeof InactiveCommits>;
 
 export const Default: CustomStoryObj<typeof InactiveCommits> = {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   render: (args) => <InactiveCommits rolledUpVersions={versions} {...args} />,
   args: {
     hasFilters: false,

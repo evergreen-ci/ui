@@ -5,7 +5,7 @@ import { getJiraTicketUrl } from "constants/externalResources";
 export const jiraLinkify = (
   unlinkified: string | React.ReactNode[],
   jiraHost: string,
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   onClick?,
 ) =>
   reactStringReplace(unlinkified, /([A-Z]{1,10}-\d{1,6})/g, (match, i) => (

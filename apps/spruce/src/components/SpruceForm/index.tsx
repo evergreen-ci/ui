@@ -26,7 +26,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     fields={{ ...baseFields, ...fields }}
     schema={schema}
     onChange={onChange}
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     widgets={widgets}
     uiSchema={uiSchema}
     formData={formData}
@@ -38,7 +38,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     showErrorList={false}
     validate={validate}
     disabled={disabled}
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     customFormats={customFormats(customFormatFields?.jiraHost)}
     liveValidate
     noHtml5Validate

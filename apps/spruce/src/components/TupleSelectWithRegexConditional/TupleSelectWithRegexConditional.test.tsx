@@ -50,9 +50,9 @@ describe("tupleSelectWithRegexConditional", () => {
     const input = screen.queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "some-filter");
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(input).toHaveValue("");
   });
@@ -73,10 +73,10 @@ describe("tupleSelectWithRegexConditional", () => {
     const input = screen.queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "bad");
     expect(input).toHaveValue("bad");
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(input).toHaveValue("bad");
     expect(onSubmit).not.toHaveBeenCalled();
@@ -103,10 +103,10 @@ describe("tupleSelectWithRegexConditional", () => {
     await user.click(screen.getByRole("tab", { name: "EXACT" }));
     const input = screen.queryByDataCy("tuple-select-input");
     expect(input).toHaveValue("");
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "some-*");
     expect(input).toHaveValue("some-*");
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(onSubmit).toHaveBeenCalledWith({
       category: "build_variant",
@@ -130,7 +130,7 @@ describe("tupleSelectWithRegexConditional", () => {
     await user.click(screen.getByRole("tab", { name: "EXACT" }));
     const input = screen.queryByDataCy("tuple-select-input");
     expect(input).toHaveValue("");
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "*");
     expect(input).toHaveValue("*");
     expect(validator).toHaveBeenCalledWith("");

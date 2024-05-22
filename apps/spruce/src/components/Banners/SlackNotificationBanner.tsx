@@ -80,7 +80,7 @@ export const SlackNotificationBanner = () => {
   // this prevents a flicker of the banner on initial load
   const hasSetNotifications =
     !notifications &&
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     (isNotificationSet(patchFirstFailure) || isNotificationSet(patchFinish));
 
   const shouldShowSlackBanner =
@@ -107,7 +107,7 @@ export const SlackNotificationBanner = () => {
         <TextInput
           label="Slack Username"
           data-cy="slack-username-input"
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={slackUsername}
           onChange={(e) => setSlackUsername(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && saveNotificationSettings()}

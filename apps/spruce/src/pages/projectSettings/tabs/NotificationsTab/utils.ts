@@ -30,7 +30,7 @@ export const hasInitialError = (
   const { eventSelect } = event || {};
   const { notificationSelect } = notification || {};
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const target = getTargetForMethod(notificationSelect, notification);
   return !eventSelect || !notificationSelect || !target;
 };

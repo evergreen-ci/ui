@@ -27,9 +27,9 @@ export interface SearchableDropdownProps<T> {
   options?: T[] | string[];
   optionRenderer?: (
     option: T,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onClick: (selectedV) => void,
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     isChecked: (selectedV) => boolean,
   ) => React.ReactNode;
   searchFunc?: (options: T[], match: string) => T[];
@@ -81,7 +81,7 @@ const SearchableDropdown = <T extends {}>({
     // Close the dropdown after user makes a selection only if it isn't a multiselect
     if (!allowMultiSelect) {
       if (DropdownRef.current) {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         DropdownRef.current.setIsOpen(false);
       }
       resetSearch();
@@ -89,7 +89,7 @@ const SearchableDropdown = <T extends {}>({
   };
 
   const option = optionRenderer
-    ? // @ts-ignore: FIXME. This comment was added by an automated script.
+    ? // @ts-expect-error: FIXME. This comment was added by an automated script.
       (v: T) => optionRenderer(v, onClick, isChecked)
     : (v: T) => (
         <SearchableDropdownOption
@@ -115,7 +115,7 @@ const SearchableDropdown = <T extends {}>({
     () => (e: ChangeEvent<HTMLInputElement>) => {
       const { value: searchTerm } = e.target;
       setSearch(searchTerm);
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       let filteredOptions = [];
 
       if (options) {
@@ -133,7 +133,7 @@ const SearchableDropdown = <T extends {}>({
         }
       }
 
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setVisibleOptions(filteredOptions);
     },
     [searchFunc, options],
@@ -207,7 +207,7 @@ export const SearchableDropdownOption = <T extends {}>({
           height={12}
           width={12}
           fill={blue.base}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           checked={isChecked}
         />
       </CheckmarkContainer>

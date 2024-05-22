@@ -75,16 +75,16 @@ export const BaseTable = forwardRef(
     }: SpruceTableProps & TableProps<any>,
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const { virtualRows } = table;
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const { rows } = table.getRowModel();
     const hasVirtualRows = virtualRows && virtualRows.length > 0;
     return (
       <>
         <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
           <TableHead isSticky={hasVirtualRows}>
-            {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -94,7 +94,7 @@ export const BaseTable = forwardRef(
                     <HeaderCell
                       key={header.id}
                       header={header}
-                      // @ts-ignore: FIXME. This comment was added by an automated script.
+                      // @ts-expect-error: FIXME. This comment was added by an automated script.
                       style={meta?.width && { width: columnDef?.meta?.width }}
                     >
                       {flexRender(columnDef.header, header.getContext())}
@@ -141,13 +141,13 @@ export const BaseTable = forwardRef(
           <TableBody>
             {loading && (
               <TableLoader
-                // @ts-ignore: FIXME. This comment was added by an automated script.
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 numColumns={table.getAllColumns().length}
                 numRows={loadingRows}
               />
             )}
             {hasVirtualRows
-              ? // @ts-ignore: FIXME. This comment was added by an automated script.
+              ? // @ts-expect-error: FIXME. This comment was added by an automated script.
                 virtualRows.map((vr) => {
                   const row = rows[vr.index];
                   return (
@@ -163,7 +163,7 @@ export const BaseTable = forwardRef(
                   <RenderableRow
                     row={row}
                     key={row.id}
-                    // @ts-ignore: FIXME. This comment was added by an automated script.
+                    // @ts-expect-error: FIXME. This comment was added by an automated script.
                     virtualRow={null}
                     isSelected={selectedRowIndexes.includes(row.index)}
                   />

@@ -31,13 +31,13 @@ describe("historyTable utils", () => {
       });
       expect(processedCommits).toStrictEqual<CommitRowType[]>([
         {
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           date: firstCommit.version.createTime,
           type: rowType.DATE_SEPARATOR,
         },
         {
           commit: firstCommit.version,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           date: firstCommit.version.createTime,
           type: rowType.COMMIT,
           selected: false,
@@ -57,20 +57,20 @@ describe("historyTable utils", () => {
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
           },
           {
             commit: firstCommit.version,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
             type: rowType.COMMIT,
             selected: false,
           },
           {
             commit: secondCommit.version,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: secondCommit.version.createTime,
             type: rowType.COMMIT,
             selected: false,
@@ -85,25 +85,25 @@ describe("historyTable utils", () => {
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
           },
           {
             commit: firstCommit.version,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
             type: rowType.COMMIT,
             selected: false,
           },
           {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: thirdCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
           },
           {
             commit: thirdCommit.version,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: thirdCommit.version.createTime,
             type: rowType.COMMIT,
             selected: false,
@@ -123,13 +123,13 @@ describe("historyTable utils", () => {
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.DATE_SEPARATOR,
           },
           {
             rolledUpCommits: foldedUpCommits.rolledUpVersions,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.FOLDED_COMMITS,
             selected: false,
@@ -142,13 +142,13 @@ describe("historyTable utils", () => {
           newCommits: [foldedUpCommits],
           existingCommits: [
             {
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               date: firstCommit.version.createTime,
               type: rowType.DATE_SEPARATOR,
             },
             {
               commit: firstCommit.version,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               date: firstCommit.version.createTime,
               type: rowType.COMMIT,
               selected: false,
@@ -158,25 +158,25 @@ describe("historyTable utils", () => {
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
           },
           {
             commit: firstCommit.version,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
             type: rowType.COMMIT,
             selected: false,
           },
           {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.DATE_SEPARATOR,
           },
           {
             rolledUpCommits: foldedUpCommits.rolledUpVersions,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.FOLDED_COMMITS,
             selected: false,
@@ -195,13 +195,13 @@ describe("historyTable utils", () => {
         });
         expect(processedCommits).toStrictEqual([
           {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: mainlineCommitData.versions[0].version.createTime,
             type: rowType.DATE_SEPARATOR,
           },
           {
             commit: mainlineCommitData.versions[0].version,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: mainlineCommitData.versions[0].version.createTime,
             type: rowType.COMMIT,
             selected: true,
@@ -217,13 +217,13 @@ describe("historyTable utils", () => {
         });
         expect(processedCommits).toStrictEqual([
           {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: mainlineCommitData.versions[0].version.createTime,
             type: rowType.DATE_SEPARATOR,
           },
           {
             commit: mainlineCommitData.versions[0].version,
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: mainlineCommitData.versions[0].version.createTime,
             type: rowType.COMMIT,
 

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Link as LGLink } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const StyledLink = (props) => (
   <LGLink
     hideExternalIcon
@@ -17,7 +17,7 @@ export const StyledLink = (props) => (
   />
 );
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const StyledRouterLink = (props) => <StyledLink as={Link} {...props} />;
 
 export const ShortenedRouterLink = styled(StyledRouterLink)<{

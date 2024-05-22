@@ -90,10 +90,10 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const onClickSave = () => {
     const subscription = getGqlPayload(type, triggers, resourceId, formState);
     saveSubscription({
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       variables: { subscription },
     });
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvent(subscription);
     onCancel();
   };

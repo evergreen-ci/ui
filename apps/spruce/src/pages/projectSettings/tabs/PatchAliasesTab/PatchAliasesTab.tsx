@@ -10,7 +10,7 @@ const getInitialFormState = (
   projectData: TabProps["projectData"],
   repoData: TabProps["repoData"],
 ): PatchAliasesFormState => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!projectData) return repoData;
   if (repoData) {
     return {

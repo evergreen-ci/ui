@@ -40,16 +40,13 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
       />
       <ContentWrapper>
         {[...buildVariants]
-          // @ts-ignore: FIXME. This comment was added by an automated script.
           .sort((a, b) => a.displayName.localeCompare(b.displayName))
           .map((patchBuildVariant) => (
             <BuildVariantAccordion
               versionId={versionId}
-              // @ts-ignore: FIXME. This comment was added by an automated script.
               key={`accordion_${patchBuildVariant.variant}`}
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               tasks={patchBuildVariant.tasks}
-              // @ts-ignore: FIXME. This comment was added by an automated script.
               displayName={patchBuildVariant.displayName}
               selectedTasks={tasks}
               toggleSelectedTask={toggleSelectedTask}

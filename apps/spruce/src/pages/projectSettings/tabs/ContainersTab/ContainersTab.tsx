@@ -38,7 +38,7 @@ export const ContainersTab: React.FC<TabProps> = ({
       </Banner>
       <BaseTab
         formSchema={formSchema}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         initialFormState={initialFormState}
         tab={tab}
       />

@@ -31,7 +31,7 @@ export const gqlToForm = ((data) => {
       displayTitle: p.region,
     })),
   };
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((data, distro) => {
@@ -85,5 +85,5 @@ export const formToGql = ((data, distro) => {
     default:
       return distro;
   }
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

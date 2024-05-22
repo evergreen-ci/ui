@@ -42,7 +42,7 @@ const VariantHistoryContents: React.FC = () => {
     [slugs.variantName]: variantName,
   } = useParams();
   const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { ingestNewCommits } = useHistoryTable();
   const dispatchToast = useToastContext();
   usePageTitle(`Variant History | ${projectIdentifier} | ${variantName}`);
@@ -57,13 +57,13 @@ const VariantHistoryContents: React.FC = () => {
   >(MAINLINE_COMMITS_FOR_HISTORY, {
     variables: {
       mainlineCommitsOptions: {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectIdentifier,
         limit: 10,
         shouldCollapse: true,
       },
       buildVariantOptions: {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         variants: [applyStrictRegex(variantName)],
         includeBaseTasks: false,
       },
@@ -76,7 +76,7 @@ const VariantHistoryContents: React.FC = () => {
         {
           projectIdentifier,
           variantName,
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           numCommits: mainlineCommits.versions.length,
         },
         SentryBreadcrumb.UI,
@@ -103,14 +103,14 @@ const VariantHistoryContents: React.FC = () => {
       );
       refetch({
         mainlineCommitsOptions: {
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           projectIdentifier,
           limit: 10,
           skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
           shouldCollapse: true,
         },
         buildVariantOptions: {
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           variants: [applyStrictRegex(variantName)],
           includeBaseTasks: false,
         },
@@ -120,7 +120,7 @@ const VariantHistoryContents: React.FC = () => {
 
   return (
     <PageWrapper>
-      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <CenterPage>
         <PageHeader>
@@ -134,9 +134,9 @@ const VariantHistoryContents: React.FC = () => {
               }}
             />
             <TaskSelector
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               projectIdentifier={projectIdentifier}
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               buildVariant={variantName}
             />
           </PageHeaderContent>
@@ -166,9 +166,9 @@ const VariantHistoryContents: React.FC = () => {
         </PaginationFilterWrapper>
         <div>
           <ColumnHeaders
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             projectIdentifier={projectIdentifier}
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             variantName={variantName}
           />
           <TableWrapper>
@@ -177,7 +177,7 @@ const VariantHistoryContents: React.FC = () => {
               loading={loading}
               finalRowCopy="End of variant history"
             >
-              {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+              {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
               {VariantHistoryRow}
             </HistoryTable>
           </TableWrapper>

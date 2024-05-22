@@ -85,7 +85,7 @@ describe("taskCell", () => {
         loading={false}
       />,
     );
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("history-table-icon"));
     await screen.findByText("some-test");
     expect(screen.getByDataCy("test-tooltip")).toBeInTheDocument();

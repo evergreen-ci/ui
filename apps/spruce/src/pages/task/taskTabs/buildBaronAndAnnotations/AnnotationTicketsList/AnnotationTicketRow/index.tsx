@@ -65,7 +65,7 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
           {jiraLink}
           {jiraTicket && (
             <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
-              {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+              {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
               {status.name}
             </StyledBadge>
           )}

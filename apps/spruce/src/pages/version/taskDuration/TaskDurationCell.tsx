@@ -22,7 +22,7 @@ export const TaskDurationCell: React.VFC<TaskDurationCellProps> = ({
 }) => {
   const barWidth = calculateBarWidth(timeTaken, maxTimeTaken);
   const barColor =
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
   return (
     <Duration>

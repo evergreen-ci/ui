@@ -54,7 +54,7 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
       <Overline
         css={hoverStyles}
         role="button"
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         onClick={() => onClick(repoIdentifier)}
       >
         {name}

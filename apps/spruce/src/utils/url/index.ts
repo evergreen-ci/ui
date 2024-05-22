@@ -30,7 +30,7 @@ export const removeQueryParam = (param: string | string[], value: string) => {
 
 export const getDefaultPageSize = () => {
   const pageSizeFromLocalStorage: number = parseInt(
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     localStorage.getItem(RECENT_PAGE_SIZE_KEY),
     10,
   );

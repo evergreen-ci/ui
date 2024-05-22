@@ -113,10 +113,10 @@ describe("request utils", () => {
         error = err;
       }
       expect(error).toBeInstanceOf(Error);
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(error.message).toBe("GET Error: 500 - Internal Server Error");
       expect(error).toHaveProperty("cause");
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(error.cause).toStrictEqual({
         statusCode: 500,
         message: "Internal Server Error",

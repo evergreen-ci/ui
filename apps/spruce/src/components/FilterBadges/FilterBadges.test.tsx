@@ -84,11 +84,11 @@ describe("filterBadges", () => {
         onClearAll={vi.fn()}
       />,
     );
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByText("see 2 more"));
     expect(screen.getByDataCy("see-more-modal")).toBeInTheDocument();
     expect(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       within(screen.queryByDataCy("see-more-modal")).queryAllByDataCy(
         "filter-badge",
       ),
@@ -167,7 +167,7 @@ describe("filterBadges", () => {
     const truncatedBadge = screen.queryByDataCy("filter-badge");
     expect(truncatedBadge).toBeInTheDocument();
     expect(truncatedBadge).not.toHaveTextContent(longName);
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(truncatedBadge);
     await waitFor(() => {
       expect(screen.queryByText(longName)).toBeVisible();

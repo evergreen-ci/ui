@@ -38,7 +38,7 @@ export const Header: React.FC<Props> = ({
         <H2 data-cy="project-settings-tab-title">{title}</H2>
         {projectType === ProjectType.AttachedProject && (
           <StyledRouterLink
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getProjectSettingsRoute(attachedRepoId, tab)}
             data-cy="attached-repo-link"
           >

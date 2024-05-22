@@ -13,7 +13,7 @@ export type NavigationModalProps = {
   }>;
 };
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const NavigationWarningModal: React.FC<NavigationModalProps> = ({
   shouldBlock,
   unsavedTabs,

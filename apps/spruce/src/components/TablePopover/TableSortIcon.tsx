@@ -43,7 +43,7 @@ export const TableSortIcon: React.FC<TableSortIconProps> = ({
     } else {
       update = undefined;
     }
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onToggle(update);
   };
 

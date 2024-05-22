@@ -50,7 +50,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { sendEvent } = useTaskAnalytics();
 
   const [queryParams, setQueryParams] = useQueryParams();
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const queryVariables = getQueryVariables(queryParams, task.id);
   const { execution, limitNum, pageNum, sort } = queryVariables;
   const sortBy = sort?.[0]?.sortBy;
@@ -67,7 +67,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       updateQueryParams &&
       appliedDefaultSort.current !== pathname
     ) {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       appliedDefaultSort.current = pathname;
       updateQueryParams({
         [TableQueryParams.SortBy]: TestSortCategory.Status,
@@ -84,7 +84,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     skip: queryVariables.execution === null,
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const clearQueryParams = () => {
@@ -99,9 +99,9 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     };
 
     filterState.forEach(({ id, value }) => {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       const key = mapIdToFilterParam[id];
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       updatedParams[key] = value;
     });
 
@@ -110,7 +110,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   };
 
   const tableSortHandler = useTableSort({
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sort Tests Table",
@@ -128,18 +128,18 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   );
 
   const setSorting = (s: SortingState) =>
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultSorting(table).onSortingChange(s);
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
 
   const columns = useMemo(() => getColumnsTemplate({ task }), [task]);
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const table = useLeafyGreenTable<TestResult>({
     columns,
     containerRef: tableContainerRef,
@@ -164,12 +164,12 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     manualPagination: true,
     maxMultiSortColCount: 2,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setFilters,
       updateFilters,
     ),
     onSortingChange: onChangeHandler<SortingState>(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSorting,
       tableSortHandler,
     ),
@@ -179,13 +179,13 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     <TableWrapper
       controls={
         <TableControl
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           filteredCount={filteredTestCount}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           totalCount={totalTestCount}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           limit={limitNum}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           page={pageNum}
           label="tests"
           onClear={clearQueryParams}
@@ -194,14 +194,14 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
           }}
         />
       }
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       shouldShowBottomTableControl={filteredTestCount > 10}
     >
       <BaseTable
         data-cy="tests-table"
         data-loading={loading}
         loading={loading}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         loadingRows={limitNum}
         shouldAlternateRowColor
         table={table}
@@ -231,9 +231,9 @@ const getInitialState = (queryParams: {
       sortBy && sortDir
         ? [{ id: sortBy, desc: sortDir === SortDirection.Desc }]
         : [{ id: TestSortCategory.Status, desc: false }],
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     initialFilters: Object.entries(mapFilterParamToId).reduce(
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       (accum, [param, id]) => {
         if (queryParams[param]?.length) {
           return [...accum, { id, value: queryParams[param] }];
@@ -264,7 +264,7 @@ const getQueryVariables = (
       ? SortDirection.Desc
       : SortDirection.Asc;
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   let sort = [];
   if (sortBy && direction) {
     sort = [{ sortBy, direction }];
@@ -284,7 +284,7 @@ const getQueryVariables = (
   return {
     id: taskId,
     execution: queryParamAsNumber(execution),
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sort,
     limitNum: getLimit(queryParams[PaginationQueryParams.Limit]),
     statusList,

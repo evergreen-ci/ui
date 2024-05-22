@@ -14,7 +14,7 @@ const initialState: HistoryTableReducerState = {
   commitCount: 10,
   visibleColumns: [],
   columnLimit: 7,
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   selectedCommit: null,
 };
 

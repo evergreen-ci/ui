@@ -2,9 +2,9 @@ import { upsertQueryParam } from ".";
 
 describe("upsertQueryParam", () => {
   it("should return the value when params aren't passed in", () => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(upsertQueryParam(undefined, "test")).toStrictEqual(["test"]);
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(upsertQueryParam(undefined, "something")).toStrictEqual([
       "something",
     ]);

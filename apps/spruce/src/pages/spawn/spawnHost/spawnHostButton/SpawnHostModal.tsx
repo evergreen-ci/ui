@@ -77,14 +77,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const selectedDistro = useMemo(
     () =>
       formSchemaInput?.distros?.find(
-        // @ts-ignore: FIXME. This comment was added by an automated script.
         ({ name }) => name === formState?.requiredSection?.distro,
       ),
     [formSchemaInput.distros, formState?.requiredSection?.distro],
   );
 
   useVirtualWorkstationDefaultExpiration({
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     isVirtualWorkstation: selectedDistro?.isVirtualWorkStation,
     setFormState,
     formState,
@@ -94,20 +93,20 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const hostUptimeValidation = useMemo(
     () =>
       validateUptimeSchedule({
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         enabledWeekdays:
           formState?.expirationDetails?.hostUptime?.sleepSchedule
             ?.enabledWeekdays,
         ...formState?.expirationDetails?.hostUptime?.sleepSchedule
           ?.timeSelection,
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         useDefaultUptimeSchedule:
           formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
       }),
     [formState?.expirationDetails?.hostUptime],
   );
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     distroIdQueryParam,
@@ -126,10 +125,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const spawnHost = () => {
     const mutationInput = formToGql({
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       isVirtualWorkStation: selectedDistro?.isVirtualWorkStation,
       formData: formState,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       myPublicKeys: formSchemaInput.myPublicKeys,
       spawnTaskData: spawnTaskData?.task,
       timeZone,
@@ -137,7 +136,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
       isMigration: false,
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       params: omit(mutationInput, [
         "publicKey",
         "userDataScript",

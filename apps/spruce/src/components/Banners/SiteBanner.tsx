@@ -30,7 +30,7 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
       onClose={hideBanner}
       variant={variant}
     >
-      {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {jiraLinkify(text, jiraHost)}
     </Banner>
   ) : null;

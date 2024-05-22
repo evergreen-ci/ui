@@ -26,7 +26,7 @@ describe("reportingFn", () => {
       path: ["a", "path", "1"],
     });
 
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     reportingFn(secretFields, operation)(gqlErr);
 
     expect(ErrorReporting.reportError).toHaveBeenCalledTimes(1);

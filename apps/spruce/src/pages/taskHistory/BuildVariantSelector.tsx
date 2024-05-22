@@ -45,7 +45,7 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
       name: "Filter by build variant",
     });
 
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setVisibleColumns(selectedBuildVariants);
   };
   const { buildVariantsForTaskName } = data || {};
@@ -57,7 +57,6 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
     (value: string) => {
       setFilteredOptions(
         (buildVariantsForTaskName || [])
-          // @ts-ignore: FIXME. This comment was added by an automated script.
           .filter(({ buildVariant, displayName }) => {
             const trimmedValue = value.toLowerCase().trim();
             return (
@@ -65,7 +64,6 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
               displayName.toLowerCase().includes(trimmedValue)
             );
           })
-          // @ts-ignore: FIXME. This comment was added by an automated script.
           .map((option) => option.buildVariant) || [],
       );
     },
@@ -88,11 +86,8 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
       >
         {buildVariantsForTaskName?.map((option) => (
           <ComboboxOption
-            // @ts-ignore: FIXME. This comment was added by an automated script.
             key={`searchable_dropdown_option_${option.buildVariant}`}
-            // @ts-ignore: FIXME. This comment was added by an automated script.
             value={option.buildVariant}
-            // @ts-ignore: FIXME. This comment was added by an automated script.
             displayName={option.displayName}
           />
         ))}

@@ -17,7 +17,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const TitleTypography: React.FC<TitleTypographyProps> = ({
   children,
   size,

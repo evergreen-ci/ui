@@ -23,7 +23,7 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
   status,
   statusCounts,
 }) => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { border, fill, text } = mapUmbrellaStatusColors[status];
 
   return (
@@ -62,7 +62,7 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
               <TaskStatusIcon status={taskStatus} size={16} />
               <span>
                 <Count>{taskCount}</Count>{" "}
-                {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+                {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
                 {taskStatusToCopy[taskStatus] ?? taskStatus}
               </span>
             </Row>

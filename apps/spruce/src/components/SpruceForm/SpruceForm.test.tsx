@@ -39,11 +39,11 @@ describe("spruce form", () => {
         />
       </SpruceFormContainer>,
     );
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(screen.queryByDataCy("valid-projects-input"));
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("valid-projects-input"), "new value");
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("add-button"));
     expect(screen.queryAllByDataCy("new-user-input")).toHaveLength(2);
     await user.type(screen.queryAllByDataCy("new-user-input")[0], "new-user");
@@ -83,9 +83,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.type(screen.queryByDataCy("text-input"), "new value");
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue("");
 
@@ -115,9 +115,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.type(screen.queryByDataCy("text-input"), "new value");
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue("");
           expect(data).toStrictEqual({
@@ -144,9 +144,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.type(screen.queryByDataCy("text-input"), "new value");
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.clear(screen.queryByDataCy("text-input"));
           expect(screen.queryByDataCy("text-input")).toHaveValue(
             "myEmptyValue",
@@ -181,9 +181,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.type(screen.queryByDataCy("text-area"), "new value");
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.clear(screen.queryByDataCy("text-area"));
           expect(screen.queryByDataCy("text-area")).toHaveValue("");
 
@@ -213,9 +213,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.type(screen.queryByDataCy("text-area"), "new value");
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.clear(screen.queryByDataCy("text-area"));
           expect(screen.queryByDataCy("text-area")).toHaveValue("");
           expect(data).toStrictEqual({
@@ -242,9 +242,9 @@ describe("spruce form", () => {
               />
             </SpruceFormContainer>,
           );
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.type(screen.queryByDataCy("text-area"), "new value");
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           await user.clear(screen.queryByDataCy("text-area"));
           expect(screen.queryByDataCy("text-area")).toHaveValue("myEmptyValue");
           expect(data).toStrictEqual({
@@ -281,7 +281,7 @@ describe("spruce form", () => {
             uiSchema={uiSchema}
           />,
         );
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         await user.click(screen.queryByRole("button"));
         expect(screen.queryAllByText("Vanilla")).toHaveLength(2);
         expect(screen.getByText("Chocolate")).toBeInTheDocument();
@@ -319,7 +319,7 @@ describe("spruce form", () => {
             uiSchema={uiSchema}
           />,
         );
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         await user.click(screen.queryByRole("button"));
 
         // LeafyGreen doesn't label disabled options as such, so instead of checking for a property

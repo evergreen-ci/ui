@@ -41,10 +41,10 @@ export const Example3: CustomStoryObj<typeof SpruceForm> = {
   ),
 };
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const BaseForm = ({ data, schema, title, uiSchema }) => {
   const [formState, setFormState] = useState(data);
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const onChange = (d) => {
     const { formData } = d;
     action("Change Form State")(formData);

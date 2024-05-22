@@ -16,18 +16,18 @@ export const useRunningTime = (startTime: Date) => {
   const timerRef = useRef(null);
 
   useEffect(() => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     timerRef.current = setInterval(() => {
       const newRunningTime = differenceInMilliseconds(Date.now(), startTime);
       setRunningTime(newRunningTime > 0 ? newRunningTime : 0);
     }, 1000);
 
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     return () => clearInterval(timerRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime]);
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const endTimer = () => clearInterval(timerRef.current);
 
   return { runningTime, endTimer };

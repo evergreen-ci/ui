@@ -88,7 +88,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           onClick={() => {
             sendEvent({ name: "Click See History Button" });
           }}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getTaskHistoryRoute(project?.identifier, displayName, {
             filters,
             selectedCommit: order,

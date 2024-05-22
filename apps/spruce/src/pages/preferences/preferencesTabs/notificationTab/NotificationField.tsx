@@ -25,19 +25,19 @@ export const NotificationField: React.FC<NotificationFieldProps> = ({
     {Object.keys(notifications).map((notification, index) => (
       <Fragment key={notification}>
         <NotificationEvent row={index}>
-          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           {notificationFields[notification]}
         </NotificationEvent>
         <StyledRadioGroup
           row={index}
           onChange={(e) => {
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             setNotificationStatus({
               ...notificationStatus,
               [notification]: e.target.value,
             });
           }}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={notificationStatus[notification]}
         >
           <Radio value="email" />

@@ -15,7 +15,7 @@ const getInitialFormState = (
   projectData: TabProps["projectData"],
   repoData: TabProps["repoData"],
 ): VariablesFormState => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
   return projectData;
@@ -53,7 +53,7 @@ export const VariablesTab: React.FC<TabProps> = ({
     () =>
       getFormSchema(
         projectType,
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectType === ProjectType.AttachedProject ? repoData : null,
         projectType === ProjectType.AttachedProject ? <ModalButton /> : null,
       ),
@@ -90,7 +90,7 @@ export const VariablesTab: React.FC<TabProps> = ({
 const validate = ((formData, errors) => {
   const duplicateIndices = findDuplicateIndices(formData.vars, "varName");
   duplicateIndices.forEach((i) => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     errors.vars?.[i]?.varName?.addError(
       "Value already appears in project variables.",
     );

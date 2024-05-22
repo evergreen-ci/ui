@@ -17,7 +17,7 @@ export const StatusSelector: React.FC = () => {
       data-cy="my-patch-status-select"
       buttonText={`Patch Status: ${
         statusVal.length
-          ? // @ts-ignore: FIXME. This comment was added by an automated script.
+          ? // @ts-expect-error: FIXME. This comment was added by an automated script.
             statusVal.map((v) => statusValToCopy[v]).join(", ")
           : noFilterMessage
       }`}

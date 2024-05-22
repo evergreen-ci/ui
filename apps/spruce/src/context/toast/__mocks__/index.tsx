@@ -9,7 +9,7 @@ import * as toast from "..";
  * @returns an object with the Component, the mocked useToastContext, and the dispatchToast methods
  */
 const RenderFakeToastContext = (Component: React.ReactElement = <div />) => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const dispatchToast: DispatchToast = {
     success: vi.fn(),
     error: vi.fn(),

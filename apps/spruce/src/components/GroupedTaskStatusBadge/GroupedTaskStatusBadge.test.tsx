@@ -28,7 +28,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
     );
     const badge = screen.queryByDataCy("grouped-task-status-badge");
     expect(badge).toBeInTheDocument();
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(badge);
     expect(onClick).toHaveBeenCalledWith();
   });
@@ -81,7 +81,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
         screen.queryByDataCy("grouped-task-status-badge-tooltip"),
       ).toBeNull();
     });
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("grouped-task-status-badge"));
     await waitFor(() => {
       expect(

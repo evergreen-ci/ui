@@ -14,16 +14,16 @@ export const toSortString = (
 ) => {
   let sortStrings: string[] = [];
   if (Array.isArray(sorts)) {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sortStrings = sorts.map(({ columnKey, order }) =>
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       order ? getSortString(columnKey, shortenSortOrder(order)) : undefined,
     );
   } else {
     sortStrings = [
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       sorts.order
-        ? // @ts-ignore: FIXME. This comment was added by an automated script.
+        ? // @ts-expect-error: FIXME. This comment was added by an automated script.
           getSortString(sorts.columnKey, shortenSortOrder(sorts.order))
         : undefined,
     ];

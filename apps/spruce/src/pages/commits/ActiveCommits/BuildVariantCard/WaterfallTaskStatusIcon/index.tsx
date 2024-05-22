@@ -31,7 +31,7 @@ interface WaterfallTaskStatusIconProps {
   hasCedarResults: boolean;
 }
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 let timeout;
 export const WaterfallTaskStatusIcon: React.FC<
   WaterfallTaskStatusIconProps
@@ -51,11 +51,11 @@ export const WaterfallTaskStatusIcon: React.FC<
   >(FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
 
   const { filteredTestCount, testResults } = data?.task?.tests ?? {};
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const failedTestDifference = filteredTestCount - (testResults ?? []).length;
 
   useEffect(() => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     if (timeout) {
       clearTimeout(timeout);
     }
@@ -74,7 +74,7 @@ export const WaterfallTaskStatusIcon: React.FC<
 
   useEffect(
     () => () => {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       if (timeout) {
         clearTimeout(timeout);
       }

@@ -48,12 +48,12 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
         title="Job Logs"
         loading={loading}
         size="large"
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         badge={null}
         subtitle={
           <SubtitleContainer>
             <H3>{metadata.displayName}</H3>
-            {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             <TaskStatusBadge status={metadata.taskStatus} />
           </SubtitleContainer>
         }

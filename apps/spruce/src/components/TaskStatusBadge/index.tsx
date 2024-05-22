@@ -47,12 +47,12 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
 
   let displayStatus = getStatusBadgeCopy(status);
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (taskStatusToCopy[status] === undefined) {
     const err = new Error(`Status '${status}' is not a valid task status`);
     reportError(err).warning();
   } else {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     displayStatus = getStatusBadgeCopy(taskStatusToCopy[status]);
   }
 
@@ -62,7 +62,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
         condition={!!id}
         wrapper={(children) => (
           <Link
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getTaskRoute(id, {
               execution,
               tab:
@@ -78,7 +78,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
         <StyledBadge
           data-cy="task-status-badge"
           key={status}
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           variant={mapTaskStatusToBadgeVariant[status]}
           css={badgeWidthMaxContent}
         >

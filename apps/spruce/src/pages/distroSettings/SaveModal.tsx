@@ -72,7 +72,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
     // Only perform the save operation if the tab is valid.
     // eslint-disable-next-line no-prototype-builtins
     if (formToGqlMap.hasOwnProperty(tab)) {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
       const changes = formToGql(formData, distro);
       saveDistro({

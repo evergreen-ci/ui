@@ -58,7 +58,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   >(SAVE_PROJECT_SETTINGS_FOR_SECTION, {
     onCompleted({
       saveProjectSettingsForSection: {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectRef: { identifier: newIdentifier },
       },
     }) {
@@ -80,7 +80,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     },
     refetchQueries: ({
       data: {
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         saveProjectSettingsForSection: {
           projectRef: { identifier: newIdentifier },
         },
@@ -106,10 +106,10 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   });
 
   const onClick = () => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
     const newData = formToGql(formData, isRepo, id);
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const save = (update, section) =>
       isRepo
         ? saveRepoSection({

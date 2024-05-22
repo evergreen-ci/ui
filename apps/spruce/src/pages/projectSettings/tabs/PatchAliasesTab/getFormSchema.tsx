@@ -25,7 +25,7 @@ export const getFormSchema = (
         ...overrideRadioBox(
           "aliases",
           ["Override Repo Patch Aliases", "Default to Repo Patch Aliases"],
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           patchAliasArray.schema,
         ),
       },

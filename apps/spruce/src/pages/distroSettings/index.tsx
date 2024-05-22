@@ -38,7 +38,7 @@ const DistroSettings: React.FC = () => {
   const { data, loading } = useQuery<DistroQuery, DistroQueryVariables>(
     DISTRO,
     {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       variables: { distroId },
       onError: (e) => {
         dispatchToast.error(
@@ -48,12 +48,12 @@ const DistroSettings: React.FC = () => {
     },
   );
 
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!Object.values(DistroSettingsTabRoutes).includes(currentTab)) {
     return (
       <Navigate
         replace
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         to={getDistroSettingsRoute(distroId, DistroSettingsTabRoutes.General)}
       />
     );
@@ -63,7 +63,7 @@ const DistroSettings: React.FC = () => {
     <DistroSettingsProvider>
       <SideNav aria-label="Distro Settings" widthOverride={250}>
         <ButtonsContainer>
-          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <DistroSelect selectedDistro={distroId} />
           <NewDistroButton />
         </ButtonsContainer>
@@ -73,7 +73,7 @@ const DistroSettings: React.FC = () => {
               active={tab === currentTab}
               as={Link}
               key={tab}
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               to={getDistroSettingsRoute(distroId, tab)}
               data-cy={`navitem-${tab}`}
             >
@@ -83,7 +83,7 @@ const DistroSettings: React.FC = () => {
         </SideNavGroup>
         <SideNavGroup glyph={<Icon glyph="Link" />} header="Links">
           <SideNavItemLink
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getTaskQueueRoute(distroId)}
             data-cy="navitem-task-queue-link"
           >

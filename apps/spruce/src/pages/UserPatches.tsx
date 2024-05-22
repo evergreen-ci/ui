@@ -34,7 +34,7 @@ export const UserPatches = () => {
     UserPatchesQueryVariables
   >(USER_PATCHES, {
     variables: {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       userId,
       patchesInput: {
         ...patchesInput,
@@ -47,15 +47,15 @@ export const UserPatches = () => {
       dispatchToast.error(`Error while fetching user patches: ${err.message}`);
     },
   });
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   return (
     <PatchesPage
       analyticsObject={analyticsObject}
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       pageTitle={pageTitle}
       loading={loading && !data?.user.patches}
       pageType="user"

@@ -40,7 +40,6 @@ const Issues: React.FC<IssuesProps> = ({
   );
   return (
     <AnnotationTickets
-      // @ts-ignore: FIXME. This comment was added by an automated script.
       tickets={data?.task?.annotation?.issues || annotation?.issues || []}
       taskId={taskId}
       execution={execution}

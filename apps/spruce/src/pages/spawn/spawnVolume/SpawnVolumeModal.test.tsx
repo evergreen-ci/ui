@@ -109,7 +109,6 @@ describe("spawnVolumeModal", () => {
     await waitFor(() => {
       expect(spawnButton).toBeEnabled();
     });
-    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(spawnButton);
     expect(dispatchToast.success).toHaveBeenCalledTimes(1);
   }, 10000);
@@ -148,9 +147,9 @@ describe("spawnVolumeModal", () => {
     });
 
     // Modify form values
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(screen.queryByDataCy("volume-size-input"));
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("volume-size-input"), "24");
     expect(screen.queryByDataCy("volume-size-input")).toHaveValue("24");
     await selectLGOption("availability-zone-select", "us-east-1c");
@@ -164,7 +163,6 @@ describe("spawnVolumeModal", () => {
     await waitFor(() => {
       expect(spawnButton).toBeEnabled();
     });
-    // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.click(spawnButton);
     expect(dispatchToast.success).toHaveBeenCalledTimes(1);
   }, 15000);

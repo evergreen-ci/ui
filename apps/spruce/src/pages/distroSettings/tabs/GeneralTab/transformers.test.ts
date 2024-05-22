@@ -33,7 +33,7 @@ const generalForm: GeneralFormState = {
   },
 };
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const generalGql: DistroInput = {
   ...distroData,
   name: "rhel71-power8-large",

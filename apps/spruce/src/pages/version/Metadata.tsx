@@ -76,7 +76,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
   const isGithubMergePatch = requester === githubMergeRequester;
 
   return (
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     <MetadataCard loading={loading} error={null}>
       <MetadataTitle>
         {isPatch ? "Patch Metadata" : "Version Metadata"}
@@ -138,7 +138,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       </MetadataItem>
       {isPatch ? (
         <BaseCommitMetadata
-          // @ts-ignore: FIXME. This comment was added by an automated script.
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           baseVersionId={baseVersion?.id}
           isGithubMergePatch={isGithubMergePatch}
           onClick={() => sendEvent({ name: "Click Base Commit Link" })}
@@ -151,10 +151,10 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
             as={Link}
             data-cy="version-previous-commit"
             onClick={() => sendEvent({ name: "Click Previous Version Link" })}
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getVersionRoute(previousVersion?.id)}
           >
-            {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {shortenGithash(previousVersion?.revision)}
           </InlineCode>
         </MetadataItem>
@@ -164,7 +164,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           <StyledLink
             data-cy="github-merge-queue-link"
             hideExternalIcon={false}
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             href={getGithubMergeQueueUrl(owner, repo, branch)}
           >
             GitHub Merge Queue
@@ -176,7 +176,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           GitHub commit:{" "}
           <InlineCode
             data-cy="version-github-commit"
-            // @ts-ignore: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             href={getGithubCommitUrl(owner, repo, revision)}
             onClick={() => sendEvent({ name: "Click Github Commit Link" })}
           >
@@ -191,7 +191,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
             to={getCommitQueueRoute(project)}
           >
             Commit queue position:{" "}
-            {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {formatZeroIndexForDisplay(commitQueuePosition)}
           </StyledRouterLink>
         </MetadataItem>
@@ -202,15 +202,15 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           Triggered from:{" "}
           <StyledRouterLink
             to={getTriggerRoute({
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               triggerType,
               upstreamTask,
               upstreamVersion,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               upstreamRevision,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               upstreamOwner,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               upstreamRepo,
             })}
           >

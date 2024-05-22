@@ -90,7 +90,7 @@ export const stringifyNanoseconds = (
  * @example
  * omitTypename({ __typename: "Task", id: "123" }) // { id: "123" }
  */
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const omitTypename = (object) =>
   JSON.parse(JSON.stringify(object), (key, value) =>
     key === "__typename" ? undefined : value,

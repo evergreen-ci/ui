@@ -12,7 +12,7 @@ export const getCurrentStatuses = (
   statuses: string[],
   treeData: TreeDataEntry[],
 ): TreeDataEntry[] => {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const currentStatuses = [];
   treeData.forEach((status) => {
     const { children, key } = status;
@@ -34,6 +34,6 @@ export const getCurrentStatuses = (
       currentStatuses.push(status);
     }
   });
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return currentStatuses;
 };

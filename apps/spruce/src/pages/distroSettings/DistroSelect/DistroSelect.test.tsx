@@ -10,7 +10,7 @@ import {
 import { ApolloMock } from "types/gql";
 import { DistroSelect } from ".";
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const wrapper = ({ children }) => (
   <MockedProvider mocks={[distrosMock]}>{children}</MockedProvider>
 );

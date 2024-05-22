@@ -6,7 +6,7 @@ import {
 import { SpruceConfig } from "gql/generated/types";
 
 export const getFormSchema = (
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   ecsConfig: SpruceConfig["providers"]["aws"]["pod"]["ecs"],
 ): ReturnType<GetFormSchema> => ({
   fields: {},

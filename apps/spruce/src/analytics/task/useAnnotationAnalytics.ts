@@ -34,7 +34,7 @@ export const useAnnotationAnalytics = () => {
     AnnotationEventDataQuery,
     AnnotationEventDataQueryVariables
   >(ANNOTATION_EVENT_DATA, {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskId, execution },
     fetchPolicy: "cache-first",
   });
@@ -42,7 +42,7 @@ export const useAnnotationAnalytics = () => {
   const { data: bbData } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
     BUILD_BARON,
     {
-      // @ts-ignore: FIXME. This comment was added by an automated script.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       variables: { taskId, execution },
       fetchPolicy: "cache-first",
     },

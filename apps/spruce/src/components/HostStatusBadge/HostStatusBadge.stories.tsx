@@ -14,7 +14,7 @@ export const Default: CustomStoryObj<typeof HostStatusBadge> = {
     <Container>
       {Object.keys(HostStatus).map((status) => (
         <Wrapper key={`badge_${status}`}>
-          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <HostStatusBadge status={HostStatus[status]} />
         </Wrapper>
       ))}

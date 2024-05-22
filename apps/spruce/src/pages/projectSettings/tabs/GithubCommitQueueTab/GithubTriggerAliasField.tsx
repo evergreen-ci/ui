@@ -26,7 +26,7 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
       )}
       {status && (
         <Body>
-          {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <strong>Wait On:</strong> {PatchTriggerAliasStatus[status]}
         </Body>
       )}
@@ -37,7 +37,7 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
           </Body>
           <Ul>
             {taskSpecifiers.map(
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               ({ patchAlias, taskRegex, variantRegex }, i) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={i}>

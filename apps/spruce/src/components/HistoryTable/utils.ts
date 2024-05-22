@@ -14,7 +14,7 @@ export const processCommits = ({
   newCommits,
   selectedCommitOrder,
 }: {
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   newCommits: mainlineCommits["versions"];
   existingCommits: CommitRowType[];
   selectedCommitOrder: number | null;
@@ -102,7 +102,7 @@ export const processCommits = ({
   return { processedCommits, selectedCommitRowIndex };
 };
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const identifyCommitType = (commit: mainlineCommits["versions"][0]) => {
   if (commit.version) {
     return rowType.COMMIT;
@@ -124,7 +124,7 @@ const isSameDay = (date1: string | Date, date2: string | Date) => {
 };
 
 const hasSelectedCommit = (
-  // @ts-ignore: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   rolledUpUpVersions: Unpacked<mainlineCommits["versions"]>["rolledUpVersions"],
   selectedCommitOrder: number | null,
 ) => {
@@ -132,7 +132,7 @@ const hasSelectedCommit = (
     return false;
   }
   return rolledUpUpVersions.some(
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     (version) => version.order === selectedCommitOrder,
   );
 };

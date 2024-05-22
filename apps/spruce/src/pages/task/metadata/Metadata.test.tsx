@@ -10,7 +10,7 @@ import {
 } from "test_utils";
 import { Metadata } from ".";
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const wrapper = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
 );
@@ -24,9 +24,9 @@ describe("metadata", () => {
       <Metadata
         taskId={taskId}
         loading={false}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         task={taskAboutToStart.task}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         error={undefined}
       />,
       {
@@ -47,9 +47,9 @@ describe("metadata", () => {
       <Metadata
         taskId={taskId}
         loading={false}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         task={taskStarted.task}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         error={undefined}
       />,
       {
@@ -71,9 +71,9 @@ describe("metadata", () => {
       <Metadata
         taskId={taskId}
         loading={false}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         task={taskSucceeded.task}
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         error={undefined}
       />,
       {

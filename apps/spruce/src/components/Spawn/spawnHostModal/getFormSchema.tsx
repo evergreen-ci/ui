@@ -93,7 +93,7 @@ export const getFormSchema = ({
               type: "string" as "string",
               title: "Distro",
               default: distroIdQueryParam,
-              // @ts-ignore: FIXME. This comment was added by an automated script.
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               enum: distros?.map(({ name }) => name),
               minLength: 1,
             },
@@ -112,9 +112,9 @@ export const getFormSchema = ({
             },
           },
         },
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         publicKeySection: publicKeys.schema,
-        // @ts-ignore: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         expirationDetails: expirationDetails.schema,
         optionalInformationTitle: {
           title: "Optional Host Details",
@@ -376,7 +376,7 @@ export const getFormSchema = ({
             "ui:customLabel": (
               <>
                 Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b>{" "}
-                {/* @ts-ignore: FIXME. This comment was added by an automated script. */}
+                {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
                 @ <b>{shortenGithash(revision)}</b> onto host at startup
               </>
             ),

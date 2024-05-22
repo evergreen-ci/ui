@@ -119,7 +119,7 @@ const isCommitSelected = (commit: Commit, revision: string) => {
 
   if (
     rolledUpVersions &&
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     rolledUpVersions.some((v) => v.revision.startsWith(revision))
   ) {
     return true;

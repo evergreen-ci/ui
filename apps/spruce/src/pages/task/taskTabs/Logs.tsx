@@ -188,7 +188,7 @@ const getLinks = (
     return {};
   }
   if (logType === LogTypes.Event) {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     return { htmlLink: logLinks.eventLogLink };
   }
   const htmlLink = `${

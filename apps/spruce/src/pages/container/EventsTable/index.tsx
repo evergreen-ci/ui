@@ -33,7 +33,7 @@ const EventsTable: React.FC<{}> = () => {
     PodEventsQuery,
     PodEventsQueryVariables
   >(POD_EVENTS, {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: podId, page, limit },
     onError: (err) => {
       dispatchToast.error(
