@@ -1,8 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, stubGetClientRects, userEvent } from "test_utils";
 import WelcomeModal from "./WelcomeModal";
 
 describe("welcomeModal", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   beforeEach(() => {
     Object.defineProperty(global.window.HTMLMediaElement.prototype, "play", {
       configurable: true,
@@ -14,7 +18,7 @@ describe("welcomeModal", () => {
     });
   });
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it("displays an image", () => {

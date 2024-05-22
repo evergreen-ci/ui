@@ -1,5 +1,5 @@
-mutation RemoveFavoriteProject($identifier: String!) {
-  removeFavoriteProject(identifier: $identifier) {
+mutation RemoveFavoriteProject($projectIdentifier: String!) {
+  removeFavoriteProject(opts: { projectIdentifier: $projectIdentifier }) {
     displayName
     id
     identifier

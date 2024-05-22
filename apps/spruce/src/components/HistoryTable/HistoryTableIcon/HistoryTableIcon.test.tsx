@@ -5,7 +5,7 @@ import { HistoryTableIcon } from ".";
 describe("historyTableIcon", () => {
   it("clicking on the icon performs an action", async () => {
     const user = userEvent.setup();
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(
       <HistoryTableIcon status={TaskStatus.Succeeded} onClick={onClick} />,
     );

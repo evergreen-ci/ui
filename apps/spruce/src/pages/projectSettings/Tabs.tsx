@@ -266,7 +266,13 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         />
         <Route
           path={ProjectSettingsTabRoutes.EventLog}
-          element={<EventLogTab projectType={projectType} key={identifier} />}
+          element={
+            <EventLogTab
+              projectType={projectType}
+              key={identifier}
+              limit={45}
+            />
+          }
         />
         <Route
           path="*"

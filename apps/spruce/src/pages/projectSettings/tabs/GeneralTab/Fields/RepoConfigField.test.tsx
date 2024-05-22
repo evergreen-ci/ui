@@ -20,6 +20,7 @@ import { GITHUB_ORGS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   userEvent,
   waitFor,
 } from "test_utils";
@@ -97,6 +98,10 @@ const MoveModal = ({ open = true }: { open?: boolean }) => (
 );
 
 describe("repoConfigField", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   it("only shows the attach to repo button when not attached to repo", () => {
     const { Component } = RenderFakeToastContext(
       <Field projectType={ProjectType.Project} />,

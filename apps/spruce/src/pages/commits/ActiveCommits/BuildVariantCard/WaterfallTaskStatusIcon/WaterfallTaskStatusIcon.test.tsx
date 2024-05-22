@@ -24,7 +24,7 @@ const props = {
   identifier: "ubuntu1604-multiversion",
 };
 
-jest.mock("../../utils");
+vi.mock("../../utils");
 
 const Content = ({
   hasCedarResults = false,
@@ -42,6 +42,10 @@ const Content = ({
   </MockedProvider>
 );
 describe("waterfallTaskStatusIcon", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
     const user = userEvent.setup();
     render(<Content status="failed" hasCedarResults />);
@@ -83,12 +87,12 @@ describe("waterfallTaskStatusIcon", () => {
 
   it("should call the appropriate functions on hover and unhover", async () => {
     const user = userEvent.setup();
-    (injectGlobalHighlightStyle as jest.Mock).mockImplementationOnce(
+    vi.mocked(injectGlobalHighlightStyle).mockImplementationOnce(
       (taskIdentifier: string) => {
         Promise.resolve(taskIdentifier);
       },
     );
-    (removeGlobalHighlightStyle as jest.Mock).mockImplementationOnce(() => {});
+    vi.mocked(removeGlobalHighlightStyle).mockImplementationOnce(() => {});
 
     render(<Content status="failed" hasCedarResults />);
     // @ts-ignore: FIXME. This comment was added by an automated script.

@@ -22,7 +22,7 @@ const longVariantName =
 const trimmedVariantName = trimStringFromMiddle(longVariantName, maxLength);
 
 describe("columnHeaders (Task History)", () => {
-  it("renders an initial skeleton for the 7 column headers when loading", () => {
+  it("renders an initial skeleton for the 7 column headers when loading", async () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectIdentifier="evergreen" taskName="some_task" />,
     );
@@ -31,7 +31,9 @@ describe("columnHeaders (Task History)", () => {
       path: "/task-history/:projectId/:taskName",
       wrapper: ProviderWrapper,
     });
-    expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(7);
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(7);
+    });
   });
 
   it("renders the column headers properly when not loading", async () => {
@@ -60,7 +62,9 @@ describe("columnHeaders (Task History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
+    });
   });
 
   it("should not show more columns then the columnLimit", async () => {

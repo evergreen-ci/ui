@@ -3,20 +3,19 @@ import { renderHook } from "test_utils";
 import useScrollToAnchor from ".";
 
 describe("useScrollToAnchor", () => {
-  const mockElement = { scrollIntoView: jest.fn() };
+  const mockElement = { scrollIntoView: vi.fn() };
 
   beforeEach(() => {
-    jest.useFakeTimers();
-    jest
-      .spyOn(document, "getElementById")
-      .mockImplementation()
-      .mockReturnValue(mockElement as any as HTMLElement);
+    vi.useFakeTimers();
+    vi.spyOn(document, "getElementById").mockReturnValue(
+      mockElement as any as HTMLElement,
+    );
     mockElement.scrollIntoView.mockClear();
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
+    vi.runOnlyPendingTimers();
+    vi.useRealTimers();
   });
 
   it("should scroll to element when hash is present", () => {
@@ -26,7 +25,7 @@ describe("useScrollToAnchor", () => {
     );
 
     renderHook(() => useScrollToAnchor(), { wrapper });
-    jest.advanceTimersByTime(500);
+    vi.advanceTimersByTime(500);
 
     expect(document.getElementById).toHaveBeenCalledWith("test-anchor");
     expect(mockElement.scrollIntoView).toHaveBeenCalledWith({
@@ -41,7 +40,7 @@ describe("useScrollToAnchor", () => {
     );
 
     renderHook(() => useScrollToAnchor(), { wrapper });
-    jest.advanceTimersByTime(500);
+    vi.advanceTimersByTime(500);
 
     expect(document.getElementById).not.toHaveBeenCalled();
   });
@@ -54,7 +53,7 @@ describe("useScrollToAnchor", () => {
 
     const { unmount } = renderHook(() => useScrollToAnchor(), { wrapper });
     unmount();
-    jest.advanceTimersByTime(500);
+    vi.advanceTimersByTime(500);
 
     expect(mockElement.scrollIntoView).not.toHaveBeenCalled();
   });

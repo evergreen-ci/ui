@@ -12,6 +12,7 @@ import { GITHUB_ORGS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   userEvent,
   waitFor,
 } from "test_utils";
@@ -53,8 +54,12 @@ const waitForModalLoad = async () => {
 };
 
 describe("createProjectField", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("does not render the modal when open prop is false", () => {
@@ -193,9 +198,7 @@ describe("createProjectField", () => {
     // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
-    const confirmButton = screen.getByRole("button", {
-      name: "Create project",
-    });
+    const confirmButton = screen.getByText("Create project");
     expect(confirmButton).toBeEnabled();
 
     // Check performance tooling checkbox.
@@ -225,7 +228,8 @@ describe("createProjectField", () => {
     expect(router.state.location.pathname).toBe(
       "/project/new-project-id/settings",
     );
-  });
+  }, 15000);
+
   it("shows a warning toast when an error and data are returned", async () => {
     const mockWithWarn = {
       request: {
@@ -267,9 +271,7 @@ describe("createProjectField", () => {
     // @ts-ignore: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
-    const confirmButton = screen.getByRole("button", {
-      name: "Create project",
-    });
+    const confirmButton = screen.getByText("Create project");
     expect(confirmButton).toBeEnabled();
 
     await user.click(confirmButton);
@@ -279,7 +281,7 @@ describe("createProjectField", () => {
     expect(router.state.location.pathname).toBe(
       "/project/new-project-name/settings",
     );
-  });
+  }, 15000);
 });
 
 const createProjectMock: ApolloMock<

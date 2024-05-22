@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Description, Label } from "@leafygreen-ui/typography";
-import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
+import { toZonedTime, fromZonedTime } from "date-fns-tz";
 import DatePicker from "components/DatePicker";
 import AntdTimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
@@ -26,11 +26,11 @@ export const DateTimePicker: React.FC<
 
   const timezone = useUserTimeZone();
   // @ts-ignore: FIXME. This comment was added by an automated script.
-  const currentDateTime = utcToZonedTime(new Date(value || null), timezone);
+  const currentDateTime = toZonedTime(new Date(value || null), timezone);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) => {
     // @ts-ignore: FIXME. This comment was added by an automated script.
-    onChange(zonedTimeToUtc(d, timezone).toString());
+    onChange(fromZonedTime(d, timezone).toString());
   };
 
   // @ts-ignore: FIXME. This comment was added by an automated script.
@@ -100,13 +100,13 @@ export const TimePicker: React.FC<
   const timezone = useUserTimeZone();
   const currentDateTime = useUtc
     ? // @ts-ignore: FIXME. This comment was added by an automated script.
-      utcToZonedTime(new Date(value || null), timezone)
+      toZonedTime(new Date(value || null), timezone)
     : new Date(value || null);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) => {
     if (useUtc) {
       // @ts-ignore: FIXME. This comment was added by an automated script.
-      onChange(zonedTimeToUtc(d, timezone).toString());
+      onChange(fromZonedTime(d, timezone).toString());
     } else {
       onChange(d.toString());
     }

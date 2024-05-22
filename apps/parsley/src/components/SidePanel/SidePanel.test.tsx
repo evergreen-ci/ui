@@ -1,11 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
+import { MockInstance } from "vitest";
 import { LogContextProvider } from "context/LogContext";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import SidePanel from ".";
 
-jest.mock("js-cookie");
-const mockedGet = Cookie.get as unknown as jest.Mock<string>;
+vi.mock("js-cookie");
+const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider>
@@ -44,7 +45,7 @@ describe("sidePanel", () => {
 });
 
 const props = {
-  clearExpandedLines: jest.fn(),
-  collapseLines: jest.fn(),
+  clearExpandedLines: vi.fn(),
+  collapseLines: vi.fn(),
   expandedLines: [],
 };

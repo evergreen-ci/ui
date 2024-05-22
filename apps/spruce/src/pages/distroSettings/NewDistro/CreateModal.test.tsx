@@ -9,6 +9,7 @@ import { CREATE_DISTRO } from "gql/mutations";
 import {
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   userEvent,
   waitFor,
 } from "test_utils";
@@ -30,6 +31,10 @@ const Modal = ({
 );
 
 describe("create distro modal", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   it("does not render the modal when open prop is false", () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
     render(<Component />);

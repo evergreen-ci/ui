@@ -25,7 +25,7 @@ describe("searchLogs", () => {
   });
   it("should return an array of matching line numbers with a lower bound", () => {
     const lines = ["line 1", "line 2", "line 3"];
-    const getLine = jest.fn((index: number) => lines[index]);
+    const getLine = vi.fn((index: number) => lines[index]);
     const options = {
       getLine,
       lowerBound: 1,
@@ -40,7 +40,7 @@ describe("searchLogs", () => {
   });
   it("should return an array of matching line numbers with an upper bound", () => {
     const lines = ["line 1", "line 2", "line 3"];
-    const getLine = jest.fn((index: number) => lines[index]);
+    const getLine = vi.fn((index: number) => lines[index]);
     const options = {
       getLine,
       lowerBound: 0,
@@ -56,7 +56,7 @@ describe("searchLogs", () => {
   });
   it("should not match on folded lines and should return the processedLogLine index", () => {
     const lines = ["line 1", "line 2", "line 3", "line 4"];
-    const getLine = jest.fn((index: number) => lines[index]);
+    const getLine = vi.fn((index: number) => lines[index]);
     const options = {
       getLine,
       lowerBound: 0,
@@ -71,7 +71,7 @@ describe("searchLogs", () => {
   });
   it("should not search lines that are folded or if they are out of the range", () => {
     const lines = ["line 1", "line 2", "line 3", "line 4"];
-    const getLine = jest.fn((index: number) => lines[index]);
+    const getLine = vi.fn((index: number) => lines[index]);
     const options = {
       getLine,
       lowerBound: 0,

@@ -15,7 +15,7 @@ import { ProjectSelect } from ".";
 
 describe("projectSelect", () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   describe("not project settings", () => {

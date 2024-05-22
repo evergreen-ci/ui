@@ -1,0 +1,12 @@
+<div>
+  <span>
+    Should be 
+    <mark
+      class="css-1faqh9b-Highlight e1fp893c0"
+      color="#FFCDC7"
+      data-cy="highlight"
+    >
+      highlighted
+    </mark>
+  </span>
+</div>

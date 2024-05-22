@@ -8,7 +8,7 @@ describe("base toggle", () => {
         data-cy="toggle"
         label="Test Label"
         leftLabel="Left"
-        onChange={jest.fn()}
+        onChange={vi.fn()}
         rightLabel="Right"
         tooltip="test tooltip"
         value
@@ -21,7 +21,7 @@ describe("base toggle", () => {
 
   it("calls the onChange function with the correct parameters", async () => {
     const user = userEvent.setup();
-    const toggleFunc = jest.fn();
+    const toggleFunc = vi.fn();
     render(
       <BaseToggle
         data-cy="toggle"
@@ -46,7 +46,7 @@ describe("base toggle", () => {
         disabled
         label="Test Label"
         leftLabel="Left"
-        onChange={jest.fn()}
+        onChange={vi.fn()}
         rightLabel="Right"
         tooltip="test tooltip"
         value

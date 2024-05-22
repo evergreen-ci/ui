@@ -2,6 +2,10 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": "src",
+    "types": [
+      "vitest/globals",
+      "vitest/jsdom"
+    ]
   },
   "exclude": [
     "node_modules",
@@ -9,9 +13,10 @@
   ],
   "include": [
     "src",
+    "scripts",
     "test_utils/index.tsx",
     "test_utils/custom-queries.ts",
-    "config/jest/setupTests.ts"
+    "config/vitest/setupTests.ts"
   ],
   "references": [
     {

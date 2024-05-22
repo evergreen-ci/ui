@@ -16,8 +16,8 @@ const options = [
 
 describe("tupleSelect", () => {
   it("renders normally", () => {
-    const onSubmit = jest.fn();
-    const validator = jest.fn((v) => v !== "bad");
+    const onSubmit = vi.fn();
+    const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
@@ -37,8 +37,8 @@ describe("tupleSelect", () => {
 
   it("should clear input when a value is submitted", async () => {
     const user = userEvent.setup();
-    const onSubmit = jest.fn();
-    const validator = jest.fn((v) => v !== "bad");
+    const onSubmit = vi.fn();
+    const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
@@ -60,8 +60,8 @@ describe("tupleSelect", () => {
 
   it("should validate the input and prevent submission if it fails validation", async () => {
     const user = userEvent.setup();
-    const onSubmit = jest.fn();
-    const validator = jest.fn((v) => v !== "bad");
+    const onSubmit = vi.fn();
+    const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect

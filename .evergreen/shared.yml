@@ -305,15 +305,15 @@ functions:
       working_dir: ui/${app_dir}
       script: |
         ${PREPARE_SHELL}
-        yarn test --ci --testPathPattern=snapshot.test.ts
+        yarn snapshot
 
   yarn-test:
     command: shell.exec
     params:
-      working_dir: ui
+      working_dir: ui/${app_dir}
       script: |
         ${PREPARE_SHELL}
-        yarn test --ci --testPathIgnorePatterns=snapshot.test.ts --selectProjects ${build_variant}
+        yarn test
 
   yarn-tsc:
     command: shell.exec
@@ -391,7 +391,6 @@ tasks:
   - name: snapshots
     commands:
       - func: yarn-snapshot
-      - func: attach-test-results
 
   - name: storybook
     commands:

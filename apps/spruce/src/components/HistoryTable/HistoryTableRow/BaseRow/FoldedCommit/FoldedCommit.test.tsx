@@ -9,7 +9,7 @@ describe("foldedCommit", () => {
     const data = {
       ...foldedCommitData,
     };
-    const onToggleFoldedCommit = jest.fn(({ expanded }) => {
+    const onToggleFoldedCommit = vi.fn(({ expanded }) => {
       data.expanded = expanded;
     });
 
@@ -32,7 +32,7 @@ describe("foldedCommit", () => {
     const data = {
       ...foldedCommitData,
     };
-    const onToggleFoldedCommit = jest.fn(({ expanded }) => {
+    const onToggleFoldedCommit = vi.fn(({ expanded }) => {
       data.expanded = expanded;
     });
 

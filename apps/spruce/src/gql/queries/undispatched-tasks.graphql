@@ -2,7 +2,7 @@ query UndispatchedTasks($versionId: String!) {
   version(versionId: $versionId) {
     id
     tasks(
-      options: { statuses: ["unscheduled"], includeEmptyActivation: true }
+      options: { statuses: ["unscheduled"], includeNeverActivatedTasks: true }
     ) {
       data {
         buildVariant

@@ -1,4 +1,4 @@
-import { format, utcToZonedTime } from "date-fns-tz";
+import { format, toZonedTime } from "date-fns-tz";
 import get from "lodash/get";
 import { TimeFormat } from "constants/fieldMaps";
 
@@ -138,7 +138,7 @@ export const getDateCopy = (
     ? dateFormat
     : `${dateFormat}, ${timeFormat}${omitTimezone ? "" : " z"}`;
   if (tz) {
-    return format(utcToZonedTime(time, tz), finalDateFormat, {
+    return format(toZonedTime(time, tz), finalDateFormat, {
       timeZone: tz,
     });
   }

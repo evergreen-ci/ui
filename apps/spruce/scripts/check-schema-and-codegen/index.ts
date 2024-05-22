@@ -1,4 +1,4 @@
-import fs from "fs";
+import { readFileSync } from "fs";
 import process from "process";
 import { generatedFileName as existingTypesFileName } from "../../codegen";
 import {
@@ -25,9 +25,7 @@ export const checkSchemaAndCodegenCore = async (): Promise<number> => {
     }
     // Finally check to see if 'yarn codegen' was ran.
     const filenames = [await generateTypes(), existingTypesFileName];
-    const [file1, file2] = filenames.map((filename) =>
-      fs.readFileSync(filename),
-    );
+    const [file1, file2] = filenames.map((filename) => readFileSync(filename));
     if (!file1.equals(file2)) {
       console.error(
         `${failCopy} Your GQL types file (${existingTypesFileName}) is outdated. Run 'yarn codegen'.`,

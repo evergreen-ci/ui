@@ -9,19 +9,24 @@ const { gray } = palette;
 
 interface OptionProps {
   displayName: string;
-  identifier: string;
+  projectIdentifier: string;
   isFavorite: boolean;
   onClick: (identifier: string) => void;
 }
 const ProjectOption: React.FC<OptionProps> = ({
   displayName,
-  identifier,
   isFavorite,
   onClick,
+  projectIdentifier,
 }) => (
-  <ProjectContainer role="button" onClick={() => onClick(identifier)}>
-    <Body data-cy="project-display-name">{displayName || identifier}</Body>
-    <FavoriteStar identifier={identifier} isFavorite={isFavorite} />
+  <ProjectContainer role="button" onClick={() => onClick(projectIdentifier)}>
+    <Body data-cy="project-display-name">
+      {displayName || projectIdentifier}
+    </Body>
+    <FavoriteStar
+      projectIdentifier={projectIdentifier}
+      isFavorite={isFavorite}
+    />
   </ProjectContainer>
 );
 
@@ -63,6 +68,7 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
         <ProjectOption
           onClick={onClick}
           key={project.identifier}
+          projectIdentifier={project.identifier}
           {...project}
         />
       ))}

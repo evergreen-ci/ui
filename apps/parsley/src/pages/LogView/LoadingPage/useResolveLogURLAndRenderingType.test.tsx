@@ -21,10 +21,10 @@ import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRendering
 describe("useResolveLogURLAndRenderingType", () => {
   describe("test log renderingType", () => {
     beforeEach(() => {
-      jest.spyOn(ErrorReporting, "reportError");
+      vi.spyOn(ErrorReporting, "reportError");
     });
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
     it("resolves test log renderingType from GraphQL resolver when API value is 'resmoke'", async () => {
       const wrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -306,14 +306,14 @@ describe("useResolveLogURLAndRenderingType", () => {
       await waitFor(() => {
         expect(result.current).toMatchObject({
           downloadURL:
-            "test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=true",
+            "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=true",
           htmlLogURL:
-            "test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=false",
+            "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=false",
           jobLogsURL: "",
           legacyJobLogsURL: "",
           loading: false,
           rawLogURL:
-            "test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=true",
+            "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=true",
         });
       });
     });
@@ -343,7 +343,7 @@ describe("useResolveLogURLAndRenderingType", () => {
       await waitFor(() => {
         expect(result.current).toMatchObject({
           downloadURL:
-            "test-evergreen.com/task_file_raw/a-task-id/0/a-file-name",
+            "http://test-evergreen.com/task_file_raw/a-task-id/0/a-file-name",
           htmlLogURL: "",
           jobLogsURL: "",
           legacyJobLogsURL: "",
@@ -378,7 +378,7 @@ describe("useResolveLogURLAndRenderingType", () => {
       await waitFor(() => {
         expect(result.current).toMatchObject({
           downloadURL:
-            "test-evergreen.com/task_file_raw/a-task-id/0/a%20file%20name.some%2Fcrazy%2Fpath",
+            "http://test-evergreen.com/task_file_raw/a-task-id/0/a%20file%20name.some%2Fcrazy%2Fpath",
           htmlLogURL: "",
           jobLogsURL: "",
           legacyJobLogsURL: "",
@@ -410,13 +410,13 @@ describe("useResolveLogURLAndRenderingType", () => {
     await waitFor(() => {
       expect(result.current).toMatchObject({
         downloadURL:
-          "test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
+          "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
         htmlLogURL: "",
-        jobLogsURL: "test-spruce.com/job-logs/a-task-id/0/job0",
+        jobLogsURL: "http://test-spruce.com/job-logs/a-task-id/0/job0",
         legacyJobLogsURL: "",
         loading: false,
         rawLogURL:
-          "test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
+          "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
       });
     });
   });

@@ -4,10 +4,10 @@ import { reportingFn } from "./logGQLErrorsLink";
 
 describe("reportingFn", () => {
   beforeEach(() => {
-    jest.spyOn(ErrorReporting, "reportError");
+    vi.spyOn(ErrorReporting, "reportError");
   });
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("reportError should be called with secret fields redacted", () => {
@@ -18,8 +18,8 @@ describe("reportingFn", () => {
         input: { password: "password123", creditCard: "1234567890123456" },
       },
       query: null,
-      setContext: jest.fn(),
-      getContext: jest.fn(),
+      setContext: vi.fn(),
+      getContext: vi.fn(),
       extensions: {},
     };
     const gqlErr = new GraphQLError("An error occurred", {

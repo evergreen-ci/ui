@@ -1,4 +1,3 @@
-import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   AnnotationEventDataQuery,
@@ -37,17 +36,9 @@ const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
 const execution = 0;
 
-// @ts-ignore: FIXME. This comment was added by an automated script.
-let matchMedia;
 describe("buildBaronContent", () => {
-  beforeAll(() => {
-    matchMedia = new MatchMediaMock();
-  });
-
   afterEach(() => {
-    // @ts-ignore: FIXME. This comment was added by an automated script.
-    matchMedia.clear();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("the BuildBaron component renders without crashing.", () => {

@@ -55,7 +55,9 @@ describe("columnHeaders (Variant History)", () => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
 
-    expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
+    });
   });
 
   it("should link to corresponding /task-history/:projectId/:taskName page", async () => {

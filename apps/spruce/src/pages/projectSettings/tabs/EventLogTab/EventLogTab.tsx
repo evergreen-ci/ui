@@ -10,12 +10,12 @@ type TabProps = {
 };
 
 export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
-  const { [slugs.projectIdentifier]: identifier } = useParams();
+  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
 
   const isRepo = projectType === ProjectType.Repo;
   const { allEventsFetched, events, fetchMore } = useProjectSettingsEvents(
     // @ts-ignore: FIXME. This comment was added by an automated script.
-    identifier,
+    projectIdentifier,
     isRepo,
     limit,
   );
@@ -30,7 +30,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
       handleFetchMore={() => {
         fetchMore({
           variables: {
-            identifier,
+            projectIdentifier,
             before: lastEventTimestamp,
           },
         });

@@ -1,5 +1,4 @@
 import * as toast from "..";
-import { useToastContext } from "..";
 
 /**
  * RenderFakeToastContext is a utility that takes a React Component which uses useToastContext and returns a
@@ -10,15 +9,16 @@ import { useToastContext } from "..";
  * @returns an object with the Component, the mocked useToastContext, and the dispatchToast methods
  */
 const RenderFakeToastContext = (Component: React.ReactElement = <div />) => {
-  const dispatchToast: ReturnType<typeof useToastContext> = {
-    error: jest.fn(),
-    info: jest.fn(),
-    progress: jest.fn(),
-    success: jest.fn(),
-    warning: jest.fn(),
+  // @ts-ignore: FIXME. This comment was added by an automated script.
+  const dispatchToast: DispatchToast = {
+    success: vi.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+    warning: vi.fn(),
+    progress: vi.fn(),
   };
 
-  const useToastContextSpied = jest
+  const useToastContextSpied = vi
     .spyOn(toast, "useToastContext")
     .mockImplementation(() => ({
       ...dispatchToast,

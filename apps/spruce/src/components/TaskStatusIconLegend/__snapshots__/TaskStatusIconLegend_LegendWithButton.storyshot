@@ -1,0 +1,32 @@
+<div>
+  <div>
+    <button
+      aria-disabled="false"
+      aria-label="Task Status Icon Legend"
+      class="leafygreen-ui-76dd2i"
+      tabindex="0"
+    >
+      <div
+        class="leafygreen-ui-xhlipt"
+      >
+        <svg
+          aria-label="Question Mark With Circle Icon"
+          class="css-1ivzsgc-StyledIcon e1yp16pl5"
+          fill="none"
+          height="16"
+          role="img"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM6.932 5.612C7.054 5.298 7.425 5 7.942 5 8.615 5 9 5.478 9 5.875c0 .162-.057.33-.172.476a.985.985 0 0 1-.242.216l-.016.01a1.141 1.141 0 0 1-.098.054c-.59.286-1.53.967-1.53 2.119V9a1 1 0 0 0 2 0c0-.035.011-.12.138-.27a2.66 2.66 0 0 1 .587-.48 3 3 0 0 0 .726-.656A2.742 2.742 0 0 0 11 5.875C11 4.201 9.54 3 7.941 3c-1.275 0-2.43.745-2.873 1.888a1 1 0 1 0 1.864.724ZM8 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+    </button>
+  </div>
+</div>

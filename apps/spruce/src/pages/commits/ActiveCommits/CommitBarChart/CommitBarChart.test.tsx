@@ -8,8 +8,8 @@ import { CommitBarChart } from ".";
 
 describe("commitChart", () => {
   afterEach(() => {
-    jest.clearAllTimers();
-    jest.clearAllMocks();
+    vi.clearAllTimers();
+    vi.clearAllMocks();
   });
 
   it("display right amount of bars", () => {

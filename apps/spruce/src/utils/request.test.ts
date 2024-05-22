@@ -3,17 +3,17 @@ import { post, fetchWithRetry } from "./request";
 describe("request utils", () => {
   describe("post", () => {
     afterEach(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
 
     it("should make a POST request and return the response for a successful request", async () => {
       const url = "/api/resource";
       const body = { key: "value" };
-      const fetchMock = jest.fn().mockResolvedValue({
+      const fetchMock = vi.fn().mockResolvedValue({
         ok: true,
       });
 
-      jest.spyOn(global, "fetch").mockImplementation(fetchMock);
+      vi.spyOn(global, "fetch").mockImplementation(fetchMock);
 
       const response = await post(url, body);
 
@@ -28,14 +28,14 @@ describe("request utils", () => {
     it("should handle and report an error for a failed request", async () => {
       const url = "/api/resource";
       const body = { key: "value" };
-      const fetchMock = jest.fn().mockResolvedValue({
+      const fetchMock = vi.fn().mockResolvedValue({
         ok: false,
         status: 500,
         statusText: "Internal Server Error",
       });
-      const errorReportingMock = jest.fn();
-      jest.spyOn(console, "error").mockImplementation(errorReportingMock);
-      jest.spyOn(global, "fetch").mockImplementation(fetchMock);
+      const errorReportingMock = vi.fn();
+      vi.spyOn(console, "error").mockImplementation(errorReportingMock);
+      vi.spyOn(global, "fetch").mockImplementation(fetchMock);
 
       await post(url, body);
 
@@ -50,19 +50,19 @@ describe("request utils", () => {
 
   describe("fetchWithRetry", () => {
     beforeEach(() => {
-      jest.spyOn(global, "fetch").mockImplementation();
+      vi.spyOn(global, "fetch");
     });
 
     afterEach(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     it("successfully fetches data on the first try", async () => {
       const mockData = { success: true };
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      vi.mocked(global.fetch).mockResolvedValueOnce({
         json: () => Promise.resolve(mockData),
         ok: true,
-      });
+      } as Response);
 
       const result = await fetchWithRetry<{ success: boolean }>(
         "https://example.com",
@@ -74,13 +74,13 @@ describe("request utils", () => {
 
     it("retries the specified number of times on failure, then succeeds", async () => {
       const mockData = { success: true };
-      (global.fetch as jest.Mock)
+      vi.mocked(global.fetch)
         .mockRejectedValueOnce(new Error("Network failure"))
         .mockRejectedValueOnce(new Error("Network failure"))
         .mockResolvedValueOnce({
           ok: true,
           json: () => Promise.resolve(mockData),
-        });
+        } as Response);
 
       const result = await fetchWithRetry<{ success: boolean }>(
         "https://example.com",
@@ -92,9 +92,7 @@ describe("request utils", () => {
     });
 
     it("fails after the specified number of retries", async () => {
-      (global.fetch as jest.Mock).mockRejectedValue(
-        new Error("Network failure"),
-      );
+      vi.mocked(global.fetch).mockRejectedValue(new Error("Network failure"));
 
       await expect(
         fetchWithRetry("https://example.com", {}, 2),
@@ -103,11 +101,11 @@ describe("request utils", () => {
     });
 
     it("rejects if the response is not ok and does not retry fetch", async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      vi.mocked(global.fetch).mockResolvedValueOnce({
         ok: false,
         status: 500,
         statusText: "Internal Server Error",
-      });
+      } as Response);
       let error = null;
       try {
         await fetchWithRetry("https://example.com", {});

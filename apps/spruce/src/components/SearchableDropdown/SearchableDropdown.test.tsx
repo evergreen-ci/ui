@@ -10,7 +10,7 @@ describe("searchableDropdown", () => {
     render(
       RenderSearchableDropdown({
         value: "evergreen",
-        onChange: jest.fn(),
+        onChange: vi.fn(),
         options: ["evergreen", "spruce"],
       }),
     );
@@ -22,7 +22,7 @@ describe("searchableDropdown", () => {
     render(
       RenderSearchableDropdown({
         value: "evergreen",
-        onChange: jest.fn(),
+        onChange: vi.fn(),
         options: ["evergreen", "spruce"],
       }),
     );
@@ -46,7 +46,7 @@ describe("searchableDropdown", () => {
     render(
       RenderSearchableDropdown({
         value: "evergreen",
-        onChange: jest.fn(),
+        onChange: vi.fn(),
         options: ["evergreen", "spruce"],
       }),
     );
@@ -79,7 +79,7 @@ describe("searchableDropdown", () => {
     render(
       RenderSearchableDropdown({
         value: "evergreen",
-        onChange: jest.fn(),
+        onChange: vi.fn(),
         options: ["evergreen", "spruce"],
       }),
     );
@@ -113,14 +113,14 @@ describe("searchableDropdown", () => {
 
   it("should use custom search function when passed in", async () => {
     const user = userEvent.setup();
-    const searchFunc = jest.fn((options, match) =>
+    const searchFunc = vi.fn((options, match) =>
       // @ts-ignore: FIXME. This comment was added by an automated script.
       options.filter((o) => o === match),
     );
     render(
       RenderSearchableDropdown({
         value: ["evergreen"],
-        onChange: jest.fn(),
+        onChange: vi.fn(),
         options: ["evergreen", "spruce"],
         searchFunc,
       }),
@@ -146,7 +146,7 @@ describe("searchableDropdown", () => {
   describe("when multiselect == false", () => {
     it("should call onChange when clicking on an option and should close the option list", async () => {
       const user = userEvent.setup();
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { rerender } = render(
         RenderSearchableDropdown({
           value: "evergreen",
@@ -184,7 +184,7 @@ describe("searchableDropdown", () => {
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange: jest.fn(),
+          onChange: vi.fn(),
           options: ["evergreen", "spruce"],
         }),
       );
@@ -221,7 +221,7 @@ describe("searchableDropdown", () => {
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange: jest.fn(),
+          onChange: vi.fn(),
           options: ["evergreen", "spruce"],
         }),
       );
@@ -237,7 +237,7 @@ describe("searchableDropdown", () => {
   describe("when multiselect == true", () => {
     it("should call onChange when clicking on multiple options and shouldn't close the dropdown", async () => {
       const user = userEvent.setup();
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       const { rerender } = render(
         RenderSearchableDropdown({
           value: [],
@@ -288,7 +288,7 @@ describe("searchableDropdown", () => {
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange: jest.fn(),
+          onChange: vi.fn(),
           options: ["evergreen", "spruce", "sandbox"],
           allowMultiSelect: true,
         }),
@@ -324,7 +324,7 @@ describe("searchableDropdown", () => {
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange: jest.fn(),
+          onChange: vi.fn(),
           options: ["evergreen", "spruce"],
           allowMultiSelect: true,
         }),
@@ -344,7 +344,7 @@ describe("searchableDropdown", () => {
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange: jest.fn(),
+          onChange: vi.fn(),
           options: [
             {
               label: "Evergreen",
@@ -376,7 +376,7 @@ describe("searchableDropdown", () => {
 
     it("should be able to click on custom elements", async () => {
       const user = userEvent.setup();
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       render(
         RenderSearchableDropdown({
           value: "evergreen",
@@ -415,7 +415,7 @@ describe("searchableDropdown", () => {
       render(
         RenderSearchableDropdown({
           value: "evergreen",
-          onChange: jest.fn(),
+          onChange: vi.fn(),
           options: ["evergreen", "spruce"],
           // @ts-ignore: FIXME. This comment was added by an automated script.
           buttonRenderer: (option: string) => (
