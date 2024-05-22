@@ -51,7 +51,7 @@ describe("filterLogs", () => {
         matchingLines: new Set([]),
         shareLine: undefined,
       }),
-    ).toStrictEqual([[0, 1, 2, 3, 4, 5, 6, 7]]);
+    ).toStrictEqual([{ lineEnd: 8, lineStart: 0, rowType: "SkippedLines" }]);
   });
 
   describe("with matching lines", () => {
@@ -66,7 +66,12 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           shareLine: undefined,
         }),
-      ).toStrictEqual([[0], 1, [2, 3, 4, 5, 6], 7]);
+      ).toStrictEqual([
+        { lineEnd: 1, lineStart: 0, rowType: "SkippedLines" },
+        1,
+        { lineEnd: 7, lineStart: 2, rowType: "SkippedLines" },
+        7,
+      ]);
     });
 
     it("should not collapse the share line", () => {
@@ -80,7 +85,12 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           shareLine: 7,
         }),
-      ).toStrictEqual([[0], 1, [2, 3, 4, 5, 6], 7]);
+      ).toStrictEqual([
+        { lineEnd: 1, lineStart: 0, rowType: "SkippedLines" },
+        1,
+        { lineEnd: 7, lineStart: 2, rowType: "SkippedLines" },
+        7,
+      ]);
     });
 
     it("should not collapse the failing line", () => {
@@ -94,7 +104,12 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           shareLine: undefined,
         }),
-      ).toStrictEqual([[0], 1, [2, 3, 4, 5, 6], 7]);
+      ).toStrictEqual([
+        { lineEnd: 1, lineStart: 0, rowType: "SkippedLines" },
+        1,
+        { lineEnd: 7, lineStart: 2, rowType: "SkippedLines" },
+        7,
+      ]);
     });
 
     it("should not collapse expanded lines", () => {
@@ -108,7 +123,15 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           shareLine: undefined,
         }),
-      ).toStrictEqual([[0], 1, [2, 3], 4, 5, 6, [7]]);
+      ).toStrictEqual([
+        { lineEnd: 1, lineStart: 0, rowType: "SkippedLines" },
+        1,
+        { lineEnd: 4, lineStart: 2, rowType: "SkippedLines" },
+        4,
+        5,
+        6,
+        { lineEnd: 8, lineStart: 7, rowType: "SkippedLines" },
+      ]);
     });
   });
 });
