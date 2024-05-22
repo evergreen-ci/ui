@@ -56,12 +56,11 @@ const ProjectSettings: React.FC = () => {
     onError: () => {
       setIsRepo(true);
     },
-    // TODO: Fix this analytics event logic
-    sendAnalyticsEvent: (projectId: string) => {
+    sendAnalyticsEvent: (projectId: string, identifier: string) => {
       sendEvent({
         name: "Redirect to project identifier",
         projectId,
-        projectIdentifier,
+        projectIdentifier: identifier,
       });
     },
   });
