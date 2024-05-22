@@ -16,6 +16,7 @@ import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   userEvent,
   waitFor,
 } from "test_utils";
@@ -43,6 +44,10 @@ const Modal = ({
 );
 
 describe("copyProjectField", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   it("does not render the modal when open prop is false", () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
     render(<Component />);

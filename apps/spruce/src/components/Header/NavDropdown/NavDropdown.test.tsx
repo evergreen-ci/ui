@@ -42,7 +42,7 @@ describe("navDropdown", () => {
   });
   it("clicking on a link triggers a callback", async () => {
     const user = userEvent.setup();
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
     render(
       <NavDropdown
         title="Dropdown"

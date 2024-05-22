@@ -6,7 +6,12 @@ import {
   DeactivateStepbackTaskMutationVariables,
 } from "gql/generated/types";
 import { DEACTIVATE_STEPBACK_TASK } from "gql/mutations";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  stubGetClientRects,
+  userEvent,
+} from "test_utils";
 import { ApolloMock } from "types/gql";
 import { DeactivateStepbackTaskField } from ".";
 
@@ -24,6 +29,10 @@ const Field = () => (
 );
 
 describe("deactivateStepbackTask", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   it("renders the button properly", () => {
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);

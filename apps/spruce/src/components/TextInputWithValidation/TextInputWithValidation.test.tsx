@@ -4,7 +4,7 @@ import TextInputWithValidation from ".";
 describe("textInputWithValidation", () => {
   it("should not be able to submit with an invalid input", async () => {
     const user = userEvent.setup();
-    const onSubmit = jest.fn();
+    const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
         onSubmit={onSubmit}
@@ -21,7 +21,7 @@ describe("textInputWithValidation", () => {
   });
   it("should not validate without a validation function", async () => {
     const user = userEvent.setup();
-    const onSubmit = jest.fn();
+    const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
         onSubmit={onSubmit}
@@ -36,7 +36,7 @@ describe("textInputWithValidation", () => {
   });
   it("should call onChange only for valid inputs", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(
       <TextInputWithValidation
         onChange={onChange}
@@ -53,8 +53,8 @@ describe("textInputWithValidation", () => {
   });
   it("clearOnSubmit should clear the input after a valid input is submitted", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
-    const onSubmit = jest.fn();
+    const onChange = vi.fn();
+    const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
         onChange={onChange}

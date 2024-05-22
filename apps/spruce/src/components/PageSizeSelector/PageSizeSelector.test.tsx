@@ -4,7 +4,7 @@ import PageSizeSelector from ".";
 describe("pageSizeSelector", () => {
   it("selecting page size should call onChange prop", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(
       <PageSizeSelector
         data-cy="page-size-selector"

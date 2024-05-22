@@ -27,18 +27,18 @@ const useAuthHook = () => {
 describe("auth", () => {
   afterEach(() => {
     cleanup();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("useAuthDispatchContext should error when rendered outside of AuthProvider", () => {
-    jest.spyOn(console, "error").mockImplementation();
+    vi.spyOn(console, "error").mockImplementation(() => {});
     expect(() => renderHook(() => useAuthDispatchContext())).toThrow(
       "useAuthDispatchContext must be used within an auth context provider",
     );
   });
 
   it("useAuthStateContext should error when rendered outside of AuthProvider", () => {
-    jest.spyOn(console, "error").mockImplementation();
+    vi.spyOn(console, "error").mockImplementation(() => {});
     expect(() => renderHook(() => useAuthStateContext())).toThrow(
       "useAuthStateContext must be used within an auth context provider",
     );
@@ -46,8 +46,8 @@ describe("auth", () => {
 
   describe("devLogin", () => {
     it("should authenticate when the response is successful", async () => {
-      const mockFetchPromise = jest.fn().mockResolvedValue({ ok: true });
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+      const mockFetchPromise = vi.fn().mockResolvedValue({ ok: true });
+      vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
       const { result } = renderHook(() => useAuthHook(), {
         wrapper,
@@ -64,8 +64,8 @@ describe("auth", () => {
     });
 
     it("should not authenticate when the response is unsuccessful", () => {
-      const mockFetchPromise = jest.fn().mockResolvedValue({ ok: false });
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+      const mockFetchPromise = vi.fn().mockResolvedValue({ ok: false });
+      vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
       const { result } = renderHook(() => useAuthHook(), {
         wrapper,
@@ -106,8 +106,8 @@ describe("auth", () => {
     it("should redirect to the Spruce /login page locally", async () => {
       mockEnv("NODE_ENV", "development");
       mockEnv("REACT_APP_SPRUCE_URL", "spruce-url");
-      const mockFetchPromise = jest.fn().mockResolvedValue({});
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+      const mockFetchPromise = vi.fn().mockResolvedValue({});
+      vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
       const { result } = renderHook(() => useAuthHook(), {
         wrapper,
@@ -123,8 +123,8 @@ describe("auth", () => {
     it("should redirect to the Evergreen /login page otherwise", async () => {
       mockEnv("NODE_ENV", "production");
       mockEnv("REACT_APP_UI_URL", "evergreen-url");
-      const mockFetchPromise = jest.fn().mockResolvedValue({});
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
+      const mockFetchPromise = vi.fn().mockResolvedValue({});
+      vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
       const { result } = renderHook(() => useAuthHook(), {
         wrapper,

@@ -58,11 +58,11 @@ describe("matchesDefaultUptimeSchedule", () => {
 
 describe("validator", () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("returns no errors when host is expirable", () => {
-    const f = jest.fn();
+    const f = vi.fn();
     validator(
       {
         expirationDetails: {
@@ -87,7 +87,7 @@ describe("validator", () => {
   });
 
   it("returns error when the host has too many uptime hours", () => {
-    const f = jest.fn();
+    const f = vi.fn();
     validator(
       {
         expirationDetails: {
@@ -112,7 +112,7 @@ describe("validator", () => {
   });
 
   it("does not return an error when the host does not have too many uptime hours", () => {
-    const f = jest.fn();
+    const f = vi.fn();
     validator(
       {
         expirationDetails: {
