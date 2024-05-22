@@ -1,0 +1,68 @@
+<div>
+  <div
+    class="css-1ry038z-Container e17dnzmx0"
+  >
+    <label
+      class="leafygreen-ui-1fi5x3a"
+      data-lgid="lg-label"
+      for="searchable-dropdown-Custom option select"
+    >
+      Custom option select
+    </label>
+    <div
+      class="css-7yazxp-Wrapper e17dnzmx4"
+    >
+      <div
+        class="css-1ry038z-Container e1yw4j304"
+        id="searchable-dropdown-Custom option select"
+      >
+        <button
+          aria-disabled="false"
+          class="lg-ui-button-0000 leafygreen-ui-xcwxw8 css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
+          data-cy="searchable-dropdown"
+          type="button"
+        >
+          <div
+            class="leafygreen-ui-v038xi"
+          />
+          <div
+            class="leafygreen-ui-v95oty"
+          >
+            <div
+              class="css-19l4y8w-ButtonContent e1yw4j301"
+            >
+              <div
+                class="css-soeq2u-LabelWrapper e1yw4j303"
+              >
+                <p
+                  class="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1tb6tuo"
+                  data-cy="dropdown-value"
+                >
+                  Select an element
+                </p>
+              </div>
+            </div>
+            <svg
+              alt=""
+              aria-hidden="true"
+              class="leafygreen-ui-15rby6h"
+              fill="none"
+              height="16"
+              role="presentation"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M1.636 5.364a1 1 0 0 0 0 1.414l4.95 4.95.707.707a1 1 0 0 0 1.414 0l.707-.707 4.95-4.95a1 1 0 0 0 0-1.414l-.707-.707a1 1 0 0 0-1.414 0L8 8.899 3.757 4.657a1 1 0 0 0-1.414 0l-.707.707Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

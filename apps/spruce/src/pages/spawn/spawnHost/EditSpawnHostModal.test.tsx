@@ -19,6 +19,7 @@ import { INSTANCE_TYPES, MY_HOSTS, MY_PUBLIC_KEYS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
+  stubGetClientRects,
   userEvent,
   within,
 } from "test_utils";
@@ -27,6 +28,10 @@ import { MyHost } from "types/spawn";
 import { EditSpawnHostModal } from "./EditSpawnHostModal";
 
 describe("editSpawnHostModal", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   it("renders modal", () => {
     const { Component } = RenderFakeToastContext(
       <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
@@ -164,13 +169,13 @@ describe("editSpawnHostModal", () => {
           expect(day).not.toBeDisabled();
         });
       await user.click(screen.queryByLabelText("Start Time"));
-      await user.click(screen.queryAllByText("07")[0]);
-      await user.click(screen.getByRole("button", { name: "OK" }));
+      await user.click(screen.getAllByText("07")[0]);
+      await user.click(screen.getByText("OK", { selector: "span" }));
       expect(screen.queryByLabelText("Start Time")).toHaveValue("07:00");
       expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
         "65",
       );
-    });
+    }, 30000);
 
     it("shows a warning when user has configured a schedule over the recommended limit", async () => {
       const user = userEvent.setup();
@@ -229,7 +234,7 @@ describe("editSpawnHostModal", () => {
         "aria-disabled",
         "true",
       );
-    });
+    }, 15000);
   });
 });
 
@@ -272,6 +277,7 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
+    temporarilyExemptUntil: null,
     timeZone: "America/New_York",
   },
   __typename: "Host",

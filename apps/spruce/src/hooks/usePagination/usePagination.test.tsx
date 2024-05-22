@@ -9,10 +9,10 @@ describe("usePagination", () => {
 
   beforeEach(() => {
     // Mock localStorage
-    jest.spyOn(Storage.prototype, "setItem").mockImplementation();
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {});
   });
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("should return the default page and limit", () => {

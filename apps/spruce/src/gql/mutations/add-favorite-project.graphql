@@ -1,5 +1,5 @@
-mutation AddFavoriteProject($identifier: String!) {
-  addFavoriteProject(identifier: $identifier) {
+mutation AddFavoriteProject($projectIdentifier: String!) {
+  addFavoriteProject(opts: { projectIdentifier: $projectIdentifier }) {
     displayName
     id
     identifier

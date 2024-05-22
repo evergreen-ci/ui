@@ -1,0 +1,36 @@
+<div>
+  <div
+    class="css-15tkpor"
+  >
+    <div
+      class="leafygreen-ui-ud6teo"
+    >
+      Fail
+    </div>
+    <div
+      class="leafygreen-ui-ixbeze"
+    >
+      Skip
+    </div>
+    <div
+      class="leafygreen-ui-1qtf7xy"
+    >
+      Silent Fail
+    </div>
+    <div
+      class="leafygreen-ui-n4itms"
+    >
+      Pass
+    </div>
+    <div
+      class="leafygreen-ui-ohl2hc"
+    >
+      all
+    </div>
+    <div
+      class="leafygreen-ui-ud6teo"
+    >
+      Timeout
+    </div>
+  </div>
+</div>

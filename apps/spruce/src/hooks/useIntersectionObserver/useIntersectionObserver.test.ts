@@ -3,21 +3,21 @@ import useIntersectionObserver from ".";
 
 describe("useIntersectionObserver", () => {
   it("should call the callback when the element is not intersecting", () => {
-    const mockIntersectionObserver = jest.fn((callback) => {
+    const mockIntersectionObserver = vi.fn((callback) => {
       callback([
         {
           isIntersecting: false,
         },
       ]);
       return {
-        observe: jest.fn(),
-        disconnect: jest.fn(),
+        observe: vi.fn(),
+        disconnect: vi.fn(),
       };
     });
 
     // @ts-expect-error
     window.IntersectionObserver = mockIntersectionObserver;
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
     renderHook(() =>
       useIntersectionObserver(
         {
@@ -29,21 +29,21 @@ describe("useIntersectionObserver", () => {
     expect(mockCallback).toHaveBeenCalledWith([{ isIntersecting: false }]);
   });
   it("should call the callback when the element is intersecting", () => {
-    const mockIntersectionObserver = jest.fn((callback) => {
+    const mockIntersectionObserver = vi.fn((callback) => {
       callback([
         {
           isIntersecting: true,
         },
       ]);
       return {
-        observe: jest.fn(),
-        disconnect: jest.fn(),
+        observe: vi.fn(),
+        disconnect: vi.fn(),
       };
     });
 
     // @ts-expect-error
     window.IntersectionObserver = mockIntersectionObserver;
-    const mockCallback = jest.fn();
+    const mockCallback = vi.fn();
     renderHook(() =>
       useIntersectionObserver(
         {
