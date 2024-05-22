@@ -63,7 +63,7 @@ const mock = (
   request: {
     query: PROJECT_EVENT_LOGS,
     variables: {
-      identifier: "spruce",
+      projectIdentifier: "spruce",
       limit,
     },
   },
