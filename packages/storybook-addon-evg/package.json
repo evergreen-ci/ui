@@ -1,0 +1,15 @@
+{
+  "name": "storybook-addon-evg",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "3.8.4",
+    "@storybook/addon-essentials": "7.6.9",
+    "@storybook/addon-interactions": "7.6.9",
+    "@storybook/addon-links": "7.6.9",
+    "react-router-dom": "6.16.0",
+    "storybook": "7.6.9",
+    "storybook-addon-apollo-client": "5.0.0"
+  }
+}

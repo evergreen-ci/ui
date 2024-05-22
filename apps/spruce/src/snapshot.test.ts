@@ -1,9 +1,9 @@
 import { composeStories } from "@storybook/react";
+import { projectAnnotations } from "storybook-addon-evg";
 import { expect } from "vitest";
 import path from "path";
 import { act, render, stubGetClientRects } from "test_utils";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import * as projectAnnotations from "../.storybook/preview";
 
 type StoryFile = {
   default: CustomMeta<unknown>;
