@@ -8,7 +8,7 @@ describe("spruce form", () => {
         <SpruceForm
           schema={basicForm.schema}
           formData={basicForm.formData}
-          onChange={jest.fn()}
+          onChange={vi.fn()}
           uiSchema={basicForm.uiSchema}
         />
       </SpruceFormContainer>,
@@ -23,7 +23,7 @@ describe("spruce form", () => {
 
   it("updating the form should trigger a callback and update the form state", async () => {
     let data = {};
-    const onChange = jest.fn((x) => {
+    const onChange = vi.fn((x) => {
       const { formData } = x;
       data = formData;
     });
@@ -44,7 +44,7 @@ describe("spruce form", () => {
     await user.click(screen.queryByDataCy("add-button"));
     expect(screen.queryAllByDataCy("new-user-input")).toHaveLength(2);
     await user.type(screen.queryAllByDataCy("new-user-input")[0], "new-user");
-    expect(onChange).toHaveBeenCalled(); // eslint-disable-line jest/prefer-called-with
+    expect(onChange).toHaveBeenCalled();
     expect(screen.queryByDataCy("valid-projects-input")).toHaveValue(
       "new value",
     );
@@ -61,11 +61,11 @@ describe("spruce form", () => {
       describe("invisible errors", () => {
         it("should work with validate function", async () => {
           let formErrors = {};
-          const onChange = jest.fn((x) => {
+          const onChange = vi.fn((x) => {
             const { errors } = x;
             formErrors = errors;
           });
-          const validate = jest.fn((_formData, err) => err);
+          const validate = vi.fn((_formData, err) => err);
 
           const user = userEvent.setup();
           const { formData, schema, uiSchema } = textInput();
@@ -93,7 +93,7 @@ describe("spruce form", () => {
       describe("emptyValue", () => {
         it("defaults to '' when not specified", async () => {
           let data = {};
-          const onChange = jest.fn((x) => {
+          const onChange = vi.fn((x) => {
             const { formData } = x;
             data = formData;
           });
@@ -120,7 +120,7 @@ describe("spruce form", () => {
 
         it("uses provided value when specified", async () => {
           let data = {};
-          const onChange = jest.fn((x) => {
+          const onChange = vi.fn((x) => {
             const { formData } = x;
             data = formData;
           });
@@ -153,11 +153,11 @@ describe("spruce form", () => {
       describe("invisible errors", () => {
         it("should work with validate function", async () => {
           let formErrors = {};
-          const onChange = jest.fn((x) => {
+          const onChange = vi.fn((x) => {
             const { errors } = x;
             formErrors = errors;
           });
-          const validate = jest.fn((_formData, err) => err);
+          const validate = vi.fn((_formData, err) => err);
 
           const user = userEvent.setup();
           const { formData, schema, uiSchema } = textArea();
@@ -185,7 +185,7 @@ describe("spruce form", () => {
       describe("emptyValue", () => {
         it("defaults to '' when not specified", async () => {
           let data = {};
-          const onChange = jest.fn((x) => {
+          const onChange = vi.fn((x) => {
             const { formData } = x;
             data = formData;
           });
@@ -212,7 +212,7 @@ describe("spruce form", () => {
 
         it("uses provided value when specified", async () => {
           let data = {};
-          const onChange = jest.fn((x) => {
+          const onChange = vi.fn((x) => {
             const { formData } = x;
             data = formData;
           });
@@ -246,7 +246,7 @@ describe("spruce form", () => {
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={jest.fn()}
+            onChange={vi.fn()}
             uiSchema={uiSchema}
           />,
         );
@@ -262,7 +262,7 @@ describe("spruce form", () => {
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={jest.fn()}
+            onChange={vi.fn()}
             uiSchema={uiSchema}
           />,
         );
@@ -279,7 +279,7 @@ describe("spruce form", () => {
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={jest.fn()}
+            onChange={vi.fn()}
             uiSchema={uiSchema}
           />,
         );
@@ -299,7 +299,7 @@ describe("spruce form", () => {
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={jest.fn()}
+            onChange={vi.fn()}
             uiSchema={uiSchema}
           />,
         );
@@ -322,7 +322,7 @@ describe("spruce form", () => {
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={jest.fn()}
+            onChange={vi.fn()}
             uiSchema={uiSchema}
           />,
         );
@@ -336,7 +336,7 @@ describe("spruce form", () => {
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={jest.fn()}
+            onChange={vi.fn()}
             uiSchema={uiSchema}
           />,
         );
@@ -349,7 +349,7 @@ describe("spruce form", () => {
           <SpruceForm
             schema={schema}
             formData={formData}
-            onChange={jest.fn()}
+            onChange={vi.fn()}
             uiSchema={uiSchema}
           />,
         );

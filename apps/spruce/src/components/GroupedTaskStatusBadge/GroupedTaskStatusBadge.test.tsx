@@ -13,7 +13,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
 
   it("clicking on badge performs an action", async () => {
     const user = userEvent.setup();
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(
       <GroupedTaskStatusBadge
         count={400}

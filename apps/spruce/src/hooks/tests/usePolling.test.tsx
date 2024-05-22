@@ -1,14 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
+import { MockInstance } from "vitest";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getUserMock } from "gql/mocks/getUser";
 import { usePolling } from "hooks";
 import { renderHook, act } from "test_utils";
 
-jest.mock("js-cookie");
-
-const { get } = Cookie;
-const mockedGet = get as unknown as jest.Mock<string>;
+vi.mock("js-cookie");
+const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
 const Provider = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
@@ -40,9 +39,9 @@ describe("usePolling", () => {
   });
 
   it("usePolling should not call the functions when initialized", async () => {
-    const startPolling = jest.fn();
-    const stopPolling = jest.fn();
-    const refetch = jest.fn();
+    const startPolling = vi.fn();
+    const stopPolling = vi.fn();
+    const refetch = vi.fn();
     const { result } = renderHook(
       () => usePolling({ startPolling, stopPolling, refetch }),
       {
@@ -89,9 +88,9 @@ describe("usePolling", () => {
     });
 
     it("usePolling should not call the functions when polling is disabled", async () => {
-      const startPolling = jest.fn();
-      const stopPolling = jest.fn();
-      const refetch = jest.fn();
+      const startPolling = vi.fn();
+      const stopPolling = vi.fn();
+      const refetch = vi.fn();
       mockedGet.mockImplementation(() => "true");
       let shouldPollFaster = true;
       const { rerender } = renderHook(
@@ -124,9 +123,9 @@ describe("usePolling", () => {
 
   describe("stopPolling", () => {
     it("usePolling should stop polling when user's browser is offline", async () => {
-      const startPolling = jest.fn();
-      const stopPolling = jest.fn();
-      const refetch = jest.fn();
+      const startPolling = vi.fn();
+      const stopPolling = vi.fn();
+      const refetch = vi.fn();
 
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
@@ -142,9 +141,9 @@ describe("usePolling", () => {
     });
 
     it("usePolling should call stopPolling when user is not viewing document", async () => {
-      const startPolling = jest.fn();
-      const stopPolling = jest.fn();
-      const refetch = jest.fn();
+      const startPolling = vi.fn();
+      const stopPolling = vi.fn();
+      const refetch = vi.fn();
 
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
@@ -159,9 +158,9 @@ describe("usePolling", () => {
     });
 
     it("usePolling should only call stopPolling once if first user goes offline, then stops viewing document", async () => {
-      const startPolling = jest.fn();
-      const stopPolling = jest.fn();
-      const refetch = jest.fn();
+      const startPolling = vi.fn();
+      const stopPolling = vi.fn();
+      const refetch = vi.fn();
 
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
@@ -185,9 +184,9 @@ describe("usePolling", () => {
     });
 
     it("usePolling should only call stopPolling once if first user stops viewing document, then goes offline", async () => {
-      const startPolling = jest.fn();
-      const stopPolling = jest.fn();
-      const refetch = jest.fn();
+      const startPolling = vi.fn();
+      const stopPolling = vi.fn();
+      const refetch = vi.fn();
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider },
@@ -211,9 +210,9 @@ describe("usePolling", () => {
 
   describe("startPolling", () => {
     it("usePolling should only restart polling when the browser is online, the page is visible and polling is inactive", async () => {
-      const startPolling = jest.fn();
-      const stopPolling = jest.fn();
-      const refetch = jest.fn();
+      const startPolling = vi.fn();
+      const stopPolling = vi.fn();
+      const refetch = vi.fn();
 
       const { result } = renderHook(
         () => usePolling({ startPolling, stopPolling, refetch }),
@@ -241,18 +240,16 @@ describe("usePolling", () => {
 
       // document visible - start polling
       updatePageVisibility("visible");
-      /* eslint-disable jest/max-expects */
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(refetch).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(true);
-      /* eslint-enable jest/max-expects */
     });
   });
 
   describe("shouldPollFaster", () => {
     it("calls startPolling with a fast poll rate when shouldPollFaster is enabled and should use the default poll rate when it is disabled", async () => {
-      const startPolling = jest.fn();
+      const startPolling = vi.fn();
       let shouldPollFaster = true;
       const { rerender } = renderHook(
         () =>
@@ -275,9 +272,9 @@ describe("usePolling", () => {
 
   describe("refetch", () => {
     it("usePolling calls refetch function when the browser is online, the page is visible and polling is inactive", async () => {
-      const startPolling = jest.fn();
-      const stopPolling = jest.fn();
-      const refetch = jest.fn();
+      const startPolling = vi.fn();
+      const stopPolling = vi.fn();
+      const refetch = vi.fn();
 
       renderHook(() => usePolling({ startPolling, stopPolling, refetch }), {
         wrapper: Provider,
@@ -304,10 +301,8 @@ describe("usePolling", () => {
       // document visible
       updatePageVisibility("visible");
       expect(refetch).toHaveBeenCalledTimes(2);
-      /* eslint-disable jest/max-expects */
       expect(startPolling).toHaveBeenCalledTimes(2);
       expect(stopPolling).toHaveBeenCalledTimes(2);
-      /* eslint-enable jest/max-expects */
     });
   });
 });

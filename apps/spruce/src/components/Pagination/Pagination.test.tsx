@@ -57,7 +57,7 @@ describe("pagination", () => {
 
   it("should call the onChange callback when the page changes", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     renderWithRouterMatch(
       <Pagination
         currentPage={0}
