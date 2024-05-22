@@ -4,7 +4,7 @@ import Popconfirm from ".";
 describe("controlled popconfirm", () => {
   it("properly shows content inside the popconfirm", () => {
     render(
-      <Popconfirm open confirmText="OK" setOpen={jest.fn()}>
+      <Popconfirm open confirmText="OK" setOpen={vi.fn()}>
         <div>hello</div>
       </Popconfirm>,
     );
@@ -15,8 +15,8 @@ describe("controlled popconfirm", () => {
 
   it("pressing the Confirm button calls the onConfirm callback and closes the popconfirm", async () => {
     const user = userEvent.setup();
-    const onConfirm = jest.fn();
-    const setOpen = jest.fn();
+    const onConfirm = vi.fn();
+    const setOpen = vi.fn();
     render(
       <Popconfirm open onConfirm={onConfirm} setOpen={setOpen}>
         <div>hello</div>
@@ -30,8 +30,8 @@ describe("controlled popconfirm", () => {
 
   it("pressing the Cancel button calls the onClose callback and closes the popconfirm", async () => {
     const user = userEvent.setup();
-    const onClose = jest.fn();
-    const setOpen = jest.fn();
+    const onClose = vi.fn();
+    const setOpen = vi.fn();
     render(
       <Popconfirm open onClose={onClose} setOpen={setOpen}>
         <div>hello</div>
@@ -45,7 +45,7 @@ describe("controlled popconfirm", () => {
 
   it("disables the confirm button when confirmDisabled is true", () => {
     render(
-      <Popconfirm open confirmDisabled onClose={jest.fn()} setOpen={jest.fn()}>
+      <Popconfirm open confirmDisabled onClose={vi.fn()} setOpen={vi.fn()}>
         <div>hello</div>
       </Popconfirm>,
     );
@@ -59,7 +59,7 @@ describe("controlled popconfirm", () => {
 describe("uncontrolled popconfirm", () => {
   it("uses a trigger to open and close the component", async () => {
     const user = userEvent.setup();
-    const onClose = jest.fn();
+    const onClose = vi.fn();
     render(
       <Popconfirm
         onClose={onClose}

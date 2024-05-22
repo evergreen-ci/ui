@@ -1,7 +1,7 @@
 {
   "name": "parsley",
   "private": true,
-  "version": "2.1.7",
+  "version": "2.1.9",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
     "build": "tsc && GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
@@ -33,7 +33,7 @@
     "verify-backend": "./scripts/verify-backend.sh",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "env-cmd -e local -r .env-cmdrc.local.json storybook build",
-    "test": "yarn --cwd='../..' test --project=parsley",
+    "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts",
     "postversion": "scripts/push-version.sh"
   },
   "dependencies": {
@@ -71,6 +71,7 @@
     "graphql": "16.8.1",
     "html-react-parser": "3.0.6",
     "js-cookie": "3.0.5",
+    "jsdom": "24.0.0",
     "linkify-html": "4.1.3",
     "linkifyjs": "4.1.3",
     "lossless-json": "4.0.1",

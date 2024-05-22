@@ -3,10 +3,10 @@ import { useRunningTime } from "."; // Make sure to adjust the import path
 
 describe("useRunningTime", () => {
   beforeAll(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
   afterAll(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it("should initialize runningTime based on the provided startTime", () => {
@@ -20,7 +20,7 @@ describe("useRunningTime", () => {
     const { result } = renderHook(() => useRunningTime(startTime));
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(1000);
     });
 
     expect(result.current.runningTime).toBe(1000);
@@ -31,7 +31,7 @@ describe("useRunningTime", () => {
     const { result } = renderHook(() => useRunningTime(startTime));
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(1000);
     });
 
     expect(result.current.runningTime).toBe(1000);
@@ -41,7 +41,7 @@ describe("useRunningTime", () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(1000);
     });
 
     expect(result.current.runningTime).toBe(1000); // Should not have changed after stopping the timer
