@@ -15,13 +15,13 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe("sections toggle", () => {
   it("should render as checked when 'checked' prop is true", () => {
-    render(<SectionsToggle checked updateSettings={jest.fn()} />, { wrapper });
+    render(<SectionsToggle checked updateSettings={vi.fn()} />, { wrapper });
     const sectionsToggle = screen.getByDataCy("sections-toggle");
     expect(sectionsToggle).toHaveAttribute("aria-checked", "true");
   });
 
   it("should render as unchecked when 'checked' prop is false", () => {
-    render(<SectionsToggle checked={false} updateSettings={jest.fn()} />, {
+    render(<SectionsToggle checked={false} updateSettings={vi.fn()} />, {
       wrapper,
     });
     const sectionsToggle = screen.getByDataCy("sections-toggle");
@@ -31,7 +31,7 @@ describe("sections toggle", () => {
   it("should disable toggle if logType is not Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <SectionsToggle checked updateSettings={jest.fn()} />,
+      <SectionsToggle checked updateSettings={vi.fn()} />,
     );
     render(<Component />, { wrapper });
     act(() => {
@@ -44,7 +44,7 @@ describe("sections toggle", () => {
   it("should enable toggle if logType is Evergreen task logs", () => {
     const { Component, hook } = renderComponentWithHook(
       useLogContext,
-      <SectionsToggle checked updateSettings={jest.fn()} />,
+      <SectionsToggle checked updateSettings={vi.fn()} />,
     );
     render(<Component />, { wrapper });
     act(() => {
@@ -56,7 +56,7 @@ describe("sections toggle", () => {
 
   it("should call update function with correct parameters, without updating the URL", async () => {
     const user = userEvent.setup();
-    const updateSettings = jest.fn();
+    const updateSettings = vi.fn();
 
     const { Component, hook } = renderComponentWithHook(
       useLogContext,

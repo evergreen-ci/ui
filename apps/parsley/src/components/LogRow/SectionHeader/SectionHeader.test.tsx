@@ -26,7 +26,7 @@ describe("sectionHeader", () => {
 
   it("should call onOpen function when 'open' button is clicked", async () => {
     const user = userEvent.setup();
-    const onOpen = jest.fn();
+    const onOpen = vi.fn();
     renderRow({ ...sectionHeaderProps, onOpen });
     const openButton = screen.getByRole("button", {
       name: "Open",
@@ -38,7 +38,7 @@ describe("sectionHeader", () => {
 
   it("should call onFocus function when 'focus' button is clicked", async () => {
     const user = userEvent.setup();
-    const onFocus = jest.fn();
+    const onFocus = vi.fn();
     renderRow({ ...sectionHeaderProps, onFocus });
     const focusButton = screen.getByRole("button", {
       name: "Focus",
@@ -55,8 +55,8 @@ const sectionHeaderProps = {
   lineEnd: 10,
   lineIndex: 0,
   lineStart: 0,
-  onFocus: jest.fn(),
-  onOpen: jest.fn(),
+  onFocus: vi.fn(),
+  onOpen: vi.fn(),
   rowType: RowType.SectionHeader,
   status: SectionStatus.Pass,
 };
