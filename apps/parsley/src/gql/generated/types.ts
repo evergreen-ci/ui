@@ -68,12 +68,12 @@ export type AddFavoriteProjectInput = {
  */
 export type Annotation = {
   __typename?: "Annotation";
-  createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  createdIssues?: Maybe<Array<IssueLink>>;
   id: Scalars["String"]["output"];
-  issues?: Maybe<Array<Maybe<IssueLink>>>;
-  metadataLinks?: Maybe<Array<Maybe<MetadataLink>>>;
+  issues?: Maybe<Array<IssueLink>>;
+  metadataLinks?: Maybe<Array<MetadataLink>>;
   note?: Maybe<Note>;
-  suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  suspectedIssues?: Maybe<Array<IssueLink>>;
   taskExecution: Scalars["Int"]["output"];
   taskId: Scalars["String"]["output"];
   webhookConfigured: Scalars["Boolean"]["output"];
@@ -398,7 +398,7 @@ export type Distro = {
   imageId?: Maybe<Scalars["String"]["output"]>;
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
-  mountpoints?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
+  mountpoints?: Maybe<Array<Scalars["String"]["output"]>>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
@@ -409,7 +409,7 @@ export type Distro = {
   sshOptions: Array<Scalars["String"]["output"]>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
-  validProjects: Array<Maybe<Scalars["String"]["output"]>>;
+  validProjects: Array<Scalars["String"]["output"]>;
   warningNote: Scalars["String"]["output"];
   workDir: Scalars["String"]["output"];
 };
@@ -464,7 +464,7 @@ export type DistroInput = {
   imageId?: InputMaybe<Scalars["String"]["input"]>;
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
-  mountpoints?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+  mountpoints?: InputMaybe<Array<Scalars["String"]["input"]>>;
   name: Scalars["String"]["input"];
   note: Scalars["String"]["input"];
   plannerSettings: PlannerSettingsInput;
@@ -667,7 +667,7 @@ export type GithubUserInput = {
 export type GroupedBuildVariant = {
   __typename?: "GroupedBuildVariant";
   displayName: Scalars["String"]["output"];
-  tasks?: Maybe<Array<Maybe<Task>>>;
+  tasks?: Maybe<Array<Task>>;
   variant: Scalars["String"]["output"];
 };
 
@@ -1396,7 +1396,7 @@ export type NotificationsInput = {
 export type OomTrackerInfo = {
   __typename?: "OomTrackerInfo";
   detected: Scalars["Boolean"]["output"];
-  pids?: Maybe<Array<Maybe<Scalars["Int"]["output"]>>>;
+  pids?: Maybe<Array<Scalars["Int"]["output"]>>;
 };
 
 export enum OverallocatedRule {
@@ -1474,7 +1474,7 @@ export type Patch = {
   tasks: Array<Scalars["String"]["output"]>;
   time?: Maybe<PatchTime>;
   variants: Array<Scalars["String"]["output"]>;
-  variantsTasks: Array<Maybe<VariantTask>>;
+  variantsTasks: Array<VariantTask>;
   versionFull?: Maybe<Version>;
 };
 
@@ -1484,7 +1484,7 @@ export type Patch = {
  */
 export type PatchConfigure = {
   description: Scalars["String"]["input"];
-  parameters?: InputMaybe<Array<InputMaybe<ParameterInput>>>;
+  parameters?: InputMaybe<Array<ParameterInput>>;
   patchTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variantsTasks: Array<VariantTasks>;
 };
@@ -1682,7 +1682,7 @@ export type PreconditionScriptInput = {
 /** Project models single repository on GitHub. */
 export type Project = {
   __typename?: "Project";
-  admins?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
+  admins?: Maybe<Array<Scalars["String"]["output"]>>;
   banner?: Maybe<ProjectBanner>;
   batchTime: Scalars["Int"]["output"];
   branch: Scalars["String"]["output"];
@@ -1836,9 +1836,7 @@ export type ProjectInput = {
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]["input"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   githubChecksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  githubTriggerAliases?: InputMaybe<
-    Array<InputMaybe<Scalars["String"]["input"]>>
-  >;
+  githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   identifier?: InputMaybe<Scalars["String"]["input"]>;
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -1933,8 +1931,8 @@ export type ProjectVars = {
 };
 
 export type ProjectVarsInput = {
-  adminOnlyVarsList?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
-  privateVarsList?: InputMaybe<Array<InputMaybe<Scalars["String"]["input"]>>>;
+  adminOnlyVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  privateVarsList?: InputMaybe<Array<Scalars["String"]["input"]>>;
   vars?: InputMaybe<Scalars["StringMap"]["input"]>;
 };
 
@@ -1969,13 +1967,13 @@ export type Query = {
   awsRegions?: Maybe<Array<Scalars["String"]["output"]>>;
   bbGetCreatedTickets: Array<JiraTicket>;
   buildBaron: BuildBaron;
-  buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
+  buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
   commitQueue: CommitQueue;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
-  distros: Array<Maybe<Distro>>;
+  distros: Array<Distro>;
   githubProjectConflicts: GithubProjectConflicts;
   hasVersion: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
@@ -1992,7 +1990,7 @@ export type Query = {
   project: Project;
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
-  projects: Array<Maybe<GroupedProjects>>;
+  projects: Array<GroupedProjects>;
   repoEvents: ProjectEvents;
   repoSettings: RepoSettings;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -2006,7 +2004,7 @@ export type Query = {
   userConfig?: Maybe<UserConfig>;
   userSettings?: Maybe<UserSettings>;
   version: Version;
-  viewableProjectRefs: Array<Maybe<GroupedProjects>>;
+  viewableProjectRefs: Array<GroupedProjects>;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -3081,8 +3079,8 @@ export type Version = {
   baseVersion?: Maybe<Version>;
   branch: Scalars["String"]["output"];
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
-  buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
-  childVersions?: Maybe<Array<Maybe<Version>>>;
+  buildVariants?: Maybe<Array<GroupedBuildVariant>>;
+  childVersions?: Maybe<Array<Version>>;
   createTime: Scalars["Time"]["output"];
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
@@ -3206,7 +3204,7 @@ export type WebhookInput = {
 
 export type WebhookSubscriber = {
   __typename?: "WebhookSubscriber";
-  headers: Array<Maybe<WebhookHeader>>;
+  headers: Array<WebhookHeader>;
   minDelayMs: Scalars["Int"]["output"];
   retries: Scalars["Int"]["output"];
   secret: Scalars["String"]["output"];
@@ -3215,7 +3213,7 @@ export type WebhookSubscriber = {
 };
 
 export type WebhookSubscriberInput = {
-  headers: Array<InputMaybe<WebhookHeaderInput>>;
+  headers: Array<WebhookHeaderInput>;
   minDelayMs?: InputMaybe<Scalars["Int"]["input"]>;
   retries?: InputMaybe<Scalars["Int"]["input"]>;
   secret: Scalars["String"]["input"];
