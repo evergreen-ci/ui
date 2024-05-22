@@ -98,6 +98,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   return (
     <SearchableDropdown
       label={showLabel ? "Project" : null}
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       value={
         selectedProject?.displayName ||
         selectedProject?.identifier ||
@@ -115,6 +116,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
           name={projectGroup.groupDisplayName}
           onClick={onClick}
           repoIdentifier={projectGroup?.repo?.id}
+          // @ts-ignore: FIXME. This comment was added by an automated script.
           canClickOnRepoGroup={isProjectSettingsPage && projectGroup?.repo?.id}
         />
       )}
@@ -140,6 +142,7 @@ const filterDisabledProjects = (
   projects.reduce(
     // @ts-ignore: FIXME. This comment was added by an automated script.
     ([enabled, disabled], project) =>
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       project.enabled === false
         ? [enabled, [...disabled, project]]
         : [[...enabled, project], disabled],

@@ -18,6 +18,7 @@ vi.mock("./utils.ts", () => ({
 }));
 
 describe("checkSchemaAndCodegen", () => {
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   let consoleErrorSpy;
   beforeEach(() => {
     consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
@@ -38,6 +39,7 @@ describe("checkSchemaAndCodegen", () => {
       new Error("TypeError: fetch failed"),
     );
     await expect(checkSchemaAndCodegenCore()).resolves.toBe(0);
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "An error occured during GQL types validation: Error: TypeError: fetch failed",
     );
@@ -46,6 +48,7 @@ describe("checkSchemaAndCodegen", () => {
   it("returns 1 when checkIsAncestor is false and the files are the same", async () => {
     vi.mocked(checkIsAncestor).mockResolvedValue(false);
     await expect(checkSchemaAndCodegenCore()).resolves.toBe(1);
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "GQL types validation failed: Your local Evergreen code is missing commit {getLatestCommitFromRemote()}. Pull Evergreen and run 'yarn codegen'.",
     );
@@ -57,6 +60,7 @@ describe("checkSchemaAndCodegen", () => {
       .mockReturnValueOnce(Buffer.from("content1"))
       .mockReturnValueOnce(Buffer.from("content2"));
     await expect(checkSchemaAndCodegenCore()).resolves.toBe(1);
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "GQL types validation failed: Your local Evergreen code is missing commit {getLatestCommitFromRemote()}. Pull Evergreen and run 'yarn codegen'.",
     );
@@ -71,6 +75,7 @@ describe("checkSchemaAndCodegen", () => {
       .mockReturnValueOnce(Buffer.from("content1"))
       .mockReturnValueOnce(Buffer.from("content2"));
     await expect(checkSchemaAndCodegenCore()).resolves.toBe(1);
+    // @ts-ignore: FIXME. This comment was added by an automated script.
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "GQL types validation failed: Your GQL types file ({path.resolve()}) is outdated. Run 'yarn codegen'.",
     );

@@ -14,6 +14,7 @@ window.crypto.randomUUID = (() => {
 // Workaround for a bug in @testing-library/react.
 // It prevents Vitest's fake timers from functioning with user-event.
 // https://github.com/testing-library/react-testing-library/issues/1197
+// @ts-ignore: FIXME. This comment was added by an automated script.
 globalThis.jest = {
   ...globalThis.jest,
   advanceTimersByTime: vi.advanceTimersByTime.bind(vi),

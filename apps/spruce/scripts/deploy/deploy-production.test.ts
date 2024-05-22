@@ -12,8 +12,11 @@ vi.mock("./utils/deploy");
 vi.mock("./utils/environment");
 
 describe("deploy-production", () => {
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   let consoleLogMock;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   let processExitMock;
+  // @ts-ignore: FIXME. This comment was added by an automated script.
   let consoleErrorMock;
 
   beforeEach(() => {
@@ -37,6 +40,7 @@ describe("deploy-production", () => {
 
       expect(tagUtils.deleteTag).toHaveBeenCalled();
       expect(tagUtils.pushTags).toHaveBeenCalled();
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleLogMock).toHaveBeenCalledWith(
         "Check Evergreen for deploy progress.",
       );
@@ -48,6 +52,7 @@ describe("deploy-production", () => {
       await evergreenDeploy();
       expect(tagUtils.deleteTag).not.toHaveBeenCalled();
       expect(tagUtils.pushTags).not.toHaveBeenCalled();
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleLogMock).toHaveBeenCalledWith(
         "Deploy canceled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --local.",
       );
@@ -63,10 +68,13 @@ describe("deploy-production", () => {
         "getCurrentlyDeployedCommit mock",
       );
       await evergreenDeploy();
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleLogMock).toHaveBeenCalledTimes(2);
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleLogMock).toHaveBeenCalledWith(
         "Currently Deployed Commit: getCurrentlyDeployedCommit mock",
       );
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleLogMock).toHaveBeenCalledWith(
         "Commit messages:\ngetCommitMessages result",
       );
@@ -81,8 +89,11 @@ describe("deploy-production", () => {
         throw e;
       });
       expect(await evergreenDeploy());
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleErrorMock).toHaveBeenCalledWith(e);
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleLogMock).toHaveBeenCalledWith("Deploy failed.");
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(processExitMock).toHaveBeenCalledWith(1);
     });
   });
@@ -107,10 +118,13 @@ describe("deploy-production", () => {
         throw e;
       });
       await localDeploy();
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleErrorMock).toHaveBeenCalledWith(e);
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleErrorMock).toHaveBeenCalledWith(
         "Local deploy failed. Aborting.",
       );
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(processExitMock).toHaveBeenCalledWith(1);
     });
   });
@@ -119,12 +133,15 @@ describe("deploy-production", () => {
     it("returns exit code 1 when not running in CI", async () => {
       vi.mocked(isRunningOnCI).mockReturnValue(false);
       await ciDeploy();
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleErrorMock).toHaveBeenCalledWith(
         new Error("Not running on CI"),
       );
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(consoleErrorMock).toHaveBeenCalledWith(
         "CI deploy failed. Aborting.",
       );
+      // @ts-ignore: FIXME. This comment was added by an automated script.
       expect(processExitMock).toHaveBeenCalledWith(1);
     });
 
