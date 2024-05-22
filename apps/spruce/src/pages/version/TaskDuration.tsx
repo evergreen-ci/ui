@@ -19,7 +19,7 @@ import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
 import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
-import { useQueryVariables } from "./useQueryVariables";
+import useVersionTasksQueryVariables from "./useVersionTasksQueryVariables";
 
 const { parseQueryString } = queryString;
 
@@ -34,7 +34,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
 
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
-  const queryVariables = useQueryVariables(search, versionId);
+  const queryVariables = useVersionTasksQueryVariables(versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page } = queryVariables.taskFilterOptions;
 

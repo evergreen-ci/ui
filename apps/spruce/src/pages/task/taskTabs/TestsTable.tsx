@@ -14,7 +14,7 @@ import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import { onChangeHandler } from "components/Table/utils";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
+import { TableQueryParams } from "constants/queryParams";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,

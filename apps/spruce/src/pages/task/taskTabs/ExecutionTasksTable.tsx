@@ -19,8 +19,7 @@ import {
 } from "gql/generated/types";
 import { useTableSort } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { parseSortString } from "utils/queryString";
+import { parseSortString, toSortString } from "utils/queryString";
 
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
@@ -36,19 +35,23 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   isPatch,
 }) => {
   const { sendEvent } = useTaskAnalytics();
-  const updateQueryParams = useUpdateURLQueryParams();
 
-  const [queryParams] = useQueryParams();
-  const sortBy = queryParams[TableQueryParams.SortBy] as string;
-  const sortDir = queryParams[TableQueryParams.SortDir] as string;
+  const [queryParams, setQueryParams] = useQueryParams();
   const sorts = queryParams[TableQueryParams.Sorts] as string;
 
   // Apply default sort if no sorting method is defined.
   useEffect(() => {
-    if (!sorts && !sortBy && !sortDir) {
-      updateQueryParams({
-        sortBy: TaskSortCategory.Status,
-        sortDir: SortDirection.Asc,
+    if (!sorts) {
+      setQueryParams({
+        [TableQueryParams.Sorts]: toSortString(
+          [
+            {
+              columnKey: TaskSortCategory.Status,
+              direction: SortDirection.Asc,
+            },
+          ],
+          "columnKey",
+        ),
       });
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -116,25 +119,14 @@ export const ExecutionTasksTable: React.FC<Props> = ({
 const getInitialSorting = (queryParams: {
   [key: string]: any;
 }): SortingState => {
-  const {
-    [TableQueryParams.SortBy]: sortBy,
-    [TableQueryParams.SortDir]: sortDir,
-    [TableQueryParams.Sorts]: sorts,
-  } = queryParams;
+  const { [TableQueryParams.Sorts]: sorts } = queryParams;
 
   let initialSorting = [{ id: TaskSortCategory.Status, desc: false }];
-  if (sortBy && sortDir) {
-    initialSorting = [
-      {
-        id: sortBy as TaskSortCategory,
-        desc: sortDir === SortDirection.Desc,
-      },
-    ];
-  } else if (sorts) {
-    const parsedSorts = parseSortString(sorts);
-    initialSorting = parsedSorts.map(({ Direction, Key }) => ({
-      id: Key as TaskSortCategory,
-      desc: Direction === SortDirection.Desc,
+  if (sorts) {
+    const parsedSorts = parseSortString(sorts, "id");
+    initialSorting = parsedSorts.map(({ direction, id }) => ({
+      id,
+      desc: direction === SortDirection.Desc,
     }));
   }
 
