@@ -46,13 +46,13 @@ const useVersionTasksQueryVariables = (versionId: string) => {
   if (Array.isArray(statuses)) {
     statusesToApply = statuses.map((status) => status.toString());
   } else {
-    statusesToApply.push(statuses.toString());
+    statusesToApply.push((statuses || "").toString());
   }
   let baseStatusesToApply: string[] = [];
   if (Array.isArray(baseStatuses)) {
     baseStatusesToApply = baseStatuses.map((status) => status.toString());
   } else {
-    baseStatusesToApply.push(baseStatuses.toString());
+    baseStatusesToApply.push((baseStatuses || "").toString());
   }
   return {
     versionId,

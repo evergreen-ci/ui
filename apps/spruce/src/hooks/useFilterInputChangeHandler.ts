@@ -1,14 +1,10 @@
 import { useState, useMemo, useEffect } from "react";
 import debounce from "lodash.debounce";
-import { useLocation } from "react-router-dom";
 import { FilterHookParams, FilterHookResult } from "hooks/useStatusesFilter";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString } from "utils";
-
-const { parseQueryString } = queryString;
+import { useQueryParams } from "./useQueryParam";
 
 /**
- * Filter input state management hook.
+ * `useFilterInputChangeHandler` is a hook that manages updating filter inputs and updating the values to reflect the url.
  * @param params - filter hook params
  * @param params.urlParam - the url param to update
  * @param params.resetPage - whether or not to reset the page to 0 when the input value changes
@@ -20,29 +16,28 @@ export const useFilterInputChangeHandler = ({
   sendAnalyticsEvent = () => undefined,
   urlParam,
 }: FilterHookParams): FilterHookResult<string> => {
-  const { search } = useLocation();
-  const { [urlParam]: rawValue } = parseQueryString(search);
-  const urlValue = (rawValue || "").toString();
+  const [queryParams, setQueryParams] = useQueryParams();
 
-  const updateQueryParams = useUpdateURLQueryParams();
-  const updateQueryParamWithDebounce = useMemo(
-    () => debounce(updateQueryParams, 250),
-    [updateQueryParams],
+  const urlValue = queryParams[urlParam];
+  const setQueryParamsWithDebounce = useMemo(
+    () => debounce(setQueryParams, 250),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
-  const [inputValue, setInputValue] = useState(urlValue);
+  const [inputValue, setInputValue] = useState(urlValue.toString());
   const page = resetPage && { page: "0" };
 
   useEffect(() => {
     if (!urlValue && inputValue) {
       setInputValue("");
     } else if (inputValue !== urlValue) {
-      setInputValue(urlValue);
+      setInputValue(urlValue.toString());
     }
   }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const updateUrl = (newValue: string) => {
-    updateQueryParams({
+    setQueryParams({
       [urlParam]: newValue || undefined,
       ...page,
     });
@@ -50,7 +45,7 @@ export const useFilterInputChangeHandler = ({
 
   const setAndSubmitInputValue = (newValue: string): void => {
     setInputValue(newValue);
-    updateQueryParamWithDebounce({
+    setQueryParamsWithDebounce({
       [urlParam]: newValue || undefined,
       ...page,
     });

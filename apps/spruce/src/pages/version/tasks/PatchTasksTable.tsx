@@ -4,15 +4,21 @@ import { InputFilterProps } from "components/Table/Filters";
 import TasksTable from "components/TasksTable";
 import { PaginationQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
-import { Task, VersionTasksQuery, SortOrder } from "gql/generated/types";
+import {
+  Task,
+  VersionTasksQuery,
+  SortOrder,
+  SortDirection,
+} from "gql/generated/types";
 import {
   useTaskStatuses,
-  useUpdateURLQueryParams,
   useStatusesFilter,
   useFilterInputChangeHandler,
 } from "hooks";
+import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
+import { toArray } from "utils/array";
 
 const { toSortString } = queryString;
 
@@ -30,8 +36,8 @@ export const PatchTasksTable: React.FC<Props> = ({
   tasks,
 }) => {
   const { [slugs.versionId]: versionId } = useParams();
-  const updateQueryParams = useUpdateURLQueryParams();
   const { sendEvent } = useVersionAnalytics(versionId);
+  const [, setQueryParams] = useQueryParams();
   const filterHookProps = {
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
@@ -65,9 +71,14 @@ export const PatchTasksTable: React.FC<Props> = ({
     ...filterHookProps,
   });
 
+  // TODO: Refactor this once we move off of the antd table
   const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
-    updateQueryParams({
-      sorts: toSortString(sorter),
+    const s = toArray(sorter).map(({ columnKey, order }) => ({
+      sortBy: columnKey,
+      direction: order === "descend" ? SortDirection.Desc : SortDirection.Asc,
+    }));
+    setQueryParams({
+      sorts: toSortString(s, "sortBy"),
       [PaginationQueryParams.Page]: "0",
     });
   };
