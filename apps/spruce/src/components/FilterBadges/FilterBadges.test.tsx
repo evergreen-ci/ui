@@ -3,8 +3,8 @@ import FilterBadges from ".";
 
 describe("filterBadges", () => {
   it("should not render any badges if there are none passed in", () => {
-    const onRemove = jest.fn();
-    const onClearAll = jest.fn();
+    const onRemove = vi.fn();
+    const onClearAll = vi.fn();
     render(
       <FilterBadges badges={[]} onRemove={onRemove} onClearAll={onClearAll} />,
     );
@@ -15,8 +15,8 @@ describe("filterBadges", () => {
     render(
       <FilterBadges
         badges={[{ key: "test", value: "value" }]}
-        onRemove={jest.fn()}
-        onClearAll={jest.fn()}
+        onRemove={vi.fn()}
+        onClearAll={vi.fn()}
       />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(1);
@@ -30,8 +30,8 @@ describe("filterBadges", () => {
           { key: "test", value: "value" },
           { key: "test2", value: "value2" },
         ]}
-        onRemove={jest.fn()}
-        onClearAll={jest.fn()}
+        onRemove={vi.fn()}
+        onClearAll={vi.fn()}
       />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(2);
@@ -54,8 +54,8 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={jest.fn()}
-        onClearAll={jest.fn()}
+        onRemove={vi.fn()}
+        onClearAll={vi.fn()}
       />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(8);
@@ -80,8 +80,8 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={jest.fn()}
-        onClearAll={jest.fn()}
+        onRemove={vi.fn()}
+        onClearAll={vi.fn()}
       />,
     );
     await user.click(screen.queryByText("see 2 more"));
@@ -102,7 +102,7 @@ describe("filterBadges", () => {
 
   it("clicking clear all should call the clear all callback", async () => {
     const user = userEvent.setup();
-    const onClearAll = jest.fn();
+    const onClearAll = vi.fn();
     render(
       <FilterBadges
         badges={[
@@ -117,7 +117,7 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={jest.fn()}
+        onRemove={vi.fn()}
         onClearAll={onClearAll}
       />,
     );
@@ -127,7 +127,7 @@ describe("filterBadges", () => {
 
   it("clicking a badge should call the remove callback", async () => {
     const user = userEvent.setup();
-    const onRemove = jest.fn();
+    const onRemove = vi.fn();
     render(
       <FilterBadges
         badges={[
@@ -143,7 +143,7 @@ describe("filterBadges", () => {
           { key: "test10", value: "value10" },
         ]}
         onRemove={onRemove}
-        onClearAll={jest.fn()}
+        onClearAll={vi.fn()}
       />,
     );
     const closeBadge = screen.queryAllByDataCy("close-badge")[0];
@@ -158,8 +158,8 @@ describe("filterBadges", () => {
     render(
       <FilterBadges
         badges={[{ key: "some", value: longName }]}
-        onRemove={jest.fn()}
-        onClearAll={jest.fn()}
+        onRemove={vi.fn()}
+        onClearAll={vi.fn()}
       />,
     );
     const truncatedBadge = screen.queryByDataCy("filter-badge");

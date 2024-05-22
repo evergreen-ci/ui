@@ -4,7 +4,7 @@ import { useTableSort } from "../useTableSort";
 
 describe("useTableSort", () => {
   it("sets ascending sort", () => {
-    const analytics = jest.fn();
+    const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MemoryRouter initialEntries={["/?page=0"]}>{children}</MemoryRouter>
     );
@@ -28,7 +28,7 @@ describe("useTableSort", () => {
   });
 
   it("sets descending sort", () => {
-    const analytics = jest.fn();
+    const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MemoryRouter initialEntries={["/?page=0"]}>{children}</MemoryRouter>
     );
@@ -52,7 +52,7 @@ describe("useTableSort", () => {
   });
 
   it("overwrites existing sort", () => {
-    const analytics = jest.fn();
+    const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
         {children}
@@ -78,7 +78,7 @@ describe("useTableSort", () => {
   });
 
   it("resets page to zero on sort", () => {
-    const analytics = jest.fn();
+    const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MemoryRouter initialEntries={["/?page=1"]}>{children}</MemoryRouter>
     );
@@ -102,7 +102,7 @@ describe("useTableSort", () => {
   });
 
   it("clears sort", () => {
-    const analytics = jest.fn();
+    const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
         {children}
@@ -126,7 +126,7 @@ describe("useTableSort", () => {
   });
 
   it("updates query params when multi-sort is applied", () => {
-    const analytics = jest.fn();
+    const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
         {children}

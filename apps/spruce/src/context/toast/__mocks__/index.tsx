@@ -13,14 +13,14 @@ type DispatchToast = ReturnType<typeof useToastContext>;
  */
 const RenderFakeToastContext = (Component?: React.ReactElement) => {
   const dispatchToast: DispatchToast = {
-    success: jest.fn(),
-    error: jest.fn(),
-    info: jest.fn(),
-    warning: jest.fn(),
-    progress: jest.fn(),
+    success: vi.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+    warning: vi.fn(),
+    progress: vi.fn(),
   };
 
-  const useToastContextSpied = jest
+  const useToastContextSpied = vi
     .spyOn(toast, "useToastContext")
     .mockImplementation(() => ({
       ...dispatchToast,

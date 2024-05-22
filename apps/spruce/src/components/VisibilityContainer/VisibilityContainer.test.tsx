@@ -3,18 +3,18 @@ import VisibilityContainer from ".";
 
 describe("visibilityContainer", () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   it("should not render children when not visible in viewport", () => {
-    const mockIntersectionObserver = jest.fn((callback) => {
+    const mockIntersectionObserver = vi.fn((callback) => {
       callback([
         {
           isIntersecting: false,
         },
       ]);
       return {
-        observe: jest.fn(),
-        disconnect: jest.fn(),
+        observe: vi.fn(),
+        disconnect: vi.fn(),
       };
     });
 
@@ -30,15 +30,15 @@ describe("visibilityContainer", () => {
   });
 
   it("should render children when visible in viewport", () => {
-    const mockIntersectionObserver = jest.fn((callback) => {
+    const mockIntersectionObserver = vi.fn((callback) => {
       callback([
         {
           isIntersecting: true,
         },
       ]);
       return {
-        observe: jest.fn(),
-        disconnect: jest.fn(),
+        observe: vi.fn(),
+        disconnect: vi.fn(),
       };
     });
 

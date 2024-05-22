@@ -34,7 +34,7 @@ describe("objectFieldTemplates", () => {
       },
     };
     it("applies data-cy attributes", () => {
-      const onChange = jest.fn();
+      const onChange = vi.fn();
       render(
         <SpruceForm
           schema={ObjectSchema}
@@ -50,7 +50,7 @@ describe("objectFieldTemplates", () => {
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={jest.fn()}
+          onChange={vi.fn()}
           uiSchema={uiSchema}
         />,
       );
@@ -60,7 +60,7 @@ describe("objectFieldTemplates", () => {
 
     it("calls onChange when a field is changed", async () => {
       let data;
-      const onChange = jest.fn(({ formData }) => {
+      const onChange = vi.fn(({ formData }) => {
         data = formData;
       });
 
@@ -96,7 +96,7 @@ describe("objectFieldTemplates", () => {
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={jest.fn()}
+          onChange={vi.fn()}
           uiSchema={uiSchema}
         />,
       );
@@ -107,7 +107,7 @@ describe("objectFieldTemplates", () => {
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={jest.fn()}
+          onChange={vi.fn()}
           uiSchema={uiSchema}
         />,
       );
@@ -116,7 +116,7 @@ describe("objectFieldTemplates", () => {
     });
     it("calls onChange when a field is changed", async () => {
       let data;
-      const onChange = jest.fn(({ formData }) => {
+      const onChange = vi.fn(({ formData }) => {
         data = formData;
       });
 
@@ -151,7 +151,7 @@ describe("objectFieldTemplates", () => {
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={jest.fn()}
+          onChange={vi.fn()}
           uiSchema={uiSchema}
         />,
       );
@@ -162,7 +162,7 @@ describe("objectFieldTemplates", () => {
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={jest.fn()}
+          onChange={vi.fn()}
           uiSchema={uiSchema}
         />,
       );
@@ -171,7 +171,7 @@ describe("objectFieldTemplates", () => {
     });
     it("calls onChange when a field is changed", async () => {
       let data;
-      const onChange = jest.fn(({ formData }) => {
+      const onChange = vi.fn(({ formData }) => {
         data = formData;
       });
 
@@ -194,7 +194,7 @@ describe("objectFieldTemplates", () => {
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={jest.fn()}
+          onChange={vi.fn()}
           uiSchema={uiSchema}
         />,
       );
@@ -207,7 +207,7 @@ describe("objectFieldTemplates", () => {
         <SpruceForm
           schema={ObjectSchema}
           formData={{}}
-          onChange={jest.fn()}
+          onChange={vi.fn()}
           uiSchema={{
             ...uiSchema,
             person: { ...uiSchema.person, "ui:defaultOpen": false },

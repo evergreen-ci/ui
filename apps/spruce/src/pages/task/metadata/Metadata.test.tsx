@@ -2,13 +2,22 @@ import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import { getUserMock } from "gql/mocks/getUser";
 import { taskQuery } from "gql/mocks/taskData";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  stubGetClientRects,
+  userEvent,
+} from "test_utils";
 import { Metadata } from ".";
 
 const wrapper = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
 );
 describe("metadata", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   it("renders the metadata card with a pending status", () => {
     render(
       <Metadata

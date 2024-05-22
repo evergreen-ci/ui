@@ -1,5 +1,4 @@
 import { MockedProvider } from "@apollo/client/testing";
-import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   MoveAnnotationIssueMutation,
@@ -16,16 +15,10 @@ import AnnotationTicketsList from ".";
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
 const execution = 1;
-let matchMedia;
 
 describe("annotationTicketsList", () => {
-  beforeAll(() => {
-    matchMedia = new MatchMediaMock();
-  });
-
   afterEach(() => {
-    matchMedia.clear();
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("should display the link and jiraIssue key while waiting for data to fetch", async () => {
