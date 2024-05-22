@@ -29,13 +29,9 @@ interface LogLineRow extends Row {
   wrap: boolean;
 }
 
-interface SkippedLinesRow extends Row {
-  lineEnd: number;
-}
+interface SkippedLinesRow extends Row {}
 
-interface SectionHeaderRow extends Row {
-  lineEnd: number;
-}
+interface SectionHeaderRow extends Row {}
 
 export type { LogLineRow, SkippedLinesRow, SectionHeaderRow };
 export { RowType };

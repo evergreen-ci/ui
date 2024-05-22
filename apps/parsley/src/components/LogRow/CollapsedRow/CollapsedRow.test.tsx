@@ -100,7 +100,6 @@ const logLines = [
 
 const collapsedProps = {
   expandLines: vi.fn(),
-  lineEnd: 10,
   lineIndex: 0,
   lineStart: 0,
   rowType: RowType.SkippedLines,

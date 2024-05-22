@@ -13,21 +13,18 @@ const SectionHeaderStory = () => (
     <SectionHeader
       {...sectionHeaderProps}
       functionName="populate_expansions"
-      lineEnd={1}
       lineIndex={0}
       lineStart={0}
     />
     <SectionHeader
       {...sectionHeaderProps}
       functionName="setup_mongodb_database_and_seed_with_data"
-      lineEnd={2}
       lineIndex={1}
       lineStart={1}
     />
     <SectionHeader
       {...sectionHeaderProps}
       functionName="build_frontend"
-      lineEnd={3}
       lineIndex={2}
       lineStart={2}
       status={SectionStatus.Fail}

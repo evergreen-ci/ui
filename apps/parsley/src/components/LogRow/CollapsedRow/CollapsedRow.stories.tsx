@@ -34,7 +34,6 @@ const CollapsedRowStory = (args: React.ComponentProps<typeof CollapsedRow>) => {
       <CollapsedRow
         collapsedLines={rows}
         expandLines={expandLines}
-        lineEnd={rows[rows.length - 1]}
         lineIndex={args.lineIndex}
         lineStart={rows[0]}
         rowType={RowType.SkippedLines}

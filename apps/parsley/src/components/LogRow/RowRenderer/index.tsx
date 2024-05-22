@@ -61,7 +61,6 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
         <CollapsedRow
           collapsedLines={processedLogLine}
           expandLines={expandLines}
-          lineEnd={processedLogLine[processedLogLine.length - 1]}
           lineIndex={index}
           lineStart={processedLogLine[0]}
           rowType={RowType.SkippedLines}

@@ -46,12 +46,13 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <ButtonWrapper>
         <Button
           onClick={() => {
+            setOpen(!open);
             onOpen(functionName);
             sendEvent({ functionName, name: "Opened Section" });
           }}
           size={Size.XSmall}
         >
-          Open
+          {open ? "Close" : "Open"}
         </Button>
         <Button
           onClick={() => {

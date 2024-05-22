@@ -3,31 +3,32 @@ import { render, screen, userEvent } from "test_utils";
 import SectionHeader from ".";
 import { RowType } from "../types";
 
-const renderRow = (props: React.ComponentProps<typeof SectionHeader>) =>
-  render(<SectionHeader {...props} />);
-
 describe("sectionHeader", () => {
   it("displays function name", () => {
-    renderRow({ ...sectionHeaderProps, functionName: "load_data" });
+    render(<SectionHeader {...sectionHeaderProps} functionName="load_data" />);
     expect(screen.getByText("Function: load_data")).toBeVisible();
   });
 
   it("displays checkmark icon if status is passing", () => {
-    renderRow({ ...sectionHeaderProps, status: SectionStatus.Pass });
+    render(
+      <SectionHeader {...sectionHeaderProps} status={SectionStatus.Pass} />,
+    );
     expect(
       screen.getByLabelText("Checkmark With Circle Icon"),
     ).toBeInTheDocument();
   });
 
   it("displays X icon if status is failing", () => {
-    renderRow({ ...sectionHeaderProps, status: SectionStatus.Fail });
+    render(
+      <SectionHeader {...sectionHeaderProps} status={SectionStatus.Fail} />,
+    );
     expect(screen.getByLabelText("XWith Circle Icon")).toBeInTheDocument();
   });
 
   it("should call onOpen function when 'open' button is clicked", async () => {
     const user = userEvent.setup();
     const onOpen = vi.fn();
-    renderRow({ ...sectionHeaderProps, onOpen });
+    render(<SectionHeader {...sectionHeaderProps} onOpen={onOpen} />);
     const openButton = screen.getByRole("button", {
       name: "Open",
     });
@@ -39,7 +40,7 @@ describe("sectionHeader", () => {
   it("should call onFocus function when 'focus' button is clicked", async () => {
     const user = userEvent.setup();
     const onFocus = vi.fn();
-    renderRow({ ...sectionHeaderProps, onFocus });
+    render(<SectionHeader {...sectionHeaderProps} onFocus={onFocus} />);
     const focusButton = screen.getByRole("button", {
       name: "Focus",
     });
@@ -52,7 +53,6 @@ describe("sectionHeader", () => {
 const sectionHeaderProps = {
   defaultOpen: false,
   functionName: "load_data",
-  lineEnd: 10,
   lineIndex: 0,
   lineStart: 0,
   onFocus: vi.fn(),
