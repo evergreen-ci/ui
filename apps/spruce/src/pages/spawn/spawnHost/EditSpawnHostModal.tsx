@@ -130,7 +130,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       );
       onCancel();
     },
-    refetchQueries: ["MyVolumes"],
+    refetchQueries: ["MyHosts", "MyVolumes"],
   });
 
   const initialEditState = formToGql({
