@@ -1,18 +1,15 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
 <div>
   <div
     class="css-1mysoqc"
   >
     <div
-      class="css-sp7q8c"
+      class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
       <button
         aria-disabled="false"
         aria-label="Click to open or close section"
-        class="leafygreen-ui-1xt2asn"
+        class="leafygreen-ui-76dd2i"
         tabindex="0"
       >
         <div
@@ -20,7 +17,7 @@ exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1fan6z1"
+            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1lqywm12"
             fill="none"
             height="16"
             role="img"
@@ -61,7 +58,7 @@ exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
         populate_expansions
       </p>
       <div
-        class="css-iwiovi"
+        class="css-1vdykhn-ButtonWrapper e1lqywm10"
       >
         <button
           aria-disabled="false"
@@ -94,13 +91,13 @@ exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
       </div>
     </div>
     <div
-      class="css-sp7q8c"
+      class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
       <button
         aria-disabled="false"
         aria-label="Click to open or close section"
-        class="leafygreen-ui-1xt2asn"
+        class="leafygreen-ui-76dd2i"
         tabindex="0"
       >
         <div
@@ -108,7 +105,7 @@ exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1fan6z1"
+            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1lqywm12"
             fill="none"
             height="16"
             role="img"
@@ -149,7 +146,7 @@ exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
         setup_mongodb_database_and_seed_with_data
       </p>
       <div
-        class="css-iwiovi"
+        class="css-1vdykhn-ButtonWrapper e1lqywm10"
       >
         <button
           aria-disabled="false"
@@ -182,13 +179,13 @@ exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
       </div>
     </div>
     <div
-      class="css-sp7q8c"
+      class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
       <button
         aria-disabled="false"
         aria-label="Click to open or close section"
-        class="leafygreen-ui-1xt2asn"
+        class="leafygreen-ui-76dd2i"
         tabindex="0"
       >
         <div
@@ -196,7 +193,7 @@ exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1fan6z1"
+            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1lqywm12"
             fill="none"
             height="16"
             role="img"
@@ -237,7 +234,7 @@ exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
         build_frontend
       </p>
       <div
-        class="css-iwiovi"
+        class="css-1vdykhn-ButtonWrapper e1lqywm10"
       >
         <button
           aria-disabled="false"
@@ -271,4 +268,3 @@ exports[`Snapshot Tests SectionHeader.stories SectionHeaderSingle 1`] = `
     </div>
   </div>
 </div>
-`;
