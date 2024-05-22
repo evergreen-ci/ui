@@ -27,7 +27,9 @@ describe("loading events", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(2);
     });
-    expect(screen.queryByDataCy("load-more-button")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("load-more-button")).not.toBeInTheDocument();
+    });
     expect(screen.getByText("No more events to show.")).toBeInTheDocument();
   });
 

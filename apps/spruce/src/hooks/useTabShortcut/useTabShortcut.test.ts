@@ -4,7 +4,7 @@ import { useTabShortcut } from ".";
 describe("useTabShortcut", () => {
   it("should call setSelectedTab with the next tab index when the 'j' key is pressed", async () => {
     const user = userEvent.setup();
-    const setSelectedTab = jest.fn();
+    const setSelectedTab = vi.fn();
     let currentTab = 1;
     const { rerender } = renderHook(() =>
       useTabShortcut({ setSelectedTab, currentTab, numTabs: 4 }),
@@ -26,7 +26,7 @@ describe("useTabShortcut", () => {
   });
   it("should call setSelectedTab with the previous tab index when the 'k' key is pressed", async () => {
     const user = userEvent.setup();
-    const setSelectedTab = jest.fn();
+    const setSelectedTab = vi.fn();
     let currentTab = 1;
     const { rerender } = renderHook(() =>
       useTabShortcut({ setSelectedTab, currentTab, numTabs: 4 }),

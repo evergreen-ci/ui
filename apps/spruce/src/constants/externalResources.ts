@@ -1,8 +1,10 @@
 import { getUnixTime } from "date-fns";
 import { LogTypes } from "types/task";
-import { environmentVariables } from "utils";
-
-const { getHoneycombBaseURL, getParsleyUrl, getUiUrl } = environmentVariables;
+import {
+  getHoneycombBaseURL,
+  getParsleyUrl,
+  getUiUrl,
+} from "utils/environmentVariables";
 
 export const wikiBaseUrl =
   "https://docs.devprod.prod.corp.mongodb.com/evergreen";
