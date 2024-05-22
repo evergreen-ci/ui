@@ -207,7 +207,11 @@ describe("useLogContext", () => {
       expect(result.current.lineCount).toBe(3);
 
       expect(result.current.processedLogLines).toHaveLength(3);
-      expect(result.current.processedLogLines).toStrictEqual([[0], 1, [2]]);
+      expect(result.current.processedLogLines).toStrictEqual([
+        { lineEnd: 1, lineStart: 0, rowType: "SkippedLine" },
+        1,
+        { lineEnd: 3, lineStart: 2, rowType: "SkippedLine" },
+      ]);
     });
     it("non matching filters should collapse all of the logs", () => {
       const wrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -223,7 +227,9 @@ describe("useLogContext", () => {
       expect(result.current.lineCount).toBe(3);
 
       expect(result.current.processedLogLines).toHaveLength(1);
-      expect(result.current.processedLogLines).toStrictEqual([[0, 1, 2]]);
+      expect(result.current.processedLogLines).toStrictEqual([
+        { lineEnd: 3, lineStart: 0, rowType: "SkippedLine" },
+      ]);
     });
     describe("applying multiple filters should filter the list of logs and collapse unmatching ones", () => {
       it("should `AND` filters by default", () => {
@@ -241,7 +247,9 @@ describe("useLogContext", () => {
         const { result } = renderHook(() => useLogContext(), { wrapper });
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(1);
-        expect(result.current.processedLogLines).toStrictEqual([[0, 1, 2]]);
+        expect(result.current.processedLogLines).toStrictEqual([
+          { lineEnd: 3, lineStart: 0, rowType: "SkippedLine" },
+        ]);
       });
       it("should `AND` filters if the query param specifies it", () => {
         const wrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -258,7 +266,9 @@ describe("useLogContext", () => {
         const { result } = renderHook(() => useLogContext(), { wrapper });
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(1);
-        expect(result.current.processedLogLines).toStrictEqual([[0, 1, 2]]);
+        expect(result.current.processedLogLines).toStrictEqual([
+          { lineEnd: 3, lineStart: 0, rowType: "SkippedLine" },
+        ]);
       });
       it("should `OR` filters if the query param specifies it", () => {
         const wrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -275,7 +285,11 @@ describe("useLogContext", () => {
         const { result } = renderHook(() => useLogContext(), { wrapper });
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(3);
-        expect(result.current.processedLogLines).toStrictEqual([0, [1], 2]);
+        expect(result.current.processedLogLines).toStrictEqual([
+          0,
+          { lineEnd: 2, lineStart: 1, rowType: "SkippedLine" },
+          2,
+        ]);
       });
     });
   });
