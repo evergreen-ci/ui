@@ -1,5 +1,4 @@
 import { TableProps } from "antd/es/table";
-import { TestSortCategory } from "gql/generated/types";
 
 export enum RequiredQueryParams {
   Sort = "sortDir",
