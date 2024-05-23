@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -15,13 +15,10 @@ import {
 } from "gql/generated/types";
 import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
-import { queryString } from "utils";
 import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
 import useVersionTasksQueryVariables from "./useVersionTasksQueryVariables";
-
-const { parseQueryString } = queryString;
 
 interface Props {
   taskCount: number;
@@ -30,23 +27,21 @@ interface Props {
 const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { [slugs.versionId]: versionId } = useParams();
-  const { search } = useLocation();
 
-  const updateQueryParams = useUpdateURLQueryParams();
+  const [, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
   const queryVariables = useVersionTasksQueryVariables(versionId);
-  const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
-    updateQueryParams({
+    setQueryParams({
       [PatchTasksQueryParams.Duration]: "DESC",
       [PatchTasksQueryParams.Sorts]: undefined,
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {
-    updateQueryParams({
+    setQueryParams({
       [PatchTasksQueryParams.TaskName]: undefined,
       [PatchTasksQueryParams.Variant]: undefined,
       [PatchTasksQueryParams.Statuses]: undefined,
@@ -62,7 +57,6 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
     VersionTaskDurationsQueryVariables
   >(VERSION_TASK_DURATIONS, {
     variables: queryVariables,
-    skip: !hasQueryVariables,
     pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
