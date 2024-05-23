@@ -18,7 +18,7 @@ export const useFilterInputChangeHandler = ({
 }: FilterHookParams): FilterHookResult<string> => {
   const [queryParams, setQueryParams] = useQueryParams();
 
-  const urlValue = queryParams[urlParam];
+  const urlValue = queryParams[urlParam] || "";
   const setQueryParamsWithDebounce = useMemo(
     () => debounce(setQueryParams, 250),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,6 +38,7 @@ export const useFilterInputChangeHandler = ({
 
   const updateUrl = (newValue: string) => {
     setQueryParams({
+      ...queryParams,
       [urlParam]: newValue || undefined,
       ...page,
     });
@@ -46,6 +47,7 @@ export const useFilterInputChangeHandler = ({
   const setAndSubmitInputValue = (newValue: string): void => {
     setInputValue(newValue);
     setQueryParamsWithDebounce({
+      ...queryParams,
       [urlParam]: newValue || undefined,
       ...page,
     });
