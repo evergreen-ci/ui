@@ -4,8 +4,10 @@ mutation DeactivateStepbackTask(
   $taskName: String!
 ) {
   deactivateStepbackTask(
-    projectId: $projectId
-    buildVariantName: $buildVariantName
-    taskName: $taskName
+    opts: {
+      projectId: $projectId
+      buildVariantName: $buildVariantName
+      taskName: $taskName
+    }
   )
 }

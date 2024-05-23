@@ -3,13 +3,13 @@ import RuntimeTimer from ".";
 
 describe("runtimeTimer", () => {
   beforeEach(() => {
-    jest.useFakeTimers();
-    jest.spyOn(global, "setInterval");
-    jest.spyOn(global, "clearInterval");
+    vi.useFakeTimers();
+    vi.spyOn(global, "setInterval");
+    vi.spyOn(global, "clearInterval");
   });
   afterEach(() => {
-    jest.useRealTimers();
-    jest.restoreAllMocks();
+    vi.useRealTimers();
+    vi.restoreAllMocks();
   });
   it("counts up as the run time progresses", async () => {
     // 10 seconds ago
@@ -17,13 +17,13 @@ describe("runtimeTimer", () => {
     render(<RuntimeTimer startTime={startTime} />);
     expect(screen.getByText("Running Time: 10s")).toBeInTheDocument();
     act(() => {
-      jest.runOnlyPendingTimers();
+      vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
       expect(screen.getByText("Running Time: 11s")).toBeInTheDocument();
     });
     act(() => {
-      jest.runOnlyPendingTimers();
+      vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
       expect(screen.getByText("Running Time: 12s")).toBeInTheDocument();

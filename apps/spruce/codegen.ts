@@ -1,5 +1,5 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
-import path from "path";
+import { resolve } from "path";
 
 export const getConfig = ({
   generatedFileName,
@@ -8,7 +8,7 @@ export const getConfig = ({
   generatedFileName: string;
 } & Pick<CodegenConfig, "silent">): CodegenConfig => ({
   documents: ["./src/**/*.ts", "./src/**/*.graphql", "./src/**/*.gql"].map(
-    (d) => path.resolve(__dirname, d),
+    (d) => resolve(__dirname, d),
   ),
   generates: {
     [generatedFileName]: {
@@ -26,7 +26,7 @@ export const getConfig = ({
   },
   hooks: {
     afterAllFileWrite: [
-      `${path.resolve(__dirname, "./node_modules/.bin/prettier")} --write`,
+      `${resolve(__dirname, "./node_modules/.bin/prettier")} --write`,
     ],
   },
   overwrite: true,
@@ -34,7 +34,7 @@ export const getConfig = ({
   silent,
 });
 
-export const generatedFileName = path.resolve(
+export const generatedFileName = resolve(
   __dirname,
   "./src/gql/generated/types.ts",
 );

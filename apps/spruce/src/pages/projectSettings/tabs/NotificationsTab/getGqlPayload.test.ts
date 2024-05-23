@@ -74,9 +74,9 @@ describe("getGqlPayload", () => {
   });
 
   it("should correctly format and generate a secret for webhook subscription", () => {
-    jest
-      .spyOn(utils, "generateWebhookSecret")
-      .mockImplementationOnce(() => "my_generated_secret");
+    vi.spyOn(utils, "generateWebhookSecret").mockImplementationOnce(
+      () => "my_generated_secret",
+    );
 
     const payload = getGqlPayload("project_id")(
       webhookSubscriptionWithoutSecret,

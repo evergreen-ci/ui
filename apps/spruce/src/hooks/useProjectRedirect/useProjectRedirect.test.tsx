@@ -28,8 +28,8 @@ const ProviderWrapper: React.FC<{
 
 describe("useProjectRedirect", () => {
   it("should not redirect if URL has project identifier", async () => {
-    const sendAnalyticsEvent = jest.fn();
-    const onError = jest.fn();
+    const sendAnalyticsEvent = vi.fn();
+    const onError = vi.fn();
     const { result } = renderHook(
       () => useJointHook({ sendAnalyticsEvent, onError, shouldRedirect: true }),
       {
@@ -47,8 +47,8 @@ describe("useProjectRedirect", () => {
   });
 
   it("should redirect if URL has project ID", async () => {
-    const sendAnalyticsEvent = jest.fn();
-    const onError = jest.fn();
+    const sendAnalyticsEvent = vi.fn();
+    const onError = vi.fn();
 
     const { result } = renderHook(
       () => useJointHook({ sendAnalyticsEvent, onError, shouldRedirect: true }),
@@ -79,8 +79,8 @@ describe("useProjectRedirect", () => {
   });
 
   it("should not redirect if shouldRedirect is disabled", async () => {
-    const sendAnalyticsEvent = jest.fn();
-    const onError = jest.fn();
+    const sendAnalyticsEvent = vi.fn();
+    const onError = vi.fn();
 
     const { result } = renderHook(
       () =>
@@ -108,8 +108,8 @@ describe("useProjectRedirect", () => {
   });
 
   it("should preserve query params when redirecting", async () => {
-    const sendAnalyticsEvent = jest.fn();
-    const onError = jest.fn();
+    const sendAnalyticsEvent = vi.fn();
+    const onError = vi.fn();
 
     const { result } = renderHook(
       () => useJointHook({ sendAnalyticsEvent, onError, shouldRedirect: true }),
@@ -143,8 +143,8 @@ describe("useProjectRedirect", () => {
   });
 
   it("should attempt redirect if URL has repo ID but stop attempting after query", async () => {
-    const sendAnalyticsEvent = jest.fn();
-    const onError = jest.fn();
+    const sendAnalyticsEvent = vi.fn();
+    const onError = vi.fn();
 
     const { result } = renderHook(
       () => useJointHook({ sendAnalyticsEvent, onError, shouldRedirect: true }),

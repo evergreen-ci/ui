@@ -3,10 +3,8 @@ import { TestStatus, HistoryQueryParams } from "types/history";
 import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
-import { queryString, array } from "utils";
-
-const { toArray } = array;
-const { stringifyQuery } = queryString;
+import { toArray } from "utils/array";
+import { stringifyQuery } from "utils/queryString";
 
 export enum PageNames {
   Patches = "patches",

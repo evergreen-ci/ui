@@ -1,0 +1,16 @@
+<div>
+  Scroll the below container out of view and observe the component mounting and unmounting
+  <div
+    class="css-tgipkw"
+  >
+    <div
+      class="css-p2c4z4"
+    >
+      <div>
+        <div>
+          Visible content
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

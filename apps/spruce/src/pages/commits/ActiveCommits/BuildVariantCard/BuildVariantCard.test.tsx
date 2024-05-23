@@ -6,19 +6,19 @@ import {
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { BuildVariantCard } from ".";
 
-jest.mock("../utils");
+vi.mock("../utils");
 
 describe("buildVariantCard", () => {
   it("should call the appropriate functions on hover and unhover", async () => {
-    const mockIntersectionObserver = jest.fn((callback) => {
+    const mockIntersectionObserver = vi.fn((callback) => {
       callback([
         {
           isIntersecting: true,
         },
       ]);
       return {
-        observe: jest.fn(),
-        disconnect: jest.fn(),
+        observe: vi.fn(),
+        disconnect: vi.fn(),
       };
     });
 
@@ -26,11 +26,11 @@ describe("buildVariantCard", () => {
       writable: true,
       value: mockIntersectionObserver,
     });
-    (injectGlobalDimStyle as jest.Mock).mockImplementationOnce(() => {
+    vi.mocked(injectGlobalDimStyle).mockImplementationOnce(() => {
       Promise.resolve();
     });
 
-    (removeGlobalDimStyle as jest.Mock).mockImplementationOnce(() => {});
+    vi.mocked(removeGlobalDimStyle).mockImplementationOnce(() => {});
 
     const user = userEvent.setup();
     render(

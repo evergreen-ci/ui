@@ -16,8 +16,8 @@ const options = [
 
 describe("tupleSelectWithRegexConditional", () => {
   it("renders normally", () => {
-    const onSubmit = jest.fn();
-    const validator = jest.fn((v) => v !== "bad");
+    const onSubmit = vi.fn();
+    const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
@@ -36,8 +36,8 @@ describe("tupleSelectWithRegexConditional", () => {
   });
   it("should clear input when a value is submitted", async () => {
     const user = userEvent.setup();
-    const onSubmit = jest.fn();
-    const validator = jest.fn((v) => v !== "bad");
+    const onSubmit = vi.fn();
+    const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
@@ -57,8 +57,8 @@ describe("tupleSelectWithRegexConditional", () => {
 
   it("should validate the input and prevent submission if it fails validation and input type is set to `regex`", async () => {
     const user = userEvent.setup();
-    const onSubmit = jest.fn();
-    const validator = jest.fn((v) => v !== "bad");
+    const onSubmit = vi.fn();
+    const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
@@ -85,8 +85,8 @@ describe("tupleSelectWithRegexConditional", () => {
   });
   it("toggling the input type selector to `exact` should escape any regex characters", async () => {
     const user = userEvent.setup();
-    const onSubmit = jest.fn();
-    const validator = jest.fn((v) => v !== "bad");
+    const onSubmit = vi.fn();
+    const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
@@ -110,8 +110,8 @@ describe("tupleSelectWithRegexConditional", () => {
   });
   it("should not attempt to validate input if using the `exact` input type", async () => {
     const user = userEvent.setup();
-    const onSubmit = jest.fn();
-    const validator = jest.fn((v) => v !== "bad");
+    const onSubmit = vi.fn();
+    const validator = vi.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories

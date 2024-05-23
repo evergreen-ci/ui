@@ -30,7 +30,9 @@ describe("loading events", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("event-log-card")).toHaveLength(1);
     });
-    expect(screen.queryByDataCy("load-more-button")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByDataCy("load-more-button")).not.toBeInTheDocument();
+    });
     expect(screen.getByText("No more events to show.")).toBeInTheDocument();
   });
 
@@ -61,7 +63,7 @@ const mock = (
   request: {
     query: PROJECT_EVENT_LOGS,
     variables: {
-      identifier: "spruce",
+      projectIdentifier: "spruce",
       limit,
     },
   },

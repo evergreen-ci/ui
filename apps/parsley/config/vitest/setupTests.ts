@@ -1,4 +1,4 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes. Works for vitest too!
+// jest-dom adds custom matchers for asserting on DOM nodes. Works for Vitest too!
 import "@testing-library/jest-dom";
 
 // The following two variables are dummy values used in auth.test.tsx.
@@ -26,7 +26,9 @@ if (process.env.CI) {
 // Workaround for a bug in @testing-library/react.
 // It prevents Vitest's fake timers from functioning with user-event.
 // https://github.com/testing-library/react-testing-library/issues/1197
+// @ts-expect-error
 globalThis.jest = {
+  // @ts-expect-error
   ...globalThis.jest,
   advanceTimersByTime: vi.advanceTimersByTime.bind(vi),
 };
