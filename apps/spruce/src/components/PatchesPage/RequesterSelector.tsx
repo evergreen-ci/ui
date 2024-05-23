@@ -12,7 +12,7 @@ export const RequesterSelector: React.FC = () => {
     <Combobox
       label=""
       data-cy="requester-selector"
-      placeholder="Select patch types"
+      placeholder="Patch submission"
       value={statusVal}
       multiselect
       onChange={statusValOnChange}
