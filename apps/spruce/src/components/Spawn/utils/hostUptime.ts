@@ -4,6 +4,7 @@ import { days } from "constants/fieldMaps";
 import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";
 import { Optional } from "types/utils";
 import { arraySymmetricDifference } from "utils/array";
+import { isProduction } from "utils/environmentVariables";
 
 const daysInWeek = 7;
 const hoursInDay = 24;
@@ -228,6 +229,9 @@ export const matchesDefaultUptimeSchedule = (
 };
 
 export const validator = (({ expirationDetails }, errors) => {
+  // TODO DEVPROD-6908 remove check when beta period ends
+  if (isProduction()) return errors;
+
   const { hostUptime, noExpiration } = expirationDetails ?? {};
   if (!hostUptime || noExpiration === false) return errors;
 
