@@ -1,7 +1,7 @@
 import FilterBadges from "components/FilterBadges";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { ProjectFilterOptions } from "types/commits";
-import useFilterBadgeQueryParams from "./useFilterBadgeQueryParams";
+import useFilterBadgeQueryParams from ".";
 
 const Content = () => {
   const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(

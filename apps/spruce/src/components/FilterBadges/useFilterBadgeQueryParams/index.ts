@@ -1,10 +1,8 @@
-import { useLocation } from "react-router-dom";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString, array } from "utils";
-import { FilterBadgeType } from "./FilterBadge";
+import { useQueryParams } from "hooks/useQueryParam";
+import { array } from "utils";
+import { FilterBadgeType } from "../FilterBadge";
 
 const { convertObjectToArray } = array;
-const { parseQueryString } = queryString;
 
 /**
  * useFilterBadgeQueryParams is used alongside the FilterBadges component to tie its state to query params
@@ -15,13 +13,10 @@ const { parseQueryString } = queryString;
  * `handleOnRemove` - a function that removes a badge from the query params
  */
 const useFilterBadgeQueryParams = (validQueryParams: Set<string>) => {
-  const updateQueryParams = useUpdateURLQueryParams();
-  const location = useLocation();
-  const { search } = location;
-  const queryParams = parseQueryString(search);
-  const queryParamsList = convertObjectToArray(queryParams).filter(({ key }) =>
-    validQueryParams.has(key as string),
-  );
+  const [queryParams, setQueryParams] = useQueryParams();
+  const queryParamsList = convertObjectToArray(queryParams)
+    .filter(({ key }) => validQueryParams.has(key))
+    .map((param) => ({ key: param.key, value: param.value.toString() }));
 
   const handleClearAll = () => {
     const params = { ...queryParams };
@@ -30,11 +25,15 @@ const useFilterBadgeQueryParams = (validQueryParams: Set<string>) => {
       .forEach((v) => {
         params[v] = undefined;
       });
-    updateQueryParams(params);
+    setQueryParams(params);
   };
   const handleOnRemove = (badge: FilterBadgeType) => {
-    const updatedParam = popQueryParams(queryParams[badge.key], badge.value);
-    updateQueryParams({ [badge.key]: updatedParam });
+    let updatedParam;
+    const queryParamValue = queryParams[badge.key];
+    if (Array.isArray(queryParamValue)) {
+      updatedParam = popQueryParams(queryParamValue, badge.value);
+    }
+    setQueryParams({ [badge.key]: updatedParam });
   };
 
   return {
@@ -44,11 +43,7 @@ const useFilterBadgeQueryParams = (validQueryParams: Set<string>) => {
   };
 };
 
-const popQueryParams = (param: string | string[], value: string) => {
-  if (Array.isArray(param)) {
-    return param.filter((p) => p !== value);
-  }
-  return undefined;
-};
+const popQueryParams = <T>(param: T[], value: T) =>
+  param.filter((p) => p !== value);
 
 export default useFilterBadgeQueryParams;
