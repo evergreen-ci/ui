@@ -8,7 +8,9 @@ describe("highlighter", () => {
         Test blah test blah
       </Highlighter>,
     );
-    expect(screen.getByDataCy("test-row")).toHaveStyle(`color: salmon`);
+    expect(screen.getByDataCy("test-row")).toHaveStyle(
+      `color: rgb(250, 128, 114)`,
+    );
   });
 
   describe("search", () => {

@@ -14,15 +14,16 @@
   "scripts": {
     "evg-db-ops": "./scripts/evg-db-ops.sh",
     "prepare": "husky",
-    "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts",
-    "test:jest": "jest --watchAll=false"
+    "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
   },
   "resolutions": {
+    "@testing-library/dom": "10.1.0",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0"
   },
   "devDependencies": {
     "husky": "9.0.11",
-    "lint-staged": "15.2.2"
+    "lint-staged": "15.2.2",
+    "vitest": "1.6.0"
   }
 }

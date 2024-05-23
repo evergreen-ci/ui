@@ -1,0 +1,76 @@
+<div>
+  <div
+    class="css-mk4qpy-TextInputWrapper e13gwrw81"
+  >
+    <div
+      class="leafygreen-ui-1br9h7w"
+      data-lgid="lg-text_input"
+    >
+      <div
+        class="leafygreen-ui-au9iil"
+      >
+        <label
+          class="leafygreen-ui-1qjbbjd"
+          data-lgid="lg-label"
+          data-testid="lg-form_field-label"
+          for="lg-form-field-input-253"
+          id="lg-form-field-label-250"
+        >
+          Some search field
+        </label>
+      </div>
+      <div
+        class="leafygreen-ui-95c1iv"
+      >
+        <div
+          class="leafygreen-ui-1ago99h"
+        >
+          <input
+            aria-describedby=""
+            aria-disabled="false"
+            aria-invalid="false"
+            aria-labelledby="lg-form-field-label-250"
+            autocomplete="on"
+            class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+            id="lg-form-field-input-253"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-4bamt4-IconWrapper e13gwrw80"
+    >
+      <button
+        aria-disabled="false"
+        aria-label="Select plus button"
+        class="leafygreen-ui-76dd2i"
+        tabindex="0"
+      >
+        <div
+          class="leafygreen-ui-xhlipt"
+        >
+          <svg
+            aria-label="Plus Icon"
+            class=""
+            fill="none"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

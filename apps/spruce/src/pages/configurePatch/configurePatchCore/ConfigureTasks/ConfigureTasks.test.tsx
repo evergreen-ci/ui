@@ -5,7 +5,7 @@ describe("configureTasks", () => {
   describe("tasks and build variants", () => {
     it("should render all tasks from a single build variant", () => {
       const selectedBuildVariants = ["ubuntu2004"];
-      const setSelectedBuildVariantTasks = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -28,7 +28,7 @@ describe("configureTasks", () => {
     });
     it("should render all unique tasks from a multiple build variants", () => {
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
-      const setSelectedBuildVariantTasks = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -54,7 +54,7 @@ describe("configureTasks", () => {
     });
     it("should deduplicate tasks from multiple build variants", () => {
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
-      const setSelectedBuildVariantTasks = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -79,7 +79,7 @@ describe("configureTasks", () => {
     });
     it("should render an indeterminate checkbox if some tasks are selected in one variant but not another", () => {
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
-      const setSelectedBuildVariantTasks = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -104,7 +104,7 @@ describe("configureTasks", () => {
     it("selecting a task should call setSelectedBuildVariantTasks with the correct arguments selecting only that task", async () => {
       const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004"];
-      const setSelectedBuildVariantTasks = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -133,7 +133,7 @@ describe("configureTasks", () => {
     it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in one variant", async () => {
       const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004"];
-      const setSelectedBuildVariantTasks = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -166,7 +166,7 @@ describe("configureTasks", () => {
     it("selecting a deduplicated task should call setSelectedBuildVariantTasks selecting the task in all variants", async () => {
       const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
-      const setSelectedBuildVariantTasks = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -197,7 +197,7 @@ describe("configureTasks", () => {
     it("selecting all tasks should call setSelectedBuildVariantTasks with the correct arguments selecting all of the visible tasks in multiple variants", async () => {
       const user = userEvent.setup();
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
-      const setSelectedBuildVariantTasks = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -257,8 +257,8 @@ describe("configureTasks", () => {
   describe("downstream tasks and aliases", () => {
     it("should render alias variant and tasks if they are selected", () => {
       const selectedBuildVariants = ["parsley"];
-      const setSelectedBuildVariantTasks = jest.fn();
-      const setSelectedAliases = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
+      const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -294,8 +294,8 @@ describe("configureTasks", () => {
     });
     it("should disable individual task checkboxes for disabled aliases", () => {
       const selectedBuildVariants = ["parsley"];
-      const setSelectedBuildVariantTasks = jest.fn();
-      const setSelectedAliases = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
+      const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -332,8 +332,8 @@ describe("configureTasks", () => {
     });
     it("should automatically select all tasks for an alias if the alias is selected", () => {
       const selectedBuildVariants = ["parsley"];
-      const setSelectedBuildVariantTasks = jest.fn();
-      const setSelectedAliases = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
+      const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -370,8 +370,8 @@ describe("configureTasks", () => {
     });
     it("should render both alias name and normal tasks if both are selected", () => {
       const selectedBuildVariants = ["parsley", "ubuntu2004"];
-      const setSelectedBuildVariantTasks = jest.fn();
-      const setSelectedAliases = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
+      const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
@@ -408,8 +408,8 @@ describe("configureTasks", () => {
     it("selecting the entire alias calls setSelectedAliases with the correct arguments", async () => {
       const user = userEvent.setup();
       const selectedBuildVariants = ["parsley"];
-      const setSelectedBuildVariantTasks = jest.fn();
-      const setSelectedAliases = jest.fn();
+      const setSelectedBuildVariantTasks = vi.fn();
+      const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
           selectedBuildVariants={selectedBuildVariants}
