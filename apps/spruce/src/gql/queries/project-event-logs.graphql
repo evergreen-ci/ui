@@ -1,7 +1,15 @@
 #import "../fragments/projectSettings/projectEventSettings.graphql"
 
-query ProjectEventLogs($identifier: String!, $limit: Int, $before: Time) {
-  projectEvents(identifier: $identifier, limit: $limit, before: $before) {
+query ProjectEventLogs(
+  $projectIdentifier: String!
+  $limit: Int
+  $before: Time
+) {
+  projectEvents(
+    projectIdentifier: $projectIdentifier
+    limit: $limit
+    before: $before
+  ) {
     count
     eventLogEntries {
       after {

@@ -11,7 +11,7 @@ import {
 import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
 
 export const useProjectSettingsEvents = (
-  identifier: string,
+  projectIdentifier: string,
   isRepo: boolean,
   limit: number = EVENT_LIMIT,
 ) => {
@@ -26,13 +26,15 @@ export const useProjectSettingsEvents = (
   } = useQuery<ProjectEventLogsQuery, ProjectEventLogsQueryVariables>(
     PROJECT_EVENT_LOGS,
     {
-      variables: { identifier, limit },
+      variables: { projectIdentifier, limit },
       errorPolicy: "all",
       skip: isRepo,
       notifyOnNetworkStatusChange: true,
       onCompleted: ({ projectEvents: { count } }) => onCompleted(count),
       onError: (e) => {
-        dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
+        dispatchToast.error(
+          `Unable to fetch events for ${projectIdentifier}: ${e}`,
+        );
       },
     },
   );
@@ -44,13 +46,15 @@ export const useProjectSettingsEvents = (
   } = useQuery<RepoEventLogsQuery, RepoEventLogsQueryVariables>(
     REPO_EVENT_LOGS,
     {
-      variables: { id: identifier, limit },
+      variables: { id: projectIdentifier, limit },
       errorPolicy: "all",
       skip: !isRepo,
       notifyOnNetworkStatusChange: true,
       onCompleted: ({ repoEvents: { count } }) => onCompleted(count),
       onError: (e) => {
-        dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
+        dispatchToast.error(
+          `Unable to fetch events for ${projectIdentifier}: ${e}`,
+        );
       },
     },
   );
