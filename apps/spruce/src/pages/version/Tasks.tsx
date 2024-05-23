@@ -5,7 +5,6 @@ import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { PaginationQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
@@ -28,13 +27,14 @@ interface Props {
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { [slugs.versionId]: versionId } = useParams();
-  const [, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId);
   const queryVariables = useVersionTasksQueryVariables(versionId);
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
     setQueryParams({
+      ...queryParams,
       [PatchTasksQueryParams.Duration]: undefined,
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
@@ -42,12 +42,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const clearQueryParams = () => {
     setQueryParams({
-      [PatchTasksQueryParams.TaskName]: undefined,
-      [PatchTasksQueryParams.Variant]: undefined,
-      [PatchTasksQueryParams.Statuses]: undefined,
-      [PatchTasksQueryParams.BaseStatuses]: undefined,
-      [PaginationQueryParams.Page]: undefined,
-      [PatchTasksQueryParams.Duration]: undefined,
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
     versionAnalytics.sendEvent({

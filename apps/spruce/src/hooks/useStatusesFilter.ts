@@ -16,7 +16,7 @@ export const useStatusesFilter = ({
   urlParam,
 }: FilterHookParams): FilterHookResult<string[]> => {
   const [rawStatuses] = useQueryParam<string[]>(urlParam, []);
-  const [, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams();
   const urlValue = useMemo(
     () =>
       Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses].filter((v) => v),
@@ -35,6 +35,7 @@ export const useStatusesFilter = ({
 
   const updateUrl = (newValue: string[]) =>
     setQueryParams({
+      ...queryParams,
       [urlParam]: newValue,
       ...(resetPage && { page: "0" }),
     });

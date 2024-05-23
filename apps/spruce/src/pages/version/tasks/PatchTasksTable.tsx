@@ -37,7 +37,7 @@ export const PatchTasksTable: React.FC<Props> = ({
 }) => {
   const { [slugs.versionId]: versionId } = useParams();
   const { sendEvent } = useVersionAnalytics(versionId);
-  const [, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams();
   const filterHookProps = {
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
@@ -78,6 +78,7 @@ export const PatchTasksTable: React.FC<Props> = ({
       direction: order === "descend" ? SortDirection.Desc : SortDirection.Asc,
     }));
     setQueryParams({
+      ...queryParams,
       sorts: toSortString(s, "sortBy"),
       [PaginationQueryParams.Page]: "0",
     });

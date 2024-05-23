@@ -62,6 +62,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       }
       if (sort.length === 0 && appliedDefaultSort.current === null) {
         setQueryParams({
+          ...queryParams,
           [TableQueryParams.Sorts]: toSortString(
             [{ sortBy: TestSortCategory.Status, direction: SortDirection.Asc }],
             "sortBy",

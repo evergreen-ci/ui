@@ -43,6 +43,7 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   useEffect(() => {
     if (!sorts) {
       setQueryParams({
+        ...queryParams,
         [TableQueryParams.Sorts]: toSortString(
           [
             {
