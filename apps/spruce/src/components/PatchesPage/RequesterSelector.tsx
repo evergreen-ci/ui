@@ -1,4 +1,6 @@
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { githubPRRequester, patchRequester } from "constants/patch";
+import { requesterSubscriberOptions } from "constants/triggers";
 import { useStatusesFilter } from "hooks";
 import { PatchPageQueryParams } from "types/patch";
 
@@ -28,20 +30,15 @@ export const RequesterSelector: React.FC = () => {
   );
 };
 
-enum Requesters {
-  GithubPRRequester = "github_pull_request",
-  PatchVersionRequester = "patch_request",
-}
-
 const options = [
   {
-    displayName: "PR Commits",
-    value: Requesters.GithubPRRequester,
-    key: Requesters.GithubPRRequester,
+    displayName: requesterSubscriberOptions[githubPRRequester],
+    value: githubPRRequester,
+    key: githubPRRequester,
   },
   {
-    displayName: "CLI",
-    value: Requesters.PatchVersionRequester,
-    key: Requesters.PatchVersionRequester,
+    displayName: requesterSubscriberOptions[patchRequester],
+    value: patchRequester,
+    key: patchRequester,
   },
 ];
