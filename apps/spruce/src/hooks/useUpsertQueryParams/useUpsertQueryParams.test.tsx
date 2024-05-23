@@ -62,7 +62,7 @@ describe("useUpsertQueryParams", () => {
     await user.clear(value);
     await user.type(value, "value2");
     await user.click(screen.queryByDataCy("submit"));
-    expect(router.state.location.search).toBe(`?category=value1,value2`);
+    expect(router.state.location.search).toBe(`?category=value1%2Cvalue2`);
   });
 
   it("should not allow duplicate input filters for the same key as query params", async () => {
