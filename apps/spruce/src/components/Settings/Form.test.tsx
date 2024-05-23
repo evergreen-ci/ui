@@ -1,3 +1,4 @@
+import { getTestUtils } from "@leafygreen-ui/text-input";
 import { ValidateProps } from "components/SpruceForm";
 import { render, screen, userEvent } from "test_utils";
 import { Form, FormProps } from "./Form";
@@ -56,10 +57,11 @@ describe("context-based form", () => {
     render(<Component tab="bar" validate={barValidator} />, {
       wrapper: TestProvider,
     });
-    await user.clear(screen.getAllByLabelText("Age")[0]);
-    expect(screen.getAllByLabelText("Age")[0]).toHaveValue("");
+    const { getInput } = getTestUtils("lg-age-input");
+    await user.clear(getInput());
+    expect(getInput()).toHaveValue("");
     expect(screen.queryByText("Invalid Age!")).not.toBeInTheDocument();
-    await user.type(screen.getAllByLabelText("Age")[0], "30");
+    await user.type(getInput(), "30");
     expect(screen.getByText("Invalid Age!")).toBeInTheDocument();
   });
 
@@ -116,6 +118,13 @@ const formSchema = {
         },
       },
     },
-    uiSchema: {},
+    uiSchema: {
+      name: {
+        "ui:data-lgid": "lg-name-input",
+      },
+      age: {
+        "ui:data-lgid": "lg-age-input",
+      },
+    },
   },
 };

@@ -38,8 +38,10 @@ export const LeafyGreenTextInput: React.FC<
   value,
 }) => {
   const {
+    ariaLabel,
     ariaLabelledBy,
     "data-cy": dataCy,
+    "data-lgid": dataLgId,
     description,
     elementWrapperCSS,
     inputType,
@@ -56,10 +58,10 @@ export const LeafyGreenTextInput: React.FC<
     errorMessage: hasError ? errors.join(", ") : null,
     state: hasError ? TextInputState.Error : TextInputState.None,
   };
-
   return (
     <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
       <StyledTextInput
+        data-lgid={dataLgId}
         type={inputType}
         data-cy={dataCy}
         value={value === null || value === undefined ? "" : `${value}`}
@@ -72,7 +74,7 @@ export const LeafyGreenTextInput: React.FC<
         onChange={({ target }) =>
           target.value === "" ? onChange(emptyValue) : onChange(target.value)
         }
-        aria-label={label}
+        aria-label={ariaLabel}
         {...inputProps}
       />
       {!!warnings?.length && (
