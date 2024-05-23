@@ -1,10 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import isEqual from "lodash.isequal";
-import { useLocation } from "react-router-dom";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString } from "utils";
+import { useQueryParam, useQueryParams } from "./useQueryParam";
 
-const { parseQueryString } = queryString;
 /**
  * Status filter state management hook.
  * @param props - filter hook params
@@ -18,9 +15,8 @@ export const useStatusesFilter = ({
   sendAnalyticsEvent = () => undefined,
   urlParam,
 }: FilterHookParams): FilterHookResult<string[]> => {
-  const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const { [urlParam]: rawStatuses } = parseQueryString(search);
+  const [rawStatuses] = useQueryParam<string[]>(urlParam, []);
+  const [, setQueryParams] = useQueryParams();
   const urlValue = useMemo(
     () =>
       Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses].filter((v) => v),
@@ -38,7 +34,7 @@ export const useStatusesFilter = ({
   }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const updateUrl = (newValue: string[]) =>
-    updateQueryParams({
+    setQueryParams({
       [urlParam]: newValue,
       ...(resetPage && { page: "0" }),
     });
