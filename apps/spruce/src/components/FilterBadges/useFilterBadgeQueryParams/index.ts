@@ -33,7 +33,7 @@ const useFilterBadgeQueryParams = (validQueryParams: Set<string>) => {
     if (Array.isArray(queryParamValue)) {
       updatedParam = popQueryParams(queryParamValue, badge.value);
     }
-    setQueryParams({ [badge.key]: updatedParam });
+    setQueryParams({ ...queryParams, [badge.key]: updatedParam });
   };
 
   return {

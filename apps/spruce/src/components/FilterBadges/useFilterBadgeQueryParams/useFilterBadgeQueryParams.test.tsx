@@ -78,21 +78,24 @@ describe("filterBadges - queryParams", () => {
   it("should only remove one badge from the url if it is closed and more remain", async () => {
     const user = userEvent.setup();
     const { router } = render(<Content />, {
-      route: "/commits/evergreen?buildVariants=variant1,variant2",
+      route:
+        "/commits/evergreen?buildVariants=variant1,variant2&taskNames=test",
       path: "/commits/:projectId",
     });
 
     let badges = screen.queryAllByDataCy("filter-badge");
-    expect(badges).toHaveLength(2);
+    expect(badges).toHaveLength(3);
     expect(screen.getByText("buildVariants: variant1")).toBeInTheDocument();
     const closeBadge = screen.queryAllByDataCy("close-badge");
     await user.click(closeBadge[0]);
     badges = screen.queryAllByDataCy("filter-badge");
-    expect(badges).toHaveLength(1);
+    expect(badges).toHaveLength(2);
     expect(screen.queryByText("buildVariants: variant1")).toBeNull();
 
-    expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(1);
-    expect(router.state.location.search).toBe("?buildVariants=variant2");
+    expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(2);
+    expect(router.state.location.search).toBe(
+      "?buildVariants=variant2&taskNames=test",
+    );
   });
 
   it("should remove all badges when clicking on clear all button", async () => {
