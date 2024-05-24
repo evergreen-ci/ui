@@ -1,6 +1,6 @@
 import { MemoryRouter, useLocation } from "react-router-dom";
 import { act, renderHook } from "test_utils";
-import { useTableSort } from "../useTableSort";
+import { useTableSort } from ".";
 
 describe("useTableSort", () => {
   it("sets ascending sort", () => {
@@ -21,9 +21,7 @@ describe("useTableSort", () => {
     act(() => {
       result.current.sort([{ id: "distroId", desc: false }]);
     });
-    expect(result.current.location.search).toBe(
-      "?page=0&sortBy=distroId&sortDir=ASC",
-    );
+    expect(result.current.location.search).toBe("?page=0&sorts=distroId%3AASC");
     expect(analytics).toHaveBeenCalledTimes(1);
   });
 
@@ -46,7 +44,7 @@ describe("useTableSort", () => {
       result.current.sort([{ id: "distroId", desc: true }]);
     });
     expect(result.current.location.search).toBe(
-      "?page=0&sortBy=distroId&sortDir=DESC",
+      "?page=0&sorts=distroId%3ADESC",
     );
     expect(analytics).toHaveBeenCalledTimes(1);
   });
@@ -54,7 +52,7 @@ describe("useTableSort", () => {
   it("overwrites existing sort", () => {
     const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
+      <MemoryRouter initialEntries={["/?page=0&sorts=foo%3AASC"]}>
         {children}
       </MemoryRouter>
     );
@@ -71,9 +69,7 @@ describe("useTableSort", () => {
     act(() => {
       result.current.sort([{ id: "bar", desc: false }]);
     });
-    expect(result.current.location.search).toBe(
-      "?page=0&sortBy=bar&sortDir=ASC",
-    );
+    expect(result.current.location.search).toBe("?page=0&sorts=bar%3AASC");
     expect(analytics).toHaveBeenCalledTimes(1);
   });
 
@@ -95,16 +91,14 @@ describe("useTableSort", () => {
     act(() => {
       result.current.sort([{ id: "foo", desc: false }]);
     });
-    expect(result.current.location.search).toBe(
-      "?page=0&sortBy=foo&sortDir=ASC",
-    );
+    expect(result.current.location.search).toBe("?page=0&sorts=foo%3AASC");
     expect(analytics).toHaveBeenCalledTimes(1);
   });
 
   it("clears sort", () => {
     const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
+      <MemoryRouter initialEntries={["/?page=0&sorts=foo%3AASC"]}>
         {children}
       </MemoryRouter>
     );
@@ -128,7 +122,7 @@ describe("useTableSort", () => {
   it("updates query params when multi-sort is applied", () => {
     const analytics = vi.fn();
     const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <MemoryRouter initialEntries={["/?page=0&sortBy=foo&sortDir=ASC"]}>
+      <MemoryRouter initialEntries={["/?page=0&sorts=foo%3AASC"]}>
         {children}
       </MemoryRouter>
     );

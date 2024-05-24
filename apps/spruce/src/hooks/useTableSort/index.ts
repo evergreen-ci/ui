@@ -26,8 +26,6 @@ export const useTableSort = (props?: Props): CallbackType => {
       ...queryParams,
       [PaginationQueryParams.Page]: "0",
       [TableQueryParams.Sorts]: undefined,
-      [TableQueryParams.SortDir]: undefined,
-      [TableQueryParams.SortBy]: undefined,
     };
 
     if (sorter.length) {
