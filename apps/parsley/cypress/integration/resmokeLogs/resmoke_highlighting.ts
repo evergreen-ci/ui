@@ -72,4 +72,19 @@ describe("Highlighting", () => {
         expect(colors.size).to.eq(2);
       });
   });
+  it("should automatically add a highlight when a filter term is added if `Apply Highlights to Filters` is enabled", () => {
+    cy.clickToggle("highlight-filters-toggle", true, "search-and-filter");
+    cy.addFilter("job0");
+    cy.dataCy("highlight").should("exist");
+    cy.toggleDrawer();
+    cy.dataCy("side-nav-highlight").should("exist");
+    cy.dataCy("side-nav-highlight").should("have.length", 1);
+    cy.dataCy("side-nav-highlight").should("contain.text", "job0");
+  });
+  it("should not add a highlight when a filter term is added if `Apply Highlights to Filters` is disabled", () => {
+    cy.addFilter("job0");
+    cy.dataCy("highlight").should("not.exist");
+    cy.toggleDrawer();
+    cy.dataCy("side-nav-highlight").should("not.exist");
+  });
 });
