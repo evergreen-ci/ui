@@ -10,6 +10,7 @@ import { isProduction } from "utils/environmentVariables";
 import {
   defaultStartDate,
   defaultStopDate,
+  exemptionRange,
   getDefaultExpiration,
 } from "./utils";
 
@@ -20,11 +21,13 @@ type HostUptimeProps = {
     enabledHoursCount: number;
     warnings: string[];
   };
+  isEditModal: boolean;
   timeZone?: string;
 };
 
 const getHostUptimeSchema = ({
   hostUptimeWarnings,
+  isEditModal,
   timeZone,
 }: HostUptimeProps) => ({
   schema: {
@@ -94,6 +97,12 @@ const getHostUptimeSchema = ({
       details: {
         type: "null" as "null",
       },
+      ...(isEditModal && {
+        temporarilyExemptUntil: {
+          type: "string" as "string",
+          title: "Temporary Sleep Schedule Exemption",
+        },
+      }),
     },
     dependencies: {
       useDefaultUptimeSchedule: {
@@ -167,6 +176,11 @@ const getHostUptimeSchema = ({
       "ui:showLabel": false,
       "ui:warnings": hostUptimeWarnings?.warnings,
     },
+    temporarilyExemptUntil: {
+      "ui:disableAfter": exemptionRange.disableAfter,
+      "ui:disableBefore": exemptionRange.disableBefore,
+      "ui:widget": "date",
+    },
   },
 });
 
@@ -187,6 +201,7 @@ type ExpirationProps = {
     enabledHoursCount: number;
     warnings: string[];
   };
+  isEditModal: boolean;
   noExpirationCheckboxTooltip?: string;
   timeZone?: string;
 };
@@ -194,11 +209,16 @@ type ExpirationProps = {
 export const getExpirationDetailsSchema = ({
   disableExpirationCheckbox,
   hostUptimeWarnings,
+  isEditModal,
   noExpirationCheckboxTooltip,
   timeZone,
 }: ExpirationProps) => {
   const defaultExpiration = getDefaultExpiration();
-  const hostUptime = getHostUptimeSchema({ hostUptimeWarnings, timeZone });
+  const hostUptime = getHostUptimeSchema({
+    hostUptimeWarnings,
+    isEditModal,
+    timeZone,
+  });
   return {
     schema: {
       title: "Expiration Details",

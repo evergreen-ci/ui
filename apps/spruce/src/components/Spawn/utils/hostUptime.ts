@@ -1,3 +1,4 @@
+import { setToUTCMidnight } from "@leafygreen-ui/date-utils";
 import { differenceInHours, isTomorrow, parse } from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
 import { days } from "constants/fieldMaps";
@@ -32,6 +33,7 @@ export type HostUptime = {
     };
   };
   details?: null;
+  temporarilyExemptUntil?: string;
 };
 
 type ValidateInput = {
@@ -104,7 +106,11 @@ export const getEnabledHoursCount = (
 };
 
 export const getSleepSchedule = (
-  { sleepSchedule, useDefaultUptimeSchedule }: HostUptime,
+  {
+    sleepSchedule,
+    temporarilyExemptUntil,
+    useDefaultUptimeSchedule,
+  }: HostUptime,
   timeZone: string,
 ): SleepScheduleInput => {
   if (useDefaultUptimeSchedule) {
@@ -127,6 +133,9 @@ export const getSleepSchedule = (
     permanentlyExempt: false,
     timeZone,
     shouldKeepOff: false,
+    ...(temporarilyExemptUntil
+      ? { temporarilyExemptUntil: new Date(temporarilyExemptUntil) }
+      : {}),
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
       if (!isEnabled) {
@@ -159,10 +168,16 @@ export const defaultSleepSchedule: Optional<SleepScheduleInput, "timeZone"> = {
 export const getHostUptimeFromGql = (
   sleepSchedule: Optional<SleepSchedule, "timeZone">,
 ): HostUptime => {
-  const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
+  const {
+    dailyStartTime,
+    dailyStopTime,
+    temporarilyExemptUntil,
+    wholeWeekdaysOff,
+  } = sleepSchedule;
 
   return {
     useDefaultUptimeSchedule: matchesDefaultUptimeSchedule(sleepSchedule),
+    temporarilyExemptUntil: temporarilyExemptUntil?.toString() ?? "",
     sleepSchedule: {
       enabledWeekdays: new Array(7)
         .fill(false)
@@ -304,4 +319,12 @@ export const getNextHostStart = (
     ? "tomorrow"
     : days[nextStartDate.getDay()];
   return { nextStartDay, nextStartTime: null };
+};
+
+const today = new Date(Date.now());
+export const exemptionRange = {
+  disableBefore: setToUTCMidnight(today),
+  disableAfter: setToUTCMidnight(
+    new Date(today.setMonth(today.getMonth() + 1)),
+  ),
 };
