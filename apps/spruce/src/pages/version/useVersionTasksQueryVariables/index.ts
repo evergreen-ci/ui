@@ -51,8 +51,8 @@ const useVersionTasksQueryVariables = (versionId: string) => {
   let baseStatusesToApply: string[] = [];
   if (Array.isArray(baseStatuses)) {
     baseStatusesToApply = baseStatuses.map((status) => status.toString());
-  } else {
-    baseStatusesToApply.push((baseStatuses || "").toString());
+  } else if (baseStatuses) {
+    baseStatusesToApply.push(baseStatuses.toString());
   }
   return {
     versionId,
