@@ -176,7 +176,7 @@
     "replace-in-file": "7.1.0",
     "rollup-plugin-visualizer": "^5.12.0",
     "serve-handler": "^6.1.5",
-    "simple-git": "3.19.1",
+    "simple-git": "3.24.0",
     "storybook": "7.4.0",
     "storybook-addon-apollo-client": "^4.1.4",
     "ts-node": "10.9.1",
