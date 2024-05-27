@@ -3293,16 +3293,16 @@
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-"@leafygreen-ui/loading-indicator@2.0.8":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/loading-indicator/-/loading-indicator-2.0.8.tgz#7731c8bf477021b7e7b2a39b8222779d89672aa3"
-  integrity sha512-A1poSfy9IenDSo0u3LORa4roBd5VWeq2IoURHdmuhQkhkoOCEr3EpDdj6t7q0fdISKKxuMj9G+L4CGHVw+AIbQ==
+"@leafygreen-ui/loading-indicator@2.0.12":
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/loading-indicator/-/loading-indicator-2.0.12.tgz#94d6a23ee158e805c310a1ae383bc3279482c278"
+  integrity sha512-ZH2aOoiT4eF790PGe7yI0YLFU7Ts1vTZfc8LBPywbM5RJFJJZ243oFvPKKNAJ+aiSgYQn4Znj1Rt9B7Xj6GMFQ==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/lib" "^13.2.1"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.3.0"
-    "@leafygreen-ui/typography" "^18.0.0"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/lib" "^13.4.0"
+    "@leafygreen-ui/palette" "^4.0.10"
+    "@leafygreen-ui/tokens" "^2.5.2"
+    "@leafygreen-ui/typography" "^19.0.0"
     react-lottie-player "^1.5.6"
 
 "@leafygreen-ui/menu@20.0.1":
@@ -3807,14 +3807,7 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.5"
 
-"@leafygreen-ui/tokens@^2.0.0", "@leafygreen-ui/tokens@^2.0.1", "@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.1.0", "@leafygreen-ui/tokens@^2.1.1", "@leafygreen-ui/tokens@^2.1.4", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.3.0", "@leafygreen-ui/tokens@^2.5.1", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.6.0.tgz#88ad46df6b79544d2bd4cf4f7b8bc0b1c1b55158"
-  integrity sha512-UN4xsrT51W4xlPuUm7CpcorlAjVQvJPW87nj/AS9tqxDsl4RMZChbxzNZIyQnoa9Ta3rGVzHE3MiK/AtoHKZ4g==
-  dependencies:
-    "@leafygreen-ui/palette" "^4.0.9"
-
-"@leafygreen-ui/tokens@^2.7.0":
+"@leafygreen-ui/tokens@^2.0.0", "@leafygreen-ui/tokens@^2.0.1", "@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.1.0", "@leafygreen-ui/tokens@^2.1.1", "@leafygreen-ui/tokens@^2.1.4", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.5.1", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.6.0", "@leafygreen-ui/tokens@^2.7.0":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.7.0.tgz#c4cfd9395b69d4d9739393a8eb3aaf5c6b19f820"
   integrity sha512-MnzXPUd/MkWyY6lDrxTcww9/6hR/3TQzlKM1LTf75mSc8QTuxpHgXQtwUZdYoUWBCeI4NH8ELCnKsiQSOvTNlg==
@@ -3934,19 +3927,7 @@
     "@leafygreen-ui/polymorphic" "^1.3.7"
     "@leafygreen-ui/tokens" "^2.5.2"
 
-"@leafygreen-ui/typography@^19.0.0", "@leafygreen-ui/typography@^19.1.0":
-  version "19.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-19.1.0.tgz#2cfb4db6dd691f57d22179ca1436e167da9147b5"
-  integrity sha512-HTh6pRUuJ3q4NQdmwEccDhqoxbjRX/KGHEHifwTbkUv4pQaV/8CGmjUiek4S0MgUHuk4WN1XYSBjtr5f+T7Tnw==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.8"
-    "@leafygreen-ui/icon" "^12.1.0"
-    "@leafygreen-ui/lib" "^13.4.0"
-    "@leafygreen-ui/palette" "^4.0.10"
-    "@leafygreen-ui/polymorphic" "^1.3.7"
-    "@leafygreen-ui/tokens" "^2.6.0"
-
-"@leafygreen-ui/typography@^19.1.1":
+"@leafygreen-ui/typography@^19.0.0", "@leafygreen-ui/typography@^19.1.0", "@leafygreen-ui/typography@^19.1.1":
   version "19.1.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-19.1.1.tgz#0cd0fccb3d983fe7a5621403478cc0a1e6f7a7ff"
   integrity sha512-S6JDXHvMY+Cwqy9VOWZWvcnoxXpw16AzlpcPNHzq1j9Puf4cIV2HP5rFdbV/vMt7HyqoRoWVnTQa4OXPrg4W3g==
@@ -14909,7 +14890,16 @@ string-env-interpolation@1.0.1, string-env-interpolation@^1.0.1:
   resolved "https://registry.yarnpkg.com/string-env-interpolation/-/string-env-interpolation-1.0.1.tgz#ad4397ae4ac53fe6c91d1402ad6f6a52862c7152"
   integrity sha512-78lwMoCcn0nNu8LszbP1UA7g55OeE4v7rCeWnM5B453rnNr4aq+5it3FEYtZrSEiMvHZOZ9Jlqb0OD0M2VInqg==
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -15001,7 +14991,14 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -16245,7 +16242,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -16258,6 +16255,15 @@ wrap-ansi@^6.0.1, wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
