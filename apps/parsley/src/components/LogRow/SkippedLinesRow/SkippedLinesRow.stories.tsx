@@ -6,7 +6,7 @@ import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import { ProcessedLogLines } from "types/logs";
+import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import SkippedLinesRow from ".";
 
 export default {
@@ -18,8 +18,10 @@ const CollapsedRowStory = (
   args: React.ComponentProps<typeof SkippedLinesRow>,
 ) => {
   const [range, setRange] = useState(args.range);
-  const expandLines = () => {
-    setRange({ lineEnd: range.lineEnd - 5, lineStart: range.lineStart + 5 });
+  const expandLines = (a: ExpandedLines) => {
+    const nextLineStart = a[0][1] + 1;
+    const nextLineEnd = a?.[1]?.[0] ?? nextLineStart;
+    setRange({ lineEnd: nextLineEnd, lineStart: nextLineStart });
   };
 
   return (
@@ -39,7 +41,7 @@ export const CollapsedRowSingle: CustomStoryObj<typeof SkippedLinesRow> = {
   },
   args: {
     // Initialize an array with 100 collapsed lines.
-    range: { lineEnd: 100, lineStart: 0 },
+    range: { lineEnd: 101, lineStart: 1 },
   },
   render: (args) => <CollapsedRowStory {...args} />,
 };
