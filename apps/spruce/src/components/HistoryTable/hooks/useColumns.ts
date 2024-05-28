@@ -1,34 +1,24 @@
 import { useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useQueryParam } from "hooks/useQueryParam";
 import { HistoryQueryParams } from "types/history";
-import { queryString, array } from "utils";
 import { useHistoryTable } from "../HistoryTableContext";
 
-const { parseQueryString } = queryString;
-const { toArray } = array;
-
 const useColumns = <T>(allColumns: T[], accessFunc: (column: T) => string) => {
-  const { search } = useLocation();
-  const { [HistoryQueryParams.VisibleColumns]: queryParams } = useMemo(
-    () => parseQueryString(search),
-    [search],
+  const [selectedColumns] = useQueryParam<string[]>(
+    HistoryQueryParams.VisibleColumns,
+    [],
   );
   const { addColumns } = useHistoryTable();
 
-  const selectedColumnsInQuery = useMemo(
-    () => toArray(queryParams),
-    [queryParams],
-  );
-
   const activeColumns = useMemo(
     () =>
-      selectedColumnsInQuery.length
+      selectedColumns.length
         ? allColumns?.filter((column) =>
-            selectedColumnsInQuery.includes(accessFunc(column)),
+            selectedColumns.includes(accessFunc(column)),
           )
         : allColumns,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedColumnsInQuery, allColumns],
+    [selectedColumns, allColumns],
   );
 
   const visibleColumns = useMemo(
