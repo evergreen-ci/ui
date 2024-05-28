@@ -4,7 +4,7 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, stubGetClientRects, userEvent } from "test_utils";
 import {
   NavigationModalProps,
   NavigationWarningModal,
@@ -44,6 +44,10 @@ const getRouter = ({ shouldBlock, unsavedTabs }: NavigationModalProps) =>
   );
 
 describe("navigation warning", () => {
+  beforeAll(() => {
+    stubGetClientRects();
+  });
+
   it("does not warn when navigating and shouldBlock is false", async () => {
     const router = getRouter({ shouldBlock: false, unsavedTabs: [] });
 

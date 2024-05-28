@@ -1,0 +1,32 @@
+<div>
+  <div
+    class="css-1ogcarq-Container exz365g3"
+  >
+    <div
+      class="css-1pr1jy2-PageHeader exz365g1"
+    >
+      <span
+        class="css-1up2o4-TitleWrapper exz365g0"
+      >
+        <h2
+          class="leafygreen-ui-oaqrgz"
+        >
+          <span
+            data-cy="page-title"
+          >
+            Test Page
+          </span>
+          <div
+            class="css-2i76u1-BadgeWrapper exz365g2"
+          >
+            <div
+              class="leafygreen-ui-ohl2hc"
+            >
+              Some Badge
+            </div>
+          </div>
+        </h2>
+      </span>
+    </div>
+  </div>
+</div>

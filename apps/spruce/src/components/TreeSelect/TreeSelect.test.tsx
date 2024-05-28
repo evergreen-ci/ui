@@ -21,7 +21,7 @@ describe("treeSelect", () => {
 
   it("clicking a value selects its option in the tree select", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("Pass")).toBeInTheDocument();
     await user.click(screen.queryByText("Pass"));
@@ -30,7 +30,7 @@ describe("treeSelect", () => {
 
   it("clicking all selects all of the options in the tree select", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
     expect(screen.getByText("All")).toBeInTheDocument();
     await user.click(screen.queryByText("All"));
@@ -56,7 +56,7 @@ describe("treeSelect", () => {
   it("unchecking a child element should uncheck its parent", async () => {
     const user = userEvent.setup();
     let state = ["failing-umbrella", "system-failure", "fail"];
-    const onChange = jest.fn((update) => {
+    const onChange = vi.fn((update) => {
       state = update;
     });
     render(
@@ -71,7 +71,7 @@ describe("treeSelect", () => {
 
   it("checking a parent element should toggle its children", async () => {
     const user = userEvent.setup();
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(
       <TreeSelect onChange={onChange} state={[]} tData={nestedTreeData} />,
     );

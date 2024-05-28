@@ -17,7 +17,6 @@ describe("computeDiff", () => {
       currEditState,
     );
     expect(hasChanges).toBe(true);
-    // eslint-disable-next-line jest/prefer-strict-equal
     expect(mutationParams).toEqual({
       displayName: "new-display-name",
       instanceType: "new-instance-type",

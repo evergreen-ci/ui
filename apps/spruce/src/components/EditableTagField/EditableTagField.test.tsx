@@ -15,11 +15,13 @@ const editableTags = [
 
 const defaultData = [...editableTags];
 describe("editableTagField", () => {
-  afterAll(() => jest.restoreAllMocks());
+  afterAll(() => {
+    vi.restoreAllMocks();
+  });
 
   it("renders editable tags", async () => {
     let data = [...defaultData];
-    const updateData = jest.fn((x) => {
+    const updateData = vi.fn((x) => {
       data = x;
     });
 
@@ -38,7 +40,7 @@ describe("editableTagField", () => {
 
   it("editing a tag value should update the tags", async () => {
     let data = [...defaultData];
-    const updateData = jest.fn((x) => {
+    const updateData = vi.fn((x) => {
       data = x;
     });
 
@@ -75,7 +77,7 @@ describe("editableTagField", () => {
 
   it("deleting a tag should remove it from the array", async () => {
     let data = [...defaultData];
-    const updateData = jest.fn((x) => {
+    const updateData = vi.fn((x) => {
       data = x;
     });
 
@@ -100,7 +102,7 @@ describe("editableTagField", () => {
 
   it("editing a tag key should remove the old tag and replace it with a newer tag with the updated key", async () => {
     let data = [...defaultData];
-    const updateData = jest.fn((x) => {
+    const updateData = vi.fn((x) => {
       data = x;
     });
 
@@ -137,7 +139,7 @@ describe("editableTagField", () => {
 
   it("should be able to add an new tag with the add tag button", async () => {
     let data = [...defaultData];
-    const updateData = jest.fn((x) => {
+    const updateData = vi.fn((x) => {
       data = x;
     });
 

@@ -17,7 +17,7 @@ describe("useResize", () => {
   });
 
   it("should call onResize callback if it is provided", () => {
-    const onResize = jest.fn();
+    const onResize = vi.fn();
     const { result } = renderHook(() => useResize({ onResize }));
     expect(result.current).toBe(false);
 
@@ -27,7 +27,7 @@ describe("useResize", () => {
   });
 
   it("should return false when window is done resizing", () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     const { result } = renderHook(() => useResize());
     expect(result.current).toBe(false);
 
@@ -36,9 +36,9 @@ describe("useResize", () => {
 
     // Advance timer so that the timeout is triggered.
     act(() => {
-      jest.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(1000);
     });
     expect(result.current).toBe(false);
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 });

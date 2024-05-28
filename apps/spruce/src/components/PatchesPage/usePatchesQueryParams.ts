@@ -20,6 +20,10 @@ export const usePatchesQueryParams = (): Omit<
     PatchPageQueryParams.Statuses,
     [],
   );
+  const [requesters] = useQueryParam<string[]>(
+    PatchPageQueryParams.Requesters,
+    [],
+  );
   const [hidden] = useQueryParam(PatchPageQueryParams.Hidden, false);
   const { limit, page } = usePagination();
   const statuses = rawStatuses.filter((v) => v && v !== ALL_PATCH_STATUS);
@@ -28,6 +32,7 @@ export const usePatchesQueryParams = (): Omit<
     includeHidden: hidden || Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
     page,
     patchName: `${patchName}`,
+    requesters,
     statuses,
   };
 };

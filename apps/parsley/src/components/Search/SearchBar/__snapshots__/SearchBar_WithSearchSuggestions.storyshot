@@ -7,17 +7,17 @@
       data-lgid="lg-select"
     >
       <button
-        aria-controls="select-197-menu"
-        aria-describedby="select-197-description"
+        aria-controls="select-201-menu"
+        aria-describedby="select-201-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
+        class="lg-ui-button-0001 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
         data-lgid="lg-button"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-198"
+        id="select-202"
         type="button"
         value="filter"
       >

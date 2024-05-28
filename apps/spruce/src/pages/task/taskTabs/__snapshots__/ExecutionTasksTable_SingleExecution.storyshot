@@ -1,0 +1,322 @@
+<div>
+  <div
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd862"
+    tabindex="0"
+  >
+    <table
+      class="leafygreen-ui-1soynca"
+      data-cy="execution-tasks-table"
+    >
+      <thead
+        class="leafygreen-ui-bebmcm"
+      >
+        <tr>
+          <th
+            class="leafygreen-ui-coj2qp"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-ui0te9"
+            >
+              Name
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Name"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-1ldshj2"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-ui0te9"
+            >
+              Task Status
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Task Status"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Sort Ascending Icon"
+                    class="leafygreen-ui-1t2jgtk"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.45 1.143a.584.584 0 0 0-.765 0L1.203 3.292a.584.584 0 0 0 .383 1.026h1.312v9.352a1.169 1.169 0 1 0 2.338 0V4.318H6.55a.584.584 0 0 0 .383-1.026L4.45 1.142ZM8 5a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H8ZM7 9a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1ZM8 11a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H8Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-1ldshj2"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-ui0te9"
+            >
+              Base Status
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Base Status"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-1qsod8o"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-ui0te9"
+            >
+              Variant
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Variant"
+                class="leafygreen-ui-76dd2i"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-0"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+                href="/task/some_id_5?execution=5"
+              >
+                <span>
+                  <span
+                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    Some fancy execution task
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_id_5?execution=5"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            />
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+                href="/variant-history/undefined/Windows"
+              >
+                <span>
+                  Windows 97
+                </span>
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="leafygreen-table-row"
+          data-selected="false"
+          id="lg-table-row-1"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+                href="/task/some_id_6?execution=5"
+              >
+                <span>
+                  <span
+                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                  >
+                    Another execution task
+                  </span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <a
+                href="/task/some_id_6?execution=5"
+              >
+                <div
+                  class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            />
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <a
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+                href="/variant-history/undefined/Windows"
+              >
+                <span>
+                  Windows 97
+                </span>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

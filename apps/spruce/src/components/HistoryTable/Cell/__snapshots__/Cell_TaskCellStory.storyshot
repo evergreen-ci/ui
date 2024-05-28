@@ -1,0 +1,41 @@
+<div>
+  <div
+    class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+    data-cy="task-cell"
+  >
+    <a
+      href="/task/task-1"
+    >
+      <div
+        class="css-1saonyd-Container e12dzyme2"
+        data-cy="history-table-icon"
+        data-status="success"
+      >
+        <div
+          class="css-amsv4f-IconContainer e12dzyme1"
+        >
+          <svg
+            aria-label="Checkmark Icon"
+            class="leafygreen-ui-zgssm"
+            fill="none"
+            height="30"
+            role="img"
+            viewBox="0 0 16 16"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="m6.306 9.05 5.455-5.455a1 1 0 0 1 1.414 0l.707.707a1 1 0 0 1 0 1.414l-7.067 7.068a1 1 0 0 1-1.5-.098l-3.049-3.97a1 1 0 0 1 .184-1.402l.595-.457a1.25 1.25 0 0 1 1.753.23L6.306 9.05Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        />
+      </div>
+    </a>
+  </div>
+</div>
