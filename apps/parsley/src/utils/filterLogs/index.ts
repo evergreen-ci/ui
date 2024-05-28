@@ -1,5 +1,6 @@
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import { isExpanded } from "utils/expandedLines";
+import { newSkippedLinesRow } from "utils/logRow";
 import { isSkippedLinesRow } from "utils/logRowTypes";
 
 type FilterLogsParams = {
@@ -67,10 +68,7 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
       if (isSkippedLinesRow(previousItem)) {
         previousItem.range.lineEnd = idx + 1;
       } else {
-        arr.push({
-          range: { lineEnd: idx + 1, lineStart: idx },
-          rowType: "SkippedLines",
-        });
+        arr.push(newSkippedLinesRow(idx, idx + 1));
       }
     }
     return arr;
