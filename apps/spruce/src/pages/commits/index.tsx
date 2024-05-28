@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner, RepotrackerBanner } from "components/Banners";
 import FilterBadges, {
@@ -39,7 +39,7 @@ import {
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
-import { array, queryString, validators } from "utils";
+import { validators } from "utils";
 import { isProduction } from "utils/environmentVariables";
 import { CommitsWrapper } from "./CommitsWrapper";
 import CommitTypeSelector from "./CommitTypeSelector";
@@ -50,8 +50,6 @@ import { getMainlineCommitsQueryVariables, getFilterStatus } from "./utils";
 import { ViewToggle } from "./ViewToggle";
 import { WaterfallMenu } from "./WaterfallMenu";
 
-const { toArray } = array;
-const { getString, parseQueryString } = queryString;
 const { validateRegexp } = validators;
 
 const shouldDisableForTest =
@@ -60,13 +58,12 @@ const shouldDisableForTest =
 const Commits = () => {
   const dispatchToast = useToastContext();
   const navigate = useNavigate();
-  const { search } = useLocation();
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const { userSettings } = useUserSettings();
   const { useSpruceOptions } = userSettings ?? {};
   const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
   const [ref, limit, isResizing] = useCommitLimit<HTMLDivElement>();
-  const parsed = parseQueryString(search);
+
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`Project Health | ${projectIdentifier}`);
 
@@ -105,25 +102,34 @@ const Commits = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier, spruceData]);
 
-  const statusFilters = toArray(parsed[ProjectFilterOptions.Status]);
-  const variantFilters = toArray(parsed[ProjectFilterOptions.BuildVariant]);
-  const taskFilters = toArray(parsed[ProjectFilterOptions.Task]);
+  const [statusFilters] = useQueryParam<string[]>(
+    ProjectFilterOptions.Status,
+    [],
+  );
+  const [variantFilters] = useQueryParam<string[]>(
+    ProjectFilterOptions.BuildVariant,
+    [],
+  );
+  const [taskFilters] = useQueryParam<string[]>(ProjectFilterOptions.Task, []);
   const [viewFilter] = useQueryParam(
     ProjectFilterOptions.View,
     "" as ProjectHealthView,
   );
-  const requesterFilters = toArray(
-    parsed[MainlineCommitQueryParams.Requester],
-  ).filter((r) => r !== ALL_VALUE);
-  const skipOrderNumberParam = getString(
-    parsed[MainlineCommitQueryParams.SkipOrderNumber],
+  const [requesterFilterParam] = useQueryParam<string[]>(
+    MainlineCommitQueryParams.Requester,
+    [],
   );
-  const revisionParam = getString(parsed[MainlineCommitQueryParams.Revision]);
+  const requesterFilters = requesterFilterParam.filter((r) => r !== ALL_VALUE);
 
-  const parsedSkipNum = parseInt(skipOrderNumberParam, 10);
-  const skipOrderNumber = Number.isNaN(parsedSkipNum)
-    ? undefined
-    : parsedSkipNum;
+  const [revisionParam] = useQueryParam<string>(
+    MainlineCommitQueryParams.Revision,
+    "",
+  );
+  const [skipOrderNumber] = useQueryParam<number>(
+    MainlineCommitQueryParams.SkipOrderNumber,
+    undefined,
+  );
+
   const revision = revisionParam.length ? revisionParam : undefined;
 
   const filterState = {
