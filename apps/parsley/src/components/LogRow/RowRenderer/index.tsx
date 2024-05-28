@@ -4,8 +4,8 @@ import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
 import { isSkippedLinesRow } from "utils/logRowTypes";
 import AnsiRow from "../AnsiRow";
-import SkippedLinesRow from "../CollapsedRow";
 import ResmokeRow from "../ResmokeRow";
+import SkippedLinesRow from "../SkippedLinesRow";
 
 type RowRendererFunction = (props: {
   processedLogLines: ProcessedLogLines;
