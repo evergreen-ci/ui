@@ -4,8 +4,10 @@ import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   defaultSleepSchedule,
+  getEnabledHoursCount,
   getHostUptimeFromGql,
-  validateUptimeSchedule,
+  getHostUptimeWarnings,
+  isNullSleepSchedule,
   validator,
 } from "components/Spawn";
 import {
@@ -75,9 +77,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     expirationDetails: {
       expiration: host.expiration ? host.expiration.toString() : null,
       noExpiration: host.noExpiration,
-      hostUptime: host.noExpiration
-        ? getHostUptimeFromGql(host.sleepSchedule)
-        : getHostUptimeFromGql({ ...defaultSleepSchedule, timeZone }),
+      hostUptime: isNullSleepSchedule(host?.sleepSchedule)
+        ? getHostUptimeFromGql(defaultSleepSchedule)
+        : getHostUptimeFromGql(host.sleepSchedule),
     },
     publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };
@@ -85,19 +87,19 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const [formState, setFormState] = useState<FormState>(initialFormState);
   const [hasError, setHasError] = useState(false);
 
-  const hostUptimeValidation = useMemo(
-    () =>
-      validateUptimeSchedule({
-        enabledWeekdays:
-          formState?.expirationDetails?.hostUptime?.sleepSchedule
-            ?.enabledWeekdays,
-        ...formState?.expirationDetails?.hostUptime?.sleepSchedule
-          ?.timeSelection,
-        useDefaultUptimeSchedule:
-          formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
-      }),
-    [formState?.expirationDetails?.hostUptime],
-  );
+  const hostUptimeWarnings = useMemo(() => {
+    const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
+      formState?.expirationDetails?.hostUptime,
+    );
+    const warnings = getHostUptimeWarnings({
+      enabledHoursCount,
+      enabledWeekdaysCount,
+      runContinuously:
+        formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection
+          ?.runContinuously,
+    });
+    return { enabledHoursCount, warnings };
+  }, [formState?.expirationDetails?.hostUptime]);
 
   const { schema, uiSchema } = getFormSchema({
     canEditInstanceType: host.status === HostStatus.Stopped,
@@ -105,7 +107,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       host.distro.isWindows && host.status === HostStatus.Running,
     canEditSshKeys: host.status === HostStatus.Running,
     disableExpirationCheckbox,
-    hostUptimeValidation,
+    hostUptimeWarnings,
     instanceTypes: instanceTypes ?? [],
     myPublicKeys: publicKeys ?? [],
     noExpirationCheckboxTooltip,
@@ -129,7 +131,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       );
       onCancel();
     },
-    refetchQueries: ["MyVolumes"],
+    refetchQueries: ["MyHosts", "MyVolumes"],
   });
 
   const initialEditState = formToGql({

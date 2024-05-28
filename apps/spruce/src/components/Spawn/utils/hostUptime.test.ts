@@ -1,8 +1,9 @@
 import {
   getHostUptimeFromGql,
+  getHostUptimeWarnings,
+  getNextHostStart,
   getSleepSchedule,
   matchesDefaultUptimeSchedule,
-  validateUptimeSchedule,
   validator,
 } from "./hostUptime";
 
@@ -81,7 +82,7 @@ describe("validator", () => {
         },
       },
       // @ts-expect-error
-      { expirationDetails: { hostUptime: { addError: f } } },
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(0);
   });
@@ -106,7 +107,7 @@ describe("validator", () => {
         },
       },
       // @ts-expect-error
-      { expirationDetails: { hostUptime: { addError: f } } },
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(1);
   });
@@ -131,7 +132,7 @@ describe("validator", () => {
         },
       },
       // @ts-expect-error
-      { expirationDetails: { hostUptime: { addError: f } } },
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(0);
   });
@@ -282,58 +283,100 @@ describe("getSleepSchedule", () => {
   });
 });
 
-describe("validateUptimeSchedule", () => {
+describe("getHostUptimeWarnings", () => {
   it("returns no errors when under recommended time", () => {
     expect(
-      validateUptimeSchedule({
-        enabledWeekdays: [false, false, true, true, true, true, false],
+      getHostUptimeWarnings({
+        enabledHoursCount: 60,
+        enabledWeekdaysCount: 5,
         runContinuously: false,
-        startTime:
-          "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-        stopTime:
-          "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-        useDefaultUptimeSchedule: true,
       }),
-    ).toStrictEqual({
-      enabledHoursCount: 60,
-      errors: [],
-      warnings: [],
-    });
+    ).toStrictEqual([]);
   });
 
   it("returns a warning when over recommended time", () => {
     expect(
-      validateUptimeSchedule({
-        enabledWeekdays: [false, true, true, true, true, true, true],
+      getHostUptimeWarnings({
+        enabledHoursCount: 144,
+        enabledWeekdaysCount: 6,
         runContinuously: true,
-        startTime:
-          "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-        stopTime:
-          "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-        useDefaultUptimeSchedule: false,
       }),
-    ).toStrictEqual({
-      enabledHoursCount: 144,
-      errors: [],
-      warnings: ["Consider pausing your host for 2 days per week."],
+    ).toStrictEqual(["Consider pausing your host for 2 days per week."]);
+  });
+
+  it("does not return a warning when over allowed time", () => {
+    expect(
+      getHostUptimeWarnings({
+        enabledHoursCount: 168,
+        enabledWeekdaysCount: 7,
+        runContinuously: true,
+      }),
+    ).toStrictEqual([]);
+  });
+});
+
+describe("getNextHostStart", () => {
+  it("calculates the next start with time", () => {
+    const sched = {
+      dailyStartTime: "08:00",
+      dailyStopTime: "20:00",
+      permanentlyExempt: true,
+      shouldKeepOff: true,
+      timeZone: "America/New_York",
+      wholeWeekdaysOff: [0, 6],
+    };
+    const monday = new Date(null, null);
+    expect(getNextHostStart(sched, monday)).toStrictEqual({
+      nextStartDay: "Tuesday",
+      nextStartTime: "8:00",
     });
   });
 
-  it("returns an error when over allowed time", () => {
-    expect(
-      validateUptimeSchedule({
-        enabledWeekdays: [true, true, true, true, true, true, true],
-        runContinuously: true,
-        startTime:
-          "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-        stopTime:
-          "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-        useDefaultUptimeSchedule: false,
-      }),
-    ).toStrictEqual({
-      enabledHoursCount: 168,
-      errors: ["Please pause your host for at least 1 day per week."],
-      warnings: [],
+  it("calculates the next start with time when current day is off", () => {
+    const sched = {
+      dailyStartTime: "08:00",
+      dailyStopTime: "20:00",
+      permanentlyExempt: true,
+      shouldKeepOff: true,
+      timeZone: "America/New_York",
+      wholeWeekdaysOff: [0, 1, 6],
+    };
+    const monday = new Date(null, null);
+    expect(getNextHostStart(sched, monday)).toStrictEqual({
+      nextStartDay: "Tuesday",
+      nextStartTime: "8:00",
+    });
+  });
+
+  it("calculates the next start when running continuously", () => {
+    const sched = {
+      dailyStartTime: "",
+      dailyStopTime: "",
+      permanentlyExempt: true,
+      shouldKeepOff: true,
+      timeZone: "America/New_York",
+      wholeWeekdaysOff: [0, 6],
+    };
+    const monday = new Date(null, null);
+    expect(getNextHostStart(sched, monday)).toStrictEqual({
+      nextStartDay: "Monday",
+      nextStartTime: null,
+    });
+  });
+
+  it("calculates the next start when running continuously and current day is off", () => {
+    const sched = {
+      dailyStartTime: "",
+      dailyStopTime: "",
+      permanentlyExempt: true,
+      shouldKeepOff: true,
+      timeZone: "America/New_York",
+      wholeWeekdaysOff: [0, 1, 6],
+    };
+    const monday = new Date(null, null);
+    expect(getNextHostStart(sched, monday)).toStrictEqual({
+      nextStartDay: "Tuesday",
+      nextStartTime: null,
     });
   });
 });

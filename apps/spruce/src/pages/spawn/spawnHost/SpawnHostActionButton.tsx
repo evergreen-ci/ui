@@ -5,6 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
+import { isNullSleepSchedule } from "components/Spawn";
 import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,
@@ -18,6 +19,7 @@ import { MY_HOSTS } from "gql/queries";
 import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
+import { PauseSleepScheduleModal } from "./PauseSleepScheduleModal";
 
 export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const dispatchToast = useToastContext();
@@ -72,15 +74,15 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     refetchQueries: ["MyVolumes"],
   });
 
-  const onClick = (a) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
+  const handleClick = (a: SpawnHostStatusActions, shouldKeepOff?: boolean) => {
     spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
     updateSpawnHostStatus({
       variables: {
-        hostId: host.id,
-        action: a,
+        updateSpawnHostStatusInput: {
+          hostId: host.id,
+          action: a,
+          shouldKeepOff,
+        },
       },
     });
   };
@@ -97,19 +99,43 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const [checkboxAcknowledged, setCheckboxAcknowledged] =
     useState(!checkboxLabel);
 
+  const [sleepModalOpen, setSleepModalOpen] = useState(false);
+
   return (
     <>
-      {action ? (
-        <Button
-          disabled={loading}
-          leftGlyph={<Icon glyph={glyph} />}
-          size={Size.XSmall}
-          onClick={onClick(action)}
-        />
-      ) : null}
+      {/* TODO: Replace with noExpiration check when sleep schedules are deployed */}
+      {!isNullSleepSchedule(host?.sleepSchedule) &&
+      action === SpawnHostStatusActions.Stop ? (
+        <>
+          <Button
+            data-cy="pause-unexpirable-host-button"
+            disabled={loading || host.status === HostStatus.Stopping}
+            leftGlyph={<Icon glyph={glyph} />}
+            size={Size.XSmall}
+            onClick={() => setSleepModalOpen((o) => !o)}
+          />
+          <PauseSleepScheduleModal
+            handleConfirm={(shouldKeepOff) =>
+              handleClick(action, shouldKeepOff)
+            }
+            open={sleepModalOpen}
+            setOpen={setSleepModalOpen}
+            sleepSchedule={host.sleepSchedule}
+          />
+        </>
+      ) : (
+        action && (
+          <Button
+            disabled={loading || host.status === HostStatus.Stopping}
+            leftGlyph={<Icon glyph={glyph} />}
+            size={Size.XSmall}
+            onClick={() => handleClick(action)}
+          />
+        )
+      )}
       <Popconfirm
         confirmDisabled={!checkboxAcknowledged}
-        onConfirm={onClick(SpawnHostStatusActions.Terminate)}
+        onConfirm={() => handleClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button
             size={Size.XSmall}
