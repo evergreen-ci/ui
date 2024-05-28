@@ -6,11 +6,12 @@ export {
   defaultSleepSchedule,
   defaultStartDate,
   defaultStopDate,
+  getEnabledHoursCount,
   getHostUptimeFromGql,
+  getHostUptimeWarnings,
   getNextHostStart,
   getSleepSchedule,
   isNullSleepSchedule,
-  validateUptimeSchedule,
   validator,
 } from "./hostUptime";
 export type { HostUptime } from "./hostUptime";

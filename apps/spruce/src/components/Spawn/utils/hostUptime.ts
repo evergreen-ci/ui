@@ -11,6 +11,7 @@ const hoursInDay = 24;
 const defaultStartHour = 8;
 const defaultStopHour = 20;
 const defaultScheduleWeeklyHourCount = 60;
+const defaultScheduleWeekdaysCount = 5;
 
 const suggestedUptimeHours = (daysInWeek - 2) * hoursInDay;
 export const maxUptimeHours = (daysInWeek - 1) * hoursInDay;
@@ -28,95 +29,56 @@ export type HostUptime = {
       runContinuously: boolean;
     };
   };
+  details?: null;
 };
 
 type ValidateInput = {
-  enabledWeekdays: boolean[];
-  stopTime: string;
+  enabledHoursCount: number;
+  enabledWeekdaysCount: number;
   runContinuously: boolean;
-  startTime: string;
-  useDefaultUptimeSchedule: boolean;
 };
 
-export const validateUptimeSchedule = ({
-  enabledWeekdays,
+export const getHostUptimeWarnings = ({
+  enabledHoursCount,
+  enabledWeekdaysCount,
   runContinuously,
-  startTime,
-  stopTime,
-  useDefaultUptimeSchedule,
-}: ValidateInput): {
-  enabledHoursCount: number;
-  errors: string[];
-  warnings: string[];
-} => {
-  if (useDefaultUptimeSchedule) {
-    return {
-      enabledHoursCount: defaultScheduleWeeklyHourCount,
-      errors: [],
-      warnings: [],
-    };
-  }
-
-  const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount({
-    enabledWeekdays,
-    stopTime,
-    runContinuously,
-    startTime,
-  });
-
+}: ValidateInput): string[] => {
   if (enabledHoursCount > maxUptimeHours) {
-    // Return error based on whether runContinously enabled
-    if (runContinuously) {
-      return {
-        enabledHoursCount,
-        errors: ["Please pause your host for at least 1 day per week."],
-        warnings: [],
-      };
-    }
-    const hourlyRequirement = Math.floor(maxUptimeHours / enabledWeekdaysCount);
-    return {
-      enabledHoursCount,
-      errors: [
-        `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
-      ],
-      warnings: [],
-    };
+    // This state represents an error, which is handled by the RJSF validator.
+    return [];
   }
 
   if (enabledHoursCount > suggestedUptimeHours) {
     // Return warning based on whether runContinuously enabled
     if (runContinuously) {
-      return {
-        enabledHoursCount,
-        errors: [],
-        warnings: ["Consider pausing your host for 2 days per week."],
-      };
+      return ["Consider pausing your host for 2 days per week."];
     }
     const hourlySuggestion = Math.floor(
       suggestedUptimeHours / enabledWeekdaysCount,
     );
-    return {
-      enabledHoursCount,
-      errors: [],
-      warnings: [
-        `Consider running your host for ${hourlySuggestion} hours per day or fewer.`,
-      ],
-    };
+    return [
+      `Consider running your host for ${hourlySuggestion} hours per day or fewer.`,
+    ];
   }
+
   // No error
-  return {
-    enabledHoursCount,
-    errors: [],
-    warnings: [],
-  };
+  return [];
 };
 
 export const getEnabledHoursCount = ({
-  enabledWeekdays,
-  runContinuously,
-  startTime,
-  stopTime,
-}: Omit<ValidateInput, "useDefaultUptimeSchedule">) => {
+  sleepSchedule,
+  useDefaultUptimeSchedule,
+}: HostUptime): { enabledHoursCount: number; enabledWeekdaysCount: number } => {
+  const { enabledWeekdays, timeSelection } = sleepSchedule;
+  const { runContinuously, startTime, stopTime } = timeSelection;
+
+  if (useDefaultUptimeSchedule) {
+    return {
+      enabledHoursCount: defaultScheduleWeeklyHourCount,
+      enabledWeekdaysCount: defaultScheduleWeekdaysCount,
+    };
+  }
+
   const enabledWeekdaysCount =
     enabledWeekdays?.filter((day) => day).length ?? 0;
   const enabledHoursCount = runContinuously
@@ -170,7 +132,6 @@ export const defaultSleepSchedule: Optional<SleepScheduleInput, "timeZone"> = {
   dailyStartTime: toTimeString(defaultStartDate),
   dailyStopTime: toTimeString(defaultStopDate),
   permanentlyExempt: false,
-  // TODO: Add pause
   shouldKeepOff: false,
   wholeWeekdaysOff: [0, 6],
 };
@@ -236,19 +197,30 @@ export const validator = (({ expirationDetails }, errors) => {
   if (!hostUptime || noExpiration === false) return errors;
 
   const { sleepSchedule, useDefaultUptimeSchedule } = hostUptime;
-  const { enabledWeekdays, timeSelection } = sleepSchedule;
+  const { timeSelection } = sleepSchedule;
 
   if (useDefaultUptimeSchedule) {
     return errors;
   }
 
-  const { enabledHoursCount } = getEnabledHoursCount({
-    enabledWeekdays,
-    ...timeSelection,
-  });
+  const { enabledHoursCount, enabledWeekdaysCount } =
+    getEnabledHoursCount(hostUptime);
 
   if (enabledHoursCount > maxUptimeHours) {
-    errors.expirationDetails?.hostUptime?.addError("Insufficient hours");
+    // Return error based on whether runContinously enabled
+    if (timeSelection?.runContinuously) {
+      // @ts-expect-error
+      errors.expirationDetails?.hostUptime?.details?.addError?.(
+        "Please pause your host for at least 1 day per week.",
+      );
+      return errors;
+    }
+    const hourlyRequirement = Math.floor(maxUptimeHours / enabledWeekdaysCount);
+    // @ts-expect-error
+    errors.expirationDetails?.hostUptime?.details?.addError?.(
+      `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
+    );
+    return errors;
   }
 
   return errors;

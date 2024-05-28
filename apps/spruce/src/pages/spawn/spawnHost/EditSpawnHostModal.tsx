@@ -4,9 +4,10 @@ import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   defaultSleepSchedule,
+  getEnabledHoursCount,
   getHostUptimeFromGql,
+  getHostUptimeWarnings,
   isNullSleepSchedule,
-  validateUptimeSchedule,
   validator,
 } from "components/Spawn";
 import {
@@ -86,19 +87,19 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const [formState, setFormState] = useState<FormState>(initialFormState);
   const [hasError, setHasError] = useState(false);
 
-  const hostUptimeValidation = useMemo(
-    () =>
-      validateUptimeSchedule({
-        enabledWeekdays:
-          formState?.expirationDetails?.hostUptime?.sleepSchedule
-            ?.enabledWeekdays,
-        ...formState?.expirationDetails?.hostUptime?.sleepSchedule
-          ?.timeSelection,
-        useDefaultUptimeSchedule:
-          formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
-      }),
-    [formState?.expirationDetails?.hostUptime],
-  );
+  const hostUptimeWarnings = useMemo(() => {
+    const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
+      formState?.expirationDetails?.hostUptime,
+    );
+    const warnings = getHostUptimeWarnings({
+      enabledHoursCount,
+      enabledWeekdaysCount,
+      runContinuously:
+        formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection
+          ?.runContinuously,
+    });
+    return { enabledHoursCount, warnings };
+  }, [formState?.expirationDetails?.hostUptime]);
 
   const { schema, uiSchema } = getFormSchema({
     canEditInstanceType: host.status === HostStatus.Stopped,
@@ -106,7 +107,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       host.distro.isWindows && host.status === HostStatus.Running,
     canEditSshKeys: host.status === HostStatus.Running,
     disableExpirationCheckbox,
-    hostUptimeValidation,
+    hostUptimeWarnings,
     instanceTypes: instanceTypes ?? [],
     myPublicKeys: publicKeys ?? [],
     noExpirationCheckboxTooltip,

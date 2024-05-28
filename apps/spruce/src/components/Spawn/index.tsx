@@ -3,8 +3,9 @@ export { DetailsCard } from "./DetailsCard";
 export { MountVolumeSelect } from "./MountVolumeSelect";
 export {
   defaultSleepSchedule,
+  getEnabledHoursCount,
   getHostUptimeFromGql,
+  getHostUptimeWarnings,
   isNullSleepSchedule,
-  validateUptimeSchedule,
   validator,
 } from "./utils";

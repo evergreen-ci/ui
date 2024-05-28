@@ -1,9 +1,9 @@
 import {
   getHostUptimeFromGql,
+  getHostUptimeWarnings,
   getNextHostStart,
   getSleepSchedule,
   matchesDefaultUptimeSchedule,
-  validateUptimeSchedule,
   validator,
 } from "./hostUptime";
 
@@ -82,7 +82,7 @@ describe("validator", () => {
         },
       },
       // @ts-expect-error
-      { expirationDetails: { hostUptime: { addError: f } } },
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(0);
   });
@@ -107,7 +107,7 @@ describe("validator", () => {
         },
       },
       // @ts-expect-error
-      { expirationDetails: { hostUptime: { addError: f } } },
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(1);
   });
@@ -132,7 +132,7 @@ describe("validator", () => {
         },
       },
       // @ts-expect-error
-      { expirationDetails: { hostUptime: { addError: f } } },
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(0);
   });
@@ -283,59 +283,35 @@ describe("getSleepSchedule", () => {
   });
 });
 
-describe("validateUptimeSchedule", () => {
+describe("getHostUptimeWarnings", () => {
   it("returns no errors when under recommended time", () => {
     expect(
-      validateUptimeSchedule({
-        enabledWeekdays: [false, false, true, true, true, true, false],
+      getHostUptimeWarnings({
+        enabledHoursCount: 60,
+        enabledWeekdaysCount: 5,
         runContinuously: false,
-        startTime:
-          "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-        stopTime:
-          "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-        useDefaultUptimeSchedule: true,
       }),
-    ).toStrictEqual({
-      enabledHoursCount: 60,
-      errors: [],
-      warnings: [],
-    });
+    ).toStrictEqual([]);
   });
 
   it("returns a warning when over recommended time", () => {
     expect(
-      validateUptimeSchedule({
-        enabledWeekdays: [false, true, true, true, true, true, true],
+      getHostUptimeWarnings({
+        enabledHoursCount: 144,
+        enabledWeekdaysCount: 6,
         runContinuously: true,
-        startTime:
-          "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-        stopTime:
-          "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-        useDefaultUptimeSchedule: false,
       }),
-    ).toStrictEqual({
-      enabledHoursCount: 144,
-      errors: [],
-      warnings: ["Consider pausing your host for 2 days per week."],
-    });
+    ).toStrictEqual(["Consider pausing your host for 2 days per week."]);
   });
 
-  it("returns an error when over allowed time", () => {
+  it("does not return a warning when over allowed time", () => {
     expect(
-      validateUptimeSchedule({
-        enabledWeekdays: [true, true, true, true, true, true, true],
+      getHostUptimeWarnings({
+        enabledHoursCount: 168,
+        enabledWeekdaysCount: 7,
         runContinuously: true,
-        startTime:
-          "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-        stopTime:
-          "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-        useDefaultUptimeSchedule: false,
       }),
-    ).toStrictEqual({
-      enabledHoursCount: 168,
-      errors: ["Please pause your host for at least 1 day per week."],
-      warnings: [],
-    });
+    ).toStrictEqual([]);
   });
 });
 

@@ -3,7 +3,11 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { validateUptimeSchedule, validator } from "components/Spawn";
+import {
+  getEnabledHoursCount,
+  getHostUptimeWarnings,
+  validator,
+} from "components/Spawn";
 import {
   formToGql,
   getFormSchema,
@@ -89,24 +93,24 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
   });
 
-  const hostUptimeValidation = useMemo(
-    () =>
-      validateUptimeSchedule({
-        enabledWeekdays:
-          formState?.expirationDetails?.hostUptime?.sleepSchedule
-            ?.enabledWeekdays,
-        ...formState?.expirationDetails?.hostUptime?.sleepSchedule
-          ?.timeSelection,
-        useDefaultUptimeSchedule:
-          formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
-      }),
-    [formState?.expirationDetails?.hostUptime],
-  );
+  const hostUptimeWarnings = useMemo(() => {
+    const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
+      formState?.expirationDetails?.hostUptime,
+    );
+    const warnings = getHostUptimeWarnings({
+      enabledHoursCount,
+      enabledWeekdaysCount,
+      runContinuously:
+        formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection
+          ?.runContinuously,
+    });
+    return { enabledHoursCount, warnings };
+  }, [formState?.expirationDetails?.hostUptime]);
 
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     distroIdQueryParam,
-    hostUptimeValidation,
+    hostUptimeWarnings,
     isMigration: false,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,

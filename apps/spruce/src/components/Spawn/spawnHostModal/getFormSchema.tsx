@@ -25,9 +25,8 @@ interface Props {
     isVirtualWorkStation: boolean;
     name?: string;
   }[];
-  hostUptimeValidation?: {
+  hostUptimeWarnings?: {
     enabledHoursCount: number;
-    errors: string[];
     warnings: string[];
   };
   isMigration: boolean;
@@ -47,7 +46,7 @@ export const getFormSchema = ({
   disableExpirationCheckbox,
   distroIdQueryParam,
   distros,
-  hostUptimeValidation,
+  hostUptimeWarnings,
   isMigration,
   isVirtualWorkstation,
   myPublicKeys,
@@ -74,7 +73,7 @@ export const getFormSchema = ({
 
   const expirationDetails = getExpirationDetailsSchema({
     disableExpirationCheckbox,
-    hostUptimeValidation,
+    hostUptimeWarnings,
     noExpirationCheckboxTooltip,
     timeZone,
   });
