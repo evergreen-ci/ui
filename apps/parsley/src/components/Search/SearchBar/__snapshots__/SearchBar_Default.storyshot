@@ -7,8 +7,8 @@
       data-lgid="lg-select"
     >
       <button
-        aria-controls="select-226-menu"
-        aria-describedby="select-226-description"
+        aria-controls="select-230-menu"
+        aria-describedby="select-230-description"
         aria-disabled="false"
         aria-expanded="false"
         aria-invalid="false"
@@ -17,7 +17,7 @@
         data-cy="searchbar-select"
         data-lgid="lg-button"
         data-testid="leafygreen-ui-select-menubutton"
-        id="select-227"
+        id="select-231"
         type="button"
         value="filter"
       >
@@ -133,14 +133,14 @@
               class="leafygreen-ui-1ago99h"
             >
               <input
-                aria-describedby="lg-form-field-description-230"
+                aria-describedby="lg-form-field-description-234"
                 aria-disabled="false"
                 aria-invalid="true"
                 aria-labelledby="searchbar-input"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
-                id="lg-form-field-input-231"
+                id="lg-form-field-input-235"
                 placeholder="optional, regexp to search"
                 required=""
                 spellcheck="false"
@@ -174,7 +174,7 @@
               class="leafygreen-ui-jvw8or"
               data-lgid="lg-form_field-error_message"
               data-testid="lg-form_field-error_message"
-              id="lg-form-field-description-230"
+              id="lg-form-field-description-234"
             >
               This input needs your attention
             </p>
