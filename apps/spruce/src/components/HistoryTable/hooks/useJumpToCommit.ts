@@ -1,19 +1,13 @@
-import { useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useQueryParam } from "hooks/useQueryParam";
 import { HistoryQueryParams } from "types/history";
-import { queryString } from "utils";
 import { useHistoryTable } from "../HistoryTableContext";
 
-const { getString, parseQueryString } = queryString;
-
 const useJumpToCommit = () => {
-  const { search } = useLocation();
-  const { [HistoryQueryParams.SelectedCommit]: skipOrderNumberParam } = useMemo(
-    () => parseQueryString(search),
-    [search],
+  const [skipOrderNumber] = useQueryParam<number | null>(
+    HistoryQueryParams.SelectedCommit,
+    null,
   );
-  const skipOrderNumber =
-    parseInt(getString(skipOrderNumberParam), 10) || undefined;
 
   const { setSelectedCommit } = useHistoryTable();
   useEffect(() => {
