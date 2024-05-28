@@ -66,7 +66,7 @@ export const LeafyGreenTextInput: React.FC<
         data-cy={dataCy}
         value={value === null || value === undefined ? "" : `${value}`}
         aria-labelledby={ariaLabelledBy}
-        label={ariaLabelledBy ? undefined : label}
+        label={label}
         placeholder={placeholder || undefined}
         description={description}
         optional={optional}
