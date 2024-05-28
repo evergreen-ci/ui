@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getPatchRoute, slugs } from "constants/routes";
 import {
   ConfigurePatchQuery,
@@ -8,11 +8,11 @@ import {
 } from "gql/generated/types";
 import { PatchTab } from "types/patch";
 import { Unpacked } from "types/utils";
-import { array, queryString, string } from "utils";
+import { array, string } from "utils";
+import { useQueryParams } from "./useQueryParam";
 import { useTabShortcut } from "./useTabShortcut";
 
 const { convertArrayToObject, mapStringArrayToObject } = array;
-const { parseQueryString } = queryString;
 const { omitTypename } = string;
 
 type ConfigurePatchState = {
@@ -151,7 +151,7 @@ export const useConfigurePatch = (
   patch: ConfigurePatchQuery["patch"],
 ): HookResult => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const [queryParams] = useQueryParams();
   const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab | null }>();
 
   const { id, project } = patch;
@@ -166,12 +166,11 @@ export const useConfigurePatch = (
   const { selectedTab } = state;
 
   useEffect(() => {
-    const query = parseQueryString(location.search);
     navigate(
       getPatchRoute(id, {
         configure: true,
         tab: indexToTabMap[selectedTab],
-        ...query,
+        ...queryParams,
       }),
       { replace: true },
     );
