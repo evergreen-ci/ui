@@ -65,12 +65,23 @@ export const getHostUptimeWarnings = ({
   return [];
 };
 
-export const getEnabledHoursCount = ({
-  sleepSchedule,
-  useDefaultUptimeSchedule,
-}: HostUptime): { enabledHoursCount: number; enabledWeekdaysCount: number } => {
-  const { enabledWeekdays, timeSelection } = sleepSchedule;
-  const { runContinuously, startTime, stopTime } = timeSelection;
+export const getEnabledHoursCount = (
+  hostUptime: HostUptime,
+): { enabledHoursCount: number; enabledWeekdaysCount: number } => {
+  if (!hostUptime) {
+    return {
+      enabledHoursCount: defaultScheduleWeeklyHourCount,
+      enabledWeekdaysCount: defaultScheduleWeekdaysCount,
+    };
+  }
+
+  const {
+    sleepSchedule: {
+      enabledWeekdays,
+      timeSelection: { runContinuously, startTime, stopTime },
+    },
+    useDefaultUptimeSchedule,
+  } = hostUptime;
 
   if (useDefaultUptimeSchedule) {
     return {
