@@ -25,7 +25,7 @@
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
-    "evg-db-ops": "yarn --cwd='../..' evg-db-ops",
+    "evg-db-ops": "../../scripts/evg-db-ops.sh",
     "prepare": "yarn --cwd='../..' prepare",
     "prettier-run": "prettier --write",
     "prod": "env-cmd -e devProduction -r .env-cmdrc.local.json yarn start",
