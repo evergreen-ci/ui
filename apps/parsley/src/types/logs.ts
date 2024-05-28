@@ -3,11 +3,20 @@ import { CaseSensitivity, MatchType } from "constants/enums";
 type ExpandedLine = [number, number];
 type ExpandedLines = ExpandedLine[];
 
+/**
+ * Represents a range of lines in a log file.
+ * {Object} Range
+ * {number} lineStart - The starting line inclusive of the range.
+ * {number} lineEnd - The ending line exclusive of the range.
+ */
+interface Range {
+  lineStart: number;
+  lineEnd: number;
+}
+
 interface SkippedLinesRow {
   rowType: "SkippedLines";
-  lineStart: number;
-  // LineEnd is exclusive
-  lineEnd: number;
+  range: Range;
 }
 
 type ProcessedLogLine = number | SkippedLinesRow;
@@ -36,4 +45,5 @@ export type {
   ProcessedLogLines,
   SelectedLineRange,
   SkippedLinesRow,
+  Range,
 };

@@ -5,25 +5,20 @@ import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
-import { ExpandedLines } from "types/logs";
+import { ExpandedLines, Range } from "types/logs";
 import { RootRowProps } from "../types";
 
 const SKIP_NUMBER = 5;
 
 interface CollapsedRowProps extends RootRowProps {
   expandLines: (expandedLines: ExpandedLines) => void;
-  lineStart: number;
-  lineEnd: number;
+  range: Range;
 }
 
-const CollapsedRow: React.FC<CollapsedRowProps> = ({
-  expandLines,
-  lineEnd,
-  lineStart,
-}) => {
+const CollapsedRow: React.FC<CollapsedRowProps> = ({ expandLines, range }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [, startTransition] = useTransition();
-
+  const { lineEnd, lineStart } = range;
   const numCollapsed = lineEnd - lineStart;
   const lineEndInclusive = lineEnd - 1;
   const canExpandFive = SKIP_NUMBER * 2 < numCollapsed;

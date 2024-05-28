@@ -60,7 +60,7 @@ describe("searchLogs", () => {
     const getLine = vi.fn((index: number) => lines[index]);
     const processedLogLines: ProcessedLogLines = [
       0,
-      { lineEnd: 3, lineStart: 1, rowType: "SkippedLines" },
+      { range: { lineEnd: 3, lineStart: 1 }, rowType: "SkippedLines" },
       3,
     ];
     const options = {
@@ -80,7 +80,7 @@ describe("searchLogs", () => {
     const getLine = vi.fn((index: number) => lines[index]);
     const processedLogLines: ProcessedLogLines = [
       0,
-      { lineEnd: 3, lineStart: 1, rowType: "SkippedLines" },
+      { range: { lineEnd: 3, lineStart: 1 }, rowType: "SkippedLines" },
       3,
     ];
     const options = {

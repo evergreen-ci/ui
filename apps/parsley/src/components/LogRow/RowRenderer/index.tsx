@@ -59,9 +59,8 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
       return (
         <CollapsedRow
           expandLines={expandLines}
-          lineEnd={processedLogLine.lineEnd}
           lineIndex={index}
-          lineStart={processedLogLine.lineStart}
+          range={processedLogLine.range}
         />
       );
     }

@@ -65,9 +65,12 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
       // If the line doesn't match the filters, collapse it.
       const previousItem = arr[arr.length - 1];
       if (isSkippedLinesRow(previousItem)) {
-        previousItem.lineEnd = idx + 1;
+        previousItem.range.lineEnd = idx + 1;
       } else {
-        arr.push({ lineEnd: idx + 1, lineStart: idx, rowType: "SkippedLines" });
+        arr.push({
+          range: { lineEnd: idx + 1, lineStart: idx },
+          rowType: "SkippedLines",
+        });
       }
     }
     return arr;

@@ -14,9 +14,8 @@ describe("collapsedRow", () => {
     renderWithRouterMatch(
       <CollapsedRow
         {...collapsedProps}
-        lineEnd={11}
         lineIndex={0}
-        lineStart={0}
+        range={{ lineEnd: 11, lineStart: 0 }}
       />,
       {
         wrapper: wrapper(logLines),
@@ -32,9 +31,8 @@ describe("collapsedRow", () => {
       <CollapsedRow
         {...collapsedProps}
         expandLines={expandLines}
-        lineEnd={11}
         lineIndex={0}
-        lineStart={0}
+        range={{ lineEnd: 11, lineStart: 0 }}
       />,
       {
         wrapper: wrapper(logLines),
@@ -59,9 +57,8 @@ describe("collapsedRow", () => {
       <CollapsedRow
         {...collapsedProps}
         expandLines={expandLines}
-        lineEnd={11}
         lineIndex={0}
-        lineStart={0}
+        range={{ lineEnd: 11, lineStart: 0 }}
       />,
       {
         wrapper: wrapper(logLines),
@@ -79,9 +76,8 @@ describe("collapsedRow", () => {
     renderWithRouterMatch(
       <CollapsedRow
         {...collapsedProps}
-        lineEnd={3}
         lineIndex={0}
-        lineStart={0}
+        range={{ lineEnd: 3, lineStart: 0 }}
       />,
       {
         wrapper: wrapper(logLines),

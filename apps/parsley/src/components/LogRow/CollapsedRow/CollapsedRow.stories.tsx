@@ -15,18 +15,17 @@ export default {
 } satisfies CustomMeta<typeof CollapsedRow>;
 
 const CollapsedRowStory = (args: React.ComponentProps<typeof CollapsedRow>) => {
-  const [rows, setRows] = useState([args.lineStart, args.lineEnd]);
+  const [range, setRange] = useState(args.range);
   const expandLines = () => {
-    setRows([rows[0] + 5, rows[1] - 5]);
+    setRange({ lineEnd: range.lineEnd - 5, lineStart: range.lineStart + 5 });
   };
 
   return (
     <Container>
       <CollapsedRow
         expandLines={expandLines}
-        lineEnd={rows[1]}
         lineIndex={args.lineIndex}
-        lineStart={rows[0]}
+        range={range}
       />
     </Container>
   );
@@ -38,8 +37,7 @@ export const CollapsedRowSingle: CustomStoryObj<typeof CollapsedRow> = {
   },
   args: {
     // Initialize an array with 100 collapsed lines.
-    lineEnd: 100,
-    lineStart: 0,
+    range: { lineEnd: 100, lineStart: 0 },
   },
   render: (args) => <CollapsedRowStory {...args} />,
 };
@@ -155,7 +153,7 @@ const collapsedLogLines: ProcessedLogLines = [
   0,
   1,
   2,
-  { lineEnd: 6, lineStart: 3, rowType: "SkippedLines" },
+  { range: { lineEnd: 6, lineStart: 3 }, rowType: "SkippedLines" },
   6,
   7,
 ];
