@@ -15,7 +15,10 @@ interface CollapsedRowProps extends RootRowProps {
   range: Range;
 }
 
-const CollapsedRow: React.FC<CollapsedRowProps> = ({ expandLines, range }) => {
+const SkippedLinesRow: React.FC<CollapsedRowProps> = ({
+  expandLines,
+  range,
+}) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [, startTransition] = useTransition();
   const { lineEnd, lineStart } = range;
@@ -77,7 +80,7 @@ const CollapsedRow: React.FC<CollapsedRowProps> = ({ expandLines, range }) => {
   );
 };
 
-CollapsedRow.displayName = "CollapsedRow";
+SkippedLinesRow.displayName = "CollapsedRow";
 
 const CollapsedLineWrapper = styled.div`
   display: flex;
@@ -96,4 +99,4 @@ const ButtonContainer = styled.div`
   gap: ${size.xs};
 `;
 
-export default CollapsedRow;
+export default SkippedLinesRow;

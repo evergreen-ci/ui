@@ -7,14 +7,16 @@ import { useLogContext } from "context/LogContext";
 import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import { ProcessedLogLines } from "types/logs";
-import CollapsedRow from ".";
+import SkippedLinesRow from ".";
 
 export default {
-  component: CollapsedRow,
+  component: SkippedLinesRow,
   decorators: [WithToastContext],
-} satisfies CustomMeta<typeof CollapsedRow>;
+} satisfies CustomMeta<typeof SkippedLinesRow>;
 
-const CollapsedRowStory = (args: React.ComponentProps<typeof CollapsedRow>) => {
+const CollapsedRowStory = (
+  args: React.ComponentProps<typeof SkippedLinesRow>,
+) => {
   const [range, setRange] = useState(args.range);
   const expandLines = () => {
     setRange({ lineEnd: range.lineEnd - 5, lineStart: range.lineStart + 5 });
@@ -22,7 +24,7 @@ const CollapsedRowStory = (args: React.ComponentProps<typeof CollapsedRow>) => {
 
   return (
     <Container>
-      <CollapsedRow
+      <SkippedLinesRow
         expandLines={expandLines}
         lineIndex={args.lineIndex}
         range={range}
@@ -31,7 +33,7 @@ const CollapsedRowStory = (args: React.ComponentProps<typeof CollapsedRow>) => {
   );
 };
 
-export const CollapsedRowSingle: CustomStoryObj<typeof CollapsedRow> = {
+export const CollapsedRowSingle: CustomStoryObj<typeof SkippedLinesRow> = {
   argTypes: {
     expandLines: { action: "expandLines" },
   },
@@ -44,7 +46,7 @@ export const CollapsedRowSingle: CustomStoryObj<typeof CollapsedRow> = {
 
 // CollapsedRow with AnsiRows.
 const CollapsedAnsiRowStory = (
-  args: React.ComponentProps<typeof CollapsedRow> & {
+  args: React.ComponentProps<typeof SkippedLinesRow> & {
     wrap: boolean;
   },
 ) => {
@@ -74,7 +76,7 @@ const CollapsedAnsiRowStory = (
 };
 
 export const CollapsedAnsiRow: CustomStoryObj<
-  React.ComponentProps<typeof CollapsedRow> & {
+  React.ComponentProps<typeof SkippedLinesRow> & {
     wrap: boolean;
   }
 > = {
@@ -86,7 +88,7 @@ export const CollapsedAnsiRow: CustomStoryObj<
 
 // CollapsedRow withs ResmokeRows.
 const CollapsedResmokeRowStory = (
-  args: React.ComponentProps<typeof CollapsedRow> & {
+  args: React.ComponentProps<typeof SkippedLinesRow> & {
     wrap: boolean;
   },
 ) => {
@@ -116,7 +118,7 @@ const CollapsedResmokeRowStory = (
 };
 
 export const CollapsedResmokeRow: CustomStoryObj<
-  React.ComponentProps<typeof CollapsedRow> & {
+  React.ComponentProps<typeof SkippedLinesRow> & {
     wrap: boolean;
   }
 > = {

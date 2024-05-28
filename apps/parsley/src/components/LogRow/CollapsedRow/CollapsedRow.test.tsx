@@ -1,6 +1,6 @@
 import { LogContextProvider } from "context/LogContext";
 import { renderWithRouterMatch, screen, userEvent } from "test_utils";
-import CollapsedRow from ".";
+import SkippedLinesRow from ".";
 
 const wrapper = (logs: string[]) => {
   const provider = ({ children }: { children: React.ReactNode }) => (
@@ -12,7 +12,7 @@ const wrapper = (logs: string[]) => {
 describe("collapsedRow", () => {
   it("renders a collapsed log line", () => {
     renderWithRouterMatch(
-      <CollapsedRow
+      <SkippedLinesRow
         {...collapsedProps}
         lineIndex={0}
         range={{ lineEnd: 11, lineStart: 0 }}
@@ -28,7 +28,7 @@ describe("collapsedRow", () => {
     const user = userEvent.setup();
     const expandLines = vi.fn();
     renderWithRouterMatch(
-      <CollapsedRow
+      <SkippedLinesRow
         {...collapsedProps}
         expandLines={expandLines}
         lineIndex={0}
@@ -54,7 +54,7 @@ describe("collapsedRow", () => {
     const user = userEvent.setup();
     const expandLines = vi.fn();
     renderWithRouterMatch(
-      <CollapsedRow
+      <SkippedLinesRow
         {...collapsedProps}
         expandLines={expandLines}
         lineIndex={0}
@@ -74,7 +74,7 @@ describe("collapsedRow", () => {
 
   it("should not disable `Expand 5 Above and Below` button if there are less than 10 log lines in the collapsed row", async () => {
     renderWithRouterMatch(
-      <CollapsedRow
+      <SkippedLinesRow
         {...collapsedProps}
         lineIndex={0}
         range={{ lineEnd: 3, lineStart: 0 }}

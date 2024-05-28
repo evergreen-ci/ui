@@ -4,7 +4,7 @@ import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
 import { isSkippedLinesRow } from "utils/logRowTypes";
 import AnsiRow from "../AnsiRow";
-import CollapsedRow from "../CollapsedRow";
+import SkippedLinesRow from "../CollapsedRow";
 import ResmokeRow from "../ResmokeRow";
 
 type RowRendererFunction = (props: {
@@ -57,7 +57,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     const processedLogLine = processedLogLines[index];
     if (isSkippedLinesRow(processedLogLine)) {
       return (
-        <CollapsedRow
+        <SkippedLinesRow
           expandLines={expandLines}
           lineIndex={index}
           range={processedLogLine.range}
