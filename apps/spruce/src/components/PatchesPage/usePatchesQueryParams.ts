@@ -13,11 +13,15 @@ import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
  */
 export const usePatchesQueryParams = (): Omit<
   Required<PatchesInput>,
-  "includeCommitQueue" | "onlyCommitQueue" | "requesters"
+  "includeCommitQueue" | "onlyCommitQueue"
 > => {
   const [patchName] = useQueryParam<string>(PatchPageQueryParams.PatchName, "");
   const [rawStatuses] = useQueryParam<string[]>(
     PatchPageQueryParams.Statuses,
+    [],
+  );
+  const [requesters] = useQueryParam<string[]>(
+    PatchPageQueryParams.Requesters,
     [],
   );
   const [hidden] = useQueryParam(PatchPageQueryParams.Hidden, false);
@@ -28,6 +32,7 @@ export const usePatchesQueryParams = (): Omit<
     includeHidden: hidden || Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
     page,
     patchName: `${patchName}`,
+    requesters,
     statuses,
   };
 };

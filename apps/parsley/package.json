@@ -1,7 +1,7 @@
 {
   "name": "parsley",
   "private": true,
-  "version": "2.1.9",
+  "version": "2.1.10",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
     "build": "tsc && GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
@@ -19,7 +19,7 @@
     "deploy:prod": "env-cmd -e production ts-node scripts/deploy/run-deploy",
     "deploy:do-not-use": ". ./scripts/deploy/deploy.sh",
     "dev": "env-cmd -e devLocal -r .env-cmdrc.local.json vite",
-    "evg-db-ops": "yarn --cwd='../..' evg-db-ops",
+    "evg-db-ops": "../../scripts/evg-db-ops.sh",
     "staging": "env-cmd -e devStaging -r .env-cmdrc.local.json vite",
     "prod": "env-cmd -e devProduction -r .env-cmdrc.local.json vite",
     "eslint:fix": "yarn eslint:strict --fix",

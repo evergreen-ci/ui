@@ -12,7 +12,6 @@
     ]
   },
   "scripts": {
-    "evg-db-ops": "./scripts/evg-db-ops.sh",
     "prepare": "husky",
     "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
   },

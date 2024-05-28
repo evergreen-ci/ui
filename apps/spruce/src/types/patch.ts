@@ -5,6 +5,7 @@ export enum PatchPageQueryParams {
   Page = "page",
   Limit = "limit",
   Hidden = "hidden",
+  Requesters = "requesters",
 }
 
 export enum PatchStatus {
