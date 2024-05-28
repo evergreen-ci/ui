@@ -11,7 +11,6 @@ export { usePolling } from "hooks/usePolling";
 export { useStatusesFilter } from "hooks/useStatusesFilter";
 export { usePrevious } from "./usePrevious";
 export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";
-export { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
 export { useTaskStatuses } from "./useTaskStatuses";
 export { useUpsertQueryParams } from "./useUpsertQueryParams";
 export { useSpruceConfig } from "./useSpruceConfig";
