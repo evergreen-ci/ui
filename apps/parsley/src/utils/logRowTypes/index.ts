@@ -6,7 +6,7 @@ import { ProcessedLogLine, SkippedLinesRow } from "types/logs";
  * @returns true if the row is a SkippedLinesRow
  */
 
-export const isSkippedLinesRow = (
+const isSkippedLinesRow = (
   logLine: ProcessedLogLine,
 ): logLine is SkippedLinesRow =>
   typeof logLine === "object" &&
@@ -23,4 +23,4 @@ type CollapsedRow = SkippedLinesRow;
 const isCollapsedRow = (logLine: ProcessedLogLine): logLine is CollapsedRow =>
   isSkippedLinesRow(logLine);
 
-export { isCollapsedRow };
+export { isCollapsedRow, isSkippedLinesRow };
