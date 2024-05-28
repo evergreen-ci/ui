@@ -6,6 +6,7 @@ import SearchBar from "components/Search/SearchBar";
 import SearchBarGuideCue from "components/Search/SearchBarGuideCue";
 import SearchResults from "components/Search/SearchResults";
 import { CaseSensitivity, MatchType, SearchBarActions } from "constants/enums";
+import { QueryParams } from "constants/queryParams";
 import { size } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import {
@@ -15,8 +16,10 @@ import {
 import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useHighlightParam } from "hooks/useHighlightParam";
+import { useQueryParams } from "hooks/useQueryParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
+import { stringifyFilters } from "utils/query-string";
 import { validateRegexp } from "utils/validators";
 
 const Search: React.FC = () => {
@@ -25,8 +28,18 @@ const Search: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [filters, setFilters] = useFilterParam();
   const [highlights, setHighlights] = useHighlightParam();
-  const { hasLogs, logMetadata, paginate, searchState, setSearch } =
-    useLogContext();
+  const [, setSearchParams] = useQueryParams({
+    parseNumbers: false,
+  });
+  const {
+    hasLogs,
+    logMetadata,
+    paginate,
+    preferences,
+    searchState,
+    setSearch,
+  } = useLogContext();
+  const { highlightFilters } = preferences;
   const { buildID, execution, logType, taskID } = logMetadata ?? {};
   const { hasSearch } = searchState;
 
@@ -49,15 +62,32 @@ const Search: React.FC = () => {
       case SearchBarActions.Filter:
         if (!filters.some((f) => f.expression === value)) {
           setSearch("");
-          setFilters([
-            ...filters,
-            {
-              caseSensitive: CaseSensitivity.Insensitive,
-              expression: value,
-              matchType: MatchType.Exact,
-              visible: true,
-            },
-          ]);
+
+          if (highlightFilters) {
+            setSearchParams({
+              ...searchState,
+              [QueryParams.Highlights]: [...highlights, value],
+              [QueryParams.Filters]: stringifyFilters([
+                ...filters,
+                {
+                  caseSensitive: CaseSensitivity.Insensitive,
+                  expression: value,
+                  matchType: MatchType.Exact,
+                  visible: true,
+                },
+              ]),
+            });
+          } else {
+            setFilters([
+              ...filters,
+              {
+                caseSensitive: CaseSensitivity.Insensitive,
+                expression: value,
+                matchType: MatchType.Exact,
+                visible: true,
+              },
+            ]);
+          }
           sendEvent({ filterExpression: value, name: "Added Filter" });
           leaveBreadcrumb(
             "Added Filter",

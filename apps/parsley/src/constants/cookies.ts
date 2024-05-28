@@ -1,10 +1,11 @@
 // Cookies for toggles
+export const CASE_SENSITIVE = "case-sensitive";
+export const EXPANDABLE_ROWS = "expandable-rows";
+export const FILTER_LOGIC = "filter-logic";
+export const HIGHLIGHT_FILTERS = "highlight-filters";
 export const PRETTY_PRINT_BOOKMARKS = "pretty-print-bookmarks";
 export const WRAP = "wrap";
 export const WRAP_FORMAT = "wrap-format";
-export const CASE_SENSITIVE = "case-sensitive";
-export const FILTER_LOGIC = "filter-logic";
-export const EXPANDABLE_ROWS = "expandable-rows";
 export const ZEBRA_STRIPING = "zebra-striping";
 
 export const HAS_OPENED_DRAWER = "has-opened-drawer";

@@ -4620,7 +4620,7 @@ export type AddAnnotationIssueMutation = {
 };
 
 export type AddFavoriteProjectMutationVariables = Exact<{
-  identifier: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 }>;
 
 export type AddFavoriteProjectMutation = {
@@ -4955,7 +4955,7 @@ export type RemoveAnnotationIssueMutation = {
 };
 
 export type RemoveFavoriteProjectMutationVariables = Exact<{
-  identifier: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 }>;
 
 export type RemoveFavoriteProjectMutation = {
@@ -6724,7 +6724,7 @@ export type ProjectBannerQuery = {
 };
 
 export type ProjectEventLogsQueryVariables = Exact<{
-  identifier: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   before?: InputMaybe<Scalars["Time"]["input"]>;
 }>;
@@ -7225,7 +7225,7 @@ export type ProjectPatchesQuery = {
 };
 
 export type ProjectSettingsQueryVariables = Exact<{
-  identifier: Scalars["String"]["input"];
+  projectIdentifier: Scalars["String"]["input"];
 }>;
 
 export type ProjectSettingsQuery = {

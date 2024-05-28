@@ -2,6 +2,7 @@ import BaseToggle from "./BaseToggle";
 import CaseSensitiveToggle from "./CaseSensitiveToggle";
 import ExpandableRowsToggle from "./ExpandableRowsToggle";
 import FilterLogicToggle from "./FilterLogicToggle";
+import HighlightFiltersToggle from "./HighlightFiltersToggle";
 import JumpToFailingLineToggle from "./JumpToFailingLineToggle";
 import PrettyPrintToggle from "./PrettyPrintToggle";
 import WordWrapFormatToggle from "./WordWrapFormatToggle";
@@ -13,9 +14,10 @@ export {
   CaseSensitiveToggle,
   ExpandableRowsToggle,
   FilterLogicToggle,
+  HighlightFiltersToggle,
   JumpToFailingLineToggle,
   PrettyPrintToggle,
-  WrapToggle,
   WordWrapFormatToggle,
+  WrapToggle,
   ZebraStripingToggle,
 };
