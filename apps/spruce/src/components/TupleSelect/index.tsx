@@ -61,7 +61,7 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           aria-label={selectedOption.displayName}
           data-cy="tuple-select-input"
-          type="search"
+          type="text" // Chrome will overlay a clear "x" button on the input if type is not set to 'search'
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           placeholder={selectedOption.placeHolderText}
           validator={validator}

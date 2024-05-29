@@ -38,6 +38,7 @@ export const LeafyGreenTextInput: React.FC<
   value,
 }) => {
   const {
+    ariaLabel,
     ariaLabelledBy,
     "data-cy": dataCy,
     description,
@@ -56,7 +57,6 @@ export const LeafyGreenTextInput: React.FC<
     errorMessage: hasError ? errors.join(", ") : null,
     state: hasError ? TextInputState.Error : TextInputState.None,
   };
-
   return (
     <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
@@ -65,7 +65,7 @@ export const LeafyGreenTextInput: React.FC<
         data-cy={dataCy}
         value={value === null || value === undefined ? "" : `${value}`}
         aria-labelledby={ariaLabelledBy}
-        label={ariaLabelledBy ? undefined : label}
+        label={label}
         placeholder={placeholder || undefined}
         description={description}
         optional={optional}
@@ -73,7 +73,7 @@ export const LeafyGreenTextInput: React.FC<
         onChange={({ target }) =>
           target.value === "" ? onChange(emptyValue) : onChange(target.value)
         }
-        aria-label={label}
+        aria-label={ariaLabel}
         {...inputProps}
       />
       {!!warnings?.length && (

@@ -405,7 +405,6 @@ const basicForm = {
         title: "Users",
         items: {
           type: "string" as "string",
-          title: "Username Label",
         },
       },
     },

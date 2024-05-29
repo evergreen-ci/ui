@@ -68,8 +68,14 @@ describe("context-based form", () => {
     render(<Component tab="bar" disabled />, {
       wrapper: TestProvider,
     });
-    expect(screen.getByLabelText("Name")).toBeDisabled();
-    expect(screen.getByLabelText("Age")).toBeDisabled();
+    expect(screen.getByLabelText("Name")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    expect(screen.getByLabelText("Age")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
   });
 });
 
