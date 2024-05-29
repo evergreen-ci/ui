@@ -15,7 +15,7 @@ describe("skippedLinesRow", () => {
       <SkippedLinesRow
         {...skippedLinesProps}
         lineIndex={0}
-        range={{ lineEnd: 11, lineStart: 0 }}
+        range={{ end: 11, start: 0 }}
       />,
       {
         wrapper: wrapper(logLines),
@@ -32,7 +32,7 @@ describe("skippedLinesRow", () => {
         {...skippedLinesProps}
         expandLines={expandLines}
         lineIndex={0}
-        range={{ lineEnd: 11, lineStart: 0 }}
+        range={{ end: 11, start: 0 }}
       />,
       {
         wrapper: wrapper(logLines),
@@ -58,7 +58,7 @@ describe("skippedLinesRow", () => {
         {...skippedLinesProps}
         expandLines={expandLines}
         lineIndex={0}
-        range={{ lineEnd: 11, lineStart: 0 }}
+        range={{ end: 11, start: 0 }}
       />,
       {
         wrapper: wrapper(logLines),
@@ -77,7 +77,7 @@ describe("skippedLinesRow", () => {
       <SkippedLinesRow
         {...skippedLinesProps}
         lineIndex={0}
-        range={{ lineEnd: 3, lineStart: 0 }}
+        range={{ end: 3, start: 0 }}
       />,
       {
         wrapper: wrapper(logLines),

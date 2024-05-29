@@ -1,15 +1,12 @@
 import { SkippedLinesRow } from "types/logs";
 /**
  *
- * @param lineStart The start line number inclusive
- * @param lineEnd  The end line number exclusive
+ * @param start The start line number inclusive
+ * @param end  The end line number exclusive
  * @returns SkippedLines object
  */
-const newSkippedLinesRow = (
-  lineStart: number,
-  lineEnd: number,
-): SkippedLinesRow => ({
-  range: { lineEnd, lineStart },
+const newSkippedLinesRow = (start: number, end: number): SkippedLinesRow => ({
+  range: { end, start },
   rowType: "SkippedLines",
 });
 

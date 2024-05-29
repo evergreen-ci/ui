@@ -27,8 +27,8 @@ export const findLineIndex = (
   // If the item is a collapsed row, we'll shift our search depending on the first and last line numbers
   // in the collapsed row.
   if (isCollapsedRow(midItem)) {
-    const firstItem = midItem.range.lineStart;
-    const lastItem = midItem.range.lineEnd - 1; // subtract 1 since lineEnd is exclusive
+    const firstItem = midItem.range.start;
+    const lastItem = midItem.range.end - 1; // subtract 1 since end is exclusive
     if (firstItem <= lineNumber && lineNumber <= lastItem) {
       return midIdx;
     }

@@ -108,7 +108,7 @@ describe("bookmarks bar", () => {
       <BookmarksBar
         lineCount={5}
         processedLogLines={[
-          { range: { lineEnd: 3, lineStart: 0 }, rowType: "SkippedLines" },
+          { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
           3,
           4,
         ]}

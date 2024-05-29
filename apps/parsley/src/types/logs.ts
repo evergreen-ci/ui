@@ -5,9 +5,9 @@ type ExpandedLines = ExpandedLine[];
 
 interface Range {
   /** The starting line inclusive of the range */
-  lineStart: number;
+  start: number;
   /** The ending line exclusive of the range */
-  lineEnd: number;
+  end: number;
 }
 
 interface SkippedLinesRow {

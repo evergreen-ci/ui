@@ -208,9 +208,9 @@ describe("useLogContext", () => {
 
       expect(result.current.processedLogLines).toHaveLength(3);
       expect(result.current.processedLogLines).toStrictEqual([
-        { range: { lineEnd: 1, lineStart: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
         1,
-        { range: { lineEnd: 3, lineStart: 2 }, rowType: "SkippedLines" },
+        { range: { end: 3, start: 2 }, rowType: "SkippedLines" },
       ]);
     });
     it("non matching filters should collapse all of the logs", () => {
@@ -228,7 +228,7 @@ describe("useLogContext", () => {
 
       expect(result.current.processedLogLines).toHaveLength(1);
       expect(result.current.processedLogLines).toStrictEqual([
-        { range: { lineEnd: 3, lineStart: 0 }, rowType: "SkippedLines" },
+        { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
       ]);
     });
     describe("applying multiple filters should filter the list of logs and collapse unmatching ones", () => {
@@ -248,7 +248,7 @@ describe("useLogContext", () => {
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(1);
         expect(result.current.processedLogLines).toStrictEqual([
-          { range: { lineEnd: 3, lineStart: 0 }, rowType: "SkippedLines" },
+          { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
         ]);
       });
       it("should `AND` filters if the query param specifies it", () => {
@@ -267,7 +267,7 @@ describe("useLogContext", () => {
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(1);
         expect(result.current.processedLogLines).toStrictEqual([
-          { range: { lineEnd: 3, lineStart: 0 }, rowType: "SkippedLines" },
+          { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
         ]);
       });
       it("should `OR` filters if the query param specifies it", () => {
@@ -287,7 +287,7 @@ describe("useLogContext", () => {
         expect(result.current.processedLogLines).toHaveLength(3);
         expect(result.current.processedLogLines).toStrictEqual([
           0,
-          { range: { lineEnd: 2, lineStart: 1 }, rowType: "SkippedLines" },
+          { range: { end: 2, start: 1 }, rowType: "SkippedLines" },
           2,
         ]);
       });

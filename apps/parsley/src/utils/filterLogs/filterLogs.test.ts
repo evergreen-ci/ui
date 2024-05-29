@@ -51,9 +51,7 @@ describe("filterLogs", () => {
         matchingLines: new Set([]),
         shareLine: undefined,
       }),
-    ).toStrictEqual([
-      { range: { lineEnd: 8, lineStart: 0 }, rowType: "SkippedLines" },
-    ]);
+    ).toStrictEqual([{ range: { end: 8, start: 0 }, rowType: "SkippedLines" }]);
   });
 
   describe("with matching lines", () => {
@@ -69,9 +67,9 @@ describe("filterLogs", () => {
           shareLine: undefined,
         }),
       ).toStrictEqual([
-        { range: { lineEnd: 1, lineStart: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
         1,
-        { range: { lineEnd: 7, lineStart: 2 }, rowType: "SkippedLines" },
+        { range: { end: 7, start: 2 }, rowType: "SkippedLines" },
         7,
       ]);
     });
@@ -88,9 +86,9 @@ describe("filterLogs", () => {
           shareLine: 7,
         }),
       ).toStrictEqual([
-        { range: { lineEnd: 1, lineStart: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
         1,
-        { range: { lineEnd: 7, lineStart: 2 }, rowType: "SkippedLines" },
+        { range: { end: 7, start: 2 }, rowType: "SkippedLines" },
         7,
       ]);
     });
@@ -107,9 +105,9 @@ describe("filterLogs", () => {
           shareLine: undefined,
         }),
       ).toStrictEqual([
-        { range: { lineEnd: 1, lineStart: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
         1,
-        { range: { lineEnd: 7, lineStart: 2 }, rowType: "SkippedLines" },
+        { range: { end: 7, start: 2 }, rowType: "SkippedLines" },
         7,
       ]);
     });
@@ -126,13 +124,13 @@ describe("filterLogs", () => {
           shareLine: undefined,
         }),
       ).toStrictEqual([
-        { range: { lineEnd: 1, lineStart: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
         1,
-        { range: { lineEnd: 4, lineStart: 2 }, rowType: "SkippedLines" },
+        { range: { end: 4, start: 2 }, rowType: "SkippedLines" },
         4,
         5,
         6,
-        { range: { lineEnd: 8, lineStart: 7 }, rowType: "SkippedLines" },
+        { range: { end: 8, start: 7 }, rowType: "SkippedLines" },
       ]);
     });
   });

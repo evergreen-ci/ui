@@ -18,9 +18,9 @@ interface Props extends RootRowProps {
 const SkippedLinesRow: React.FC<Props> = ({ expandLines, range }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [, startTransition] = useTransition();
-  const { lineEnd, lineStart } = range;
-  const numSkipped = lineEnd - lineStart;
-  const lineEndInclusive = lineEnd - 1;
+  const { end, start } = range;
+  const numSkipped = end - start;
+  const lineEndInclusive = end - 1;
   const canExpandFive = SKIP_NUMBER * 2 < numSkipped;
   const lineText =
     numSkipped !== 1 ? `${numSkipped} Lines Skipped` : "1 Line Skipped";
@@ -29,12 +29,12 @@ const SkippedLinesRow: React.FC<Props> = ({ expandLines, range }) => {
     if (canExpandFive) {
       startTransition(() =>
         expandLines([
-          [lineStart, lineStart + (SKIP_NUMBER - 1)],
+          [start, start + (SKIP_NUMBER - 1)],
           [lineEndInclusive - (SKIP_NUMBER - 1), lineEndInclusive],
         ]),
       );
     } else {
-      startTransition(() => expandLines([[lineStart, lineEndInclusive]]));
+      startTransition(() => expandLines([[start, lineEndInclusive]]));
     }
     sendEvent({
       lineCount: canExpandFive ? SKIP_NUMBER * 2 : numSkipped,
@@ -44,7 +44,7 @@ const SkippedLinesRow: React.FC<Props> = ({ expandLines, range }) => {
   };
 
   const expandAll = () => {
-    startTransition(() => expandLines([[lineStart, lineEndInclusive]]));
+    startTransition(() => expandLines([[start, lineEndInclusive]]));
     sendEvent({
       lineCount: numSkipped,
       name: "Expanded Lines",
@@ -53,7 +53,7 @@ const SkippedLinesRow: React.FC<Props> = ({ expandLines, range }) => {
   };
 
   return (
-    <LineWrapper data-cy={`skipped-lines-row-${lineStart}-${lineEndInclusive}`}>
+    <LineWrapper data-cy={`skipped-lines-row-${start}-${lineEndInclusive}`}>
       <StyledBody>{lineText}</StyledBody>
       <ButtonContainer>
         <Button

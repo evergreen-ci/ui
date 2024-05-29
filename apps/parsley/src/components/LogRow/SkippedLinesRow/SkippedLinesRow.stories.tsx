@@ -21,7 +21,7 @@ const SkippedLinesRowStory = (
   const expandLines = (a: ExpandedLines) => {
     const nextLineStart = a[0][1] + 1;
     const nextLineEnd = a?.[1]?.[0] ?? nextLineStart;
-    setRange({ lineEnd: nextLineEnd, lineStart: nextLineStart });
+    setRange({ end: nextLineEnd, start: nextLineStart });
   };
 
   return (
@@ -41,7 +41,7 @@ export const SkippedLinesRowSingle: CustomStoryObj<typeof SkippedLinesRow> = {
   },
   args: {
     // Initialize an array with 100 skipped lines.
-    range: { lineEnd: 101, lineStart: 1 },
+    range: { end: 101, start: 1 },
   },
   render: (args) => <SkippedLinesRowStory {...args} />,
 };
@@ -157,7 +157,7 @@ const skippedLogLines: ProcessedLogLines = [
   0,
   1,
   2,
-  { range: { lineEnd: 6, lineStart: 3 }, rowType: "SkippedLines" },
+  { range: { end: 6, start: 3 }, rowType: "SkippedLines" },
   6,
   7,
 ];

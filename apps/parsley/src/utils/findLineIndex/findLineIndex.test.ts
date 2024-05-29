@@ -3,11 +3,11 @@ import { findLineIndex } from ".";
 
 const processedLines: ProcessedLogLines = [
   0,
-  { range: { lineEnd: 3, lineStart: 1 }, rowType: "SkippedLines" },
+  { range: { end: 3, start: 1 }, rowType: "SkippedLines" },
   3,
-  { range: { lineEnd: 6, lineStart: 4 }, rowType: "SkippedLines" },
+  { range: { end: 6, start: 4 }, rowType: "SkippedLines" },
   6,
-  { range: { lineEnd: 10, lineStart: 7 }, rowType: "SkippedLines" },
+  { range: { end: 10, start: 7 }, rowType: "SkippedLines" },
   10,
 ];
 

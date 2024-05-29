@@ -24,7 +24,7 @@ describe("getLinesInProcessedLogLinesFromSelectedLines", () => {
     const processedLogLines: ProcessedLogLines = [
       1,
       2,
-      { range: { lineEnd: 4, lineStart: 3 }, rowType: "SkippedLines" },
+      { range: { end: 4, start: 3 }, rowType: "SkippedLines" },
       4,
       5,
     ];
