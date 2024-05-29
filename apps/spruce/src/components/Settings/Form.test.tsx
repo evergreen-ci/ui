@@ -1,4 +1,3 @@
-import { getTestUtils } from "@leafygreen-ui/text-input";
 import { ValidateProps } from "components/SpruceForm";
 import { render, screen, userEvent } from "test_utils";
 import { Form, FormProps } from "./Form";
@@ -57,11 +56,10 @@ describe("context-based form", () => {
     render(<Component tab="bar" validate={barValidator} />, {
       wrapper: TestProvider,
     });
-    const { getInput } = getTestUtils("lg-age-input");
-    await user.clear(getInput());
-    expect(getInput()).toHaveValue("");
+    await user.clear(screen.getByLabelText("Age"));
+    expect(screen.getByLabelText("Age")).toHaveValue("");
     expect(screen.queryByText("Invalid Age!")).not.toBeInTheDocument();
-    await user.type(getInput(), "30");
+    await user.type(screen.getByLabelText("Age"), "30");
     expect(screen.getByText("Invalid Age!")).toBeInTheDocument();
   });
 
@@ -69,11 +67,11 @@ describe("context-based form", () => {
     render(<Component tab="bar" disabled />, {
       wrapper: TestProvider,
     });
-    expect(screen.getAllByLabelText("Name")[0]).toHaveAttribute(
+    expect(screen.getByLabelText("Name")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
-    expect(screen.getAllByLabelText("Age")[0]).toHaveAttribute(
+    expect(screen.getByLabelText("Age")).toHaveAttribute(
       "aria-disabled",
       "true",
     );
@@ -118,13 +116,6 @@ const formSchema = {
         },
       },
     },
-    uiSchema: {
-      name: {
-        "ui:data-lgid": "lg-name-input",
-      },
-      age: {
-        "ui:data-lgid": "lg-age-input",
-      },
-    },
+    uiSchema: {},
   },
 };
