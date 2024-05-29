@@ -48,6 +48,7 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
 }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     versionId,
   );
 
@@ -116,10 +117,12 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
       manualPagination: true,
       manualSorting: true,
       onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         (f) => getDefaultFiltering(table).onColumnFiltersChange(f),
         onFilterChange,
       ),
       onSortingChange: onChangeHandler<SortingState>(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         (s) => getDefaultSorting(table).onSortingChange(s),
         onSortingChange,
       ),

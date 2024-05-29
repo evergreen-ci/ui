@@ -94,6 +94,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   const { hasStatuses, hasTasks } = getFilterStatus(filterState);
 
   let shouldShowTaskIcons = true;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   let statusesToShow = [];
 
   if (hasTasks || filterState.view === ProjectHealthView.All) {
@@ -113,6 +114,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   const buildVariantOptions = {
     tasks: shouldShowTaskIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     statuses: statusesToShow,
     includeBaseTasks: false,
   };
@@ -134,6 +136,7 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
     };
   }
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   let statusesToShow = [];
   let shouldShowGroupedTaskIcons = true;
   if (hasTasks) {
@@ -160,6 +163,7 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
   const groupedBuildVariantOptions = {
     tasks: shouldShowGroupedTaskIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     statuses: statusesToShow,
   };
 
@@ -203,6 +207,7 @@ const findMaxGroupedTaskStats = (groupedTaskStats: {
 
 const getAllTaskStatsGroupedByColor = (versions: Commits) => {
   const idToGroupedTaskStats: { [id: string]: GroupedResult } = {};
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   versions.forEach(({ version }) => {
     if (version != null) {
       idToGroupedTaskStats[version.id] = groupStatusesByUmbrellaStatus(
@@ -234,6 +239,7 @@ const constructBuildVariantDict = (versions: Commits): BuildVariantDict => {
 
       // Construct build variant dict which will contain information needed for rendering.
       Object.values(allBuildVariants).reduce(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         (acc, { statusCounts, tasks, variant }) => {
           // Determine height to allocate for icons.
           let iconHeight = 0;
@@ -255,15 +261,22 @@ const constructBuildVariantDict = (versions: Commits): BuildVariantDict => {
             badgeHeight = badgeContainerHeight + badgeContainerPadding;
           }
 
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           if (acc[variant]) {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             if (iconHeight > acc[variant].iconHeight) {
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               acc[variant].iconHeight = iconHeight;
             }
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             if (badgeHeight > acc[variant].badgeHeight) {
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               acc[variant].badgeHeight = badgeHeight;
             }
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             acc[variant].priority += 1;
           } else {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             acc[variant] = { priority: 1, iconHeight, badgeHeight };
           }
           return acc;

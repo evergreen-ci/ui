@@ -31,6 +31,7 @@ export const useTaskStatuses = ({
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { version } = data || {};

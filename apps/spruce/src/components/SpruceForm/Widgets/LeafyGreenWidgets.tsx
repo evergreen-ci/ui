@@ -59,6 +59,7 @@ export const LeafyGreenTextInput: React.FC<
 
   return (
     <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <StyledTextInput
         type={inputType}
         data-cy={dataCy}
@@ -303,6 +304,7 @@ export const LeafyGreenRadioBox: React.FC<
         id={id}
         name={label}
         value={valueMap.indexOf(value)}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         onChange={(e) => onChange(valueMap[e.target.value])}
         data-cy={dataCy}
       >
@@ -371,6 +373,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <TextArea
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         ref={el}
         placeholder={placeholder || undefined}
         data-cy={dataCy}
@@ -381,6 +384,7 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
         onChange={({ target }) =>
           target.value === "" ? onChange(emptyValue) : onChange(target.value)
         }
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         errorMessage={hasError ? errors.join(", ") : null}
         rows={rows}
         state={hasError ? "error" : "none"}

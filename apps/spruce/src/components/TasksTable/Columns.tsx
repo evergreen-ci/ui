@@ -134,6 +134,7 @@ export const getColumnsTemplate = ({
         condition={buildVariant !== mergeTaskVariant}
         wrapper={(children) => (
           <StyledRouterLink
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
           >
             {children}

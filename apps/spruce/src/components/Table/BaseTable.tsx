@@ -75,13 +75,16 @@ export const BaseTable = forwardRef(
     }: SpruceTableProps & TableProps<any>,
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const { virtualRows } = table;
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const { rows } = table.getRowModel();
     const hasVirtualRows = virtualRows && virtualRows.length > 0;
     return (
       <>
         <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
           <TableHead isSticky={hasVirtualRows}>
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -91,6 +94,7 @@ export const BaseTable = forwardRef(
                     <HeaderCell
                       key={header.id}
                       header={header}
+                      // @ts-expect-error: FIXME. This comment was added by an automated script.
                       style={meta?.width && { width: columnDef?.meta?.width }}
                     >
                       {flexRender(columnDef.header, header.getContext())}
@@ -137,12 +141,14 @@ export const BaseTable = forwardRef(
           <TableBody>
             {loading && (
               <TableLoader
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 numColumns={table.getAllColumns().length}
                 numRows={loadingRows}
               />
             )}
             {hasVirtualRows
-              ? virtualRows.map((vr) => {
+              ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+                virtualRows.map((vr) => {
                   const row = rows[vr.index];
                   return (
                     <RenderableRow
@@ -157,6 +163,7 @@ export const BaseTable = forwardRef(
                   <RenderableRow
                     row={row}
                     key={row.id}
+                    // @ts-expect-error: FIXME. This comment was added by an automated script.
                     virtualRow={null}
                     isSelected={selectedRowIndexes.includes(row.index)}
                   />

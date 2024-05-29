@@ -9,6 +9,7 @@ import { renderHook, act } from "test_utils";
 vi.mock("js-cookie");
 const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const Provider = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
 );

@@ -14,6 +14,7 @@ type UnsavedModalProps = {
   shouldBlock: boolean | BlockerFunction;
 };
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const UnsavedModal: React.FC<UnsavedModalProps> = ({
   distro,
   shouldBlock,

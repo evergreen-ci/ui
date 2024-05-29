@@ -11,6 +11,7 @@ describe("site banner", () => {
   });
 
   it("renders a warning banner", async () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.banner = "Warning to users";
     render(
       <MockedProvider mocks={[mock]}>
@@ -23,7 +24,9 @@ describe("site banner", () => {
   });
 
   it("renders an announcement banner", async () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.banner = "New feature announcement";
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "announcement";
     render(
       <MockedProvider mocks={[mock]}>
@@ -36,7 +39,9 @@ describe("site banner", () => {
   });
 
   it("renders a danger banner", async () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.banner = "Note of severe system outage";
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "important";
     render(
       <MockedProvider mocks={[mock]}>
@@ -49,7 +54,9 @@ describe("site banner", () => {
   });
 
   it("renders an info banner", async () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.banner = "Some information";
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "information";
     render(
       <MockedProvider mocks={[mock]}>
@@ -62,7 +69,9 @@ describe("site banner", () => {
   });
 
   it("renders an info banner when the theme is empty", async () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.banner = "General announcement";
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "";
     render(
       <MockedProvider mocks={[mock]}>
@@ -75,7 +84,9 @@ describe("site banner", () => {
   });
 
   it("renders an info banner when the theme is invalid", async () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.banner = "This is not an ideal banner";
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     mock.result.data.spruceConfig.bannerTheme = "invalid";
     render(
       <MockedProvider mocks={[mock]}>

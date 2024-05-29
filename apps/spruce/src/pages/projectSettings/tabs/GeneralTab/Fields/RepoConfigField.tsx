@@ -37,6 +37,7 @@ export const RepoConfigField: Field = ({
     formData.owner !== initialOwner || formData.repo !== initialRepo;
 
   const { data } = useQuery<GithubOrgsQuery>(GITHUB_ORGS);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { spruceConfig: { githubOrgs = [] } = {} } = data ?? {};
 
   return (
@@ -117,5 +118,5 @@ const ButtonRow = styled.div`
 `;
 
 const Container = styled.div<{ hasButtons: boolean }>`
-  ${({ hasButtons }): string => hasButtons && `margin-bottom: ${size.m};`}
+  ${({ hasButtons }) => hasButtons && `margin-bottom: ${size.m};`}
 `;

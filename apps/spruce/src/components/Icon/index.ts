@@ -7,4 +7,5 @@ const glyphMap = {
 };
 
 export { glyphMap as glyphs, Size };
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export default createIconComponent(glyphMap);

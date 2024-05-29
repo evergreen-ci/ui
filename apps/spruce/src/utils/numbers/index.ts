@@ -7,8 +7,10 @@
  * toDecimal("100") // => 1.0
  */
 const toDecimal = (value: string | null): number => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const number = parseFloat(value);
   if (Number.isNaN(number)) {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     return null;
   }
   return number / 100;

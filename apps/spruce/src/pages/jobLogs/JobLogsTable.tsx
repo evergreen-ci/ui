@@ -36,6 +36,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         accessorKey: "name",
         cell: ({ getValue, row }) => (
           <Link
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             href={getParsleyLogkeeperTestLogURL(buildId, row.original.id)}
             onClick={() => {
               sendEvent({

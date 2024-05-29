@@ -65,12 +65,14 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
           tag={tag}
           onDelete={deleteHandler}
           key={tag.key}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           onUpdateTag={updateTagHandler}
           isValidKey={validateKey}
           buttonText={buttonText}
         />
       ))}
       <TagRow
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         onUpdateTag={updateTagHandler}
         isNewTag
         isValidKey={validateKey}
