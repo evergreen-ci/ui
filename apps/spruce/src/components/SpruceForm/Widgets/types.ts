@@ -9,7 +9,6 @@ export interface SpruceWidgetProps extends WidgetProps {
     ariaLabel: string;
     "data-cy": string;
     ariaLabelledBy: string;
-    "data-lgid": `lg-${string}`;
     bold: boolean;
     customLabel: string;
     description: string;

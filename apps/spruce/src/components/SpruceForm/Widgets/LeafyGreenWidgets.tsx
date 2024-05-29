@@ -41,7 +41,6 @@ export const LeafyGreenTextInput: React.FC<
     ariaLabel,
     ariaLabelledBy,
     "data-cy": dataCy,
-    "data-lgid": dataLgId,
     description,
     elementWrapperCSS,
     inputType,
@@ -62,7 +61,6 @@ export const LeafyGreenTextInput: React.FC<
     <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <StyledTextInput
-        data-lgid={dataLgId}
         type={inputType}
         data-cy={dataCy}
         value={value === null || value === undefined ? "" : `${value}`}
