@@ -46,6 +46,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
     returnedCommits = [
       ...rolledUpVersions
         .slice(0, 1)
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         .map((v) => <CommitCopy v={v} isTooltip key={v.id} />),
       <HiddenCommitsWrapper
         key="hidden_commits"
@@ -62,9 +63,11 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       </HiddenCommitsWrapper>,
       ...rolledUpVersions
         .slice(-2)
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         .map((v) => <CommitCopy v={v} isTooltip key={v.id} />),
     ];
   } else {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     returnedCommits = rolledUpVersions.map((v) => (
       <CommitCopy v={v} isTooltip key={v.id} />
     ));
@@ -78,6 +81,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
         setOpen={setShowModal}
         title={`${versionCount} ${tooltipType} Commits`}
       >
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {rolledUpVersions?.map((v) => (
           <CommitCopy v={v} isTooltip={false} key={v.id} />
         ))}
@@ -155,6 +159,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
       <CommitBodyText>
         {v.ignored && <StyledIcon data-cy="ignored-icon" glyph="Ignored" />}
         {v.author} -{" "}
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
             name: "Click commit label",

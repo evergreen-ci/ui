@@ -81,6 +81,7 @@ describe("provider tab", () => {
       ],
     };
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const staticForm: ProviderFormState = {
       ...defaultFormState,
       provider: {
@@ -94,6 +95,7 @@ describe("provider tab", () => {
       },
     };
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const staticGql: DistroInput = {
       ...distroData,
       provider: Provider.Static,
@@ -109,10 +111,12 @@ describe("provider tab", () => {
     };
 
     it("correctly converts from GQL to a form", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(gqlToForm(staticDistroData)).toStrictEqual(staticForm);
     });
 
     it("correctly converts from a form to GQL", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(formToGql(staticForm, staticDistroData)).toStrictEqual(staticGql);
     });
   });
@@ -135,6 +139,7 @@ describe("provider tab", () => {
       ],
     };
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const dockerForm: ProviderFormState = {
       ...defaultFormState,
       provider: {
@@ -153,6 +158,7 @@ describe("provider tab", () => {
       },
     };
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const dockerGql: DistroInput = {
       ...distroData,
       provider: Provider.Docker,
@@ -171,10 +177,12 @@ describe("provider tab", () => {
     };
 
     it("correctly converts from GQL to a form", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(gqlToForm(dockerDistroData)).toStrictEqual(dockerForm);
     });
 
     it("correctly converts from a form to GQL", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(formToGql(dockerForm, dockerDistroData)).toStrictEqual(dockerGql);
     });
   });
@@ -232,9 +240,13 @@ describe("provider tab", () => {
           mountPoints: [
             {
               deviceName: "device-east",
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               virtualName: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               volumeType: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               iops: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               throughput: undefined,
               size: 200,
             },
@@ -260,9 +272,13 @@ describe("provider tab", () => {
           mountPoints: [
             {
               deviceName: "device-east",
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               virtualName: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               volumeType: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               iops: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               throughput: undefined,
               size: 200,
             },
@@ -279,6 +295,7 @@ describe("provider tab", () => {
       ],
     };
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const ec2Gql: DistroInput = {
       ...distroData,
       provider: Provider.Ec2Fleet,
@@ -316,10 +333,12 @@ describe("provider tab", () => {
     };
 
     it("correctly converts from GQL to a form", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(gqlToForm(ec2FleetDistroData)).toStrictEqual(ec2Form);
     });
 
     it("correctly converts from a form to GQL", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(formToGql(ec2Form, ec2FleetDistroData)).toStrictEqual(ec2Gql);
     });
   });
@@ -372,9 +391,13 @@ describe("provider tab", () => {
           mountPoints: [
             {
               deviceName: "device-east",
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               virtualName: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               volumeType: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               iops: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               throughput: undefined,
               size: 200,
             },
@@ -400,9 +423,13 @@ describe("provider tab", () => {
           mountPoints: [
             {
               deviceName: "device-east",
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               virtualName: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               volumeType: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               iops: undefined,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               throughput: undefined,
               size: 200,
             },
@@ -419,6 +446,7 @@ describe("provider tab", () => {
       ],
     };
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const ec2Gql: DistroInput = {
       ...distroData,
       provider: Provider.Ec2OnDemand,
@@ -451,10 +479,12 @@ describe("provider tab", () => {
     };
 
     it("correctly converts from GQL to a form", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(gqlToForm(ec2OnDemandDistroData)).toStrictEqual(ec2Form);
     });
 
     it("correctly converts from a form to GQL", () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(formToGql(ec2Form, ec2OnDemandDistroData)).toStrictEqual(ec2Gql);
     });
   });

@@ -4,11 +4,13 @@ import { getEventDiffLines } from "./eventLogDiffs";
 
 const beforeAddition: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   projectRef: {
     __typename: "Project",
     identifier: "viewTest",
     patchTriggerAliases: [],
   },
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   vars: {
     __typename: "ProjectVars",
     vars: { newVariable: "so new" },
@@ -21,6 +23,7 @@ const afterAddition: Subset<ProjectEventSettings> = {
     __typename: "Project",
     identifier: "viewTest",
     patchTriggerAliases: [
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       {
         __typename: "PatchTriggerAlias",
         alias: "newAlias",
@@ -28,6 +31,7 @@ const afterAddition: Subset<ProjectEventSettings> = {
       },
     ],
   },
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   vars: {
     __typename: "ProjectVars",
     vars: { newVariable: "so new" },
@@ -40,6 +44,7 @@ const beforeUpdate: Subset<ProjectEventSettings> = {
     __typename: "Project",
     identifier: "viewTest",
     patchTriggerAliases: [
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       {
         __typename: "PatchTriggerAlias",
         alias: "newAlias",
@@ -47,6 +52,7 @@ const beforeUpdate: Subset<ProjectEventSettings> = {
       },
     ],
   },
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   vars: {
     __typename: "ProjectVars",
     vars: { newVariable: "so new" },
@@ -58,6 +64,7 @@ const afterUpdate: Subset<ProjectEventSettings> = {
     __typename: "Project",
     identifier: "viewTest",
     patchTriggerAliases: [
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       {
         __typename: "PatchTriggerAlias",
         alias: "noLongerNewAlias",
@@ -65,6 +72,7 @@ const afterUpdate: Subset<ProjectEventSettings> = {
       },
     ],
   },
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   vars: {
     __typename: "ProjectVars",
     vars: { newVariable: "so new" },
@@ -73,11 +81,13 @@ const afterUpdate: Subset<ProjectEventSettings> = {
 
 const beforeDeletion: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   projectRef: {
     __typename: "Project",
     identifier: "viewTest",
     patchTriggerAliases: [],
   },
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   vars: {
     __typename: "ProjectVars",
     vars: { newVariable: "so new" },
@@ -86,11 +96,13 @@ const beforeDeletion: Subset<ProjectEventSettings> = {
 
 const afterDeletion: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   projectRef: {
     __typename: "Project",
     identifier: "viewTest",
     patchTriggerAliases: [],
   },
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   vars: {
     __typename: "ProjectVars",
     vars: {},
@@ -99,6 +111,7 @@ const afterDeletion: Subset<ProjectEventSettings> = {
 
 describe("should transform event diffs to key, before and after", () => {
   it("should transform updates", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const diffLines = getEventDiffLines(beforeUpdate, afterUpdate);
     expect(diffLines).toStrictEqual([
       {
@@ -109,6 +122,7 @@ describe("should transform event diffs to key, before and after", () => {
     ]);
   });
   it("should transform additions", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const diffLines = getEventDiffLines(beforeAddition, afterAddition);
     expect(diffLines).toStrictEqual([
       {
@@ -124,6 +138,7 @@ describe("should transform event diffs to key, before and after", () => {
     ]);
   });
   it("should transform deletions", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const diffLines = getEventDiffLines(beforeDeletion, afterDeletion);
     expect(diffLines).toStrictEqual([
       {

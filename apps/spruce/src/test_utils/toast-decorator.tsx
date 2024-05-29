@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { action } from "@storybook/addon-actions";
 import { ToastContext } from "context/toast";
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const WithToastContext = (Story) => (
   <MockToastProvider>
     <Story />

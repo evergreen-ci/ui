@@ -51,6 +51,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   });
 
   const initialFormState = useMemo(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData],
   );
@@ -62,6 +63,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
         projectType,
         githubWebhooksEnabled,
         formData,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         data?.githubProjectConflicts,
         versionControlEnabled,
         projectType === ProjectType.AttachedProject ? repoData : null,
@@ -79,6 +81,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
 
   const validateConflicts = validate(
     projectType,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     repoData,
     versionControlEnabled,
   );
@@ -129,6 +132,7 @@ const validate = (
 
     if (
       getAliasError(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         prTestingEnabled,
         prTesting?.githubPrAliasesOverride,
         prTesting?.githubPrAliases,
@@ -151,6 +155,7 @@ const validate = (
 
     if (
       getAliasError(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         gitTagVersionsEnabled,
         gitTags?.gitTagAliasesOverride,
         gitTags?.gitTagAliases,
@@ -162,6 +167,7 @@ const validate = (
 
     if (
       getAliasError(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         enabled,
         patchDefinitions?.commitQueueAliasesOverride,
         patchDefinitions?.commitQueueAliases,

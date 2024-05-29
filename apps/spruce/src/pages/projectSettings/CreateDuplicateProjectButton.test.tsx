@@ -82,6 +82,7 @@ describe("createDuplicateProjectField", () => {
       render(<Component />);
 
       await screen.findByText("New Project");
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("new-project-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
@@ -97,6 +98,7 @@ describe("createDuplicateProjectField", () => {
       render(<Component />);
 
       await screen.findByText("New Project");
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("new-project-button"));
       expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
     });
@@ -107,8 +109,10 @@ describe("createDuplicateProjectField", () => {
       render(<Component />);
 
       await screen.findByText("New Project");
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("new-project-button"));
       expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("create-project-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
@@ -122,8 +126,10 @@ describe("createDuplicateProjectField", () => {
       render(<Component />);
 
       await screen.findByText("New Project");
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("new-project-button"));
       expect(screen.queryByDataCy("new-project-menu")).toBeVisible();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("copy-project-button"));
       await waitFor(() => {
         expect(screen.queryByDataCy("copy-project-modal")).toBeVisible();

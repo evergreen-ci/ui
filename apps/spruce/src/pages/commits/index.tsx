@@ -97,6 +97,7 @@ const Commits = () => {
       if (recentlySelectedProject) {
         navigate(getCommitsRoute(recentlySelectedProject), { replace: true });
       } else if (spruceData) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         navigate(getCommitsRoute(spruceData?.spruceConfig.ui.defaultProject), {
           replace: true,
         });
@@ -136,9 +137,12 @@ const Commits = () => {
 
   const variables = getMainlineCommitsQueryVariables({
     mainlineCommitOptions: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       projectIdentifier,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       skipOrderNumber,
       limit,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       revision,
     },
     filterState,
@@ -158,6 +162,7 @@ const Commits = () => {
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { mainlineCommits } = data || {};
@@ -173,6 +178,7 @@ const Commits = () => {
     useFilterBadgeQueryParams(queryParamsToDisplay);
   const onSubmit = useUpsertQueryParams();
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const onSubmitTupleSelect = ({ category, value }) => {
     onSubmit({ category, value });
     switch (category) {
@@ -188,7 +194,9 @@ const Commits = () => {
 
   return (
     <PageWrapper>
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <RepotrackerBanner projectIdentifier={projectIdentifier} />
       <PageContainer>
         <HeaderWrapper>
@@ -208,6 +216,7 @@ const Commits = () => {
           </ElementWrapper>
           <ElementWrapper width="25">
             <ProjectSelect
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               selectedProjectIdentifier={projectIdentifier}
               getRoute={getCommitsRoute}
               onSubmit={() => {
@@ -233,9 +242,12 @@ const Commits = () => {
           />
         </BadgeWrapper>
         <PaginationWrapper>
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ViewToggle identifier={projectIdentifier} />
           <PaginationButtons
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             prevPageOrderNumber={prevPageOrderNumber}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             nextPageOrderNumber={nextPageOrderNumber}
           />
         </PaginationWrapper>

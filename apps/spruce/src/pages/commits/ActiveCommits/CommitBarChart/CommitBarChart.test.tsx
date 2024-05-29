@@ -38,6 +38,7 @@ describe("commitChart", () => {
     );
 
     expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("commit-chart-container"));
     await waitFor(() => {
       expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();
@@ -57,6 +58,7 @@ describe("commitChart", () => {
     );
 
     expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("commit-chart-container"));
     await waitFor(() => {
       expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();

@@ -50,12 +50,14 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
       let options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(6);
       await user.type(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         screen.queryByDataCy("project-select-search-input"),
         "logkeeper",
       );
@@ -79,10 +81,12 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
       await user.type(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         screen.queryByDataCy("project-select-search-input"),
         "aaa/totally-different-name",
       );
@@ -131,12 +135,14 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
       let options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(5);
       await user.type(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         screen.queryByDataCy("project-select-search-input"),
         "evergreen",
       );
@@ -161,10 +167,12 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
       await user.type(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         screen.queryByDataCy("project-select-search-input"),
         "aaa/totally-different-name",
       );
@@ -195,6 +203,7 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
       // Favorited projects should appear twice.
@@ -218,6 +227,7 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
@@ -245,6 +255,7 @@ describe("projectSelect", () => {
         expect(screen.getByDataCy("project-select")).toBeInTheDocument();
       });
       expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByDataCy("project-select"));
       expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
       const options = await screen.findAllByDataCy("project-display-name");

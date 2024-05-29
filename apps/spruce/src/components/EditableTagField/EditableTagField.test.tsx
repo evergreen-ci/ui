@@ -156,6 +156,7 @@ describe("editableTagField", () => {
     expect(screen.queryAllByDataCy("user-tag-row")).toHaveLength(3);
     expect(screen.queryByDataCy("add-tag-button")).toBeVisible();
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("add-tag-button"));
 
     expect(screen.queryByDataCy("add-tag-button")).toBeNull();

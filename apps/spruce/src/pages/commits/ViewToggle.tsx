@@ -42,6 +42,7 @@ export const ViewToggle: React.FC<Props> = ({ identifier }) => {
 
   useEffect(() => {
     if (!view) {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setView(data?.project?.projectHealthView);
     }
   }, [data, setView, view]);
@@ -78,6 +79,7 @@ export const ViewToggle: React.FC<Props> = ({ identifier }) => {
       <SegmentedControl
         aria-controls="[data-cy='waterfall-task-status-icon']"
         name="Icon Tooltip"
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         onChange={onChange}
         value={view || ProjectHealthView.Failed}
       >

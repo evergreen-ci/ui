@@ -61,6 +61,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
   >(BUILD_VARIANTS_WITH_CHILDREN, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: versionId },
     skip: !visible,
   });
@@ -74,6 +75,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     setVersionStatusFilterTerm,
     toggleSelectedTask,
     versionStatusFilterTerm,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
   } = useVersionTaskStatusSelect(buildVariants, versionId, childVersions);
 
   const setVersionStatus =
@@ -85,6 +87,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
     };
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
 
   const handlePatchRestart = () => {
@@ -94,6 +97,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     });
     restartVersions({
       variables: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         versionId: version?.id,
         versionsToRestart: getTaskIds(selectedTasks),
         abort: shouldAbortInProgressTasks,
@@ -118,12 +122,17 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       ) : (
         <>
           <VersionTasks
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             version={version}
             selectedTasks={selectedTasks}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             setBaseStatusFilterTerm={setVersionBaseStatus(version?.id)}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             setVersionStatusFilterTerm={setVersionStatus(version?.id)}
             toggleSelectedTask={toggleSelectedTask}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             baseStatusFilterTerm={baseStatusFilterTerm[version?.id]}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionStatusFilterTerm={versionStatusFilterTerm[version?.id]}
           />
           {childVersions && (
@@ -186,6 +195,7 @@ const selectedArray = (selected: selectedStrings) => {
 
 const selectTasksTotal = (selectedTasks: versionSelectedTasks) =>
   Object.values(selectedTasks).reduce(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     (total, selectedTask) => selectedArray(selectedTask).length + total,
     0,
   );
@@ -194,6 +204,7 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
   Object.entries(selectedTasks)
     .map(([versionId, tasks]) => ({
       versionId,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       taskIds: selectedArray(tasks),
     }))
     .filter(({ taskIds }) => taskIds.length > 0);

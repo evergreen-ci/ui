@@ -180,9 +180,11 @@ const StyledBanner = styled(Banner)`
 
 // Extract index of the current field via its ID
 const getIndex = (id: string): number => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!id) return null;
 
   const stringIndex = id.substring(id.lastIndexOf("_") + 1);
   const index = Number(stringIndex);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return Number.isInteger(index) ? index : null;
 };

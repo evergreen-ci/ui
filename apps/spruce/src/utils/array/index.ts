@@ -92,7 +92,9 @@ export const convertArrayToObject = <T = { [key: string]: any }>(
 export const convertObjectToArray = <T extends object>(
   obj: T,
 ): KeyValue<T>[] => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const result = [];
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (obj === undefined) return result;
   const objectEntries = Object.entries(obj);
   return objectEntries.flatMap(([key, value]) => {

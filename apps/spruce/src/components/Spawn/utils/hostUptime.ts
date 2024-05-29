@@ -16,7 +16,9 @@ const defaultScheduleWeekdaysCount = 5;
 const suggestedUptimeHours = (daysInWeek - 2) * hoursInDay;
 export const maxUptimeHours = (daysInWeek - 1) * hoursInDay;
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const defaultStartDate = new Date(null, null, null, defaultStartHour);
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const defaultStopDate = new Date(null, null, null, defaultStopHour);
 
 export type HostUptime = {
@@ -77,7 +79,9 @@ export const getEnabledHoursCount = (
 
   const {
     sleepSchedule: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       enabledWeekdays,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       timeSelection: { runContinuously, startTime, stopTime },
     },
     useDefaultUptimeSchedule,
@@ -91,6 +95,7 @@ export const getEnabledHoursCount = (
   }
 
   const enabledWeekdaysCount =
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     enabledWeekdays?.filter((day) => day).length ?? 0;
   const enabledHoursCount = runContinuously
     ? enabledWeekdaysCount * hoursInDay
@@ -110,7 +115,9 @@ export const getSleepSchedule = (
   }
 
   const {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     enabledWeekdays,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     timeSelection: { runContinuously, startTime, stopTime },
   } = sleepSchedule;
 
@@ -120,6 +127,7 @@ export const getSleepSchedule = (
     permanentlyExempt: false,
     timeZone,
     shouldKeepOff: false,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
       if (!isEnabled) {
         accum.push(i);
@@ -129,6 +137,7 @@ export const getSleepSchedule = (
   };
 };
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const getDailyUptime = ({ startTime, stopTime }) =>
   differenceInHours(new Date(stopTime), new Date(startTime));
 
@@ -164,11 +173,13 @@ export const getHostUptimeFromGql = (
               startTime: parse(
                 dailyStartTime,
                 "HH:mm",
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 new Date(null, null),
               ).toString(),
               stopTime: parse(
                 dailyStopTime,
                 "HH:mm",
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 new Date(null, null),
               ).toString(),
               runContinuously: false,
@@ -208,6 +219,7 @@ export const validator = (({ expirationDetails }, errors) => {
   if (!hostUptime || noExpiration === false) return errors;
 
   const { sleepSchedule, useDefaultUptimeSchedule } = hostUptime;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { timeSelection } = sleepSchedule;
 
   if (useDefaultUptimeSchedule) {

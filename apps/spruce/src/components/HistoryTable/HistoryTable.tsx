@@ -27,15 +27,21 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   loading,
 }) => {
   const {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onChangeTableWidth,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     processedCommitCount,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     processedCommits,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     selectedCommit,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     visibleColumns,
   } = useHistoryTable();
 
   const ref = useRef<HTMLDivElement>(null);
   const listRef = useRef<VirtuosoHandle>(null);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const size = useDimensions(ref);
   const throttledOnChangeTableWidth = useMemo(
     () => throttle(onChangeTableWidth, 400),
@@ -98,6 +104,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
                 numLoadingRows={10}
               />
             ) : (
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               <EndOfHistoryRow>{finalRowCopy}</EndOfHistoryRow>
             ),
         }}

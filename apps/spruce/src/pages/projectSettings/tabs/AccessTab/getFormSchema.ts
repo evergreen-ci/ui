@@ -76,6 +76,7 @@ const getAdminsDescription = (projectType: ProjectType): string => {
       "Admins for this branch will be able to edit branch settings and view repo settings.",
     default: "Admins for this branch will be able to edit branch settings.",
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const description = descriptions[projectType] || descriptions.default;
   return `${description} All admins will have access to create new projects on Evergreen.`;
 };

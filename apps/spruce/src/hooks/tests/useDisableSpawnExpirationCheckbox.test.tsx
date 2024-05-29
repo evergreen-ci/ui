@@ -11,7 +11,9 @@ import { renderHook } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { useDisableSpawnExpirationCheckbox } from "..";
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const getProvider = (mocks) => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const mockedProvider = ({ children }) => (
     <MockedProvider mocks={mocks}>{children}</MockedProvider>
   );

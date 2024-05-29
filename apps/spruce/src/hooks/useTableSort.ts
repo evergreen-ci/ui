@@ -34,9 +34,11 @@ export const useTableSort = (props?: Props): CallbackType => {
 
     if (sorter.length === 1) {
       const { desc, id } = sorter[0];
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       nextQueryParams[TableQueryParams.SortDir] = desc
         ? SortDirection.Desc
         : SortDirection.Asc;
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       nextQueryParams[TableQueryParams.SortBy] = id;
     } else if (sorter.length) {
       const sortString = sorter
@@ -46,6 +48,7 @@ export const useTableSort = (props?: Props): CallbackType => {
         .filter(Boolean)
         .join(";");
 
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       nextQueryParams[TableQueryParams.Sorts] = sortString;
     }
     setQueryParams(nextQueryParams);

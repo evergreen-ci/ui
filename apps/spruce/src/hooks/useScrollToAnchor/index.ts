@@ -12,6 +12,7 @@ const useScrollToAnchor = () => {
   const timeout = useRef<NodeJS.Timeout>(null);
   useEffect(() => {
     if (anchor === "") return;
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     timeout.current = setTimeout(() => {
       const element = document.getElementById(anchor);
       if (element) {
@@ -22,6 +23,7 @@ const useScrollToAnchor = () => {
 
   useEffect(
     () => () => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       clearTimeout(timeout.current);
     },
     [],

@@ -21,6 +21,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
     <NotificationModal
       data-cy="task-notification-modal"
       onCancel={onCancel}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>
         taskAnalytics.sendEvent({ name: "Add Notification", subscription })

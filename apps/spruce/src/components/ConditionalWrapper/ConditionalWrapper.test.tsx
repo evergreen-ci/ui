@@ -1,7 +1,9 @@
 import { render, screen } from "test_utils";
 import { ConditionalWrapper } from "./index";
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const Wrapper1 = ({ children }) => <div data-cy="wrapper-1">{children}</div>;
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const Wrapper2 = ({ children }) => <div data-cy="wrapper-2">{children}</div>;
 
 describe("conditionalWrapper", () => {

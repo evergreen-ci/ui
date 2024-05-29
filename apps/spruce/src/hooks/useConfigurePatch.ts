@@ -51,6 +51,7 @@ const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
   selectedBuildVariantTasks: {},
   patchParams: null,
   selectedTab,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   disableBuildVariantSelect: tabToIndexMap[selectedTab] === PatchTab.Tasks,
 });
 
@@ -120,6 +121,7 @@ const tabToIndexMap = {
 
 // Extract the type of a child patch and append alias field
 export interface ChildPatchAliased
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   extends Unpacked<ConfigurePatchQuery["patch"]["childPatches"]> {
   alias: string;
 }
@@ -152,13 +154,16 @@ export const useConfigurePatch = (
 ): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab | null }>();
 
   const { id, project } = patch;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { variants } = project;
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       selectedTab: tabToIndexMap[tab || PatchTab.Configure],
     }),
   );
@@ -222,6 +227,7 @@ export const useConfigurePatch = (
     setSelectedAliases,
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setSelectedTab,
   };
 };
@@ -229,11 +235,13 @@ export const useConfigurePatch = (
 // Takes in variant tasks and default selected tasks and returns an object
 // With merged variant and default selected tasks auto selected.
 const initializeTaskState = (
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   variantTasks: ConfigurePatchQuery["patch"]["project"]["variants"],
   defaultSelectedTasks: VariantTask[],
 ) => {
   const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
   return variantTasks.reduce(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     (prev, { name: variant, tasks }) => ({
       ...prev,
       [variant]: {

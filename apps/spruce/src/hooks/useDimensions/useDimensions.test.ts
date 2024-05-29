@@ -2,7 +2,9 @@ import { useDimensions } from "hooks/useDimensions";
 import { act, renderHook } from "test_utils";
 
 describe("useDimensions", () => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   let listener;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   let disconnectSpy;
 
   beforeEach(() => {
@@ -13,6 +15,7 @@ describe("useDimensions", () => {
       listener = l;
       return {
         observe: () => {},
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         disconnect: disconnectSpy,
         unobserve: () => {},
       };
@@ -20,6 +23,7 @@ describe("useDimensions", () => {
   });
 
   it("validate default value", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const { result } = renderHook(() => useDimensions({ current: null }));
     expect(result.current).toMatchObject({
       width: 0,
@@ -28,7 +32,9 @@ describe("useDimensions", () => {
   });
 
   it("synchronously sets up ResizeObserver listener", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     renderHook(() => useDimensions({ current: null }));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(typeof listener).toBe("function");
   });
 
@@ -38,7 +44,8 @@ describe("useDimensions", () => {
     );
 
     act(() => {
-      listener!([
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      listener([
         {
           contentRect: {
             width: 200,
@@ -60,7 +67,8 @@ describe("useDimensions", () => {
     );
 
     act(() => {
-      listener!([
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      listener([
         {
           contentRect: {
             width: 200,
@@ -76,7 +84,8 @@ describe("useDimensions", () => {
     });
 
     act(() => {
-      listener!([
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      listener([
         {
           contentRect: {
             width: 100,
@@ -97,10 +106,12 @@ describe("useDimensions", () => {
       useDimensions({ current: document.createElement("div") }),
     );
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(disconnectSpy).toHaveBeenCalledTimes(0);
 
     unmount();
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(disconnectSpy).toHaveBeenCalledTimes(1);
   });
 });

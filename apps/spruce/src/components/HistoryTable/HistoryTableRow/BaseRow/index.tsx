@@ -40,6 +40,7 @@ const BaseRow: React.FC<RowProps> = ({
     onClickUpstreamProject,
     onToggleFoldedCommit,
   } = eventHandlers;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { columnLimit, toggleRowExpansion } = useHistoryTable();
 
   switch (data.type) {

@@ -95,7 +95,9 @@ describe("initializeTaskState", () => {
 
 describe("initializeAliasState", () => {
   it("should not return an object with aliases if there are no aliases", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const patchTriggerAliases = [];
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(initializeAliasState(patchTriggerAliases)).toStrictEqual({});
   });
   it("should return an object with aliases", () => {

@@ -70,9 +70,12 @@ export const ProfileTab: React.FC = () => {
     dateFormat: string;
     timeFormat: string;
   }>({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     timezone,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     region,
     githubUser: { lastKnownAs },
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     dateFormat,
     timeFormat,
   });
@@ -80,8 +83,11 @@ export const ProfileTab: React.FC = () => {
   useEffect(() => {
     setFormState({
       githubUser: omitTypename(githubUser || {}),
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       timezone,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       region,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       dateFormat,
       timeFormat,
     });
@@ -140,6 +146,7 @@ export const ProfileTab: React.FC = () => {
           schema={{
             properties: {
               githubUser: {
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 title: null,
                 properties: {
                   lastKnownAs: {

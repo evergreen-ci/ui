@@ -45,6 +45,7 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
       name: "Filter by build variant",
     });
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setVisibleColumns(selectedBuildVariants);
   };
   const { buildVariantsForTaskName } = data || {};
