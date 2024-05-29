@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-nocheck - FIXME. There are TypeScript errors in this file that prevent it from compiling under strict mode.
 import { generate } from "@graphql-codegen/cli";
 import { execSync } from "child_process";
 import fs from "fs";
