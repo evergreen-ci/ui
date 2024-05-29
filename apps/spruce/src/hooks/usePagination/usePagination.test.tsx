@@ -5,6 +5,7 @@ import { getDefaultPageSize } from "utils/url";
 import usePagination from "./index";
 
 describe("usePagination", () => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const wrapper = ({ children }) => <MemoryRouter>{children}</MemoryRouter>;
 
   beforeEach(() => {

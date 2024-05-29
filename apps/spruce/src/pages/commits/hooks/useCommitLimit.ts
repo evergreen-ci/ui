@@ -18,6 +18,7 @@ export const useCommitLimit = <T extends HTMLElement>(): [
   );
   const commitsContainerRef = useRef<T>();
   const isResizing = useResize();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { width } = useDimensions(commitsContainerRef);
   const previousWidth = usePrevious(width);
   const nextLimit = Math.max(Math.round(width / COL_WIDTH), MIN_LIMIT);
@@ -25,10 +26,12 @@ export const useCommitLimit = <T extends HTMLElement>(): [
   useEffect(() => {
     // Checking that a previous width existed ensures that skipOrderNumber is not reset on initial page loads
     if (previousWidth) {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSkipOrderNumber(undefined);
     }
   }, [nextLimit]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return [commitsContainerRef, nextLimit, isResizing];
 };
 

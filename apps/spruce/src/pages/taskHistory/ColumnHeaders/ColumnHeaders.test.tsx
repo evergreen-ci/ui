@@ -190,6 +190,7 @@ describe("columnHeaders (Task History)", () => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
     expect(screen.queryByText(trimmedVariantName)).toBeVisible();
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByText(trimmedVariantName));
     await waitFor(() => {
       expect(screen.queryByText(longVariantName)).toBeVisible();
@@ -212,6 +213,7 @@ const mock = (
   },
   result: {
     data: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       buildVariantsForTaskName: buildVariants.map((bv) => ({
         __typename: "BuildVariantTuple",
         buildVariant: bv.buildVariant,

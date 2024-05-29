@@ -30,23 +30,29 @@ const getMetadata = (
   if (isLogkeeper) {
     const { buildNum, builder } = options.logkeeperBuildMetadata || {};
     return {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       completeLogsURL: getParsleyBuildLogURL(options.buildId),
       builder,
       buildId: options.buildId,
       buildNum,
       displayName,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       execution,
       isLogkeeper,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       taskId: id,
       taskStatus: status as TaskStatus,
     };
   }
   return {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     completeLogsURL: getParsleyCompleteLogsURL(id, execution, options.groupId),
     displayName,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     execution,
     groupID: options.groupId,
     isLogkeeper,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     taskId: id,
     taskStatus: status as TaskStatus,
   };

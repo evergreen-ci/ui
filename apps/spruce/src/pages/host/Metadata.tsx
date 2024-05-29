@@ -34,7 +34,9 @@ export const Metadata: React.FC<{
 
   const { id: runningTaskId, name: runningTaskName } = runningTask ?? {};
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const taskLink = getTaskRoute(runningTaskId);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const distroLink = getDistroSettingsRoute(distroId);
 
   return (
@@ -52,6 +54,7 @@ export const Metadata: React.FC<{
         </MetadataItem>
       )}
       <MetadataItem>
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         Uptime: {formatDistanceToNow(new Date(uptime))}
       </MetadataItem>
       <MetadataItem>Started By: {startedBy}</MetadataItem>

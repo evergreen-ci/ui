@@ -30,14 +30,17 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
 }) => {
   const { author, id, isPatch, message, projectIdentifier, revision } =
     versionMetadata ?? {};
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const breadcrumbRoot = useBreadcrumbRoot(isPatch, author, projectIdentifier);
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
   const messagePrefix = isPatch
     ? `Patch ${patchNumber}`
-    : shortenGithash(revision);
+    : // @ts-expect-error: FIXME. This comment was added by an automated script.
+      shortenGithash(revision);
 
   const messageBreadcrumb = {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     to: getVersionRoute(id),
     text: `${messagePrefix} - ${message}`,
     onClick: () => {
@@ -73,6 +76,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
   };
 
   const breadcrumbs: Breadcrumb[] = [
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     breadcrumbRoot,
     messageBreadcrumb,
     ...displayTaskBreadcrumb,

@@ -1,8 +1,9 @@
 mutation UpdateSpawnHostStatus(
-  $hostId: String!
-  $action: SpawnHostStatusActions!
+  $updateSpawnHostStatusInput: UpdateSpawnHostStatusInput!
 ) {
-  updateSpawnHostStatus(hostId: $hostId, action: $action) {
+  updateSpawnHostStatus(
+    updateSpawnHostStatusInput: $updateSpawnHostStatusInput
+  ) {
     id
     status
   }

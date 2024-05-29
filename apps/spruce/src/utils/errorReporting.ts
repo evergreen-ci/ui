@@ -99,11 +99,13 @@ const validateMetadata = (
   breadcrumbType: SentryBreadcrumb,
 ): Breadcrumb["data"] => {
   if (breadcrumbType === SentryBreadcrumb.Navigation) {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     if (!metadata.from) {
       console.warn(
         "Navigation breadcrumbs should include a 'from' metadata field.",
       );
     }
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     if (!metadata.to) {
       console.warn(
         "Navigation breadcrumbs should include a 'to' metadata field.",

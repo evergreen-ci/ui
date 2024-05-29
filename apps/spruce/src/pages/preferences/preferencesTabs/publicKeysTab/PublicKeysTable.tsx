@@ -60,12 +60,14 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
       {
         header: "Name",
         accessorKey: "name",
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ getValue }) => (
           <WordBreak data-cy="table-key-name">{getValue()}</WordBreak>
         ),
       },
       {
         header: "Actions",
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ row }) => {
           const { key, name } = row.original;
           return (

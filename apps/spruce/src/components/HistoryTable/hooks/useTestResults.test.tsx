@@ -49,9 +49,12 @@ describe("useTestResults", () => {
       failingTests: [],
     });
     act(() => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.historyTable.processedCommitCount).toBe(9);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.historyTable.getItem(0)).toMatchObject({
       type: rowType.DATE_SEPARATOR,
     });
@@ -78,9 +81,12 @@ describe("useTestResults", () => {
       failingTests: [],
     });
     act(() => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.historyTable.processedCommitCount).toBe(9);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.historyTable.getItem(2)).toMatchObject({
       type: rowType.COMMIT,
     });
@@ -113,13 +119,17 @@ describe("useTestResults", () => {
       loading: false,
     });
     act(() => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.historyTable.processedCommitCount).toBe(9);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.historyTable.getItem(2)).toMatchObject({
       type: rowType.COMMIT,
     });
     act(() => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       result.current.historyTable.setHistoryTableFilters([
         { testName: "TestJiraIntegration", testStatus: TestStatus.Failed },
       ]);
@@ -152,13 +162,17 @@ describe("useTestResults", () => {
       failingTests: [],
     });
     act(() => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.historyTable.processedCommitCount).toBe(9);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.historyTable.getItem(2)).toMatchObject({
       type: rowType.COMMIT,
     });
     act(() => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       result.current.historyTable.setHistoryTableFilters([
         { testName: "NotARealTest", testStatus: TestStatus.Failed },
       ]);

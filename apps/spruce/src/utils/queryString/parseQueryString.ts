@@ -6,6 +6,7 @@ interface ParseQueryString {
   [key: string]: string | string[];
 }
 export const parseQueryString = (search: string): ParseQueryString =>
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   queryString.parse(search, { arrayFormat: "comma" });
 
 export const parseQueryStringAsValue = (search: string) =>

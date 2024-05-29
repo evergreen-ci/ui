@@ -13,53 +13,73 @@ export const gqlToForm = ((data, options = {}) => {
   return {
     generalConfiguration: {
       ...(projectType !== ProjectType.Repo &&
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         "enabled" in projectRef && {
           enabled: projectRef.enabled,
         }),
       repositoryInfo: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         owner: projectRef.owner,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         repo: projectRef.repo,
       },
       ...(projectType !== ProjectType.Repo &&
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         "branch" in projectRef && {
           branch: projectRef.branch,
         }),
       other: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         displayName: projectRef.displayName,
         ...(projectType !== ProjectType.Repo &&
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           "identifier" in projectRef && {
             identifier: projectRef.identifier,
           }),
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         batchTime: projectRef.batchTime || null,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         remotePath: projectRef.remotePath,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         spawnHostScriptPath: projectRef.spawnHostScriptPath,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         versionControlEnabled: projectRef.versionControlEnabled,
       },
     },
     projectFlags: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       dispatchingDisabled: projectRef.dispatchingDisabled,
       scheduling: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         deactivatePrevious: projectRef.deactivatePrevious,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         stepbackDisabled: projectRef.stepbackDisabled,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         stepbackBisection: projectRef.stepbackBisect,
         deactivateStepback: null,
       },
       repotracker: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         repotrackerDisabled: projectRef.repotrackerDisabled,
         forceRun: null,
       },
       patch: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         patchingDisabled: projectRef.patchingDisabled,
       },
       taskSync: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         configEnabled: projectRef.taskSync.configEnabled,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         patchEnabled: projectRef.taskSync.patchEnabled,
       },
     },
     historicalTaskDataCaching: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       disabledStatsCache: projectRef.disabledStatsCache,
     },
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
@@ -72,6 +92,7 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     ...("enabled" in generalConfiguration && {
       enabled: generalConfiguration.enabled,
@@ -103,4 +124,5 @@ export const formToGql = ((
   };
 
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

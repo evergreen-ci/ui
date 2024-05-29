@@ -70,6 +70,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
     await user.click(screen.getByRole("button", { name: "Duplicate" }));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
@@ -89,6 +90,7 @@ describe("copy distro modal", () => {
     });
 
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("distro-id-input"),
       "string with spaces",
     );
@@ -126,6 +128,7 @@ describe("copy distro modal", () => {
       route: `/distro/${distroIdToCopy}/settings/general`,
     });
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
 
     const confirmButton = screen.getByRole("button", {

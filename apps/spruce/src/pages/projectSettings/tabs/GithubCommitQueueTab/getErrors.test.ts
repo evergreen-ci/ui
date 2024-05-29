@@ -2,11 +2,17 @@ import { AliasFormType, ProjectType } from "../utils";
 import { sectionHasError } from "./getErrors";
 
 const callSectionHasError = ({
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   aliases,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   enabled,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   override,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   projectType,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   repoAliases,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   versionControlEnabled,
 }) =>
   sectionHasError(versionControlEnabled, projectType)(

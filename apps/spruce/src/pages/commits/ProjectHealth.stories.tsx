@@ -46,12 +46,18 @@ export const Default: CustomStoryObj<
 };
 
 const RenderCommitsWrapper = ({
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   buildVariantCount,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   hasFilters,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   hasTaskFilter,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   isLoading,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   taskCount,
 }) => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const updatedVersions = versions.map((version) =>
     populateVersion(version, buildVariantCount, taskCount, hasTaskFilter),
   );

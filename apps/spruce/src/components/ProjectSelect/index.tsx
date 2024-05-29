@@ -49,6 +49,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
     : projectsLoading;
 
   const allProjects = getProjects(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     projectsData,
     viewableProjectsData,
     isProjectSettingsPage,
@@ -96,6 +97,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   return (
     <SearchableDropdown
       label={showLabel ? "Project" : null}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       value={
         selectedProject?.displayName ||
         selectedProject?.identifier ||
@@ -113,6 +115,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
           name={projectGroup.groupDisplayName}
           onClick={onClick}
           repoIdentifier={projectGroup?.repo?.id}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           canClickOnRepoGroup={isProjectSettingsPage && projectGroup?.repo?.id}
         />
       )}
@@ -135,6 +138,7 @@ const filterDisabledProjects = (
 ) =>
   projects.reduce(
     ([enabled, disabled], project) =>
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       project.enabled === false
         ? [enabled, [...disabled, project]]
         : [[...enabled, project], disabled],
@@ -174,8 +178,10 @@ const getProjects: GetProjectsType = (
   // For Project Settings pages, move disabled projects to the bottom of the dropdown
   const projectGroups = viewableProjectsData?.viewableProjectRefs ?? [];
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const disabledProjects = [];
   const enabledProjectGroups = projectGroups.map((projectGroup) => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const [enabled, disabled] = filterDisabledProjects(projectGroup.projects);
     disabledProjects.push(...disabled);
     return {
@@ -192,7 +198,8 @@ const getProjects: GetProjectsType = (
     },
     ...enabledProjectGroups,
     ...(disabledProjects.length
-      ? [{ groupDisplayName: "Disabled Projects", projects: disabledProjects }]
+      ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+        [{ groupDisplayName: "Disabled Projects", projects: disabledProjects }]
       : []),
   ];
 };

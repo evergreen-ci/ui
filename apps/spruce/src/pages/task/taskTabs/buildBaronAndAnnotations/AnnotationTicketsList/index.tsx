@@ -114,6 +114,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
 
   return (
     <div data-cy={isIssue ? "issues-list" : "suspected-issues-list"}>
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {jiraIssues.map((issue) => (
         <AnnotationTicketRowWithActions
           isIssue={isIssue}

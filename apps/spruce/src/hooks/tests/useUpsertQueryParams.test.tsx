@@ -42,8 +42,11 @@ describe("useUpsertQueryParams", () => {
     const category = screen.queryByDataCy("category");
     const value = screen.queryByDataCy("value");
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("submit"));
     expect(router.state.location.search).toBe(`?category=value`);
   });
@@ -54,13 +57,19 @@ describe("useUpsertQueryParams", () => {
 
     const category = screen.queryByDataCy("category");
     const value = screen.queryByDataCy("value");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value1");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("submit"));
     expect(router.state.location.search).toBe(`?category=value1`);
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(value);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value2");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("submit"));
     expect(router.state.location.search).toBe(`?category=value1,value2`);
   });
@@ -70,13 +79,19 @@ describe("useUpsertQueryParams", () => {
     const { router } = renderWithRouterMatch(<Content />);
     const category = screen.queryByDataCy("category");
     const value = screen.queryByDataCy("value");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value1");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("submit"));
     expect(router.state.location.search).toBe(`?category=value1`);
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(value);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value1");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("submit"));
     expect(router.state.location.search).toBe(`?category=value1`);
   });
@@ -86,13 +101,19 @@ describe("useUpsertQueryParams", () => {
     const { router } = renderWithRouterMatch(<Content />);
     const category = screen.queryByDataCy("category");
     const value = screen.queryByDataCy("value");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(value, "value1");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("submit"));
     expect(router.state.location.search).toBe(`?category=value1`);
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(category);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(category, "category2");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("submit"));
     expect(router.state.location.search).toBe(
       `?category=value1&category2=value1`,

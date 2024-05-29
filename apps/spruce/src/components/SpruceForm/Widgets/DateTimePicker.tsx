@@ -25,12 +25,15 @@ export const DateTimePicker: React.FC<
   } = options;
 
   const timezone = useUserTimeZone();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const currentDateTime = toZonedTime(new Date(value || null), timezone);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onChange(fromZonedTime(d, timezone).toString());
   };
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const disabledDate = (current) => {
     const disablePast = disableBefore ? current < disableBefore : false;
     const disableFuture = disableAfter ? current > disableAfter : false;
@@ -50,6 +53,7 @@ export const DateTimePicker: React.FC<
           // @ts-expect-error
           getPopupContainer={getPopupContainer}
           data-cy="date-picker"
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           onChange={handleChange}
           value={currentDateTime}
           allowClear={false}
@@ -60,6 +64,7 @@ export const DateTimePicker: React.FC<
           // @ts-expect-error
           getPopupContainer={getPopupContainer}
           data-cy="time-picker"
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           onChange={handleChange}
           value={currentDateTime}
           allowClear={false}
@@ -94,11 +99,13 @@ export const TimePicker: React.FC<
   } = options;
   const timezone = useUserTimeZone();
   const currentDateTime = useUtc
-    ? toZonedTime(new Date(value || null), timezone)
+    ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+      toZonedTime(new Date(value || null), timezone)
     : new Date(value || null);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) => {
     if (useUtc) {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       onChange(fromZonedTime(d, timezone).toString());
     } else {
       onChange(d.toString());
@@ -119,6 +126,7 @@ export const TimePicker: React.FC<
         id={id}
         data-cy="time-picker"
         format={format}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         onChange={handleChange}
         value={currentDateTime}
         allowClear={false}
@@ -130,4 +138,5 @@ export const TimePicker: React.FC<
 
 // Fixes bug where DatePicker won't handle onClick events
 const getPopupContainer = (triggerNode: HTMLElement) =>
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   triggerNode.parentNode.parentNode;

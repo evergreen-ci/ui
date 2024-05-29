@@ -27,12 +27,14 @@ export const BaseTab = <T extends WritableDistroSettingsType>({
     [slugs.distroId]: string;
   }>();
   const state = useDistroSettingsContext();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePopulateForm(initialFormState, tab);
 
   const { data } = useQuery<
     UserDistroSettingsPermissionsQuery,
     UserDistroSettingsPermissionsQueryVariables
   >(USER_DISTRO_SETTINGS_PERMISSIONS, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { distroId },
   });
   const canEditDistro =
@@ -43,6 +45,7 @@ export const BaseTab = <T extends WritableDistroSettingsType>({
       disabled={!canEditDistro}
       {...rest}
       state={state}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       tab={tab}
     />
   );

@@ -23,6 +23,7 @@ const Metadata: React.FC<{
     id: runningTaskId,
   } = task ?? {};
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const taskLink = getTaskRoute(runningTaskId, {
     execution: runningTaskExecution,
   });

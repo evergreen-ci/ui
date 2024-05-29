@@ -63,6 +63,7 @@ export const SpawnHostButton: React.FC = () => {
         <SpawnHostModal
           open={openModal}
           setOpen={(open) => {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             setOpenModal(open);
             setSpawnHostParam(undefined);
           }}

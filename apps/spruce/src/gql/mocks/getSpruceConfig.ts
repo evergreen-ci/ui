@@ -74,7 +74,7 @@ export const getUserSettingsMock: ApolloMock<
     data: {
       userSettings: {
         __typename: "UserSettings",
-        dateFormat: "MM/DD/YYYY",
+        dateFormat: "MM/dd/yyyy",
         githubUser: {
           lastKnownAs: "user",
           __typename: "GithubUser",

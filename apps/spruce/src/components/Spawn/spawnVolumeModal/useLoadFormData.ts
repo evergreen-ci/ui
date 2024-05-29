@@ -32,6 +32,7 @@ export const useLoadFormData = () => {
 
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     limit: spruceConfig?.spawnHost?.unexpirableVolumesPerUser,
     isVolume: true,
   });

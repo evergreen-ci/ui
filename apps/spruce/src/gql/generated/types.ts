@@ -5307,8 +5307,7 @@ export type UpdatePublicKeyMutation = {
 };
 
 export type UpdateSpawnHostStatusMutationVariables = Exact<{
-  hostId: Scalars["String"]["input"];
-  action: SpawnHostStatusActions;
+  updateSpawnHostStatusInput: UpdateSpawnHostStatusInput;
 }>;
 
 export type UpdateSpawnHostStatusMutation = {

@@ -6,6 +6,7 @@ import { SpruceFormProps } from "components/SpruceForm/types";
 export interface SpruceWidgetProps extends WidgetProps {
   options: Partial<{
     "aria-controls": string[];
+    ariaLabel: string;
     "data-cy": string;
     ariaLabelledBy: string;
     bold: boolean;

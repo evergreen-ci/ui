@@ -80,6 +80,7 @@ describe("copyProjectField", () => {
     render(<Component />);
 
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier,
     );
@@ -137,6 +138,7 @@ describe("copyProjectField", () => {
     render(<Component />);
 
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier,
     );
@@ -196,6 +198,7 @@ describe("copyProjectField", () => {
     render(<Component />);
 
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier,
     );
@@ -237,6 +240,7 @@ describe("copyProjectField", () => {
     render(<Component />);
 
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier,
     );

@@ -25,10 +25,14 @@ const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
         <TicketContainer>
           {tickets.map(({ confidenceScore, issueKey, jiraTicket, url }) => (
             <AnnotationTicketRow
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               confidenceScore={confidenceScore}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               issueKey={issueKey}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               jiraTicket={jiraTicket}
               key={issueKey}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               url={url}
             />
           ))}

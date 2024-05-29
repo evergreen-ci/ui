@@ -33,6 +33,7 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
           trigger={
             <Button
               size={Size.XSmall}
+              data-cy="edit-host-button"
               disabled={!canEditSpawnHost}
               onClick={(e) => {
                 e.stopPropagation();
