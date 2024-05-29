@@ -10,7 +10,9 @@ type ExpandedLines = ExpandedLine[];
  * {number} lineEnd - The ending line exclusive of the range.
  */
 interface Range {
+  /** The starting line inclusive of the range */
   lineStart: number;
+  /** The ending line exclusive of the range */
   lineEnd: number;
 }
 
