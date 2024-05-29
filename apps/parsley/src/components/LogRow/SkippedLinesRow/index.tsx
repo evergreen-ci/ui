@@ -10,23 +10,20 @@ import { RootRowProps } from "../types";
 
 const SKIP_NUMBER = 5;
 
-interface CollapsedRowProps extends RootRowProps {
+interface Props extends RootRowProps {
   expandLines: (expandedLines: ExpandedLines) => void;
   range: Range;
 }
 
-const SkippedLinesRow: React.FC<CollapsedRowProps> = ({
-  expandLines,
-  range,
-}) => {
+const SkippedLinesRow: React.FC<Props> = ({ expandLines, range }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [, startTransition] = useTransition();
   const { lineEnd, lineStart } = range;
-  const numCollapsed = lineEnd - lineStart;
+  const numSkipped = lineEnd - lineStart;
   const lineEndInclusive = lineEnd - 1;
-  const canExpandFive = SKIP_NUMBER * 2 < numCollapsed;
+  const canExpandFive = SKIP_NUMBER * 2 < numSkipped;
   const lineText =
-    numCollapsed !== 1 ? `${numCollapsed} Lines Skipped` : "1 Line Skipped";
+    numSkipped !== 1 ? `${numSkipped} Lines Skipped` : "1 Line Skipped";
 
   const expandFive = () => {
     if (canExpandFive) {
@@ -40,7 +37,7 @@ const SkippedLinesRow: React.FC<CollapsedRowProps> = ({
       startTransition(() => expandLines([[lineStart, lineEndInclusive]]));
     }
     sendEvent({
-      lineCount: canExpandFive ? SKIP_NUMBER * 2 : numCollapsed,
+      lineCount: canExpandFive ? SKIP_NUMBER * 2 : numSkipped,
       name: "Expanded Lines",
       option: "Five",
     });
@@ -49,16 +46,14 @@ const SkippedLinesRow: React.FC<CollapsedRowProps> = ({
   const expandAll = () => {
     startTransition(() => expandLines([[lineStart, lineEndInclusive]]));
     sendEvent({
-      lineCount: numCollapsed,
+      lineCount: numSkipped,
       name: "Expanded Lines",
       option: "All",
     });
   };
 
   return (
-    <CollapsedLineWrapper
-      data-cy={`collapsed-row-${lineStart}-${lineEndInclusive}`}
-    >
+    <LineWrapper data-cy={`skipped-lines-row-${lineStart}-${lineEndInclusive}`}>
       <StyledBody>{lineText}</StyledBody>
       <ButtonContainer>
         <Button
@@ -76,13 +71,13 @@ const SkippedLinesRow: React.FC<CollapsedRowProps> = ({
           {SKIP_NUMBER} Above & Below
         </Button>
       </ButtonContainer>
-    </CollapsedLineWrapper>
+    </LineWrapper>
   );
 };
 
-SkippedLinesRow.displayName = "CollapsedRow";
+SkippedLinesRow.displayName = "SkippedLinesRow";
 
-const CollapsedLineWrapper = styled.div`
+const LineWrapper = styled.div`
   display: flex;
   align-items: center;
   background-color: #f4f5f5; // Custom gray background color.

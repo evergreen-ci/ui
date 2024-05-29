@@ -28,7 +28,7 @@ describe("project filters", () => {
       "contain",
       "111%28NETWORK%257CASIO%257CEXECUTOR%257CCONNPOOL%257CREPL_HB%29",
     );
-    cy.get("[data-cy^='collapsed-row-']").should("exist");
+    cy.get("[data-cy^='skipped-lines-row-']").should("exist");
   });
 
   it("should disable checkbox if filter is already applied", () => {
