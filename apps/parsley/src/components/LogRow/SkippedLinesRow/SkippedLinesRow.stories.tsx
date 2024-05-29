@@ -14,7 +14,7 @@ export default {
   decorators: [WithToastContext],
 } satisfies CustomMeta<typeof SkippedLinesRow>;
 
-const CollapsedRowStory = (
+const SkippedLinesRowStory = (
   args: React.ComponentProps<typeof SkippedLinesRow>,
 ) => {
   const [range, setRange] = useState(args.range);
@@ -35,19 +35,19 @@ const CollapsedRowStory = (
   );
 };
 
-export const CollapsedRowSingle: CustomStoryObj<typeof SkippedLinesRow> = {
+export const SkippedLinesRowSingle: CustomStoryObj<typeof SkippedLinesRow> = {
   argTypes: {
     expandLines: { action: "expandLines" },
   },
   args: {
-    // Initialize an array with 100 collapsed lines.
+    // Initialize an array with 100 skipped lines.
     range: { lineEnd: 101, lineStart: 1 },
   },
-  render: (args) => <CollapsedRowStory {...args} />,
+  render: (args) => <SkippedLinesRowStory {...args} />,
 };
 
-// CollapsedRow with AnsiRows.
-const CollapsedAnsiRowStory = (
+// SkippedLinesRow with AnsiRows.
+const SkippedAnsiRowStory = (
   args: React.ComponentProps<typeof SkippedLinesRow> & {
     wrap: boolean;
   },
@@ -70,14 +70,14 @@ const CollapsedAnsiRowStory = (
       <LogPane
         rowCount={processedLogLines.length}
         rowRenderer={ParsleyRow({
-          processedLogLines: collapsedLogLines,
+          processedLogLines: skippedLogLines,
         })}
       />
     </Container>
   );
 };
 
-export const CollapsedAnsiRow: CustomStoryObj<
+export const SkippedAnsiRow: CustomStoryObj<
   React.ComponentProps<typeof SkippedLinesRow> & {
     wrap: boolean;
   }
@@ -85,11 +85,11 @@ export const CollapsedAnsiRow: CustomStoryObj<
   args: {
     wrap: false,
   },
-  render: (args) => <CollapsedAnsiRowStory {...args} />,
+  render: (args) => <SkippedAnsiRowStory {...args} />,
 };
 
-// CollapsedRow withs ResmokeRows.
-const CollapsedResmokeRowStory = (
+// SkippedLinesRow withs ResmokeRows.
+const SkippedResmokeRowStory = (
   args: React.ComponentProps<typeof SkippedLinesRow> & {
     wrap: boolean;
   },
@@ -112,14 +112,14 @@ const CollapsedResmokeRowStory = (
       <LogPane
         rowCount={processedLogLines.length}
         rowRenderer={ParsleyRow({
-          processedLogLines: collapsedLogLines,
+          processedLogLines: skippedLogLines,
         })}
       />
     </Container>
   );
 };
 
-export const CollapsedResmokeRow: CustomStoryObj<
+export const SkippedResmokeRow: CustomStoryObj<
   React.ComponentProps<typeof SkippedLinesRow> & {
     wrap: boolean;
   }
@@ -127,7 +127,7 @@ export const CollapsedResmokeRow: CustomStoryObj<
   args: {
     wrap: false,
   },
-  render: (args) => <CollapsedResmokeRowStory {...args} />,
+  render: (args) => <SkippedResmokeRowStory {...args} />,
 };
 
 const ansiLogLines = [
@@ -153,7 +153,7 @@ const resmokeLogLines = [
   "[j0:sec1] Starting mongod on port 20002...",
 ];
 
-const collapsedLogLines: ProcessedLogLines = [
+const skippedLogLines: ProcessedLogLines = [
   0,
   1,
   2,

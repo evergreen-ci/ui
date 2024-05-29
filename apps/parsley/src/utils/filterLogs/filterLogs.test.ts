@@ -26,7 +26,7 @@ describe("filterLogs", () => {
     ).toStrictEqual([0, 1, 2, 3, 4, 5, 6, 7]);
   });
 
-  it("should hide collapsed rows if expandableRows is turned off", () => {
+  it("should hide skipped rows if expandableRows is turned off", () => {
     expect(
       filterLogs({
         bookmarks: [],
