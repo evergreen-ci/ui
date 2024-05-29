@@ -50,11 +50,14 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
         <CommitChart versions={versions} hasTaskFilter={hasTaskFilter} />
         <StickyContainer>
           <FlexRowContainer>
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {versions.map((commit) => (
               <CommitWrapper
                 key={getCommitKey(commit)}
                 width={getCommitWidth(commit)}
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 selected={isCommitSelected(commit, revision)}
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 data-selected={isCommitSelected(commit, revision)}
               >
                 <RenderCommitsLabel commit={commit} hasFilters={hasFilters} />
@@ -63,14 +66,17 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
           </FlexRowContainer>
         </StickyContainer>
         <FlexRowContainer>
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           {versions.map((commit) => (
             <CommitWrapper
               key={getCommitKey(commit)}
               width={getCommitWidth(commit)}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               selected={isCommitSelected(commit, revision)}
             >
               <RenderCommitsBuildVariants
                 commit={commit}
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 buildVariantDict={buildVariantDict}
               />
             </CommitWrapper>

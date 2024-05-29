@@ -19,6 +19,7 @@ export const NotificationsTab: React.FC<TabProps> = ({
   const formSchema = useMemo(
     () =>
       getFormSchema(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectType === ProjectType.AttachedProject ? repoData : null,
         projectType,
       ),
@@ -28,6 +29,7 @@ export const NotificationsTab: React.FC<TabProps> = ({
   return (
     <BaseTab
       formSchema={formSchema}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       initialFormState={initialFormState}
       tab={tab}
       validate={validate}
@@ -38,6 +40,7 @@ export const NotificationsTab: React.FC<TabProps> = ({
 const validate = ((formData, errors) => {
   const { subscriptions } = formData;
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   subscriptions.forEach((subscription, i) => {
     const { subscriptionData } = subscription || {};
     const { event, notification } = subscriptionData || {};
@@ -49,6 +52,7 @@ const validate = ((formData, errors) => {
         if (notificationSelect === notificationType) {
           const hasMatchingEvent = eventType.some((e) => e === eventSelect);
           if (hasMatchingEvent) {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             errors.subscriptions[
               i
             ].subscriptionData?.notification?.notificationSelect?.addError(

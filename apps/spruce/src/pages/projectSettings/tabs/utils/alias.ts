@@ -67,6 +67,7 @@ const aliasToForm = ({
 }: ProjectAlias): AliasFormType => ({
   id,
   alias,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   description,
   gitTag,
   remotePath,
@@ -99,14 +100,19 @@ export const sortAliases = (
     (o, a) => {
       const transformedAlias = aliasToForm(a);
       if (a.alias === AliasNames.GithubPr) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         o.githubPrAliases.push(transformedAlias);
       } else if (a.alias === AliasNames.GithubCheck) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         o.githubCheckAliases.push(transformedAlias);
       } else if (a.alias === AliasNames.GitTag) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         o.gitTagAliases.push(transformedAlias);
       } else if (a.alias === AliasNames.CommitQueue) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         o.commitQueueAliases.push(transformedAlias);
       } else {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         o.patchAliases.push(transformedAlias);
       }
       return o;
@@ -121,8 +127,11 @@ export const sortAliases = (
   );
 
 const transformVariants = ({
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   specifier,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   variant,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   variantTags,
 }): {
   variant: string;
@@ -135,12 +144,16 @@ const transformVariants = ({
       }
     : {
         variant: "",
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         variantTags: variantTags?.filter((tag) => tag) ?? [],
       };
 
 const transformTasks = ({
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   specifier,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   task,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   taskTags,
 }): {
   task: string;
@@ -153,6 +166,7 @@ const transformTasks = ({
       }
     : {
         task: "",
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         taskTags: taskTags?.filter((tag) => tag) ?? [],
       };
 
@@ -168,6 +182,7 @@ export const transformAliases = (
   override: boolean,
   aliasName?: AliasNames,
 ): ProjectAliasInput[] =>
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   override
     ? aliases.map((a) => {
         const {

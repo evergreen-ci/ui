@@ -46,6 +46,7 @@ export const CopyModal: React.FC<Props> = ({ handleClose, open }) => {
     copyDistro({
       variables: {
         opts: {
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           distroIdToCopy: distroId,
           newDistroId: formState.newDistroId,
         },

@@ -8,6 +8,7 @@ export const NavigationModal: React.FC = () => {
   const { hasUnsaved, unsavedTabs } = useHasUnsavedTab();
   const { distroId } = useParams();
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const shouldConfirmNavigation = ({ nextLocation }): boolean => {
     const isDistroSettingsRoute =
       nextLocation &&
@@ -17,6 +18,7 @@ export const NavigationModal: React.FC = () => {
     }
 
     /* Identify if the user is navigating to a new distro's settings via distro select dropdown */
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const currentDistroRoute = getDistroSettingsRoute(distroId);
     const isNewDistroSettingsRoute = !matchPath(
       `${currentDistroRoute}/*`,

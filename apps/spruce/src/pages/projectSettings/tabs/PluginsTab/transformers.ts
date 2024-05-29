@@ -41,6 +41,7 @@ export const gqlToForm = ((data) => {
         displayTitle: e.displayName,
       })) ?? [],
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
@@ -49,11 +50,14 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     perfEnabled: performanceSettings.perfEnabled,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     ...buildBaronIf(buildBaronSettings.useBuildBaron, buildBaronSettings),
     taskAnnotationSettings: {
       ...fileTicketWebhookIf(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         buildBaronSettings.useBuildBaron,
         buildBaronSettings.fileTicketWebhook,
       ),
@@ -68,6 +72,7 @@ export const formToGql = ((
         : null,
   };
   return { ...(isRepo ? { repoId: id } : { projectId: id }), projectRef };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;
 
 // conditionally include the buildBaronSettings field based on the useBuildBaron boolean
@@ -78,7 +83,9 @@ export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
       ticketCreateProject:
         buildBaronSettings.ticketCreateProject?.createProject,
       ticketSearchProjects: buildBaronSettings.ticketSearchProjects
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         .map(({ searchProject }) => searchProject)
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         .filter((str) => !!str),
       ticketCreateIssueType:
         buildBaronSettings.ticketCreateIssueType?.issueType ||

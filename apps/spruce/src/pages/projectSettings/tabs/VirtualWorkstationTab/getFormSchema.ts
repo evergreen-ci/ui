@@ -19,6 +19,7 @@ export const getFormSchema = (
       gitClone: {
         type: ["boolean", "null"],
         title: "Git Clone",
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         oneOf: radioBoxOptions(["Enabled", "Disabled"], repoData?.gitClone),
       },
       commands: {

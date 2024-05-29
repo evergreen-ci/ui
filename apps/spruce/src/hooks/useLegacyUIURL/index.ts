@@ -31,7 +31,9 @@ export const useLegacyUIURL = (): string | null => {
     for (let i = 0; i < legacyUIKeys.length; i++) {
       const matchedPath = matchPath(legacyUIKeys[i], pathname);
       if (matchedPath !== null) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         setId(slugToId(matchedPath.params));
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         setLegacyUIUrl(legacyUIMap[legacyUIKeys[i]]);
         break;
       }

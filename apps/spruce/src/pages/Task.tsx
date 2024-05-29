@@ -43,6 +43,7 @@ export const Task = () => {
     TaskQuery,
     TaskQueryVariables
   >(TASK, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "network-only",
@@ -51,6 +52,7 @@ export const Task = () => {
         `There was an error loading the task: ${err.message}`,
       ),
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data ?? {};
@@ -65,6 +67,7 @@ export const Task = () => {
     status,
     versionMetadata,
   } = task ?? {};
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const attributed = annotation?.issues?.length > 0;
   const isDisplayTask = executionTasksFull != null;
 
@@ -74,11 +77,15 @@ export const Task = () => {
 
   return (
     <PageWrapper>
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={versionMetadata?.projectIdentifier} />
       {task && (
         <TaskPageBreadcrumbs
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           displayTask={displayTask}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           patchNumber={patchNumber}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           taskName={displayName}
           versionMetadata={versionMetadata}
         />
@@ -86,15 +93,18 @@ export const Task = () => {
       <PageTitle
         pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
         loading={loading}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         title={displayName}
         badge={
           <StyledBadgeWrapper>
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             <TaskStatusBadge status={status} />
             {attributed && <TaskStatusBadge status={TaskStatus.KnownIssue} />}
           </StyledBadgeWrapper>
         }
         buttons={
           <ActionButtons
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             initialPriority={priority}
             isDisplayTask={isDisplayTask}
             isExecutionTask={!!displayTask}
@@ -104,10 +114,13 @@ export const Task = () => {
       />
       <PageLayout hasSider>
         <PageSider>
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           {latestExecution > 0 && (
             <ExecutionSelect
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               id={taskId}
               currentExecution={selectedExecution}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               latestExecution={latestExecution}
               updateExecution={(n: number) => {
                 taskAnalytics.sendEvent({ name: "Change Execution" });
@@ -118,9 +131,11 @@ export const Task = () => {
             />
           )}
           <Metadata
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             taskId={taskId}
             task={task}
             loading={loading}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             error={error}
           />
         </PageSider>

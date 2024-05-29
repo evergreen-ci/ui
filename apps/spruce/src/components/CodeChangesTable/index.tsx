@@ -36,8 +36,10 @@ const columns = [
     header: "File Name",
     meta: { width: "70%" },
     cell: ({
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       getValue,
       row: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         original: { diffLink },
       },
     }) => (
@@ -54,11 +56,13 @@ const columns = [
   {
     accessorKey: "additions",
     header: "Additions",
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => <FileDiffText value={getValue()} type="+" />,
   },
   {
     accessorKey: "deletions",
     header: "Deletions",
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     cell: ({ getValue }) => <FileDiffText value={getValue()} type="-" />,
   },
 ];

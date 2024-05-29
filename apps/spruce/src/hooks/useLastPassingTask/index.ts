@@ -24,7 +24,9 @@ export const useLastPassingTask = (taskId: string) => {
   const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
 
   const bvOptionsBase = {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     tasks: [string.applyStrictRegex(displayName)],
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variants: [string.applyStrictRegex(buildVariant)],
   };
 
@@ -36,7 +38,9 @@ export const useLastPassingTask = (taskId: string) => {
   >(LAST_MAINLINE_COMMIT, {
     skip: !parentTask || parentTask.status === TaskStatus.Succeeded,
     variables: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       projectIdentifier,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       skipOrderNumber,
       buildVariantOptions: {
         ...bvOptionsBase,
@@ -44,6 +48,7 @@ export const useLastPassingTask = (taskId: string) => {
       },
     },
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const task = getTaskFromMainlineCommitsQuery(lastPassingTaskData);
 
   return {

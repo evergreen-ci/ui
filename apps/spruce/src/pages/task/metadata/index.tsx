@@ -90,6 +90,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     timeTaken: baseTaskDuration,
     versionMetadata: baseTaskVersionMetadata,
   } = baseTask ?? {};
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const baseCommit = shortenGithash(baseTaskVersionMetadata?.revision);
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
@@ -116,8 +117,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
         Build Variant:{" "}
         <StyledRouterLink
           data-cy="build-variant-link"
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getVersionRoute(versionID, {
             page: 0,
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             variant: applyStrictRegex(buildVariant),
           })}
           onClick={() =>
@@ -131,6 +134,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
         Project:{" "}
         <StyledRouterLink
           data-cy="project-link"
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getProjectPatchesRoute(projectIdentifier)}
           onClick={() =>
             taskAnalytics.sendEvent({ name: "Click Project Link" })
@@ -140,7 +144,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
         </StyledRouterLink>
       </MetadataItem>
       <MetadataItem>Submitted by: {author}</MetadataItem>
-
       {submittedTime && (
         <MetadataItem data-cy="task-metadata-submitted-at">
           Submitted at:{" "}
@@ -157,15 +160,19 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </StyledRouterLink>
         </MetadataItem>
       )}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {estimatedStart > 0 && (
         <MetadataItem>
           Estimated time to start:{" "}
           <span data-cy="task-metadata-estimated_start">
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {msToDuration(estimatedStart)}
           </span>
         </MetadataItem>
       )}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {status === TaskStatus.Started && expectedDuration > 0 && (
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         <ETATimer startTime={startTime} expectedDuration={expectedDuration} />
       )}
       {status === TaskStatus.Started && startTime && (
@@ -190,13 +197,16 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </span>
         </MetadataItem>
       )}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {timeTaken > 0 && finishTime && (
         <MetadataItem data-cy="task-metadata-duration">
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           Duration: {msToDuration(timeTaken)}{" "}
         </MetadataItem>
       )}
       {baseTaskDuration !== undefined && (
         <MetadataItem data-cy="task-metadata-base-commit-duration">
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           Base commit duration: {msToDuration(baseTaskDuration)}
         </MetadataItem>
       )}
@@ -285,6 +295,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       )}
       {priority !== 0 && (
         <MetadataItem data-cy="task-metadata-priority">
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           Priority: {priority} {priority < 0 && `(Disabled)`}
         </MetadataItem>
       )}
@@ -322,11 +333,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             </StyledLink>
           </MetadataItem>
         ))}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {taskQueuePosition > 0 && (
         <MetadataItem>
           Position in queue:{" "}
           <StyledRouterLink
             data-cy="task-queue-position"
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getTaskQueueRoute(distroId, taskId)}
           >
             {taskQueuePosition}
@@ -392,6 +405,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               data-cy="task-metrics-link"
               href={getHoneycombSystemMetricsUrl(
                 taskId,
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 diskDevices,
                 startTime,
                 finishTime,

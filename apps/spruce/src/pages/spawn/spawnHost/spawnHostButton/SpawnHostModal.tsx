@@ -87,6 +87,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   );
 
   useVirtualWorkstationDefaultExpiration({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     isVirtualWorkstation: selectedDistro?.isVirtualWorkStation,
     setFormState,
     formState,
@@ -95,11 +96,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const hostUptimeWarnings = useMemo(() => {
     const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       formState?.expirationDetails?.hostUptime,
     );
     const warnings = getHostUptimeWarnings({
       enabledHoursCount,
       enabledWeekdaysCount,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       runContinuously:
         formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection
           ?.runContinuously,
@@ -107,6 +110,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     return { enabledHoursCount, warnings };
   }, [formState?.expirationDetails?.hostUptime]);
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     distroIdQueryParam,
@@ -125,8 +129,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const spawnHost = () => {
     const mutationInput = formToGql({
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       isVirtualWorkStation: selectedDistro?.isVirtualWorkStation,
       formData: formState,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       myPublicKeys: formSchemaInput.myPublicKeys,
       spawnTaskData: spawnTaskData?.task,
       timeZone,
@@ -134,6 +140,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
       isMigration: false,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       params: omit(mutationInput, [
         "publicKey",
         "userDataScript",

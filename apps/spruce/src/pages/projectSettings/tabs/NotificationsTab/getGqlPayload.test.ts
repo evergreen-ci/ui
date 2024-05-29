@@ -45,6 +45,7 @@ describe("getGqlPayload", () => {
   });
 
   it("should correctly format webhook subscription", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const payload = getGqlPayload("project_id")(webhookSubscriptionWithSecret);
     expect(payload).toStrictEqual({
       id: "webhook_subscription",
@@ -79,6 +80,7 @@ describe("getGqlPayload", () => {
     );
 
     const payload = getGqlPayload("project_id")(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       webhookSubscriptionWithoutSecret,
     );
     expect(payload).toStrictEqual({

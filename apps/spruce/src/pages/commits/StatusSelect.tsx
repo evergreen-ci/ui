@@ -12,6 +12,7 @@ export const StatusSelect = () => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const { inputValue, setAndSubmitInputValue } = useStatusesFilter({
     urlParam: PatchTasksQueryParams.Statuses,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvent: (_, filterValue: string[]) => {
       sendEvent({
         name: "Filter by task status",

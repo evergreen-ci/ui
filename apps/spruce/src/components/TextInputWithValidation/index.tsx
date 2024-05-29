@@ -63,6 +63,7 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     };
 
     return (
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       <TextInputWithGlyph
         value={input}
         onChange={(e) => handleOnChange(e.target.value)}

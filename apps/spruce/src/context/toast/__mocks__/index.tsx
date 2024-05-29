@@ -1,8 +1,5 @@
 import * as toast from "..";
 
-const { useToastContext } = toast;
-type DispatchToast = ReturnType<typeof useToastContext>;
-
 /**
  * RenderFakeToastContext is a utility that takes a React Component which uses useToastContext and returns a
  * React Component which renders the component with the context mocked out.
@@ -11,7 +8,8 @@ type DispatchToast = ReturnType<typeof useToastContext>;
  * @param Component - A React Component which uses useToastContext
  * @returns an object with the Component, the mocked useToastContext, and the dispatchToast methods
  */
-const RenderFakeToastContext = (Component?: React.ReactElement) => {
+const RenderFakeToastContext = (Component: React.ReactElement = <div />) => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const dispatchToast: DispatchToast = {
     success: vi.fn(),
     error: vi.fn(),
@@ -28,8 +26,8 @@ const RenderFakeToastContext = (Component?: React.ReactElement) => {
 
   return {
     Component: () => Component,
-    useToastContext: useToastContextSpied,
     dispatchToast,
+    useToastContext: useToastContextSpied,
   };
 };
 

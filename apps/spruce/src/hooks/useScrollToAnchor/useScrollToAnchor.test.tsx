@@ -19,6 +19,7 @@ describe("useScrollToAnchor", () => {
   });
 
   it("should scroll to element when hash is present", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const wrapper = ({ children }) => (
       <MemoryRouter initialEntries={["/#test-anchor"]}>{children}</MemoryRouter>
     );
@@ -33,6 +34,7 @@ describe("useScrollToAnchor", () => {
   });
 
   it("should not scroll when hash is not present", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const wrapper = ({ children }) => (
       <MemoryRouter initialEntries={["/"]}>{children}</MemoryRouter>
     );
@@ -44,6 +46,7 @@ describe("useScrollToAnchor", () => {
   });
 
   it("should clear timeout on unmount", () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const wrapper = ({ children }) => (
       <MemoryRouter initialEntries={["/#test-anchor"]}>{children}</MemoryRouter>
     );

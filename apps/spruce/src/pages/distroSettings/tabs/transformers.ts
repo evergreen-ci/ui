@@ -13,19 +13,29 @@ import {
 export const formToGqlMap: {
   [T in WritableDistroSettingsType]: FormToGqlFunction<T>;
 } = {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.General]: general.formToGql,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Host]: host.formToGql,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Project]: project.formToGql,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Provider]: provider.formToGql,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Task]: task.formToGql,
 };
 
 export const gqlToFormMap: {
   [T in WritableDistroSettingsType]?: GqlToFormFunction<T>;
 } = {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.General]: general.gqlToForm,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Host]: host.gqlToForm,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Project]: project.gqlToForm,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Provider]: provider.gqlToForm,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   [DistroSettingsTabRoutes.Task]: task.gqlToForm,
 };

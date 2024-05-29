@@ -88,6 +88,7 @@ describe("editSpawnHostModal", () => {
         </MockedProvider>,
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       within(screen.queryByDataCy("daypicker"))
         .getAllByRole("checkbox")
         .forEach((day) => {
@@ -159,15 +160,18 @@ describe("editSpawnHostModal", () => {
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
       await user.click(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         screen.queryByText("Use default host uptime schedule", {
           exact: false,
         }),
       );
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       within(screen.queryByDataCy("daypicker"))
         .getAllByRole("checkbox")
         .forEach((day) => {
           expect(day).not.toBeDisabled();
         });
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByLabelText("Start Time"));
       await user.click(screen.getAllByText("07")[0]);
       await user.click(screen.getByText("OK", { selector: "span" }));
@@ -189,11 +193,14 @@ describe("editSpawnHostModal", () => {
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
       await user.click(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         screen.queryByText("Use default host uptime schedule", {
           exact: false,
         }),
       );
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByTitle("Sunday"));
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByText("Run continuously for enabled days"));
       expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
         "144",
@@ -215,12 +222,16 @@ describe("editSpawnHostModal", () => {
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
       await user.click(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         screen.queryByText("Use default host uptime schedule", {
           exact: false,
         }),
       );
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByTitle("Sunday"));
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByTitle("Saturday"));
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       await user.click(screen.queryByText("Run continuously for enabled days"));
       expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
         "168",

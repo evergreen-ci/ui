@@ -24,5 +24,6 @@ export const ProjectBanner: React.FC<ProjectBannerProps> = ({
   if (!text) {
     return null;
   }
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return <PortalBanner banner={<SiteBanner text={text} theme={theme} />} />;
 };

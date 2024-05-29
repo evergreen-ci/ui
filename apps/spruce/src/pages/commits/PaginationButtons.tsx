@@ -21,6 +21,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     sendEvent({ name: "Paginate", direction: "next" });
     updateQueryParams({
       [MainlineCommitQueryParams.SkipOrderNumber]:
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         nextPageOrderNumber.toString(),
     });
   };
@@ -31,6 +32,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     });
     updateQueryParams({
       [MainlineCommitQueryParams.SkipOrderNumber]:
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         prevPageOrderNumber.toString(),
     });
   };

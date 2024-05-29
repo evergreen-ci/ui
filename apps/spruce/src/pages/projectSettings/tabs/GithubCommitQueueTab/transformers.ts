@@ -31,16 +31,25 @@ export const gqlToForm = ((data, options) => {
   if (!data) return null;
 
   const { aliases, projectRef } = data;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { projectType } = options;
 
   const {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     commitQueue,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     gitTagAuthorizedTeams,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     gitTagAuthorizedUsers,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     gitTagVersionsEnabled,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubChecksEnabled,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     manualPrTestingEnabled,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     oldestAllowedMergeBase,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     prTestingEnabled,
   } = projectRef;
 
@@ -49,14 +58,17 @@ export const gqlToForm = ((data, options) => {
     gitTagAliases,
     githubCheckAliases,
     githubPrAliases,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
   } = sortAliases(aliases);
 
   const override = (field: Array<any>) =>
     projectType !== ProjectType.AttachedProject || !!field?.length;
 
   const githubTriggerAliases =
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     projectRef.githubTriggerAliases
       ?.map((aliasName) =>
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectRef.patchTriggerAliases.find(({ alias }) => alias === aliasName),
       )
       ?.filter((a) => a) ?? [];
@@ -107,6 +119,7 @@ export const gqlToForm = ((data, options) => {
       },
     },
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
@@ -134,6 +147,7 @@ export const formToGql = ((
   id,
 ) => {
   const projectRef: ProjectInput = {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     prTestingEnabled,
     manualPrTestingEnabled,
@@ -190,4 +204,5 @@ export const formToGql = ((
     projectRef,
     aliases,
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

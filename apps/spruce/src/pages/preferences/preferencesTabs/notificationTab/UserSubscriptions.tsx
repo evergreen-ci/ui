@@ -78,8 +78,10 @@ export const UserSubscriptions: React.FC<{}> = () => {
       {
         accessorKey: "resourceType",
         id: "resourceType",
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ getValue }) => {
           const resourceType = getValue();
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           return resourceTypeToCopy[resourceType] ?? resourceType;
         },
         enableColumnFilter: true,
@@ -97,8 +99,10 @@ export const UserSubscriptions: React.FC<{}> = () => {
         header: "ID",
         accessorKey: "selectors",
         cell: ({
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           getValue,
           row: {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             original: { resourceType },
           },
         }) => {
@@ -128,27 +132,33 @@ export const UserSubscriptions: React.FC<{}> = () => {
             options: triggerTreeData,
           },
         },
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ getValue }) => {
           const trigger = getValue();
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           return triggerToCopy[trigger] ?? trigger;
         },
       },
       {
         header: "Notify by",
         accessorKey: "subscriber.type",
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ getValue }) => {
           const subscriberType = getValue();
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           return notificationMethodToCopy[subscriberType] ?? subscriberType;
         },
       },
       {
         header: "Target",
         accessorKey: "subscriber",
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ getValue }) => {
           const subscriber = getValue();
           const text = getSubscriberText(subscriber);
           return subscriber.type === NotificationMethods.JIRA_COMMENT
-            ? jiraLinkify(text, jiraHost)
+            ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+              jiraLinkify(text, jiraHost)
             : text;
         },
       },
@@ -166,6 +176,7 @@ export const UserSubscriptions: React.FC<{}> = () => {
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),
     hasSelectableRows: true,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
     state: {

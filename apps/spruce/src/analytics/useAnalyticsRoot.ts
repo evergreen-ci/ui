@@ -18,6 +18,7 @@ export const useAnalyticsRoot = <Action extends ActionType>(
       const userId = localStorage.getItem("userId");
       addPageAction<Action, P>(action, {
         object,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         userId,
         ...attributes,
       });

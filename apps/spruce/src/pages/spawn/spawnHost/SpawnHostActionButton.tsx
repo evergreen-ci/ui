@@ -24,7 +24,9 @@ import { PauseSleepScheduleModal } from "./PauseSleepScheduleModal";
 export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const dispatchToast = useToastContext();
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const glyph = mapStatusToGlyph[host.status];
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const action = mapStatusToAction[host.status];
   const canTerminate = host.status !== HostStatus.Terminated;
 
@@ -44,6 +46,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     },
   });
   usePolling({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     startPolling,
     stopPolling,
     refetch,
@@ -104,6 +107,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   return (
     <>
       {/* TODO: Replace with noExpiration check when sleep schedules are deployed */}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {!isNullSleepSchedule(host?.sleepSchedule) &&
       action === SpawnHostStatusActions.Stop ? (
         <>
@@ -120,6 +124,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
             }
             open={sleepModalOpen}
             setOpen={setSleepModalOpen}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             sleepSchedule={host.sleepSchedule}
           />
         </>

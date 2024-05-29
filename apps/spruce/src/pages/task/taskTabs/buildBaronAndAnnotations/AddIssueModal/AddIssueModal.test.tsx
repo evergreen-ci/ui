@@ -76,6 +76,7 @@ describe("addIssueModal", () => {
 
     expect(screen.queryByDataCy("issue-url")).toHaveValue("");
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123",
     );
@@ -103,6 +104,7 @@ describe("addIssueModal", () => {
 
     expect(screen.queryByDataCy("issue-url")).toHaveValue("");
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123",
     );
@@ -111,14 +113,19 @@ describe("addIssueModal", () => {
       name: "Add issue",
     });
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("confidence-level"), "not a number");
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(screen.queryByDataCy("confidence-level"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("confidence-level"), "110");
     expect(confirmButton).toHaveAttribute("aria-disabled", "true");
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(screen.queryByDataCy("confidence-level"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("confidence-level"), "80");
     expect(confirmButton).not.toHaveAttribute("aria-disabled", "true");
   }, 15000);
@@ -140,9 +147,11 @@ describe("addIssueModal", () => {
     });
 
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123",
     );
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("confidence-level"), "12");
 
     const confirmButton = screen.getByRole("button", {
