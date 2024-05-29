@@ -19,6 +19,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   hidden,
   id,
   label,
+  rawErrors,
   schema,
   uiSchema,
 }) => {
@@ -28,7 +29,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   const showLabel = uiSchema["ui:showLabel"] ?? true;
   const fieldDataCy = uiSchema["ui:field-data-cy"];
   const descriptionNode = uiSchema["ui:descriptionNode"];
-  const errors = uiSchema["ui:errors"] ?? [];
+  const errors = uiSchema["ui:errors"] ?? (rawErrors?.length ? rawErrors : []);
   const warnings = uiSchema["ui:warnings"] ?? [];
   return (
     !hidden && (

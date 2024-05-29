@@ -1,7 +1,8 @@
-import { differenceInHours, parse } from "date-fns";
+import { differenceInHours, isTomorrow, parse } from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
-import { SleepScheduleInput } from "gql/generated/types";
-import { MyHost } from "types/spawn";
+import { days } from "constants/fieldMaps";
+import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";
+import { Optional } from "types/utils";
 import { arraySymmetricDifference } from "utils/array";
 import { isProduction } from "utils/environmentVariables";
 
@@ -10,6 +11,7 @@ const hoursInDay = 24;
 const defaultStartHour = 8;
 const defaultStopHour = 20;
 const defaultScheduleWeeklyHourCount = 60;
+const defaultScheduleWeekdaysCount = 5;
 
 const suggestedUptimeHours = (daysInWeek - 2) * hoursInDay;
 export const maxUptimeHours = (daysInWeek - 1) * hoursInDay;
@@ -29,96 +31,71 @@ export type HostUptime = {
       runContinuously: boolean;
     };
   };
+  details?: null;
 };
 
 type ValidateInput = {
-  enabledWeekdays: boolean[];
-  stopTime: string;
+  enabledHoursCount: number;
+  enabledWeekdaysCount: number;
   runContinuously: boolean;
-  startTime: string;
-  useDefaultUptimeSchedule: boolean;
 };
 
-export const validateUptimeSchedule = ({
-  enabledWeekdays,
+export const getHostUptimeWarnings = ({
+  enabledHoursCount,
+  enabledWeekdaysCount,
   runContinuously,
-  startTime,
-  stopTime,
-  useDefaultUptimeSchedule,
-}: ValidateInput): {
-  enabledHoursCount: number;
-  errors: string[];
-  warnings: string[];
-} => {
-  if (useDefaultUptimeSchedule) {
-    return {
-      enabledHoursCount: defaultScheduleWeeklyHourCount,
-      errors: [],
-      warnings: [],
-    };
-  }
-
-  const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount({
-    enabledWeekdays,
-    stopTime,
-    runContinuously,
-    startTime,
-  });
-
+}: ValidateInput): string[] => {
   if (enabledHoursCount > maxUptimeHours) {
-    // Return error based on whether runContinously enabled
-    if (runContinuously) {
-      return {
-        enabledHoursCount,
-        errors: ["Please pause your host for at least 1 day per week."],
-        warnings: [],
-      };
-    }
-    const hourlyRequirement = Math.floor(maxUptimeHours / enabledWeekdaysCount);
-    return {
-      enabledHoursCount,
-      errors: [
-        `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
-      ],
-      warnings: [],
-    };
+    // This state represents an error, which is handled by the RJSF validator.
+    return [];
   }
 
   if (enabledHoursCount > suggestedUptimeHours) {
     // Return warning based on whether runContinuously enabled
     if (runContinuously) {
-      return {
-        enabledHoursCount,
-        errors: [],
-        warnings: ["Consider pausing your host for 2 days per week."],
-      };
+      return ["Consider pausing your host for 2 days per week."];
     }
     const hourlySuggestion = Math.floor(
       suggestedUptimeHours / enabledWeekdaysCount,
     );
-    return {
-      enabledHoursCount,
-      errors: [],
-      warnings: [
-        `Consider running your host for ${hourlySuggestion} hours per day or fewer.`,
-      ],
-    };
+    return [
+      `Consider running your host for ${hourlySuggestion} hours per day or fewer.`,
+    ];
   }
+
   // No error
-  return {
-    enabledHoursCount,
-    errors: [],
-    warnings: [],
-  };
+  return [];
 };
 
-export const getEnabledHoursCount = ({
-  enabledWeekdays,
-  runContinuously,
-  startTime,
-  stopTime,
-}: Omit<ValidateInput, "useDefaultUptimeSchedule">) => {
+export const getEnabledHoursCount = (
+  hostUptime: HostUptime,
+): { enabledHoursCount: number; enabledWeekdaysCount: number } => {
+  if (!hostUptime) {
+    return {
+      enabledHoursCount: defaultScheduleWeeklyHourCount,
+      enabledWeekdaysCount: defaultScheduleWeekdaysCount,
+    };
+  }
+
+  const {
+    sleepSchedule: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      enabledWeekdays,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      timeSelection: { runContinuously, startTime, stopTime },
+    },
+    useDefaultUptimeSchedule,
+  } = hostUptime;
+
+  if (useDefaultUptimeSchedule) {
+    return {
+      enabledHoursCount: defaultScheduleWeeklyHourCount,
+      enabledWeekdaysCount: defaultScheduleWeekdaysCount,
+    };
+  }
+
   const enabledWeekdaysCount =
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     enabledWeekdays?.filter((day) => day).length ?? 0;
   const enabledHoursCount = runContinuously
     ? enabledWeekdaysCount * hoursInDay
@@ -171,19 +148,17 @@ const toTimeString = (date: Date): string =>
     minute: "2-digit",
   });
 
-export const defaultSleepSchedule: Omit<SleepScheduleInput, "timeZone"> = {
+export const defaultSleepSchedule: Optional<SleepScheduleInput, "timeZone"> = {
   dailyStartTime: toTimeString(defaultStartDate),
   dailyStopTime: toTimeString(defaultStopDate),
   permanentlyExempt: false,
-  // TODO: Add pause
   shouldKeepOff: false,
   wholeWeekdaysOff: [0, 6],
 };
 
 export const getHostUptimeFromGql = (
-  sleepSchedule: MyHost["sleepSchedule"],
+  sleepSchedule: Optional<SleepSchedule, "timeZone">,
 ): HostUptime => {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
   return {
@@ -219,9 +194,8 @@ export const getHostUptimeFromGql = (
 };
 
 export const matchesDefaultUptimeSchedule = (
-  sleepSchedule: MyHost["sleepSchedule"],
+  sleepSchedule: Optional<SleepSchedule, "timeZone">,
 ): boolean => {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
   if (
@@ -246,23 +220,88 @@ export const validator = (({ expirationDetails }, errors) => {
 
   const { sleepSchedule, useDefaultUptimeSchedule } = hostUptime;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { enabledWeekdays, timeSelection } = sleepSchedule;
+  const { timeSelection } = sleepSchedule;
 
   if (useDefaultUptimeSchedule) {
     return errors;
   }
 
-  const { enabledHoursCount } = getEnabledHoursCount({
-    enabledWeekdays,
-    ...timeSelection,
-  });
+  const { enabledHoursCount, enabledWeekdaysCount } =
+    getEnabledHoursCount(hostUptime);
 
   if (enabledHoursCount > maxUptimeHours) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    errors.expirationDetails?.hostUptime?.addError("Insufficient hours");
+    // Return error based on whether runContinously enabled
+    if (timeSelection?.runContinuously) {
+      // @ts-expect-error
+      errors.expirationDetails?.hostUptime?.details?.addError?.(
+        "Please pause your host for at least 1 day per week.",
+      );
+      return errors;
+    }
+    const hourlyRequirement = Math.floor(maxUptimeHours / enabledWeekdaysCount);
+    // @ts-expect-error
+    errors.expirationDetails?.hostUptime?.details?.addError?.(
+      `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
+    );
+    return errors;
   }
 
   return errors;
 }) satisfies ValidateProps<{
   expirationDetails?: { hostUptime?: HostUptime; noExpiration: boolean };
 }>;
+
+/**
+ * isNullSleepSchedule indicates that the sleep schedule is unset.
+ * TODO: When sleep schedules are generally released, we should instead check whether noExpiration is set.
+ * Until then, noExpiration is insufficient because a user may have an unexpirable host running without a sleep schedule.
+ * @param sleepSchedule - sleepSchedule as returned from Evergreen
+ * @returns boolean indicating whether the sleep schedule is effectively unset.
+ */
+export const isNullSleepSchedule = (
+  sleepSchedule: Optional<SleepSchedule, "timeZone">,
+) => {
+  if (!sleepSchedule) return true;
+
+  const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
+  if (dailyStartTime !== "") return false;
+  if (dailyStopTime !== "") return false;
+  if (arraySymmetricDifference(wholeWeekdaysOff, []).length > 0) return false;
+  return true;
+};
+
+export const getNextHostStart = (
+  { dailyStartTime, wholeWeekdaysOff }: SleepSchedule,
+  todayDate: Date,
+): {
+  nextStartDay: string;
+  nextStartTime: string | null;
+} => {
+  if (dailyStartTime) {
+    const nextStartDate = parse(dailyStartTime, "HH:mm", todayDate);
+    do {
+      nextStartDate.setDate(nextStartDate.getDate() + 1);
+    } while (wholeWeekdaysOff.includes(nextStartDate.getDay()));
+    const nextStartDay: string = isTomorrow(nextStartDate)
+      ? "tomorrow"
+      : days[nextStartDate.getDay()];
+    const nextStartTime: string = `${nextStartDate.getHours()}:${nextStartDate.getMinutes().toString().padStart(2, "0")}`;
+    return { nextStartDay, nextStartTime };
+  }
+
+  const nextStartDate = todayDate;
+  if (!wholeWeekdaysOff.includes(nextStartDate.getDay())) {
+    // Find the next planned off day in the schedule
+    do {
+      nextStartDate.setDate(nextStartDate.getDate() + 1);
+    } while (!wholeWeekdaysOff.includes(nextStartDate.getDay()));
+  }
+  // Find the first active day after that break
+  do {
+    nextStartDate.setDate(nextStartDate.getDate() + 1);
+  } while (wholeWeekdaysOff.includes(nextStartDate.getDay()));
+  const nextStartDay: string = isTomorrow(nextStartDate)
+    ? "tomorrow"
+    : days[nextStartDate.getDay()];
+  return { nextStartDay, nextStartTime: null };
+};
