@@ -325,6 +325,7 @@ describe("getNextHostStart", () => {
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
     };
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
     expect(getNextHostStart(sched, monday)).toStrictEqual({
       nextStartDay: "Tuesday",
@@ -341,6 +342,7 @@ describe("getNextHostStart", () => {
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 1, 6],
     };
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
     expect(getNextHostStart(sched, monday)).toStrictEqual({
       nextStartDay: "Tuesday",
@@ -357,6 +359,7 @@ describe("getNextHostStart", () => {
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
     };
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
     expect(getNextHostStart(sched, monday)).toStrictEqual({
       nextStartDay: "Monday",
@@ -373,6 +376,7 @@ describe("getNextHostStart", () => {
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 1, 6],
     };
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
     expect(getNextHostStart(sched, monday)).toStrictEqual({
       nextStartDay: "Tuesday",
