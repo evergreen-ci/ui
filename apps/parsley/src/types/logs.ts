@@ -3,12 +3,6 @@ import { CaseSensitivity, MatchType } from "constants/enums";
 type ExpandedLine = [number, number];
 type ExpandedLines = ExpandedLine[];
 
-/**
- * Represents a range of lines in a log file.
- * {Object} Range
- * {number} lineStart - The starting line inclusive of the range.
- * {number} lineEnd - The ending line exclusive of the range.
- */
 interface Range {
   /** The starting line inclusive of the range */
   lineStart: number;

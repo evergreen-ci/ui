@@ -9,11 +9,11 @@ const wrapper = (logs: string[]) => {
   return provider;
 };
 
-describe("collapsedRow", () => {
-  it("renders a collapsed log line", () => {
+describe("skippedLinesRow", () => {
+  it("renders a skipped log line", () => {
     renderWithRouterMatch(
       <SkippedLinesRow
-        {...collapsedProps}
+        {...skippedLinesProps}
         lineIndex={0}
         range={{ lineEnd: 11, lineStart: 0 }}
       />,
@@ -29,7 +29,7 @@ describe("collapsedRow", () => {
     const expandLines = vi.fn();
     renderWithRouterMatch(
       <SkippedLinesRow
-        {...collapsedProps}
+        {...skippedLinesProps}
         expandLines={expandLines}
         lineIndex={0}
         range={{ lineEnd: 11, lineStart: 0 }}
@@ -55,7 +55,7 @@ describe("collapsedRow", () => {
     const expandLines = vi.fn();
     renderWithRouterMatch(
       <SkippedLinesRow
-        {...collapsedProps}
+        {...skippedLinesProps}
         expandLines={expandLines}
         lineIndex={0}
         range={{ lineEnd: 11, lineStart: 0 }}
@@ -72,10 +72,10 @@ describe("collapsedRow", () => {
     expect(expandLines).toHaveBeenCalledWith([[0, 10]]);
   });
 
-  it("should not disable `Expand 5 Above and Below` button if there are less than 10 log lines in the collapsed row", async () => {
+  it("should not disable `Expand 5 Above and Below` button if there are less than 10 log lines in the skipped row", async () => {
     renderWithRouterMatch(
       <SkippedLinesRow
-        {...collapsedProps}
+        {...skippedLinesProps}
         lineIndex={0}
         range={{ lineEnd: 3, lineStart: 0 }}
       />,
@@ -104,6 +104,6 @@ const logLines = [
   "filler",
 ];
 
-const collapsedProps = {
+const skippedLinesProps = {
   expandLines: vi.fn(),
 };
