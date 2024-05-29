@@ -9,9 +9,7 @@ import { ProcessedLogLine, SkippedLinesRow } from "types/logs";
 const isSkippedLinesRow = (
   logLine: ProcessedLogLine,
 ): logLine is SkippedLinesRow =>
-  typeof logLine === "object" &&
-  "rowType" in logLine &&
-  logLine.rowType === "SkippedLines";
+  typeof logLine === "object" && logLine.rowType === "SkippedLines";
 
 /**
  * `isCollapsedRow` determines if a row is a collapsed row such as SectionHeaderRow and SkippedLinesRow.
