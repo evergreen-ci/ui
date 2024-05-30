@@ -26,7 +26,7 @@ describe("filterLogs", () => {
     ).toStrictEqual([0, 1, 2, 3, 4, 5, 6, 7]);
   });
 
-  it("should hide collapsed rows if expandableRows is turned off", () => {
+  it("should hide skipped rows if expandableRows is turned off", () => {
     expect(
       filterLogs({
         bookmarks: [],
@@ -51,7 +51,7 @@ describe("filterLogs", () => {
         matchingLines: new Set([]),
         shareLine: undefined,
       }),
-    ).toStrictEqual([[0, 1, 2, 3, 4, 5, 6, 7]]);
+    ).toStrictEqual([{ range: { end: 8, start: 0 }, rowType: "SkippedLines" }]);
   });
 
   describe("with matching lines", () => {
@@ -66,7 +66,12 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           shareLine: undefined,
         }),
-      ).toStrictEqual([[0], 1, [2, 3, 4, 5, 6], 7]);
+      ).toStrictEqual([
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        1,
+        { range: { end: 7, start: 2 }, rowType: "SkippedLines" },
+        7,
+      ]);
     });
 
     it("should not collapse the share line", () => {
@@ -80,7 +85,12 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           shareLine: 7,
         }),
-      ).toStrictEqual([[0], 1, [2, 3, 4, 5, 6], 7]);
+      ).toStrictEqual([
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        1,
+        { range: { end: 7, start: 2 }, rowType: "SkippedLines" },
+        7,
+      ]);
     });
 
     it("should not collapse the failing line", () => {
@@ -94,7 +104,12 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           shareLine: undefined,
         }),
-      ).toStrictEqual([[0], 1, [2, 3, 4, 5, 6], 7]);
+      ).toStrictEqual([
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        1,
+        { range: { end: 7, start: 2 }, rowType: "SkippedLines" },
+        7,
+      ]);
     });
 
     it("should not collapse expanded lines", () => {
@@ -108,7 +123,15 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           shareLine: undefined,
         }),
-      ).toStrictEqual([[0], 1, [2, 3], 4, 5, 6, [7]]);
+      ).toStrictEqual([
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        1,
+        { range: { end: 4, start: 2 }, rowType: "SkippedLines" },
+        4,
+        5,
+        6,
+        { range: { end: 8, start: 7 }, rowType: "SkippedLines" },
+      ]);
     });
   });
 });

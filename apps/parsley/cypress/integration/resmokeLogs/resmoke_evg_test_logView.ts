@@ -213,18 +213,18 @@ describe("expanding collapsed rows", () => {
     cy.dataCy("log-row-2").should("not.exist");
     cy.dataCy("log-row-3").should("not.exist");
 
-    cy.dataCy("collapsed-row-1-3").within(() => {
+    cy.dataCy("skipped-lines-row-1-3").within(() => {
       cy.contains("All").click();
     });
 
-    cy.dataCy("collapsed-row-1-3").should("not.exist");
+    cy.dataCy("skipped-lines-row-1-3").should("not.exist");
     cy.dataCy("log-row-1").should("be.visible");
     cy.dataCy("log-row-2").should("be.visible");
     cy.dataCy("log-row-3").should("be.visible");
   });
 
   it("should be able to see what rows have been expanded in the drawer", () => {
-    cy.dataCy("collapsed-row-1-3").within(() => {
+    cy.dataCy("skipped-lines-row-1-3").within(() => {
       cy.contains("All").click();
     });
     cy.toggleDrawer();
@@ -232,16 +232,16 @@ describe("expanding collapsed rows", () => {
   });
 
   it("should be possible to re-collapse rows through the drawer", () => {
-    cy.dataCy("collapsed-row-1-3").within(() => {
+    cy.dataCy("skipped-lines-row-1-3").within(() => {
       cy.contains("All").click();
     });
-    cy.dataCy("collapsed-row-1-3").should("not.exist");
+    cy.dataCy("skipped-lines-row-1-3").should("not.exist");
 
     cy.toggleDrawer();
     cy.dataCy("expanded-row-1-to-3").within(() => {
       cy.get(`[aria-label="Delete range"]`).click();
     });
-    cy.dataCy("collapsed-row-1-3").should("exist");
+    cy.dataCy("skipped-lines-row-1-3").should("exist");
   });
 });
 
