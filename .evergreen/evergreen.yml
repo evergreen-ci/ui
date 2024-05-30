@@ -94,6 +94,40 @@ buildvariants:
         patchable: false
         priority: 100
 
+  - name: components
+    display_name: Components
+    expansions:
+      app_dir: packages/components
+      goroot: /opt/golang/go1.20
+      mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.8.0.tgz
+      mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.2.tgz
+      mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.0.2-linux-x64.tgz
+      node_version: 20.10.0
+    run_on:
+      - ubuntu2204-large
+      - ubuntu2204-small
+    tasks:
+      - name: lint
+      - name: test
+      - name: type_check
+
+  - name: utils
+    display_name: Utils
+    expansions:
+      app_dir: packages/utils
+      goroot: /opt/golang/go1.20
+      mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.8.0.tgz
+      mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.2.tgz
+      mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.0.2-linux-x64.tgz
+      node_version: 20.10.0
+    run_on:
+      - ubuntu2204-large
+      - ubuntu2204-small
+    tasks:
+      - name: lint
+      - name: test
+      - name: type_check
+
 parameters:
   - key: cypress_spec
     value: cypress/integration/**/*

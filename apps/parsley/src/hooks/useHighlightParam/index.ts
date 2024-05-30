@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
+import { conditionalToArray } from "@evg-ui/utils";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParams } from "hooks/useQueryParam";
-import { conditionalCastToArray } from "utils/array";
 
 /**
  * `useHighlightParam` is a specialized form of useQueryParam. It needs to encode and decode the highlights
@@ -15,9 +15,9 @@ const useHighlightParam = () => {
 
   const parsedHighlights = useMemo(
     () =>
-      (
-        conditionalCastToArray(searchParams.highlights ?? [], true) as string[]
-      ).map((h) => decodeURIComponent(h)),
+      (conditionalToArray(searchParams.highlights ?? [], true) as string[]).map(
+        (h) => decodeURIComponent(h),
+      ),
     [searchParams.highlights],
   );
 

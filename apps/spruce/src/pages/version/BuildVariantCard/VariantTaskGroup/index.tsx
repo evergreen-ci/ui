@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { arraySymmetricDifference } from "@evg-ui/utils";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "components/styles";
@@ -9,7 +10,6 @@ import { StatusCount } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { string, statuses } from "utils";
-import { arraySymmetricDifference } from "utils/array";
 
 const { groupStatusesByUmbrellaStatus } = statuses;
 const { applyStrictRegex } = string;

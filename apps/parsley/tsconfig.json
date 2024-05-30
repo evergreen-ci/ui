@@ -1,11 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "src",
-    "types": [
-      "vitest/globals",
-      "vitest/jsdom"
-    ]
+    "baseUrl": "src"
   },
   "include": [
     "src",
