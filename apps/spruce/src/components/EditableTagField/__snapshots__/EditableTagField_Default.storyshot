@@ -23,7 +23,7 @@
                 class="leafygreen-ui-au9iil"
               >
                 <label
-                  class="leafygreen-ui-1qjbbjd"
+                  class="leafygreen-ui-6bdaia"
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_key_1"
@@ -70,7 +70,7 @@
                 class="leafygreen-ui-au9iil"
               >
                 <label
-                  class="leafygreen-ui-1qjbbjd"
+                  class="leafygreen-ui-6bdaia"
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_value_1"
@@ -159,7 +159,7 @@
                 class="leafygreen-ui-au9iil"
               >
                 <label
-                  class="leafygreen-ui-1qjbbjd"
+                  class="leafygreen-ui-6bdaia"
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_key_2"
@@ -206,7 +206,7 @@
                 class="leafygreen-ui-au9iil"
               >
                 <label
-                  class="leafygreen-ui-1qjbbjd"
+                  class="leafygreen-ui-6bdaia"
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_value_2"
@@ -295,7 +295,7 @@
                 class="leafygreen-ui-au9iil"
               >
                 <label
-                  class="leafygreen-ui-1qjbbjd"
+                  class="leafygreen-ui-6bdaia"
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_key_3"
@@ -342,7 +342,7 @@
                 class="leafygreen-ui-au9iil"
               >
                 <label
-                  class="leafygreen-ui-1qjbbjd"
+                  class="leafygreen-ui-6bdaia"
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_value_3"
