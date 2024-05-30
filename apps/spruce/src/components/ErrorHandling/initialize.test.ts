@@ -36,6 +36,7 @@ describe("should initialize error handlers according to release stage", () => {
       debug: false,
       normalizeDepth: 5,
       environment: "production",
+      sampleRate: 0.5,
     });
   });
 
@@ -52,6 +53,7 @@ describe("should initialize error handlers according to release stage", () => {
       debug: true,
       normalizeDepth: 5,
       environment: "beta",
+      sampleRate: 0.5,
     });
   });
 
@@ -68,6 +70,7 @@ describe("should initialize error handlers according to release stage", () => {
       debug: true,
       normalizeDepth: 5,
       environment: "staging",
+      sampleRate: 0.5,
     });
   });
 });
