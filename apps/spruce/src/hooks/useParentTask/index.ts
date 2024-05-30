@@ -27,7 +27,9 @@ export const useParentTask = (taskId: string) => {
   const { order: skipOrderNumber } = versionMetadata?.baseVersion ?? {};
 
   const bvOptionsBase = {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     tasks: [string.applyStrictRegex(displayName)],
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variants: [string.applyStrictRegex(buildVariant)],
   };
 
@@ -37,13 +39,16 @@ export const useParentTask = (taskId: string) => {
   >(LAST_MAINLINE_COMMIT, {
     skip: !versionMetadata || versionMetadata.isPatch,
     variables: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       projectIdentifier,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       skipOrderNumber,
       buildVariantOptions: {
         ...bvOptionsBase,
       },
     },
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const task = getTaskFromMainlineCommitsQuery(parentTaskData);
 
   return {

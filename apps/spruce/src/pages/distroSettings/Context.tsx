@@ -53,10 +53,13 @@ const useDistroSettingsContext = (): SettingsState<
       "useDistroSettingsContext must be used within a DistroSettingsProvider",
     );
   }
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return context;
 };
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const useHasUnsavedTab = getUseHasUnsavedTab(DistroSettingsContext);
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const usePopulateForm = getUsePopulateForm(DistroSettingsContext);
 
 export {

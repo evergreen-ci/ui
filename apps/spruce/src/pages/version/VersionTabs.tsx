@@ -20,6 +20,7 @@ const { parseQueryString } = queryString;
 interface Props {
   taskCount: number;
   isPatch: boolean;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
@@ -30,6 +31,7 @@ const tabMap = ({
   versionId,
 }: {
   taskCount: number;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
   numFailedChildPatches: number;
   versionId: string;
@@ -91,6 +93,7 @@ export const VersionTabs: React.FC<Props> = ({
     [slugs.tab]: PatchTab;
   }>();
   const { search } = useLocation();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
   const navigate = useNavigate();
 
@@ -106,31 +109,39 @@ export const VersionTabs: React.FC<Props> = ({
 
   const allTabs = useMemo(() => {
     const numFailedChildPatches = childPatches
-      ? childPatches.filter((c) => c.status === PatchStatus.Failed).length
+      ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+        childPatches.filter((c) => c.status === PatchStatus.Failed).length
       : 0;
     return tabMap({
       taskCount,
       childPatches,
       numFailedChildPatches,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       versionId,
     });
   }, [taskCount, childPatches, versionId]);
 
   const activeTabs = useMemo(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
     [allTabs, tabIsActive],
   );
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const isValidTab = tabIsActive[tab];
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const [selectedTab, setSelectedTab] = useState(activeTabs.indexOf(tab));
   const previousTab = usePrevious(selectedTab);
 
   useEffect(() => {
     // If tab is not valid, set to task tab.
     if (!isValidTab) {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       navigate(getVersionRoute(versionId), { replace: true });
     }
     // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update state here.
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     else if (selectedTab !== activeTabs.indexOf(tab)) {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSelectedTab(activeTabs.indexOf(tab));
     }
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -139,6 +150,7 @@ export const VersionTabs: React.FC<Props> = ({
   const selectNewTab = (newTabIndex: number) => {
     const queryParams = parseQueryString(search);
     const newTab = activeTabs[newTabIndex];
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const newRoute = getVersionRoute(versionId, {
       tab: newTab as PatchTab,
       ...queryParams,
@@ -164,6 +176,7 @@ export const VersionTabs: React.FC<Props> = ({
       setSelected={selectNewTab}
       aria-label="Patch Tabs"
     >
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {activeTabs.map((t: string) => allTabs[t])}
     </StyledTabs>
   );

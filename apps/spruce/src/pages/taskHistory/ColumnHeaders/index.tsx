@@ -50,10 +50,12 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
     },
   });
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { columnLimit, visibleColumns } = useHistoryTable();
   const { buildVariantsForTaskName } = columnData || {};
 
   const activeColumns = useColumns(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     buildVariantsForTaskName,
     ({ buildVariant }) => buildVariant,
   );
@@ -61,6 +63,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   return (
     <RowContainer>
       <LabelCellContainer />
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {visibleColumns.map((vc) => {
         const cell = columnMap[vc];
         if (!cell) {

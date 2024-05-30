@@ -13,7 +13,9 @@ describe("getStatusBadgeCopy", () => {
 
   it("returns an empty string when passed a falsy value", () => {
     expect(getStatusBadgeCopy("")).toBe("");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(getStatusBadgeCopy(undefined)).toBe("");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(getStatusBadgeCopy(null)).toBe("");
   });
 });

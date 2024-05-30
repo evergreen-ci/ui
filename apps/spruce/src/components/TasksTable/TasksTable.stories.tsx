@@ -10,6 +10,7 @@ export const BaseTaskTable: CustomStoryObj<typeof TasksTable> = {
 };
 
 export const ExecutionTasksTable: CustomStoryObj<typeof TasksTable> = {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   render: () => <TasksTable isPatch tasks={nestedTasks} />,
 };
 

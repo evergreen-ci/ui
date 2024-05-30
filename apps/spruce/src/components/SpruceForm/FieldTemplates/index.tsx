@@ -11,6 +11,7 @@ export * from "./ObjectFieldTemplates";
 const { gray } = palette;
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   children,
   classNames,
@@ -18,6 +19,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   hidden,
   id,
   label,
+  rawErrors,
   schema,
   uiSchema,
 }) => {
@@ -27,7 +29,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   const showLabel = uiSchema["ui:showLabel"] ?? true;
   const fieldDataCy = uiSchema["ui:field-data-cy"];
   const descriptionNode = uiSchema["ui:descriptionNode"];
-  const errors = uiSchema["ui:errors"] ?? [];
+  const errors = uiSchema["ui:errors"] ?? (rawErrors?.length ? rawErrors : []);
   const warnings = uiSchema["ui:warnings"] ?? [];
   return (
     !hidden && (

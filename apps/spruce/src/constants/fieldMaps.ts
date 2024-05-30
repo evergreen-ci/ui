@@ -195,3 +195,13 @@ export const notificationFields = {
   buildBreak: "Build break",
   commitQueue: "Commit queue",
 };
+
+export const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];

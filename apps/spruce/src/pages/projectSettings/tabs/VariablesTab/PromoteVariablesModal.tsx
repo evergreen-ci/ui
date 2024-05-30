@@ -65,6 +65,7 @@ export const PromoteVariablesModal: React.FC<Props> = ({
 
   const [selected, setSelected] = useReducer(reducer, new Set<string>());
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const handleClickCheckbox = (name) => (e) => {
     setSelected({
       type: e.target.checked ? "checkCheckbox" : "uncheckCheckbox",

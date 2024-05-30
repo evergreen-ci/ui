@@ -12,6 +12,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
   const { [slugs.distroId]: distroId } = useParams();
 
   const { allEventsFetched, events, fetchMore, loading } = useDistroEvents(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     distroId,
     limit,
   );

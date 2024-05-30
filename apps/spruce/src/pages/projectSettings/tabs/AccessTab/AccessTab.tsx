@@ -26,6 +26,7 @@ export const AccessTab: React.FC<TabProps> = ({
   return (
     <BaseTab
       formSchema={formSchema}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       initialFormState={initialFormState}
       tab={tab}
     />

@@ -6,6 +6,7 @@ import { TaskStatus } from "types/task";
 import { applyStrictRegex } from "utils/string";
 import VariantTaskGroup from ".";
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const Wrapper = ({ children }) => <MockedProvider>{children}</MockedProvider>;
 const Component = () => (
   <VariantTaskGroup

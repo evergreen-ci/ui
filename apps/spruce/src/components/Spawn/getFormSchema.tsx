@@ -16,16 +16,15 @@ import {
 const today = new Date();
 
 type HostUptimeProps = {
-  hostUptimeValidation?: {
+  hostUptimeWarnings?: {
     enabledHoursCount: number;
-    errors: string[];
     warnings: string[];
   };
   timeZone?: string;
 };
 
 const getHostUptimeSchema = ({
-  hostUptimeValidation,
+  hostUptimeWarnings,
   timeZone,
 }: HostUptimeProps) => ({
   schema: {
@@ -159,13 +158,14 @@ const getHostUptimeSchema = ({
     details: {
       "ui:descriptionNode": (
         <Details
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           timeZone={timeZone}
-          totalUptimeHours={hostUptimeValidation?.enabledHoursCount}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          totalUptimeHours={hostUptimeWarnings?.enabledHoursCount}
         />
       ),
       "ui:showLabel": false,
-      "ui:warnings": hostUptimeValidation?.warnings,
-      "ui:errors": hostUptimeValidation?.errors,
+      "ui:warnings": hostUptimeWarnings?.warnings,
     },
   },
 });
@@ -183,9 +183,8 @@ const Details: React.FC<{ timeZone: string; totalUptimeHours: number }> = ({
 
 type ExpirationProps = {
   disableExpirationCheckbox: boolean;
-  hostUptimeValidation?: {
+  hostUptimeWarnings?: {
     enabledHoursCount: number;
-    errors: string[];
     warnings: string[];
   };
   noExpirationCheckboxTooltip?: string;
@@ -194,12 +193,12 @@ type ExpirationProps = {
 
 export const getExpirationDetailsSchema = ({
   disableExpirationCheckbox,
-  hostUptimeValidation,
+  hostUptimeWarnings,
   noExpirationCheckboxTooltip,
   timeZone,
 }: ExpirationProps) => {
   const defaultExpiration = getDefaultExpiration();
-  const hostUptime = getHostUptimeSchema({ hostUptimeValidation, timeZone });
+  const hostUptime = getHostUptimeSchema({ hostUptimeWarnings, timeZone });
   return {
     schema: {
       title: "Expiration Details",

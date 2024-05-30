@@ -40,9 +40,11 @@ const getExtraFields = (
   if (!triggerData) return {};
 
   const extraFields = {};
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   projectTriggers[triggerEnum]?.extraFields.forEach((e) => {
     // Extra fields that are numbers must be converted in order to fulfill the form schema.
     const isNumber = e.format === "number";
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     extraFields[e.key] = isNumber
       ? parseInt(triggerData[e.key], 10)
       : triggerData[e.key];
@@ -58,11 +60,13 @@ const getHttpHeaders = (headers: { key: string; value: string }[]) =>
       }))
     : [];
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const gqlToForm = ((data, { projectType }) => {
   if (!data) return null;
   const { projectRef, subscriptions } = data;
   return {
     ...(projectType !== ProjectType.Repo &&
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       "banner" in projectRef && {
         banner: {
           bannerData: {
@@ -72,6 +76,7 @@ export const gqlToForm = ((data, { projectType }) => {
         },
       }),
     buildBreakSettings: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       notifyOnBuildFailure: projectRef.notifyOnBuildFailure,
     },
     subscriptions: subscriptions
@@ -89,6 +94,7 @@ export const gqlToForm = ((data, { projectType }) => {
             const triggerText = getTriggerText(trigger, resourceType);
 
             // Find and process information about subscriber.
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             const { subscriber: subscribers, type: subscriberType } =
               subscriber;
             const {
@@ -98,6 +104,7 @@ export const gqlToForm = ((data, { projectType }) => {
               slackSubscriber,
               webhookSubscriber,
             } = subscribers;
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             const subscriberText = getSubscriberText(subscriber);
 
             return {
@@ -106,6 +113,7 @@ export const gqlToForm = ((data, { projectType }) => {
                 id,
                 event: {
                   eventSelect: triggerEnum,
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
                   extraFields: getExtraFields(triggerEnum, triggerData),
                   regexSelector: regexSelectors.map((r) => ({
                     regexSelect: r.type,
@@ -136,16 +144,20 @@ export const gqlToForm = ((data, { projectType }) => {
         )
       : [],
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((formState, isRepo, id) => {
   const { banner, buildBreakSettings, subscriptions } = formState;
   const projectRef: ProjectInput = {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
     ...(banner && { banner: banner.bannerData }),
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getGqlPayload(id),
   );
   return {
@@ -153,4 +165,5 @@ export const formToGql = ((formState, isRepo, id) => {
     projectRef,
     subscriptions: transformedSubscriptions,
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

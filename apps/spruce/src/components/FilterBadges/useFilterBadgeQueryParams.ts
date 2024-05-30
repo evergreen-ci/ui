@@ -28,12 +28,14 @@ const useFilterBadgeQueryParams = (validQueryParams: Set<string>) => {
     Object.keys(params)
       .filter((badge) => validQueryParams.has(badge))
       .forEach((v) => {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         params[v] = undefined;
       });
     updateQueryParams(params);
   };
   const handleOnRemove = (badge: FilterBadgeType) => {
     const updatedParam = popQueryParams(queryParams[badge.key], badge.value);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     updateQueryParams({ [badge.key]: updatedParam });
   };
 

@@ -39,6 +39,7 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
       clearable={false}
       data-cy="distro-select"
       label="Distro"
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       onChange={(distroId: string) => {
         navigate(getDistroSettingsRoute(distroId));
       }}
@@ -70,6 +71,7 @@ const filterAdminOnlyDistros = (distros: DistrosQuery["distros"]) =>
   distros.reduce(
     (accum, distro) => {
       const [adminOnly, nonAdminOnly] = accum;
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       (distro.adminOnly ? adminOnly : nonAdminOnly).push(distro);
       return accum;
     },

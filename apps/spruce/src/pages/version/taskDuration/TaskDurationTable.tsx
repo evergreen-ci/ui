@@ -36,7 +36,9 @@ export const TaskDurationTable: React.FC<Props> = ({
   tasks,
 }) => {
   const { [slugs.versionId]: versionId } = useParams();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { currentStatuses: statusOptions } = useTaskStatuses({ versionId });
 
   const [queryParams, setQueryParams] = useQueryParams();
@@ -46,7 +48,9 @@ export const TaskDurationTable: React.FC<Props> = ({
     [], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
 
   const updateFilters = (filterState: ColumnFiltersState) => {
@@ -59,6 +63,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     };
 
     filterState.forEach(({ id, value }) => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       updatedParams[id] = value;
     });
 
@@ -67,6 +72,7 @@ export const TaskDurationTable: React.FC<Props> = ({
   };
 
   const setSorting = (s: SortingState) =>
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultSorting(table).onSortingChange(s);
 
   const updateSort = (sortState: SortingState) => {
@@ -77,6 +83,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     };
 
     sortState.forEach(({ desc, id }) => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
     });
 
@@ -92,8 +99,10 @@ export const TaskDurationTable: React.FC<Props> = ({
         size: 250,
         enableColumnFilter: true,
         cell: ({
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           getValue,
           row: {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             original: { id },
           },
         }) => <TaskLink taskId={id} taskName={getValue()} />,
@@ -109,6 +118,7 @@ export const TaskDurationTable: React.FC<Props> = ({
         header: "Status",
         size: 120,
         enableColumnFilter: true,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ getValue }) => <TaskStatusBadge status={getValue()} />,
         meta: {
           treeSelect: {
@@ -137,9 +147,12 @@ export const TaskDurationTable: React.FC<Props> = ({
         enableSorting: true,
         size: 250,
         cell: ({
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           column,
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           getValue,
           row: {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             original: { status },
           },
         }) => (
@@ -155,11 +168,13 @@ export const TaskDurationTable: React.FC<Props> = ({
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const table = useLeafyGreenTable<
     VersionTaskDurationsQuery["version"]["tasks"]["data"][0]
   >({
     columns,
     containerRef: tableContainerRef,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     data: tasks ?? [],
     defaultColumn: {
       // Handle bug in sorting order
@@ -175,6 +190,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     manualPagination: true,
     manualSorting: true,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setFilters,
       (updatedState) => {
         updateFilters(updatedState);
@@ -182,6 +198,7 @@ export const TaskDurationTable: React.FC<Props> = ({
       },
     ),
     onSortingChange: onChangeHandler<SortingState>(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSorting,
       (updatedState) => {
         updateSort(updatedState);

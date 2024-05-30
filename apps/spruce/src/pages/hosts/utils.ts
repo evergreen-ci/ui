@@ -60,8 +60,11 @@ const useQueryVariables = (): HostsQueryVariables => {
  * @returns - react-table's filtering state
  */
 const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState =>
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   Object.entries(mapQueryParamToId).reduce((accum, [param, id]) => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     if (queryParams[param]?.length) {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       return [...accum, { id, value: queryParams[param] }];
     }
     return accum;
@@ -75,6 +78,7 @@ const getFilters = (queryParams: HostsQueryVariables): ColumnFiltersState =>
  * @returns - react-table's sorting state
  */
 const getSorting = ({ sortBy, sortDir }: HostsQueryVariables): SortingState => [
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   { id: sortBy, desc: sortDir === SortDirection.Desc },
 ];
 

@@ -20,6 +20,7 @@ export const Icons: CustomStoryObj<typeof Icon> = {
     <Container>
       {Object.keys(glyphs).map((name) => (
         <IconContainer key={name}>
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <Icon glyph={name} size={s} {...rest} />
           <span>{name}</span>
         </IconContainer>

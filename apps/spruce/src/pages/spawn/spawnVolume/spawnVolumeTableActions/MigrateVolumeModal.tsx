@@ -42,6 +42,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
   const { sendEvent } = useSpawnAnalytics();
 
   const { formSchemaInput, loading: loadingFormData } = useLoadFormSchemaData({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     host: volume.host,
   });
   const [migrateVolumeMutation, { loading: loadingMigration }] = useMutation<
@@ -75,12 +76,14 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
 
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     distros,
     isMigration: true,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     userAwsRegion: AZToRegion(volume.availabilityZone),
   });
   useVirtualWorkstationDefaultExpiration({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     isVirtualWorkstation: selectedDistro?.isVirtualWorkStation,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
     formState: form,
@@ -98,12 +101,14 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     const mutationInput = formToGql({
       isVirtualWorkStation: !!selectedDistro?.isVirtualWorkStation,
       formData: form,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       myPublicKeys: formSchemaInput.myPublicKeys,
       migrateVolumeId: volume.id,
     });
     sendEvent({
       name: "Spawned a host",
       isMigration: true,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       params: omit(mutationInput, [
         "publicKey",
         "userDataScript",
@@ -112,6 +117,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     });
     migrateVolumeMutation({
       variables: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         spawnHostInput: mutationInput,
         volumeId: volume.id,
       },

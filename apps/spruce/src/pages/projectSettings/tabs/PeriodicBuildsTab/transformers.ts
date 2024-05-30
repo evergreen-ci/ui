@@ -19,10 +19,12 @@ const getTitle = (
   return intervalHours ? `Every ${intervalHours} hours` : cron;
 };
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const gqlToForm = ((data, { projectType }) => {
   if (!data) return null;
 
   const {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     projectRef: { periodicBuilds },
   } = data;
 
@@ -32,12 +34,19 @@ export const gqlToForm = ((data, { projectType }) => {
     periodicBuilds:
       periodicBuilds?.map(
         ({
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           alias,
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           configFile,
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           cron,
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           id,
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           intervalHours,
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           message,
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           nextRunTime,
         }) => ({
           alias,
@@ -61,6 +70,7 @@ export const gqlToForm = ((data, { projectType }) => {
         }),
       ) ?? [],
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((
@@ -70,6 +80,7 @@ export const formToGql = ((
 ) => ({
   ...(isRepo ? { repoId: id } : { projectId: id }),
   projectRef: {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     periodicBuilds: periodicBuildsOverride
       ? periodicBuilds.map(

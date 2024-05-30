@@ -53,6 +53,7 @@ describe("context-based form", () => {
 
   it("applies a validate function that shows an error message", async () => {
     const user = userEvent.setup();
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     render(<Component tab="bar" validate={barValidator} />, {
       wrapper: TestProvider,
     });
@@ -67,8 +68,14 @@ describe("context-based form", () => {
     render(<Component tab="bar" disabled />, {
       wrapper: TestProvider,
     });
-    expect(screen.getByLabelText("Name")).toBeDisabled();
-    expect(screen.getByLabelText("Age")).toBeDisabled();
+    expect(screen.getByLabelText("Name")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
+    expect(screen.getByLabelText("Age")).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
   });
 });
 

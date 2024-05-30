@@ -18,6 +18,7 @@ export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   <FlexContainer>
     <SpawnHostActionButton host={host} />
     <CopySSHCommandButton
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       user={host.user}
       hostUrl={host.persistentDnsName || host.hostUrl}
       hostStatus={host.status}

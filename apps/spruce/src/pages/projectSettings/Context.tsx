@@ -53,10 +53,13 @@ const useProjectSettingsContext = (): SettingsState<
       "useProjectSettingsContext must be used within a ProjectSettingsProvider",
     );
   }
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return context;
 };
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const useHasUnsavedTab = getUseHasUnsavedTab(ProjectSettingsContext);
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const usePopulateForm = getUsePopulateForm(ProjectSettingsContext);
 
 export {

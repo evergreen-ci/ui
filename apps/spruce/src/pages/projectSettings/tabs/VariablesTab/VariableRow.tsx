@@ -16,7 +16,8 @@ export const VariableRow: React.FC<
   );
   const repoData = uiSchema?.options?.repoData;
   const inRepo = repoData
-    ? repoData.vars.some(({ varName }) => varName === formData.varName)
+    ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+      repoData.vars.some(({ varName }) => varName === formData.varName)
     : false;
 
   return (
@@ -53,6 +54,7 @@ const LeftColumn = styled.div`
   padding-right: ${size.s};
 
   ${(props: { showWarning?: boolean }): string =>
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     props.showWarning &&
     `input {
     border-color: ${yellow.dark2};

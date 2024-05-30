@@ -8,6 +8,7 @@ import {
   useReducer,
 } from "react";
 import debounce from "lodash.debounce";
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
 import { SpruceFormProps } from "components/SpruceForm/types";
 import { FormToGqlFunction, SettingsRoutes } from "./types";
@@ -16,6 +17,7 @@ type OnChangeParams<
   T extends SettingsRoutes,
   FormStateMap extends Record<T, any>,
 > = Pick<
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   Parameters<SpruceFormProps<FormStateMap[T]>["onChange"]>[0],
   "formData" | "errors"
 >;
@@ -100,7 +102,9 @@ const reducer =
           (s, [tab, data]) => ({
             ...s,
             [tab]: {
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               ...s[tab],
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               initialData: getTransformer[tab](data),
             },
           }),
@@ -134,6 +138,7 @@ const useSettingsState = <
   FormStateMap extends Record<T, any>,
 >(
   routes: T[],
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   getTransformer: Record<T, (...any) => any>,
 ): SettingsState<T, FormStateMap> => {
   const [state, dispatch] = useReducer(

@@ -51,7 +51,9 @@ describe("tupleSelect", () => {
     const input = screen.queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "some-filter");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(input).toHaveValue("");
   });
@@ -72,8 +74,10 @@ describe("tupleSelect", () => {
     const input = screen.queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "bad");
     expect(input).toHaveValue("bad");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(input).toHaveValue("bad");
     expect(onSubmit).not.toHaveBeenCalled();

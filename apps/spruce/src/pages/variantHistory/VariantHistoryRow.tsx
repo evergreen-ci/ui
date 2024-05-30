@@ -16,6 +16,7 @@ interface Props {
 }
 const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { visibleColumns } = useHistoryTable();
 
   const { getTaskMetadata } = useTestResults(index);
@@ -69,6 +70,7 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
           commitType: "inactive",
         });
       },
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       onToggleFoldedCommit: ({ isVisible }) => {
         sendEvent({
           name: "Toggle folded commit",
@@ -86,6 +88,7 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
       index={index}
       columns={orderedColumns}
       numVisibleCols={visibleColumns.length}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       selected={data?.selected}
       eventHandlers={eventHandlers}
     />
@@ -105,6 +108,7 @@ const generateColumns = (
       const taskMap = convertArrayToObject(tasks, "displayName");
       const t = taskMap[c];
       if (t) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         const { failingTests, inactive, label } = getTaskMetadata(t.id);
         return (
           <TaskCell
@@ -116,6 +120,7 @@ const generateColumns = (
             }}
             inactive={inactive}
             key={c}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             task={t}
             failingTests={failingTests}
             label={label}

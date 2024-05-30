@@ -26,6 +26,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
     status,
     userId,
   } = data;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const route = podId ? getPodRoute(podId) : getHostRoute(hostId);
   const containerOrHostCopy = podId ? "container" : "host";
   let message: JSX.Element;
@@ -36,6 +37,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
           Task is blocked on{" "}
           <ShortenedRouterLink
             title={blockedOn}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getTaskRoute(blockedOn)}
             width={500}
           >
@@ -99,6 +101,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
     case TaskEventType.TaskScheduled:
       message = (
         <span className="cy-event-scheduled">
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           Scheduled at {getDateCopy(timestamp)}
         </span>
       );
@@ -120,11 +123,13 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
       message = <>Container allocated for task.</>;
       break;
     default:
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       message = null;
   }
 
   return (
     <Row>
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <Timestamp className="cy-event-ts">{getDateCopy(timestamp)}</Timestamp>
       {message}
     </Row>

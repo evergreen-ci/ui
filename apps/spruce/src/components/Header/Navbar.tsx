@@ -83,8 +83,8 @@ export const Navbar: React.FC = () => {
         >
           Project Health
         </PrimaryLink>
-
         <PrimaryLink
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getUserPatchesRoute(userId)}
           onClick={() => sendEvent({ name: "Click My Patches Link" })}
         >
@@ -96,6 +96,7 @@ export const Navbar: React.FC = () => {
         >
           My Hosts
         </PrimaryLink>
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <AuxiliaryDropdown projectIdentifier={projectIdentifier} />
       </NavActionContainer>
       <NavActionContainer>
