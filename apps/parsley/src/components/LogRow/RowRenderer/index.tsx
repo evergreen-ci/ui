@@ -2,11 +2,10 @@ import { LogRenderingTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
-import { isCollapsedRow } from "utils/collapsedRow";
+import { isSkippedLinesRow } from "utils/logRowTypes";
 import AnsiRow from "../AnsiRow";
-import CollapsedRow from "../CollapsedRow";
 import ResmokeRow from "../ResmokeRow";
-import { RowType } from "../types";
+import SkippedLinesRow from "../SkippedLinesRow";
 
 type RowRendererFunction = (props: {
   processedLogLines: ProcessedLogLines;
@@ -56,14 +55,12 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
 
   const result = (index: number) => {
     const processedLogLine = processedLogLines[index];
-    if (isCollapsedRow(processedLogLine)) {
+    if (isSkippedLinesRow(processedLogLine)) {
       return (
-        <CollapsedRow
-          collapsedLines={processedLogLine}
+        <SkippedLinesRow
           expandLines={expandLines}
           lineIndex={index}
-          lineStart={processedLogLine[0]}
-          rowType={RowType.SkippedLines}
+          range={processedLogLine.range}
         />
       );
     }
@@ -76,10 +73,8 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
         highlightRegex={highlightRegex}
         lineIndex={index}
         lineNumber={processedLogLine}
-        lineStart={processedLogLine}
         prettyPrint={prettyPrint}
         range={range}
-        rowType={RowType.LogLine}
         scrollToLine={scrollToLine}
         searchLine={searchLine}
         searchTerm={searchRegex}

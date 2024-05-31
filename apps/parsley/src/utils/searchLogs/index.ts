@@ -1,5 +1,5 @@
 import { ProcessedLogLines } from "types/logs";
-import { isCollapsedRow } from "utils/collapsedRow";
+import { isCollapsedRow } from "utils/logRowTypes";
 
 interface searchOptions {
   searchRegex: RegExp;

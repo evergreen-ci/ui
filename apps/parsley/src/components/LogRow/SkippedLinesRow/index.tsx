@@ -5,60 +5,58 @@ import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
-import { ExpandedLines } from "types/logs";
-import { SkippedLinesRow } from "../types";
+import { ExpandedLines, Range } from "types/logs";
+import { Row } from "../types";
 
 const SKIP_NUMBER = 5;
 
-interface CollapsedRowProps extends SkippedLinesRow {
-  collapsedLines: number[];
+interface SkippedLinesRowProps extends Row {
   expandLines: (expandedLines: ExpandedLines) => void;
+  range: Range;
 }
 
-const CollapsedRow: React.FC<CollapsedRowProps> = ({
-  collapsedLines,
+const SkippedLinesRow: React.FC<SkippedLinesRowProps> = ({
   expandLines,
+  range,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [, startTransition] = useTransition();
-
-  const numCollapsed = collapsedLines.length;
-  const start = collapsedLines[0];
-  const end = collapsedLines[collapsedLines.length - 1];
-
-  const canExpandFive = SKIP_NUMBER * 2 < numCollapsed;
+  const { end, start } = range;
+  const numSkipped = end - start;
+  const lineEndInclusive = end - 1;
+  const canExpandFive = SKIP_NUMBER * 2 < numSkipped;
   const lineText =
-    numCollapsed !== 1 ? `${numCollapsed} Lines Skipped` : "1 Line Skipped";
+    numSkipped !== 1 ? `${numSkipped} Lines Skipped` : "1 Line Skipped";
 
   const expandFive = () => {
     if (canExpandFive) {
       startTransition(() =>
         expandLines([
           [start, start + (SKIP_NUMBER - 1)],
-          [end - (SKIP_NUMBER - 1), end],
+          [lineEndInclusive - (SKIP_NUMBER - 1), lineEndInclusive],
         ]),
       );
     } else {
-      startTransition(() => expandLines([[start, end]]));
+      startTransition(() => expandLines([[start, lineEndInclusive]]));
     }
     sendEvent({
-      lineCount: canExpandFive ? SKIP_NUMBER * 2 : numCollapsed,
+      lineCount: canExpandFive ? SKIP_NUMBER * 2 : numSkipped,
       name: "Expanded Lines",
       option: "Five",
     });
   };
 
   const expandAll = () => {
-    startTransition(() => expandLines([[start, end]]));
+    startTransition(() => expandLines([[start, lineEndInclusive]]));
     sendEvent({
-      lineCount: numCollapsed,
+      lineCount: numSkipped,
       name: "Expanded Lines",
       option: "All",
     });
   };
 
   return (
-    <CollapsedLineWrapper data-cy={`collapsed-row-${start}-${end}`}>
+    <LineWrapper data-cy={`skipped-lines-row-${start}-${lineEndInclusive}`}>
       <StyledBody>{lineText}</StyledBody>
       <ButtonContainer>
         <Button
@@ -76,13 +74,13 @@ const CollapsedRow: React.FC<CollapsedRowProps> = ({
           {SKIP_NUMBER} Above & Below
         </Button>
       </ButtonContainer>
-    </CollapsedLineWrapper>
+    </LineWrapper>
   );
 };
 
-CollapsedRow.displayName = "CollapsedRow";
+SkippedLinesRow.displayName = "SkippedLinesRow";
 
-const CollapsedLineWrapper = styled.div`
+const LineWrapper = styled.div`
   display: flex;
   align-items: center;
   background-color: #f4f5f5; // Custom gray background color.
@@ -99,4 +97,4 @@ const ButtonContainer = styled.div`
   gap: ${size.xs};
 `;
 
-export default CollapsedRow;
+export default SkippedLinesRow;

@@ -3,34 +3,42 @@
     class="css-d31jx9-FlexRow ek3m3u40"
   >
     <div
-      class="css-pjeyga-StyledInput ek3m3u42 leafygreen-ui-90q1a7"
+      class="leafygreen-ui-1br9h7w css-pjeyga-StyledInput ek3m3u42"
+      data-lgid="lg-text_input"
     >
       <div
-        class="leafygreen-ui-e3fvh5"
+        class="leafygreen-ui-au9iil"
       >
         <label
-          class="leafygreen-ui-t01kw4"
-          for="textinput-8"
+          class="leafygreen-ui-6bdaia"
+          data-lgid="lg-label"
+          data-testid="lg-form_field-label"
+          for="lg-form-field-input-320"
+          id="lg-form-field-label-317"
         >
           Patch Name
         </label>
       </div>
       <div
-        class="leafygreen-ui-lzja97"
+        class="leafygreen-ui-95c1iv"
       >
-        <input
-          aria-invalid="false"
-          autocomplete="on"
-          class="leafygreen-ui-1kmfbzh"
-          data-cy="patch-name-input"
-          id="textinput-8"
-          required=""
-          type="text"
-          value="test"
-        />
         <div
-          class="lg-ui-icon-selector-0000 leafygreen-ui-11c7q5r"
-        />
+          class="leafygreen-ui-1ago99h"
+        >
+          <input
+            aria-describedby=""
+            aria-disabled="false"
+            aria-invalid="false"
+            aria-labelledby="lg-form-field-label-317"
+            autocomplete="on"
+            class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+            data-cy="patch-name-input"
+            id="lg-form-field-input-320"
+            required=""
+            type="text"
+            value="test"
+          />
+        </div>
       </div>
     </div>
     <div
@@ -302,26 +310,34 @@
                     class="eoqkpw13 css-1pn85ix-TextInputWrapper-StyledTextInput e13gwrw81"
                   >
                     <div
-                      class="leafygreen-ui-90q1a7"
+                      aria-labelledby="search-tasks"
+                      class="leafygreen-ui-1br9h7w"
+                      data-lgid="lg-text_input"
                     >
                       <div
-                        class="leafygreen-ui-lzja97"
+                        class="leafygreen-ui-1iyoj2o"
+                      />
+                      <div
+                        class="leafygreen-ui-95c1iv"
                       >
-                        <input
-                          aria-invalid="false"
-                          aria-labelledby="search-tasks"
-                          autocomplete="on"
-                          class="leafygreen-ui-1kmfbzh"
-                          data-cy="task-filter-input"
-                          id="textinput-10"
-                          placeholder="Search tasks regex"
-                          required=""
-                          type="text"
-                          value=""
-                        />
                         <div
-                          class="lg-ui-icon-selector-0000 leafygreen-ui-11c7q5r"
-                        />
+                          class="leafygreen-ui-1ago99h"
+                        >
+                          <input
+                            aria-describedby=""
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-labelledby="search-tasks"
+                            autocomplete="on"
+                            class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+                            data-cy="task-filter-input"
+                            id="lg-form-field-input-329"
+                            placeholder="Search tasks regex"
+                            required=""
+                            type="text"
+                            value=""
+                          />
+                        </div>
                       </div>
                     </div>
                     <div
@@ -362,17 +378,17 @@
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-258"
-                      id="checkbox-258-label"
+                      for="checkbox-330"
+                      id="checkbox-330-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-258-label"
+                        aria-labelledby="checkbox-330-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="select-all-checkbox"
-                        id="checkbox-258"
+                        id="checkbox-330"
                         type="checkbox"
                       />
                       <div
@@ -426,17 +442,17 @@
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-259"
-                      id="checkbox-259-label"
+                      for="checkbox-331"
+                      id="checkbox-331-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-259-label"
+                        aria-labelledby="checkbox-331-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-259"
+                        id="checkbox-331"
                         type="checkbox"
                       />
                       <div
@@ -475,17 +491,17 @@
                   >
                     <label
                       class="leafygreen-ui-75mjfl"
-                      for="checkbox-260"
-                      id="checkbox-260-label"
+                      for="checkbox-332"
+                      id="checkbox-332-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-260-label"
+                        aria-labelledby="checkbox-332-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-260"
+                        id="checkbox-332"
                         type="checkbox"
                       />
                       <div

@@ -431,6 +431,9 @@ const VersionControlEnabledDescription = (
       select properties
     </StyledLink>{" "}
     to be defined in this project&rsquo;s config YAML in addition to the UI.
+    Version controlled configurations must be defined in the project&rsquo;s
+    main YAML file to take effect, and cannot be placed in an included YAML
+    file.
   </>
 );
 

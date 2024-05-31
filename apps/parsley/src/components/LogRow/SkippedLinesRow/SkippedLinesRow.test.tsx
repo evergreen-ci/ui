@@ -1,7 +1,6 @@
 import { LogContextProvider } from "context/LogContext";
 import { renderWithRouterMatch, screen, userEvent } from "test_utils";
-import CollapsedRow from ".";
-import { RowType } from "../types";
+import SkippedLinesRow from ".";
 
 const wrapper = (logs: string[]) => {
   const provider = ({ children }: { children: React.ReactNode }) => (
@@ -10,12 +9,13 @@ const wrapper = (logs: string[]) => {
   return provider;
 };
 
-describe("collapsedRow", () => {
-  it("renders a collapsed log line", () => {
+describe("skippedLinesRow", () => {
+  it("renders a skipped log line", () => {
     renderWithRouterMatch(
-      <CollapsedRow
-        {...collapsedProps}
-        collapsedLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+      <SkippedLinesRow
+        {...skippedLinesProps}
+        lineIndex={0}
+        range={{ end: 11, start: 0 }}
       />,
       {
         wrapper: wrapper(logLines),
@@ -28,10 +28,11 @@ describe("collapsedRow", () => {
     const user = userEvent.setup();
     const expandLines = vi.fn();
     renderWithRouterMatch(
-      <CollapsedRow
-        {...collapsedProps}
-        collapsedLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+      <SkippedLinesRow
+        {...skippedLinesProps}
         expandLines={expandLines}
+        lineIndex={0}
+        range={{ end: 11, start: 0 }}
       />,
       {
         wrapper: wrapper(logLines),
@@ -53,10 +54,11 @@ describe("collapsedRow", () => {
     const user = userEvent.setup();
     const expandLines = vi.fn();
     renderWithRouterMatch(
-      <CollapsedRow
-        {...collapsedProps}
-        collapsedLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+      <SkippedLinesRow
+        {...skippedLinesProps}
         expandLines={expandLines}
+        lineIndex={0}
+        range={{ end: 11, start: 0 }}
       />,
       {
         wrapper: wrapper(logLines),
@@ -70,9 +72,13 @@ describe("collapsedRow", () => {
     expect(expandLines).toHaveBeenCalledWith([[0, 10]]);
   });
 
-  it("should not disable `Expand 5 Above and Below` button if there are less than 10 log lines in the collapsed row", async () => {
+  it("should not disable `Expand 5 Above and Below` button if there are less than 10 log lines in the skipped row", async () => {
     renderWithRouterMatch(
-      <CollapsedRow {...collapsedProps} collapsedLines={[0, 1, 2]} />,
+      <SkippedLinesRow
+        {...skippedLinesProps}
+        lineIndex={0}
+        range={{ end: 3, start: 0 }}
+      />,
       {
         wrapper: wrapper(logLines),
       },
@@ -98,9 +104,7 @@ const logLines = [
   "filler",
 ];
 
-const collapsedProps = {
+const skippedLinesProps = {
   expandLines: vi.fn(),
   lineIndex: 0,
-  lineStart: 0,
-  rowType: RowType.SkippedLines,
 };
