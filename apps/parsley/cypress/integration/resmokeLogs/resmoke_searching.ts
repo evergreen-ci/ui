@@ -74,8 +74,8 @@ describe("Searching", () => {
 
   it("should be able to search on filtered content", () => {
     cy.addFilter("conn49");
-    cy.get("[data-cy^='collapsed-row-']").should("exist");
-    cy.get("[data-cy^='collapsed-row-']").should("have.length", 7);
+    cy.get("[data-cy^='skipped-lines-row-']").should("exist");
+    cy.get("[data-cy^='skipped-lines-row-']").should("have.length", 7);
 
     cy.addSearch("NETWORK");
     cy.dataCy("search-count").should("be.visible");

@@ -9,6 +9,7 @@ import Popconfirm from "components/Popconfirm";
 import { QueryParams } from "constants/queryParams";
 import { size, zIndex } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
+import { ProcessedLogLines } from "types/logs";
 import { findLineIndex } from "utils/findLineIndex";
 
 const { gray, green, red } = palette;
@@ -16,7 +17,7 @@ const { gray, green, red } = palette;
 interface BookmarksBarProps {
   failingLine?: number;
   lineCount: number;
-  processedLogLines: (number | number[])[];
+  processedLogLines: ProcessedLogLines;
   scrollToLine: (scrollIndex: number) => void;
 }
 
