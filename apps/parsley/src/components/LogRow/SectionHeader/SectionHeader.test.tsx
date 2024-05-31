@@ -1,7 +1,6 @@
 import { SectionStatus } from "constants/logs";
 import { render, screen, userEvent } from "test_utils";
 import SectionHeader from ".";
-import { RowType } from "../types";
 
 describe("sectionHeader", () => {
   it("displays function name", () => {
@@ -54,9 +53,7 @@ const sectionHeaderProps = {
   defaultOpen: false,
   functionName: "load_data",
   lineIndex: 0,
-  lineStart: 0,
   onFocus: vi.fn(),
   onOpen: vi.fn(),
-  rowType: RowType.SectionHeader,
   status: SectionStatus.Pass,
 };

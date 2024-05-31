@@ -7,7 +7,6 @@ import {
   userEvent,
 } from "test_utils";
 import Row from ".";
-import { RowType } from "../types";
 
 const renderRow = (
   props: React.ComponentProps<typeof Row>,
@@ -161,13 +160,11 @@ const rowProps = {
   lineIndex: 0,
 
   lineNumber: 0,
-  lineStart: 0,
   prettyPrint: false,
   range: {
     lowerRange: 0,
     upperRange: undefined,
   },
-  rowType: RowType.LogLine,
   scrollToLine: vi.fn(),
   wordWrapFormat: WordWrapFormat.Standard,
   wrap: false,

@@ -1,15 +1,7 @@
 import { WordWrapFormat } from "constants/enums";
 
-enum RowType {
-  LogLine,
-  SectionHeader,
-  SkippedLines,
-}
-
 interface Row {
   lineIndex: number;
-  lineStart: number;
-  rowType: RowType;
 }
 
 interface LogLineRow extends Row {
@@ -29,9 +21,4 @@ interface LogLineRow extends Row {
   wrap: boolean;
 }
 
-interface SkippedLinesRow extends Row {}
-
-interface SectionHeaderRow extends Row {}
-
-export type { LogLineRow, SkippedLinesRow, SectionHeaderRow };
-export { RowType };
+export type { LogLineRow, Row };

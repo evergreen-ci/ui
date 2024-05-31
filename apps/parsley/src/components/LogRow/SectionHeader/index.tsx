@@ -6,13 +6,13 @@ import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
-import { SectionHeaderRow } from "components/LogRow/types";
+import { Row } from "components/LogRow/types";
 import { SectionStatus } from "constants/logs";
 import { size, transitionDuration } from "constants/tokens";
 
 const { gray } = palette;
 
-interface SectionHeaderProps extends SectionHeaderRow {
+interface SectionHeaderProps extends Row {
   defaultOpen?: boolean;
   functionName: string;
   onFocus: (functionName: string) => void;

@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { SectionStatus } from "constants/logs";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import SectionHeader from ".";
-import { RowType } from "../types";
 
 export default {
   component: SectionHeader,
@@ -14,19 +13,16 @@ const SectionHeaderStory = () => (
       {...sectionHeaderProps}
       functionName="populate_expansions"
       lineIndex={0}
-      lineStart={0}
     />
     <SectionHeader
       {...sectionHeaderProps}
       functionName="setup_mongodb_database_and_seed_with_data"
       lineIndex={1}
-      lineStart={1}
     />
     <SectionHeader
       {...sectionHeaderProps}
       functionName="build_frontend"
       lineIndex={2}
-      lineStart={2}
       status={SectionStatus.Fail}
     />
   </Container>
@@ -47,6 +43,5 @@ const sectionHeaderProps = {
   defaultOpen: false,
   onFocus: () => {},
   onOpen: () => {},
-  rowType: RowType.SectionHeader,
   status: SectionStatus.Pass,
 };
