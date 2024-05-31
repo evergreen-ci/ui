@@ -36,6 +36,7 @@ import searchLogs from "utils/searchLogs";
 import useLogState from "./state";
 import { DIRECTION, LogMetadata, Preferences, SearchState } from "./types";
 import { getNextPage } from "./utils";
+import { useSections } from "hooks/useSections";
 
 interface LogContextState {
   expandedLines: ExpandedLines;
@@ -150,7 +151,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     ],
   );
 
-  useEffect(
+  useEffect( 
     () => {
       setProcessedLogLines(
         filterLogs({
