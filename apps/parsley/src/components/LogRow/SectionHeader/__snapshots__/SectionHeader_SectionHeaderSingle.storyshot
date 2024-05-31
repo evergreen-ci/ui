@@ -3,6 +3,7 @@
     class="css-1mysoqc"
   >
     <div
+      aria-expanded="false"
       class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
@@ -91,6 +92,7 @@
       </div>
     </div>
     <div
+      aria-expanded="false"
       class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
@@ -179,6 +181,7 @@
       </div>
     </div>
     <div
+      aria-expanded="false"
       class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
