@@ -1,5 +1,5 @@
 {
-  "name": "@evg-ui/utils",
+  "name": "@evg-ui/components",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "private": true,
@@ -9,6 +9,13 @@
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
     "test": "vitest --typecheck=false"
+  },
+  "dependencies": {
+    "@emotion/react": "11.11.0",
+    "@emotion/styled": "11.11.0",
+    "@evg-ui/constants": "*",
+    "@leafygreen-ui/text-input": "13.0.2",
+    "@leafygreen-ui/tokens": "2.5.2"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "*",

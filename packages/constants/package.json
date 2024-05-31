@@ -1,5 +1,5 @@
 {
-  "name": "@evg-ui/utils",
+  "name": "@evg-ui/constants",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "private": true,
@@ -9,6 +9,9 @@
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
     "test": "vitest --typecheck=false"
+  },
+  "dependencies": {
+    "@leafygreen-ui/tokens": "2.5.2"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "*",

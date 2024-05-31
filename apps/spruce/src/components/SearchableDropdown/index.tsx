@@ -7,11 +7,11 @@ import {
   useMemo,
 } from "react";
 import styled from "@emotion/styled";
+import { TextInputWithGlyph } from "@evg-ui/components";
 import { palette } from "@leafygreen-ui/palette";
 import { Label } from "@leafygreen-ui/typography";
 import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
-import TextInput from "components/TextInputWithGlyph";
 import { size } from "constants/tokens";
 import { toggleArray } from "utils/array";
 
@@ -164,7 +164,7 @@ const SearchableDropdown = <T extends {}>({
           ref={DropdownRef}
           aria-disabled={disabled}
         >
-          <TextInput
+          <TextInputWithGlyph
             data-cy={`${dataCy}-search-input`}
             placeholder={searchPlaceholder}
             value={search}

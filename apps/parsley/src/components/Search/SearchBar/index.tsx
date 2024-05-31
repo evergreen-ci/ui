@@ -1,12 +1,12 @@
 import { KeyboardEvent, useRef, useState } from "react";
 import styled from "@emotion/styled";
+import { TextInputWithGlyph } from "@evg-ui/components";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
 import debounce from "lodash.debounce";
 import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
-import TextInputWithGlyph from "components/TextInputWithGlyph";
 import { SearchBarActions } from "constants/enums";
 import { CharKey, ModifierKey } from "constants/keys";
 import { size, textInputHeight, zIndex } from "constants/tokens";
