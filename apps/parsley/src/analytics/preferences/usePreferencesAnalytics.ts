@@ -16,7 +16,6 @@ type Action =
   | { name: "Toggled Expandable Rows"; on: boolean }
   | { name: "Toggled Zebra Stripes"; on: boolean }
   | { name: "Toggled Jump to Failing Line"; on: boolean }
-  | { name: "Toggled Sections"; on: boolean }
   | { name: "Toggled Highlight Filters"; on: boolean };
 
 export const usePreferencesAnalytics = () =>

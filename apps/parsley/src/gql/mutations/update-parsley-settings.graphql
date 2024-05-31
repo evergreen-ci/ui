@@ -2,7 +2,6 @@ mutation UpdateParsleySettings($opts: UpdateParsleySettingsInput!) {
   updateParsleySettings(opts: $opts) {
     parsleySettings {
       jumpToFailingLineEnabled
-      sectionsEnabled
     }
   }
 }

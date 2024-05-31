@@ -5,7 +5,6 @@ import FilterLogicToggle from "./FilterLogicToggle";
 import HighlightFiltersToggle from "./HighlightFiltersToggle";
 import JumpToFailingLineToggle from "./JumpToFailingLineToggle";
 import PrettyPrintToggle from "./PrettyPrintToggle";
-import SectionsToggle from "./SectionsToggle";
 import WordWrapFormatToggle from "./WordWrapFormatToggle";
 import WrapToggle from "./WrapToggle";
 import ZebraStripingToggle from "./ZebraStripingToggle";
@@ -18,7 +17,6 @@ export {
   HighlightFiltersToggle,
   JumpToFailingLineToggle,
   PrettyPrintToggle,
-  SectionsToggle,
   WordWrapFormatToggle,
   WrapToggle,
   ZebraStripingToggle,

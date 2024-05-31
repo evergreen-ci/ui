@@ -4,7 +4,6 @@ import { Tab, Tabs } from "@leafygreen-ui/tabs";
 import { H3 } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { useParsleySettings } from "hooks/useParsleySettings";
-import { isDevelopmentBuild } from "utils/environmentVariables";
 import ButtonRow from "./ButtonRow";
 import SearchRangeInput from "./SearchRangeInput";
 import {
@@ -14,7 +13,6 @@ import {
   HighlightFiltersToggle,
   JumpToFailingLineToggle,
   PrettyPrintToggle,
-  SectionsToggle,
   WordWrapFormatToggle,
   WrapToggle,
   ZebraStripingToggle,
@@ -29,8 +27,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
     const [selectedTab, setSelectedTab] = useState(0);
 
     const { settings, updateSettings } = useParsleySettings();
-    const { jumpToFailingLineEnabled = true, sectionsEnabled = true } =
-      settings ?? {};
+    const { jumpToFailingLineEnabled = true } = settings ?? {};
 
     return (
       <Container ref={ref} data-cy={dataCy}>
@@ -63,12 +60,6 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                   checked={jumpToFailingLineEnabled}
                   updateSettings={updateSettings}
                 />
-                {isDevelopmentBuild() && (
-                  <SectionsToggle
-                    checked={sectionsEnabled}
-                    updateSettings={updateSettings}
-                  />
-                )}
               </Column>
             </Row>
           </Tab>
