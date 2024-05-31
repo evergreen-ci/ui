@@ -9,7 +9,7 @@ import { QueryParams } from "constants/queryParams";
 import { fontSize, size } from "constants/tokens";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
 import { useQueryParam } from "hooks/useQueryParam";
-import { LogRowProps } from "../types";
+import { LogLineRow } from "../types";
 import { isLineInRange } from "../utils";
 import Highlighter from "./Highlighter";
 import LineNumber from "./LineNumber";
@@ -17,7 +17,7 @@ import SharingMenu from "./SharingMenu";
 
 const { red, yellow } = palette;
 
-interface BaseRowProps extends Omit<LogRowProps, "getLine"> {
+interface BaseRowProps extends Omit<LogLineRow, "getLine"> {
   children: string;
   "data-cy"?: string;
   color?: string;
