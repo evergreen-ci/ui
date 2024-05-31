@@ -1334,9 +1334,7 @@ export type MutationUpdatePublicKeyArgs = {
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
-  action?: InputMaybe<SpawnHostStatusActions>;
-  hostId?: InputMaybe<Scalars["String"]["input"]>;
-  updateSpawnHostStatusInput?: InputMaybe<UpdateSpawnHostStatusInput>;
+  updateSpawnHostStatusInput: UpdateSpawnHostStatusInput;
 };
 
 export type MutationUpdateUserSettingsArgs = {

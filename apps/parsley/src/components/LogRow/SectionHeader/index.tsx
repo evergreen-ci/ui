@@ -34,7 +34,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
 
   return (
-    <SectionHeaderWrapper data-cy="section-header">
+    <SectionHeaderWrapper aria-expanded={open} data-cy="section-header">
       <IconButton
         aria-label="Click to open or close section"
         onClick={() => setOpen(!open)}
@@ -46,9 +46,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <ButtonWrapper>
         <Button
           onClick={() => {
-            setOpen(!open);
+            sendEvent({
+              functionName,
+              name: open ? "Closed Section" : "Opened Section",
+            });
             onOpen(functionName);
-            sendEvent({ functionName, name: "Opened Section" });
+            setOpen(!open);
           }}
           size={Size.XSmall}
         >
@@ -56,8 +59,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         </Button>
         <Button
           onClick={() => {
-            onFocus(functionName);
             sendEvent({ functionName, name: "Focused Section" });
+            onFocus(functionName);
           }}
           size={Size.XSmall}
         >

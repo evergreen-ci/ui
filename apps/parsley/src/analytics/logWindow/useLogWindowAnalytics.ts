@@ -27,7 +27,8 @@ type Action =
   | { name: "Collapsed Lines" }
   | { name: "Paginated Through Search Results"; direction: DIRECTION }
   | { name: "Focused Section"; functionName: string }
-  | { name: "Opened Section"; functionName: string };
+  | { name: "Opened Section"; functionName: string }
+  | { name: "Closed Section"; functionName: string };
 
 export const useLogWindowAnalytics = () =>
   useAnalyticsRoot<Action>("LogWindow");
