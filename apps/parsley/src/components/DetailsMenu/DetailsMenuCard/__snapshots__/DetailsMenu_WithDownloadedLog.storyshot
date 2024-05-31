@@ -129,7 +129,7 @@
                           class="leafygreen-ui-1iyoj2o"
                         />
                         <div
-                          class="leafygreen-ui-1c0ck9t"
+                          class="leafygreen-ui-pp12fp"
                         >
                           <div
                             class="leafygreen-ui-1ago99h"
@@ -142,7 +142,7 @@
                               autocomplete="on"
                               class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                               data-cy="range-lower-bound"
-                              id="lg-form-field-input-63"
+                              id="lg-form_field-input-63"
                               min="0"
                               placeholder="0"
                               required=""
@@ -151,6 +151,14 @@
                             />
                           </div>
                         </div>
+                        <div
+                          aria-live="polite"
+                          aria-relevant="all"
+                          class="leafygreen-ui-11ydt2g"
+                          data-lgid="lg-form_field-feedback"
+                          data-testid="lg-form_field-feedback"
+                          id="lg-form_field-feedback-62"
+                        />
                       </div>
                       <div
                         aria-labelledby="Range Upper Bound"
@@ -161,7 +169,7 @@
                           class="leafygreen-ui-1iyoj2o"
                         />
                         <div
-                          class="leafygreen-ui-1c0ck9t"
+                          class="leafygreen-ui-pp12fp"
                         >
                           <div
                             class="leafygreen-ui-1ago99h"
@@ -174,7 +182,7 @@
                               autocomplete="on"
                               class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                               data-cy="range-upper-bound"
-                              id="lg-form-field-input-67"
+                              id="lg-form_field-input-67"
                               min="0"
                               placeholder="100"
                               required=""
@@ -183,6 +191,14 @@
                             />
                           </div>
                         </div>
+                        <div
+                          aria-live="polite"
+                          aria-relevant="all"
+                          class="leafygreen-ui-11ydt2g"
+                          data-lgid="lg-form_field-feedback"
+                          data-testid="lg-form_field-feedback"
+                          id="lg-form_field-feedback-66"
+                        />
                       </div>
                     </div>
                   </div>
