@@ -1,19 +1,23 @@
 const ascendingSortSpawnHostOrderByHostId = [
   "i-04ade558e1e26b0ad",
+  "i-07669e7a3cd2c238c",
   "i-092593689871a50dc",
 ];
 const descendingSortSpawnHostOrderByHostId = [
   "i-092593689871a50dc",
+  "i-07669e7a3cd2c238c",
   "i-04ade558e1e26b0ad",
 ];
 
 const descendingSortSpawnHostOrderByExpiration = [
-  "i-04ade558e1e26b0ad",
   "i-092593689871a50dc",
+  "i-07669e7a3cd2c238c",
+  "i-04ade558e1e26b0ad",
 ];
 const ascendingSortSpawnHostOrderByExpiration = [
-  "i-092593689871a50dc",
   "i-04ade558e1e26b0ad",
+  "i-07669e7a3cd2c238c",
+  "i-092593689871a50dc",
 ];
 
 const hostTaskId =
@@ -25,7 +29,7 @@ describe("Navigating to Spawn Host page", () => {
     cy.visit("/spawn/host");
   });
   it("Visiting the spawn host page should display all of your spawned hosts", () => {
-    cy.dataCy("leafygreen-table-row").should("have.length", 2);
+    cy.dataCy("leafygreen-table-row").should("have.length", 3);
   });
   it("Visiting the spawn host page should not have any cards expanded by default", () => {
     cy.dataCy("spawn-host-card").should("not.exist");
@@ -55,7 +59,7 @@ describe("Navigating to Spawn Host page", () => {
     });
 
     it("Visiting the spawn host page should display all of your spawned hosts not sorted by default", () => {
-      cy.dataCy("leafygreen-table-row").should("have.length", 2);
+      cy.dataCy("leafygreen-table-row").should("have.length", 3);
     });
 
     it("Clicking on the host column header should sort spawn hosts by ascending order, then descending, then remove sort", () => {
@@ -68,7 +72,7 @@ describe("Navigating to Spawn Host page", () => {
         cy.wrap($el).contains(descendingSortSpawnHostOrderByHostId[index]),
       );
       cy.get("@hostSortControl").click();
-      cy.dataCy("leafygreen-table-row").should("have.length", 2);
+      cy.dataCy("leafygreen-table-row").should("have.length", 3);
     });
 
     it("Clicking on the expiration column header should sort the hosts by ascending order, then descending, then remove sort", () => {
@@ -83,7 +87,7 @@ describe("Navigating to Spawn Host page", () => {
         cy.wrap($el).contains(descendingSortSpawnHostOrderByExpiration[index]),
       );
       cy.get("@expiresInSortControl").click();
-      cy.dataCy("leafygreen-table-row").should("have.length", 2);
+      cy.dataCy("leafygreen-table-row").should("have.length", 3);
     });
   });
 

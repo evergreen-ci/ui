@@ -13,14 +13,14 @@
           class="leafygreen-ui-6bdaia"
           data-lgid="lg-label"
           data-testid="lg-form_field-label"
-          for="lg-form-field-input-320"
-          id="lg-form-field-label-317"
+          for="lg-form_field-input-320"
+          id="lg-form_field-label-317"
         >
           Patch Name
         </label>
       </div>
       <div
-        class="leafygreen-ui-95c1iv"
+        class="leafygreen-ui-109lyo9"
       >
         <div
           class="leafygreen-ui-1ago99h"
@@ -29,17 +29,25 @@
             aria-describedby=""
             aria-disabled="false"
             aria-invalid="false"
-            aria-labelledby="lg-form-field-label-317"
+            aria-labelledby="lg-form_field-label-317"
             autocomplete="on"
             class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
             data-cy="patch-name-input"
-            id="lg-form-field-input-320"
+            id="lg-form_field-input-320"
             required=""
             type="text"
             value="test"
           />
         </div>
       </div>
+      <div
+        aria-live="polite"
+        aria-relevant="all"
+        class="leafygreen-ui-11ydt2g"
+        data-lgid="lg-form_field-feedback"
+        data-testid="lg-form_field-feedback"
+        id="lg-form_field-feedback-319"
+      />
     </div>
     <div
       class="css-8i32g1-ButtonWrapper ek3m3u41"
@@ -318,7 +326,7 @@
                         class="leafygreen-ui-1iyoj2o"
                       />
                       <div
-                        class="leafygreen-ui-95c1iv"
+                        class="leafygreen-ui-109lyo9"
                       >
                         <div
                           class="leafygreen-ui-1ago99h"
@@ -331,7 +339,7 @@
                             autocomplete="on"
                             class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                             data-cy="task-filter-input"
-                            id="lg-form-field-input-329"
+                            id="lg-form_field-input-329"
                             placeholder="Search tasks regex"
                             required=""
                             type="text"
@@ -339,6 +347,14 @@
                           />
                         </div>
                       </div>
+                      <div
+                        aria-live="polite"
+                        aria-relevant="all"
+                        class="leafygreen-ui-11ydt2g"
+                        data-lgid="lg-form_field-feedback"
+                        data-testid="lg-form_field-feedback"
+                        id="lg-form_field-feedback-328"
+                      />
                     </div>
                     <div
                       class="css-4bamt4-IconWrapper e13gwrw80"

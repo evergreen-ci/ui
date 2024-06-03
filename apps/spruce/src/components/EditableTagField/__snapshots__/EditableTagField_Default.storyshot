@@ -27,13 +27,13 @@
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_key_1"
-                  id="lg-form-field-label-3"
+                  id="lg-form_field-label-3"
                 >
                   Key
                 </label>
               </div>
               <div
-                class="leafygreen-ui-95c1iv"
+                class="leafygreen-ui-109lyo9"
               >
                 <div
                   class="leafygreen-ui-1ago99h"
@@ -42,7 +42,7 @@
                     aria-describedby=""
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-labelledby="lg-form-field-label-3"
+                    aria-labelledby="lg-form_field-label-3"
                     autocomplete="on"
                     class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                     data-cy="user-tag-key-field"
@@ -53,6 +53,14 @@
                   />
                 </div>
               </div>
+              <div
+                aria-live="polite"
+                aria-relevant="all"
+                class="leafygreen-ui-11ydt2g"
+                data-lgid="lg-form_field-feedback"
+                data-testid="lg-form_field-feedback"
+                id="lg-form_field-feedback-5"
+              />
             </div>
           </div>
         </div>
@@ -74,13 +82,13 @@
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_value_1"
-                  id="lg-form-field-label-7"
+                  id="lg-form_field-label-7"
                 >
                   Value
                 </label>
               </div>
               <div
-                class="leafygreen-ui-95c1iv"
+                class="leafygreen-ui-109lyo9"
               >
                 <div
                   class="leafygreen-ui-1ago99h"
@@ -89,7 +97,7 @@
                     aria-describedby=""
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-labelledby="lg-form-field-label-7"
+                    aria-labelledby="lg-form_field-label-7"
                     autocomplete="on"
                     class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                     data-cy="user-tag-value-field"
@@ -100,6 +108,14 @@
                   />
                 </div>
               </div>
+              <div
+                aria-live="polite"
+                aria-relevant="all"
+                class="leafygreen-ui-11ydt2g"
+                data-lgid="lg-form_field-feedback"
+                data-testid="lg-form_field-feedback"
+                id="lg-form_field-feedback-9"
+              />
             </div>
           </div>
         </div>
@@ -163,13 +179,13 @@
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_key_2"
-                  id="lg-form-field-label-11"
+                  id="lg-form_field-label-11"
                 >
                   Key
                 </label>
               </div>
               <div
-                class="leafygreen-ui-95c1iv"
+                class="leafygreen-ui-109lyo9"
               >
                 <div
                   class="leafygreen-ui-1ago99h"
@@ -178,7 +194,7 @@
                     aria-describedby=""
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-labelledby="lg-form-field-label-11"
+                    aria-labelledby="lg-form_field-label-11"
                     autocomplete="on"
                     class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                     data-cy="user-tag-key-field"
@@ -189,6 +205,14 @@
                   />
                 </div>
               </div>
+              <div
+                aria-live="polite"
+                aria-relevant="all"
+                class="leafygreen-ui-11ydt2g"
+                data-lgid="lg-form_field-feedback"
+                data-testid="lg-form_field-feedback"
+                id="lg-form_field-feedback-13"
+              />
             </div>
           </div>
         </div>
@@ -210,13 +234,13 @@
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_value_2"
-                  id="lg-form-field-label-15"
+                  id="lg-form_field-label-15"
                 >
                   Value
                 </label>
               </div>
               <div
-                class="leafygreen-ui-95c1iv"
+                class="leafygreen-ui-109lyo9"
               >
                 <div
                   class="leafygreen-ui-1ago99h"
@@ -225,7 +249,7 @@
                     aria-describedby=""
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-labelledby="lg-form-field-label-15"
+                    aria-labelledby="lg-form_field-label-15"
                     autocomplete="on"
                     class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                     data-cy="user-tag-value-field"
@@ -236,6 +260,14 @@
                   />
                 </div>
               </div>
+              <div
+                aria-live="polite"
+                aria-relevant="all"
+                class="leafygreen-ui-11ydt2g"
+                data-lgid="lg-form_field-feedback"
+                data-testid="lg-form_field-feedback"
+                id="lg-form_field-feedback-17"
+              />
             </div>
           </div>
         </div>
@@ -299,13 +331,13 @@
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_key_3"
-                  id="lg-form-field-label-19"
+                  id="lg-form_field-label-19"
                 >
                   Key
                 </label>
               </div>
               <div
-                class="leafygreen-ui-95c1iv"
+                class="leafygreen-ui-109lyo9"
               >
                 <div
                   class="leafygreen-ui-1ago99h"
@@ -314,7 +346,7 @@
                     aria-describedby=""
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-labelledby="lg-form-field-label-19"
+                    aria-labelledby="lg-form_field-label-19"
                     autocomplete="on"
                     class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                     data-cy="user-tag-key-field"
@@ -325,6 +357,14 @@
                   />
                 </div>
               </div>
+              <div
+                aria-live="polite"
+                aria-relevant="all"
+                class="leafygreen-ui-11ydt2g"
+                data-lgid="lg-form_field-feedback"
+                data-testid="lg-form_field-feedback"
+                id="lg-form_field-feedback-21"
+              />
             </div>
           </div>
         </div>
@@ -346,13 +386,13 @@
                   data-lgid="lg-label"
                   data-testid="lg-form_field-label"
                   for="tag_value_3"
-                  id="lg-form-field-label-23"
+                  id="lg-form_field-label-23"
                 >
                   Value
                 </label>
               </div>
               <div
-                class="leafygreen-ui-95c1iv"
+                class="leafygreen-ui-109lyo9"
               >
                 <div
                   class="leafygreen-ui-1ago99h"
@@ -361,7 +401,7 @@
                     aria-describedby=""
                     aria-disabled="false"
                     aria-invalid="false"
-                    aria-labelledby="lg-form-field-label-23"
+                    aria-labelledby="lg-form_field-label-23"
                     autocomplete="on"
                     class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                     data-cy="user-tag-value-field"
@@ -372,6 +412,14 @@
                   />
                 </div>
               </div>
+              <div
+                aria-live="polite"
+                aria-relevant="all"
+                class="leafygreen-ui-11ydt2g"
+                data-lgid="lg-form_field-feedback"
+                data-testid="lg-form_field-feedback"
+                id="lg-form_field-feedback-25"
+              />
             </div>
           </div>
         </div>

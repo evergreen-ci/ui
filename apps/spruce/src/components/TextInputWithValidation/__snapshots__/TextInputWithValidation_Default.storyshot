@@ -13,14 +13,14 @@
           class="leafygreen-ui-6bdaia"
           data-lgid="lg-label"
           data-testid="lg-form_field-label"
-          for="lg-form-field-input-253"
-          id="lg-form-field-label-250"
+          for="lg-form_field-input-253"
+          id="lg-form_field-label-250"
         >
           Some search field
         </label>
       </div>
       <div
-        class="leafygreen-ui-95c1iv"
+        class="leafygreen-ui-109lyo9"
       >
         <div
           class="leafygreen-ui-1ago99h"
@@ -29,16 +29,24 @@
             aria-describedby=""
             aria-disabled="false"
             aria-invalid="false"
-            aria-labelledby="lg-form-field-label-250"
+            aria-labelledby="lg-form_field-label-250"
             autocomplete="on"
             class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-            id="lg-form-field-input-253"
+            id="lg-form_field-input-253"
             required=""
             type="text"
             value=""
           />
         </div>
       </div>
+      <div
+        aria-live="polite"
+        aria-relevant="all"
+        class="leafygreen-ui-11ydt2g"
+        data-lgid="lg-form_field-feedback"
+        data-testid="lg-form_field-feedback"
+        id="lg-form_field-feedback-252"
+      />
     </div>
     <div
       class="css-4bamt4-IconWrapper e13gwrw80"
