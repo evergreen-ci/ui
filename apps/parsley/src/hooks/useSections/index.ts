@@ -11,14 +11,15 @@ interface Props {
 export const useSections = ({ logs, sectionsEnabled }: Props): Result => {
   const [sectionData, setSectionData] = useState<SectionEntry[] | undefined>();
 
+  const shouldParse =
+    logs.length && sectionsEnabled && sectionData === undefined;
+
   useEffect(() => {
-    const shouldParse =
-      logs.length && sectionsEnabled && sectionData === undefined;
     if (shouldParse) {
       const parseResult = parseSections(logs);
       setSectionData(parseResult);
     }
-  }, [logs, sectionsEnabled]);
+  }, [shouldParse]);
 
   return {
     sectionData,
