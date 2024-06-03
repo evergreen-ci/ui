@@ -2722,7 +2722,7 @@
     "@leafygreen-ui/tokens" "^2.1.1"
     polished "^4.2.2"
 
-"@leafygreen-ui/button@^21.0.10", "@leafygreen-ui/button@^21.0.11", "@leafygreen-ui/button@^21.0.3", "@leafygreen-ui/button@^21.0.5", "@leafygreen-ui/button@^21.0.7", "@leafygreen-ui/button@^21.0.9", "@leafygreen-ui/button@^21.2.0":
+"@leafygreen-ui/button@^21.0.10", "@leafygreen-ui/button@^21.0.11", "@leafygreen-ui/button@^21.0.3", "@leafygreen-ui/button@^21.0.5", "@leafygreen-ui/button@^21.0.9", "@leafygreen-ui/button@^21.2.0":
   version "21.2.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-21.2.1.tgz#a60c919422fa3fcc13ef840434ad5d04cac44fbc"
   integrity sha512-Ngcve4Q+4e44Q7Lsjd1y70lw7Llq0ZWCUFP2kJA4Vfo+kr1HtxjtUSHVRs+8puCfKiFkusJ34D5dnFaAGL2YmQ==
@@ -3032,7 +3032,7 @@
     "@leafygreen-ui/lib" "^13.3.0"
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon-button@15.0.21", "@leafygreen-ui/icon-button@^15.0.12", "@leafygreen-ui/icon-button@^15.0.16", "@leafygreen-ui/icon-button@^15.0.17", "@leafygreen-ui/icon-button@^15.0.18", "@leafygreen-ui/icon-button@^15.0.19", "@leafygreen-ui/icon-button@^15.0.21", "@leafygreen-ui/icon-button@^15.0.7":
+"@leafygreen-ui/icon-button@15.0.21", "@leafygreen-ui/icon-button@^15.0.12", "@leafygreen-ui/icon-button@^15.0.17", "@leafygreen-ui/icon-button@^15.0.18", "@leafygreen-ui/icon-button@^15.0.19", "@leafygreen-ui/icon-button@^15.0.21", "@leafygreen-ui/icon-button@^15.0.7":
   version "15.0.21"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.21.tgz#2677e3ad08b9408d3788c17896989893134888f6"
   integrity sha512-zdgsgVDlbDO8eb7e12vHfF2UEr8XlinhwjgwFniKZngE/I8HnrA9zNNHlGiKg1icXHzzBuE9Xi6UR7DqvQaaFg==
@@ -3061,7 +3061,7 @@
     "@leafygreen-ui/emotion" "^4.0.7"
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon@^11.12.4", "@leafygreen-ui/icon@^11.12.5", "@leafygreen-ui/icon@^11.13.1", "@leafygreen-ui/icon@^11.17.0", "@leafygreen-ui/icon@^11.22.1", "@leafygreen-ui/icon@^11.22.2", "@leafygreen-ui/icon@^11.23.0", "@leafygreen-ui/icon@^11.25.0", "@leafygreen-ui/icon@^11.25.1", "@leafygreen-ui/icon@^11.28.0", "@leafygreen-ui/icon@^11.29.1":
+"@leafygreen-ui/icon@^11.12.4", "@leafygreen-ui/icon@^11.12.5", "@leafygreen-ui/icon@^11.13.1", "@leafygreen-ui/icon@^11.17.0", "@leafygreen-ui/icon@^11.22.2", "@leafygreen-ui/icon@^11.23.0", "@leafygreen-ui/icon@^11.25.0", "@leafygreen-ui/icon@^11.25.1", "@leafygreen-ui/icon@^11.28.0", "@leafygreen-ui/icon@^11.29.1":
   version "11.29.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.29.1.tgz#f61115a5b0b36310a5ffb008bf51dd9ae8982917"
   integrity sha512-bCfeJ3mndU5wHayMWfkVWo0NXhPpBpHIG53aox/eRterqLvWg6jWyiuF930MHbyWDNEXC9Qw1WD637kZ93mmog==
@@ -3289,19 +3289,19 @@
     "@leafygreen-ui/typography" "^19.1.0"
     lodash "^4.17.21"
 
-"@leafygreen-ui/pagination@1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/pagination/-/pagination-1.0.12.tgz#d05439fe5d4ff100c6feafcecdccd38a6d2fefac"
-  integrity sha512-OuAZtuvMbsHaV+I6pjbMjMJ2IMgOQ7vU4B1uQf+pZarEtUBkaKyL1zkLYkWvwM6wD63hdewdJJNzllUvOEf1jw==
+"@leafygreen-ui/pagination@1.0.24":
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/pagination/-/pagination-1.0.24.tgz#da272c52ff5a93ff872e35acbcd26bb380654773"
+  integrity sha512-Uni5ZRkae+Du9Gopr0TVtDTCzIdk5jJSQnaQBlX57b01JEP8PjIfG7lcvOk4qsFX6quUKlW0txuvsliB4MMGPw==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^7.7.8"
-    "@leafygreen-ui/icon" "^11.22.1"
-    "@leafygreen-ui/icon-button" "^15.0.16"
-    "@leafygreen-ui/lib" "^10.4.3"
-    "@leafygreen-ui/select" "^10.3.12"
-    "@leafygreen-ui/tokens" "^2.1.4"
-    "@leafygreen-ui/typography" "^16.5.4"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/hooks" "^8.1.3"
+    "@leafygreen-ui/icon" "^12.0.1"
+    "@leafygreen-ui/icon-button" "^15.0.21"
+    "@leafygreen-ui/lib" "^13.3.0"
+    "@leafygreen-ui/select" "^12.0.0"
+    "@leafygreen-ui/tokens" "^2.6.0"
+    "@leafygreen-ui/typography" "^19.1.0"
     lodash "^4.17.21"
 
 "@leafygreen-ui/palette@4.0.9":
@@ -3460,25 +3460,6 @@
     "@leafygreen-ui/tokens" "^2.6.0"
     "@leafygreen-ui/typography" "^19.1.0"
     "@lg-tools/test-harnesses" "^0.1.2"
-    "@types/react-is" "^18.0.0"
-    lodash "^4.17.21"
-    polished "^4.1.3"
-    react-is "^18.0.1"
-
-"@leafygreen-ui/select@^10.3.12":
-  version "10.3.18"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/select/-/select-10.3.18.tgz#0d38b31c2863b399258d57aedc2c0e541d680ee1"
-  integrity sha512-YJkO15Clg72D5RX0V4Ea6+IozftIbHUREAb7Gs/sYFEAESIuT6u/rmhhqOBZHtWmc/yNVgcFYDPJHXWYVzYV+w==
-  dependencies:
-    "@leafygreen-ui/button" "^21.0.7"
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^8.0.0"
-    "@leafygreen-ui/icon" "^11.23.0"
-    "@leafygreen-ui/lib" "^12.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/popover" "^11.0.18"
-    "@leafygreen-ui/tokens" "^2.2.0"
-    "@leafygreen-ui/typography" "^17.0.1"
     "@types/react-is" "^18.0.0"
     lodash "^4.17.21"
     polished "^4.1.3"
@@ -3776,7 +3757,7 @@
     "@leafygreen-ui/polymorphic" "^1.3.6"
     "@leafygreen-ui/tokens" "^2.1.4"
 
-"@leafygreen-ui/typography@^17.0.0", "@leafygreen-ui/typography@^17.0.1":
+"@leafygreen-ui/typography@^17.0.0":
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-17.0.2.tgz#39b984d6725dbe38e191ac3cf383e77fd7cd2501"
   integrity sha512-wx+kk5VNMOCTenrIG2AcgAKHt9TiLhSTirZARv0J6l4VOgnO+Mkbh3sqd4mk0EOBCAFmsBR3WqwQh00JXU8Htw==
@@ -14633,7 +14614,16 @@ string-env-interpolation@1.0.1, string-env-interpolation@^1.0.1:
   resolved "https://registry.yarnpkg.com/string-env-interpolation/-/string-env-interpolation-1.0.1.tgz#ad4397ae4ac53fe6c91d1402ad6f6a52862c7152"
   integrity sha512-78lwMoCcn0nNu8LszbP1UA7g55OeE4v7rCeWnM5B453rnNr4aq+5it3FEYtZrSEiMvHZOZ9Jlqb0OD0M2VInqg==
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -14725,7 +14715,14 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -15969,7 +15966,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -15982,6 +15979,15 @@ wrap-ansi@^6.0.1, wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
