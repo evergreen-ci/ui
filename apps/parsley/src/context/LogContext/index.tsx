@@ -252,7 +252,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     },
     [dispatch],
   );
-
+  useSections({logs: state.logs, sectionsEnabled: true});
   const setLogMetadata = useCallback(
     (logMetadata: LogMetadata) => {
       dispatch({ logMetadata, type: "SET_LOG_METADATA" });

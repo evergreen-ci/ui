@@ -17,6 +17,8 @@ interface Props {
 export const useSections = ({logs, sectionsEnabled}: Props): UseSectionsResult => {
   const [sectionData, setSectionData] =
     useState<SectionData>();
+
+    console.log("useSections hook", sectionData);
   useEffect(() => {
     if (logs.length && sectionsEnabled && sectionData === undefined) {
       const data = logs.reduce(reduceFn, [] as SectionEntry[]);
@@ -45,6 +47,7 @@ const processLine = (str: string): SectionLineMetadata | null => {
     // eslint-disable-next-line no-param-reassign
     str = str.substring(8);
   }
+  
   const regex =
     /(Running|Finished) command '([^']+)'.*?in function '([^']+)'.*?\(step (\d+(\.\d+)?) of (\d+)\)/;
   const match = str.match(regex);
@@ -79,8 +82,8 @@ const reduceFn = (accum: SectionEntry[], line: string, i: number) => {
    if (accum.length === 0) {
      throw new Error("Log file is showing a finished section without a running section before it. This should not happen.");
    }
-   // Update the end line number of the last section in the accumulator
-   accum[accum.length - 1].lineEnd = i;
+   // Update the end line number exclusive of the last section in the accumulator
+   accum[accum.length - 1].lineEnd = i + 1;
    // If the current line indicates a running section and either no sections in the accumulator or the previous section is different from the current one, add a new section
  } else if (currentLine.status === "Running" && (accum.length === 0 || accum[accum.length - 1].functionName !== currentLine.functionName)) {
    accum.push({ lineStart: i, functionName: currentLine.functionName });
