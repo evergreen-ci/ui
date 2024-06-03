@@ -35,13 +35,13 @@ interface SectionEntry {
  * Reduces the logs array to accumulate section data. Each entry in the returned array represents a section.
  * @param accum - The accumulated section data.
  * @param line - The current line being processed.
- * @param i - The log index of the current line.
+ * @param logIndex - The log index of the current line.
  * @returns The updated accumulated section data after processing the current line.
  */
 const reduceFn = (
   accum: SectionEntry[],
   line: string,
-  i: number,
+  logIndex: number,
 ): SectionEntry[] => {
   const currentLine = processLine(line);
   // Skip if the current line does not indicate a section
@@ -56,7 +56,7 @@ const reduceFn = (
       );
     }
     // Update the end line number exclusive of the last section in the accumulator
-    sections[sections.length - 1].range.end = i + 1;
+    sections[sections.length - 1].range.end = logIndex + 1;
     // If the current line indicates a running section and either no sections in the accumulator or the previous section is different from the current one, add a new section
   } else if (
     currentLine.status === "Running" &&
@@ -71,7 +71,7 @@ const reduceFn = (
     // -1 represents an ongoing section in this function and will be overwritten in the final result
     sections.push({
       functionName: currentLine.functionName,
-      range: { end: -1, start: i },
+      range: { end: -1, start: logIndex },
     });
   }
   return sections;
@@ -93,5 +93,5 @@ const parseSections = (logs: string[]): SectionEntry[] => {
   return result;
 };
 
-export { parseSections };
+export { parseSections, reduceFn };
 export type { SectionEntry };
