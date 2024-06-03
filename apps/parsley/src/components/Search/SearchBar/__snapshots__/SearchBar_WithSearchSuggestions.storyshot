@@ -13,7 +13,7 @@
         aria-expanded="false"
         aria-invalid="false"
         aria-labelledby="searchbar-select"
-        class="lg-ui-button-0001 leafygreen-ui-1p6i2zy"
+        class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
         data-cy="searchbar-select"
         data-lgid="lg-button"
         data-testid="leafygreen-ui-select-menubutton"
@@ -127,7 +127,7 @@
             class="leafygreen-ui-1iyoj2o"
           />
           <div
-            class="leafygreen-ui-95c1iv"
+            class="leafygreen-ui-109lyo9"
           >
             <div
               class="leafygreen-ui-1ago99h"
@@ -140,7 +140,7 @@
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
-                id="lg-form-field-input-242"
+                id="lg-form_field-input-242"
                 placeholder="optional, regexp to search"
                 required=""
                 spellcheck="false"
@@ -149,6 +149,14 @@
               />
             </div>
           </div>
+          <div
+            aria-live="polite"
+            aria-relevant="all"
+            class="leafygreen-ui-11ydt2g"
+            data-lgid="lg-form_field-feedback"
+            data-testid="lg-form_field-feedback"
+            id="lg-form_field-feedback-241"
+          />
         </div>
         <div
           class="css-4bamt4-IconWrapper e1j7n2io0"
