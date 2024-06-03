@@ -385,6 +385,7 @@ tasks:
 
   - name: lint
     commands:
+      - func: symlink
       - func: yarn-eslint
 
   - name: snapshots
