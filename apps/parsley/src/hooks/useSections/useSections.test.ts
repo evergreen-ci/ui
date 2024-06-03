@@ -8,8 +8,11 @@ describe("useSections", () => {
   beforeEach(() => {
     vi.spyOn(sectionUtils, "parseSections");
     vi.spyOn(ErrorReporting, "reportError");
+  });
+  afterEach(() => {
     vi.restoreAllMocks();
   });
+
   it("should call parsing function when sections are enabled and logs are populated", async () => {
     RenderFakeToastContext();
     const { result } = renderHook(() =>
