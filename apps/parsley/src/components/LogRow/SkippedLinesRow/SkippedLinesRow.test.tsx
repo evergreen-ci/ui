@@ -106,4 +106,5 @@ const logLines = [
 
 const skippedLinesProps = {
   expandLines: vi.fn(),
+  lineIndex: 0,
 };
