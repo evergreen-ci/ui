@@ -2,10 +2,10 @@ import { AnsiUp } from "ansi_up";
 import linkifyHtml from "linkify-html";
 import BaseRow from "components/LogRow/BaseRow";
 import { trimSeverity } from "utils/string";
-import { LogRowProps } from "../types";
+import { LogLineRow } from "../types";
 import { getSeverityMapping, mapLogLevelToColor } from "./utils";
 
-interface AnsiRowProps extends LogRowProps {}
+interface AnsiRowProps extends LogLineRow {}
 
 const AnsiRow: React.FC<AnsiRowProps> = ({ getLine, lineNumber, ...rest }) => {
   const ansiUp = new AnsiUp();

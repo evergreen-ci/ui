@@ -6,16 +6,19 @@ import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { ExpandedLines, Range } from "types/logs";
-import { RootRowProps } from "../types";
+import { Row } from "../types";
 
 const SKIP_NUMBER = 5;
 
-interface Props extends RootRowProps {
+interface SkippedLinesRowProps extends Row {
   expandLines: (expandedLines: ExpandedLines) => void;
   range: Range;
 }
 
-const SkippedLinesRow: React.FC<Props> = ({ expandLines, range }) => {
+const SkippedLinesRow: React.FC<SkippedLinesRowProps> = ({
+  expandLines,
+  range,
+}) => {
   const { sendEvent } = useLogWindowAnalytics();
   const [, startTransition] = useTransition();
   const { end, start } = range;

@@ -1,4 +1,4 @@
-import { spacing } from "@leafygreen-ui/tokens";
+import { spacing, transitionDuration } from "@leafygreen-ui/tokens";
 
 // Should be used for spacing such as margins and padding.
 const size = {
@@ -49,4 +49,5 @@ export {
   navbarHeight,
   subheaderHeight,
   textInputHeight,
+  transitionDuration,
 };
