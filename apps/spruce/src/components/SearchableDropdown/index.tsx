@@ -7,7 +7,7 @@ import {
   useMemo,
 } from "react";
 import styled from "@emotion/styled";
-import { TextInputWithGlyph } from "@evg-ui/components";
+import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import { palette } from "@leafygreen-ui/palette";
 import { Label } from "@leafygreen-ui/typography";
 import Dropdown from "components/Dropdown";

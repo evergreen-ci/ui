@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
-import { arraySymmetricDifference } from "@evg-ui/utils";
+import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { useShortcutAnalytics } from "analytics";
 import { CharKey, ModifierKey } from "constants/keys";
 

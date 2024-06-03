@@ -1,4 +1,4 @@
-import { arraySymmetricDifference } from "@evg-ui/utils";
+import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { differenceInHours, isTomorrow, parse } from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
 import { days } from "constants/fieldMaps";

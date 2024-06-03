@@ -47,7 +47,6 @@ export default defineConfig({
       },
       // Exclude storybook stories from fast refresh.
       exclude: /\.stories\.tsx?$/,
-      fastRefresh: true,
       // Only Typescript files should use fast refresh.
       include: ["**/*.tsx", "**/*.ts"],
 

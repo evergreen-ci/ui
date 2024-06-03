@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { conditionalToArray } from "@evg-ui/utils";
+import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParams } from "hooks/useQueryParam";
 

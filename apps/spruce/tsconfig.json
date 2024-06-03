@@ -1,7 +1,10 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@evg-ui/lib/*": ["../../../packages/lib/src/*"]
+    }
   },
   "exclude": [
     "node_modules",

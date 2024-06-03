@@ -54,8 +54,7 @@
     "@emotion/css": "11.11.0",
     "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.5",
-    "@evg-ui/components": "*",
-    "@evg-ui/utils": "*",
+    "@evg-ui/lib": "*",
     "@leafygreen-ui/badge": "8.0.2",
     "@leafygreen-ui/banner": "7.0.4",
     "@leafygreen-ui/button": "21.0.6",
@@ -128,6 +127,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "11.11.0",
     "@evg-ui/eslint-config": "*",
+    "@evg-ui/lint-staged": "*",
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/typescript": "4.0.1",
     "@graphql-codegen/typescript-operations": "4.0.1",

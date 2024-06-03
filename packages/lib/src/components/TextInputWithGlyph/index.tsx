@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import styled from "@emotion/styled";
-import { size, textInputHeight } from "@evg-ui/constants";
 import TextInput, { TextInputProps } from "@leafygreen-ui/text-input";
+import { size, textInputHeight } from "../../constants/tokens";
 
 export type TextInputWithGlyphProps = {
   icon: React.ReactElement;

@@ -1,6 +1,6 @@
 import { KeyboardEvent, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import { TextInputWithGlyph } from "@evg-ui/components";
+import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";

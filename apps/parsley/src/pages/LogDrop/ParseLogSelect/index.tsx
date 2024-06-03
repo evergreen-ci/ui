@@ -1,12 +1,12 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Button from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { InlineCode, InlineCodeProps, Label } from "@leafygreen-ui/typography";
 import Cookie from "js-cookie";
 import { LAST_SELECTED_LOG_TYPE } from "constants/cookies";
 import { LogRenderingTypes } from "constants/enums";
-import { size } from "constants/tokens";
 
 interface ParseLogSelectProps {
   fileName: string | undefined;

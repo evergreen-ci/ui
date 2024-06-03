@@ -43,8 +43,6 @@ describe("conditionalToArray", () => {
     expect(conditionalToArray("parsley", false)).toBe("parsley");
   });
   it("should properly handles value if it is already an array", () => {
-    expect(conditionalToArray(["parsley"], true)).toStrictEqual([
-      "parsley",
-    ]);
+    expect(conditionalToArray(["parsley"], true)).toStrictEqual(["parsley"]);
   });
 });

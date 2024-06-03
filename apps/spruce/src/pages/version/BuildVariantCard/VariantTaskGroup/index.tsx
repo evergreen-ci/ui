@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { arraySymmetricDifference } from "@evg-ui/utils";
+import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "components/styles";
