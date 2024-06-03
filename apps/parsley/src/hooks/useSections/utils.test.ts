@@ -1,4 +1,4 @@
-import { SectionEntry, processLine, reduceFn } from "./utils";
+import { SectionEntry, parseSections, processLine, reduceFn } from "./utils";
 
 describe("processLine", () => {
   it("should correctly parse a log line indicating a running section", () => {
@@ -80,5 +80,87 @@ describe("reduceFn", () => {
         "Log file is showing a new running section without finishing the previous section.",
       ),
     );
+  });
+});
+
+describe("parseSections", () => {
+  it("should correctly extract section data and close the last section when it is still running", () => {
+    const logs = [
+      "normal log line",
+      "Running command 'c1' in function 'f-1'.",
+      "Finished command 'c1' in function 'f-1'.",
+      "Running command 'c2' in function 'f-1'.",
+      "Finished command 'c2' in function 'f-1'.",
+      "normal log line",
+      "Running command 'c3' in function 'f-2'.",
+      "normal log line",
+      "Finished command 'c3' in function 'f-2'.",
+      "Running command 'c4' in function 'f-2'.",
+      "Finished command 'c4' in function 'f-2'.",
+      "Running command 'c5' in function 'f-3'.",
+      "normal log line",
+      "normal log line",
+      "normal log line",
+    ];
+    const expectedSections = [
+      { functionName: "f-1", range: { end: 5, start: 1 } },
+      { functionName: "f-2", range: { end: 11, start: 6 } },
+      { functionName: "f-3", range: { end: 15, start: 11 } },
+    ];
+    expect(parseSections(logs)).toEqual(expectedSections);
+  });
+
+  it("should correctly extract section data when all sections are finished", () => {
+    const logs = [
+      "normal log line",
+      "Running command 'c1' in function 'f-1'.",
+      "Finished command 'c1' in function 'f-1'.",
+      "Running command 'c2' in function 'f-1'.",
+      "Finished command 'c2' in function 'f-1'.",
+      "normal log line",
+      "Running command 'c3' in function 'f-2'.",
+      "normal log line",
+      "Finished command 'c3' in function 'f-2'.",
+      "Running command 'c4' in function 'f-2'.",
+      "Finished command 'c4' in function 'f-2'.",
+      "normal log line",
+      "normal log line",
+      "normal log line",
+    ];
+    const expectedSections = [
+      { functionName: "f-1", range: { end: 5, start: 1 } },
+      { functionName: "f-2", range: { end: 11, start: 6 } },
+    ];
+    expect(parseSections(logs)).toEqual(expectedSections);
+  });
+
+  it("should return an error when there is a finished section without a running section before it", () => {
+    const logs = [
+      "Finished command 'c1' in function 'f-1'.",
+      "Running command 'c2' in function 'f-1'.",
+      "Finished command 'c2' in function 'f-1'.",
+    ];
+    expect(() => parseSections(logs)).toThrow(
+      Error(
+        "Log file is showing a finished section without a running section before it. This should not happen.",
+      ),
+    );
+  });
+
+  it("should return an error when there is a new running section without finishing the previous section", () => {
+    const logs = [
+      "Running command 'c1' in function 'f-1'.",
+      "Running command 'c2' in function 'f-2'.",
+    ];
+    expect(() => parseSections(logs)).toThrow(
+      Error(
+        "Log file is showing a new running section without finishing the previous section.",
+      ),
+    );
+  });
+
+  it("should return an empty array if the logs array is empty", () => {
+    const logs = [] as string[];
+    expect(parseSections(logs)).toEqual([]);
   });
 });
