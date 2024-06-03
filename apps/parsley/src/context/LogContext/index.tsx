@@ -28,6 +28,7 @@ import {
 import { QueryParams } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useQueryParam } from "hooks/useQueryParam";
+import { useSections } from "hooks/useSections";
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import filterLogs from "utils/filterLogs";
 import { getMatchingLines } from "utils/matchingLines";
@@ -36,7 +37,6 @@ import searchLogs from "utils/searchLogs";
 import useLogState from "./state";
 import { DIRECTION, LogMetadata, Preferences, SearchState } from "./types";
 import { getNextPage } from "./utils";
-import { useSections } from "hooks/useSections";
 
 interface LogContextState {
   expandedLines: ExpandedLines;
@@ -151,7 +151,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     ],
   );
 
-  useEffect( 
+  useEffect(
     () => {
       setProcessedLogLines(
         filterLogs({
@@ -252,7 +252,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     },
     [dispatch],
   );
-  useSections({logs: state.logs, sectionsEnabled: true});
+  useSections({ logs: state.logs, sectionsEnabled: true });
   const setLogMetadata = useCallback(
     (logMetadata: LogMetadata) => {
       dispatch({ logMetadata, type: "SET_LOG_METADATA" });
