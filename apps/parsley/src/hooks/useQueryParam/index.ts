@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from "react";
+import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { ParseOptions } from "query-string";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { QueryParams } from "constants/queryParams";
-import { conditionalCastToArray } from "utils/array";
 import { parseQueryString, stringifyQuery } from "utils/query-string";
 
 /**
@@ -69,7 +69,7 @@ const useQueryParam = <T>(
 
   const queryParam =
     searchParams[param] !== undefined
-      ? (conditionalCastToArray(
+      ? (conditionalToArray(
           searchParams[param],
           Array.isArray(defaultParam),
         ) as unknown as T)

@@ -1,9 +1,9 @@
+import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { differenceInHours, isTomorrow, parse } from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
 import { days } from "constants/fieldMaps";
 import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";
 import { Optional } from "types/utils";
-import { arraySymmetricDifference } from "utils/array";
 import { isProduction } from "utils/environmentVariables";
 
 const daysInWeek = 7;

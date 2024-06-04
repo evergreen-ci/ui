@@ -169,26 +169,6 @@ export const arrayIntersection = <T>(a: T[], b: T[]) => {
 };
 
 /**
- * `arraySymmetricDifference` takes in two arrays and returns only the elements not in common between the two arrays
- * @param a - The first array
- * @param b - The second array
- * @returns The elements not in common between the two arrays
- * @example arraySymmetricDifference([1, 2, 3], [2, 3, 4]) // [1, 4]
- */
-export const arraySymmetricDifference = <T>(a: T[], b: T[]) => {
-  if (typeof a[0] === "object" || typeof b[0] === "object") {
-    throw new TypeError("arraySymmetricDifference does not support objects");
-  }
-  const setA = new Set(a);
-  const setB = new Set(b);
-  const difference = Array.from(
-    new Set(a.concat(b).filter((x) => !setA.has(x) || !setB.has(x))),
-  );
-
-  return difference;
-};
-
-/**
  * `arraySetDifference` returns the elements in a that are not in b
  * @param a - The first array
  * @param b - The second array
@@ -244,22 +224,4 @@ export const range = (start: number, stop: number, step?: number): number[] => {
   const stepValue = step ?? 1;
   const arrLength = (stop - start) / stepValue + 1;
   return Array.from({ length: arrLength }, (_, i) => start + i * stepValue);
-};
-
-/**
- * `conditionalToArray` takes in a generic value and transforms it into an array if shouldBeArray is true.
- * The value remains unchanged if it is already an array, or if shouldBeArray is false.
- * @param value - The value to transform into an array
- * @param shouldBeArray - Whether or not the value should be transformed into an array
- * @returns The value as an array if shouldBeArray is true, otherwise the value is returned unchanged
- * @example conditionalToArray(1, true) // [1]
- * @example conditionalToArray([1], true) // [1]
- * @example conditionalToArray(1, false) // 1
- * @example conditionalToArray([1], false) // [1]
- */
-export const conditionalToArray = <T>(value: T, shouldBeArray: boolean) => {
-  if (shouldBeArray) {
-    return Array.isArray(value) ? value : [value];
-  }
-  return value;
 };
