@@ -1,5 +1,11 @@
 import { setToUTCMidnight } from "@leafygreen-ui/date-utils";
-import { differenceInHours, isTomorrow, parse } from "date-fns";
+import {
+  isAfter,
+  isBefore,
+  differenceInHours,
+  isTomorrow,
+  parse,
+} from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
 import { days } from "constants/fieldMaps";
 import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";
@@ -116,6 +122,9 @@ export const getSleepSchedule = (
   if (useDefaultUptimeSchedule) {
     return {
       ...defaultSleepSchedule,
+      ...(temporarilyExemptUntil
+        ? { temporarilyExemptUntil: new Date(temporarilyExemptUntil) }
+        : {}),
       timeZone,
     };
   }
@@ -233,9 +242,26 @@ export const validator = (({ expirationDetails }, errors) => {
   const { hostUptime, noExpiration } = expirationDetails ?? {};
   if (!hostUptime || noExpiration === false) return errors;
 
-  const { sleepSchedule, useDefaultUptimeSchedule } = hostUptime;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { timeSelection } = sleepSchedule;
+  const { sleepSchedule, temporarilyExemptUntil, useDefaultUptimeSchedule } =
+    hostUptime;
+
+  if (temporarilyExemptUntil) {
+    // LG Date Picker widget provides visual validation but doesn't provide a way to access its error state. Replicate its min/max validation here.
+    const selectedDate = new Date(temporarilyExemptUntil);
+    if (
+      !(
+        isAfter(exemptionRange.disableAfter, selectedDate) &&
+        isBefore(exemptionRange.disableBefore, selectedDate)
+      )
+    ) {
+      // @ts-expect-error
+      errors.expirationDetails?.hostUptime?.temporarilyExemptUntil?.addError?.(
+        "Invalid date selected; sleep can only be disabled for up to one month.",
+      );
+    }
+  }
+
+  const { timeSelection } = sleepSchedule ?? {};
 
   if (useDefaultUptimeSchedule) {
     return errors;
