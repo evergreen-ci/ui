@@ -1,7 +1,7 @@
 {
   "name": "parsley",
   "private": true,
-  "version": "2.1.12",
+  "version": "2.1.13",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
     "build": "tsc && GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
@@ -48,10 +48,10 @@
     "@leafygreen-ui/copyable": "8.0.6",
     "@leafygreen-ui/emotion": "4.0.7",
     "@leafygreen-ui/empty-state": "1.0.10",
-    "@leafygreen-ui/guide-cue": "5.0.2",
+    "@leafygreen-ui/guide-cue": "5.0.8",
     "@leafygreen-ui/icon": "11.28.0",
     "@leafygreen-ui/icon-button": "15.0.21",
-    "@leafygreen-ui/info-sprinkle": "1.0.2",
+    "@leafygreen-ui/info-sprinkle": "1.0.5",
     "@leafygreen-ui/leafygreen-provider": "3.1.11",
     "@leafygreen-ui/menu": "22.0.8",
     "@leafygreen-ui/modal": "16.0.5",
