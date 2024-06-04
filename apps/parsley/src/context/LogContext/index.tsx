@@ -251,6 +251,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     },
     [dispatch],
   );
+
   const setLogMetadata = useCallback(
     (logMetadata: LogMetadata) => {
       dispatch({ logMetadata, type: "SET_LOG_METADATA" });
