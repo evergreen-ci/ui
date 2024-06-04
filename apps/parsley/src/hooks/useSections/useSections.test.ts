@@ -71,4 +71,16 @@ describe("useSections", () => {
       "An error occurred while parsing log sections.",
     );
   });
+  it("parsing function is not called after initial parse", async () => {
+    RenderFakeToastContext();
+    const logs = ["normal log line"];
+    const { rerender } = renderHook(
+      (props) => useSections({ logs, sectionsEnabled: props.sectionsEnabled }),
+      { initialProps: { sectionsEnabled: true } },
+    );
+    expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
+    rerender({ sectionsEnabled: false });
+    rerender({ sectionsEnabled: true });
+    expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
+  });
 });
