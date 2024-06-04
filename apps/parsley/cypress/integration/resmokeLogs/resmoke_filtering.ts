@@ -99,7 +99,7 @@ describe("Filtering", () => {
             "contain",
             `filters=010${filter1},001${filter2}`,
           );
-          cy.get("[data-cy^='collapsed-row-']").should("not.exist");
+          cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
         });
       });
 
@@ -187,7 +187,7 @@ describe("Filtering", () => {
             "contain",
             `filters=010${filter1},001${filter2}`,
           );
-          cy.get("[data-cy^='collapsed-row-']").should("not.exist");
+          cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
         });
       });
     });
@@ -199,7 +199,7 @@ describe("Filtering", () => {
     beforeEach(() => {
       cy.resetDrawerState();
       cy.visit(`${logLink}?filters=100${filter}`);
-      cy.get("[data-cy^='collapsed-row-']").should("exist");
+      cy.get("[data-cy^='skipped-lines-row-']").should("exist");
     });
 
     it("should be able to edit a filter", () => {
@@ -221,7 +221,7 @@ describe("Filtering", () => {
         cy.get(`[aria-label="Delete filter"]`).click();
       });
       cy.location("search").should("not.contain", "filters");
-      cy.get("[data-cy^='collapsed-row-']").should("not.exist");
+      cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
     });
   });
 });

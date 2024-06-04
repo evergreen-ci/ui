@@ -3,7 +3,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { MockInstance } from "vitest";
 import { LogRenderingTypes } from "constants/enums";
 import { act, renderHook, waitFor } from "test_utils";
-import { isCollapsedRow } from "utils/collapsedRow";
+import { isCollapsedRow } from "utils/logRowTypes";
 import { LogContextProvider, useLogContext } from ".";
 import { DIRECTION } from "./types";
 
@@ -207,7 +207,11 @@ describe("useLogContext", () => {
       expect(result.current.lineCount).toBe(3);
 
       expect(result.current.processedLogLines).toHaveLength(3);
-      expect(result.current.processedLogLines).toStrictEqual([[0], 1, [2]]);
+      expect(result.current.processedLogLines).toStrictEqual([
+        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        1,
+        { range: { end: 3, start: 2 }, rowType: "SkippedLines" },
+      ]);
     });
     it("non matching filters should collapse all of the logs", () => {
       const wrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -223,7 +227,9 @@ describe("useLogContext", () => {
       expect(result.current.lineCount).toBe(3);
 
       expect(result.current.processedLogLines).toHaveLength(1);
-      expect(result.current.processedLogLines).toStrictEqual([[0, 1, 2]]);
+      expect(result.current.processedLogLines).toStrictEqual([
+        { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
+      ]);
     });
     describe("applying multiple filters should filter the list of logs and collapse unmatching ones", () => {
       it("should `AND` filters by default", () => {
@@ -241,7 +247,9 @@ describe("useLogContext", () => {
         const { result } = renderHook(() => useLogContext(), { wrapper });
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(1);
-        expect(result.current.processedLogLines).toStrictEqual([[0, 1, 2]]);
+        expect(result.current.processedLogLines).toStrictEqual([
+          { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
+        ]);
       });
       it("should `AND` filters if the query param specifies it", () => {
         const wrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -258,7 +266,9 @@ describe("useLogContext", () => {
         const { result } = renderHook(() => useLogContext(), { wrapper });
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(1);
-        expect(result.current.processedLogLines).toStrictEqual([[0, 1, 2]]);
+        expect(result.current.processedLogLines).toStrictEqual([
+          { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
+        ]);
       });
       it("should `OR` filters if the query param specifies it", () => {
         const wrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -275,7 +285,11 @@ describe("useLogContext", () => {
         const { result } = renderHook(() => useLogContext(), { wrapper });
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(3);
-        expect(result.current.processedLogLines).toStrictEqual([0, [1], 2]);
+        expect(result.current.processedLogLines).toStrictEqual([
+          0,
+          { range: { end: 2, start: 1 }, rowType: "SkippedLines" },
+          2,
+        ]);
       });
     });
   });
