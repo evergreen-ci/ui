@@ -17,8 +17,8 @@
   },
   "resolutions": {
     "@testing-library/dom": "10.1.0",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.0"
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0"
   },
   "devDependencies": {
     "husky": "9.0.11",
