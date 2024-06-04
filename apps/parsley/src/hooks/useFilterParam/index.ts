@@ -1,8 +1,8 @@
 import { useCallback } from "react";
+import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParams } from "hooks/useQueryParam";
 import { Filters } from "types/logs";
-import { conditionalCastToArray } from "utils/array";
 import { parseFilters, stringifyFilters } from "utils/query-string";
 
 /**
@@ -16,7 +16,7 @@ const useFilterParam = () => {
   });
 
   const parsedFilters = parseFilters(
-    conditionalCastToArray(searchParams.filters ?? [], true) as string[],
+    conditionalToArray(searchParams.filters ?? [], true) as string[],
   );
 
   const setFiltersParam = useCallback(

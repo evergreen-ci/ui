@@ -4,7 +4,7 @@ const WARN = "warn";
 const errorIfStrict = process.env.STRICT ? ERROR : WARN;
 
 module.exports = {
-  extends: ["evg"],
+  extends: ["@evg-ui"],
   plugins: ["sort-keys-plus"],
   root: true,
   rules: {
