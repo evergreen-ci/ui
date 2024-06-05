@@ -8,7 +8,7 @@ export interface Result {
 }
 interface Props {
   logs: string[];
-  sectionsEnabled?: boolean;
+  sectionsEnabled: boolean;
 }
 export const useSections = ({ logs, sectionsEnabled }: Props): Result => {
   const dispatchToast = useToastContext();
