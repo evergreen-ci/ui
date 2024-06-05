@@ -27,6 +27,7 @@ export const useSections = ({ logs, sectionsEnabled }: Props): Result => {
       }
       setSectionData(parseResult);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldParse]);
 
   return {
