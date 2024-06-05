@@ -34,6 +34,7 @@ describe("should initialize error handlers according to release stage", () => {
       dsn: "fake-sentry-key",
       environment: "production",
       normalizeDepth: 5,
+      sampleRate: 0.5,
     });
   });
 
@@ -49,6 +50,7 @@ describe("should initialize error handlers according to release stage", () => {
       dsn: "fake-sentry-key",
       environment: "beta",
       normalizeDepth: 5,
+      sampleRate: 0.5,
     });
   });
 
@@ -64,6 +66,7 @@ describe("should initialize error handlers according to release stage", () => {
       dsn: "fake-sentry-key",
       environment: "staging",
       normalizeDepth: 5,
+      sampleRate: 0.5,
     });
   });
 });

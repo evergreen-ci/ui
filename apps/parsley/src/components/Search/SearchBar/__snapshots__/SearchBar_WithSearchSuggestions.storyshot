@@ -116,11 +116,11 @@
         </button>
       </div>
       <div
-        class="css-mk4qpy-TextInputWrapper e1j7n2io1"
+        class="etjwcg12 css-1f7nsoh-TextInputWrapper-StyledInput e17optw11"
       >
         <div
           aria-labelledby="searchbar-input"
-          class="leafygreen-ui-1br9h7w css-j29pku-StyledInput etjwcg12"
+          class="leafygreen-ui-1br9h7w"
           data-lgid="lg-text_input"
         >
           <div
@@ -159,7 +159,7 @@
           />
         </div>
         <div
-          class="css-4bamt4-IconWrapper e1j7n2io0"
+          class="css-4bamt4-IconWrapper e17optw10"
         >
           <button
             aria-disabled="true"

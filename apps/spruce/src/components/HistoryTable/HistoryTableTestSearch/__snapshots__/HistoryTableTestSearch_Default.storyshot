@@ -6,7 +6,7 @@
       class="css-1o8n2af-ContentWrapper e8i7li40"
     >
       <div
-        class="css-mk4qpy-TextInputWrapper e13gwrw81"
+        class="css-mk4qpy-TextInputWrapper e17optw11"
       >
         <div
           aria-label="history-table-test-search-input"
@@ -57,7 +57,7 @@
           />
         </div>
         <div
-          class="css-4bamt4-IconWrapper e13gwrw80"
+          class="css-4bamt4-IconWrapper e17optw10"
         >
           <button
             aria-disabled="false"
