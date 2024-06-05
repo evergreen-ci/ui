@@ -16,6 +16,7 @@ describe("matchesDefaultUptimeSchedule", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
+      isBetaTester: false,
     };
     expect(matchesDefaultUptimeSchedule(sched)).toBe(true);
   });
@@ -28,6 +29,7 @@ describe("matchesDefaultUptimeSchedule", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
+      isBetaTester: false,
     };
     expect(matchesDefaultUptimeSchedule(sched)).toBe(false);
   });
@@ -40,6 +42,7 @@ describe("matchesDefaultUptimeSchedule", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
+      isBetaTester: false,
     };
     expect(matchesDefaultUptimeSchedule(sched)).toBe(false);
   });
@@ -52,6 +55,7 @@ describe("matchesDefaultUptimeSchedule", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0],
+      isBetaTester: false,
     };
     expect(matchesDefaultUptimeSchedule(sched)).toBe(false);
   });
@@ -147,6 +151,7 @@ describe("getHostUptimeFromGql", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
+      isBetaTester: false,
     };
     expect(getHostUptimeFromGql(sched)).toStrictEqual({
       sleepSchedule: {
@@ -171,6 +176,7 @@ describe("getHostUptimeFromGql", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [],
+      isBetaTester: false,
     };
     expect(getHostUptimeFromGql(sched)).toStrictEqual({
       useDefaultUptimeSchedule: false,
@@ -195,6 +201,7 @@ describe("getHostUptimeFromGql", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
+      isBetaTester: false,
     };
     expect(getHostUptimeFromGql(sched)).toStrictEqual({
       useDefaultUptimeSchedule: false,
@@ -324,6 +331,7 @@ describe("getNextHostStart", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
+      isBetaTester: false,
     };
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
@@ -341,6 +349,7 @@ describe("getNextHostStart", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 1, 6],
+      isBetaTester: false,
     };
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
@@ -358,6 +367,7 @@ describe("getNextHostStart", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
+      isBetaTester: false,
     };
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
@@ -375,6 +385,7 @@ describe("getNextHostStart", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 1, 6],
+      isBetaTester: false,
     };
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);

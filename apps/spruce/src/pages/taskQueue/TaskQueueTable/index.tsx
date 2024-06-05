@@ -98,7 +98,8 @@ const taskQueueTableColumns = (
       header: "Task",
       accessorKey: "displayName",
       cell: (value) => {
-        const { buildVariant, displayName, id, project } = value.row.original;
+        const { buildVariant, displayName, id, project, projectIdentifier } =
+          value.row.original;
         return (
           <TaskCell>
             <StyledRouterLink
@@ -109,7 +110,7 @@ const taskQueueTableColumns = (
               {displayName}
             </StyledRouterLink>
             <Body>{buildVariant}</Body>
-            <Disclaimer>{project}</Disclaimer>
+            <Disclaimer>{projectIdentifier ?? project}</Disclaimer>
           </TaskCell>
         );
       },
