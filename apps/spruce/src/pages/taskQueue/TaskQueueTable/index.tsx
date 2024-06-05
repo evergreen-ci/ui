@@ -115,6 +115,12 @@ const taskQueueTableColumns = (
       },
     },
     {
+      header: "Est. Runtime",
+      accessorKey: "expectedDuration",
+      align: "center",
+      cell: (value) => msToDuration(value.row.original.expectedDuration),
+    },
+    {
       header: "Project",
       accessorKey: "projectIdentifier",
       cell: (value) => (
@@ -125,12 +131,6 @@ const taskQueueTableColumns = (
           {value.row.original.projectIdentifier}
         </StyledRouterLink>
       ),
-    },
-    {
-      header: "Est. Runtime",
-      accessorKey: "expectedDuration",
-      align: "center",
-      cell: (value) => msToDuration(value.row.original.expectedDuration),
     },
     {
       header: "Version",
