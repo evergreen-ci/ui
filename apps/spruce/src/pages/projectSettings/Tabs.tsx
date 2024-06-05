@@ -54,6 +54,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   const identifier = projectData?.projectRef?.identifier;
 
   const tabData: TabDataProps = useMemo(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     () => getTabData(projectData, projectType, repoData),
     [projectData, projectType, repoData],
   );
@@ -78,8 +79,10 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
       <NavigationModal />
       <Header
         attachedRepoId={projectData?.projectRef?.repoRefId}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         id={projectId || repoId}
         projectType={projectType}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         tab={tab}
       />
       <Routes>
@@ -110,6 +113,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           path={ProjectSettingsTabRoutes.Variables}
           element={
             <VariablesTab
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.Variables].projectData
@@ -123,19 +127,23 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           path={ProjectSettingsTabRoutes.GithubCommitQueue}
           element={
             <GithubCommitQueueTab
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               githubWebhooksEnabled={
                 projectData?.githubWebhooksEnabled ||
                 repoData?.githubWebhooksEnabled
               }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
               }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               projectId={projectId}
               projectType={projectType}
               repoData={
                 tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
               }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               versionControlEnabled={
                 projectData?.projectRef?.versionControlEnabled ??
                 repoData?.projectRef?.versionControlEnabled
@@ -186,6 +194,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           path={ProjectSettingsTabRoutes.VirtualWorkstation}
           element={
             <VirtualWorkstationTab
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.VirtualWorkstation].projectData
@@ -201,6 +210,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           path={ProjectSettingsTabRoutes.Containers}
           element={
             <ContainersTab
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier || repoId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.Containers].projectData
@@ -214,6 +224,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           path={ProjectSettingsTabRoutes.ViewsAndFilters}
           element={
             <ViewsAndFiltersTab
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier}
               projectData={
                 tabData[ProjectSettingsTabRoutes.ViewsAndFilters].projectData
@@ -282,7 +293,9 @@ const getTabData = (
     (obj, tab) => ({
       ...obj,
       [tab]: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectData: gqlToFormMap[tab](projectData, { projectType }),
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         repoData: gqlToFormMap[tab](repoData, { projectType }),
       },
     }),

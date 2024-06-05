@@ -45,6 +45,7 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
             <BuildVariantAccordion
               versionId={versionId}
               key={`accordion_${patchBuildVariant.variant}`}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               tasks={patchBuildVariant.tasks}
               displayName={patchBuildVariant.displayName}
               selectedTasks={tasks}

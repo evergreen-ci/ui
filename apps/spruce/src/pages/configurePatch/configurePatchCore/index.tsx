@@ -62,11 +62,13 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     time,
     variantsTasks,
   } = patch;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { variants } = project;
 
   const childPatchesWithAliases: ChildPatchAliased[] =
     childPatches?.map((cp) => {
       const { alias = id } =
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         childPatchAliases.find(({ patchId }) => cp.id === patchId) || {};
       return { ...cp, alias };
     }) ?? [];
@@ -116,6 +118,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     onCompleted(data) {
       const { schedulePatch: scheduledPatch } = data;
       dispatchToast.success("Successfully scheduled the patch");
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       navigate(getVersionRoute(scheduledPatch.versionFull.id));
     },
     onError(err) {
@@ -185,9 +188,11 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
       </FlexRow>
       <PageLayout hasSider>
         <PageSider>
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <MetadataCard error={null}>
             <MetadataTitle>Patch Metadata</MetadataTitle>
             <MetadataItem>Submitted by: {author}</MetadataItem>
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             <MetadataItem>Submitted at: {time.submittedAt}</MetadataItem>
             <MetadataItem>
               Project:{" "}
@@ -284,9 +289,11 @@ const getChildPatchEntries = (childPatches: ChildPatchAliased[]) => {
   if (!childPatches) {
     return [];
   }
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return childPatches.map(({ alias, projectIdentifier, variantsTasks }) => ({
     displayName: `${alias} (${projectIdentifier})`,
     name: alias,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     taskCount: variantsTasks.reduce((c, v) => c + v.tasks.length, 0),
   }));
 };

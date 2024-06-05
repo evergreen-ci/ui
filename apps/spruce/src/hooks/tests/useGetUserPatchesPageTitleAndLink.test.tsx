@@ -62,6 +62,7 @@ const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
   },
 ];
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const Provider = ({ children }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
@@ -73,8 +74,10 @@ describe("useGetUserPatchesPageTitleAndLink", () => {
       { wrapper: Provider },
     );
     await waitFor(() => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(result.current.title).toBe("My Patches");
     });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.link).toBe("/user/admin/patches");
   });
 
@@ -84,8 +87,10 @@ describe("useGetUserPatchesPageTitleAndLink", () => {
       { wrapper: Provider },
     );
     await waitFor(() => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(result.current.title).toBe("Justin Mathew's Patches");
     });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.link).toBe("/user/justin.mathew/patches");
   });
 
@@ -95,8 +100,10 @@ describe("useGetUserPatchesPageTitleAndLink", () => {
       { wrapper: Provider },
     );
     await waitFor(() => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       expect(result.current.title).toBe("Justin Mathews' Patches");
     });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(result.current.link).toBe("/user/justin.mathews/patches");
   });
 });

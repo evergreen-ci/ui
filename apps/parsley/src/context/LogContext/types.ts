@@ -37,6 +37,7 @@ interface Preferences {
   wordWrapFormat: WordWrapFormat;
   wrap: boolean;
   zebraStriping: boolean;
+  highlightFilters: boolean;
   setCaseSensitive: (caseSensitive: boolean) => void;
   setExpandableRows: (expandableRows: boolean) => void;
   setFilterLogic: (filterLogic: FilterLogic) => void;
@@ -44,6 +45,7 @@ interface Preferences {
   setWordWrapFormat: (wrapFormat: WordWrapFormat) => void;
   setPrettyPrint: (prettyPrint: boolean) => void;
   setZebraStriping: (zebraStriping: boolean) => void;
+  setHighlightFilters: (highlightFilters: boolean) => void;
 }
 
 enum DIRECTION {

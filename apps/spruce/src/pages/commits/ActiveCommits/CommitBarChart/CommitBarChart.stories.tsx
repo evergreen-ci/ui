@@ -15,6 +15,7 @@ export default {
 export const Default: StoryObj<typeof CommitBarChart> = {
   render: ({ chartType }) => (
     <FlexRowContainer>
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {versions.map((item) => (
         <CommitBarChart
           key={item.version.id}
@@ -32,6 +33,7 @@ export const Default: StoryObj<typeof CommitBarChart> = {
   },
   argTypes: {
     chartType: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       options: ChartTypes,
       control: { type: "select" },
     },

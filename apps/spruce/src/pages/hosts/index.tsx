@@ -37,6 +37,7 @@ const Hosts: React.FC = () => {
   const initialSorting = useMemo(() => getSorting(queryVariables), []);
 
   const hasFilters =
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     hostId || currentTaskId || distroId || statuses.length || startedBy;
 
   const [selectedHosts, setSelectedHosts] = useState([]);
@@ -54,21 +55,27 @@ const Hosts: React.FC = () => {
     let restartJasperErrorMessage = "Jasper cannot be restarted for:";
     let reprovisionErrorMessage =
       "The following hosts cannot be reprovisioned:";
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const errorHosts = [];
     selectedHosts.forEach((host) => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       const bootstrapMethod = host?.distro?.bootstrapMethod;
       if (
         !(
-          host?.status === "running" &&
-          (bootstrapMethod === "ssh" || bootstrapMethod === "user-data")
+          (bootstrapMethod === "ssh" || bootstrapMethod === "user-data") &&
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          host?.status === "running"
         )
       ) {
         canRestart = false;
         canRepro = false;
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         errorHosts.push(` ${host?.id}`);
       }
     });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     restartJasperErrorMessage += ` ${errorHosts}`;
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     reprovisionErrorMessage += ` ${errorHosts}`;
 
     const hostIds = selectedHosts.map(({ id }) => id);
@@ -165,6 +172,7 @@ const Hosts: React.FC = () => {
         hosts={hostItems}
         loading={loading && hostItems.length === 0}
         limit={limit}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         setSelectedHosts={setSelectedHosts}
       />
       <UpdateStatusModal

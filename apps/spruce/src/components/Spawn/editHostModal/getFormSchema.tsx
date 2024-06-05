@@ -15,9 +15,8 @@ interface Props {
   canEditRdpPassword: boolean;
   canEditSshKeys: boolean;
   disableExpirationCheckbox: boolean;
-  hostUptimeValidation?: {
+  hostUptimeWarnings?: {
     enabledHoursCount: number;
-    errors: string[];
     warnings: string[];
   };
   instanceTypes: string[];
@@ -32,7 +31,7 @@ export const getFormSchema = ({
   canEditRdpPassword,
   canEditSshKeys,
   disableExpirationCheckbox,
-  hostUptimeValidation,
+  hostUptimeWarnings,
   instanceTypes,
   myPublicKeys,
   noExpirationCheckboxTooltip,
@@ -41,7 +40,8 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => {
   const expirationDetails = getExpirationDetailsSchema({
     disableExpirationCheckbox,
-    hostUptimeValidation,
+    hostUptimeWarnings,
+    isEditModal: true,
     noExpirationCheckboxTooltip,
     timeZone,
   });
@@ -114,7 +114,9 @@ export const getFormSchema = ({
             },
           },
         },
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         expirationDetails: expirationDetails.schema,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         publicKeySection: publicKeys.schema,
       },
     },

@@ -2,11 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": "src",
-    "strict": false,
-    "types": [
-      "vitest/globals",
-      "vitest/jsdom"
-    ]
+    "paths": {
+      "@evg-ui/lib/*": ["../../../packages/lib/src/*"]
+    }
   },
   "exclude": [
     "node_modules",

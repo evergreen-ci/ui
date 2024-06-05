@@ -57,6 +57,7 @@ const AnnotationTicketRowWithActions = forwardRef<
                 <Popconfirm
                   align="right"
                   onConfirm={() => {
+                    // @ts-expect-error: FIXME. This comment was added by an automated script.
                     onMove({ url, issueKey, confidenceScore });
                   }}
                   trigger={children}
@@ -87,6 +88,7 @@ const AnnotationTicketRowWithActions = forwardRef<
                 <Popconfirm
                   align="right"
                   onConfirm={() => {
+                    // @ts-expect-error: FIXME. This comment was added by an automated script.
                     onRemove(url, issueKey);
                   }}
                   trigger={children}

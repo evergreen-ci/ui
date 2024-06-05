@@ -15,11 +15,17 @@ const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
   onClickPrev = () => {},
 }) => {
   const {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     currentPage,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     hasNextPage,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     hasPreviousPage,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     nextPage,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     pageCount,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     previousPage,
   } = useHistoryTable();
   const handleOnClickNext = () => {

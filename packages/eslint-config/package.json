@@ -1,7 +1,7 @@
 {
-  "name": "eslint-config-evg",
+  "name": "@evg-ui/eslint-config",
   "version": "0.0.0",
-  "main": "config.js",
+  "main": "index.js",
   "private": true,
   "dependencies": {
     "@emotion/eslint-plugin": "11.11.0",

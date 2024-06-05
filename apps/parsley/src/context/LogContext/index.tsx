@@ -13,6 +13,7 @@ import {
   CASE_SENSITIVE,
   EXPANDABLE_ROWS,
   FILTER_LOGIC,
+  HIGHLIGHT_FILTERS,
   PRETTY_PRINT_BOOKMARKS,
   WRAP,
   WRAP_FORMAT,
@@ -123,6 +124,9 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     (Cookie.get(WRAP_FORMAT) as WordWrapFormat)
       ? (Cookie.get(WRAP_FORMAT) as WordWrapFormat)
       : WordWrapFormat.Standard,
+  );
+  const [highlightFilters, setHighlightFilters] = useState(
+    Cookie.get(HIGHLIGHT_FILTERS) === "true",
   );
 
   const { dispatch, state } = useLogState(initialLogLines);
@@ -267,6 +271,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
         caseSensitive: state.searchState.caseSensitive,
         expandableRows,
         filterLogic,
+        highlightFilters,
         prettyPrint,
         setCaseSensitive: (v: boolean) => {
           dispatch({ caseSensitive: v, type: "SET_CASE_SENSITIVE" });
@@ -279,6 +284,10 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
         setFilterLogic: (v: FilterLogic) => {
           setFilterLogic(v);
           Cookie.set(FILTER_LOGIC, v, { expires: 365 });
+        },
+        setHighlightFilters: (v: boolean) => {
+          setHighlightFilters(v);
+          Cookie.set(HIGHLIGHT_FILTERS, v.toString(), { expires: 365 });
         },
         setPrettyPrint: (v: boolean) => {
           setPrettyPrint(v);
@@ -362,6 +371,8 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       setExpandableRows,
       setFilterLogic,
       setLogMetadata,
+      setHighlightFilters,
+      highlightFilters,
     ],
   );
 

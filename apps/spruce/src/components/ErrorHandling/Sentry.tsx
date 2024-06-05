@@ -19,6 +19,7 @@ import { processHtmlAttributes } from "./utils";
 const initializeSentry = () => {
   try {
     init({
+      sampleRate: 0.5,
       beforeBreadcrumb: (breadcrumb, hint) => {
         if (breadcrumb?.category?.startsWith("ui")) {
           const { target } = hint?.event ?? {};

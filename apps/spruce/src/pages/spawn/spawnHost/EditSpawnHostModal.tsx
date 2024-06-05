@@ -4,8 +4,10 @@ import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   defaultSleepSchedule,
+  getEnabledHoursCount,
   getHostUptimeFromGql,
-  validateUptimeSchedule,
+  getHostUptimeWarnings,
+  isNullSleepSchedule,
   validator,
 } from "components/Spawn";
 import {
@@ -52,7 +54,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 
   let instanceTypes = instanceTypesData?.instanceTypes ?? [];
   // The list of instance types provided by Evergreen can be out-of-date, so make sure the instance type in use is considered valid by RJSF
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!instanceTypes.includes(host.instanceType)) {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     instanceTypes = [...instanceTypes, host.instanceType];
   }
 
@@ -75,39 +79,47 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     expirationDetails: {
       expiration: host.expiration ? host.expiration.toString() : null,
       noExpiration: host.noExpiration,
-      hostUptime: host.noExpiration
-        ? getHostUptimeFromGql(host.sleepSchedule)
-        : getHostUptimeFromGql({ ...defaultSleepSchedule, timeZone }),
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      hostUptime: isNullSleepSchedule(host?.sleepSchedule)
+        ? getHostUptimeFromGql(defaultSleepSchedule)
+        : // @ts-expect-error: FIXME. This comment was added by an automated script.
+          getHostUptimeFromGql(host.sleepSchedule),
     },
     publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const [formState, setFormState] = useState<FormState>(initialFormState);
   const [hasError, setHasError] = useState(false);
 
-  const hostUptimeValidation = useMemo(
-    () =>
-      validateUptimeSchedule({
-        enabledWeekdays:
-          formState?.expirationDetails?.hostUptime?.sleepSchedule
-            ?.enabledWeekdays,
-        ...formState?.expirationDetails?.hostUptime?.sleepSchedule
-          ?.timeSelection,
-        useDefaultUptimeSchedule:
-          formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
-      }),
-    [formState?.expirationDetails?.hostUptime],
-  );
+  const hostUptimeWarnings = useMemo(() => {
+    const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      formState?.expirationDetails?.hostUptime,
+    );
+    const warnings = getHostUptimeWarnings({
+      enabledHoursCount,
+      enabledWeekdaysCount,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      runContinuously:
+        formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection
+          ?.runContinuously,
+    });
+    return { enabledHoursCount, warnings };
+  }, [formState?.expirationDetails?.hostUptime]);
 
   const { schema, uiSchema } = getFormSchema({
     canEditInstanceType: host.status === HostStatus.Stopped,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     canEditRdpPassword:
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       host.distro.isWindows && host.status === HostStatus.Running,
     canEditSshKeys: host.status === HostStatus.Running,
     disableExpirationCheckbox,
-    hostUptimeValidation,
+    hostUptimeWarnings,
     instanceTypes: instanceTypes ?? [],
     myPublicKeys: publicKeys ?? [],
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     noExpirationCheckboxTooltip,
     timeZone,
     volumes,
@@ -129,10 +141,11 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       );
       onCancel();
     },
-    refetchQueries: ["MyVolumes"],
+    refetchQueries: ["MyHosts", "MyVolumes"],
   });
 
   const initialEditState = formToGql({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     formData: initialFormState,
     hostId: host.id,
     myPublicKeys: publicKeys,
@@ -157,12 +170,14 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     sendEvent({
       name: "Edited a Spawn Host",
       params: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         hostId: host.id,
         ...omit(mutationParams, ["publicKey"]),
       },
     });
     editSpawnHostMutation({
       variables: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         hostId: host.id,
         ...mutationParams,
       },
@@ -177,6 +192,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       submitDisabled={!hasChanges || hasError || loadingSpawnHost}
       onCancel={() => {
         onCancel();
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         setFormState(initialFormState);
       }}
       onConfirm={onSubmit}

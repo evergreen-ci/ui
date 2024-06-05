@@ -1,8 +1,8 @@
-import dns from "dns";
-import fs from "fs";
-import os from "os";
+// @ts-nocheck - FIXME. There are TypeScript errors in this file that prevent it from compiling under strict mode.
 import { generate } from "@graphql-codegen/cli";
 import { execSync } from "child_process";
+import fs from "fs";
+import os from "os";
 import process from "process";
 import { getConfig } from "../../codegen";
 
@@ -67,7 +67,7 @@ export const generateTypes = async (): Promise<string> => {
       generatedFileName,
       silent: true,
     }),
-    true
+    true,
   );
   return generatedFileName;
 };

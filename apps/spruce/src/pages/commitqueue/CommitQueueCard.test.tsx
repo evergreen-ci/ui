@@ -113,6 +113,7 @@ describe("commit queue entry title", () => {
           activated
           issue="1000"
           title={titleWithPullRequestURL}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           versionId={undefined}
         />,
       );
@@ -141,6 +142,7 @@ describe("commit queue entry title", () => {
           activated
           issue="1000"
           title={titleWithoutPullRequestURL}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           versionId={undefined}
         />,
       );
@@ -169,7 +171,9 @@ describe("commit queue entry title", () => {
           activated
           issue="1000"
           title={titleWithoutPullRequestURL}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           versionId={undefined}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           patchId={undefined}
         />,
       );

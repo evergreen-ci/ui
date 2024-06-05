@@ -16,6 +16,7 @@ interface Props {
 }
 const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { visibleColumns } = useHistoryTable();
 
   const { getTaskMetadata } = useTestResults(index);
@@ -62,6 +63,7 @@ const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
           commitType: "inactive",
         });
       },
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       onToggleFoldedCommit: ({ isVisible }) => {
         sendEvent({
           name: "Toggle folded commit",
@@ -79,6 +81,7 @@ const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
       index={index}
       columns={orderedColumns}
       numVisibleCols={visibleColumns.length}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       selected={data?.selected}
       eventHandlers={eventHandlers}
     />
@@ -97,6 +100,7 @@ const generateColumns = (
     if (buildVariants) {
       const foundVariant = buildVariantMap[c];
       if (foundVariant) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         const { tasks } = foundVariant;
         // the tasks array should in theory only have one item in it so we should always use it.
         const t = tasks[0];

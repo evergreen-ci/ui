@@ -31,6 +31,7 @@ const formToGqlMap = {
 
 const TestContext = createSettingsContext<TestRoutes, FormStateMap>();
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const TestProvider = ({ children }) => {
   const { getTab, saveTab, setInitialData, tabs, updateForm } =
     useSettingsState(["foo", "bar"], formToGqlMap);
@@ -58,10 +59,13 @@ const useTestContext = (): SettingsState<TestRoutes, FormStateMap> => {
       "useProjectSettingsContext must be used within a ProjectSettingsProvider",
     );
   }
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return context;
 };
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const useHasUnsavedTab = getUseHasUnsavedTab(TestContext);
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const usePopulateForm = getUsePopulateForm(TestContext);
 
 export { TestProvider, useHasUnsavedTab, usePopulateForm, useTestContext };

@@ -12,6 +12,7 @@ const { green } = palette;
 
 interface BuildVariantCardProps {
   "data-cy": string;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   onClick: (variantName: string) => (e) => void;
   menuItems: MenuItemProps[];
   selectedMenuItems: string[];

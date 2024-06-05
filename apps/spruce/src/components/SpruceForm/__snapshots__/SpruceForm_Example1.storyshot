@@ -40,25 +40,25 @@
                     class="leafygreen-ui-e3fvh5"
                   >
                     <label
-                      class="leafygreen-ui-nf64md"
+                      class="leafygreen-ui-qj0u2k"
                       data-lgid="lg-label"
-                      for="select-191"
-                      id="select-190-label"
+                      for="select-227"
+                      id="select-226-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-190-menu"
-                    aria-describedby="select-190-description"
+                    aria-controls="select-226-menu"
+                    aria-describedby="select-226-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-190-label"
+                    aria-labelledby="select-226-label"
                     class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
                     data-lgid="lg-button"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-191"
+                    id="select-227"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -174,35 +174,50 @@
                           class="css-cjejq9-ElementWrapper ee4bs9n0"
                         >
                           <div
-                            class="css-1kbcljo-StyledTextInput eevpusu6 leafygreen-ui-90q1a7"
+                            class="leafygreen-ui-1br9h7w css-1kbcljo-StyledTextInput eevpusu6"
+                            data-lgid="lg-text_input"
                           >
                             <div
-                              class="leafygreen-ui-e3fvh5"
+                              class="leafygreen-ui-au9iil"
                             >
                               <label
-                                class="leafygreen-ui-t01kw4"
-                                for="textinput-4"
+                                class="leafygreen-ui-6bdaia"
+                                data-lgid="lg-label"
+                                data-testid="lg-form_field-label"
+                                for="lg-form_field-input-231"
+                                id="lg-form_field-label-228"
                               >
                                 key
                               </label>
                             </div>
                             <div
-                              class="leafygreen-ui-lzja97"
+                              class="leafygreen-ui-109lyo9"
                             >
-                              <input
-                                aria-invalid="false"
-                                aria-label="key"
-                                autocomplete="on"
-                                class="leafygreen-ui-1kmfbzh"
-                                id="textinput-4"
-                                required=""
-                                type="text"
-                                value="Sample Input"
-                              />
                               <div
-                                class="lg-ui-icon-selector-0000 leafygreen-ui-11c7q5r"
-                              />
+                                class="leafygreen-ui-1ago99h"
+                              >
+                                <input
+                                  aria-describedby=""
+                                  aria-disabled="false"
+                                  aria-invalid="false"
+                                  aria-labelledby="lg-form_field-label-228"
+                                  autocomplete="on"
+                                  class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+                                  id="lg-form_field-input-231"
+                                  required=""
+                                  type="text"
+                                  value="Sample Input"
+                                />
+                              </div>
                             </div>
+                            <div
+                              aria-live="polite"
+                              aria-relevant="all"
+                              class="leafygreen-ui-11ydt2g"
+                              data-lgid="lg-form_field-feedback"
+                              data-testid="lg-form_field-feedback"
+                              id="lg-form_field-feedback-230"
+                            />
                           </div>
                         </div>
                       </div>
@@ -214,35 +229,50 @@
                           class="css-cjejq9-ElementWrapper ee4bs9n0"
                         >
                           <div
-                            class="css-1kbcljo-StyledTextInput eevpusu6 leafygreen-ui-90q1a7"
+                            class="leafygreen-ui-1br9h7w css-1kbcljo-StyledTextInput eevpusu6"
+                            data-lgid="lg-text_input"
                           >
                             <div
-                              class="leafygreen-ui-e3fvh5"
+                              class="leafygreen-ui-au9iil"
                             >
                               <label
-                                class="leafygreen-ui-t01kw4"
-                                for="textinput-5"
+                                class="leafygreen-ui-6bdaia"
+                                data-lgid="lg-label"
+                                data-testid="lg-form_field-label"
+                                for="lg-form_field-input-235"
+                                id="lg-form_field-label-232"
                               >
                                 value
                               </label>
                             </div>
                             <div
-                              class="leafygreen-ui-lzja97"
+                              class="leafygreen-ui-109lyo9"
                             >
-                              <input
-                                aria-invalid="false"
-                                aria-label="value"
-                                autocomplete="on"
-                                class="leafygreen-ui-1kmfbzh"
-                                id="textinput-5"
-                                required=""
-                                type="text"
-                                value="Sample Input"
-                              />
                               <div
-                                class="lg-ui-icon-selector-0000 leafygreen-ui-11c7q5r"
-                              />
+                                class="leafygreen-ui-1ago99h"
+                              >
+                                <input
+                                  aria-describedby=""
+                                  aria-disabled="false"
+                                  aria-invalid="false"
+                                  aria-labelledby="lg-form_field-label-232"
+                                  autocomplete="on"
+                                  class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+                                  id="lg-form_field-input-235"
+                                  required=""
+                                  type="text"
+                                  value="Sample Input"
+                                />
+                              </div>
                             </div>
+                            <div
+                              aria-live="polite"
+                              aria-relevant="all"
+                              class="leafygreen-ui-11ydt2g"
+                              data-lgid="lg-form_field-feedback"
+                              data-testid="lg-form_field-feedback"
+                              id="lg-form_field-feedback-234"
+                            />
                           </div>
                         </div>
                       </div>
@@ -298,13 +328,13 @@
                 >
                   <label
                     class="leafygreen-ui-1fi5x3a"
-                    for="textarea-192"
+                    for="textarea-236"
                   >
                     Valid Projects
                   </label>
                   <textarea
                     class="leafygreen-ui-18em0fn"
-                    id="textarea-192"
+                    id="textarea-236"
                     rows="5"
                     title="Valid Projects"
                   />

@@ -32,6 +32,7 @@ export enum CommitRequesterTypes {
   AdHocRequester = "ad_hoc",
 }
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export type Commits = MainlineCommitsQuery["mainlineCommits"]["versions"];
 export type Commit = Unpacked<Commits>;
 export type CommitVersion = Commit["version"];
