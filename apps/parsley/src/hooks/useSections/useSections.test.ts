@@ -13,7 +13,7 @@ describe("useSections", () => {
     vi.restoreAllMocks();
   });
 
-  it("should call parsing function when sections are enabled and logs are populated", async () => {
+  it("should call parsing function when sections are enabled and logs are populated", () => {
     RenderFakeToastContext();
     const { result } = renderHook(() =>
       useSections({ logs: ["log line"], sectionsEnabled: true }),
@@ -21,7 +21,7 @@ describe("useSections", () => {
     expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
     expect(result.current).toStrictEqual({ sectionData: [] });
   });
-  it("should not call parsing function when sections are disabled and logs are populated", async () => {
+  it("should not call parsing function when sections are disabled and logs are populated", () => {
     RenderFakeToastContext();
     const { result } = renderHook(() =>
       useSections({ logs: ["log line"], sectionsEnabled: false }),
@@ -29,7 +29,7 @@ describe("useSections", () => {
     expect(sectionUtils.parseSections).not.toHaveBeenCalled();
     expect(result.current).toStrictEqual({ sectionData: undefined });
   });
-  it("should not call parsing function when sections are enabled and logs are empty", async () => {
+  it("should not call parsing function when sections are enabled and logs are empty", () => {
     RenderFakeToastContext();
     const { result } = renderHook(() =>
       useSections({ logs: [], sectionsEnabled: true }),
@@ -37,7 +37,7 @@ describe("useSections", () => {
     expect(sectionUtils.parseSections).not.toHaveBeenCalled();
     expect(result.current).toStrictEqual({ sectionData: undefined });
   });
-  it("parsing function extracts section data", async () => {
+  it("parsing function extracts section data", () => {
     RenderFakeToastContext();
     const logs = [
       "normal log line",
@@ -52,7 +52,7 @@ describe("useSections", () => {
       sectionData: [{ functionName: "f-1", range: { end: 3, start: 1 } }],
     });
   });
-  it("should dispatch a toast and report error when the parsing function throws an error", async () => {
+  it("should dispatch a toast and report error when the parsing function throws an error", () => {
     const { dispatchToast } = RenderFakeToastContext();
     const { result } = renderHook(() =>
       useSections({
@@ -71,7 +71,7 @@ describe("useSections", () => {
       "An error occurred while parsing log sections.",
     );
   });
-  it("parsing function is not called after initial parse", async () => {
+  it("parsing function is not called after initial parse", () => {
     RenderFakeToastContext();
     const logs = ["normal log line"];
     const { rerender } = renderHook(
