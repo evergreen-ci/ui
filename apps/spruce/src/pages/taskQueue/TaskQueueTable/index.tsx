@@ -125,10 +125,12 @@ const taskQueueTableColumns = (
       accessorKey: "projectIdentifier",
       cell: (value) => (
         <StyledRouterLink
-          to={getProjectPatchesRoute(value.row.original.projectIdentifier)}
+          to={getProjectPatchesRoute(
+            value.row.original.projectIdentifier ?? value.row.original.project,
+          )}
           onClick={() => sendEvent({ name: "Click Project Link" })}
         >
-          {value.row.original.projectIdentifier}
+          {value.row.original.projectIdentifier ?? value.row.original.project}
         </StyledRouterLink>
       ),
     },
