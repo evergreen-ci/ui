@@ -136,6 +136,110 @@ describe("validator", () => {
     );
     expect(f).toHaveBeenCalledTimes(0);
   });
+
+  describe("temporary exemption", () => {
+    beforeEach(() => {
+      // Hoist date resetting in order to set system-wide date
+      // https://github.com/vitest-dev/vitest/issues/5154#issuecomment-1934003114
+      vi.hoisted(() => {
+        vi.useFakeTimers().setSystemTime("2024-01-01");
+      });
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("returns an error when exemption is in past", () => {
+      const f = vi.fn();
+      validator(
+        {
+          expirationDetails: {
+            hostUptime: {
+              useDefaultUptimeSchedule: true,
+              sleepSchedule: {
+                enabledWeekdays: [],
+                timeSelection: {
+                  startTime: "",
+                  stopTime: "",
+                  runContinuously: true,
+                },
+              },
+              temporarilyExemptUntil: new Date("2001-01-01").toString(),
+            },
+            noExpiration: true,
+          },
+        },
+        {
+          expirationDetails: {
+            // @ts-expect-error
+            hostUptime: { temporarilyExemptUntil: { addError: f } },
+          },
+        },
+      );
+      expect(f).toHaveBeenCalledTimes(1);
+    });
+
+    it("returns an error when exemption is too long", () => {
+      const f = vi.fn();
+      validator(
+        {
+          expirationDetails: {
+            hostUptime: {
+              useDefaultUptimeSchedule: false,
+              sleepSchedule: {
+                enabledWeekdays: [],
+                timeSelection: {
+                  startTime: "",
+                  stopTime: "",
+                  runContinuously: true,
+                },
+              },
+              temporarilyExemptUntil: new Date("2025-01-01").toString(),
+            },
+            noExpiration: true,
+          },
+        },
+        {
+          expirationDetails: {
+            // @ts-expect-error
+            hostUptime: { temporarilyExemptUntil: { addError: f } },
+          },
+        },
+      );
+      expect(f).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not add error to valid exemption date", () => {
+      const f = vi.fn();
+      validator(
+        {
+          expirationDetails: {
+            hostUptime: {
+              useDefaultUptimeSchedule: false,
+              sleepSchedule: {
+                enabledWeekdays: [],
+                timeSelection: {
+                  startTime: "",
+                  stopTime: "",
+                  runContinuously: true,
+                },
+              },
+              temporarilyExemptUntil: new Date("2024-01-05").toString(),
+            },
+            noExpiration: true,
+          },
+        },
+        {
+          expirationDetails: {
+            // @ts-expect-error
+            hostUptime: { temporarilyExemptUntil: { addError: f } },
+          },
+        },
+      );
+      expect(f).toHaveBeenCalledTimes(0);
+    });
+  });
 });
 
 describe("getHostUptimeFromGql", () => {
@@ -145,10 +249,12 @@ describe("getHostUptimeFromGql", () => {
       dailyStopTime: "20:00",
       permanentlyExempt: true,
       shouldKeepOff: true,
+      temporarilyExemptUntil: null,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
     };
     expect(getHostUptimeFromGql(sched)).toStrictEqual({
+      useDefaultUptimeSchedule: true,
       sleepSchedule: {
         enabledWeekdays: [false, true, true, true, true, true, false],
         timeSelection: {
@@ -159,7 +265,7 @@ describe("getHostUptimeFromGql", () => {
             "Mon Jan 01 1900 20:00:00 GMT+0000 (Coordinated Universal Time)",
         },
       },
-      useDefaultUptimeSchedule: true,
+      temporarilyExemptUntil: "",
     });
   });
 
@@ -169,6 +275,7 @@ describe("getHostUptimeFromGql", () => {
       dailyStopTime: "21:00",
       permanentlyExempt: true,
       shouldKeepOff: true,
+      temporarilyExemptUntil: new Date("2024-07-01"),
       timeZone: "America/New_York",
       wholeWeekdaysOff: [],
     };
@@ -184,6 +291,8 @@ describe("getHostUptimeFromGql", () => {
             "Mon Jan 01 1900 21:00:00 GMT+0000 (Coordinated Universal Time)",
         },
       },
+      temporarilyExemptUntil:
+        "Mon Jul 01 2024 00:00:00 GMT+0000 (Coordinated Universal Time)",
     });
   });
 
@@ -193,6 +302,7 @@ describe("getHostUptimeFromGql", () => {
       dailyStopTime: "",
       permanentlyExempt: true,
       shouldKeepOff: true,
+      temporarilyExemptUntil: null,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
     };
@@ -208,6 +318,7 @@ describe("getHostUptimeFromGql", () => {
             "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
         },
       },
+      temporarilyExemptUntil: "",
     });
   });
 });
