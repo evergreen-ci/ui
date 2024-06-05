@@ -29,7 +29,7 @@ describe("processLine", () => {
 
 describe("reduceFn", () => {
   it("accumulate section data for starting a section", () => {
-    const accum = [] as SectionEntry[];
+    const accum: SectionEntry[] = [];
     const line = "Running command 'shell.exec' in function 'yarn-preview'.";
     const logIndex = 0;
     const expectedSections = [
@@ -57,7 +57,7 @@ describe("reduceFn", () => {
   });
 
   it("should throw an error if a finished section appears before a running section", () => {
-    const accum = [] as SectionEntry[];
+    const accum: SectionEntry[] = [];
     const line =
       "Finished command 'shell.exec' in function 'yarn-preview' (step 6 of 9) in 415.963µs.";
     const logIndex = 0;
