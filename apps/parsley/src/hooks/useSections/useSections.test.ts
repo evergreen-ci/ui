@@ -64,7 +64,7 @@ describe("useSections", () => {
     expect(result.current).toStrictEqual({ sectionData: undefined });
     expect(ErrorReporting.reportError).toHaveBeenCalledWith(
       new Error(
-        "Log file is showing a finished section without a running section before it. This should not happen.",
+        "Log file is showing a finished section without a running section before it.",
       ),
     );
     expect(dispatchToast.error).toHaveBeenCalledWith(

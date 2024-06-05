@@ -63,7 +63,7 @@ describe("reduceFn", () => {
     const logIndex = 0;
     expect(() => reduceFn(accum, line, logIndex)).toThrow(
       Error(
-        "Log file is showing a finished section without a running section before it. This should not happen.",
+        "Log file is showing a finished section without a running section before it.",
       ),
     );
   });
@@ -142,7 +142,7 @@ describe("parseSections", () => {
     ];
     expect(() => parseSections(logs)).toThrow(
       Error(
-        "Log file is showing a finished section without a running section before it. This should not happen.",
+        "Log file is showing a finished section without a running section before it.",
       ),
     );
   });

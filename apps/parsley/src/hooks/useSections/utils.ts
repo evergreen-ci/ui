@@ -54,7 +54,7 @@ const reduceFn = (
   if (currentLine.status === SectionStatus.Finished) {
     if (sections.length === 0) {
       throw new Error(
-        "Log file is showing a finished section without a running section before it. This should not happen.",
+        "Log file is showing a finished section without a running section before it.",
       );
     }
     // Update the end line number exclusive of the last section in the accumulator
