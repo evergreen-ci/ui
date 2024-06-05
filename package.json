@@ -12,6 +12,7 @@
     ]
   },
   "scripts": {
+    "codegen": "for app in spruce parsley; do yarn workspace $app run codegen; done",
     "prepare": "husky",
     "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
   },
