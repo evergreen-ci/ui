@@ -134,12 +134,10 @@ const getHostUptimeSchema = ({
         `,
         startTime: {
           "ui:format": "HH:mm",
-          "ui:useUtc": false,
           "ui:widget": widgets.TimeWidget,
         },
         stopTime: {
           "ui:format": "HH:mm",
-          "ui:useUtc": false,
           "ui:widget": widgets.TimeWidget,
         },
         or: {
