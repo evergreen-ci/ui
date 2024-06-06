@@ -236,4 +236,31 @@ describe("Navigating to Spawn Host page", () => {
     const label2 = "Load from task sync";
     const label3 = "Also start any hosts this task started (if applicable)";
   });
+
+  it("Allows editing a modal with sleep schedule enabled", () => {
+    cy.dataCy("edit-host-button").eq(2).click();
+    cy.dataCy("edit-spawn-host-modal").should("be.visible");
+
+    cy.getInputByLabel("Temporary Sleep Schedule Exemption").click();
+    cy.get("td[aria-current=true]").next().click();
+    cy.contains("button", "Save").should("have.attr", "aria-disabled", "false");
+
+    // LG Date Picker does not respond well to .clear()
+    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type(
+      "{backspace}{backspace}{backspace}",
+    );
+
+    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type("20240115");
+    cy.get("body").click();
+    cy.contains("button", "Save").should("have.attr", "aria-disabled", "true");
+
+    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type(
+      "{backspace}{backspace}{backspace}",
+    );
+
+    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type(
+      "{backspace}{backspace}{backspace}20600115",
+    );
+    cy.contains("button", "Save").should("have.attr", "aria-disabled", "true");
+  });
 });
