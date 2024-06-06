@@ -41,9 +41,9 @@ describe("reduceFn", () => {
     expect(reduceFn(accum, line, logIndex)).toEqual(expectedSections);
   });
   it("accumulate section data for finishing a section", () => {
-    const accum = [
+    const accum: SectionEntry[] = [
       { functionName: "yarn-preview", range: { end: -1, start: 0 } },
-    ] as SectionEntry[];
+    ];
     const line =
       "Finished command 'shell.exec' in function 'yarn-preview' (step 6 of 9) in 415.963µs.";
     const logIndex = 4;
@@ -160,7 +160,7 @@ describe("parseSections", () => {
   });
 
   it("should return an empty array if the logs array is empty", () => {
-    const logs = [] as string[];
+    const logs: string[] = [];
     expect(parseSections(logs)).toEqual([]);
   });
 });

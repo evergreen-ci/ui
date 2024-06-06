@@ -59,21 +59,30 @@ const reduceFn = (
     }
     // Update the end line number exclusive of the last section in the accumulator
     sections[sections.length - 1].range.end = logIndex + 1;
-    // If the current line indicates a running section and either no sections in the accumulator or the previous section is different from the current one, add a new section
-  } else if (
-    currentLine.status === SectionStatus.Running &&
-    (sections.length === 0 ||
-      sections[sections.length - 1].functionName !== currentLine.functionName)
-  ) {
-    if (sections.length && sections[sections.length - 1].range.end === -1) {
+    return sections;
+  }
+
+  const isNewSection =
+    sections.length === 0 ||
+    sections[sections.length - 1].functionName !== currentLine.functionName;
+  /**
+   * @description - ONGOING_SECTION is used to indicate that the section is still running and has not finished yet in the log file.
+   * The section parsing function will temporarily assign this value until the corresponding finished section or EOF is found.
+   */
+  const ONGOING_SECTION = -1;
+
+  if (currentLine.status === SectionStatus.Running && isNewSection) {
+    const isPreviousSectionRunning =
+      sections.length &&
+      sections[sections.length - 1].range.end === ONGOING_SECTION;
+    if (isPreviousSectionRunning) {
       throw new Error(
         "Log file is showing a new running section without finishing the previous section.",
       );
     }
-    // -1 represents an ongoing section in this function and will be overwritten in the final result
     sections.push({
       functionName: currentLine.functionName,
-      range: { end: -1, start: logIndex },
+      range: { end: ONGOING_SECTION, start: logIndex },
     });
   }
   return sections;
