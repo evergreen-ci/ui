@@ -7,6 +7,7 @@ export {
   defaultStartDate,
   defaultStopDate,
   getEnabledHoursCount,
+  exemptionRange,
   getHostUptimeFromGql,
   getHostUptimeWarnings,
   getNextHostStart,
