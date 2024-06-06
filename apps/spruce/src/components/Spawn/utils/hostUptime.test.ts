@@ -435,6 +435,7 @@ describe("getNextHostStart", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
+      isBetaTester: false,
     };
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
@@ -452,6 +453,7 @@ describe("getNextHostStart", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 1, 6],
+      isBetaTester: false,
     };
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
@@ -469,6 +471,7 @@ describe("getNextHostStart", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
+      isBetaTester: false,
     };
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);
@@ -486,6 +489,7 @@ describe("getNextHostStart", () => {
       shouldKeepOff: true,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 1, 6],
+      isBetaTester: false,
     };
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const monday = new Date(null, null);

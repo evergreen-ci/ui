@@ -33,6 +33,15 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("toast", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.runOnlyPendingTimers();
+    vi.useRealTimers();
+  });
+
   const closeIconLabel = "Close Message";
   it("should error when rendered outside of ToastProvider context", () => {
     // This test intentionally throws an error, so we need to mock the error object to prevent it
@@ -137,6 +146,7 @@ describe("toast", () => {
 
   describe("closing the toast", () => {
     it("should be able to close a toast by clicking the X button by default", async () => {
+      vi.useRealTimers();
       const user = userEvent.setup();
       const { Component, hook } = renderComponentWithHook();
       render(<Component />, {
@@ -151,21 +161,11 @@ describe("toast", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
-    });
-
-    it("should not be able to close the toast when closable is false", async () => {
-      const { Component, hook } = renderComponentWithHook();
-      render(<Component />, {
-        wrapper,
-      });
-      act(() => {
-        hook.current.info("test string", false);
-      });
-      expect(screen.getByDataCy("toast")).toBeInTheDocument();
-      expect(screen.queryByLabelText(closeIconLabel)).toBeNull();
+      vi.useFakeTimers();
     });
 
     it("should trigger a callback function onClose", async () => {
+      vi.useRealTimers();
       const user = userEvent.setup();
       const onClose = vi.fn();
       const { Component, hook } = renderComponentWithHook();
@@ -182,11 +182,22 @@ describe("toast", () => {
         expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
       expect(onClose).toHaveBeenCalledTimes(1);
+      vi.useFakeTimers();
+    });
+
+    it("should not be able to close the toast when closable is false", async () => {
+      const { Component, hook } = renderComponentWithHook();
+      render(<Component />, {
+        wrapper,
+      });
+      act(() => {
+        hook.current.info("test string", false);
+      });
+      expect(screen.getByDataCy("toast")).toBeInTheDocument();
+      expect(screen.queryByLabelText(closeIconLabel)).toBeNull();
     });
 
     it("should close on its own after a timeout has completed", async () => {
-      vi.useFakeTimers();
-
       const { Component, hook } = renderComponentWithHook();
       render(<Component />, {
         wrapper,
@@ -203,9 +214,6 @@ describe("toast", () => {
       await waitFor(() => {
         expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
-
-      // Reset to use real timers.
-      vi.useRealTimers();
     });
   });
 });

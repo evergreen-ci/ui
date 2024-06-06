@@ -175,7 +175,7 @@ export const defaultSleepSchedule: Optional<SleepScheduleInput, "timeZone"> = {
 };
 
 export const getHostUptimeFromGql = (
-  sleepSchedule: Optional<SleepSchedule, "timeZone">,
+  sleepSchedule: Optional<SleepScheduleInput, "timeZone">,
 ): HostUptime => {
   const {
     dailyStartTime,
@@ -218,7 +218,7 @@ export const getHostUptimeFromGql = (
 };
 
 export const matchesDefaultUptimeSchedule = (
-  sleepSchedule: Optional<SleepSchedule, "timeZone">,
+  sleepSchedule: Optional<SleepScheduleInput, "timeZone">,
 ): boolean => {
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
@@ -300,7 +300,7 @@ export const validator = (({ expirationDetails }, errors) => {
  * @returns boolean indicating whether the sleep schedule is effectively unset.
  */
 export const isNullSleepSchedule = (
-  sleepSchedule: Optional<SleepSchedule, "timeZone">,
+  sleepSchedule: Optional<SleepScheduleInput, "timeZone">,
 ) => {
   if (!sleepSchedule) return true;
 
