@@ -6,8 +6,6 @@ import { getNextHostStart } from "components/Spawn/utils";
 import { size } from "constants/tokens";
 import { SleepSchedule } from "gql/generated/types";
 
-const todayDate = new Date();
-
 export const PauseSleepScheduleModal: React.FC<{
   handleConfirm: (shouldKeepOff?: boolean) => void;
   open: boolean;
@@ -17,12 +15,21 @@ export const PauseSleepScheduleModal: React.FC<{
   const [shouldKeepOff, setShouldKeepOff] = useState(false);
 
   const { nextStartDay, nextStartTime } = getNextHostStart(
-    sleepSchedule,
-    todayDate,
+    sleepSchedule.dailyStartTime,
+    // This "date" is really a string (DEVPROD-1028)
+    sleepSchedule.nextStartTime as unknown as string,
   );
+
+  let pauseButtonText = "Pause host";
+  if (shouldKeepOff) {
+    pauseButtonText += " indefinitely";
+  } else if (nextStartDay) {
+    pauseButtonText += ` until ${nextStartDay}`;
+  }
+
   return (
     <ConfirmationModal
-      buttonText={`Pause host ${shouldKeepOff ? "indefinitely" : `until ${nextStartDay}`}`}
+      buttonText={pauseButtonText}
       data-cy="pause-sleep-schedule-modal"
       open={open}
       onCancel={() => setOpen(false)}
