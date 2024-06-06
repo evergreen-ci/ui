@@ -326,7 +326,22 @@ describe("getHostUptimeFromGql", () => {
 describe("getSleepSchedule", () => {
   it("sets the default schedule", () => {
     expect(
-      getSleepSchedule({ useDefaultUptimeSchedule: true }, "America/New_York"),
+      getSleepSchedule(
+        {
+          useDefaultUptimeSchedule: true,
+          sleepSchedule: {
+            enabledWeekdays: [false, false, true, true, true, true, false],
+            timeSelection: {
+              runContinuously: true,
+              startTime:
+                "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
+              stopTime:
+                "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
+            },
+          },
+        },
+        "America/New_York",
+      ),
     ).toStrictEqual({
       dailyStartTime: "08:00",
       dailyStopTime: "20:00",
@@ -427,73 +442,33 @@ describe("getHostUptimeWarnings", () => {
 });
 
 describe("getNextHostStart", () => {
+  beforeEach(() => {
+    vi.useFakeTimers().setSystemTime("2024-06-02");
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("calculates the next start with time", () => {
-    const sched = {
-      dailyStartTime: "08:00",
-      dailyStopTime: "20:00",
-      permanentlyExempt: true,
-      shouldKeepOff: true,
-      timeZone: "America/New_York",
-      wholeWeekdaysOff: [0, 6],
-      isBetaTester: false,
-    };
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const monday = new Date(null, null);
-    expect(getNextHostStart(sched, monday)).toStrictEqual({
+    const tuesday = new Date("2024-06-04T08:00").toString();
+    expect(getNextHostStart("08:00", tuesday)).toStrictEqual({
       nextStartDay: "Tuesday",
       nextStartTime: "8:00",
     });
   });
 
-  it("calculates the next start with time when current day is off", () => {
-    const sched = {
-      dailyStartTime: "08:00",
-      dailyStopTime: "20:00",
-      permanentlyExempt: true,
-      shouldKeepOff: true,
-      timeZone: "America/New_York",
-      wholeWeekdaysOff: [0, 1, 6],
-      isBetaTester: false,
-    };
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const monday = new Date(null, null);
-    expect(getNextHostStart(sched, monday)).toStrictEqual({
-      nextStartDay: "Tuesday",
+  it("calculates starting tomorrow with time", () => {
+    const monday = new Date("2024-06-03T08:00").toString();
+    expect(getNextHostStart("08:00", monday)).toStrictEqual({
+      nextStartDay: "tomorrow",
       nextStartTime: "8:00",
     });
   });
 
   it("calculates the next start when running continuously", () => {
-    const sched = {
-      dailyStartTime: "",
-      dailyStopTime: "",
-      permanentlyExempt: true,
-      shouldKeepOff: true,
-      timeZone: "America/New_York",
-      wholeWeekdaysOff: [0, 6],
-      isBetaTester: false,
-    };
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const monday = new Date(null, null);
-    expect(getNextHostStart(sched, monday)).toStrictEqual({
-      nextStartDay: "Monday",
-      nextStartTime: null,
-    });
-  });
-
-  it("calculates the next start when running continuously and current day is off", () => {
-    const sched = {
-      dailyStartTime: "",
-      dailyStopTime: "",
-      permanentlyExempt: true,
-      shouldKeepOff: true,
-      timeZone: "America/New_York",
-      wholeWeekdaysOff: [0, 1, 6],
-      isBetaTester: false,
-    };
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const monday = new Date(null, null);
-    expect(getNextHostStart(sched, monday)).toStrictEqual({
+    const tuesday = new Date("2024-06-04T08:00").toString();
+    expect(getNextHostStart("", tuesday)).toStrictEqual({
       nextStartDay: "Tuesday",
       nextStartTime: null,
     });

@@ -6445,6 +6445,7 @@ export type MyHostsQuery = {
       __typename?: "SleepSchedule";
       dailyStartTime: string;
       dailyStopTime: string;
+      nextStartTime?: Date | null;
       permanentlyExempt: boolean;
       shouldKeepOff: boolean;
       temporarilyExemptUntil?: Date | null;

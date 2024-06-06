@@ -9,7 +9,7 @@ import {
 } from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
 import { days } from "constants/fieldMaps";
-import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";
+import { SleepScheduleInput } from "gql/generated/types";
 import { Optional } from "types/utils";
 import { isProduction } from "utils/environmentVariables";
 
@@ -23,14 +23,12 @@ const defaultScheduleWeekdaysCount = 5;
 const suggestedUptimeHours = (daysInWeek - 2) * hoursInDay;
 export const maxUptimeHours = (daysInWeek - 1) * hoursInDay;
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-export const defaultStartDate = new Date(null, null, null, defaultStartHour);
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-export const defaultStopDate = new Date(null, null, null, defaultStopHour);
+export const defaultStartDate = new Date(0, 0, 0, defaultStartHour);
+export const defaultStopDate = new Date(0, 0, 0, defaultStopHour);
 
 export type HostUptime = {
   useDefaultUptimeSchedule: boolean;
-  sleepSchedule?: {
+  sleepSchedule: {
     enabledWeekdays: boolean[];
     timeSelection: {
       startTime: string;
@@ -87,9 +85,7 @@ export const getEnabledHoursCount = (
 
   const {
     sleepSchedule: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       enabledWeekdays,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       timeSelection: { runContinuously, startTime, stopTime },
     },
     useDefaultUptimeSchedule,
@@ -103,8 +99,7 @@ export const getEnabledHoursCount = (
   }
 
   const enabledWeekdaysCount =
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    enabledWeekdays?.filter((day) => day).length ?? 0;
+    enabledWeekdays?.filter((day: boolean) => day).length ?? 0;
   const enabledHoursCount = runContinuously
     ? enabledWeekdaysCount * hoursInDay
     : enabledWeekdaysCount * getDailyUptime({ startTime, stopTime });
@@ -130,9 +125,7 @@ export const getSleepSchedule = (
   }
 
   const {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     enabledWeekdays,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     timeSelection: { runContinuously, startTime, stopTime },
   } = sleepSchedule;
 
@@ -145,19 +138,25 @@ export const getSleepSchedule = (
     ...(temporarilyExemptUntil
       ? { temporarilyExemptUntil: new Date(temporarilyExemptUntil) }
       : {}),
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
-      if (!isEnabled) {
-        accum.push(i);
-      }
-      return accum;
-    }, []),
+    wholeWeekdaysOff: enabledWeekdays.reduce(
+      (accum: number[], isEnabled: boolean, i: number) => {
+        if (!isEnabled) {
+          accum.push(i);
+        }
+        return accum;
+      },
+      [],
+    ),
   };
 };
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-const getDailyUptime = ({ startTime, stopTime }) =>
-  differenceInHours(new Date(stopTime), new Date(startTime));
+const getDailyUptime = ({
+  startTime,
+  stopTime,
+}: {
+  startTime: string;
+  stopTime: string;
+}) => differenceInHours(new Date(stopTime), new Date(startTime));
 
 const toTimeString = (date: Date): string =>
   date.toLocaleTimeString([], {
@@ -166,7 +165,12 @@ const toTimeString = (date: Date): string =>
     minute: "2-digit",
   });
 
-export const defaultSleepSchedule: Optional<SleepScheduleInput, "timeZone"> = {
+type RequiredSleepSchedule = Optional<
+  SleepScheduleInput,
+  "isBetaTester" | "timeZone"
+>;
+
+export const defaultSleepSchedule: RequiredSleepSchedule = {
   dailyStartTime: toTimeString(defaultStartDate),
   dailyStopTime: toTimeString(defaultStopDate),
   permanentlyExempt: false,
@@ -175,7 +179,7 @@ export const defaultSleepSchedule: Optional<SleepScheduleInput, "timeZone"> = {
 };
 
 export const getHostUptimeFromGql = (
-  sleepSchedule: Optional<SleepScheduleInput, "timeZone">,
+  sleepSchedule: RequiredSleepSchedule,
 ): HostUptime => {
   const {
     dailyStartTime,
@@ -197,14 +201,12 @@ export const getHostUptimeFromGql = (
               startTime: parse(
                 dailyStartTime,
                 "HH:mm",
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                new Date(null, null),
+                new Date(0, 0),
               ).toString(),
               stopTime: parse(
                 dailyStopTime,
                 "HH:mm",
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                new Date(null, null),
+                new Date(0, 0),
               ).toString(),
               runContinuously: false,
             }
@@ -218,7 +220,7 @@ export const getHostUptimeFromGql = (
 };
 
 export const matchesDefaultUptimeSchedule = (
-  sleepSchedule: Optional<SleepScheduleInput, "timeZone">,
+  sleepSchedule: RequiredSleepSchedule,
 ): boolean => {
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
@@ -299,9 +301,7 @@ export const validator = (({ expirationDetails }, errors) => {
  * @param sleepSchedule - sleepSchedule as returned from Evergreen
  * @returns boolean indicating whether the sleep schedule is effectively unset.
  */
-export const isNullSleepSchedule = (
-  sleepSchedule: Optional<SleepScheduleInput, "timeZone">,
-) => {
+export const isNullSleepSchedule = (sleepSchedule: RequiredSleepSchedule) => {
   if (!sleepSchedule) return true;
 
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
@@ -311,40 +311,32 @@ export const isNullSleepSchedule = (
   return true;
 };
 
+/**
+ * getNextHostStart returns strings representing the next time a host will start as computed using the server-returned timestamp.
+ * @param dailyStartTime - hourly time that the host will wake from sleep. Empty string indicates the host runs continuously on enabled days.
+ * @param nextStart - Date string from the server indiciating the next start.
+ * @returns object with nextStartDay and nextStartTime strings. Either/both values are null if the server does not specify a time.
+ */
 export const getNextHostStart = (
-  { dailyStartTime, wholeWeekdaysOff }: SleepSchedule,
-  todayDate: Date,
+  dailyStartTime: string,
+  nextStart: string,
 ): {
-  nextStartDay: string;
+  nextStartDay: string | null;
   nextStartTime: string | null;
 } => {
-  if (dailyStartTime) {
-    const nextStartDate = parse(dailyStartTime, "HH:mm", todayDate);
-    do {
-      nextStartDate.setDate(nextStartDate.getDate() + 1);
-    } while (wholeWeekdaysOff.includes(nextStartDate.getDay()));
-    const nextStartDay: string = isTomorrow(nextStartDate)
-      ? "tomorrow"
-      : days[nextStartDate.getDay()];
-    const nextStartTime: string = `${nextStartDate.getHours()}:${nextStartDate.getMinutes().toString().padStart(2, "0")}`;
-    return { nextStartDay, nextStartTime };
+  if (!nextStart) {
+    return { nextStartDay: null, nextStartTime: null };
   }
 
-  const nextStartDate = todayDate;
-  if (!wholeWeekdaysOff.includes(nextStartDate.getDay())) {
-    // Find the next planned off day in the schedule
-    do {
-      nextStartDate.setDate(nextStartDate.getDate() + 1);
-    } while (!wholeWeekdaysOff.includes(nextStartDate.getDay()));
-  }
-  // Find the first active day after that break
-  do {
-    nextStartDate.setDate(nextStartDate.getDate() + 1);
-  } while (wholeWeekdaysOff.includes(nextStartDate.getDay()));
-  const nextStartDay: string = isTomorrow(nextStartDate)
-    ? "tomorrow"
-    : days[nextStartDate.getDay()];
-  return { nextStartDay, nextStartTime: null };
+  const nextStartDate = new Date(nextStart);
+  return {
+    nextStartDay: isTomorrow(nextStartDate)
+      ? "tomorrow"
+      : days[nextStartDate.getDay()],
+    nextStartTime: dailyStartTime
+      ? `${nextStartDate.getHours()}:${nextStartDate.getMinutes().toString().padStart(2, "0")}`
+      : null,
+  };
 };
 
 const today = new Date(Date.now());
