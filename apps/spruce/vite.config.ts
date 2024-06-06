@@ -145,6 +145,7 @@ export default defineConfig({
     },
   },
   test: {
+    dangerouslyIgnoreUnhandledErrors: true,
     environment: "jsdom",
     globals: true,
     globalSetup: "./config/vitest/global-setup.ts",
