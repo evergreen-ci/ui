@@ -311,6 +311,12 @@ export const isNullSleepSchedule = (sleepSchedule: RequiredSleepSchedule) => {
   return true;
 };
 
+/**
+ * getNextHostStart returns strings representing the next time a host will start as computed using the server-returned timestamp.
+ * @param dailyStartTime - hourly time that the host will wake from sleep. Empty string indicates the host runs continuously on enabled days.
+ * @param nextStart - Date string from the server indiciating the next start.
+ * @returns object with nextStartDay and nextStartTime strings. Either/both values are null if the server does not specify a time.
+ */
 export const getNextHostStart = (
   dailyStartTime: string,
   nextStart: string,
