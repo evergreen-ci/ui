@@ -1,13 +1,21 @@
-import * as Sentry from "@sentry/react";
+import { init, isInitialized } from "@sentry/react";
 import { mockEnvironmentVariables } from "test_utils/utils";
 import { initializeErrorHandling } from ".";
 
 const { cleanup, mockEnv } = mockEnvironmentVariables();
 
+vi.mock("@sentry/react", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    // @ts-expect-error
+    ...actual,
+    init: vi.fn(),
+    isInitialized: vi.fn().mockReturnValue(false),
+  };
+});
+
 describe("should initialize error handlers according to release stage", () => {
-  beforeEach(() => {
-    vi.spyOn(Sentry, "init").mockImplementation(vi.fn());
-  });
+  beforeEach(() => {});
 
   afterEach(() => {
     vi.restoreAllMocks();
@@ -20,7 +28,7 @@ describe("should initialize error handlers according to release stage", () => {
     mockEnv("REACT_APP_RELEASE_STAGE", "production");
     initializeErrorHandling();
 
-    expect(Sentry.init).not.toHaveBeenCalled();
+    expect(vi.mocked(init)).not.toHaveBeenCalled();
   });
 
   it("production", () => {
@@ -30,7 +38,7 @@ describe("should initialize error handlers according to release stage", () => {
     mockEnv("REACT_APP_SPRUCE_SENTRY_DSN", "fake-sentry-key");
     initializeErrorHandling();
 
-    expect(Sentry.init).toHaveBeenCalledWith({
+    expect(vi.mocked(init)).toHaveBeenCalledWith({
       beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: false,
@@ -47,7 +55,7 @@ describe("should initialize error handlers according to release stage", () => {
     mockEnv("REACT_APP_SPRUCE_SENTRY_DSN", "fake-sentry-key");
     initializeErrorHandling();
 
-    expect(Sentry.init).toHaveBeenCalledWith({
+    expect(vi.mocked(init)).toHaveBeenCalledWith({
       beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
@@ -64,7 +72,7 @@ describe("should initialize error handlers according to release stage", () => {
     mockEnv("REACT_APP_SPRUCE_SENTRY_DSN", "fake-sentry-key");
     initializeErrorHandling();
 
-    expect(Sentry.init).toHaveBeenCalledWith({
+    expect(vi.mocked(init)).toHaveBeenCalledWith({
       beforeBreadcrumb: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
@@ -77,7 +85,6 @@ describe("should initialize error handlers according to release stage", () => {
 
 describe("should not initialize if the client is already running", () => {
   beforeEach(() => {
-    vi.spyOn(Sentry, "init").mockImplementation(vi.fn());
     mockEnv("NODE_ENV", "production");
   });
 
@@ -87,8 +94,8 @@ describe("should not initialize if the client is already running", () => {
   });
 
   it("does not initialize Sentry twice", () => {
-    vi.spyOn(Sentry, "isInitialized").mockReturnValue(true);
+    vi.mocked(isInitialized).mockReturnValue(true);
     initializeErrorHandling();
-    expect(Sentry.init).not.toHaveBeenCalled();
+    expect(vi.mocked(init)).not.toHaveBeenCalled();
   });
 });

@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/react";
+import { addBreadcrumb, captureException, setTags } from "@sentry/react";
 import { mockEnvironmentVariables } from "test_utils/utils";
 import {
   SentryBreadcrumb,
@@ -8,10 +8,20 @@ import {
 
 const { cleanup, mockEnv } = mockEnvironmentVariables();
 
+vi.mock("@sentry/react", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    // @ts-expect-error
+    ...actual,
+    addBreadcrumb: vi.fn(),
+    captureException: vi.fn(),
+    setTags: vi.fn(),
+  };
+});
+
 describe("error reporting", () => {
   beforeEach(() => {
     vi.spyOn(console, "error").mockImplementation(() => {});
-    vi.spyOn(Sentry, "captureException");
   });
   afterEach(() => {
     cleanup();
@@ -31,24 +41,22 @@ describe("error reporting", () => {
       err,
       severity: "warning",
     });
-    expect(Sentry.captureException).not.toHaveBeenCalled();
+    expect(vi.mocked(captureException)).not.toHaveBeenCalled();
   });
 
   it("should report errors to Sentry when in production", () => {
     mockEnv("NODE_ENV", "production");
-    vi.spyOn(Sentry, "captureException").mockImplementation(vi.fn());
 
     const err = new Error("test error");
     const result = reportError(err);
     result.severe();
-    expect(Sentry.captureException).toHaveBeenCalledWith(err);
+    expect(vi.mocked(captureException)).toHaveBeenCalledWith(err);
     result.warning();
-    expect(Sentry.captureException).toHaveBeenCalledWith(err);
+    expect(vi.mocked(captureException)).toHaveBeenCalledWith(err);
   });
 
   it("supports context field", () => {
     mockEnv("NODE_ENV", "production");
-    vi.spyOn(Sentry, "captureException").mockImplementation(vi.fn());
     const err = {
       message: "GraphQL Error",
       name: "Error Name",
@@ -57,15 +65,13 @@ describe("error reporting", () => {
     const context = { anything: "foo" };
     const result = reportError(err, { context });
     result.severe();
-    expect(Sentry.captureException).toHaveBeenCalledWith(err);
+    expect(vi.mocked(captureException)).toHaveBeenCalledWith(err);
     result.warning();
-    expect(Sentry.captureException).toHaveBeenCalledWith(err);
+    expect(vi.mocked(captureException)).toHaveBeenCalledWith(err);
   });
 
   it("supports tags", () => {
     mockEnv("NODE_ENV", "production");
-    vi.spyOn(Sentry, "captureException").mockImplementation(vi.fn());
-    vi.spyOn(Sentry, "setTags").mockImplementation(vi.fn());
     const err = {
       message: "GraphQL Error",
       name: "Error Name",
@@ -74,18 +80,17 @@ describe("error reporting", () => {
     const tags = { spruce: "true" };
     const result = reportError(err, { tags });
     result.severe();
-    expect(Sentry.captureException).toHaveBeenCalledWith(err);
-    expect(Sentry.setTags).toHaveBeenCalledWith(tags);
+    expect(vi.mocked(captureException)).toHaveBeenCalledWith(err);
+    expect(vi.mocked(setTags)).toHaveBeenCalledWith(tags);
     result.warning();
-    expect(Sentry.captureException).toHaveBeenCalledWith(err);
-    expect(Sentry.setTags).toHaveBeenCalledWith(tags);
+    expect(vi.mocked(captureException)).toHaveBeenCalledWith(err);
+    expect(vi.mocked(setTags)).toHaveBeenCalledWith(tags);
   });
 });
 
 describe("breadcrumbs", () => {
   beforeEach(() => {
     vi.spyOn(console, "debug").mockImplementation(() => {});
-    vi.spyOn(Sentry, "addBreadcrumb");
   });
   afterEach(() => {
     cleanup();
@@ -103,20 +108,19 @@ describe("breadcrumbs", () => {
       metadata,
       type,
     });
-    expect(Sentry.addBreadcrumb).not.toHaveBeenCalled();
+    expect(vi.mocked(addBreadcrumb)).not.toHaveBeenCalled();
   });
 
   it("should report breadcrumbs to Sentry when in production", () => {
     vi.useFakeTimers().setSystemTime(new Date("2020-01-01"));
     mockEnv("NODE_ENV", "production");
-    vi.spyOn(Sentry, "addBreadcrumb").mockImplementation(vi.fn());
 
     const message = "my message";
     const type = SentryBreadcrumb.Info;
     const metadata = { status_code: 401 };
 
     leaveBreadcrumb(message, metadata, type);
-    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
+    expect(vi.mocked(addBreadcrumb)).toHaveBeenCalledWith({
       data: { status_code: 401 },
       message,
       timestamp: 1577836800,
@@ -129,7 +133,6 @@ describe("breadcrumbs", () => {
     vi.useFakeTimers().setSystemTime(new Date("2020-01-01"));
     vi.spyOn(console, "warn").mockImplementation(() => {});
     mockEnv("NODE_ENV", "production");
-    vi.spyOn(Sentry, "addBreadcrumb").mockImplementation(vi.fn());
 
     const message = "navigation message";
     const type = SentryBreadcrumb.Navigation;
@@ -144,7 +147,7 @@ describe("breadcrumbs", () => {
       2,
       "Navigation breadcrumbs should include a 'to' metadata field.",
     );
-    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
+    expect(vi.mocked(addBreadcrumb)).toHaveBeenCalledWith({
       data: {},
       message,
       timestamp: 1577836800,
