@@ -179,10 +179,45 @@ describe("spawn host table", () => {
     vi.useRealTimers();
   });
 
-  it("does not prompt user when pausing expirable host", async () => {
+  it("does not prompt user when pausing expirable host", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnHostTable
         hosts={[{ ...baseSpawnHost, noExpiration: false, sleepSchedule: null }]}
+      />,
+    );
+    render(
+      <MockedProvider
+        mocks={[
+          getSpruceConfigMock,
+          getUserSettingsMock,
+          instanceTypesMock,
+          myHostsMock,
+          myPublicKeysMock,
+          myVolumesQueryMock,
+        ]}
+      >
+        <Component />
+      </MockedProvider>,
+    );
+    expect(
+      screen.queryByDataCy("pause-unexpirable-host-button"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("does not prompt user when permanent exemption is granted", () => {
+    const { Component } = RenderFakeToastContext(
+      <SpawnHostTable
+        hosts={[
+          {
+            ...baseSpawnHost,
+            sleepSchedule: {
+              ...defaultSleepSchedule,
+              nextStartTime: null,
+              timeZone: "America/New_York",
+              permanentlyExempt: true,
+            },
+          },
+        ]}
       />,
     );
     render(
