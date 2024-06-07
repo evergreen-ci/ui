@@ -1,4 +1,8 @@
-import { ProcessedLogLine, SkippedLinesRow } from "types/logs";
+import {
+  ProcessedLogLine,
+  SectionHeaderRow,
+  SkippedLinesRow,
+} from "types/logs";
 
 /**
  * `isSkippedLinesRow` determines if a row is a SkippedLinesRow.
@@ -11,6 +15,11 @@ const isSkippedLinesRow = (
 ): logLine is SkippedLinesRow =>
   typeof logLine === "object" && logLine.rowType === "SkippedLines";
 
+const isSectionHeaderRow = (
+  logLine: ProcessedLogLine,
+): logLine is SectionHeaderRow =>
+  typeof logLine === "object" && logLine.rowType === "SectionHeader";
+
 /**
  * `isCollapsedRow` determines if a row is a collapsed row such as SectionHeaderRow and SkippedLinesRow.
  * Although it is a simple function, its purpose is to make the code more readable.
@@ -21,4 +30,4 @@ type CollapsedRow = SkippedLinesRow;
 const isCollapsedRow = (logLine: ProcessedLogLine): logLine is CollapsedRow =>
   isSkippedLinesRow(logLine);
 
-export { isCollapsedRow, isSkippedLinesRow };
+export { isCollapsedRow, isSectionHeaderRow, isSkippedLinesRow };

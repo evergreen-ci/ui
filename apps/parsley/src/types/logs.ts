@@ -15,7 +15,14 @@ interface SkippedLinesRow {
   range: Range;
 }
 
-type ProcessedLogLine = number | SkippedLinesRow;
+interface SectionHeaderRow {
+  rowType: "SectionHeader";
+  functionName: string;
+  range: Range;
+  isOpen: boolean;
+}
+
+type ProcessedLogLine = number | SkippedLinesRow | SectionHeaderRow;
 
 type ProcessedLogLines = ProcessedLogLine[];
 
@@ -39,6 +46,7 @@ export type {
   Filters,
   ProcessedLogLine,
   ProcessedLogLines,
+  SectionHeaderRow,
   SelectedLineRange,
   SkippedLinesRow,
   Range,
