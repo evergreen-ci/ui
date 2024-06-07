@@ -5,7 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
-import { isNullSleepSchedule } from "components/Spawn";
+import { isSleepScheduleActive } from "components/Spawn";
 import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,
@@ -106,10 +106,12 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
 
   return (
     <>
-      {/* TODO: Replace with noExpiration check when sleep schedules are deployed */}
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {!isNullSleepSchedule(host?.sleepSchedule) &&
-      action === SpawnHostStatusActions.Stop ? (
+      {isSleepScheduleActive({
+        noExpiration: host.noExpiration,
+        permanentlyExempt: !!host?.sleepSchedule?.permanentlyExempt,
+        temporarilyExemptUntil: host?.sleepSchedule
+          ?.temporarilyExemptUntil as unknown as string,
+      }) && action === SpawnHostStatusActions.Stop ? (
         <>
           <Button
             data-cy="pause-unexpirable-host-button"

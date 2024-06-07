@@ -121,6 +121,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     myPublicKeys: publicKeys ?? [],
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     noExpirationCheckboxTooltip,
+    permanentlyExempt: !!host.sleepSchedule?.permanentlyExempt,
     timeZone,
     volumes,
   });
@@ -207,7 +208,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           setHasError(errors.length > 0);
         }}
         // @ts-expect-error rjsf v4 has insufficient typing for its validator
-        validate={validator}
+        validate={validator(host?.sleepSchedule?.permanentlyExempt)}
       />
     </ConfirmationModal>
   );

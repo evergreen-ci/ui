@@ -64,7 +64,7 @@ describe("validator", () => {
 
   it("returns no errors when host is expirable", () => {
     const f = vi.fn();
-    validator(
+    validator(false)(
       {
         expirationDetails: {
           hostUptime: {
@@ -89,7 +89,7 @@ describe("validator", () => {
 
   it("returns error when the host has too many uptime hours", () => {
     const f = vi.fn();
-    validator(
+    validator(false)(
       {
         expirationDetails: {
           hostUptime: {
@@ -114,7 +114,7 @@ describe("validator", () => {
 
   it("does not return an error when the host does not have too many uptime hours", () => {
     const f = vi.fn();
-    validator(
+    validator(false)(
       {
         expirationDetails: {
           hostUptime: {
@@ -137,6 +137,36 @@ describe("validator", () => {
     expect(f).toHaveBeenCalledTimes(0);
   });
 
+  it("does not add error when host is permanently exempt", () => {
+    const f = vi.fn();
+    validator(true)(
+      {
+        expirationDetails: {
+          hostUptime: {
+            useDefaultUptimeSchedule: false,
+            sleepSchedule: {
+              enabledWeekdays: [],
+              timeSelection: {
+                startTime: "",
+                stopTime: "",
+                runContinuously: true,
+              },
+            },
+            temporarilyExemptUntil: new Date("2024-01-05").toString(),
+          },
+          noExpiration: true,
+        },
+      },
+      {
+        expirationDetails: {
+          // @ts-expect-error
+          hostUptime: { temporarilyExemptUntil: { addError: f } },
+        },
+      },
+    );
+    expect(f).toHaveBeenCalledTimes(0);
+  });
+
   describe("temporary exemption", () => {
     beforeEach(() => {
       // Hoist date resetting in order to set system-wide date
@@ -152,7 +182,7 @@ describe("validator", () => {
 
     it("returns an error when exemption is in past", () => {
       const f = vi.fn();
-      validator(
+      validator(false)(
         {
           expirationDetails: {
             hostUptime: {
@@ -182,7 +212,7 @@ describe("validator", () => {
 
     it("returns an error when exemption is too long", () => {
       const f = vi.fn();
-      validator(
+      validator(false)(
         {
           expirationDetails: {
             hostUptime: {
@@ -212,7 +242,7 @@ describe("validator", () => {
 
     it("does not add error to valid exemption date", () => {
       const f = vi.fn();
-      validator(
+      validator(false)(
         {
           expirationDetails: {
             hostUptime: {
