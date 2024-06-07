@@ -19,8 +19,7 @@ export const PrideTree: React.FC = () => {
 
   return (
     <svg
-      width="60"
-      height="445"
+      width="58"
       viewBox="0 0 359 445"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
