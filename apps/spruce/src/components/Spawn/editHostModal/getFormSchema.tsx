@@ -41,6 +41,7 @@ export const getFormSchema = ({
   const expirationDetails = getExpirationDetailsSchema({
     disableExpirationCheckbox,
     hostUptimeWarnings,
+    isEditModal: true,
     noExpirationCheckboxTooltip,
     timeZone,
   });

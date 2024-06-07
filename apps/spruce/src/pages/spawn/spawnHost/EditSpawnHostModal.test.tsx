@@ -88,8 +88,7 @@ describe("editSpawnHostModal", () => {
         </MockedProvider>,
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      within(screen.queryByDataCy("daypicker"))
+      within(screen.getByDataCy("daypicker"))
         .getAllByRole("checkbox")
         .forEach((day) => {
           expect(day).toBeDisabled();
@@ -160,19 +159,16 @@ describe("editSpawnHostModal", () => {
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
       await user.click(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        screen.queryByText("Use default host uptime schedule", {
+        screen.getByText("Use default host uptime schedule", {
           exact: false,
         }),
       );
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      within(screen.queryByDataCy("daypicker"))
+      within(screen.getByDataCy("daypicker"))
         .getAllByRole("checkbox")
         .forEach((day) => {
           expect(day).not.toBeDisabled();
         });
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByLabelText("Start Time"));
+      await user.click(screen.getByLabelText("Start Time"));
       await user.click(screen.getAllByText("07")[0]);
       await user.click(screen.getByText("OK", { selector: "span" }));
       expect(screen.queryByLabelText("Start Time")).toHaveValue("07:00");
@@ -193,15 +189,12 @@ describe("editSpawnHostModal", () => {
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
       await user.click(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        screen.queryByText("Use default host uptime schedule", {
+        screen.getByText("Use default host uptime schedule", {
           exact: false,
         }),
       );
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByTitle("Sunday"));
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByText("Run continuously for enabled days"));
+      await user.click(screen.getByTitle("Sunday"));
+      await user.click(screen.getByText("Run continuously for enabled days"));
       expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
         "144",
       );
@@ -222,17 +215,13 @@ describe("editSpawnHostModal", () => {
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
       await user.click(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        screen.queryByText("Use default host uptime schedule", {
+        screen.getByText("Use default host uptime schedule", {
           exact: false,
         }),
       );
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByTitle("Sunday"));
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByTitle("Saturday"));
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      await user.click(screen.queryByText("Run continuously for enabled days"));
+      await user.click(screen.getByTitle("Sunday"));
+      await user.click(screen.getByTitle("Saturday"));
+      await user.click(screen.getByText("Run continuously for enabled days"));
       expect(screen.queryByDataCy("host-uptime-details")).toHaveTextContent(
         "168",
       );
@@ -246,6 +235,36 @@ describe("editSpawnHostModal", () => {
         "true",
       );
     }, 15000);
+  });
+
+  describe("temporarily exempting spawn host", () => {
+    beforeEach(() => {
+      vi.useFakeTimers().setSystemTime(new Date("2020-01-01"));
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("displays the exemption date on load", () => {
+      const { Component } = RenderFakeToastContext(
+        <EditSpawnHostModal
+          host={tempExemptSpawnHost}
+          visible
+          onCancel={() => {}}
+        />,
+      );
+      render(
+        <MockedProvider mocks={baseMocks}>
+          <Component />
+        </MockedProvider>,
+      );
+      expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+
+      expect(screen.getByDisplayValue("2020")).toBeVisible();
+      expect(screen.getByDisplayValue("01")).toBeVisible();
+      expect(screen.getByDisplayValue("15")).toBeVisible();
+    });
   });
 });
 
@@ -294,11 +313,22 @@ const baseSpawnHost: MyHost = {
   __typename: "Host",
 };
 
+const tempExemptSpawnHost: MyHost = {
+  ...baseSpawnHost,
+  id: "i-1234",
+  homeVolumeID: "vol-5678",
+  sleepSchedule: {
+    ...defaultSleepSchedule,
+    temporarilyExemptUntil: new Date("2020-01-15"),
+    timeZone: "America/New_York",
+  },
+};
+
 const myHostsMock: ApolloMock<MyHostsQuery, MyHostsQueryVariables> = {
   request: { query: MY_HOSTS, variables: {} },
   result: {
     data: {
-      myHosts: [baseSpawnHost],
+      myHosts: [baseSpawnHost, tempExemptSpawnHost],
     },
   },
 };

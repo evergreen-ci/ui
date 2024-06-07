@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Body } from "@leafygreen-ui/typography";
 import { add } from "date-fns";
@@ -10,6 +11,7 @@ import { isProduction } from "utils/environmentVariables";
 import {
   defaultStartDate,
   defaultStopDate,
+  exemptionRange,
   getDefaultExpiration,
 } from "./utils";
 
@@ -20,11 +22,13 @@ type HostUptimeProps = {
     enabledHoursCount: number;
     warnings: string[];
   };
+  isEditModal: boolean;
   timeZone?: string;
 };
 
 const getHostUptimeSchema = ({
   hostUptimeWarnings,
+  isEditModal,
   timeZone,
 }: HostUptimeProps) => ({
   schema: {
@@ -94,6 +98,12 @@ const getHostUptimeSchema = ({
       details: {
         type: "null" as "null",
       },
+      ...(isEditModal && {
+        temporarilyExemptUntil: {
+          type: "string" as "string",
+          title: "Temporary Sleep Schedule Exemption",
+        },
+      }),
     },
     dependencies: {
       useDefaultUptimeSchedule: {
@@ -134,12 +144,10 @@ const getHostUptimeSchema = ({
         `,
         startTime: {
           "ui:format": "HH:mm",
-          "ui:useUtc": false,
           "ui:widget": widgets.TimeWidget,
         },
         stopTime: {
           "ui:format": "HH:mm",
-          "ui:useUtc": false,
           "ui:widget": widgets.TimeWidget,
         },
         or: {
@@ -167,6 +175,11 @@ const getHostUptimeSchema = ({
       "ui:showLabel": false,
       "ui:warnings": hostUptimeWarnings?.warnings,
     },
+    temporarilyExemptUntil: {
+      "ui:disableAfter": exemptionRange.disableAfter,
+      "ui:disableBefore": exemptionRange.disableBefore,
+      "ui:widget": "date",
+    },
   },
 });
 
@@ -174,12 +187,16 @@ const Details: React.FC<{ timeZone: string; totalUptimeHours: number }> = ({
   timeZone,
   totalUptimeHours,
 }) => (
-  <div data-cy="host-uptime-details">
+  <DetailsDiv data-cy="host-uptime-details">
     All times are displayed in{" "}
     <Badge>{prettifyTimeZone.get(timeZone) ?? timeZone}</Badge> •{" "}
     {totalUptimeHours} host uptime hours per week
-  </div>
+  </DetailsDiv>
 );
+
+const DetailsDiv = styled.div`
+  margin-bottom: ${size.xs};
+`;
 
 type ExpirationProps = {
   disableExpirationCheckbox: boolean;
@@ -187,6 +204,7 @@ type ExpirationProps = {
     enabledHoursCount: number;
     warnings: string[];
   };
+  isEditModal: boolean;
   noExpirationCheckboxTooltip?: string;
   timeZone?: string;
 };
@@ -194,11 +212,16 @@ type ExpirationProps = {
 export const getExpirationDetailsSchema = ({
   disableExpirationCheckbox,
   hostUptimeWarnings,
+  isEditModal,
   noExpirationCheckboxTooltip,
   timeZone,
 }: ExpirationProps) => {
   const defaultExpiration = getDefaultExpiration();
-  const hostUptime = getHostUptimeSchema({ hostUptimeWarnings, timeZone });
+  const hostUptime = getHostUptimeSchema({
+    hostUptimeWarnings,
+    isEditModal,
+    timeZone,
+  });
   return {
     schema: {
       title: "Expiration Details",

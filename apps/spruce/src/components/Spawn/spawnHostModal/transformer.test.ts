@@ -111,6 +111,14 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
         noExpiration: true,
         hostUptime: {
           useDefaultUptimeSchedule: true,
+          sleepSchedule: {
+            enabledWeekdays: [false, false, true, true, true, true],
+            timeSelection: {
+              startTime: "08:00",
+              stopTime: "20:00",
+              runContinuously: false,
+            },
+          },
         },
       },
       homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
