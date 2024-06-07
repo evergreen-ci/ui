@@ -315,7 +315,7 @@
                   class="css-1ln61zq-Actions eoqkpw16"
                 >
                   <div
-                    class="eoqkpw13 css-1pn85ix-TextInputWrapper-StyledTextInput e13gwrw81"
+                    class="eoqkpw13 css-1pn85ix-TextInputWrapper-StyledTextInput e17optw11"
                   >
                     <div
                       aria-labelledby="search-tasks"
@@ -357,7 +357,7 @@
                       />
                     </div>
                     <div
-                      class="css-4bamt4-IconWrapper e13gwrw80"
+                      class="css-4bamt4-IconWrapper e17optw10"
                     >
                       <button
                         aria-disabled="false"

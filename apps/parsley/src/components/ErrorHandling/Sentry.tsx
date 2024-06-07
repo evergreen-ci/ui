@@ -35,6 +35,7 @@ const initializeSentry = () => {
       dsn: getSentryDSN(),
       environment: getReleaseStage() || "development",
       normalizeDepth: 5,
+      sampleRate: 0.5,
     });
   } catch (e) {
     console.error("Failed to initialize Sentry", e);

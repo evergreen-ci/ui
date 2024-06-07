@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { DatePicker } from "@leafygreen-ui/date-picker";
 import { palette } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
@@ -443,3 +444,32 @@ const StyledSegmentedControl = styled(SegmentedControl)`
   box-sizing: border-box;
   margin-bottom: ${size.s};
 `;
+
+export const LeafyGreenDatePicker: React.FC<
+  {
+    options: {
+      disableBefore?: Date;
+      disableAfter?: Date;
+    };
+  } & SpruceWidgetProps
+> = ({ disabled, label, onChange, options, readonly, value = "" }) => {
+  const { description, disableAfter, disableBefore, elementWrapperCSS } =
+    options;
+
+  const isDisabled = disabled || readonly;
+
+  return (
+    <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
+      <DatePicker
+        data-cy="date-picker"
+        description={description}
+        disabled={isDisabled}
+        label={label}
+        min={disableBefore}
+        max={disableAfter}
+        onDateChange={(v) => onChange(v?.toUTCString())}
+        value={new Date(value)}
+      />
+    </ElementWrapper>
+  );
+};
