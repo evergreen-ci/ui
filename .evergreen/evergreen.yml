@@ -114,6 +114,7 @@ buildvariants:
 
   - name: generator
     display_name: Generator
+    # Omit node_version expansion so that yarn-install fails to save time.
     run_on:
       - ubuntu2204-small
     tasks:

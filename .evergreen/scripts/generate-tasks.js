@@ -2,32 +2,47 @@ const { execSync } = require("child_process");
 const { writeFileSync } = require("fs");
 const { join, parse } = require("path");
 
-const taskMapping = {
-  lib: ["lint", "test", "type_check"],
+// This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
+
+const Tasks = {
+  CheckCodegen: "check_codegen",
+  Compile: "compile",
+  E2EParsley: "e2e_test_parsley",
+  E2ESpruce: "e2e_test_spruce",
+  Lint: "lint",
+  Snapshots: "snapshots",
+  Storybook: "storybook",
+  Test: "test",
+  TypeCheck: "type_check",
+};
+
+// Enumerate each task in a build variant that can run as part of a PR.
+// It would be nice to use tags for this, but Evergreen does not reevaluate tags as part of generate.tasks.
+const TASK_MAPPING = {
+  lib: [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
   parsley: [
-    "check_codegen",
-    "compile",
-    "e2e_test_parsley",
-    "lint",
-    "snapshots",
-    "storybook",
-    "test",
-    "type_check",
+    Tasks.CheckCodegen,
+    Tasks.Compile,
+    Tasks.E2EParsley,
+    Tasks.Lint,
+    Tasks.Snapshots,
+    Tasks.Storybook,
+    Tasks.Test,
+    Tasks.TypeCheck,
   ],
   spruce: [
-    "check_codegen",
-    "compile",
-    "e2e_test_spruce",
-    "lint",
-    "snapshots",
-    "storybook",
-    "test",
-    "type_check",
+    Tasks.CheckCodegen,
+    Tasks.Compile,
+    Tasks.E2ESpruce,
+    Tasks.Lint,
+    Tasks.Snapshots,
+    Tasks.Storybook,
+    Tasks.Test,
+    Tasks.TypeCheck,
   ],
 };
 
-const packagesDir = "packages";
-const appsDir = "apps";
+const APPS_DIR = "apps";
 const fileDestPath = join(__dirname, "../", "generate-tasks.json");
 
 const getMergeBase = () => {
@@ -41,6 +56,12 @@ const getMergeBase = () => {
   }
 };
 
+/**
+ * whatChanged returns a list of files modified in this patch or PR.
+ * Prior art from Evergreen:
+ * https://github.com/evergreen-ci/evergreen/blob/ab7d4112b352b759acd54c685524177018467c30/cmd/generate-lint/generate-lint.go#L30
+ * @returns a string array of modified file names relative to the git root directory
+ */
 const whatChanged = () => {
   const mergeBase = getMergeBase();
   try {
@@ -60,17 +81,26 @@ const whatChanged = () => {
   }
 };
 
+/**
+ * targetsFromChangedFiles returns a list of build variants to run based on a list of changed files.
+ * If any non-app code has changed, all apps will run.
+ * @param files - string array of modified files as per git
+ * @returns a list of build variants found as keys in TASK_MAPPING
+ */
 const targetsFromChangedFiles = (files) => {
   const targets = new Set();
 
   files.forEach((file) => {
     const { dir } = parse(file);
     const [packageDir, packageName] = dir.split("/");
-    if (packageDir === packagesDir) {
+
+    // If a change is made to a shared directory, test both apps.
+    if (packageDir !== APPS_DIR) {
       targets.add("spruce");
       targets.add("parsley");
     }
-    if (packageDir === appsDir || packageName === packagesDir) {
+
+    if (TASK_MAPPING[packageName]) {
       targets.add(packageName);
     }
   });
@@ -78,18 +108,19 @@ const targetsFromChangedFiles = (files) => {
   return Array.from(targets);
 };
 
+/**
+ * generateTasks generates an object indicating build variants and tasks to run based on changed files.
+ * @returns an Evergreen-compliant generate.tasks object.
+ */
 const generateTasks = () => {
   const changes = whatChanged();
-  if (changes.length === 0) {
-    // TODO
-    getAllTargets?.();
-    return {};
-  }
-
-  const targets = targetsFromChangedFiles(changes);
-  const buildvariants = targets.map((t) => ({
-    name: t,
-    tasks: taskMapping[t].map((taskName) => ({ name: taskName })),
+  const targets =
+    changes.length === 0
+      ? Object.keys(TASK_MAPPING)
+      : targetsFromChangedFiles(changes);
+  const buildvariants = targets.map((bv) => ({
+    name: bv,
+    tasks: TASK_MAPPING[bv].map((name) => ({ name })),
   }));
   return { buildvariants };
 };
