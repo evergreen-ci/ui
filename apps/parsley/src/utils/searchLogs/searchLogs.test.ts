@@ -75,12 +75,18 @@ describe("searchLogs", () => {
     expect(getLine).toHaveBeenCalledWith(0);
     expect(getLine).toHaveBeenCalledWith(3);
   });
-  it("should not search lines that are folded or if they are out of the range", () => {
+  it("should not search lines that are folded, sections, or if they are out of the range", () => {
     const lines = ["line 1", "line 2", "line 3", "line 4"];
     const getLine = vi.fn((index: number) => lines[index]);
     const processedLogLines: ProcessedLogLines = [
       0,
-      { range: { end: 3, start: 1 }, rowType: "SkippedLines" },
+      {
+        functionName: "test",
+        isOpen: true,
+        range: { end: 2, start: 1 },
+        rowType: "SectionHeader",
+      },
+      { range: { end: 3, start: 2 }, rowType: "SkippedLines" },
       3,
     ];
     const options = {
