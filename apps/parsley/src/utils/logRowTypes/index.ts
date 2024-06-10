@@ -20,14 +20,4 @@ const isSectionHeaderRow = (
 ): logLine is SectionHeaderRow =>
   typeof logLine === "object" && logLine.rowType === "SectionHeader";
 
-/**
- * `isCollapsedRow` determines if a row is a collapsed row such as SectionHeaderRow and SkippedLinesRow.
- * Although it is a simple function, its purpose is to make the code more readable.
- * @param logLine - the processed log line to check
- * @returns true if the row is a collapsed row
- */
-type CollapsedRow = SkippedLinesRow;
-const isCollapsedRow = (logLine: ProcessedLogLine): logLine is CollapsedRow =>
-  isSkippedLinesRow(logLine);
-
-export { isCollapsedRow, isSectionHeaderRow, isSkippedLinesRow };
+export { isSectionHeaderRow, isSkippedLinesRow };

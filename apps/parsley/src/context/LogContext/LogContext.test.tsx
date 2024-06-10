@@ -3,7 +3,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { MockInstance } from "vitest";
 import { LogRenderingTypes } from "constants/enums";
 import { act, renderHook, waitFor } from "test_utils";
-import { isCollapsedRow } from "utils/logRowTypes";
+import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
 import { LogContextProvider, useLogContext } from ".";
 import { DIRECTION } from "./types";
 
@@ -63,9 +63,9 @@ describe("useLogContext", () => {
       expect(result.current.lineCount).toBe(lines.length);
       for (let i = 0; i < lines.length; i++) {
         const line = result.current.processedLogLines[i];
-        // Expect the line not to be an array
-        expect(isCollapsedRow(line)).toBe(false);
-        // line is not an array we confirmed it above
+        expect(isSkippedLinesRow(line)).toBe(false);
+        expect(isSectionHeaderRow(line)).toBe(false);
+        // line is not an object we confirmed it above
         expect(result.current.getLine(line as number)).toStrictEqual(lines[i]);
       }
     });
@@ -165,8 +165,9 @@ describe("useLogContext", () => {
       expect(result.current.processedLogLines).toStrictEqual([0, 1]);
       for (let i = 0; i < lines.length; i++) {
         const line = result.current.processedLogLines[i];
-        // Expect the line not to be a collapsed row
-        expect(isCollapsedRow(line)).toBe(false);
+        // Expect the line not to be an object
+        expect(isSkippedLinesRow(line)).toBe(false);
+        expect(isSectionHeaderRow(line)).toBe(false);
         expect(result.current.getLine(line as number)).toStrictEqual(
           resmokeLines[i],
         );
