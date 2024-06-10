@@ -1,6 +1,9 @@
+import { MockedProvider } from "@apollo/client/testing";
 import { WordWrapFormat } from "constants/enums";
 import { LogContextProvider } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
+import { parsleySettingsMock } from "test_data/parsleySettings";
 import {
   RenderWithRouterMatchOptions,
   renderWithRouterMatch,
@@ -15,15 +18,20 @@ const renderRow = (
   renderWithRouterMatch(<ResmokeRow {...props} />, {
     ...options,
     wrapper: ({ children }: { children: React.ReactNode }) => (
-      <LogContextProvider initialLogLines={logLines}>
-        <MultiLineSelectContextProvider>
-          {children}
-        </MultiLineSelectContextProvider>
-      </LogContextProvider>
+      <MockedProvider mocks={[parsleySettingsMock]}>
+        <LogContextProvider initialLogLines={logLines}>
+          <MultiLineSelectContextProvider>
+            {children}
+          </MultiLineSelectContextProvider>
+        </LogContextProvider>
+      </MockedProvider>
     ),
   });
 
 describe("resmokeRow", () => {
+  beforeEach(() => {
+    InitializeFakeToastContext();
+  });
   it("does not render a resmoke row if getLine returns undefined", () => {
     renderRow({ ...resmokeProps, lineIndex: 99, lineNumber: 99 }, {});
     expect(screen.queryByDataCy("resmoke-row")).toBeNull();

@@ -1,3 +1,4 @@
+import { MockedProvider } from "@apollo/client/testing";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import {
@@ -5,14 +6,19 @@ import {
   useMultiLineSelectContext,
 } from "context/MultiLineSelectContext";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
+import { parsleySettingsMock } from "test_data/parsleySettings";
 import { act, renderWithRouterMatch, screen, userEvent } from "test_utils";
 import { renderComponentWithHook } from "test_utils/TestHooks";
 import SharingMenu from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <LogContextProvider initialLogLines={logs}>
-    <MultiLineSelectContextProvider>{children}</MultiLineSelectContextProvider>
-  </LogContextProvider>
+  <MockedProvider mocks={[parsleySettingsMock]}>
+    <LogContextProvider initialLogLines={logs}>
+      <MultiLineSelectContextProvider>
+        {children}
+      </MultiLineSelectContextProvider>
+    </LogContextProvider>
+  </MockedProvider>
 );
 
 const logs = [

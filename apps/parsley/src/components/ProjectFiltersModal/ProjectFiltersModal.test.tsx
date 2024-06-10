@@ -1,11 +1,13 @@
-import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
+import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import {
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_FILTERS } from "gql/queries";
+import { parsleySettingsMock } from "test_data/parsleySettings";
 import { noFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
 import {
@@ -20,9 +22,9 @@ import { renderComponentWithHook } from "test_utils/TestHooks";
 import { ApolloMock } from "types/gql";
 import ProjectFiltersModal from ".";
 
-const wrapper = (mocks: MockedProviderProps["mocks"]) => {
+const wrapper = (mocks: MockedResponse[]) => {
   const provider = ({ children }: { children: React.ReactNode }) => (
-    <MockedProvider mocks={mocks}>
+    <MockedProvider mocks={[parsleySettingsMock, ...mocks]}>
       <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
     </MockedProvider>
   );
@@ -32,6 +34,7 @@ const wrapper = (mocks: MockedProviderProps["mocks"]) => {
 describe("projectFiltersModal", () => {
   beforeAll(() => {
     stubGetClientRects();
+    InitializeFakeToastContext();
   });
   it("shows message when no filters are defined in project", () => {
     const { Component, hook } = renderComponentWithHook(

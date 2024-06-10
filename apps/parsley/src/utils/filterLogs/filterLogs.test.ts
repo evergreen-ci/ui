@@ -21,6 +21,8 @@ describe("filterLogs", () => {
         failingLine: undefined,
         logLines,
         matchingLines: undefined,
+        sectionData: undefined,
+        sectionsEnabled: false,
         shareLine: undefined,
       }),
     ).toStrictEqual([0, 1, 2, 3, 4, 5, 6, 7]);
@@ -35,6 +37,8 @@ describe("filterLogs", () => {
         failingLine: undefined,
         logLines,
         matchingLines: new Set([1, 2, 3]),
+        sectionData: undefined,
+        sectionsEnabled: false,
         shareLine: undefined,
       }),
     ).toStrictEqual([1, 2, 3]);
@@ -49,6 +53,8 @@ describe("filterLogs", () => {
         failingLine: undefined,
         logLines,
         matchingLines: new Set([]),
+        sectionData: undefined,
+        sectionsEnabled: false,
         shareLine: undefined,
       }),
     ).toStrictEqual([{ range: { end: 8, start: 0 }, rowType: "SkippedLines" }]);
@@ -64,6 +70,8 @@ describe("filterLogs", () => {
           failingLine: undefined,
           logLines,
           matchingLines: new Set([1]),
+          sectionData: undefined,
+          sectionsEnabled: false,
           shareLine: undefined,
         }),
       ).toStrictEqual([
@@ -83,6 +91,8 @@ describe("filterLogs", () => {
           failingLine: undefined,
           logLines,
           matchingLines: new Set([1]),
+          sectionData: undefined,
+          sectionsEnabled: false,
           shareLine: 7,
         }),
       ).toStrictEqual([
@@ -102,6 +112,8 @@ describe("filterLogs", () => {
           failingLine: 7,
           logLines,
           matchingLines: new Set([1]),
+          sectionData: undefined,
+          sectionsEnabled: false,
           shareLine: undefined,
         }),
       ).toStrictEqual([
@@ -121,6 +133,8 @@ describe("filterLogs", () => {
           failingLine: undefined,
           logLines,
           matchingLines: new Set([1]),
+          sectionData: undefined,
+          sectionsEnabled: false,
           shareLine: undefined,
         }),
       ).toStrictEqual([
