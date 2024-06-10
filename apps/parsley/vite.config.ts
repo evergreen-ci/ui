@@ -94,7 +94,6 @@ export default defineConfig({
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
   test: {
-    dangerouslyIgnoreUnhandledErrors: true,
     environment: "jsdom",
     globals: true,
     outputFile: { junit: "./bin/vitest/junit.xml" },
