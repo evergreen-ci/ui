@@ -21,7 +21,7 @@ functions:
 
 tasks:
   - name: generate-tasks
-    allowed_requesters: ["github_pr", "patch"]
+    allowed_requesters: ["github_pr"]
     commands:
       - func: run-generate-tasks
       - command: generate.tasks
