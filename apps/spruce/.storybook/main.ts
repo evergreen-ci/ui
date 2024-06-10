@@ -1,5 +1,5 @@
 export default {
-  addons: ["storybook-addon-evg"],
+  addons: ["@evg-ui/storybook-addon"],
   framework: {
     name: "@storybook/react-vite",
   },
