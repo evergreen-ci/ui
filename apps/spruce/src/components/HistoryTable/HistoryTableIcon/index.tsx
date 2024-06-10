@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { size, zIndex } from "constants/tokens";
 import { TaskStatus } from "types/task";
@@ -24,40 +23,35 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
   onClick = () => {},
   status,
 }) => (
-  <ConditionalWrapper
-    condition={inactive || failingTests.length > 0}
-    wrapper={(children) => (
-      <Tooltip
-        align="right"
-        justify="middle"
-        enabled={!inactive && !!failingTests.length}
-        popoverZIndex={zIndex.tooltip}
-        trigger={children}
-        triggerEvent="hover"
+  <Tooltip
+    align="right"
+    justify="middle"
+    enabled={!inactive && failingTests.length > 0}
+    popoverZIndex={zIndex.tooltip}
+    trigger={
+      <Container
+        onClick={() => onClick()}
+        data-cy="history-table-icon"
+        data-status={status}
+        aria-disabled={inactive}
       >
-        <div data-cy="test-tooltip">
-          {failingTests.map((testName) => (
-            <TestName key={testName}>{testName}</TestName>
-          ))}
-          {loadingTestResults && (
-            <Skeleton active data-cy="history-tooltip-skeleton" />
-          )}
-        </div>
-      </Tooltip>
-    )}
+        <IconContainer>
+          <TaskStatusIcon status={status} size={30} />
+        </IconContainer>
+        {!inactive && <Body>{label}</Body>}
+      </Container>
+    }
+    triggerEvent="hover"
   >
-    <Container
-      onClick={() => onClick()}
-      data-cy="history-table-icon"
-      data-status={status}
-      aria-disabled={inactive}
-    >
-      <IconContainer>
-        <TaskStatusIcon status={status} size={30} />
-      </IconContainer>
-      {!inactive && <Body>{label}</Body>}
-    </Container>
-  </ConditionalWrapper>
+    <div data-cy="test-tooltip">
+      {failingTests.map((testName) => (
+        <TestName key={testName}>{testName}</TestName>
+      ))}
+      {loadingTestResults && (
+        <Skeleton active data-cy="history-tooltip-skeleton" />
+      )}
+    </div>
+  </Tooltip>
 );
 
 interface ContainerProps {

@@ -149,12 +149,8 @@ describe("taskHistoryRow", () => {
         "false",
       );
     });
-
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.hover(screen.queryByDataCy("history-table-icon"));
-    await waitFor(() => {
-      expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
-    });
+    await user.hover(screen.getByDataCy("history-table-icon"));
+    await screen.findByText("TestJiraIntegration");
   });
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
@@ -197,11 +193,8 @@ describe("taskHistoryRow", () => {
     });
 
     expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.hover(screen.queryByDataCy("history-table-icon"));
-    await waitFor(() => {
-      expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
-    });
+    await user.hover(screen.getByDataCy("history-table-icon"));
+    await screen.findByText("TestJiraIntegration");
   });
 
   it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {

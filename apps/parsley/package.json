@@ -1,7 +1,7 @@
 {
   "name": "parsley",
   "private": true,
-  "version": "2.1.16",
+  "version": "2.1.17",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
     "build": "tsc && GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
@@ -37,7 +37,7 @@
     "postversion": "scripts/push-version.sh"
   },
   "dependencies": {
-    "@apollo/client": "3.8.4",
+    "@apollo/client": "3.10.4",
     "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.5",
     "@evg-ui/lib": "*",
@@ -66,7 +66,7 @@
     "@leafygreen-ui/toggle": "10.0.4",
     "@leafygreen-ui/tooltip": "10.0.10",
     "@leafygreen-ui/typography": "19.0.0",
-    "@sentry/react": "7.114.0",
+    "@sentry/react": "8.7.0",
     "@sentry/types": "7.114.0",
     "ansi_up": "6.0.2",
     "graphql": "16.8.1",

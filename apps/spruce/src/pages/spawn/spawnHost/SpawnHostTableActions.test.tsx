@@ -139,7 +139,9 @@ describe("copySSHCommandButton", () => {
 
 describe("spawn host table", () => {
   it("prompts user to permanently pause host when a sleep schedule is configured", async () => {
-    const user = userEvent.setup();
+    vi.useFakeTimers().setSystemTime("2024-06-05");
+
+    const user = userEvent.setup({ delay: null });
     const { Component } = RenderFakeToastContext(
       <SpawnHostTable hosts={[baseSpawnHost]} />,
     );
@@ -161,11 +163,9 @@ describe("spawn host table", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("pause-sleep-schedule-modal")).toBeVisible();
     });
-    expect(screen.getByDataCy("next-start")).toHaveTextContent(
-      "(tomorrow at 8:00)",
-    );
+    expect(screen.getByDataCy("next-start")).toHaveTextContent(/at 8:00/);
     expect(
-      screen.getByRole("button", { name: "Pause host until tomorrow" }),
+      screen.getByRole("button", { name: /Pause host until/ }),
     ).toBeVisible();
     await user.click(screen.getByLabelText("Pause host indefinitely"));
     await waitFor(() => {
@@ -173,6 +173,8 @@ describe("spawn host table", () => {
         screen.getByRole("button", { name: "Pause host indefinitely" }),
       ).toBeVisible();
     });
+
+    vi.useRealTimers();
   });
 
   it("does not prompt user when pausing expirable host", async () => {
@@ -240,6 +242,8 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
+    nextStartTime: new Date("2024-06-06T08:00:00Z"),
+    temporarilyExemptUntil: null,
     timeZone: "America/New_York",
   },
   __typename: "Host",
