@@ -27,8 +27,11 @@ import {
 } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
+import { useParsleySettings } from "hooks/useParsleySettings";
 import { useQueryParam } from "hooks/useQueryParam";
+import { useSections } from "hooks/useSections";
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
+import { isDevelopmentBuild } from "utils/environmentVariables";
 import filterLogs from "utils/filterLogs";
 import { getMatchingLines } from "utils/matchingLines";
 import { getColorMapping } from "utils/resmoke";
@@ -150,6 +153,16 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     ],
   );
 
+  const { settings } = useParsleySettings();
+
+  const sectionsEnabled =
+    isDevelopmentBuild() &&
+    !!settings?.sectionsEnabled &&
+    state.logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS &&
+    state.logMetadata?.renderingType === LogRenderingTypes.Default;
+
+  const { sectionData } = useSections({ logs: state.logs, sectionsEnabled });
+
   useEffect(
     () => {
       setProcessedLogLines(
@@ -160,6 +173,8 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           failingLine: state.failingLine,
           logLines: state.logs,
           matchingLines,
+          sectionData,
+          sectionsEnabled,
           shareLine,
         }),
       );
