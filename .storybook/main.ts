@@ -1,0 +1,17 @@
+export default {
+  addons: ["@evg-ui/storybook-addon"],
+  stories: ["./README.mdx"],
+  framework: {
+    name: "@storybook/react-vite",
+  },
+  refs: {
+    parsley: {
+      title: "Parsley",
+      url: "http://localhost:6007",
+    },
+    spruce: {
+      title: "Spruce",
+      url: "http://localhost:6006",
+    },
+  },
+};

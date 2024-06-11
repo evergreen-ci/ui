@@ -31,7 +31,7 @@
     "snapshot": "vitest run snapshot.test.ts",
     "start": "vite",
     "verify-backend": "./scripts/verify-backend.sh",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6007",
     "storybook:build": "env-cmd -e local -r .env-cmdrc.local.json storybook build",
     "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts",
     "postversion": "scripts/push-version.sh"
@@ -95,9 +95,6 @@
     "@graphql-codegen/typescript-operations": "4.0.1",
     "@sentry/vite-plugin": "2.16.1",
     "@storybook/addon-actions": "8.1.6",
-    "@storybook/addon-essentials": "8.1.6",
-    "@storybook/addon-interactions": "8.1.6",
-    "@storybook/addon-links": "8.1.6",
     "@storybook/react": "8.1.6",
     "@storybook/react-vite": "8.1.6",
     "@storybook/testing-library": "0.2.2",
