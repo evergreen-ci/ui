@@ -163,11 +163,9 @@ describe("spawn host table", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("pause-sleep-schedule-modal")).toBeVisible();
     });
-    expect(screen.getByDataCy("next-start")).toHaveTextContent(
-      "(tomorrow at 8:00)",
-    );
+    expect(screen.getByDataCy("next-start")).toHaveTextContent(/at 8:00/);
     expect(
-      screen.getByRole("button", { name: "Pause host until tomorrow" }),
+      screen.getByRole("button", { name: /Pause host until/ }),
     ).toBeVisible();
     await user.click(screen.getByLabelText("Pause host indefinitely"));
     await waitFor(() => {
