@@ -5,6 +5,10 @@ export default {
     name: "@storybook/react-vite",
   },
   refs: {
+    lib: {
+      title: "Evergreen UI Library",
+      url: "http://localhost:6008",
+    },
     parsley: {
       title: "Parsley",
       url: "http://localhost:6007",

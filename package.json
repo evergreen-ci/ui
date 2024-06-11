@@ -10,7 +10,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "story": "concurrently \"yarn workspace spruce run storybook --no-open\" \"yarn workspace parsley run storybook --no-open\" \"sleep 5 && storybook dev\"",
+    "storybook": "concurrently \"yarn workspace spruce run storybook --no-open\" \"yarn workspace parsley run storybook --no-open\" \"yarn workspace @evg-ui/lib run storybook --no-open\" \"sleep 5 && storybook dev\"",
     "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
   },
   "resolutions": {
