@@ -1,17 +1,19 @@
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
-import { LogContextProvider } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import WrapToggle from ".";
 
 vi.mock("js-cookie");
 const mockedSet = vi.spyOn(Cookie, "set") as MockInstance;
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
-);
+const wrapper = logContextWrapper();
 
 describe("wrap toggle", () => {
+  beforeEach(() => {
+    InitializeFakeToastContext();
+  });
   it("defaults to 'false'", () => {
     render(<WrapToggle />, { wrapper });
     const wrapToggle = screen.getByDataCy("wrap-toggle");
