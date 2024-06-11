@@ -208,7 +208,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           setHasError(errors.length > 0);
         }}
         // @ts-expect-error rjsf v4 has insufficient typing for its validator
-        validate={validator(host?.sleepSchedule?.permanentlyExempt)}
+        validate={validator(!!host?.sleepSchedule?.permanentlyExempt)}
       />
     </ConfirmationModal>
   );

@@ -265,9 +265,9 @@ export const validator = (permanentlyExempt: boolean) =>
 
     if (
       !isSleepScheduleActive({
+        isTemporarilyExempt: !!temporarilyExemptUntil,
         noExpiration: !!noExpiration,
         permanentlyExempt,
-        temporarilyExemptUntil: temporarilyExemptUntil ?? "",
       })
     ) {
       return errors;
@@ -322,18 +322,18 @@ export const isNullSleepSchedule = (sleepSchedule: RequiredSleepSchedule) => {
 };
 
 export const isSleepScheduleActive = ({
+  isTemporarilyExempt,
   noExpiration,
   permanentlyExempt,
-  temporarilyExemptUntil,
 }: {
+  isTemporarilyExempt: boolean;
   noExpiration: boolean;
   permanentlyExempt: boolean;
-  temporarilyExemptUntil: string;
 }) => {
   // TODO DEVPROD-7517: replace prod check with beta tester check when beta period begins
   if (isProduction()) return false;
   if (!noExpiration) return false;
-  if (temporarilyExemptUntil) return false;
+  if (isTemporarilyExempt) return false;
   if (permanentlyExempt) return false;
   return true;
 };
