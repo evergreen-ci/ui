@@ -1,19 +1,19 @@
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
-import { LogContextProvider } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import ExpandableRowsToggle from ".";
 
 vi.mock("js-cookie");
 const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
-);
+const wrapper = logContextWrapper();
 
 describe("expandable rows toggle", () => {
   beforeEach(() => {
     mockedGet.mockImplementation(() => "true");
+    InitializeFakeToastContext();
   });
 
   it("defaults to 'true' if cookie is unset", () => {

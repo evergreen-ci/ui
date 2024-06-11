@@ -37,7 +37,7 @@
     "postversion": "scripts/push-version.sh"
   },
   "dependencies": {
-    "@apollo/client": "3.7.12",
+    "@apollo/client": "3.10.4",
     "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.5",
     "@evg-ui/lib": "*",

@@ -5,7 +5,6 @@ import { ParsleyRow } from "components/LogRow/RowRenderer";
 import { LogRenderingTypes, LogTypes, WordWrapFormat } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
-import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import ResmokeRow from ".";
 
@@ -17,7 +16,6 @@ export default {
         <Story />
       </MultiLineSelectContextProvider>
     ),
-    WithToastContext,
   ],
 } satisfies CustomMeta<typeof ResmokeRow>;
 

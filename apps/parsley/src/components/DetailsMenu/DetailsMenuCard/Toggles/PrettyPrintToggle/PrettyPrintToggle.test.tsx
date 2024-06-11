@@ -1,7 +1,9 @@
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
 import { LogRenderingTypes } from "constants/enums";
-import { LogContextProvider, useLogContext } from "context/LogContext";
+import { useLogContext } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import {
   act,
   renderWithRouterMatch as render,
@@ -14,13 +16,12 @@ import PrettyPrintToggle from ".";
 vi.mock("js-cookie");
 const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
-);
+const wrapper = logContextWrapper();
 
 describe("pretty print toggle", () => {
   beforeEach(() => {
     mockedGet.mockImplementation(() => "true");
+    InitializeFakeToastContext();
   });
 
   it("defaults to 'false' if cookie is unset", () => {
