@@ -2754,16 +2754,16 @@
     "@leafygreen-ui/tokens" "^2.1.4"
     polished "^4.2.2"
 
-"@leafygreen-ui/card@^10.0.4", "@leafygreen-ui/card@^10.0.6":
-  version "10.0.6"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-10.0.6.tgz#ceaf9dfc87172bc2f1442824503442910db20b97"
-  integrity sha512-GpBDEmJoyvJT0lqgM9K3DTIfiFLGzANdzW1SAY+5dBVfRBsKcxgLIi3OQte2uOTOd7V29atP0Zny+tM8V3vo4A==
+"@leafygreen-ui/card@^10.0.6", "@leafygreen-ui/card@^10.0.7":
+  version "10.0.7"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-10.0.7.tgz#b7cecd1771e3c7530492276251921aa5720985f6"
+  integrity sha512-eQFV1IkBuzA4cqT8ozA+13voVDiQD96MGW0JqS8bdZYIjim6HDGLq31PTz1zwuZOvpXa55p/byyBeq94rjSX5w==
   dependencies:
-    "@leafygreen-ui/box" "^3.1.8"
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/lib" "^13.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.1.4"
+    "@leafygreen-ui/box" "^3.1.9"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/lib" "^13.3.0"
+    "@leafygreen-ui/palette" "^4.0.9"
+    "@leafygreen-ui/tokens" "^2.5.2"
     polished "^4.2.2"
 
 "@leafygreen-ui/checkbox@13.0.0":
@@ -3526,17 +3526,18 @@
     polished "^4.2.2"
     react-transition-group "^4.4.5"
 
-"@leafygreen-ui/skeleton-loader@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/skeleton-loader/-/skeleton-loader-1.1.0.tgz#3ce8582a1a4043dea3f5ff0721f207e06bc0c726"
-  integrity sha512-q4RCyT0WUmKfHeOON39pOx4pVWFymXbyjd7mG08YdigiPHfq/q5BrmOg8nK7psXwusD0BY3tNYK2A+WZ9PLpJQ==
+"@leafygreen-ui/skeleton-loader@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/skeleton-loader/-/skeleton-loader-1.2.0.tgz#eede82f8f08cfb3de02b1238f122b02952b1aa76"
+  integrity sha512-czgfCRxKOgIkHAf2jt/DLXnD86x30iBFS3KFWJGcqp1YRHI3v3DFGsYQYqAeP9/mCb9DD+dZHVq/W2nUi1tNyQ==
   dependencies:
-    "@leafygreen-ui/card" "^10.0.4"
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/lib" "^11.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.1.4"
-    "@leafygreen-ui/typography" "^17.0.0"
+    "@leafygreen-ui/card" "^10.0.7"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/lib" "^13.3.0"
+    "@leafygreen-ui/palette" "^4.0.9"
+    "@leafygreen-ui/tokens" "^2.5.2"
+    "@leafygreen-ui/typography" "^19.0.0"
+    lodash "^4.17.21"
 
 "@leafygreen-ui/table@12.6.3":
   version "12.6.3"
