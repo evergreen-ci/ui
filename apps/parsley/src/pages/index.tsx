@@ -8,6 +8,7 @@ import { LogTypes } from "constants/enums";
 import routes from "constants/routes";
 import { useAuthContext } from "context/auth";
 import { useUser } from "hooks";
+import { useInitializeErrorHandling } from "hooks/useInitializeErrorHandling";
 import NotFound from "./404";
 import LogView from "./LogView";
 
@@ -23,6 +24,7 @@ const Layout = () => (
 );
 
 const Content: React.FC = () => {
+  useInitializeErrorHandling();
   const { user } = useUser();
   localStorage.setItem("userId", user?.userId ?? "");
 
