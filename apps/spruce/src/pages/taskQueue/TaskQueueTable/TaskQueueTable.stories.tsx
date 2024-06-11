@@ -16,6 +16,7 @@ const generateTaskQueue = (length: number): TaskQueueColumnData[] => {
       priority: 0,
       project:
         "23c73fc8a605de0e6d71f776128544356dca2a243a459db334d3514ae74a1ba7",
+      projectIdentifier: "parsley",
       requester: TaskQueueItemType.Commit,
       version: "mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe",
       __typename: "TaskQueueItem",

@@ -97,7 +97,8 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     outputFile: { junit: "./bin/vitest/junit.xml" },
-    pool: "forks", // https://vitest.dev/guide/common-errors.html#failed-to-terminate-worker
+    // https://vitest.dev/guide/common-errors.html#failed-to-terminate-worker
+    pool: "forks",
     reporters: ["default", ...(process.env.CI === "true" ? ["junit"] : [])],
     setupFiles: "./config/vitest/setupTests.ts",
   },
