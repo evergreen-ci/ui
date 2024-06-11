@@ -4,14 +4,12 @@ import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
-import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import SkippedLinesRow from ".";
 
 export default {
   component: SkippedLinesRow,
-  decorators: [WithToastContext],
 } satisfies CustomMeta<typeof SkippedLinesRow>;
 
 const SkippedLinesRowStory = (

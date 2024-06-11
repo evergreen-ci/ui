@@ -1,6 +1,9 @@
+import { MockedProvider } from "@apollo/client/testing";
 import { WordWrapFormat } from "constants/enums";
 import { LogContextProvider } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
+import { parsleySettingsMock } from "test_data/parsleySettings";
 import {
   RenderWithRouterMatchOptions,
   renderWithRouterMatch,
@@ -23,15 +26,20 @@ const renderRow = (
   renderWithRouterMatch(<AnsiRow {...props} />, {
     ...options.routerOptions,
     wrapper: ({ children }: { children: React.ReactNode }) => (
-      <LogContextProvider initialLogLines={logLines}>
-        <MultiLineSelectContextProvider>
-          {children}
-        </MultiLineSelectContextProvider>
-      </LogContextProvider>
+      <MockedProvider mocks={[parsleySettingsMock]}>
+        <LogContextProvider initialLogLines={logLines}>
+          <MultiLineSelectContextProvider>
+            {children}
+          </MultiLineSelectContextProvider>
+        </LogContextProvider>
+      </MockedProvider>
     ),
   });
 
 describe("ansiRow", () => {
+  beforeEach(() => {
+    InitializeFakeToastContext();
+  });
   it("does not render an ansi row if getLine returns undefined", () => {
     renderRow({ ...ansiProps, lineIndex: 99, lineNumber: 99 }, {});
     expect(screen.queryByDataCy("ansi-row")).toBeNull();

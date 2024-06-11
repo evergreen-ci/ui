@@ -1,5 +1,7 @@
 import { LogTypes } from "constants/enums";
-import { LogContextProvider, useLogContext } from "context/LogContext";
+import { useLogContext } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
+import { RenderFakeToastContext as InitializeFakeToasContext } from "context/toast/__mocks__";
 import {
   act,
   renderWithRouterMatch as render,
@@ -9,11 +11,11 @@ import {
 import { renderComponentWithHook } from "test_utils/TestHooks";
 import JumpToFailingLineToggle from ".";
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <LogContextProvider>{children}</LogContextProvider>
-);
-
+const wrapper = logContextWrapper();
 describe("jump to failing line toggle", () => {
+  beforeEach(() => {
+    InitializeFakeToasContext();
+  });
   it("should render as checked when 'checked' prop is true", () => {
     render(<JumpToFailingLineToggle checked updateSettings={vi.fn()} />, {
       wrapper,

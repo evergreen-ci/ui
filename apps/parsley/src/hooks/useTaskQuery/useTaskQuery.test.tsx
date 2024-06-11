@@ -2,13 +2,17 @@ import { MockedProvider } from "@apollo/client/testing";
 import { MemoryRouter } from "react-router-dom";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider } from "context/LogContext";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import { Task } from "gql/generated/types";
+import { parsleySettingsMock } from "test_data/parsleySettings";
 import { evergreenTaskMock, logkeeperMetadataMock } from "test_data/task";
 import { renderHook, waitFor } from "test_utils";
 import { useTaskQuery } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[evergreenTaskMock, logkeeperMetadataMock]}>
+  <MockedProvider
+    mocks={[parsleySettingsMock, evergreenTaskMock, logkeeperMetadataMock]}
+  >
     <MemoryRouter initialEntries={["/"]}>
       <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
     </MemoryRouter>
@@ -16,6 +20,9 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe("useTaskQuery", () => {
+  beforeEach(() => {
+    InitializeFakeToastContext();
+  });
   it("should be able to fetch task corresponding to evergreen task logs", async () => {
     const { result } = renderHook(
       () =>

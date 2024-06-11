@@ -4,7 +4,6 @@ import Card from "@leafygreen-ui/card";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { parsleySettingsMock } from "test_data/parsleySettings";
-import WithToastContext from "test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import DetailsMenu from ".";
 
@@ -16,7 +15,6 @@ export default {
         <Story />
       </MockedProvider>
     ),
-    WithToastContext,
   ],
 } satisfies CustomMeta<typeof DetailsMenu>;
 

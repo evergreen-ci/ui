@@ -1,6 +1,8 @@
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
-import { LogContextProvider, useLogContext } from "context/LogContext";
+import { useLogContext } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import {
   act,
   renderWithRouterMatch as render,
@@ -13,13 +15,12 @@ import WordWrapFormatToggle from ".";
 vi.mock("js-cookie");
 const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
-);
+const wrapper = logContextWrapper();
 
 describe("word wrap format toggle", () => {
   beforeEach(() => {
     mockedGet.mockImplementation(() => "standard");
+    InitializeFakeToastContext();
   });
 
   it("should be disabled if word wrap is disabled", () => {

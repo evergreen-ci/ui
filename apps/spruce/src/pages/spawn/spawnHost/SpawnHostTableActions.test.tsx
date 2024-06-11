@@ -54,10 +54,9 @@ describe("copySSHCommandButton", () => {
       </MockedProvider>,
     );
 
-    const copySSHButton = screen.queryByDataCy("copy-ssh-button");
+    const copySSHButton = screen.getByDataCy("copy-ssh-button");
 
     // Hover over button to trigger tooltip.
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
@@ -67,7 +66,6 @@ describe("copySSHCommandButton", () => {
     ).toBeInTheDocument();
 
     // Click on button to copy the SSH command and change tooltip message.
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(copySSHButton);
     await waitFor(async () => {
       const clipboardText = await navigator.clipboard.readText();
@@ -91,17 +89,15 @@ describe("copySSHCommandButton", () => {
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
           user={testUser}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          hostUrl={undefined}
+          hostUrl=""
           hostStatus={HostStatus.Starting}
         />
       </MockedProvider>,
     );
-    const copySSHButton = screen.queryByDataCy("copy-ssh-button");
+    const copySSHButton = screen.getByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
@@ -122,11 +118,10 @@ describe("copySSHCommandButton", () => {
         />
       </MockedProvider>,
     );
-    const copySSHButton = screen.queryByDataCy("copy-ssh-button");
+    const copySSHButton = screen.getByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
@@ -146,16 +141,7 @@ describe("spawn host table", () => {
       <SpawnHostTable hosts={[baseSpawnHost]} />,
     );
     render(
-      <MockedProvider
-        mocks={[
-          getSpruceConfigMock,
-          getUserSettingsMock,
-          instanceTypesMock,
-          myHostsMock,
-          myPublicKeysMock,
-          myVolumesQueryMock,
-        ]}
-      >
+      <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>,
     );
@@ -177,23 +163,40 @@ describe("spawn host table", () => {
     vi.useRealTimers();
   });
 
-  it("does not prompt user when pausing expirable host", async () => {
+  it("does not prompt user when pausing expirable host", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnHostTable
         hosts={[{ ...baseSpawnHost, noExpiration: false, sleepSchedule: null }]}
       />,
     );
     render(
-      <MockedProvider
-        mocks={[
-          getSpruceConfigMock,
-          getUserSettingsMock,
-          instanceTypesMock,
-          myHostsMock,
-          myPublicKeysMock,
-          myVolumesQueryMock,
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>,
+    );
+    expect(
+      screen.queryByDataCy("pause-unexpirable-host-button"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("does not prompt user when permanent exemption is granted", () => {
+    const { Component } = RenderFakeToastContext(
+      <SpawnHostTable
+        hosts={[
+          {
+            ...baseSpawnHost,
+            sleepSchedule: {
+              ...defaultSleepSchedule,
+              nextStartTime: null,
+              timeZone: "America/New_York",
+              permanentlyExempt: true,
+            },
+          },
         ]}
-      >
+      />,
+    );
+    render(
+      <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>,
     );
@@ -292,3 +295,12 @@ const instanceTypesMock: ApolloMock<
     },
   },
 };
+
+const baseMocks = [
+  getSpruceConfigMock,
+  getUserSettingsMock,
+  instanceTypesMock,
+  myHostsMock,
+  myPublicKeysMock,
+  myVolumesQueryMock,
+];

@@ -22,6 +22,7 @@ interface Props {
   instanceTypes: string[];
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
+  permanentlyExempt: boolean;
   timeZone?: string;
   volumes: MyVolumesQuery["myVolumes"];
 }
@@ -35,6 +36,7 @@ export const getFormSchema = ({
   instanceTypes,
   myPublicKeys,
   noExpirationCheckboxTooltip,
+  permanentlyExempt,
   timeZone,
   volumes,
 }: Props): ReturnType<GetFormSchema> => {
@@ -43,6 +45,7 @@ export const getFormSchema = ({
     hostUptimeWarnings,
     isEditModal: true,
     noExpirationCheckboxTooltip,
+    permanentlyExempt,
     timeZone,
   });
   const publicKeys = getPublicKeySchema({
