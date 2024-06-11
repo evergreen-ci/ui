@@ -187,6 +187,34 @@ describe("spawn host table", () => {
             ...baseSpawnHost,
             sleepSchedule: {
               ...defaultSleepSchedule,
+              isBetaTester: true,
+              nextStartTime: null,
+              timeZone: "America/New_York",
+              permanentlyExempt: true,
+            },
+          },
+        ]}
+      />,
+    );
+    render(
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>,
+    );
+    expect(
+      screen.queryByDataCy("pause-unexpirable-host-button"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("does not prompt user when beta testing disabled", () => {
+    const { Component } = RenderFakeToastContext(
+      <SpawnHostTable
+        hosts={[
+          {
+            ...baseSpawnHost,
+            sleepSchedule: {
+              ...defaultSleepSchedule,
+              isBetaTester: false,
               nextStartTime: null,
               timeZone: "America/New_York",
               permanentlyExempt: true,
@@ -245,6 +273,7 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
+    isBetaTester: true,
     nextStartTime: new Date("2024-06-06T08:00:00Z"),
     temporarilyExemptUntil: null,
     timeZone: "America/New_York",

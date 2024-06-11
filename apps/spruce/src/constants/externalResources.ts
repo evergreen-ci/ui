@@ -12,6 +12,10 @@ export const wikiBaseUrl =
 export const wikiUrl = `${wikiBaseUrl}/Home`;
 
 const projectSettingsDocumentationUrl = `${wikiBaseUrl}/Project-Configuration`;
+const hostsDocumentationUrl = `${wikiBaseUrl}/Hosts`;
+
+// TODO: Update with actual URL
+export const hostUptimeDocumentationUrl = `${hostsDocumentationUrl}/Host-Uptime-Scheduling`;
 
 export const projectDistroSettingsDocumentationUrl = `${projectSettingsDocumentationUrl}/Project-and-Distro-Settings`;
 

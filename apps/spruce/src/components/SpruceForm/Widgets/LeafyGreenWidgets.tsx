@@ -14,6 +14,7 @@ import {
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
+import Toggle from "@leafygreen-ui/toggle";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
@@ -150,6 +151,50 @@ const IconContainer = styled.span`
   margin-left: ${size.xxs};
   top: 1px;
   vertical-align: text-top;
+`;
+
+export const LeafyGreenToggle: React.FC<SpruceWidgetProps> = ({
+  disabled,
+  id,
+  label,
+  onChange,
+  options,
+  readonly,
+  value,
+}) => {
+  const {
+    customLabel,
+    "data-cy": dataCy,
+    description,
+    descriptionNode,
+    elementWrapperCSS,
+  } = options;
+  return (
+    <ElementWrapper css={elementWrapperCSS}>
+      <ToggleWrapper>
+        <Toggle
+          aria-labelledby={`${id}-label`}
+          checked={value}
+          data-cy={dataCy}
+          disabled={disabled || readonly}
+          id={id}
+          onChange={(checked) => onChange(checked)}
+          size="xsmall"
+        />
+        <Label htmlFor={id} id={`${id}-label`}>
+          {customLabel || label}
+        </Label>
+      </ToggleWrapper>
+      {descriptionNode ||
+        (description && <Description>{description}</Description>)}
+    </ElementWrapper>
+  );
+};
+
+const ToggleWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  gap: ${size.xs};
 `;
 
 export const LeafyGreenSelect: React.FC<

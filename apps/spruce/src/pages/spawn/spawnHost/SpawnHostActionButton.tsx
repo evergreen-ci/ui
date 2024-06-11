@@ -107,6 +107,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   return (
     <>
       {isSleepScheduleActive({
+        isBetaTester: !!host?.sleepSchedule?.isBetaTester,
         isTemporarilyExempt: !!(host?.sleepSchedule
           ?.temporarilyExemptUntil as unknown as string),
         noExpiration: host.noExpiration,
