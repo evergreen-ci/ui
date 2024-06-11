@@ -15,8 +15,8 @@
           class="leafygreen-ui-ozfao7 css-1qa4isu-PaddedSegmentedControl egmqwjk0"
         >
           <div
-            aria-label="segmented-control-269"
-            aria-owns="segmented-control-269-0 segmented-control-269-1"
+            aria-label="segmented-control-274"
+            aria-owns="segmented-control-274-0 segmented-control-274-1"
             class="leafygreen-ui-18en4yf"
             role="tablist"
           >
@@ -33,7 +33,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-269-0"
+                  id="segmented-control-274-0"
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -63,7 +63,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-269-1"
+                  id="segmented-control-274-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
@@ -98,8 +98,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-270-menu"
-          aria-describedby="select-270-description"
+          aria-controls="select-275-menu"
+          aria-describedby="select-275-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -108,7 +108,7 @@
           data-cy="tuple-select-dropdown"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-271"
+          id="select-276"
           type="button"
           value="build_variant"
         >
@@ -191,7 +191,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-274"
+            id="lg-form_field-feedback-279"
           />
         </div>
         <div

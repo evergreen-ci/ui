@@ -2742,7 +2742,7 @@ export type TaskQueueItem = {
   id: Scalars["ID"]["output"];
   priority: Scalars["Int"]["output"];
   project: Scalars["String"]["output"];
-  projectIdentifier: Scalars["String"]["output"];
+  projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: TaskQueueItemType;
   revision: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
@@ -5774,7 +5774,6 @@ export type DistroTaskQueueQuery = {
     id: string;
     priority: number;
     project: string;
-    projectIdentifier: string;
     requester: TaskQueueItemType;
     version: string;
   }>;

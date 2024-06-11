@@ -4,7 +4,7 @@
   >
     <div
       aria-disabled="false"
-      class="css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="success"
     >
@@ -92,7 +92,7 @@
     </div>
     <div
       aria-disabled="false"
-      class="css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="dispatched"
     >
@@ -266,7 +266,7 @@
     </div>
     <div
       aria-disabled="false"
-      class="css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="will-run"
     >
@@ -305,7 +305,7 @@
     </div>
     <div
       aria-disabled="false"
-      class="css-1saonyd-Container e12dzyme2"
+      class="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme2"
       data-cy="history-table-icon"
       data-status="inactive"
     >

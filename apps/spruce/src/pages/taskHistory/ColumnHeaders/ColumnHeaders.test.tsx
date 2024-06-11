@@ -4,6 +4,7 @@ import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   BuildVariantsForTaskNameQuery,
   BuildVariantsForTaskNameQueryVariables,
+  BuildVariantTuple,
 } from "gql/generated/types";
 import { BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
 import {
@@ -94,7 +95,9 @@ describe("columnHeaders (Task History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
+    });
   });
 
   it("should link to corresponding /variant-history/:projectId/:variantName page", async () => {
@@ -123,7 +126,10 @@ describe("columnHeaders (Task History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(screen.queryByRole("link")).toHaveAttribute(
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(1);
+    });
+    expect(screen.getByRole("link")).toHaveAttribute(
       "href",
       "/variant-history/evergreen/real-variant-name",
     );
@@ -153,13 +159,14 @@ describe("columnHeaders (Task History)", () => {
           ],
         }),
     });
-
     await waitFor(() => {
-      expect(screen.queryByText(longVariantName)).toBeNull();
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
     await waitFor(() => {
-      expect(screen.queryByText("variant2")).toBeVisible();
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(2);
     });
+    expect(screen.queryByText(longVariantName)).toBeNull();
+    expect(screen.queryByText("variant2")).toBeVisible();
   });
 
   it("should show a tooltip with the full name when hovering over a truncated variant name", async () => {
@@ -189,17 +196,18 @@ describe("columnHeaders (Task History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(screen.queryByText(trimmedVariantName)).toBeVisible();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.hover(screen.queryByText(trimmedVariantName));
     await waitFor(() => {
-      expect(screen.queryByText(longVariantName)).toBeVisible();
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(1);
     });
+
+    expect(screen.queryByText(trimmedVariantName)).toBeVisible();
+    await user.hover(screen.getByText(trimmedVariantName));
+    await screen.findByText(longVariantName);
   });
 });
 
 const mock = (
-  buildVariants: BuildVariantsForTaskNameQuery["buildVariantsForTaskName"],
+  buildVariants: BuildVariantTuple[],
 ): ApolloMock<
   BuildVariantsForTaskNameQuery,
   BuildVariantsForTaskNameQueryVariables
@@ -213,7 +221,6 @@ const mock = (
   },
   result: {
     data: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       buildVariantsForTaskName: buildVariants.map((bv) => ({
         __typename: "BuildVariantTuple",
         buildVariant: bv.buildVariant,
