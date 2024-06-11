@@ -5774,6 +5774,7 @@ export type DistroTaskQueueQuery = {
     id: string;
     priority: number;
     project: string;
+    projectIdentifier?: string | null;
     requester: TaskQueueItemType;
     version: string;
   }>;

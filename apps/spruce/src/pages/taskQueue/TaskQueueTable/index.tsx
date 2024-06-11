@@ -123,16 +123,18 @@ const taskQueueTableColumns = (
     {
       header: "Project",
       accessorKey: "projectIdentifier",
-      cell: (value) => (
-        <StyledRouterLink
-          to={getProjectPatchesRoute(
-            value.row.original.projectIdentifier || value.row.original.project,
-          )}
-          onClick={() => sendEvent({ name: "Click Project Link" })}
-        >
-          {value.row.original.projectIdentifier || value.row.original.project}
-        </StyledRouterLink>
-      ),
+      cell: (value) => {
+        const project =
+          value.row.original.projectIdentifier || value.row.original.project;
+        return (
+          <StyledRouterLink
+            to={getProjectPatchesRoute(project)}
+            onClick={() => sendEvent({ name: "Click Project Link" })}
+          >
+            {project}
+          </StyledRouterLink>
+        );
+      },
     },
     {
       header: "Version",
