@@ -9,14 +9,18 @@ interface Range {
   /** The ending line exclusive of the range */
   end: number;
 }
+enum RowType {
+  SkippedLines = "SkippedLines",
+  SectionHeader = "SectionHeader",
+}
 
 interface SkippedLinesRow {
-  rowType: "SkippedLines";
+  rowType: RowType.SkippedLines;
   range: Range;
 }
 
 interface SectionHeaderRow {
-  rowType: "SectionHeader";
+  rowType: RowType.SectionHeader;
   functionName: string;
   range: Range;
   isOpen: boolean;
@@ -38,6 +42,8 @@ type SelectedLineRange = {
   startingLine?: number;
   endingLine?: number;
 };
+
+export { RowType };
 
 export type {
   ExpandedLine,

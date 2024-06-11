@@ -1,5 +1,6 @@
 import {
   ProcessedLogLine,
+  RowType,
   SectionHeaderRow,
   SkippedLinesRow,
 } from "types/logs";
@@ -13,11 +14,11 @@ import {
 const isSkippedLinesRow = (
   logLine: ProcessedLogLine,
 ): logLine is SkippedLinesRow =>
-  typeof logLine === "object" && logLine.rowType === "SkippedLines";
+  typeof logLine === "object" && logLine.rowType === RowType.SkippedLines;
 
 const isSectionHeaderRow = (
   logLine: ProcessedLogLine,
 ): logLine is SectionHeaderRow =>
-  typeof logLine === "object" && logLine.rowType === "SectionHeader";
+  typeof logLine === "object" && logLine.rowType === RowType.SectionHeader;
 
 export { isSectionHeaderRow, isSkippedLinesRow };

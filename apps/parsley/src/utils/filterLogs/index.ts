@@ -1,5 +1,5 @@
 import { SectionEntry } from "hooks/useSections/utils";
-import { ExpandedLines, ProcessedLogLines } from "types/logs";
+import { ExpandedLines, ProcessedLogLines, RowType } from "types/logs";
 import { isExpanded } from "utils/expandedLines";
 import { newSkippedLinesRow } from "utils/logRow";
 import { isSkippedLinesRow } from "utils/logRowTypes";
@@ -56,7 +56,7 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
             functionName: section.functionName,
             isOpen: true,
             range: section.range,
-            rowType: "SectionHeader",
+            rowType: RowType.SectionHeader,
           });
           sectionIndex += 1;
         }

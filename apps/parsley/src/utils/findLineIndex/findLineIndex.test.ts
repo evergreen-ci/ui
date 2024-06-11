@@ -1,19 +1,19 @@
-import { ProcessedLogLines } from "types/logs";
+import { ProcessedLogLines, RowType } from "types/logs";
 import { findLineIndex } from ".";
 
 const processedLines: ProcessedLogLines = [
   0,
-  { range: { end: 3, start: 1 }, rowType: "SkippedLines" },
+  { range: { end: 3, start: 1 }, rowType: RowType.SkippedLines },
   3,
-  { range: { end: 6, start: 4 }, rowType: "SkippedLines" },
+  { range: { end: 6, start: 4 }, rowType: RowType.SkippedLines },
   6,
-  { range: { end: 10, start: 7 }, rowType: "SkippedLines" },
+  { range: { end: 10, start: 7 }, rowType: RowType.SkippedLines },
   10,
   {
     functionName: "f-1",
     isOpen: true,
     range: { end: 13, start: 10 },
-    rowType: "SectionHeader",
+    rowType: RowType.SectionHeader,
   },
   11,
   12,
@@ -21,13 +21,13 @@ const processedLines: ProcessedLogLines = [
     functionName: "f-2",
     isOpen: false,
     range: { end: 15, start: 13 },
-    rowType: "SectionHeader",
+    rowType: RowType.SectionHeader,
   },
   {
     functionName: "f-3",
     isOpen: true,
     range: { end: 17, start: 15 },
-    rowType: "SectionHeader",
+    rowType: RowType.SectionHeader,
   },
   15,
   16,

@@ -1,3 +1,4 @@
+import { RowType } from "types/logs";
 import filterLogs from ".";
 
 describe("filterLogs", () => {
@@ -46,7 +47,9 @@ describe("filterLogs", () => {
         sectionsEnabled: false,
         shareLine: undefined,
       }),
-    ).toStrictEqual([{ range: { end: 8, start: 0 }, rowType: "SkippedLines" }]);
+    ).toStrictEqual([
+      { range: { end: 8, start: 0 }, rowType: RowType.SkippedLines },
+    ]);
   });
 
   describe("with matching lines", () => {
@@ -64,9 +67,9 @@ describe("filterLogs", () => {
           shareLine: undefined,
         }),
       ).toStrictEqual([
-        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: RowType.SkippedLines },
         1,
-        { range: { end: 7, start: 2 }, rowType: "SkippedLines" },
+        { range: { end: 7, start: 2 }, rowType: RowType.SkippedLines },
         7,
       ]);
     });
@@ -85,9 +88,9 @@ describe("filterLogs", () => {
           shareLine: 7,
         }),
       ).toStrictEqual([
-        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: RowType.SkippedLines },
         1,
-        { range: { end: 7, start: 2 }, rowType: "SkippedLines" },
+        { range: { end: 7, start: 2 }, rowType: RowType.SkippedLines },
         7,
       ]);
     });
@@ -106,9 +109,9 @@ describe("filterLogs", () => {
           shareLine: undefined,
         }),
       ).toStrictEqual([
-        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: RowType.SkippedLines },
         1,
-        { range: { end: 7, start: 2 }, rowType: "SkippedLines" },
+        { range: { end: 7, start: 2 }, rowType: RowType.SkippedLines },
         7,
       ]);
     });
@@ -127,13 +130,13 @@ describe("filterLogs", () => {
           shareLine: undefined,
         }),
       ).toStrictEqual([
-        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: RowType.SkippedLines },
         1,
-        { range: { end: 4, start: 2 }, rowType: "SkippedLines" },
+        { range: { end: 4, start: 2 }, rowType: RowType.SkippedLines },
         4,
         5,
         6,
-        { range: { end: 8, start: 7 }, rowType: "SkippedLines" },
+        { range: { end: 8, start: 7 }, rowType: RowType.SkippedLines },
       ]);
     });
   });
@@ -160,7 +163,7 @@ describe("filterLogs", () => {
           end: 5,
           start: 1,
         },
-        rowType: "SectionHeader",
+        rowType: RowType.SectionHeader,
       },
       1,
       2,
@@ -174,7 +177,7 @@ describe("filterLogs", () => {
           end: 11,
           start: 6,
         },
-        rowType: "SectionHeader",
+        rowType: RowType.SectionHeader,
       },
       6,
       7,
@@ -201,13 +204,13 @@ describe("filterLogs", () => {
         shareLine: undefined,
       }),
     ).toStrictEqual([
-      { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+      { range: { end: 1, start: 0 }, rowType: RowType.SkippedLines },
       1,
-      { range: { end: 4, start: 2 }, rowType: "SkippedLines" },
+      { range: { end: 4, start: 2 }, rowType: RowType.SkippedLines },
       4,
       5,
       6,
-      { range: { end: 8, start: 7 }, rowType: "SkippedLines" },
+      { range: { end: 8, start: 7 }, rowType: RowType.SkippedLines },
     ]);
   });
 });

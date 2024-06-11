@@ -1,4 +1,4 @@
-import { ProcessedLogLines } from "types/logs";
+import { ProcessedLogLines, RowType } from "types/logs";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
 describe("getLinesInProcessedLogLinesFromSelectedLines", () => {
@@ -24,12 +24,12 @@ describe("getLinesInProcessedLogLinesFromSelectedLines", () => {
     const processedLogLines: ProcessedLogLines = [
       1,
       2,
-      { range: { end: 4, start: 3 }, rowType: "SkippedLines" },
+      { range: { end: 4, start: 3 }, rowType: RowType.SkippedLines },
       {
         functionName: "test",
         isOpen: true,
         range: { end: 5, start: 4 },
-        rowType: "SectionHeader",
+        rowType: RowType.SectionHeader,
       },
       5,
       6,
