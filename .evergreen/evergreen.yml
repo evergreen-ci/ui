@@ -35,6 +35,7 @@ post:
 include:
   - filename: .evergreen/shared.yml
   - filename: .evergreen/attach.yml
+  - filename: .evergreen/generate.yml
 
 buildvariants:
   - name: spruce
@@ -110,6 +111,14 @@ buildvariants:
       - name: lint
       - name: test
       - name: type_check
+
+  - name: generator
+    display_name: Generator
+    # Omit node_version expansion so that yarn-install fails to save time.
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - generate-tasks
 
 parameters:
   - key: cypress_spec
