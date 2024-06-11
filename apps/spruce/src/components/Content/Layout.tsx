@@ -18,6 +18,7 @@ import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { USER } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
+import { useInitializeErrorHandling } from "hooks/useInitializeErrorHandling";
 import { isProduction } from "utils/environmentVariables";
 
 const { gray, white } = palette;
@@ -26,6 +27,7 @@ const shouldDisableForTest =
   !isProduction() && Cookies.get(CY_DISABLE_NEW_USER_WELCOME_MODAL) === "true";
 
 export const Layout: React.FC = () => {
+  useInitializeErrorHandling();
   const { isAuthenticated } = useAuthStateContext();
   useAnalyticsAttributes();
   useAnnouncementToast();
