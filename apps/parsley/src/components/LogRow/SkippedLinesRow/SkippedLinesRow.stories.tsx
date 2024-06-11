@@ -5,7 +5,7 @@ import { ParsleyRow } from "components/LogRow/RowRenderer";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import { ExpandedLines, ProcessedLogLines } from "types/logs";
+import { ExpandedLines, ProcessedLogLines, RowType } from "types/logs";
 import SkippedLinesRow from ".";
 
 export default {
@@ -155,7 +155,7 @@ const skippedLogLines: ProcessedLogLines = [
   0,
   1,
   2,
-  { range: { end: 6, start: 3 }, rowType: "SkippedLines" },
+  { range: { end: 6, start: 3 }, rowType: RowType.SkippedLines },
   6,
   7,
 ];
