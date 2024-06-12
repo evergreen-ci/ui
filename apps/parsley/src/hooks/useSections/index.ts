@@ -1,28 +1,55 @@
 import { useCallback, useEffect, useState } from "react";
+import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useToastContext } from "context/toast";
+import { useParsleySettings } from "hooks/useParsleySettings";
+import { isProduction } from "utils/environmentVariables";
 import { reportError } from "utils/errorReporting";
 import { SectionEntry, parseSections } from "./utils";
 
 export type SectionState = { [functionName: string]: { isOpen: boolean } };
 export type OpenSection = (functionName: string, isOpen: boolean) => void;
 export type FocusSection = (functionName: string) => void;
-export interface Result {
+
+export interface UseSectionsResult {
   sectionData: SectionEntry[] | undefined;
   openSection: OpenSection;
   sectionState: SectionState | undefined;
   focusSection: FocusSection;
+  sectioningEnabled: boolean;
+  sectioningReady: boolean;
 }
 
 interface Props {
   logs: string[];
-  sectionsEnabled: boolean;
+  logType: string | undefined;
+  renderingType: string | undefined;
 }
-export const useSections = ({ logs, sectionsEnabled }: Props): Result => {
+export const useSections = ({
+  logType,
+  logs,
+  renderingType,
+}: Props): UseSectionsResult => {
   const dispatchToast = useToastContext();
   const [sectionData, setSectionData] = useState<SectionEntry[] | undefined>();
   const [sectionState, setSectionState] = useState<SectionState>();
+
+  const { settings } = useParsleySettings();
+
+  const sectioningEnabled =
+    !isProduction() &&
+    !!settings?.sectionsEnabled &&
+    logType === LogTypes.EVERGREEN_TASK_LOGS &&
+    renderingType === LogRenderingTypes.Default;
+
+  const sectioningReady =
+    (sectioningEnabled &&
+      sectionData !== undefined &&
+      sectionState !== undefined) ||
+    (settings?.sectionsEnabled !== undefined &&
+      logType !== undefined &&
+      renderingType !== undefined);
   const shouldParse =
-    logs.length && sectionsEnabled && sectionData === undefined;
+    logs.length && sectioningEnabled && sectionData === undefined;
   useEffect(() => {
     if (shouldParse) {
       let parseResult;
@@ -70,6 +97,8 @@ export const useSections = ({ logs, sectionsEnabled }: Props): Result => {
     openSection,
     sectionData,
     sectionState,
+    sectioningEnabled,
+    sectioningReady,
   };
 };
 
