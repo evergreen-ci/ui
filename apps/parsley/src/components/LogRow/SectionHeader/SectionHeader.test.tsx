@@ -49,7 +49,7 @@ describe("SectionHeader", () => {
     });
     await user.click(openButton);
     expect(onOpen).toHaveBeenCalledTimes(1);
-    expect(onOpen).toHaveBeenCalledWith("load_data");
+    expect(onOpen).toHaveBeenCalledWith("load_data", true);
   });
 
   it("should call onFocus function when 'focus' button is clicked", async () => {
@@ -64,25 +64,20 @@ describe("SectionHeader", () => {
     expect(onFocus).toHaveBeenCalledWith("load_data");
   });
 
-  it("can open and close the section header using 'open' and 'close' buttons", async () => {
-    const user = userEvent.setup();
-    render(<SectionHeader {...sectionHeaderProps} open={false} />);
+  it("open and close state is controlled by the 'open' prop", async () => {
+    const { rerender } = render(
+      <SectionHeader {...sectionHeaderProps} open={false} />,
+    );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
-    const openButton = screen.getByRole("button", {
-      name: "Open",
-    });
-    await user.click(openButton);
+    rerender(<SectionHeader {...sectionHeaderProps} open />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
-    const closeButton = screen.getByRole("button", {
-      name: "Close",
-    });
-    await user.click(closeButton);
+    rerender(<SectionHeader {...sectionHeaderProps} open={false} />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
