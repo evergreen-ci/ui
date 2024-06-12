@@ -46,15 +46,17 @@ describe("logPane", () => {
     expect(screen.queryByText("Some Line: 99")).not.toBeInTheDocument();
   });
 
-  it("should execute wrap functionality after log pane loads", async () => {
+  it("should execute wrap and pretty print functionality after log pane loads", async () => {
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
     const mockedSetWrap = vi.fn();
+    const mockedSetPrettyPrint = vi.fn();
 
     mockedLogContext.mockImplementation(() => ({
       listRef: createRef(),
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       preferences: {
+        setPrettyPrint: mockedSetPrettyPrint,
         setWrap: mockedSetWrap,
       },
       processedLogLines: Array.from(list.keys()),
@@ -67,6 +69,9 @@ describe("logPane", () => {
     vi.advanceTimersByTime(100);
     await waitFor(() => {
       expect(mockedSetWrap).toHaveBeenCalledTimes(1);
+    });
+    await waitFor(() => {
+      expect(mockedSetPrettyPrint).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -81,6 +86,7 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
         },
         processedLogLines: Array.from(list.keys()),
@@ -108,6 +114,7 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
         },
         processedLogLines: Array.from(list.keys()),

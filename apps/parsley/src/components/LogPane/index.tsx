@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import Cookies from "js-cookie";
 import PaginatedVirtualList from "components/PaginatedVirtualList";
-import { WRAP } from "constants/cookies";
+import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/cookies";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
@@ -17,7 +17,7 @@ interface LogPaneProps {
 const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   const { failingLine, listRef, preferences, processedLogLines, scrollToLine } =
     useLogContext();
-  const { setWrap, zebraStriping } = preferences;
+  const { setPrettyPrint, setWrap, zebraStriping } = preferences;
   const { settings } = useParsleySettings();
 
   const [shareLine] = useQueryParam<number | undefined>(
@@ -49,9 +49,12 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
             SentryBreadcrumb.UI,
           );
         }
-        // Wrap can be enabled after the log pane has initially loaded.
+        // Wrap and pretty print can be enabled after the log pane has initially loaded.
         if (Cookies.get(WRAP) === "true") {
           setWrap(true);
+        }
+        if (Cookies.get(PRETTY_PRINT_BOOKMARKS) === "true") {
+          setPrettyPrint(true);
         }
         performedScroll.current = true;
       }, 100);

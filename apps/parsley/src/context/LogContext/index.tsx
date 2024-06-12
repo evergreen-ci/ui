@@ -107,8 +107,9 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     undefined,
   );
 
-  // Wrap settings are evaluated after the logs have initially rendered - see LogPane component.
+  // Wrap and pretty print settings are evaluated after the logs have initially rendered - see LogPane component.
   const [wrap, setWrap] = useState(false);
+  const [prettyPrint, setPrettyPrint] = useState(false);
   const [filterLogic, setFilterLogic] = useQueryParam(
     QueryParams.FilterLogic,
     (Cookie.get(FILTER_LOGIC) as FilterLogic) ?? FilterLogic.And,
@@ -117,9 +118,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     QueryParams.Expandable,
     Cookie.get(EXPANDABLE_ROWS) ? Cookie.get(EXPANDABLE_ROWS) === "true" : true,
   );
-  const [prettyPrint, setPrettyPrint] = useState(
-    Cookie.get(PRETTY_PRINT_BOOKMARKS) === "true",
-  );
+
   const [zebraStriping, setZebraStriping] = useState(
     Cookie.get(ZEBRA_STRIPING) === "true",
   );
