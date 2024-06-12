@@ -27,11 +27,9 @@ import {
 } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
-import { useParsleySettings } from "hooks/useParsleySettings";
 import { useQueryParam } from "hooks/useQueryParam";
-import { FocusSection, OpenSection, useSections } from "hooks/useSections";
+import { UseSectionsResult, useSections } from "hooks/useSections";
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
-import { isProduction } from "utils/environmentVariables";
 import filterLogs from "utils/filterLogs";
 import { getMatchingLines } from "utils/matchingLines";
 import { getColorMapping } from "utils/resmoke";
@@ -74,8 +72,7 @@ interface LogContextState {
   setFileName: (fileName: string) => void;
   setLogMetadata: (logMetadata: LogMetadata) => void;
   setSearch: (search: string) => void;
-  openSection: OpenSection;
-  focusSection: FocusSection;
+  sectioning: UseSectionsResult;
 }
 
 const LogContext = createContext<LogContextState | null>(null);
@@ -155,17 +152,10 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     ],
   );
 
-  const { settings } = useParsleySettings();
-
-  const sectionsEnabled =
-    !isProduction() &&
-    !!settings?.sectionsEnabled &&
-    state.logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS &&
-    state.logMetadata?.renderingType === LogRenderingTypes.Default;
-
-  const { focusSection, openSection, sectionData, sectionState } = useSections({
+  const sectioning = useSections({
+    logType: state.logMetadata?.logType,
     logs: state.logs,
-    sectionsEnabled,
+    renderingType: state.logMetadata?.renderingType,
   });
 
   useEffect(
@@ -178,9 +168,9 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           failingLine: state.failingLine,
           logLines: state.logs,
           matchingLines,
-          sectionData,
-          sectionState,
-          sectionsEnabled,
+          sectionData: sectioning.sectionData,
+          sectionState: sectioning.sectionState,
+          sectionsEnabled: sectioning.sectioningEnabled,
           shareLine,
         }),
       );
@@ -194,7 +184,9 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       shareLine,
       stringifiedExpandedLines,
       expandableRows,
-      sectionState,
+      sectioning.sectionData,
+      sectioning.sectionState,
+      sectioning.sectioningEnabled,
     ],
   );
 
@@ -284,7 +276,6 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     () => ({
       expandedLines: state.expandedLines,
       failingLine: state.failingLine,
-      focusSection,
       hasLogs: state.hasLogs,
       lineCount: state.logs.length,
       listRef,
@@ -349,7 +340,6 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       getResmokeLineColor,
       ingestLines,
       isUploadedLog: state.logMetadata?.logType === LogTypes.LOCAL_UPLOAD,
-      openSection,
       paginate: (direction: DIRECTION) => {
         const { searchIndex, searchRange } = state.searchState;
         if (searchIndex !== undefined && searchRange !== undefined) {
@@ -359,6 +349,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
         }
       },
       scrollToLine,
+      sectioning,
       setFileName: (fileName: string) => {
         dispatch({ fileName, type: "SET_FILE_NAME" });
       },
@@ -397,8 +388,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       setLogMetadata,
       setHighlightFilters,
       highlightFilters,
-      openSection,
-      focusSection,
+      sectioning,
     ],
   );
 
