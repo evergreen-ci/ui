@@ -1,0 +1,96 @@
+functions:
+  setup-credentials:
+    command: shell.exec
+    params:
+      working_dir: ui/apps/${app_to_deploy}
+      env:
+        BUCKET: ${bucket_arg}
+        PARSLEY_SENTRY_AUTH_TOKEN: ${PARSLEY_SENTRY_AUTH_TOKEN}
+        REACT_APP_PARSLEY_SENTRY_DSN: ${REACT_APP_PARSLEY_SENTRY_DSN}
+        NEW_RELIC_ACCOUNT_ID: ${NEW_RELIC_ACCOUNT_ID}
+        NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+        NEW_RELIC_TRUST_KEY: ${NEW_RELIC_TRUST_KEY}
+        PARSLEY_NEW_RELIC_AGENT_ID: ${PARSLEY_NEW_RELIC_AGENT_ID}
+        PARSLEY_NEW_RELIC_APPLICATION_ID: ${PARSLEY_NEW_RELIC_APPLICATION_ID}
+      script: |
+        ${PREPARE_SHELL}
+        PWD=$(pwd) yarn ts-node -e "import {setupCredentials} from '@evg-ui/deploy'; setupCredentials(\"$PWD\", \"${target}\");"
+
+  deploy:
+    command: shell.exec
+    params:
+      working_dir: ui/apps/${app_to_deploy}
+      env:
+        BUCKET: ${bucket_arg}
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+      script: |
+        ${PREPARE_SHELL}
+        yarn env-cmd -e ${target} ts-node -e "import {deployRemote} from '@evg-ui/deploy'; deployRemote();"
+
+tasks:
+  - name: deploy_parsley_staging
+    commands:
+      - func: setup-credentials
+        vars:
+          app_to_deploy: parsley
+          bucket_arg: ${parsley_bucket_staging}
+          target: staging
+      - func: symlink
+        vars:
+          app_dir: apps/parsley
+      - func: deploy
+        vars:
+          app_to_deploy: parsley
+          bucket_arg: ${parsley_bucket_staging}
+          target: staging
+  - name: deploy_parsley_beta
+    commands:
+      - func: setup-credentials
+        vars:
+          app_to_deploy: parsley
+          # TODO: Save bucket as var
+          # bucket_arg: ${parsley_bucket_beta}
+          target: beta
+      - func: symlink
+        vars:
+          app_dir: apps/parsley
+      - func: deploy
+        vars:
+          app_to_deploy: parsley
+          # TODO: Save bucket as var
+          # bucket_arg: ${parsley_bucket_beta}
+          target: beta
+  - name: deploy_spruce_staging
+    commands:
+      - func: setup-credentials
+        vars:
+          app_to_deploy: spruce
+          bucket_arg: ${spruce_bucket_staging}
+          target: staging
+      - func: symlink
+        vars:
+          app_dir: apps/spruce
+      - func: deploy
+        vars:
+          app_to_deploy: spruce
+          bucket_arg: ${spruce_bucket_staging}
+          target: staging
+  - name: deploy_spruce_beta
+    commands:
+      - func: setup-credentials
+        vars:
+          app_to_deploy: spruce
+          # TODO: Save bucket as var
+          # bucket_arg: ${spruce_bucket_beta}
+          target: beta
+      - func: symlink
+        vars:
+          app_dir: apps/spruce
+      - func: deploy
+        vars:
+          app_to_deploy: spruce
+          # TODO: Save bucket as var
+          # bucket_arg: ${spruce_bucket_beta}
+          target: beta

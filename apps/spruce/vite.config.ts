@@ -44,7 +44,6 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
-    outDir: "build",
     rollupOptions: {
       output: {
         plugins: [
@@ -122,7 +121,7 @@ export default defineConfig({
     checker({ typescript: true }),
     // Bundle analyzer
     visualizer({
-      filename: "build/source_map.html",
+      filename: "dist/source_map.html",
       template: "treemap",
     }),
     sentryVitePlugin({
@@ -133,7 +132,7 @@ export default defineConfig({
         name: process.env.npm_package_version,
       },
       sourcemaps: {
-        assets: "./build/assets/*",
+        assets: "dist/assets/*",
       },
     }),
   ],

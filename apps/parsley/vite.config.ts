@@ -60,7 +60,7 @@ export default defineConfig({
     checker({ typescript: true }),
     // Bundle analyzer
     visualizer({
-      filename: "build/source_map.html",
+      filename: "dist/source_map.html",
       template: "treemap",
     }),
     sentryVitePlugin({
