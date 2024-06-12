@@ -17,17 +17,17 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
   const {
     expandLines,
     failingLine,
-    focusSection,
     getLine,
     getResmokeLineColor,
     logMetadata,
-    openSection,
     preferences,
     range,
     scrollToLine,
     searchLine,
     searchState,
+    sectioning,
   } = useLogContext();
+  const { focusSection, openSection } = sectioning;
   const { prettyPrint, wordWrapFormat, wrap } = preferences;
 
   const { searchTerm } = searchState;
