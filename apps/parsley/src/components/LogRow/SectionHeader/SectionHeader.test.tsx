@@ -24,16 +24,16 @@ describe("SectionHeader", () => {
     expect(screen.getByLabelText("XWith Circle Icon")).toBeInTheDocument();
   });
 
-  it("renders as opened if 'defaultOpen' prop is true", async () => {
-    render(<SectionHeader {...sectionHeaderProps} defaultOpen />);
+  it("renders as opened if 'open' prop is true", async () => {
+    render(<SectionHeader {...sectionHeaderProps} open />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
   });
 
-  it("renders as closed if 'defaultOpen' prop is false", async () => {
-    render(<SectionHeader {...sectionHeaderProps} defaultOpen={false} />);
+  it("renders as closed if 'open' prop is false", async () => {
+    render(<SectionHeader {...sectionHeaderProps} open={false} />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
@@ -66,7 +66,7 @@ describe("SectionHeader", () => {
 
   it("can open and close the section header using 'open' and 'close' buttons", async () => {
     const user = userEvent.setup();
-    render(<SectionHeader {...sectionHeaderProps} defaultOpen={false} />);
+    render(<SectionHeader {...sectionHeaderProps} open={false} />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
@@ -91,10 +91,10 @@ describe("SectionHeader", () => {
 });
 
 const sectionHeaderProps = {
-  defaultOpen: false,
   functionName: "load_data",
   lineIndex: 0,
   onFocus: vi.fn(),
   onOpen: vi.fn(),
+  open: false,
   status: SectionStatus.Pass,
 };

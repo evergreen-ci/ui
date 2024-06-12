@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -14,23 +13,21 @@ import { OpenSection } from "hooks/useSections";
 const { gray } = palette;
 
 interface SectionHeaderProps extends Row {
-  defaultOpen?: boolean;
   functionName: string;
   onFocus: (functionName: string) => void;
   onOpen: OpenSection;
+  open: boolean;
   status: SectionStatus;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
-  defaultOpen = false,
   functionName,
   onFocus,
   onOpen,
+  open,
   status,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
-  const [open, setOpen] = useState(defaultOpen);
-
   const statusGlyph =
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
 
@@ -39,7 +36,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <IconButton
         aria-label="Click to open or close section"
         onClick={() => {
-          setOpen(!open);
           onOpen(functionName, !open);
         }}
       >
@@ -55,7 +51,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
               name: open ? "Closed Section" : "Opened Section",
             });
             onOpen(functionName, !open);
-            setOpen(!open);
           }}
           size={Size.XSmall}
         >
