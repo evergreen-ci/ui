@@ -29,7 +29,7 @@ import { QueryParams } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { useQueryParam } from "hooks/useQueryParam";
-import { useSections } from "hooks/useSections";
+import { FocusSection, OpenSection, useSections } from "hooks/useSections";
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
 import { isProduction } from "utils/environmentVariables";
 import filterLogs from "utils/filterLogs";
@@ -74,6 +74,8 @@ interface LogContextState {
   setFileName: (fileName: string) => void;
   setLogMetadata: (logMetadata: LogMetadata) => void;
   setSearch: (search: string) => void;
+  openSection: OpenSection;
+  focusSection: FocusSection;
 }
 
 const LogContext = createContext<LogContextState | null>(null);
@@ -161,7 +163,10 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     state.logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS &&
     state.logMetadata?.renderingType === LogRenderingTypes.Default;
 
-  const { sectionData } = useSections({ logs: state.logs, sectionsEnabled });
+  const { focusSection, openSection, sectionData, sectionState } = useSections({
+    logs: state.logs,
+    sectionsEnabled,
+  });
 
   useEffect(
     () => {
@@ -174,6 +179,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           logLines: state.logs,
           matchingLines,
           sectionData,
+          sectionState,
           sectionsEnabled,
           shareLine,
         }),
@@ -188,6 +194,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       shareLine,
       stringifiedExpandedLines,
       expandableRows,
+      sectionState,
     ],
   );
 
@@ -277,6 +284,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     () => ({
       expandedLines: state.expandedLines,
       failingLine: state.failingLine,
+      focusSection,
       hasLogs: state.hasLogs,
       lineCount: state.logs.length,
       listRef,
@@ -341,6 +349,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       getResmokeLineColor,
       ingestLines,
       isUploadedLog: state.logMetadata?.logType === LogTypes.LOCAL_UPLOAD,
+      openSection,
       paginate: (direction: DIRECTION) => {
         const { searchIndex, searchRange } = state.searchState;
         if (searchIndex !== undefined && searchRange !== undefined) {
@@ -388,6 +397,8 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       setLogMetadata,
       setHighlightFilters,
       highlightFilters,
+      openSection,
+      focusSection,
     ],
   );
 

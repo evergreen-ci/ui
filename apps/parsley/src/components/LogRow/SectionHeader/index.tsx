@@ -9,6 +9,7 @@ import Icon from "components/Icon";
 import { Row } from "components/LogRow/types";
 import { SectionStatus } from "constants/logs";
 import { size, transitionDuration } from "constants/tokens";
+import { OpenSection } from "hooks/useSections";
 
 const { gray } = palette;
 
@@ -16,7 +17,7 @@ interface SectionHeaderProps extends Row {
   defaultOpen?: boolean;
   functionName: string;
   onFocus: (functionName: string) => void;
-  onOpen: (functionName: string) => void;
+  onOpen: OpenSection;
   status: SectionStatus;
 }
 
@@ -37,7 +38,10 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     <SectionHeaderWrapper aria-expanded={open} data-cy="section-header">
       <IconButton
         aria-label="Click to open or close section"
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          setOpen(!open);
+          onOpen(functionName, !open);
+        }}
       >
         <AnimatedIcon fill={gray.dark1} glyph="ChevronRight" open={open} />
       </IconButton>
@@ -50,7 +54,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
               functionName,
               name: open ? "Closed Section" : "Opened Section",
             });
-            onOpen(functionName);
+            onOpen(functionName, !open);
             setOpen(!open);
           }}
           size={Size.XSmall}

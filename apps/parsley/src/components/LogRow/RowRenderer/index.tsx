@@ -17,9 +17,11 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
   const {
     expandLines,
     failingLine,
+    focusSection,
     getLine,
     getResmokeLineColor,
     logMetadata,
+    openSection,
     preferences,
     range,
     scrollToLine,
@@ -73,8 +75,8 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           defaultOpen={processedLogLine.isOpen}
           functionName={processedLogLine.functionName}
           lineIndex={index}
-          onFocus={() => {}} // TODO: Update in DEVPROD-5293
-          onOpen={() => {}}
+          onFocus={focusSection}
+          onOpen={openSection}
           status={SectionStatus.Pass} // TODO: Update in DEVPROD-5295
         />
       );

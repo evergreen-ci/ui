@@ -1,3 +1,4 @@
+import { SectionState } from "hooks/useSections";
 import { SectionEntry } from "hooks/useSections/utils";
 import { ExpandedLines, ProcessedLogLines, RowType } from "types/logs";
 import { isExpanded } from "utils/expandedLines";
@@ -14,6 +15,7 @@ type FilterLogsParams = {
   failingLine: number | undefined;
   sectionData: SectionEntry[] | undefined;
   sectionsEnabled: boolean;
+  sectionState: SectionState | undefined;
 };
 
 /**
@@ -27,6 +29,7 @@ type FilterLogsParams = {
  * @param options.matchingLines - set of numbers representing which lines match the applied filters
  * @param options.sectionData - an array of objects representing the sections
  * @param options.sectionsEnabled - specifies if sections are enabled
+ * @param options.sectionState - specifies which sections are open or closed
  * @param options.shareLine - a line number representing a share line
  * @returns an array of numbers that indicates which log lines should be displayed, and which log lines
  * should be collapsed
@@ -40,29 +43,36 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
     logLines,
     matchingLines,
     sectionData,
+    sectionState,
     sectionsEnabled,
     shareLine,
   } = options;
   // If there are no filters or expandable rows is not enabled, then we only have to process sections if they exist and are enabled.
   if (matchingLines === undefined) {
     if (sectionsEnabled && sectionData?.length) {
-      let sectionIndex = 0;
       const filteredLines: ProcessedLogLines = [];
-      logLines.reduce((arr, _logLine, idx) => {
+      let sectionIndex = 0;
+      for (let idx = 0; idx < logLines.length; idx++) {
         const section = sectionData[sectionIndex];
         const isSectionStart = section && idx === section.range.start;
-        if (isSectionStart) {
-          arr.push({
+        if (isSectionStart && sectionState) {
+          const isOpen = sectionState[section.functionName]?.isOpen ?? false;
+          filteredLines.push({
             functionName: section.functionName,
-            isOpen: true,
+            isOpen,
             range: section.range,
             rowType: RowType.SectionHeader,
           });
           sectionIndex += 1;
+          if (isOpen) {
+            filteredLines.push(idx);
+          } else {
+            idx = section.range.end - 1;
+          }
+        } else {
+          filteredLines.push(idx);
         }
-        arr.push(idx);
-        return arr;
-      }, filteredLines);
+      }
       return filteredLines;
     }
     return logLines.map((_, idx) => idx);
