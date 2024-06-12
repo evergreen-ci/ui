@@ -118,7 +118,6 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     QueryParams.Expandable,
     Cookie.get(EXPANDABLE_ROWS) ? Cookie.get(EXPANDABLE_ROWS) === "true" : true,
   );
-
   const [zebraStriping, setZebraStriping] = useState(
     Cookie.get(ZEBRA_STRIPING) === "true",
   );
