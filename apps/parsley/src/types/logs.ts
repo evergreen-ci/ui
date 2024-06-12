@@ -9,13 +9,24 @@ interface Range {
   /** The ending line exclusive of the range */
   end: number;
 }
+enum RowType {
+  SkippedLines = "SkippedLines",
+  SectionHeader = "SectionHeader",
+}
 
 interface SkippedLinesRow {
-  rowType: "SkippedLines";
+  rowType: RowType.SkippedLines;
   range: Range;
 }
 
-type ProcessedLogLine = number | SkippedLinesRow;
+interface SectionHeaderRow {
+  rowType: RowType.SectionHeader;
+  functionName: string;
+  range: Range;
+  isOpen: boolean;
+}
+
+type ProcessedLogLine = number | SkippedLinesRow | SectionHeaderRow;
 
 type ProcessedLogLines = ProcessedLogLine[];
 
@@ -32,6 +43,8 @@ type SelectedLineRange = {
   endingLine?: number;
 };
 
+export { RowType };
+
 export type {
   ExpandedLine,
   ExpandedLines,
@@ -39,6 +52,7 @@ export type {
   Filters,
   ProcessedLogLine,
   ProcessedLogLines,
+  SectionHeaderRow,
   SelectedLineRange,
   SkippedLinesRow,
   Range,
