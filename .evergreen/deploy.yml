@@ -30,7 +30,7 @@ functions:
         yarn env-cmd -e ${target} ts-node -e "import {deployRemote} from '@evg-ui/deploy'; deployRemote();"
 
 tasks:
-  - name: deploy_parsley_staging
+  - name: deploy-parsley-staging
     commands:
       - func: setup-credentials
         vars:
@@ -45,13 +45,12 @@ tasks:
           app_to_deploy: parsley
           bucket_arg: ${parsley_bucket_staging}
           target: staging
-  - name: deploy_parsley_beta
+  - name: deploy-parsley-beta
     commands:
       - func: setup-credentials
         vars:
           app_to_deploy: parsley
-          # TODO: Save bucket as var
-          # bucket_arg: ${parsley_bucket_beta}
+          bucket_arg: ${parsley_bucket_beta}
           target: beta
       - func: symlink
         vars:
@@ -59,10 +58,9 @@ tasks:
       - func: deploy
         vars:
           app_to_deploy: parsley
-          # TODO: Save bucket as var
-          # bucket_arg: ${parsley_bucket_beta}
+          bucket_arg: ${parsley_bucket_beta}
           target: beta
-  - name: deploy_spruce_staging
+  - name: deploy-spruce-staging
     commands:
       - func: setup-credentials
         vars:
@@ -77,13 +75,12 @@ tasks:
           app_to_deploy: spruce
           bucket_arg: ${spruce_bucket_staging}
           target: staging
-  - name: deploy_spruce_beta
+  - name: deploy-spruce-beta
     commands:
       - func: setup-credentials
         vars:
           app_to_deploy: spruce
-          # TODO: Save bucket as var
-          # bucket_arg: ${spruce_bucket_beta}
+          bucket_arg: ${spruce_bucket_beta}
           target: beta
       - func: symlink
         vars:
@@ -91,6 +88,5 @@ tasks:
       - func: deploy
         vars:
           app_to_deploy: spruce
-          # TODO: Save bucket as var
-          # bucket_arg: ${spruce_bucket_beta}
+          bucket_arg: ${spruce_bucket_beta}
           target: beta

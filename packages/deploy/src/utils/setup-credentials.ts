@@ -51,6 +51,7 @@ const base: Record<Target, Record<string, string | undefined>> = {
     REACT_APP_UI_URL: "https://evergreen-staging.corp.mongodb.com",
   },
   beta: {
+    ...sharedKeys,
     REACT_APP_API_URL: "https://evergreen.mongodb.com/api",
     REACT_APP_EVERGREEN_URL: "https://evergreen.mongodb.com",
 
@@ -67,6 +68,7 @@ const base: Record<Target, Record<string, string | undefined>> = {
     REACT_APP_UI_URL: "https://evergreen.mongodb.com",
   },
   /* production: {
+    ...sharedKeys,
     REACT_APP_API_URL: "https://evergreen.mongodb.com/api",
     REACT_APP_DEPLOYS_EMAIL: "evergreen-deploys@10gen.com",
     REACT_APP_EVERGREEN_URL: "https://evergreen.mongodb.com",
