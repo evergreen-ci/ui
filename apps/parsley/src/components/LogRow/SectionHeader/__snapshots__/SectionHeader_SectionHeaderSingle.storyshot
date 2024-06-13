@@ -3,7 +3,7 @@
     class="css-1mysoqc"
   >
     <div
-      aria-expanded="false"
+      aria-expanded="true"
       class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
@@ -18,9 +18,10 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1lqywm12"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1lqywm12"
             fill="none"
             height="16"
+            open=""
             role="img"
             viewBox="0 0 16 16"
             width="16"
@@ -72,7 +73,7 @@
           <div
             class="leafygreen-ui-1tpstb3"
           >
-            Open
+            Close
           </div>
         </button>
         <button
@@ -92,7 +93,7 @@
       </div>
     </div>
     <div
-      aria-expanded="false"
+      aria-expanded="true"
       class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
@@ -107,9 +108,10 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1lqywm12"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1lqywm12"
             fill="none"
             height="16"
+            open=""
             role="img"
             viewBox="0 0 16 16"
             width="16"
@@ -161,7 +163,7 @@
           <div
             class="leafygreen-ui-1tpstb3"
           >
-            Open
+            Close
           </div>
         </button>
         <button
@@ -181,7 +183,7 @@
       </div>
     </div>
     <div
-      aria-expanded="false"
+      aria-expanded="true"
       class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
@@ -196,9 +198,10 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1lqywm12"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1lqywm12"
             fill="none"
             height="16"
+            open=""
             role="img"
             viewBox="0 0 16 16"
             width="16"
@@ -250,7 +253,7 @@
           <div
             class="leafygreen-ui-1tpstb3"
           >
-            Open
+            Close
           </div>
         </button>
         <button
