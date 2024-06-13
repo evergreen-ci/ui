@@ -8,13 +8,12 @@ import {
   pullRequestAliasesDocumentationUrl,
   gitTagAliasesDocumentationUrl,
   githubChecksAliasesDocumentationUrl,
-  githubMergeQueueDocumentationUrl,
 } from "constants/externalResources";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
-import { GithubProjectConflicts, MergeQueue } from "gql/generated/types";
+import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { alias, form, ProjectType } from "../utils";
 import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
@@ -215,94 +214,12 @@ export const getFormSchema = (
                     enabled: {
                       enum: [false],
                     },
-                    message: {
-                      type: "string" as "string",
-                      title: "Commit Queue Message",
-                    },
                   },
                 },
                 {
                   properties: {
                     enabled: {
                       enum: [true],
-                    },
-                    message: {
-                      type: "string" as "string",
-                      title: "Commit Queue Message",
-                    },
-                    mergeSettings: {
-                      title: "Merge Queue",
-                      type: "object" as "object",
-                      properties: {
-                        mergeQueue: {
-                          type: "string" as "string",
-                          title: "",
-                          oneOf: [
-                            {
-                              type: "string" as "string",
-                              title: "GitHub",
-                              enum: [MergeQueue.Github],
-                              description: "GitHub's merge queue.",
-                            },
-                            {
-                              type: "string" as "string",
-                              title: "Evergreen (deprecated)",
-                              enum: [MergeQueue.Evergreen],
-                              description: "Evergreen's commit queue.",
-                            },
-                          ],
-                        },
-                      },
-                      dependencies: {
-                        mergeQueue: {
-                          oneOf: [
-                            {
-                              properties: {
-                                mergeQueue: {
-                                  enum: [MergeQueue.Evergreen],
-                                },
-                                mergeMethod: {
-                                  type: "string" as "string",
-                                  title: "Merge Method",
-                                  oneOf: [
-                                    {
-                                      type: "string" as "string",
-                                      title: "Squash",
-                                      enum: ["squash"],
-                                    },
-                                    {
-                                      type: "string" as "string",
-                                      title: "Merge",
-                                      enum: ["merge"],
-                                    },
-                                    {
-                                      type: "string" as "string",
-                                      title: "Rebase",
-                                      enum: ["rebase"],
-                                    },
-                                    ...insertIf(
-                                      projectType ===
-                                        ProjectType.AttachedProject,
-                                      {
-                                        type: "string" as "string",
-                                        title: `Default to Repo (${repoData?.commitQueue?.mergeSettings?.mergeMethod})`,
-                                        enum: [""],
-                                      },
-                                    ),
-                                  ],
-                                },
-                              },
-                            },
-                            {
-                              properties: {
-                                mergeQueue: {
-                                  enum: [MergeQueue.Github],
-                                },
-                              },
-                            },
-                          ],
-                        },
-                      },
                     },
                     patchDefinitions: {
                       type: "object" as "object",
@@ -545,22 +462,6 @@ export const getFormSchema = (
             "the Commit Queue",
           ),
         },
-        message: {
-          "ui:description": "Shown in commit queue CLI commands & web UI",
-          "ui:data-cy": "cq-message-input",
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          ...placeholderIf(repoData?.commitQueue?.message),
-        },
-        mergeSettings: {
-          "ui:description": GitHubMergeQueueDescription,
-          mergeQueue: {
-            "ui:widget": "radio",
-          },
-          mergeMethod: {
-            "ui:allowDeselect": false,
-            "ui:data-cy": "merge-method-select",
-          },
-        },
         patchDefinitions: {
           ...errorStyling(
             // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -699,14 +600,5 @@ const GitHubChecksAliasesDescription = (
     </StyledLink>{" "}
     in this project&rsquo;s config YAML instead if Version Control is enabled
     and no aliases are defined on the project or repo page.
-  </>
-);
-
-const GitHubMergeQueueDescription = (
-  <>
-    Choose to merge with Evergreen or GitHub. Note that in order to use the
-    GitHub merge queue, you will need to complete the additional steps outlined
-    in the <StyledLink href={githubMergeQueueDocumentationUrl}>docs</StyledLink>
-    .
   </>
 );

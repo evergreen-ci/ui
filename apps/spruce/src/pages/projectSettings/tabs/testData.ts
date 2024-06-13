@@ -3,7 +3,6 @@ import {
   ProjectHealthView,
   ProjectSettingsQuery,
   RepoSettingsQuery,
-  MergeQueue,
 } from "gql/generated/types";
 import { JiraTicketType } from "types/jira";
 
@@ -73,9 +72,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: null,
-      mergeMethod: "",
-      mergeQueue: MergeQueue.Evergreen,
-      message: "",
     },
     perfEnabled: true,
     buildBaronSettings: {
@@ -210,9 +206,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: true,
-      mergeMethod: "squash",
-      mergeQueue: MergeQueue.Github,
-      message: "Commit Queue Message",
     },
     perfEnabled: true,
     buildBaronSettings: {

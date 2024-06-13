@@ -3587,13 +3587,7 @@ export type ProjectGithubSettingsFragment = {
   manualPrTestingEnabled?: boolean | null;
   oldestAllowedMergeBase: string;
   prTestingEnabled?: boolean | null;
-  commitQueue: {
-    __typename?: "CommitQueueParams";
-    enabled?: boolean | null;
-    mergeMethod: string;
-    mergeQueue: MergeQueue;
-    message: string;
-  };
+  commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
 };
 
 export type RepoGithubSettingsFragment = {
@@ -3606,13 +3600,7 @@ export type RepoGithubSettingsFragment = {
   manualPrTestingEnabled: boolean;
   oldestAllowedMergeBase: string;
   prTestingEnabled: boolean;
-  commitQueue: {
-    __typename?: "RepoCommitQueueParams";
-    enabled: boolean;
-    mergeMethod: string;
-    mergeQueue: MergeQueue;
-    message: string;
-  };
+  commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
 };
 
 export type ProjectGithubCommitQueueFragment = {
@@ -3628,13 +3616,7 @@ export type ProjectGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    commitQueue: {
-      __typename?: "CommitQueueParams";
-      enabled?: boolean | null;
-      mergeMethod: string;
-      mergeQueue: MergeQueue;
-      message: string;
-    };
+    commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
 
@@ -3651,13 +3633,7 @@ export type RepoGithubCommitQueueFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
-    commitQueue: {
-      __typename?: "RepoCommitQueueParams";
-      enabled: boolean;
-      mergeMethod: string;
-      mergeQueue: MergeQueue;
-      message: string;
-    };
+    commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
   } | null;
 };
 
@@ -3674,13 +3650,7 @@ export type ProjectEventGithubCommitQueueFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
-    commitQueue: {
-      __typename?: "CommitQueueParams";
-      enabled?: boolean | null;
-      mergeMethod: string;
-      mergeQueue: MergeQueue;
-      message: string;
-    };
+    commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
 };
 
@@ -3820,13 +3790,7 @@ export type ProjectSettingsFieldsFragment = {
         directory: string;
       }> | null;
     };
-    commitQueue: {
-      __typename?: "CommitQueueParams";
-      enabled?: boolean | null;
-      mergeMethod: string;
-      mergeQueue: MergeQueue;
-      message: string;
-    };
+    commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
   subscriptions?: Array<{
     __typename?: "GeneralSubscription";
@@ -4017,13 +3981,7 @@ export type RepoSettingsFieldsFragment = {
         directory: string;
       }> | null;
     };
-    commitQueue: {
-      __typename?: "RepoCommitQueueParams";
-      enabled: boolean;
-      mergeMethod: string;
-      mergeQueue: MergeQueue;
-      message: string;
-    };
+    commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
   } | null;
   subscriptions?: Array<{
     __typename?: "GeneralSubscription";
@@ -4404,13 +4362,7 @@ export type ProjectEventSettingsFragment = {
         directory: string;
       }> | null;
     };
-    commitQueue: {
-      __typename?: "CommitQueueParams";
-      enabled?: boolean | null;
-      mergeMethod: string;
-      mergeQueue: MergeQueue;
-      message: string;
-    };
+    commitQueue: { __typename?: "CommitQueueParams"; enabled?: boolean | null };
   } | null;
   subscriptions?: Array<{
     __typename?: "GeneralSubscription";
@@ -6865,9 +6817,6 @@ export type ProjectEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
-            mergeMethod: string;
-            mergeQueue: MergeQueue;
-            message: string;
           };
         } | null;
         subscriptions?: Array<{
@@ -7074,9 +7023,6 @@ export type ProjectEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
-            mergeMethod: string;
-            mergeQueue: MergeQueue;
-            message: string;
           };
         } | null;
         subscriptions?: Array<{
@@ -7362,9 +7308,6 @@ export type ProjectSettingsQuery = {
       commitQueue: {
         __typename?: "CommitQueueParams";
         enabled?: boolean | null;
-        mergeMethod: string;
-        mergeQueue: MergeQueue;
-        message: string;
       };
     } | null;
     subscriptions?: Array<{
@@ -7619,9 +7562,6 @@ export type RepoEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
-            mergeMethod: string;
-            mergeQueue: MergeQueue;
-            message: string;
           };
         } | null;
         subscriptions?: Array<{
@@ -7828,9 +7768,6 @@ export type RepoEventLogsQuery = {
           commitQueue: {
             __typename?: "CommitQueueParams";
             enabled?: boolean | null;
-            mergeMethod: string;
-            mergeQueue: MergeQueue;
-            message: string;
           };
         } | null;
         subscriptions?: Array<{
@@ -8039,13 +7976,7 @@ export type RepoSettingsQuery = {
           directory: string;
         }> | null;
       };
-      commitQueue: {
-        __typename?: "RepoCommitQueueParams";
-        enabled: boolean;
-        mergeMethod: string;
-        mergeQueue: MergeQueue;
-        message: string;
-      };
+      commitQueue: { __typename?: "RepoCommitQueueParams"; enabled: boolean };
     } | null;
     subscriptions?: Array<{
       __typename?: "GeneralSubscription";

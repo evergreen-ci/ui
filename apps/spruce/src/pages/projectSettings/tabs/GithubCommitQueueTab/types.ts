@@ -1,6 +1,5 @@
 import {
   ProjectPatchAliasSettingsFragment,
-  MergeQueue,
 } from "gql/generated/types";
 import { AliasFormType, ProjectType } from "../utils";
 
@@ -55,11 +54,6 @@ export interface GCQFormState {
   };
   commitQueue: {
     enabled: boolean | null;
-    message: string;
-    mergeSettings: {
-      mergeQueue: MergeQueue;
-      mergeMethod: string;
-    };
     patchDefinitions: {
       commitQueueAliasesOverride: boolean;
       commitQueueAliases: Array<AliasFormType>;

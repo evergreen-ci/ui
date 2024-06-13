@@ -108,11 +108,6 @@ export const gqlToForm = ((data, options) => {
     },
     commitQueue: {
       enabled: commitQueue.enabled,
-      message: commitQueue.message,
-      mergeSettings: {
-        mergeQueue: commitQueue.mergeQueue,
-        mergeMethod: commitQueue.mergeMethod,
-      },
       patchDefinitions: {
         commitQueueAliasesOverride: override(commitQueueAliases),
         commitQueueAliases,
@@ -126,8 +121,6 @@ export const formToGql = ((
   {
     commitQueue: {
       enabled,
-      mergeSettings: { mergeMethod, mergeQueue },
-      message,
       patchDefinitions,
     },
     github: {
@@ -162,9 +155,6 @@ export const formToGql = ((
       : null,
     commitQueue: {
       enabled,
-      mergeMethod,
-      mergeQueue,
-      message,
     },
   };
 

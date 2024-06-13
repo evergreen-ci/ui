@@ -9,7 +9,6 @@ import {
   ProjectSettingsQueryVariables,
   RepoSettingsQuery,
   RepoSettingsQueryVariables,
-  MergeQueue,
 } from "gql/generated/types";
 import { COPY_PROJECT } from "gql/mutations";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
@@ -371,9 +370,6 @@ const projectSettingsMock: ApolloMock<
           gitTagAuthorizedTeams: ["team"],
           commitQueue: {
             enabled: true,
-            mergeMethod: "squash",
-            mergeQueue: MergeQueue.Evergreen,
-            message: "",
             __typename: "CommitQueueParams",
           },
         },
