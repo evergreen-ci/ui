@@ -13,7 +13,7 @@ describe("filterLogs", () => {
         matchingLines: undefined,
         sectionData: undefined,
         sectionState: undefined,
-        sectionsEnabled: false,
+        sectioningEnabled: false,
         shareLine: undefined,
       }),
     ).toStrictEqual([0, 1, 2, 3, 4, 5, 6, 7]);
@@ -30,7 +30,7 @@ describe("filterLogs", () => {
         matchingLines: new Set([1, 2, 3]),
         sectionData: undefined,
         sectionState: undefined,
-        sectionsEnabled: false,
+        sectioningEnabled: false,
         shareLine: undefined,
       }),
     ).toStrictEqual([1, 2, 3]);
@@ -47,7 +47,7 @@ describe("filterLogs", () => {
         matchingLines: new Set([]),
         sectionData: undefined,
         sectionState: undefined,
-        sectionsEnabled: false,
+        sectioningEnabled: false,
         shareLine: undefined,
       }),
     ).toStrictEqual([
@@ -67,7 +67,7 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           sectionData: undefined,
           sectionState: undefined,
-          sectionsEnabled: false,
+          sectioningEnabled: false,
           shareLine: undefined,
         }),
       ).toStrictEqual([
@@ -89,7 +89,7 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           sectionData: undefined,
           sectionState: undefined,
-          sectionsEnabled: false,
+          sectioningEnabled: false,
           shareLine: 7,
         }),
       ).toStrictEqual([
@@ -111,7 +111,7 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           sectionData: undefined,
           sectionState: undefined,
-          sectionsEnabled: false,
+          sectioningEnabled: false,
           shareLine: undefined,
         }),
       ).toStrictEqual([
@@ -133,7 +133,7 @@ describe("filterLogs", () => {
           matchingLines: new Set([1]),
           sectionData: undefined,
           sectionState: undefined,
-          sectionsEnabled: false,
+          sectioningEnabled: false,
           shareLine: undefined,
         }),
       ).toStrictEqual([
@@ -160,7 +160,7 @@ describe("filterLogs", () => {
           matchingLines: undefined,
           sectionData,
           sectionState: { "f-1": { isOpen: true }, "f-2": { isOpen: true } },
-          sectionsEnabled: true,
+          sectioningEnabled: true,
           shareLine: undefined,
         }),
       ).toStrictEqual(allSectionsOpen);
@@ -177,7 +177,7 @@ describe("filterLogs", () => {
           matchingLines: undefined,
           sectionData,
           sectionState: { "f-1": { isOpen: false }, "f-2": { isOpen: true } },
-          sectionsEnabled: true,
+          sectioningEnabled: true,
           shareLine: undefined,
         }),
       ).toStrictEqual(someSectionsOpen);
@@ -194,7 +194,7 @@ describe("filterLogs", () => {
           matchingLines: undefined,
           sectionData,
           sectionState: { "f-1": { isOpen: false }, "f-2": { isOpen: false } },
-          sectionsEnabled: true,
+          sectioningEnabled: true,
           shareLine: undefined,
         }),
       ).toStrictEqual(allSectionsClosed);
@@ -212,7 +212,7 @@ describe("filterLogs", () => {
         matchingLines: new Set([1]),
         sectionData,
         sectionState: undefined,
-        sectionsEnabled: true,
+        sectioningEnabled: true,
         shareLine: undefined,
       }),
     ).toStrictEqual([

@@ -14,7 +14,7 @@ type FilterLogsParams = {
   expandableRows: boolean;
   failingLine: number | undefined;
   sectionData: SectionEntry[] | undefined;
-  sectionsEnabled: boolean;
+  sectioningEnabled: boolean;
   sectionState: SectionState | undefined;
 };
 
@@ -28,7 +28,7 @@ type FilterLogsParams = {
  * @param options.logLines - list of strings representing the log lines
  * @param options.matchingLines - set of numbers representing which lines match the applied filters
  * @param options.sectionData - an array of objects representing the sections
- * @param options.sectionsEnabled - specifies if sections are enabled
+ * @param options.sectioningEnabled - specifies if sections are enabled
  * @param options.sectionState - specifies which sections are open or closed
  * @param options.shareLine - a line number representing a share line
  * @returns an array of numbers that indicates which log lines should be displayed, and which log lines
@@ -44,12 +44,12 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
     matchingLines,
     sectionData,
     sectionState,
-    sectionsEnabled,
+    sectioningEnabled,
     shareLine,
   } = options;
   // If there are no filters or expandable rows is not enabled, then we only have to process sections if they exist and are enabled.
   if (matchingLines === undefined) {
-    if (sectionsEnabled && sectionData?.length) {
+    if (sectioningEnabled && sectionData?.length) {
       const filteredLines: ProcessedLogLines = [];
       let sectionIndex = 0;
       for (let idx = 0; idx < logLines.length; idx++) {

@@ -170,7 +170,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           matchingLines,
           sectionData: sectioning.sectionData,
           sectionState: sectioning.sectionState,
-          sectionsEnabled: sectioning.sectioningEnabled,
+          sectioningEnabled: sectioning.sectioningEnabled,
           shareLine,
         }),
       );
