@@ -49,7 +49,7 @@ export default defineConfig({
         plugins: [
           // Replace the variables in our HTML files.
           injectVariablesInHTML({
-            files: "build/index.html",
+            files: "dist/index.html",
             variables: [
               "%APP_VERSION%",
               "%GIT_SHA%",

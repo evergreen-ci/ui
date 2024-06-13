@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { pushToS3 } from "./utils/s3";
+import { pushToS3 } from "../utils/s3";
 
 export const deployRemote = () => {
   execSync("yarn build", { stdio: "inherit" });

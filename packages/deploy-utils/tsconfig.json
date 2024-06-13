@@ -1,8 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "baseUrl": "src",
     "module": "CommonJS",
     "moduleResolution": "Node",
+    "paths": {
+      "@evg-ui/lib/*": ["../../lib/src/*"]
+    },
     "types": [
       "vitest/globals",
       "vitest/jsdom"

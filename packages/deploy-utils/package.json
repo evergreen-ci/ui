@@ -1,5 +1,5 @@
 {
-  "name": "@evg-ui/deploy",
+  "name": "@evg-ui/deploy-utils",
   "version": "0.0.0",
   "private": true,
   "main": "src/index.ts",
@@ -9,6 +9,9 @@
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
     "test": "vitest --typecheck=false"
+  },
+  "dependencies": {
+    "@evg-ui/lib": "*"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "*",

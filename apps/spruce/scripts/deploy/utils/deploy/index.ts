@@ -14,9 +14,9 @@ const runDeploy = () => {
   console.log("Building");
   execSync("yarn build:prod", { stdio: "inherit" });
   console.log("Build complete");
-  console.log("Saving current commit in build/commit.txt");
+  console.log("Saving current commit in dist/commit.txt");
   const currentCommit = getCurrentCommit();
-  execSync(`echo ${currentCommit} > build/commit.txt`, {
+  execSync(`echo ${currentCommit} > dist/commit.txt`, {
     stdio: "inherit",
   });
   console.log("Deploying to production");

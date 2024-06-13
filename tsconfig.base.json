@@ -24,6 +24,5 @@
       "vitest/globals",
       "vitest/jsdom"
     ]
-  },
-  "include": ["src"]
+  }
 }
