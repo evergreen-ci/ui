@@ -120,7 +120,7 @@ describe("Repo Settings", () => {
           .should("have.length", 1);
 
         cy.get("@enableCQButton").click();
-        cy.get("@cqCardFields").should("have.length", 4);
+        cy.get("@cqCardFields").should("have.length", 2);
         cy.contains("Commit Queue Patch Definitions").scrollIntoView();
         cy.dataCy("error-banner")
           .contains(
