@@ -21,7 +21,7 @@ import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { GCQFormState } from "./types";
 
 const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
-const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
+const { overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
   identifier: string,

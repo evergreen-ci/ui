@@ -119,10 +119,7 @@ export const gqlToForm = ((data, options) => {
 
 export const formToGql = ((
   {
-    commitQueue: {
-      enabled,
-      patchDefinitions,
-    },
+    commitQueue: { enabled, patchDefinitions },
     github: {
       gitTagVersionsEnabled,
       gitTags,

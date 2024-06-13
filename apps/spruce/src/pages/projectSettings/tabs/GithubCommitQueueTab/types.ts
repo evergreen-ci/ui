@@ -1,6 +1,4 @@
-import {
-  ProjectPatchAliasSettingsFragment,
-} from "gql/generated/types";
+import { ProjectPatchAliasSettingsFragment } from "gql/generated/types";
 import { AliasFormType, ProjectType } from "../utils";
 
 export interface GCQFormState {

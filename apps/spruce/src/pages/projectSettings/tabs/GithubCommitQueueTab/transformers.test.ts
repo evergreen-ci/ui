@@ -1,7 +1,4 @@
-import {
-  ProjectSettingsInput,
-  RepoSettingsInput,
-} from "gql/generated/types";
+import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { alias, ProjectType } from "../utils";
 import { formToGql, gqlToForm, mergeProjectRepo } from "./transformers";
