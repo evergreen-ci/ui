@@ -288,11 +288,11 @@ describe("sections", () => {
     cy.contains("Log Viewing").click();
     cy.dataCy("sections-toggle")
       .should("have.attr", "aria-disabled", "false")
-      .should("have.attr", "aria-checked", "true");
-    cy.dataCy("sections-toggle").click();
-    cy.dataCy("sections-toggle").should("have.attr", "aria-checked", "false");
+      .should("have.attr", "aria-checked", "false");
     cy.dataCy("sections-toggle").click();
     cy.dataCy("sections-toggle").should("have.attr", "aria-checked", "true");
+    cy.dataCy("sections-toggle").click();
+    cy.dataCy("sections-toggle").should("have.attr", "aria-checked", "false");
   });
 
   // TODO: Check for section headers when the sectioning logic is implemented.
