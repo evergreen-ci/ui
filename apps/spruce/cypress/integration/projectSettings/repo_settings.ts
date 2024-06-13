@@ -117,7 +117,7 @@ describe("Repo Settings", () => {
         cy.dataCy("cq-card")
           .children()
           .as("cqCardFields")
-          .should("have.length", 2);
+          .should("have.length", 1);
 
         cy.get("@enableCQButton").click();
         cy.get("@cqCardFields").should("have.length", 4);
@@ -129,34 +129,13 @@ describe("Repo Settings", () => {
           .should("be.visible");
       });
 
-      it("Shows merge method only if merge queue is Evergreen", () => {
-        cy.get("@enableCQButton").click();
-        // Evergreen is the default value
-        cy.getInputByLabel("Evergreen").should("be.checked");
-        const selectId = "merge-method-select";
-        cy.dataCy(selectId).as("mergeMethodDropdown").scrollIntoView();
-        cy.dataCy(selectId).should("be.visible");
-        // Click GitHub
-        cy.contains("label", "GitHub").click();
-        cy.getInputByLabel("GitHub").should("be.checked");
-
-        // Hides merge method for GitHub.
-        cy.get("mergeMethodDropdown").should("not.exist");
-        // Shows merge method for Evergreen.
-        cy.contains("label", "Evergreen").click();
-        cy.getInputByLabel("Evergreen").should("be.checked");
-        cy.get("@mergeMethodDropdown").should("be.visible");
-      });
-
       it("Does not show override buttons for commit queue patch definitions", () => {
         cy.get("@enableCQButton").click();
-        cy.getInputByLabel("Evergreen").should("be.checked");
         cy.dataCy("cq-override-radio-box").should("not.exist");
       });
 
-      it("Saves a commit queue definition and uses the repo message as placeholder for a project setting ", () => {
+      it("Saves a commit queue definition", () => {
         cy.get("@enableCQButton").click();
-        cy.dataCy("cq-message-input").type("Repo message wohoo!");
         cy.contains("button", "Add Patch Definition").click();
         cy.dataCy("variant-tags-input").first().type("vtag");
         cy.dataCy("task-tags-input").first().type("ttag");
@@ -170,11 +149,6 @@ describe("Repo Settings", () => {
         cy.validateToast("success", "Successfully updated repo");
         cy.visit(getGeneralRoute(projectUseRepoEnabled));
         cy.dataCy("navitem-github-commitqueue").click();
-        cy.dataCy("cq-message-input").should(
-          "have.attr",
-          "placeholder",
-          "Repo message wohoo! (Default from repo)",
-        );
       });
     });
   });
