@@ -1,9 +1,7 @@
 import {
   arrayIntersection,
   arraySetDifference,
-  arraySymmetricDifference,
   arrayUnion,
-  conditionalToArray,
   convertArrayToObject,
   convertObjectToArray,
   deduplicatedAppend,
@@ -48,6 +46,7 @@ describe("deduplicatedAppend", () => {
 describe("convertObjectToArray", () => {
   it("should return an empty array for an empty object", () => {
     expect(convertObjectToArray({})).toStrictEqual([]);
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(convertObjectToArray(undefined)).toStrictEqual([]);
   });
   it("should split out singular array values in objects into an array of their own objects", () => {
@@ -71,6 +70,7 @@ describe("convertObjectToArray", () => {
 describe("convertArrayToObject", () => {
   it("should return an empty object if provided with an empty array", () => {
     expect(convertArrayToObject([], "someKey")).toStrictEqual({});
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(convertArrayToObject(undefined, "someKey")).toStrictEqual({});
   });
   it("should take a singular array element and return an object with one element", () => {
@@ -144,6 +144,7 @@ describe("mapStringArrayToObject", () => {
   });
   it("should return an empty object if provided with an empty array", () => {
     expect(mapStringArrayToObject([], "someKey")).toStrictEqual({});
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(mapStringArrayToObject(undefined, "someKey")).toStrictEqual({});
   });
 });
@@ -197,41 +198,6 @@ describe("arrayIntersection", () => {
     expect(
       arrayIntersection(["1", "1", "2", "2", "3"], ["2", "3", "4"]),
     ).toStrictEqual(["2", "3"]);
-  });
-});
-
-describe("arraySymmetricDifference", () => {
-  it("should throw an error if an object is passed in", () => {
-    expect(() => arraySymmetricDifference([{}], [{}])).toThrow(
-      TypeError("arraySymmetricDifference does not support objects"),
-    );
-  });
-  it("should return an empty array when the arrays are empty", () => {
-    expect(arraySymmetricDifference([], [])).toStrictEqual([]);
-  });
-  it("should return the differing values when the first array is empty", () => {
-    expect(arraySymmetricDifference([], ["1", "2", "3"])).toStrictEqual([
-      "1",
-      "2",
-      "3",
-    ]);
-  });
-  it("should return the differing values when the second array is empty", () => {
-    expect(arraySymmetricDifference(["1", "2", "3"], [])).toStrictEqual([
-      "1",
-      "2",
-      "3",
-    ]);
-  });
-  it("should return the symmetric difference when the arrays have no common elements", () => {
-    expect(
-      arraySymmetricDifference(["1", "2", "3"], ["4", "5", "6"]),
-    ).toStrictEqual(["1", "2", "3", "4", "5", "6"]);
-  });
-  it("should return the symmetric difference when the arrays have common elements", () => {
-    expect(
-      arraySymmetricDifference(["1", "2", "3"], ["3", "4", "5"]),
-    ).toStrictEqual(["1", "2", "4", "5"]);
   });
 });
 
@@ -320,17 +286,5 @@ describe("range", () => {
       expect(range(1, 10, 2)).toStrictEqual([1, 3, 5, 7, 9]);
       expect(range(1, 10, 4)).toStrictEqual([1, 5, 9]);
     });
-  });
-});
-
-describe("conditionalToArray", () => {
-  it("should convert a value to an array if shouldBeArray is true", () => {
-    expect(conditionalToArray("parsley", true)).toStrictEqual(["parsley"]);
-  });
-  it("should not convert a value to an array if shouldBeArray is false", () => {
-    expect(conditionalToArray("parsley", false)).toBe("parsley");
-  });
-  it("should properly handles value if it is already an array", () => {
-    expect(conditionalToArray(["parsley"], true)).toStrictEqual(["parsley"]);
   });
 });

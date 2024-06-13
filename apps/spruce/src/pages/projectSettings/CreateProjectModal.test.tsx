@@ -112,9 +112,11 @@ describe("createProjectField", () => {
     await waitForModalLoad();
 
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("project-name-input"),
       "new-project-name-input",
     );
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(screen.queryByDataCy("new-repo-input"));
     expect(
       screen.getByRole("button", {
@@ -142,6 +144,7 @@ describe("createProjectField", () => {
     render(<Component />);
     await waitForModalLoad();
 
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("project-name-input"), "my test");
     expect(
       screen.getByRole("button", {
@@ -185,11 +188,14 @@ describe("createProjectField", () => {
     await waitForModalLoad();
 
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("project-name-input"),
       "new-project-id",
     );
     await selectLGOption("new-owner-select", "10gen");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(screen.queryByDataCy("new-repo-input"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
     const confirmButton = screen.getByText("Create project");
@@ -255,11 +261,14 @@ describe("createProjectField", () => {
     await waitForModalLoad();
 
     await user.type(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       screen.queryByDataCy("project-name-input"),
       "new-project-name",
     );
     await selectLGOption("new-owner-select", "10gen");
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.clear(screen.queryByDataCy("new-repo-input"));
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
 
     const confirmButton = screen.getByText("Create project");

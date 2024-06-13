@@ -36,6 +36,7 @@ const sortByTests = [
     sortBy: "CURRENT_TASK",
     expectedIds: [
       "i-04ade558e1e26b0ad",
+      "i-07669e7a3cd2c238c",
       "i-0d0ae8b83366d22",
       "i-0d0ae8b83366d22b",
       "i-0d0ae8b83366d22be",
@@ -68,6 +69,7 @@ const sortByTests = [
     sortBy: "ELAPSED",
     expectedIds: [
       "i-04ade558e1e26b0ad",
+      "i-07669e7a3cd2c238c",
       "i-0d0ae8b83366d22",
       "i-0d0ae8b83366d22b",
       "i-0d0ae8b83366d22be",
@@ -119,6 +121,7 @@ const sortDirectionTests = [
     order: "ascending",
     expectedIds: [
       "i-04ade558e1e26b0ad",
+      "i-07669e7a3cd2c238c",
       "i-0d0ae8b83366d22",
       "i-0d0ae8b83366d22b",
       "i-0d0ae8b83366d22be",

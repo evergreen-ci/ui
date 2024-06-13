@@ -1,25 +1,36 @@
-import { differenceInHours, parse } from "date-fns";
+import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
+import { setToUTCMidnight } from "@leafygreen-ui/date-utils";
+import {
+  isAfter,
+  isBefore,
+  differenceInHours,
+  isTomorrow,
+  parse,
+} from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
+import { days } from "constants/fieldMaps";
 import { SleepScheduleInput } from "gql/generated/types";
-import { MyHost } from "types/spawn";
-import { arraySymmetricDifference } from "utils/array";
+import { Optional } from "types/utils";
 import { isProduction } from "utils/environmentVariables";
+import { FormState as EditFormState } from "../editHostModal";
+import { FormState as SpawnFormState } from "../spawnHostModal";
 
 const daysInWeek = 7;
 const hoursInDay = 24;
 const defaultStartHour = 8;
 const defaultStopHour = 20;
 const defaultScheduleWeeklyHourCount = 60;
+const defaultScheduleWeekdaysCount = 5;
 
 const suggestedUptimeHours = (daysInWeek - 2) * hoursInDay;
 export const maxUptimeHours = (daysInWeek - 1) * hoursInDay;
 
-export const defaultStartDate = new Date(null, null, null, defaultStartHour);
-export const defaultStopDate = new Date(null, null, null, defaultStopHour);
+export const defaultStartDate = new Date(0, 0, 0, defaultStartHour);
+export const defaultStopDate = new Date(0, 0, 0, defaultStopHour);
 
 export type HostUptime = {
   useDefaultUptimeSchedule: boolean;
-  sleepSchedule?: {
+  sleepSchedule: {
     enabledWeekdays: boolean[];
     timeSelection: {
       startTime: string;
@@ -27,97 +38,70 @@ export type HostUptime = {
       runContinuously: boolean;
     };
   };
+  details?: null;
+  temporarilyExemptUntil?: string;
 };
 
 type ValidateInput = {
-  enabledWeekdays: boolean[];
-  stopTime: string;
+  enabledHoursCount: number;
+  enabledWeekdaysCount: number;
   runContinuously: boolean;
-  startTime: string;
-  useDefaultUptimeSchedule: boolean;
 };
 
-export const validateUptimeSchedule = ({
-  enabledWeekdays,
+export const getHostUptimeWarnings = ({
+  enabledHoursCount,
+  enabledWeekdaysCount,
   runContinuously,
-  startTime,
-  stopTime,
-  useDefaultUptimeSchedule,
-}: ValidateInput): {
-  enabledHoursCount: number;
-  errors: string[];
-  warnings: string[];
-} => {
-  if (useDefaultUptimeSchedule) {
-    return {
-      enabledHoursCount: defaultScheduleWeeklyHourCount,
-      errors: [],
-      warnings: [],
-    };
-  }
-
-  const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount({
-    enabledWeekdays,
-    stopTime,
-    runContinuously,
-    startTime,
-  });
-
+}: ValidateInput): string[] => {
   if (enabledHoursCount > maxUptimeHours) {
-    // Return error based on whether runContinously enabled
-    if (runContinuously) {
-      return {
-        enabledHoursCount,
-        errors: ["Please pause your host for at least 1 day per week."],
-        warnings: [],
-      };
-    }
-    const hourlyRequirement = Math.floor(maxUptimeHours / enabledWeekdaysCount);
-    return {
-      enabledHoursCount,
-      errors: [
-        `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
-      ],
-      warnings: [],
-    };
+    // This state represents an error, which is handled by the RJSF validator.
+    return [];
   }
 
   if (enabledHoursCount > suggestedUptimeHours) {
     // Return warning based on whether runContinuously enabled
     if (runContinuously) {
-      return {
-        enabledHoursCount,
-        errors: [],
-        warnings: ["Consider pausing your host for 2 days per week."],
-      };
+      return ["Consider pausing your host for 2 days per week."];
     }
     const hourlySuggestion = Math.floor(
       suggestedUptimeHours / enabledWeekdaysCount,
     );
-    return {
-      enabledHoursCount,
-      errors: [],
-      warnings: [
-        `Consider running your host for ${hourlySuggestion} hours per day or fewer.`,
-      ],
-    };
+    return [
+      `Consider running your host for ${hourlySuggestion} hours per day or fewer.`,
+    ];
   }
+
   // No error
-  return {
-    enabledHoursCount,
-    errors: [],
-    warnings: [],
-  };
+  return [];
 };
 
-export const getEnabledHoursCount = ({
-  enabledWeekdays,
-  runContinuously,
-  startTime,
-  stopTime,
-}: Omit<ValidateInput, "useDefaultUptimeSchedule">) => {
+export const getEnabledHoursCount = (
+  hostUptime: HostUptime,
+): { enabledHoursCount: number; enabledWeekdaysCount: number } => {
+  if (!hostUptime) {
+    return {
+      enabledHoursCount: defaultScheduleWeeklyHourCount,
+      enabledWeekdaysCount: defaultScheduleWeekdaysCount,
+    };
+  }
+
+  const {
+    sleepSchedule: {
+      enabledWeekdays,
+      timeSelection: { runContinuously, startTime, stopTime },
+    },
+    useDefaultUptimeSchedule,
+  } = hostUptime;
+
+  if (useDefaultUptimeSchedule) {
+    return {
+      enabledHoursCount: defaultScheduleWeeklyHourCount,
+      enabledWeekdaysCount: defaultScheduleWeekdaysCount,
+    };
+  }
+
   const enabledWeekdaysCount =
-    enabledWeekdays?.filter((day) => day).length ?? 0;
+    enabledWeekdays?.filter((day: boolean) => day).length ?? 0;
   const enabledHoursCount = runContinuously
     ? enabledWeekdaysCount * hoursInDay
     : enabledWeekdaysCount * getDailyUptime({ startTime, stopTime });
@@ -125,12 +109,19 @@ export const getEnabledHoursCount = ({
 };
 
 export const getSleepSchedule = (
-  { sleepSchedule, useDefaultUptimeSchedule }: HostUptime,
+  {
+    sleepSchedule,
+    temporarilyExemptUntil,
+    useDefaultUptimeSchedule,
+  }: HostUptime,
   timeZone: string,
 ): SleepScheduleInput => {
   if (useDefaultUptimeSchedule) {
     return {
       ...defaultSleepSchedule,
+      ...(temporarilyExemptUntil
+        ? { temporarilyExemptUntil: new Date(temporarilyExemptUntil) }
+        : {}),
       timeZone,
     };
   }
@@ -146,17 +137,28 @@ export const getSleepSchedule = (
     permanentlyExempt: false,
     timeZone,
     shouldKeepOff: false,
-    wholeWeekdaysOff: enabledWeekdays.reduce((accum, isEnabled, i) => {
-      if (!isEnabled) {
-        accum.push(i);
-      }
-      return accum;
-    }, []),
+    ...(temporarilyExemptUntil
+      ? { temporarilyExemptUntil: new Date(temporarilyExemptUntil) }
+      : {}),
+    wholeWeekdaysOff: enabledWeekdays.reduce(
+      (accum: number[], isEnabled: boolean, i: number) => {
+        if (!isEnabled) {
+          accum.push(i);
+        }
+        return accum;
+      },
+      [],
+    ),
   };
 };
 
-const getDailyUptime = ({ startTime, stopTime }) =>
-  differenceInHours(new Date(stopTime), new Date(startTime));
+const getDailyUptime = ({
+  startTime,
+  stopTime,
+}: {
+  startTime: string;
+  stopTime: string;
+}) => differenceInHours(new Date(stopTime), new Date(startTime));
 
 const toTimeString = (date: Date): string =>
   date.toLocaleTimeString([], {
@@ -165,22 +167,32 @@ const toTimeString = (date: Date): string =>
     minute: "2-digit",
   });
 
-export const defaultSleepSchedule: Omit<SleepScheduleInput, "timeZone"> = {
+type RequiredSleepSchedule = Optional<
+  SleepScheduleInput,
+  "isBetaTester" | "timeZone"
+>;
+
+export const defaultSleepSchedule: RequiredSleepSchedule = {
   dailyStartTime: toTimeString(defaultStartDate),
   dailyStopTime: toTimeString(defaultStopDate),
   permanentlyExempt: false,
-  // TODO: Add pause
   shouldKeepOff: false,
   wholeWeekdaysOff: [0, 6],
 };
 
 export const getHostUptimeFromGql = (
-  sleepSchedule: MyHost["sleepSchedule"],
+  sleepSchedule: RequiredSleepSchedule,
 ): HostUptime => {
-  const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
+  const {
+    dailyStartTime,
+    dailyStopTime,
+    temporarilyExemptUntil,
+    wholeWeekdaysOff,
+  } = sleepSchedule;
 
   return {
     useDefaultUptimeSchedule: matchesDefaultUptimeSchedule(sleepSchedule),
+    temporarilyExemptUntil: temporarilyExemptUntil?.toString() ?? "",
     sleepSchedule: {
       enabledWeekdays: new Array(7)
         .fill(false)
@@ -191,12 +203,12 @@ export const getHostUptimeFromGql = (
               startTime: parse(
                 dailyStartTime,
                 "HH:mm",
-                new Date(null, null),
+                new Date(0, 0),
               ).toString(),
               stopTime: parse(
                 dailyStopTime,
                 "HH:mm",
-                new Date(null, null),
+                new Date(0, 0),
               ).toString(),
               runContinuously: false,
             }
@@ -210,7 +222,7 @@ export const getHostUptimeFromGql = (
 };
 
 export const matchesDefaultUptimeSchedule = (
-  sleepSchedule: MyHost["sleepSchedule"],
+  sleepSchedule: RequiredSleepSchedule,
 ): boolean => {
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
@@ -227,30 +239,137 @@ export const matchesDefaultUptimeSchedule = (
   return true;
 };
 
-export const validator = (({ expirationDetails }, errors) => {
-  // TODO DEVPROD-6908 remove check when beta period ends
-  if (isProduction()) return errors;
+export const validator = (permanentlyExempt: boolean) =>
+  (({ expirationDetails }, errors) => {
+    const { hostUptime, noExpiration } = expirationDetails ?? {};
+    if (!hostUptime || noExpiration === false) return errors;
 
-  const { hostUptime, noExpiration } = expirationDetails ?? {};
-  if (!hostUptime || noExpiration === false) return errors;
+    const { sleepSchedule, temporarilyExemptUntil, useDefaultUptimeSchedule } =
+      hostUptime;
 
-  const { sleepSchedule, useDefaultUptimeSchedule } = hostUptime;
-  const { enabledWeekdays, timeSelection } = sleepSchedule;
+    if (temporarilyExemptUntil) {
+      // LG Date Picker widget provides visual validation but doesn't provide a way to access its error state. Replicate its min/max validation here.
+      const selectedDate = new Date(temporarilyExemptUntil);
+      if (
+        !(
+          isAfter(exemptionRange.disableAfter, selectedDate) &&
+          isBefore(exemptionRange.disableBefore, selectedDate)
+        )
+      ) {
+        // @ts-expect-error
+        errors.expirationDetails?.hostUptime?.temporarilyExemptUntil?.addError?.(
+          "Invalid date selected; sleep can only be disabled for up to one month.",
+        );
+      }
+    }
 
-  if (useDefaultUptimeSchedule) {
+    if (
+      !isSleepScheduleActive({
+        isTemporarilyExempt: !!temporarilyExemptUntil,
+        noExpiration: !!noExpiration,
+        permanentlyExempt,
+      })
+    ) {
+      return errors;
+    }
+
+    const { timeSelection } = sleepSchedule ?? {};
+
+    if (useDefaultUptimeSchedule) {
+      return errors;
+    }
+
+    const { enabledHoursCount, enabledWeekdaysCount } =
+      getEnabledHoursCount(hostUptime);
+
+    if (enabledHoursCount > maxUptimeHours) {
+      // Return error based on whether runContinously enabled
+      if (timeSelection?.runContinuously) {
+        // @ts-expect-error
+        errors.expirationDetails?.hostUptime?.details?.addError?.(
+          "Please pause your host for at least 1 day per week.",
+        );
+        return errors;
+      }
+      const hourlyRequirement = Math.floor(
+        maxUptimeHours / enabledWeekdaysCount,
+      );
+      // @ts-expect-error
+      errors.expirationDetails?.hostUptime?.details?.addError?.(
+        `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
+      );
+      return errors;
+    }
+
     return errors;
+  }) satisfies ValidateProps<EditFormState | SpawnFormState>;
+
+/**
+ * isNullSleepSchedule indicates that the sleep schedule is unset.
+ * TODO: When sleep schedules are generally released, we should instead check whether noExpiration is set.
+ * Until then, noExpiration is insufficient because a user may have an unexpirable host running without a sleep schedule.
+ * @param sleepSchedule - sleepSchedule as returned from Evergreen
+ * @returns boolean indicating whether the sleep schedule is effectively unset.
+ */
+export const isNullSleepSchedule = (sleepSchedule: RequiredSleepSchedule) => {
+  if (!sleepSchedule) return true;
+
+  const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
+  if (dailyStartTime !== "") return false;
+  if (dailyStopTime !== "") return false;
+  if (arraySymmetricDifference(wholeWeekdaysOff, []).length > 0) return false;
+  return true;
+};
+
+export const isSleepScheduleActive = ({
+  isTemporarilyExempt,
+  noExpiration,
+  permanentlyExempt,
+}: {
+  isTemporarilyExempt: boolean;
+  noExpiration: boolean;
+  permanentlyExempt: boolean;
+}) => {
+  // TODO DEVPROD-7517: replace prod check with beta tester check when beta period begins
+  if (isProduction()) return false;
+  if (!noExpiration) return false;
+  if (isTemporarilyExempt) return false;
+  if (permanentlyExempt) return false;
+  return true;
+};
+
+/**
+ * getNextHostStart returns strings representing the next time a host will start as computed using the server-returned timestamp.
+ * @param dailyStartTime - hourly time that the host will wake from sleep. Empty string indicates the host runs continuously on enabled days.
+ * @param nextStart - Date string from the server indiciating the next start.
+ * @returns object with nextStartDay and nextStartTime strings. Either/both values are null if the server does not specify a time.
+ */
+export const getNextHostStart = (
+  dailyStartTime: string,
+  nextStart: string,
+): {
+  nextStartDay: string | null;
+  nextStartTime: string | null;
+} => {
+  if (!nextStart) {
+    return { nextStartDay: null, nextStartTime: null };
   }
 
-  const { enabledHoursCount } = getEnabledHoursCount({
-    enabledWeekdays,
-    ...timeSelection,
-  });
+  const nextStartDate = new Date(nextStart);
+  return {
+    nextStartDay: isTomorrow(nextStartDate)
+      ? "tomorrow"
+      : days[nextStartDate.getDay()],
+    nextStartTime: dailyStartTime
+      ? `${nextStartDate.getHours()}:${nextStartDate.getMinutes().toString().padStart(2, "0")}`
+      : null,
+  };
+};
 
-  if (enabledHoursCount > maxUptimeHours) {
-    errors.expirationDetails?.hostUptime?.addError("Insufficient hours");
-  }
-
-  return errors;
-}) satisfies ValidateProps<{
-  expirationDetails?: { hostUptime?: HostUptime; noExpiration: boolean };
-}>;
+const today = new Date(Date.now());
+export const exemptionRange = {
+  disableBefore: setToUTCMidnight(today),
+  disableAfter: setToUTCMidnight(
+    new Date(today.setMonth(today.getMonth() + 1)),
+  ),
+};

@@ -7,10 +7,12 @@ import { PublicKeysTable } from "./publicKeysTab/PublicKeysTable";
 
 export const PublicKeysTab: React.FC = () => {
   const [editModalProps, setEditModalProps] = useState<EditModalPropsState>(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     defaultEditModalProps,
   );
 
   const onCancel = () => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setEditModalProps(defaultEditModalProps);
   };
 
@@ -22,6 +24,7 @@ export const PublicKeysTab: React.FC = () => {
         onClick={() => {
           setEditModalProps({
             visible: true,
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             initialPublicKey: null,
           });
         }}

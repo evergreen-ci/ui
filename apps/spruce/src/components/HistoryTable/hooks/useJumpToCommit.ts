@@ -9,6 +9,7 @@ const useJumpToCommit = () => {
     null,
   );
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { setSelectedCommit } = useHistoryTable();
   useEffect(() => {
     if (skipOrderNumber) {

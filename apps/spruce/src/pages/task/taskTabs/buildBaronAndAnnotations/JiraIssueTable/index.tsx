@@ -12,7 +12,9 @@ const JiraIssueTable: React.FC<JiraIssueTableProps> = ({ bbData }) => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const jiraSearchString = bbData?.searchReturnInfo?.search;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const jqlEscaped = encodeURIComponent(jiraSearchString);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const jiraSearchLink = getJiraSearchUrl(jiraHost, jqlEscaped);
 
   return (
@@ -25,6 +27,7 @@ const JiraIssueTable: React.FC<JiraIssueTableProps> = ({ bbData }) => {
         </StyledLink>
       </TicketsTitle>
       {/* build baron related jira tickets */}
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <JiraTicketList jiraIssues={bbData?.searchReturnInfo?.issues} />
     </>
   );

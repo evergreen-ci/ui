@@ -1334,9 +1334,7 @@ export type MutationUpdatePublicKeyArgs = {
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
-  action?: InputMaybe<SpawnHostStatusActions>;
-  hostId?: InputMaybe<Scalars["String"]["input"]>;
-  updateSpawnHostStatusInput?: InputMaybe<UpdateSpawnHostStatusInput>;
+  updateSpawnHostStatusInput: UpdateSpawnHostStatusInput;
 };
 
 export type MutationUpdateUserSettingsArgs = {
@@ -2365,6 +2363,9 @@ export type SleepSchedule = {
   __typename?: "SleepSchedule";
   dailyStartTime: Scalars["String"]["output"];
   dailyStopTime: Scalars["String"]["output"];
+  isBetaTester: Scalars["Boolean"]["output"];
+  nextStartTime?: Maybe<Scalars["Time"]["output"]>;
+  nextStopTime?: Maybe<Scalars["Time"]["output"]>;
   permanentlyExempt: Scalars["Boolean"]["output"];
   shouldKeepOff: Scalars["Boolean"]["output"];
   temporarilyExemptUntil?: Maybe<Scalars["Time"]["output"]>;
@@ -2375,6 +2376,7 @@ export type SleepSchedule = {
 export type SleepScheduleInput = {
   dailyStartTime: Scalars["String"]["input"];
   dailyStopTime: Scalars["String"]["input"];
+  isBetaTester?: InputMaybe<Scalars["Boolean"]["input"]>;
   permanentlyExempt: Scalars["Boolean"]["input"];
   shouldKeepOff: Scalars["Boolean"]["input"];
   temporarilyExemptUntil?: InputMaybe<Scalars["Time"]["input"]>;
@@ -2740,6 +2742,7 @@ export type TaskQueueItem = {
   id: Scalars["ID"]["output"];
   priority: Scalars["Int"]["output"];
   project: Scalars["String"]["output"];
+  projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: TaskQueueItemType;
   revision: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
@@ -5307,8 +5310,7 @@ export type UpdatePublicKeyMutation = {
 };
 
 export type UpdateSpawnHostStatusMutationVariables = Exact<{
-  hostId: Scalars["String"]["input"];
-  action: SpawnHostStatusActions;
+  updateSpawnHostStatusInput: UpdateSpawnHostStatusInput;
 }>;
 
 export type UpdateSpawnHostStatusMutation = {
@@ -5772,6 +5774,7 @@ export type DistroTaskQueueQuery = {
     id: string;
     priority: number;
     project: string;
+    projectIdentifier?: string | null;
     requester: TaskQueueItemType;
     version: string;
   }>;
@@ -6444,6 +6447,7 @@ export type MyHostsQuery = {
       __typename?: "SleepSchedule";
       dailyStartTime: string;
       dailyStopTime: string;
+      nextStartTime?: Date | null;
       permanentlyExempt: boolean;
       shouldKeepOff: boolean;
       temporarilyExemptUntil?: Date | null;

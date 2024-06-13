@@ -8,6 +8,7 @@ const useColumns = <T>(allColumns: T[], accessFunc: (column: T) => string) => {
     HistoryQueryParams.VisibleColumns,
     [],
   );
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { addColumns } = useHistoryTable();
 
   const activeColumns = useMemo(

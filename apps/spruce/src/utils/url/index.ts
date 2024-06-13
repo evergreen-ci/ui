@@ -6,6 +6,7 @@ import {
 
 export const getDefaultPageSize = () => {
   const pageSizeFromLocalStorage: number = parseInt(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     localStorage.getItem(RECENT_PAGE_SIZE_KEY),
     10,
   );

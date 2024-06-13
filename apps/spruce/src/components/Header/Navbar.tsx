@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
-import HybridTree from "components/Icon/icons/HybridTree.svg";
+import { PrideTree } from "components/Icon/icons/PrideTree";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import {
@@ -71,10 +71,7 @@ export const Navbar: React.FC = () => {
           to={routes.myPatches}
           onClick={() => sendEvent({ name: "Click Logo Link" })}
         >
-          <HybridTreeIcon
-            src={HybridTree}
-            alt="Evergreen Logo with a cherry blossom twist"
-          />
+          <PrideTree />
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
@@ -83,8 +80,8 @@ export const Navbar: React.FC = () => {
         >
           Project Health
         </PrimaryLink>
-
         <PrimaryLink
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getUserPatchesRoute(userId)}
           onClick={() => sendEvent({ name: "Click My Patches Link" })}
         >
@@ -96,6 +93,7 @@ export const Navbar: React.FC = () => {
         >
           My Hosts
         </PrimaryLink>
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <AuxiliaryDropdown projectIdentifier={projectIdentifier} />
       </NavActionContainer>
       <NavActionContainer>
@@ -185,9 +183,4 @@ const secondaryStyle = css`
 
 const SecondaryLink = styled.a`
   ${secondaryStyle}
-`;
-
-const HybridTreeIcon = styled.img`
-  height: 72px;
-  position: relative;
 `;

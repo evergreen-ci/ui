@@ -39,6 +39,7 @@ const Host: React.FC = () => {
     error,
     loading: hostMetaDataLoading,
   } = useQuery<HostQuery, HostQueryVariables>(HOST, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: hostId },
     onError: (err) => {
       dispatchToast.error(
@@ -62,6 +63,7 @@ const Host: React.FC = () => {
     HostEventsQuery,
     HostEventsQueryVariables
   >(HOST_EVENTS, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: hostId, tag, page, limit },
   });
 
@@ -97,6 +99,7 @@ const Host: React.FC = () => {
                   </ButtonSpacer>
                   <ButtonSpacer>
                     <RestartJasper
+                      // @ts-expect-error: FIXME. This comment was added by an automated script.
                       selectedHostIds={[hostId]}
                       hostUrl={hostUrl}
                       isSingleHost
@@ -106,6 +109,7 @@ const Host: React.FC = () => {
                   </ButtonSpacer>
                   <ButtonSpacer>
                     <Reprovision
+                      // @ts-expect-error: FIXME. This comment was added by an automated script.
                       selectedHostIds={[hostId]}
                       hostUrl={hostUrl}
                       isSingleHost
@@ -123,6 +127,7 @@ const Host: React.FC = () => {
               <Metadata
                 loading={hostMetaDataLoading}
                 host={host}
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 error={error}
               />
               {sshAddress && (
@@ -135,10 +140,13 @@ const Host: React.FC = () => {
               <PageContent>
                 <HostTable
                   loading={hostEventLoading}
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
                   eventData={hostEventData}
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
                   error={error}
                   page={page}
                   limit={limit}
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
                   eventsCount={eventsCount}
                 />
               </PageContent>
@@ -148,6 +156,7 @@ const Host: React.FC = () => {
       )}
       <UpdateStatusModal
         data-cy="update-host-status-modal"
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         hostIds={[hostId]}
         visible={isUpdateStatusModalVisible}
         closeModal={() => setIsUpdateStatusModalVisible(false)}

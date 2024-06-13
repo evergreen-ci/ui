@@ -1,4 +1,5 @@
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
+import { RowType } from "types/logs";
 import BookmarksBar from ".";
 
 describe("bookmarks bar", () => {
@@ -107,7 +108,11 @@ describe("bookmarks bar", () => {
     renderWithRouterMatch(
       <BookmarksBar
         lineCount={5}
-        processedLogLines={[[0, 1, 2], 3, 4]}
+        processedLogLines={[
+          { range: { end: 3, start: 0 }, rowType: RowType.SkippedLines },
+          3,
+          4,
+        ]}
         scrollToLine={scrollToLine}
       />,
       {

@@ -25,7 +25,9 @@ export const useBreakingTask = (taskId: string) => {
     taskData?.task ?? {};
 
   const bvOptionsBase = {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     tasks: [string.applyStrictRegex(displayName)],
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variants: [string.applyStrictRegex(buildVariant)],
   };
 
@@ -42,8 +44,10 @@ export const useBreakingTask = (taskId: string) => {
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
   >(LAST_MAINLINE_COMMIT, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     skip: !parentTask || !lastPassingTask || !isFailedTaskStatus(status),
     variables: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       projectIdentifier,
       skipOrderNumber: passingOrderNumber + 2,
       buildVariantOptions: {
@@ -52,6 +56,7 @@ export const useBreakingTask = (taskId: string) => {
       },
     },
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const task = getTaskFromMainlineCommitsQuery(breakingTaskData);
 
   return {

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { useTaskQueueAnalytics } from "analytics";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
@@ -11,6 +11,7 @@ import {
   getVersionRoute,
   getTaskRoute,
   getUserPatchesRoute,
+  getProjectPatchesRoute,
 } from "constants/routes";
 import { TaskQueueItem, TaskQueueItemType } from "gql/generated/types";
 import { formatZeroIndexForDisplay } from "utils/numbers";
@@ -98,7 +99,7 @@ const taskQueueTableColumns = (
       header: "Task",
       accessorKey: "displayName",
       cell: (value) => {
-        const { buildVariant, displayName, id, project } = value.row.original;
+        const { buildVariant, displayName, id } = value.row.original;
         return (
           <TaskCell>
             <StyledRouterLink
@@ -109,7 +110,6 @@ const taskQueueTableColumns = (
               {displayName}
             </StyledRouterLink>
             <Body>{buildVariant}</Body>
-            <Disclaimer>{project}</Disclaimer>
           </TaskCell>
         );
       },
@@ -119,6 +119,22 @@ const taskQueueTableColumns = (
       accessorKey: "expectedDuration",
       align: "center",
       cell: (value) => msToDuration(value.row.original.expectedDuration),
+    },
+    {
+      header: "Project",
+      accessorKey: "projectIdentifier",
+      cell: (value) => {
+        const project =
+          value.row.original.projectIdentifier || value.row.original.project;
+        return (
+          <StyledRouterLink
+            to={getProjectPatchesRoute(project)}
+            onClick={() => sendEvent({ name: "Click Project Link" })}
+          >
+            {project}
+          </StyledRouterLink>
+        );
+      },
     },
     {
       header: "Version",

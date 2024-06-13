@@ -6,6 +6,7 @@ type Tab = ProjectSettingsTabRoutes.Containers;
 export const gqlToForm = ((data) => {
   if (!data) return null;
   const { projectRef } = data;
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { containerSizeDefinitions } = projectRef;
 
   return {
@@ -13,6 +14,7 @@ export const gqlToForm = ((data) => {
       variables: containerSizeDefinitions,
     },
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies GqlToFormFunction<Tab>;
 
 export const formToGql = ((formState, isRepo, id) => {
@@ -24,4 +26,5 @@ export const formToGql = ((formState, isRepo, id) => {
       containerSizeDefinitions: containerSizeDefinitions.variables,
     },
   };
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
 }) satisfies FormToGqlFunction<Tab>;

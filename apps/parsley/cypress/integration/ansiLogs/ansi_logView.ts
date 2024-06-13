@@ -166,11 +166,11 @@ describe("expanding collapsed rows", () => {
     cy.dataCy("log-row-3").should("not.exist");
     cy.dataCy("log-row-4").should("not.exist");
 
-    cy.dataCy("collapsed-row-1-4").within(() => {
+    cy.dataCy("skipped-lines-row-1-4").within(() => {
       cy.contains("All").click();
     });
 
-    cy.dataCy("collapsed-row-1-4").should("not.exist");
+    cy.dataCy("skipped-lines-row-1-4").should("not.exist");
     cy.dataCy("log-row-1").should("be.visible");
     cy.dataCy("log-row-2").should("be.visible");
     cy.dataCy("log-row-3").should("be.visible");
@@ -178,7 +178,7 @@ describe("expanding collapsed rows", () => {
   });
 
   it("should be able to see what rows have been expanded in the drawer", () => {
-    cy.dataCy("collapsed-row-1-4").within(() => {
+    cy.dataCy("skipped-lines-row-1-4").within(() => {
       cy.contains("All").click();
     });
     cy.toggleDrawer();
@@ -186,16 +186,16 @@ describe("expanding collapsed rows", () => {
   });
 
   it("should be possible to re-collapse rows through the drawer", () => {
-    cy.dataCy("collapsed-row-1-4").within(() => {
+    cy.dataCy("skipped-lines-row-1-4").within(() => {
       cy.contains("All").click();
     });
-    cy.dataCy("collapsed-row-1-4").should("not.exist");
+    cy.dataCy("skipped-lines-row-1-4").should("not.exist");
 
     cy.toggleDrawer();
     cy.dataCy("expanded-row-1-to-4").within(() => {
       cy.get(`[aria-label="Delete range"]`).click();
     });
-    cy.dataCy("collapsed-row-1-4").should("exist");
+    cy.dataCy("skipped-lines-row-1-4").should("exist");
   });
 });
 
@@ -274,4 +274,26 @@ describe("jump to failing log line", () => {
     cy.dataCy("log-row-9614").should("be.visible");
     cy.dataCy("log-row-0").should("not.exist");
   });
+});
+
+describe("sections", () => {
+  beforeEach(() => {
+    const logLink =
+      "/evergreen/spruce_ubuntu1604_test_2c9056df66d42fb1908d52eed096750a91f1f089_22_03_02_16_45_12/0/task";
+    cy.visit(logLink);
+  });
+
+  it("Can enable/disable sections", () => {
+    cy.toggleDetailsPanel(true);
+    cy.contains("Log Viewing").click();
+    cy.dataCy("sections-toggle")
+      .should("have.attr", "aria-disabled", "false")
+      .should("have.attr", "aria-checked", "true");
+    cy.dataCy("sections-toggle").click();
+    cy.dataCy("sections-toggle").should("have.attr", "aria-checked", "false");
+    cy.dataCy("sections-toggle").click();
+    cy.dataCy("sections-toggle").should("have.attr", "aria-checked", "true");
+  });
+
+  // TODO: Check for section headers when the sectioning logic is implemented.
 });

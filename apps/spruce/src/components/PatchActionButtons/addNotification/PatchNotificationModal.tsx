@@ -15,12 +15,14 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
   visible,
 }) => {
   const { [slugs.versionId]: versionId } = useParams();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
 
   return (
     <NotificationModal
       data-cy="patch-notification-modal"
       onCancel={onCancel}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       resourceId={versionId}
       sendAnalyticsEvent={(subscription) =>
         sendEvent({ name: "Add Notification", subscription })

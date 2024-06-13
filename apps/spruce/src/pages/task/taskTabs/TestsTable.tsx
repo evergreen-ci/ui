@@ -48,7 +48,9 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const [queryParams, setQueryParams] = useQueryParams();
   const queryVariables = useTestsTableQueryVariables(
     queryParams,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     task.id,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     task.execution,
   );
   const { limitNum, pageNum, sort } = queryVariables;
@@ -57,6 +59,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   useEffect(() => {
     if (!appliedDefaultSort.current) {
       // Avoid race condition where this hook overwrites TaskTabs setting a default execution.
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       if (task.execution == null) {
         return;
       }
@@ -80,6 +83,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     variables: queryVariables,
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const clearQueryParams = () => {
@@ -94,7 +98,9 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     };
 
     filterState.forEach(({ id, value }) => {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       const key = mapIdToFilterParam[id];
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       updatedParams[key] = value;
     });
 
@@ -103,6 +109,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   };
 
   const tableSortHandler = useTableSort({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sort Tests Table",
@@ -120,14 +127,18 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   );
 
   const setSorting = (s: SortingState) =>
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultSorting(table).onSortingChange(s);
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
 
   const columns = useMemo(() => getColumnsTemplate({ task }), [task]);
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const table = useLeafyGreenTable<TestResult>({
     columns,
     containerRef: tableContainerRef,
@@ -152,10 +163,12 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     manualPagination: true,
     maxMultiSortColCount: 2,
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setFilters,
       updateFilters,
     ),
     onSortingChange: onChangeHandler<SortingState>(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSorting,
       tableSortHandler,
     ),
@@ -165,7 +178,9 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     <TableWrapper
       controls={
         <TableControl
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           filteredCount={filteredTestCount}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           totalCount={totalTestCount}
           limit={limitNum}
           page={pageNum}
@@ -176,6 +191,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
           }}
         />
       }
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       shouldShowBottomTableControl={filteredTestCount > 10}
     >
       <BaseTable

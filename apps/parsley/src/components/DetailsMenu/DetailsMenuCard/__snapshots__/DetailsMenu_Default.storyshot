@@ -121,52 +121,84 @@
                       class="css-500t56-RangeInputWrapper egajxj62"
                     >
                       <div
-                        class="css-1esou8m-RangeInput egajxj61 leafygreen-ui-90q1a7"
+                        aria-labelledby="Range Lower Bound"
+                        class="leafygreen-ui-1br9h7w css-1esou8m-RangeInput egajxj61"
+                        data-lgid="lg-text_input"
                       >
                         <div
-                          class="leafygreen-ui-lzja97"
+                          class="leafygreen-ui-1iyoj2o"
+                        />
+                        <div
+                          class="leafygreen-ui-pp12fp"
                         >
-                          <input
-                            aria-invalid="false"
-                            aria-labelledby="Range Lower Bound"
-                            autocomplete="on"
-                            class="leafygreen-ui-lkup3q"
-                            data-cy="range-lower-bound"
-                            id="textinput-3"
-                            min="0"
-                            placeholder="0"
-                            required=""
-                            type="number"
-                            value=""
-                          />
                           <div
-                            class="lg-ui-icon-selector-0000 leafygreen-ui-dhxvhh"
-                          />
+                            class="leafygreen-ui-1ago99h"
+                          >
+                            <input
+                              aria-describedby=""
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-labelledby="Range Lower Bound"
+                              autocomplete="on"
+                              class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+                              data-cy="range-lower-bound"
+                              id="lg-form_field-input-27"
+                              min="0"
+                              placeholder="0"
+                              required=""
+                              type="number"
+                              value=""
+                            />
+                          </div>
                         </div>
+                        <div
+                          aria-live="polite"
+                          aria-relevant="all"
+                          class="leafygreen-ui-11ydt2g"
+                          data-lgid="lg-form_field-feedback"
+                          data-testid="lg-form_field-feedback"
+                          id="lg-form_field-feedback-26"
+                        />
                       </div>
                       <div
-                        class="css-1esou8m-RangeInput egajxj61 leafygreen-ui-90q1a7"
+                        aria-labelledby="Range Upper Bound"
+                        class="leafygreen-ui-1br9h7w css-1esou8m-RangeInput egajxj61"
+                        data-lgid="lg-text_input"
                       >
                         <div
-                          class="leafygreen-ui-lzja97"
+                          class="leafygreen-ui-1iyoj2o"
+                        />
+                        <div
+                          class="leafygreen-ui-pp12fp"
                         >
-                          <input
-                            aria-invalid="false"
-                            aria-labelledby="Range Upper Bound"
-                            autocomplete="on"
-                            class="leafygreen-ui-lkup3q"
-                            data-cy="range-upper-bound"
-                            id="textinput-4"
-                            min="0"
-                            placeholder="100"
-                            required=""
-                            type="number"
-                            value=""
-                          />
                           <div
-                            class="lg-ui-icon-selector-0000 leafygreen-ui-dhxvhh"
-                          />
+                            class="leafygreen-ui-1ago99h"
+                          >
+                            <input
+                              aria-describedby=""
+                              aria-disabled="false"
+                              aria-invalid="false"
+                              aria-labelledby="Range Upper Bound"
+                              autocomplete="on"
+                              class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+                              data-cy="range-upper-bound"
+                              id="lg-form_field-input-31"
+                              min="0"
+                              placeholder="100"
+                              required=""
+                              type="number"
+                              value=""
+                            />
+                          </div>
                         </div>
+                        <div
+                          aria-live="polite"
+                          aria-relevant="all"
+                          class="leafygreen-ui-11ydt2g"
+                          data-lgid="lg-form_field-feedback"
+                          data-testid="lg-form_field-feedback"
+                          id="lg-form_field-feedback-30"
+                        />
                       </div>
                     </div>
                   </div>

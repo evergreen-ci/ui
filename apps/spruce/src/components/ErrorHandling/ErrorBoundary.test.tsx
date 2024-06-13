@@ -1,14 +1,22 @@
-import * as Sentry from "@sentry/react";
+import { captureException } from "@sentry/react";
 import { render, screen } from "test_utils";
 import { mockEnvironmentVariables } from "test_utils/utils";
 import { ErrorBoundary } from "./ErrorBoundary";
 
 const { cleanup } = mockEnvironmentVariables();
 
+vi.mock("@sentry/react", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    // @ts-expect-error
+    ...actual,
+    captureException: vi.fn(),
+  };
+});
+
 describe("default error boundary", () => {
   beforeEach(() => {
     vi.spyOn(console, "error").mockImplementation(() => {});
-    vi.spyOn(Sentry, "captureException");
   });
 
   afterEach(() => {
@@ -46,6 +54,6 @@ describe("default error boundary", () => {
         componentStack: expect.any(String),
       }),
     });
-    expect(Sentry.captureException).not.toHaveBeenCalled();
+    expect(vi.mocked(captureException)).not.toHaveBeenCalled();
   });
 });

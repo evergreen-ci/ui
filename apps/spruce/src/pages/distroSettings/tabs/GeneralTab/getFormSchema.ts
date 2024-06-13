@@ -135,8 +135,7 @@ export const getFormSchema = (
       },
       warningNote: {
         "ui:rows": 2,
-        // TODO: https://jira.mongodb.org/browse/DEVPROD-6656 - Swap this to textarea when the backend supports it
-        "ui:widget": "hidden",
+        "ui:widget": "textarea",
         "ui:description":
           "This will be displayed to users when selecting this distro as part of evergreen yml validation.",
       },

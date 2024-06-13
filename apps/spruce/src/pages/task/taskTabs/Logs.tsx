@@ -176,6 +176,7 @@ const getLinks = (
     return {};
   }
   if (logType === LogTypes.Event) {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     return { htmlLink: logLinks.eventLogLink };
   }
   const htmlLink = `${

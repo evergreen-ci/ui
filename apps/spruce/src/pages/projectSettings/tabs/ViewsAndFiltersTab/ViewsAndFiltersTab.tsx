@@ -12,6 +12,7 @@ const getInitialFormState = (
   projectData: TabProps["projectData"],
   repoData: TabProps["repoData"],
 ): ViewsFormState => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
   return projectData;
@@ -47,6 +48,7 @@ const validate = ((formData, errors) => {
   ];
   const duplicateIndices = findDuplicateIndices(combinedFilters, "expression");
   duplicateIndices.forEach((i) => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     errors.parsleyFilters?.[i]?.expression?.addError(
       "Filter expression already appears in this project.",
     );

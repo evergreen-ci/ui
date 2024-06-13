@@ -23,6 +23,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
 
   const onNextClick = () => {
     sendEvent({ name: "Paginate", direction: "next" });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setSkipOrderNumber(nextPageOrderNumber);
   };
   const onPrevClick = () => {
@@ -30,7 +31,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
       name: "Paginate",
       direction: "previous",
     });
-
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setSkipOrderNumber(prevPageOrderNumber);
   };
   return (

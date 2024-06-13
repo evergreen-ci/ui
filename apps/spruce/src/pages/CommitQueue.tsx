@@ -27,6 +27,7 @@ export const CommitQueue: React.FC = () => {
     CommitQueueQuery,
     CommitQueueQueryVariables
   >(COMMIT_QUEUE, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { projectIdentifier },
     fetchPolicy: "cache-and-network",
     onError: (err) => {
@@ -57,6 +58,7 @@ export const CommitQueue: React.FC = () => {
         </Column>
         <ProjectSelectWrapper>
           <ProjectSelect
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             selectedProjectIdentifier={projectIdentifier}
             data-cy="commit-queue-project-select"
             getRoute={getCommitQueueRoute}
@@ -72,17 +74,28 @@ export const CommitQueue: React.FC = () => {
         queue.map(({ enqueueTime, issue, patch }, i) => (
           <CommitQueueCard
             key={issue}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             issue={issue}
             index={formatZeroIndexForDisplay(i)}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             title={patch?.description}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             author={patch?.author}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             patchId={patch?.id}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionId={patch?.versionFull?.id}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             repo={commitQueue?.repo}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             owner={commitQueue?.owner}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             commitTime={enqueueTime}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             moduleCodeChanges={patch?.moduleCodeChanges}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             commitQueueId={commitQueue.projectId}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             activated={patch?.activated}
           />
         ))

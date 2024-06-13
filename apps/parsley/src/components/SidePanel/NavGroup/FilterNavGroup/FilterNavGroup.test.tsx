@@ -1,5 +1,5 @@
-import { MockedProvider } from "@apollo/client/testing";
-import { LogContextProvider } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -8,15 +8,14 @@ import {
 } from "test_utils";
 import FilterNavGroup from ".";
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider>
-    <LogContextProvider initialLogLines={[]}>{children}</LogContextProvider>
-  </MockedProvider>
-);
+const wrapper = logContextWrapper();
 
 describe("filters", () => {
   vi.setConfig({ testTimeout: 10000 });
   const user = userEvent.setup();
+  beforeEach(() => {
+    InitializeFakeToastContext();
+  });
 
   it("shows a message when no filters have been applied", () => {
     render(<FilterNavGroup {...props} />, { wrapper });

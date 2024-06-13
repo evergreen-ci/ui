@@ -54,9 +54,11 @@ export const AllLog: React.FC<Props> = (props) => {
     AllLogsQuery,
     AllLogsQueryVariables
   >(ALL_LOGS, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -67,6 +69,7 @@ export const AllLog: React.FC<Props> = (props) => {
   return useRenderBody({
     data: allLogs || [],
     loading,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     error,
     ...props,
   });
@@ -80,9 +83,11 @@ export const EventLog: React.FC<Props> = (props) => {
     TaskEventLogsQuery,
     TaskEventLogsQueryVariables
   >(TASK_EVENT_LOGS, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -90,11 +95,13 @@ export const EventLog: React.FC<Props> = (props) => {
   const { eventLogs } = taskLogs || {};
 
   return useRenderBody({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     data: (eventLogs || []).map((v: TaskEventLogEntry) => ({
       ...v,
       kind: "taskEventLogEntry",
     })),
     loading,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     error,
     LogContainer: ({ children }) => <div>{children}</div>,
     ...props,
@@ -109,9 +116,11 @@ export const SystemLog: React.FC<Props> = (props) => {
     SystemLogsQuery,
     SystemLogsQueryVariables
   >(SYSTEM_LOGS, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -121,6 +130,7 @@ export const SystemLog: React.FC<Props> = (props) => {
   return useRenderBody({
     data: systemLogs || [],
     loading,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     error,
     ...props,
   });
@@ -134,9 +144,11 @@ export const AgentLog: React.FC<Props> = (props) => {
     AgentLogsQuery,
     AgentLogsQueryVariables
   >(AGENT_LOGS, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -146,6 +158,7 @@ export const AgentLog: React.FC<Props> = (props) => {
   return useRenderBody({
     data: agentLogs || [],
     loading,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     error,
     ...props,
   });
@@ -159,9 +172,11 @@ export const TaskLog: React.FC<Props> = (props) => {
     TaskLogsQuery,
     TaskLogsQueryVariables
   >(TASK_LOGS, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -170,6 +185,7 @@ export const TaskLog: React.FC<Props> = (props) => {
   return useRenderBody({
     data: taskLogs?.taskLogs || [],
     loading,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     error,
     ...props,
   });
@@ -209,7 +225,9 @@ const useRenderBody: React.FC<{
             {...d}
           />
         ) : (
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           <LogMessageLine
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
             {...d}
           />

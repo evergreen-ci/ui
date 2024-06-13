@@ -8,6 +8,7 @@ interface ParseQueryString {
 export type ParsedQueryStringValue = ParsedQuery<string | boolean | number>;
 
 export const parseQueryString = (search: string): ParseQueryString =>
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   queryString.parse(search, { arrayFormat: "comma" });
 
 export const parseQueryStringAsValue = (

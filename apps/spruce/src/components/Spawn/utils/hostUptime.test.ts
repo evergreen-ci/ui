@@ -1,8 +1,9 @@
 import {
   getHostUptimeFromGql,
+  getHostUptimeWarnings,
+  getNextHostStart,
   getSleepSchedule,
   matchesDefaultUptimeSchedule,
-  validateUptimeSchedule,
   validator,
 } from "./hostUptime";
 
@@ -63,7 +64,7 @@ describe("validator", () => {
 
   it("returns no errors when host is expirable", () => {
     const f = vi.fn();
-    validator(
+    validator(false)(
       {
         expirationDetails: {
           hostUptime: {
@@ -81,14 +82,14 @@ describe("validator", () => {
         },
       },
       // @ts-expect-error
-      { expirationDetails: { hostUptime: { addError: f } } },
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(0);
   });
 
   it("returns error when the host has too many uptime hours", () => {
     const f = vi.fn();
-    validator(
+    validator(false)(
       {
         expirationDetails: {
           hostUptime: {
@@ -106,14 +107,14 @@ describe("validator", () => {
         },
       },
       // @ts-expect-error
-      { expirationDetails: { hostUptime: { addError: f } } },
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(1);
   });
 
   it("does not return an error when the host does not have too many uptime hours", () => {
     const f = vi.fn();
-    validator(
+    validator(false)(
       {
         expirationDetails: {
           hostUptime: {
@@ -131,9 +132,143 @@ describe("validator", () => {
         },
       },
       // @ts-expect-error
-      { expirationDetails: { hostUptime: { addError: f } } },
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
     );
     expect(f).toHaveBeenCalledTimes(0);
+  });
+
+  it("does not add error when host is permanently exempt", () => {
+    const f = vi.fn();
+    validator(true)(
+      {
+        expirationDetails: {
+          hostUptime: {
+            useDefaultUptimeSchedule: false,
+            sleepSchedule: {
+              enabledWeekdays: [],
+              timeSelection: {
+                startTime: "",
+                stopTime: "",
+                runContinuously: true,
+              },
+            },
+            temporarilyExemptUntil: new Date("2024-01-05").toString(),
+          },
+          noExpiration: true,
+        },
+      },
+      {
+        expirationDetails: {
+          // @ts-expect-error
+          hostUptime: { temporarilyExemptUntil: { addError: f } },
+        },
+      },
+    );
+    expect(f).toHaveBeenCalledTimes(0);
+  });
+
+  describe("temporary exemption", () => {
+    beforeEach(() => {
+      // Hoist date resetting in order to set system-wide date
+      // https://github.com/vitest-dev/vitest/issues/5154#issuecomment-1934003114
+      vi.hoisted(() => {
+        vi.useFakeTimers().setSystemTime("2024-01-01");
+      });
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("returns an error when exemption is in past", () => {
+      const f = vi.fn();
+      validator(false)(
+        {
+          expirationDetails: {
+            hostUptime: {
+              useDefaultUptimeSchedule: true,
+              sleepSchedule: {
+                enabledWeekdays: [],
+                timeSelection: {
+                  startTime: "",
+                  stopTime: "",
+                  runContinuously: true,
+                },
+              },
+              temporarilyExemptUntil: new Date("2001-01-01").toString(),
+            },
+            noExpiration: true,
+          },
+        },
+        {
+          expirationDetails: {
+            // @ts-expect-error
+            hostUptime: { temporarilyExemptUntil: { addError: f } },
+          },
+        },
+      );
+      expect(f).toHaveBeenCalledTimes(1);
+    });
+
+    it("returns an error when exemption is too long", () => {
+      const f = vi.fn();
+      validator(false)(
+        {
+          expirationDetails: {
+            hostUptime: {
+              useDefaultUptimeSchedule: false,
+              sleepSchedule: {
+                enabledWeekdays: [],
+                timeSelection: {
+                  startTime: "",
+                  stopTime: "",
+                  runContinuously: true,
+                },
+              },
+              temporarilyExemptUntil: new Date("2025-01-01").toString(),
+            },
+            noExpiration: true,
+          },
+        },
+        {
+          expirationDetails: {
+            // @ts-expect-error
+            hostUptime: { temporarilyExemptUntil: { addError: f } },
+          },
+        },
+      );
+      expect(f).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not add error to valid exemption date", () => {
+      const f = vi.fn();
+      validator(false)(
+        {
+          expirationDetails: {
+            hostUptime: {
+              useDefaultUptimeSchedule: false,
+              sleepSchedule: {
+                enabledWeekdays: [],
+                timeSelection: {
+                  startTime: "",
+                  stopTime: "",
+                  runContinuously: true,
+                },
+              },
+              temporarilyExemptUntil: new Date("2024-01-05").toString(),
+            },
+            noExpiration: true,
+          },
+        },
+        {
+          expirationDetails: {
+            // @ts-expect-error
+            hostUptime: { temporarilyExemptUntil: { addError: f } },
+          },
+        },
+      );
+      expect(f).toHaveBeenCalledTimes(0);
+    });
   });
 });
 
@@ -144,10 +279,12 @@ describe("getHostUptimeFromGql", () => {
       dailyStopTime: "20:00",
       permanentlyExempt: true,
       shouldKeepOff: true,
+      temporarilyExemptUntil: null,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
     };
     expect(getHostUptimeFromGql(sched)).toStrictEqual({
+      useDefaultUptimeSchedule: true,
       sleepSchedule: {
         enabledWeekdays: [false, true, true, true, true, true, false],
         timeSelection: {
@@ -158,7 +295,7 @@ describe("getHostUptimeFromGql", () => {
             "Mon Jan 01 1900 20:00:00 GMT+0000 (Coordinated Universal Time)",
         },
       },
-      useDefaultUptimeSchedule: true,
+      temporarilyExemptUntil: "",
     });
   });
 
@@ -168,6 +305,7 @@ describe("getHostUptimeFromGql", () => {
       dailyStopTime: "21:00",
       permanentlyExempt: true,
       shouldKeepOff: true,
+      temporarilyExemptUntil: new Date("2024-07-01"),
       timeZone: "America/New_York",
       wholeWeekdaysOff: [],
     };
@@ -183,6 +321,8 @@ describe("getHostUptimeFromGql", () => {
             "Mon Jan 01 1900 21:00:00 GMT+0000 (Coordinated Universal Time)",
         },
       },
+      temporarilyExemptUntil:
+        "Mon Jul 01 2024 00:00:00 GMT+0000 (Coordinated Universal Time)",
     });
   });
 
@@ -192,6 +332,7 @@ describe("getHostUptimeFromGql", () => {
       dailyStopTime: "",
       permanentlyExempt: true,
       shouldKeepOff: true,
+      temporarilyExemptUntil: null,
       timeZone: "America/New_York",
       wholeWeekdaysOff: [0, 6],
     };
@@ -207,6 +348,7 @@ describe("getHostUptimeFromGql", () => {
             "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
         },
       },
+      temporarilyExemptUntil: "",
     });
   });
 });
@@ -214,7 +356,22 @@ describe("getHostUptimeFromGql", () => {
 describe("getSleepSchedule", () => {
   it("sets the default schedule", () => {
     expect(
-      getSleepSchedule({ useDefaultUptimeSchedule: true }, "America/New_York"),
+      getSleepSchedule(
+        {
+          useDefaultUptimeSchedule: true,
+          sleepSchedule: {
+            enabledWeekdays: [false, false, true, true, true, true, false],
+            timeSelection: {
+              runContinuously: true,
+              startTime:
+                "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
+              stopTime:
+                "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
+            },
+          },
+        },
+        "America/New_York",
+      ),
     ).toStrictEqual({
       dailyStartTime: "08:00",
       dailyStopTime: "20:00",
@@ -282,58 +439,68 @@ describe("getSleepSchedule", () => {
   });
 });
 
-describe("validateUptimeSchedule", () => {
+describe("getHostUptimeWarnings", () => {
   it("returns no errors when under recommended time", () => {
     expect(
-      validateUptimeSchedule({
-        enabledWeekdays: [false, false, true, true, true, true, false],
+      getHostUptimeWarnings({
+        enabledHoursCount: 60,
+        enabledWeekdaysCount: 5,
         runContinuously: false,
-        startTime:
-          "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-        stopTime:
-          "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-        useDefaultUptimeSchedule: true,
       }),
-    ).toStrictEqual({
-      enabledHoursCount: 60,
-      errors: [],
-      warnings: [],
-    });
+    ).toStrictEqual([]);
   });
 
   it("returns a warning when over recommended time", () => {
     expect(
-      validateUptimeSchedule({
-        enabledWeekdays: [false, true, true, true, true, true, true],
+      getHostUptimeWarnings({
+        enabledHoursCount: 144,
+        enabledWeekdaysCount: 6,
         runContinuously: true,
-        startTime:
-          "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-        stopTime:
-          "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-        useDefaultUptimeSchedule: false,
       }),
-    ).toStrictEqual({
-      enabledHoursCount: 144,
-      errors: [],
-      warnings: ["Consider pausing your host for 2 days per week."],
+    ).toStrictEqual(["Consider pausing your host for 2 days per week."]);
+  });
+
+  it("does not return a warning when over allowed time", () => {
+    expect(
+      getHostUptimeWarnings({
+        enabledHoursCount: 168,
+        enabledWeekdaysCount: 7,
+        runContinuously: true,
+      }),
+    ).toStrictEqual([]);
+  });
+});
+
+describe("getNextHostStart", () => {
+  beforeEach(() => {
+    vi.useFakeTimers().setSystemTime("2024-06-02");
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("calculates the next start with time", () => {
+    const tuesday = new Date("2024-06-04T08:00").toString();
+    expect(getNextHostStart("08:00", tuesday)).toStrictEqual({
+      nextStartDay: "Tuesday",
+      nextStartTime: "8:00",
     });
   });
 
-  it("returns an error when over allowed time", () => {
-    expect(
-      validateUptimeSchedule({
-        enabledWeekdays: [true, true, true, true, true, true, true],
-        runContinuously: true,
-        startTime:
-          "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-        stopTime:
-          "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-        useDefaultUptimeSchedule: false,
-      }),
-    ).toStrictEqual({
-      enabledHoursCount: 168,
-      errors: ["Please pause your host for at least 1 day per week."],
-      warnings: [],
+  it("calculates starting tomorrow with time", () => {
+    const monday = new Date("2024-06-03T08:00").toString();
+    expect(getNextHostStart("08:00", monday)).toStrictEqual({
+      nextStartDay: "tomorrow",
+      nextStartTime: "8:00",
+    });
+  });
+
+  it("calculates the next start when running continuously", () => {
+    const tuesday = new Date("2024-06-04T08:00").toString();
+    expect(getNextHostStart("", tuesday)).toStrictEqual({
+      nextStartDay: "Tuesday",
+      nextStartTime: null,
     });
   });
 });

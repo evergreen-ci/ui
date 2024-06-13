@@ -39,6 +39,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   taskId,
   versionId,
 }) => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent: sendVersionEvent } = useVersionAnalytics(versionId);
   const { sendEvent: sendTaskEvent } = useTaskAnalytics();
   const dispatchToast = useToastContext();
@@ -67,6 +68,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   >(SET_TASK_PRIORITY, {
     onCompleted: (data) => {
       dispatchToast.success(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         data.setTaskPriority.priority >= 0
           ? `Priority for task updated to ${data.setTaskPriority.priority}`
           : `Task was successfully disabled`,
@@ -82,6 +84,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       setTaskPriority({ variables: { taskId, priority } });
       sendTaskEvent({ name: "Set Priority", priority });
     } else {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setVersionPriority({ variables: { versionId, priority } });
       sendVersionEvent({ name: "Set Priority", priority });
     }

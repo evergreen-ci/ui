@@ -33,5 +33,5 @@ yarn test
 
 To run a particular workspace's unit tests from root:
 ```bash
-yarn test --selectProjects [workspace-name]
+yarn test --project [workspace-name]
 ```

@@ -25,13 +25,21 @@ export const DateTimePicker: React.FC<
   } = options;
 
   const timezone = useUserTimeZone();
-  const currentDateTime = toZonedTime(new Date(value || null), timezone);
+  const currentDateTime = timezone
+    ? toZonedTime(new Date(value || null), timezone)
+    : new Date(value || null);
   const isDisabled = disabled || readonly;
-  const handleChange = (d: Date) => {
-    onChange(fromZonedTime(d, timezone).toString());
+  const handleChange = (d: Date | null) => {
+    if (!d) return;
+
+    if (timezone) {
+      onChange(fromZonedTime(d, timezone).toString());
+    } else {
+      onChange(d.toString());
+    }
   };
 
-  const disabledDate = (current) => {
+  const disabledDate = (current: Date) => {
     const disablePast = disableBefore ? current < disableBefore : false;
     const disableFuture = disableAfter ? current > disableAfter : false;
     return disableFuture || disablePast;
@@ -81,26 +89,14 @@ export const TimePicker: React.FC<
   {
     options: {
       format?: string;
-      useUtc?: boolean;
     };
   } & SpruceWidgetProps
 > = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
-  const {
-    description,
-    elementWrapperCSS,
-    format,
-    showLabel,
-    useUtc = true,
-  } = options;
-  const timezone = useUserTimeZone();
-  const currentDateTime = useUtc
-    ? toZonedTime(new Date(value || null), timezone)
-    : new Date(value || null);
+  const { description, elementWrapperCSS, format, showLabel } = options;
+  const currentDateTime = new Date(value || null);
   const isDisabled = disabled || readonly;
-  const handleChange = (d: Date) => {
-    if (useUtc) {
-      onChange(fromZonedTime(d, timezone).toString());
-    } else {
+  const handleChange = (d: Date | null) => {
+    if (d) {
       onChange(d.toString());
     }
   };
@@ -119,10 +115,15 @@ export const TimePicker: React.FC<
         id={id}
         data-cy="time-picker"
         format={format}
+        needConfirm
         onChange={handleChange}
         value={currentDateTime}
         allowClear={false}
         disabled={isDisabled}
+        showNow={false}
+        // Disable typing into timepicker due to Antd bug:
+        // https://github.com/ant-design/ant-design/issues/45564
+        inputReadOnly
       />
     </ElementWrapper>
   );
@@ -130,4 +131,4 @@ export const TimePicker: React.FC<
 
 // Fixes bug where DatePicker won't handle onClick events
 const getPopupContainer = (triggerNode: HTMLElement) =>
-  triggerNode.parentNode.parentNode;
+  triggerNode?.parentNode?.parentNode;

@@ -54,7 +54,32 @@ describe("columnHeaders (Variant History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
+    });
+  });
 
+  it("should not show more column headers then the columnLimit", async () => {
+    const { Component } = RenderFakeToastContext(
+      <ColumnHeaders
+        projectIdentifier="evergreen"
+        variantName="some_variant"
+      />,
+    );
+    render(<Component />, {
+      wrapper: ({ children }) =>
+        ProviderWrapper({
+          children,
+          state: {
+            visibleColumns: ["task1", "task2", "task3", "task4", "task5"],
+            columnLimit: 3,
+          },
+          mocks: [mock(["task1", "task2", "task3", "task4", "task5"])],
+        }),
+    });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+    });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
     });
@@ -80,34 +105,13 @@ describe("columnHeaders (Variant History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(screen.queryByRole("link")).toHaveAttribute(
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(1);
+    });
+    expect(screen.getByRole("link")).toHaveAttribute(
       "href",
       "/task-history/evergreen/task1",
     );
-  });
-
-  it("should not show more column headers then the columnLimit", async () => {
-    const { Component } = RenderFakeToastContext(
-      <ColumnHeaders
-        projectIdentifier="evergreen"
-        variantName="some_variant"
-      />,
-    );
-    render(<Component />, {
-      wrapper: ({ children }) =>
-        ProviderWrapper({
-          children,
-          state: {
-            visibleColumns: ["task1", "task2", "task3", "task4", "task5"],
-            columnLimit: 3,
-          },
-          mocks: [mock(["task1", "task2", "task3", "task4", "task5"])],
-        }),
-    });
-    await waitFor(() => {
-      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
-    });
-    expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
   });
 
   it("should truncate the task name only if it is too long", async () => {
@@ -130,6 +134,9 @@ describe("columnHeaders (Variant History)", () => {
 
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+    });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(2);
     });
     expect(screen.queryByText(longTaskName)).toBeNull();
     expect(screen.queryByText("task2")).toBeVisible();
@@ -156,10 +163,13 @@ describe("columnHeaders (Variant History)", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    await user.hover(screen.queryByText(trimmedTaskName));
     await waitFor(() => {
-      expect(screen.queryByText(longTaskName)).toBeVisible();
+      expect(screen.queryAllByDataCy("header-cell")).toHaveLength(1);
     });
+
+    expect(screen.queryByText(trimmedTaskName)).toBeVisible();
+    await user.hover(screen.getByText(trimmedTaskName));
+    await screen.findByText(longTaskName);
   });
 });
 

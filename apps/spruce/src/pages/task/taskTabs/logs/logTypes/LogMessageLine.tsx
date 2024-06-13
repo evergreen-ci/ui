@@ -17,12 +17,16 @@ export const LogMessageLine: React.FC<LogMessageFragment> = ({
 }) => {
   const tz = useUserTimeZone();
   const time = timestamp
-    ? `[${format(new Date(toZonedTime(timestamp, tz)), FORMAT_STR, {
+    ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+      `[${format(new Date(toZonedTime(timestamp, tz)), FORMAT_STR, {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         timeZone: tz,
       })}] `
     : "";
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const LogLineWrapper = getLogLineWrapper(severity);
   const memoizedLogLine = useMemo(() => {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const render = linkifyHtml(ansiUp.ansi_to_html(message), {
       validate: {
         url: (value) => /^(http)s?:\/\//.test(value),

@@ -1,6 +1,6 @@
 import { ProcessedLogLines, SelectedLineRange } from "types/logs";
-import { isCollapsedRow } from "utils/collapsedRow";
 import { findLineIndex } from "utils/findLineIndex";
+import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
 
 const getLinesInProcessedLogLinesFromSelectedLines = (
   processedLogLines: ProcessedLogLines,
@@ -17,7 +17,7 @@ const getLinesInProcessedLogLinesFromSelectedLines = (
   const lines: number[] = [];
   for (let i = startingIndex; i <= endingIndex; i++) {
     const line = processedLogLines[i];
-    if (!isCollapsedRow(line)) {
+    if (!(isSkippedLinesRow(line) || isSectionHeaderRow(line))) {
       lines.push(line);
     }
   }

@@ -6,7 +6,7 @@ const errorIfStrict = process.env.STRICT ? ERROR : WARN;
 
 module.exports = {
   root: true,
-  extends: ["evg"],
+  extends: ["@evg-ui"],
   overrides: [
     {
       files: ["src/gql/**/*.graphql"],

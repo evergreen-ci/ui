@@ -33,7 +33,7 @@ export const useTableSort = (props?: Props): CallbackType => {
         id,
         direction: desc ? SortDirection.Desc : SortDirection.Asc,
       }));
-
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       nextQueryParams[TableQueryParams.Sorts] = toSortString(sortArray, "id");
     }
     setQueryParams(nextQueryParams);

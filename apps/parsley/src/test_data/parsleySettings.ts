@@ -19,6 +19,7 @@ export const parsleySettingsMock: ApolloMock<
         parsleySettings: {
           __typename: "ParsleySettings",
           jumpToFailingLineEnabled: true,
+          sectionsEnabled: true,
         },
         userId: "me",
       },

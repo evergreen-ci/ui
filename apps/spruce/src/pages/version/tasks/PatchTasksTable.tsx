@@ -36,6 +36,7 @@ export const PatchTasksTable: React.FC<Props> = ({
   tasks,
 }) => {
   const { [slugs.versionId]: versionId } = useParams();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
   const [queryParams, setQueryParams] = useQueryParams();
   const filterHookProps = {
@@ -51,6 +52,7 @@ export const PatchTasksTable: React.FC<Props> = ({
     urlParam: PatchTasksQueryParams.BaseStatuses,
     ...filterHookProps,
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { baseStatuses, currentStatuses } = useTaskStatuses({ versionId });
   const statusSelectorProps = {
     state: currentStatusesFilter.inputValue,
@@ -104,7 +106,9 @@ export const PatchTasksTable: React.FC<Props> = ({
     <TasksTable
       isPatch={isPatch}
       sorts={sorts}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       tableChangeHandler={tableChangeHandler}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       tasks={tasks}
       loading={loading}
       onExpand={(expanded) => {

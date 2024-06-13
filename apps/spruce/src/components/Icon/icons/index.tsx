@@ -140,6 +140,7 @@ export const SystemFailure: React.ComponentType<LeafygreenIconProps> = ({
   </svg>
 );
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 export const TimedOut = ({ className, fill, size = 16 }) => (
   <svg
     className={className}

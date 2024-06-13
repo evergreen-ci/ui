@@ -44,6 +44,7 @@ export const UserDropdown = () => {
     <NavDropdown
       dataCy="user-dropdown-link"
       menuItems={menuItems}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       title={displayName}
     />
   );

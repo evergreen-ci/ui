@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { wordBreakCss, StyledRouterLink } from "components/styles";
@@ -9,7 +10,6 @@ import { StatusCount } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { string, statuses } from "utils";
-import { arraySymmetricDifference } from "utils/array";
 
 const { groupStatusesByUmbrellaStatus } = statuses;
 const { applyStrictRegex } = string;
@@ -30,6 +30,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
 
   const [variantSearch] = useQueryParam<string | null>(
     PatchTasksQueryParams.Variant,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     undefined,
   );
   const [sorts] = useQueryParam(PatchTasksQueryParams.Sorts, undefined);
@@ -37,6 +38,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
     PatchTasksQueryParams.Statuses,
     [],
   );
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const hasStatusFilter = statusSearch.length > 0;
   const hasVariantFilter = variantSearch !== undefined;
 
@@ -72,6 +74,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
           ({ count, statusCounts: groupedStatusCounts, umbrellaStatus }) => {
             const hasStatusFilterForUmbrellaStatus = isUmbrellaStatusSet(
               umbrellaStatus,
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               statusSearch,
             );
             // A badge is active if the variant is selected and the status is selected

@@ -53,9 +53,11 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   });
 
   const { taskNamesForBuildVariant } = columnData || {};
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { columnLimit, visibleColumns } = useHistoryTable();
 
   const columnMap = mapStringArrayToObject(visibleColumns, "name");
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const activeColumns = useColumns(taskNamesForBuildVariant, (c) => c);
   return (
     <RowContainer>

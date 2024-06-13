@@ -28,7 +28,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { [slugs.versionId]: versionId } = useParams();
   const [queryParams, setQueryParams] = useQueryParams();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionAnalytics = useVersionAnalytics(versionId);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const queryVariables = useVersionTasksQueryVariables(versionId);
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
@@ -60,6 +62,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { isPatch, tasks } = version || {};
@@ -71,7 +74,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         <TableControl
           filteredCount={count}
           totalCount={taskCount}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           limit={limit}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           page={page}
           label="tasks"
           onClear={clearQueryParams}
@@ -85,7 +90,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       shouldShowBottomTableControl={tasksData.length > 10}
     >
       <PatchTasksTable
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         isPatch={isPatch}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         sorts={sorts}
         tasks={tasksData}
         loading={tasksData.length === 0 && loading}

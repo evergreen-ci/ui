@@ -1,11 +1,13 @@
 import { LogRenderingTypes } from "constants/enums";
+import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
-import { isCollapsedRow } from "utils/collapsedRow";
+import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
 import AnsiRow from "../AnsiRow";
-import CollapsedRow from "../CollapsedRow";
 import ResmokeRow from "../ResmokeRow";
+import SectionHeader from "../SectionHeader";
+import SkippedLinesRow from "../SkippedLinesRow";
 
 type RowRendererFunction = (props: {
   processedLogLines: ProcessedLogLines;
@@ -55,12 +57,25 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
 
   const result = (index: number) => {
     const processedLogLine = processedLogLines[index];
-    if (isCollapsedRow(processedLogLine)) {
+    if (isSkippedLinesRow(processedLogLine)) {
       return (
-        <CollapsedRow
-          collapsedLines={processedLogLine}
+        <SkippedLinesRow
           expandLines={expandLines}
           lineIndex={index}
+          range={processedLogLine.range}
+        />
+      );
+    }
+
+    if (isSectionHeaderRow(processedLogLine)) {
+      return (
+        <SectionHeader
+          defaultOpen={processedLogLine.isOpen}
+          functionName={processedLogLine.functionName}
+          lineIndex={index}
+          onFocus={() => {}} // TODO: Update in DEVPROD-5293
+          onOpen={() => {}}
+          status={SectionStatus.Pass} // TODO: Update in DEVPROD-5295
         />
       );
     }

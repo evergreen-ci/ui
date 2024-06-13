@@ -28,7 +28,9 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const { [slugs.versionId]: versionId } = useParams();
 
   const [queryParams, setQueryParams] = useQueryParams();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionAnalytics = useVersionAnalytics(versionId);
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const queryVariables = useVersionTasksQueryVariables(versionId);
   const { limit, page } = queryVariables.taskFilterOptions;
 
@@ -56,6 +58,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { tasks } = version || {};

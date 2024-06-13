@@ -5,6 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
+import { isSleepScheduleActive } from "components/Spawn";
 import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,
@@ -18,11 +19,14 @@ import { MY_HOSTS } from "gql/queries";
 import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
+import { PauseSleepScheduleModal } from "./PauseSleepScheduleModal";
 
 export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const dispatchToast = useToastContext();
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const glyph = mapStatusToGlyph[host.status];
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const action = mapStatusToAction[host.status];
   const canTerminate = host.status !== HostStatus.Terminated;
 
@@ -42,6 +46,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     },
   });
   usePolling({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     startPolling,
     stopPolling,
     refetch,
@@ -72,15 +77,15 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     refetchQueries: ["MyVolumes"],
   });
 
-  const onClick = (a) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
+  const handleClick = (a: SpawnHostStatusActions, shouldKeepOff?: boolean) => {
     spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
     updateSpawnHostStatus({
       variables: {
-        hostId: host.id,
-        action: a,
+        updateSpawnHostStatusInput: {
+          hostId: host.id,
+          action: a,
+          shouldKeepOff,
+        },
       },
     });
   };
@@ -97,19 +102,47 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const [checkboxAcknowledged, setCheckboxAcknowledged] =
     useState(!checkboxLabel);
 
+  const [sleepModalOpen, setSleepModalOpen] = useState(false);
+
   return (
     <>
-      {action ? (
-        <Button
-          disabled={loading}
-          leftGlyph={<Icon glyph={glyph} />}
-          size={Size.XSmall}
-          onClick={onClick(action)}
-        />
-      ) : null}
+      {isSleepScheduleActive({
+        isTemporarilyExempt: !!(host?.sleepSchedule
+          ?.temporarilyExemptUntil as unknown as string),
+        noExpiration: host.noExpiration,
+        permanentlyExempt: !!host?.sleepSchedule?.permanentlyExempt,
+      }) && action === SpawnHostStatusActions.Stop ? (
+        <>
+          <Button
+            data-cy="pause-unexpirable-host-button"
+            disabled={loading || host.status === HostStatus.Stopping}
+            leftGlyph={<Icon glyph={glyph} />}
+            size={Size.XSmall}
+            onClick={() => setSleepModalOpen((o) => !o)}
+          />
+          <PauseSleepScheduleModal
+            handleConfirm={(shouldKeepOff) =>
+              handleClick(action, shouldKeepOff)
+            }
+            open={sleepModalOpen}
+            setOpen={setSleepModalOpen}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            sleepSchedule={host.sleepSchedule}
+          />
+        </>
+      ) : (
+        action && (
+          <Button
+            disabled={loading || host.status === HostStatus.Stopping}
+            leftGlyph={<Icon glyph={glyph} />}
+            size={Size.XSmall}
+            onClick={() => handleClick(action)}
+          />
+        )
+      )}
       <Popconfirm
         confirmDisabled={!checkboxAcknowledged}
-        onConfirm={onClick(SpawnHostStatusActions.Terminate)}
+        onConfirm={() => handleClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button
             size={Size.XSmall}

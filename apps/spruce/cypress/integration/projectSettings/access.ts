@@ -38,6 +38,7 @@ describe("Access page", () => {
     cy.validateToast("success", "Successfully updated project");
     // Assert persistence
     cy.reload();
+    saveButtonEnabled(false);
     cy.get("@usernameInput").should("not.exist");
   });
 

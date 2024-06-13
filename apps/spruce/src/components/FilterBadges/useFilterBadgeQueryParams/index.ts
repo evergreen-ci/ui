@@ -23,6 +23,7 @@ const useFilterBadgeQueryParams = (validQueryParams: Set<string>) => {
     Object.keys(params)
       .filter((badge) => validQueryParams.has(badge))
       .forEach((v) => {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         params[v] = undefined;
       });
     setQueryParams(params);

@@ -45,6 +45,7 @@ describe("buildBaronContent", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
           taskId={taskId}
           execution={execution}
@@ -68,6 +69,7 @@ describe("buildBaronContent", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
           taskId={taskId}
           execution={execution}
@@ -81,6 +83,7 @@ describe("buildBaronContent", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("file-ticket-button"));
     expect(screen.getByDataCy("file-ticket-popconfirm")).toBeVisible();
     await user.click(screen.getByRole("button", { name: "Yes" }));
@@ -93,6 +96,7 @@ describe("buildBaronContent", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
           taskId={taskId}
           execution={execution}

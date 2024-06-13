@@ -16,10 +16,14 @@ export const formToGql = ({
   const { expiration, noExpiration } = expirationDetails || {};
 
   return {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     availabilityZone,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     size,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     type,
     noExpiration,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     expiration: noExpiration ? null : new Date(expiration),
     host: mountToHost || null,
   };

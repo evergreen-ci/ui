@@ -1091,8 +1091,7 @@ export type MutationAddAnnotationIssueArgs = {
 };
 
 export type MutationAddFavoriteProjectArgs = {
-  identifier?: InputMaybe<Scalars["String"]["input"]>;
-  opts?: InputMaybe<AddFavoriteProjectInput>;
+  opts: AddFavoriteProjectInput;
 };
 
 export type MutationAttachProjectToNewRepoArgs = {
@@ -1135,16 +1134,11 @@ export type MutationCreatePublicKeyArgs = {
 };
 
 export type MutationDeactivateStepbackTaskArgs = {
-  buildVariantName?: InputMaybe<Scalars["String"]["input"]>;
-  opts?: InputMaybe<DeactivateStepbackTaskInput>;
-  projectId?: InputMaybe<Scalars["String"]["input"]>;
-  taskName?: InputMaybe<Scalars["String"]["input"]>;
+  opts: DeactivateStepbackTaskInput;
 };
 
 export type MutationDefaultSectionToRepoArgs = {
-  opts?: InputMaybe<DefaultSectionToRepoInput>;
-  projectId?: InputMaybe<Scalars["String"]["input"]>;
-  section?: InputMaybe<ProjectSettingsSection>;
+  opts: DefaultSectionToRepoInput;
 };
 
 export type MutationDeleteDistroArgs = {
@@ -1204,9 +1198,7 @@ export type MutationOverrideTaskDependenciesArgs = {
 };
 
 export type MutationPromoteVarsToRepoArgs = {
-  opts?: InputMaybe<PromoteVarsToRepoInput>;
-  projectId?: InputMaybe<Scalars["String"]["input"]>;
-  varNames?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  opts: PromoteVarsToRepoInput;
 };
 
 export type MutationRemoveAnnotationIssueArgs = {
@@ -1217,8 +1209,7 @@ export type MutationRemoveAnnotationIssueArgs = {
 };
 
 export type MutationRemoveFavoriteProjectArgs = {
-  identifier?: InputMaybe<Scalars["String"]["input"]>;
-  opts?: InputMaybe<RemoveFavoriteProjectInput>;
+  opts: RemoveFavoriteProjectInput;
 };
 
 export type MutationRemoveItemFromCommitQueueArgs = {
@@ -1343,9 +1334,7 @@ export type MutationUpdatePublicKeyArgs = {
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
-  action?: InputMaybe<SpawnHostStatusActions>;
-  hostId?: InputMaybe<Scalars["String"]["input"]>;
-  updateSpawnHostStatusInput?: InputMaybe<UpdateSpawnHostStatusInput>;
+  updateSpawnHostStatusInput: UpdateSpawnHostStatusInput;
 };
 
 export type MutationUpdateUserSettingsArgs = {
@@ -2095,14 +2084,12 @@ export type QueryProjectArgs = {
 
 export type QueryProjectEventsArgs = {
   before?: InputMaybe<Scalars["Time"]["input"]>;
-  identifier?: InputMaybe<Scalars["String"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
-  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 export type QueryProjectSettingsArgs = {
-  identifier?: InputMaybe<Scalars["String"]["input"]>;
-  projectIdentifier?: InputMaybe<Scalars["String"]["input"]>;
+  projectIdentifier: Scalars["String"]["input"];
 };
 
 export type QueryRepoEventsArgs = {
@@ -2376,6 +2363,9 @@ export type SleepSchedule = {
   __typename?: "SleepSchedule";
   dailyStartTime: Scalars["String"]["output"];
   dailyStopTime: Scalars["String"]["output"];
+  isBetaTester: Scalars["Boolean"]["output"];
+  nextStartTime?: Maybe<Scalars["Time"]["output"]>;
+  nextStopTime?: Maybe<Scalars["Time"]["output"]>;
   permanentlyExempt: Scalars["Boolean"]["output"];
   shouldKeepOff: Scalars["Boolean"]["output"];
   temporarilyExemptUntil?: Maybe<Scalars["Time"]["output"]>;
@@ -2386,6 +2376,7 @@ export type SleepSchedule = {
 export type SleepScheduleInput = {
   dailyStartTime: Scalars["String"]["input"];
   dailyStopTime: Scalars["String"]["input"];
+  isBetaTester?: InputMaybe<Scalars["Boolean"]["input"]>;
   permanentlyExempt: Scalars["Boolean"]["input"];
   shouldKeepOff: Scalars["Boolean"]["input"];
   temporarilyExemptUntil?: InputMaybe<Scalars["Time"]["input"]>;
@@ -2604,8 +2595,6 @@ export type Task = {
   status: Scalars["String"]["output"];
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
-  /** @deprecated Use files instead */
-  taskFiles: TaskFiles;
   taskGroup?: Maybe<Scalars["String"]["output"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]["output"]>;
   /** taskLogs returns the tail 100 lines of the task's logs. */
@@ -2689,8 +2678,6 @@ export type TaskFiles = {
 /** TaskFilterOptions defines the parameters that are used when fetching tasks from a Version. */
 export type TaskFilterOptions = {
   baseStatuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
-  /** @deprecated Use includeNeverActivatedTasks instead */
-  includeEmptyActivation?: InputMaybe<Scalars["Boolean"]["input"]>;
   includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
@@ -2755,6 +2742,7 @@ export type TaskQueueItem = {
   id: Scalars["ID"]["output"];
   priority: Scalars["Int"]["output"];
   project: Scalars["String"]["output"];
+  projectIdentifier?: Maybe<Scalars["String"]["output"]>;
   requester: TaskQueueItemType;
   revision: Scalars["String"]["output"];
   version: Scalars["String"]["output"];
@@ -3271,6 +3259,7 @@ export type UpdateParsleySettingsMutation = {
     parsleySettings?: {
       __typename?: "ParsleySettings";
       jumpToFailingLineEnabled: boolean;
+      sectionsEnabled: boolean;
     } | null;
   } | null;
 };
@@ -3397,6 +3386,7 @@ export type ParsleySettingsQuery = {
     parsleySettings: {
       __typename?: "ParsleySettings";
       jumpToFailingLineEnabled: boolean;
+      sectionsEnabled: boolean;
     };
   };
 };

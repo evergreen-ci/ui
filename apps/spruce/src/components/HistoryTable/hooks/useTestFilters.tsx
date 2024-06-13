@@ -4,6 +4,7 @@ import { TestStatus } from "types/history";
 import { useHistoryTable } from "../HistoryTableContext";
 
 const useTestFilters = () => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { setHistoryTableFilters } = useHistoryTable();
   const [failingTests] = useQueryParam<string[]>(TestStatus.Failed, []);
   const [passingTests] = useQueryParam<string[]>(TestStatus.Passed, []);

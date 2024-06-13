@@ -27,6 +27,7 @@ const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => {
   return (
     <DetailsCard
       data-cy="spawn-host-card"
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       fieldMaps={spawnHostCardFieldMaps(sendEvent)}
       type={host}
     />
@@ -35,11 +36,13 @@ const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => {
 
 const HostUptime: React.FC<MyHost> = ({ uptime }) => {
   const getDateCopy = useDateFormat();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return <span>{getDateCopy(uptime)}</span>;
 };
 
 const HostExpiration: React.FC<MyHost> = ({ expiration, noExpiration }) => {
   const getDateCopy = useDateFormat();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration)}</span>;
 };
 const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
@@ -86,6 +89,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
   ),
   "Home Volume": (host: MyHost) => (
     <span>
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <StyledRouterLink to={getSpawnVolumeRoute(host?.homeVolumeID)}>
         {host?.homeVolume?.displayName || host?.homeVolumeID}
       </StyledRouterLink>
@@ -94,6 +98,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
   IDE: (host: MyHost) =>
     host?.distro?.isVirtualWorkStation &&
     host?.status === HostStatus.Running &&
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     workstationSupportedDistros.includes(host?.distro?.id) ? (
       <IDEContainer>
         <StyledLink

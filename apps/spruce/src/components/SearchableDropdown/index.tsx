@@ -7,11 +7,11 @@ import {
   useMemo,
 } from "react";
 import styled from "@emotion/styled";
+import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import { palette } from "@leafygreen-ui/palette";
 import { Label } from "@leafygreen-ui/typography";
 import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
-import TextInput from "components/TextInputWithGlyph";
 import { size } from "constants/tokens";
 import { toggleArray } from "utils/array";
 
@@ -27,7 +27,9 @@ export interface SearchableDropdownProps<T> {
   options?: T[] | string[];
   optionRenderer?: (
     option: T,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     onClick: (selectedV) => void,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     isChecked: (selectedV) => boolean,
   ) => React.ReactNode;
   searchFunc?: (options: T[], match: string) => T[];
@@ -79,6 +81,7 @@ const SearchableDropdown = <T extends {}>({
     // Close the dropdown after user makes a selection only if it isn't a multiselect
     if (!allowMultiSelect) {
       if (DropdownRef.current) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         DropdownRef.current.setIsOpen(false);
       }
       resetSearch();
@@ -86,7 +89,8 @@ const SearchableDropdown = <T extends {}>({
   };
 
   const option = optionRenderer
-    ? (v: T) => optionRenderer(v, onClick, isChecked)
+    ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+      (v: T) => optionRenderer(v, onClick, isChecked)
     : (v: T) => (
         <SearchableDropdownOption
           key={`searchable_dropdown_option_${v}`}
@@ -111,6 +115,7 @@ const SearchableDropdown = <T extends {}>({
     () => (e: ChangeEvent<HTMLInputElement>) => {
       const { value: searchTerm } = e.target;
       setSearch(searchTerm);
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       let filteredOptions = [];
 
       if (options) {
@@ -128,6 +133,7 @@ const SearchableDropdown = <T extends {}>({
         }
       }
 
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       setVisibleOptions(filteredOptions);
     },
     [searchFunc, options],
@@ -158,7 +164,7 @@ const SearchableDropdown = <T extends {}>({
           ref={DropdownRef}
           aria-disabled={disabled}
         >
-          <TextInput
+          <TextInputWithGlyph
             data-cy={`${dataCy}-search-input`}
             placeholder={searchPlaceholder}
             value={search}
@@ -201,6 +207,7 @@ export const SearchableDropdownOption = <T extends {}>({
           height={12}
           width={12}
           fill={blue.base}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           checked={isChecked}
         />
       </CheckmarkContainer>

@@ -35,6 +35,7 @@ export const CustomOption: CustomStoryObj<
           value: "3",
         },
       ]}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       optionRenderer={(option, onClick, isChecked) => (
         <button
           onClick={() => onClick(option.value)}
@@ -52,6 +53,7 @@ export const CustomOption: CustomStoryObj<
   ),
 };
 
+// @ts-expect-error: FIXME. This comment was added by an automated script.
 const Dropdown = (props) => {
   const [value, setValue] = useState([]);
   return <SearchableDropdown {...props} value={value} onChange={setValue} />;

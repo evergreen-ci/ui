@@ -34,6 +34,7 @@ const projectForm: PluginsFormState = {
   },
   buildBaronSettings: {
     ticketCreateProject: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       createProject: null,
     },
     ticketCreateIssueType: {
@@ -42,7 +43,9 @@ const projectForm: PluginsFormState = {
     ticketSearchProjects: [],
     useBuildBaron: false,
     fileTicketWebhook: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       endpoint: null,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       secret: null,
     },
   },
@@ -69,7 +72,9 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     perfEnabled: true,
     taskAnnotationSettings: {
       fileTicketWebhook: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         endpoint: null,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         secret: null,
       },
     },

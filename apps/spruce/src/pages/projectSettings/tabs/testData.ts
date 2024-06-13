@@ -32,6 +32,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     enabled: false,
     owner: "evergreen-ci",
     repo: "evergreen",
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     branch: null,
     containerSizeDefinitions: [
       {
@@ -40,11 +41,14 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         memoryMb: 1024,
       },
     ],
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     displayName: null,
     notifyOnBuildFailure: null,
     batchTime: 0,
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     remotePath: null,
     oldestAllowedMergeBase: "abc",
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     spawnHostScriptPath: null,
     dispatchingDisabled: null,
     versionControlEnabled: true,
@@ -75,13 +79,16 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     },
     perfEnabled: true,
     buildBaronSettings: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       ticketCreateProject: null,
       ticketSearchProjects: [],
       ticketCreateIssueType: JiraTicketType.Epic,
     },
     taskAnnotationSettings: {
       fileTicketWebhook: {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         endpoint: null,
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         secret: null,
       },
     },

@@ -89,6 +89,7 @@ class DropdownWithRef extends Component<
   DropdownWithRefProps,
   DropdownWithRefState
 > {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   constructor(props) {
     super(props);
     this.state = {

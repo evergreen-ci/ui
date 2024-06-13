@@ -3,7 +3,11 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { validateUptimeSchedule, validator } from "components/Spawn";
+import {
+  getEnabledHoursCount,
+  getHostUptimeWarnings,
+  validator,
+} from "components/Spawn";
 import {
   formToGql,
   getFormSchema,
@@ -83,30 +87,34 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   );
 
   useVirtualWorkstationDefaultExpiration({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     isVirtualWorkstation: selectedDistro?.isVirtualWorkStation,
     setFormState,
     formState,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
   });
 
-  const hostUptimeValidation = useMemo(
-    () =>
-      validateUptimeSchedule({
-        enabledWeekdays:
-          formState?.expirationDetails?.hostUptime?.sleepSchedule
-            ?.enabledWeekdays,
-        ...formState?.expirationDetails?.hostUptime?.sleepSchedule
-          ?.timeSelection,
-        useDefaultUptimeSchedule:
-          formState?.expirationDetails?.hostUptime?.useDefaultUptimeSchedule,
-      }),
-    [formState?.expirationDetails?.hostUptime],
-  );
+  const hostUptimeWarnings = useMemo(() => {
+    const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      formState?.expirationDetails?.hostUptime,
+    );
+    const warnings = getHostUptimeWarnings({
+      enabledHoursCount,
+      enabledWeekdaysCount,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      runContinuously:
+        formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection
+          ?.runContinuously,
+    });
+    return { enabledHoursCount, warnings };
+  }, [formState?.expirationDetails?.hostUptime]);
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
     distroIdQueryParam,
-    hostUptimeValidation,
+    hostUptimeWarnings,
     isMigration: false,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,
@@ -121,8 +129,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const spawnHost = () => {
     const mutationInput = formToGql({
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       isVirtualWorkStation: selectedDistro?.isVirtualWorkStation,
       formData: formState,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       myPublicKeys: formSchemaInput.myPublicKeys,
       spawnTaskData: spawnTaskData?.task,
       timeZone,
@@ -130,6 +140,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
       isMigration: false,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       params: omit(mutationInput, [
         "publicKey",
         "userDataScript",
@@ -162,7 +173,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           setHasError(errors.length > 0);
         }}
         // @ts-expect-error rjsf v4 has insufficient typing for its validator
-        validate={validator}
+        validate={validator(!!spawnHost?.sleepSchedule?.permanentlyExempt)}
       />
     </ConfirmationModal>
   );

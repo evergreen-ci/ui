@@ -49,6 +49,7 @@ export const VersionPage: React.FC = () => {
     VersionQuery,
     VersionQueryVariables
   >(VERSION, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: versionId },
     fetchPolicy: "cache-and-network",
     onError: (error) => {
@@ -64,6 +65,7 @@ export const VersionPage: React.FC = () => {
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
   >(IS_PATCH_CONFIGURED, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: versionId },
     onError: (error) => {
       dispatchToast.error(
@@ -78,12 +80,15 @@ export const VersionPage: React.FC = () => {
     HasVersionQuery,
     HasVersionQueryVariables
   >(HAS_VERSION, {
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: versionId },
     onCompleted: ({ hasVersion }) => {
       setIsLoadingData(true);
       if (hasVersion) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         getVersion({ variables: { id: versionId } });
       } else {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         getPatch({ variables: { id: versionId } });
       }
     },
@@ -99,13 +104,17 @@ export const VersionPage: React.FC = () => {
     if (patchData) {
       const { patch } = patchData;
       const { activated, alias, projectID } = patch;
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       if (isPatchUnconfigured({ alias, activated })) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         setRedirectURL(getPatchRoute(versionId, { configure: true }));
         setIsLoadingData(false);
       } else if (!activated && alias === commitQueueAlias) {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         setRedirectURL(getCommitQueueRoute(projectID));
         setIsLoadingData(false);
       } else {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         getVersion({ variables: { id: versionId } });
       }
     }
@@ -157,18 +166,22 @@ export const VersionPage: React.FC = () => {
   } = patch || {};
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionText = shortenGithash(revision || versionId);
   const pageTitle = isPatch
     ? `Patch - ${patchNumber}`
     : `Version - ${versionText}`;
 
   const linkifiedMessage = jiraLinkify(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubPRLinkify(message),
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     spruceConfig?.jira?.host,
   );
 
   return (
     <PageWrapper data-cy="version-page">
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
@@ -180,14 +193,20 @@ export const VersionPage: React.FC = () => {
         />
       )}
       <PageTitle
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             canEnqueueToCommitQueue={canEnqueueToCommitQueue}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             canReconfigure={!isPatchOnCommitQueue && isPatch}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             isPatch={isPatch}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             patchDescription={message}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionId={versionId}
           />
         }
@@ -196,19 +215,24 @@ export const VersionPage: React.FC = () => {
         title={linkifiedMessage || `Version ${order}`}
       >
         {isPatch && (
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           <NameChangeModal patchId={versionId} originalPatchName={message} />
         )}
       </PageTitle>
       <PageLayout hasSider>
         <PageSider>
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <Metadata loading={false} version={version} />
+          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <BuildVariantCard versionId={versionId} />
         </PageSider>
         <PageLayout>
           <PageContent>
             <VersionTabs
               childPatches={childPatches}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               isPatch={version?.isPatch}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               taskCount={version?.taskCount}
             />
           </PageContent>
