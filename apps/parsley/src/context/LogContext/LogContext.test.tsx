@@ -4,7 +4,8 @@ import { MockInstance } from "vitest";
 import { LogRenderingTypes } from "constants/enums";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import { act, renderHook, waitFor } from "test_utils";
-import { isCollapsedRow } from "utils/logRowTypes";
+import { RowType } from "types/logs";
+import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
 import { useLogContext } from ".";
 import { logContextWrapper } from "./test_utils";
 import { DIRECTION } from "./types";
@@ -71,9 +72,9 @@ describe("useLogContext", () => {
       expect(result.current.lineCount).toBe(lines.length);
       for (let i = 0; i < lines.length; i++) {
         const line = result.current.processedLogLines[i];
-        // Expect the line not to be an array
-        expect(isCollapsedRow(line)).toBe(false);
-        // line is not an array we confirmed it above
+        expect(isSkippedLinesRow(line)).toBe(false);
+        expect(isSectionHeaderRow(line)).toBe(false);
+        // line is not an object we confirmed it above
         expect(result.current.getLine(line as number)).toStrictEqual(lines[i]);
       }
     });
@@ -150,8 +151,9 @@ describe("useLogContext", () => {
       expect(result.current.processedLogLines).toStrictEqual([0, 1]);
       for (let i = 0; i < lines.length; i++) {
         const line = result.current.processedLogLines[i];
-        // Expect the line not to be a collapsed row
-        expect(isCollapsedRow(line)).toBe(false);
+        // Expect the line not to be an object
+        expect(isSkippedLinesRow(line)).toBe(false);
+        expect(isSectionHeaderRow(line)).toBe(false);
         expect(result.current.getLine(line as number)).toStrictEqual(
           resmokeLines[i],
         );
@@ -181,9 +183,9 @@ describe("useLogContext", () => {
 
       expect(result.current.processedLogLines).toHaveLength(3);
       expect(result.current.processedLogLines).toStrictEqual([
-        { range: { end: 1, start: 0 }, rowType: "SkippedLines" },
+        { range: { end: 1, start: 0 }, rowType: RowType.SkippedLines },
         1,
-        { range: { end: 3, start: 2 }, rowType: "SkippedLines" },
+        { range: { end: 3, start: 2 }, rowType: RowType.SkippedLines },
       ]);
     });
     it("non matching filters should collapse all of the logs", () => {
@@ -194,7 +196,7 @@ describe("useLogContext", () => {
 
       expect(result.current.processedLogLines).toHaveLength(1);
       expect(result.current.processedLogLines).toStrictEqual([
-        { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
+        { range: { end: 3, start: 0 }, rowType: RowType.SkippedLines },
       ]);
     });
     describe("applying multiple filters should filter the list of logs and collapse unmatching ones", () => {
@@ -208,7 +210,7 @@ describe("useLogContext", () => {
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(1);
         expect(result.current.processedLogLines).toStrictEqual([
-          { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
+          { range: { end: 3, start: 0 }, rowType: RowType.SkippedLines },
         ]);
       });
       it("should `AND` filters if the query param specifies it", () => {
@@ -221,7 +223,7 @@ describe("useLogContext", () => {
         expect(result.current.lineCount).toBe(3);
         expect(result.current.processedLogLines).toHaveLength(1);
         expect(result.current.processedLogLines).toStrictEqual([
-          { range: { end: 3, start: 0 }, rowType: "SkippedLines" },
+          { range: { end: 3, start: 0 }, rowType: RowType.SkippedLines },
         ]);
       });
       it("should `OR` filters if the query param specifies it", () => {
@@ -235,7 +237,7 @@ describe("useLogContext", () => {
         expect(result.current.processedLogLines).toHaveLength(3);
         expect(result.current.processedLogLines).toStrictEqual([
           0,
-          { range: { end: 2, start: 1 }, rowType: "SkippedLines" },
+          { range: { end: 2, start: 1 }, rowType: RowType.SkippedLines },
           2,
         ]);
       });

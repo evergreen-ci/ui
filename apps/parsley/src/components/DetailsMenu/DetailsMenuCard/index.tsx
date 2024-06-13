@@ -4,7 +4,7 @@ import { Tab, Tabs } from "@leafygreen-ui/tabs";
 import { H3 } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { useParsleySettings } from "hooks/useParsleySettings";
-import { isDevelopmentBuild } from "utils/environmentVariables";
+import { isProduction } from "utils/environmentVariables";
 import ButtonRow from "./ButtonRow";
 import SearchRangeInput from "./SearchRangeInput";
 import {
@@ -63,7 +63,7 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                   checked={jumpToFailingLineEnabled}
                   updateSettings={updateSettings}
                 />
-                {isDevelopmentBuild() && (
+                {!isProduction() && (
                   <SectionsToggle
                     checked={sectionsEnabled}
                     updateSettings={updateSettings}
