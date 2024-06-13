@@ -16,7 +16,6 @@ export interface UseSectionsResult {
   sectionState: SectionState | undefined;
   focusSection: FocusSection;
   sectioningEnabled: boolean;
-  sectioningReady: boolean;
 }
 
 interface Props {
@@ -41,13 +40,6 @@ export const useSections = ({
     logType === LogTypes.EVERGREEN_TASK_LOGS &&
     renderingType === LogRenderingTypes.Default;
 
-  const sectioningReady =
-    (sectioningEnabled &&
-      sectionData !== undefined &&
-      sectionState !== undefined) ||
-    (settings?.sectionsEnabled !== undefined &&
-      logType !== undefined &&
-      renderingType !== undefined);
   const shouldParse =
     logs.length && sectioningEnabled && sectionData === undefined;
   useEffect(() => {
@@ -98,7 +90,6 @@ export const useSections = ({
     sectionData,
     sectionState,
     sectioningEnabled,
-    sectioningReady,
   };
 };
 
