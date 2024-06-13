@@ -1,8 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { renderHook, waitFor } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { parsleySettingsMock } from "test_data/parsleySettings";
+import {
+  parsleySettingsMock,
+  parsleySettingsMockSectionsDisabled,
+} from "test_data/parsleySettings";
 import * as ErrorReporting from "utils/errorReporting";
 import { useSections } from ".";
 import * as sectionUtils from "./utils";
@@ -30,7 +33,7 @@ describe("useSections", () => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
     });
     await waitFor(() => {
-      expect(result.current).toStrictEqual({ sectionData: [] });
+      expect(result.current.sectionData).toStrictEqual([]);
     });
   });
 
@@ -38,13 +41,19 @@ describe("useSections", () => {
     RenderFakeToastContext();
     const { result } = renderHook(
       () => useSections({ logs: ["log line"], ...metadata }),
-      { wrapper },
+      {
+        wrapper: ({ children }) => (
+          <MockedProvider mocks={[parsleySettingsMockSectionsDisabled]}>
+            {children}
+          </MockedProvider>
+        ),
+      },
     );
     await waitFor(() => {
       expect(sectionUtils.parseSections).not.toHaveBeenCalled();
     });
     await waitFor(() => {
-      expect(result.current).toStrictEqual({ sectionData: undefined });
+      expect(result.current.sectionData).toStrictEqual(undefined);
     });
   });
 
@@ -58,7 +67,7 @@ describe("useSections", () => {
       expect(sectionUtils.parseSections).not.toHaveBeenCalled();
     });
     await waitFor(() => {
-      expect(result.current).toStrictEqual({ sectionData: undefined });
+      expect(result.current.sectionData).toStrictEqual(undefined);
     });
   });
 
@@ -76,9 +85,9 @@ describe("useSections", () => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
     });
     await waitFor(() => {
-      expect(result.current).toStrictEqual({
-        sectionData: [{ functionName: "f-1", range: { end: 3, start: 1 } }],
-      });
+      expect(result.current.sectionData).toStrictEqual([
+        { functionName: "f-1", range: { end: 3, start: 1 } },
+      ]);
     });
   });
 
@@ -96,7 +105,7 @@ describe("useSections", () => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
     });
     await waitFor(() => {
-      expect(result.current).toStrictEqual({ sectionData: undefined });
+      expect(result.current.sectionData).toStrictEqual(undefined);
     });
     await waitFor(() => {
       expect(ErrorReporting.reportError).toHaveBeenCalledWith(
@@ -133,6 +142,97 @@ describe("useSections", () => {
     });
   });
 
+  describe("onOpen and onFocus functions", () => {
+    it("openSection function toggles the open state", async () => {
+      RenderFakeToastContext();
+      const { result } = renderHook(() => useSections({ logs, ...metadata }), {
+        wrapper,
+      });
+      await waitFor(() => {
+        expect(result.current.sectionData).toStrictEqual(sectionData);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual(initialSectionState);
+      });
+      act(() => {
+        result.current.openSection("f-1", true);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual({
+          ...initialSectionState,
+          "f-1": { isOpen: true },
+        });
+      });
+      act(() => {
+        result.current.openSection("f-2", true);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual({
+          ...initialSectionState,
+          "f-1": { isOpen: true },
+          "f-2": { isOpen: true },
+        });
+      });
+      act(() => {
+        result.current.openSection("f-1", false);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual({
+          ...initialSectionState,
+          "f-2": { isOpen: true },
+        });
+      });
+    });
+    it("focusSection function opens the specified section and closes all others", async () => {
+      RenderFakeToastContext();
+      const { result } = renderHook(() => useSections({ logs, ...metadata }), {
+        wrapper,
+      });
+      await waitFor(() => {
+        expect(result.current.sectionData).toStrictEqual(sectionData);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual(initialSectionState);
+      });
+      act(() => {
+        result.current.focusSection("f-1");
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual({
+          ...initialSectionState,
+          "f-1": { isOpen: true },
+        });
+      });
+      act(() => {
+        result.current.focusSection("f-2");
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual({
+          ...initialSectionState,
+          "f-2": { isOpen: true },
+        });
+      });
+    });
+    const logs = [
+      "normal log line",
+      "Running command 'c1' in function 'f-1'.",
+      "Finished command 'c1' in function 'f-1'.",
+      "Running command 'c1' in function 'f-2'.",
+      "Finished command 'c1' in function 'f-2'.",
+      "Running command 'c1' in function 'f-3'.",
+      "Finished command 'c1' in function 'f-3'.",
+    ];
+    const sectionData = [
+      { functionName: "f-1", range: { end: 3, start: 1 } },
+      { functionName: "f-2", range: { end: 5, start: 3 } },
+      { functionName: "f-3", range: { end: 7, start: 5 } },
+    ];
+    const initialSectionState = {
+      "f-1": { isOpen: false },
+      "f-2": { isOpen: false },
+      "f-3": { isOpen: false },
+    };
+  });
   const metadata = {
     logType: LogTypes.EVERGREEN_TASK_LOGS,
     renderingType: LogRenderingTypes.Default,

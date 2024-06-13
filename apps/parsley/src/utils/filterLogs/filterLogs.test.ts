@@ -148,54 +148,57 @@ describe("filterLogs", () => {
     });
   });
 
-  it("should create sections if sections are enabled and no filters are applied", () => {
-    expect(
-      filterLogs({
-        bookmarks: [],
-        expandableRows: true,
-        expandedLines: [],
-        failingLine: undefined,
-        logLines: logsWithSections,
-        matchingLines: undefined,
-        sectionData,
-        sectionState: undefined,
-        sectionsEnabled: true,
-        shareLine: undefined,
-      }),
-    ).toStrictEqual([
-      0,
-      {
-        functionName: "f-1",
-        isOpen: true,
-        range: {
-          end: 5,
-          start: 1,
-        },
-        rowType: RowType.SectionHeader,
-      },
-      1,
-      2,
-      3,
-      4,
-      5,
-      {
-        functionName: "f-2",
-        isOpen: true,
-        range: {
-          end: 11,
-          start: 6,
-        },
-        rowType: RowType.SectionHeader,
-      },
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-    ]);
+  describe("should create sections if sections are enabled and no filters are applied", () => {
+    it("all sections open", () => {
+      expect(
+        filterLogs({
+          bookmarks: [],
+          expandableRows: true,
+          expandedLines: [],
+          failingLine: undefined,
+          logLines: logsWithSections,
+          matchingLines: undefined,
+          sectionData,
+          sectionState: { "f-1": { isOpen: true }, "f-2": { isOpen: true } },
+          sectionsEnabled: true,
+          shareLine: undefined,
+        }),
+      ).toStrictEqual(allSectionsOpen);
+    });
+
+    it("some sections open", () => {
+      expect(
+        filterLogs({
+          bookmarks: [],
+          expandableRows: true,
+          expandedLines: [],
+          failingLine: undefined,
+          logLines: logsWithSections,
+          matchingLines: undefined,
+          sectionData,
+          sectionState: { "f-1": { isOpen: false }, "f-2": { isOpen: true } },
+          sectionsEnabled: true,
+          shareLine: undefined,
+        }),
+      ).toStrictEqual(someSectionsOpen);
+    });
+
+    it("all sections closed", () => {
+      expect(
+        filterLogs({
+          bookmarks: [],
+          expandableRows: true,
+          expandedLines: [],
+          failingLine: undefined,
+          logLines: logsWithSections,
+          matchingLines: undefined,
+          sectionData,
+          sectionState: { "f-1": { isOpen: false }, "f-2": { isOpen: false } },
+          sectionsEnabled: true,
+          shareLine: undefined,
+        }),
+      ).toStrictEqual(allSectionsClosed);
+    });
   });
 
   it("sections are ignored when filters are applied even when sectionData exists and sections are enabled", () => {
@@ -255,4 +258,95 @@ const logsWithSections = [
 const sectionData = [
   { functionName: "f-1", range: { end: 5, start: 1 } },
   { functionName: "f-2", range: { end: 11, start: 6 } },
+];
+
+const allSectionsOpen = [
+  0,
+  {
+    functionName: "f-1",
+    isOpen: true,
+    range: {
+      end: 5,
+      start: 1,
+    },
+    rowType: RowType.SectionHeader,
+  },
+  1,
+  2,
+  3,
+  4,
+  5,
+  {
+    functionName: "f-2",
+    isOpen: true,
+    range: {
+      end: 11,
+      start: 6,
+    },
+    rowType: RowType.SectionHeader,
+  },
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+];
+const someSectionsOpen = [
+  0,
+  {
+    functionName: "f-1",
+    isOpen: false,
+    range: {
+      end: 5,
+      start: 1,
+    },
+    rowType: RowType.SectionHeader,
+  },
+  5,
+  {
+    functionName: "f-2",
+    isOpen: true,
+    range: {
+      end: 11,
+      start: 6,
+    },
+    rowType: RowType.SectionHeader,
+  },
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+];
+
+const allSectionsClosed = [
+  0,
+  {
+    functionName: "f-1",
+    isOpen: false,
+    range: {
+      end: 5,
+      start: 1,
+    },
+    rowType: RowType.SectionHeader,
+  },
+  5,
+  {
+    functionName: "f-2",
+    isOpen: false,
+    range: {
+      end: 11,
+      start: 6,
+    },
+    rowType: RowType.SectionHeader,
+  },
+  11,
+  12,
+  13,
 ];

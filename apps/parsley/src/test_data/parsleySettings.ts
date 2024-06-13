@@ -26,3 +26,25 @@ export const parsleySettingsMock: ApolloMock<
     },
   },
 };
+
+export const parsleySettingsMockSectionsDisabled: ApolloMock<
+  ParsleySettingsQuery,
+  ParsleySettingsQueryVariables
+> = {
+  request: {
+    query: PARSLEY_SETTINGS,
+  },
+  result: {
+    data: {
+      user: {
+        __typename: "User",
+        parsleySettings: {
+          __typename: "ParsleySettings",
+          jumpToFailingLineEnabled: true,
+          sectionsEnabled: false,
+        },
+        userId: "me",
+      },
+    },
+  },
+};
