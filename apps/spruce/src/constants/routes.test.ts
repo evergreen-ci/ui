@@ -14,6 +14,8 @@ import {
 
 const identifierWithSpecialCharacters = "!?identifier@";
 const escapedIdentifier = "!%3Fidentifier%40";
+const taskIDWithSpecialCharacters = "bazel_run_/@!:/:format";
+const escapedTaskID = "bazel_run_%2F%40!%3A%2F%3Aformat";
 
 describe("getProjectPatchesRoute", () => {
   it("escapes special characters projectIdentifier", () => {
@@ -130,6 +132,11 @@ describe("getTaskHistoryRoute", () => {
     expect(
       getTaskHistoryRoute(identifierWithSpecialCharacters, "someTaskId"),
     ).toBe(`/task-history/${escapedIdentifier}/someTaskId`);
+  });
+  it("escapes special characters taskId", () => {
+    expect(
+      getTaskHistoryRoute("someProject", taskIDWithSpecialCharacters),
+    ).toBe(`/task-history/someProject/${escapedTaskID}`);
   });
   it("generates a link with failing or passing tests", () => {
     expect(
