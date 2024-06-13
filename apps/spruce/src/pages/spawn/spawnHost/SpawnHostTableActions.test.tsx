@@ -206,6 +206,35 @@ describe("spawn host table", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("prompts beta user without permanent exemption", async () => {
+    const user = userEvent.setup({ delay: null });
+    const { Component } = RenderFakeToastContext(
+      <SpawnHostTable
+        hosts={[
+          {
+            ...baseSpawnHost,
+            sleepSchedule: {
+              ...defaultSleepSchedule,
+              isBetaTester: true,
+              nextStartTime: null,
+              timeZone: "America/New_York",
+              permanentlyExempt: false,
+            },
+          },
+        ]}
+      />,
+    );
+    render(
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>,
+    );
+    await user.click(screen.getByDataCy("pause-unexpirable-host-button"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("pause-sleep-schedule-modal")).toBeVisible();
+    });
+  });
+
   it("does not prompt user when beta testing disabled", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnHostTable
