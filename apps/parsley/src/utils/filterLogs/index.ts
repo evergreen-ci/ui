@@ -1,5 +1,5 @@
 import { SectionEntry } from "hooks/useSections/utils";
-import { ExpandedLines, ProcessedLogLines } from "types/logs";
+import { ExpandedLines, ProcessedLogLines, RowType } from "types/logs";
 import { isExpanded } from "utils/expandedLines";
 import { newSkippedLinesRow } from "utils/logRow";
 import { isSkippedLinesRow } from "utils/logRowTypes";
@@ -39,11 +39,32 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
     failingLine,
     logLines,
     matchingLines,
+    sectionData,
+    sectionsEnabled,
     shareLine,
   } = options;
-  // If there are no filters or expandable rows is not enabled, then we don't have to do any
-  // processing.
+  // If there are no filters or expandable rows is not enabled, then we only have to process sections if they exist and are enabled.
   if (matchingLines === undefined) {
+    if (sectionsEnabled && sectionData?.length) {
+      let sectionIndex = 0;
+      const filteredLines: ProcessedLogLines = [];
+      logLines.reduce((arr, _logLine, idx) => {
+        const section = sectionData[sectionIndex];
+        const isSectionStart = section && idx === section.range.start;
+        if (isSectionStart) {
+          arr.push({
+            functionName: section.functionName,
+            isOpen: true,
+            range: section.range,
+            rowType: RowType.SectionHeader,
+          });
+          sectionIndex += 1;
+        }
+        arr.push(idx);
+        return arr;
+      }, filteredLines);
+      return filteredLines;
+    }
     return logLines.map((_, idx) => idx);
   }
 

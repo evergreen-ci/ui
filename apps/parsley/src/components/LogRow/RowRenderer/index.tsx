@@ -1,10 +1,12 @@
 import { LogRenderingTypes } from "constants/enums";
+import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
-import { isSkippedLinesRow } from "utils/logRowTypes";
+import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
 import AnsiRow from "../AnsiRow";
 import ResmokeRow from "../ResmokeRow";
+import SectionHeader from "../SectionHeader";
 import SkippedLinesRow from "../SkippedLinesRow";
 
 type RowRendererFunction = (props: {
@@ -61,6 +63,19 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           expandLines={expandLines}
           lineIndex={index}
           range={processedLogLine.range}
+        />
+      );
+    }
+
+    if (isSectionHeaderRow(processedLogLine)) {
+      return (
+        <SectionHeader
+          defaultOpen={processedLogLine.isOpen}
+          functionName={processedLogLine.functionName}
+          lineIndex={index}
+          onFocus={() => {}} // TODO: Update in DEVPROD-5293
+          onOpen={() => {}}
+          status={SectionStatus.Pass} // TODO: Update in DEVPROD-5295
         />
       );
     }
