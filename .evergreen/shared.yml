@@ -162,6 +162,8 @@ functions:
       type: setup
       params:
         background: true
+        # Turn off silent to enable DB logging for debugging purposes
+        silent: true
         working_dir: ui/evergreen
         command: make start-mongod
     - command: subprocess.exec
@@ -278,7 +280,7 @@ functions:
       shell: bash
       script: |
         ${PREPARE_SHELL}
-        yarn preview
+        yarn preview --no-request-logging
 
   yarn-serve:
     command: shell.exec
