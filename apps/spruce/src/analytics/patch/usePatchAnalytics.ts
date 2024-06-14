@@ -50,6 +50,7 @@ type Action =
 
 export const usePatchAnalytics = (id: string) => {
   const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(PATCH, {
+    skip: !id,
     variables: { id },
     fetchPolicy: "cache-first",
   });

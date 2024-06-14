@@ -27,7 +27,7 @@ interface DownstreamTasksTableProps {
   childPatchId: string;
   count: number;
   dispatch: (action: Action) => void;
-  isPatch: boolean;
+  isPatch: boolean | undefined;
   limit: number;
   loading: boolean;
   page: number;
@@ -47,10 +47,14 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   tasks,
 }) => {
   const { id: versionId } = useParams<{ id: string }>();
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    versionId,
+  const { sendEvent: sendPatchEvent } = usePatchAnalytics(
+    isPatch === true && versionId ? versionId : "",
   );
+  const { sendEvent: sendVersionEvent } = useVersionAnalytics(
+    isPatch === false && versionId ? versionId : "",
+  );
+
+  const sendEvent = isPatch ? sendPatchEvent : sendVersionEvent;
 
   const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
     useTaskStatuses({ versionId: childPatchId });
