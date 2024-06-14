@@ -2,3 +2,7 @@ node_modules
 
 # artifacts
 bin
+build
+dist
+coverage
+storybook-static
