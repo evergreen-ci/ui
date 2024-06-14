@@ -1,16 +1,20 @@
 import { projectAnnotations } from "@evg-ui/storybook-addon";
-import { composeStories, setProjectAnnotations } from "@storybook/react";
+import {
+  composeStories,
+  Meta,
+  setProjectAnnotations,
+  StoryFn,
+} from "@storybook/react";
+// TODO: Replace with test_utils
+import { act, render } from "@testing-library/react";
 import { expect } from "vitest";
 import path from "path";
-import { act, render, stubGetClientRects } from "test_utils";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import * as previewAnnotations from "../.storybook/preview";
 
-setProjectAnnotations([projectAnnotations, previewAnnotations]);
+setProjectAnnotations([projectAnnotations]);
 
 type StoryFile = {
-  default: CustomMeta<unknown>;
-  [name: string]: CustomStoryObj<unknown> | CustomMeta<unknown>;
+  default: Meta;
+  [name: string]: StoryFn | Meta;
 };
 
 /**
@@ -59,7 +63,8 @@ const options = {
 
 describe(`${options.suite}`, () => {
   beforeAll(() => {
-    stubGetClientRects();
+    // Reintroduce if required
+    // stubGetClientRects();
   });
 
   beforeEach(() => {
@@ -84,7 +89,9 @@ describe(`${options.suite}`, () => {
   });
 
   getAllStoryFiles().forEach((params) => {
-    const { filePath, storyFile } = params;
+    const { filePath, storyFile } = <
+      { filePath: string; storyFile: StoryFile }
+    >params;
     const meta = storyFile.default;
     const { title } = meta;
 

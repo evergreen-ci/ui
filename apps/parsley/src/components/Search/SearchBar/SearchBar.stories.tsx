@@ -10,6 +10,7 @@ export const Default: CustomStoryObj<typeof SearchBar> = {
   argTypes: {
     disabled: { control: "boolean", description: "Should disable input" },
     validator: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       control: "func",
       defaultValue: "() => true",
       description: "Function to validate input",
@@ -28,6 +29,7 @@ export const WithSearchSuggestions: CustomStoryObj<typeof SearchBar> = {
   argTypes: {
     disabled: { control: "boolean", description: "Should disable input" },
     validator: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       control: "func",
       defaultValue: "() => true",
       description: "Function to validate input",
