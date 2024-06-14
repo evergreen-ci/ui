@@ -46,7 +46,7 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   taskCount,
   tasks,
 }) => {
-  const { id: versionId } = useParams<{ id: string }>();
+  const { versionId } = useParams<{ versionId: string }>();
   const { sendEvent: sendPatchEvent } = usePatchAnalytics(
     isPatch === true && versionId ? versionId : "",
   );
