@@ -10,7 +10,6 @@ import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 import { commitQueueRequester } from "constants/patch";
 import { getTaskHistoryRoute, slugs } from "constants/routes";
-import { mergeTaskName } from "constants/task";
 import { useToastContext } from "context/toast";
 import {
   SetTaskPriorityMutation,
@@ -272,7 +271,6 @@ export const ActionButtons: React.FC<Props> = ({
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
               as={HistoryLink}
-              disabled={displayName === mergeTaskName}
             >
               See history
             </Button>

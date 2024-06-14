@@ -1039,7 +1039,6 @@ export type Mutation = {
   detachVolumeFromHost: Scalars["Boolean"]["output"];
   editAnnotationNote: Scalars["Boolean"]["output"];
   editSpawnHost: Host;
-  enqueuePatch: Patch;
   forceRepotrackerRun: Scalars["Boolean"]["output"];
   migrateVolume: Scalars["Boolean"]["output"];
   moveAnnotationIssue: Scalars["Boolean"]["output"];
@@ -1170,11 +1169,6 @@ export type MutationEditAnnotationNoteArgs = {
 
 export type MutationEditSpawnHostArgs = {
   spawnHost?: InputMaybe<EditSpawnHostInput>;
-};
-
-export type MutationEnqueuePatchArgs = {
-  commitMessage?: InputMaybe<Scalars["String"]["input"]>;
-  patchId: Scalars["String"]["input"];
 };
 
 export type MutationForceRepotrackerRunArgs = {
@@ -4805,16 +4799,6 @@ export type EditSpawnHostMutation = {
       migrating: boolean;
     }>;
   };
-};
-
-export type EnqueuePatchMutationVariables = Exact<{
-  patchId: Scalars["String"]["input"];
-  commitMessage?: InputMaybe<Scalars["String"]["input"]>;
-}>;
-
-export type EnqueuePatchMutation = {
-  __typename?: "Mutation";
-  enqueuePatch: { __typename?: "Patch"; id: string };
 };
 
 export type BuildBaronCreateTicketMutationVariables = Exact<{

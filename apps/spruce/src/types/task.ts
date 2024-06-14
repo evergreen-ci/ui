@@ -131,6 +131,5 @@ export enum TaskEventType {
   TaskScheduled = "TASK_SCHEDULED",
   TaskPriorityChanged = "TASK_PRIORITY_CHANGED",
   TaskDependenciesOverridden = "TASK_DEPENDENCIES_OVERRIDDEN",
-  MergeTaskUnscheduled = "MERGE_TASK_UNSCHEDULED",
   ContainerAllocated = "CONTAINER_ALLOCATED",
 }

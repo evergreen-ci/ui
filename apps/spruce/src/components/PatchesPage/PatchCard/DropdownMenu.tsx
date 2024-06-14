@@ -4,7 +4,6 @@ import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   UnscheduleTasks,
   RestartPatch,
-  EnqueuePatch,
   ScheduleTasks,
   SetPatchVisibility,
 } from "components/PatchActionButtons";
@@ -26,7 +25,6 @@ export const DropdownMenu: React.FC<Props> = ({
   patchId,
 }) => {
   const restartModalVisibilityControl = useState(false);
-  const enqueueModalVisibilityControl = useState(false);
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
@@ -47,14 +45,6 @@ export const DropdownMenu: React.FC<Props> = ({
       patchId={patchId}
       refetchQueries={refetchQueries}
       disabled={!hasVersion}
-    />,
-    <EnqueuePatch
-      visibilityControl={enqueueModalVisibilityControl}
-      key="enqueue"
-      patchId={patchId}
-      commitMessage={patchDescription}
-      disabled={!canEnqueueToCommitQueue || !hasVersion}
-      refetchQueries={refetchQueries}
     />,
     <SetPatchVisibility
       key="hide"

@@ -7,8 +7,6 @@ import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import {
-  INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
-  INCLUDE_COMMIT_QUEUE_USER_PATCHES,
   INCLUDE_HIDDEN_PATCHES,
 } from "constants/cookies";
 import { size } from "constants/tokens";
@@ -25,7 +23,6 @@ import { usePatchesQueryParams } from "./usePatchesQueryParams";
 interface Props {
   analyticsObject: Analytics<
     | { name: "Filter Patches"; filterBy: string }
-    | { name: "Filter Commit Queue" }
     | { name: "Filter Hidden"; includeHidden: boolean }
     | { name: "Change Page Size" }
     | { name: "Click Patch Link" }
@@ -50,15 +47,6 @@ export const PatchesPage: React.FC<Props> = ({
   patches,
 }) => {
   const { setLimit } = usePagination();
-  const cookie =
-    pageType === "project"
-      ? INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES
-      : INCLUDE_COMMIT_QUEUE_USER_PATCHES;
-  const [isCommitQueueCheckboxChecked, setIsCommitQueueCheckboxChecked] =
-    useQueryParam(
-      PatchPageQueryParams.CommitQueue,
-      Cookies.get(cookie) === "true",
-    );
   const [includeHiddenCheckboxChecked, setIsIncludeHiddenCheckboxChecked] =
     useQueryParam(
       PatchPageQueryParams.Hidden,
@@ -72,14 +60,6 @@ export const PatchesPage: React.FC<Props> = ({
       analyticsObject.sendEvent({ name: "Filter Patches", filterBy }),
   });
   usePageTitle(pageTitle);
-
-  const commitQueueCheckboxOnChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    setIsCommitQueueCheckboxChecked(e.target.checked);
-    Cookies.set(cookie, e.target.checked ? "true" : "false");
-    analyticsObject.sendEvent({ name: "Filter Commit Queue" });
-  };
 
   const includeHiddenCheckboxOnChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -112,16 +92,6 @@ export const PatchesPage: React.FC<Props> = ({
         <StatusSelector />
         {filterComp}
         <CheckboxContainer>
-          <Checkbox
-            data-cy="commit-queue-checkbox"
-            onChange={commitQueueCheckboxOnChange}
-            label={
-              pageType === "project"
-                ? "Only Show Commit Queue Patches"
-                : "Include Commit Queue"
-            }
-            checked={isCommitQueueCheckboxChecked}
-          />
           <Checkbox
             data-cy="include-hidden-checkbox"
             onChange={includeHiddenCheckboxOnChange}

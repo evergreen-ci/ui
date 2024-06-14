@@ -25,13 +25,6 @@ describe("getProjectPatchesRoute", () => {
   });
 });
 
-describe("getCommitQueueRoute", () => {
-  it("escapes special characters projectIdentifier", () => {
-    expect(getCommitQueueRoute(identifierWithSpecialCharacters)).toBe(
-      `/commit-queue/${escapedIdentifier}`,
-    );
-  });
-});
 
 describe("getCommitsRoute", () => {
   it("escapes special characters projectIdentifier", () => {

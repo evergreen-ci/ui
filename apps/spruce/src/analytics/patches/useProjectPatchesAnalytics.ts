@@ -7,7 +7,6 @@ type Action =
   | { name: "Change Project" }
   | { name: "Click Patch Link" }
   | { name: "Click Variant Icon"; variantIconStatus: string }
-  | { name: "Filter Commit Queue" }
   | { name: "Filter Hidden"; includeHidden: boolean }
   | { name: "Filter Patches"; filterBy: string };
 

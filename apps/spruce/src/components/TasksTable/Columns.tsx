@@ -6,7 +6,6 @@ import { StyledRouterLink } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeDataEntry } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
-import { mergeTaskVariant } from "constants/task";
 import { zIndex } from "constants/tokens";
 import { TaskSortCategory } from "gql/generated/types";
 import { TaskStatus } from "types/task";

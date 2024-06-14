@@ -193,7 +193,6 @@ export const notificationFields = {
   spawnHostOutcome: "Spawn host outcome",
   spawnHostExpiration: "Spawn host expiration",
   buildBreak: "Build break",
-  commitQueue: "Commit queue",
 };
 
 export const days = [

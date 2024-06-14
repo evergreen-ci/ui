@@ -116,9 +116,6 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
     case TaskEventType.TaskDependenciesOverridden:
       message = <>Dependencies overridden by user {userId}.</>;
       break;
-    case TaskEventType.MergeTaskUnscheduled:
-      message = <>Merge task unscheduled by user {userId}.</>;
-      break;
     case TaskEventType.ContainerAllocated:
       message = <>Container allocated for task.</>;
       break;

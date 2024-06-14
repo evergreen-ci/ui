@@ -16,6 +16,5 @@ type Action =
   | { name: "Click Preferences Link" }
   | { name: "Click Notifications Link" }
   | { name: "Click Task Queue Link" }
-  | { name: "Click Commit Queue Link" };
 
 export const useNavbarAnalytics = () => useAnalyticsRoot<Action>("Navbar");

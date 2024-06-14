@@ -8,8 +8,7 @@ import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
 /**
  * usePatchesQueryParams is used alongside the Patches Page to transform URL state
  * to the input value to the patches field for the User and Project GQL type.
- * @returns - An object with all input values for the patches field except includeCommitQueue
- * and onlyCommitQueue
+ * @returns - An object with all input values for the patches field.
  */
 export const usePatchesQueryParams = (): Omit<
   Required<PatchesInput>,

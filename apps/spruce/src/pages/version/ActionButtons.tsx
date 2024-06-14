@@ -4,7 +4,6 @@ import {
   ScheduleTasks,
   RestartPatch,
   UnscheduleTasks,
-  EnqueuePatch,
   AddNotification,
   DisableTasks,
   ScheduleUndispatchedBaseTasks,
@@ -43,12 +42,6 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       disabled={!isPatch}
     />,
     <SetPriority versionId={versionId} key="priority" />,
-    <EnqueuePatch
-      patchId={versionId}
-      commitMessage={patchDescription}
-      key="enqueue"
-      disabled={!canEnqueueToCommitQueue}
-    />,
   ];
 
   return (

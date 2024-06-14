@@ -23,13 +23,12 @@ export const ListArea: React.FC<{
     return (
       // eslint-disable-next-line react/jsx-no-useless-fragment
       <>
-        {patches?.patches.map(({ commitQueuePosition, ...p }) => (
+        {patches?.patches.map(({ ...p }) => (
           <PatchCard
             analyticsObject={analyticsObject}
             key={p.id}
             pageType={pageType}
             {...p}
-            isPatchOnCommitQueue={commitQueuePosition !== null}
           />
         ))}
       </>

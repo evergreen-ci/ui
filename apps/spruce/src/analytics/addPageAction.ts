@@ -10,7 +10,6 @@ export type AnalyticsObject =
   | "Annotations"
   | "April Fools"
   | "Breadcrumb"
-  | "CommitQueue"
   | "Configure"
   | "DistroSettings"
   | "HostPage"

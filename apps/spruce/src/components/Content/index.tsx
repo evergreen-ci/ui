@@ -6,7 +6,6 @@ import {
   WaterfallCommitsRedirect,
 } from "components/Redirects";
 import { redirectRoutes, routes, slugs } from "constants/routes";
-import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Container } from "pages/Container";
@@ -79,7 +78,6 @@ export const Content: React.FC = () => (
       <Route path={`${routes.spawn}/*`} element={<Spawn />}>
         <Route path={`:${slugs.tab}`} element={null} />
       </Route>
-      <Route path={routes.commitQueue} element={<CommitQueue />} />
       <Route path={routes.task} element={<Task />}>
         <Route path={`:${slugs.tab}`} element={null} />
       </Route>

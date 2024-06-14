@@ -50,7 +50,6 @@ export enum DistroSettingsTabRoutes {
 }
 
 const paths = {
-  commitQueue: "/commit-queue",
   commits: "/commits",
   container: "/container",
   distro: "/distro",

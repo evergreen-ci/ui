@@ -18,12 +18,6 @@ describe("Version route", () => {
         expect(loc.pathname).to.equal(`/patch/${versions[3]}/configure/tasks`);
       });
     });
-    it("Redirects to the commit queue page if a patch is on the commit queue and has not been activated", () => {
-      cy.visit(versionRoute(versions[4]));
-      cy.location().should((loc) => {
-        expect(loc.pathname).to.equal(`/commit-queue/mongodb-mongo-master`);
-      });
-    });
     it("Throws a 404 if the version and patch doesn't exist", () => {
       cy.visit(versionRoute(versions[1]));
       cy.validateToast("error", "Unable to find patch or version i-dont-exist");

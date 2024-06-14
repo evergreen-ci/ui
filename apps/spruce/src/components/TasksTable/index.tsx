@@ -13,7 +13,6 @@ import {
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeSelectProps } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
-import { mergeTaskVariant } from "constants/task";
 import { zIndex } from "constants/tokens";
 import {
   Task,
