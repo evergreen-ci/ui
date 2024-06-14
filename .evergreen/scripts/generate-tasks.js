@@ -20,7 +20,13 @@ const Tasks = {
 // It would be nice to use tags for this, but Evergreen does not reevaluate tags as part of generate.tasks.
 const TASK_MAPPING = {
   "deploy-utils": [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
-  lib: [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
+  lib: [
+    Tasks.Lint,
+    Tasks.Snapshots,
+    Tasks.Storybook,
+    Tasks.Test,
+    Tasks.TypeCheck,
+  ],
   parsley: [
     Tasks.CheckCodegen,
     Tasks.Compile,

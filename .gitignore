@@ -1,5 +1,10 @@
 node_modules
 
+.env-cmdrc.json
+
 # artifacts
 bin
-.env-cmdrc.json
+build
+dist
+coverage
+storybook-static

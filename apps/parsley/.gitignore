@@ -1,17 +1,8 @@
 # testing
-/coverage
 cypress/videos/
 cypress/screenshots/
 
-# production
-/build
-/dist
-
-# storybook
-storybook-static
-
 # artifacts
-/bin
 /src/**/*.css
 build.txt
 build.txt-e

@@ -110,6 +110,8 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - name: lint
+      - name: snapshots
+      - name: storybook
       - name: test
       - name: type_check
 
