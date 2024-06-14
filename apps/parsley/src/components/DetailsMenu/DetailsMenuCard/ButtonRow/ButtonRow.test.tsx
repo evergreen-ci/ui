@@ -1,20 +1,17 @@
-import { LogContextProvider } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import ButtonRow from ".";
 
-const wrapper = (logs: string[]) => {
-  const provider = ({ children }: { children: React.ReactNode }) => (
-    <LogContextProvider initialLogLines={logs}>{children}</LogContextProvider>
-  );
-  return provider;
-};
-
 describe("buttonRow", () => {
+  beforeAll(() => {
+    InitializeFakeToastContext();
+  });
   describe("jira button", () => {
     it("should be disabled when there are no bookmarks", async () => {
       const user = userEvent.setup();
       renderWithRouterMatch(<ButtonRow />, {
-        wrapper: wrapper(logLines),
+        wrapper: logContextWrapper(logLines),
       });
       expect(screen.getByDataCy("jira-button")).toHaveAttribute(
         "aria-disabled",
@@ -31,7 +28,7 @@ describe("buttonRow", () => {
       const user = userEvent.setup();
       renderWithRouterMatch(<ButtonRow />, {
         route: "?bookmarks=0,2",
-        wrapper: wrapper(logLines),
+        wrapper: logContextWrapper(logLines),
       });
       const jiraButton = screen.getByDataCy("jira-button");
       expect(jiraButton).toBeEnabled();
@@ -53,7 +50,7 @@ describe("buttonRow", () => {
       const user = userEvent.setup({ writeToClipboard: true });
       renderWithRouterMatch(<ButtonRow />, {
         route: "?bookmarks=0,2,5",
-        wrapper: wrapper(logLines),
+        wrapper: logContextWrapper(logLines),
       });
 
       const jiraButton = screen.getByDataCy("jira-button");

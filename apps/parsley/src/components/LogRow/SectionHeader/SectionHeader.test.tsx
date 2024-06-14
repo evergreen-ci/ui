@@ -2,7 +2,7 @@ import { SectionStatus } from "constants/logs";
 import { render, screen, userEvent } from "test_utils";
 import SectionHeader from ".";
 
-describe("sectionHeader", () => {
+describe("SectionHeader", () => {
   it("displays function name", () => {
     render(<SectionHeader {...sectionHeaderProps} functionName="load_data" />);
     expect(screen.getByText("Function: load_data")).toBeVisible();

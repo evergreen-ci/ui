@@ -4,6 +4,7 @@ import { Decorator, Parameters } from "@storybook/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { GlobalStyles } from "../src/components/styles";
 import { LogContextProvider } from "../src/context/LogContext";
+import WithToastContext from "../src/test_utils/toast-decorator";
 
 export const parameters: Parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -31,11 +32,19 @@ export const decorators: Decorator[] = [
       <Story />
     </LogContextProvider>
   ),
-  (Story, { parameters: { apolloClient: { MockedProvider: _, ...rest } } }) => (
+  (
+    Story,
+    {
+      parameters: {
+        apolloClient: { MockedProvider: _, ...rest },
+      },
+    },
+  ) => (
     <MockedProvider {...rest}>
-      <Story/>
+      <Story />
     </MockedProvider>
   ),
+  WithToastContext,
   (Story: () => JSX.Element) => {
     const routes = [
       {

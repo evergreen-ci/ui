@@ -186,7 +186,7 @@ functions:
       params:
         binary: bash
         args:
-          - ui/scripts/prepare-shell.sh
+          - ui/.evergreen/scripts/prepare-shell.sh
     - command: expansions.update
       params:
         file: expansion.yml

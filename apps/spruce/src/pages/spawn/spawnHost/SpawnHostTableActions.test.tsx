@@ -54,10 +54,9 @@ describe("copySSHCommandButton", () => {
       </MockedProvider>,
     );
 
-    const copySSHButton = screen.queryByDataCy("copy-ssh-button");
+    const copySSHButton = screen.getByDataCy("copy-ssh-button");
 
     // Hover over button to trigger tooltip.
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
@@ -67,7 +66,6 @@ describe("copySSHCommandButton", () => {
     ).toBeInTheDocument();
 
     // Click on button to copy the SSH command and change tooltip message.
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(copySSHButton);
     await waitFor(async () => {
       const clipboardText = await navigator.clipboard.readText();
@@ -91,17 +89,15 @@ describe("copySSHCommandButton", () => {
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
           user={testUser}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          hostUrl={undefined}
+          hostUrl=""
           hostStatus={HostStatus.Starting}
         />
       </MockedProvider>,
     );
-    const copySSHButton = screen.queryByDataCy("copy-ssh-button");
+    const copySSHButton = screen.getByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
@@ -122,11 +118,10 @@ describe("copySSHCommandButton", () => {
         />
       </MockedProvider>,
     );
-    const copySSHButton = screen.queryByDataCy("copy-ssh-button");
+    const copySSHButton = screen.getByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toHaveAttribute("aria-disabled", "true");
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(copySSHButton);
     await waitFor(() => {
       expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
@@ -139,21 +134,14 @@ describe("copySSHCommandButton", () => {
 
 describe("spawn host table", () => {
   it("prompts user to permanently pause host when a sleep schedule is configured", async () => {
-    const user = userEvent.setup();
+    vi.useFakeTimers().setSystemTime("2024-06-05");
+
+    const user = userEvent.setup({ delay: null });
     const { Component } = RenderFakeToastContext(
       <SpawnHostTable hosts={[baseSpawnHost]} />,
     );
     render(
-      <MockedProvider
-        mocks={[
-          getSpruceConfigMock,
-          getUserSettingsMock,
-          instanceTypesMock,
-          myHostsMock,
-          myPublicKeysMock,
-          myVolumesQueryMock,
-        ]}
-      >
+      <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>,
     );
@@ -161,11 +149,9 @@ describe("spawn host table", () => {
     await waitFor(() => {
       expect(screen.queryByDataCy("pause-sleep-schedule-modal")).toBeVisible();
     });
-    expect(screen.getByDataCy("next-start")).toHaveTextContent(
-      "(tomorrow at 8:00)",
-    );
+    expect(screen.getByDataCy("next-start")).toHaveTextContent(/at 8:00/);
     expect(
-      screen.getByRole("button", { name: "Pause host until tomorrow" }),
+      screen.getByRole("button", { name: /Pause host until/ }),
     ).toBeVisible();
     await user.click(screen.getByLabelText("Pause host indefinitely"));
     await waitFor(() => {
@@ -173,25 +159,44 @@ describe("spawn host table", () => {
         screen.getByRole("button", { name: "Pause host indefinitely" }),
       ).toBeVisible();
     });
+
+    vi.useRealTimers();
   });
 
-  it("does not prompt user when pausing expirable host", async () => {
+  it("does not prompt user when pausing expirable host", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnHostTable
         hosts={[{ ...baseSpawnHost, noExpiration: false, sleepSchedule: null }]}
       />,
     );
     render(
-      <MockedProvider
-        mocks={[
-          getSpruceConfigMock,
-          getUserSettingsMock,
-          instanceTypesMock,
-          myHostsMock,
-          myPublicKeysMock,
-          myVolumesQueryMock,
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>,
+    );
+    expect(
+      screen.queryByDataCy("pause-unexpirable-host-button"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("does not prompt user when permanent exemption is granted", () => {
+    const { Component } = RenderFakeToastContext(
+      <SpawnHostTable
+        hosts={[
+          {
+            ...baseSpawnHost,
+            sleepSchedule: {
+              ...defaultSleepSchedule,
+              nextStartTime: null,
+              timeZone: "America/New_York",
+              permanentlyExempt: true,
+            },
+          },
         ]}
-      >
+      />,
+    );
+    render(
+      <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>,
     );
@@ -240,6 +245,8 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
+    nextStartTime: new Date("2024-06-06T08:00:00Z"),
+    temporarilyExemptUntil: null,
     timeZone: "America/New_York",
   },
   __typename: "Host",
@@ -288,3 +295,12 @@ const instanceTypesMock: ApolloMock<
     },
   },
 };
+
+const baseMocks = [
+  getSpruceConfigMock,
+  getUserSettingsMock,
+  instanceTypesMock,
+  myHostsMock,
+  myPublicKeysMock,
+  myVolumesQueryMock,
+];

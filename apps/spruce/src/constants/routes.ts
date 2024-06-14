@@ -343,7 +343,7 @@ export const getTaskHistoryRoute = (
   const { filters, selectedCommit, visibleColumns } = options || {};
 
   return getHistoryRoute(
-    `${paths.taskHistory}/${encodeURIComponent(projectIdentifier)}/${taskName}`,
+    `${paths.taskHistory}/${encodeURIComponent(projectIdentifier)}/${encodeURIComponent(taskName)}`,
     filters,
     selectedCommit,
     visibleColumns,

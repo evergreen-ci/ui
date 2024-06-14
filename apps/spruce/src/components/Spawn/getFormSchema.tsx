@@ -144,12 +144,10 @@ const getHostUptimeSchema = ({
         `,
         startTime: {
           "ui:format": "HH:mm",
-          "ui:useUtc": false,
           "ui:widget": widgets.TimeWidget,
         },
         stopTime: {
           "ui:format": "HH:mm",
-          "ui:useUtc": false,
           "ui:widget": widgets.TimeWidget,
         },
         or: {
@@ -208,6 +206,7 @@ type ExpirationProps = {
   };
   isEditModal: boolean;
   noExpirationCheckboxTooltip?: string;
+  permanentlyExempt?: boolean;
   timeZone?: string;
 };
 
@@ -216,6 +215,7 @@ export const getExpirationDetailsSchema = ({
   hostUptimeWarnings,
   isEditModal,
   noExpirationCheckboxTooltip,
+  permanentlyExempt = false,
   timeZone,
 }: ExpirationProps) => {
   const defaultExpiration = getDefaultExpiration();
@@ -268,7 +268,8 @@ export const getExpirationDetailsSchema = ({
                 noExpiration: {
                   enum: [true],
                 },
-                ...(!isProduction() && { hostUptime: hostUptime.schema }),
+                ...(!isProduction() &&
+                  !permanentlyExempt && { hostUptime: hostUptime.schema }),
               },
             },
           ],
