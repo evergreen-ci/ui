@@ -238,15 +238,6 @@ functions:
         ${PREPARE_SHELL}
         yarn build:local
 
-  yarn-build-storybook:
-    command: shell.exec
-    params:
-      working_dir: ui/${app_dir}
-      script: |
-        ${PREPARE_SHELL}
-        # TODO: Standardize Storybook script name in Spruce and Parsley
-        yarn build-storybook || yarn storybook:build
-
   yarn-cypress:
     command: shell.exec
     params:
@@ -307,6 +298,14 @@ functions:
         ${PREPARE_SHELL}
         yarn snapshot
 
+  yarn-storybook-build:
+    command: shell.exec
+    params:
+      working_dir: ui/${app_dir}
+      script: |
+        ${PREPARE_SHELL}
+        yarn storybook:build
+
   yarn-test:
     command: shell.exec
     params:
@@ -324,13 +323,10 @@ functions:
         yarn check-types
 
   yarn-verify-backend:
-    command: shell.exec
+    command: subprocess.exec
     params:
-      working_dir: ui/${app_dir}
-      shell: bash
-      script: |
-        ${PREPARE_SHELL}
-        yarn verify-backend
+      working_dir: ui/.evergreen
+      command: bash scripts/verify-backend.sh
 
 tasks:
   - name: check_codegen
@@ -355,21 +351,7 @@ tasks:
       - func: symlink
       - func: prod-deploy-spruce
 
-  - name: e2e_test_parsley
-    commands:
-      - func: setup-mongodb
-      - func: run-make-background
-        vars:
-          target: local-evergreen
-      - func: seed-bucket-data
-      - func: run-logkeeper
-      - func: yarn-build
-      - func: yarn-preview
-      - func: wait-for-evergreen
-      - func: yarn-verify-backend
-      - func: yarn-cypress
-
-  - name: e2e_test_spruce
+  - name: e2e
     commands:
       - func: setup-mongodb
       - func: run-make-background
@@ -379,8 +361,9 @@ tasks:
       - func: seed-bucket-data
       - func: run-logkeeper
       - func: yarn-build
-      - func: yarn-serve
+      - func: yarn-preview
       - func: wait-for-evergreen
+      - func: yarn-verify-backend
       - func: yarn-cypress
 
   - name: lint
@@ -394,7 +377,7 @@ tasks:
 
   - name: storybook
     commands:
-      - func: yarn-build-storybook
+      - func: yarn-storybook-build
 
   - name: test
     commands:
