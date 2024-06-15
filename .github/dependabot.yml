@@ -9,3 +9,32 @@ updates:
       prefix: "CHORE(NPM) - "
     reviewers:
       - "evergreen-ci/evg-ui"
+    groups:
+      emotion:
+        applies-to: version-updates
+        patterns:
+          - "@emotion/*"
+      graphql-codegen:
+        applies-to: version-updates
+        patterns:
+          - "@graphql-codegen/*"
+      react:
+        applies-to: version-updates
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      sentry:
+        applies-to: version-updates
+        patterns:
+          - "@sentry/*"
+      storybook:
+        applies-to: version-updates
+        patterns:
+          - "storybook"
+          - "@storybook/*"
+      testing-library:
+        applies-to: version-updates
+        patterns:
+          - "@testing-library/*"
