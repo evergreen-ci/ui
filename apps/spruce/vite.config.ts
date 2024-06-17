@@ -47,13 +47,12 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
-    outDir: "build",
     rollupOptions: {
       output: {
         plugins: [
           // Replace the variables in our HTML files.
           injectVariablesInHTML({
-            files: "build/index.html",
+            files: "dist/index.html",
             variables: [
               "%APP_VERSION%",
               "%GIT_SHA%",
@@ -125,7 +124,7 @@ export default defineConfig({
     checker({ typescript: true }),
     // Bundle analyzer
     visualizer({
-      filename: "build/source_map.html",
+      filename: "dist/source_map.html",
       template: "treemap",
     }),
     sentryVitePlugin({
@@ -136,7 +135,7 @@ export default defineConfig({
         name: process.env.npm_package_version,
       },
       sourcemaps: {
-        assets: "./build/assets/*",
+        assets: "dist/assets/*",
       },
     }),
   ],
