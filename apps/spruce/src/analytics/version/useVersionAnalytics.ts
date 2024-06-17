@@ -54,6 +54,7 @@ export const useVersionAnalytics = (id: string) => {
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
     VERSION,
     {
+      skip: !id,
       variables: { id },
       fetchPolicy: "cache-first",
     },

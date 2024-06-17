@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "4.1.31",
+  "version": "4.1.32",
   "private": true,
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -10,7 +10,7 @@
     "build:staging": "env-cmd -e staging yarn build",
     "build": "GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
     "check-types": "tsc -p tsconfig.json --noEmit",
-    "clean": "rm -rf node_modules && rm -rf build && yarn install",
+    "clean": "rm -rf node_modules && rm -rf dist && yarn install",
     "codegen": "graphql-codegen --config codegen.ts",
     "cy:open": "yarn evg-db-ops --reseed-and-dump; cypress open",
     "cy:run": "cypress run",
@@ -54,6 +54,7 @@
     "@emotion/css": "11.11.0",
     "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.0",
+    "@evg-ui/deploy-utils": "*",
     "@evg-ui/lib": "*",
     "@leafygreen-ui/badge": "8.0.2",
     "@leafygreen-ui/banner": "7.0.4",
