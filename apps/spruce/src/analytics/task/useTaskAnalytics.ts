@@ -74,7 +74,7 @@ export const useTaskAnalytics = () => {
 
   const [execution] = useQueryParam(RequiredQueryParams.Execution, 0);
   const { data: eventData } = useQuery<TaskQuery, TaskQueryVariables>(TASK, {
-    skip: !taskId || execution === undefined,
+    skip: !taskId,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskId, execution },
     fetchPolicy: "cache-first",
