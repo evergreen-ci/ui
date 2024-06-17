@@ -1,7 +1,7 @@
-const httpProxy = require("http-proxy");
-const handler = require("serve-handler");
-const http = require("http");
-const path = require("path");
+import httpProxy from "http-proxy";
+import handler from "serve-handler";
+import http from "http";
+import path from "path";
 
 const proxy = httpProxy.createProxyServer({});
 
@@ -11,7 +11,7 @@ const server = http.createServer((request, response) => {
     return proxy.web(request, response, { target: "http://localhost:9090" });
   }
   return handler(request, response, {
-    public: path.resolve(__dirname, "../build"),
+    public: path.resolve(import.meta.dirname, "../build"),
     rewrites: [
       {
         source: "**",
