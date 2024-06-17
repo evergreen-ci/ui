@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useToastContext } from "context/toast";
 import { useParsleySettings } from "hooks/useParsleySettings";
-import { isProduction } from "utils/environmentVariables";
 import { reportError } from "utils/errorReporting";
+import { releaseSectioning } from "utils/featureFlag";
 import { SectionEntry, parseSections } from "./utils";
 
 export type SectionState = { [functionName: string]: { isOpen: boolean } };
@@ -33,7 +33,7 @@ export const useSections = ({
   const { settings } = useParsleySettings();
 
   const sectioningEnabled =
-    !isProduction() &&
+    releaseSectioning &&
     !!settings?.sectionsEnabled &&
     logType === LogTypes.EVERGREEN_TASK_LOGS &&
     renderingType === LogRenderingTypes.Default;
