@@ -28,6 +28,7 @@ describe("remote deploys", () => {
     mockEnv("BUCKET", "bucket-name");
     deployRemote();
     expect(vi.mocked(pushToS3)).toHaveBeenCalledOnce();
+    expect(vi.mocked(pushToS3)).toHaveBeenCalledWith("bucket-name");
   });
 
   it("fails when yarn build fails", () => {
