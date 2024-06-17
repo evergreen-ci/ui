@@ -56,18 +56,17 @@ export const useSections = ({
 
   useEffect(() => {
     if (sectionData && sectionState === undefined) {
-      const defaultSectionState = sectionData.reduce(defaultStateReducer, {});
-      setSectionState(defaultSectionState);
+      setSectionState(sectionData.reduce(closeAllSectionsReducer, {}));
     }
   }, [sectionData, sectionState]);
 
   const openSection = useCallback(
     (functionName: string, isOpen: boolean) => {
       if (sectionState) {
-        setSectionState({
-          ...sectionState,
+        setSectionState((currentState) => ({
+          ...currentState,
           [functionName]: { isOpen },
-        });
+        }));
       }
     },
     [sectionState],
@@ -80,7 +79,7 @@ export const useSections = ({
   };
 };
 
-const defaultStateReducer = (
+const closeAllSectionsReducer = (
   accum: SectionState,
   { functionName }: SectionEntry,
 ) => ({ ...accum, ...{ [functionName]: { isOpen: false } } });
