@@ -44,24 +44,10 @@ describe("SectionHeader", () => {
     const user = userEvent.setup();
     const onOpen = vi.fn();
     render(<SectionHeader {...sectionHeaderProps} onOpen={onOpen} />);
-    const openButton = screen.getByRole("button", {
-      name: "Open",
-    });
+    const openButton = screen.getByDataCy("section-header-caret");
     await user.click(openButton);
     expect(onOpen).toHaveBeenCalledTimes(1);
     expect(onOpen).toHaveBeenCalledWith("load_data", true);
-  });
-
-  it("should call onFocus function when 'focus' button is clicked", async () => {
-    const user = userEvent.setup();
-    const onFocus = vi.fn();
-    render(<SectionHeader {...sectionHeaderProps} onFocus={onFocus} />);
-    const focusButton = screen.getByRole("button", {
-      name: "Focus",
-    });
-    await user.click(focusButton);
-    expect(onFocus).toHaveBeenCalledTimes(1);
-    expect(onFocus).toHaveBeenCalledWith("load_data");
   });
 
   it("open and close state is controlled by the 'open' prop", async () => {
@@ -88,7 +74,6 @@ describe("SectionHeader", () => {
 const sectionHeaderProps = {
   functionName: "load_data",
   lineIndex: 0,
-  onFocus: vi.fn(),
   onOpen: vi.fn(),
   open: false,
   status: SectionStatus.Pass,

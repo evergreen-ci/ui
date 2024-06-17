@@ -40,8 +40,6 @@ const Container = styled.div`
 `;
 
 const sectionHeaderProps = {
-  defaultOpen: false,
-  onFocus: () => {},
   onOpen: () => {},
   open: true,
   status: SectionStatus.Pass,

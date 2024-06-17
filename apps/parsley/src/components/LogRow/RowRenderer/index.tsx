@@ -27,7 +27,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     searchState,
     sectioning,
   } = useLogContext();
-  const { focusSection, openSection } = sectioning;
+  const { openSection } = sectioning;
   const { prettyPrint, wordWrapFormat, wrap } = preferences;
 
   const { searchTerm } = searchState;
@@ -74,7 +74,6 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
         <SectionHeader
           functionName={processedLogLine.functionName}
           lineIndex={index}
-          onFocus={focusSection}
           onOpen={openSection}
           open={processedLogLine.isOpen}
           status={SectionStatus.Pass} // TODO: Update in DEVPROD-5295

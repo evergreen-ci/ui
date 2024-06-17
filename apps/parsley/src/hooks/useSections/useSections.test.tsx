@@ -142,7 +142,7 @@ describe("useSections", () => {
     });
   });
 
-  describe("onOpen and onFocus functions", () => {
+  describe("opening and closing sections", () => {
     it("openSection function toggles the open state", async () => {
       RenderFakeToastContext();
       const { result } = renderHook(() => useSections({ logs, ...metadata }), {
@@ -175,36 +175,6 @@ describe("useSections", () => {
       });
       act(() => {
         result.current.openSection("f-1", false);
-      });
-      await waitFor(() => {
-        expect(result.current.sectionState).toStrictEqual({
-          ...initialSectionState,
-          "f-2": { isOpen: true },
-        });
-      });
-    });
-    it("focusSection function opens the specified section and closes all others", async () => {
-      RenderFakeToastContext();
-      const { result } = renderHook(() => useSections({ logs, ...metadata }), {
-        wrapper,
-      });
-      await waitFor(() => {
-        expect(result.current.sectionData).toStrictEqual(sectionData);
-      });
-      await waitFor(() => {
-        expect(result.current.sectionState).toStrictEqual(initialSectionState);
-      });
-      act(() => {
-        result.current.focusSection("f-1");
-      });
-      await waitFor(() => {
-        expect(result.current.sectionState).toStrictEqual({
-          ...initialSectionState,
-          "f-1": { isOpen: true },
-        });
-      });
-      act(() => {
-        result.current.focusSection("f-2");
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({

@@ -11,6 +11,7 @@
         aria-disabled="false"
         aria-label="Click to open or close section"
         class="leafygreen-ui-76dd2i"
+        data-cy="section-header-caret"
         tabindex="0"
       >
         <div
@@ -73,21 +74,7 @@
           <div
             class="leafygreen-ui-1tpstb3"
           >
-            Close
-          </div>
-        </button>
-        <button
-          aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-1dcyxci"
-          type="button"
-        >
-          <div
-            class="leafygreen-ui-v038xi"
-          />
-          <div
-            class="leafygreen-ui-1tpstb3"
-          >
-            Focus
+            Open
           </div>
         </button>
       </div>
@@ -101,6 +88,7 @@
         aria-disabled="false"
         aria-label="Click to open or close section"
         class="leafygreen-ui-76dd2i"
+        data-cy="section-header-caret"
         tabindex="0"
       >
         <div
@@ -163,21 +151,7 @@
           <div
             class="leafygreen-ui-1tpstb3"
           >
-            Close
-          </div>
-        </button>
-        <button
-          aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-1dcyxci"
-          type="button"
-        >
-          <div
-            class="leafygreen-ui-v038xi"
-          />
-          <div
-            class="leafygreen-ui-1tpstb3"
-          >
-            Focus
+            Open
           </div>
         </button>
       </div>
@@ -191,6 +165,7 @@
         aria-disabled="false"
         aria-label="Click to open or close section"
         class="leafygreen-ui-76dd2i"
+        data-cy="section-header-caret"
         tabindex="0"
       >
         <div
@@ -253,21 +228,7 @@
           <div
             class="leafygreen-ui-1tpstb3"
           >
-            Close
-          </div>
-        </button>
-        <button
-          aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-1dcyxci"
-          type="button"
-        >
-          <div
-            class="leafygreen-ui-v038xi"
-          />
-          <div
-            class="leafygreen-ui-1tpstb3"
-          >
-            Focus
+            Open
           </div>
         </button>
       </div>

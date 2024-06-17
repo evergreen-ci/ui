@@ -14,7 +14,6 @@ const { gray } = palette;
 
 interface SectionHeaderProps extends Row {
   functionName: string;
-  onFocus: (functionName: string) => void;
   onOpen: OpenSection;
   open: boolean;
   status: SectionStatus;
@@ -22,7 +21,6 @@ interface SectionHeaderProps extends Row {
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   functionName,
-  onFocus,
   onOpen,
   open,
   status,
@@ -35,7 +33,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     <SectionHeaderWrapper aria-expanded={open} data-cy="section-header">
       <IconButton
         aria-label="Click to open or close section"
+        data-cy="section-header-caret"
         onClick={() => {
+          sendEvent({
+            functionName,
+            name: open ? "Closed Section" : "Opened Section",
+          });
           onOpen(functionName, !open);
         }}
       >
@@ -44,26 +47,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <Icon fill={gray.dark1} glyph={statusGlyph} />
       <Body>Function: {functionName}</Body>
       <ButtonWrapper>
-        <Button
-          onClick={() => {
-            sendEvent({
-              functionName,
-              name: open ? "Closed Section" : "Opened Section",
-            });
-            onOpen(functionName, !open);
-          }}
-          size={Size.XSmall}
-        >
-          {open ? "Close" : "Open"}
-        </Button>
-        <Button
-          onClick={() => {
-            sendEvent({ functionName, name: "Focused Section" });
-            onFocus(functionName);
-          }}
-          size={Size.XSmall}
-        >
-          Focus
+        <Button onClick={() => {}} size={Size.XSmall}>
+          Open
         </Button>
       </ButtonWrapper>
     </SectionHeaderWrapper>

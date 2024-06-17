@@ -8,13 +8,11 @@ import { SectionEntry, parseSections } from "./utils";
 
 export type SectionState = { [functionName: string]: { isOpen: boolean } };
 export type OpenSection = (functionName: string, isOpen: boolean) => void;
-export type FocusSection = (functionName: string) => void;
 
 export interface UseSectionsResult {
   sectionData: SectionEntry[] | undefined;
   openSection: OpenSection;
   sectionState: SectionState | undefined;
-  focusSection: FocusSection;
   sectioningEnabled: boolean;
 }
 
@@ -74,18 +72,7 @@ export const useSections = ({
     },
     [sectionState],
   );
-  const focusSection = useCallback(
-    (functionName: string) => {
-      if (sectionData && sectionState) {
-        const nextState = sectionData.reduce(defaultStateReducer, {});
-        nextState[functionName] = { isOpen: true };
-        setSectionState(nextState);
-      }
-    },
-    [sectionState],
-  );
   return {
-    focusSection,
     openSection,
     sectionData,
     sectionState,
