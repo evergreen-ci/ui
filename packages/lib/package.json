@@ -14,8 +14,8 @@
     "test": "vitest --typecheck=false"
   },
   "dependencies": {
-    "@emotion/react": "11.11.0",
-    "@emotion/styled": "11.11.0",
+    "@emotion/react": "11.11.4",
+    "@emotion/styled": "11.11.5",
     "@leafygreen-ui/emotion": "4.0.7",
     "@leafygreen-ui/icon": "11.28.0",
     "@leafygreen-ui/text-input": "13.0.2",
