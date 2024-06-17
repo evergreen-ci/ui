@@ -5,6 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "check-types": "tsc -p tsconfig.json --noEmit",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint ."

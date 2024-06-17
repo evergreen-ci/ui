@@ -75,7 +75,7 @@ functions:
       aws_key: ${AWS_ACCESS_KEY_ID}
       aws_secret: ${AWS_SECRET_ACCESS_KEY}
       aws_session_token: ${AWS_SESSION_TOKEN}
-      local_file: "ui/${app_dir}/build/source_map.html"
+      local_file: "ui/${app_dir}/dist/source_map.html"
       remote_file: ${build_variant}/${task_id}/${execution}/source_map.html
       bucket: evg-bucket-evergreen-ui
       content_type: text/html
