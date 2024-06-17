@@ -2,6 +2,7 @@
   "name": "spruce",
   "version": "4.1.31",
   "private": true,
+  "type": "module",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
     "build-storybook": "storybook build",

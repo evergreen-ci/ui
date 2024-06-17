@@ -10,8 +10,11 @@ import vitePluginImp from "vite-plugin-imp";
 import tsconfigPaths from "vite-tsconfig-paths";
 import dns from "dns";
 import * as fs from "fs";
+import { createRequire } from "node:module";
 import path from "path";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
+
+const require = createRequire(import.meta.url);
 
 // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
 dns.setDefaultResultOrder("ipv4first");
