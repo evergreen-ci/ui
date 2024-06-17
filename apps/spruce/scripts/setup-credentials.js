@@ -1,7 +1,7 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
-const file = path.join(__dirname, "../", ".env-cmdrc.json");
+const file = path.join(import.meta.dirname, "../", ".env-cmdrc.json");
 const production = {
   REACT_APP_SIGNAL_PROCESSING_URL:
     "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
