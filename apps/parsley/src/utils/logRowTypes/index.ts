@@ -3,6 +3,7 @@ import {
   RowType,
   SectionHeaderRow,
   SkippedLinesRow,
+  SubsectionHeaderRow,
 } from "types/logs";
 
 /**
@@ -21,4 +22,9 @@ const isSectionHeaderRow = (
 ): logLine is SectionHeaderRow =>
   typeof logLine === "object" && logLine.rowType === RowType.SectionHeader;
 
-export { isSectionHeaderRow, isSkippedLinesRow };
+const isSubsectionHeaderRow = (
+  logLine: ProcessedLogLine,
+): logLine is SubsectionHeaderRow =>
+  typeof logLine === "object" && logLine.rowType === RowType.SubsectionHeader;
+
+export { isSectionHeaderRow, isSkippedLinesRow, isSubsectionHeaderRow };
