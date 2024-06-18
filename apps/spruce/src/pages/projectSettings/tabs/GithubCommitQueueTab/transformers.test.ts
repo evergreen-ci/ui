@@ -1,8 +1,4 @@
-import {
-  ProjectSettingsInput,
-  RepoSettingsInput,
-  MergeQueue,
-} from "gql/generated/types";
+import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { alias, ProjectType } from "../utils";
 import { formToGql, gqlToForm, mergeProjectRepo } from "./transformers";
@@ -112,11 +108,6 @@ const projectForm: GCQFormState = {
   },
   commitQueue: {
     enabled: null,
-    message: "",
-    mergeSettings: {
-      mergeMethod: "",
-      mergeQueue: MergeQueue.Evergreen,
-    },
     patchDefinitions: {
       commitQueueAliasesOverride: true,
       commitQueueAliases: [
@@ -159,9 +150,6 @@ const projectResult: Pick<
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: null,
-      message: "",
-      mergeMethod: "",
-      mergeQueue: MergeQueue.Evergreen,
     },
   },
   aliases: [
@@ -273,11 +261,6 @@ const repoForm: GCQFormState = {
   },
   commitQueue: {
     enabled: true,
-    message: "Commit Queue Message",
-    mergeSettings: {
-      mergeMethod: "squash",
-      mergeQueue: MergeQueue.Github,
-    },
     patchDefinitions: {
       commitQueueAliasesOverride: true,
       commitQueueAliases: [],
@@ -299,9 +282,6 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
       oldestAllowedMergeBase: "abc",
       commitQueue: {
         enabled: true,
-        message: "Commit Queue Message",
-        mergeMethod: "squash",
-        mergeQueue: MergeQueue.Github,
       },
     },
     aliases: [
@@ -430,11 +410,6 @@ const mergedForm: GCQFormState = {
   },
   commitQueue: {
     enabled: null,
-    message: "",
-    mergeSettings: {
-      mergeMethod: "",
-      mergeQueue: MergeQueue.Evergreen,
-    },
     patchDefinitions: {
       commitQueueAliasesOverride: true,
       commitQueueAliases: [
