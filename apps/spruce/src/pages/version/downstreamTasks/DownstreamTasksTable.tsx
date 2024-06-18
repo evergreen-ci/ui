@@ -16,6 +16,7 @@ import TableWrapper from "components/Table/TableWrapper";
 import { onChangeHandler } from "components/Table/utils";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
+import { slugs } from "constants/routes";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
 import { Action } from "./reducer";
@@ -27,7 +28,7 @@ interface DownstreamTasksTableProps {
   childPatchId: string;
   count: number;
   dispatch: (action: Action) => void;
-  isPatch: boolean;
+  isPatch?: boolean;
   limit: number;
   loading: boolean;
   page: number;
@@ -46,11 +47,17 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   taskCount,
   tasks,
 }) => {
-  const { id: versionId } = useParams<{ id: string }>();
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    versionId,
+  const { [slugs.versionId]: versionId } = useParams<{
+    [slugs.versionId]: string;
+  }>();
+  const { sendEvent: sendPatchEvent } = usePatchAnalytics(
+    isPatch === true && versionId ? versionId : "",
   );
+  const { sendEvent: sendVersionEvent } = useVersionAnalytics(
+    isPatch === false && versionId ? versionId : "",
+  );
+
+  const sendEvent = isPatch ? sendPatchEvent : sendVersionEvent;
 
   const { baseStatuses: baseStatusOptions, currentStatuses: statusOptions } =
     useTaskStatuses({ versionId: childPatchId });
