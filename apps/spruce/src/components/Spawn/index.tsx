@@ -7,5 +7,6 @@ export {
   getHostUptimeFromGql,
   getHostUptimeWarnings,
   isNullSleepSchedule,
+  isSleepScheduleActive,
   validator,
 } from "./utils";

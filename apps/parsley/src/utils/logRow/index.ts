@@ -1,4 +1,4 @@
-import { SkippedLinesRow } from "types/logs";
+import { RowType, SkippedLinesRow } from "types/logs";
 /**
  *
  * @param start The start line number inclusive
@@ -7,7 +7,7 @@ import { SkippedLinesRow } from "types/logs";
  */
 const newSkippedLinesRow = (start: number, end: number): SkippedLinesRow => ({
   range: { end, start },
-  rowType: "SkippedLines",
+  rowType: RowType.SkippedLines,
 });
 
 export { newSkippedLinesRow };

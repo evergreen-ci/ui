@@ -13,6 +13,7 @@ export {
   getNextHostStart,
   getSleepSchedule,
   isNullSleepSchedule,
+  isSleepScheduleActive,
   validator,
 } from "./hostUptime";
 export type { HostUptime } from "./hostUptime";

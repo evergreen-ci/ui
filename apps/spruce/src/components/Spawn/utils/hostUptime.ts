@@ -12,6 +12,8 @@ import { days } from "constants/fieldMaps";
 import { SleepScheduleInput } from "gql/generated/types";
 import { Optional } from "types/utils";
 import { isProduction } from "utils/environmentVariables";
+import { FormState as EditFormState } from "../editHostModal";
+import { FormState as SpawnFormState } from "../spawnHostModal";
 
 const daysInWeek = 7;
 const hoursInDay = 24;
@@ -237,62 +239,70 @@ export const matchesDefaultUptimeSchedule = (
   return true;
 };
 
-export const validator = (({ expirationDetails }, errors) => {
-  // TODO DEVPROD-6908 remove check when beta period ends
-  if (isProduction()) return errors;
+export const validator = (permanentlyExempt: boolean) =>
+  (({ expirationDetails }, errors) => {
+    const { hostUptime, noExpiration } = expirationDetails ?? {};
+    if (!hostUptime || noExpiration === false) return errors;
 
-  const { hostUptime, noExpiration } = expirationDetails ?? {};
-  if (!hostUptime || noExpiration === false) return errors;
+    const { sleepSchedule, temporarilyExemptUntil, useDefaultUptimeSchedule } =
+      hostUptime;
 
-  const { sleepSchedule, temporarilyExemptUntil, useDefaultUptimeSchedule } =
-    hostUptime;
-
-  if (temporarilyExemptUntil) {
-    // LG Date Picker widget provides visual validation but doesn't provide a way to access its error state. Replicate its min/max validation here.
-    const selectedDate = new Date(temporarilyExemptUntil);
-    if (
-      !(
-        isAfter(exemptionRange.disableAfter, selectedDate) &&
-        isBefore(exemptionRange.disableBefore, selectedDate)
-      )
-    ) {
-      // @ts-expect-error
-      errors.expirationDetails?.hostUptime?.temporarilyExemptUntil?.addError?.(
-        "Invalid date selected; sleep can only be disabled for up to one month.",
-      );
+    if (temporarilyExemptUntil) {
+      // LG Date Picker widget provides visual validation but doesn't provide a way to access its error state. Replicate its min/max validation here.
+      const selectedDate = new Date(temporarilyExemptUntil);
+      if (
+        !(
+          isAfter(exemptionRange.disableAfter, selectedDate) &&
+          isBefore(exemptionRange.disableBefore, selectedDate)
+        )
+      ) {
+        // @ts-expect-error
+        errors.expirationDetails?.hostUptime?.temporarilyExemptUntil?.addError?.(
+          "Invalid date selected; sleep can only be disabled for up to one month.",
+        );
+      }
     }
-  }
 
-  const { timeSelection } = sleepSchedule ?? {};
+    if (
+      !isSleepScheduleActive({
+        isTemporarilyExempt: !!temporarilyExemptUntil,
+        noExpiration: !!noExpiration,
+        permanentlyExempt,
+      })
+    ) {
+      return errors;
+    }
 
-  if (useDefaultUptimeSchedule) {
-    return errors;
-  }
+    const { timeSelection } = sleepSchedule ?? {};
 
-  const { enabledHoursCount, enabledWeekdaysCount } =
-    getEnabledHoursCount(hostUptime);
+    if (useDefaultUptimeSchedule) {
+      return errors;
+    }
 
-  if (enabledHoursCount > maxUptimeHours) {
-    // Return error based on whether runContinously enabled
-    if (timeSelection?.runContinuously) {
+    const { enabledHoursCount, enabledWeekdaysCount } =
+      getEnabledHoursCount(hostUptime);
+
+    if (enabledHoursCount > maxUptimeHours) {
+      // Return error based on whether runContinously enabled
+      if (timeSelection?.runContinuously) {
+        // @ts-expect-error
+        errors.expirationDetails?.hostUptime?.details?.addError?.(
+          "Please pause your host for at least 1 day per week.",
+        );
+        return errors;
+      }
+      const hourlyRequirement = Math.floor(
+        maxUptimeHours / enabledWeekdaysCount,
+      );
       // @ts-expect-error
       errors.expirationDetails?.hostUptime?.details?.addError?.(
-        "Please pause your host for at least 1 day per week.",
+        `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
       );
       return errors;
     }
-    const hourlyRequirement = Math.floor(maxUptimeHours / enabledWeekdaysCount);
-    // @ts-expect-error
-    errors.expirationDetails?.hostUptime?.details?.addError?.(
-      `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
-    );
-    return errors;
-  }
 
-  return errors;
-}) satisfies ValidateProps<{
-  expirationDetails?: { hostUptime?: HostUptime; noExpiration: boolean };
-}>;
+    return errors;
+  }) satisfies ValidateProps<EditFormState | SpawnFormState>;
 
 /**
  * isNullSleepSchedule indicates that the sleep schedule is unset.
@@ -308,6 +318,23 @@ export const isNullSleepSchedule = (sleepSchedule: RequiredSleepSchedule) => {
   if (dailyStartTime !== "") return false;
   if (dailyStopTime !== "") return false;
   if (arraySymmetricDifference(wholeWeekdaysOff, []).length > 0) return false;
+  return true;
+};
+
+export const isSleepScheduleActive = ({
+  isTemporarilyExempt,
+  noExpiration,
+  permanentlyExempt,
+}: {
+  isTemporarilyExempt: boolean;
+  noExpiration: boolean;
+  permanentlyExempt: boolean;
+}) => {
+  // TODO DEVPROD-7517: replace prod check with beta tester check when beta period begins
+  if (isProduction()) return false;
+  if (!noExpiration) return false;
+  if (isTemporarilyExempt) return false;
+  if (permanentlyExempt) return false;
   return true;
 };
 

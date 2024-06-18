@@ -27,8 +27,11 @@ import {
 } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
+import { useParsleySettings } from "hooks/useParsleySettings";
 import { useQueryParam } from "hooks/useQueryParam";
+import { useSections } from "hooks/useSections";
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
+import { isProduction } from "utils/environmentVariables";
 import filterLogs from "utils/filterLogs";
 import { getMatchingLines } from "utils/matchingLines";
 import { getColorMapping } from "utils/resmoke";
@@ -104,8 +107,9 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     undefined,
   );
 
-  // Wrap settings are evaluated after the logs have initially rendered - see LogPane component.
+  // Wrap and pretty print settings are evaluated after the logs have initially rendered - see LogPane component.
   const [wrap, setWrap] = useState(false);
+  const [prettyPrint, setPrettyPrint] = useState(false);
   const [filterLogic, setFilterLogic] = useQueryParam(
     QueryParams.FilterLogic,
     (Cookie.get(FILTER_LOGIC) as FilterLogic) ?? FilterLogic.And,
@@ -113,9 +117,6 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   const [expandableRows, setExpandableRows] = useQueryParam(
     QueryParams.Expandable,
     Cookie.get(EXPANDABLE_ROWS) ? Cookie.get(EXPANDABLE_ROWS) === "true" : true,
-  );
-  const [prettyPrint, setPrettyPrint] = useState(
-    Cookie.get(PRETTY_PRINT_BOOKMARKS) === "true",
   );
   const [zebraStriping, setZebraStriping] = useState(
     Cookie.get(ZEBRA_STRIPING) === "true",
@@ -150,6 +151,16 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     ],
   );
 
+  const { settings } = useParsleySettings();
+
+  const sectionsEnabled =
+    !isProduction() &&
+    !!settings?.sectionsEnabled &&
+    state.logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS &&
+    state.logMetadata?.renderingType === LogRenderingTypes.Default;
+
+  const { sectionData } = useSections({ logs: state.logs, sectionsEnabled });
+
   useEffect(
     () => {
       setProcessedLogLines(
@@ -160,6 +171,8 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
           failingLine: state.failingLine,
           logLines: state.logs,
           matchingLines,
+          sectionData,
+          sectionsEnabled,
           shareLine,
         }),
       );

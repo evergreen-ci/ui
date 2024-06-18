@@ -1,4 +1,4 @@
-import { ProcessedLogLines } from "types/logs";
+import { ProcessedLogLines, RowType } from "types/logs";
 import searchLogs from ".";
 
 describe("searchLogs", () => {
@@ -60,7 +60,7 @@ describe("searchLogs", () => {
     const getLine = vi.fn((index: number) => lines[index]);
     const processedLogLines: ProcessedLogLines = [
       0,
-      { range: { end: 3, start: 1 }, rowType: "SkippedLines" },
+      { range: { end: 3, start: 1 }, rowType: RowType.SkippedLines },
       3,
     ];
     const options = {
@@ -75,12 +75,18 @@ describe("searchLogs", () => {
     expect(getLine).toHaveBeenCalledWith(0);
     expect(getLine).toHaveBeenCalledWith(3);
   });
-  it("should not search lines that are folded or if they are out of the range", () => {
+  it("should not search lines that are folded, sections, or if they are out of the range", () => {
     const lines = ["line 1", "line 2", "line 3", "line 4"];
     const getLine = vi.fn((index: number) => lines[index]);
     const processedLogLines: ProcessedLogLines = [
       0,
-      { range: { end: 3, start: 1 }, rowType: "SkippedLines" },
+      {
+        functionName: "test",
+        isOpen: true,
+        range: { end: 2, start: 1 },
+        rowType: RowType.SectionHeader,
+      },
+      { range: { end: 3, start: 2 }, rowType: RowType.SkippedLines },
       3,
     ];
     const options = {

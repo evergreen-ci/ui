@@ -1,15 +1,12 @@
-import { LogContextProvider } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import { renderWithRouterMatch, screen, userEvent } from "test_utils";
 import SkippedLinesRow from ".";
 
-const wrapper = (logs: string[]) => {
-  const provider = ({ children }: { children: React.ReactNode }) => (
-    <LogContextProvider initialLogLines={logs}>{children}</LogContextProvider>
-  );
-  return provider;
-};
-
 describe("skippedLinesRow", () => {
+  beforeEach(() => {
+    InitializeFakeToastContext();
+  });
   it("renders a skipped log line", () => {
     renderWithRouterMatch(
       <SkippedLinesRow
@@ -18,7 +15,7 @@ describe("skippedLinesRow", () => {
         range={{ end: 11, start: 0 }}
       />,
       {
-        wrapper: wrapper(logLines),
+        wrapper: logContextWrapper(logLines),
       },
     );
     expect(screen.getByText("11 Lines Skipped")).toBeInTheDocument();
@@ -35,7 +32,7 @@ describe("skippedLinesRow", () => {
         range={{ end: 11, start: 0 }}
       />,
       {
-        wrapper: wrapper(logLines),
+        wrapper: logContextWrapper(logLines),
       },
     );
     const expandFiveButton = screen.getByRole("button", {
@@ -61,7 +58,7 @@ describe("skippedLinesRow", () => {
         range={{ end: 11, start: 0 }}
       />,
       {
-        wrapper: wrapper(logLines),
+        wrapper: logContextWrapper(logLines),
       },
     );
     const expandFiveButton = screen.getByRole("button", {
@@ -80,7 +77,7 @@ describe("skippedLinesRow", () => {
         range={{ end: 3, start: 0 }}
       />,
       {
-        wrapper: wrapper(logLines),
+        wrapper: logContextWrapper(logLines),
       },
     );
     const expandFiveButton = screen.getByRole("button", {

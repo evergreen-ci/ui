@@ -27,11 +27,6 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 vi.mock("js-cookie");
 
 describe("logPane", () => {
-  beforeEach(() => {
-    // @ts-expect-error
-    vi.spyOn(Cookie, "get").mockReturnValue("true");
-  });
-
   afterEach(() => {
     vi.restoreAllMocks();
     vi.useRealTimers();
@@ -46,15 +41,52 @@ describe("logPane", () => {
     expect(screen.queryByText("Some Line: 99")).not.toBeInTheDocument();
   });
 
-  it("should execute wrap functionality after log pane loads", async () => {
+  it("should not execute wrap and pretty print functionality if cookie is false", async () => {
+    // @ts-expect-error
+    vi.spyOn(Cookie, "get").mockReturnValue("false");
+
     vi.useFakeTimers();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
     const mockedSetWrap = vi.fn();
+    const mockedSetPrettyPrint = vi.fn();
 
     mockedLogContext.mockImplementation(() => ({
       listRef: createRef(),
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
       preferences: {
+        setPrettyPrint: mockedSetPrettyPrint,
+        setWrap: mockedSetWrap,
+      },
+      processedLogLines: Array.from(list.keys()),
+    }));
+
+    RenderFakeToastContext();
+    render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+      wrapper,
+    });
+    vi.advanceTimersByTime(100);
+    await waitFor(() => {
+      expect(mockedSetWrap).not.toHaveBeenCalled();
+    });
+    await waitFor(() => {
+      expect(mockedSetPrettyPrint).not.toHaveBeenCalled();
+    });
+  });
+
+  it("should execute wrap and pretty print functionality if cookie is true", async () => {
+    // @ts-expect-error
+    vi.spyOn(Cookie, "get").mockReturnValue("true");
+
+    vi.useFakeTimers();
+    const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+    const mockedSetWrap = vi.fn();
+    const mockedSetPrettyPrint = vi.fn();
+
+    mockedLogContext.mockImplementation(() => ({
+      listRef: createRef(),
+      // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+      preferences: {
+        setPrettyPrint: mockedSetPrettyPrint,
         setWrap: mockedSetWrap,
       },
       processedLogLines: Array.from(list.keys()),
@@ -67,6 +99,9 @@ describe("logPane", () => {
     vi.advanceTimersByTime(100);
     await waitFor(() => {
       expect(mockedSetWrap).toHaveBeenCalledTimes(1);
+    });
+    await waitFor(() => {
+      expect(mockedSetPrettyPrint).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -81,6 +116,7 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
         },
         processedLogLines: Array.from(list.keys()),
@@ -108,6 +144,7 @@ describe("logPane", () => {
         listRef: createRef(),
         // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
         preferences: {
+          setPrettyPrint: vi.fn(),
           setWrap: vi.fn(),
         },
         processedLogLines: Array.from(list.keys()),

@@ -33,8 +33,10 @@ post:
   - func: attach-test-results
 
 include:
-  - filename: .evergreen/shared.yml
   - filename: .evergreen/attach.yml
+  - filename: .evergreen/deploy.yml
+  - filename: .evergreen/generate.yml
+  - filename: .evergreen/shared.yml
 
 buildvariants:
   - name: spruce
@@ -108,8 +110,49 @@ buildvariants:
       - ubuntu2204-small
     tasks:
       - name: lint
+      - name: snapshots
+      - name: storybook
       - name: test
       - name: type_check
+
+  - name: deploy-utils
+    display_name: Deploy Utils
+    expansions:
+      app_dir: packages/deploy-utils
+      goroot: /opt/golang/go1.20
+      mongodb_tools_url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.8.0.tgz
+      mongodb_url_2204: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.2.tgz
+      mongosh_url_2204: https://downloads.mongodb.com/compass/mongosh-2.0.2-linux-x64.tgz
+      node_version: 20.10.0
+    run_on:
+      - ubuntu2204-large
+      - ubuntu2204-small
+    tasks:
+      - name: lint
+      - name: test
+      - name: type_check
+
+  - name: generator
+    display_name: Generator
+    allowed_requesters: ["github_pr"]
+    # Omit node_version expansion so that yarn-install fails to save time.
+    run_on:
+      - ubuntu2204-small
+    tasks:
+      - generate-tasks
+
+  - name: deploy
+    display_name: Deploys
+    allowed_requesters: ["patch"]
+    expansions:
+      node_version: 20.10.0
+    run_on:
+      - ubuntu2204-large
+    tasks:
+      - name: deploy-parsley-beta
+      - name: deploy-parsley-staging
+      - name: deploy-spruce-beta
+      - name: deploy-spruce-staging
 
 parameters:
   - key: cypress_spec
