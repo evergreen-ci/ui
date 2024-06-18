@@ -1,9 +1,6 @@
 fragment ProjectGithubSettings on Project {
   commitQueue {
     enabled
-    mergeMethod
-    mergeQueue
-    message
   }
   githubChecksEnabled
   githubTriggerAliases
@@ -18,9 +15,6 @@ fragment ProjectGithubSettings on Project {
 fragment RepoGithubSettings on RepoRef {
   commitQueue {
     enabled
-    mergeMethod
-    mergeQueue
-    message
   }
   githubChecksEnabled
   githubTriggerAliases

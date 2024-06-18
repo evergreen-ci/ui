@@ -4,7 +4,6 @@ import {
   ProjectEventLogsQuery,
   ProjectEventLogsQueryVariables,
   ProjectHealthView,
-  MergeQueue,
 } from "gql/generated/types";
 import { PROJECT_EVENT_LOGS } from "gql/queries";
 import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
@@ -151,9 +150,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             gitTagAuthorizedTeams: ["arst"],
             commitQueue: {
               enabled: true,
-              mergeMethod: "squash",
-              mergeQueue: MergeQueue.Evergreen,
-              message: "",
               __typename: "CommitQueueParams",
             },
             parsleyFilters: [],
@@ -238,9 +234,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             gitTagAuthorizedTeams: ["evergreen"],
             commitQueue: {
               enabled: true,
-              mergeMethod: "squash",
-              mergeQueue: MergeQueue.Github,
-              message: "",
               __typename: "CommitQueueParams",
             },
             parsleyFilters: [],

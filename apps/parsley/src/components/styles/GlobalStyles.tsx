@@ -10,8 +10,7 @@ const resetStyles = css`
   }
 `;
 
-const globalStyles = css`
-  ${fontStyles}
+export const globalStyles = css`
   ${resetStyles}
   background-color: white;
   body {
@@ -32,6 +31,13 @@ const globalStyles = css`
   }
 `;
 
-const GlobalStyles = () => <Global styles={globalStyles} />;
+const GlobalStyles = () => (
+  <Global
+    styles={css`
+      ${fontStyles}
+      ${globalStyles}
+    `}
+  />
+);
 
 export default GlobalStyles;

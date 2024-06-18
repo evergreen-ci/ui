@@ -1,18 +1,10 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # testing
-/coverage
 cypress/videos/
 cypress/screenshots/
 
-# production
-/build
-
-# storybook
-storybook-static
-
 # artifacts
-/bin
 /src/**/*.css
 
 #env variables
@@ -27,6 +19,7 @@ env/.cmdrc.json
 .env.production.local
 .vscode
 node_modules
+.tool-versions
 
 npm-debug.log*
 yarn-debug.log*

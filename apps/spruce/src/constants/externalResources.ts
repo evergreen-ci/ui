@@ -32,8 +32,6 @@ export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentati
 
 export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
-export const githubMergeQueueDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Merge-Queue`;
-
 export const ignoredFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#ignoring-changes-to-certain-files`;
 
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;

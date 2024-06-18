@@ -19,7 +19,14 @@ const Tasks = {
 // Enumerate each task in a build variant that can run as part of a PR.
 // It would be nice to use tags for this, but Evergreen does not reevaluate tags as part of generate.tasks.
 const TASK_MAPPING = {
-  lib: [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
+  "deploy-utils": [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
+  lib: [
+    Tasks.Lint,
+    Tasks.Snapshots,
+    Tasks.Storybook,
+    Tasks.Test,
+    Tasks.TypeCheck,
+  ],
   parsley: [
     Tasks.CheckCodegen,
     Tasks.Compile,

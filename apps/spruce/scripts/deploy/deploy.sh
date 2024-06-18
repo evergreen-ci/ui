@@ -4,7 +4,7 @@
 
 echo "Deploying to S3"
 
-if ! aws s3 sync build/ s3://"${BUCKET}"/ --acl public-read --follow-symlinks --delete --exclude .env-cmdrc.json; then
+if ! aws s3 sync dist/ s3://"${BUCKET}"/ --acl public-read --follow-symlinks --delete --exclude .env-cmdrc.json; then
   echo "Deployment to S3 failed"
   exit 1
 else
