@@ -27,7 +27,7 @@ interface DownstreamTasksTableProps {
   childPatchId: string;
   count: number;
   dispatch: (action: Action) => void;
-  isPatch: boolean | undefined;
+  isPatch?: boolean;
   limit: number;
   loading: boolean;
   page: number;
