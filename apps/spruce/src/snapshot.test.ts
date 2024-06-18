@@ -1,9 +1,12 @@
-import { composeStories } from "@storybook/react";
+import { projectAnnotations } from "@evg-ui/storybook-addon";
+import { composeStories, setProjectAnnotations } from "@storybook/react";
 import { expect } from "vitest";
 import path from "path";
 import { act, render, stubGetClientRects } from "test_utils";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import * as projectAnnotations from "../.storybook/preview";
+import * as previewAnnotations from "../.storybook/preview";
+
+setProjectAnnotations([projectAnnotations, previewAnnotations]);
 
 type StoryFile = {
   default: CustomMeta<unknown>;
@@ -19,7 +22,7 @@ const compose = (
   entry: StoryFile,
 ): ReturnType<typeof composeStories<StoryFile>> => {
   try {
-    return composeStories(entry, projectAnnotations);
+    return composeStories(entry);
   } catch (e) {
     throw new Error(
       `There was an issue composing stories for the module: ${JSON.stringify(

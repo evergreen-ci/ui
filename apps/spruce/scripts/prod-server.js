@@ -11,7 +11,7 @@ const server = http.createServer((request, response) => {
     return proxy.web(request, response, { target: "http://localhost:9090" });
   }
   return handler(request, response, {
-    public: path.resolve(__dirname, "../build"),
+    public: path.resolve(__dirname, "../dist"),
     rewrites: [
       {
         source: "**",

@@ -30,6 +30,7 @@ export const Default: CustomStoryObj<typeof WaterfallTaskStatusIcon> = {
   },
   argTypes: {
     status: {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       options: TaskStatus,
       control: { type: "select" },
     },

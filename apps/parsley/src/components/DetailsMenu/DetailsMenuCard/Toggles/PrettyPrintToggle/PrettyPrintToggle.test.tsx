@@ -14,27 +14,19 @@ import { renderComponentWithHook } from "test_utils/TestHooks";
 import PrettyPrintToggle from ".";
 
 vi.mock("js-cookie");
-const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
+const mockedSet = vi.spyOn(Cookie, "set") as MockInstance;
 
 const wrapper = logContextWrapper();
 
 describe("pretty print toggle", () => {
   beforeEach(() => {
-    mockedGet.mockImplementation(() => "true");
     InitializeFakeToastContext();
   });
 
-  it("defaults to 'false' if cookie is unset", () => {
-    mockedGet.mockImplementation(() => "");
+  it("defaults to 'false'", () => {
     render(<PrettyPrintToggle />, { wrapper });
     const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
     expect(prettyPrintToggle).toHaveAttribute("aria-checked", "false");
-  });
-
-  it("should read from the cookie properly", () => {
-    render(<PrettyPrintToggle />, { wrapper });
-    const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
-    expect(prettyPrintToggle).toHaveAttribute("aria-checked", "true");
   });
 
   it("should disable the toggle if the logType is not resmoke", () => {
@@ -46,7 +38,6 @@ describe("pretty print toggle", () => {
     act(() => {
       hook.current.setLogMetadata({ renderingType: LogRenderingTypes.Default });
     });
-
     const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
     expect(prettyPrintToggle).toHaveAttribute("aria-disabled", "true");
   });
@@ -60,7 +51,6 @@ describe("pretty print toggle", () => {
     act(() => {
       hook.current.setLogMetadata({ renderingType: LogRenderingTypes.Resmoke });
     });
-
     const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
     expect(prettyPrintToggle).toHaveAttribute("aria-disabled", "false");
   });
@@ -78,7 +68,8 @@ describe("pretty print toggle", () => {
     const prettyPrintToggle = screen.getByDataCy("pretty-print-toggle");
 
     await user.click(prettyPrintToggle);
-    expect(prettyPrintToggle).toHaveAttribute("aria-checked", "false");
+    expect(prettyPrintToggle).toHaveAttribute("aria-checked", "true");
+    expect(mockedSet).toHaveBeenCalledTimes(1);
     expect(router.state.location.search).toBe("");
   });
 });
