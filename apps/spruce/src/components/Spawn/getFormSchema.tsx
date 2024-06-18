@@ -196,7 +196,7 @@ const getHostUptimeSchema = ({
             href={hostUptimeDocumentationUrl}
             hideExternalIcon={false}
           >
-            Learn more about Host Uptime Schedules
+            Learn more about host sleep schedules
           </StyledLink>
           .
         </>
