@@ -346,8 +346,10 @@ export const getFormSchema = (
         manualPrTestingEnabled: {
           "ui:data-cy": "manual-pr-testing-enabled-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:description":
-            "Patches can be run manually by commenting ‘evergreen patch’ on the PR even if automated testing isn't enabled.",
+          "ui:description": `
+              Patches can be run manually by commenting ‘evergreen patch’ on the PR even if automated testing isn't enabled;
+              The ‘--alias’ flag is also available to allow users to overwrite the default PR configuration.
+          `,
           ...githubConflictErrorStyling(
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             githubProjectConflicts?.prTestingIdentifiers,
