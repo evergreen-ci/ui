@@ -16,6 +16,7 @@ import TableWrapper from "components/Table/TableWrapper";
 import { onChangeHandler } from "components/Table/utils";
 import { getColumnsTemplate } from "components/TasksTable/Columns";
 import { TaskTableInfo } from "components/TasksTable/types";
+import { slugs } from "constants/routes";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
 import { Action } from "./reducer";
@@ -46,7 +47,9 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   taskCount,
   tasks,
 }) => {
-  const { versionId } = useParams<{ versionId: string }>();
+  const { [slugs.versionId]: versionId } = useParams<{
+    [slugs.versionId]: string;
+  }>();
   const { sendEvent: sendPatchEvent } = usePatchAnalytics(
     isPatch === true && versionId ? versionId : "",
   );
