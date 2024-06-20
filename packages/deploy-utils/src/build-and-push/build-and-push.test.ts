@@ -1,6 +1,6 @@
 import { mockEnvironmentVariables } from "@evg-ui/lib/test_utils/utils";
 import { execSync } from "child_process";
-import { deployRemote } from ".";
+import { buildAndPush } from ".";
 import { pushToS3 } from "../utils/s3";
 
 const { cleanup, mockEnv } = mockEnvironmentVariables();
@@ -20,13 +20,13 @@ describe("remote deploys", () => {
   });
 
   it("fails when no bucket env var exists", () => {
-    expect(() => deployRemote()).toThrowError("No bucket specified");
+    expect(() => buildAndPush("staging")).toThrowError("No bucket specified");
     expect(vi.mocked(pushToS3)).not.toHaveBeenCalled();
   });
 
   it("calls pushToS3 function when BUCKET is defined", () => {
     mockEnv("BUCKET", "bucket-name");
-    deployRemote();
+    buildAndPush("staging");
     expect(vi.mocked(pushToS3)).toHaveBeenCalledOnce();
     expect(vi.mocked(pushToS3)).toHaveBeenCalledWith("bucket-name");
   });
@@ -35,7 +35,7 @@ describe("remote deploys", () => {
     vi.mocked(execSync).mockImplementation(() => {
       throw Error("mock yarn build error");
     });
-    expect(() => deployRemote()).toThrowError("mock yarn build error");
+    expect(() => buildAndPush("staging")).toThrowError("mock yarn build error");
     expect(vi.mocked(pushToS3)).not.toHaveBeenCalled();
   });
 });

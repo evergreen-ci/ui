@@ -31,7 +31,7 @@ functions:
         AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
       script: |
         ${PREPARE_SHELL}
-        yarn env-cmd -e ${target} ts-node -e "import {deployRemote} from '@evg-ui/deploy-utils'; deployRemote();"
+        yarn ts-node -e "import {buildAndPush} from '@evg-ui/deploy-utils'; buildAndPush(\"${target}\");"
 
 tasks:
   - name: deploy-parsley-staging

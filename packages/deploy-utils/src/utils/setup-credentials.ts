@@ -1,9 +1,6 @@
 import { writeFileSync } from "fs";
 import { join } from "path";
-
-// Block production for now.
-// type Target = "staging" | "beta" | "production";
-type Target = "staging" | "beta";
+import { Target } from "./types";
 
 export const setupCredentials = (directory: string, target: Target) => {
   const file = join(directory, ".env-cmdrc.json");
@@ -67,7 +64,7 @@ const base: Record<Target, Record<string, string | undefined>> = {
       "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
     REACT_APP_UI_URL: "https://evergreen.mongodb.com",
   },
-  /* production: {
+  production: {
     ...sharedKeys,
     REACT_APP_API_URL: "https://evergreen.mongodb.com/api",
     REACT_APP_DEPLOYS_EMAIL: "evergreen-deploys@10gen.com",
@@ -81,9 +78,9 @@ const base: Record<Target, Record<string, string | undefined>> = {
       "https://ui.honeycomb.io/mongodb-4b/environments/production",
     REACT_APP_LOGKEEPER_URL: "https://logkeeper2.build.10gen.cc",
     REACT_APP_PARSLEY_URL: "https://parsley.mongodb.com",
-    REACT_APP_SPRUCE_URL: "https://spruce.mongodb.com",
     REACT_APP_SIGNAL_PROCESSING_URL:
       "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
+    REACT_APP_SPRUCE_URL: "https://spruce.mongodb.com",
     REACT_APP_UI_URL: "https://evergreen.mongodb.com",
-  }, */
+  },
 };
