@@ -62,14 +62,14 @@ describe("Container events", () => {
     cy.visit("/preferences");
     cy.contains("Select a timezone").click();
     cy.contains("Chatham Islands").click();
-    cy.contains("button", "Save Changes").click();
+    cy.contains("button", "Save changes").click();
     cy.visit(pathWithEvents);
     cy.dataCy("ASSIGNED_TASK-time").contains("Apr 5, 2023, 5:19:03 AM");
     // undo preferences change
     cy.visit("/preferences");
     cy.contains("Chatham Islands").click();
     cy.contains("Select a timezone").last().click();
-    cy.contains("button", "Save Changes").click();
+    cy.contains("button", "Save changes").click();
   });
 });
 
