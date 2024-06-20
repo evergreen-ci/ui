@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -9,27 +8,24 @@ import Icon from "components/Icon";
 import { Row } from "components/LogRow/types";
 import { SectionStatus } from "constants/logs";
 import { size, transitionDuration } from "constants/tokens";
+import { OpenSection } from "hooks/useSections";
 
 const { gray } = palette;
 
 interface SectionHeaderProps extends Row {
-  defaultOpen?: boolean;
   functionName: string;
-  onFocus: (functionName: string) => void;
-  onOpen: (functionName: string) => void;
+  onOpen: OpenSection;
+  open: boolean;
   status: SectionStatus;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
-  defaultOpen = false,
   functionName,
-  onFocus,
   onOpen,
+  open,
   status,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
-  const [open, setOpen] = useState(defaultOpen);
-
   const statusGlyph =
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
 
@@ -37,34 +33,22 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     <SectionHeaderWrapper aria-expanded={open} data-cy="section-header">
       <IconButton
         aria-label="Click to open or close section"
-        onClick={() => setOpen(!open)}
+        data-cy="section-header-caret"
+        onClick={() => {
+          sendEvent({
+            functionName,
+            name: open ? "Closed Section" : "Opened Section",
+          });
+          onOpen(functionName, !open);
+        }}
       >
         <AnimatedIcon fill={gray.dark1} glyph="ChevronRight" open={open} />
       </IconButton>
       <Icon fill={gray.dark1} glyph={statusGlyph} />
       <Body>Function: {functionName}</Body>
       <ButtonWrapper>
-        <Button
-          onClick={() => {
-            sendEvent({
-              functionName,
-              name: open ? "Closed Section" : "Opened Section",
-            });
-            onOpen(functionName);
-            setOpen(!open);
-          }}
-          size={Size.XSmall}
-        >
-          {open ? "Close" : "Open"}
-        </Button>
-        <Button
-          onClick={() => {
-            sendEvent({ functionName, name: "Focused Section" });
-            onFocus(functionName);
-          }}
-          size={Size.XSmall}
-        >
-          Focus
+        <Button onClick={() => {}} size={Size.XSmall}>
+          Open
         </Button>
       </ButtonWrapper>
     </SectionHeaderWrapper>
