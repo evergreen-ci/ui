@@ -49,7 +49,7 @@ const TASK_MAPPING = {
 };
 
 const APPS_DIR = "apps";
-const fileDestPath = join(import.meta.dirname, "../", "generate-tasks.json");
+const fileDestPath = join(process.cwd(), "/.evergreen", "generate-tasks.json");
 
 const getMergeBase = () => {
   try {
