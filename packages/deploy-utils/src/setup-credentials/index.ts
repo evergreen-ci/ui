@@ -1,9 +1,9 @@
 import { writeFileSync } from "fs";
 import { join } from "path";
-import { Target } from "./types";
+import { Target } from "../utils/types";
 
-export const setupCredentials = (directory: string, target: Target) => {
-  const file = join(directory, ".env-cmdrc.json");
+export const setupCredentials = (target: Target) => {
+  const file = join(process.cwd(), ".env-cmdrc.json");
   const envVars = {
     ...base[target],
     BUCKET: process.env.BUCKET,

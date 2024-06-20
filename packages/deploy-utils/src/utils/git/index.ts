@@ -2,6 +2,21 @@ import { execSync } from "child_process";
 import { resolve } from "path";
 import { DeployableApp } from "../types";
 
+/**
+ * `push` is a helper function that pushes commits to the remote.
+ */
+const push = () => {
+  console.log("Pushing to upstream...");
+  try {
+    execSync(`git push upstream`, {
+      stdio: "inherit",
+      encoding: "utf-8",
+    });
+  } catch (err) {
+    throw Error("Pushing upstream failed.", { cause: err });
+  }
+};
+
 const getGitRoot = () =>
   execSync(`git rev-parse --show-toplevel`, {
     encoding: "utf-8",
@@ -11,13 +26,15 @@ const getGitRoot = () =>
 
 /**
  * `getCommitMessages` returns a string of all commit messages between the currently deployed commit and HEAD.
- * @param currentlyDeployedCommit - the currently deployed commit for this app
  * @param app - the app being deployed
- * @returns - a string of all commit messages between the currently deployed commit and HEAD. Commits are limited to those in the app's directory and all shared directories, as well as the root (the other app is excluded).
+ * @param fromCommit - the oldest commit in range to return
+ * @param toCommit - optional hash marking the end of the range of commits. Defaults to HEAD.
+ * @returns - a string of all commit messages between the first specified commit and last specified commit or HEAD. Commits are limited to those in the app's directory and all shared directories, as well as the root (the other app is excluded).
  */
 const getCommitMessages = (
-  currentlyDeployedCommit: string,
   app: DeployableApp,
+  fromCommit: string,
+  toCommit: string = "HEAD",
 ) => {
   const gitRoot = getGitRoot();
   const appDir = resolve(gitRoot, "apps", app);
@@ -27,7 +44,7 @@ const getCommitMessages = (
     app === "spruce" ? "parsley" : "spruce",
   );
   const commitMessages = execSync(
-    `git log ${currentlyDeployedCommit}..HEAD --oneline -- ${appDir} '!${excludeDir}'`,
+    `git log ${fromCommit}..${toCommit} --oneline -- ${appDir} '!${excludeDir}'`,
     { encoding: "utf-8" },
   )
     .toString()
@@ -67,7 +84,7 @@ const assertMainBranch = () => {
 };
 
 /**
- * `isWorkingDirectoryClean` is a helper function that checks if the working directory is clean (i.e. no uncommitted changes).
+ * `assertWorkingDirectoryClean` is a helper function that checks if the working directory is clean (i.e. no uncommitted changes).
  * @throws - Will throw an error if uncommitted changes are present.
  */
 const assertWorkingDirectoryClean = () => {
@@ -84,5 +101,6 @@ export {
   getCommitMessages,
   getCurrentCommit,
   getGitRoot,
+  push,
 };
 export * from "./tag";

@@ -18,7 +18,7 @@ functions:
         SPRUCE_SENTRY_AUTH_TOKEN: ${SPRUCE_SENTRY_AUTH_TOKEN}
       script: |
         ${PREPARE_SHELL}
-        PWD=$(pwd) yarn ts-node -e "import {setupCredentials} from '@evg-ui/deploy-utils'; setupCredentials(\"$PWD\", \"${target}\");"
+        yarn deploy-utils-setup-credentials "${target}"
 
   deploy:
     command: shell.exec
@@ -31,7 +31,7 @@ functions:
         AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
       script: |
         ${PREPARE_SHELL}
-        yarn ts-node -e "import {buildAndPush} from '@evg-ui/deploy-utils'; buildAndPush(\"${target}\");"
+        yarn env-cmd -e "${target}" yarn deploy-utils-build-and-push
 
 tasks:
   - name: deploy-parsley-staging

@@ -1,6 +1,6 @@
 import { relative } from "path";
 import { getGitRoot } from "./git";
-import { DeployableApp } from "./types";
+import { DeployableApp, isDeployableApp } from "./types";
 
 const isRunningOnCI = () => process.env.CI === "true";
 
@@ -12,11 +12,7 @@ const getAppToDeploy = (): DeployableApp => {
 
   const rel = relative(gitRoot, cwd).split("/");
   const [appDir, appName] = rel;
-  if (
-    rel.length !== 2 ||
-    appDir !== "apps" ||
-    !(appName === "spruce" || appName === "parsley")
-  ) {
+  if (rel.length !== 2 || appDir !== "apps" || !isDeployableApp(appName)) {
     throw Error("Must deploy from an app's root directory");
   }
   return appName;

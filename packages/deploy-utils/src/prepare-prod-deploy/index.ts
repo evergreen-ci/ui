@@ -1,5 +1,5 @@
 import prompts from "prompts";
-import { getAppToDeploy } from "./utils/environment";
+import { getAppToDeploy } from "../utils/environment";
 import {
   assertMainBranch,
   assertWorkingDirectoryClean,
@@ -9,7 +9,7 @@ import {
   deleteTag,
   getLatestTag,
   pushTags,
-} from "./utils/git";
+} from "../utils/git";
 
 /**
  * getAppIfValidEnv ensures that the environment is valid and gets the app being committed.
@@ -28,7 +28,7 @@ export const prepareProdDeploy = async () => {
   const currentlyDeployedCommit = await getCurrentlyDeployedCommit(app);
   console.log(`Currently Deployed Commit: ${currentlyDeployedCommit}`);
 
-  const commitMessages = getCommitMessages(currentlyDeployedCommit, app);
+  const commitMessages = getCommitMessages(app, currentlyDeployedCommit);
 
   // If there are no commit messages, ask the user if they want to delete and re-push the latest tag, thereby forcing a deploy with no new commits.
   if (commitMessages.length === 0) {

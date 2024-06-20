@@ -1,21 +1,28 @@
+#!/usr/bin/env ts-node
 import { buildAndPush } from "./build-and-push";
 import { prepareProdDeploy } from "./prepare-prod-deploy";
 import { isRunningOnCI } from "./utils/environment";
-import { Target } from "./utils/types";
+import { isTarget } from "./utils/types";
 
-// Properly route a `yarn deploy:<target>` command
-export const deploy = (target: Target) => {
-  if (isRunningOnCI()) {
-    throw Error("yarn deploy:<target> scripts are for local use only!");
+if (isRunningOnCI()) {
+  throw Error("yarn deploy:<target> scripts are for local use only!");
+}
+
+const target = process.env.REACT_APP_RELEASE_STAGE ?? "";
+if (!isTarget(target)) {
+  throw Error("REACT_APP_RELEASE_STAGE must be specified");
+}
+
+if (target === "production") {
+  prepareProdDeploy();
+} else if (process.argv.includes("--force")) {
+  if (!process.env.BUCKET) {
+    throw Error("Must specify BUCKET as environment variable");
   }
 
-  if (target === "production") {
-    prepareProdDeploy();
-  } else if (process.argv.includes("--force")) {
-    buildAndPush(target);
-  } else {
-    console.error(
-      "Please use Evergreen to deploy. If you need to force a local deploy, use the --force flag.",
-    );
-  }
-};
+  buildAndPush(process.env.BUCKET);
+} else {
+  console.error(
+    `Please use Evergreen to deploy. If you need to force a local deploy, add --force.`,
+  );
+}

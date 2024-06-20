@@ -1,4 +1,3 @@
-import { writeFileSync } from "fs";
 import { get } from "https";
 import { getLatestTag } from ".";
 import { DeployableApp } from "../types";
@@ -44,6 +43,3 @@ export const getCurrentlyDeployedCommit = async (app: DeployableApp) => {
   }
   throw new Error("No valid commit found");
 };
-
-export const writeCommitToFile = async (filename: string, commit: string) =>
-  writeFileSync(filename, commit);

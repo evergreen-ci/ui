@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { green, underline } from "../colors";
+import { green, underline } from "../shell";
 import { DeployableApp } from "../types";
 
 /**
@@ -50,6 +50,24 @@ const getLatestTag = (app: DeployableApp) => {
 };
 
 /**
+ * getTagFromCommit returns a tag name given its associated commit
+ * @param commit - commit hash for desired tag
+ * @throws {Error} if executing git commit fails
+ * @returns - git tag
+ */
+const getTagFromCommit = (commit: string) => {
+  try {
+    return execSync(`git describe --abbrev=0 ${commit}`, {
+      encoding: "utf-8",
+    })
+      .toString()
+      .trim();
+  } catch (e) {
+    throw Error(`Getting tag from commit ${commit}`, { cause: e });
+  }
+};
+
+/**
  * `deleteTag` is a helper function that deletes a tag.
  * @param tag - the tag to delete
  */
@@ -78,4 +96,10 @@ const pushTags = () => {
   }
 };
 
-export { createTagAndPush, getLatestTag, deleteTag, pushTags };
+export {
+  createTagAndPush,
+  deleteTag,
+  getLatestTag,
+  getTagFromCommit,
+  pushTags,
+};

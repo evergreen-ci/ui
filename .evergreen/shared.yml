@@ -223,14 +223,6 @@ functions:
       script: |
         ln -s ${workdir}/ui/evergreen/graphql/schema ${app_dir}/sdlschema
 
-  wait-for-evergreen:
-    command: shell.exec
-    type: setup
-    params:
-      exec_timeout_secs: 600
-      working_dir: ui/${app_dir}
-      script: ./scripts/wait-for-evergreen.sh
-
   yarn-build:
     command: shell.exec
     params:
@@ -364,7 +356,6 @@ tasks:
       - func: run-logkeeper
       - func: yarn-build
       - func: yarn-preview
-      - func: wait-for-evergreen
       - func: yarn-verify-backend
       - func: yarn-cypress
 
