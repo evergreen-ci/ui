@@ -1,7 +1,7 @@
 {
   "name": "parsley",
   "private": true,
-  "version": "2.1.20",
+  "version": "2.1.21",
   "type": "module",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -31,7 +31,6 @@
     "preview": "serve -s dist -p 4173",
     "snapshot": "vitest run snapshot.test.ts",
     "start": "vite",
-    "verify-backend": "./scripts/verify-backend.sh",
     "storybook": "storybook dev -p 6007",
     "storybook:build": "env-cmd -e local -r .env-cmdrc.local.json storybook build",
     "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts",

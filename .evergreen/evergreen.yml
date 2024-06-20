@@ -56,7 +56,7 @@ buildvariants:
     tasks:
       - name: check_codegen
       - name: compile
-      - name: e2e_test_spruce
+      - name: e2e
       - name: lint
       - name: snapshots
       - name: storybook
@@ -85,7 +85,7 @@ buildvariants:
     tasks:
       - name: check_codegen
       - name: compile
-      - name: e2e_test_parsley
+      - name: e2e
       - name: lint
       - name: snapshots
       - name: storybook
