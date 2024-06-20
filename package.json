@@ -9,6 +9,7 @@
     ]
   },
   "scripts": {
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
     "codegen": "for app in spruce parsley; do yarn workspace $app run codegen; done",
     "prepare": "husky",
     "storybook": "concurrently \"yarn workspace spruce run storybook --no-open\" \"yarn workspace parsley run storybook --no-open\" \"yarn workspace @evg-ui/lib run storybook --no-open\" \"sleep 5 && storybook dev\"",
