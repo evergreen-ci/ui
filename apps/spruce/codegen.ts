@@ -8,7 +8,7 @@ export const getConfig = ({
   generatedFileName: string;
 } & Pick<CodegenConfig, "silent">): CodegenConfig => ({
   documents: ["./src/**/*.ts", "./src/**/*.graphql", "./src/**/*.gql"].map(
-    (d) => resolve(__dirname, d),
+    (d) => resolve(import.meta.dirname, d),
   ),
   generates: {
     [generatedFileName]: {
@@ -26,7 +26,7 @@ export const getConfig = ({
   },
   hooks: {
     afterAllFileWrite: [
-      `${resolve(__dirname, "./node_modules/.bin/prettier")} --write`,
+      `${resolve(import.meta.dirname, "./node_modules/.bin/prettier")} --write`,
     ],
   },
   overwrite: true,
@@ -35,7 +35,7 @@ export const getConfig = ({
 });
 
 export const generatedFileName = resolve(
-  __dirname,
+  import.meta.dirname,
   "./src/gql/generated/types.ts",
 );
 

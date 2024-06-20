@@ -29,7 +29,10 @@ const getCommitMessages = (currentlyDeployedCommit: string) => {
  * @returns - the currently deployed commit
  */
 const getCurrentlyDeployedCommit = () => {
-  const filePath = resolve(__dirname, "../../get-current-deployed-commit.sh");
+  const filePath = resolve(
+    import.meta.dirname,
+    "../../get-current-deployed-commit.sh",
+  );
   const currentlyDeployedCommit = execSync(`bash ${filePath}`, {
     encoding: "utf-8",
   })
