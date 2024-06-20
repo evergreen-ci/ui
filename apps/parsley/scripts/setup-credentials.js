@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const file = path.join(import.meta.dirname, "../", ".env-cmdrc.json");
+const file = path.join(process.cwd(), ".env-cmdrc.json");
 const production = {
   BUCKET: process.env.BUCKET,
   DEPLOYS_EMAIL: process.env.DEPLOYS_EMAIL,
