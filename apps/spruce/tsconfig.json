@@ -5,7 +5,6 @@
     "paths": {
       "@evg-ui/lib/*": ["../../../packages/lib/src/*"]
     },
-    "module": "ESNext"
   },
   "exclude": [
     "node_modules",

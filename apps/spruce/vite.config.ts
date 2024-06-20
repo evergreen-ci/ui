@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -89,7 +89,6 @@ export default defineConfig({
   },
   plugins: [
     tsconfigPaths(),
-    viteCommonjs(),
     // Inject env variables
     envCompatible({
       prefix: "REACT_APP_",
