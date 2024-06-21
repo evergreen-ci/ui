@@ -210,7 +210,7 @@ export const ProfileTab: React.FC = () => {
           disabled={!hasErrors || updateLoading}
           onClick={handleSubmit}
         >
-          Save Changes
+          Save changes
         </Button>
       </ContentWrapper>
     </SettingsCard>

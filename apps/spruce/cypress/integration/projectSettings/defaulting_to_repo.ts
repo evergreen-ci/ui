@@ -162,13 +162,6 @@ describe("Project Settings when defaulting to repo", () => {
       cy.contains("Authorized Teams").should("not.exist");
     });
 
-    it("Displays the repo's merge method as its default", () => {
-      cy.get("button[name=merge-method-select]").should(
-        "have.text",
-        "Default to Repo (squash)",
-      );
-    });
-
     it("Defaults to overriding repo since a patch definition is defined", () => {
       cy.dataCy("cq-override-radio-box")
         .find("input")

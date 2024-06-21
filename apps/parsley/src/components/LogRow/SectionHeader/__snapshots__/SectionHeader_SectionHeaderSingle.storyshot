@@ -3,7 +3,7 @@
     class="css-1mysoqc"
   >
     <div
-      aria-expanded="false"
+      aria-expanded="true"
       class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
@@ -11,6 +11,7 @@
         aria-disabled="false"
         aria-label="Click to open or close section"
         class="leafygreen-ui-76dd2i"
+        data-cy="section-header-caret"
         tabindex="0"
       >
         <div
@@ -18,9 +19,10 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1lqywm12"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1lqywm12"
             fill="none"
             height="16"
+            open=""
             role="img"
             viewBox="0 0 16 16"
             width="16"
@@ -75,24 +77,10 @@
             Open
           </div>
         </button>
-        <button
-          aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-1dcyxci"
-          type="button"
-        >
-          <div
-            class="leafygreen-ui-v038xi"
-          />
-          <div
-            class="leafygreen-ui-1tpstb3"
-          >
-            Focus
-          </div>
-        </button>
       </div>
     </div>
     <div
-      aria-expanded="false"
+      aria-expanded="true"
       class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
@@ -100,6 +88,7 @@
         aria-disabled="false"
         aria-label="Click to open or close section"
         class="leafygreen-ui-76dd2i"
+        data-cy="section-header-caret"
         tabindex="0"
       >
         <div
@@ -107,9 +96,10 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1lqywm12"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1lqywm12"
             fill="none"
             height="16"
+            open=""
             role="img"
             viewBox="0 0 16 16"
             width="16"
@@ -164,24 +154,10 @@
             Open
           </div>
         </button>
-        <button
-          aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-1dcyxci"
-          type="button"
-        >
-          <div
-            class="leafygreen-ui-v038xi"
-          />
-          <div
-            class="leafygreen-ui-1tpstb3"
-          >
-            Focus
-          </div>
-        </button>
       </div>
     </div>
     <div
-      aria-expanded="false"
+      aria-expanded="true"
       class="css-1rb3q1p-SectionHeaderWrapper e1lqywm11"
       data-cy="section-header"
     >
@@ -189,6 +165,7 @@
         aria-disabled="false"
         aria-label="Click to open or close section"
         class="leafygreen-ui-76dd2i"
+        data-cy="section-header-caret"
         tabindex="0"
       >
         <div
@@ -196,9 +173,10 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1lqywm12"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1lqywm12"
             fill="none"
             height="16"
+            open=""
             role="img"
             viewBox="0 0 16 16"
             width="16"
@@ -251,20 +229,6 @@
             class="leafygreen-ui-1tpstb3"
           >
             Open
-          </div>
-        </button>
-        <button
-          aria-disabled="false"
-          class="lg-ui-button-0000 leafygreen-ui-1dcyxci"
-          type="button"
-        >
-          <div
-            class="leafygreen-ui-v038xi"
-          />
-          <div
-            class="leafygreen-ui-1tpstb3"
-          >
-            Focus
           </div>
         </button>
       </div>

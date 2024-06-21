@@ -128,7 +128,6 @@ export const DownstreamProjectAccordion: React.FC<
             childPatchId={childPatchId}
             count={count}
             dispatch={dispatch}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             isPatch={isPatch}
             limit={limit}
             loading={showSkeleton}

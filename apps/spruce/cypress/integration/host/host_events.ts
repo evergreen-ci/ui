@@ -215,7 +215,7 @@ describe("Host events", () => {
     cy.visit("/preferences");
     cy.contains("Select a timezone").click();
     cy.contains("Hawaii").click();
-    cy.contains("button", "Save Changes").click();
+    cy.contains("button", "Save changes").click();
     cy.visit(pathWithEvents);
     cy.dataCy("leafygreen-table-row")
       .first()
@@ -224,6 +224,6 @@ describe("Host events", () => {
     cy.visit("/preferences");
     cy.contains("Hawaii").click();
     cy.contains("Select a timezone").click();
-    cy.contains("button", "Save Changes").click();
+    cy.contains("button", "Save changes").click();
   });
 });
