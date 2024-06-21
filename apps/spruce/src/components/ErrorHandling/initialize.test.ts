@@ -40,6 +40,7 @@ describe("should initialize error handlers according to release stage", () => {
 
     expect(vi.mocked(init)).toHaveBeenCalledWith({
       beforeBreadcrumb: expect.any(Function),
+      beforeSend: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: false,
       normalizeDepth: 5,
@@ -57,6 +58,7 @@ describe("should initialize error handlers according to release stage", () => {
 
     expect(vi.mocked(init)).toHaveBeenCalledWith({
       beforeBreadcrumb: expect.any(Function),
+      beforeSend: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
       normalizeDepth: 5,
@@ -74,6 +76,7 @@ describe("should initialize error handlers according to release stage", () => {
 
     expect(vi.mocked(init)).toHaveBeenCalledWith({
       beforeBreadcrumb: expect.any(Function),
+      beforeSend: expect.any(Function),
       dsn: "fake-sentry-key",
       debug: true,
       normalizeDepth: 5,
