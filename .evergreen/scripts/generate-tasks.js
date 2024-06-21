@@ -7,8 +7,7 @@ const { join, parse } = require("path");
 const Tasks = {
   CheckCodegen: "check_codegen",
   Compile: "compile",
-  E2EParsley: "e2e_test_parsley",
-  E2ESpruce: "e2e_test_spruce",
+  E2E: "e2e",
   Lint: "lint",
   Snapshots: "snapshots",
   Storybook: "storybook",
@@ -19,6 +18,7 @@ const Tasks = {
 // Enumerate each task in a build variant that can run as part of a PR.
 // It would be nice to use tags for this, but Evergreen does not reevaluate tags as part of generate.tasks.
 const TASK_MAPPING = {
+  "deploy-utils": [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
   lib: [
     Tasks.Lint,
     Tasks.Snapshots,
@@ -29,7 +29,7 @@ const TASK_MAPPING = {
   parsley: [
     Tasks.CheckCodegen,
     Tasks.Compile,
-    Tasks.E2EParsley,
+    Tasks.E2E,
     Tasks.Lint,
     Tasks.Snapshots,
     Tasks.Storybook,
@@ -39,7 +39,7 @@ const TASK_MAPPING = {
   spruce: [
     Tasks.CheckCodegen,
     Tasks.Compile,
-    Tasks.E2ESpruce,
+    Tasks.E2E,
     Tasks.Lint,
     Tasks.Snapshots,
     Tasks.Storybook,

@@ -5,17 +5,18 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "check-types": "tsc -p tsconfig.json --noEmit",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint ."
   },
   "dependencies": {
     "@apollo/client": "3.8.4",
-    "@storybook/addon-essentials": "8.1.6",
-    "@storybook/addon-interactions": "8.1.6",
-    "@storybook/addon-links": "8.1.6",
+    "@storybook/addon-essentials": "8.1.10",
+    "@storybook/addon-interactions": "8.1.10",
+    "@storybook/addon-links": "8.1.10",
     "react-router-dom": "6.16.0",
-    "storybook": "8.1.6",
+    "storybook": "8.1.10",
     "storybook-addon-apollo-client": "7.3.0"
   },
   "devDependencies": {
