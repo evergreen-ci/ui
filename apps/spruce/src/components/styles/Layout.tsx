@@ -20,7 +20,7 @@ export const PageWrapper = styled.div`
   padding: ${size.m} ${size.l};
 `;
 
-export const PageGrid = styled.section`
+export const PageGrid = styled.div`
   display: grid;
   grid-template-areas:
     "header header"

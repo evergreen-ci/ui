@@ -6,6 +6,7 @@ import routes from "constants/routes";
 import { GlobalProviders } from "context";
 import Content from "pages";
 import { Login } from "pages/Login";
+import { isDevelopmentBuild } from "utils/environmentVariables";
 
 const App = () => (
   <ErrorBoundary>
@@ -14,7 +15,9 @@ const App = () => (
       <GlobalProviders>
         <AppWrapper>
           <Routes>
-            <Route element={<Login />} path={routes.login} />
+            {isDevelopmentBuild() && (
+              <Route element={<Login />} path={routes.login} />
+            )}
             <Route element={<Content />} path="/*" />
           </Routes>
         </AppWrapper>
