@@ -5,14 +5,13 @@ import {
   SlackNotificationBanner,
   GithubUsernameBanner,
 } from "components/Banners";
-import { useNetworkStatus, usePageVisibility } from "hooks";
+import { usePageVisibility } from "hooks";
 import { Navbar } from "./Navbar";
 
 // Since the Header is present on all Spruce pages, we can monitor network status and page visibility
 // for the entire app here.
 export const Header: React.FC = () => {
   usePageVisibility();
-  useNetworkStatus();
   return (
     <StyledHeader>
       <Navbar />

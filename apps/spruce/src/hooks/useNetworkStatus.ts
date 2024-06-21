@@ -9,13 +9,10 @@ export const useNetworkStatus = () => {
 
   useEffect(() => {
     const handleOffline = () => {
-      // Don't send event because we can't send events if the browser is offline.
       setIsOnline(false);
-      console.log("You are offline.");
     };
     const handleOnline = () => {
       setIsOnline(true);
-      console.log("You are online.");
     };
     window.addEventListener("offline", handleOffline);
     window.addEventListener("online", handleOnline);
