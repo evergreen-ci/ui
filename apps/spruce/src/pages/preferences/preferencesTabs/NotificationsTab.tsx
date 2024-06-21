@@ -115,7 +115,7 @@ export const NotificationsTab: React.FC = () => {
           disabled={!hasFieldUpdates || updateLoading}
           onClick={handleSave}
         >
-          Save Changes
+          Save changes
         </Button>
       </SettingsCard>
       <UserSubscriptions />
