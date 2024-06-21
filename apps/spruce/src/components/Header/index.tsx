@@ -7,8 +7,6 @@ import {
 } from "components/Banners";
 import { Navbar } from "./Navbar";
 
-// Since the Header is present on all Spruce pages, we can monitor network status and page visibility
-// for the entire app here.
 export const Header: React.FC = () => (
   <StyledHeader>
     <Navbar />
