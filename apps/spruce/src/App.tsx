@@ -12,12 +12,12 @@ import { routes } from "constants/routes";
 import { ContextProviders } from "context/Providers";
 import GQLWrapper from "gql/GQLWrapper";
 import { Login } from "pages/Login";
-import { isDevelopmentBuild } from "utils/environmentVariables";
+import { isDevelopmentBuild, isLocal } from "utils/environmentVariables";
 
 const browserRouter = createBrowserRouter(
   createRoutesFromElements(
     <>
-      {isDevelopmentBuild() && (
+      {(isDevelopmentBuild() || isLocal()) && (
         <Route path={routes.login} element={<Login />} />
       )}
       <Route
