@@ -96,7 +96,7 @@ describe("findLineIndex", () => {
     });
 
     it("determine index when line number is belongs to a closed SubsectionHeaderRow", () => {
-      expect(findLineIndex(processedLines, 10)).toBe(8);
+      expect(findLineIndex(processedLines, 15)).toBe(12);
     });
 
     it("determine index when line number is belongs to an open SubsectionHeaderRow", () => {
