@@ -14,12 +14,14 @@ const { gray } = palette;
 
 interface SectionHeaderProps extends Row {
   functionName: string;
+  functionID: string;
   onOpen: OpenSection;
   open: boolean;
   status: SectionStatus;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
+  functionID,
   functionName,
   onOpen,
   open,
@@ -39,7 +41,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             functionName,
             name: open ? "Closed Section" : "Opened Section",
           });
-          onOpen(functionName, !open);
+          onOpen({ functionID, isOpen: !open });
         }}
       >
         <AnimatedIcon fill={gray.dark1} glyph="ChevronRight" open={open} />

@@ -4,13 +4,22 @@ import { useToastContext } from "context/toast";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { reportError } from "utils/errorReporting";
 import { releaseSectioning } from "utils/featureFlag";
-import { SectionEntry, parseSections } from "./utils";
+import { SectionData, parseSections } from "./utils";
 
-export type SectionState = { [functionName: string]: { isOpen: boolean } };
-export type OpenSection = (functionName: string, isOpen: boolean) => void;
+export type SectionState = {
+  [functionID: string]: {
+    isOpen: boolean;
+    commands: { [commandID: string]: { isOpen: boolean } };
+  };
+};
+export type OpenSection = (props: {
+  functionID: string;
+  commandID?: string;
+  isOpen: boolean;
+}) => void;
 
 export interface UseSectionsResult {
-  sectionData: SectionEntry[] | undefined;
+  sectionData: SectionData | undefined;
   openSection: OpenSection;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
@@ -27,7 +36,7 @@ export const useSections = ({
   renderingType,
 }: Props): UseSectionsResult => {
   const dispatchToast = useToastContext();
-  const [sectionData, setSectionData] = useState<SectionEntry[] | undefined>();
+  const [sectionData, setSectionData] = useState<SectionData | undefined>();
   const [sectionState, setSectionState] = useState<SectionState>();
 
   const { settings } = useParsleySettings();
@@ -56,18 +65,24 @@ export const useSections = ({
 
   useEffect(() => {
     if (sectionData && sectionState === undefined) {
-      setSectionState(sectionData.reduce(closeAllSectionsReducer, {}));
+      setSectionState(populateSectionState(sectionData));
     }
   }, [sectionData, sectionState]);
 
-  const openSection = useCallback(
-    (functionName: string, isOpen: boolean) => {
-      if (sectionState) {
-        setSectionState((currentState) => ({
-          ...currentState,
-          [functionName]: { isOpen },
-        }));
-      }
+  const openSection: OpenSection = useCallback(
+    ({ commandID, functionID, isOpen }) => {
+      setSectionState((currentState) => {
+        if (currentState) {
+          const nextState = { ...currentState };
+          if (commandID) {
+            nextState[functionID].commands[commandID].isOpen = isOpen;
+          } else {
+            nextState[functionID].isOpen = isOpen;
+          }
+          return nextState;
+        }
+        return currentState;
+      });
     },
     [sectionState],
   );
@@ -79,7 +94,14 @@ export const useSections = ({
   };
 };
 
-const closeAllSectionsReducer = (
-  accum: SectionState,
-  { functionName }: SectionEntry,
-) => ({ ...accum, ...{ [functionName]: { isOpen: false } } });
+const populateSectionState = (sectionData: SectionData): SectionState => {
+  const { commands, functions } = sectionData;
+  const sectionState: SectionState = {};
+  functions.forEach(({ functionID }) => {
+    sectionState[functionID] = { commands: {}, isOpen: false };
+  });
+  commands.forEach(({ commandID, functionID }) => {
+    sectionState[functionID].commands[commandID] = { isOpen: false };
+  });
+  return sectionState;
+};

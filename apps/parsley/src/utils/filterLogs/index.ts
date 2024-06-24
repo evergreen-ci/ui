@@ -1,5 +1,5 @@
 import { SectionState } from "hooks/useSections";
-import { SectionEntry } from "hooks/useSections/utils";
+import { SectionData } from "hooks/useSections/utils";
 import { ExpandedLines, ProcessedLogLines, RowType } from "types/logs";
 import { isExpanded } from "utils/expandedLines";
 import { newSkippedLinesRow } from "utils/logRow";
@@ -13,7 +13,7 @@ type FilterLogsParams = {
   expandedLines: ExpandedLines;
   expandableRows: boolean;
   failingLine: number | undefined;
-  sectionData: SectionEntry[] | undefined;
+  sectionData: SectionData | undefined;
   sectioningEnabled: boolean;
   sectionState: SectionState | undefined;
 };
@@ -49,25 +49,24 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
   } = options;
   // If there are no filters or expandable rows is not enabled, then we only have to process sections if they exist and are enabled.
   if (matchingLines === undefined) {
-    if (sectioningEnabled && sectionData?.length) {
+    if (sectioningEnabled && sectionData?.functions.length) {
       const filteredLines: ProcessedLogLines = [];
       let sectionIndex = 0;
       for (let idx = 0; idx < logLines.length; idx++) {
-        const section = sectionData[sectionIndex];
-        const isSectionStart = section && idx === section.range.start;
+        const func = sectionData.functions[sectionIndex];
+        const isSectionStart = func && idx === func.range.start;
         if (isSectionStart && sectionState) {
-          const isOpen = sectionState[section.functionName]?.isOpen ?? false;
+          const isOpen = sectionState[func.functionID]?.isOpen ?? false;
           filteredLines.push({
-            functionName: section.functionName,
+            ...func,
             isOpen,
-            range: section.range,
             rowType: RowType.SectionHeader,
           });
           sectionIndex += 1;
           if (isOpen) {
             filteredLines.push(idx);
           } else {
-            idx = section.range.end - 1;
+            idx = func.range.end - 1;
           }
         } else {
           filteredLines.push(idx);

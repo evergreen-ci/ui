@@ -47,7 +47,10 @@ describe("SectionHeader", () => {
     const openButton = screen.getByDataCy("section-header-caret");
     await user.click(openButton);
     expect(onOpen).toHaveBeenCalledTimes(1);
-    expect(onOpen).toHaveBeenCalledWith("load_data", true);
+    expect(onOpen).toHaveBeenCalledWith({
+      functionID: "function-4",
+      isOpen: true,
+    });
   });
 
   it("open and close state is controlled by the 'open' prop", async () => {
@@ -72,6 +75,7 @@ describe("SectionHeader", () => {
 });
 
 const sectionHeaderProps = {
+  functionID: "function-4",
   functionName: "load_data",
   lineIndex: 0,
   onOpen: vi.fn(),

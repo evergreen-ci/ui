@@ -76,6 +76,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     if (isSectionHeaderRow(processedLogLine)) {
       return (
         <SectionHeader
+          functionID={processedLogLine.functionID}
           functionName={processedLogLine.functionName}
           lineIndex={index}
           onOpen={openSection}
