@@ -28,7 +28,8 @@ type Action =
   | { name: "Paginated Through Search Results"; direction: DIRECTION }
   | { name: "Focused Section"; functionName: string }
   | { name: "Opened Section"; functionName: string }
-  | { name: "Closed Section"; functionName: string };
+  | { name: "Closed Section"; functionName: string }
+  | { name: "Toggled Subsection"; commandName: string; open: boolean };
 
 export const useLogWindowAnalytics = () =>
   useAnalyticsRoot<Action>("LogWindow");
