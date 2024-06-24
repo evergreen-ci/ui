@@ -26,8 +26,6 @@ export const SubsectionHeaderSingle: CustomStoryObj<typeof SubsectionHeader> = {
   render: () => <SubsectionHeaderStory />,
 };
 
-// TODO: Update this story with LogPane examples which should handle log rendering internally.
-
 const Container = styled.div`
   height: 400px;
   width: 800px;
