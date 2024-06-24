@@ -9,7 +9,6 @@ export const pushToS3 = (bucket: string) => {
     );
     console.log("Successfully deployed to S3");
   } catch (e) {
-    console.error(e);
-    throw Error("Deployment to S3 failed");
+    throw Error("Deployment to S3 failed", { cause: e });
   }
 };
