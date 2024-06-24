@@ -8,7 +8,6 @@ const processedLines: ProcessedLogLines = [
   { range: { end: 6, start: 4 }, rowType: RowType.SkippedLines },
   6,
   { range: { end: 10, start: 7 }, rowType: RowType.SkippedLines },
-  10,
   {
     functionName: "f-1",
     isOpen: true,
@@ -88,19 +87,19 @@ describe("findLineIndex", () => {
 
   describe("when line number is represented in a Range object belonging to a section", () => {
     it("determine index when line number is in closed SectionHeaderRow", () => {
-      expect(findLineIndex(processedLines, 14)).toBe(10);
+      expect(findLineIndex(processedLines, 14)).toBe(9);
     });
 
     it("determine index when line number is in an open SectionHeaderRow", () => {
-      expect(findLineIndex(processedLines, 18)).toBe(15);
+      expect(findLineIndex(processedLines, 18)).toBe(14);
     });
 
     it("determine index when line number is belongs to a closed SubsectionHeaderRow", () => {
-      expect(findLineIndex(processedLines, 15)).toBe(12);
+      expect(findLineIndex(processedLines, 15)).toBe(11);
     });
 
     it("determine index when line number is belongs to an open SubsectionHeaderRow", () => {
-      expect(findLineIndex(processedLines, 20)).toBe(19);
+      expect(findLineIndex(processedLines, 20)).toBe(18);
     });
   });
 });
