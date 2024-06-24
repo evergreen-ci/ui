@@ -3,7 +3,11 @@ import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
-import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
+import {
+  isSectionHeaderRow,
+  isSkippedLinesRow,
+  isSubsectionHeaderRow,
+} from "utils/logRowTypes";
 import AnsiRow from "../AnsiRow";
 import ResmokeRow from "../ResmokeRow";
 import SectionHeader from "../SectionHeader";
@@ -79,6 +83,10 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           status={SectionStatus.Pass} // TODO: Update in DEVPROD-5295
         />
       );
+    }
+
+    if (isSubsectionHeaderRow(processedLogLine)) {
+      return <div>subsection start</div>;
     }
 
     return (

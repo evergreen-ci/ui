@@ -8,14 +8,19 @@ const processedLines: ProcessedLogLines = [
   { range: { end: 6, start: 4 }, rowType: RowType.SkippedLines },
   6,
   { range: { end: 10, start: 7 }, rowType: RowType.SkippedLines },
-  10,
   {
     functionName: "f-1",
     isOpen: true,
-    range: { end: 13, start: 10 },
+    range: { end: 11, start: 10 },
     rowType: RowType.SectionHeader,
   },
-  11,
+  {
+    commandName: "shell.exec",
+    functionName: "f-1",
+    isOpen: false,
+    range: { end: 11, start: 10 },
+    rowType: RowType.SubsectionHeader,
+  },
   12,
   {
     functionName: "f-2",
@@ -29,9 +34,38 @@ const processedLines: ProcessedLogLines = [
     range: { end: 17, start: 15 },
     rowType: RowType.SectionHeader,
   },
-  15,
-  16,
+  {
+    commandName: "shell.exec",
+    functionName: "f-3",
+    isOpen: false,
+    range: { end: 17, start: 15 },
+    rowType: RowType.SubsectionHeader,
+  },
+  {
+    functionName: "f-4",
+    isOpen: true,
+    range: { end: 19, start: 17 },
+    rowType: RowType.SectionHeader,
+  },
   17,
+  18,
+  {
+    functionName: "f-5",
+    isOpen: true,
+    range: { end: 23, start: 19 },
+    rowType: RowType.SectionHeader,
+  },
+  {
+    commandName: "shell.exec",
+    functionName: "f-5",
+    isOpen: true,
+    range: { end: 23, start: 19 },
+    rowType: RowType.SubsectionHeader,
+  },
+  19,
+  20,
+  21,
+  22,
 ];
 
 describe("findLineIndex", () => {
@@ -48,13 +82,24 @@ describe("findLineIndex", () => {
 
   it("should return -1 when line number is not represented in the array", () => {
     expect(findLineIndex(processedLines, -1)).toBe(-1);
-    expect(findLineIndex(processedLines, 18)).toBe(-1);
+    expect(findLineIndex(processedLines, 55)).toBe(-1);
   });
 
-  it("should correctly determine index when line number is represented in a Range object belonging to a closed SectionHeaderRow", () => {
-    expect(findLineIndex(processedLines, 14)).toBe(10);
-  });
-  it("should correctly determine index when line number is represented in a Range object belonging to an open SectionHeaderRow", () => {
-    expect(findLineIndex(processedLines, 16)).toBe(13);
+  describe("when line number is represented in a Range object belonging to a section", () => {
+    it("determine index when line number is in closed SectionHeaderRow", () => {
+      expect(findLineIndex(processedLines, 14)).toBe(9);
+    });
+
+    it("determine index when line number is in an open SectionHeaderRow", () => {
+      expect(findLineIndex(processedLines, 18)).toBe(14);
+    });
+
+    it("determine index when line number is belongs to a closed SubsectionHeaderRow", () => {
+      expect(findLineIndex(processedLines, 15)).toBe(11);
+    });
+
+    it("determine index when line number is belongs to an open SubsectionHeaderRow", () => {
+      expect(findLineIndex(processedLines, 20)).toBe(18);
+    });
   });
 });

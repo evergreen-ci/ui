@@ -1,5 +1,9 @@
 import { ProcessedLogLines } from "types/logs";
-import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
+import {
+  isSectionHeaderRow,
+  isSkippedLinesRow,
+  isSubsectionHeaderRow,
+} from "utils/logRowTypes";
 
 /**
  * `findLineIndex` employs binary search to search for the index of a line number within the
@@ -23,9 +27,10 @@ export const findLineIndex = (
 
   const midIdx = Math.floor((start + end) / 2);
   const midItem = processedLines[midIdx];
-  const isCollapsedRow =
-    isSkippedLinesRow(midItem) ||
-    (isSectionHeaderRow(midItem) && midItem.isOpen === false);
+  const isClosedSectionRow =
+    (isSectionHeaderRow(midItem) || isSubsectionHeaderRow(midItem)) &&
+    midItem.isOpen === false;
+  const isCollapsedRow = isSkippedLinesRow(midItem) || isClosedSectionRow;
   // If the item is a collapsed row, we'll shift our search
   // depending on the first and last line numbers in its range.
   if (isCollapsedRow) {
@@ -40,8 +45,8 @@ export const findLineIndex = (
     if (lineNumber > lastItem) {
       return findLineIndex(processedLines, lineNumber, midIdx + 1, end);
     }
-  } else if (isSectionHeaderRow(midItem)) {
-    // SectionHeader rows aren't directly associated with a
+  } else if (isSectionHeaderRow(midItem) || isSubsectionHeaderRow(midItem)) {
+    // Section rows aren't directly associated with a
     // log line number, so they are skipped in the search.
     const leftResult = findLineIndex(
       processedLines,

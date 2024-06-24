@@ -28,9 +28,17 @@ describe("getLinesInProcessedLogLinesFromSelectedLines", () => {
       {
         functionName: "test",
         isOpen: true,
-        range: { end: 5, start: 4 },
+        range: { end: 6, start: 4 },
         rowType: RowType.SectionHeader,
       },
+      {
+        commandName: "shell.exec",
+        functionName: "test",
+        isOpen: true,
+        range: { end: 6, start: 4 },
+        rowType: RowType.SubsectionHeader,
+      },
+      4,
       5,
       6,
     ];
@@ -39,7 +47,7 @@ describe("getLinesInProcessedLogLinesFromSelectedLines", () => {
       processedLogLines,
       selectedLines,
     );
-    expect(result).toStrictEqual([2, 5, 6]);
+    expect(result).toStrictEqual([2, 4, 5, 6]);
   });
   it("should return the starting line if no ending line is provided", () => {
     const processedLogLines = [1, 2, 3, 4, 5];
