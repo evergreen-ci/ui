@@ -160,8 +160,8 @@ describe("filterLogs", () => {
           matchingLines: undefined,
           sectionData,
           sectionState: {
-            "f-1": { commands: {}, isOpen: true },
-            "f-2": { commands: {}, isOpen: true },
+            "function-1": { commands: {}, isOpen: true },
+            "function-6": { commands: {}, isOpen: true },
           },
           sectioningEnabled: true,
           shareLine: undefined,
@@ -180,8 +180,8 @@ describe("filterLogs", () => {
           matchingLines: undefined,
           sectionData,
           sectionState: {
-            "f-1": { commands: {}, isOpen: false },
-            "f-2": { commands: {}, isOpen: true },
+            "function-1": { commands: {}, isOpen: false },
+            "function-6": { commands: {}, isOpen: true },
           },
           sectioningEnabled: true,
           shareLine: undefined,
