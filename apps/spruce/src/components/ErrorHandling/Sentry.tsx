@@ -19,6 +19,8 @@ import { processHtmlAttributes } from "./utils";
 const initializeSentry = () => {
   try {
     init({
+      // Don't send errors from unauthenticated users
+      beforeSend: (event) => (event.user?.id ? event : null),
       sampleRate: 0.5,
       beforeBreadcrumb: (breadcrumb, hint) => {
         if (breadcrumb?.category?.startsWith("ui")) {
