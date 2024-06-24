@@ -1,9 +1,8 @@
-import { routes } from "constants/routes";
 import { getUiUrl } from "./environmentVariables";
 import { reportError } from "./errorReporting";
 
 export const shouldLogoutAndRedirect = (statusCode: number) =>
-  statusCode === 401 && window.location.pathname !== routes.login;
+  statusCode === 401;
 
 export const post = async (url: string, body: unknown) => {
   try {

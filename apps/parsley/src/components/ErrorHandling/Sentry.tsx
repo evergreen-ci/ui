@@ -31,6 +31,8 @@ const initializeSentry = () => {
         }
         return breadcrumb;
       },
+      // Don't send errors from unauthenticated users
+      beforeSend: (event) => (event.user?.id ? event : null),
       debug: !isProduction(),
       dsn: getSentryDSN(),
       environment: getReleaseStage() || "development",

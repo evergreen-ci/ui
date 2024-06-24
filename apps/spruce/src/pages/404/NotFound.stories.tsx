@@ -1,15 +1,15 @@
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
-import NotFound from "./NotFound";
+import NotFoundSvg from "./NotFoundSvg";
 
 export default {
-  component: NotFound,
-} satisfies CustomMeta<typeof NotFound>;
+  component: NotFoundSvg,
+} satisfies CustomMeta<typeof NotFoundSvg>;
 
-export const Default404: CustomStoryObj<typeof NotFound> = {
+export const Default404: CustomStoryObj<typeof NotFoundSvg> = {
   render: () => (
     <div style={{ height: "100%", width: "100%" }}>
-      <NotFound />
+      <NotFoundSvg />
     </div>
   ),
 };

@@ -1,4 +1,3 @@
-export { useActivityAnalytics } from "./activity/useActivityAnalytics";
 export { useAnalyticsAttributes } from "./useAnalyticsAttributes";
 export { useAnnotationAnalytics } from "./task/useAnnotationAnalytics";
 export { useBreadcrumbAnalytics } from "./breadcrumb/useBreadcrumbAnalytics";

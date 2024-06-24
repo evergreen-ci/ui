@@ -6,6 +6,7 @@
       alt="Page not found"
       data-cy="404"
       src="/src/pages/404/notFound.svg"
+      style="height: inherit; width: 100%; object-fit: cover;"
     />
   </div>
 </div>
