@@ -226,6 +226,10 @@ const StyledInput = styled(TextInputWithGlyph)`
     border-left: 0;
     padding-left: 42px;
   }
+  div[data-lgid="lg-form_field-feedback"] {
+    position: absolute;
+    top: 29px;
+  }
 `;
 
 const IconButtonWrapper = styled.div`
