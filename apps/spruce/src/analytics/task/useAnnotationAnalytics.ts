@@ -13,18 +13,16 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
 
 type Action =
-  | { name: "Click Jira Summary Link" }
-  | { name: "Build Baron File Ticket" }
-  | { name: "Save Annotation Note" }
-  | { name: "Click Annotation Ticket Link" }
-  | { name: "Remove Annotation Issue" }
-  | { name: "Remove Annotation Suspected Issue" }
-  | { name: "Move Annotation Issue" }
-  | { name: "Move Annotation Suspected Issue" }
-  | { name: "Click Add Annotation Issue Button" }
-  | { name: "Click Add Annotation Suspected Issue Button" }
-  | { name: "Add Task Annotation Issue" }
-  | { name: "Add Task Annotation Suspected Issue" };
+  | { name: "Clicked Jira ticket summary link" }
+  | { name: "Filed Build Baron ticket" }
+  | { name: "Saved annotation note" }
+  | { name: "Moved annotation"; type: "Issue" | "Suspected Issue" }
+  | {
+      name: "Clicked annotation link";
+      target: "Jira ticket link";
+    }
+  | { name: "Removed annotation"; type: "Issue" | "Suspected Issue" }
+  | { name: "Add task annotation"; type: "Issue" | "Suspected Issue" };
 
 export const useAnnotationAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();
@@ -34,16 +32,14 @@ export const useAnnotationAnalytics = () => {
     AnnotationEventDataQuery,
     AnnotationEventDataQueryVariables
   >(ANNOTATION_EVENT_DATA, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { taskId, execution },
+    variables: { taskId: taskId || "", execution },
     fetchPolicy: "cache-first",
   });
 
   const { data: bbData } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
     BUILD_BARON,
     {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      variables: { taskId, execution },
+      variables: { taskId: taskId || "", execution },
       fetchPolicy: "cache-first",
     },
   );
