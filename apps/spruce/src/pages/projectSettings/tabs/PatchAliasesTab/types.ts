@@ -17,6 +17,7 @@ type PatchTriggerAlias = {
   }>;
   status: string;
   parentAsModule: string;
+  downstreamRevision?: string;
   isGithubTriggerAlias: boolean;
 };
 
