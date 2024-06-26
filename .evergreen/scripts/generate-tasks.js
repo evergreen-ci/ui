@@ -1,6 +1,6 @@
-const { execSync } = require("child_process");
-const { writeFileSync } = require("fs");
-const { join, parse } = require("path");
+import { execSync } from "child_process";
+import { writeFileSync } from "fs";
+import { join, parse } from "path";
 
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
 
@@ -49,7 +49,7 @@ const TASK_MAPPING = {
 };
 
 const APPS_DIR = "apps";
-const fileDestPath = join(__dirname, "../", "generate-tasks.json");
+const fileDestPath = join(process.cwd(), "/.evergreen", "generate-tasks.json");
 
 const getMergeBase = () => {
   try {
