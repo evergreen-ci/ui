@@ -21,7 +21,7 @@ import { PatchPageQueryParams } from "types/patch";
 
 export const ProjectPatches = () => {
   const dispatchToast = useToastContext();
-  const analyticsObject = useProjectPatchesAnalytics();
+  const analytics = useProjectPatchesAnalytics();
 
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const [isCommitQueueCheckboxChecked] = useQueryParam(
@@ -57,7 +57,6 @@ export const ProjectPatches = () => {
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <PatchesPage
-        analyticsObject={analyticsObject}
         loading={loading}
         pageTitle={`${displayName ?? ""} Patches`}
         pageType="project"
@@ -68,7 +67,7 @@ export const ProjectPatches = () => {
             selectedProjectIdentifier={projectIdentifier}
             showLabel={false}
             onSubmit={() => {
-              analyticsObject.sendEvent({ name: "Change Project" });
+              analytics.sendEvent({ name: "Change Project" });
             }}
           />
         }

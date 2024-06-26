@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
-import { Analytics } from "analytics/addPageAction";
+import { useUserPatchesAnalytics, useProjectPatchesAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledRouterLink } from "components/styles";
@@ -21,30 +21,25 @@ import { isPatchUnconfigured } from "utils/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 import { DropdownMenu } from "./DropdownMenu";
 
-type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
-type PatchProps = Omit<P, "commitQueuePosition">;
-
+type PatchType = Unpacked<PatchesPagePatchesFragment["patches"]>;
 const { gray } = palette;
 
 interface PatchCardProps {
   pageType: "project" | "user";
   isPatchOnCommitQueue: boolean;
-  analyticsObject?: Analytics<
-    | { name: "Click Patch Link" }
-    | {
-        name: "Click Variant Icon";
-        variantIconStatus: string;
-      }
-  >;
-  patch: PatchProps;
+  patch: PatchType;
 }
 
 const PatchCard: React.FC<PatchCardProps> = ({
-  analyticsObject,
   isPatchOnCommitQueue,
   pageType,
   patch,
 }) => {
+  const getDateCopy = useDateFormat();
+  const userPatchesAnalytics = useUserPatchesAnalytics();
+  const projectPatchesAnalytics = useProjectPatchesAnalytics();
+  const analytics =
+    pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
   const {
     activated,
     alias,
@@ -62,7 +57,6 @@ const PatchCard: React.FC<PatchCardProps> = ({
   } = patch;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const createDate = new Date(createTime);
-  const getDateCopy = useDateFormat();
   const { id: versionId, taskStatusStats } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? [],
@@ -112,9 +106,7 @@ const PatchCard: React.FC<PatchCardProps> = ({
         <DescriptionLink
           data-cy="patch-card-patch-link"
           to={getVersionRoute(id)}
-          onClick={() =>
-            analyticsObject?.sendEvent({ name: "Click Patch Link" })
-          }
+          onClick={() => analytics.sendEvent({ name: "Click Patch Link" })}
         >
           {description || "no description"}
         </DescriptionLink>

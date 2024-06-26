@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
-import { Analytics } from "analytics/addPageAction";
+import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
@@ -23,17 +23,6 @@ import { StatusSelector } from "./StatusSelector";
 import { usePatchesQueryParams } from "./usePatchesQueryParams";
 
 interface Props {
-  analyticsObject: Analytics<
-    | { name: "Filter Patches"; filterBy: string }
-    | { name: "Filter Commit Queue" }
-    | { name: "Filter Hidden"; includeHidden: boolean }
-    | { name: "Change Page Size" }
-    | { name: "Click Patch Link" }
-    | {
-        name: "Click Variant Icon";
-        variantIconStatus: string;
-      }
-  >;
   filterComp?: React.ReactNode;
   loading: boolean;
   pageTitle: string;
@@ -42,13 +31,16 @@ interface Props {
 }
 
 export const PatchesPage: React.FC<Props> = ({
-  analyticsObject,
   filterComp,
   loading,
   pageTitle,
   pageType,
   patches,
 }) => {
+  const userPatchesAnalytics = useUserPatchesAnalytics();
+  const projectPatchesAnalytics = useProjectPatchesAnalytics();
+  const analytics =
+    pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
   const { setLimit } = usePagination();
   const cookie =
     pageType === "project"
@@ -69,7 +61,7 @@ export const PatchesPage: React.FC<Props> = ({
     urlParam: PatchPageQueryParams.PatchName,
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
-      analyticsObject.sendEvent({ name: "Filter Patches", filterBy }),
+      analytics.sendEvent({ name: "Filter Patches", filterBy }),
   });
   usePageTitle(pageTitle);
 
@@ -78,7 +70,7 @@ export const PatchesPage: React.FC<Props> = ({
   ): void => {
     setIsCommitQueueCheckboxChecked(e.target.checked);
     Cookies.set(cookie, e.target.checked ? "true" : "false");
-    analyticsObject.sendEvent({ name: "Filter Commit Queue" });
+    analytics.sendEvent({ name: "Filter Commit Queue" });
   };
 
   const includeHiddenCheckboxOnChange = (
@@ -86,7 +78,7 @@ export const PatchesPage: React.FC<Props> = ({
   ): void => {
     setIsIncludeHiddenCheckboxChecked(e.target.checked);
     Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
-    analyticsObject.sendEvent({
+    analytics.sendEvent({
       name: "Filter Hidden",
       includeHidden: e.target.checked,
     });
@@ -94,7 +86,7 @@ export const PatchesPage: React.FC<Props> = ({
 
   const handlePageSizeChange = (pageSize: number): void => {
     setLimit(pageSize);
-    analyticsObject.sendEvent({ name: "Change Page Size" });
+    analytics.sendEvent({ name: "Change Page Size" });
   };
 
   return (

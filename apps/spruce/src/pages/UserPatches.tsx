@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useUserPatchesAnalytics } from "analytics";
 import { PatchesPage } from "components/PatchesPage";
 import { RequesterSelector } from "components/PatchesPage/RequesterSelector";
 import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryParams";
@@ -21,7 +20,6 @@ import { PatchPageQueryParams } from "types/patch";
 export const UserPatches = () => {
   const dispatchToast = useToastContext();
   const { [slugs.userId]: userId } = useParams();
-  const analyticsObject = useUserPatchesAnalytics();
 
   const [isCommitQueueCheckboxChecked] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
@@ -53,7 +51,6 @@ export const UserPatches = () => {
 
   return (
     <PatchesPage
-      analyticsObject={analyticsObject}
       filterComp={<RequesterSelector />}
       pageTitle={pageTitle || "User Patches"}
       loading={loading && !data?.user.patches}
