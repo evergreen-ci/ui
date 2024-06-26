@@ -88,6 +88,7 @@ const repoForm: PatchAliasesFormState = {
       {
         alias: "alias1",
         childProjectIdentifier: "spruce",
+        downstreamRevision: "",
         status: "success",
         displayTitle: "alias1",
         parentAsModule: "",
@@ -120,6 +121,7 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef" | "aliases"> =
         {
           alias: "alias1",
           childProjectIdentifier: "spruce",
+          downstreamRevision: "",
           taskSpecifiers: [
             {
               patchAlias: "alias2",

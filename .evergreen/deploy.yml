@@ -18,7 +18,7 @@ functions:
         SPRUCE_SENTRY_AUTH_TOKEN: ${SPRUCE_SENTRY_AUTH_TOKEN}
       script: |
         ${PREPARE_SHELL}
-        PWD=$(pwd) yarn ts-node -e "import {setupCredentials} from '@evg-ui/deploy-utils'; setupCredentials(\"$PWD\", \"${target}\");"
+        yarn node-loader-ts-node ../../.evergreen/scripts/setup-credentials.js ${target}
 
   deploy:
     command: shell.exec
@@ -31,7 +31,7 @@ functions:
         AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
       script: |
         ${PREPARE_SHELL}
-        yarn env-cmd -e ${target} ts-node -e "import {deployRemote} from '@evg-ui/deploy-utils'; deployRemote();"
+        env-cmd -e ${target} yarn node-loader-ts-node ../../.evergreen/scripts/deploy-target.js
 
 tasks:
   - name: deploy-parsley-staging

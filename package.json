@@ -2,6 +2,7 @@
   "name": "evergreen-ui",
   "repository": "https://github.com/evergreen-ci/ui",
   "private": true,
+  "type": "module",
   "workspaces": {
     "packages": [
       "apps/*",

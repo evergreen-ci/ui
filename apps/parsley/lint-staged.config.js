@@ -1,3 +1,3 @@
-const baseConfig = require("@evg-ui/lint-staged");
+import baseConfig from "@evg-ui/lint-staged";
 
-module.exports = baseConfig;
+export default baseConfig;
