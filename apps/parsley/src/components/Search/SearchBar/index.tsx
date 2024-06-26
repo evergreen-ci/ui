@@ -179,7 +179,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               <Tooltip
                 justify="middle"
                 trigger={
-                  <div>
+                  <div data-cy="searchbar-error">
                     <RedIcon glyph="Warning" />
                   </div>
                 }
