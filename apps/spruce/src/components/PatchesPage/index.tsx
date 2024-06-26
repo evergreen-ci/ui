@@ -18,7 +18,7 @@ import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
 import { PatchPageQueryParams } from "types/patch";
 import { validateRegexp } from "utils/validators";
-import { ListArea } from "./ListArea";
+import ListArea from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
 import { usePatchesQueryParams } from "./usePatchesQueryParams";
 

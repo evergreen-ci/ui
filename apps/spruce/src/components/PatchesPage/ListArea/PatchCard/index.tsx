@@ -26,7 +26,7 @@ type PatchProps = Omit<P, "commitQueuePosition">;
 
 const { gray } = palette;
 
-interface Props extends PatchProps {
+interface PatchCardProps {
   pageType: "project" | "user";
   isPatchOnCommitQueue: boolean;
   analyticsObject?: Analytics<
@@ -36,26 +36,30 @@ interface Props extends PatchProps {
         variantIconStatus: string;
       }
   >;
+  patch: PatchProps;
 }
 
-export const PatchCard: React.FC<Props> = ({
-  activated,
-  alias,
+const PatchCard: React.FC<PatchCardProps> = ({
   analyticsObject,
-  author,
-  authorDisplayName,
-  canEnqueueToCommitQueue,
-  createTime,
-  description,
-  hidden,
-  id,
   isPatchOnCommitQueue,
   pageType,
-  projectIdentifier,
-  projectMetadata,
-  status,
-  versionFull,
+  patch,
 }) => {
+  const {
+    activated,
+    alias,
+    author,
+    authorDisplayName,
+    canEnqueueToCommitQueue,
+    createTime,
+    description,
+    hidden,
+    id,
+    projectIdentifier,
+    projectMetadata,
+    status,
+    versionFull,
+  } = patch;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const createDate = new Date(createTime);
   const getDateCopy = useDateFormat();
@@ -193,3 +197,5 @@ const PatchBadgeContainer = styled.div`
 const TimeAndProject = styled.div`
   color: ${gray.base};
 `;
+
+export default PatchCard;
