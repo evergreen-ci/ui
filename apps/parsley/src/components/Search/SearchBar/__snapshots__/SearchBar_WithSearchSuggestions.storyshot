@@ -65,7 +65,7 @@
       class="css-b6dwfd-InputWrapper etjwcg13"
     >
       <div
-        class="css-jww8p9-IconButtonWrapper etjwcg11"
+        class="css-jww8p9-IconButtonWrapper etjwcg10"
       >
         <button
           aria-disabled="false"
@@ -116,7 +116,7 @@
         </button>
       </div>
       <div
-        class="etjwcg12 css-1jzgame-TextInputWrapper-StyledInput e17optw11"
+        class="etjwcg12 css-qlxmo3-TextInputWrapper-StyledInput e17optw11"
       >
         <div
           aria-labelledby="searchbar-input"

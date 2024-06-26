@@ -2,6 +2,7 @@ import { KeyboardEvent, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import IconButton from "@leafygreen-ui/icon-button";
+import { palette } from "@leafygreen-ui/palette";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
 import debounce from "lodash.debounce";
@@ -177,7 +178,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
             ) : (
               <Tooltip
                 justify="middle"
-                trigger={<IconPlaceholder data-cy="searchbar-error" />}
+                trigger={
+                  <div>
+                    <RedIcon glyph="Warning" />
+                  </div>
+                }
                 triggerEvent="hover"
               >
                 {validatorMessage}
@@ -220,16 +225,20 @@ const InputWrapper = styled.div`
 
 const StyledInput = styled(TextInputWithGlyph)`
   /* overwrite lg borders https://jira.mongodb.org/browse/PD-1995 */
-  div input {
+  div > div {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-left: 0;
+    border-left: none;
+  }
+  input[data-cy="searchbar-input"] {
     padding-left: 42px;
   }
   div[data-lgid="lg-form_field-feedback"] {
-    position: absolute;
-    top: 29px;
+    display: none;
   }
+`;
+const RedIcon = styled(Icon)`
+  color: ${palette.red.base};
 `;
 
 const IconButtonWrapper = styled.div`
@@ -244,11 +253,6 @@ const IconButtonWrapper = styled.div`
   z-index: 1;
   width: ${size.l};
   height: ${textInputHeight};
-`;
-
-const IconPlaceholder = styled.div`
-  height: 100%;
-  width: ${size.l};
 `;
 
 export default SearchBar;

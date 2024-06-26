@@ -104,7 +104,7 @@ const GroupedSelect = styled(Select)`
 
 const GroupedTextInput = styled(TextInput)`
   /* overwrite lg borders https://jira.mongodb.org/browse/PD-1995 */
-  div input {
+  div > div {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
   }
