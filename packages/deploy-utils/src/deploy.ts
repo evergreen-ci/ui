@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env node --no-warnings=ExperimentalWarning --loader ts-node/esm
 import { buildAndPush } from "./build-and-push";
 import { prepareProdDeploy } from "./prepare-prod-deploy";
 import { isRunningOnCI } from "./utils/environment";

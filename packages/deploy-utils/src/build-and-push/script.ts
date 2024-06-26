@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env node --no-warnings=ExperimentalWarning --loader ts-node/esm
 import { buildAndPush } from ".";
 import { isTarget } from "../utils/types";
 

@@ -18,7 +18,6 @@ functions:
         SPRUCE_SENTRY_AUTH_TOKEN: ${SPRUCE_SENTRY_AUTH_TOKEN}
       script: |
         ${PREPARE_SHELL}
-        # yarn node-loader-ts-node ../../.evergreen/scripts/setup-credentials.js ${target}
         yarn deploy-utils-setup-credentials "${target}"
 
   deploy:
@@ -32,7 +31,6 @@ functions:
         AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
       script: |
         ${PREPARE_SHELL}
-        # env-cmd -e ${target} yarn node-loader-ts-node ../../.evergreen/scripts/deploy-target.js
         yarn env-cmd -e "${target}" yarn deploy-utils-build-and-push
 
 tasks:
