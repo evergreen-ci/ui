@@ -1,4 +1,5 @@
-import { sync } from "replace-in-file";
+import pkg from "replace-in-file";
+const { sync } = pkg;
 
 type InjectVariablesInHTMLConfig = {
   files: string | string[];

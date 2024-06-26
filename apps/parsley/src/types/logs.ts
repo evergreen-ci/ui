@@ -12,6 +12,7 @@ interface Range {
 enum RowType {
   SkippedLines = "SkippedLines",
   SectionHeader = "SectionHeader",
+  SubsectionHeader = "SubsectionHeader",
 }
 
 interface SkippedLinesRow {
@@ -26,7 +27,19 @@ interface SectionHeaderRow {
   isOpen: boolean;
 }
 
-type ProcessedLogLine = number | SkippedLinesRow | SectionHeaderRow;
+interface SubsectionHeaderRow {
+  rowType: RowType.SubsectionHeader;
+  functionName: string;
+  commandName: string;
+  range: Range;
+  isOpen: boolean;
+}
+
+type ProcessedLogLine =
+  | number
+  | SkippedLinesRow
+  | SectionHeaderRow
+  | SubsectionHeaderRow;
 
 type ProcessedLogLines = ProcessedLogLine[];
 
@@ -53,6 +66,7 @@ export type {
   ProcessedLogLine,
   ProcessedLogLines,
   SectionHeaderRow,
+  SubsectionHeaderRow,
   SelectedLineRange,
   SkippedLinesRow,
   Range,

@@ -1,9 +1,11 @@
-import { sync } from "replace-in-file";
+import pkg from "replace-in-file";
+
+const { sync } = pkg;
 
 type InjectVariablesInHTMLConfig = {
   files: string | string[];
   variables: string[];
-}
+};
 export default (options: InjectVariablesInHTMLConfig) => {
   const from = options.variables.map((v) => new RegExp(v, "g"));
   const to = options.variables.map((v) => process.env[v.replace(/%/g, "")]);
@@ -14,7 +16,7 @@ export default (options: InjectVariablesInHTMLConfig) => {
         sync({
           files: options.files,
           from,
-          to
+          to,
         });
       } catch (error) {
         console.error("Error occurred:", error);

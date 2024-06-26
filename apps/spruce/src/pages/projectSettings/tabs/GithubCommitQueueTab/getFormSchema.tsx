@@ -195,7 +195,7 @@ export const getFormSchema = (
         },
         commitQueue: {
           type: "object" as "object",
-          title: "Commit Queue",
+          title: "Merge Queue",
           properties: {
             enabled: {
               type: ["boolean", "null"],

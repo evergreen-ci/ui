@@ -49,6 +49,12 @@ export const isProductionBuild = (): boolean =>
   process.env.NODE_ENV === "production";
 
 /**
+ * `isLocal()` indicates if the current build is a local build.
+ * @returns `true` if the current build is a local build.
+ */
+export const isLocal = () => getReleaseStage() === "local";
+
+/**
  * `isBeta()` indicates if the current build is a build meant for a beta deployment.
  * @returns `true` if the current build is a beta build.
  */

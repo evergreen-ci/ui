@@ -214,6 +214,7 @@ functions:
             sleep 10
           done
           npm install -g yarn
+          npm install -g env-cmd
 
   symlink:
     command: shell.exec
