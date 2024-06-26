@@ -1,7 +1,7 @@
 {
   "name": "parsley",
   "private": true,
-  "version": "2.1.23",
+  "version": "2.1.24",
   "type": "module",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
@@ -68,8 +68,8 @@
     "@leafygreen-ui/toggle": "10.0.4",
     "@leafygreen-ui/tooltip": "10.0.10",
     "@leafygreen-ui/typography": "19.0.0",
-    "@sentry/react": "8.10.0",
-    "@sentry/types": "8.10.0",
+    "@sentry/react": "8.11.0",
+    "@sentry/types": "8.11.0",
     "ansi_up": "6.0.2",
     "graphql": "16.8.1",
     "html-react-parser": "3.0.6",
@@ -95,7 +95,7 @@
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/typescript": "4.0.7",
     "@graphql-codegen/typescript-operations": "4.2.1",
-    "@sentry/vite-plugin": "2.19.0",
+    "@sentry/vite-plugin": "2.20.0",
     "@storybook/addon-actions": "8.1.10",
     "@storybook/react": "8.1.10",
     "@storybook/react-vite": "8.1.10",

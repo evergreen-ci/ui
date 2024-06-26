@@ -16,7 +16,7 @@ export const getTabTitle = (
         title: "Variables",
       },
       [ProjectSettingsTabRoutes.GithubCommitQueue]: {
-        title: "GitHub & Commit Queue",
+        title: "GitHub",
       },
       [ProjectSettingsTabRoutes.Notifications]: {
         title: "Notifications",
