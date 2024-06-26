@@ -2887,10 +2887,10 @@
     "@leafygreen-ui/emotion" "^4.0.7"
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon@^12.0.1", "@leafygreen-ui/icon@^12.1.0", "@leafygreen-ui/icon@^12.2.0", "@leafygreen-ui/icon@^12.4.0":
-  version "12.4.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-12.4.0.tgz#7ad5faf0d46044f6550493f0f41f29de897dc1c4"
-  integrity sha512-SYij4Fkspcy7tjIU2ogPkcL4mG1WSwgJ/0lzt4AwoSJWgokxuJN3ubXyfcj+rLY8WzRGLq09kFGrKlQu8svF+A==
+"@leafygreen-ui/icon@^12.0.1", "@leafygreen-ui/icon@^12.1.0", "@leafygreen-ui/icon@^12.2.0", "@leafygreen-ui/icon@^12.4.0", "@leafygreen-ui/icon@^12.5.4":
+  version "12.5.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-12.5.4.tgz#72324715dfbf495aa4a82a34eab0229f76a28ffd"
+  integrity sha512-RsoIN4hfBtJDGuR5ClElCYvpX5+YqjB381EJDZQGC12iQGhhJwCuD4p4NW4O+jWXpt7KGISDKg0Ieao5R/vmpw==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.8"
     lodash "^4.17.21"
@@ -2985,10 +2985,10 @@
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-"@leafygreen-ui/lib@^13.0.0", "@leafygreen-ui/lib@^13.1.0", "@leafygreen-ui/lib@^13.2.0", "@leafygreen-ui/lib@^13.2.1", "@leafygreen-ui/lib@^13.3.0", "@leafygreen-ui/lib@^13.4.0":
-  version "13.4.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-13.4.0.tgz#a166b8b5ee22b8e6ce064112cd03607324a2c57b"
-  integrity sha512-Ju+tHF6z3ttU9UD6EXmTtIExgj/ZXnjm48CRQ6jk65LnYuX19i3I35nkCZwb8n28WlxDH7UDoEumx/hvM05Z4w==
+"@leafygreen-ui/lib@^13.0.0", "@leafygreen-ui/lib@^13.1.0", "@leafygreen-ui/lib@^13.2.0", "@leafygreen-ui/lib@^13.2.1", "@leafygreen-ui/lib@^13.3.0", "@leafygreen-ui/lib@^13.4.0", "@leafygreen-ui/lib@^13.6.0":
+  version "13.6.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-13.6.0.tgz#6e98703e8f141043b28d467c860cc3b4faec8051"
+  integrity sha512-4TglZhImmJ5G13nEoBsNkwBEDZLS0Qo4b3hfPnJsXQ0+BYguxExevan6S7i7hQ4iwvZekCVKGd/yrp0UonrOHQ==
   dependencies:
     "@storybook/csf" "^0.1.0"
     lodash "^4.17.21"
@@ -3151,6 +3151,14 @@
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.3.7.tgz#befd1ae4a7e764ff3356a1bbfc63bb08b8a99198"
   integrity sha512-Tr2TmpS0YFJ3hGNbVWQpeseJRo4kTrVumVlZ4aF4hId1JYDzF0TU5JJO40v+brhbgnKsyBu7+Rvz6ExY1NcKew==
+
+"@leafygreen-ui/polymorphic@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-2.0.1.tgz#f15c75bc5fe76ffe465b5742010e50ce4f370eae"
+  integrity sha512-rzNoS0Q50NI6e+qkc0ytLwnCbiBEfDdLTta2WBPT7noi1yshCcPDlM7+g2R6gTRdTNVUSOLVNyt4VeLZOERc6g==
+  dependencies:
+    "@leafygreen-ui/lib" "^13.6.0"
+    lodash "^4.17.21"
 
 "@leafygreen-ui/popover@11.0.17":
   version "11.0.17"
@@ -3334,21 +3342,21 @@
     "@leafygreen-ui/typography" "^19.0.0"
     lodash "^4.17.21"
 
-"@leafygreen-ui/table@12.6.3":
-  version "12.6.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-12.6.3.tgz#ac64d76257267acf06f4707db2c851a1bc0676be"
-  integrity sha512-mWIiBJ9crV0/2sAATaHGLy85S2ZuiscDUr7d4Bi9XmVLbqiGsDted8j4bIqFNVMbrjpcFFcNX6e3oS998g7JiA==
+"@leafygreen-ui/table@12.6.4":
+  version "12.6.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-12.6.4.tgz#bba04833cfa178db02ddce35fcf93a641eedf9ca"
+  integrity sha512-bXnYUrn+SWdLcaUIjfr3CwLilpdjpLJrW8GY/co4SOqlA57/ih8pi1dei3ltmsjtCxOkupU0jZeMUoF45JNikg==
   dependencies:
     "@leafygreen-ui/checkbox" "^13.1.0"
     "@leafygreen-ui/emotion" "^4.0.8"
     "@leafygreen-ui/hooks" "^8.1.3"
-    "@leafygreen-ui/icon" "^12.0.1"
+    "@leafygreen-ui/icon" "^12.5.4"
     "@leafygreen-ui/icon-button" "^15.0.21"
-    "@leafygreen-ui/lib" "^13.3.0"
+    "@leafygreen-ui/lib" "^13.6.0"
     "@leafygreen-ui/palette" "^4.0.9"
-    "@leafygreen-ui/polymorphic" "^1.3.7"
-    "@leafygreen-ui/tokens" "^2.5.2"
-    "@leafygreen-ui/typography" "^19.0.0"
+    "@leafygreen-ui/polymorphic" "^2.0.0"
+    "@leafygreen-ui/tokens" "^2.9.0"
+    "@leafygreen-ui/typography" "^19.2.0"
     "@tanstack/react-table" "^8.13.2"
     lodash "^4.17.21"
     polished "^4.2.2"
@@ -3479,12 +3487,12 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.5"
 
-"@leafygreen-ui/tokens@^2.0.0", "@leafygreen-ui/tokens@^2.0.1", "@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.1.1", "@leafygreen-ui/tokens@^2.1.4", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.5.1", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.6.0", "@leafygreen-ui/tokens@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.7.0.tgz#c4cfd9395b69d4d9739393a8eb3aaf5c6b19f820"
-  integrity sha512-MnzXPUd/MkWyY6lDrxTcww9/6hR/3TQzlKM1LTf75mSc8QTuxpHgXQtwUZdYoUWBCeI4NH8ELCnKsiQSOvTNlg==
+"@leafygreen-ui/tokens@^2.0.0", "@leafygreen-ui/tokens@^2.0.1", "@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.1.1", "@leafygreen-ui/tokens@^2.1.4", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.5.1", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.6.0", "@leafygreen-ui/tokens@^2.7.0", "@leafygreen-ui/tokens@^2.9.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.9.0.tgz#30c2ce974106eab55054dece1a077dd1e630e9eb"
+  integrity sha512-Ogn250aFFHylmkKZAtdyS6qhA3JiHra+Zx8tMK500kkWTo8lwh7bSiK6nVwKWzkkeReEr8Iq41a08RjaRaf4HQ==
   dependencies:
-    "@leafygreen-ui/lib" "^13.4.0"
+    "@leafygreen-ui/lib" "^13.6.0"
     "@leafygreen-ui/palette" "^4.0.9"
 
 "@leafygreen-ui/tooltip@10.0.10":
@@ -3583,17 +3591,17 @@
     "@leafygreen-ui/polymorphic" "^1.3.7"
     "@leafygreen-ui/tokens" "^2.5.2"
 
-"@leafygreen-ui/typography@^19.0.0", "@leafygreen-ui/typography@^19.1.0", "@leafygreen-ui/typography@^19.1.1":
-  version "19.1.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-19.1.1.tgz#0cd0fccb3d983fe7a5621403478cc0a1e6f7a7ff"
-  integrity sha512-S6JDXHvMY+Cwqy9VOWZWvcnoxXpw16AzlpcPNHzq1j9Puf4cIV2HP5rFdbV/vMt7HyqoRoWVnTQa4OXPrg4W3g==
+"@leafygreen-ui/typography@^19.0.0", "@leafygreen-ui/typography@^19.1.0", "@leafygreen-ui/typography@^19.1.1", "@leafygreen-ui/typography@^19.2.0":
+  version "19.2.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-19.2.0.tgz#22a92fdde800ba4fdf61ff27754bc99459d9195d"
+  integrity sha512-57O0eplpV3nYQMVtSYuOGafPhGC26ShPDTK46HF9I9xCgLRul4YHFM3jwXQEvdWcZO5JSMHzx5iH7ec2+pHBrA==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.8"
-    "@leafygreen-ui/icon" "^12.2.0"
-    "@leafygreen-ui/lib" "^13.4.0"
+    "@leafygreen-ui/icon" "^12.5.4"
+    "@leafygreen-ui/lib" "^13.6.0"
     "@leafygreen-ui/palette" "^4.0.10"
-    "@leafygreen-ui/polymorphic" "^1.3.7"
-    "@leafygreen-ui/tokens" "^2.7.0"
+    "@leafygreen-ui/polymorphic" "^2.0.0"
+    "@leafygreen-ui/tokens" "^2.9.0"
 
 "@lg-tools/test-harnesses@^0.1.2":
   version "0.1.2"
@@ -3950,69 +3958,69 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.18.0.tgz#5d694d345ce36b6ecf657349e03eb87297e68da4"
   integrity sha512-UOo5FdvOL0+eIVTgS4tIdbW+TtnBLWg1YBCcU2KWM7nuNwRz9bksDX1bekJJCpu25N1DVWaCwnT39dVQxzqS8g==
 
-"@sentry-internal/browser-utils@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-8.10.0.tgz#a4a2384d14152593402bded19c068ba5d95a7a9a"
-  integrity sha512-Hdqv8KfQDCj7H92ft2walDwCiyaTxgegHnR4ZtCI8NQR0hqdU/PzIKashTwc+Ho6OAQtdy/HNqhcHEznuBNW3A==
+"@sentry-internal/browser-utils@8.11.0":
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-8.11.0.tgz#ee73594bde569608b0dd0c8aa499f8497dbb0f53"
+  integrity sha512-PCnmzeLm7eTdMleVWa1jbdNcB6M5R17CSX8oQF6A/5a2w9qW6HbjEwK6X4yc9MzsFXFaTNekvPQLMRhIE1MgpA==
   dependencies:
-    "@sentry/core" "8.10.0"
-    "@sentry/types" "8.10.0"
-    "@sentry/utils" "8.10.0"
+    "@sentry/core" "8.11.0"
+    "@sentry/types" "8.11.0"
+    "@sentry/utils" "8.11.0"
 
-"@sentry-internal/feedback@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/feedback/-/feedback-8.10.0.tgz#31afdc59be6a500eadebcc4603e0ebec7942cd16"
-  integrity sha512-pzc4s5X6wvY0BMQBFAMObQBjRKiKzoF2APD5H5eBcxkX8deIykjm8VC8mgpVpxYm6mfjytvgpZyPpZ6KgpRt9Q==
+"@sentry-internal/feedback@8.11.0":
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/feedback/-/feedback-8.11.0.tgz#72bfa11678dfa19857a3cf6943a05f0ddb72f12d"
+  integrity sha512-cMiFAuHP4jXCqWD7/UA5cvl0ee3hN5klAWTDVCZutnZ30pbUurg+nIggYBcaxdtLlqW6BCwyVs2nb/OB75CCSQ==
   dependencies:
-    "@sentry/core" "8.10.0"
-    "@sentry/types" "8.10.0"
-    "@sentry/utils" "8.10.0"
+    "@sentry/core" "8.11.0"
+    "@sentry/types" "8.11.0"
+    "@sentry/utils" "8.11.0"
 
-"@sentry-internal/replay-canvas@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/replay-canvas/-/replay-canvas-8.10.0.tgz#a1ac59d13ff12d497e7eea0727c488a572772941"
-  integrity sha512-M4yM8ZqtsW1wER7jNpGq019jmhn/RkcmdIyWksRpBSvRppZRf0yR9dbVhdO/oBL8DB3fDTbv8Qtd/oXlkj/i+Q==
+"@sentry-internal/replay-canvas@8.11.0":
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay-canvas/-/replay-canvas-8.11.0.tgz#c01c1385c426a39189bec151a74bc173b6068a4b"
+  integrity sha512-SrBFI0vwyeyUjibCbYfxzCNMd07QMDNoi+0SYzhBagp6ALbU8r/pa02JRsnr//qhZt2NOM6S2kks9e2VHr6hYg==
   dependencies:
-    "@sentry-internal/replay" "8.10.0"
-    "@sentry/core" "8.10.0"
-    "@sentry/types" "8.10.0"
-    "@sentry/utils" "8.10.0"
+    "@sentry-internal/replay" "8.11.0"
+    "@sentry/core" "8.11.0"
+    "@sentry/types" "8.11.0"
+    "@sentry/utils" "8.11.0"
 
-"@sentry-internal/replay@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/replay/-/replay-8.10.0.tgz#05be6548ffe3e8497a9efc4bf65be2ad0ab85ff6"
-  integrity sha512-MISdD0Q0sVcQELHbYSH5SuKHlrI8RFvmU6aNcjWEoKxhd4Vzr126h98naVPoo7WOOI0e7Fd0Lrn/59wNI4AJxQ==
+"@sentry-internal/replay@8.11.0":
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay/-/replay-8.11.0.tgz#58c923fbae32204ad32e1e99c01c4040c1e06b2f"
+  integrity sha512-NyuHW1Ds2GGW6PjN7nnRl/XoM31Y/BUnOhhLbNmbxWj5mgWuUP/7tOlz2PhP0YqZxVteZ99QIssfSRgtYOeQlg==
   dependencies:
-    "@sentry-internal/browser-utils" "8.10.0"
-    "@sentry/core" "8.10.0"
-    "@sentry/types" "8.10.0"
-    "@sentry/utils" "8.10.0"
+    "@sentry-internal/browser-utils" "8.11.0"
+    "@sentry/core" "8.11.0"
+    "@sentry/types" "8.11.0"
+    "@sentry/utils" "8.11.0"
 
-"@sentry/babel-plugin-component-annotate@2.19.0":
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/@sentry/babel-plugin-component-annotate/-/babel-plugin-component-annotate-2.19.0.tgz#70dcccb336bcec24148e1c9cd4e37724cebf5673"
-  integrity sha512-N2k8cMYu/7X6mzAH5j6bMeNcXQBJLL0lVAF63TDS57hUiT1v2uEqbeYFdH2CZBHb2LepLbMRXmvErIwy76FLTw==
+"@sentry/babel-plugin-component-annotate@2.20.0":
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/@sentry/babel-plugin-component-annotate/-/babel-plugin-component-annotate-2.20.0.tgz#52f4e7bd0db2c00d4c3ea48c3932add9fa67eea5"
+  integrity sha512-HN/5+cGvI3NqBeW8rLRVGMpF1PADZpAi3h9LI6YBawJPxEz/ftJoryJ6/rXzV6pAPq/7hTEOhTqWPq8iXuM1dw==
 
-"@sentry/browser@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-8.10.0.tgz#ccf42a70d72edb58cc7d1030fd4d4bcc7b2bf999"
-  integrity sha512-6yGax6vUNV28cANMJCTrLFrGTvvgC0h4k+lzjrgstCf1k+CNQmodXDyWcRzbL4im5DTH4jF74ZAYpqrptloxJw==
+"@sentry/browser@8.11.0":
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-8.11.0.tgz#9e0282a9136d138c8b6c001f0ac9face9a9ce18b"
+  integrity sha512-++5IrBpzkaAptNjAYnGTnQ2lCjmU6nlu/ABFjUTgi7Vu+ZNiY8qYKEUw65mSxD3EoFLt8IwtjvfAwSMVTB2q8w==
   dependencies:
-    "@sentry-internal/browser-utils" "8.10.0"
-    "@sentry-internal/feedback" "8.10.0"
-    "@sentry-internal/replay" "8.10.0"
-    "@sentry-internal/replay-canvas" "8.10.0"
-    "@sentry/core" "8.10.0"
-    "@sentry/types" "8.10.0"
-    "@sentry/utils" "8.10.0"
+    "@sentry-internal/browser-utils" "8.11.0"
+    "@sentry-internal/feedback" "8.11.0"
+    "@sentry-internal/replay" "8.11.0"
+    "@sentry-internal/replay-canvas" "8.11.0"
+    "@sentry/core" "8.11.0"
+    "@sentry/types" "8.11.0"
+    "@sentry/utils" "8.11.0"
 
-"@sentry/bundler-plugin-core@2.19.0":
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/@sentry/bundler-plugin-core/-/bundler-plugin-core-2.19.0.tgz#c21935ff5aea9daccfa4c9e0db405aecdec292f6"
-  integrity sha512-PGTwpue2k4HnLlCuvLeg+cILPWHJorzheNq8KVlXed8mpb8kxKeY9EWQFxBqPS+XyktOMAxZmCMZfKdnHNaJVQ==
+"@sentry/bundler-plugin-core@2.20.0":
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/@sentry/bundler-plugin-core/-/bundler-plugin-core-2.20.0.tgz#4e2a43be63d846688dd3b123ac7df44e16768c94"
+  integrity sha512-boshDF6AwCTL7LBOjDQxINjCWELOU0eamBvD0ibSjT5bjXnqRjJItoUpmggu8D7PvhKlb6H9OjzB5yiHbmve4A==
   dependencies:
     "@babel/core" "^7.18.5"
-    "@sentry/babel-plugin-component-annotate" "2.19.0"
+    "@sentry/babel-plugin-component-annotate" "2.20.0"
     "@sentry/cli" "^2.22.3"
     dotenv "^16.3.1"
     find-up "^5.0.0"
@@ -4074,43 +4082,43 @@
     "@sentry/cli-win32-i686" "2.31.2"
     "@sentry/cli-win32-x64" "2.31.2"
 
-"@sentry/core@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-8.10.0.tgz#033661288a5ac9f4e6cd7583cf068bec4403dbe0"
-  integrity sha512-NzrFqYsEHMd4TYYYxOvf+f+Z02u0nt12cIYYN9pOM3xBLKR+ORs7jhVnN0cB/H2yqtmtBaIzSehk/M/qUXFJGw==
+"@sentry/core@8.11.0":
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-8.11.0.tgz#bd78d9b598b6658ad18c8e0457fdffcd5f95b51e"
+  integrity sha512-rZaM55j5Fw0IGb8lNXOTVoq7WR6JmUzm9x5cURGsjL9gzAurGl817oK3iyOvYQ3JZnfijjh0QF0SQr4NZHKbIg==
   dependencies:
-    "@sentry/types" "8.10.0"
-    "@sentry/utils" "8.10.0"
+    "@sentry/types" "8.11.0"
+    "@sentry/utils" "8.11.0"
 
-"@sentry/react@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-8.10.0.tgz#2be8b01db4d178cc06d27a0325c75258db04822d"
-  integrity sha512-Nwamhet8jeJWrRFJzLd08tyYgSbZOxZTQuDtyzU+EVkjzy2RVoYZUtYSHkopzg8MULz5MrI7BfrWFVSncDBNjA==
+"@sentry/react@8.11.0":
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-8.11.0.tgz#324353df35f6e9a28448fabd7501577be2fbcd7f"
+  integrity sha512-EyPOxDyRwOMPHRCc1/+dlWygXb6+92d0AbVTo4C8ZPT67aMWiczMzZC9qVUN6OqDVrpKwHMYzRyCdsu5OIIWHw==
   dependencies:
-    "@sentry/browser" "8.10.0"
-    "@sentry/core" "8.10.0"
-    "@sentry/types" "8.10.0"
-    "@sentry/utils" "8.10.0"
+    "@sentry/browser" "8.11.0"
+    "@sentry/core" "8.11.0"
+    "@sentry/types" "8.11.0"
+    "@sentry/utils" "8.11.0"
     hoist-non-react-statics "^3.3.2"
 
-"@sentry/types@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-8.10.0.tgz#47119cb121cba38cc3654e7b79ac9014235132a9"
-  integrity sha512-6kgh6NqgQHcnnD7dOe3THcVkzv2nor/f94x3odmPShN2AWBfPRprHZZsLTjh/3aC7l76V2nfuQ4wgRvwsddTWw==
+"@sentry/types@8.11.0":
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-8.11.0.tgz#613da07f91d58ad5b460b95550e64aa6159ee97f"
+  integrity sha512-kz9/d2uw7wEXcK8DnCrCuMI75hZnpVAjYr8mq1uatltOx+2JOYPNdaK6ispxXlhb5KXOnVWNgfVDbGlLp0w+Gg==
 
-"@sentry/utils@8.10.0":
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-8.10.0.tgz#0947188bafdd343fffd9554de3604fdde4818ff7"
-  integrity sha512-tQPgB7lX1XqbEw2EXvWNsBQlmG+yJHVhBKKDPy5HZMjuTP3zlpVdP6NF87qwonmdtFNHxdrKbfOVRiLx71/JwA==
+"@sentry/utils@8.11.0":
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-8.11.0.tgz#b8856db2c1cfc1835df8854cba20cea82f6c6e08"
+  integrity sha512-iDt5YVMYNgT151bPYVGo8XlpM0MHWy8DH+czmAiAlFTV7ns7lAeHGF6tsFYo7wOZOPDHxtF6F2CM7AvuYnOZGw==
   dependencies:
-    "@sentry/types" "8.10.0"
+    "@sentry/types" "8.11.0"
 
-"@sentry/vite-plugin@2.19.0":
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/@sentry/vite-plugin/-/vite-plugin-2.19.0.tgz#c7938fb13eee15036963b87d7b12c4fc851e488b"
-  integrity sha512-xmntz/bvRwhhU9q2thZas1vQQch9CLMyD8oCfYlNqN57t5XKhIs2dsCU/uS7HCnxIXuuUb/cZtIS7AXVg16fFA==
+"@sentry/vite-plugin@2.20.0":
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/@sentry/vite-plugin/-/vite-plugin-2.20.0.tgz#fd471ea028104bb6f15b26b408990686fb1c1955"
+  integrity sha512-ZWze5B+fG7z4GbL4/XmH5oZIhDus7FbyJd3dggfkdiiIjbAy1QdGHMLBDNzCATSUvjYKYI9wPLWvOh9t7f+EUw==
   dependencies:
-    "@sentry/bundler-plugin-core" "2.19.0"
+    "@sentry/bundler-plugin-core" "2.20.0"
     unplugin "1.0.1"
 
 "@sinclair/typebox@^0.27.8":
