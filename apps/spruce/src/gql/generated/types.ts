@@ -3726,6 +3726,7 @@ export type ProjectSettingsFieldsFragment = {
       __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
+      downstreamRevision?: string | null;
       parentAsModule?: string | null;
       status?: string | null;
       taskSpecifiers?: Array<{
@@ -3917,6 +3918,7 @@ export type RepoSettingsFieldsFragment = {
       __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
+      downstreamRevision?: string | null;
       parentAsModule?: string | null;
       status?: string | null;
       taskSpecifiers?: Array<{
@@ -4126,6 +4128,7 @@ export type ProjectPatchAliasSettingsFragment = {
     __typename?: "PatchTriggerAlias";
     alias: string;
     childProjectIdentifier: string;
+    downstreamRevision?: string | null;
     parentAsModule?: string | null;
     status?: string | null;
     taskSpecifiers?: Array<{
@@ -4144,6 +4147,7 @@ export type RepoPatchAliasSettingsFragment = {
     __typename?: "PatchTriggerAlias";
     alias: string;
     childProjectIdentifier: string;
+    downstreamRevision?: string | null;
     parentAsModule?: string | null;
     status?: string | null;
     taskSpecifiers?: Array<{
@@ -4298,6 +4302,7 @@ export type ProjectEventSettingsFragment = {
       __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
+      downstreamRevision?: string | null;
       parentAsModule?: string | null;
       status?: string | null;
       taskSpecifiers?: Array<{
@@ -6750,6 +6755,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "PatchTriggerAlias";
             alias: string;
             childProjectIdentifier: string;
+            downstreamRevision?: string | null;
             parentAsModule?: string | null;
             status?: string | null;
             taskSpecifiers?: Array<{
@@ -6956,6 +6962,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "PatchTriggerAlias";
             alias: string;
             childProjectIdentifier: string;
+            downstreamRevision?: string | null;
             parentAsModule?: string | null;
             status?: string | null;
             taskSpecifiers?: Array<{
@@ -7241,6 +7248,7 @@ export type ProjectSettingsQuery = {
         __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
+        downstreamRevision?: string | null;
         parentAsModule?: string | null;
         status?: string | null;
         taskSpecifiers?: Array<{
@@ -7495,6 +7503,7 @@ export type RepoEventLogsQuery = {
             __typename?: "PatchTriggerAlias";
             alias: string;
             childProjectIdentifier: string;
+            downstreamRevision?: string | null;
             parentAsModule?: string | null;
             status?: string | null;
             taskSpecifiers?: Array<{
@@ -7701,6 +7710,7 @@ export type RepoEventLogsQuery = {
             __typename?: "PatchTriggerAlias";
             alias: string;
             childProjectIdentifier: string;
+            downstreamRevision?: string | null;
             parentAsModule?: string | null;
             status?: string | null;
             taskSpecifiers?: Array<{
@@ -7912,6 +7922,7 @@ export type RepoSettingsQuery = {
         __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
+        downstreamRevision?: string | null;
         parentAsModule?: string | null;
         status?: string | null;
         taskSpecifiers?: Array<{
