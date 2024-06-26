@@ -1,8 +1,20 @@
 <div>
   <div
-    class="css-1ubaylh-NoResults e1u3be4i0"
-    data-cy="no-patches-found"
+    class="leafygreen-ui-qzujjj"
   >
-    No patches found
+    <div
+      class="leafygreen-ui-15x62di"
+    >
+      <h3
+        class="leafygreen-ui-hc0kb0"
+      >
+        No patches found
+      </h3>
+      <p
+        class="leafygreen-ui-fuckf8"
+      >
+        Create a patch to see it here.
+      </p>
+    </div>
   </div>
 </div>

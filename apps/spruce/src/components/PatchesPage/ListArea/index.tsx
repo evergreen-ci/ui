@@ -29,7 +29,7 @@ const ListArea: React.FC<ListAreaProps> = ({ loading, pageType, patches }) => {
   }
   return (
     <BasicEmptyState
-      title="No Patches Found"
+      title="No patches found"
       description="Create a patch to see it here."
     />
   );
