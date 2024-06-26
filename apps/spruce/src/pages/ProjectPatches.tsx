@@ -50,7 +50,6 @@ export const ProjectPatches = () => {
       );
     },
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
   const { displayName, patches } = data?.project ?? {};
   return (
