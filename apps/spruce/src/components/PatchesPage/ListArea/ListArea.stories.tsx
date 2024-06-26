@@ -13,6 +13,7 @@ export const Default: CustomStoryObj<typeof ListArea> = {
   args: {
     patches: { patches, filteredPatchCount: 4 },
     loading: false,
+    pageType: "project",
   },
 };
 
@@ -22,5 +23,6 @@ export const Empty: CustomStoryObj<typeof ListArea> = {
   args: {
     patches: { patches: [], filteredPatchCount: 0 },
     loading: false,
+    pageType: "project",
   },
 };
