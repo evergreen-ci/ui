@@ -1,4 +1,5 @@
-#!/usr/bin/env node --no-warnings=ExperimentalWarning --loader ts-node/esm
+#!/usr/bin/env -S vite-node --script
+
 import { writeFileSync } from "fs";
 import { getAppToDeploy } from "../utils/environment";
 import { getCurrentlyDeployedCommit } from "../utils/git";

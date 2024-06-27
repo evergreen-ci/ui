@@ -1,7 +1,9 @@
-#!/usr/bin/env node --no-warnings=ExperimentalWarning --loader ts-node/esm
+#!/usr/bin/env -S vite-node --script
+
 import { buildAndPush } from "./build-and-push";
 import { prepareProdDeploy } from "./prepare-prod-deploy";
 import { isRunningOnCI } from "./utils/environment";
+import { red } from "./utils/shell";
 import { isTarget } from "./utils/types";
 
 if (isRunningOnCI()) {
@@ -23,6 +25,8 @@ if (target === "production") {
   buildAndPush(process.env.BUCKET);
 } else {
   console.error(
-    `Please use Evergreen to deploy. If you need to force a local deploy, add --force.`,
+    red(
+      `Please use Evergreen to deploy. If you need to force a local deploy, add --force.`,
+    ),
   );
 }

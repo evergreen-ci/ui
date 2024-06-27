@@ -127,7 +127,8 @@
     "react-dom": "18.2.0",
     "react-router-dom": "6.16.0",
     "react-string-replace": "1.1.1",
-    "react-virtuoso": "^4.7.10"
+    "react-virtuoso": "^4.7.10",
+    "vite-node": "^1.6.0"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.11.0",

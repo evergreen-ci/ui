@@ -12,7 +12,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@evg-ui/lib": "*"
+    "@evg-ui/lib": "*",
+    "vite-node": "^1.6.0"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "*",
