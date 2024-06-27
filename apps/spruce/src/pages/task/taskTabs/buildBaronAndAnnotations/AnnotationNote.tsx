@@ -59,7 +59,7 @@ const AnnotationNote: React.FC<Props> = ({
         newMessage,
       },
     });
-    annotationAnalytics.sendEvent({ name: "Save Annotation Note" });
+    annotationAnalytics.sendEvent({ name: "Saved annotation note" });
   };
 
   return (

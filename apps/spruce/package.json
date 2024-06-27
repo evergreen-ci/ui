@@ -1,7 +1,8 @@
 {
   "name": "spruce",
-  "version": "4.1.37",
+  "version": "4.1.39",
   "private": true,
+  "type": "module",
   "scripts": {
     "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
     "build:beta": "env-cmd -e beta yarn build",
@@ -11,16 +12,16 @@
     "build": "GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf node_modules && rm -rf dist && yarn install",
-    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen": "graphql-codegen-esm --config codegen.ts",
     "cy:open": "yarn evg-db-ops --reseed-and-dump; cypress open",
     "cy:run": "cypress run",
     "cy:test": "cypress run --spec",
     "deploy:beta": "yarn build:beta && env-cmd -e beta yarn deploy:do-not-use",
     "deploy:staging": "yarn build:staging && env-cmd -e staging yarn deploy:do-not-use",
-    "deploy:prod": "env-cmd -e production ts-node scripts/deploy/run-deploy",
+    "deploy:prod": "env-cmd -e production yarn node-loader-ts-node scripts/deploy/run-deploy",
     "deploy:do-not-use": ". ./scripts/deploy/deploy.sh",
     "dev": "env-cmd -e devLocal -r .env-cmdrc.local.json yarn start",
-    "check-schema-and-codegen": "ts-node scripts/check-schema-and-codegen/script.ts",
+    "check-schema-and-codegen": "yarn node-loader-ts-node scripts/check-schema-and-codegen/script.ts",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
@@ -35,7 +36,8 @@
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts",
-    "postversion": "scripts/push-version.sh"
+    "postversion": "scripts/push-version.sh",
+    "node-loader-ts-node": "node --no-warnings=ExperimentalWarning --loader ts-node/esm"
   },
   "browserslist": {
     "production": [
@@ -68,6 +70,7 @@
     "@leafygreen-ui/date-picker": "1.1.3",
     "@leafygreen-ui/date-utils": "0.1.2",
     "@leafygreen-ui/emotion": "4.0.7",
+    "@leafygreen-ui/empty-state": "1.0.17",
     "@leafygreen-ui/expandable-card": "3.1.0",
     "@leafygreen-ui/guide-cue": "5.0.8",
     "@leafygreen-ui/icon": "11.26.0",
@@ -100,8 +103,8 @@
     "@leafygreen-ui/tooltip": "10.0.10",
     "@leafygreen-ui/typography": "19.0.0",
     "@rjsf/core": "4.2.3",
-    "@sentry/react": "8.10.0",
-    "@sentry/types": "8.10.0",
+    "@sentry/react": "8.11.0",
+    "@sentry/types": "8.11.0",
     "ansi_up": "6.0.2",
     "antd": "4.20.0",
     "date-fns": "3.6.0",
@@ -136,13 +139,13 @@
     "@graphql-codegen/typescript": "4.0.7",
     "@graphql-codegen/typescript-operations": "4.2.1",
     "@originjs/vite-plugin-commonjs": "1.0.3",
-    "@sentry/vite-plugin": "2.19.0",
+    "@sentry/vite-plugin": "2.20.0",
     "@storybook/addon-actions": "8.1.10",
     "@storybook/react": "8.1.10",
     "@storybook/react-vite": "8.1.10",
     "@styled/typescript-styled-plugin": "1.0.1",
-    "@testing-library/jest-dom": "6.4.5",
-    "@testing-library/react": "15.0.7",
+    "@testing-library/jest-dom": "6.4.6",
+    "@testing-library/react": "16.0.0",
     "@testing-library/user-event": "14.5.2",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash.debounce": "4.0.7",
@@ -187,6 +190,6 @@
     "has-symbols": "^1.0.2"
   },
   "engines": {
-    "node": ">=20.10.0"
+    "node": ">=20.11.0"
   }
 }

@@ -40,7 +40,7 @@ const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
   const [buttonText, setButtonText] = useState<string>("File ticket");
   const annotationAnalytics = useAnnotationAnalytics();
   const onClickFile = () => {
-    annotationAnalytics.sendEvent({ name: "Build Baron File Ticket" });
+    annotationAnalytics.sendEvent({ name: "Filed Build Baron ticket" });
     fileJiraTicket({ variables: { taskId, execution } });
   };
 
