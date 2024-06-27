@@ -40,9 +40,6 @@ export const AddIssueModal: React.FC<Props> = ({
   const dispatchToast = useToastContext();
   const title = isIssue ? "Add Issue" : "Add Suspected Issue";
   const issueString = isIssue ? "issue" : "suspected issue";
-  const analyticsType = isIssue
-    ? "Add Task Annotation Issue"
-    : "Add Task Annotation Suspected Issue";
 
   const [canSubmit, setCanSubmit] = useState(false);
   const [formState, setFormState] = useState({
@@ -62,7 +59,10 @@ export const AddIssueModal: React.FC<Props> = ({
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       setSelectedRowKey(issueKey);
       closeModal();
-      annotationAnalytics.sendEvent({ name: analyticsType });
+      annotationAnalytics.sendEvent({
+        name: "Add task annotation",
+        type: isIssue ? "Issue" : "Suspected Issue",
+      });
     },
     onError(error) {
       closeModal();
