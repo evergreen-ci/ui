@@ -29,12 +29,12 @@ interface SectionHeaderRow {
 }
 
 interface SubsectionHeaderRow {
+  commandID: string;
   commandName: string;
   functionID: string;
   isOpen: boolean;
   range: Range;
   rowType: RowType.SubsectionHeader;
-  commandID: string;
 }
 
 type ProcessedLogLine =
