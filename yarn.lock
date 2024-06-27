@@ -2855,10 +2855,10 @@
     "@leafygreen-ui/lib" "^13.3.0"
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon-button@15.0.21", "@leafygreen-ui/icon-button@^15.0.12", "@leafygreen-ui/icon-button@^15.0.18", "@leafygreen-ui/icon-button@^15.0.19", "@leafygreen-ui/icon-button@^15.0.21", "@leafygreen-ui/icon-button@^15.0.7":
-  version "15.0.21"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.21.tgz#2677e3ad08b9408d3788c17896989893134888f6"
-  integrity sha512-zdgsgVDlbDO8eb7e12vHfF2UEr8XlinhwjgwFniKZngE/I8HnrA9zNNHlGiKg1icXHzzBuE9Xi6UR7DqvQaaFg==
+"@leafygreen-ui/icon-button@15.0.22", "@leafygreen-ui/icon-button@^15.0.12", "@leafygreen-ui/icon-button@^15.0.18", "@leafygreen-ui/icon-button@^15.0.19", "@leafygreen-ui/icon-button@^15.0.21", "@leafygreen-ui/icon-button@^15.0.7":
+  version "15.0.22"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.22.tgz#36995548b08486a867a587dad01137218f0b9920"
+  integrity sha512-o9+gSUfL5ZE6g05m89vv0BRtD+qcfOpfgbuusN5KXdvbAKPgUaweySFl6rMHgSybfdMM1E36rmxyyCwEo7Vahw==
   dependencies:
     "@leafygreen-ui/a11y" "^1.4.13"
     "@leafygreen-ui/box" "^3.1.9"
@@ -2867,6 +2867,7 @@
     "@leafygreen-ui/lib" "^13.3.0"
     "@leafygreen-ui/palette" "^4.0.9"
     "@leafygreen-ui/tokens" "^2.5.2"
+    polished "^4.2.2"
 
 "@leafygreen-ui/icon@11.26.0":
   version "11.26.0"
