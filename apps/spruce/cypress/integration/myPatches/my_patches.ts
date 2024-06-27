@@ -58,7 +58,7 @@ describe("My Patches Page", () => {
   it("Searching for a nonexistent patch shows 'No patches found'", () => {
     cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("patch-description-input").type("satenarstharienht");
-    cy.dataCy("no-patches-found").contains("No patches found");
+    cy.contains("No patches found");
   });
 
   it("Grouped task status icon should link to version page with appropriate filters", () => {

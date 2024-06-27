@@ -41,7 +41,6 @@ export const MountVolumeSelect = ({
       dispatchToast.error(`There was an error loading hosts: ${e.message}`);
     },
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   // set host dropdown options

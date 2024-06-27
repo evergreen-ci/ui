@@ -52,7 +52,6 @@ export const Task = () => {
         `There was an error loading the task: ${err.message}`,
       ),
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data ?? {};

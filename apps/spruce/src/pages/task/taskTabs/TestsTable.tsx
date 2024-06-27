@@ -84,7 +84,6 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     skip: queryVariables.execution === null,
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const clearQueryParams = () => {

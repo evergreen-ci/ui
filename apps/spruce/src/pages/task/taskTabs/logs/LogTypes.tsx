@@ -62,7 +62,6 @@ export const AllLog: React.FC<Props> = (props) => {
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -92,7 +91,6 @@ export const EventLog: React.FC<Props> = (props) => {
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -126,7 +124,6 @@ export const SystemLog: React.FC<Props> = (props) => {
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -155,7 +152,6 @@ export const AgentLog: React.FC<Props> = (props) => {
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};
@@ -184,7 +180,6 @@ export const TaskLog: React.FC<Props> = (props) => {
     variables: { id: taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const { task } = data || {};

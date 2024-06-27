@@ -18,8 +18,7 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
   const getDateCopy = useDateFormat();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const url = getJiraTicketUrl(jiraHost, jiraKey);
+  const url = getJiraTicketUrl(jiraHost || "", jiraKey);
   const { assigneeDisplayName, created, status, summary, updated } =
     fields ?? {};
   return (
@@ -28,7 +27,9 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
         href={url}
         data-cy={jiraKey}
         onClick={() =>
-          annotationAnalytics.sendEvent({ name: "Click Jira Summary Link" })
+          annotationAnalytics.sendEvent({
+            name: "Clicked Jira ticket summary link",
+          })
         }
         title={summary}
       >

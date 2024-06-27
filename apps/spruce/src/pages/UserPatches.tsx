@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useUserPatchesAnalytics } from "analytics";
 import { PatchesPage } from "components/PatchesPage";
 import { RequesterSelector } from "components/PatchesPage/RequesterSelector";
 import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryParams";
@@ -21,7 +20,6 @@ import { PatchPageQueryParams } from "types/patch";
 export const UserPatches = () => {
   const dispatchToast = useToastContext();
   const { [slugs.userId]: userId } = useParams();
-  const analyticsObject = useUserPatchesAnalytics();
 
   const [isCommitQueueCheckboxChecked] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
@@ -35,7 +33,6 @@ export const UserPatches = () => {
     UserPatchesQueryVariables
   >(USER_PATCHES, {
     variables: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       userId,
       patchesInput: {
         ...patchesInput,
@@ -44,21 +41,18 @@ export const UserPatches = () => {
     },
     fetchPolicy: "cache-and-network",
     pollInterval: DEFAULT_POLL_INTERVAL,
+    skip: !userId,
     onError: (err) => {
       dispatchToast.error(`Error while fetching user patches: ${err.message}`);
     },
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   return (
     <PatchesPage
-      analyticsObject={analyticsObject}
       filterComp={<RequesterSelector />}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      pageTitle={pageTitle}
+      pageTitle={pageTitle || "User Patches"}
       loading={loading && !data?.user.patches}
       pageType="user"
       patches={data?.user.patches}
