@@ -193,6 +193,7 @@
         >
           <div
             class="leafygreen-ui-cssveg"
+            data-cy="searchbar-error"
           >
             <svg
               aria-label="Warning Icon"
