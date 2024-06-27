@@ -12,15 +12,22 @@ export type SectionState = {
     commands: { [commandID: string]: { isOpen: boolean } };
   };
 };
-export type ToggleSection = (props: {
+
+export type ToggleCommandSection = (props: {
   functionID: string;
-  commandID?: string;
+  commandID: string;
+  isOpen: boolean;
+}) => void;
+
+export type ToggleFunctionSection = (props: {
+  functionID: string;
   isOpen: boolean;
 }) => void;
 
 export interface UseSectionsResult {
   sectionData: SectionData | undefined;
-  toggleSection: ToggleSection;
+  toggleCommandSection: ToggleCommandSection;
+  toggleFunctionSection: ToggleFunctionSection;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
 }
@@ -69,16 +76,25 @@ export const useSections = ({
     }
   }, [sectionData, sectionState]);
 
-  const toggleSection: ToggleSection = useCallback(
+  const toggleFunctionSection: ToggleFunctionSection = useCallback(
+    ({ functionID, isOpen }) => {
+      setSectionState((currentState) => {
+        if (currentState) {
+          const nextState = { ...currentState };
+          nextState[functionID].isOpen = isOpen;
+          return nextState;
+        }
+        return currentState;
+      });
+    },
+    [sectionState],
+  );
+  const toggleCommandSection: ToggleCommandSection = useCallback(
     ({ commandID, functionID, isOpen }) => {
       setSectionState((currentState) => {
         if (currentState) {
           const nextState = { ...currentState };
-          if (commandID) {
-            nextState[functionID].commands[commandID].isOpen = isOpen;
-          } else {
-            nextState[functionID].isOpen = isOpen;
-          }
+          nextState[functionID].commands[commandID].isOpen = isOpen;
           return nextState;
         }
         return currentState;
@@ -90,7 +106,8 @@ export const useSections = ({
     sectionData,
     sectionState,
     sectioningEnabled,
-    toggleSection,
+    toggleCommandSection,
+    toggleFunctionSection,
   };
 };
 

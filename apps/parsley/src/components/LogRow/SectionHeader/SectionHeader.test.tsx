@@ -42,12 +42,12 @@ describe("SectionHeader", () => {
 
   it("should call onOpen function when 'open' button is clicked", async () => {
     const user = userEvent.setup();
-    const onOpen = vi.fn();
-    render(<SectionHeader {...sectionHeaderProps} onOpen={onOpen} />);
+    const onToggle = vi.fn();
+    render(<SectionHeader {...sectionHeaderProps} onToggle={onToggle} />);
     const openButton = screen.getByDataCy("caret-toggle");
     await user.click(openButton);
-    expect(onOpen).toHaveBeenCalledTimes(1);
-    expect(onOpen).toHaveBeenCalledWith({
+    expect(onToggle).toHaveBeenCalledTimes(1);
+    expect(onToggle).toHaveBeenCalledWith({
       functionID: "function-4",
       isOpen: true,
     });
@@ -78,7 +78,7 @@ const sectionHeaderProps = {
   functionID: "function-4",
   functionName: "load_data",
   lineIndex: 0,
-  onOpen: vi.fn(),
+  onToggle: vi.fn(),
   open: false,
   status: SectionStatus.Pass,
 };

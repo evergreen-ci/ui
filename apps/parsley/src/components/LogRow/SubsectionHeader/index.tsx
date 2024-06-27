@@ -4,6 +4,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
 import { size } from "constants/tokens";
+import { ToggleCommandSection } from "hooks/useSections";
 import { CaretToggle } from "../CaretToggle";
 
 const { gray } = palette;
@@ -12,11 +13,7 @@ interface SectionHeaderProps extends Row {
   commandName: string;
   functionID: string;
   commandID: string;
-  onOpen: (v: {
-    commandID: string;
-    functionID: string;
-    isOpen: boolean;
-  }) => void;
+  onToggle: ToggleCommandSection;
   open: boolean;
 }
 
@@ -24,7 +21,7 @@ const SubsectionHeader: React.FC<SectionHeaderProps> = ({
   commandID,
   commandName,
   functionID,
-  onOpen,
+  onToggle,
   open,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
@@ -39,7 +36,7 @@ const SubsectionHeader: React.FC<SectionHeaderProps> = ({
             sectionName: commandName,
             sectionType: "command",
           });
-          onOpen({ commandID, functionID, isOpen: !open });
+          onToggle({ commandID, functionID, isOpen: !open });
         }}
         open={open}
       />

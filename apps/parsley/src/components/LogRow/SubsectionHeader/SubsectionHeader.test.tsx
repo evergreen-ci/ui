@@ -25,12 +25,12 @@ describe("SubsectionHeader", () => {
 
   it("should call onOpen function when 'open' button is clicked", async () => {
     const user = userEvent.setup();
-    const onOpen = vi.fn();
-    render(<SubsectionHeader {...sectionHeaderProps} onOpen={onOpen} />);
+    const onToggle = vi.fn();
+    render(<SubsectionHeader {...sectionHeaderProps} onToggle={onToggle} />);
     const openButton = screen.getByDataCy("caret-toggle");
     await user.click(openButton);
-    expect(onOpen).toHaveBeenCalledTimes(1);
-    expect(onOpen).toHaveBeenCalledWith({
+    expect(onToggle).toHaveBeenCalledTimes(1);
+    expect(onToggle).toHaveBeenCalledWith({
       commandID: "command-1",
       functionID: "function-1",
       isOpen: true,
@@ -63,6 +63,6 @@ const sectionHeaderProps = {
   commandName: "shell.exec",
   functionID: "function-1",
   lineIndex: 0,
-  onOpen: vi.fn(),
+  onToggle: vi.fn(),
   open: false,
 };

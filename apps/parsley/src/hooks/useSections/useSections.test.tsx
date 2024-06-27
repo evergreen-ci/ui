@@ -166,7 +166,7 @@ describe("useSections", () => {
   });
 
   describe("opening and closing sections", () => {
-    it("toggleSection function toggles the open state", async () => {
+    it("toggleFunctionSection function toggles the open state", async () => {
       RenderFakeToastContext();
       const { result } = renderHook(() => useSections({ logs, ...metadata }), {
         wrapper,
@@ -178,7 +178,7 @@ describe("useSections", () => {
         expect(result.current.sectionState).toStrictEqual(initialSectionState);
       });
       act(() => {
-        result.current.toggleSection({
+        result.current.toggleFunctionSection({
           functionID: "function-1",
           isOpen: true,
         });
@@ -190,7 +190,7 @@ describe("useSections", () => {
         });
       });
       act(() => {
-        result.current.toggleSection({
+        result.current.toggleFunctionSection({
           functionID: "function-9",
           isOpen: true,
         });
@@ -203,7 +203,7 @@ describe("useSections", () => {
         });
       });
       act(() => {
-        result.current.toggleSection({
+        result.current.toggleFunctionSection({
           functionID: "function-1",
           isOpen: false,
         });
@@ -214,8 +214,21 @@ describe("useSections", () => {
           "function-9": { ...initialSectionState["function-9"], isOpen: true },
         });
       });
+    });
+
+    it.only("toggleCommandSection toggles the open state", async () => {
+      RenderFakeToastContext();
+      const { result } = renderHook(() => useSections({ logs, ...metadata }), {
+        wrapper,
+      });
+      await waitFor(() => {
+        expect(result.current.sectionData).toStrictEqual(sectionData);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual(initialSectionState);
+      });
       act(() => {
-        result.current.toggleSection({
+        result.current.toggleCommandSection({
           commandID: "command-9",
           functionID: "function-9",
           isOpen: true,
@@ -229,7 +242,7 @@ describe("useSections", () => {
               ...initialSectionState["function-9"].commands,
               "command-9": { isOpen: true },
             },
-            isOpen: true,
+            isOpen: false,
           },
         });
       });

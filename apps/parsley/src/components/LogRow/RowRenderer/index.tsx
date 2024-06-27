@@ -31,7 +31,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     searchState,
     sectioning,
   } = useLogContext();
-  const { toggleSection } = sectioning;
+  const { toggleFunctionSection } = sectioning;
   const { prettyPrint, wordWrapFormat, wrap } = preferences;
 
   const { searchTerm } = searchState;
@@ -79,7 +79,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           functionID={processedLogLine.functionID}
           functionName={processedLogLine.functionName}
           lineIndex={index}
-          onOpen={toggleSection}
+          onToggle={toggleFunctionSection}
           open={processedLogLine.isOpen}
           status={SectionStatus.Pass} // TODO: Update in DEVPROD-5295
         />
