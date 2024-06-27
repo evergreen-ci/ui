@@ -11,7 +11,7 @@
         aria-disabled="false"
         aria-label="Click to open or close section"
         class="leafygreen-ui-76dd2i"
-        data-cy="section-header-caret"
+        data-cy="caret-toggle"
         tabindex="0"
       >
         <div
@@ -19,7 +19,7 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1w7l4ch1"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1oyg0iq0"
             fill="none"
             height="16"
             open=""
