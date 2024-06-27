@@ -38,10 +38,11 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
 
   const handleAdd = () => {
     setIsAddAnnotationModalVisible(true);
-    const analyticsType = isIssue
-      ? "Click Add Annotation Issue Button"
-      : "Click Add Annotation Suspected Issue Button";
-    annotationAnalytics.sendEvent({ name: analyticsType });
+
+    annotationAnalytics.sendEvent({
+      name: "Add task annotation",
+      type: isIssue ? "Issue" : "Suspected Issue",
+    });
   };
   return (
     <>

@@ -45,7 +45,8 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
       data-cy={issueKey}
       onClick={() =>
         annotationAnalytics.sendEvent({
-          name: "Click Annotation Ticket Link",
+          name: "Clicked annotation link",
+          target: "Jira ticket link",
         })
       }
     >
