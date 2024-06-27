@@ -67,7 +67,8 @@ buildvariants:
         patchable: false
         priority: 100
       - name: deploy_prod_spruce
-        disable: true
+        git_tag_only: true
+        patchable: false
         priority: 100
 
   - name: parsley
@@ -99,7 +100,8 @@ buildvariants:
         patchable: false
         priority: 100
       - name: deploy_prod_parsley
-        disable: true
+        git_tag_only: true
+        patchable: false
         priority: 100
 
   - name: lib
