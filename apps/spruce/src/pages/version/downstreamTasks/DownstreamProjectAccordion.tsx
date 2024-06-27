@@ -94,7 +94,6 @@ export const DownstreamProjectAccordion: React.FC<
       dispatchToast.error(`Error fetching downstream tasks ${err}`);
     },
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   usePolling({ startPolling, stopPolling, refetch });
 
   const showSkeleton = !data;

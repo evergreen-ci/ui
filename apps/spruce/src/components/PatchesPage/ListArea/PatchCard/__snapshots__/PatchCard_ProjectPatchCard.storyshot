@@ -1,0 +1,139 @@
+<div>
+  <div
+    class="css-oxf11t-CardWrapper e1v2go1e6"
+    data-cy="patch-card"
+  >
+    <div
+      class="css-17a1idw-Center-Left e1v2go1e4"
+    >
+      <a
+        class="lg-ui-0001 e1v2go1e2 css-1rriyg1-StyledLink-DescriptionLink leafygreen-ui-sv8tvj"
+        data-cy="patch-card-patch-link"
+        href="/version/667b2f7f7a878200076f23d1/tasks"
+      >
+        <span>
+          'evergreen-ci/ui' pull request #206 by khelif96: DEVPROD-8367 Update analytics event names for annotation actions (https://github.com/evergreen-ci/ui/pull/206)
+        </span>
+      </a>
+      <div
+        class="css-l6wh1p-TimeAndProject e1v2go1e0"
+      >
+        Jun 25, 2024, 8:58:39 PM UTC
+         
+        by
+         
+        <a
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+          data-cy="user-patches-link"
+          href="/user/mohamed.khelif/patches"
+        >
+          <span>
+            <strong>
+              Mohamed Khelif
+            </strong>
+          </span>
+        </a>
+      </div>
+    </div>
+    <div
+      class="css-1f48wms-Center e1v2go1e5"
+    >
+      <div
+        class="css-12c8t6i-PatchBadgeContainer e1v2go1e1"
+      >
+        <div
+          class="leafygreen-ui-ud6teo"
+        >
+          Failed
+        </div>
+      </div>
+      <div
+        class="css-1ajiuot-TaskBadgeContainer e1v2go1e7"
+      >
+        <div
+          class="leafygreen-ui-cssveg"
+        >
+          <a
+            data-cy="grouped-task-status-badge"
+            href="/version/667b2f7f7a878200076f23d1/tasks?statuses=success"
+          >
+            <div
+              class="css-1d7t73j-BadgeContainer emc61an4"
+              fill="#E3FCF7"
+            >
+              <span
+                class="css-1f81ztl-Number emc61an2"
+              >
+                8
+              </span>
+              <span
+                class="css-oqj204-Status emc61an1"
+              >
+                Succeeded
+              </span>
+            </div>
+          </a>
+        </div>
+        <div
+          class="leafygreen-ui-cssveg"
+        >
+          <a
+            data-cy="grouped-task-status-badge"
+            href="/version/667b2f7f7a878200076f23d1/tasks?statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue"
+          >
+            <div
+              class="css-1s2ykav-BadgeContainer emc61an4"
+              fill="#FFEAE5"
+            >
+              <span
+                class="css-1f81ztl-Number emc61an2"
+              >
+                1
+              </span>
+              <span
+                class="css-oqj204-Status emc61an1"
+              >
+                Failed
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="css-11r5mo2-Right e1v2go1e3"
+    >
+      <button
+        aria-disabled="false"
+        class="lg-ui-button-0000 leafygreen-ui-2jj1me"
+        data-cy="patch-card-dropdown"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-v95oty"
+        >
+          <svg
+            aria-label="Ellipsis Icon"
+            class=""
+            fill="none"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M2.75 6a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm5 0a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5Zm6.75 1.75a1.75 1.75 0 1 0-3.5 0 1.75 1.75 0 0 0 3.5 0Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

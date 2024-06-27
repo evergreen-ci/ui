@@ -8674,7 +8674,7 @@ export type UserDistroSettingsPermissionsQuery = {
 };
 
 export type UserPatchesQueryVariables = Exact<{
-  userId: Scalars["String"]["input"];
+  userId?: InputMaybe<Scalars["String"]["input"]>;
   patchesInput: PatchesInput;
 }>;
 
