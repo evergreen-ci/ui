@@ -8,14 +8,14 @@ import Icon from "components/Icon";
 import { Row } from "components/LogRow/types";
 import { SectionStatus } from "constants/logs";
 import { size, transitionDuration } from "constants/tokens";
-import { OpenSection } from "hooks/useSections";
+import { ToggleSection } from "hooks/useSections";
 
 const { gray } = palette;
 
 interface SectionHeaderProps extends Row {
   functionName: string;
   functionID: string;
-  onOpen: OpenSection;
+  onOpen: ToggleSection;
   open: boolean;
   status: SectionStatus;
 }

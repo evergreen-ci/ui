@@ -12,7 +12,7 @@ export type SectionState = {
     commands: { [commandID: string]: { isOpen: boolean } };
   };
 };
-export type OpenSection = (props: {
+export type ToggleSection = (props: {
   functionID: string;
   commandID?: string;
   isOpen: boolean;
@@ -20,7 +20,7 @@ export type OpenSection = (props: {
 
 export interface UseSectionsResult {
   sectionData: SectionData | undefined;
-  openSection: OpenSection;
+  toggleSection: ToggleSection;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
 }
@@ -69,7 +69,7 @@ export const useSections = ({
     }
   }, [sectionData, sectionState]);
 
-  const openSection: OpenSection = useCallback(
+  const toggleSection: ToggleSection = useCallback(
     ({ commandID, functionID, isOpen }) => {
       setSectionState((currentState) => {
         if (currentState) {
@@ -87,10 +87,10 @@ export const useSections = ({
     [sectionState],
   );
   return {
-    openSection,
     sectionData,
     sectionState,
     sectioningEnabled,
+    toggleSection,
   };
 };
 

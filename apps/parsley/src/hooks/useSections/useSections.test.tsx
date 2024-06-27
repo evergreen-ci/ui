@@ -166,7 +166,7 @@ describe("useSections", () => {
   });
 
   describe("opening and closing sections", () => {
-    it("openSection function toggles the open state", async () => {
+    it("toggleSection function toggles the open state", async () => {
       RenderFakeToastContext();
       const { result } = renderHook(() => useSections({ logs, ...metadata }), {
         wrapper,
@@ -178,7 +178,10 @@ describe("useSections", () => {
         expect(result.current.sectionState).toStrictEqual(initialSectionState);
       });
       act(() => {
-        result.current.openSection({ functionID: "function-1", isOpen: true });
+        result.current.toggleSection({
+          functionID: "function-1",
+          isOpen: true,
+        });
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
@@ -187,7 +190,10 @@ describe("useSections", () => {
         });
       });
       act(() => {
-        result.current.openSection({ functionID: "function-9", isOpen: true });
+        result.current.toggleSection({
+          functionID: "function-9",
+          isOpen: true,
+        });
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
@@ -197,7 +203,10 @@ describe("useSections", () => {
         });
       });
       act(() => {
-        result.current.openSection({ functionID: "function-1", isOpen: false });
+        result.current.toggleSection({
+          functionID: "function-1",
+          isOpen: false,
+        });
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
@@ -206,7 +215,7 @@ describe("useSections", () => {
         });
       });
       act(() => {
-        result.current.openSection({
+        result.current.toggleSection({
           commandID: "command-9",
           functionID: "function-9",
           isOpen: true,
