@@ -44,7 +44,7 @@ describe("SectionHeader", () => {
     const user = userEvent.setup();
     const onOpen = vi.fn();
     render(<SectionHeader {...sectionHeaderProps} onOpen={onOpen} />);
-    const openButton = screen.getByDataCy("section-header-caret");
+    const openButton = screen.getByDataCy("caret-toggle");
     await user.click(openButton);
     expect(onOpen).toHaveBeenCalledTimes(1);
     expect(onOpen).toHaveBeenCalledWith("load_data", true);
