@@ -62,9 +62,12 @@ buildvariants:
       - name: storybook
       - name: test
       - name: type_check
-      - name: deploy_prod_spruce
+      - name: deploy-spruce-prod
         git_tag_only: true
         patchable: false
+        priority: 100
+      - name: deploy_prod_spruce
+        disable: true
         priority: 100
 
   - name: parsley
@@ -91,9 +94,12 @@ buildvariants:
       - name: storybook
       - name: test
       - name: type_check
-      - name: deploy_prod_parsley
+      - name: deploy-parsley-prod
         git_tag_only: true
         patchable: false
+        priority: 100
+      - name: deploy_prod_parsley
+        disable: true
         priority: 100
 
   - name: lib
