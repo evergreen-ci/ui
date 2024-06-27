@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import { resolve } from "path";
+import { execTrim } from "../shell";
 import { DeployableApp } from "../types";
 
 /**
@@ -17,12 +18,11 @@ const push = () => {
   }
 };
 
-const getGitRoot = () =>
-  execSync(`git rev-parse --show-toplevel`, {
-    encoding: "utf-8",
-  })
-    .toString()
-    .trim();
+/**
+ * getGitRoot yields the absolute path to the directory where the caller's .git directory is located.
+ * @returns - path to .git
+ */
+const getGitRoot = () => execTrim(`git rev-parse --show-toplevel`);
 
 /**
  * `getCommitMessages` returns a string of all commit messages between the currently deployed commit and HEAD.
@@ -43,12 +43,9 @@ const getCommitMessages = (
     "apps",
     app === "spruce" ? "parsley" : "spruce",
   );
-  const commitMessages = execSync(
+  const commitMessages = execTrim(
     `git log ${fromCommit}..${toCommit} --oneline -- ${appDir} '!${excludeDir}'`,
-    { encoding: "utf-8" },
-  )
-    .toString()
-    .trim();
+  );
   return commitMessages;
 };
 
@@ -58,25 +55,14 @@ const getCommitMessages = (
  * The current commit is the commit that is currently checked out on your local machine and will be deployed to production.
  * @returns - the current commit
  */
-const getCurrentCommit = () => {
-  const currentCommit = execSync("git rev-parse HEAD", {
-    encoding: "utf-8",
-  })
-    .toString()
-    .trim();
-  return currentCommit;
-};
+const getCurrentCommit = () => execTrim("git rev-parse HEAD");
 
 /**
  * `assertMainBranch` is a helper function that checks if the current branch is the main branch.
  * @throws - Will throw an error if current branch is not "main"
  */
 const assertMainBranch = () => {
-  const branchName = execSync("git branch --show-current", {
-    encoding: "utf-8",
-  })
-    .toString()
-    .trim();
+  const branchName = execTrim("git branch --show-current");
   const isOnMain = branchName === "main";
   if (!isOnMain) {
     throw Error(`Currently on branch "${branchName}"`);

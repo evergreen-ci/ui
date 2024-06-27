@@ -2,11 +2,16 @@ import { relative } from "path";
 import { getGitRoot } from "./git";
 import { DeployableApp, isDeployableApp } from "./types";
 
-const isRunningOnCI = () => process.env.CI === "true";
+export const isRunningOnCI = () => process.env.CI === "true";
 
-const isDryRun = process.argv.includes("--dry-run");
+export const isDryRun = process.argv.includes("--dry-run");
 
-const getAppToDeploy = (): DeployableApp => {
+/**
+ * getAppToDeploy returns the name of the app being deployed. Deploy scripts must be invoked from the root of an app directory, which is validated here.
+ * @throws {Error} - errors if not being run from root of app dir
+ * @returns - name of app being deployed
+ */
+export const getAppToDeploy = (): DeployableApp => {
   const gitRoot = getGitRoot();
   const cwd = process.cwd();
 
@@ -17,5 +22,3 @@ const getAppToDeploy = (): DeployableApp => {
   }
   return appName;
 };
-
-export { getAppToDeploy, isRunningOnCI, isDryRun };

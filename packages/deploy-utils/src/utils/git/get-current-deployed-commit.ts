@@ -4,6 +4,11 @@ import { DeployableApp } from "../types";
 
 const commitIsCorrectLength = (commit: string) => commit.length === 40;
 
+/**
+ * getRemotePreviousCommit fetches the commit hash currently deployed to the given app
+ * @param app - name of app to query
+ * @returns  - promise resolving to commit hash
+ */
 export const getRemotePreviousCommit = (
   app: DeployableApp,
 ): Promise<string> => {
@@ -23,6 +28,12 @@ export const getRemotePreviousCommit = (
   });
 };
 
+/**
+ * getCurrentlyDeployedCommit returns the commit hash currently deployed. It first attempts to fetch the remote value and falls back to querying the latest local git tag associated with the given app.
+ * @param app - name of app to query
+ * @throws {Error} - errors if commit hash is not found remotely or locally
+ * @returns - currently deployed commit hash
+ */
 export const getCurrentlyDeployedCommit = async (app: DeployableApp) => {
   let commit = "";
   try {

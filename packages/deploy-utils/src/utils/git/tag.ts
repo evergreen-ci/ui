@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { green, underline } from "../shell";
+import { execTrim, green, underline } from "../shell";
 import { DeployableApp } from "../types";
 
 /**
@@ -35,14 +35,9 @@ const createTagAndPush = (version: "patch" | "minor" | "major") => {
  */
 const getLatestTag = (app: DeployableApp) => {
   try {
-    const latestTag = execSync(
+    const latestTag = execTrim(
       `git describe --tags --abbrev=0 --match="${app}/*"`,
-      {
-        encoding: "utf-8",
-      },
-    )
-      .toString()
-      .trim();
+    );
     return latestTag;
   } catch (err) {
     throw Error("Getting latest tag failed.", { cause: err });
@@ -57,11 +52,7 @@ const getLatestTag = (app: DeployableApp) => {
  */
 const getTagFromCommit = (commit: string) => {
   try {
-    return execSync(`git describe --abbrev=0 ${commit}`, {
-      encoding: "utf-8",
-    })
-      .toString()
-      .trim();
+    return execTrim(`git describe --abbrev=0 ${commit}`);
   } catch (e) {
     throw Error(`Getting tag from commit ${commit}`, { cause: e });
   }
