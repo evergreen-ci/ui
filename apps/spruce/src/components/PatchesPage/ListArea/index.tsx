@@ -4,7 +4,7 @@ import { PatchesPagePatchesFragment } from "gql/generated/types";
 import PatchCard from "./PatchCard";
 
 type ListAreaProps = {
-  patches?: PatchesPagePatchesFragment;
+  patches: PatchesPagePatchesFragment["patches"];
   pageType: "project" | "user";
   loading: boolean;
 };
@@ -13,10 +13,10 @@ const ListArea: React.FC<ListAreaProps> = ({ loading, pageType, patches }) => {
   if (loading) {
     return <ListSkeleton />;
   }
-  if (patches && patches?.patches.length !== 0) {
+  if (patches.length > 0) {
     return (
       <>
-        {patches.patches.map((p) => (
+        {patches.map((p) => (
           <PatchCard
             key={p.id}
             pageType={pageType}

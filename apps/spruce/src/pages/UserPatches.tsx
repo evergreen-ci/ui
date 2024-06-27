@@ -33,7 +33,7 @@ export const UserPatches = () => {
     UserPatchesQueryVariables
   >(USER_PATCHES, {
     variables: {
-      userId: userId || "",
+      userId,
       patchesInput: {
         ...patchesInput,
         includeCommitQueue: isCommitQueueCheckboxChecked,

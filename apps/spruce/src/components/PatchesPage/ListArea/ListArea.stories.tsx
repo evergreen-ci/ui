@@ -5,15 +5,23 @@ import { patchData } from "./testData";
 const patches = new Array(4).fill(patchData);
 export default {
   component: ListArea,
+  args: {
+    loading: false,
+    pageType: "project",
+  },
+  argTypes: {
+    pageType: {
+      control: "radio",
+      options: ["project", "user"],
+    },
+  },
 } satisfies CustomMeta<typeof ListArea>;
 
 export const Default: CustomStoryObj<typeof ListArea> = {
   render: (args) => <ListArea {...args} />,
   argTypes: {},
   args: {
-    patches: { patches, filteredPatchCount: 4 },
-    loading: false,
-    pageType: "project",
+    patches,
   },
 };
 
@@ -21,8 +29,6 @@ export const Empty: CustomStoryObj<typeof ListArea> = {
   render: (args) => <ListArea {...args} />,
   argTypes: {},
   args: {
-    patches: { patches: [], filteredPatchCount: 0 },
-    loading: false,
-    pageType: "project",
+    patches: [],
   },
 };

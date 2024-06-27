@@ -134,7 +134,11 @@ export const PatchesPage: React.FC<Props> = ({
           onChange={handlePageSizeChange}
         />
       </PaginationRow>
-      <ListArea patches={patches} loading={loading} pageType={pageType} />
+      <ListArea
+        patches={patches?.patches || []}
+        loading={loading}
+        pageType={pageType}
+      />
     </PageWrapper>
   );
 };
