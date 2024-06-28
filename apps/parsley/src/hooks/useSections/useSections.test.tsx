@@ -216,7 +216,7 @@ describe("useSections", () => {
       });
     });
 
-    it.only("toggleCommandSection toggles the open state", async () => {
+    it("toggleCommandSection toggles the open state", async () => {
       RenderFakeToastContext();
       const { result } = renderHook(() => useSections({ logs, ...metadata }), {
         wrapper,
