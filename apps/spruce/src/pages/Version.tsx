@@ -45,7 +45,6 @@ export const VersionPage: React.FC = () => {
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   // Reset state when version ID changes.
-  // This triggers a re-fetch of the HasVersion query.
   useEffect(() => {
     setIsLoadingData(true);
     setRedirectURL(undefined);
