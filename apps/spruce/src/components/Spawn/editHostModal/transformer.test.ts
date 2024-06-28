@@ -29,6 +29,7 @@ describe("edit spawn host modal", () => {
       sleepSchedule: {
         dailyStartTime: "09:00",
         dailyStopTime: "17:00",
+        isBetaTester: false,
         permanentlyExempt: false,
         shouldKeepOff: false,
         timeZone: "America/New_York",
@@ -57,6 +58,7 @@ const formState = {
     expiration: "Wed Oct 19 2022 08:56:42 GMT-0400 (Eastern Daylight Time)",
     hostUptime: {
       useDefaultUptimeSchedule: false,
+      isBetaTester: false,
       sleepSchedule: {
         enabledWeekdays: [false, true, true, true, true, false, false],
         timeSelection: {

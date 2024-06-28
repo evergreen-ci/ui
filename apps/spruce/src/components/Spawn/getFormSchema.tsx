@@ -4,10 +4,11 @@ import Badge from "@leafygreen-ui/badge";
 import { Body } from "@leafygreen-ui/typography";
 import { add } from "date-fns";
 import widgets from "components/SpruceForm/Widgets";
+import { StyledLink } from "components/styles";
+import { hostUptimeDocumentationUrl } from "constants/externalResources";
 import { prettifyTimeZone } from "constants/fieldMaps";
 import { size } from "constants/tokens";
 import { MyPublicKeysQuery } from "gql/generated/types";
-import { isProduction } from "utils/environmentVariables";
 import {
   defaultStartDate,
   defaultStopDate,
@@ -98,6 +99,10 @@ const getHostUptimeSchema = ({
       details: {
         type: "null" as "null",
       },
+      isBetaTester: {
+        type: "boolean" as "boolean",
+        title: "",
+      },
       ...(isEditModal && {
         temporarilyExemptUntil: {
           type: "string" as "string",
@@ -174,6 +179,28 @@ const getHostUptimeSchema = ({
       ),
       "ui:showLabel": false,
       "ui:warnings": hostUptimeWarnings?.warnings,
+    },
+    isBetaTester: {
+      "ui:widget": widgets.ToggleWidget,
+      "ui:customLabel": (
+        <>
+          <Badge variant="blue">Beta</Badge> Enable host uptime scheduling
+        </>
+      ),
+      "ui:descriptionNode": (
+        <>
+          Pausing hosts overnight reduces idle time outside of user-set hours.
+          Any schedule configured above will not take effect unless you opt in
+          to the beta.{" "}
+          <StyledLink
+            href={hostUptimeDocumentationUrl}
+            hideExternalIcon={false}
+          >
+            Learn more about host sleep schedules
+          </StyledLink>
+          .
+        </>
+      ),
     },
     temporarilyExemptUntil: {
       "ui:disableAfter": exemptionRange.disableAfter,
@@ -268,8 +295,7 @@ export const getExpirationDetailsSchema = ({
                 noExpiration: {
                   enum: [true],
                 },
-                ...(!isProduction() &&
-                  !permanentlyExempt && { hostUptime: hostUptime.schema }),
+                ...(!permanentlyExempt && { hostUptime: hostUptime.schema }),
               },
             },
           ],

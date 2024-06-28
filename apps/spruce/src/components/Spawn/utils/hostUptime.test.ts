@@ -69,6 +69,7 @@ describe("validator", () => {
         expirationDetails: {
           hostUptime: {
             useDefaultUptimeSchedule: false,
+            isBetaTester: true,
             sleepSchedule: {
               enabledWeekdays: [],
               timeSelection: {
@@ -87,6 +88,32 @@ describe("validator", () => {
     expect(f).toHaveBeenCalledTimes(0);
   });
 
+  it("returns error even if beta testing is disabled in form", () => {
+    const f = vi.fn();
+    validator(false)(
+      {
+        expirationDetails: {
+          hostUptime: {
+            useDefaultUptimeSchedule: false,
+            isBetaTester: false,
+            sleepSchedule: {
+              enabledWeekdays: [true, true, true, true, true, true, true],
+              timeSelection: {
+                startTime: "",
+                stopTime: "",
+                runContinuously: true,
+              },
+            },
+          },
+          noExpiration: true,
+        },
+      },
+      // @ts-expect-error
+      { expirationDetails: { hostUptime: { details: { addError: f } } } },
+    );
+    expect(f).toHaveBeenCalledTimes(1);
+  });
+
   it("returns error when the host has too many uptime hours", () => {
     const f = vi.fn();
     validator(false)(
@@ -94,6 +121,7 @@ describe("validator", () => {
         expirationDetails: {
           hostUptime: {
             useDefaultUptimeSchedule: false,
+            isBetaTester: true,
             sleepSchedule: {
               enabledWeekdays: [true, true, true, true, true, true, true],
               timeSelection: {
@@ -119,6 +147,7 @@ describe("validator", () => {
         expirationDetails: {
           hostUptime: {
             useDefaultUptimeSchedule: false,
+            isBetaTester: true,
             sleepSchedule: {
               enabledWeekdays: [false, true, true, true, true, true, false],
               timeSelection: {
@@ -144,6 +173,7 @@ describe("validator", () => {
         expirationDetails: {
           hostUptime: {
             useDefaultUptimeSchedule: false,
+            isBetaTester: true,
             sleepSchedule: {
               enabledWeekdays: [],
               timeSelection: {
@@ -187,6 +217,7 @@ describe("validator", () => {
           expirationDetails: {
             hostUptime: {
               useDefaultUptimeSchedule: true,
+              isBetaTester: true,
               sleepSchedule: {
                 enabledWeekdays: [],
                 timeSelection: {
@@ -217,6 +248,7 @@ describe("validator", () => {
           expirationDetails: {
             hostUptime: {
               useDefaultUptimeSchedule: false,
+              isBetaTester: true,
               sleepSchedule: {
                 enabledWeekdays: [],
                 timeSelection: {
@@ -247,6 +279,7 @@ describe("validator", () => {
           expirationDetails: {
             hostUptime: {
               useDefaultUptimeSchedule: false,
+              isBetaTester: true,
               sleepSchedule: {
                 enabledWeekdays: [],
                 timeSelection: {
@@ -277,6 +310,7 @@ describe("getHostUptimeFromGql", () => {
     const sched = {
       dailyStartTime: "08:00",
       dailyStopTime: "20:00",
+      isBetaTester: true,
       permanentlyExempt: true,
       shouldKeepOff: true,
       temporarilyExemptUntil: null,
@@ -296,6 +330,7 @@ describe("getHostUptimeFromGql", () => {
         },
       },
       temporarilyExemptUntil: "",
+      isBetaTester: true,
     });
   });
 
@@ -303,6 +338,7 @@ describe("getHostUptimeFromGql", () => {
     const sched = {
       dailyStartTime: "09:00",
       dailyStopTime: "21:00",
+      isBetaTester: true,
       permanentlyExempt: true,
       shouldKeepOff: true,
       temporarilyExemptUntil: new Date("2024-07-01"),
@@ -323,6 +359,7 @@ describe("getHostUptimeFromGql", () => {
       },
       temporarilyExemptUntil:
         "Mon Jul 01 2024 00:00:00 GMT+0000 (Coordinated Universal Time)",
+      isBetaTester: true,
     });
   });
 
@@ -330,6 +367,7 @@ describe("getHostUptimeFromGql", () => {
     const sched = {
       dailyStartTime: "",
       dailyStopTime: "",
+      isBetaTester: true,
       permanentlyExempt: true,
       shouldKeepOff: true,
       temporarilyExemptUntil: null,
@@ -349,6 +387,7 @@ describe("getHostUptimeFromGql", () => {
         },
       },
       temporarilyExemptUntil: "",
+      isBetaTester: true,
     });
   });
 });
@@ -359,6 +398,7 @@ describe("getSleepSchedule", () => {
       getSleepSchedule(
         {
           useDefaultUptimeSchedule: true,
+          isBetaTester: false,
           sleepSchedule: {
             enabledWeekdays: [false, false, true, true, true, true, false],
             timeSelection: {
@@ -375,6 +415,7 @@ describe("getSleepSchedule", () => {
     ).toStrictEqual({
       dailyStartTime: "08:00",
       dailyStopTime: "20:00",
+      isBetaTester: false,
       permanentlyExempt: false,
       shouldKeepOff: false,
       timeZone: "America/New_York",
@@ -387,6 +428,7 @@ describe("getSleepSchedule", () => {
       getSleepSchedule(
         {
           useDefaultUptimeSchedule: false,
+          isBetaTester: false,
           sleepSchedule: {
             enabledWeekdays: [false, false, true, true, true, true, false],
             timeSelection: {
@@ -403,6 +445,7 @@ describe("getSleepSchedule", () => {
     ).toStrictEqual({
       dailyStartTime: "",
       dailyStopTime: "",
+      isBetaTester: false,
       permanentlyExempt: false,
       shouldKeepOff: false,
       timeZone: "America/New_York",
@@ -415,6 +458,7 @@ describe("getSleepSchedule", () => {
       getSleepSchedule(
         {
           useDefaultUptimeSchedule: false,
+          isBetaTester: true,
           sleepSchedule: {
             enabledWeekdays: [false, false, true, true, true, true, false],
             timeSelection: {
@@ -431,6 +475,7 @@ describe("getSleepSchedule", () => {
     ).toStrictEqual({
       dailyStartTime: "08:00",
       dailyStopTime: "20:00",
+      isBetaTester: true,
       permanentlyExempt: false,
       shouldKeepOff: false,
       timeZone: "America/New_York",

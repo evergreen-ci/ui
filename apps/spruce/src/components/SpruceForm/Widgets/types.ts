@@ -12,6 +12,7 @@ export interface SpruceWidgetProps extends WidgetProps {
     bold: boolean;
     customLabel: string;
     description: string;
+    descriptionNode: React.ReactElement;
     elementWrapperCSS: SerializedStyles;
     emptyValue: string | null;
     errors: string[];

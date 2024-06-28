@@ -187,6 +187,63 @@ describe("spawn host table", () => {
             ...baseSpawnHost,
             sleepSchedule: {
               ...defaultSleepSchedule,
+              isBetaTester: true,
+              nextStartTime: null,
+              timeZone: "America/New_York",
+              permanentlyExempt: true,
+            },
+          },
+        ]}
+      />,
+    );
+    render(
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>,
+    );
+    expect(
+      screen.queryByDataCy("pause-unexpirable-host-button"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("prompts beta user without permanent exemption", async () => {
+    const user = userEvent.setup({ delay: null });
+    const { Component } = RenderFakeToastContext(
+      <SpawnHostTable
+        hosts={[
+          {
+            ...baseSpawnHost,
+            sleepSchedule: {
+              ...defaultSleepSchedule,
+              isBetaTester: true,
+              nextStartTime: null,
+              timeZone: "America/New_York",
+              permanentlyExempt: false,
+            },
+          },
+        ]}
+      />,
+    );
+    render(
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>,
+    );
+    await user.click(screen.getByDataCy("pause-unexpirable-host-button"));
+    await waitFor(() => {
+      expect(screen.queryByDataCy("pause-sleep-schedule-modal")).toBeVisible();
+    });
+  });
+
+  it("does not prompt user when beta testing disabled", () => {
+    const { Component } = RenderFakeToastContext(
+      <SpawnHostTable
+        hosts={[
+          {
+            ...baseSpawnHost,
+            sleepSchedule: {
+              ...defaultSleepSchedule,
+              isBetaTester: false,
               nextStartTime: null,
               timeZone: "America/New_York",
               permanentlyExempt: true,
@@ -245,6 +302,7 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
+    isBetaTester: true,
     nextStartTime: new Date("2024-06-06T08:00:00Z"),
     temporarilyExemptUntil: null,
     timeZone: "America/New_York",

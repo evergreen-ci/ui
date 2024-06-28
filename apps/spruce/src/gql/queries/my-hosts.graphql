@@ -6,6 +6,7 @@ query MyHosts {
     sleepSchedule {
       dailyStartTime
       dailyStopTime
+      isBetaTester
       nextStartTime
       permanentlyExempt
       shouldKeepOff

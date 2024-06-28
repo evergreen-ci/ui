@@ -11,7 +11,6 @@ import { ValidateProps } from "components/SpruceForm";
 import { days } from "constants/fieldMaps";
 import { SleepScheduleInput } from "gql/generated/types";
 import { Optional } from "types/utils";
-import { isProduction } from "utils/environmentVariables";
 import { FormState as EditFormState } from "../editHostModal";
 import { FormState as SpawnFormState } from "../spawnHostModal";
 
@@ -39,6 +38,7 @@ export type HostUptime = {
     };
   };
   details?: null;
+  isBetaTester: boolean;
   temporarilyExemptUntil?: string;
 };
 
@@ -110,6 +110,7 @@ export const getEnabledHoursCount = (
 
 export const getSleepSchedule = (
   {
+    isBetaTester,
     sleepSchedule,
     temporarilyExemptUntil,
     useDefaultUptimeSchedule,
@@ -122,6 +123,7 @@ export const getSleepSchedule = (
       ...(temporarilyExemptUntil
         ? { temporarilyExemptUntil: new Date(temporarilyExemptUntil) }
         : {}),
+      isBetaTester,
       timeZone,
     };
   }
@@ -134,6 +136,7 @@ export const getSleepSchedule = (
   return {
     dailyStartTime: runContinuously ? "" : toTimeString(new Date(startTime)),
     dailyStopTime: runContinuously ? "" : toTimeString(new Date(stopTime)),
+    isBetaTester,
     permanentlyExempt: false,
     timeZone,
     shouldKeepOff: false,
@@ -167,10 +170,7 @@ const toTimeString = (date: Date): string =>
     minute: "2-digit",
   });
 
-type RequiredSleepSchedule = Optional<
-  SleepScheduleInput,
-  "isBetaTester" | "timeZone"
->;
+type RequiredSleepSchedule = Optional<SleepScheduleInput, "timeZone">;
 
 export const defaultSleepSchedule: RequiredSleepSchedule = {
   dailyStartTime: toTimeString(defaultStartDate),
@@ -186,6 +186,7 @@ export const getHostUptimeFromGql = (
   const {
     dailyStartTime,
     dailyStopTime,
+    isBetaTester,
     temporarilyExemptUntil,
     wholeWeekdaysOff,
   } = sleepSchedule;
@@ -193,6 +194,7 @@ export const getHostUptimeFromGql = (
   return {
     useDefaultUptimeSchedule: matchesDefaultUptimeSchedule(sleepSchedule),
     temporarilyExemptUntil: temporarilyExemptUntil?.toString() ?? "",
+    isBetaTester: !!isBetaTester,
     sleepSchedule: {
       enabledWeekdays: new Array(7)
         .fill(false)
@@ -265,6 +267,8 @@ export const validator = (permanentlyExempt: boolean) =>
 
     if (
       !isSleepScheduleActive({
+        // Set true because we to validate sleep schedule regardless of whether user is enabling it
+        isBetaTester: true,
         isTemporarilyExempt: !!temporarilyExemptUntil,
         noExpiration: !!noExpiration,
         permanentlyExempt,
@@ -322,16 +326,17 @@ export const isNullSleepSchedule = (sleepSchedule: RequiredSleepSchedule) => {
 };
 
 export const isSleepScheduleActive = ({
+  isBetaTester,
   isTemporarilyExempt,
   noExpiration,
   permanentlyExempt,
 }: {
+  isBetaTester: boolean;
   isTemporarilyExempt: boolean;
   noExpiration: boolean;
   permanentlyExempt: boolean;
 }) => {
-  // TODO DEVPROD-7517: replace prod check with beta tester check when beta period begins
-  if (isProduction()) return false;
+  if (!isBetaTester) return false;
   if (!noExpiration) return false;
   if (isTemporarilyExempt) return false;
   if (permanentlyExempt) return false;
