@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
   getEvergreenJobLogsURL,
-  getLegacyJobLogsURL,
   getLogkeeperJobLogsURL,
 } from "constants/externalURLTemplates";
 import {
@@ -42,8 +41,6 @@ type HookResult = {
   htmlLogURL: string;
   /** The URL of the RESMOKE logs job logs page in Spruce */
   jobLogsURL: string;
-  /** The URL of the RESMOKE logs job logs page in logkeeper */
-  legacyJobLogsURL: string;
   /** The URL of the log file without any processing */
   rawLogURL: string;
   /** Whether the hook is actively making an network request or not  */
@@ -117,7 +114,6 @@ export const useResolveLogURLAndRenderingType = ({
   let rawLogURL = "";
   let htmlLogURL = "";
   let jobLogsURL = "";
-  let legacyJobLogsURL = "";
   let renderingType: LogRenderingTypes = LogRenderingTypes.Default;
   let failingCommand = "";
   switch (logType) {
@@ -131,7 +127,6 @@ export const useResolveLogURLAndRenderingType = ({
       }
       if (buildID) {
         jobLogsURL = getLogkeeperJobLogsURL(buildID);
-        legacyJobLogsURL = getLegacyJobLogsURL(buildID);
       }
       downloadURL = rawLogURL;
       renderingType = LogRenderingTypes.Resmoke;
@@ -253,7 +248,6 @@ export const useResolveLogURLAndRenderingType = ({
     failingCommand,
     htmlLogURL,
     jobLogsURL,
-    legacyJobLogsURL,
     loading: isLoadingTest || isLoadingTask || isLoadingTaskFileData,
     rawLogURL,
     renderingType,
