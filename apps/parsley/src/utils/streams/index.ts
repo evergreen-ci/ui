@@ -37,7 +37,19 @@ const decodeStream = async (stream: ReadableStream, lineSizeLimit?: number) => {
       const lastIndex = result.length - 1;
       const lastLine = result[lastIndex];
       // Concatenate the last line with the first line of the "lines" array
-      result[lastIndex] = lastLine + lines[0];
+      if (
+        !lineSizeLimit ||
+        lastLine.length + lines[0].length <= lineSizeLimit
+      ) {
+        result[lastIndex] = lastLine + lines[0];
+      } else {
+        // If concatenating the line would exceed the limit, trim it
+        result[lastIndex] = trimLogLineToMaxSize(
+          lastLine + lines[0],
+          lineSizeLimit,
+        );
+        trimmedLines = true;
+      }
       // Remove the first line from the "lines" array
       lines.shift();
     }

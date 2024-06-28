@@ -24,12 +24,23 @@ describe("decodeStream", () => {
   it("should trim a line if it is longer than the line limit", async () => {
     const readableStream = createReadableStream([
       "Hello World!\n",
-      "The\n",
-      "Quick brown fox jumped over the lazy dog",
+      "The\nQ",
+      "uick brown fox jumped over the lazy dog",
     ]);
     const { result, trimmedLines } = await decodeStream(readableStream, 5);
     expect(trimmedLines).toBe(true);
     expect(result).toStrictEqual(["Hello…", "The", "Quick…"]);
+  });
+
+  it("should handle a line that is longer than the line limit spread over multiple chunks", async () => {
+    const readableStream = createReadableStream([
+      "One\nThis is a single",
+      "line that is too lon",
+      "g\nNew",
+    ]);
+    const { result, trimmedLines } = await decodeStream(readableStream, 5);
+    expect(trimmedLines).toBe(true);
+    expect(result).toStrictEqual(["One", "This …", "New"]);
   });
 });
 
