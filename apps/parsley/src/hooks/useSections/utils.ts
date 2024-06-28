@@ -65,10 +65,7 @@ const reduceFn = (
   if (!currentLine) {
     return accum;
   }
-  const { commands, functions } = {
-    commands: [...accum.commands],
-    functions: [...accum.functions],
-  };
+  const { commands, functions } = accum;
   if (currentLine.status === SectionStatus.Finished) {
     if (functions.length === 0 || commands.length === 0) {
       throw new Error(
