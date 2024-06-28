@@ -1,8 +1,4 @@
-import {
-  evergreenURL,
-  logkeeperURL,
-  spruceURL,
-} from "utils/environmentVariables";
+import { evergreenURL, spruceURL } from "utils/environmentVariables";
 import { stringifyQuery } from "utils/query-string";
 
 const getEvergreenTaskURL = (taskID: string, execution: string | number) => {
@@ -23,12 +19,4 @@ const getEvergreenJobLogsURL = (
   groupID: string,
 ) => `${spruceURL}/job-logs/${taskID}/${execution}/${groupID}`;
 
-const getLegacyJobLogsURL = (buildID: string) =>
-  `${logkeeperURL}/build/${buildID}`;
-
-export {
-  getEvergreenTaskURL,
-  getLogkeeperJobLogsURL,
-  getLegacyJobLogsURL,
-  getEvergreenJobLogsURL,
-};
+export { getEvergreenTaskURL, getLogkeeperJobLogsURL, getEvergreenJobLogsURL };

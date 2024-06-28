@@ -219,7 +219,6 @@ describe("useResolveLogURLAndRenderingType", () => {
         downloadURL: "",
         htmlLogURL: "",
         jobLogsURL: "",
-        legacyJobLogsURL: "",
         loading: true,
         rawLogURL: "",
       });
@@ -228,7 +227,6 @@ describe("useResolveLogURLAndRenderingType", () => {
           downloadURL: "rawURL",
           htmlLogURL: "htmlURL",
           jobLogsURL: "",
-          legacyJobLogsURL: "",
           loading: false,
           rawLogURL: "rawURL",
         });
@@ -265,7 +263,6 @@ describe("useResolveLogURLAndRenderingType", () => {
         downloadURL: "",
         htmlLogURL: "",
         jobLogsURL: "",
-        legacyJobLogsURL: "",
         loading: true,
         rawLogURL: "",
       });
@@ -274,7 +271,6 @@ describe("useResolveLogURLAndRenderingType", () => {
           downloadURL: "agent-link.com?priority=true&text=true&type=E",
           htmlLogURL: "agent-link.com?text=false&type=E",
           jobLogsURL: "",
-          legacyJobLogsURL: "",
           loading: false,
           rawLogURL: "agent-link.com?text=true&type=E",
         });
@@ -310,7 +306,6 @@ describe("useResolveLogURLAndRenderingType", () => {
           htmlLogURL:
             "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=false",
           jobLogsURL: "",
-          legacyJobLogsURL: "",
           loading: false,
           rawLogURL:
             "http://test-evergreen.com/test_log/a-task-id/0?test_name=a-test-name-that-doesnt-exist&text=true",
@@ -346,7 +341,6 @@ describe("useResolveLogURLAndRenderingType", () => {
             "http://test-evergreen.com/task_file_raw/a-task-id/0/a-file-name",
           htmlLogURL: "",
           jobLogsURL: "",
-          legacyJobLogsURL: "",
           loading: false,
           rawLogURL: "a-file-url",
         });
@@ -381,7 +375,6 @@ describe("useResolveLogURLAndRenderingType", () => {
             "http://test-evergreen.com/task_file_raw/a-task-id/0/a%20file%20name.some%2Fcrazy%2Fpath",
           htmlLogURL: "",
           jobLogsURL: "",
-          legacyJobLogsURL: "",
           loading: false,
           rawLogURL: "a-file-url-with-crazy-path",
         });
@@ -413,7 +406,6 @@ describe("useResolveLogURLAndRenderingType", () => {
           "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
         htmlLogURL: "",
         jobLogsURL: "http://test-spruce.com/job-logs/a-task-id/0/job0",
-        legacyJobLogsURL: "",
         loading: false,
         rawLogURL:
           "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",

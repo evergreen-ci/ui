@@ -20,7 +20,6 @@ interface LogMetadata {
   groupID?: string;
   htmlLogURL?: string;
   jobLogsURL?: string;
-  legacyJobLogsURL?: string;
   logType?: LogTypes;
   origin?: string;
   rawLogURL?: string;

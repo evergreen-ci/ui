@@ -4,7 +4,6 @@ import { FilterLogic, WordWrapFormat } from "constants/enums";
 type Action =
   | { name: "Opened Task Link" }
   | { name: "Opened Job Logs" }
-  | { name: "Opened Legacy Job Logs" }
   | { name: "Opened Raw Logs" }
   | { name: "Opened HTML Logs" }
   | { name: "Clicked Copy To Jira" }

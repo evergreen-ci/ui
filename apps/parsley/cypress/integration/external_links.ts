@@ -85,16 +85,6 @@ describe("External Links", () => {
       );
     });
 
-    it("should render a link to the legacy logkeeper log viewer in the secondary menu", () => {
-      cy.dataCy("legacy-job-logs-button").should("not.exist");
-      cy.dataCy("secondary-links-button").click();
-      cy.dataCy("legacy-job-logs-button").should("be.visible");
-      cy.dataCy("legacy-job-logs-button").should(
-        "have.attr",
-        "href",
-        "http://localhost:8080/build/7e208050e166b1a9025c817b67eee48d",
-      );
-    });
     it("should render links to the log files", () => {
       cy.dataCy("raw-log-button").should("be.visible");
       cy.dataCy("raw-log-button").should("not.be.disabled");

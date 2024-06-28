@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Button from "@leafygreen-ui/button";
-import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { usePreferencesAnalytics } from "analytics";
 import Icon from "components/Icon";
@@ -18,8 +17,7 @@ const ButtonRow: React.FC = () => {
   const [hasCopied, setHasCopied] = useState(false);
   const [bookmarks] = useQueryParam<number[]>(QueryParams.Bookmarks, []);
 
-  const { htmlLogURL, jobLogsURL, legacyJobLogsURL, rawLogURL } =
-    logMetadata || {};
+  const { htmlLogURL, jobLogsURL, rawLogURL } = logMetadata || {};
   const tooltipText = bookmarks.length
     ? "Copy bookmarked lines in JIRA format"
     : "No bookmarks to copy.";
@@ -106,28 +104,6 @@ const ButtonRow: React.FC = () => {
       >
         Open log in standard HTML format in a new tab
       </Tooltip>
-      {legacyJobLogsURL && (
-        <Menu
-          trigger={
-            <Button
-              data-cy="secondary-links-button"
-              leftGlyph={<Icon glyph="Ellipsis" />}
-            />
-          }
-        >
-          <MenuItem
-            as="a"
-            data-cy="legacy-job-logs-button"
-            disabled={!legacyJobLogsURL}
-            glyph={<Icon glyph="Export" />}
-            href={legacyJobLogsURL}
-            onClick={() => sendEvent({ name: "Opened Legacy Job Logs" })}
-            target="_blank"
-          >
-            Legacy job logs
-          </MenuItem>
-        </Menu>
-      )}
     </DetailRow>
   );
 };
