@@ -1,14 +1,13 @@
-const { execSync } = require("child_process");
-const { writeFileSync } = require("fs");
-const { join, parse } = require("path");
+import { execSync } from "child_process";
+import { writeFileSync } from "fs";
+import { join, parse } from "path";
 
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
 
 const Tasks = {
   CheckCodegen: "check_codegen",
   Compile: "compile",
-  E2EParsley: "e2e_test_parsley",
-  E2ESpruce: "e2e_test_spruce",
+  E2E: "e2e",
   Lint: "lint",
   Snapshots: "snapshots",
   Storybook: "storybook",
@@ -30,7 +29,7 @@ const TASK_MAPPING = {
   parsley: [
     Tasks.CheckCodegen,
     Tasks.Compile,
-    Tasks.E2EParsley,
+    Tasks.E2E,
     Tasks.Lint,
     Tasks.Snapshots,
     Tasks.Storybook,
@@ -40,7 +39,7 @@ const TASK_MAPPING = {
   spruce: [
     Tasks.CheckCodegen,
     Tasks.Compile,
-    Tasks.E2ESpruce,
+    Tasks.E2E,
     Tasks.Lint,
     Tasks.Snapshots,
     Tasks.Storybook,
@@ -50,7 +49,7 @@ const TASK_MAPPING = {
 };
 
 const APPS_DIR = "apps";
-const fileDestPath = join(__dirname, "../", "generate-tasks.json");
+const fileDestPath = join(process.cwd(), "/.evergreen", "generate-tasks.json");
 
 const getMergeBase = () => {
   try {

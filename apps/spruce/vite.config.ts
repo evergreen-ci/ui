@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -10,8 +10,11 @@ import vitePluginImp from "vite-plugin-imp";
 import tsconfigPaths from "vite-tsconfig-paths";
 import dns from "dns";
 import * as fs from "fs";
+import { createRequire } from "node:module";
 import path from "path";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
+
+const require = createRequire(import.meta.url);
 
 // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
 dns.setDefaultResultOrder("ipv4first");
@@ -86,7 +89,6 @@ export default defineConfig({
   },
   plugins: [
     tsconfigPaths(),
-    viteCommonjs(),
     // Inject env variables
     envCompatible({
       prefix: "REACT_APP_",

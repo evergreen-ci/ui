@@ -13,8 +13,8 @@
           class="leafygreen-ui-6bdaia"
           data-lgid="lg-label"
           data-testid="lg-form_field-label"
-          for="lg-form_field-input-254"
-          id="lg-form_field-label-251"
+          for="lg-form_field-input-266"
+          id="lg-form_field-label-263"
         >
           Some search field
         </label>
@@ -29,10 +29,10 @@
             aria-describedby=""
             aria-disabled="false"
             aria-invalid="false"
-            aria-labelledby="lg-form_field-label-251"
+            aria-labelledby="lg-form_field-label-263"
             autocomplete="on"
             class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-            id="lg-form_field-input-254"
+            id="lg-form_field-input-266"
             required=""
             type="text"
             value=""
@@ -45,7 +45,7 @@
         class="leafygreen-ui-11ydt2g"
         data-lgid="lg-form_field-feedback"
         data-testid="lg-form_field-feedback"
-        id="lg-form_field-feedback-253"
+        id="lg-form_field-feedback-265"
       />
     </div>
     <div
@@ -54,7 +54,7 @@
       <button
         aria-disabled="false"
         aria-label="Select plus button"
-        class="leafygreen-ui-76dd2i"
+        class="leafygreen-ui-tcjr3n"
         tabindex="0"
       >
         <div

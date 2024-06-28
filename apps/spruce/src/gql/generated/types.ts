@@ -1502,6 +1502,7 @@ export type PatchTriggerAlias = {
   alias: Scalars["String"]["output"];
   childProjectId: Scalars["String"]["output"];
   childProjectIdentifier: Scalars["String"]["output"];
+  downstreamRevision?: Maybe<Scalars["String"]["output"]>;
   parentAsModule?: Maybe<Scalars["String"]["output"]>;
   status?: Maybe<Scalars["String"]["output"]>;
   taskSpecifiers?: Maybe<Array<TaskSpecifier>>;
@@ -1511,6 +1512,7 @@ export type PatchTriggerAlias = {
 export type PatchTriggerAliasInput = {
   alias: Scalars["String"]["input"];
   childProjectIdentifier: Scalars["String"]["input"];
+  downstreamRevision?: InputMaybe<Scalars["String"]["input"]>;
   parentAsModule?: InputMaybe<Scalars["String"]["input"]>;
   status?: InputMaybe<Scalars["String"]["input"]>;
   taskSpecifiers: Array<TaskSpecifierInput>;
@@ -3724,6 +3726,7 @@ export type ProjectSettingsFieldsFragment = {
       __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
+      downstreamRevision?: string | null;
       parentAsModule?: string | null;
       status?: string | null;
       taskSpecifiers?: Array<{
@@ -3915,6 +3918,7 @@ export type RepoSettingsFieldsFragment = {
       __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
+      downstreamRevision?: string | null;
       parentAsModule?: string | null;
       status?: string | null;
       taskSpecifiers?: Array<{
@@ -4124,6 +4128,7 @@ export type ProjectPatchAliasSettingsFragment = {
     __typename?: "PatchTriggerAlias";
     alias: string;
     childProjectIdentifier: string;
+    downstreamRevision?: string | null;
     parentAsModule?: string | null;
     status?: string | null;
     taskSpecifiers?: Array<{
@@ -4142,6 +4147,7 @@ export type RepoPatchAliasSettingsFragment = {
     __typename?: "PatchTriggerAlias";
     alias: string;
     childProjectIdentifier: string;
+    downstreamRevision?: string | null;
     parentAsModule?: string | null;
     status?: string | null;
     taskSpecifiers?: Array<{
@@ -4296,6 +4302,7 @@ export type ProjectEventSettingsFragment = {
       __typename?: "PatchTriggerAlias";
       alias: string;
       childProjectIdentifier: string;
+      downstreamRevision?: string | null;
       parentAsModule?: string | null;
       status?: string | null;
       taskSpecifiers?: Array<{
@@ -6749,6 +6756,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "PatchTriggerAlias";
             alias: string;
             childProjectIdentifier: string;
+            downstreamRevision?: string | null;
             parentAsModule?: string | null;
             status?: string | null;
             taskSpecifiers?: Array<{
@@ -6955,6 +6963,7 @@ export type ProjectEventLogsQuery = {
             __typename?: "PatchTriggerAlias";
             alias: string;
             childProjectIdentifier: string;
+            downstreamRevision?: string | null;
             parentAsModule?: string | null;
             status?: string | null;
             taskSpecifiers?: Array<{
@@ -7240,6 +7249,7 @@ export type ProjectSettingsQuery = {
         __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
+        downstreamRevision?: string | null;
         parentAsModule?: string | null;
         status?: string | null;
         taskSpecifiers?: Array<{
@@ -7494,6 +7504,7 @@ export type RepoEventLogsQuery = {
             __typename?: "PatchTriggerAlias";
             alias: string;
             childProjectIdentifier: string;
+            downstreamRevision?: string | null;
             parentAsModule?: string | null;
             status?: string | null;
             taskSpecifiers?: Array<{
@@ -7700,6 +7711,7 @@ export type RepoEventLogsQuery = {
             __typename?: "PatchTriggerAlias";
             alias: string;
             childProjectIdentifier: string;
+            downstreamRevision?: string | null;
             parentAsModule?: string | null;
             status?: string | null;
             taskSpecifiers?: Array<{
@@ -7911,6 +7923,7 @@ export type RepoSettingsQuery = {
         __typename?: "PatchTriggerAlias";
         alias: string;
         childProjectIdentifier: string;
+        downstreamRevision?: string | null;
         parentAsModule?: string | null;
         status?: string | null;
         taskSpecifiers?: Array<{
@@ -8662,7 +8675,7 @@ export type UserDistroSettingsPermissionsQuery = {
 };
 
 export type UserPatchesQueryVariables = Exact<{
-  userId: Scalars["String"]["input"];
+  userId?: InputMaybe<Scalars["String"]["input"]>;
   patchesInput: PatchesInput;
 }>;
 

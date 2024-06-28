@@ -57,6 +57,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
             })) ?? [],
           status: migrateSuccessStatus(p.status),
           parentAsModule: p.parentAsModule ?? "",
+          downstreamRevision: p.downstreamRevision ?? "",
           isGithubTriggerAlias: githubTriggerAliases?.includes(p.alias),
           displayTitle: p.alias,
         })) ?? [],
@@ -102,6 +103,7 @@ export const formToGql = ((
             ) ?? [],
           status: a.status,
           parentAsModule: a.parentAsModule,
+          downstreamRevision: a.downstreamRevision,
         };
       })
     : null;

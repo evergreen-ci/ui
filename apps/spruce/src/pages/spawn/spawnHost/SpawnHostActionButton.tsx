@@ -46,7 +46,6 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     },
   });
   usePolling({
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     startPolling,
     stopPolling,
     refetch,

@@ -42,6 +42,7 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
     UserProjectSettingsPermissionsQueryVariables
   >(USER_PROJECT_SETTINGS_PERMISSIONS, {
     variables: { projectIdentifier: id },
+    skip: !id,
   });
 
   const {
