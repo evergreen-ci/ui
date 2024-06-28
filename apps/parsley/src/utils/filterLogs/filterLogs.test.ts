@@ -159,7 +159,10 @@ describe("filterLogs", () => {
           logLines: logsWithSections,
           matchingLines: undefined,
           sectionData,
-          sectionState: { "f-1": { isOpen: true }, "f-2": { isOpen: true } },
+          sectionState: {
+            "function-1": { commands: {}, isOpen: true },
+            "function-6": { commands: {}, isOpen: true },
+          },
           sectioningEnabled: true,
           shareLine: undefined,
         }),
@@ -176,7 +179,10 @@ describe("filterLogs", () => {
           logLines: logsWithSections,
           matchingLines: undefined,
           sectionData,
-          sectionState: { "f-1": { isOpen: false }, "f-2": { isOpen: true } },
+          sectionState: {
+            "function-1": { commands: {}, isOpen: false },
+            "function-6": { commands: {}, isOpen: true },
+          },
           sectioningEnabled: true,
           shareLine: undefined,
         }),
@@ -193,7 +199,10 @@ describe("filterLogs", () => {
           logLines: logsWithSections,
           matchingLines: undefined,
           sectionData,
-          sectionState: { "f-1": { isOpen: false }, "f-2": { isOpen: false } },
+          sectionState: {
+            "f-1": { commands: {}, isOpen: false },
+            "f-2": { commands: {}, isOpen: false },
+          },
           sectioningEnabled: true,
           shareLine: undefined,
         }),
@@ -255,14 +264,26 @@ const logsWithSections = [
   "normal log line",
 ];
 
-const sectionData = [
-  { functionName: "f-1", range: { end: 5, start: 1 } },
-  { functionName: "f-2", range: { end: 11, start: 6 } },
-];
+const sectionData = {
+  commands: [],
+  functions: [
+    {
+      functionID: "function-1",
+      functionName: "f-1",
+      range: { end: 5, start: 1 },
+    },
+    {
+      functionID: "function-6",
+      functionName: "f-2",
+      range: { end: 11, start: 6 },
+    },
+  ],
+};
 
 const allSectionsOpen = [
   0,
   {
+    functionID: "function-1",
     functionName: "f-1",
     isOpen: true,
     range: {
@@ -277,6 +298,7 @@ const allSectionsOpen = [
   4,
   5,
   {
+    functionID: "function-6",
     functionName: "f-2",
     isOpen: true,
     range: {
@@ -297,6 +319,7 @@ const allSectionsOpen = [
 const someSectionsOpen = [
   0,
   {
+    functionID: "function-1",
     functionName: "f-1",
     isOpen: false,
     range: {
@@ -307,6 +330,7 @@ const someSectionsOpen = [
   },
   5,
   {
+    functionID: "function-6",
     functionName: "f-2",
     isOpen: true,
     range: {
@@ -328,6 +352,7 @@ const someSectionsOpen = [
 const allSectionsClosed = [
   0,
   {
+    functionID: "function-1",
     functionName: "f-1",
     isOpen: false,
     range: {
@@ -338,6 +363,7 @@ const allSectionsClosed = [
   },
   5,
   {
+    functionID: "function-6",
     functionName: "f-2",
     isOpen: false,
     range: {

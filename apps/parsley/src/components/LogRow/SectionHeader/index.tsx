@@ -7,21 +7,23 @@ import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
 import { SectionStatus } from "constants/logs";
 import { size } from "constants/tokens";
-import { OpenSection } from "hooks/useSections";
+import { ToggleFunctionSection } from "hooks/useSections";
 import { CaretToggle } from "../CaretToggle";
 
 const { gray } = palette;
 
 interface SectionHeaderProps extends Row {
   functionName: string;
-  onOpen: OpenSection;
+  functionID: string;
+  onToggle: ToggleFunctionSection;
   open: boolean;
   status: SectionStatus;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
+  functionID,
   functionName,
-  onOpen,
+  onToggle,
   open,
   status,
 }) => {
@@ -39,7 +41,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             sectionName: functionName,
             sectionType: "function",
           });
-          onOpen(functionName, !open);
+          onToggle({ functionID, isOpen: !open });
         }}
         open={open}
       />

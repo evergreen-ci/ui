@@ -15,7 +15,7 @@ const SubsectionHeaderStory = () => {
         {...SubsectionHeaderProps}
         commandName="shell.exec"
         lineIndex={0}
-        onOpen={({ isOpen }) => setOpen(isOpen)}
+        onToggle={({ isOpen }) => setOpen(isOpen)}
         open={open}
       />
     </Container>

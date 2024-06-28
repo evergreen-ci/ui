@@ -21,18 +21,20 @@ interface SkippedLinesRow {
 }
 
 interface SectionHeaderRow {
-  rowType: RowType.SectionHeader;
+  functionID: string;
   functionName: string;
-  range: Range;
   isOpen: boolean;
+  range: Range;
+  rowType: RowType.SectionHeader;
 }
 
 interface SubsectionHeaderRow {
-  rowType: RowType.SubsectionHeader;
-  functionName: string;
+  commandID: string;
   commandName: string;
-  range: Range;
+  functionID: string;
   isOpen: boolean;
+  range: Range;
+  rowType: RowType.SubsectionHeader;
 }
 
 type ProcessedLogLine =

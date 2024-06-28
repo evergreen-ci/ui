@@ -81,6 +81,7 @@ describe("searchLogs", () => {
     const processedLogLines: ProcessedLogLines = [
       0,
       {
+        functionID: "function-1",
         functionName: "test",
         isOpen: true,
         range: { end: 2, start: 1 },

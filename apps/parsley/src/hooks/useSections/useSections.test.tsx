@@ -33,7 +33,10 @@ describe("useSections", () => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
     });
     await waitFor(() => {
-      expect(result.current.sectionData).toStrictEqual([]);
+      expect(result.current.sectionData).toStrictEqual({
+        commands: [],
+        functions: [],
+      });
     });
   });
 
@@ -85,9 +88,29 @@ describe("useSections", () => {
       expect(sectionUtils.parseSections).toHaveBeenCalledOnce();
     });
     await waitFor(() => {
-      expect(result.current.sectionData).toStrictEqual([
-        { functionName: "f-1", range: { end: 3, start: 1 } },
-      ]);
+      expect(result.current.sectionData).toStrictEqual({
+        commands: [
+          {
+            commandID: "command-1",
+            commandName: "c1",
+            functionID: "function-1",
+            range: {
+              end: 3,
+              start: 1,
+            },
+          },
+        ],
+        functions: [
+          {
+            functionID: "function-1",
+            functionName: "f-1",
+            range: {
+              end: 3,
+              start: 1,
+            },
+          },
+        ],
+      });
     });
   });
 
@@ -143,7 +166,7 @@ describe("useSections", () => {
   });
 
   describe("opening and closing sections", () => {
-    it("openSection function toggles the open state", async () => {
+    it("toggleFunctionSection function toggles the open state", async () => {
       RenderFakeToastContext();
       const { result } = renderHook(() => useSections({ logs, ...metadata }), {
         wrapper,
@@ -155,52 +178,175 @@ describe("useSections", () => {
         expect(result.current.sectionState).toStrictEqual(initialSectionState);
       });
       act(() => {
-        result.current.openSection("f-1", true);
+        result.current.toggleFunctionSection({
+          functionID: "function-1",
+          isOpen: true,
+        });
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
           ...initialSectionState,
-          "f-1": { isOpen: true },
+          "function-1": { ...initialSectionState["function-1"], isOpen: true },
         });
       });
       act(() => {
-        result.current.openSection("f-2", true);
+        result.current.toggleFunctionSection({
+          functionID: "function-9",
+          isOpen: true,
+        });
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
           ...initialSectionState,
-          "f-1": { isOpen: true },
-          "f-2": { isOpen: true },
+          "function-1": { ...initialSectionState["function-1"], isOpen: true },
+          "function-9": { ...initialSectionState["function-9"], isOpen: true },
         });
       });
       act(() => {
-        result.current.openSection("f-1", false);
+        result.current.toggleFunctionSection({
+          functionID: "function-1",
+          isOpen: false,
+        });
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
           ...initialSectionState,
-          "f-2": { isOpen: true },
+          "function-9": { ...initialSectionState["function-9"], isOpen: true },
+        });
+      });
+    });
+
+    it("toggleCommandSection toggles the open state", async () => {
+      RenderFakeToastContext();
+      const { result } = renderHook(() => useSections({ logs, ...metadata }), {
+        wrapper,
+      });
+      await waitFor(() => {
+        expect(result.current.sectionData).toStrictEqual(sectionData);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual(initialSectionState);
+      });
+      act(() => {
+        result.current.toggleCommandSection({
+          commandID: "command-9",
+          functionID: "function-9",
+          isOpen: true,
+        });
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual({
+          ...initialSectionState,
+          "function-9": {
+            commands: {
+              ...initialSectionState["function-9"].commands,
+              "command-9": { isOpen: true },
+            },
+            isOpen: false,
+          },
         });
       });
     });
     const logs = [
       "normal log line",
       "Running command 'c1' in function 'f-1'.",
+      "normal log line",
+      "normal log line",
+      "normal log line",
       "Finished command 'c1' in function 'f-1'.",
-      "Running command 'c1' in function 'f-2'.",
-      "Finished command 'c1' in function 'f-2'.",
-      "Running command 'c1' in function 'f-3'.",
-      "Finished command 'c1' in function 'f-3'.",
+      "Running command 'c2' in function 'f-1'.",
+      "Finished command 'c2' in function 'f-1'.",
+      "normal log line",
+      "Running command 'c3' in function 'f-2'.",
+      "normal log line",
+      "Finished command 'c3' in function 'f-2'.",
+      "Running command 'c4' in function 'f-2'.",
+      "Finished command 'c4' in function 'f-2'.",
+      "normal log line",
+      "normal log line",
+      "normal log line",
     ];
-    const sectionData = [
-      { functionName: "f-1", range: { end: 3, start: 1 } },
-      { functionName: "f-2", range: { end: 5, start: 3 } },
-      { functionName: "f-3", range: { end: 7, start: 5 } },
-    ];
+    const sectionData: sectionUtils.SectionData = {
+      commands: [
+        {
+          commandID: "command-1",
+          commandName: "c1",
+          functionID: "function-1",
+          range: {
+            end: 6,
+            start: 1,
+          },
+        },
+        {
+          commandID: "command-6",
+          commandName: "c2",
+          functionID: "function-1",
+          range: {
+            end: 8,
+            start: 6,
+          },
+        },
+        {
+          commandID: "command-9",
+          commandName: "c3",
+          functionID: "function-9",
+          range: {
+            end: 12,
+            start: 9,
+          },
+        },
+        {
+          commandID: "command-12",
+          commandName: "c4",
+          functionID: "function-9",
+          range: {
+            end: 14,
+            start: 12,
+          },
+        },
+      ],
+      functions: [
+        {
+          functionID: "function-1",
+          functionName: "f-1",
+          range: {
+            end: 8,
+            start: 1,
+          },
+        },
+        {
+          functionID: "function-9",
+          functionName: "f-2",
+          range: {
+            end: 14,
+            start: 9,
+          },
+        },
+      ],
+    };
     const initialSectionState = {
-      "f-1": { isOpen: false },
-      "f-2": { isOpen: false },
-      "f-3": { isOpen: false },
+      "function-1": {
+        commands: {
+          "command-1": {
+            isOpen: false,
+          },
+          "command-6": {
+            isOpen: false,
+          },
+        },
+        isOpen: false,
+      },
+      "function-9": {
+        commands: {
+          "command-9": {
+            isOpen: false,
+          },
+          "command-12": {
+            isOpen: false,
+          },
+        },
+        isOpen: false,
+      },
     };
   });
   const metadata = {

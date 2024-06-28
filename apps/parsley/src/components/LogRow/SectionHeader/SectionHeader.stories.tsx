@@ -40,7 +40,8 @@ const Container = styled.div`
 `;
 
 const sectionHeaderProps = {
-  onOpen: () => {},
+  functionID: "function-4",
+  onToggle: () => {},
   open: true,
   status: SectionStatus.Pass,
 };

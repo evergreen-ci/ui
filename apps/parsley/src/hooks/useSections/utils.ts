@@ -7,6 +7,7 @@ enum SectionStatus {
 }
 
 interface SectionLineMetadata {
+  commandName: string;
   functionName: string;
   status: SectionStatus;
 }
@@ -17,20 +18,34 @@ interface SectionLineMetadata {
  * or null if the input line does not indicate the start or end of a section.
  */
 export const processLine = (str: string): SectionLineMetadata | null => {
-  const regex = /(Running|Finished) command '[^']+' in function '([^']+)'.*/;
+  const regex = /(Running|Finished) command '([^']+)' in function '([^']+)'.*/;
   const match = trimSeverity(str).match(regex);
   if (match) {
     return {
-      functionName: match[2],
+      commandName: match[2],
+      functionName: match[3],
       status: match[1] as SectionStatus,
     };
   }
   return null;
 };
 
-interface SectionEntry {
-  range: Range;
+interface FunctionEntry {
+  functionID: string;
   functionName: string;
+  range: Range;
+}
+
+interface CommandEntry {
+  commandID: string;
+  commandName: string;
+  functionID: string;
+  range: Range;
+}
+
+interface SectionData {
+  functions: FunctionEntry[];
+  commands: CommandEntry[];
 }
 
 /**
@@ -41,51 +56,69 @@ interface SectionEntry {
  * @returns The updated accumulated section data after processing the current line.
  */
 const reduceFn = (
-  accum: SectionEntry[],
+  accum: SectionData,
   line: string,
   logIndex: number,
-): SectionEntry[] => {
+): SectionData => {
   const currentLine = processLine(line);
   // Skip if the current line does not indicate a section
   if (!currentLine) {
     return accum;
   }
-  const sections = [...accum];
+  const { commands, functions } = accum;
   if (currentLine.status === SectionStatus.Finished) {
-    if (sections.length === 0) {
+    if (functions.length === 0 || commands.length === 0) {
       throw new Error(
         "Log file is showing a finished section without a running section before it.",
       );
     }
     // Update the end line number exclusive of the last section in the accumulator
-    sections[sections.length - 1].range.end = logIndex + 1;
-    return sections;
+    functions[functions.length - 1].range.end = logIndex + 1;
+    commands[commands.length - 1].range.end = logIndex + 1;
+    return { commands, functions };
   }
 
-  const isNewSection =
-    sections.length === 0 ||
-    sections[sections.length - 1].functionName !== currentLine.functionName;
   /**
-   * @description - ONGOING_SECTION is used to indicate that the section is still running and has not finished yet in the log file.
+   * @description - ONGOING_ENTRY is used to indicate that the section or command is still running and has not finished yet in the log file.
    * The section parsing function will temporarily assign this value until the corresponding finished section or EOF is found.
    */
-  const ONGOING_SECTION = -1;
+  const ONGOING_ENTRY = -1;
+  if (currentLine.status === SectionStatus.Running) {
+    const isNewSection =
+      functions.length === 0 ||
+      functions[functions.length - 1].functionName !== currentLine.functionName;
+    if (isNewSection) {
+      const isPreviousSectionRunning =
+        functions.length &&
+        functions[functions.length - 1].range.end === ONGOING_ENTRY;
 
-  if (currentLine.status === SectionStatus.Running && isNewSection) {
-    const isPreviousSectionRunning =
-      sections.length &&
-      sections[sections.length - 1].range.end === ONGOING_SECTION;
-    if (isPreviousSectionRunning) {
+      if (isPreviousSectionRunning) {
+        throw new Error(
+          "Log file is showing a new running section without finishing the previous section.",
+        );
+      }
+      functions.push({
+        functionID: `function-${logIndex}`,
+        functionName: currentLine.functionName,
+        range: { end: ONGOING_ENTRY, start: logIndex },
+      });
+    }
+    const isPreviousCommandRunning =
+      commands.length &&
+      commands[commands.length - 1].range.end === ONGOING_ENTRY;
+    if (isPreviousCommandRunning) {
       throw new Error(
-        "Log file is showing a new running section without finishing the previous section.",
+        "Log file is showing a new running command without finishing the previous command.",
       );
     }
-    sections.push({
-      functionName: currentLine.functionName,
-      range: { end: ONGOING_SECTION, start: logIndex },
+    commands.push({
+      commandID: `command-${logIndex}`,
+      commandName: currentLine.commandName,
+      functionID: functions[functions.length - 1].functionID,
+      range: { end: ONGOING_ENTRY, start: logIndex },
     });
   }
-  return sections;
+  return { commands, functions };
 };
 
 /**
@@ -93,16 +126,24 @@ const reduceFn = (
  * @param logs - The array of log lines to be parsed.
  * @returns An array of section entries representing the parsed sections.
  */
-const parseSections = (logs: string[]): SectionEntry[] => {
-  const result = logs.reduce(reduceFn, [] as SectionEntry[]);
+const parseSections = (logs: string[]): SectionData => {
+  const { commands, functions } = logs.reduce(reduceFn, {
+    commands: [],
+    functions: [],
+  } as SectionData);
   const lastSectionIsRunning =
-    result.length && result[result.length - 1].range.end === -1;
+    functions.length && functions[functions.length - 1].range.end === -1;
   // Close the last section if it is still running
   if (lastSectionIsRunning) {
-    result[result.length - 1].range.end = logs.length;
+    functions[functions.length - 1].range.end = logs.length;
   }
-  return result;
+  const lastCommandIsRunning =
+    commands.length && commands[commands.length - 1].range.end === -1;
+  if (lastCommandIsRunning) {
+    commands[commands.length - 1].range.end = logs.length;
+  }
+  return { commands, functions };
 };
 
 export { parseSections, reduceFn };
-export type { SectionEntry };
+export type { FunctionEntry, SectionData, CommandEntry };

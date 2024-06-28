@@ -26,14 +26,16 @@ describe("getLinesInProcessedLogLinesFromSelectedLines", () => {
       2,
       { range: { end: 4, start: 3 }, rowType: RowType.SkippedLines },
       {
+        functionID: "function-4",
         functionName: "test",
         isOpen: true,
         range: { end: 6, start: 4 },
         rowType: RowType.SectionHeader,
       },
       {
+        commandID: "command-4",
         commandName: "shell.exec",
-        functionName: "test",
+        functionID: "function-4",
         isOpen: true,
         range: { end: 6, start: 4 },
         rowType: RowType.SubsectionHeader,
