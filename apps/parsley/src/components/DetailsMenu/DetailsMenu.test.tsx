@@ -28,7 +28,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 /**
- * `renderSharingMenu` renders the sharing menu with the default open prop
+ * `renderDetailsMenu` renders the details menu with the default open prop
  * @returns - hook and utils
  */
 const renderDetailsMenu = () => {
@@ -39,11 +39,11 @@ const renderDetailsMenu = () => {
       undefined,
     ),
   });
-  const { Component: MenuComponent, hook } = renderComponentWithHook(
+  const { Component: DetailsMenuComponent, hook } = renderComponentWithHook(
     useCombinedHook,
     <DetailsMenu disabled={false} />,
   );
-  const { Component } = RenderFakeToastContext(<MenuComponent />);
+  const { Component } = RenderFakeToastContext(<DetailsMenuComponent />);
   const utils = render(<Component />, { wrapper });
   return {
     hook,
