@@ -99,6 +99,9 @@ const PaginatedVirtualList = forwardRef<
         data-cy="paginated-virtual-list"
         itemContent={itemContent}
         overscan={300}
+        rangeChanged={(s) => {
+          console.log(s);
+        }}
         totalCount={pageSize}
       />
     );
