@@ -180,7 +180,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 justify="middle"
                 trigger={
                   <div data-cy="searchbar-error">
-                    <Icon fill={red.base} glyph="Warning" />
+                    <Icon fill={palette.red.base} glyph="Warning" />
                   </div>
                 }
                 triggerEvent="hover"
