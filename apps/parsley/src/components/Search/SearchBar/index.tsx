@@ -237,9 +237,6 @@ const StyledInput = styled(TextInputWithGlyph)`
     display: none;
   }
 `;
-const RedIcon = styled(Icon)`
-  color: ${palette.red.base};
-`;
 
 const IconButtonWrapper = styled.div`
   display: flex;
