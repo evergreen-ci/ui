@@ -44,12 +44,6 @@ export const VersionPage: React.FC = () => {
   const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
-  // Reset state when version ID changes.
-  useEffect(() => {
-    setIsLoadingData(true);
-    setRedirectURL(undefined);
-  }, [versionId]);
-
   // This query is used to fetch the version data.
   const [getVersion, { data: versionData, error: versionError }] = useLazyQuery<
     VersionQuery,
