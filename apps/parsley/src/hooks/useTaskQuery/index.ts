@@ -48,6 +48,7 @@ export const useTaskQuery = ({
     TaskQuery,
     TaskQueryVariables
   >(GET_TASK, {
+    errorPolicy: "all",
     skip: isLogkeeper || !taskID,
     variables: { execution: Number(execution), taskId: String(taskID) },
   });
