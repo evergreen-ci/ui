@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Skeleton } from "antd";
-import { useParams, useLocation } from "react-router-dom";
+import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { useParams } from "react-router-dom";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";
 import { size, fontSize } from "constants/tokens";
@@ -29,12 +29,10 @@ import {
   ALL_LOGS,
 } from "gql/queries";
 import { usePolling } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
-import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
-
-const { parseQueryString } = queryString;
 
 const { gray } = palette;
 
@@ -50,16 +48,14 @@ interface Props {
 
 export const AllLog: React.FC<Props> = (props) => {
   const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
+  const [execution] = useQueryParam<number>(RequiredQueryParams.Execution, 0);
 
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     AllLogsQuery,
     AllLogsQueryVariables
   >(ALL_LOGS, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: taskId, execution: selectedExecution },
+    variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -80,15 +76,14 @@ export const AllLog: React.FC<Props> = (props) => {
 
 export const EventLog: React.FC<Props> = (props) => {
   const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
+  const [execution] = useQueryParam<number>(RequiredQueryParams.Execution, 0);
+
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskEventLogsQuery,
     TaskEventLogsQueryVariables
   >(TASK_EVENT_LOGS, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: taskId, execution: selectedExecution },
+    variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -113,15 +108,14 @@ export const EventLog: React.FC<Props> = (props) => {
 
 export const SystemLog: React.FC<Props> = (props) => {
   const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
+  const [execution] = useQueryParam<number>(RequiredQueryParams.Execution, 0);
+
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     SystemLogsQuery,
     SystemLogsQueryVariables
   >(SYSTEM_LOGS, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: taskId, execution: selectedExecution },
+    variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -141,15 +135,14 @@ export const SystemLog: React.FC<Props> = (props) => {
 
 export const AgentLog: React.FC<Props> = (props) => {
   const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
+
+  const [execution] = useQueryParam<number>(RequiredQueryParams.Execution, 0);
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     AgentLogsQuery,
     AgentLogsQueryVariables
   >(AGENT_LOGS, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: taskId, execution: selectedExecution },
+    variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -169,15 +162,14 @@ export const AgentLog: React.FC<Props> = (props) => {
 
 export const TaskLog: React.FC<Props> = (props) => {
   const { [slugs.taskId]: taskId } = useParams();
-  const location = useLocation();
-  const parsed = parseQueryString(location.search);
-  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
+  const [execution] = useQueryParam<number>(RequiredQueryParams.Execution, 0);
+
   const { data, error, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskLogsQuery,
     TaskLogsQueryVariables
   >(TASK_LOGS, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: taskId, execution: selectedExecution },
+    variables: { id: taskId, execution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling({ startPolling, stopPolling, refetch });
@@ -214,7 +206,7 @@ const useRenderBody: React.FC<{
   }, [setNoLogs, noLogs]);
 
   if (loading) {
-    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
+    return <ParagraphSkeleton />;
   }
   if (noLogs) {
     return <div data-cy="cy-no-logs">No logs found</div>;

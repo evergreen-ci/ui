@@ -3,7 +3,7 @@ import Button from "@leafygreen-ui/button";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useQueryParam } from "hooks/useQueryParam";
 import { MainlineCommitQueryParams } from "types/commits";
 
 interface PaginationButtonsProps {
@@ -15,26 +15,24 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   prevPageOrderNumber,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
-  const updateQueryParams = useUpdateURLQueryParams();
+
+  const [, setSkipOrderNumber] = useQueryParam<number>(
+    MainlineCommitQueryParams.SkipOrderNumber,
+    null,
+  );
 
   const onNextClick = () => {
     sendEvent({ name: "Paginate", direction: "next" });
-    updateQueryParams({
-      [MainlineCommitQueryParams.SkipOrderNumber]:
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        nextPageOrderNumber.toString(),
-    });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    setSkipOrderNumber(nextPageOrderNumber);
   };
   const onPrevClick = () => {
     sendEvent({
       name: "Paginate",
       direction: "previous",
     });
-    updateQueryParams({
-      [MainlineCommitQueryParams.SkipOrderNumber]:
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        prevPageOrderNumber.toString(),
-    });
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    setSkipOrderNumber(prevPageOrderNumber);
   };
   return (
     <Container>

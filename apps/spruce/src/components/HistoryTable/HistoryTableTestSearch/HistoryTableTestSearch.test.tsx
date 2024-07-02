@@ -67,7 +67,7 @@ describe("historyTableTestSearch", () => {
     expect(input).toHaveValue("some-other-test-name");
     await user.type(input, "{enter}");
     expect(router.state.location.search).toBe(
-      `?failed=some-test-name,some-other-test-name`,
+      `?failed=some-test-name%2Csome-other-test-name`,
     );
   });
 

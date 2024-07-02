@@ -1,14 +1,14 @@
 import { useEffect, useReducer } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getPatchRoute, slugs } from "constants/routes";
 import { ConfigurePatchQuery, ParameterInput } from "gql/generated/types";
+import { useQueryParams } from "hooks/useQueryParam";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchTab } from "types/patch";
-import { queryString, string } from "utils";
+import { string } from "utils";
 import { AliasState, VariantTasksState } from "./types";
 import { initializeAliasState, initializeTaskState } from "./utils";
 
-const { parseQueryString } = queryString;
 const { omitTypename } = string;
 
 type ConfigurePatchState = {
@@ -125,7 +125,7 @@ interface HookResult extends ConfigurePatchState {
 }
 const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const [params] = useQueryParams();
   const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab }>();
 
   const { id, project } = patch;
@@ -143,12 +143,11 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const { selectedTab } = state;
 
   useEffect(() => {
-    const query = parseQueryString(location.search);
     navigate(
       getPatchRoute(id, {
         configure: true,
         tab: indexToTabMap[selectedTab],
-        ...query,
+        ...params,
       }),
       { replace: true },
     );
@@ -183,9 +182,8 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     });
   const setSelectedTab = (i: number) =>
     dispatch({ type: "setSelectedTab", tabIndex: i });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const setPatchParams = (params) =>
-    dispatch({ type: "setPatchParams", params });
+  const setPatchParams = (patchParams: ParameterInput[]) =>
+    dispatch({ type: "setPatchParams", params: patchParams });
 
   useTabShortcut({
     currentTab: selectedTab,

@@ -1,11 +1,8 @@
 import { useEffect, useState, useMemo } from "react";
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
-import { useLocation } from "react-router-dom";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString } from "utils";
+import { useQueryParam, useQueryParams } from "./useQueryParam";
 
-const { parseQueryString } = queryString;
 /**
  * Status filter state management hook.
  * @param props - filter hook params
@@ -19,9 +16,8 @@ export const useStatusesFilter = ({
   sendAnalyticsEvent = () => undefined,
   urlParam,
 }: FilterHookParams): FilterHookResult<string[]> => {
-  const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const { [urlParam]: rawStatuses } = parseQueryString(search);
+  const [rawStatuses] = useQueryParam<string[]>(urlParam, []);
+  const [queryParams, setQueryParams] = useQueryParams();
   const urlValue = useMemo(
     () =>
       Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses].filter((v) => v),
@@ -39,7 +35,8 @@ export const useStatusesFilter = ({
   }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const updateUrl = (newValue: string[]) =>
-    updateQueryParams({
+    setQueryParams({
+      ...queryParams,
       [urlParam]: newValue,
       ...(resetPage && { page: "0" }),
     });

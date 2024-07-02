@@ -9,13 +9,8 @@ export { useNetworkStatus } from "hooks/useNetworkStatus";
 export { usePageVisibility } from "hooks/usePageVisibility";
 export { usePolling } from "hooks/usePolling";
 export { useStatusesFilter } from "hooks/useStatusesFilter";
-export {
-  useTableInputFilter,
-  useTableCheckboxFilter,
-} from "hooks/useTableFilters";
 export { usePrevious } from "./usePrevious";
 export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";
-export { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
 export { useTaskStatuses } from "./useTaskStatuses";
 export { useUpsertQueryParams } from "./useUpsertQueryParams";
 export { useSpruceConfig } from "./useSpruceConfig";

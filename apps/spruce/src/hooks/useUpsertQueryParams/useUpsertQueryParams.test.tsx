@@ -71,7 +71,7 @@ describe("useUpsertQueryParams", () => {
     await user.type(value, "value2");
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(screen.queryByDataCy("submit"));
-    expect(router.state.location.search).toBe(`?category=value1,value2`);
+    expect(router.state.location.search).toBe(`?category=value1%2Cvalue2`);
   });
 
   it("should not allow duplicate input filters for the same key as query params", async () => {
