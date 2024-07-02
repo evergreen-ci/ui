@@ -1,10 +1,9 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { LogRenderingTypes } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
-import { LogContextProvider, useLogContext } from "context/LogContext";
+import { useLogContext } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { useQueryParams } from "hooks/useQueryParam";
-import { parsleySettingsMock } from "test_data/parsleySettings";
 import {
   act,
   renderWithRouterMatch as render,
@@ -15,12 +14,6 @@ import {
 } from "test_utils";
 import { renderComponentWithHook } from "test_utils/TestHooks";
 import Search from ".";
-
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[parsleySettingsMock]}>
-    <LogContextProvider>{children}</LogContextProvider>
-  </MockedProvider>
-);
 
 /**
  * `renderSearch` renders the Search component while exposing some stateful hooks to interact with it.
@@ -37,7 +30,7 @@ const renderSearch = (route?: string) => {
     <Search />,
   );
   const { Component } = RenderFakeToastContext(<MenuComponent />);
-  const utils = render(<Component />, { route, wrapper });
+  const utils = render(<Component />, { route, wrapper: logContextWrapper() });
   act(() => {
     hook.current.useLogContext.ingestLines(
       ["line 1", "line 2", "line 3"],

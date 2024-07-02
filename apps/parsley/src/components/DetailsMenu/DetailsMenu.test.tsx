@@ -1,31 +1,12 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { act, waitFor } from "@testing-library/react";
 import { QueryParams } from "constants/queryParams";
-import { LogContextProvider, useLogContext } from "context/LogContext";
+import { useLogContext } from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { useQueryParam } from "hooks/useQueryParam";
-import { parsleySettingsMock } from "test_data/parsleySettings";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { renderComponentWithHook } from "test_utils/TestHooks";
 import DetailsMenu from ".";
-
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[parsleySettingsMock]}>
-    <LogContextProvider
-      initialLogLines={[
-        "line 1",
-        "line 2",
-        "line 3",
-        "line 4",
-        "line 5",
-        "line 6",
-        "line 7",
-      ]}
-    >
-      {children}
-    </LogContextProvider>
-  </MockedProvider>
-);
 
 /**
  * `renderDetailsMenu` renders the details menu with the default open prop
@@ -44,7 +25,17 @@ const renderDetailsMenu = () => {
     <DetailsMenu disabled={false} />,
   );
   const { Component } = RenderFakeToastContext(<DetailsMenuComponent />);
-  const utils = render(<Component />, { wrapper });
+  const utils = render(<Component />, {
+    wrapper: logContextWrapper([
+      "line 1",
+      "line 2",
+      "line 3",
+      "line 4",
+      "line 5",
+      "line 6",
+      "line 7",
+    ]),
+  });
   return {
     hook,
     utils,
