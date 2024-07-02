@@ -13,6 +13,9 @@ export const cache = new InMemoryCache({
         repoEvents: {
           keyArgs: ["$id"],
         },
+        hasVersion: {
+          keyArgs: ["$patchId"],
+        },
       },
     },
     GeneralSubscription: {
