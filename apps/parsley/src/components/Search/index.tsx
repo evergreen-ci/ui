@@ -28,7 +28,7 @@ const Search: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [filters, setFilters] = useFilterParam();
   const [highlights, setHighlights] = useHighlightParam();
-  const [, setSearchParams] = useQueryParams({
+  const [searchParams, setSearchParams] = useQueryParams({
     parseNumbers: false,
   });
   const {
@@ -65,7 +65,7 @@ const Search: React.FC = () => {
 
           if (highlightFilters) {
             setSearchParams({
-              ...searchState,
+              ...searchParams,
               [QueryParams.Highlights]: [...highlights, value],
               [QueryParams.Filters]: stringifyFilters([
                 ...filters,
