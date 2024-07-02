@@ -1,4 +1,5 @@
-import { RowType } from "types/logs";
+import { SectionData } from "hooks/useSections/utils";
+import { ProcessedLogLines, RowType } from "types/logs";
 import filterLogs from ".";
 
 describe("filterLogs", () => {
@@ -152,19 +153,23 @@ describe("filterLogs", () => {
     it("all sections open", () => {
       expect(
         filterLogs({
-          bookmarks: [],
-          expandableRows: true,
-          expandedLines: [],
-          failingLine: undefined,
-          logLines: logsWithSections,
-          matchingLines: undefined,
-          sectionData,
+          ...params,
           sectionState: {
-            "function-1": { commands: {}, isOpen: true },
-            "function-6": { commands: {}, isOpen: true },
+            "function-1": {
+              commands: {
+                "command-1": { isOpen: true },
+                "command-6": { isOpen: true },
+              },
+              isOpen: true,
+            },
+            "function-9": {
+              commands: {
+                "command-9": { isOpen: true },
+                "command-12": { isOpen: true },
+              },
+              isOpen: true,
+            },
           },
-          sectioningEnabled: true,
-          shareLine: undefined,
         }),
       ).toStrictEqual(allSectionsOpen);
     });
@@ -172,19 +177,23 @@ describe("filterLogs", () => {
     it("some sections open", () => {
       expect(
         filterLogs({
-          bookmarks: [],
-          expandableRows: true,
-          expandedLines: [],
-          failingLine: undefined,
-          logLines: logsWithSections,
-          matchingLines: undefined,
-          sectionData,
+          ...params,
           sectionState: {
-            "function-1": { commands: {}, isOpen: false },
-            "function-6": { commands: {}, isOpen: true },
+            "function-1": {
+              commands: {
+                "command-1": { isOpen: true },
+                "command-6": { isOpen: true },
+              },
+              isOpen: false,
+            },
+            "function-9": {
+              commands: {
+                "command-9": { isOpen: false },
+                "command-12": { isOpen: true },
+              },
+              isOpen: true,
+            },
           },
-          sectioningEnabled: true,
-          shareLine: undefined,
         }),
       ).toStrictEqual(someSectionsOpen);
     });
@@ -192,22 +201,52 @@ describe("filterLogs", () => {
     it("all sections closed", () => {
       expect(
         filterLogs({
-          bookmarks: [],
-          expandableRows: true,
-          expandedLines: [],
-          failingLine: undefined,
-          logLines: logsWithSections,
-          matchingLines: undefined,
-          sectionData,
+          ...params,
           sectionState: {
-            "f-1": { commands: {}, isOpen: false },
-            "f-2": { commands: {}, isOpen: false },
+            "function-1": {
+              commands: {
+                "command-1": { isOpen: true },
+                "command-6": { isOpen: true },
+              },
+              isOpen: false,
+            },
+            "function-9": {
+              commands: {
+                "command-9": { isOpen: false },
+                "command-12": { isOpen: true },
+              },
+              isOpen: false,
+            },
           },
-          sectioningEnabled: true,
-          shareLine: undefined,
+        }),
+      ).toStrictEqual(allSectionsClosed);
+      expect(
+        filterLogs({
+          ...params,
+          sectionState: {
+            "f-1": {
+              commands: { c1: { isOpen: true }, c4: { isOpen: true } },
+              isOpen: false,
+            },
+            "f-2": {
+              commands: { c3: { isOpen: false }, c4: { isOpen: false } },
+              isOpen: false,
+            },
+          },
         }),
       ).toStrictEqual(allSectionsClosed);
     });
+    const params = {
+      bookmarks: [],
+      expandableRows: true,
+      expandedLines: [],
+      failingLine: undefined,
+      logLines: logsWithSections,
+      matchingLines: undefined,
+      sectionData,
+      sectioningEnabled: true,
+      shareLine: undefined,
+    };
   });
 
   it("sections are ignored when filters are applied even when sectionData exists and sections are enabled", () => {
@@ -250,6 +289,9 @@ const logLines = [
 const logsWithSections = [
   "normal log line",
   "Running command 'c1' in function 'f-1'.",
+  "normal log line",
+  "normal log line",
+  "normal log line",
   "Finished command 'c1' in function 'f-1'.",
   "Running command 'c2' in function 'f-1'.",
   "Finished command 'c2' in function 'f-1'.",
@@ -264,33 +306,87 @@ const logsWithSections = [
   "normal log line",
 ];
 
-const sectionData = {
-  commands: [],
+const sectionData: SectionData = {
+  commands: [
+    {
+      commandID: "command-1",
+      commandName: "c1",
+      functionID: "function-1",
+      range: {
+        end: 6,
+        start: 1,
+      },
+    },
+    {
+      commandID: "command-6",
+      commandName: "c2",
+      functionID: "function-1",
+      range: {
+        end: 8,
+        start: 6,
+      },
+    },
+    {
+      commandID: "command-9",
+      commandName: "c3",
+      functionID: "function-9",
+      range: {
+        end: 12,
+        start: 9,
+      },
+    },
+    {
+      commandID: "command-12",
+      commandName: "c4",
+      functionID: "function-9",
+      range: {
+        end: 14,
+        start: 12,
+      },
+    },
+  ],
   functions: [
     {
       functionID: "function-1",
       functionName: "f-1",
-      range: { end: 5, start: 1 },
+      range: {
+        end: 8,
+        start: 1,
+      },
     },
     {
-      functionID: "function-6",
+      functionID: "function-9",
       functionName: "f-2",
-      range: { end: 11, start: 6 },
+      range: {
+        end: 14,
+        start: 9,
+      },
     },
   ],
 };
 
-const allSectionsOpen = [
+const allSectionsOpen: ProcessedLogLines = [
   0,
   {
     functionID: "function-1",
     functionName: "f-1",
     isOpen: true,
     range: {
-      end: 5,
+      end: 8,
       start: 1,
     },
     rowType: RowType.SectionHeader,
+  },
+  {
+    commandID: "command-1",
+    commandName: "c1",
+    functionID: "function-1",
+    isOpen: true,
+    range: {
+      end: 6,
+      start: 1,
+    },
+    rowType: RowType.SubsectionHeader,
   },
   1,
   2,
@@ -298,81 +394,137 @@ const allSectionsOpen = [
   4,
   5,
   {
-    functionID: "function-6",
-    functionName: "f-2",
-    isOpen: true,
-    range: {
-      end: 11,
-      start: 6,
-    },
-    rowType: RowType.SectionHeader,
-  },
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-];
-const someSectionsOpen = [
-  0,
-  {
+    commandID: "command-6",
+    commandName: "c2",
     functionID: "function-1",
-    functionName: "f-1",
-    isOpen: false,
-    range: {
-      end: 5,
-      start: 1,
-    },
-    rowType: RowType.SectionHeader,
-  },
-  5,
-  {
-    functionID: "function-6",
-    functionName: "f-2",
     isOpen: true,
     range: {
-      end: 11,
+      end: 8,
       start: 6,
     },
-    rowType: RowType.SectionHeader,
+    rowType: RowType.SubsectionHeader,
   },
   6,
   7,
   8,
+  {
+    functionID: "function-9",
+    functionName: "f-2",
+    isOpen: true,
+    range: {
+      end: 14,
+      start: 9,
+    },
+    rowType: RowType.SectionHeader,
+  },
+  {
+    commandID: "command-9",
+    commandName: "c3",
+    functionID: "function-9",
+    isOpen: true,
+    range: {
+      end: 12,
+      start: 9,
+    },
+    rowType: RowType.SubsectionHeader,
+  },
   9,
   10,
   11,
+  {
+    commandID: "command-12",
+    commandName: "c4",
+    functionID: "function-9",
+    isOpen: true,
+    range: {
+      end: 14,
+      start: 12,
+    },
+    rowType: RowType.SubsectionHeader,
+  },
   12,
   13,
+  14,
+  15,
+  16,
 ];
 
-const allSectionsClosed = [
+const someSectionsOpen: ProcessedLogLines = [
   0,
   {
     functionID: "function-1",
     functionName: "f-1",
     isOpen: false,
     range: {
-      end: 5,
+      end: 8,
       start: 1,
     },
     rowType: RowType.SectionHeader,
   },
-  5,
+  8,
   {
-    functionID: "function-6",
+    functionID: "function-9",
     functionName: "f-2",
-    isOpen: false,
+    isOpen: true,
     range: {
-      end: 11,
-      start: 6,
+      end: 14,
+      start: 9,
     },
     rowType: RowType.SectionHeader,
   },
-  11,
+  {
+    commandID: "command-9",
+    commandName: "c3",
+    functionID: "function-9",
+    isOpen: false,
+    range: {
+      end: 12,
+      start: 9,
+    },
+    rowType: RowType.SubsectionHeader,
+  },
+  {
+    commandID: "command-12",
+    commandName: "c4",
+    functionID: "function-9",
+    isOpen: true,
+    range: {
+      end: 14,
+      start: 12,
+    },
+    rowType: RowType.SubsectionHeader,
+  },
   12,
   13,
+  14,
+  15,
+  16,
+];
+
+const allSectionsClosed: ProcessedLogLines = [
+  0,
+  {
+    functionID: "function-1",
+    functionName: "f-1",
+    isOpen: false,
+    range: {
+      end: 8,
+      start: 1,
+    },
+    rowType: RowType.SectionHeader,
+  },
+  8,
+  {
+    functionID: "function-9",
+    functionName: "f-2",
+    isOpen: false,
+    range: {
+      end: 14,
+      start: 9,
+    },
+    rowType: RowType.SectionHeader,
+  },
+  14,
+  15,
+  16,
 ];

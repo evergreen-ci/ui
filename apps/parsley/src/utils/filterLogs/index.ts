@@ -1,6 +1,11 @@
 import { SectionState } from "hooks/useSections";
-import { SectionData } from "hooks/useSections/utils";
-import { ExpandedLines, ProcessedLogLines, RowType } from "types/logs";
+import { CommandEntry, SectionData } from "hooks/useSections/utils";
+import {
+  ExpandedLines,
+  ProcessedLogLines,
+  RowType,
+  SubsectionHeaderRow,
+} from "types/logs";
 import { isExpanded } from "utils/expandedLines";
 import { newSkippedLinesRow } from "utils/logRow";
 import { isSkippedLinesRow } from "utils/logRowTypes";
@@ -18,6 +23,25 @@ type FilterLogsParams = {
   sectionState: SectionState | undefined;
 };
 
+/**
+ * getProccessedCommandLine returns a processed command
+ * line and is a helper function for filterLogs.
+ * @param command A command entry object from the section data.
+ * @param sectionState The state of the sections.
+ * @returns A processed line object to be inserted in ProcessedLogLines.
+ */
+const getProccessedCommandLine = (
+  command: CommandEntry,
+  sectionState: SectionState,
+): SubsectionHeaderRow => {
+  const isOpen =
+    sectionState[command.functionID].commands[command.commandID]?.isOpen;
+  return {
+    ...command,
+    isOpen,
+    rowType: RowType.SubsectionHeader,
+  };
+};
 /**
  * `filterLogs` processes log lines according to what filters, bookmarks, share line, and expanded lines are applied.
  * @param options - an object containing the parameters
@@ -49,26 +73,69 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
   } = options;
   // If there are no filters or expandable rows is not enabled, then we only have to process sections if they exist and are enabled.
   if (matchingLines === undefined) {
-    if (sectioningEnabled && sectionData?.functions.length) {
+    if (sectioningEnabled && sectionData?.functions.length && sectionState) {
       const filteredLines: ProcessedLogLines = [];
-      let sectionIndex = 0;
+      let funcIndex = 0;
+      let commandIndex = 0;
       for (let idx = 0; idx < logLines.length; idx++) {
-        const func = sectionData.functions[sectionIndex];
-        const isSectionStart = func && idx === func.range.start;
-        if (isSectionStart && sectionState) {
-          const isOpen = sectionState[func.functionID]?.isOpen ?? false;
+        const func = sectionData.functions[funcIndex];
+        const isFuncStart = func && idx === func.range.start;
+        const isFuncOpen = sectionState[func?.functionID]?.isOpen ?? false;
+
+        const command = sectionData.commands[commandIndex];
+        const isCommandStart = command && idx === command.range.start;
+
+        if (isFuncStart) {
+          // A function start is detected.
           filteredLines.push({
             ...func,
-            isOpen,
+            isOpen: isFuncOpen,
             rowType: RowType.SectionHeader,
           });
-          sectionIndex += 1;
-          if (isOpen) {
+          funcIndex += 1;
+          if (isFuncOpen) {
+            if (isCommandStart) {
+              // The line marks the start of an open function and a command.
+              const commandLine = getProccessedCommandLine(
+                command,
+                sectionState,
+              );
+              filteredLines.push(commandLine);
+              if (commandLine.isOpen) {
+                filteredLines.push(idx);
+              } else {
+                // The command is closed so skip all log lines until the end of the command.
+                idx = command.range.end - 1;
+              }
+              commandIndex += 1; // Move to the next command.
+            } else {
+              throw new Error(
+                "A function does not share the same start as a command.",
+              );
+            }
+          } else {
+            // The function is closed. Skip all log lines until the end of the function.
+            idx = func.range.end - 1;
+            // Skip all commands until the end of the function.
+            while (
+              sectionData.commands[commandIndex] &&
+              sectionData.commands[commandIndex].functionID === func.functionID
+            ) {
+              commandIndex += 1;
+            }
+          }
+        } else if (isCommandStart) {
+          // A command start is detected.
+          const commandLine = getProccessedCommandLine(command, sectionState);
+          filteredLines.push(commandLine);
+          if (commandLine.isOpen) {
             filteredLines.push(idx);
           } else {
-            idx = func.range.end - 1;
+            idx = command.range.end - 1;
           }
+          commandIndex += 1;
         } else {
+          // No functions or commands detected.
           filteredLines.push(idx);
         }
       }
