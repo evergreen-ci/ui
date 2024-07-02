@@ -1,8 +1,8 @@
 import { writeFileSync } from "fs";
 import { join } from "path";
-import { Target } from "../utils/types";
+import { TargetEnvironment } from "../utils/types";
 
-export const setupCredentials = (target: Target) => {
+export const setupCredentials = (target: TargetEnvironment) => {
   const file = join(process.cwd(), ".env-cmdrc.json");
   const envVars = {
     ...base[target],
@@ -30,7 +30,7 @@ const sharedKeys = {
   SPRUCE_NEW_RELIC_APPLICATION_ID: process.env.SPRUCE_NEW_RELIC_APPLICATION_ID,
 };
 
-const base: Record<Target, Record<string, string | undefined>> = {
+const base: Record<TargetEnvironment, Record<string, string | undefined>> = {
   staging: {
     ...sharedKeys,
     REACT_APP_API_URL: "https://evergreen-staging.corp.mongodb.com/api",

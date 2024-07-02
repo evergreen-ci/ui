@@ -4,14 +4,14 @@ import { buildAndPush } from "./build-and-push";
 import { prepareProdDeploy } from "./prepare-prod-deploy";
 import { isRunningOnCI } from "./utils/environment";
 import { red } from "./utils/shell";
-import { isTarget } from "./utils/types";
+import { isTargetEnvironment } from "./utils/types";
 
 if (isRunningOnCI()) {
   throw Error("yarn deploy:<target> scripts are for local use only!");
 }
 
-const target = process.env.REACT_APP_RELEASE_STAGE ?? "";
-if (!isTarget(target)) {
+const target = process.env.REACT_APP_RELEASE_STAGE;
+if (!isTargetEnvironment(target)) {
   throw Error("REACT_APP_RELEASE_STAGE must be specified");
 }
 

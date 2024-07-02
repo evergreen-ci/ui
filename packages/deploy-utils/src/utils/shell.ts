@@ -1,5 +1,10 @@
 import { execSync } from "child_process";
 
+/**
+ * execTrim converts the result of execSync to a string and trims it to avoid the included newlines.
+ * @param args - matches args of Node's child_process.execSync
+ * @returns - plain string representing the execSync command's output.
+ */
 export const execTrim = (...args: Parameters<typeof execSync>) => {
   const [command, options = {}] = args;
   return execSync(command, { encoding: "utf8", ...options })

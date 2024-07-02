@@ -1,10 +1,10 @@
 #!/usr/bin/env -S vite-node --script
 
 import { setupCredentials } from ".";
-import { isTarget } from "../utils/types";
+import { isTargetEnvironment } from "../utils/types";
 
 const target = process.argv[2];
-if (!isTarget(target)) {
+if (!isTargetEnvironment(target)) {
   throw Error("Must provide valid target");
 }
 

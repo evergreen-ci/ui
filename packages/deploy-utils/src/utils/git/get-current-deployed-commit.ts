@@ -2,8 +2,6 @@ import { get } from "https";
 import { getLatestTag } from ".";
 import { DeployableApp } from "../types";
 
-const commitIsCorrectLength = (commit: string) => commit.length === 40;
-
 /**
  * getRemotePreviousCommit fetches the commit hash currently deployed to the given app
  * @param app - name of app to query
@@ -49,7 +47,9 @@ export const getCurrentlyDeployedCommit = async (app: DeployableApp) => {
     }
   }
 
-  if (commit && commitIsCorrectLength(commit.trim())) {
+  const commitIsCorrectLength = commit?.length === 40;
+
+  if (commitIsCorrectLength) {
     return commit;
   }
   throw new Error("No valid commit found");

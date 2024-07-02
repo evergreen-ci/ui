@@ -1,11 +1,13 @@
-export type Target = "staging" | "beta" | "production";
+export type TargetEnvironment = "staging" | "beta" | "production";
 
 /**
- * isTarget asserts that a given string represents a deploy target
+ * isTargetEnvironment asserts that a given string represents a deploy target
  * @param t - string to assert
  * @returns - typeguard for Target type
  */
-export const isTarget = (t: string): t is Target =>
+export const isTargetEnvironment = (
+  t: string | undefined,
+): t is TargetEnvironment =>
   t === "staging" || t === "beta" || t === "production";
 
 export type DeployableApp = "parsley" | "spruce";
