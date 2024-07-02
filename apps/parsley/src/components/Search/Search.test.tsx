@@ -3,7 +3,6 @@ import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { useQueryParams } from "hooks/useQueryParam";
 import {
   act,
   renderWithRouterMatch as render,
@@ -21,18 +20,14 @@ import Search from ".";
  * @returns - hook and utils
  */
 const renderSearch = (route?: string) => {
-  const useCombinedHook = () => ({
-    useLogContext: useLogContext(),
-    useQueryParams: useQueryParams(),
-  });
   const { Component: MenuComponent, hook } = renderComponentWithHook(
-    useCombinedHook,
+    useLogContext,
     <Search />,
   );
   const { Component } = RenderFakeToastContext(<MenuComponent />);
   const utils = render(<Component />, { route, wrapper: logContextWrapper() });
   act(() => {
-    hook.current.useLogContext.ingestLines(
+    hook.current.ingestLines(
       ["line 1", "line 2", "line 3"],
       LogRenderingTypes.Default,
     );
@@ -59,11 +54,9 @@ describe("Search", () => {
     expect(screen.getByDataCy("searchbar-input")).not.toBeDisabled();
     await user.type(screen.getByDataCy("searchbar-input"), "test");
     await waitFor(() => {
-      expect(hook.current.useLogContext.searchState.hasSearch).toBe(true);
+      expect(hook.current.searchState.hasSearch).toBe(true);
     });
-    expect(hook.current.useLogContext.searchState.searchTerm).toStrictEqual(
-      /test/i,
-    );
+    expect(hook.current.searchState.searchTerm).toStrictEqual(/test/i);
   });
   it("adding a filter should update the url", async () => {
     const user = userEvent.setup();
@@ -75,12 +68,13 @@ describe("Search", () => {
       "{Meta>}{enter}",
       {},
     );
-    expect(hook.current.useQueryParams[0][QueryParams.Filters]).toBe("100test");
-    expect(utils.router.state.location.search).toBe("?filters=100test");
+    expect(utils.router.state.location.search).toBe(
+      `?${QueryParams.Filters}=100test`,
+    );
   });
   it("adding a highlight should update the url", async () => {
     const user = userEvent.setup();
-    const { hook, utils } = renderSearch();
+    const { utils } = renderSearch();
     expect(utils.router.state.location.search).toBe("");
     await user.click(screen.getByText("Filter"));
     await user.click(screen.getByText("Highlight"));
@@ -90,14 +84,15 @@ describe("Search", () => {
       "{Meta>}{enter}",
       {},
     );
-    expect(hook.current.useQueryParams[0][QueryParams.Highlights]).toBe("test");
-    expect(utils.router.state.location.search).toBe("?highlights=test");
+    expect(utils.router.state.location.search).toBe(
+      `?${[QueryParams.Highlights]}=test`,
+    );
   });
   it("adding a filter when highlight filters is enabled should apply both", async () => {
     const user = userEvent.setup();
     const { hook, utils } = renderSearch();
     act(() => {
-      hook.current.useLogContext.preferences.setHighlightFilters(true);
+      hook.current.preferences.setHighlightFilters(true);
     });
     expect(utils.router.state.location.search).toBe("");
     await user.click(screen.getByText("Filter"));
@@ -107,17 +102,15 @@ describe("Search", () => {
       "{Meta>}{enter}",
       {},
     );
-    expect(hook.current.useQueryParams[0][QueryParams.Highlights]).toBe("test");
-    expect(hook.current.useQueryParams[0][QueryParams.Filters]).toBe("100test");
     expect(utils.router.state.location.search).toBe(
-      "?filters=100test&highlights=test",
+      `?${QueryParams.Filters}=100test&${QueryParams.Highlights}=test`,
     );
   });
   it("should not effect any other query params", async () => {
     const user = userEvent.setup();
     const { hook, utils } = renderSearch("/?search=test");
     act(() => {
-      hook.current.useLogContext.preferences.setHighlightFilters(true);
+      hook.current.preferences.setHighlightFilters(true);
     });
     expect(utils.router.state.location.search).toBe("?search=test");
     await user.click(screen.getByText("Filter"));
@@ -127,10 +120,8 @@ describe("Search", () => {
       "{Meta>}{enter}",
       {},
     );
-    expect(hook.current.useQueryParams[0][QueryParams.Highlights]).toBe("test");
-    expect(hook.current.useQueryParams[0][QueryParams.Filters]).toBe("100test");
     expect(utils.router.state.location.search).toBe(
-      "?filters=100test&highlights=test&search=test",
+      `?${QueryParams.Filters}=100test&${QueryParams.Highlights}=test&search=test`,
     );
   });
 });
