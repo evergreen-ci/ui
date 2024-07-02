@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/order
 import { Route, Routes, Navigate } from "react-router-dom";
 import {
   DistroSettingsRedirect,
@@ -6,7 +5,6 @@ import {
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
 } from "components/Redirects";
-// eslint-disable-next-line import/order
 import { redirectRoutes, routes, slugs } from "constants/routes";
 import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
@@ -29,7 +27,6 @@ import { TaskQueue } from "pages/TaskQueue";
 import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
-
 import { Layout } from "./Layout";
 
 export const Content: React.FC = () => (

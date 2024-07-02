@@ -27,7 +27,7 @@ export enum PreferencesTabRoutes {
 
 export enum ImageTabRoutes {
   BuildInformation = "build-information",
-  Events = "events",
+  EventLog = "event-log",
 }
 
 export enum ProjectSettingsTabRoutes {
