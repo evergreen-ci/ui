@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/order
 import { getGithubCommitUrl } from "constants/externalResources";
 import { TestStatus, HistoryQueryParams } from "types/history";
 import { PatchTab } from "types/patch";
