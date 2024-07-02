@@ -60,7 +60,7 @@ describe("Search", () => {
   });
   it("adding a filter should update the url", async () => {
     const user = userEvent.setup();
-    const { hook, utils } = renderSearch();
+    const { utils } = renderSearch();
     expect(utils.router.state.location.search).toBe("");
     await user.type(screen.getByDataCy("searchbar-input"), "test");
     await user.type(
