@@ -24,6 +24,11 @@ export enum PreferencesTabRoutes {
   PublicKeys = "publickeys",
 }
 
+export enum ImageTabRoutes {
+  BuildInformation = "build-information",
+  EventLog = "event-log",
+}
+
 export enum ProjectSettingsTabRoutes {
   General = "general",
   Access = "access",
@@ -57,6 +62,7 @@ const paths = {
   distros: "/distros",
   host: "/host",
   hosts: "/hosts",
+  image: "/image",
   jobLogs: "/job-logs",
   login: "/login",
   patch: "/patch",
@@ -79,6 +85,7 @@ export enum slugs {
   distroId = "distroId",
   groupId = "groupId",
   hostId = "hostId",
+  imageId = "imageId",
   patchId = "patchId",
   projectIdentifier = "projectIdentifier",
   tab = "tab",
@@ -94,6 +101,7 @@ export const idSlugs = [
   slugs.podId,
   slugs.distroId,
   slugs.hostId,
+  slugs.imageId,
   slugs.patchId,
   slugs.projectIdentifier,
   slugs.taskId,
@@ -116,6 +124,7 @@ export const routes = {
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.hostId}`,
   hosts: paths.hosts,
+  image: `${paths.image}/:${slugs.imageId}`,
   jobLogs: paths.jobLogs,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
@@ -257,6 +266,12 @@ export const getProjectPatchesRoute = (projectIdentifier: string) =>
   `${paths.project}/${encodeURIComponent(projectIdentifier)}/${
     PageNames.Patches
   }`;
+
+export const getImageRoute = (imageId: string, tab?: ImageTabRoutes) => {
+  const encodedImageId = encodeURIComponent(imageId);
+  const root = `${paths.image}/${encodedImageId}`;
+  return tab ? `${root}/${tab}` : `${root}/${ImageTabRoutes.BuildInformation}`;
+};
 
 export const getProjectSettingsRoute = (
   projectId: string,
