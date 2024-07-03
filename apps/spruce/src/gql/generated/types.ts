@@ -622,6 +622,17 @@ export type GeneralSubscription = {
   triggerData?: Maybe<Scalars["StringMap"]["output"]>;
 };
 
+export type GitHubDynamicTokenPermissionGroup = {
+  __typename?: "GitHubDynamicTokenPermissionGroup";
+  name: Scalars["String"]["output"];
+  permissions: Scalars["StringMap"]["output"];
+};
+
+export type GitHubDynamicTokenPermissionGroupInput = {
+  name: Scalars["String"]["input"];
+  permissions: Scalars["StringMap"]["input"];
+};
+
 export type GitTag = {
   __typename?: "GitTag";
   pusher: Scalars["String"]["output"];
@@ -1690,6 +1701,7 @@ export type Project = {
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]["output"]>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
   githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   hidden?: Maybe<Scalars["Boolean"]["output"]>;
   id: Scalars["String"]["output"];
@@ -1827,6 +1839,9 @@ export type ProjectInput = {
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]["input"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   githubChecksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  githubDynamicTokenPermissionGroups?: InputMaybe<
+    Array<GitHubDynamicTokenPermissionGroupInput>
+  >;
   githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   identifier?: InputMaybe<Scalars["String"]["input"]>;
@@ -1904,6 +1919,8 @@ export enum ProjectSettingsSection {
   Containers = "CONTAINERS",
   General = "GENERAL",
   GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
+  GithubAppSettings = "GITHUB_APP_SETTINGS",
+  GithubPermissions = "GITHUB_PERMISSIONS",
   Notifications = "NOTIFICATIONS",
   PatchAliases = "PATCH_ALIASES",
   PeriodicBuilds = "PERIODIC_BUILDS",
