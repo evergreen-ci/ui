@@ -1,10 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import Cookies from "js-cookie";
+import { ListRange } from "react-virtuoso";
 import PaginatedVirtualList from "components/PaginatedVirtualList";
 import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/cookies";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
+import { useMaintainLineVisibilityAfterTogglingFilter } from "hooks/useMaintainLineVisibilityAfterTogglingFilter";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { useQueryParam } from "hooks/useQueryParam";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
@@ -15,11 +17,12 @@ interface LogPaneProps {
   rowCount: number;
 }
 const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
+  const [visibleRange, setVisibleRange] = useState<ListRange | undefined>();
   const { failingLine, listRef, preferences, processedLogLines, scrollToLine } =
     useLogContext();
   const { setPrettyPrint, setWrap, zebraStriping } = preferences;
   const { settings } = useParsleySettings();
-
+  useMaintainLineVisibilityAfterTogglingFilter({ visibleRange });
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -68,6 +71,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       className={zebraStriping ? zebraStripingStyles : undefined}
       paginationOffset={200}
       paginationThreshold={500000}
+      rangeChanged={setVisibleRange}
       rowCount={rowCount}
       rowRenderer={rowRenderer}
     />

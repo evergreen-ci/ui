@@ -224,4 +224,19 @@ describe("Filtering", () => {
       cy.get("[data-cy^='skipped-lines-row-']").should("not.exist");
     });
   });
+  describe("Scroll behavior", () => {
+    it("should maintain visibility of the first line in the log pane before and after toggling filter", () => {
+      const line = 1108;
+      const link = `evergreen/mongodb_mongo_master_enterprise_amazon_linux2_arm64_all_feature_flags_jsCore_patch_9801cf147ed208ce4c0ff8dff4a97cdb216f4c22_65f06bd09ccd4eaaccca1391_24_03_12_14_51_29/0/task?shareLine=${line}`;
+      cy.visit(link);
+      const filter = "finished";
+      cy.dataCy(`line-index-${line}`).should("be.visible");
+      cy.addFilter(filter);
+      cy.dataCy(`line-index-${line}`).should("be.visible");
+      cy.dataCy(`filter-${filter}`).within(() => {
+        cy.get(`[aria-label="Hide filter"]`).click({ force: true });
+      });
+      cy.dataCy(`line-index-${line}`).should("be.visible");
+    });
+  });
 });
