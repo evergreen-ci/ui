@@ -71,10 +71,8 @@ describe("getCurrentlyDeployedCommit", () => {
 
   it("returns a valid local commit", async () => {
     vi.mocked(get).mockImplementation(errorMock);
-    vi.mocked(execSync).mockReturnValue(validCommitString);
-    expect(await getCurrentlyDeployedCommit("spruce")).toEqual(
-      validCommitString,
-    );
+    vi.mocked(execSync).mockReturnValue("spruce/v1.0.0");
+    expect(await getCurrentlyDeployedCommit("spruce")).toEqual("spruce/v1.0.0");
     expect(vi.mocked(execSync)).toHaveBeenCalledOnce();
   });
 
