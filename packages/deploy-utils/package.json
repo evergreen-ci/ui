@@ -24,8 +24,9 @@
     "vitest": "1.6.0"
   },
   "bin": {
-    "deploy-utils-deploy": "src/deploy.ts",
     "deploy-utils-build-and-push": "src/build-and-push/script.ts",
+    "deploy-utils-deploy": "src/deploy.ts",
+    "deploy-utils-email": "src/email/script.ts",
     "deploy-utils-postversion": "src/postversion/script.ts",
     "deploy-utils-setup-credentials": "src/setup-credentials/script.ts",
     "deploy-utils-write-current-commit": "src/write-current-commit/script.ts"
