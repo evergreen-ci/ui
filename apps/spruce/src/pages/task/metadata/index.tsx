@@ -111,7 +111,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
   const stepback = isInStepback(task);
 
   return (
-    <MetadataCard error={error} loading={loading}>
+    <MetadataCard error={!task && error ? error : undefined} loading={loading}>
       <MetadataTitle>Task Metadata</MetadataTitle>
       <MetadataItem data-cy="task-metadata-build-variant">
         Build Variant:{" "}
