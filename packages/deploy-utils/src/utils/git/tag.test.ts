@@ -5,7 +5,7 @@ describe("tagIsValid", () => {
     expect(tagIsValid("parsley", "parsley/v1.2.3")).toEqual(true);
   });
 
-  it("should not match on the wrong app's tag tag", () => {
+  it("should not match on the wrong app's tag", () => {
     expect(tagIsValid("parsley", "spruce/v1.2.3")).toEqual(false);
   });
 });
