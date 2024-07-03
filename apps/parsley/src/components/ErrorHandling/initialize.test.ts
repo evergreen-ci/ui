@@ -76,6 +76,7 @@ describe("should initialize error handlers according to release stage", () => {
       debug: true,
       dsn: "fake-sentry-key",
       environment: "staging",
+      maxValueLength: 500,
       normalizeDepth: 5,
       sampleRate: 0.5,
     });

@@ -41,10 +41,11 @@ describe("should initialize error handlers according to release stage", () => {
     expect(vi.mocked(init)).toHaveBeenCalledWith({
       beforeBreadcrumb: expect.any(Function),
       beforeSend: expect.any(Function),
-      dsn: "fake-sentry-key",
       debug: false,
-      normalizeDepth: 5,
+      dsn: "fake-sentry-key",
       environment: "production",
+      maxValueLength: 500,
+      normalizeDepth: 5,
       sampleRate: 0.5,
     });
   });
