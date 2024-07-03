@@ -8,13 +8,16 @@ import { isLogLineRow } from "utils/logRowTypes";
 
 interface Props {
   visibleRange: ListRange | undefined;
+  disabled: boolean;
 }
 /**
  * useMaintainLineVisibilityAfterTogglingFilter is a hook that maintains focus on the first line of the log pane after a filter is toggled.
  * @param props - The props object.
  * @param props.visibleRange - The visible range of lines in the log pane.
+ * @param props.disabled - When true, don't execute scrolling logic.
  */
 const useMaintainLineVisibilityAfterTogglingFilter = ({
+  disabled,
   visibleRange,
 }: Props) => {
   const { processedLogLines, scrollToLine } = useLogContext();
@@ -38,7 +41,8 @@ const useMaintainLineVisibilityAfterTogglingFilter = ({
     ) {
       if (
         visibleRange?.startIndex !== undefined &&
-        previousProccessedLogLines !== undefined
+        previousProccessedLogLines !== undefined &&
+        !disabled
       ) {
         const processedLine =
           previousProccessedLogLines[visibleRange.startIndex];
@@ -56,6 +60,7 @@ const useMaintainLineVisibilityAfterTogglingFilter = ({
     filterParamChanged,
     scrollToLine,
     visibleRange?.startIndex,
+    disabled,
   ]);
 };
 

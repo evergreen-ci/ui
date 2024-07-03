@@ -22,13 +22,15 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     useLogContext();
   const { setPrettyPrint, setWrap, zebraStriping } = preferences;
   const { settings } = useParsleySettings();
-  useMaintainLineVisibilityAfterTogglingFilter({ visibleRange });
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
   );
   const performedScroll = useRef(false);
-
+  useMaintainLineVisibilityAfterTogglingFilter({
+    disabled: !performedScroll.current,
+    visibleRange,
+  });
   useEffect(() => {
     if (listRef.current && !performedScroll.current && settings) {
       // Use a timeout to execute certain actions after the log pane has rendered. All of the
