@@ -43,6 +43,8 @@ export enum ProjectSettingsTabRoutes {
   EventLog = "event-log",
   Containers = "containers",
   ViewsAndFilters = "views-and-filters",
+  AppSettings = "app-settings",
+  PermissionGroups = "permission-groups",
 }
 
 export enum DistroSettingsTabRoutes {

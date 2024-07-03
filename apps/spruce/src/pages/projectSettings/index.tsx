@@ -12,6 +12,7 @@ import {
   SideNavItem,
   PageWrapper,
 } from "components/styles";
+import { showGitHubAccessTokenProject } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -121,8 +122,8 @@ const ProjectSettings: React.FC = () => {
   }
 
   const sharedProps = {
-    projectIdentifier,
-    currentTab: tab,
+    projectIdentifier: projectIdentifier ?? "",
+    currentTab: tab ?? ProjectSettingsTabRoutes.General,
   };
   const project =
     projectType === ProjectType.Repo
@@ -167,67 +168,66 @@ const ProjectSettings: React.FC = () => {
         </ButtonsContainer>
 
         <SideNavGroup>
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.General}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Access}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Variables}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.GithubCommitQueue}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Notifications}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.PatchAliases}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.VirtualWorkstation}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Containers}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.ViewsAndFilters}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.ProjectTriggers}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.PeriodicBuilds}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Plugins}
           />
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
+          {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.AppSettings}
+            />
+          )}
+          {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.PermissionGroups}
+            />
+          )}
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.EventLog}

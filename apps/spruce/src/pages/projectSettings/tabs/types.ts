@@ -8,7 +8,9 @@ import {
 import { AccessFormState } from "./AccessTab/types";
 import { ContainersFormState } from "./ContainersTab/types";
 import { GeneralFormState } from "./GeneralTab/types";
+import { AppSettingsFormState } from "./GithubAppSettingsTab/types";
 import { GCQFormState } from "./GithubCommitQueueTab/types";
+import { PermissionGroupsFormState } from "./GithubPermissionGroupsTab/types";
 import { NotificationsFormState } from "./NotificationsTab/types";
 import { PatchAliasesFormState } from "./PatchAliasesTab/types";
 import { PeriodicBuildsFormState } from "./PeriodicBuildsTab/types";
@@ -24,7 +26,6 @@ export type FormStateMap = {
     [ProjectSettingsTabRoutes.Access]: AccessFormState;
     [ProjectSettingsTabRoutes.Containers]: ContainersFormState;
     [ProjectSettingsTabRoutes.General]: GeneralFormState;
-    [ProjectSettingsTabRoutes.GithubCommitQueue]: GCQFormState;
     [ProjectSettingsTabRoutes.Notifications]: NotificationsFormState;
     [ProjectSettingsTabRoutes.PatchAliases]: PatchAliasesFormState;
     [ProjectSettingsTabRoutes.PeriodicBuilds]: PeriodicBuildsFormState;
@@ -33,6 +34,9 @@ export type FormStateMap = {
     [ProjectSettingsTabRoutes.Variables]: VariablesFormState;
     [ProjectSettingsTabRoutes.ViewsAndFilters]: ViewsFormState;
     [ProjectSettingsTabRoutes.VirtualWorkstation]: VWFormState;
+    [ProjectSettingsTabRoutes.GithubCommitQueue]: GCQFormState;
+    [ProjectSettingsTabRoutes.AppSettings]: AppSettingsFormState;
+    [ProjectSettingsTabRoutes.PermissionGroups]: PermissionGroupsFormState;
   }[T];
 };
 
@@ -61,3 +65,8 @@ export { WritableProjectSettingsTabs };
 
 export type WritableProjectSettingsType =
   (typeof WritableProjectSettingsTabs)[keyof typeof WritableProjectSettingsTabs];
+
+export const projectOnlyTabs: Set<ProjectSettingsTabRoutes> = new Set([
+  ProjectSettingsTabRoutes.AppSettings,
+  ProjectSettingsTabRoutes.PermissionGroups,
+]);

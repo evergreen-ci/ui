@@ -32,6 +32,8 @@ const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.Plugins,
   ProjectSettingsTabRoutes.Containers,
   ProjectSettingsTabRoutes.ViewsAndFilters,
+  ProjectSettingsTabRoutes.AppSettings,
+  ProjectSettingsTabRoutes.PermissionGroups,
 ]);
 
 interface Props {
@@ -184,6 +186,10 @@ const mapRouteToSection: Record<
   [ProjectSettingsTabRoutes.Containers]: ProjectSettingsSection.Containers,
   [ProjectSettingsTabRoutes.ViewsAndFilters]:
     ProjectSettingsSection.ViewsAndFilters,
+  [ProjectSettingsTabRoutes.AppSettings]:
+    ProjectSettingsSection.GithubAppSettings,
+  [ProjectSettingsTabRoutes.PermissionGroups]:
+    ProjectSettingsSection.GithubPermissions,
 };
 
 const ButtonRow = styled.div`
