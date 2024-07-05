@@ -87,10 +87,20 @@ const pushTags = () => {
   }
 };
 
+/**
+ * tagIsValid asserts whether a given string matches a tag for a specified app
+ * @param app - app with which tag is associated
+ * @param matchString - string to test against
+ * @returns - boolean indicating whether matchString is a valid tag
+ */
+const tagIsValid = (app: DeployableApp, matchString: string) =>
+  new RegExp(`${app}/v\\d+.\\d+.\\d+`).test(matchString);
+
 export {
   createTagAndPush,
   deleteTag,
   getLatestTag,
   getTagFromCommit,
   pushTags,
+  tagIsValid,
 };

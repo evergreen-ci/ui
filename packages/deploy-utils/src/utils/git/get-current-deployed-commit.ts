@@ -1,5 +1,5 @@
 import { get } from "https";
-import { getLatestTag } from ".";
+import { getLatestTag, tagIsValid } from ".";
 import { DeployableApp } from "../types";
 
 /**
@@ -47,9 +47,11 @@ export const getCurrentlyDeployedCommit = async (app: DeployableApp) => {
     }
   }
 
-  const commitIsCorrectLength = commit?.length === 40;
+  commit = commit?.trim();
 
-  if (commitIsCorrectLength) {
+  const commitIsValid = commit?.length === 40 || tagIsValid(app, commit);
+
+  if (commitIsValid) {
     return commit;
   }
   throw new Error("No valid commit found");
