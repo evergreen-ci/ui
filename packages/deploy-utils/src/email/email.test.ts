@@ -1,6 +1,5 @@
 import { readFileSync } from "fs";
 import * as email from ".";
-// import { getAppToDeploy } from "../utils/environment";
 import * as shellUtils from "../utils/shell";
 import { findExecutable, formatDate } from "./utils";
 
@@ -34,7 +33,7 @@ describe("makeEmail", () => {
   const defaultArgs = {
     app: "spruce",
     commitToDeploy: "123",
-    commitsString: "commit a\ncommit b\n",
+    commitsString: "commit's a\ncommit b\n",
     previousTag: "spruce/v0.0.1",
   };
 
@@ -61,13 +60,13 @@ describe("makeEmail", () => {
     );
   });
 
-  it("returns email fields", () => {
+  it("returns email fields with single quotes replaced", () => {
     vi.stubEnv("CI", "true");
     vi.stubEnv("DEPLOYS_EMAIL", "evg-users@mongodb.com");
     vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
     vi.useFakeTimers().setSystemTime(new Date(2020, 6, 22));
     expect(makeEmail(defaultArgs)).toStrictEqual({
-      body: "<ol><li>commit a</li><li>commit b</li></ol><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
+      body: "<ul><li>commit‘s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
       from: "sender@mongodb.com",
       recipients: "evg-users@mongodb.com",
       subject: "2020-06-22 Spruce Deploy to 123",
@@ -81,7 +80,7 @@ describe("makeEmail", () => {
     vi.spyOn(shellUtils, "execTrim").mockReturnValue("git.email@mongodb.com");
     vi.useFakeTimers().setSystemTime(new Date(2020, 6, 22));
     expect(makeEmail(defaultArgs)).toStrictEqual({
-      body: "<ol><li>commit a</li><li>commit b</li></ol><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
+      body: "<ul><li>commit‘s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
       from: "git.email@mongodb.com",
       recipients: "evg-users@mongodb.com",
       subject: "2020-06-22 Spruce Deploy to 123",
@@ -99,7 +98,7 @@ describe("makeEmail", () => {
         commitsString: "abcdefg commit a\n1234567 commit b",
       }),
     ).toStrictEqual({
-      body: '<ol><li><a href="https://github.com/evergreen-ci/ui/commit/abcdefg">abcdefg commit a</a></li><li><a href="https://github.com/evergreen-ci/ui/commit/1234567">1234567 commit b</a></li></ol><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>',
+      body: '<ul><li><a href="https://github.com/evergreen-ci/ui/commit/abcdefg">abcdefg commit a</a></li><li><a href="https://github.com/evergreen-ci/ui/commit/1234567">1234567 commit b</a></li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>',
       from: "sender@mongodb.com",
       recipients: "evg-users@mongodb.com",
       subject: "2020-06-22 Spruce Deploy to 123",
@@ -117,7 +116,7 @@ describe("makeEmail", () => {
         previousTag: undefined,
       }),
     ).toStrictEqual({
-      body: "<ol><li>commit a</li><li>commit b</li></ol>",
+      body: "<ul><li>commit‘s a</li><li>commit b</li></ul>",
       from: "sender@mongodb.com",
       recipients: "evg-users@mongodb.com",
       subject: "2020-06-22 Spruce Deploy to 123",

@@ -95,6 +95,7 @@ export const makeEmail = ({
 
   const commitsHTML = commitsString
     .trim()
+    .replace("'", "‘")
     .split("\n")
     .map((commit) => {
       const [hash] = commit.split(" ");
@@ -109,7 +110,7 @@ export const makeEmail = ({
     .join("");
 
   const subject = `${formatDate(new Date())} ${toSentenceCase(app)} Deploy to ${commitToDeploy}`;
-  const body = `<ol>${commitsHTML}</ol>${previousTag ? `<p><b>To revert, rerun task from previous release tag (${previousTag})</b></p>` : ""}`;
+  const body = `<ul>${commitsHTML}</ul>${previousTag ? `<p><b>To revert, rerun task from previous release tag (${previousTag})</b></p>` : ""}`;
 
   return { body, from, recipients, subject };
 };

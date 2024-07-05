@@ -129,6 +129,7 @@ export default defineConfig({
     sentryVitePlugin({
       org: "mongodb-org",
       project: "spruce",
+      disable: process.env.NODE_ENV === "development",
       authToken: process.env.SPRUCE_SENTRY_AUTH_TOKEN,
       release: {
         name: process.env.npm_package_version,

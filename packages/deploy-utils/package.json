@@ -2,7 +2,6 @@
   "name": "@evg-ui/deploy-utils",
   "version": "0.0.0",
   "private": true,
-  "main": "src/index.ts",
   "type": "module",
   "scripts": {
     "check-types": "tsc -p tsconfig.json --noEmit",
