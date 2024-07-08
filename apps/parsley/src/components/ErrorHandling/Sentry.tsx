@@ -36,6 +36,7 @@ const initializeSentry = () => {
       debug: !isProduction(),
       dsn: getSentryDSN(),
       environment: getReleaseStage() || "development",
+      maxValueLength: 500,
       normalizeDepth: 5,
       sampleRate: 0.5,
     });
