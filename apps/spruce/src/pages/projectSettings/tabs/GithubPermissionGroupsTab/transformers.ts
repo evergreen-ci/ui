@@ -2,7 +2,7 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 
-type Tab = ProjectSettingsTabRoutes.GithubAppSettings;
+type Tab = ProjectSettingsTabRoutes.GithubPermissionGroups;
 
 export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
   if (!data) return null;
