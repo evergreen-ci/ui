@@ -9,6 +9,7 @@ import { size } from "constants/tokens";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
 import {
+  projectOnlyTabs,
   WritableProjectSettingsTabs,
   WritableProjectSettingsType,
 } from "./tabs/types";
@@ -31,12 +32,13 @@ export const Header: React.FC<Props> = ({
   const saveable = Object.values(WritableProjectSettingsTabs).includes(
     tab as WritableProjectSettingsType,
   );
+  const showRepoLink = !projectOnlyTabs.has(tab);
 
   return (
     <Container>
       <TitleContainer>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
-        {projectType === ProjectType.AttachedProject && (
+        {projectType === ProjectType.AttachedProject && showRepoLink && (
           <StyledRouterLink
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getProjectSettingsRoute(attachedRepoId, tab)}
