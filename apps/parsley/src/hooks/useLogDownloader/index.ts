@@ -76,7 +76,7 @@ const useLogDownloader = ({
           sendEvent({
             downloaded: getFileSize(),
             duration: Date.now() - timeStart,
-            name: "Log Download Incomplete",
+            name: "Log download incomplete",
             reason,
           });
         },
@@ -94,7 +94,7 @@ const useLogDownloader = ({
             sendEvent({
               downloaded: getFileSize(),
               duration: Date.now() - timeStart,
-              name: "Log Download Incomplete",
+              name: "Log download incomplete",
               reason: "Log line size limit exceeded",
             });
             reportError(new Error("Incomplete download"), {
@@ -126,7 +126,7 @@ const useLogDownloader = ({
           sendEvent({
             duration: Date.now() - timeStart,
             fileSize: getFileSize(),
-            name: "Log Download Failed",
+            name: "Log download failed",
             type: logType,
           });
         })
@@ -143,7 +143,7 @@ const useLogDownloader = ({
           sendEvent({
             duration: Date.now() - timeStart,
             fileSize: getFileSize(),
-            name: "Log Downloaded",
+            name: "Log downloaded",
             type: logType,
           });
           setIsLoading(false);
