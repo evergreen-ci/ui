@@ -4,6 +4,7 @@ import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
 import {
+  includesLineNumber,
   isSectionHeaderRow,
   isSkippedLinesRow,
   isSubsectionHeaderRow,
@@ -74,6 +75,9 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     }
 
     if (isSectionHeaderRow(processedLogLine)) {
+      const status = includesLineNumber(processedLogLine, failingLine)
+        ? SectionStatus.Fail
+        : SectionStatus.Pass;
       return (
         <SectionHeader
           functionID={processedLogLine.functionID}
@@ -81,7 +85,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           lineIndex={index}
           onToggle={toggleFunctionSection}
           open={processedLogLine.isOpen}
-          status={SectionStatus.Pass} // TODO: Update in DEVPROD-5295
+          status={status}
         />
       );
     }
