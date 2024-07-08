@@ -2,6 +2,8 @@ import { get } from "https";
 import { getLatestTag, tagIsValid } from ".";
 import { DeployableApp } from "../types";
 
+const COMMIT_LENGTH = 40;
+
 /**
  * getRemotePreviousCommit fetches the commit hash currently deployed to the given app
  * @param app - name of app to query
@@ -36,20 +38,24 @@ export const getCurrentlyDeployedCommit = async (app: DeployableApp) => {
   let commit = "";
   try {
     commit = await getRemotePreviousCommit(app);
+    commit = commit?.trim();
   } catch (e) {
-    console.error(
-      `Fetching commit failed, using ${app}'s previous tag from git`,
-    );
+    console.error("Fetching commit failed");
+  }
+
+  if (commit?.length !== COMMIT_LENGTH) {
+    console.log(`Using ${app}'s previous tag from git`);
     try {
       commit = getLatestTag(app);
+      commit = commit?.trim();
+      console.log(commit);
     } catch {
       console.error("Getting local commit failed");
     }
   }
 
-  commit = commit?.trim();
-
-  const commitIsValid = commit?.length === 40 || tagIsValid(app, commit);
+  const commitIsValid =
+    commit?.length === COMMIT_LENGTH || tagIsValid(app, commit);
 
   if (commitIsValid) {
     return commit;

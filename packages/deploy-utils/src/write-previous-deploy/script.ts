@@ -1,11 +1,15 @@
 #!/usr/bin/env -S vite-node --script
 
-import { mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { getAppToDeploy } from "../utils/environment";
 import { getCurrentlyDeployedCommit } from "../utils/git";
 
+const dirName = "bin";
 const app = getAppToDeploy();
 const currentlyDeployedCommit = await getCurrentlyDeployedCommit(app);
 
-mkdirSync("bin");
-writeFileSync("bin/previous_deploy.txt", currentlyDeployedCommit);
+if (!existsSync(dirName)) {
+  mkdirSync(dirName);
+}
+
+writeFileSync(`${dirName}/previous_deploy.txt`, currentlyDeployedCommit);

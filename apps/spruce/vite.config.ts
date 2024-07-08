@@ -60,6 +60,7 @@ export default defineConfig({
               "%NEW_RELIC_ACCOUNT_ID%",
               "%NEW_RELIC_LICENSE_KEY%",
               "%NEW_RELIC_TRUST_KEY%",
+              "%NODE_ENV%",
               "%SPRUCE_NEW_RELIC_AGENT_ID%",
               "%SPRUCE_NEW_RELIC_APPLICATION_ID%",
             ],

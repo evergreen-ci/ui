@@ -66,7 +66,7 @@ functions:
         working_dir: ui/${app_dir}
         script: |
           ${PREPARE_SHELL}
-          yarn deploy-utils-write-current-commit
+          yarn deploy-utils-write-previous-deploy
 
 tasks:
   - name: deploy-parsley-staging
