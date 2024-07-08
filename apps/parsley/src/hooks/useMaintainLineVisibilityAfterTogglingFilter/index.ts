@@ -27,6 +27,7 @@ const useMaintainLineVisibilityAfterTogglingFilter = ({
   const [filterParamChanged, setFilterParamChanged] = useState(false);
 
   useEffect(() => {
+    // TODO: Compare references after DEVPROD-8705 is resolved.
     if (JSON.stringify(filterParam) !== JSON.stringify(previousFilterParam)) {
       setFilterParamChanged(true);
     }
