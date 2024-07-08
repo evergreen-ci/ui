@@ -27,6 +27,7 @@ export default defineConfig({
             "%NEW_RELIC_ACCOUNT_ID%",
             "%NEW_RELIC_TRUST_KEY%",
             "%NEW_RELIC_LICENSE_KEY%",
+            "%NODE_ENV%",
             "%PARSLEY_NEW_RELIC_AGENT_ID%",
             "%PARSLEY_NEW_RELIC_APPLICATION_ID%",
           ],
