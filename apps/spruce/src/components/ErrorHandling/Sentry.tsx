@@ -19,9 +19,6 @@ import { processHtmlAttributes } from "./utils";
 const initializeSentry = () => {
   try {
     init({
-      // Don't send errors from unauthenticated users
-      beforeSend: (event) => (event.user?.id ? event : null),
-      sampleRate: 0.5,
       beforeBreadcrumb: (breadcrumb, hint) => {
         if (breadcrumb?.category?.startsWith("ui")) {
           const { target } = hint?.event ?? {};
@@ -34,10 +31,14 @@ const initializeSentry = () => {
         }
         return breadcrumb;
       },
-      dsn: getSentryDSN(),
+      // Don't send errors from unauthenticated users
+      beforeSend: (event) => (event.user?.id ? event : null),
       debug: !isProduction(),
-      normalizeDepth: 5,
+      dsn: getSentryDSN(),
       environment: getReleaseStage() || "development",
+      maxValueLength: 500,
+      normalizeDepth: 5,
+      sampleRate: 0.5,
     });
   } catch (e) {
     console.error("Failed to initialize Sentry", e);

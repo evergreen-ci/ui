@@ -47,6 +47,7 @@ export const Task = () => {
     variables: { taskId, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "network-only",
+    errorPolicy: "all",
     onError: (err) =>
       dispatchToast.error(
         `There was an error loading the task: ${err.message}`,
@@ -69,8 +70,7 @@ export const Task = () => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const attributed = annotation?.issues?.length > 0;
   const isDisplayTask = executionTasksFull != null;
-
-  if (error) {
+  if (error && !task) {
     return <PageDoesNotExist />;
   }
 
