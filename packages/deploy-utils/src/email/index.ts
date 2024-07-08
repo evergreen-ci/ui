@@ -1,11 +1,11 @@
 import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { execSync } from "child_process";
 import { readFileSync } from "fs";
-import { getAppToDeploy, isRunningOnCI } from "../utils/environment";
+import { getAppToDeploy, isRunningOnCI, isTest } from "../utils/environment";
 import {
   getCommitMessages,
   getCurrentCommit,
-  getTagFromCommit,
+  getLatestTag,
 } from "../utils/git";
 import { execTrim } from "../utils/shell";
 import { findExecutable, formatDate } from "./utils";
@@ -22,13 +22,24 @@ type EmailFields = {
 /**
  * sendEmail is responsible for creating and sending the app's deploy email. It identifies the commits included in the deploy and specifies which tag to re-deploy for a revert (unless the deploy is itself a revert).
  */
-export const sendEmail = () => {
+export const sendEmail = async () => {
   const isRevert = !!process.env.EXECUTION;
   const app = getAppToDeploy();
-  const previousDeployCommit = readFileSync(
-    "bin/previous_deploy.txt",
-    "utf8",
-  ).trim();
+  const currentCommit = getCurrentCommit();
+
+  let previousDeployCommit;
+  try {
+    previousDeployCommit = readFileSync(
+      "bin/previous_deploy.txt",
+      "utf8",
+    ).trim();
+  } catch (e) {
+    console.error("Could not read bin/previous_deploy.txt");
+  }
+
+  if (!previousDeployCommit) {
+    previousDeployCommit = getLatestTag(app);
+  }
 
   if (isRevert) {
     const emailFields = makeEmail({
@@ -37,12 +48,11 @@ export const sendEmail = () => {
       commitToDeploy: previousDeployCommit,
     });
 
-    evergreenNotify(emailFields);
+    await evergreenNotify(emailFields);
     return;
   }
 
-  const previousDeployTag = getTagFromCommit(previousDeployCommit);
-  const currentCommit = getCurrentCommit();
+  const previousDeployTag = getLatestTag(app, previousDeployCommit);
   const commitsString = getCommitMessages(
     app,
     previousDeployCommit,
@@ -56,7 +66,7 @@ export const sendEmail = () => {
     previousTag: previousDeployTag,
   });
 
-  evergreenNotify(emailFields);
+  await evergreenNotify(emailFields);
 };
 
 /**
@@ -124,7 +134,10 @@ const evergreenNotify = async (emailFields: EmailFields) => {
   const credentials =
     evgExecutable === "~/evergreen" ? "-c .evergreen.yml" : "";
 
-  execSync(
-    `${evgExecutable} ${credentials} notify email -f ${from} -r ${recipients} -s '${subject}' -b '${body}'`,
-  );
+  const emailCmd = `${evgExecutable} ${credentials} notify email -f ${from} -r ${recipients} -s '${subject}' -b '${body}'`;
+  if (isTest) {
+    console.log(emailCmd);
+  } else {
+    execSync(emailCmd);
+  }
 };
