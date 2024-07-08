@@ -35,8 +35,8 @@ export type FormStateMap = {
     [ProjectSettingsTabRoutes.ViewsAndFilters]: ViewsFormState;
     [ProjectSettingsTabRoutes.VirtualWorkstation]: VWFormState;
     [ProjectSettingsTabRoutes.GithubCommitQueue]: GCQFormState;
-    [ProjectSettingsTabRoutes.AppSettings]: AppSettingsFormState;
-    [ProjectSettingsTabRoutes.PermissionGroups]: PermissionGroupsFormState;
+    [ProjectSettingsTabRoutes.GithubAppSettings]: AppSettingsFormState;
+    [ProjectSettingsTabRoutes.GithubPermissionGroups]: PermissionGroupsFormState;
   }[T];
 };
 
@@ -67,6 +67,6 @@ export type WritableProjectSettingsType =
   (typeof WritableProjectSettingsTabs)[keyof typeof WritableProjectSettingsTabs];
 
 export const projectOnlyTabs: Set<ProjectSettingsTabRoutes> = new Set([
-  ProjectSettingsTabRoutes.AppSettings,
-  ProjectSettingsTabRoutes.PermissionGroups,
+  ProjectSettingsTabRoutes.GithubAppSettings,
+  ProjectSettingsTabRoutes.GithubPermissionGroups,
 ]);

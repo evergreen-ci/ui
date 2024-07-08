@@ -46,9 +46,9 @@ export const gqlToFormMap: {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  [ProjectSettingsTabRoutes.AppSettings]: appSettings.gqlToForm,
+  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  [ProjectSettingsTabRoutes.PermissionGroups]: permissionGroups.gqlToForm,
+  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
 };
 
 export const formToGqlMap: {
@@ -79,7 +79,7 @@ export const formToGqlMap: {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  [ProjectSettingsTabRoutes.AppSettings]: appSettings.formToGql,
+  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  [ProjectSettingsTabRoutes.PermissionGroups]: permissionGroups.formToGql,
+  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
 };

@@ -42,10 +42,10 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.Plugins]: {
         title: "Plugins",
       },
-      [ProjectSettingsTabRoutes.AppSettings]: {
+      [ProjectSettingsTabRoutes.GithubAppSettings]: {
         title: "GitHub App Settings",
       },
-      [ProjectSettingsTabRoutes.PermissionGroups]: {
+      [ProjectSettingsTabRoutes.GithubPermissionGroups]: {
         title: "GitHub Permission Groups",
       },
       [ProjectSettingsTabRoutes.EventLog]: {

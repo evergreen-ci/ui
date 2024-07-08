@@ -32,8 +32,8 @@ const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.Plugins,
   ProjectSettingsTabRoutes.Containers,
   ProjectSettingsTabRoutes.ViewsAndFilters,
-  ProjectSettingsTabRoutes.AppSettings,
-  ProjectSettingsTabRoutes.PermissionGroups,
+  ProjectSettingsTabRoutes.GithubAppSettings,
+  ProjectSettingsTabRoutes.GithubPermissionGroups,
 ]);
 
 interface Props {
@@ -186,9 +186,9 @@ const mapRouteToSection: Record<
   [ProjectSettingsTabRoutes.Containers]: ProjectSettingsSection.Containers,
   [ProjectSettingsTabRoutes.ViewsAndFilters]:
     ProjectSettingsSection.ViewsAndFilters,
-  [ProjectSettingsTabRoutes.AppSettings]:
+  [ProjectSettingsTabRoutes.GithubAppSettings]:
     ProjectSettingsSection.GithubAppSettings,
-  [ProjectSettingsTabRoutes.PermissionGroups]:
+  [ProjectSettingsTabRoutes.GithubPermissionGroups]:
     ProjectSettingsSection.GithubPermissions,
 };
 

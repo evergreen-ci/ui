@@ -269,11 +269,12 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         />
         {showGitHubAccessTokenProject && (
           <Route
-            path={ProjectSettingsTabRoutes.AppSettings}
+            path={ProjectSettingsTabRoutes.GithubAppSettings}
             element={
               <AppSettingsTab
                 projectData={
-                  tabData[ProjectSettingsTabRoutes.AppSettings].projectData
+                  tabData[ProjectSettingsTabRoutes.GithubAppSettings]
+                    .projectData
                 }
               />
             }
@@ -281,11 +282,12 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         )}
         {showGitHubAccessTokenProject && (
           <Route
-            path={ProjectSettingsTabRoutes.PermissionGroups}
+            path={ProjectSettingsTabRoutes.GithubPermissionGroups}
             element={
               <PermissionGroupsTab
                 projectData={
-                  tabData[ProjectSettingsTabRoutes.AppSettings].projectData
+                  tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
+                    .projectData
                 }
               />
             }

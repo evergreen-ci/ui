@@ -4,7 +4,7 @@ import { BaseTab } from "../BaseTab";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
-const tab = ProjectSettingsTabRoutes.AppSettings;
+const tab = ProjectSettingsTabRoutes.GithubAppSettings;
 
 export const AppSettingsTab: React.FC<TabProps> = ({ projectData }) => {
   const initialFormState = projectData;

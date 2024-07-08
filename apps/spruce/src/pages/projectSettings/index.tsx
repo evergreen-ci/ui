@@ -219,13 +219,13 @@ const ProjectSettings: React.FC = () => {
           {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
             <ProjectSettingsNavItem
               {...sharedProps}
-              tab={ProjectSettingsTabRoutes.AppSettings}
+              tab={ProjectSettingsTabRoutes.GithubAppSettings}
             />
           )}
           {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
             <ProjectSettingsNavItem
               {...sharedProps}
-              tab={ProjectSettingsTabRoutes.PermissionGroups}
+              tab={ProjectSettingsTabRoutes.GithubPermissionGroups}
             />
           )}
           <ProjectSettingsNavItem
