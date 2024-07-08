@@ -8,6 +8,7 @@ describe("processLine", () => {
       commandName: "ec2.assume_role",
       functionName: "assume-ec2-role",
       status: "Running",
+      step: "1 of 4",
     };
     expect(processLine(logLine)).toStrictEqual(expectedMetadata);
   });
@@ -19,6 +20,7 @@ describe("processLine", () => {
       commandName: "shell.exec",
       functionName: "yarn-preview",
       status: "Finished",
+      step: "6 of 9",
     };
     expect(processLine(logLine)).toStrictEqual(expectedMetadata);
   });
@@ -32,7 +34,8 @@ describe("processLine", () => {
 describe("reduceFn", () => {
   it("accumulate section data for starting a section", () => {
     const accum: SectionData = { commands: [], functions: [] };
-    const line = "Running command 'shell.exec' in function 'yarn-preview'.";
+    const line =
+      "Running command 'shell.exec' in function 'yarn-preview' (step 6 of 9).";
     const logIndex = 0;
     expect(reduceFn(accum, line, logIndex)).toEqual({
       commands: [
@@ -41,6 +44,7 @@ describe("reduceFn", () => {
           commandName: "shell.exec",
           functionID: "function-0",
           range: { end: -1, start: 0 },
+          step: "6 of 9",
         },
       ],
       functions: [
@@ -60,6 +64,7 @@ describe("reduceFn", () => {
           commandName: "shell.exec",
           functionID: "function-0",
           range: { end: -1, start: 0 },
+          step: "6 of 9",
         },
       ],
       functions: [
@@ -83,6 +88,7 @@ describe("reduceFn", () => {
             end: 5,
             start: 0,
           },
+          step: "6 of 9",
         },
       ],
       functions: [
@@ -111,13 +117,14 @@ describe("reduceFn", () => {
   });
 
   it("should throw an error if a new running section starts without finishing the previous section", () => {
-    const accum = {
+    const accum: SectionData = {
       commands: [
         {
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
           range: { end: -1, start: 0 },
+          step: "2 of 8",
         },
       ],
       functions: [
@@ -143,22 +150,23 @@ describe("parseSections", () => {
   it("should correctly extract section data and close the last section when it is still running", () => {
     const logs = [
       "normal log line",
-      "Running command 'c1' in function 'f-1'.",
-      "Finished command 'c1' in function 'f-1'.",
-      "Running command 'c2' in function 'f-1'.",
-      "Finished command 'c2' in function 'f-1'.",
+      "Running command 'c1' in function 'f-1' (step 1 of 4).",
+      "Finished command 'c1' in function 'f-1' (step 1 of 4).",
+      "Running command 'c2' in function 'f-1' (step 1 of 4).",
+      "Finished command 'c2' in function 'f-1' (step 1 of 4).",
       "normal log line",
-      "Running command 'c3' in function 'f-2'.",
+      "Running command 'c3' in function 'f-2' (step 1 of 4).",
       "normal log line",
-      "Finished command 'c3' in function 'f-2'.",
-      "Running command 'c4' in function 'f-2'.",
-      "Finished command 'c4' in function 'f-2'.",
-      "Running command 'c5' in function 'f-3'.",
+      "Finished command 'c3' in function 'f-2' (step 1 of 4).",
+      "Running command 'c4' in function 'f-2' (step 1 of 4).",
+      "Finished command 'c4' in function 'f-2' (step 1 of 4).",
+      "Running command 'c5' in function 'f-3' (step 1 of 4).",
       "normal log line",
       "normal log line",
       "normal log line",
     ];
-    const expectedSections = {
+    const step = "1 of 4";
+    const expectedSections: SectionData = {
       commands: [
         {
           commandID: "command-1",
@@ -168,6 +176,7 @@ describe("parseSections", () => {
             end: 3,
             start: 1,
           },
+          step,
         },
         {
           commandID: "command-3",
@@ -177,6 +186,7 @@ describe("parseSections", () => {
             end: 5,
             start: 3,
           },
+          step,
         },
         {
           commandID: "command-6",
@@ -186,6 +196,7 @@ describe("parseSections", () => {
             end: 9,
             start: 6,
           },
+          step,
         },
         {
           commandID: "command-9",
@@ -195,6 +206,7 @@ describe("parseSections", () => {
             end: 11,
             start: 9,
           },
+          step,
         },
         {
           commandID: "command-11",
@@ -204,6 +216,7 @@ describe("parseSections", () => {
             end: 15,
             start: 11,
           },
+          step,
         },
       ],
       functions: [
@@ -239,23 +252,24 @@ describe("parseSections", () => {
   it("should correctly extract section data when all sections are finished", () => {
     const logs = [
       "normal log line",
-      "Running command 'c1' in function 'f-1'.",
+      "Running command 'c1' in function 'f-1' (step 1 of 4).",
       "normal log line",
       "normal log line",
       "normal log line",
-      "Finished command 'c1' in function 'f-1'.",
-      "Running command 'c2' in function 'f-1'.",
-      "Finished command 'c2' in function 'f-1'.",
+      "Finished command 'c1' in function 'f-1' (step 1 of 4).",
+      "Running command 'c2' in function 'f-1' (step 1 of 4).",
+      "Finished command 'c2' in function 'f-1' (step 1 of 4).",
       "normal log line",
-      "Running command 'c3' in function 'f-2'.",
+      "Running command 'c3' in function 'f-2' (step 1 of 4).",
       "normal log line",
-      "Finished command 'c3' in function 'f-2'.",
-      "Running command 'c4' in function 'f-2'.",
-      "Finished command 'c4' in function 'f-2'.",
+      "Finished command 'c3' in function 'f-2' (step 1 of 4).",
+      "Running command 'c4' in function 'f-2' (step 1 of 4).",
+      "Finished command 'c4' in function 'f-2' (step 1 of 4).",
       "normal log line",
       "normal log line",
       "normal log line",
     ];
+    const step = "1 of 4";
     expect(parseSections(logs)).toEqual({
       commands: [
         {
@@ -266,6 +280,7 @@ describe("parseSections", () => {
             end: 6,
             start: 1,
           },
+          step,
         },
         {
           commandID: "command-6",
@@ -275,6 +290,7 @@ describe("parseSections", () => {
             end: 8,
             start: 6,
           },
+          step,
         },
         {
           commandID: "command-9",
@@ -284,6 +300,7 @@ describe("parseSections", () => {
             end: 12,
             start: 9,
           },
+          step,
         },
         {
           commandID: "command-12",
@@ -293,6 +310,7 @@ describe("parseSections", () => {
             end: 14,
             start: 12,
           },
+          step,
         },
       ],
       functions: [
@@ -318,9 +336,9 @@ describe("parseSections", () => {
 
   it("should return an error when there is a finished section without a running section before it", () => {
     const logs = [
-      "Finished command 'c1' in function 'f-1'.",
-      "Running command 'c2' in function 'f-1'.",
-      "Finished command 'c2' in function 'f-1'.",
+      "Finished command 'c1' in function 'f-1' (step 1 of 4).",
+      "Running command 'c2' in function 'f-1' (step 1 of 4).",
+      "Finished command 'c2' in function 'f-1' (step 1 of 4).",
     ];
     expect(() => parseSections(logs)).toThrow(
       Error(
@@ -331,8 +349,8 @@ describe("parseSections", () => {
 
   it("should return an error when there is a new running section without finishing the previous section", () => {
     const logs = [
-      "Running command 'c1' in function 'f-1'.",
-      "Running command 'c2' in function 'f-2'.",
+      "Running command 'c1' in function 'f-1' (step 1 of 4).",
+      "Running command 'c2' in function 'f-2' (step 1 of 4).",
     ];
     expect(() => parseSections(logs)).toThrow(
       Error(

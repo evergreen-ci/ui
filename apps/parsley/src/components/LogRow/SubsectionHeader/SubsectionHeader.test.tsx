@@ -4,7 +4,7 @@ import SubsectionHeader from ".";
 describe("SubsectionHeader", () => {
   it("displays command name", () => {
     render(<SubsectionHeader {...sectionHeaderProps} />);
-    expect(screen.getByText("Command: shell.exec")).toBeVisible();
+    expect(screen.getByText("Command: shell.exec (step 1 of 4)")).toBeVisible();
   });
 
   it("renders as opened if 'open' prop is true", async () => {
@@ -65,4 +65,5 @@ const sectionHeaderProps = {
   lineIndex: 0,
   onToggle: vi.fn(),
   open: false,
+  step: "1 of 4",
 };

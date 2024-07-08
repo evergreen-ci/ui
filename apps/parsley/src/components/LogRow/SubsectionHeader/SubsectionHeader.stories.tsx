@@ -34,4 +34,5 @@ const Container = styled.div`
 const SubsectionHeaderProps = {
   commandID: "command-1",
   functionID: "function-1",
+  step: "1 of 4",
 };
