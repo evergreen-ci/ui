@@ -93,16 +93,16 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
             rowType: RowType.SectionHeader,
           });
           funcIndex += 1;
-        }
-        if (isFuncStart && !isFuncOpen) {
-          // The function is closed. Skip all log lines until the end of the function.
-          idx = func.range.end - 1;
-          // Skip all commands until the end of the function.
-          while (
-            sectionData.commands[commandIndex] &&
-            sectionData.commands[commandIndex].functionID === func.functionID
-          ) {
-            commandIndex += 1;
+          if (!isFuncOpen) {
+            // The function is closed. Skip all log lines until the end of the function.
+            idx = func.range.end - 1;
+            // Skip all commands until the end of the function.
+            while (
+              sectionData.commands[commandIndex] &&
+              sectionData.commands[commandIndex].functionID === func.functionID
+            ) {
+              commandIndex += 1;
+            }
           }
         }
         if (isCommandStart && ((isFuncStart && isFuncOpen) || !isFuncStart)) {
