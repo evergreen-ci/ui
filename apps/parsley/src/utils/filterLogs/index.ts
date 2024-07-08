@@ -93,38 +93,19 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
             rowType: RowType.SectionHeader,
           });
           funcIndex += 1;
-          if (isFuncOpen) {
-            if (isCommandStart) {
-              // The line marks the start of an open function and a command.
-              const commandLine = getProccessedCommandLine(
-                command,
-                sectionState,
-              );
-              filteredLines.push(commandLine);
-              if (commandLine.isOpen) {
-                filteredLines.push(idx);
-              } else {
-                // The command is closed so skip all log lines until the end of the command.
-                idx = command.range.end - 1;
-              }
-              commandIndex += 1; // Move to the next command.
-            } else {
-              throw new Error(
-                "A function does not share the same start as a command.",
-              );
-            }
-          } else {
-            // The function is closed. Skip all log lines until the end of the function.
-            idx = func.range.end - 1;
-            // Skip all commands until the end of the function.
-            while (
-              sectionData.commands[commandIndex] &&
-              sectionData.commands[commandIndex].functionID === func.functionID
-            ) {
-              commandIndex += 1;
-            }
+        }
+        if (isFuncStart && !isFuncOpen) {
+          // The function is closed. Skip all log lines until the end of the function.
+          idx = func.range.end - 1;
+          // Skip all commands until the end of the function.
+          while (
+            sectionData.commands[commandIndex] &&
+            sectionData.commands[commandIndex].functionID === func.functionID
+          ) {
+            commandIndex += 1;
           }
-        } else if (isCommandStart) {
+        }
+        if (isCommandStart && ((isFuncStart && isFuncOpen) || !isFuncStart)) {
           // A command start is detected.
           const commandLine = getProccessedCommandLine(command, sectionState);
           filteredLines.push(commandLine);
@@ -134,8 +115,8 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
             idx = command.range.end - 1;
           }
           commandIndex += 1;
-        } else {
-          // No functions or commands detected.
+        }
+        if (!isFuncStart && !isCommandStart) {
           filteredLines.push(idx);
         }
       }
