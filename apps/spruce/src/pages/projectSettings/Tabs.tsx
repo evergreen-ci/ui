@@ -1,12 +1,15 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { showGitHubAccessTokenProject } from "constants/featureFlags";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { NavigationModal } from "./NavigationModal";
+import { AppSettingsTab } from "./tabs/GithubAppSettingsTab/AppSettingsTab";
+import { PermissionGroupsTab } from "./tabs/GithubPermissionGroupsTab/PermissionGroupsTab";
 import {
   AccessTab,
   ContainersTab,
@@ -264,6 +267,32 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             />
           }
         />
+        {showGitHubAccessTokenProject && (
+          <Route
+            path={ProjectSettingsTabRoutes.GithubAppSettings}
+            element={
+              <AppSettingsTab
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.GithubAppSettings]
+                    .projectData
+                }
+              />
+            }
+          />
+        )}
+        {showGitHubAccessTokenProject && (
+          <Route
+            path={ProjectSettingsTabRoutes.GithubPermissionGroups}
+            element={
+              <PermissionGroupsTab
+                projectData={
+                  tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
+                    .projectData
+                }
+              />
+            }
+          />
+        )}
         <Route
           path={ProjectSettingsTabRoutes.EventLog}
           element={
