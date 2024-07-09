@@ -77,7 +77,7 @@ const ButtonRow: React.FC = () => {
             disabled={!rawLogURL}
             href={rawLogURL}
             leftGlyph={<Icon glyph="Export" />}
-            onClick={() => sendEvent({ name: "Opened Raw Logs" })}
+            onClick={() => sendEvent({ name: "Opened raw logs" })}
             target="_blank"
           >
             Raw

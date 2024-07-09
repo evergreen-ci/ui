@@ -3,31 +3,31 @@ import { DIRECTION } from "context/LogContext/types";
 import { Filter } from "types/logs";
 
 type Action =
-  | { name: "Added Filter"; filterExpression: string }
-  | { name: "Deleted Filter"; filterExpression: string }
-  | { name: "Toggled Filter"; open: boolean }
-  | { name: "Applied Project Filters"; filters: Filter[] }
-  | { name: "Added Bookmark" }
-  | { name: "Added Share line" }
-  | { name: "Removed Share line" }
-  | { name: "Navigated With Bookmark" }
-  | { name: "Removed Bookmark" }
-  | { name: "Cleared All Bookmarks" }
-  | { name: "Opened Share Menu" }
-  | { name: "Closed Share Menu" }
-  | { name: "Copied Share Link" }
-  | { name: "Copied Share Lines To Clipboard" }
-  | { name: "Applied Range Limit" }
-  | { name: "Edited Filter"; before: Filter; after: Filter }
-  | { name: "Added Highlight"; highlightExpression: string }
-  | { name: "Removed Highlight"; highlightExpression: string }
-  | { name: "Applied Search"; searchExpression: string }
-  | { name: "Applied Search Suggestion"; suggestion: string }
-  | { name: "Expanded Lines"; option: "All" | "Five"; lineCount: number }
-  | { name: "Collapsed Lines" }
-  | { name: "Paginated Through Search Results"; direction: DIRECTION }
+  | { name: "Added filter"; filterExpression: string }
+  | { name: "Deleted filter"; filterExpression: string }
+  | { name: "Toggled filter"; open: boolean }
+  | { name: "Applied project filters"; filters: Filter[] }
+  | { name: "Added bookmark" }
+  | { name: "Added share line" }
+  | { name: "Removed share line" }
+  | { name: "Navigated with bookmark" }
+  | { name: "Removed bookmark" }
+  | { name: "Cleared all bookmarks" }
+  | { name: "Opened share menu" }
+  | { name: "Closed share menu" }
+  | { name: "Copied share link" }
+  | { name: "Copied share lines to clipboard" }
+  | { name: "Applied range limit" }
+  | { name: "Edited filter"; before: Filter; after: Filter }
+  | { name: "Added highlight"; highlightExpression: string }
+  | { name: "Removed highlight"; highlightExpression: string }
+  | { name: "Applied search"; searchExpression: string }
+  | { name: "Applied search suggestion"; suggestion: string }
+  | { name: "Expanded lines"; option: "All" | "Five"; lineCount: number }
+  | { name: "Collapsed lines" }
+  | { name: "Paginated through search results"; direction: DIRECTION }
   | {
-      name: "Toggled Section";
+      name: "Toggled section";
       sectionName: string;
       sectionType: "command" | "function";
       open: boolean;
