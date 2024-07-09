@@ -12,7 +12,7 @@ const ZebraStripingToggle: React.FC = () => {
       label="Zebra Striping"
       onChange={(value) => {
         setZebraStriping(value);
-        sendEvent({ name: "Toggled Zebra Stripes", on: value });
+        sendEvent({ name: "Toggled zebra stripes", on: value });
       }}
       tooltip="Toggle whether zebra striping is enabled in the log file."
       value={zebraStriping}
