@@ -14,13 +14,13 @@ const WordWrapFormatToggle: React.FC = () => {
       setWordWrapFormat(WordWrapFormat.Aggressive);
       sendEvent({
         format: WordWrapFormat.Aggressive,
-        name: "Toggled Word Wrap Format",
+        name: "Toggled word wrap format",
       });
     } else {
       setWordWrapFormat(WordWrapFormat.Standard);
       sendEvent({
         format: WordWrapFormat.Standard,
-        name: "Toggled Word Wrap Format",
+        name: "Toggled word wrap format",
       });
     }
   };
