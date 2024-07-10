@@ -113,6 +113,22 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       },
     ],
     projectHealthView: ProjectHealthView.Failed,
+    githubDynamicTokenPermissionGroups: [
+      {
+        name: "permission-group-1",
+        permissions: {
+          actions: "read",
+          organization_hooks: "read",
+        },
+      },
+      {
+        name: "permission-group-2",
+        permissions: {
+          pull_requests: "write",
+          contents: "admin",
+        },
+      },
+    ],
   },
   vars: {
     vars: { test_name: "", test_two: "val" },

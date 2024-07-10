@@ -50,3 +50,7 @@ export type Evaluated<T> = {} & { [P in keyof T]: T[P] };
 
 /** Helper to identify field K in object T as optional */
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+
+export interface StringMap {
+  [index: string]: string;
+}

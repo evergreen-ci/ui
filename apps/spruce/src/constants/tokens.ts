@@ -31,4 +31,6 @@ const fontSize = {
   l: "18px",
 } as const;
 
-export { size, zIndex, fontSize };
+const tableColumnOffset = size.l;
+
+export { size, zIndex, fontSize, tableColumnOffset };
