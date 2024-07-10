@@ -39,6 +39,7 @@ describe("getLinesInProcessedLogLinesFromSelectedLines", () => {
         isOpen: true,
         range: { end: 6, start: 4 },
         rowType: RowType.SubsectionHeader,
+        step: "1 of 4",
       },
       4,
       5,

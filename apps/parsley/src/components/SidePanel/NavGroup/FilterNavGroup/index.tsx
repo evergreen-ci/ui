@@ -36,7 +36,7 @@ const FilterNavGroup: React.FC<FilterNavGroupProps> = ({
       { filterExpression },
       SentryBreadcrumb.User,
     );
-    sendEvent({ filterExpression, name: "Deleted Filter" });
+    sendEvent({ filterExpression, name: "Deleted filter" });
   };
 
   const editFilter = (
@@ -68,7 +68,7 @@ const FilterNavGroup: React.FC<FilterNavGroupProps> = ({
     sendEvent({
       after: newFilters[idxToReplace],
       before: filter,
-      name: "Edited Filter",
+      name: "Edited filter",
     });
   };
 
