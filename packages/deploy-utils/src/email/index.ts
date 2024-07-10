@@ -8,7 +8,7 @@ import {
   getLatestTag,
 } from "../utils/git";
 import { execTrim } from "../utils/shell";
-import { findExecutable, formatDate } from "./utils";
+import { findEvergreen, formatDate } from "./utils";
 
 const githubURL = "https://github.com/evergreen-ci/ui";
 
@@ -127,12 +127,12 @@ export const makeEmail = ({
 
 const evergreenNotify = async (emailFields: EmailFields) => {
   const { body, from, recipients, subject } = emailFields;
-  const evgExecutable = await findExecutable("evergreen");
-  if (!evgExecutable) {
+  const evgConfig = findEvergreen();
+  if (!evgConfig) {
     throw Error("Could not find Evergreen executable");
   }
-  const credentials =
-    evgExecutable === "~/evergreen" ? "-c .evergreen.yml" : "";
+
+  const { credentials, evgExecutable } = evgConfig;
 
   const emailCmd = `${evgExecutable} ${credentials} notify email -f ${from} -r ${recipients} -s '${subject}' -b '${body}'`;
   if (isTest) {

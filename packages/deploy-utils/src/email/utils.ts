@@ -1,5 +1,5 @@
-import { stat } from "fs/promises";
-import { delimiter, join } from "path";
+import { execSync } from "child_process";
+import { accessSync, constants } from "fs";
 
 const pad = (dateOrMonth: number) => dateOrMonth.toString().padStart(2, "0");
 
@@ -11,29 +11,46 @@ const pad = (dateOrMonth: number) => dateOrMonth.toString().padStart(2, "0");
 export const formatDate = (d: Date) =>
   `${d.getFullYear()}-${pad(d.getMonth())}-${pad(d.getDate())}`;
 
-const checkFileExists = async (filePath: string) => {
-  if ((await stat(filePath)).isFile()) {
-    return filePath;
+const fileExists = (commandName: string) => {
+  try {
+    accessSync(commandName, constants.F_OK);
+    return true;
+  } catch (e) {
+    return false;
   }
-  throw new Error("Not a file");
 };
 
-/**
- * findExecutable finds an executable by name on a user's path or in their home directory.
- * @param exe - name of executable to locate
- * @returns - path to executable
- */
-export const findExecutable = async (exe: string) => {
-  const envPath = process.env.PATH || "";
-  const pathDirs = envPath
-    .replace(/["]+/g, "")
-    .split(delimiter)
-    .filter(Boolean);
-  const candidates = pathDirs.map((d) => join(d, exe));
-  candidates.push(`~/${exe}`);
+const localExecutableSync = (commandName: string) => {
   try {
-    return await Promise.any(candidates.map(checkFileExists));
+    // eslint-disable-next-line no-bitwise
+    accessSync(commandName, constants.F_OK | constants.X_OK);
+    return true;
   } catch (e) {
-    return null;
+    return false;
   }
+};
+
+const commandExistsUnixSync = (commandName: string) => {
+  if (!fileExists(commandName)) {
+    console.log("hi");
+    try {
+      const stdout = execSync(
+        `command -v ${commandName} 2>/dev/null  && { echo >&1 ${commandName}; exit 0; }`,
+      );
+      return !!stdout;
+    } catch (error) {
+      return false;
+    }
+  }
+  return localExecutableSync(commandName);
+};
+
+export const findEvergreen = () => {
+  if (commandExistsUnixSync("evergreen")) {
+    return { evgExecutable: "evergreen", credentials: "" };
+  }
+  if (commandExistsUnixSync("~/evergreen")) {
+    return { evgExecutable: "evergreen", credentials: "~/.evergreen.yml" };
+  }
+  return null;
 };

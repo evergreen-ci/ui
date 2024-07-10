@@ -1,6 +1,6 @@
 import { getAppToDeploy } from "../utils/environment";
 import * as shellUtils from "../utils/shell";
-import { findExecutable, formatDate } from "./utils";
+import { findEvergreen, formatDate } from "./utils";
 
 vi.mock("../utils/environment", async (importOriginal) => ({
   // @ts-expect-error
@@ -15,13 +15,11 @@ describe("formatDate", () => {
   });
 });
 
-describe("findExecutable", () => {
-  it("finds an absolute path to the evergreen executable", async () => {
-    expect(await findExecutable("evergreen")).toMatch(/^\/(.*)\/evergreen$/);
-  });
-
-  it("returns null for a nonexistent executable", async () => {
-    expect(await findExecutable(`${Math.random()}`)).toBeNull();
+describe("findEvergreen", () => {
+  it("finds the evergreen executable", () => {
+    const evgConfig = findEvergreen();
+    expect(evgConfig).not.toBe(null);
+    expect(evgConfig?.evgExecutable).toMatch(/^(evergreen|~\/evergreen)$/);
   });
 });
 
@@ -122,7 +120,7 @@ describe("makeEmail", async () => {
 });
 
 const emailCommandRegex =
-  /^\/(.*)\/evergreen (-c .evergreen.yml)? notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (.*)' -b '(.*)'/;
+  /^(evergreen|~\/evergreen) (-c .evergreen.yml)? notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (.*)' -b '(.*)'/;
 
 describe("sendEmail", () => {
   beforeEach(() => {
