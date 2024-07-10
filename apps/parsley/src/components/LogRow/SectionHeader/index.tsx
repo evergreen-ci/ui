@@ -36,7 +36,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <CaretToggle
         onClick={() => {
           sendEvent({
-            name: "Toggled Section",
+            name: "Toggled section",
             open: !open,
             sectionName: functionName,
             sectionType: "function",

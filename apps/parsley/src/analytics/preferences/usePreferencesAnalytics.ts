@@ -2,21 +2,21 @@ import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import { FilterLogic, WordWrapFormat } from "constants/enums";
 
 type Action =
-  | { name: "Opened Task Link" }
-  | { name: "Opened Job Logs" }
-  | { name: "Opened Raw Logs" }
-  | { name: "Opened HTML Logs" }
-  | { name: "Clicked Copy To Jira" }
-  | { name: "Toggled Wrap"; on: boolean }
-  | { name: "Toggled Word Wrap Format"; format: WordWrapFormat }
-  | { name: "Toggled Case Sensitivity"; on: boolean }
-  | { name: "Toggled Pretty Print"; on: boolean }
-  | { name: "Toggled Filter Logic"; logic: FilterLogic }
-  | { name: "Toggled Expandable Rows"; on: boolean }
-  | { name: "Toggled Zebra Stripes"; on: boolean }
-  | { name: "Toggled Jump to Failing Line"; on: boolean }
-  | { name: "Toggled Highlight Filters"; on: boolean }
-  | { name: "Toggled Sections"; on: boolean };
+  | { name: "Opened task link" }
+  | { name: "Opened job logs" }
+  | { name: "Opened raw logs" }
+  | { name: "Opened HTML logs" }
+  | { name: "Clicked copy to Jira" }
+  | { name: "Toggled wrap"; on: boolean }
+  | { name: "Toggled word wrap format"; format: WordWrapFormat }
+  | { name: "Toggled case sensitivity"; on: boolean }
+  | { name: "Toggled pretty print"; on: boolean }
+  | { name: "Toggled filter logic"; logic: FilterLogic }
+  | { name: "Toggled expandable rows"; on: boolean }
+  | { name: "Toggled zebra stripes"; on: boolean }
+  | { name: "Toggled jump to failing line"; on: boolean }
+  | { name: "Toggled highlight filters"; on: boolean }
+  | { name: "Toggled sections"; on: boolean };
 
 export const usePreferencesAnalytics = () =>
   useAnalyticsRoot<Action>("Preferences");
