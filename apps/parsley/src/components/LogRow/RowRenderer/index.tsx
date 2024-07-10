@@ -75,9 +75,6 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     }
 
     if (isSectionHeaderRow(processedLogLine)) {
-      const status = includesLineNumber(processedLogLine, failingLine)
-        ? SectionStatus.Fail
-        : SectionStatus.Pass;
       return (
         <SectionHeader
           functionID={processedLogLine.functionID}
@@ -85,7 +82,11 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           lineIndex={index}
           onToggle={toggleFunctionSection}
           open={processedLogLine.isOpen}
-          status={status}
+          status={
+            includesLineNumber(processedLogLine, failingLine)
+              ? SectionStatus.Fail
+              : SectionStatus.Pass
+          }
         />
       );
     }
