@@ -101,6 +101,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           lineIndex={index}
           onToggle={toggleCommandSection}
           open={processedLogLine.isOpen}
+          step={processedLogLine.step}
         />
       );
     }

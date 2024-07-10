@@ -10,6 +10,7 @@ interface SectionLineMetadata {
   commandName: string;
   functionName: string;
   status: SectionStatus;
+  step: string;
 }
 /**
  * `processLine` parses a log line to extract metadata about a section entry.
@@ -18,13 +19,15 @@ interface SectionLineMetadata {
  * or null if the input line does not indicate the start or end of a section.
  */
 export const processLine = (str: string): SectionLineMetadata | null => {
-  const regex = /(Running|Finished) command '([^']+)' in function '([^']+)'.*/;
+  const regex =
+    /(Running|Finished) command '([^']+)' in function '([^']+)' \(step ([^)]+)\)[^.]*\./;
   const match = trimSeverity(str).match(regex);
   if (match) {
     return {
       commandName: match[2],
       functionName: match[3],
       status: match[1] as SectionStatus,
+      step: match[4],
     };
   }
   return null;
@@ -41,6 +44,7 @@ interface CommandEntry {
   commandName: string;
   functionID: string;
   range: Range;
+  step: string;
 }
 
 interface SectionData {
@@ -116,6 +120,7 @@ const reduceFn = (
       commandName: currentLine.commandName,
       functionID: functions[functions.length - 1].functionID,
       range: { end: ONGOING_ENTRY, start: logIndex },
+      step: currentLine.step,
     });
   }
   return { commands, functions };
