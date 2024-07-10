@@ -3,8 +3,8 @@ import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
+import { includesLineNumber } from "utils/logRow";
 import {
-  includesLineNumber,
   isSectionHeaderRow,
   isSkippedLinesRow,
   isSubsectionHeaderRow,

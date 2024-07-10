@@ -10,7 +10,7 @@
       <button
         aria-disabled="false"
         aria-label="Click to open or close section"
-        class="leafygreen-ui-tcjr3n"
+        class="leafygreen-ui-76dd2i"
         data-cy="caret-toggle"
         tabindex="0"
       >

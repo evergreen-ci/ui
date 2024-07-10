@@ -70,7 +70,7 @@
         <button
           aria-disabled="false"
           aria-labelledby="View search suggestions"
-          class="leafygreen-ui-tcjr3n"
+          class="leafygreen-ui-76dd2i"
           data-cy="search-suggestion-button"
           tabindex="0"
           title="View search suggestions"
