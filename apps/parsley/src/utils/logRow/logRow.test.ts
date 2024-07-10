@@ -77,6 +77,7 @@ describe("includesLineNumber", () => {
         isOpen: true,
         range: { end: 10, start: 1 },
         rowType: RowType.SubsectionHeader,
+        step: "1.1 of 4",
       };
       expect(includesLineNumber(logLine, 9)).toBe(true);
       expect(includesLineNumber(logLine, 3)).toBe(true);
@@ -91,6 +92,7 @@ describe("includesLineNumber", () => {
         isOpen: true,
         range: { end: 10, start: 1 },
         rowType: RowType.SubsectionHeader,
+        step: "1.1 of 4",
       };
       expect(includesLineNumber(logLine, 11)).toBe(false);
       expect(includesLineNumber(logLine, 10)).toBe(false);
