@@ -28,7 +28,7 @@ const Search: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [filters, setFilters] = useFilterParam();
   const [highlights, setHighlights] = useHighlightParam();
-  const [, setSearchParams] = useQueryParams({
+  const [searchParams, setSearchParams] = useQueryParams({
     parseNumbers: false,
   });
   const {
@@ -65,7 +65,7 @@ const Search: React.FC = () => {
 
           if (highlightFilters) {
             setSearchParams({
-              ...searchState,
+              ...searchParams,
               [QueryParams.Highlights]: [...highlights, value],
               [QueryParams.Filters]: stringifyFilters([
                 ...filters,
@@ -88,9 +88,9 @@ const Search: React.FC = () => {
               },
             ]);
           }
-          sendEvent({ filterExpression: value, name: "Added Filter" });
+          sendEvent({ filterExpression: value, name: "Added filter" });
           leaveBreadcrumb(
-            "Added Filter",
+            "Added filter",
             { filterExpression: value },
             SentryBreadcrumb.User,
           );
@@ -100,9 +100,9 @@ const Search: React.FC = () => {
         if (!highlights.includes(value)) {
           setSearch("");
           setHighlights([...highlights, value]);
-          sendEvent({ highlightExpression: value, name: "Added Highlight" });
+          sendEvent({ highlightExpression: value, name: "Added highlight" });
           leaveBreadcrumb(
-            "Added Highlight",
+            "Added highlight",
             { highlightExpression: value },
             SentryBreadcrumb.User,
           );
@@ -115,9 +115,9 @@ const Search: React.FC = () => {
 
   const handleOnChange = (value: string) => {
     setSearch(value);
-    sendEvent({ name: "Applied Search", searchExpression: value });
+    sendEvent({ name: "Applied search", searchExpression: value });
     leaveBreadcrumb(
-      "Applied Search",
+      "Applied search",
       { searchExpression: value },
       SentryBreadcrumb.User,
     );

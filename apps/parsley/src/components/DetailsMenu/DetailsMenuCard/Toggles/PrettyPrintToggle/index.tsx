@@ -18,7 +18,7 @@ const PrettyPrintToggle: React.FC = () => {
       label="Pretty Print Bookmarks"
       onChange={(value) => {
         setPrettyPrint(value);
-        sendEvent({ name: "Toggled Pretty Print", on: value });
+        sendEvent({ name: "Toggled pretty print", on: value });
       }}
       tooltip="Toggle pretty printing for bookmarked lines. Only available for resmoke logs."
       value={prettyPrint}

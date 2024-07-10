@@ -2,7 +2,9 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import * as access from "./AccessTab/transformers";
 import * as containers from "./ContainersTab/transformers";
 import * as general from "./GeneralTab/transformers";
+import * as appSettings from "./GithubAppSettingsTab/transformers";
 import * as githubCommitQueue from "./GithubCommitQueueTab/transformers";
+import * as permissionGroups from "./GithubPermissionGroupsTab/transformers";
 import * as notifications from "./NotificationsTab/transformers";
 import * as patchAliases from "./PatchAliasesTab/transformers";
 import * as periodicBuilds from "./PeriodicBuildsTab/transformers";
@@ -43,6 +45,10 @@ export const gqlToFormMap: {
   [ProjectSettingsTabRoutes.Containers]: containers.gqlToForm,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.gqlToForm,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.gqlToForm,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.gqlToForm,
 };
 
 export const formToGqlMap: {
@@ -72,4 +78,8 @@ export const formToGqlMap: {
   [ProjectSettingsTabRoutes.Containers]: containers.formToGql,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   [ProjectSettingsTabRoutes.ViewsAndFilters]: viewsAndFilters.formToGql,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  [ProjectSettingsTabRoutes.GithubAppSettings]: appSettings.formToGql,
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  [ProjectSettingsTabRoutes.GithubPermissionGroups]: permissionGroups.formToGql,
 };

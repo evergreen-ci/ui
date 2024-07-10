@@ -77,6 +77,7 @@ export const useTaskAnalytics = () => {
     skip: !taskId,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { taskId, execution },
+    errorPolicy: "all",
     fetchPolicy: "cache-first",
   });
 

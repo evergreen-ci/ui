@@ -27,9 +27,9 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ defaultOpen }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const setMenuOpen = () => {
     if (open) {
-      sendEvent({ name: "Closed Share Menu" });
+      sendEvent({ name: "Closed share menu" });
     } else {
-      sendEvent({ name: "Opened Share Menu" });
+      sendEvent({ name: "Opened share menu" });
     }
     setOpen(!open);
   };
@@ -46,7 +46,7 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ defaultOpen }) => {
     await copyToClipboard(getJiraFormat(lineNumbers, getLine));
     setOpen(false);
     sendEvent({
-      name: "Copied Share Lines To Clipboard",
+      name: "Copied share lines to clipboard",
     });
     dispatchToast.success(
       `Copied ${pluralize("line", lineNumbers.length, true)} to clipboard`,
@@ -63,7 +63,7 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ defaultOpen }) => {
     });
     setOpen(false);
     sendEvent({
-      name: "Applied Range Limit",
+      name: "Applied range limit",
     });
   };
 
@@ -76,7 +76,7 @@ const SharingMenu: React.FC<SharingMenuProps> = ({ defaultOpen }) => {
 
     await copyToClipboard(url.toString());
     setOpen(false);
-    sendEvent({ name: "Copied Share Link" });
+    sendEvent({ name: "Copied share link" });
     dispatchToast.success("Copied link to clipboard");
   };
 

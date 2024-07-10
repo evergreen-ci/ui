@@ -2,9 +2,9 @@ import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import { LogTypes } from "constants/enums";
 
 type Action =
-  | { name: "Clicked Upload Link"; hasLogs: boolean }
+  | { name: "Clicked upload link"; hasLogs: boolean }
   | { name: "Dropped file" }
-  | { name: "Uploaded Log File With Picker" }
-  | { name: "Processed Log"; logType: LogTypes; fileSize?: number };
+  | { name: "Uploaded log file with picker" }
+  | { name: "Processed log"; logType: LogTypes; fileSize?: number };
 
 export const useLogDropAnalytics = () => useAnalyticsRoot<Action>("LogDrop");

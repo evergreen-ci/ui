@@ -19,7 +19,7 @@ const UploadLink: React.FC<UploadLinkProps> = ({ clearLogs, hasLogs }) => {
   const { sendEvent } = useLogDropAnalytics();
   const handleClick = useCallback(() => {
     if (hasLogs) {
-      sendEvent({ hasLogs: true, name: "Clicked Upload Link" });
+      sendEvent({ hasLogs: true, name: "Clicked upload link" });
       setOpen(true);
     } else {
       leaveBreadcrumb(
@@ -27,7 +27,7 @@ const UploadLink: React.FC<UploadLinkProps> = ({ clearLogs, hasLogs }) => {
         { from: pathname, hasLogs: false, to: "/upload" },
         SentryBreadcrumb.Navigation,
       );
-      sendEvent({ hasLogs: false, name: "Clicked Upload Link" });
+      sendEvent({ hasLogs: false, name: "Clicked upload link" });
       navigate(routes.upload);
     }
   }, [hasLogs, pathname, sendEvent, navigate]);
