@@ -3,6 +3,7 @@ import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
+import { includesLineNumber } from "utils/logRow";
 import {
   isSectionHeaderRow,
   isSkippedLinesRow,
@@ -82,7 +83,11 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           lineIndex={index}
           onToggle={toggleFunctionSection}
           open={processedLogLine.isOpen}
-          status={SectionStatus.Pass} // TODO: Update in DEVPROD-5295
+          status={
+            includesLineNumber(processedLogLine, failingLine)
+              ? SectionStatus.Fail
+              : SectionStatus.Pass
+          }
         />
       );
     }
