@@ -40,7 +40,7 @@ const includesLineNumber = (logLine: ProcessedLogLine, lineNumber?: number) => {
   if (typeof logLine === "number") {
     return logLine === lineNumber;
   }
-  return logLine.range.start <= lineNumber && lineNumber < logLine.range.end;
+  return lineNumber >= logLine.range.start && lineNumber < logLine.range.end;
 };
 
 export {
