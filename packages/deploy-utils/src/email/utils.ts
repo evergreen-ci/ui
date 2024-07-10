@@ -32,7 +32,7 @@ export const findEvergreen = () => {
     return { evgExecutable: "evergreen", credentials: "" };
   }
   if (commandExists("~/evergreen")) {
-    return { evgExecutable: "evergreen", credentials: "~/.evergreen.yml" };
+    return { evgExecutable: "evergreen", credentials: "-c .evergreen.yml" };
   }
   return null;
 };
