@@ -47,7 +47,7 @@ export const RestartJasper: React.FC<Props> = ({
   });
 
   const onClickRestartJasperConfirm = () => {
-    hostsTableAnalytics.sendEvent({ name: "Restart Jasper" });
+    hostsTableAnalytics.sendEvent({ name: "Clicked restart jasper" });
     restartJasper({ variables: { hostIds: selectedHostIds } });
   };
 

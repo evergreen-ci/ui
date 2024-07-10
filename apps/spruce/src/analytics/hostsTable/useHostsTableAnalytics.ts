@@ -1,12 +1,12 @@
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action =
-  | { name: "Filter Hosts"; filterBy: string | string[] }
-  | { name: "Sort Hosts" }
-  | { name: "Change Page Size" }
-  | { name: "Restart Jasper" }
-  | { name: "Reprovision Host" }
-  | { name: "Update Status"; status: string };
+  | { name: "Filtered hosts table"; filterBy: string | string[] }
+  | { name: "Sorted hosts table" }
+  | { name: "Changed page size"; pageSize: number }
+  | { name: "Clicked restart jasper" }
+  | { name: "Clicked reprovision host" }
+  | { name: "Clicked update host status"; status: string };
 
 export const useHostsTableAnalytics = (isHostPage?: boolean) =>
   useAnalyticsRoot<Action>(isHostPage ? "HostPage" : "HostsTable");

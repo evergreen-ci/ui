@@ -71,7 +71,10 @@ export const UpdateStatusModal: React.FC<Props> = ({
   });
 
   const onClickUpdate = () => {
-    hostsTableAnalytics.sendEvent({ name: "Update Status", status });
+    hostsTableAnalytics.sendEvent({
+      name: "Clicked update host status",
+      status,
+    });
     updateHostStatus({ variables: { hostIds, status, notes } });
   };
 

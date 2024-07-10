@@ -60,7 +60,7 @@ export const HostsTable: React.FC<Props> = ({
     getDefaultSorting(table).onSortingChange(s);
 
   const tableSortHandler = useTableSort({
-    sendAnalyticsEvents: () => sendEvent({ name: "Sort Hosts" }),
+    sendAnalyticsEvents: () => sendEvent({ name: "Sorted hosts table" }),
   });
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -83,7 +83,10 @@ export const HostsTable: React.FC<Props> = ({
     });
 
     setQueryParams(updatedParams);
-    sendEvent({ name: "Filter Hosts", filterBy: Object.keys(filterState) });
+    sendEvent({
+      name: "Filtered hosts table",
+      filterBy: Object.keys(filterState),
+    });
   };
 
   const tableContainerRef = useRef<HTMLDivElement>(null);

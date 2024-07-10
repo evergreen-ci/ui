@@ -91,7 +91,7 @@ const Hosts: React.FC = () => {
 
   const handlePageSizeChange = (pageSize: number): void => {
     setLimit(pageSize);
-    hostsTableAnalytics.sendEvent({ name: "Change Page Size" });
+    hostsTableAnalytics.sendEvent({ name: "Changed page size", pageSize });
   };
 
   // UPDATE STATUS MODAL VISIBILITY STATE
