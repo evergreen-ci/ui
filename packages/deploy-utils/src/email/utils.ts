@@ -23,6 +23,10 @@ const commandExists = (commandName: string) => {
   }
 };
 
+/**
+ * findEvergreen finds the path and config file of the Evergreen executable
+ * @returns - object with evgExecutable and credentials paths, or null if Evergreen could not be found.
+ */
 export const findEvergreen = () => {
   if (commandExists("evergreen")) {
     return { evgExecutable: "evergreen", credentials: "" };
