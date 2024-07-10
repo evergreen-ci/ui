@@ -3,24 +3,24 @@ import { SectionData, parseSections, processLine, reduceFn } from "./utils";
 describe("processLine", () => {
   it("should correctly parse a log line indicating a running section", () => {
     const logLine =
-      "Running command 'ec2.assume_role' in function 'assume-ec2-role' (step 1 of 4) in block 'pre'.";
+      "Running command 'ec2.assume_role' in function 'assume-ec2-role' (step 1.3 of 4) in block 'pre'.";
     const expectedMetadata = {
       commandName: "ec2.assume_role",
       functionName: "assume-ec2-role",
       status: "Running",
-      step: "1 of 4",
+      step: "1.3 of 4",
     };
     expect(processLine(logLine)).toStrictEqual(expectedMetadata);
   });
 
   it("should correctly parse a log line indicating a finished section", () => {
     const logLine =
-      "Finished command 'shell.exec' in function 'yarn-preview' (step 6 of 9) in 415.963µs.";
+      "Finished command 'shell.exec' in function 'yarn-preview' (step 6 of 9.9) in 415.963µs.";
     const expectedMetadata = {
       commandName: "shell.exec",
       functionName: "yarn-preview",
       status: "Finished",
-      step: "6 of 9",
+      step: "6 of 9.9",
     };
     expect(processLine(logLine)).toStrictEqual(expectedMetadata);
   });
