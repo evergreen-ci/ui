@@ -43,6 +43,24 @@ import { getResourceRoute } from "./utils";
 const { gray } = palette;
 
 export const UserSubscriptions: React.FC<{}> = () => {
+  const subscriptions = useSubscriptionData();
+  return (
+    <>
+      <SettingsCardTitle>Manage subscriptions</SettingsCardTitle>
+      <SettingsCard>
+        {!subscriptions?.length ? (
+          "No subscriptions found."
+        ) : (
+          <SubscriptionsTable subscriptions={subscriptions} />
+        )}
+      </SettingsCard>
+    </>
+  );
+};
+
+const SubscriptionsTable: React.FC<{
+  subscriptions: GeneralSubscription[];
+}> = ({ subscriptions }) => {
   const dispatchToast = useToastContext();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
@@ -65,9 +83,6 @@ export const UserSubscriptions: React.FC<{}> = () => {
       );
     },
   });
-
-  const subscriptions = useSubscriptionData();
-
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
 
@@ -198,52 +213,43 @@ export const UserSubscriptions: React.FC<{}> = () => {
 
   return (
     <>
-      <SettingsCardTitle>Manage subscriptions</SettingsCardTitle>
-      <SettingsCard>
-        {!subscriptions?.length ? (
-          "No subscriptions found."
-        ) : (
-          <>
-            <InteractiveWrapper>
-              <Button
-                data-cy="delete-some-button"
-                disabled={Object.entries(rowSelection).length === 0}
-                leftGlyph={<Icon glyph="Trash" />}
-                onClick={onDeleteSubscriptions}
-                size="small"
-              >
-                Delete
-                {Object.entries(rowSelection).length
-                  ? ` (${Object.entries(rowSelection).length})`
-                  : ""}
-              </Button>
-              <PaginationWrapper>
-                <Pagination
-                  itemsPerPage={table.getState().pagination.pageSize}
-                  onItemsPerPageOptionChange={(value: string) => {
-                    table.setPageSize(Number(value));
-                  }}
-                  numTotalItems={subscriptions.length}
-                  currentPage={table.getState().pagination.pageIndex + 1}
-                  onCurrentPageOptionChange={(value: string) => {
-                    table.setPageIndex(Number(value) - 1);
-                  }}
-                  onBackArrowClick={() => table.previousPage()}
-                  onForwardArrowClick={() => table.nextPage()}
-                />
-              </PaginationWrapper>
-            </InteractiveWrapper>
-            <BaseTable
-              data-cy-row="subscription-row"
-              table={table}
-              shouldAlternateRowColor
-            />
-            <TableFooter>
-              <ClearSubscriptions />
-            </TableFooter>
-          </>
-        )}
-      </SettingsCard>
+      <InteractiveWrapper>
+        <Button
+          data-cy="delete-some-button"
+          disabled={Object.entries(rowSelection).length === 0}
+          leftGlyph={<Icon glyph="Trash" />}
+          onClick={onDeleteSubscriptions}
+          size="small"
+        >
+          Delete
+          {Object.entries(rowSelection).length
+            ? ` (${Object.entries(rowSelection).length})`
+            : ""}
+        </Button>
+        <PaginationWrapper>
+          <Pagination
+            itemsPerPage={table.getState().pagination.pageSize}
+            onItemsPerPageOptionChange={(value: string) => {
+              table.setPageSize(Number(value));
+            }}
+            numTotalItems={subscriptions.length}
+            currentPage={table.getState().pagination.pageIndex + 1}
+            onCurrentPageOptionChange={(value: string) => {
+              table.setPageIndex(Number(value) - 1);
+            }}
+            onBackArrowClick={() => table.previousPage()}
+            onForwardArrowClick={() => table.nextPage()}
+          />
+        </PaginationWrapper>
+      </InteractiveWrapper>
+      <BaseTable
+        data-cy-row="subscription-row"
+        table={table}
+        shouldAlternateRowColor
+      />
+      <TableFooter>
+        <ClearSubscriptions />
+      </TableFooter>
     </>
   );
 };

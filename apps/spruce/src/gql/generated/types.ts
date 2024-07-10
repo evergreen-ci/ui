@@ -1987,6 +1987,7 @@ export type Query = {
   host?: Maybe<Host>;
   hostEvents: HostEvents;
   hosts: HostsResponse;
+  images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
   logkeeperBuildMetadata: LogkeeperBuild;
   mainlineCommits?: Maybe<MainlineCommits>;
