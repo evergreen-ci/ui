@@ -14,12 +14,23 @@ interface LogPaneProps {
   rowRenderer: (index: number) => React.ReactNode;
   rowCount: number;
 }
+let timeoutId: string | number | NodeJS.Timeout | undefined;
 const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
-  const { failingLine, listRef, preferences, processedLogLines, scrollToLine } =
-    useLogContext();
+  const {
+    failingLine,
+    listRef,
+    preferences,
+    processedLogLines,
+    scrollToLine,
+    sectioning,
+  } = useLogContext();
+  const {
+    openSectionContainingLineNumber,
+    sectioningEnabled,
+    sectioningInitialized,
+  } = sectioning;
   const { setPrettyPrint, setWrap, zebraStriping } = preferences;
   const { settings } = useParsleySettings();
-
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -27,13 +38,22 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   const performedScroll = useRef(false);
 
   useEffect(() => {
-    if (listRef.current && !performedScroll.current && settings) {
+    if (
+      listRef.current &&
+      !performedScroll.current &&
+      settings &&
+      sectioningInitialized
+    ) {
+      const jumpToLine =
+        shareLine ??
+        (settings.jumpToFailingLineEnabled ? failingLine : undefined);
+      if (sectioningEnabled && jumpToLine !== undefined) {
+        openSectionContainingLineNumber(jumpToLine);
+      }
+      clearTimeout(timeoutId);
       // Use a timeout to execute certain actions after the log pane has rendered. All of the
       // code below describes one-time events.
-      setTimeout(() => {
-        const jumpToLine =
-          shareLine ??
-          (settings.jumpToFailingLineEnabled ? failingLine : undefined);
+      timeoutId = setTimeout(() => {
         const initialScrollIndex = findLineIndex(processedLogLines, jumpToLine);
         if (initialScrollIndex > -1) {
           leaveBreadcrumb(
@@ -60,7 +80,13 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       }, 100);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listRef, performedScroll, settings]);
+  }, [
+    listRef,
+    performedScroll,
+    settings,
+    sectioningInitialized,
+    processedLogLines,
+  ]);
 
   return (
     <PaginatedVirtualList

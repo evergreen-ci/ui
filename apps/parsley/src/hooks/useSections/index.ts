@@ -4,6 +4,7 @@ import { useToastContext } from "context/toast";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { reportError } from "utils/errorReporting";
 import { releaseSectioning } from "utils/featureFlag";
+import { includesLineNumber } from "utils/logRow";
 import { SectionData, parseSections } from "./utils";
 
 export type SectionState = {
@@ -30,6 +31,8 @@ export interface UseSectionsResult {
   toggleFunctionSection: ToggleFunctionSection;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
+  openSectionContainingLineNumber: (lineNumber: number) => void;
+  sectioningInitialized: boolean;
 }
 
 interface Props {
@@ -53,6 +56,11 @@ export const useSections = ({
     !!settings?.sectionsEnabled &&
     logType === LogTypes.EVERGREEN_TASK_LOGS &&
     renderingType === LogRenderingTypes.Default;
+
+  const sectioningInitialized = !!(
+    (sectioningEnabled && sectionData && sectionState) ||
+    (!sectioningEnabled && settings)
+  );
 
   const shouldParse =
     logs.length && sectioningEnabled && sectionData === undefined;
@@ -102,10 +110,34 @@ export const useSections = ({
     },
     [sectionState],
   );
+
+  const openSectionContainingLineNumber = useCallback(
+    (lineNumber: number) => {
+      const sectionContainingLine = sectionData?.commands.find((section) =>
+        includesLineNumber(section, lineNumber),
+      );
+      if (sectionContainingLine) {
+        const { commandID, functionID } = sectionContainingLine;
+        setSectionState((currentState) => {
+          if (currentState) {
+            const nextState = { ...currentState };
+            nextState[functionID].commands[commandID].isOpen = true;
+            nextState[functionID].isOpen = true;
+            return nextState;
+          }
+          return currentState;
+        });
+      }
+    },
+    [sectionData],
+  );
+
   return {
+    openSectionContainingLineNumber,
     sectionData,
     sectionState,
     sectioningEnabled,
+    sectioningInitialized,
     toggleCommandSection,
     toggleFunctionSection,
   };
