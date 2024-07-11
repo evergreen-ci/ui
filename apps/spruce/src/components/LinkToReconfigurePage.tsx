@@ -20,7 +20,7 @@ export const LinkToReconfigurePage: React.FC<{
       disabled={disabled}
       onClick={() => {
         if (!disabled) {
-          sendEvent({ name: "Click Reconfigure Link" });
+          sendEvent({ name: "Clicked patch reconfigure link" });
           navigate(getPatchRoute(patchId, { configure: true }));
         }
       }}
