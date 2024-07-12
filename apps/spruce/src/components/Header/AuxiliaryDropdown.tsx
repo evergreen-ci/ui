@@ -24,36 +24,36 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
     {
       text: "All Hosts",
       to: routes.hosts,
-      onClick: () => sendEvent({ name: "Click All Hosts Link" }),
+      onClick: () => sendEvent({ name: "Clicked all hosts link" }),
     },
     {
       text: "Commit Queue",
       to: getCommitQueueRoute(projectIdentifier),
-      onClick: () => sendEvent({ name: "Click Commit Queue Link" }),
+      onClick: () => sendEvent({ name: "Clicked commit queue link" }),
     },
     {
       text: "Task Queue",
       to: getTaskQueueRoute(""),
-      onClick: () => sendEvent({ name: "Click Task Queue Link" }),
+      onClick: () => sendEvent({ name: "Clicked task queue link" }),
     },
     {
       "data-cy": "auxiliary-dropdown-distro-settings",
       to: getDistroSettingsRoute(distro),
       text: "Distro Settings",
-      onClick: () => sendEvent({ name: "Click Distros Link" }),
+      onClick: () => sendEvent({ name: "Clicked distro settings link" }),
     },
 
     {
       "data-cy": "auxiliary-dropdown-project-patches",
       to: getProjectPatchesRoute(projectIdentifier),
       text: "Project Patches",
-      onClick: () => sendEvent({ name: "Click Project Patches Link" }),
+      onClick: () => sendEvent({ name: "Clicked project patches link" }),
     },
     {
       "data-cy": "auxiliary-dropdown-project-settings",
       text: "Project Settings",
       to: getProjectSettingsRoute(projectIdentifier),
-      onClick: () => sendEvent({ name: "Click Projects Link" }),
+      onClick: () => sendEvent({ name: "Clicked project settings link" }),
     },
   ];
 
