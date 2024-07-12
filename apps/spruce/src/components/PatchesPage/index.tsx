@@ -57,12 +57,18 @@ export const PatchesPage: React.FC<Props> = ({
       Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
     );
   const { limit, page } = usePatchesQueryParams();
-  const { setAndSubmitInputValue } = useFilterInputChangeHandler({
-    urlParam: PatchPageQueryParams.PatchName,
-    resetPage: true,
-    sendAnalyticsEvent: (filterBy: string) =>
-      analytics.sendEvent({ name: "Filter Patches", filterBy }),
-  });
+  const { inputValue: filterInput, setAndSubmitInputValue } =
+    useFilterInputChangeHandler({
+      urlParam: PatchPageQueryParams.PatchName,
+      resetPage: true,
+      sendAnalyticsEvent: (filterBy: string) =>
+        analytics.sendEvent({
+          name: "Filtered for patches",
+          filterBy,
+          includeHidden: includeHiddenCheckboxChecked,
+          includeCommitQueue: isCommitQueueCheckboxChecked,
+        }),
+    });
   usePageTitle(pageTitle);
 
   const commitQueueCheckboxOnChange = (
@@ -70,7 +76,12 @@ export const PatchesPage: React.FC<Props> = ({
   ): void => {
     setIsCommitQueueCheckboxChecked(e.target.checked);
     Cookies.set(cookie, e.target.checked ? "true" : "false");
-    analytics.sendEvent({ name: "Filter Commit Queue" });
+    analytics.sendEvent({
+      name: "Filtered for patches",
+      filterBy: filterInput,
+      includeHidden: includeHiddenCheckboxChecked,
+      includeCommitQueue: e.target.checked,
+    });
   };
 
   const includeHiddenCheckboxOnChange = (
@@ -79,14 +90,16 @@ export const PatchesPage: React.FC<Props> = ({
     setIsIncludeHiddenCheckboxChecked(e.target.checked);
     Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
     analytics.sendEvent({
-      name: "Filter Hidden",
+      name: "Filtered for patches",
+      filterBy: filterInput,
       includeHidden: e.target.checked,
+      includeCommitQueue: isCommitQueueCheckboxChecked,
     });
   };
 
   const handlePageSizeChange = (pageSize: number): void => {
     setLimit(pageSize);
-    analytics.sendEvent({ name: "Change Page Size" });
+    analytics.sendEvent({ name: "Changed page size" });
   };
 
   return (

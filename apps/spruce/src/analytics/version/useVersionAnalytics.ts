@@ -19,11 +19,11 @@ type Action =
         | TaskSortCategory.Variant;
     }
   | {
-      name: "Filter Downstream Tasks Table";
+      name: "Filtered downstream tasks table";
       filterBy: string | string[];
     }
   | {
-      name: "Sort Downstream Tasks Table";
+      name: "Sorted downstream tasks table";
       sortBy: TaskSortCategory | TaskSortCategory[];
     }
   | { name: "Restart"; abort: boolean }
@@ -34,7 +34,7 @@ type Action =
   | { name: "Change Tab"; tab: string }
   | { name: "Click Grouped Task Square"; taskSquareStatuses: string | string[] }
   | { name: "Click Build Variant Grid Link" }
-  | { name: "Click Reconfigure Link" }
+  | { name: "Clicked patch reconfigure link" }
   | { name: "Click Project Patches Metadata Link" }
   | { name: "Enqueue" }
   | { name: "Open Notification Modal" }
