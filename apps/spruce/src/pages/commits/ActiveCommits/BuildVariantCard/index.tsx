@@ -53,7 +53,7 @@ export const BuildVariantCard: React.FC<Props> = ({
           variant={variant}
           onClick={(statuses) => () => {
             sendEvent({
-              name: "Click grouped task status badge",
+              name: "Clicked grouped task status badge",
               statuses,
             });
           }}

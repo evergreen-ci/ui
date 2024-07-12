@@ -72,7 +72,7 @@ const Commits = () => {
 
   const sendAnalyticsEvent = (id: string, identifier: string) => {
     sendEvent({
-      name: "Redirect to project identifier",
+      name: "Redirected to project identifier",
       projectId: id,
       projectIdentifier: identifier,
     });
@@ -218,9 +218,10 @@ const Commits = () => {
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               selectedProjectIdentifier={projectIdentifier}
               getRoute={getCommitsRoute}
-              onSubmit={() => {
+              onSubmit={(p: string) => {
                 sendEvent({
-                  name: "Select project",
+                  name: "Changed project",
+                  project: p,
                 });
               }}
             />
@@ -230,11 +231,11 @@ const Commits = () => {
         <BadgeWrapper>
           <FilterBadges
             onRemove={(b) => {
-              sendEvent({ name: "Remove badge" });
+              sendEvent({ name: "Deleted a badge" });
               handleOnRemove(b);
             }}
             onClearAll={() => {
-              sendEvent({ name: "Clear all badges" });
+              sendEvent({ name: "Deleted all badges" });
               handleClearAll();
             }}
             badges={badges}
