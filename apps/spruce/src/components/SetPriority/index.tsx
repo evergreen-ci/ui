@@ -86,7 +86,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
     } else {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       setVersionPriority({ variables: { versionId, priority } });
-      sendVersionEvent({ name: "Set Priority", priority });
+      sendVersionEvent({ name: "Changed version priority", priority });
     }
   };
 

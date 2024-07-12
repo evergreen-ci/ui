@@ -50,7 +50,7 @@ export const UnscheduleTasks: React.FC<props> = ({
 
   const onConfirm = () => {
     unscheduleVersionTasks({ variables: { versionId, abort } });
-    sendEvent({ name: "Unschedule", abort });
+    sendEvent({ name: "Clicked unschedule tasks button", abort });
   };
 
   return (

@@ -37,7 +37,8 @@ type Action =
       name: "Changed spawn volume settings";
       params: UpdateVolumeMutationVariables["updateVolumeInput"];
     }
-  | { name: "Clicked open IDE button" };
+  | { name: "Clicked open IDE button" }
+  | { name: "Changed tab"; tab: string };
 
 export const useSpawnAnalytics = () => useAnalyticsRoot<Action>("SpawnPages");
 

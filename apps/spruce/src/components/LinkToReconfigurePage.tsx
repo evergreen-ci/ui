@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useVersionAnalytics, usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { getPatchRoute } from "constants/routes";
@@ -12,16 +12,15 @@ export const LinkToReconfigurePage: React.FC<{
     patchId,
   );
 
-  const navigate = useNavigate();
-
   return (
     <DropdownItem
       data-cy="reconfigure-link"
       disabled={disabled}
+      as={Link}
+      to={getPatchRoute(patchId, { configure: true })}
       onClick={() => {
         if (!disabled) {
           sendEvent({ name: "Clicked patch reconfigure link" });
-          navigate(getPatchRoute(patchId, { configure: true }));
         }
       }}
     >

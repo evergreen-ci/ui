@@ -88,7 +88,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           <StyledRouterLink
             to={getProjectPatchesRoute(projectIdentifier)}
             onClick={() =>
-              sendEvent({ name: "Click Project Patches Metadata Link" })
+              sendEvent({ name: "Clicked metadata project patches link" })
             }
           >
             {projectIdentifier}
@@ -141,7 +141,9 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           baseVersionId={baseVersion?.id}
           isGithubMergePatch={isGithubMergePatch}
-          onClick={() => sendEvent({ name: "Click Base Commit Link" })}
+          onClick={() =>
+            sendEvent({ name: "Clicked metadata base commit link" })
+          }
           revision={revision}
         />
       ) : (
@@ -150,7 +152,9 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           <InlineCode
             as={Link}
             data-cy="version-previous-commit"
-            onClick={() => sendEvent({ name: "Click Previous Version Link" })}
+            onClick={() =>
+              sendEvent({ name: "Clicked metadata previous version link" })
+            }
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getVersionRoute(previousVersion?.id)}
           >
@@ -178,7 +182,9 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
             data-cy="version-github-commit"
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             href={getGithubCommitUrl(owner, repo, revision)}
-            onClick={() => sendEvent({ name: "Click Github Commit Link" })}
+            onClick={() =>
+              sendEvent({ name: "Clicked metadata github commit link" })
+            }
           >
             {shortenGithash(revision)}
           </InlineCode>
