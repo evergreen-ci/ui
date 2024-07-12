@@ -8,34 +8,36 @@ import {
 } from "gql/generated/types";
 
 type Action =
-  | { name: "Copy SSH Command" }
-  | { name: "Change Host Status"; status: string }
-  | { name: "Toggle Spawn Host Details"; expanded: boolean }
-  | { name: "Change Tab"; tab: string }
-  | { name: "Opened the Spawn Host Modal" }
-  | { name: "Open the Edit Spawn Host Modal"; hostId: string; status: string }
-  | { name: "Edited a Spawn Host"; params: EditSpawnHostMutationVariables }
+  | { name: "Clicked copy SSH command button" }
+  | { name: "Changed host status"; status: string }
+  | { name: "Toggled spawn host details panel"; expanded: boolean }
+  | { name: "Viewed spawn host modal" }
+  | { name: "Viewed edit spawn host modal"; hostId: string; status: string }
   | {
-      name: "Spawned a host";
+      name: "Changed spawn host settings";
+      params: EditSpawnHostMutationVariables;
+    }
+  | {
+      name: "Created a spawn host";
       isMigration: boolean;
       params: Omit<
         SpawnHostMutationVariables["spawnHostInput"],
         "publicKey" | "userDataScript" | "setUpScript"
       >;
     }
-  | { name: "Opened the Spawn Volume Modal" }
-  | { name: "Mount volume to host"; volumeId: string; hostId: string }
-  | { name: "Delete volume"; volumeId: string }
-  | { name: "Unmount volume"; volumeId: string }
+  | { name: "Viewed spawn volume modal" }
+  | { name: "Changed mounted volume on host"; volumeId: string; hostId: string }
+  | { name: "Deleted a volume"; volumeId: string }
+  | { name: "Changed unmounted volume on host"; volumeId: string }
   | {
-      name: "Spawned a volume";
+      name: "Created a volume";
       params: SpawnVolumeMutationVariables["spawnVolumeInput"];
     }
   | {
-      name: "Edited a Spawn Volume";
+      name: "Changed spawn volume settings";
       params: UpdateVolumeMutationVariables["updateVolumeInput"];
     }
-  | { name: "Opened IDE" };
+  | { name: "Clicked open IDE button" };
 
 export const useSpawnAnalytics = () => useAnalyticsRoot<Action>("SpawnPages");
 
