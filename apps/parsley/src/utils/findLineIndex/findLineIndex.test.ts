@@ -1,81 +1,6 @@
 import { ProcessedLogLines, RowType } from "types/logs";
 import { findLineIndex } from ".";
 
-const processedLines: ProcessedLogLines = [
-  0,
-  { range: { end: 3, start: 1 }, rowType: RowType.SkippedLines },
-  3,
-  { range: { end: 6, start: 4 }, rowType: RowType.SkippedLines },
-  6,
-  { range: { end: 10, start: 7 }, rowType: RowType.SkippedLines },
-  {
-    functionID: "function-10",
-    functionName: "f-1",
-    isOpen: true,
-    range: { end: 11, start: 10 },
-    rowType: RowType.SectionHeader,
-  },
-  {
-    commandID: "command-10",
-    commandName: "shell.exec",
-    functionID: "function-10",
-    isOpen: false,
-    range: { end: 11, start: 10 },
-    rowType: RowType.SubsectionHeader,
-  },
-  12,
-  {
-    functionID: "function-13",
-    functionName: "f-2",
-    isOpen: false,
-    range: { end: 15, start: 13 },
-    rowType: RowType.SectionHeader,
-  },
-  {
-    functionID: "function-15",
-    functionName: "f-3",
-    isOpen: true,
-    range: { end: 17, start: 15 },
-    rowType: RowType.SectionHeader,
-  },
-  {
-    commandID: "command-15",
-    commandName: "shell.exec",
-    functionID: "function-15",
-    isOpen: false,
-    range: { end: 17, start: 15 },
-    rowType: RowType.SubsectionHeader,
-  },
-  {
-    functionID: "function-17",
-    functionName: "f-4",
-    isOpen: true,
-    range: { end: 19, start: 17 },
-    rowType: RowType.SectionHeader,
-  },
-  17,
-  18,
-  {
-    functionID: "function-19",
-    functionName: "f-5",
-    isOpen: true,
-    range: { end: 23, start: 19 },
-    rowType: RowType.SectionHeader,
-  },
-  {
-    commandID: "command-19",
-    commandName: "shell.exec",
-    functionID: "function-19",
-    isOpen: true,
-    range: { end: 23, start: 19 },
-    rowType: RowType.SubsectionHeader,
-  },
-  19,
-  20,
-  21,
-  22,
-];
-
 describe("findLineIndex", () => {
   it("should correctly determine index when line number exists directly in the array and is not represented in a Range object", () => {
     expect(findLineIndex(processedLines, 0)).toBe(0);
@@ -110,4 +35,82 @@ describe("findLineIndex", () => {
       expect(findLineIndex(processedLines, 20)).toBe(18);
     });
   });
+  const step = "1 of 4";
+  const processedLines: ProcessedLogLines = [
+    0,
+    { range: { end: 3, start: 1 }, rowType: RowType.SkippedLines },
+    3,
+    { range: { end: 6, start: 4 }, rowType: RowType.SkippedLines },
+    6,
+    { range: { end: 10, start: 7 }, rowType: RowType.SkippedLines },
+    {
+      functionID: "function-10",
+      functionName: "f-1",
+      isOpen: true,
+      range: { end: 11, start: 10 },
+      rowType: RowType.SectionHeader,
+    },
+    {
+      commandID: "command-10",
+      commandName: "shell.exec",
+      functionID: "function-10",
+      isOpen: false,
+      range: { end: 11, start: 10 },
+      rowType: RowType.SubsectionHeader,
+      step,
+    },
+    12,
+    {
+      functionID: "function-13",
+      functionName: "f-2",
+      isOpen: false,
+      range: { end: 15, start: 13 },
+      rowType: RowType.SectionHeader,
+    },
+    {
+      functionID: "function-15",
+      functionName: "f-3",
+      isOpen: true,
+      range: { end: 17, start: 15 },
+      rowType: RowType.SectionHeader,
+    },
+    {
+      commandID: "command-15",
+      commandName: "shell.exec",
+      functionID: "function-15",
+      isOpen: false,
+      range: { end: 17, start: 15 },
+      rowType: RowType.SubsectionHeader,
+      step,
+    },
+    {
+      functionID: "function-17",
+      functionName: "f-4",
+      isOpen: true,
+      range: { end: 19, start: 17 },
+      rowType: RowType.SectionHeader,
+    },
+    17,
+    18,
+    {
+      functionID: "function-19",
+      functionName: "f-5",
+      isOpen: true,
+      range: { end: 23, start: 19 },
+      rowType: RowType.SectionHeader,
+    },
+    {
+      commandID: "command-19",
+      commandName: "shell.exec",
+      functionID: "function-19",
+      isOpen: true,
+      range: { end: 23, start: 19 },
+      rowType: RowType.SubsectionHeader,
+      step,
+    },
+    19,
+    20,
+    21,
+    22,
+  ];
 });

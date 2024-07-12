@@ -15,6 +15,7 @@ interface SectionHeaderProps extends Row {
   commandID: string;
   onToggle: ToggleCommandSection;
   open: boolean;
+  step: string;
 }
 
 const SubsectionHeader: React.FC<SectionHeaderProps> = ({
@@ -23,6 +24,7 @@ const SubsectionHeader: React.FC<SectionHeaderProps> = ({
   functionID,
   onToggle,
   open,
+  step,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
 
@@ -40,7 +42,9 @@ const SubsectionHeader: React.FC<SectionHeaderProps> = ({
         }}
         open={open}
       />
-      <Body>Command: {commandName}</Body>
+      <Body>
+        Command: {commandName} (step {step})
+      </Body>
     </Wrapper>
   );
 };

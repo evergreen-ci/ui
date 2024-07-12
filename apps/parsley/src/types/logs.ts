@@ -35,6 +35,7 @@ interface SubsectionHeaderRow {
   isOpen: boolean;
   range: Range;
   rowType: RowType.SubsectionHeader;
+  step: string;
 }
 
 type ProcessedLogLine =
