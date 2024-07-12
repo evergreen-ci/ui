@@ -1,6 +1,9 @@
+import { makeEmail } from ".";
 import { getAppToDeploy } from "../utils/environment";
 import * as shellUtils from "../utils/shell";
 import { findEvergreen, formatDate } from "./utils";
+
+const mockCommit = "0000011111222223333344444555556666677777";
 
 vi.mock("../utils/environment", async (importOriginal) => ({
   // @ts-expect-error
@@ -24,11 +27,11 @@ describe("findEvergreen", () => {
 });
 
 describe("makeEmail", async () => {
-  const { makeEmail } = await import(".");
   const defaultArgs = {
     app: "spruce",
     commitToDeploy: "123",
     commitsString: "commit's a\ncommit b\n",
+    isRevert: false,
     previousTag: "spruce/v0.0.1",
   };
 
@@ -47,7 +50,7 @@ describe("makeEmail", async () => {
     );
   });
 
-  it("errors if there is no email set", () => {
+  it("errors if there is no author set", () => {
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
     vi.spyOn(shellUtils, "execTrim").mockReturnValue("");
     expect(() => makeEmail(defaultArgs)).toThrowError(
@@ -120,7 +123,12 @@ describe("makeEmail", async () => {
 });
 
 const emailCommandRegex =
-  /^(evergreen|~\/evergreen) (-c .evergreen.yml)? notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (.*)' -b '(.*)'/;
+  // eslint-disable-next-line no-useless-escape
+  /^(evergreen|~\/evergreen)( -c .evergreen.yml)?(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{40})' -b '\<ul\>(\<li\>(.*)\<\/li\>)*\<\/ul\>\<p\>\<b\>To revert, rerun task from previous release tag \(spruce\/v\d+.\d+.\d+\)\<\/b\>\<\/p\>'$/;
+
+const revertEmailRegex =
+  // eslint-disable-next-line no-useless-escape
+  /^(evergreen|~\/evergreen)( -c .evergreen.yml)?(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{40}) \(Revert\)' -b '\<ul\>(\<li\>(.*)\<\/li\>)*\<\/ul\>'$/;
 
 describe("sendEmail", () => {
   beforeEach(() => {
@@ -130,6 +138,7 @@ describe("sendEmail", () => {
     vi.stubEnv("CI", "true");
     vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
+    vi.stubEnv("EXECUTION", "0");
     vi.mocked(getAppToDeploy).mockReturnValue("spruce");
     vi.useFakeTimers().setSystemTime(new Date(2020, 6, 22));
   });
@@ -139,12 +148,27 @@ describe("sendEmail", () => {
     vi.restoreAllMocks();
   });
 
+  describe("validate regexes", () => {
+    it("matches on a non-revert email", () => {
+      const emailCmd = `evergreen notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to ${mockCommit}' -b '<ul><li>123abc commit message</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.1.2)</b></p>'`;
+      expect(emailCmd).toEqual(expect.stringMatching(emailCommandRegex));
+    });
+
+    it("matches on a revert email", () => {
+      const emailCmd = `~/evergreen -c .evergreen.yml notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to ${mockCommit} (Revert)' -b '<ul><li>123abc commit message</li></ul>'`;
+      expect(emailCmd).toEqual(expect.stringMatching(revertEmailRegex));
+    });
+  });
+
   it("uses previous deploy file", async () => {
     const { readFileSync } = await import("fs");
     const { sendEmail } = await import("./index");
     const consoleSpy = vi.spyOn(console, "log");
     vi.mocked(readFileSync).mockReturnValue("HEAD");
     await sendEmail();
+    expect(consoleSpy).toHaveBeenCalledWith(
+      expect.stringMatching(emailCommandRegex),
+    );
     expect(vi.mocked(readFileSync)).toHaveBeenCalledTimes(1);
     expect(consoleSpy).toHaveBeenCalledTimes(1);
   });
@@ -163,5 +187,20 @@ describe("sendEmail", () => {
     expect(consoleSpy).toHaveBeenCalledWith(
       expect.stringMatching(emailCommandRegex),
     );
+  });
+
+  it("sends revert", async () => {
+    const { readFileSync } = await import("fs");
+    const { sendEmail } = await import("./index");
+    const consoleSpy = vi.spyOn(console, "log");
+    vi.stubEnv("EXECUTION", "1");
+    vi.mocked(readFileSync).mockImplementation(() => {
+      throw Error("file not found");
+    });
+    await sendEmail();
+    expect(consoleSpy).toHaveBeenCalledWith(
+      expect.stringMatching(revertEmailRegex),
+    );
+    expect(consoleSpy).toHaveBeenCalledTimes(1);
   });
 });

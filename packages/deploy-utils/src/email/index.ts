@@ -23,11 +23,12 @@ type EmailFields = {
  * sendEmail is responsible for creating and sending the app's deploy email. It identifies the commits included in the deploy and specifies which tag to re-deploy for a revert (unless the deploy is itself a revert).
  */
 export const sendEmail = async () => {
-  const isRevert = !!process.env.EXECUTION;
+  const isRevert =
+    process.env.EXECUTION !== "" && process.env.EXECUTION !== "0";
   const app = getAppToDeploy();
   const currentCommit = getCurrentCommit();
 
-  let previousDeployCommit;
+  let previousDeployCommit = "";
   try {
     previousDeployCommit = readFileSync(
       "bin/previous_deploy.txt",
@@ -46,6 +47,7 @@ export const sendEmail = async () => {
       app,
       commitsString: execTrim(`git show --oneline -s ${previousDeployCommit}`),
       commitToDeploy: previousDeployCommit,
+      isRevert,
     });
 
     await evergreenNotify(emailFields);
@@ -63,6 +65,7 @@ export const sendEmail = async () => {
     app,
     commitsString,
     commitToDeploy: currentCommit,
+    isRevert,
     previousTag: previousDeployTag,
   });
 
@@ -76,6 +79,7 @@ export const sendEmail = async () => {
  * @param obj.commitsString - string of commit messages associated with deploy
  * @param obj.commitToDeploy - the commit for the deploy associated with this email
  * @param obj.previousTag - the most recently tagged commit
+ * @param obj.isRevert - the deploy in question reverts a previous deploy
  * @throws {Error} when missing DEPLOYS_EMAIL environment variable
  * @throws {Error} when missing author, either from AUTHOR_EMAIL environment variable or git config
  * @returns - object including email's body, from, receipients, and subject fields
@@ -84,11 +88,13 @@ export const makeEmail = ({
   app,
   commitToDeploy,
   commitsString,
+  isRevert,
   previousTag,
 }: {
   app: string;
   commitsString: string;
   commitToDeploy: string;
+  isRevert: boolean;
   previousTag?: string;
 }): EmailFields => {
   const recipients = process.env.DEPLOYS_EMAIL;
@@ -105,7 +111,7 @@ export const makeEmail = ({
 
   const commitsHTML = commitsString
     .trim()
-    .replace("'", "‘")
+    .replaceAll("'", "‘")
     .split("\n")
     .map((commit) => {
       const [hash] = commit.split(" ");
@@ -119,7 +125,7 @@ export const makeEmail = ({
     })
     .join("");
 
-  const subject = `${formatDate(new Date())} ${toSentenceCase(app)} Deploy to ${commitToDeploy}`;
+  const subject = `${formatDate(new Date())} ${toSentenceCase(app)} Deploy to ${commitToDeploy}${isRevert ? " (Revert)" : ""}`;
   const body = `<ul>${commitsHTML}</ul>${previousTag ? `<p><b>To revert, rerun task from previous release tag (${previousTag})</b></p>` : ""}`;
 
   return { body, from, recipients, subject };
