@@ -47,7 +47,7 @@ export const Reprovision: React.FC<Props> = ({
   });
 
   const onClickReprovisionConfirm = () => {
-    hostsTableAnalytics.sendEvent({ name: "Clicked reprovision host" });
+    hostsTableAnalytics.sendEvent({ name: "Clicked reprovision host button" });
     reprovisionToNew({ variables: { hostIds: selectedHostIds } });
   };
 

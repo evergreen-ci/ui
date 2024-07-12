@@ -7,6 +7,7 @@ export interface Analytics<Action> {
 }
 
 export type AnalyticsObject =
+  | "AllHostsPage"
   | "Annotations"
   | "April Fools"
   | "Breadcrumb"
@@ -14,7 +15,6 @@ export type AnalyticsObject =
   | "Configure"
   | "DistroSettings"
   | "HostPage"
-  | "HostsTable"
   | "JobLogs"
   | "Navbar"
   | "Patch"

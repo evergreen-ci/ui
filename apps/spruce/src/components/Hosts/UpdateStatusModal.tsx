@@ -19,14 +19,14 @@ interface Props {
   "data-cy": string;
   hostIds: string[];
   closeModal: () => void;
-  isSingleHost?: boolean;
+  isHostPage: boolean;
 }
 
 export const UpdateStatusModal: React.FC<Props> = ({
   closeModal,
   "data-cy": dataCy,
   hostIds,
-  isSingleHost = false,
+  isHostPage,
   visible,
 }) => {
   const dispatchToast = useToastContext();
@@ -36,7 +36,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
 
   const [notes, setNotesValue] = useState<string>("");
 
-  const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
+  const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
 
   const resetForm = () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -51,7 +51,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
   >(UPDATE_HOST_STATUS, {
     onCompleted({ updateHostStatus: numberOfHostsUpdated }) {
       closeModal();
-      const message = isSingleHost
+      const message = isHostPage
         ? `Status was changed to ${status}`
         : `Status was changed to ${status} for ${numberOfHostsUpdated} host${
             numberOfHostsUpdated === 1 ? "" : "s"
@@ -72,7 +72,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
 
   const onClickUpdate = () => {
     hostsTableAnalytics.sendEvent({
-      name: "Clicked update host status",
+      name: "Clicked update host status button",
       status,
     });
     updateHostStatus({ variables: { hostIds, status, notes } });
