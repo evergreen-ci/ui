@@ -44,7 +44,7 @@ describe("makeEmail", async () => {
     vi.useRealTimers();
   });
 
-  it("errors if there is no bucket set", () => {
+  it("errors if there is no deploys email set", () => {
     expect(() => makeEmail(defaultArgs)).toThrowError(
       "DEPLOYS_EMAIL not configured",
     );
@@ -122,15 +122,13 @@ describe("makeEmail", async () => {
   });
 });
 
-const emailCommandRegex =
-  // eslint-disable-next-line no-useless-escape
-  /^(evergreen|~\/evergreen)( -c .evergreen.yml)?(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{40})' -b '\<ul\>(\<li\>(.*)\<\/li\>)*\<\/ul\>\<p\>\<b\>To revert, rerun task from previous release tag \(spruce\/v\d+.\d+.\d+\)\<\/b\>\<\/p\>'$/;
-
-const revertEmailRegex =
-  // eslint-disable-next-line no-useless-escape
-  /^(evergreen|~\/evergreen)( -c .evergreen.yml)?(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{40}) \(Revert\)' -b '\<ul\>(\<li\>(.*)\<\/li\>)*\<\/ul\>'$/;
-
 describe("sendEmail", () => {
+  const emailCommandRegex =
+    /^(evergreen|~\/evergreen)( -c .evergreen.yml)?(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{40})' -b '<ul>(<li>(.*)<\/li>)*<\/ul><p><b>To revert, rerun task from previous release tag \(spruce\/v\d+.\d+.\d+\)<\/b><\/p>'$/;
+
+  const revertEmailRegex =
+    /^(evergreen|~\/evergreen)( -c .evergreen.yml)?(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{40}) \(Revert\)' -b '<ul>(<li>(.*)<\/li>)*<\/ul>'$/;
+
   beforeEach(() => {
     vi.unstubAllEnvs();
     vi.resetModules();

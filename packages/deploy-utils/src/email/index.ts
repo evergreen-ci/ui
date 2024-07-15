@@ -131,6 +131,15 @@ export const makeEmail = ({
   return { body, from, recipients, subject };
 };
 
+/**
+ * Calls evergreen notify command using the installed CLI. If run in a test, logs the output of this command to avoid inadvertent emails.
+ * @param emailFields - command arguments
+ * @param emailFields.body - email contents
+ * @param emailFields.from - sender's email address
+ * @param emailFields.recipients - recipient email address
+ * @param emailFields.subject - dated subject line
+ * @throws Error if Evergreen CLI is not found
+ */
 const evergreenNotify = async (emailFields: EmailFields) => {
   const { body, from, recipients, subject } = emailFields;
   const evgConfig = findEvergreen();
