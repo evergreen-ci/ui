@@ -1702,6 +1702,7 @@ export type Project = {
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
   githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   hidden?: Maybe<Scalars["Boolean"]["output"]>;
   id: Scalars["String"]["output"];
@@ -1842,6 +1843,7 @@ export type ProjectInput = {
   githubDynamicTokenPermissionGroups?: InputMaybe<
     Array<GitHubDynamicTokenPermissionGroupInput>
   >;
+  githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
   githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   identifier?: InputMaybe<Scalars["String"]["input"]>;
@@ -1987,6 +1989,7 @@ export type Query = {
   host?: Maybe<Host>;
   hostEvents: HostEvents;
   hosts: HostsResponse;
+  images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
   logkeeperBuildMetadata: LogkeeperBuild;
   mainlineCommits?: Maybe<MainlineCommits>;
