@@ -19,9 +19,8 @@
     "deploy:beta": "env-cmd -e beta yarn deploy-utils-deploy",
     "deploy:staging": "env-cmd -e staging yarn deploy-utils-deploy",
     "deploy:prod": "env-cmd -e production yarn deploy-utils-deploy",
-    "deploy:prod:old": "env-cmd -e production yarn node-loader-ts-node scripts/deploy/run-deploy",
     "dev": "env-cmd -e devLocal -r .env-cmdrc.local.json yarn start",
-    "check-schema-and-codegen": "yarn node-loader-ts-node scripts/check-schema-and-codegen/script.ts",
+    "check-schema-and-codegen": "vite-node scripts/check-schema-and-codegen/script.ts",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
@@ -36,8 +35,7 @@
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts",
-    "postversion": "scripts/push-version.sh",
-    "node-loader-ts-node": "node --no-warnings=ExperimentalWarning --loader ts-node/esm"
+    "postversion": "scripts/push-version.sh"
   },
   "browserslist": {
     "production": [
@@ -177,7 +175,6 @@
     "serve": "14.2.1",
     "simple-git": "3.24.0",
     "storybook": "8.2.2",
-    "ts-node": "10.9.1",
     "typescript": "5.0.3",
     "vite": "5.2.11",
     "vite-plugin-checker": "0.6.4",

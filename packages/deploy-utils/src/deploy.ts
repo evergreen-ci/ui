@@ -15,14 +15,14 @@ if (!isTargetEnvironment(target)) {
   throw Error("REACT_APP_RELEASE_STAGE must be specified");
 }
 
-if (target === "production") {
-  prepareProdDeploy();
-} else if (process.argv.includes("--force")) {
+if (process.argv.includes("--force")) {
   if (!process.env.BUCKET) {
     throw Error("Must specify BUCKET as environment variable");
   }
 
   buildAndPush(process.env.BUCKET);
+} else if (target === "production") {
+  prepareProdDeploy();
 } else {
   console.error(
     red(

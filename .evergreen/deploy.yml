@@ -42,8 +42,12 @@ functions:
           EVERGREEN_USER: ${evergreen_user}
         script: |
           echo "populating evergreen.yml"
-          chmod +x ./scripts/create-evergreen-yml.sh
-          ./scripts/create-evergreen-yml.sh
+          cat <<EOF > .evergreen.yml
+          api_server_host: $EVERGREEN_API_SERVER_HOST
+          ui_server_host: $EVERGREEN_UI_SERVER_HOST
+          api_key: $EVERGREEN_API_KEY
+          user: $EVERGREEN_USER
+          EOF
           echo "Done populating evergreen.yml"
     - command: shell.exec
       params:
@@ -53,7 +57,8 @@ functions:
           DEPLOYS_EMAIL: ${DEPLOYS_EMAIL}
           AUTHOR_EMAIL: ${author_email}
         script: |
-          ./scripts/deploy/email.sh
+          ${PREPARE_SHELL}
+          yarn deploy-utils-email
 
   write-previous-deploy:
     - command: shell.exec
