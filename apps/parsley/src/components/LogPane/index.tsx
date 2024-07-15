@@ -14,7 +14,6 @@ interface LogPaneProps {
   rowRenderer: (index: number) => React.ReactNode;
   rowCount: number;
 }
-let timeoutId: string | number | NodeJS.Timeout | undefined;
 const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   const {
     failingLine,
@@ -35,8 +34,9 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     QueryParams.ShareLine,
     undefined,
   );
-  const performedScroll = useRef(false);
 
+  const performedOpen = useRef(false);
+  const performedScroll = useRef(false);
   useEffect(() => {
     if (
       listRef.current &&
@@ -47,13 +47,17 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
       const jumpToLine =
         shareLine ??
         (settings.jumpToFailingLineEnabled ? failingLine : undefined);
-      if (sectioningEnabled && jumpToLine !== undefined) {
+      if (
+        sectioningEnabled &&
+        jumpToLine !== undefined &&
+        !performedOpen.current
+      ) {
         openSectionContainingLineNumber(jumpToLine);
+        performedOpen.current = true;
       }
-      clearTimeout(timeoutId);
       // Use a timeout to execute certain actions after the log pane has rendered. All of the
       // code below describes one-time events.
-      timeoutId = setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         const initialScrollIndex = findLineIndex(processedLogLines, jumpToLine);
         if (initialScrollIndex > -1) {
           leaveBreadcrumb(
@@ -78,6 +82,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
         }
         performedScroll.current = true;
       }, 100);
+      return () => clearTimeout(timeoutId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
