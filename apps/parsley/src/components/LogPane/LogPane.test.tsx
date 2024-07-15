@@ -90,6 +90,15 @@ describe("logPane", () => {
         setWrap: mockedSetWrap,
       },
       processedLogLines: Array.from(list.keys()),
+      sectioning: {
+        openSectionContainingLineNumber: vi.fn(),
+        sectionData: undefined,
+        sectionState: undefined,
+        sectioningEnabled: false,
+        sectioningInitialized: true,
+        toggleCommandSection: vi.fn(),
+        toggleFunctionSection: vi.fn(),
+      },
     }));
 
     RenderFakeToastContext();
@@ -110,7 +119,7 @@ describe("logPane", () => {
       vi.useFakeTimers();
       const mockedLogContext = vi.spyOn(logContext, "useLogContext");
       const mockedScrollToLine = vi.fn();
-
+      const mockedOpenSectionContainingLineNumber = vi.fn();
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
         listRef: createRef(),
@@ -121,6 +130,16 @@ describe("logPane", () => {
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
+        sectioning: {
+          openSectionContainingLineNumber:
+            mockedOpenSectionContainingLineNumber,
+          sectionData: undefined,
+          sectionState: undefined,
+          sectioningEnabled: false,
+          sectioningInitialized: true,
+          toggleCommandSection: vi.fn(),
+          toggleFunctionSection: vi.fn(),
+        },
       }));
 
       RenderFakeToastContext();
@@ -132,13 +151,16 @@ describe("logPane", () => {
         expect(mockedScrollToLine).toHaveBeenCalledTimes(1);
       });
       expect(mockedScrollToLine).toHaveBeenCalledWith(22);
+      await waitFor(() => {
+        expect(mockedOpenSectionContainingLineNumber).not.toHaveBeenCalled();
+      });
     });
 
     it("scrolls to share line, which takes precedence over failing line", async () => {
       vi.useFakeTimers();
       const mockedLogContext = vi.spyOn(logContext, "useLogContext");
       const mockedScrollToLine = vi.fn();
-
+      const mockedOpenSectionContainingLineNumber = vi.fn();
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
         listRef: createRef(),
@@ -149,6 +171,16 @@ describe("logPane", () => {
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
+        sectioning: {
+          openSectionContainingLineNumber:
+            mockedOpenSectionContainingLineNumber,
+          sectionData: undefined,
+          sectionState: undefined,
+          sectioningEnabled: false,
+          sectioningInitialized: true,
+          toggleCommandSection: vi.fn(),
+          toggleFunctionSection: vi.fn(),
+        },
       }));
 
       RenderFakeToastContext();
@@ -160,7 +192,60 @@ describe("logPane", () => {
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalledTimes(1);
       });
-      expect(mockedScrollToLine).toHaveBeenCalledWith(5);
+      await waitFor(() => {
+        expect(mockedScrollToLine).toHaveBeenCalledWith(5);
+      });
+      await waitFor(() => {
+        expect(mockedOpenSectionContainingLineNumber).not.toHaveBeenCalled();
+      });
+    });
+
+    it("opens the section before scrolling if sectioning is enabled", async () => {
+      vi.useFakeTimers();
+      const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+      const mockedScrollToLine = vi.fn();
+      const openSectionContainingLineNumber = vi.fn();
+      mockedLogContext.mockImplementation(() => ({
+        failingLine: 22,
+        listRef: createRef(),
+        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+        preferences: {
+          setPrettyPrint: vi.fn(),
+          setWrap: vi.fn(),
+        },
+        processedLogLines: Array.from(list.keys()),
+        scrollToLine: mockedScrollToLine,
+        sectioning: {
+          openSectionContainingLineNumber,
+          sectionData: undefined,
+          sectionState: undefined,
+          sectioningEnabled: true,
+          sectioningInitialized: true,
+          toggleCommandSection: vi.fn(),
+          toggleFunctionSection: vi.fn(),
+        },
+      }));
+
+      RenderFakeToastContext();
+      render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
+        route: "?shareLine=5",
+        wrapper,
+      });
+      vi.advanceTimersByTime(100);
+      await waitFor(() => {
+        expect(openSectionContainingLineNumber).toHaveBeenCalledWith({
+          lineNumber: 5,
+        });
+      });
+      await waitFor(() => {
+        expect(mockedScrollToLine).toHaveBeenCalledWith(5);
+      });
+      await waitFor(() => {
+        expect(mockedScrollToLine).toHaveBeenCalledOnce();
+      });
+      await waitFor(() => {
+        expect(openSectionContainingLineNumber).toHaveBeenCalledOnce();
+      });
     });
   });
 });
