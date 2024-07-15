@@ -52,7 +52,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
         jumpToLine !== undefined &&
         !performedOpen.current
       ) {
-        openSectionContainingLineNumber(jumpToLine);
+        openSectionContainingLineNumber({ lineNumber: jumpToLine });
         performedOpen.current = true;
       }
       // Use a timeout to execute certain actions after the log pane has rendered. All of the

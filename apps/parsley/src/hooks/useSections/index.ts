@@ -5,7 +5,7 @@ import { useParsleySettings } from "hooks/useParsleySettings";
 import { reportError } from "utils/errorReporting";
 import { releaseSectioning } from "utils/featureFlag";
 import { includesLineNumber } from "utils/logRow";
-import { SectionData, parseSections } from "./utils";
+import { CommandEntry, SectionData, parseSections } from "./utils";
 
 export type SectionState = {
   [functionID: string]: {
@@ -31,7 +31,9 @@ export interface UseSectionsResult {
   toggleFunctionSection: ToggleFunctionSection;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
-  openSectionContainingLineNumber: (lineNumber: number) => void;
+  openSectionContainingLineNumber: (p: {
+    lineNumber: number | number[];
+  }) => void;
   sectioningInitialized: boolean;
 }
 
@@ -95,7 +97,7 @@ export const useSections = ({
         return currentState;
       });
     },
-    [sectionState],
+    [],
   );
   const toggleCommandSection: ToggleCommandSection = useCallback(
     ({ commandID, functionID, isOpen }) => {
@@ -108,26 +110,32 @@ export const useSections = ({
         return currentState;
       });
     },
-    [sectionState],
+    [],
   );
 
   const openSectionContainingLineNumber = useCallback(
-    (lineNumber: number) => {
-      const sectionContainingLine = sectionData?.commands.find((section) =>
-        includesLineNumber(section, lineNumber),
-      );
-      if (sectionContainingLine) {
-        const { commandID, functionID } = sectionContainingLine;
-        setSectionState((currentState) => {
-          if (currentState) {
-            const nextState = { ...currentState };
+    ({ lineNumber }: { lineNumber: number | number[] }) => {
+      const lineNumberArray = Array.isArray(lineNumber)
+        ? lineNumber
+        : [lineNumber];
+      const sectionContainingLine = lineNumberArray
+        .map((n) =>
+          sectionData?.commands.find((section) =>
+            includesLineNumber(section, n),
+          ),
+        )
+        .filter((v) => v) as CommandEntry[];
+      setSectionState((currentState) => {
+        if (currentState) {
+          const nextState = { ...currentState };
+          sectionContainingLine.forEach(({ commandID, functionID }) => {
             nextState[functionID].commands[commandID].isOpen = true;
             nextState[functionID].isOpen = true;
-            return nextState;
-          }
-          return currentState;
-        });
-      }
+          });
+          return nextState;
+        }
+        return currentState;
+      });
     },
     [sectionData],
   );
