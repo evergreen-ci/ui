@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"d742e3bedc634a10ae36d21db9399fce","collectionName":"commit_queue","type":"collection"}

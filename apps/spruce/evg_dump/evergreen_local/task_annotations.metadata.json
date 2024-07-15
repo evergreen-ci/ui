@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"4c4ce41efb4e4c5d98f31e8208ed6bbf","collectionName":"task_annotations","type":"collection"}
