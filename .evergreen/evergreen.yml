@@ -66,10 +66,6 @@ buildvariants:
         git_tag_only: true
         patchable: false
         priority: 100
-      - name: deploy_prod_spruce
-        git_tag_only: true
-        patchable: false
-        priority: 100
 
   - name: parsley
     display_name: Parsley
@@ -96,10 +92,6 @@ buildvariants:
       - name: test
       - name: type_check
       - name: deploy-parsley-prod
-        git_tag_only: true
-        patchable: false
-        priority: 100
-      - name: deploy_prod_parsley
         git_tag_only: true
         patchable: false
         priority: 100

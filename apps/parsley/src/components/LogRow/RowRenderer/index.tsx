@@ -3,6 +3,7 @@ import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { ProcessedLogLines } from "types/logs";
+import { includesLineNumber } from "utils/logRow";
 import {
   isSectionHeaderRow,
   isSkippedLinesRow,
@@ -12,6 +13,7 @@ import AnsiRow from "../AnsiRow";
 import ResmokeRow from "../ResmokeRow";
 import SectionHeader from "../SectionHeader";
 import SkippedLinesRow from "../SkippedLinesRow";
+import SubsectionHeader from "../SubsectionHeader";
 
 type RowRendererFunction = (props: {
   processedLogLines: ProcessedLogLines;
@@ -31,7 +33,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     searchState,
     sectioning,
   } = useLogContext();
-  const { toggleFunctionSection } = sectioning;
+  const { toggleCommandSection, toggleFunctionSection } = sectioning;
   const { prettyPrint, wordWrapFormat, wrap } = preferences;
 
   const { searchTerm } = searchState;
@@ -81,13 +83,27 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           lineIndex={index}
           onToggle={toggleFunctionSection}
           open={processedLogLine.isOpen}
-          status={SectionStatus.Pass} // TODO: Update in DEVPROD-5295
+          status={
+            includesLineNumber(processedLogLine, failingLine)
+              ? SectionStatus.Fail
+              : SectionStatus.Pass
+          }
         />
       );
     }
 
     if (isSubsectionHeaderRow(processedLogLine)) {
-      return <div>subsection start</div>;
+      return (
+        <SubsectionHeader
+          commandID={processedLogLine.commandID}
+          commandName={processedLogLine.commandName}
+          functionID={processedLogLine.functionID}
+          lineIndex={index}
+          onToggle={toggleCommandSection}
+          open={processedLogLine.isOpen}
+          step={processedLogLine.step}
+        />
+      );
     }
 
     return (

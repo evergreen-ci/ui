@@ -12,7 +12,7 @@ const ExpandableRowsToggle: React.FC = () => {
       label="Expandable Rows"
       onChange={(value) => {
         setExpandableRows(value);
-        sendEvent({ name: "Toggled Expandable Rows", on: value });
+        sendEvent({ name: "Toggled expandable rows", on: value });
       }}
       tooltip="Toggle whether filtered out rows are visible"
       value={expandableRows}

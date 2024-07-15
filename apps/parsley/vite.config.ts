@@ -66,6 +66,7 @@ export default defineConfig({
     }),
     sentryVitePlugin({
       authToken: process.env.PARSLEY_SENTRY_AUTH_TOKEN,
+      disable: process.env.NODE_ENV === "development",
       org: "mongodb-org",
       project: "parsley",
       release: {

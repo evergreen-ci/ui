@@ -274,21 +274,6 @@ export const joinWithConjunction = (array: string[], conjunction: string) => {
 export const stripNewLines = (str: string) => str.replace(/\n/g, "");
 
 /**
- * Given a string, converts it to sentence case.
- * @param string - string to convert to sentence case
- * @returns string in sentence case
- * @example
- * toSentenceCase("hello world") => "Hello world"
- * toSentenceCase("HELLO WORLD") => "Hello world"
- */
-export const toSentenceCase = (string: string) => {
-  if (string === undefined || string.length === 0) {
-    return "";
-  }
-  return string[0].toUpperCase() + string.substring(1).toLowerCase();
-};
-
-/**
  * Given a JIRA URL, extract the ticket number.
  * @param jiraURL - the URL from which to extract the ticket number
  * @returns the JIRA ticket number

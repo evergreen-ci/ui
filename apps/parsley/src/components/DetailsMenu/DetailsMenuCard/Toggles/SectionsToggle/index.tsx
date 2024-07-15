@@ -27,7 +27,7 @@ const SectionsToggle: React.FC<SectionsToggleProps> = ({
         updateSettings({
           sectionsEnabled: value,
         });
-        sendEvent({ name: "Toggled Sections", on: value });
+        sendEvent({ name: "Toggled sections", on: value });
       }}
       tooltip="Toggle sections. Only available for Evergreen task logs."
       value={checked}

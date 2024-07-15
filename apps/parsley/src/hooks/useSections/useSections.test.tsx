@@ -78,8 +78,8 @@ describe("useSections", () => {
     RenderFakeToastContext();
     const logs = [
       "normal log line",
-      "Running command 'c1' in function 'f-1'.",
-      "Finished command 'c1' in function 'f-1'.",
+      "Running command 'c1' in function 'f-1' (step 1 of 4).",
+      "Finished command 'c1' in function 'f-1' (step 1 of 4).",
     ];
     const { result } = renderHook(() => useSections({ logs, ...metadata }), {
       wrapper,
@@ -98,6 +98,7 @@ describe("useSections", () => {
               end: 3,
               start: 1,
             },
+            step: "1 of 4",
           },
         ],
         functions: [
@@ -119,7 +120,7 @@ describe("useSections", () => {
     const { result } = renderHook(
       () =>
         useSections({
-          logs: ["Finished command 'c1' in function 'f-1'."],
+          logs: ["Finished command 'c1' in function 'f-1' (step 1 of 4)."],
           ...metadata,
         }),
       { wrapper },
@@ -249,23 +250,24 @@ describe("useSections", () => {
     });
     const logs = [
       "normal log line",
-      "Running command 'c1' in function 'f-1'.",
+      "Running command 'c1' in function 'f-1' (step 1 of 4).",
       "normal log line",
       "normal log line",
       "normal log line",
-      "Finished command 'c1' in function 'f-1'.",
-      "Running command 'c2' in function 'f-1'.",
-      "Finished command 'c2' in function 'f-1'.",
+      "Finished command 'c1' in function 'f-1' (step 1 of 4).",
+      "Running command 'c2' in function 'f-1' (step 1 of 4).",
+      "Finished command 'c2' in function 'f-1' (step 1 of 4).",
       "normal log line",
-      "Running command 'c3' in function 'f-2'.",
+      "Running command 'c3' in function 'f-2' (step 1 of 4).",
       "normal log line",
-      "Finished command 'c3' in function 'f-2'.",
-      "Running command 'c4' in function 'f-2'.",
-      "Finished command 'c4' in function 'f-2'.",
+      "Finished command 'c3' in function 'f-2' (step 1 of 4).",
+      "Running command 'c4' in function 'f-2' (step 1 of 4).",
+      "Finished command 'c4' in function 'f-2' (step 1 of 4).",
       "normal log line",
       "normal log line",
       "normal log line",
     ];
+    const step = "1 of 4";
     const sectionData: sectionUtils.SectionData = {
       commands: [
         {
@@ -276,6 +278,7 @@ describe("useSections", () => {
             end: 6,
             start: 1,
           },
+          step,
         },
         {
           commandID: "command-6",
@@ -285,6 +288,7 @@ describe("useSections", () => {
             end: 8,
             start: 6,
           },
+          step,
         },
         {
           commandID: "command-9",
@@ -294,6 +298,7 @@ describe("useSections", () => {
             end: 12,
             start: 9,
           },
+          step,
         },
         {
           commandID: "command-12",
@@ -303,6 +308,7 @@ describe("useSections", () => {
             end: 14,
             start: 12,
           },
+          step,
         },
       ],
       functions: [
