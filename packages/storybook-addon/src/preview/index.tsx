@@ -1,6 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { Decorator, Parameters, ReactRenderer } from "@storybook/react";
-import type { ProjectAnnotations } from "@storybook/types";
+import { Decorator, Parameters } from "@storybook/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
 const parameters: Parameters = {
@@ -48,7 +47,7 @@ const decorators: Decorator[] = [
   },
 ];
 
-const preview: ProjectAnnotations<ReactRenderer> = {
+const preview = {
   parameters,
   decorators,
 };
