@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import {
   parsleySettingsMock,
   parsleySettingsMockSectionsDisabled,
@@ -24,7 +24,7 @@ describe("useSections", () => {
   });
 
   it("should call parsing function when sections are enabled and logs are populated", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const { result } = renderHook(
       () => useSections({ logs: ["log line"], ...metadata }),
       { wrapper },
@@ -41,7 +41,7 @@ describe("useSections", () => {
   });
 
   it("should not call parsing function when sections are disabled and logs are populated", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const { result } = renderHook(
       () => useSections({ logs: ["log line"], ...metadata }),
       {
@@ -61,7 +61,7 @@ describe("useSections", () => {
   });
 
   it("should not call parsing function when sections are enabled and logs are empty", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const { result } = renderHook(
       () => useSections({ logs: [], ...metadata }),
       { wrapper },
@@ -75,7 +75,7 @@ describe("useSections", () => {
   });
 
   it("parsing function extracts section data", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const logs = [
       "normal log line",
       "Running command 'c1' in function 'f-1' (step 1 of 4).",
@@ -116,7 +116,7 @@ describe("useSections", () => {
   });
 
   it("should dispatch a toast and report error when the parsing function throws an error", async () => {
-    const { dispatchToast } = RenderFakeToastContext();
+    const { dispatchToast } = InitializeFakeToastContext();
     const { result } = renderHook(
       () =>
         useSections({
@@ -146,7 +146,7 @@ describe("useSections", () => {
   });
 
   it("parsing function is not called after initial parse", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const logs = ["normal log line"];
     const { rerender } = renderHook((props) => useSections(props), {
       initialProps: { logs, ...metadata },
@@ -168,7 +168,7 @@ describe("useSections", () => {
 
   describe("opening and closing sections", () => {
     it("toggleFunctionSection function toggles the open state", async () => {
-      RenderFakeToastContext();
+      InitializeFakeToastContext();
       const { result } = renderHook(() => useSections({ logs, ...metadata }), {
         wrapper,
       });
@@ -218,7 +218,7 @@ describe("useSections", () => {
     });
 
     it("toggleCommandSection toggles the open state", async () => {
-      RenderFakeToastContext();
+      InitializeFakeToastContext();
       const { result } = renderHook(() => useSections({ logs, ...metadata }), {
         wrapper,
       });
@@ -245,6 +245,107 @@ describe("useSections", () => {
             },
             isOpen: false,
           },
+        });
+      });
+    });
+
+    describe("openSectionContainingLineNumber opens the section containing the line number", async () => {
+      beforeEach(() => {
+        InitializeFakeToastContext();
+      });
+      it("should open the section containing the line number when given a number", async () => {
+        const { result } = renderHook(
+          () => useSections({ logs, ...metadata }),
+          {
+            wrapper,
+          },
+        );
+        await waitFor(() => {
+          expect(result.current.sectionData).toStrictEqual(sectionData);
+        });
+        await waitFor(() => {
+          expect(result.current.sectionState).toStrictEqual(
+            initialSectionState,
+          );
+        });
+        act(() => {
+          result.current.openSectionContainingLineNumber({ lineNumber: 2 });
+        });
+        await waitFor(() => {
+          expect(result.current.sectionState).toStrictEqual({
+            ...initialSectionState,
+            "function-1": {
+              commands: {
+                ...initialSectionState["function-1"].commands,
+                "command-1": { isOpen: true },
+              },
+              isOpen: true,
+            },
+          });
+        });
+      });
+      it("should open the section containing the line numbers when given a list", async () => {
+        const { result } = renderHook(
+          () => useSections({ logs, ...metadata }),
+          {
+            wrapper,
+          },
+        );
+        await waitFor(() => {
+          expect(result.current.sectionData).toStrictEqual(sectionData);
+        });
+        await waitFor(() => {
+          expect(result.current.sectionState).toStrictEqual(
+            initialSectionState,
+          );
+        });
+        act(() => {
+          result.current.openSectionContainingLineNumber({
+            lineNumber: [10, 6],
+          });
+        });
+        await waitFor(() => {
+          expect(result.current.sectionState).toStrictEqual({
+            ...initialSectionState,
+            "function-1": {
+              commands: {
+                "command-1": { isOpen: false },
+                "command-6": { isOpen: true },
+              },
+              isOpen: true,
+            },
+            "function-9": {
+              commands: {
+                "command-9": { isOpen: true },
+                "command-12": { isOpen: false },
+              },
+              isOpen: true,
+            },
+          });
+        });
+      });
+      it("should return original state if no section is found", async () => {
+        const { result } = renderHook(
+          () => useSections({ logs, ...metadata }),
+          {
+            wrapper,
+          },
+        );
+        await waitFor(() => {
+          expect(result.current.sectionData).toStrictEqual(sectionData);
+        });
+        await waitFor(() => {
+          expect(result.current.sectionState).toStrictEqual(
+            initialSectionState,
+          );
+        });
+        act(() => {
+          result.current.openSectionContainingLineNumber({ lineNumber: 100 });
+        });
+        await waitFor(() => {
+          expect(result.current.sectionState).toStrictEqual(
+            initialSectionState,
+          );
         });
       });
     });
