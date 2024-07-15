@@ -14,6 +14,15 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={[parsleySettingsMock]}>{children}</MockedProvider>
 );
 
+const sectionsDisabledWrapper = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => (
+  <MockedProvider mocks={[parsleySettingsMockSectionsDisabled]}>
+    {children}
+  </MockedProvider>
+);
 describe("useSections", () => {
   beforeEach(() => {
     vi.spyOn(sectionUtils, "parseSections");
@@ -22,7 +31,59 @@ describe("useSections", () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
-
+  describe("should return the correct value for sectioningInitialized", async () => {
+    beforeEach(() => {
+      InitializeFakeToastContext();
+    });
+    it("should be false when sections are enabled and sectionData and sectionState are not populated", async () => {
+      const { result } = renderHook(
+        () => useSections({ logs: [], ...metadata }),
+        {
+          wrapper,
+        },
+      );
+      await waitFor(() => {
+        expect(result.current.sectionData).toBe(undefined);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toBe(undefined);
+      });
+      await waitFor(() => {
+        expect(result.current.sectioningInitialized).toBe(false);
+      });
+    });
+    it("should be true when sections are enabled and sectionData and sectionState are populated ", async () => {
+      const { result } = renderHook(() => useSections({ logs, ...metadata }), {
+        wrapper,
+      });
+      await waitFor(() => {
+        expect(result.current.sectionData).toStrictEqual(sectionData);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual(initialSectionState);
+      });
+      await waitFor(() => {
+        expect(result.current.sectioningInitialized).toBe(true);
+      });
+    });
+    it("should be true when sections are disabled and sectionData and sectionState are not populated", async () => {
+      const { result } = renderHook(
+        () => useSections({ logs: [], ...metadata }),
+        {
+          wrapper: sectionsDisabledWrapper,
+        },
+      );
+      await waitFor(() => {
+        expect(result.current.sectionData).toBe(undefined);
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toBe(undefined);
+      });
+      await waitFor(() => {
+        expect(result.current.sectioningInitialized).toBe(true);
+      });
+    });
+  });
   it("should call parsing function when sections are enabled and logs are populated", async () => {
     InitializeFakeToastContext();
     const { result } = renderHook(
