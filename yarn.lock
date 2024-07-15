@@ -11179,10 +11179,10 @@ react-virtual@^2.10.4:
   dependencies:
     "@reach/observe-rect" "^1.1.0"
 
-react-virtuoso@4.7.10, react-virtuoso@^4.7.10:
-  version "4.7.10"
-  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-4.7.10.tgz#6d4e951d4a62b57f012e411fbb8a16ff84d3732b"
-  integrity sha512-l+fnBf/G1Fp6pHCnhFq2Ra4lkZtT6c5XrS9rCS0OA6de7WGLZviCo0y61CUZZG79TeAw3L7O4czeNPiqh9CIrg==
+react-virtuoso@4.7.12, react-virtuoso@^4.7.12:
+  version "4.7.12"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-4.7.12.tgz#06121211975bab0e8417dd88ac9a8aa78e3461fc"
+  integrity sha512-q8yaykkVJGJbPNQH2Hgm82ik0LsbNGJpHMEjAGz5ibEsTVHKObs5WtEELAd1A99OKFHs091W1M+HN+1sasL08Q==
 
 react@18.2.0:
   version "18.2.0"
