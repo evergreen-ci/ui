@@ -31,30 +31,17 @@ const createTagAndPush = (version: "patch" | "minor" | "major") => {
 /**
  * `getLatestTag` is a helper function that returns the latest tag.
  * @param app - name of the app to be deployed
+ * @param baseCommit - optionally, get the latest tag relative to a specified commit
  * @returns - the latest tag
  */
-const getLatestTag = (app: DeployableApp) => {
+const getLatestTag = (app: DeployableApp, baseCommit: string = "") => {
   try {
     const latestTag = execTrim(
-      `git describe --tags --abbrev=0 --match="${app}/*"`,
+      `git describe --tags --abbrev=0 --match="${app}/*" ${baseCommit}`,
     );
     return latestTag;
   } catch (err) {
     throw Error("Getting latest tag failed.", { cause: err });
-  }
-};
-
-/**
- * getTagFromCommit returns a tag name given its associated commit
- * @param commit - commit hash for desired tag
- * @throws {Error} if executing git commit fails
- * @returns - git tag
- */
-const getTagFromCommit = (commit: string) => {
-  try {
-    return execTrim(`git describe --abbrev=0 ${commit}`);
-  } catch (e) {
-    throw Error(`Getting tag from commit ${commit}`, { cause: e });
   }
 };
 
@@ -96,11 +83,4 @@ const pushTags = () => {
 const tagIsValid = (app: DeployableApp, matchString: string) =>
   new RegExp(`${app}/v\\d+.\\d+.\\d+`).test(matchString);
 
-export {
-  createTagAndPush,
-  deleteTag,
-  getLatestTag,
-  getTagFromCommit,
-  pushTags,
-  tagIsValid,
-};
+export { createTagAndPush, deleteTag, getLatestTag, pushTags, tagIsValid };

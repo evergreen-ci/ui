@@ -4,7 +4,7 @@ import { DeployableApp, isDeployableApp } from "./types";
 
 export const isRunningOnCI = () => process.env.CI === "true";
 
-export const isDryRun = process.argv.includes("--dry-run");
+export const isTest = process.env.VITEST === "true";
 
 /**
  * getAppToDeploy returns the name of the app being deployed. Deploy scripts must be invoked from the root of an app directory, which is validated here.
