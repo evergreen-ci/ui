@@ -29,6 +29,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
             },
             permissions: {
               type: "array" as "array",
+              default: [],
               items: {
                 type: "object" as "object",
                 properties: {
@@ -83,7 +84,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           <StyledDescription>
             Create permission groups containing a set of permissions for
             generated tokens. Permission groups can be applied to one or more
-            requester types in the GitHub App Settings Tab. When assigned to a
+            requester types in the GitHub App Settings tab. When assigned to a
             requester type, the generated token will only have the permissions
             that are defined on this page.
           </StyledDescription>

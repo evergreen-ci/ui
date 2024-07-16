@@ -28,7 +28,7 @@ export const PermissionObjectFieldTemplate: React.FC<
 
 const RowContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: ${size.l};
 `;
 
