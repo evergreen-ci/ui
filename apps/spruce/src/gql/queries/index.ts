@@ -24,6 +24,7 @@ import HAS_VERSION from "./has-version.graphql";
 import HOST_EVENTS from "./host-events.graphql";
 import HOST from "./host.graphql";
 import HOSTS from "./hosts.graphql";
+import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
 import IS_PATCH_CONFIGURED from "./is-patch-configured.graphql";
 import JIRA_CUSTOM_CREATED_ISSUES from "./jira-custom-created-issues.graphql";
@@ -109,6 +110,7 @@ export {
   HOST_EVENTS,
   HOST,
   HOSTS,
+  IMAGES,
   INSTANCE_TYPES,
   IS_PATCH_CONFIGURED,
   JIRA_CUSTOM_CREATED_ISSUES,
