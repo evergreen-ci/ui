@@ -13,7 +13,7 @@ vi.mock("../utils/environment", async (importOriginal) => ({
 
 describe("formatDate", () => {
   it("correctly formats a date", () => {
-    const d = new Date(2024, 1, 23);
+    const d = new Date("2024-01-23");
     expect(formatDate(d)).toEqual("2024-01-23");
   });
 });
@@ -62,7 +62,7 @@ describe("makeEmail", async () => {
     vi.stubEnv("CI", "true");
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
     vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
-    vi.useFakeTimers().setSystemTime(new Date(2020, 6, 22));
+    vi.useFakeTimers().setSystemTime(new Date("2020-06-22"));
     expect(makeEmail(defaultArgs)).toStrictEqual({
       body: "<ul><li>commit‘s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
       from: "sender@mongodb.com",
@@ -76,7 +76,7 @@ describe("makeEmail", async () => {
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
     vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
     vi.spyOn(shellUtils, "execTrim").mockReturnValue("git.email@mongodb.com");
-    vi.useFakeTimers().setSystemTime(new Date(2020, 6, 22));
+    vi.useFakeTimers().setSystemTime(new Date("2020-06-22"));
     expect(makeEmail(defaultArgs)).toStrictEqual({
       body: "<ul><li>commit‘s a</li><li>commit b</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.0.1)</b></p>",
       from: "git.email@mongodb.com",
@@ -89,7 +89,7 @@ describe("makeEmail", async () => {
     vi.stubEnv("CI", "true");
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
     vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
-    vi.useFakeTimers().setSystemTime(new Date(2020, 6, 22));
+    vi.useFakeTimers().setSystemTime(new Date("2020-06-22"));
     expect(
       makeEmail({
         ...defaultArgs,
@@ -107,7 +107,7 @@ describe("makeEmail", async () => {
     vi.stubEnv("CI", "true");
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
     vi.stubEnv("AUTHOR_EMAIL", "sender@mongodb.com");
-    vi.useFakeTimers().setSystemTime(new Date(2020, 6, 22));
+    vi.useFakeTimers().setSystemTime(new Date("2020-06-22"));
     expect(
       makeEmail({
         ...defaultArgs,
@@ -138,7 +138,7 @@ describe("sendEmail", () => {
     vi.stubEnv("DEPLOYS_EMAIL", "foo@mongodb.com");
     vi.stubEnv("EXECUTION", "0");
     vi.mocked(getAppToDeploy).mockReturnValue("spruce");
-    vi.useFakeTimers().setSystemTime(new Date(2020, 6, 22));
+    vi.useFakeTimers().setSystemTime(new Date("2020-06-22"));
   });
 
   afterEach(() => {
