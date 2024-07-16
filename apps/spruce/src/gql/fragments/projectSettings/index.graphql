@@ -11,6 +11,7 @@
 #import "./periodicBuilds.graphql"
 #import "./containers.graphql"
 #import "./viewsAndFilters.graphql"
+#import "./permissionGroups.graphql"
 
 fragment ProjectSettingsFields on ProjectSettings {
   aliases {
@@ -26,6 +27,7 @@ fragment ProjectSettingsFields on ProjectSettings {
     ...ProjectNotificationSettings
     ...ProjectPatchAliasSettings
     ...ProjectPeriodicBuildsSettings
+    ...ProjectPermissionGroupSettings
     ...ProjectPluginsSettings
     ...ProjectTriggersSettings
     ...ProjectViewsAndFiltersSettings

@@ -1,0 +1,6 @@
+fragment ProjectPermissionGroupSettings on Project {
+  githubDynamicTokenPermissionGroups {
+    name
+    permissions
+  }
+}
