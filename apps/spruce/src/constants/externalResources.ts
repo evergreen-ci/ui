@@ -32,6 +32,9 @@ export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentati
 
 export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#github-checks-aliases`;
 
+export const githubPermissionsDocumentationUrl =
+  "https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app";
+
 export const ignoredFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#ignoring-changes-to-certain-files`;
 
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;

@@ -48,7 +48,6 @@ const validate = ((formData, errors) => {
   ];
   const duplicateIndices = findDuplicateIndices(combinedFilters, "expression");
   duplicateIndices.forEach((i) => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     errors.parsleyFilters?.[i]?.expression?.addError(
       "Filter expression already appears in this project.",
     );

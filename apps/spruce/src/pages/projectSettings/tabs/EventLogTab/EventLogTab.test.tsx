@@ -154,6 +154,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             },
             parsleyFilters: [],
             projectHealthView: ProjectHealthView.All,
+            githubDynamicTokenPermissionGroups: [],
           },
           subscriptions: [],
           vars: {
@@ -238,6 +239,7 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             },
             parsleyFilters: [],
             projectHealthView: ProjectHealthView.Failed,
+            githubDynamicTokenPermissionGroups: [],
           },
           subscriptions: [],
           vars: {
