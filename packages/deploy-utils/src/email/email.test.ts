@@ -3,8 +3,6 @@ import { getAppToDeploy } from "../utils/environment";
 import * as shellUtils from "../utils/shell";
 import { findEvergreen, formatDate } from "./utils";
 
-const mockCommit = "0000011111222223333344444555556666677777";
-
 vi.mock("../utils/environment", async (importOriginal) => ({
   // @ts-expect-error
   ...(await importOriginal()),
@@ -124,10 +122,10 @@ describe("makeEmail", async () => {
 
 describe("sendEmail", () => {
   const emailCommandRegex =
-    /^(evergreen|(~\/evergreen -c .evergreen.yml))(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{40})' -b '<ul>(<li>(.*)<\/li>)*<\/ul><p><b>To revert, rerun task from previous release tag \(spruce\/v\d+.\d+.\d+\)<\/b><\/p>'$/;
+    /^(evergreen|(~\/evergreen -c .evergreen.yml))(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{7})' -b '<ul>(<li>(.*)<\/li>)*<\/ul><p><b>To revert, rerun task from previous release tag \(spruce\/v\d+.\d+.\d+\)<\/b><\/p>'$/;
 
   const revertEmailRegex =
-    /^(evergreen|~\/evergreen)( -c .evergreen.yml)?(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{40}) \(Revert\)' -b '<ul>(<li>(.*)<\/li>)*<\/ul>'$/;
+    /^(evergreen|~\/evergreen)( -c .evergreen.yml)?(\s+)notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to (spruce\/v\d+.\d+.\d+|[0-9a-f]{7}) \(Revert\)' -b '<ul>(<li>(.*)<\/li>)*<\/ul>'$/;
 
   beforeEach(() => {
     vi.unstubAllEnvs();
@@ -148,12 +146,12 @@ describe("sendEmail", () => {
 
   describe("validate regexes", () => {
     it("matches on a non-revert email", () => {
-      const emailCmd = `evergreen notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to ${mockCommit}' -b '<ul><li>123abc commit message</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.1.2)</b></p>'`;
+      const emailCmd = `evergreen notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to 1234567' -b '<ul><li>123abc commit message</li></ul><p><b>To revert, rerun task from previous release tag (spruce/v0.1.2)</b></p>'`;
       expect(emailCmd).toEqual(expect.stringMatching(emailCommandRegex));
     });
 
     it("matches on a revert email", () => {
-      const emailCmd = `~/evergreen -c .evergreen.yml notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to ${mockCommit} (Revert)' -b '<ul><li>123abc commit message</li></ul>'`;
+      const emailCmd = `~/evergreen -c .evergreen.yml notify email -f sender@mongodb.com -r foo@mongodb.com -s '2020-06-22 Spruce Deploy to 1234567 (Revert)' -b '<ul><li>123abc commit message</li></ul>'`;
       expect(emailCmd).toEqual(expect.stringMatching(revertEmailRegex));
     });
   });
