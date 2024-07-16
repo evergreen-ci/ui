@@ -4,17 +4,19 @@ import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
 import { getTabTitle } from "./getTabTitle";
 
 const Image: React.FC = () => {
-  const { [slugs.imageId]: imageId, [slugs.tab]: currentTab } = useParams<{
+  const {
+    [slugs.imageId]: imageId,
+    [slugs.tab]: currentTab = ImageTabRoutes.BuildInformation,
+  } = useParams<{
     [slugs.imageId]: string;
     [slugs.tab]: ImageTabRoutes;
   }>();
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!Object.values(ImageTabRoutes).includes(currentTab)) {
     return (
       <Navigate
         replace
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        // @ts-expect-error: TODO fix in DEVPROD-7654
         to={getImageRoute(imageId, ImageTabRoutes.BuildInformation)}
       />
     );
@@ -28,7 +30,7 @@ const Image: React.FC = () => {
             active={tab === currentTab}
             as={Link}
             key={tab}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            // @ts-expect-error: TODO fix in DEVPROD-7654
             to={getImageRoute(imageId, tab)}
             data-cy={`navitem-${tab}`}
           >
