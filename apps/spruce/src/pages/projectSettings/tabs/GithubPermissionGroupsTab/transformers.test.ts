@@ -29,8 +29,8 @@ const projectForm: PermissionGroupsFormState = {
       ],
     },
     {
-      name: "permission-group-2",
       displayTitle: "permission-group-2",
+      name: "permission-group-2",
       permissions: [
         { type: "pull_requests", value: "write" },
         { type: "contents", value: "admin" },

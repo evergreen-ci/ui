@@ -12,12 +12,12 @@ export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
 
   return {
     permissionGroups:
-      projectRef?.githubDynamicTokenPermissionGroups?.map((group) => ({
-        displayTitle: group.name,
-        name: group.name,
-        permissions: Object.keys(group.permissions).map((p) => ({
+      projectRef?.githubDynamicTokenPermissionGroups?.map((pg) => ({
+        displayTitle: pg.name,
+        name: pg.name,
+        permissions: Object.keys(pg.permissions).map((p) => ({
           type: p,
-          value: group.permissions[p],
+          value: pg.permissions[p],
         })),
       })) ?? [],
   };
@@ -30,13 +30,13 @@ export const formToGql = ((formState, isRepo, id) => ({
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,
     githubDynamicTokenPermissionGroups:
-      formState?.permissionGroups?.map((group) => {
+      formState?.permissionGroups?.map((pg) => {
         const permissions: StringMap = {};
-        group?.permissions?.forEach((p) => {
+        pg?.permissions?.forEach((p) => {
           permissions[p.type] = p.value;
         });
         return {
-          name: group.name,
+          name: pg.name,
           permissions,
         };
       }) ?? [],

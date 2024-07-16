@@ -8,10 +8,13 @@ import { PermissionGroupsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.GithubPermissionGroups;
 
-export const PermissionGroupsTab: React.FC<TabProps> = ({ projectData }) => {
+export const PermissionGroupsTab: React.FC<TabProps> = ({
+  identifier,
+  projectData,
+}) => {
   const initialFormState = projectData;
 
-  const formSchema = useMemo(() => getFormSchema(), []);
+  const formSchema = useMemo(() => getFormSchema({ identifier }), [identifier]);
 
   return (
     <BaseTab
@@ -23,10 +26,10 @@ export const PermissionGroupsTab: React.FC<TabProps> = ({ projectData }) => {
   );
 };
 
-/* Display an error and prevent saving if a user enters a duplicate GitHub permission. */
+/* Display an error and prevent saving if a user enters a duplicate GitHub permission types. */
 const validate = ((formData, errors) => {
-  formData.permissionGroups.forEach((p, idx) => {
-    const duplicateIndices = findDuplicateIndices(p.permissions, "type");
+  formData.permissionGroups.forEach((pg, idx) => {
+    const duplicateIndices = findDuplicateIndices(pg.permissions, "type");
     duplicateIndices.forEach((i) => {
       errors.permissionGroups?.[idx]?.permissions?.[i]?.type?.addError(
         "Duplicate types are not allowed.",

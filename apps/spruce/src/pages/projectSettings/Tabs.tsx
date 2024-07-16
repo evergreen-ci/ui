@@ -285,6 +285,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             path={ProjectSettingsTabRoutes.GithubPermissionGroups}
             element={
               <PermissionGroupsTab
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                identifier={identifier}
                 projectData={
                   tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
                     .projectData

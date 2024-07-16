@@ -2,15 +2,23 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Description } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
-import { StyledLink } from "components/styles";
+import { StyledLink, StyledRouterLink } from "components/styles";
 import { githubPermissionsDocumentationUrl } from "constants/externalResources";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+} from "constants/routes";
 import { size } from "constants/tokens";
 import {
   PermissionArrayFieldTemplate,
   PermissionObjectFieldTemplate,
 } from "./FieldTemplates";
 
-export const getFormSchema = (): ReturnType<GetFormSchema> => ({
+export const getFormSchema = ({
+  identifier,
+}: {
+  identifier: string;
+}): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",
@@ -77,16 +85,24 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
   },
   uiSchema: {
     permissionGroups: {
-      "ui:orderable": false,
       "ui:addButtonText": "Add permission group",
+      "ui:data-cy": "permission-group-list",
       "ui:descriptionNode": (
         <>
           <StyledDescription>
             Create permission groups containing a set of permissions for
             generated tokens. Permission groups can be applied to one or more
-            requester types in the GitHub App Settings tab. When assigned to a
-            requester type, the generated token will only have the permissions
-            that are defined on this page.
+            requester types in the{" "}
+            <StyledRouterLink
+              to={getProjectSettingsRoute(
+                identifier,
+                ProjectSettingsTabRoutes.GithubAppSettings,
+              )}
+            >
+              GitHub App Settings tab
+            </StyledRouterLink>
+            . When assigned to a requester type, the generated token will only
+            have the permissions that are defined on this page.
           </StyledDescription>
           <StyledLink
             href={githubPermissionsDocumentationUrl}
@@ -96,37 +112,37 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
           </StyledLink>
         </>
       ),
+      "ui:orderable": false,
       "ui:useExpandableCard": true,
-      "ui:data-cy": "permission-group-list",
       items: {
         "ui:displayTitle": "New Permission Group",
         name: {
-          "ui:data-cy": "permission-group-title-input",
           "ui:ariaLabelledBy": "Permission Group Name",
+          "ui:data-cy": "permission-group-title-input",
           "ui:elementWrapperCSS": css`
             max-width: unset;
             width: 90%;
           `,
         },
         permissions: {
-          "ui:showLabel": false,
-          "ui:orderable": false,
+          "ui:ArrayFieldTemplate": PermissionArrayFieldTemplate,
           "ui:addButtonText": "Add permission",
           "ui:addToEnd": true,
-          "ui:topAlignDelete": true,
+          "ui:orderable": false,
           "ui:placeholder": "No permissions have been added.",
-          "ui:ArrayFieldTemplate": PermissionArrayFieldTemplate,
+          "ui:showLabel": false,
+          "ui:topAlignDelete": true,
           items: {
             "ui:ObjectFieldTemplate": PermissionObjectFieldTemplate,
             type: {
-              "ui:data-cy": "permission-type-input",
               "ui:ariaLabelledBy": "GitHub Permission Type",
+              "ui:data-cy": "permission-type-input",
               "ui:elementWrapperCSS": permissionCss,
             },
             value: {
-              "ui:data-cy": "permission-value-input",
-              "ui:ariaLabelledBy": "GitHub Permission Value",
               "ui:allowDeselect": false,
+              "ui:ariaLabelledBy": "GitHub Permission Value",
+              "ui:data-cy": "permission-value-input",
               "ui:elementWrapperCSS": permissionCss,
             },
           },

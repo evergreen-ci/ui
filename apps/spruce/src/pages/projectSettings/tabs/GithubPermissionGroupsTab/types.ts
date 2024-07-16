@@ -10,5 +10,6 @@ export interface PermissionGroupsFormState {
 }
 
 export type TabProps = {
+  identifier: string;
   projectData: PermissionGroupsFormState;
 };
