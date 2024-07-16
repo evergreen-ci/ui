@@ -3766,6 +3766,11 @@ export type ProjectSettingsFieldsFragment = {
       message: string;
       nextRunTime: Date;
     }> | null;
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
       ticketCreateIssueType: string;
@@ -4207,6 +4212,15 @@ export type RepoPeriodicBuildsSettingsFragment = {
   }> | null;
 };
 
+export type ProjectPermissionGroupSettingsFragment = {
+  __typename?: "Project";
+  githubDynamicTokenPermissionGroups: Array<{
+    __typename?: "GitHubDynamicTokenPermissionGroup";
+    name: string;
+    permissions: { [key: string]: any };
+  }>;
+};
+
 export type ProjectPluginsSettingsFragment = {
   __typename?: "Project";
   perfEnabled?: boolean | null;
@@ -4342,6 +4356,11 @@ export type ProjectEventSettingsFragment = {
       message: string;
       nextRunTime: Date;
     }> | null;
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
       ticketCreateIssueType: string;
@@ -6796,6 +6815,11 @@ export type ProjectEventLogsQuery = {
             message: string;
             nextRunTime: Date;
           }> | null;
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
             ticketCreateIssueType: string;
@@ -7003,6 +7027,11 @@ export type ProjectEventLogsQuery = {
             message: string;
             nextRunTime: Date;
           }> | null;
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
             ticketCreateIssueType: string;
@@ -7289,6 +7318,11 @@ export type ProjectSettingsQuery = {
         message: string;
         nextRunTime: Date;
       }> | null;
+      githubDynamicTokenPermissionGroups: Array<{
+        __typename?: "GitHubDynamicTokenPermissionGroup";
+        name: string;
+        permissions: { [key: string]: any };
+      }>;
       buildBaronSettings: {
         __typename?: "BuildBaronSettings";
         ticketCreateIssueType: string;
@@ -7544,6 +7578,11 @@ export type RepoEventLogsQuery = {
             message: string;
             nextRunTime: Date;
           }> | null;
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
             ticketCreateIssueType: string;
@@ -7751,6 +7790,11 @@ export type RepoEventLogsQuery = {
             message: string;
             nextRunTime: Date;
           }> | null;
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
             ticketCreateIssueType: string;

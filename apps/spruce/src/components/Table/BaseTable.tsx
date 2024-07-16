@@ -23,7 +23,7 @@ import {
   TableSearchPopover,
 } from "components/TablePopover";
 import { TreeDataEntry } from "components/TreeSelect";
-import { size } from "constants/tokens";
+import { size, tableColumnOffset } from "constants/tokens";
 import TableLoader from "./TableLoader";
 
 // Define typing of columns' meta field
@@ -240,7 +240,7 @@ const StyledTable = styled(Table)`
 `;
 
 const DefaultEmptyMessage = styled.span`
-  margin-left: ${size.l};
+  margin-left: ${tableColumnOffset};
 `;
 
 const StyledExpandedContent = styled(ExpandedContent)`

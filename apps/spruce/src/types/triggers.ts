@@ -1,3 +1,5 @@
+import { StringMap } from "./utils";
+
 export enum ResourceType {
   Build = "BUILD",
   CommitQueue = "COMMIT_QUEUE",
@@ -98,9 +100,6 @@ export interface Trigger {
   };
 }
 
-export interface StringMap {
-  [index: string]: string;
-}
 export interface ExtraField {
   text: string;
   key: string;

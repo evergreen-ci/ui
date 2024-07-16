@@ -7,14 +7,12 @@
 export const findDuplicateIndices = <T = { [key: string]: any }>(
   array: T[],
   key: keyof T,
-) => {
+): number[] => {
   const duplicateIndices = array
     .map((item) => item[key])
-    .map(
-      (val, index, arr) =>
-        val !== "" && arr.lastIndexOf(val) !== index && index,
+    .map((val, index, arr) =>
+      val !== "" && arr.lastIndexOf(val) !== index ? index : -1,
     )
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    .filter((index) => array[index]);
+    .filter((val) => val !== -1);
   return duplicateIndices;
 };

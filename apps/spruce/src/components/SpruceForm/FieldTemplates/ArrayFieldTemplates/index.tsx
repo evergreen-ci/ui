@@ -7,7 +7,6 @@ import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
-import { formComponentSpacingCSS } from "components/SettingsCard";
 import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import ElementWrapper from "../../ElementWrapper";
@@ -245,7 +244,7 @@ const ArrayContainer = styled.div<ArrayContainerProps>`
   ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
   min-width: min-content;
   ${({ fullWidth }) =>
-    fullWidth ? "" : `max-width: ${STANDARD_FIELD_WIDTH}px;`}
+    fullWidth ? "max-width: unset" : `max-width: ${STANDARD_FIELD_WIDTH}px;`}
 `;
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
@@ -275,5 +274,5 @@ const TitleWrapper = styled.span`
 `;
 
 const Placeholder = styled(Body)<BodyProps>`
-  ${formComponentSpacingCSS}
+  margin-bottom: ${size.m};
 `;
