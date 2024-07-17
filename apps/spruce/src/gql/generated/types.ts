@@ -849,6 +849,19 @@ export type IceCreamSettingsInput = {
   schedulerHost: Scalars["String"]["input"];
 };
 
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type Image = {
+  __typename?: "Image";
+  ami: Scalars["String"]["output"];
+  kernel: Scalars["String"]["output"];
+  lastDeployed: Scalars["Time"]["output"];
+  name: Scalars["String"]["output"];
+  versionId: Scalars["String"]["output"];
+};
+
 export type InstanceTag = {
   __typename?: "InstanceTag";
   canBeModified: Scalars["Boolean"]["output"];
@@ -1989,6 +2002,7 @@ export type Query = {
   host?: Maybe<Host>;
   hostEvents: HostEvents;
   hosts: HostsResponse;
+  image?: Maybe<Image>;
   images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
   logkeeperBuildMetadata: LogkeeperBuild;
@@ -2081,6 +2095,10 @@ export type QueryHostsArgs = {
   sortDir?: InputMaybe<SortDirection>;
   startedBy?: InputMaybe<Scalars["String"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
+export type QueryImageArgs = {
+  imageId: Scalars["String"]["input"];
 };
 
 export type QueryLogkeeperBuildMetadataArgs = {
