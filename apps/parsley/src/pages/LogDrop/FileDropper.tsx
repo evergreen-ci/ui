@@ -33,7 +33,7 @@ const FileDropper: React.FC = () => {
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       leaveBreadcrumb("Dropped file", {}, SentryBreadcrumb.User);
-      sendEvent({ name: "Dropped file" });
+      sendEvent({ name: "Used file dropper to upload file" });
       dispatch({ file: acceptedFiles[0], type: "DROPPED_FILE" });
     },
     [dispatch, sendEvent],
@@ -68,7 +68,7 @@ const FileDropper: React.FC = () => {
                 sendEvent({
                   fileSize: logLines?.length,
                   logType,
-                  name: "Processed log",
+                  name: "System Event processed uploaded log file",
                 });
                 setFileName(state.file.name);
                 ingestLines(logLines, renderingType);
