@@ -13,6 +13,7 @@ const push = () => {
       stdio: "inherit",
       encoding: "utf-8",
     });
+    console.log("Successfully pushed to upstream.");
   } catch (err) {
     throw Error("Pushing upstream failed.", { cause: err });
   }

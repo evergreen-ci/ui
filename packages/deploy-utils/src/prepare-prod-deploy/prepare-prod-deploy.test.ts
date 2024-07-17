@@ -93,9 +93,11 @@ my commit messages`,
     });
 
     it("redeploys tag when user confirms prompt", async () => {
-      vi.mocked(prompts).mockResolvedValueOnce({
-        value: true,
-      });
+      vi.mocked(prompts)
+        .mockResolvedValueOnce({ value: false })
+        .mockResolvedValueOnce({
+          value: true,
+        });
       const consoleSpy = vi.spyOn(console, "log").mockImplementation(vi.fn());
       await prepareProdDeploy();
       expect(vi.mocked(getLatestTag)).toHaveBeenCalledWith("spruce");
@@ -108,15 +110,31 @@ my commit messages`,
 
     it("aborts deploy when user cancels", async () => {
       vi.mocked(prompts).mockResolvedValueOnce({
-        value: false,
+        value: true,
       });
       const consoleSpy = vi.spyOn(console, "log").mockImplementation(vi.fn());
       await prepareProdDeploy();
       expect(vi.mocked(getLatestTag)).toHaveBeenCalledWith("spruce");
       expect(vi.mocked(deleteTag)).not.toHaveBeenCalled();
       expect(vi.mocked(pushTags)).not.toHaveBeenCalled();
+      expect(consoleSpy).toHaveBeenCalledWith("Deploy cancelled.");
+    });
+
+    it("aborts deploy when user cancels on second prompt", async () => {
+      vi.mocked(prompts)
+        .mockResolvedValueOnce({
+          value: false,
+        })
+        .mockResolvedValueOnce({
+          value: false,
+        });
+      const consoleSpy = vi.spyOn(console, "log").mockImplementation(vi.fn());
+      await prepareProdDeploy();
+      expect(vi.mocked(getLatestTag)).toHaveBeenCalledWith("spruce");
+      expect(vi.mocked(deleteTag)).not.toHaveBeenCalled();
+      expect(vi.mocked(pushTags)).not.toHaveBeenCalled();
       expect(consoleSpy).toHaveBeenCalledWith(
-        "Deploy cancelled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --local.",
+        "Deploy cancelled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --force.",
       );
     });
   });

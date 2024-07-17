@@ -33,10 +33,22 @@ export const prepareProdDeploy = async () => {
   // If there are no commit messages, ask the user if they want to delete and re-push the latest tag, thereby forcing a deploy with no new commits.
   if (commitMessages.length === 0) {
     const latestTag = getLatestTag(app);
+    const { value: cancelDeploy } = await prompts({
+      type: "confirm",
+      name: "value",
+      message: `No new commits. Do you want to cancel the deploy?`,
+      initial: true,
+    });
+
+    if (cancelDeploy) {
+      console.log("Deploy cancelled.");
+      return;
+    }
+
     const { value: shouldForceDeploy } = await prompts({
       type: "confirm",
       name: "value",
-      message: `No new commits. Do you want to trigger a deploy on the most recent existing tag? (${latestTag})`,
+      message: `Do you want to trigger a deploy on the most recent existing tag? (${latestTag})`,
       initial: false,
     });
 
@@ -46,7 +58,7 @@ export const prepareProdDeploy = async () => {
       console.log("Check Evergreen for deploy progress.");
     } else {
       console.log(
-        "Deploy cancelled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --local.",
+        "Deploy cancelled. If systems are experiencing an outage and you'd like to push the deploy directly to S3, run yarn deploy:prod --force.",
       );
     }
     return;

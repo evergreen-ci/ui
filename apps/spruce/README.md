@@ -261,4 +261,4 @@ Run one of the following commands to deploy to the appropriate environment
    connects to the production backend)
 
 In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a
-production build can be pushed directly to S3 with `yarn deploy:prod --local`.
+production build can be pushed directly to S3 with `yarn deploy:prod --force`.
