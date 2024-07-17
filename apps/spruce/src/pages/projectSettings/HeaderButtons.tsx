@@ -142,7 +142,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
         onClick={onClick}
         disabled={hasError || !hasChanges}
       >
-        Save Changes on Page
+        Save changes on page
       </Button>
       {projectType === ProjectType.AttachedProject && canDefaultToRepo && (
         <>
@@ -151,7 +151,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
             data-cy="default-to-repo-button"
             title="Clicking this button will open a confirmation modal with more information."
           >
-            Default to Repo on Page
+            Default to repo on page
           </Button>
           <DefaultSectionToRepoModal
             handleClose={() => setDefaultModalOpen(false)}
@@ -194,9 +194,7 @@ const mapRouteToSection: Record<
 
 const ButtonRow = styled.div`
   display: flex;
+  gap: 12px;
   justify-content: flex-end;
-
-  > :not(:last-child) {
-    margin-right: 12px;
-  }
+  min-width: fit-content;
 `;

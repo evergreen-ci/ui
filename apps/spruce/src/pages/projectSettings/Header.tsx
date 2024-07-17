@@ -24,9 +24,7 @@ export const Header: React.FC<Props> = ({ id, projectType, tab }) => {
 
   return (
     <Container>
-      <TitleContainer>
-        <H2 data-cy="project-settings-tab-title">{title}</H2>
-      </TitleContainer>
+      <H2 data-cy="project-settings-tab-title">{title}</H2>
       {saveable && (
         <HeaderButtons
           id={id}
@@ -41,10 +39,7 @@ export const Header: React.FC<Props> = ({ id, projectType, tab }) => {
 const Container = styled.div`
   align-items: start;
   display: flex;
+  gap: ${size.s};
   justify-content: space-between;
   margin-bottom: ${size.l};
-`;
-
-const TitleContainer = styled.div`
-  margin-right: ${size.s};
 `;

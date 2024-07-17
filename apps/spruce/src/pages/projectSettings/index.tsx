@@ -40,7 +40,7 @@ import { ProjectType } from "./tabs/utils";
 
 const { validateObjectId } = validators;
 
-const ProjectSettings: React.FC = () => {
+export const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
   const dispatchToast = useToastContext();
   const { [slugs.projectIdentifier]: projectIdentifier, [slugs.tab]: tab } =
@@ -156,13 +156,14 @@ const ProjectSettings: React.FC = () => {
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
-          {projectType === ProjectType.AttachedProject && repoId && tab && (
+          {projectType === ProjectType.AttachedProject && repoId && (
             <StyledRouterLink
+              arrowAppearance="persist"
               to={getProjectSettingsRoute(
                 repoId,
-                projectOnlyTabs.has(tab)
-                  ? tab
-                  : ProjectSettingsTabRoutes.General,
+                tab && projectOnlyTabs.has(tab)
+                  ? ProjectSettingsTabRoutes.General
+                  : tab,
               )}
               data-cy="attached-repo-link"
             >
