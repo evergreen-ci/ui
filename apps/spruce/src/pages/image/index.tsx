@@ -1,11 +1,12 @@
-import { useQuery } from "@apollo/client";
-import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import styled from "@emotion/styled";
+import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
+import { Skeleton } from "antd";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { SideNav, SideNavGroup, SideNavItem } from "components/styles";
 import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
-import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
-import { IMAGES } from "gql/queries";
+import { size } from "constants/tokens";
 import { getTabTitle } from "./getTabTitle";
+import { ImageSelect } from "./ImageSelect";
 
 const Image: React.FC = () => {
   const {
@@ -16,55 +17,45 @@ const Image: React.FC = () => {
     [slugs.tab]: ImageTabRoutes;
   }>();
 
-  const { data: imagesData, loading } = useQuery<
-    ImagesQuery,
-    ImagesQueryVariables
-  >(IMAGES);
-
-  if (!Object.values(ImageTabRoutes).includes(currentTab)) {
+  if (!Object.values(ImageTabRoutes).includes(currentTab) && imageId) {
     return (
       <Navigate
         replace
-        // @ts-expect-error: TODO fix in DEVPROD-7654
         to={getImageRoute(imageId, ImageTabRoutes.BuildInformation)}
       />
     );
   }
 
-  const { images } = imagesData || {};
-
-  return (
-    <SideNav aria-label="Image" widthOverride={250}>
-      <Combobox
-        clearable={false}
-        data-cy="images-select"
-        label="Images"
-        placeholder="Images"
-        disabled={loading}
-        overflow="scroll-x"
-      >
-        {images?.map((image) => (
-          <ComboboxOption key={image} value={image}>
-            {image}
-          </ComboboxOption>
-        ))}
-      </Combobox>
-      <SideNavGroup>
-        {Object.values(ImageTabRoutes).map((tab) => (
-          <SideNavItem
-            active={tab === currentTab}
-            as={Link}
-            key={tab}
-            // @ts-expect-error: TODO fix in DEVPROD-7654
-            to={getImageRoute(imageId, tab)}
-            data-cy={`navitem-${tab}`}
-          >
-            {getTabTitle(tab).title}
-          </SideNavItem>
-        ))}
-      </SideNavGroup>
-    </SideNav>
-  );
+  if (imageId) {
+    return (
+      <SideNav aria-label="Image" widthOverride={250}>
+        <ButtonsContainer>
+          <ImageSelect selectedImage={imageId} />
+        </ButtonsContainer>
+        <SideNavGroup>
+          {Object.values(ImageTabRoutes).map((tab) => (
+            <SideNavItem
+              active={tab === currentTab}
+              as={Link}
+              key={tab}
+              to={getImageRoute(imageId, tab)}
+              data-cy={`navitem-${tab}`}
+            >
+              {getTabTitle(tab).title}
+            </SideNavItem>
+          ))}
+        </SideNavGroup>
+      </SideNav>
+    );
+  }
+  return <Skeleton active />;
 };
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
+  margin: 0 ${sideNavItemSidePadding}px;
+`;
 
 export default Image;

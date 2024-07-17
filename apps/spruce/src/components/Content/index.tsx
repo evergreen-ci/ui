@@ -5,6 +5,7 @@ import {
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
 } from "components/Redirects";
+import { showImageVisibilityPage } from "constants/featureFlags";
 import { redirectRoutes, routes, slugs } from "constants/routes";
 import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
@@ -27,7 +28,6 @@ import { TaskQueue } from "pages/TaskQueue";
 import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
-import { isProduction } from "utils/environmentVariables";
 import { Layout } from "./Layout";
 
 export const Content: React.FC = () => (
@@ -54,7 +54,7 @@ export const Content: React.FC = () => (
       />
       <Route path={routes.host} element={<Host />} />
       <Route path={routes.hosts} element={<Hosts />} />
-      {!isProduction() && (
+      {showImageVisibilityPage && (
         <Route path={`${routes.image}/*`} element={<Image />}>
           <Route path={`:${slugs.tab}`} element={null} />
         </Route>
