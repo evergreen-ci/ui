@@ -3,19 +3,19 @@ import { LogTypes } from "constants/enums";
 
 type Action =
   | {
-      name: "Log downloaded";
+      name: "System Event log downloaded";
       duration: number;
       type: LogTypes;
       fileSize: number;
     }
   | {
-      name: "Log download failed";
+      name: "System Event log download failed";
       duration: number;
       type: LogTypes;
       fileSize: number;
     }
   | {
-      name: "Log download incomplete";
+      name: "System Event log download incomplete";
       duration: number;
       reason: string;
       downloaded: number;
