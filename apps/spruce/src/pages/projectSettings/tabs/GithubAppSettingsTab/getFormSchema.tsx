@@ -18,6 +18,12 @@ import { size } from "constants/tokens";
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
 import { ArrayFieldTemplate } from "./FieldTemplates";
 
+/** All permissions group is the default if no permission group is set. */
+const allPermissionsGroup = "";
+
+/** No permissions is hardcoded in the Evergreen codebase as the given string. */
+const noPermissionsGroup = "No Permissions";
+
 export const getFormSchema = ({
   githubPermissionGroups,
   identifier,
@@ -54,7 +60,12 @@ export const getFormSchema = ({
                     {
                       type: "string" as "string",
                       title: "All app permissions",
-                      enum: [""],
+                      enum: [allPermissionsGroup],
+                    },
+                    {
+                      type: "string" as "string",
+                      title: "No permissions",
+                      enum: [noPermissionsGroup],
                     },
                     ...githubPermissionGroups.map((g) => ({
                       type: "string" as "string",
