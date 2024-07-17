@@ -7,6 +7,7 @@ import { useProjectSettingsAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {
+  StyledRouterLink,
   SideNav,
   SideNavGroup,
   SideNavItem,
@@ -34,6 +35,7 @@ import { ProjectSettingsProvider } from "./Context";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { getTabTitle } from "./getTabTitle";
 import { ProjectSettingsTabs } from "./Tabs";
+import { projectOnlyTabs } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 const { validateObjectId } = validators;
@@ -148,12 +150,26 @@ const ProjectSettings: React.FC = () => {
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <SideNav aria-label="Project Settings" widthOverride={250}>
         <ButtonsContainer>
-          <ProjectSelect
+          <StyledProjectSelect
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             selectedProjectIdentifier={projectLabel}
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
+          {projectType === ProjectType.AttachedProject && repoId && tab && (
+            <StyledRouterLink
+              to={getProjectSettingsRoute(
+                repoId,
+                projectOnlyTabs.has(tab)
+                  ? tab
+                  : ProjectSettingsTabRoutes.General,
+              )}
+              data-cy="attached-repo-link"
+            >
+              <strong>Go to repo settings</strong>
+            </StyledRouterLink>
+          )}
+
           <CreateDuplicateProjectButton
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             id={project?.projectRef?.id}
@@ -268,11 +284,15 @@ const ProjectSettingsNavItem: React.FC<{
 const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 
 const ButtonsContainer = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
   margin: 0 ${size.s};
+`;
 
-  > :not(:last-child) {
-    margin-bottom: ${size.xs};
-  }
+const StyledProjectSelect = styled(ProjectSelect)`
+  width: 100%;
 `;
 
 export default ProjectSettings;
