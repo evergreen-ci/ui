@@ -1,14 +1,11 @@
 import { execSync } from "child_process";
 
-const pad = (dateOrMonth: number) => dateOrMonth.toString().padStart(2, "0");
-
 /**
- * formatDate creates a readable string from a given date
+ * formatDate creates a readable string from a given date.
  * @param d - date
- * @returns - date string in format "year-month-day"
+ * @returns - date string in format "YYYY-MM-DD"
  */
-export const formatDate = (d: Date) =>
-  `${d.getFullYear()}-${pad(d.getMonth())}-${pad(d.getDate())}`;
+export const formatDate = (d: Date) => d.toISOString().split("T")[0];
 
 const commandExists = (commandName: string) => {
   try {
