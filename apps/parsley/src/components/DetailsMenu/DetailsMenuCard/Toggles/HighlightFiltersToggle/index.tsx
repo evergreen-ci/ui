@@ -9,7 +9,7 @@ const HighlightFiltersToggle: React.FC = () => {
   const isChecked = highlightFilters;
 
   const onChange = (checked: boolean) => {
-    sendEvent({ name: "Toggled Highlight Filters", on: checked });
+    sendEvent({ name: "Toggled highlight filters", on: checked });
     setHighlightFilters(checked);
   };
   return (

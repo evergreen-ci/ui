@@ -90,7 +90,6 @@ export const VariablesTab: React.FC<TabProps> = ({
 const validate = ((formData, errors) => {
   const duplicateIndices = findDuplicateIndices(formData.vars, "varName");
   duplicateIndices.forEach((i) => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     errors.vars?.[i]?.varName?.addError(
       "Value already appears in project variables.",
     );

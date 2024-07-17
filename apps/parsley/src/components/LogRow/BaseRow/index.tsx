@@ -80,11 +80,11 @@ const BaseRow: React.FC<BaseRowProps> = ({
   const handleClick = useCallback(() => {
     if (shared) {
       setShareLine(undefined);
-      sendEvent({ name: "Removed Share line" });
+      sendEvent({ name: "Removed share line" });
     } else {
       setShareLine(lineNumber);
       scrollToLine(lineIndex);
-      sendEvent({ name: "Added Share line" });
+      sendEvent({ name: "Added share line" });
     }
   }, [lineIndex, lineNumber, shared, scrollToLine, sendEvent, setShareLine]);
 
@@ -93,11 +93,11 @@ const BaseRow: React.FC<BaseRowProps> = ({
     if (bookmarks.includes(lineNumber)) {
       const newBookmarks = bookmarks.filter((b) => b !== lineNumber);
       setBookmarks(newBookmarks);
-      sendEvent({ name: "Removed Bookmark" });
+      sendEvent({ name: "Removed bookmark" });
     } else {
       const newBookmarks = [...bookmarks, lineNumber].sort((a, b) => a - b);
       setBookmarks(newBookmarks);
-      sendEvent({ name: "Added Bookmark" });
+      sendEvent({ name: "Added bookmark" });
     }
   }, [bookmarks, lineNumber, sendEvent, setBookmarks]);
 

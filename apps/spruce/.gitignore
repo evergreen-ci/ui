@@ -3,6 +3,7 @@
 # testing
 cypress/videos/
 cypress/screenshots/
+evg_dump/
 
 # artifacts
 /src/**/*.css

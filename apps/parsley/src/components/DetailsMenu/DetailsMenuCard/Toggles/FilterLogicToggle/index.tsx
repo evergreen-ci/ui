@@ -12,10 +12,10 @@ const FilterLogicToggle: React.FC = () => {
   const onChange = (checked: boolean) => {
     if (checked) {
       setFilterLogic(FilterLogic.Or);
-      sendEvent({ logic: FilterLogic.Or, name: "Toggled Filter Logic" });
+      sendEvent({ logic: FilterLogic.Or, name: "Toggled filter logic" });
     } else {
       setFilterLogic(FilterLogic.And);
-      sendEvent({ logic: FilterLogic.And, name: "Toggled Filter Logic" });
+      sendEvent({ logic: FilterLogic.And, name: "Toggled filter logic" });
     }
   };
   return (

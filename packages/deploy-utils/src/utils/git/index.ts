@@ -3,6 +3,8 @@ import { resolve } from "path";
 import { execTrim } from "../shell";
 import { DeployableApp } from "../types";
 
+const COMMIT_LENGTH = 40;
+
 /**
  * `push` is a helper function that pushes commits to the remote.
  */
@@ -84,6 +86,7 @@ export { getCurrentlyDeployedCommit } from "./get-current-deployed-commit";
 export {
   assertMainBranch,
   assertWorkingDirectoryClean,
+  COMMIT_LENGTH,
   getCommitMessages,
   getCurrentCommit,
   getGitRoot,

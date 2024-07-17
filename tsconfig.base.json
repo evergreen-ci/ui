@@ -24,9 +24,5 @@
       "vitest/globals",
       "vitest/jsdom"
     ]
-  },
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
   }
 }

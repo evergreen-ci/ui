@@ -1,3 +1,4 @@
+import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { getSubscriberText } from "constants/subscription";
 import { convertFromFamilyTrigger, projectTriggers } from "constants/triggers";
@@ -6,14 +7,11 @@ import {
   ProjectInput,
   SubscriptionInput,
 } from "gql/generated/types";
-import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
 import { getGqlPayload } from "./getGqlPayload";
 
 type Tab = ProjectSettingsTabRoutes.Notifications;
-
-const { toSentenceCase } = string;
 
 const getTriggerText = (trigger: string, resourceType: string) => {
   const triggerText =

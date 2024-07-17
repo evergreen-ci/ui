@@ -372,6 +372,7 @@ const projectSettingsMock: ApolloMock<
             enabled: true,
             __typename: "CommitQueueParams",
           },
+          githubDynamicTokenPermissionGroups: [],
         },
         subscriptions: [],
         vars: {

@@ -107,13 +107,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
       paginate(DIRECTION.PREVIOUS);
       sendEvent({
         direction: DIRECTION.PREVIOUS,
-        name: "Paginated Through Search Results",
+        name: "Paginated through search results",
       });
     } else if (e.key === "Enter") {
       paginate(DIRECTION.NEXT);
       sendEvent({
         direction: DIRECTION.NEXT,
-        name: "Paginated Through Search Results",
+        name: "Paginated through search results",
       });
     }
   };
@@ -151,7 +151,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             onClick={(suggestion) => {
               handleOnChange(suggestion);
               inputRef.current?.focus();
-              sendEvent({ name: "Applied Search Suggestion", suggestion });
+              sendEvent({ name: "Applied search suggestion", suggestion });
               leaveBreadcrumb(
                 "applied-search-suggestion",
                 { suggestion },

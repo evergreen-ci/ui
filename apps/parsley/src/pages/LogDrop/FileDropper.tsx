@@ -68,7 +68,7 @@ const FileDropper: React.FC = () => {
                 sendEvent({
                   fileSize: logLines?.length,
                   logType,
-                  name: "Processed Log",
+                  name: "Processed log",
                 });
                 setFileName(state.file.name);
                 ingestLines(logLines, renderingType);

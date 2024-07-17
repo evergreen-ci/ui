@@ -2,14 +2,13 @@
   "name": "@evg-ui/deploy-utils",
   "version": "0.0.0",
   "private": true,
-  "main": "src/index.ts",
   "type": "module",
   "scripts": {
     "check-types": "tsc -p tsconfig.json --noEmit",
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
-    "test": "vitest"
+    "test": "TZ=UTC vitest"
   },
   "dependencies": {
     "@evg-ui/lib": "*",
@@ -24,8 +23,9 @@
     "vitest": "1.6.0"
   },
   "bin": {
-    "deploy-utils-deploy": "src/deploy.ts",
     "deploy-utils-build-and-push": "src/build-and-push/script.ts",
+    "deploy-utils-deploy": "src/deploy.ts",
+    "deploy-utils-email": "src/email/script.ts",
     "deploy-utils-postversion": "src/postversion/script.ts",
     "deploy-utils-setup-credentials": "src/setup-credentials/script.ts",
     "deploy-utils-write-previous-deploy": "src/write-previous-deploy/script.ts"
