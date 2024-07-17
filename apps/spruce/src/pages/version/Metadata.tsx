@@ -11,7 +11,7 @@ import {
   getGithubCommitUrl,
   getGithubMergeQueueUrl,
 } from "constants/externalResources";
-import { githubMergeRequester } from "constants/patch";
+import { githubMergeRequester } from "constants/requesters";
 import {
   getCommitQueueRoute,
   getProjectPatchesRoute,

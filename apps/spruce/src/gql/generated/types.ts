@@ -849,6 +849,19 @@ export type IceCreamSettingsInput = {
   schedulerHost: Scalars["String"]["input"];
 };
 
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type Image = {
+  __typename?: "Image";
+  ami: Scalars["String"]["output"];
+  kernel: Scalars["String"]["output"];
+  lastDeployed: Scalars["Time"]["output"];
+  name: Scalars["String"]["output"];
+  versionId: Scalars["String"]["output"];
+};
+
 export type InstanceTag = {
   __typename?: "InstanceTag";
   canBeModified: Scalars["Boolean"]["output"];
@@ -1989,6 +2002,7 @@ export type Query = {
   host?: Maybe<Host>;
   hostEvents: HostEvents;
   hosts: HostsResponse;
+  image?: Maybe<Image>;
   images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
   logkeeperBuildMetadata: LogkeeperBuild;
@@ -2081,6 +2095,10 @@ export type QueryHostsArgs = {
   sortDir?: InputMaybe<SortDirection>;
   startedBy?: InputMaybe<Scalars["String"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
+export type QueryImageArgs = {
+  imageId: Scalars["String"]["input"];
 };
 
 export type QueryLogkeeperBuildMetadataArgs = {
@@ -3531,6 +3549,11 @@ export type AliasFragment = {
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
 };
 
+export type ProjectAppSettingsFragment = {
+  __typename?: "Project";
+  githubPermissionGroupByRequester?: { [key: string]: any } | null;
+};
+
 export type ProjectContainerSettingsFragment = {
   __typename?: "Project";
   containerSizeDefinitions?: Array<{
@@ -3699,6 +3722,7 @@ export type ProjectSettingsFieldsFragment = {
     repoRefId: string;
     admins?: Array<string> | null;
     restricted?: boolean | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
@@ -4296,6 +4320,7 @@ export type ProjectEventSettingsFragment = {
     versionControlEnabled?: boolean | null;
     admins?: Array<string> | null;
     restricted?: boolean | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
@@ -6755,6 +6780,7 @@ export type ProjectEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -6967,6 +6993,7 @@ export type ProjectEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7251,6 +7278,7 @@ export type ProjectSettingsQuery = {
       repoRefId: string;
       admins?: Array<string> | null;
       restricted?: boolean | null;
+      githubPermissionGroupByRequester?: { [key: string]: any } | null;
       batchTime: number;
       branch: string;
       deactivatePrevious?: boolean | null;
@@ -7518,6 +7546,7 @@ export type RepoEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7730,6 +7759,7 @@ export type RepoEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;

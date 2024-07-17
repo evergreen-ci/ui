@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Description } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm";
+import { FieldRow } from "components/SpruceForm/FieldTemplates";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { githubPermissionsDocumentationUrl } from "constants/externalResources";
 import {
@@ -9,10 +10,7 @@ import {
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { size } from "constants/tokens";
-import {
-  PermissionArrayFieldTemplate,
-  PermissionObjectFieldTemplate,
-} from "./FieldTemplates";
+import { ArrayFieldTemplate } from "./FieldTemplates";
 
 export const getFormSchema = ({
   identifier,
@@ -125,7 +123,7 @@ export const getFormSchema = ({
           `,
         },
         permissions: {
-          "ui:ArrayFieldTemplate": PermissionArrayFieldTemplate,
+          "ui:ArrayFieldTemplate": ArrayFieldTemplate,
           "ui:addButtonText": "Add permission",
           "ui:addToEnd": true,
           "ui:orderable": false,
@@ -133,7 +131,7 @@ export const getFormSchema = ({
           "ui:showLabel": false,
           "ui:topAlignDelete": true,
           items: {
-            "ui:ObjectFieldTemplate": PermissionObjectFieldTemplate,
+            "ui:ObjectFieldTemplate": FieldRow,
             type: {
               "ui:ariaLabelledBy": "GitHub Permission Type",
               "ui:data-cy": "permission-type-input",

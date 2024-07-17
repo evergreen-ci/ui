@@ -1,5 +1,5 @@
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
-import { githubPRRequester, patchRequester } from "constants/patch";
+import { githubPRRequester, patchRequester } from "constants/requesters";
 import { requesterSubscriberOptions } from "constants/triggers";
 import { useStatusesFilter } from "hooks";
 import { PatchPageQueryParams } from "types/patch";

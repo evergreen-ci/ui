@@ -276,6 +276,12 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                   tabData[ProjectSettingsTabRoutes.GithubAppSettings]
                     .projectData
                 }
+                githubPermissionGroups={
+                  projectData?.projectRef?.githubDynamicTokenPermissionGroups ??
+                  []
+                }
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                identifier={identifier}
               />
             }
           />

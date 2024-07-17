@@ -164,9 +164,9 @@ export const FieldRow: React.FC<
 
 const RowContainer = styled.div`
   display: flex;
-  margin-bottom: ${size.s};
   justify-content: space-between;
-  gap: ${size.s};
+  align-items: center;
+  gap: ${size.l};
 `;
 
 const AccordionTitle = styled(Subtitle)`

@@ -19,6 +19,9 @@ export const getPluginsRoute = (identifier: string) =>
 export const getContainersRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/containers`;
 
+export const getAppSettingsRoute = (identifier: string) =>
+  `${getSettingsRoute(identifier)}/github-app-settings`;
+
 export const getPermissionGroupsRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/github-permission-groups`;
 
