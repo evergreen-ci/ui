@@ -52,9 +52,6 @@ export const cache = new InMemoryCache({
     ProjectAlias: {
       keyFields: false,
     },
-    Project: {
-      keyFields: ["id"],
-    },
     User: {
       keyFields: ["userId"],
     },
