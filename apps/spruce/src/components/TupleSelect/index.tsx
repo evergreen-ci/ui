@@ -31,7 +31,8 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
     onSubmit({ category: selected, value: input });
   };
 
-  const selectedOption = options.find((o) => o.value === selected);
+  const selectedOption =
+    options.find((o) => o.value === selected) ?? options[0];
 
   return (
     <Container>
@@ -58,11 +59,10 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
         </GroupedSelect>
         <GroupedTextInput
           id="filter-input"
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           aria-label={selectedOption.displayName}
+          aria-labelledby={selectedOption.displayName}
           data-cy="tuple-select-input"
           type="text" // Chrome will overlay a clear "x" button on the input if type is not set to 'search'
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           placeholder={selectedOption.placeHolderText}
           validator={validator}
           validatorErrorMessage={validatorErrorMessage}
