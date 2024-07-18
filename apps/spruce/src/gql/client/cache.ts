@@ -53,7 +53,7 @@ export const cache = new InMemoryCache({
       keyFields: false,
     },
     Project: {
-      keyFields: false,
+      keyFields: ["id"],
     },
     User: {
       keyFields: ["userId"],
