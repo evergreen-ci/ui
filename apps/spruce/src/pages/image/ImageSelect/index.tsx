@@ -19,7 +19,6 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
   >(IMAGES);
 
   const { images } = imagesData || {};
-  console.log(`imagesData: ${imagesData}`);
 
   return loading ? null : (
     <Combobox
