@@ -3,6 +3,7 @@ import { execSync } from "child_process";
 import { readFileSync } from "fs";
 import { getAppToDeploy, isRunningOnCI, isTest } from "../utils/environment";
 import {
+  COMMIT_LENGTH,
   getCommitMessages,
   getCurrentCommit,
   getLatestTag,
@@ -125,7 +126,11 @@ export const makeEmail = ({
     })
     .join("");
 
-  const subject = `${formatDate(new Date())} ${toSentenceCase(app)} Deploy to ${commitToDeploy}${isRevert ? " (Revert)" : ""}`;
+  const commitLabel =
+    commitToDeploy.length === COMMIT_LENGTH
+      ? commitToDeploy.substring(0, 7)
+      : commitToDeploy;
+  const subject = `${formatDate(new Date())} ${toSentenceCase(app)} Deploy to ${commitLabel}${isRevert ? " (Revert)" : ""}`;
   const body = `<ul>${commitsHTML}</ul>${previousTag ? `<p><b>To revert, rerun task from previous release tag (${previousTag})</b></p>` : ""}`;
 
   return { body, from, recipients, subject };

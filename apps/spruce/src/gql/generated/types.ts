@@ -3518,6 +3518,7 @@ export type PatchesPagePatchesFragment = {
     status: string;
     projectMetadata?: {
       __typename?: "Project";
+      id: string;
       owner: string;
       repo: string;
     } | null;
@@ -7233,6 +7234,7 @@ export type ProjectPatchesQuery = {
         status: string;
         projectMetadata?: {
           __typename?: "Project";
+          id: string;
           owner: string;
           repo: string;
         } | null;
@@ -8803,6 +8805,7 @@ export type UserPatchesQuery = {
         status: string;
         projectMetadata?: {
           __typename?: "Project";
+          id: string;
           owner: string;
           repo: string;
         } | null;
