@@ -391,9 +391,11 @@
                   </div>
                   <div
                     class="leafygreen-ui-55kazc css-1oxhyic-InlineCheckbox eoqkpw10"
+                    data-lgid="lg-checkbox"
                   >
                     <label
-                      class="leafygreen-ui-75mjfl"
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
                       for="checkbox-343"
                       id="checkbox-343-label"
                     >
@@ -455,9 +457,11 @@
                 >
                   <div
                     class="leafygreen-ui-55kazc"
+                    data-lgid="lg-checkbox"
                   >
                     <label
-                      class="leafygreen-ui-75mjfl"
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
                       for="checkbox-344"
                       id="checkbox-344-label"
                     >
@@ -504,9 +508,11 @@
                   </div>
                   <div
                     class="leafygreen-ui-55kazc"
+                    data-lgid="lg-checkbox"
                   >
                     <label
-                      class="leafygreen-ui-75mjfl"
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
                       for="checkbox-345"
                       id="checkbox-345-label"
                     >

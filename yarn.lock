@@ -2566,21 +2566,7 @@
     "@leafygreen-ui/tokens" "^2.5.2"
     polished "^4.2.2"
 
-"@leafygreen-ui/checkbox@13.0.0":
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-13.0.0.tgz#a7f623b37ba64dba8045ab777bb64bcf738600d6"
-  integrity sha512-s6Gh0p8Q0ZfncDz5mZWGItavFrR67jsX53tepqIwEr0woZeQNf0BG3Z2b3Mf5LF5mghWda5+1kf5vaRVmvrcMw==
-  dependencies:
-    "@leafygreen-ui/a11y" "^1.4.13"
-    "@leafygreen-ui/emotion" "^4.0.8"
-    "@leafygreen-ui/hooks" "^8.1.3"
-    "@leafygreen-ui/lib" "^13.3.0"
-    "@leafygreen-ui/palette" "^4.0.9"
-    "@leafygreen-ui/tokens" "^2.5.2"
-    "@leafygreen-ui/typography" "^18.3.0"
-    react-transition-group "^4.4.5"
-
-"@leafygreen-ui/checkbox@^13.1.0":
+"@leafygreen-ui/checkbox@13.1.0", "@leafygreen-ui/checkbox@^13.1.0":
   version "13.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-13.1.0.tgz#77c23464cf3ee8a06a61c14d5e14de4e2312734f"
   integrity sha512-Cu+Jqunde+yTYqdUvRe/o2gBZE/WI8nyhvS+Ozy2PB1KMN95PCQ/oCU1oMI3n5/gQTbFEXi4ia54eln0TRgh7w==
