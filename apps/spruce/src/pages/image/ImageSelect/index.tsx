@@ -19,6 +19,7 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
   >(IMAGES);
 
   const { images } = imagesData || {};
+  console.log(`imagesData: ${imagesData}`);
 
   return loading ? null : (
     <Combobox
@@ -27,6 +28,7 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
       label="Images"
       placeholder="Select an image"
       popoverZIndex={zIndex.popover}
+      portalClassName="images-select-options"
       disabled={loading}
       // @ts-expect-error: onChange expects type string | null
       onChange={(imageId: string) => {
