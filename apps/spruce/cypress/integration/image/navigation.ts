@@ -11,11 +11,15 @@ describe("/image/imageId/random redirect route", () => {
     cy.get("@button").click();
     cy.get(".images-select-options").find("li").should("exist");
     cy.get(".images-select-options").within(() => {
-      cy.get("li").as("text");
-      cy.get("li").click();
-      cy.get("@text").then((text) => {
-        cy.location("pathname").should("contain", text);
-      });
+      cy.get("li").eq(1).click();
+      cy.get("li")
+        .eq(1)
+        .invoke("text")
+        .then((text) => {
+          cy.location("pathname").then((pathname) => {
+            expect(pathname).to.include(text);
+          });
+        });
     });
   });
 });
