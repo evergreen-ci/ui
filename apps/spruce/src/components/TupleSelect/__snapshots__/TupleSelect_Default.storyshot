@@ -78,6 +78,7 @@
       >
         <div
           aria-label="Build Variant"
+          aria-labelledby="Build Variant"
           class="leafygreen-ui-1br9h7w"
           data-lgid="lg-text_input"
         >
@@ -94,7 +95,7 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-label="Build Variant"
+                aria-labelledby="Build Variant"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="tuple-select-input"

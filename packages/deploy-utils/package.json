@@ -8,7 +8,7 @@
     "eslint:fix": "yarn eslint:strict --fix",
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
-    "test": "vitest"
+    "test": "TZ=UTC vitest"
   },
   "dependencies": {
     "@evg-ui/lib": "*",

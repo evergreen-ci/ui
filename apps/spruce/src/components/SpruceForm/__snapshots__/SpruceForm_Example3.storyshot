@@ -34,9 +34,11 @@
               >
                 <div
                   class="leafygreen-ui-55kazc"
+                  data-lgid="lg-checkbox"
                 >
                   <label
-                    class="leafygreen-ui-75mjfl"
+                    class="leafygreen-ui-1srek1y"
+                    data-lgid="lg-label"
                     for="checkbox-260"
                     id="checkbox-260-label"
                   >
