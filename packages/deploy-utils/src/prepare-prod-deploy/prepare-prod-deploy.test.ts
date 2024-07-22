@@ -110,7 +110,7 @@ my commit messages`,
 
     it("aborts deploy when user cancels", async () => {
       vi.mocked(prompts).mockResolvedValueOnce({
-        value: true,
+        value: true, // Do you want to cancel the deploy?
       });
       const consoleSpy = vi.spyOn(console, "log").mockImplementation(vi.fn());
       await prepareProdDeploy();
@@ -123,10 +123,10 @@ my commit messages`,
     it("aborts deploy when user cancels on second prompt", async () => {
       vi.mocked(prompts)
         .mockResolvedValueOnce({
-          value: false,
+          value: false, // Do you want to cancel the deploy?
         })
         .mockResolvedValueOnce({
-          value: false,
+          value: false, // Do you want to trigger a deploy on the most recent existing tag?
         });
       const consoleSpy = vi.spyOn(console, "log").mockImplementation(vi.fn());
       await prepareProdDeploy();

@@ -36,7 +36,7 @@ export const prepareProdDeploy = async () => {
     const { value: cancelDeploy } = await prompts({
       type: "confirm",
       name: "value",
-      message: `No new commits. Do you want to cancel the deploy?`,
+      message: "No new commits. Do you want to cancel the deploy?",
       initial: true,
     });
 
