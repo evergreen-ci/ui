@@ -37,6 +37,7 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
     RepotrackerErrorQueryVariables
   >(REPOTRACKER_ERROR, {
     variables: { projectIdentifier },
+    skip: !projectIdentifier,
   });
   const hasRepotrackerError =
     repotrackerData?.project?.repotrackerError?.exists ?? false;

@@ -395,7 +395,7 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
-  imageId?: Maybe<Scalars["String"]["output"]>;
+  imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   mountpoints?: Maybe<Array<Scalars["String"]["output"]>>;
@@ -461,7 +461,7 @@ export type DistroInput = {
   homeVolumeSettings: HomeVolumeSettingsInput;
   hostAllocatorSettings: HostAllocatorSettingsInput;
   iceCreamSettings: IceCreamSettingsInput;
-  imageId?: InputMaybe<Scalars["String"]["input"]>;
+  imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -847,6 +847,19 @@ export type IceCreamSettings = {
 export type IceCreamSettingsInput = {
   configPath: Scalars["String"]["input"];
   schedulerHost: Scalars["String"]["input"];
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type Image = {
+  __typename?: "Image";
+  ami: Scalars["String"]["output"];
+  kernel: Scalars["String"]["output"];
+  lastDeployed: Scalars["Time"]["output"];
+  name: Scalars["String"]["output"];
+  versionId: Scalars["String"]["output"];
 };
 
 export type InstanceTag = {
@@ -1989,6 +2002,7 @@ export type Query = {
   host?: Maybe<Host>;
   hostEvents: HostEvents;
   hosts: HostsResponse;
+  image?: Maybe<Image>;
   images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
   logkeeperBuildMetadata: LogkeeperBuild;
@@ -2081,6 +2095,10 @@ export type QueryHostsArgs = {
   sortDir?: InputMaybe<SortDirection>;
   startedBy?: InputMaybe<Scalars["String"]["input"]>;
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
+export type QueryImageArgs = {
+  imageId: Scalars["String"]["input"];
 };
 
 export type QueryLogkeeperBuildMetadataArgs = {
@@ -2595,6 +2613,7 @@ export type Task = {
   hasCedarResults: Scalars["Boolean"]["output"];
   hostId?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["String"]["output"];
+  imageId: Scalars["String"]["output"];
   ingestTime?: Maybe<Scalars["Time"]["output"]>;
   isPerfPluginEnabled: Scalars["Boolean"]["output"];
   latestExecution: Scalars["Int"]["output"];
