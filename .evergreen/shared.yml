@@ -5,8 +5,8 @@ functions:
       working_dir: ui/.evergreen
       command: bash scripts/add-runtime.sh
       env:
-        BASE_URL: staging_runtime_environments_base_url
-        API_KEY: staging_runtime_environments_api_key
+        BASE_URL: ${staging_runtime_environments_base_url}
+        API_KEY: ${staging_runtime_environments_api_key}
 
   assume-ec2-role:
     command: ec2.assume_role
