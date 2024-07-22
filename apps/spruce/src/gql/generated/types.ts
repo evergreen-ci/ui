@@ -639,6 +639,17 @@ export type GitTag = {
   tag: Scalars["String"]["output"];
 };
 
+export type GithubAppAuth = {
+  __typename?: "GithubAppAuth";
+  appId?: Maybe<Scalars["Int"]["output"]>;
+  privateKey?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GithubAppAuthInput = {
+  appId: Scalars["Int"]["input"];
+  privateKey: Scalars["String"]["input"];
+};
+
 export type GithubCheckSubscriber = {
   __typename?: "GithubCheckSubscriber";
   owner: Scalars["String"]["output"];
@@ -1909,6 +1920,7 @@ export type ProjectPermissionsOptions = {
 export type ProjectSettings = {
   __typename?: "ProjectSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
+  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<Project>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -1922,6 +1934,7 @@ export type ProjectSettings = {
  */
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
+  githubAppAuth?: InputMaybe<GithubAppAuthInput>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectId: Scalars["String"]["input"];
   projectRef?: InputMaybe<ProjectInput>;
