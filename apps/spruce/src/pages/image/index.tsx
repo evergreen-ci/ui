@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
-import { Skeleton } from "antd";
+import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { SideNav, SideNavGroup, SideNavItem } from "components/styles";
 import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
@@ -48,7 +48,7 @@ const Image: React.FC = () => {
       </SideNav>
     );
   }
-  return <Skeleton active />;
+  return <Skeleton />;
 };
 
 const ButtonsContainer = styled.div`

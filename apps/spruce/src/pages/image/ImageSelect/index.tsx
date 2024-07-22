@@ -3,6 +3,7 @@ import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useNavigate } from "react-router-dom";
 import { getImageRoute } from "constants/routes";
 import { zIndex } from "constants/tokens";
+import { useToastContext } from "context/toast";
 import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
 import { IMAGES } from "gql/queries";
 
@@ -13,10 +14,15 @@ interface ImageSelectProps {
 export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
   const navigate = useNavigate();
 
+  const dispatchToast = useToastContext();
   const { data: imagesData, loading } = useQuery<
     ImagesQuery,
     ImagesQueryVariables
-  >(IMAGES);
+  >(IMAGES, {
+    onError: (err) => {
+      dispatchToast.warning(`Failed to retrieve images: ${err.message}`);
+    },
+  });
 
   const { images } = imagesData || {};
 
