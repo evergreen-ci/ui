@@ -69,6 +69,7 @@ const pushTags = () => {
       stdio: "inherit",
       encoding: "utf-8",
     });
+    console.log("Successfully pushed tags.");
   } catch (err) {
     throw Error("Pushing tags failed.", { cause: err });
   }

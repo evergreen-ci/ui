@@ -19,7 +19,6 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     useLogContext();
   const { setPrettyPrint, setWrap, zebraStriping } = preferences;
   const { settings } = useParsleySettings();
-
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -30,7 +29,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
     if (listRef.current && !performedScroll.current && settings) {
       // Use a timeout to execute certain actions after the log pane has rendered. All of the
       // code below describes one-time events.
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         const jumpToLine =
           shareLine ??
           (settings.jumpToFailingLineEnabled ? failingLine : undefined);
@@ -58,9 +57,10 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
         }
         performedScroll.current = true;
       }, 100);
+      return () => clearTimeout(timeoutId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listRef, performedScroll, settings]);
+  }, [listRef, performedScroll, settings, processedLogLines]);
 
   return (
     <PaginatedVirtualList

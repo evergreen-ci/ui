@@ -395,7 +395,7 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
-  imageId?: Maybe<Scalars["String"]["output"]>;
+  imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   mountpoints?: Maybe<Array<Scalars["String"]["output"]>>;
@@ -461,7 +461,7 @@ export type DistroInput = {
   homeVolumeSettings: HomeVolumeSettingsInput;
   hostAllocatorSettings: HostAllocatorSettingsInput;
   iceCreamSettings: IceCreamSettingsInput;
-  imageId?: InputMaybe<Scalars["String"]["input"]>;
+  imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -637,6 +637,17 @@ export type GitTag = {
   __typename?: "GitTag";
   pusher: Scalars["String"]["output"];
   tag: Scalars["String"]["output"];
+};
+
+export type GithubAppAuth = {
+  __typename?: "GithubAppAuth";
+  appId?: Maybe<Scalars["Int"]["output"]>;
+  privateKey?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GithubAppAuthInput = {
+  appId: Scalars["Int"]["input"];
+  privateKey: Scalars["String"]["input"];
 };
 
 export type GithubCheckSubscriber = {
@@ -1909,6 +1920,7 @@ export type ProjectPermissionsOptions = {
 export type ProjectSettings = {
   __typename?: "ProjectSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
+  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<Project>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -1922,6 +1934,7 @@ export type ProjectSettings = {
  */
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
+  githubAppAuth?: InputMaybe<GithubAppAuthInput>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectId: Scalars["String"]["input"];
   projectRef?: InputMaybe<ProjectInput>;
@@ -3505,6 +3518,7 @@ export type PatchesPagePatchesFragment = {
     status: string;
     projectMetadata?: {
       __typename?: "Project";
+      id: string;
       owner: string;
       repo: string;
     } | null;
@@ -5819,7 +5833,7 @@ export type DistroQuery = {
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
-    imageId?: string | null;
+    imageId: string;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
     mountpoints?: Array<string> | null;
@@ -7225,6 +7239,7 @@ export type ProjectPatchesQuery = {
         status: string;
         projectMetadata?: {
           __typename?: "Project";
+          id: string;
           owner: string;
           repo: string;
         } | null;
@@ -8798,6 +8813,7 @@ export type UserPatchesQuery = {
         status: string;
         projectMetadata?: {
           __typename?: "Project";
+          id: string;
           owner: string;
           repo: string;
         } | null;
