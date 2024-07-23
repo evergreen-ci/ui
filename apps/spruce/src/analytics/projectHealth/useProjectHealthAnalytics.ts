@@ -4,12 +4,13 @@ import {
   SaveSubscriptionForUserMutationVariables,
 } from "gql/generated/types";
 
+// The comments below are used to indicate which pageType the action is relevant to (e.g. "Commit chart")
 type pageType = "Commit chart" | "Task history" | "Variant history";
 type Action =
   | { name: "Changed page"; direction: "previous" | "next" } // "Commit chart"
   | { name: "Changed project"; project: string } // "Commit chart"
-  | { name: "Click column header" } // "Task history" | "Variant history"
-  | { name: "Click task cell"; taskStatus: string } // "Task history" | "Variant history"
+  | { name: "Clicked column header" } // "Task history" | "Variant history"
+  | { name: "Clicked task cell"; taskStatus: string } // "Task history" | "Variant history"
   | {
       name: "Clicked commit label";
       link: "jira" | "githash" | "upstream project";
@@ -17,17 +18,17 @@ type Action =
     } // "Task history" | "Variant history" | "Commit chart"
   | { name: "Clicked grouped task status badge"; statuses: string[] }
   | { name: "Clicked task status icon"; status: string } // "Commit chart"
-  | { name: "Click variant label" } // "Commit chart"
+  | { name: "Clicked variant label" } // "Commit chart"
   | {
       name: "Created notification";
       subscription: SaveSubscriptionForUserMutationVariables["subscription"];
     } // "Commit chart"
   | { name: "Deleted a badge" } // "Variant history" | "Task history" | "Commit chart"
   | { name: "Deleted all badges" } // "Variant history" | "Task history" | "Commit chart"
-  | { name: "Filter by build variant" } // "Variant history" | "Task history"
-  | { name: "Filter by requester"; requesters: string[] } // "Commit chart"
-  | { name: "Filter by task" } // "Commit chart"
-  | { name: "Filter by task status"; statuses: string[] } // "Commit chart"
+  | { name: "Filtered by build variant" } // "Variant history" | "Task history"
+  | { name: "Filtered by requester"; requesters: string[] } // "Commit chart"
+  | { name: "Filtered by task" } // "Commit chart"
+  | { name: "Filtered by task status"; statuses: string[] } // "Commit chart"
   | { name: "Filtered failed tests" } // "Variant history" | "Task history"
   | { name: "Filtered for git commit"; commit: string } // "Commit chart"
   | {
