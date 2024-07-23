@@ -1,43 +1,41 @@
-import { StringMap } from "types/utils";
+import { PartialRecord } from "types/utils";
 
-const adhocRequester = "ad_hoc";
+// Not included in Requester enum because it will be deprecated.
 const commitQueueRequester = "merge_test";
-const githubMergeRequester = "github_merge_request";
-const githubPRRequester = "github_pull_request";
-const gitTagRequester = "git_tag_request";
-const gitterRequester = "gitter_request";
-const patchRequester = "patch_request";
-const triggerRequester = "trigger_request";
 
-const requesterToTitle: StringMap = {
-  [githubPRRequester]: "GitHub Pull Request",
-  [patchRequester]: "Patch Request",
-  [gitTagRequester]: "GitHub Tag Request",
-  [gitterRequester]: "Gitter Request",
-  [triggerRequester]: "Trigger Request",
-  [adhocRequester]: "Periodic Build",
-  [githubMergeRequester]: "GitHub Merge Request",
+enum Requester {
+  AdHoc = "ad_hoc",
+  GitHubMergeQueue = "github_merge_request",
+  GitHubPR = "github_pull_request",
+  GitTag = "git_tag_request",
+  Gitter = "gitter_request",
+  Patch = "patch_request",
+  Trigger = "trigger_request",
+}
+
+const requesterToTitle: PartialRecord<Requester, string> = {
+  [Requester.AdHoc]: "Periodic Build",
+  [Requester.GitHubMergeQueue]: "GitHub Merge Request",
+  [Requester.GitHubPR]: "GitHub Pull Request",
+  [Requester.GitTag]: "GitHub Tag Request",
+  [Requester.Gitter]: "Gitter Request",
+  [Requester.Patch]: "Patch Request",
+  [Requester.Trigger]: "Trigger Request",
 };
 
-const requesterToDescription: StringMap = {
-  [githubPRRequester]: "GitHub PR patches",
-  [patchRequester]: "Manual patches",
-  [gitTagRequester]: "Git tag versions",
-  [gitterRequester]: "Repotracker versions",
-  [triggerRequester]: "Downstream trigger versions",
-  [adhocRequester]: "Periodic build versions",
-  [githubMergeRequester]: "GitHub's merge queue",
+const requesterToDescription: PartialRecord<Requester, string> = {
+  [Requester.AdHoc]: "Periodic build versions",
+  [Requester.GitHubMergeQueue]: "Patches made via GitHub's merge queue",
+  [Requester.GitHubPR]: "GitHub PR patches",
+  [Requester.GitTag]: "Versions triggered by git tags",
+  [Requester.Gitter]: "Repotracker versions",
+  [Requester.Patch]: "Manual patches made via CLI or API",
+  [Requester.Trigger]: "Downstream trigger versions",
 };
 
 export {
-  adhocRequester,
+  Requester,
   commitQueueRequester,
-  githubMergeRequester,
-  githubPRRequester,
-  gitTagRequester,
-  gitterRequester,
-  patchRequester,
-  triggerRequester,
   requesterToTitle,
   requesterToDescription,
 };

@@ -9,7 +9,11 @@ import {
 } from "components/SpruceForm/FieldTemplates";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { githubTokenPermissionRestrictionsUrl } from "constants/externalResources";
-import { requesterToTitle, requesterToDescription } from "constants/requesters";
+import {
+  requesterToTitle,
+  requesterToDescription,
+  Requester,
+} from "constants/requesters";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
@@ -55,7 +59,7 @@ export const getFormSchema = ({
                 permissionGroup: {
                   type: "string" as "string",
                   title: "",
-                  default: "",
+                  default: allPermissionsGroup,
                   oneOf: [
                     {
                       type: "string" as "string",
@@ -131,7 +135,7 @@ export const getFormSchema = ({
   },
 });
 
-const RequesterTypeField: Field = ({ formData }) => (
+const RequesterTypeField: Field = ({ formData }: { formData: Requester }) => (
   <InlineDefinition definition={requesterToDescription[formData]}>
     {requesterToTitle[formData]}
   </InlineDefinition>
