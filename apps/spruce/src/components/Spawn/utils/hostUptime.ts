@@ -161,7 +161,17 @@ const getDailyUptime = ({
 }: {
   startTime: string;
   stopTime: string;
-}) => differenceInHours(new Date(stopTime), new Date(startTime));
+}) => {
+  const startDate = new Date(startTime);
+  const stopDate = new Date(stopTime);
+
+  // If this is an overnight schedule, set stop date to the following day so that uptime is correctly calculated.
+  if (stopDate < startDate) {
+    stopDate.setDate(stopDate.getDate() + 1);
+  }
+
+  return differenceInHours(stopDate, startDate);
+};
 
 const toTimeString = (date: Date): string =>
   date.toLocaleTimeString([], {
