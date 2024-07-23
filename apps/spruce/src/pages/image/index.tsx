@@ -26,7 +26,6 @@ const Image: React.FC = () => {
       />
     );
   }
-  console.log(currentTab);
 
   return (
     <SideNav aria-label="Image" widthOverride={250}>
