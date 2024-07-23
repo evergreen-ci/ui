@@ -269,7 +269,7 @@ export const ActionButtons: React.FC<Props> = ({
               data-cy="task-history"
               key="task-history"
               onClick={() => {
-                taskAnalytics.sendEvent({ name: "Clicked see history button" });
+                taskAnalytics.sendEvent({ name: "Clicked see history link" });
               }}
               as={HistoryLink}
               disabled={displayName === mergeTaskName}

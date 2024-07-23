@@ -34,6 +34,9 @@ type Action =
       allTasks: boolean;
       isDisplayTask: true;
     }
+  | {
+      name: "Clicked execution tasks table link";
+    }
   | { name: "Clicked schedule task button" }
   | { name: "Clicked abort task button" }
   | { name: "Changed task priority"; priority: number }
@@ -50,7 +53,7 @@ type Action =
       name: "Created notification";
       subscription: SaveSubscriptionForUserMutationVariables["subscription"];
     }
-  | { name: "Clicked see history button" }
+  | { name: "Clicked see history link" }
   | { name: "Clicked metadata link"; linkType: string }
   | {
       name: "Clicked task file link";

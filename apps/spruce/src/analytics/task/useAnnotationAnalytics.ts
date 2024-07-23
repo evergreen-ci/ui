@@ -15,7 +15,7 @@ import { RequiredQueryParams } from "types/task";
 type Action =
   | { name: "Clicked Jira ticket summary link" }
   | { name: "Created build baron ticket" }
-  | { name: "Saved annotation note button" }
+  | { name: "Saved annotation note" }
   | {
       name: "Clicked move annotation button";
       type: "Issue" | "Suspected Issue";

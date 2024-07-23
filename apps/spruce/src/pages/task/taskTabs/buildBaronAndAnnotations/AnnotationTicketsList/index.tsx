@@ -93,7 +93,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
 
     setSelectedRowKey(apiIssue.issueKey);
     annotationAnalytics.sendEvent({
-      name: "Moved annotation",
+      name: "Clicked move annotation button",
       type: isIssue ? "Issue" : "Suspected Issue",
     });
   };
