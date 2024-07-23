@@ -219,6 +219,7 @@ describe("useSections", () => {
     rerender({
       logType: LogTypes.EVERGREEN_TASK_FILE,
       logs,
+      onInitOpenSectionContainingLine: undefined,
       renderingType: LogRenderingTypes.Default,
     });
     rerender({ logs, ...metadata });
@@ -310,104 +311,41 @@ describe("useSections", () => {
       });
     });
 
-    describe("openSectionContainingLineNumber opens the section containing the line number", async () => {
-      beforeEach(() => {
-        InitializeFakeToastContext();
+    it("should open the section containing 'onInitOpenSectionContainingLine' during initialization only", async () => {
+      InitializeFakeToastContext();
+      const { rerender, result } = renderHook((args) => useSections(args), {
+        initialProps: {
+          logType: LogTypes.EVERGREEN_TASK_LOGS,
+          logs,
+          onInitOpenSectionContainingLine: 10,
+          renderingType: LogRenderingTypes.Default,
+        },
+        wrapper,
       });
-      it("should open the section containing the line number when given a number", async () => {
-        const { result } = renderHook(
-          () => useSections({ logs, ...metadata }),
-          {
-            wrapper,
-          },
-        );
-        await waitFor(() => {
-          expect(result.current.sectionData).toStrictEqual(sectionData);
-        });
-        await waitFor(() => {
-          expect(result.current.sectionState).toStrictEqual(
-            initialSectionState,
-          );
-        });
-        act(() => {
-          result.current.openSectionContainingLineNumber({ lineNumber: 2 });
-        });
-        await waitFor(() => {
-          expect(result.current.sectionState).toStrictEqual({
-            ...initialSectionState,
-            "function-1": {
-              commands: {
-                ...initialSectionState["function-1"].commands,
-                "command-1": { isOpen: true },
-              },
-              isOpen: true,
-            },
-          });
-        });
+      await waitFor(() => {
+        expect(result.current.sectionData).toStrictEqual(sectionData);
       });
-      it("should open the section containing the line numbers when given a list", async () => {
-        const { result } = renderHook(
-          () => useSections({ logs, ...metadata }),
-          {
-            wrapper,
+      const sectionState = {
+        ...initialSectionState,
+        "function-9": {
+          commands: {
+            "command-9": { isOpen: true },
+            "command-12": { isOpen: false },
           },
-        );
-        await waitFor(() => {
-          expect(result.current.sectionData).toStrictEqual(sectionData);
-        });
-        await waitFor(() => {
-          expect(result.current.sectionState).toStrictEqual(
-            initialSectionState,
-          );
-        });
-        act(() => {
-          result.current.openSectionContainingLineNumber({
-            lineNumber: [10, 6],
-          });
-        });
-        await waitFor(() => {
-          expect(result.current.sectionState).toStrictEqual({
-            ...initialSectionState,
-            "function-1": {
-              commands: {
-                "command-1": { isOpen: false },
-                "command-6": { isOpen: true },
-              },
-              isOpen: true,
-            },
-            "function-9": {
-              commands: {
-                "command-9": { isOpen: true },
-                "command-12": { isOpen: false },
-              },
-              isOpen: true,
-            },
-          });
-        });
+          isOpen: true,
+        },
+      };
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual(sectionState);
       });
-      it("should return original state if no section is found", async () => {
-        const { result } = renderHook(
-          () => useSections({ logs, ...metadata }),
-          {
-            wrapper,
-          },
-        );
-        await waitFor(() => {
-          expect(result.current.sectionData).toStrictEqual(sectionData);
-        });
-        await waitFor(() => {
-          expect(result.current.sectionState).toStrictEqual(
-            initialSectionState,
-          );
-        });
-        act(() => {
-          result.current.openSectionContainingLineNumber({ lineNumber: 100 });
-        });
-        await waitFor(() => {
-          expect(result.current.sectionState).toStrictEqual(
-            initialSectionState,
-          );
-        });
+      rerender({
+        logType: LogTypes.EVERGREEN_TASK_LOGS,
+        logs,
+        onInitOpenSectionContainingLine: 1,
+        renderingType: LogRenderingTypes.Default,
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual(sectionState);
       });
     });
   });
@@ -520,6 +458,7 @@ describe("useSections", () => {
   };
   const metadata = {
     logType: LogTypes.EVERGREEN_TASK_LOGS,
+    onInitOpenSectionContainingLine: undefined,
     renderingType: LogRenderingTypes.Default,
   };
 });

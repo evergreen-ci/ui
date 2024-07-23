@@ -5,7 +5,7 @@ import { useParsleySettings } from "hooks/useParsleySettings";
 import { reportError } from "utils/errorReporting";
 import { releaseSectioning } from "utils/featureFlag";
 import { includesLineNumber } from "utils/logRow";
-import { CommandEntry, SectionData, parseSections } from "./utils";
+import { SectionData, parseSections } from "./utils";
 
 export type SectionState = {
   [functionID: string]: {
@@ -31,9 +31,6 @@ export interface UseSectionsResult {
   toggleFunctionSection: ToggleFunctionSection;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
-  openSectionContainingLineNumber: (p: {
-    lineNumber: number | number[];
-  }) => void;
   sectioningInitialized: boolean;
 }
 
@@ -41,10 +38,12 @@ interface Props {
   logs: string[];
   logType: string | undefined;
   renderingType: string | undefined;
+  onInitOpenSectionContainingLine: number | undefined;
 }
 export const useSections = ({
   logType,
   logs,
+  onInitOpenSectionContainingLine,
   renderingType,
 }: Props): UseSectionsResult => {
   const dispatchToast = useToastContext();
@@ -82,7 +81,9 @@ export const useSections = ({
 
   useEffect(() => {
     if (sectionData && sectionState === undefined) {
-      setSectionState(populateSectionState(sectionData));
+      setSectionState(
+        populateSectionState(sectionData, onInitOpenSectionContainingLine),
+      );
     }
   }, [sectionData, sectionState]);
 
@@ -113,35 +114,7 @@ export const useSections = ({
     [],
   );
 
-  const openSectionContainingLineNumber = useCallback(
-    ({ lineNumber }: { lineNumber: number | number[] }) => {
-      const lineNumberArray = Array.isArray(lineNumber)
-        ? lineNumber
-        : [lineNumber];
-      const sectionContainingLine = lineNumberArray
-        .map((n) =>
-          sectionData?.commands.find((section) =>
-            includesLineNumber(section, n),
-          ),
-        )
-        .filter((v) => v) as CommandEntry[];
-      setSectionState((currentState) => {
-        if (currentState) {
-          const nextState = { ...currentState };
-          sectionContainingLine.forEach(({ commandID, functionID }) => {
-            nextState[functionID].commands[commandID].isOpen = true;
-            nextState[functionID].isOpen = true;
-          });
-          return nextState;
-        }
-        return currentState;
-      });
-    },
-    [sectionData],
-  );
-
   return {
-    openSectionContainingLineNumber,
     sectionData,
     sectionState,
     sectioningEnabled,
@@ -151,14 +124,23 @@ export const useSections = ({
   };
 };
 
-const populateSectionState = (sectionData: SectionData): SectionState => {
+const populateSectionState = (
+  sectionData: SectionData,
+  openSectionContainingLine: number | undefined,
+): SectionState => {
   const { commands, functions } = sectionData;
   const sectionState: SectionState = {};
   functions.forEach(({ functionID }) => {
     sectionState[functionID] = { commands: {}, isOpen: false };
   });
-  commands.forEach(({ commandID, functionID }) => {
-    sectionState[functionID].commands[commandID] = { isOpen: false };
+  commands.forEach((sectionEntry) => {
+    const { commandID, functionID } = sectionEntry;
+    if (includesLineNumber(sectionEntry, openSectionContainingLine)) {
+      sectionState[functionID].isOpen = true;
+      sectionState[functionID].commands[commandID] = { isOpen: true };
+    } else {
+      sectionState[functionID].commands[commandID] = { isOpen: false };
+    }
   });
   return sectionState;
 };

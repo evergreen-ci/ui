@@ -15,49 +15,24 @@ interface LogPaneProps {
   rowCount: number;
 }
 const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
-  const {
-    failingLine,
-    listRef,
-    preferences,
-    processedLogLines,
-    scrollToLine,
-    sectioning,
-  } = useLogContext();
-  const {
-    openSectionContainingLineNumber,
-    sectioningEnabled,
-    sectioningInitialized,
-  } = sectioning;
+  const { failingLine, listRef, preferences, processedLogLines, scrollToLine } =
+    useLogContext();
   const { setPrettyPrint, setWrap, zebraStriping } = preferences;
   const { settings } = useParsleySettings();
   const [shareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
   );
-
-  const performedOpen = useRef(false);
   const performedScroll = useRef(false);
+
   useEffect(() => {
-    if (
-      listRef.current &&
-      !performedScroll.current &&
-      settings &&
-      sectioningInitialized
-    ) {
-      const jumpToLine =
-        shareLine ??
-        (settings.jumpToFailingLineEnabled ? failingLine : undefined);
-      if (
-        sectioningEnabled &&
-        jumpToLine !== undefined &&
-        !performedOpen.current
-      ) {
-        openSectionContainingLineNumber({ lineNumber: jumpToLine });
-        performedOpen.current = true;
-      }
+    if (listRef.current && !performedScroll.current && settings) {
       // Use a timeout to execute certain actions after the log pane has rendered. All of the
       // code below describes one-time events.
-      const timeoutId = setTimeout(() => {
+      setTimeout(() => {
+        const jumpToLine =
+          shareLine ??
+          (settings.jumpToFailingLineEnabled ? failingLine : undefined);
         const initialScrollIndex = findLineIndex(processedLogLines, jumpToLine);
         if (initialScrollIndex > -1) {
           leaveBreadcrumb(
@@ -82,16 +57,9 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
         }
         performedScroll.current = true;
       }, 100);
-      return () => clearTimeout(timeoutId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    listRef,
-    performedScroll,
-    settings,
-    sectioningInitialized,
-    processedLogLines,
-  ]);
+  }, [listRef, performedScroll, settings]);
 
   return (
     <PaginatedVirtualList
