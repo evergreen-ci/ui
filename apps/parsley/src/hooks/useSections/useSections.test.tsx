@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import {
   parsleySettingsMock,
   parsleySettingsMockSectionsDisabled,
@@ -22,9 +22,8 @@ describe("useSections", () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
-
   it("should call parsing function when sections are enabled and logs are populated", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const { result } = renderHook(
       () => useSections({ logs: ["log line"], ...metadata }),
       { wrapper },
@@ -41,7 +40,7 @@ describe("useSections", () => {
   });
 
   it("should not call parsing function when sections are disabled and logs are populated", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const { result } = renderHook(
       () => useSections({ logs: ["log line"], ...metadata }),
       {
@@ -61,7 +60,7 @@ describe("useSections", () => {
   });
 
   it("should not call parsing function when sections are enabled and logs are empty", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const { result } = renderHook(
       () => useSections({ logs: [], ...metadata }),
       { wrapper },
@@ -75,7 +74,7 @@ describe("useSections", () => {
   });
 
   it("parsing function extracts section data", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const logs = [
       "normal log line",
       "Running command 'c1' in function 'f-1' (step 1 of 4).",
@@ -116,7 +115,7 @@ describe("useSections", () => {
   });
 
   it("should dispatch a toast and report error when the parsing function throws an error", async () => {
-    const { dispatchToast } = RenderFakeToastContext();
+    const { dispatchToast } = InitializeFakeToastContext();
     const { result } = renderHook(
       () =>
         useSections({
@@ -146,7 +145,7 @@ describe("useSections", () => {
   });
 
   it("parsing function is not called after initial parse", async () => {
-    RenderFakeToastContext();
+    InitializeFakeToastContext();
     const logs = ["normal log line"];
     const { rerender } = renderHook((props) => useSections(props), {
       initialProps: { logs, ...metadata },
@@ -158,6 +157,7 @@ describe("useSections", () => {
     rerender({
       logType: LogTypes.EVERGREEN_TASK_FILE,
       logs,
+      onInitOpenSectionContainingLine: undefined,
       renderingType: LogRenderingTypes.Default,
     });
     rerender({ logs, ...metadata });
@@ -168,7 +168,7 @@ describe("useSections", () => {
 
   describe("opening and closing sections", () => {
     it("toggleFunctionSection function toggles the open state", async () => {
-      RenderFakeToastContext();
+      InitializeFakeToastContext();
       const { result } = renderHook(() => useSections({ logs, ...metadata }), {
         wrapper,
       });
@@ -218,7 +218,7 @@ describe("useSections", () => {
     });
 
     it("toggleCommandSection toggles the open state", async () => {
-      RenderFakeToastContext();
+      InitializeFakeToastContext();
       const { result } = renderHook(() => useSections({ logs, ...metadata }), {
         wrapper,
       });
@@ -248,115 +248,155 @@ describe("useSections", () => {
         });
       });
     });
-    const logs = [
-      "normal log line",
-      "Running command 'c1' in function 'f-1' (step 1 of 4).",
-      "normal log line",
-      "normal log line",
-      "normal log line",
-      "Finished command 'c1' in function 'f-1' (step 1 of 4).",
-      "Running command 'c2' in function 'f-1' (step 1 of 4).",
-      "Finished command 'c2' in function 'f-1' (step 1 of 4).",
-      "normal log line",
-      "Running command 'c3' in function 'f-2' (step 1 of 4).",
-      "normal log line",
-      "Finished command 'c3' in function 'f-2' (step 1 of 4).",
-      "Running command 'c4' in function 'f-2' (step 1 of 4).",
-      "Finished command 'c4' in function 'f-2' (step 1 of 4).",
-      "normal log line",
-      "normal log line",
-      "normal log line",
-    ];
-    const step = "1 of 4";
-    const sectionData: sectionUtils.SectionData = {
-      commands: [
-        {
-          commandID: "command-1",
-          commandName: "c1",
-          functionID: "function-1",
-          range: {
-            end: 6,
-            start: 1,
-          },
-          step,
+
+    it("should open the section containing 'onInitOpenSectionContainingLine' during initialization only", async () => {
+      InitializeFakeToastContext();
+      const { rerender, result } = renderHook((args) => useSections(args), {
+        initialProps: {
+          logType: LogTypes.EVERGREEN_TASK_LOGS,
+          logs,
+          onInitOpenSectionContainingLine: 10,
+          renderingType: LogRenderingTypes.Default,
         },
-        {
-          commandID: "command-6",
-          commandName: "c2",
-          functionID: "function-1",
-          range: {
-            end: 8,
-            start: 6,
+        wrapper,
+      });
+      await waitFor(() => {
+        expect(result.current.sectionData).toStrictEqual(sectionData);
+      });
+      const sectionState = {
+        ...initialSectionState,
+        "function-9": {
+          commands: {
+            "command-9": { isOpen: true },
+            "command-12": { isOpen: false },
           },
-          step,
+          isOpen: true,
         },
-        {
-          commandID: "command-9",
-          commandName: "c3",
-          functionID: "function-9",
-          range: {
-            end: 12,
-            start: 9,
-          },
-          step,
-        },
-        {
-          commandID: "command-12",
-          commandName: "c4",
-          functionID: "function-9",
-          range: {
-            end: 14,
-            start: 12,
-          },
-          step,
-        },
-      ],
-      functions: [
-        {
-          functionID: "function-1",
-          functionName: "f-1",
-          range: {
-            end: 8,
-            start: 1,
-          },
-        },
-        {
-          functionID: "function-9",
-          functionName: "f-2",
-          range: {
-            end: 14,
-            start: 9,
-          },
-        },
-      ],
-    };
-    const initialSectionState = {
-      "function-1": {
-        commands: {
-          "command-1": {
-            isOpen: false,
-          },
-          "command-6": {
-            isOpen: false,
-          },
-        },
-        isOpen: false,
-      },
-      "function-9": {
-        commands: {
-          "command-9": {
-            isOpen: false,
-          },
-          "command-12": {
-            isOpen: false,
-          },
-        },
-        isOpen: false,
-      },
-    };
+      };
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual(sectionState);
+      });
+      rerender({
+        logType: LogTypes.EVERGREEN_TASK_LOGS,
+        logs,
+        onInitOpenSectionContainingLine: 1,
+        renderingType: LogRenderingTypes.Default,
+      });
+      await waitFor(() => {
+        expect(result.current.sectionState).toStrictEqual(sectionState);
+      });
+    });
   });
+
+  const logs = [
+    "normal log line",
+    "Running command 'c1' in function 'f-1' (step 1 of 4).",
+    "normal log line",
+    "normal log line",
+    "normal log line",
+    "Finished command 'c1' in function 'f-1' (step 1 of 4).",
+    "Running command 'c2' in function 'f-1' (step 1 of 4).",
+    "Finished command 'c2' in function 'f-1' (step 1 of 4).",
+    "normal log line",
+    "Running command 'c3' in function 'f-2' (step 1 of 4).",
+    "normal log line",
+    "Finished command 'c3' in function 'f-2' (step 1 of 4).",
+    "Running command 'c4' in function 'f-2' (step 1 of 4).",
+    "Finished command 'c4' in function 'f-2' (step 1 of 4).",
+    "normal log line",
+    "normal log line",
+    "normal log line",
+  ];
+  const step = "1 of 4";
+  const sectionData: sectionUtils.SectionData = {
+    commands: [
+      {
+        commandID: "command-1",
+        commandName: "c1",
+        functionID: "function-1",
+        range: {
+          end: 6,
+          start: 1,
+        },
+        step,
+      },
+      {
+        commandID: "command-6",
+        commandName: "c2",
+        functionID: "function-1",
+        range: {
+          end: 8,
+          start: 6,
+        },
+        step,
+      },
+      {
+        commandID: "command-9",
+        commandName: "c3",
+        functionID: "function-9",
+        range: {
+          end: 12,
+          start: 9,
+        },
+        step,
+      },
+      {
+        commandID: "command-12",
+        commandName: "c4",
+        functionID: "function-9",
+        range: {
+          end: 14,
+          start: 12,
+        },
+        step,
+      },
+    ],
+    functions: [
+      {
+        functionID: "function-1",
+        functionName: "f-1",
+        range: {
+          end: 8,
+          start: 1,
+        },
+      },
+      {
+        functionID: "function-9",
+        functionName: "f-2",
+        range: {
+          end: 14,
+          start: 9,
+        },
+      },
+    ],
+  };
+  const initialSectionState = {
+    "function-1": {
+      commands: {
+        "command-1": {
+          isOpen: false,
+        },
+        "command-6": {
+          isOpen: false,
+        },
+      },
+      isOpen: false,
+    },
+    "function-9": {
+      commands: {
+        "command-9": {
+          isOpen: false,
+        },
+        "command-12": {
+          isOpen: false,
+        },
+      },
+      isOpen: false,
+    },
+  };
   const metadata = {
     logType: LogTypes.EVERGREEN_TASK_LOGS,
+    onInitOpenSectionContainingLine: undefined,
     renderingType: LogRenderingTypes.Default,
   };
 });
