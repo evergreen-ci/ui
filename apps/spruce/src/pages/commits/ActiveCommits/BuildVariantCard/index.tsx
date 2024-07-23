@@ -71,7 +71,7 @@ export const BuildVariantCard: React.FC<Props> = ({
         })}
         onClick={() => {
           sendEvent({
-            name: "Click variant label",
+            name: "Clicked variant label",
           });
         }}
       >

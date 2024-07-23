@@ -111,7 +111,7 @@ const generateColumns = (
           <TaskCell
             onClick={({ taskStatus }) => {
               sendEvent({
-                name: "Click task cell",
+                name: "Clicked task cell",
                 taskStatus,
               });
             }}
