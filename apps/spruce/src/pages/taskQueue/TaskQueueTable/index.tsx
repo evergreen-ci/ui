@@ -105,7 +105,7 @@ const taskQueueTableColumns = (
             <StyledRouterLink
               data-cy="current-task-link"
               to={getTaskRoute(id)}
-              onClick={() => sendEvent({ name: "Click task link" })}
+              onClick={() => sendEvent({ name: "Clicked task link" })}
             >
               {displayName}
             </StyledRouterLink>
@@ -129,7 +129,7 @@ const taskQueueTableColumns = (
         return (
           <StyledRouterLink
             to={getProjectPatchesRoute(project)}
-            onClick={() => sendEvent({ name: "Click project link" })}
+            onClick={() => sendEvent({ name: "Clicked project link" })}
           >
             {project}
           </StyledRouterLink>
@@ -142,7 +142,7 @@ const taskQueueTableColumns = (
       cell: (value) => (
         <StyledRouterLink
           to={getVersionRoute(value.row.original.version)}
-          onClick={() => sendEvent({ name: "Click version link" })}
+          onClick={() => sendEvent({ name: "Clicked version link" })}
         >
           <WordBreak>{value.row.original.version}</WordBreak>
         </StyledRouterLink>
@@ -160,7 +160,7 @@ const taskQueueTableColumns = (
       cell: (value) => (
         <StyledRouterLink
           to={getUserPatchesRoute(value.row.original.activatedBy)}
-          onClick={() => sendEvent({ name: "Click activated by link" })}
+          onClick={() => sendEvent({ name: "Clicked activated by link" })}
         >
           <WordBreak>{value.row.original.activatedBy}</WordBreak>
         </StyledRouterLink>
