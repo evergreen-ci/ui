@@ -82,7 +82,7 @@ const SetPriority: React.FC<SetPriorityProps> = ({
   const onConfirm = () => {
     if (taskId) {
       setTaskPriority({ variables: { taskId, priority } });
-      sendTaskEvent({ name: "Set Priority", priority });
+      sendTaskEvent({ name: "Changed task priority", priority });
     } else {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       setVersionPriority({ variables: { versionId, priority } });
