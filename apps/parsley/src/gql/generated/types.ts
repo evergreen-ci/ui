@@ -1823,6 +1823,7 @@ export type ProjectEventLogEntry = {
 export type ProjectEventSettings = {
   __typename?: "ProjectEventSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
+  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<Project>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
