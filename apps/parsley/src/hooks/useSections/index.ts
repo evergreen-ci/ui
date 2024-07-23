@@ -31,7 +31,6 @@ export interface UseSectionsResult {
   toggleFunctionSection: ToggleFunctionSection;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
-  sectioningInitialized: boolean;
 }
 
 interface Props {
@@ -58,11 +57,6 @@ export const useSections = ({
     logType === LogTypes.EVERGREEN_TASK_LOGS &&
     renderingType === LogRenderingTypes.Default;
 
-  const sectioningInitialized = !!(
-    (sectioningEnabled && sectionData && sectionState) ||
-    (!sectioningEnabled && settings)
-  );
-
   const shouldParse =
     logs.length && sectioningEnabled && sectionData === undefined;
   useEffect(() => {
@@ -85,7 +79,7 @@ export const useSections = ({
         populateSectionState(sectionData, onInitOpenSectionContainingLine),
       );
     }
-  }, [sectionData, sectionState]);
+  }, [sectionData, sectionState, onInitOpenSectionContainingLine]);
 
   const toggleFunctionSection: ToggleFunctionSection = useCallback(
     ({ functionID, isOpen }) => {
@@ -118,7 +112,6 @@ export const useSections = ({
     sectionData,
     sectionState,
     sectioningEnabled,
-    sectioningInitialized,
     toggleCommandSection,
     toggleFunctionSection,
   };

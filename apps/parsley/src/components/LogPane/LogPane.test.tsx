@@ -90,14 +90,6 @@ describe("logPane", () => {
         setWrap: mockedSetWrap,
       },
       processedLogLines: Array.from(list.keys()),
-      sectioning: {
-        sectionData: undefined,
-        sectionState: undefined,
-        sectioningEnabled: false,
-        sectioningInitialized: true,
-        toggleCommandSection: vi.fn(),
-        toggleFunctionSection: vi.fn(),
-      },
     }));
 
     RenderFakeToastContext();
@@ -128,14 +120,6 @@ describe("logPane", () => {
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
-        sectioning: {
-          sectionData: undefined,
-          sectionState: undefined,
-          sectioningEnabled: false,
-          sectioningInitialized: true,
-          toggleCommandSection: vi.fn(),
-          toggleFunctionSection: vi.fn(),
-        },
       }));
 
       RenderFakeToastContext();
@@ -163,14 +147,6 @@ describe("logPane", () => {
         },
         processedLogLines: Array.from(list.keys()),
         scrollToLine: mockedScrollToLine,
-        sectioning: {
-          sectionData: undefined,
-          sectionState: undefined,
-          sectioningEnabled: false,
-          sectioningInitialized: true,
-          toggleCommandSection: vi.fn(),
-          toggleFunctionSection: vi.fn(),
-        },
       }));
 
       RenderFakeToastContext();
