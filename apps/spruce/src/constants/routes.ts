@@ -113,6 +113,7 @@ export const idSlugs = [
 
 export const redirectRoutes = {
   distroSettings: paths.distros,
+  image: paths.image,
   projectSettings: paths.projects,
   userPatches: `${paths.user}/:${slugs.userId}`,
   waterfall: `${paths.waterfall}/:${slugs.projectIdentifier}`,

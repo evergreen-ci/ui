@@ -1,54 +1,53 @@
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
-import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { SideNav, SideNavGroup, SideNavItem } from "components/styles";
 import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
+import { useFirstImage } from "hooks";
 import { getTabTitle } from "./getTabTitle";
 import { ImageSelect } from "./ImageSelect";
 
 const Image: React.FC = () => {
-  const {
-    [slugs.imageId]: imageId,
-    [slugs.tab]: currentTab = ImageTabRoutes.BuildInformation,
-  } = useParams<{
+  const { [slugs.imageId]: imageId, [slugs.tab]: currentTab } = useParams<{
     [slugs.imageId]: string;
     [slugs.tab]: ImageTabRoutes;
   }>();
 
-  if (!Object.values(ImageTabRoutes).includes(currentTab) && imageId) {
+  const { image: firstImage } = useFirstImage();
+
+  const displayedImage = imageId ?? firstImage;
+
+  if (!Object.values(ImageTabRoutes).includes(currentTab as ImageTabRoutes)) {
     return (
       <Navigate
         replace
-        to={getImageRoute(imageId, ImageTabRoutes.BuildInformation)}
+        to={getImageRoute(displayedImage, ImageTabRoutes.BuildInformation)}
       />
     );
   }
+  console.log(currentTab);
 
-  if (imageId) {
-    return (
-      <SideNav aria-label="Image" widthOverride={250}>
-        <ButtonsContainer>
-          <ImageSelect selectedImage={imageId} />
-        </ButtonsContainer>
-        <SideNavGroup>
-          {Object.values(ImageTabRoutes).map((tab) => (
-            <SideNavItem
-              active={tab === currentTab}
-              as={Link}
-              key={tab}
-              to={getImageRoute(imageId, tab)}
-              data-cy={`navitem-${tab}`}
-            >
-              {getTabTitle(tab).title}
-            </SideNavItem>
-          ))}
-        </SideNavGroup>
-      </SideNav>
-    );
-  }
-  return <Skeleton />;
+  return (
+    <SideNav aria-label="Image" widthOverride={250}>
+      <ButtonsContainer>
+        <ImageSelect selectedImage={displayedImage} />
+      </ButtonsContainer>
+      <SideNavGroup>
+        {Object.values(ImageTabRoutes).map((tab) => (
+          <SideNavItem
+            active={tab === currentTab}
+            as={Link}
+            key={tab}
+            to={getImageRoute(displayedImage, tab)}
+            data-cy={`navitem-${tab}`}
+          >
+            {getTabTitle(tab).title}
+          </SideNavItem>
+        ))}
+      </SideNavGroup>
+    </SideNav>
+  );
 };
 
 const ButtonsContainer = styled.div`
