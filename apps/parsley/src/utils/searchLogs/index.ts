@@ -13,34 +13,53 @@ interface searchOptions {
   processedLogLines: ProcessedLogLines;
 }
 
+/**
+ * Searches through the processed log lines for matches to the provided regular expression.
+ * @param options Object containing search parameters and helpers.
+ * @param options.searchRegex The regular expression to search for in the logs.
+ * @param options.upperBound Inclusive upper bound for the search.
+ * @param options.lowerBound Inclusive lower bound for the search.
+ * @param options.getLine Function to get the raw log string at the given index.
+ * @param options.processedLogLines Processed log lines that are currently rendered.
+ * @returns An array of sorted raw log indices that match the search criteria. SkippedLines are not included in the result.
+ */
 const searchLogs = (options: searchOptions): number[] => {
   const { getLine, lowerBound, processedLogLines, searchRegex, upperBound } =
     options;
-  const matchingIndices: number[] = [];
-  for (let i = 0; i < processedLogLines.length; i++) {
-    const lineIndex = processedLogLines[i];
-    if (
+  const matchingLogIndex = new Set<number>();
+  for (let pLLIndex = 0; pLLIndex < processedLogLines.length; pLLIndex++) {
+    const rawLogIndex = processedLogLines[pLLIndex];
+    if (isSectionHeaderRow(rawLogIndex)) {
+      for (
+        let i = rawLogIndex.range.start;
+        i < rawLogIndex.range.end && (upperBound ? i <= upperBound : true);
+        i++
+      ) {
+        if (searchRegex.test(getLine(i))) {
+          matchingLogIndex.add(i);
+        }
+      }
+    } else if (
       !(
-        isSkippedLinesRow(lineIndex) ||
-        isSectionHeaderRow(lineIndex) ||
-        isSubsectionHeaderRow(lineIndex)
+        isSkippedLinesRow(rawLogIndex) ||
+        isSectionHeaderRow(rawLogIndex) ||
+        isSubsectionHeaderRow(rawLogIndex)
       )
     ) {
-      // Since processLogLines is ordered by line number, we can stop searching if we are out of range for our upper bound
-      if (upperBound && lineIndex > upperBound) {
+      if (upperBound && rawLogIndex > upperBound) {
         break;
       }
-      // If we are in range for our lower bound, we can start searching
-      if (lineIndex >= lowerBound) {
-        const line = getLine(lineIndex);
+      if (rawLogIndex >= lowerBound) {
+        const line = getLine(rawLogIndex);
         if (searchRegex.test(line)) {
-          // We want to match the index of the processedLogLines array, not the line number
-          matchingIndices.push(i);
+          matchingLogIndex.add(rawLogIndex);
         }
       }
     }
   }
-  return matchingIndices;
+  const result = Array.from(matchingLogIndex);
+  result.sort((a, b) => a - b);
+  return result;
 };
 
 export default searchLogs;
