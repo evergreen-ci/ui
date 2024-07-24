@@ -38,6 +38,7 @@ export const ViewToggle: React.FC<Props> = ({ identifier }) => {
     ProjectHealthViewQueryVariables
   >(PROJECT_HEALTH_VIEW, {
     variables: { identifier },
+    skip: !identifier,
   });
 
   useEffect(() => {

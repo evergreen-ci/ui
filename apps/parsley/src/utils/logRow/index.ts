@@ -1,4 +1,4 @@
-import { ProcessedLogLine, RowType, SkippedLinesRow } from "types/logs";
+import { Range, RowType, SkippedLinesRow } from "types/logs";
 /**
  *
  * @param start The start line number inclusive
@@ -12,11 +12,14 @@ const newSkippedLinesRow = (start: number, end: number): SkippedLinesRow => ({
 
 /**
  * `includesLineNumber` determines if a log line includes a given line number.
- * @param logLine - the processed log line to check
+ * @param logLine - the log line object to check
  * @param lineNumber - the line number to check
  * @returns true if the log line includes the line number and false otherwise
  */
-const includesLineNumber = (logLine: ProcessedLogLine, lineNumber?: number) => {
+const includesLineNumber = (
+  logLine: { range: Range } | number,
+  lineNumber?: number,
+) => {
   if (lineNumber === undefined) {
     return false;
   }
