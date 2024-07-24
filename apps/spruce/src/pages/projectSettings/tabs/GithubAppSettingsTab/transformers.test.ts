@@ -1,3 +1,4 @@
+import { Requester } from "constants/requesters";
 import { ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
@@ -19,21 +20,16 @@ describe("project data", () => {
 
 const projectForm: AppSettingsFormState = {
   tokenPermissionRestrictions: {
-    permissionsByRequester: [
-      { permissionGroup: "", requesterType: "github_pull_request" },
-      { permissionGroup: "", requesterType: "patch_request" },
-      { permissionGroup: "", requesterType: "git_tag_request" },
-      {
-        permissionGroup: "permission-group-1",
-        requesterType: "gitter_request",
-      },
-      {
-        permissionGroup: "permission-group-2",
-        requesterType: "trigger_request",
-      },
-      { permissionGroup: "", requesterType: "ad_hoc" },
-      { permissionGroup: "", requesterType: "github_merge_request" },
-    ],
+    permissionsByRequester: Object.values(Requester).map((requesterType) => {
+      let permissionGroup = "";
+      if (requesterType === Requester.Gitter) {
+        permissionGroup = "permission-group-1";
+      }
+      if (requesterType === Requester.Trigger) {
+        permissionGroup = "permission-group-2";
+      }
+      return { permissionGroup, requesterType };
+    }),
   },
 };
 
@@ -41,8 +37,8 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
   projectId: "project",
   projectRef: {
     githubPermissionGroupByRequester: {
-      gitter_request: "permission-group-1",
-      trigger_request: "permission-group-2",
+      [Requester.Gitter]: "permission-group-1",
+      [Requester.Trigger]: "permission-group-2",
     },
     id: "project",
   },
