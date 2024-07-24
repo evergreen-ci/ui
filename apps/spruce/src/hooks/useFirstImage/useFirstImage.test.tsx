@@ -34,6 +34,7 @@ describe("useFirstImage", () => {
 const getImages: ApolloMock<ImagesQuery, ImagesQueryVariables> = {
   request: {
     query: IMAGES,
+    variables: {},
   },
   result: {
     data: {
