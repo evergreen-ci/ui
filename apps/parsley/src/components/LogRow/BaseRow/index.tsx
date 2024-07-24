@@ -73,7 +73,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
 
   const bookmarked = bookmarks.includes(lineNumber);
   const failed = failingLine === lineNumber;
-  const highlighted = searchLine === lineIndex;
+  const highlighted = searchLine === lineNumber;
   const shared = shareLine === lineNumber;
 
   // Clicking link icon should set or unset the share line.
