@@ -5,7 +5,8 @@ import { findLineIndex } from "utils/findLineIndex";
 
 /**
  * useOpenSectionAndScrollToLine hook is used to open sections containing given line number(s) and scroll to the first given line number.
- * @param processedLogLines These are the vifsible log lines that are currently rendered in the log pane.
+ * This hook is designed to scroll even if sections are disabled.
+ * @param processedLogLines These are the visible log lines that are currently rendered in the log pane.
  * @param openSectionContainingLineNumber This function is used to open the section containing the line number. The function returns true if
  * the section is already open and false otherwise.
  * @param scroll This function is used to scroll to the line number.
