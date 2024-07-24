@@ -78,10 +78,18 @@ export const AttachDetachModal: React.FC<ModalProps> = ({
       onConfirm={() => {
         if (shouldAttach) {
           attachProjectToRepo();
-          sendEvent({ name: "Attach project to repo", repoOwner, repoName });
+          sendEvent({
+            name: "Clicked attach project to repo button",
+            repoOwner,
+            repoName,
+          });
         } else {
           detachProjectFromRepo();
-          sendEvent({ name: "Detach project from repo", repoOwner, repoName });
+          sendEvent({
+            name: "Clicked detach project from repo button",
+            repoOwner,
+            repoName,
+          });
         }
         handleClose();
       }}

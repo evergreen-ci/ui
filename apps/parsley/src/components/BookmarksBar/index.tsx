@@ -58,7 +58,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
         data-cy="clear-bookmarks-popconfirm"
         onConfirm={() => {
           setBookmarks([]);
-          sendEvent({ name: "Cleared all bookmarks" });
+          sendEvent({ name: "Deleted all bookmarks" });
         }}
         open={clearButtonConfirmationOpen}
         refEl={clearButtonRef}
@@ -88,7 +88,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
             data-cy={`bookmark-${l}`}
             failed={l === failingLine}
             onClick={() => {
-              sendEvent({ name: "Navigated with bookmark" });
+              sendEvent({ name: "Used bookmark to navigate to a line" });
               scrollToLine(l);
             }}
           >

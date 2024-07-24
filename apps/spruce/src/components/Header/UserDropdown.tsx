@@ -19,12 +19,12 @@ export const UserDropdown = () => {
     {
       text: "Preferences",
       to: getPreferencesRoute(PreferencesTabRoutes.Profile),
-      onClick: () => sendEvent({ name: "Click Preferences Link" }),
+      onClick: () => sendEvent({ name: "Clicked preferences link" }),
     },
     {
       text: "Notifications",
       to: getPreferencesRoute(PreferencesTabRoutes.Notifications),
-      onClick: () => sendEvent({ name: "Click Notifications Link" }),
+      onClick: () => sendEvent({ name: "Clicked notifications link" }),
     },
     {
       "data-cy": "log-out",
@@ -37,7 +37,7 @@ export const UserDropdown = () => {
       "data-cy": "admin-link",
       text: "Admin",
       href: adminSettingsURL,
-      onClick: () => sendEvent({ name: "Click Admin Link" }),
+      onClick: () => sendEvent({ name: "Clicked admin settings link" }),
     });
   }
   return (

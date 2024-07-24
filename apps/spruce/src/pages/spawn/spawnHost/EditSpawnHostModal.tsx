@@ -169,7 +169,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 
   const onSubmit = () => {
     sendEvent({
-      name: "Edited a Spawn Host",
+      name: "Changed spawn host settings",
       params: {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         hostId: host.id,

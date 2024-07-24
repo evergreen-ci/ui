@@ -25,7 +25,7 @@ const Spawn: React.FC = () => {
             data-cy="host-nav-tab"
             onClick={() =>
               spawnAnalytics.sendEvent({
-                name: "Change Tab",
+                name: "Changed tab",
                 tab: SpawnTab.Host,
               })
             }
@@ -39,7 +39,7 @@ const Spawn: React.FC = () => {
             data-cy="volume-nav-tab"
             onClick={() =>
               spawnAnalytics.sendEvent({
-                name: "Change Tab",
+                name: "Changed tab",
                 tab: SpawnTab.Volume,
               })
             }

@@ -867,6 +867,8 @@ export type IceCreamSettingsInput = {
 export type Image = {
   __typename?: "Image";
   ami: Scalars["String"]["output"];
+  distros: Array<Distro>;
+  id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   name: Scalars["String"]["output"];
@@ -1823,6 +1825,7 @@ export type ProjectEventLogEntry = {
 export type ProjectEventSettings = {
   __typename?: "ProjectEventSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
+  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<Project>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -6094,6 +6097,10 @@ export type HostsQuery = {
     }>;
   };
 };
+
+export type ImagesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ImagesQuery = { __typename?: "Query"; images: Array<string> };
 
 export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 

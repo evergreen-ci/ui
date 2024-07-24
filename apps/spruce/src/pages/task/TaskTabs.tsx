@@ -214,7 +214,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
 
       if (previousTab !== undefined) {
         taskAnalytics.sendEvent({
-          name: "Change Tab",
+          name: "Changed tab",
           tab: activeTabs[selectedTab],
         });
       }

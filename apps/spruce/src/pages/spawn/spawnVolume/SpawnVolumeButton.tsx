@@ -36,7 +36,7 @@ export const SpawnVolumeButton: React.FC<SpawnVolumeButtonProps> = ({
             onClick={() => {
               setOpenModal(true);
               spawnAnalytics.sendEvent({
-                name: "Opened the Spawn Volume Modal",
+                name: "Viewed spawn volume modal",
               });
             }}
           >

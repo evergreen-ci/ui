@@ -92,7 +92,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 
   const handlePatchRestart = () => {
     sendEvent({
-      name: "Restart",
+      name: "Clicked restart tasks button",
       abort: shouldAbortInProgressTasks,
     });
     restartVersions({

@@ -66,8 +66,11 @@ export const ProjectPatches = () => {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             selectedProjectIdentifier={projectIdentifier}
             showLabel={false}
-            onSubmit={() => {
-              analytics.sendEvent({ name: "Change Project" });
+            onSubmit={(p) => {
+              analytics.sendEvent({
+                name: "Changed project",
+                projectIdentifier: p,
+              });
             }}
           />
         }

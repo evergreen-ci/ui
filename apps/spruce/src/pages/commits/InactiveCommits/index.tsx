@@ -52,7 +52,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
         key="hidden_commits"
         data-cy="hidden-commits"
         onClick={() => {
-          sendEvent({ name: "Open hidden commits modal" });
+          sendEvent({ name: "Viewed hidden commits modal" });
           setShowModal(true);
         }}
       >
@@ -94,7 +94,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
           <ButtonContainer
             onClick={() => {
               sendEvent({
-                name: "Toggle commit chart label tooltip",
+                name: "Viewed commit chart label tooltip",
               });
             }}
             role="button"
@@ -145,7 +145,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         <StyledRouterLink
           onClick={() =>
             sendEvent({
-              name: "Click commit label",
+              name: "Clicked commit label",
               commitType: "inactive",
               link: "githash",
             })
@@ -162,7 +162,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
-            name: "Click commit label",
+            name: "Clicked commit label",
             commitType: "inactive",
             link: "jira",
           });
