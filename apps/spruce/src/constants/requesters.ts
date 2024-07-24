@@ -24,10 +24,6 @@ const requesterToTitle: PartialRecord<Requester, string> = {
 };
 
 const requesterToDescription: PartialRecord<Requester, string> = {
-  [Requester.AdHoc]: "Periodic build versions",
-  [Requester.GitHubMergeQueue]: "Patches made via GitHub's merge queue",
-  [Requester.GitHubPR]: "GitHub PR patches",
-  [Requester.GitTag]: "Versions triggered by git tags",
   [Requester.Gitter]: "Repotracker versions",
   [Requester.Patch]: "Manual patches made via CLI or API",
   [Requester.Trigger]: "Downstream trigger versions",

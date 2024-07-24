@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import InlineDefinition from "@leafygreen-ui/inline-definition";
+import { Body } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { GetFormSchema } from "components/SpruceForm";
 import {
@@ -135,11 +136,14 @@ export const getFormSchema = ({
   },
 });
 
-const RequesterTypeField: Field = ({ formData }: { formData: Requester }) => (
-  <InlineDefinition definition={requesterToDescription[formData]}>
-    {requesterToTitle[formData]}
-  </InlineDefinition>
-);
+const RequesterTypeField: Field = ({ formData }: { formData: Requester }) =>
+  requesterToDescription[formData] ? (
+    <InlineDefinition definition={requesterToDescription[formData]}>
+      {requesterToTitle[formData]}
+    </InlineDefinition>
+  ) : (
+    <Body>{requesterToTitle[formData]}</Body>
+  );
 
 const fieldCss = css`
   margin: ${size.xs} 0;
