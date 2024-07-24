@@ -64,6 +64,32 @@ describe("useOpenSectionAndScrollToLine", () => {
     });
   });
 
+  it("when given multiple lines, open all sections containing those lines and scroll to the first given line", async () => {
+    const openSectionContainingLineNumberMock = vi.fn().mockReturnValue(false);
+    const scrollMock = vi.fn();
+    const { result } = renderHook(() =>
+      useOpenSectionAndScrollToLine(
+        processedLogLines,
+        openSectionContainingLineNumberMock,
+        scrollMock,
+      ),
+    );
+    const lines = [2, 3, 4, 5];
+    act(() => {
+      result.current(lines);
+    });
+    await waitFor(() => {
+      expect(openSectionContainingLineNumberMock).toHaveBeenCalledWith({
+        lineNumber: lines,
+      });
+    });
+    await waitFor(() => {
+      expect(scrollMock).toHaveBeenCalledOnce();
+    });
+    await waitFor(() => {
+      expect(scrollMock).toHaveBeenCalledWith(1);
+    });
+  });
   const processedLogLines: ProcessedLogLines = [
     1,
     2,
