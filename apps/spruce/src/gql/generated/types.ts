@@ -6098,6 +6098,10 @@ export type HostsQuery = {
   };
 };
 
+export type ImagesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ImagesQuery = { __typename?: "Query"; images: Array<string> };
+
 export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type InstanceTypesQuery = {

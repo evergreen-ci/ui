@@ -23,6 +23,7 @@ export { useUserSettings } from "./useUserSettings";
 export { useUserTimeZone } from "./useUserTimeZone";
 export { useDateFormat } from "./useDateFormat";
 export { useFirstDistro } from "./useFirstDistro";
+export { useFirstImage } from "./useFirstImage";
 export { useBreadcrumbRoot } from "./useBreadcrumbRoot";
 export { useResize } from "./useResize";
 export { useRunningTime } from "./useRunningTime";
