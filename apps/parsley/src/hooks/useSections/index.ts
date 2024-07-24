@@ -4,6 +4,7 @@ import { useToastContext } from "context/toast";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { reportError } from "utils/errorReporting";
 import { releaseSectioning } from "utils/featureFlag";
+import { includesLineNumber } from "utils/logRow";
 import { SectionData, parseSections } from "./utils";
 
 export type SectionState = {
@@ -36,10 +37,12 @@ interface Props {
   logs: string[];
   logType: string | undefined;
   renderingType: string | undefined;
+  onInitOpenSectionContainingLine: number | undefined;
 }
 export const useSections = ({
   logType,
   logs,
+  onInitOpenSectionContainingLine,
   renderingType,
 }: Props): UseSectionsResult => {
   const dispatchToast = useToastContext();
@@ -72,9 +75,11 @@ export const useSections = ({
 
   useEffect(() => {
     if (sectionData && sectionState === undefined) {
-      setSectionState(populateSectionState(sectionData));
+      setSectionState(
+        populateSectionState(sectionData, onInitOpenSectionContainingLine),
+      );
     }
-  }, [sectionData, sectionState]);
+  }, [sectionData, sectionState, onInitOpenSectionContainingLine]);
 
   const toggleFunctionSection: ToggleFunctionSection = useCallback(
     ({ functionID, isOpen }) => {
@@ -87,7 +92,7 @@ export const useSections = ({
         return currentState;
       });
     },
-    [sectionState],
+    [],
   );
   const toggleCommandSection: ToggleCommandSection = useCallback(
     ({ commandID, functionID, isOpen }) => {
@@ -100,8 +105,9 @@ export const useSections = ({
         return currentState;
       });
     },
-    [sectionState],
+    [],
   );
+
   return {
     sectionData,
     sectionState,
@@ -111,14 +117,23 @@ export const useSections = ({
   };
 };
 
-const populateSectionState = (sectionData: SectionData): SectionState => {
+const populateSectionState = (
+  sectionData: SectionData,
+  openSectionContainingLine: number | undefined,
+): SectionState => {
   const { commands, functions } = sectionData;
   const sectionState: SectionState = {};
   functions.forEach(({ functionID }) => {
     sectionState[functionID] = { commands: {}, isOpen: false };
   });
-  commands.forEach(({ commandID, functionID }) => {
-    sectionState[functionID].commands[commandID] = { isOpen: false };
+  commands.forEach((sectionEntry) => {
+    const { commandID, functionID } = sectionEntry;
+    if (includesLineNumber(sectionEntry, openSectionContainingLine)) {
+      sectionState[functionID].isOpen = true;
+      sectionState[functionID].commands[commandID] = { isOpen: true };
+    } else {
+      sectionState[functionID].commands[commandID] = { isOpen: false };
+    }
   });
   return sectionState;
 };
