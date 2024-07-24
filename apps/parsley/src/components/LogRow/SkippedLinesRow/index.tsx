@@ -41,7 +41,8 @@ const SkippedLinesRow: React.FC<SkippedLinesRowProps> = ({
     }
     sendEvent({
       lineCount: canExpandFive ? SKIP_NUMBER * 2 : numSkipped,
-      name: "Expanded lines",
+      name: "Toggled expanded lines",
+      open: true,
       option: "Five",
     });
   };
@@ -50,7 +51,8 @@ const SkippedLinesRow: React.FC<SkippedLinesRowProps> = ({
     startTransition(() => expandLines([[start, lineEndInclusive]]));
     sendEvent({
       lineCount: numSkipped,
-      name: "Expanded lines",
+      name: "Toggled expanded lines",
+      open: true,
       option: "All",
     });
   };

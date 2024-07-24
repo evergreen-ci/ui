@@ -16,7 +16,7 @@ const HighlightNavGroup: React.FC = () => {
     setHighlights(newHighlights);
     sendEvent({
       highlightExpression: highlightName,
-      name: "Removed highlight",
+      name: "Deleted existing highlight",
     });
   };
 

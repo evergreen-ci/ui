@@ -68,7 +68,7 @@ const FilterNavGroup: React.FC<FilterNavGroupProps> = ({
     sendEvent({
       after: newFilters[idxToReplace],
       before: filter,
-      name: "Edited filter",
+      name: "Changed existing filter",
     });
   };
 
