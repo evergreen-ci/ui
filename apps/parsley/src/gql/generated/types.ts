@@ -867,6 +867,8 @@ export type IceCreamSettingsInput = {
 export type Image = {
   __typename?: "Image";
   ami: Scalars["String"]["output"];
+  distros: Array<Distro>;
+  id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   name: Scalars["String"]["output"];
