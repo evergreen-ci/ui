@@ -53,7 +53,7 @@ export const ClearSubscriptions: React.FC = () => {
         onConfirm={() => {
           clearMySubscriptions();
           sendEvent({
-            name: "Clear Subscriptions",
+            name: "Deleted subscriptions",
           });
         }}
         onCancel={() => setShowModal(false)}

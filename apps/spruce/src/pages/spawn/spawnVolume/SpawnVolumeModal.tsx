@@ -51,7 +51,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   const spawnVolume = () => {
     const mutationInput = formToGql({ formData: formState });
     spawnAnalytics.sendEvent({
-      name: "Spawned a volume",
+      name: "Created a volume",
       params: mutationInput,
     });
     spawnVolumeMutation({

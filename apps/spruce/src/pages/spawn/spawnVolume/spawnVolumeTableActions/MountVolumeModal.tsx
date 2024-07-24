@@ -47,7 +47,7 @@ export const MountVolumeModal: React.FC<Props> = ({
       onCancel={onCancel}
       onConfirm={() => {
         spawnAnalytics.sendEvent({
-          name: "Mount volume to host",
+          name: "Changed mounted volume on host",
           volumeId: volume.id,
           hostId: selectedHostId,
         });

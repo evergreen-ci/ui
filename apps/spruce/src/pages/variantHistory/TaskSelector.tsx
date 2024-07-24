@@ -38,7 +38,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
 
   const onChange = (selectedTasks: string[]) => {
     sendEvent({
-      name: "Filter by task",
+      name: "Filtered by task",
     });
 
     setVisibleColumns(selectedTasks);

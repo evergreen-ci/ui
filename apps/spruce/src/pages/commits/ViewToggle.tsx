@@ -51,8 +51,8 @@ export const ViewToggle: React.FC<Props> = ({ identifier }) => {
   const onChange = (value: ProjectHealthView) => {
     setView(value);
     sendEvent({
-      name: "Toggle view",
-      toggle: value,
+      name: "Toggled icon view mode",
+      iconView: value,
     });
   };
 
