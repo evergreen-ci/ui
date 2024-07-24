@@ -1,5 +1,6 @@
 # [Spruce](https://spruce.mongodb.com) &middot; [![GitHub license](https://img.shields.io/badge/license-Apache2.0-blue.svg)](https://github.com/evergreen-ci/spruce/main/LICENSE)
 
+This change is just for testing the integration.
 Spruce is the React UI for MongoDB's continuous integration software.
 
 ## Getting Started
