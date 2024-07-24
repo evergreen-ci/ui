@@ -4,8 +4,7 @@ import { IMAGES } from "gql/queries";
 
 /**
  * `useFirstImage` returns the alphabetically first image from Evergreen's list of images.
- * This can be used to generate a general link to images settings.
- * @returns an object containing the distro ID (string) and loading state (boolean)
+ * @returns an object containing the image ID (string) and loading state (boolean)
  */
 export const useFirstImage = () => {
   const { data, loading } = useQuery<ImagesQuery, ImagesQueryVariables>(IMAGES);

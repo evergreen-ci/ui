@@ -16,13 +16,13 @@ const Image: React.FC = () => {
 
   const { image: firstImage } = useFirstImage();
 
-  const displayedImage = imageId ?? firstImage;
+  const selectedImage = imageId ?? firstImage;
 
   if (!Object.values(ImageTabRoutes).includes(currentTab as ImageTabRoutes)) {
     return (
       <Navigate
         replace
-        to={getImageRoute(displayedImage, ImageTabRoutes.BuildInformation)}
+        to={getImageRoute(selectedImage, ImageTabRoutes.BuildInformation)}
       />
     );
   }
@@ -30,7 +30,7 @@ const Image: React.FC = () => {
   return (
     <SideNav aria-label="Image" widthOverride={250}>
       <ButtonsContainer>
-        <ImageSelect selectedImage={displayedImage} />
+        <ImageSelect selectedImage={selectedImage} />
       </ButtonsContainer>
       <SideNavGroup>
         {Object.values(ImageTabRoutes).map((tab) => (
@@ -38,7 +38,7 @@ const Image: React.FC = () => {
             active={tab === currentTab}
             as={Link}
             key={tab}
-            to={getImageRoute(displayedImage, tab)}
+            to={getImageRoute(selectedImage, tab)}
             data-cy={`navitem-${tab}`}
           >
             {getTabTitle(tab).title}
