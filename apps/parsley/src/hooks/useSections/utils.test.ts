@@ -1,4 +1,12 @@
-import { SectionData, parseSections, processLine, reduceFn } from "./utils";
+import { initialSectionState, sectionData } from "./testData";
+import {
+  SectionData,
+  openSectionContainingLineNumberHelper,
+  parseSections,
+  populateSectionState,
+  processLine,
+  reduceFn,
+} from "./utils";
 
 describe("processLine", () => {
   it("should correctly parse a log line indicating a running section", () => {
@@ -362,5 +370,92 @@ describe("parseSections", () => {
   it("should return empty arrays if the logs array is empty", () => {
     const logs: string[] = [];
     expect(parseSections(logs)).toEqual({ commands: [], functions: [] });
+  });
+});
+
+describe("openSectionContainingLineNumberHelper", () => {
+  it("should open the sections containing the line number", () => {
+    const result = openSectionContainingLineNumberHelper({
+      lineNumber: 1,
+      sectionData,
+      sectionState: initialSectionState,
+    });
+    const nextSectionState = {
+      ...initialSectionState,
+      "function-1": {
+        commands: {
+          "command-1": {
+            isOpen: true,
+          },
+          "command-6": {
+            isOpen: false,
+          },
+        },
+        isOpen: true,
+      },
+    };
+    expect(result).toStrictEqual(nextSectionState);
+  });
+
+  it("should return the given sectionState value and reference when the given line number doesn't belong to a section", () => {
+    const result = openSectionContainingLineNumberHelper({
+      lineNumber: 100,
+      sectionData,
+      sectionState: initialSectionState,
+    });
+    expect(result).toStrictEqual(initialSectionState);
+    expect(result).toBe(initialSectionState);
+  });
+
+  it("should return the given sectionState value and reference when the given line number's section is already open", () => {
+    const sectionState = {
+      ...initialSectionState,
+      "function-1": {
+        commands: {
+          "command-1": {
+            isOpen: true,
+          },
+          "command-6": {
+            isOpen: false,
+          },
+        },
+        isOpen: true,
+      },
+    };
+    const result = openSectionContainingLineNumberHelper({
+      lineNumber: 1,
+      sectionData,
+      sectionState,
+    });
+    expect(result).toStrictEqual(sectionState);
+    expect(result).toBe(sectionState);
+  });
+});
+
+describe("populateSectionState", () => {
+  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' is undefined", () => {
+    const result = populateSectionState(sectionData, undefined);
+    expect(result).toStrictEqual(initialSectionState);
+  });
+  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' does not match a section", () => {
+    const result = populateSectionState(sectionData, 999999);
+    expect(result).toStrictEqual(initialSectionState);
+  });
+  it("should populate the section state based on the section data with all sections closed except the sections containing 'openSectionContainingLine'", () => {
+    const result = populateSectionState(sectionData, 1);
+    expect(result).toStrictEqual({
+      ...initialSectionState,
+      "function-1": {
+        commands: {
+          "command-1": {
+            isOpen: true,
+          },
+          "command-6": {
+            isOpen: false,
+          },
+        },
+        isOpen: true,
+      },
+    });
   });
 });
