@@ -51,9 +51,9 @@
   },
   "dependencies": {
     "@apollo/client": "3.10.4",
-    "@emotion/css": "11.11.0",
-    "@emotion/react": "11.11.0",
-    "@emotion/styled": "11.11.0",
+    "@emotion/css": "11.13.0",
+    "@emotion/react": "11.13.0",
+    "@emotion/styled": "11.13.0",
     "@evg-ui/deploy-utils": "*",
     "@evg-ui/lib": "*",
     "@leafygreen-ui/badge": "8.0.2",
@@ -130,7 +130,7 @@
     "vite-node": "^1.6.0"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "11.11.0",
+    "@emotion/babel-plugin": "11.12.0",
     "@evg-ui/eslint-config": "*",
     "@evg-ui/lint-staged": "*",
     "@evg-ui/storybook-addon": "*",

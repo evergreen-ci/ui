@@ -4,7 +4,7 @@
   "main": "index.js",
   "private": true,
   "dependencies": {
-    "@emotion/eslint-plugin": "11.11.0",
+    "@emotion/eslint-plugin": "11.12.0",
     "@graphql-eslint/eslint-plugin": "3.20.1",
     "@typescript-eslint/eslint-plugin": "7.8.0",
     "@typescript-eslint/parser": "7.8.0",
