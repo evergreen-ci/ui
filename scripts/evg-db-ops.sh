@@ -26,8 +26,8 @@ reseed_database() {
     # Add runtime environments credentials if running tests locally.
     if [ "$CI" != 'true' ]; then
         echo "Adding runtime environments credentials..."
-        creds="{ \"_id\": \"runtime_environments\", \"base_url\": \"${RUNTIME_ENVIRONMENTS_STAGING_BASE_URL}\", \"api_key\":\"${RUNTIME_ENVIRONMENTS_STAGING_API_KEY}\" }"
-        mongosh --quiet $DB_NAME --eval "db.admin.insertOne($creds)"
+        CREDS="{ \"_id\": \"runtime_environments\", \"base_url\": \"${RUNTIME_ENVIRONMENTS_STAGING_BASE_URL}\", \"api_key\":\"${RUNTIME_ENVIRONMENTS_STAGING_API_KEY}\" }"
+        mongosh --quiet $DB_NAME --eval "db.admin.insertOne($CREDS)"
     fi
     cd - || exit
 }
