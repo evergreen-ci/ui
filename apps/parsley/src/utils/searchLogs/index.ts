@@ -35,7 +35,7 @@ const searchLogs = (options: searchOptions): number[] => {
         i < rawLogIndex.range.end && (upperBound ? i <= upperBound : true);
         i++
       ) {
-        if (searchRegex.test(getLine(i))) {
+        if (i >= lowerBound && searchRegex.test(getLine(i))) {
           matchingLogIndex.add(i);
         }
       }
@@ -46,10 +46,10 @@ const searchLogs = (options: searchOptions): number[] => {
         isSubsectionHeaderRow(rawLogIndex)
       )
     ) {
-      if (upperBound && rawLogIndex > upperBound) {
-        break;
-      }
-      if (rawLogIndex >= lowerBound) {
+      if (
+        rawLogIndex >= lowerBound &&
+        (upperBound ? upperBound >= rawLogIndex : true)
+      ) {
         const line = getLine(rawLogIndex);
         if (searchRegex.test(line)) {
           matchingLogIndex.add(rawLogIndex);
