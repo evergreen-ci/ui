@@ -351,6 +351,17 @@ export type DeleteDistroPayload = {
   deletedDistroId: Scalars["String"]["output"];
 };
 
+/** DeleteGithubAppCredentialsInput is the input to the deleteGithubAppCredentials mutation. */
+export type DeleteGithubAppCredentialsInput = {
+  projectId: Scalars["String"]["input"];
+};
+
+/** DeleteGithubAppCredentialsPayload is returned by the deleteGithubAppCredentials mutation. */
+export type DeleteGithubAppCredentialsPayload = {
+  __typename?: "DeleteGithubAppCredentialsPayload";
+  oldAppId: Scalars["Int"]["output"];
+};
+
 export type Dependency = {
   __typename?: "Dependency";
   buildVariant: Scalars["String"]["output"];
@@ -1070,6 +1081,7 @@ export type Mutation = {
   deactivateStepbackTask: Scalars["Boolean"]["output"];
   defaultSectionToRepo?: Maybe<Scalars["String"]["output"]>;
   deleteDistro: DeleteDistroPayload;
+  deleteGithubAppCredentials?: Maybe<DeleteGithubAppCredentialsPayload>;
   deleteProject: Scalars["Boolean"]["output"];
   deleteSubscriptions: Scalars["Int"]["output"];
   detachProjectFromRepo: Project;
@@ -1180,6 +1192,10 @@ export type MutationDefaultSectionToRepoArgs = {
 
 export type MutationDeleteDistroArgs = {
   opts: DeleteDistroInput;
+};
+
+export type MutationDeleteGithubAppCredentialsArgs = {
+  opts: DeleteGithubAppCredentialsInput;
 };
 
 export type MutationDeleteProjectArgs = {
