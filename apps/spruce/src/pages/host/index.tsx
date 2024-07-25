@@ -160,7 +160,7 @@ const Host: React.FC = () => {
         hostIds={[hostId]}
         visible={isUpdateStatusModalVisible}
         closeModal={() => setIsUpdateStatusModalVisible(false)}
-        isSingleHost
+        isHostPage
       />
     </PageWrapper>
   );

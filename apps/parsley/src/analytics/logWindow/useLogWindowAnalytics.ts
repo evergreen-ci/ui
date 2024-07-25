@@ -3,29 +3,33 @@ import { DIRECTION } from "context/LogContext/types";
 import { Filter } from "types/logs";
 
 type Action =
-  | { name: "Added filter"; filterExpression: string }
+  | { name: "Created new filter"; filterExpression: string }
   | { name: "Deleted filter"; filterExpression: string }
-  | { name: "Toggled filter"; open: boolean }
-  | { name: "Applied project filters"; filters: Filter[] }
-  | { name: "Added bookmark" }
-  | { name: "Added share line" }
-  | { name: "Removed share line" }
-  | { name: "Navigated with bookmark" }
-  | { name: "Removed bookmark" }
-  | { name: "Cleared all bookmarks" }
-  | { name: "Opened share menu" }
-  | { name: "Closed share menu" }
-  | { name: "Copied share link" }
-  | { name: "Copied share lines to clipboard" }
-  | { name: "Applied range limit" }
-  | { name: "Edited filter"; before: Filter; after: Filter }
-  | { name: "Added highlight"; highlightExpression: string }
-  | { name: "Removed highlight"; highlightExpression: string }
-  | { name: "Applied search"; searchExpression: string }
-  | { name: "Applied search suggestion"; suggestion: string }
-  | { name: "Expanded lines"; option: "All" | "Five"; lineCount: number }
-  | { name: "Collapsed lines" }
-  | { name: "Paginated through search results"; direction: DIRECTION }
+  | { name: "Toggled filter active state"; active: boolean }
+  | { name: "Used project filters"; filters: Filter[] }
+  | { name: "Created bookmark" }
+  | { name: "Created new share line" }
+  | { name: "Deleted share line" }
+  | { name: "Used bookmark to navigate to a line" }
+  | { name: "Deleted bookmark" }
+  | { name: "Deleted all bookmarks" }
+  | { name: "Toggled share menu"; open: boolean }
+  | { name: "Clicked copy share link button" }
+  | { name: "Clicked copy share lines to clipboard button" }
+  | { name: "Used range limit for search" }
+  | { name: "Changed existing filter"; before: Filter; after: Filter }
+  | { name: "Created new highlight"; highlightExpression: string }
+  | { name: "Deleted existing highlight"; highlightExpression: string }
+  | { name: "Used search"; searchExpression: string }
+  | { name: "Used search suggestion"; suggestion: string }
+  | {
+      name: "Toggled expanded lines";
+      option: "All" | "Five";
+      lineCount: number;
+      open: true;
+    }
+  | { name: "Toggled expanded lines"; open: false }
+  | { name: "Used search result pagination"; direction: DIRECTION }
   | {
       name: "Toggled section";
       sectionName: string;

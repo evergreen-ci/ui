@@ -32,40 +32,40 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
     () => ({
       onClickGithash: () =>
         sendEvent({
-          name: "Click commit label",
+          name: "Clicked commit label",
           link: "githash",
           commitType: "active",
         }),
       onClickFoldedGithash: () =>
         sendEvent({
-          name: "Click commit label",
+          name: "Clicked commit label",
           link: "githash",
           commitType: "inactive",
         }),
       onClickUpstreamProject: () => {
         sendEvent({
-          name: "Click commit label",
+          name: "Clicked commit label",
           link: "upstream project",
           commitType: "active",
         });
       },
       onClickFoldedUpstreamProject: () => {
         sendEvent({
-          name: "Click commit label",
+          name: "Clicked commit label",
           link: "upstream project",
           commitType: "inactive",
         });
       },
       onClickJiraTicket: () => {
         sendEvent({
-          name: "Click commit label",
+          name: "Clicked commit label",
           link: "jira",
           commitType: "active",
         });
       },
       onClickFoldedJiraTicket: () => {
         sendEvent({
-          name: "Click commit label",
+          name: "Clicked commit label",
           link: "jira",
           commitType: "inactive",
         });
@@ -73,7 +73,7 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       onToggleFoldedCommit: ({ isVisible }) => {
         sendEvent({
-          name: "Toggle folded commit",
+          name: "Toggled folded commit",
           toggle: isVisible ? "open" : "close",
         });
       },
@@ -114,7 +114,7 @@ const generateColumns = (
           <TaskCell
             onClick={({ taskStatus }) => {
               sendEvent({
-                name: "Click task cell",
+                name: "Clicked task cell",
                 taskStatus,
               });
             }}

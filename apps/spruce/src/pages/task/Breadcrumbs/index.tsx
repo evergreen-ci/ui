@@ -45,7 +45,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
     text: `${messagePrefix} - ${message}`,
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
-        name: "Click Link",
+        name: "Clicked link",
         link: "version",
       });
     },
@@ -61,7 +61,7 @@ const TaskPageBreadcrumbs: React.FC<TaskPageBreadcrumbsProps> = ({
           text: displayTask.displayName,
           onClick: () => {
             breadcrumbAnalytics.sendEvent({
-              name: "Click Link",
+              name: "Clicked link",
               link: "displayTask",
             });
           },

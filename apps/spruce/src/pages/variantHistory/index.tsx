@@ -129,7 +129,7 @@ const VariantHistoryContents: React.FC = () => {
             <HistoryTableTestSearch
               onSubmit={() => {
                 sendEvent({
-                  name: "Submit failed test filter",
+                  name: "Filtered failed tests",
                 });
               }}
             />
@@ -146,21 +146,21 @@ const VariantHistoryContents: React.FC = () => {
             <FilterBadges
               badges={badges}
               onRemove={(b) => {
-                sendEvent({ name: "Remove badge" });
+                sendEvent({ name: "Deleted a badge" });
                 handleOnRemove(b);
               }}
               onClearAll={() => {
-                sendEvent({ name: "Clear all badges" });
+                sendEvent({ name: "Deleted all badges" });
                 handleClearAll();
               }}
             />
           </BadgeWrapper>
           <ColumnPaginationButtons
             onClickNext={() =>
-              sendEvent({ name: "Paginate", direction: "next" })
+              sendEvent({ name: "Changed page", direction: "next" })
             }
             onClickPrev={() =>
-              sendEvent({ name: "Paginate", direction: "previous" })
+              sendEvent({ name: "Changed page", direction: "previous" })
             }
           />
         </PaginationFilterWrapper>

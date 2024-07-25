@@ -33,7 +33,7 @@ const Preferences: React.FC = () => {
             data-cy="profile-nav-tab"
             onClick={() =>
               sendEvent({
-                name: "Change Tab",
+                name: "Changed tab",
                 tab: PreferencesTabRoutes.Profile,
               })
             }
@@ -47,7 +47,7 @@ const Preferences: React.FC = () => {
             data-cy="notifications-nav-tab"
             onClick={() =>
               sendEvent({
-                name: "Change Tab",
+                name: "Changed tab",
                 tab: PreferencesTabRoutes.Notifications,
               })
             }
@@ -61,7 +61,7 @@ const Preferences: React.FC = () => {
             data-cy="cli-nav-tab"
             onClick={() =>
               sendEvent({
-                name: "Change Tab",
+                name: "Changed tab",
                 tab: PreferencesTabRoutes.CLI,
               })
             }
@@ -75,7 +75,7 @@ const Preferences: React.FC = () => {
             data-cy="publickeys-nav-tab"
             onClick={() =>
               sendEvent({
-                name: "Change Tab",
+                name: "Changed tab",
                 tab: PreferencesTabRoutes.PublicKeys,
               })
             }
@@ -89,7 +89,7 @@ const Preferences: React.FC = () => {
             data-cy="newui-nav-tab"
             onClick={() =>
               sendEvent({
-                name: "Change Tab",
+                name: "Changed tab",
                 tab: PreferencesTabRoutes.NewUI,
               })
             }

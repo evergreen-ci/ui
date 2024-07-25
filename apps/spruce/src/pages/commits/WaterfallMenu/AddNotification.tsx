@@ -23,7 +23,7 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
         data-cy="add-notification"
         onClick={() => {
           setIsModalVisible(true);
-          sendEvent({ name: "Open Notification Modal" });
+          sendEvent({ name: "Viewed notification modal" });
         }}
       >
         Add Notification
@@ -37,7 +37,7 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         resourceId={projectIdentifier}
         sendAnalyticsEvent={(subscription) =>
-          sendEvent({ name: "Add Notification", subscription })
+          sendEvent({ name: "Created notification", subscription })
         }
         subscriptionMethods={subscriptionMethods}
         triggers={waterfallTriggers}

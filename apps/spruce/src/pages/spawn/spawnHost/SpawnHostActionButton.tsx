@@ -77,7 +77,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   });
 
   const handleClick = (a: SpawnHostStatusActions, shouldKeepOff?: boolean) => {
-    spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
+    spawnAnalytics.sendEvent({ name: "Changed host status", status: a });
     updateSpawnHostStatus({
       variables: {
         updateSpawnHostStatusInput: {

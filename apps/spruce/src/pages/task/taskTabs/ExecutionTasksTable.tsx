@@ -69,7 +69,8 @@ export const ExecutionTasksTable: React.FC<Props> = ({
     () =>
       getColumnsTemplate({
         isPatch,
-        onClickTaskLink: () => sendEvent({ name: "Click Execution Task Link" }),
+        onClickTaskLink: () =>
+          sendEvent({ name: "Clicked execution tasks table link" }),
         showTaskExecutionLabel: uniqueExecutions.size > 1,
       }),
     [isPatch, sendEvent, uniqueExecutions.size],
@@ -79,7 +80,7 @@ export const ExecutionTasksTable: React.FC<Props> = ({
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
-        name: "Sort Execution Tasks Table",
+        name: "Sorted execution tasks table",
         sortBy: sorter.map(({ id }) => id as TaskSortCategory),
       }),
   });

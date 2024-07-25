@@ -108,13 +108,13 @@ export const EditModal: React.FC<EditModalProps> = ({
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const nextKeyInfo = { name: keyName, key: stripNewLines(keyValue) };
     if (replaceKeyName) {
-      sendEvent({ name: "Update public key" });
+      sendEvent({ name: "Changed public key" });
       updatePublicKey({
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         variables: { targetKeyName: replaceKeyName, updateInfo: nextKeyInfo },
       });
     } else {
-      sendEvent({ name: "Create new public key" });
+      sendEvent({ name: "Created new public key" });
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       createPublicKey({ variables: { publicKeyInput: nextKeyInfo } });
     }

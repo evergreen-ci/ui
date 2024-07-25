@@ -69,7 +69,7 @@ export const Navbar: React.FC = () => {
       <NavActionContainer>
         <LogoLink
           to={routes.myPatches}
-          onClick={() => sendEvent({ name: "Click Logo Link" })}
+          onClick={() => sendEvent({ name: "Clicked logo link" })}
         >
           <SpruceSummerTreeIcon
             src={SpruceSummerTree}
@@ -79,20 +79,20 @@ export const Navbar: React.FC = () => {
         <PrimaryLink
           data-cy="project-health-link"
           to={getCommitsRoute(projectIdentifier)}
-          onClick={() => sendEvent({ name: "Click Waterfall Link" })}
+          onClick={() => sendEvent({ name: "Clicked waterfall link" })}
         >
           Project Health
         </PrimaryLink>
         <PrimaryLink
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getUserPatchesRoute(userId)}
-          onClick={() => sendEvent({ name: "Click My Patches Link" })}
+          onClick={() => sendEvent({ name: "Clicked my patches link" })}
         >
           My Patches
         </PrimaryLink>
         <PrimaryLink
           to={routes.spawnHost}
-          onClick={() => sendEvent({ name: "Click My Hosts Link" })}
+          onClick={() => sendEvent({ name: "Clicked my hosts link" })}
         >
           My Hosts
         </PrimaryLink>
@@ -104,7 +104,7 @@ export const Navbar: React.FC = () => {
           <SecondaryLink
             href={legacyURL}
             data-cy="legacy-ui-link"
-            onClick={() => sendEvent({ name: "Click Legacy UI Link" })}
+            onClick={() => sendEvent({ name: "Clicked legacy UI link" })}
           >
             Switch to Legacy UI
           </SecondaryLink>
@@ -112,7 +112,7 @@ export const Navbar: React.FC = () => {
         <PrimaryAWithIcon
           href={wikiUrl}
           target="_blank"
-          onClick={() => sendEvent({ name: "Click EVG Wiki Link" })}
+          onClick={() => sendEvent({ name: "Clicked EVG wiki link" })}
         >
           <Icon glyph="QuestionMarkWithCircle" />
           Documentation

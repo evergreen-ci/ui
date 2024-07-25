@@ -42,7 +42,7 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
    */
   const onChange = (selectedBuildVariants: string[]) => {
     sendEvent({
-      name: "Filter by build variant",
+      name: "Filtered by build variant",
     });
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.

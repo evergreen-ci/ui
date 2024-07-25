@@ -79,7 +79,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
             )}
             onClick={() => {
               sendEvent({
-                name: "Click column header",
+                name: "Clicked column header",
               });
             }}
             fullDisplayName={cell.displayName}

@@ -96,7 +96,7 @@ export const WaterfallTaskStatusIcon: React.FC<
           aria-label={`${status} icon`}
           to={getTaskRoute(taskId)}
           onClick={() => {
-            sendEvent({ name: "Click task status icon", status });
+            sendEvent({ name: "Clicked task status icon", status });
           }}
           data-cy="waterfall-task-status-icon"
         >

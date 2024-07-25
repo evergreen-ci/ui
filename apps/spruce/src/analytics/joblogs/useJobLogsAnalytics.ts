@@ -1,8 +1,6 @@
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action =
-  | { name: "Filter Job Logs"; filterBy: string }
-  | { name: "Clicked HTML testlog url"; testId: string }
   | {
       name: "Clicked complete logs link";
       buildId?: string;
