@@ -22,6 +22,13 @@ reseed_database() {
     fi
     # Load test data into the database.
     ../bin/load-smoke-data -path ../testdata/local -dbName evergreen_local -amboyDBName amboy_local
+
+    # Add runtime environments credentials if running tests locally.
+    if [ "$CI" != 'true' ]; then
+        echo "Adding runtime environments credentials..."
+        creds="{ \"_id\": \"runtime_environments\", \"base_url\": \"${RUNTIME_ENVIRONMENTS_STAGING_BASE_URL}\", \"api_key\":\"${RUNTIME_ENVIRONMENTS_STAGING_API_KEY}\" }"
+        mongosh --quiet $DB_NAME --eval "db.admin.insertOne($creds)"
+    fi
     cd - || exit
 }
 

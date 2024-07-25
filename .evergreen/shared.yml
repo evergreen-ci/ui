@@ -1,6 +1,7 @@
 functions:
   add-runtime-environments-credentials: 
     command: subprocess.exec
+    silent: true
     params: 
       working_dir: ui/.evergreen
       command: bash scripts/add-runtime-environments-credentials.sh
