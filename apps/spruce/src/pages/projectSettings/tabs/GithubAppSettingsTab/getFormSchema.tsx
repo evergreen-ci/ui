@@ -72,10 +72,10 @@ export const getFormSchema = ({
                       title: "No permissions",
                       enum: [noPermissionsGroup],
                     },
-                    ...githubPermissionGroups.map((g) => ({
+                    ...githubPermissionGroups.map((pg) => ({
                       type: "string" as "string",
-                      title: g.name,
-                      enum: [g.name],
+                      title: pg.name,
+                      enum: [pg.name],
                     })),
                   ],
                 },
@@ -124,9 +124,9 @@ export const getFormSchema = ({
             "ui:showLabel": false,
           },
           permissionGroup: {
+            "ui:allowDeselect": false,
             "ui:ariaLabelledBy": "Permission Group",
             "ui:data-cy": "permission-group-input",
-            "ui:allowDeselect": false,
             "ui:elementWrapperCSS": fieldCss,
             "ui:sizeVariant": "small",
           },

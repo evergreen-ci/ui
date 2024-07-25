@@ -14,16 +14,17 @@ enum Requester {
 }
 
 const requesterToTitle: PartialRecord<Requester, string> = {
-  [Requester.AdHoc]: "Periodic Build",
+  [Requester.AdHoc]: "Ad Hoc Request",
   [Requester.GitHubMergeQueue]: "GitHub Merge Request",
   [Requester.GitHubPR]: "GitHub Pull Request",
-  [Requester.GitTag]: "GitHub Tag Request",
+  [Requester.GitTag]: "Git Tag Request",
   [Requester.Gitter]: "Gitter Request",
   [Requester.Patch]: "Patch Request",
   [Requester.Trigger]: "Trigger Request",
 };
 
 const requesterToDescription: PartialRecord<Requester, string> = {
+  [Requester.AdHoc]: "Periodic build versions",
   [Requester.Gitter]: "Repotracker versions",
   [Requester.Patch]: "Manual patches made via CLI or API",
   [Requester.Trigger]: "Downstream trigger versions",
