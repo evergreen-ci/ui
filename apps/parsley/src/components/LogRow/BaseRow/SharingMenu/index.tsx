@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
@@ -14,16 +13,17 @@ import { useQueryParams } from "hooks/useQueryParam";
 import { copyToClipboard, getJiraFormat } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 
-interface SharingMenuProps {
-  defaultOpen: boolean;
-}
-
-const SharingMenu: React.FC<SharingMenuProps> = ({ defaultOpen }) => {
-  const { clearSelection, selectedLines } = useMultiLineSelectContext();
+const SharingMenu: React.FC = () => {
+  const {
+    clearSelection,
+    openMenu: open,
+    selectedLines,
+    setOpenMenu: setOpen,
+  } = useMultiLineSelectContext();
+  console.log(open);
   const { getLine, isUploadedLog, processedLogLines } = useLogContext();
   const [params, setParams] = useQueryParams();
   const dispatchToast = useToastContext();
-  const [open, setOpen] = useState(defaultOpen);
   const { sendEvent } = useLogWindowAnalytics();
   const setMenuOpen = () => {
     sendEvent({ name: "Toggled share menu", open });
