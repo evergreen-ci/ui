@@ -33,6 +33,7 @@ export interface UseSectionsResult {
   sectionData: SectionData | undefined;
   toggleCommandSection: ToggleCommandSection;
   toggleFunctionSection: ToggleFunctionSection;
+  toggleAllSections: (isOpen: boolean) => void;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
   openSectionContainingLineNumber: (p: {
@@ -119,6 +120,15 @@ export const useSections = ({
     [],
   );
 
+  const toggleAllSections = useCallback(
+    (isOpen: boolean) => {
+      if (sectionData) {
+        setSectionState(() => populateSectionState({ isOpen, sectionData }));
+      }
+    },
+    [sectionData],
+  );
+
   /**
    * This function will update the current section state and returns the next section state where
    * all sections that contain the lineNumber values(s) are open. If the next state is the same as the current state,
@@ -149,6 +159,7 @@ export const useSections = ({
     sectionData,
     sectionState,
     sectioningEnabled,
+    toggleAllSections,
     toggleCommandSection,
     toggleFunctionSection,
   };
