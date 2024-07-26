@@ -12,6 +12,7 @@
 #import "./containers.graphql"
 #import "./viewsAndFilters.graphql"
 #import "./permissionGroups.graphql"
+#import "./appSettings.graphql"
 
 fragment ProjectSettingsFields on ProjectSettings {
   aliases {
@@ -22,6 +23,7 @@ fragment ProjectSettingsFields on ProjectSettings {
     id
     identifier
     ...ProjectAccessSettings
+    ...ProjectAppSettings
     ...ProjectContainerSettings
     ...ProjectGeneralSettings
     ...ProjectNotificationSettings

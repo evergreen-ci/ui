@@ -11,7 +11,7 @@ import {
   getGithubCommitUrl,
   getGithubMergeQueueUrl,
 } from "constants/externalResources";
-import { githubMergeRequester } from "constants/patch";
+import { Requester } from "constants/requesters";
 import {
   getCommitQueueRoute,
   getProjectPatchesRoute,
@@ -73,7 +73,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
 
   const { branch, owner, repo } = projectMetadata || {};
 
-  const isGithubMergePatch = requester === githubMergeRequester;
+  const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
 
   return (
     // @ts-expect-error: FIXME. This comment was added by an automated script.

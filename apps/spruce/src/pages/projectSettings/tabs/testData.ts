@@ -129,6 +129,10 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         },
       },
     ],
+    githubPermissionGroupByRequester: {
+      gitter_request: "permission-group-1",
+      trigger_request: "permission-group-2",
+    },
   },
   vars: {
     vars: { test_name: "", test_two: "val" },
