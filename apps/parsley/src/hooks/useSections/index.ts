@@ -98,6 +98,11 @@ export const useSections = ({
         if (currentState) {
           const nextState = { ...currentState };
           nextState[functionID].isOpen = isOpen;
+          const commands = Object.keys(nextState[functionID].commands);
+          // If the function is being opened and contains 1 command, open the command as well
+          if (commands.length === 1 && isOpen) {
+            nextState[functionID].commands[commands[0]].isOpen = isOpen;
+          }
           return nextState;
         }
         return currentState;
