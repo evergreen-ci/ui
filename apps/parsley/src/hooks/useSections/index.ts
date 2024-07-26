@@ -83,7 +83,10 @@ export const useSections = ({
   useEffect(() => {
     if (sectionData && sectionState === undefined) {
       setSectionState(
-        populateSectionState(sectionData, onInitOpenSectionContainingLine),
+        populateSectionState({
+          openSectionContainingLine: onInitOpenSectionContainingLine,
+          sectionData,
+        }),
       );
     }
   }, [sectionData, sectionState, onInitOpenSectionContainingLine]);

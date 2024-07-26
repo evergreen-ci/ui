@@ -8,7 +8,7 @@ import {
 } from "test_data/parsleySettings";
 import * as ErrorReporting from "utils/errorReporting";
 import { useSections } from ".";
-import { initialSectionState, sectionData } from "./testData";
+import { sectionData, sectionStateAllClosed } from "./testData";
 import * as sectionUtils from "./utils";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -177,7 +177,9 @@ describe("useSections", () => {
         expect(result.current.sectionData).toStrictEqual(sectionData);
       });
       await waitFor(() => {
-        expect(result.current.sectionState).toStrictEqual(initialSectionState);
+        expect(result.current.sectionState).toStrictEqual(
+          sectionStateAllClosed,
+        );
       });
       act(() => {
         result.current.toggleFunctionSection({
@@ -187,8 +189,11 @@ describe("useSections", () => {
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
-          ...initialSectionState,
-          "function-1": { ...initialSectionState["function-1"], isOpen: true },
+          ...sectionStateAllClosed,
+          "function-1": {
+            ...sectionStateAllClosed["function-1"],
+            isOpen: true,
+          },
         });
       });
       act(() => {
@@ -199,9 +204,15 @@ describe("useSections", () => {
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
-          ...initialSectionState,
-          "function-1": { ...initialSectionState["function-1"], isOpen: true },
-          "function-9": { ...initialSectionState["function-9"], isOpen: true },
+          ...sectionStateAllClosed,
+          "function-1": {
+            ...sectionStateAllClosed["function-1"],
+            isOpen: true,
+          },
+          "function-9": {
+            ...sectionStateAllClosed["function-9"],
+            isOpen: true,
+          },
         });
       });
       act(() => {
@@ -212,8 +223,11 @@ describe("useSections", () => {
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
-          ...initialSectionState,
-          "function-9": { ...initialSectionState["function-9"], isOpen: true },
+          ...sectionStateAllClosed,
+          "function-9": {
+            ...sectionStateAllClosed["function-9"],
+            isOpen: true,
+          },
         });
       });
     });
@@ -227,7 +241,9 @@ describe("useSections", () => {
         expect(result.current.sectionData).toStrictEqual(sectionData);
       });
       await waitFor(() => {
-        expect(result.current.sectionState).toStrictEqual(initialSectionState);
+        expect(result.current.sectionState).toStrictEqual(
+          sectionStateAllClosed,
+        );
       });
       act(() => {
         result.current.toggleCommandSection({
@@ -238,10 +254,10 @@ describe("useSections", () => {
       });
       await waitFor(() => {
         expect(result.current.sectionState).toStrictEqual({
-          ...initialSectionState,
+          ...sectionStateAllClosed,
           "function-9": {
             commands: {
-              ...initialSectionState["function-9"].commands,
+              ...sectionStateAllClosed["function-9"].commands,
               "command-9": { isOpen: true },
             },
             isOpen: false,
@@ -265,7 +281,7 @@ describe("useSections", () => {
         expect(result.current.sectionData).toStrictEqual(sectionData);
       });
       const sectionState = {
-        ...initialSectionState,
+        ...sectionStateAllClosed,
         "function-9": {
           commands: {
             "command-9": { isOpen: true },

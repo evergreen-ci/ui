@@ -193,21 +193,30 @@ const openSectionContainingLineNumberHelper = ({
   return diff ? nextState : sectionState;
 };
 
+interface PopulateSectionStateParams {
+  sectionData: SectionData;
+  openSectionContainingLine?: number;
+  isOpen?: boolean;
+}
 /**
  * populateSectionState Populates the section state based on the section data.
  * All sections are set closed except those containing the given line number.
- * @param sectionData - The parsed section data
- * @param openSectionContainingLine - The line number to be used to determine which section to open
+ * @param params - The parameters for the function
+ * @param params.sectionData - The parsed section data
+ * @param params.openSectionContainingLine - The line number to be used to determine which section to open
+ * @param params.isOpen - The default open state for the sections
  * @returns A sectionState coresponding to sectionData with the specified section open
  */
-const populateSectionState = (
-  sectionData: SectionData,
-  openSectionContainingLine: number | undefined,
-): SectionState => {
+
+const populateSectionState = ({
+  isOpen = false,
+  openSectionContainingLine,
+  sectionData,
+}: PopulateSectionStateParams): SectionState => {
   const { commands, functions } = sectionData;
   const sectionState: SectionState = {};
   functions.forEach(({ functionID }) => {
-    sectionState[functionID] = { commands: {}, isOpen: false };
+    sectionState[functionID] = { commands: {}, isOpen };
   });
   commands.forEach((sectionEntry) => {
     const { commandID, functionID } = sectionEntry;
@@ -215,7 +224,7 @@ const populateSectionState = (
       sectionState[functionID].isOpen = true;
       sectionState[functionID].commands[commandID] = { isOpen: true };
     } else {
-      sectionState[functionID].commands[commandID] = { isOpen: false };
+      sectionState[functionID].commands[commandID] = { isOpen };
     }
   });
   return sectionState;
