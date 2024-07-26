@@ -5,7 +5,9 @@ import InlineDefinition from "@leafygreen-ui/inline-definition";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps, Field } from "@rjsf/core";
+import { StyledLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
+import { githubAppCredentialsDocumentationUrl } from "constants/externalResources";
 import {
   requesterToTitle,
   requesterToDescription,
@@ -35,8 +37,11 @@ export const GithubAppActions: Field = ({ uiSchema }) => {
   // TODO DEVPROD-9282: Add delete button.
   return isAppDefined ? null : (
     <Banner variant="warning" data-cy="github-app-credentials-banner">
-      App ID and Key must be saved before applying any token permissions
-      restrictions.
+      App ID and Key must be saved in order for token permissions restrictions
+      to take effect. <br />
+      <StyledLink href={githubAppCredentialsDocumentationUrl}>
+        GitHub App Documentation
+      </StyledLink>
     </Banner>
   );
 };

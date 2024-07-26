@@ -165,7 +165,7 @@ export const FieldRow: React.FC<
 const RowContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: ${size.l};
 `;
 
