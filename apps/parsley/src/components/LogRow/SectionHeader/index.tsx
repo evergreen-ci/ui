@@ -7,7 +7,7 @@ import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
 import { SectionStatus } from "constants/logs";
 import { size } from "constants/tokens";
-import { ToggleFunctionSection } from "hooks/useSections";
+import { useLogContext } from "context/LogContext";
 import { CaretToggle } from "../CaretToggle";
 
 const { gray } = palette;
@@ -15,7 +15,6 @@ const { gray } = palette;
 interface SectionHeaderProps extends Row {
   functionName: string;
   functionID: string;
-  onToggle: ToggleFunctionSection;
   open: boolean;
   status: SectionStatus;
 }
@@ -23,10 +22,10 @@ interface SectionHeaderProps extends Row {
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   functionID,
   functionName,
-  onToggle,
   open,
   status,
 }) => {
+  const { sectioning } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
   const statusGlyph =
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
@@ -41,7 +40,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             sectionName: functionName,
             sectionType: "function",
           });
-          onToggle({ functionID, isOpen: !open });
+          sectioning.toggleFunctionSection({ functionID, isOpen: !open });
         }}
         open={open}
       />
