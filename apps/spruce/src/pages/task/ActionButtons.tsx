@@ -8,7 +8,7 @@ import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
-import { commitQueueRequester } from "constants/patch";
+import { commitQueueRequester } from "constants/requesters";
 import { getTaskHistoryRoute, slugs } from "constants/routes";
 import { mergeTaskName } from "constants/task";
 import { useToastContext } from "context/toast";
