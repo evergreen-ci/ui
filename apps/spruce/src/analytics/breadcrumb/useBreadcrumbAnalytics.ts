@@ -1,7 +1,7 @@
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action = {
-  name: "Click Link";
+  name: "Clicked link";
   link: "myPatches" | "patch" | "version" | "waterfall" | "displayTask";
 };
 

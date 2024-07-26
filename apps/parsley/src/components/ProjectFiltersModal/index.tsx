@@ -60,7 +60,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     );
     sendEvent({
       filters: state.selectedFilters,
-      name: "Applied project filters",
+      name: "Used project filters",
     });
     setOpen(false);
     dispatch({ type: "RESET" });

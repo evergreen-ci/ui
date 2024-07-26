@@ -14,8 +14,22 @@ export type AnalyticsObject =
 interface RequiredProperties {
   object: AnalyticsObject;
 }
+type ActionTypePrefixes =
+  | "Changed"
+  | "Clicked"
+  | "Created"
+  | "Deleted"
+  | "Redirected"
+  | "Filtered"
+  | "Saved"
+  | "Sorted"
+  | "Toggled"
+  | "Viewed"
+  | "Used"
+  | "System Event";
+
 export interface ActionType {
-  name: string;
+  name: `${ActionTypePrefixes}${string}`;
 }
 
 export interface Properties {

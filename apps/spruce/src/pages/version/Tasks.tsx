@@ -64,7 +64,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
     versionAnalytics.sendEvent({
-      name: "Clear all filter",
+      name: "Deleted all filters",
     });
   };
 
@@ -97,9 +97,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           page={page}
           label="tasks"
           onClear={clearQueryParams}
-          onPageSizeChange={() => {
+          onPageSizeChange={(l) => {
             versionAnalytics.sendEvent({
-              name: "Change Page Size",
+              name: "Changed page size",
+              pageSize: l,
             });
           }}
         />

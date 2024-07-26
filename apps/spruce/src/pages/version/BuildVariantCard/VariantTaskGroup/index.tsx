@@ -61,7 +61,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
         })}
         onClick={() =>
           sendEvent({
-            name: "Click Build Variant Grid Link",
+            name: "Filtered by build variant group",
           })
         }
         data-cy="build-variant-display-name"
@@ -93,7 +93,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
                 count={count}
                 onClick={() => {
                   sendEvent({
-                    name: "Click Grouped Task Square",
+                    name: "Filtered by build variant and task status group",
                     taskSquareStatuses: Object.keys(groupedStatusCounts),
                   });
                 }}

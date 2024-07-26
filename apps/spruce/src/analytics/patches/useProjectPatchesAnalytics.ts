@@ -3,13 +3,15 @@ import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import { slugs } from "constants/routes";
 
 type Action =
-  | { name: "Change Page Size" }
-  | { name: "Change Project" }
-  | { name: "Click Patch Link" }
-  | { name: "Click Variant Icon"; variantIconStatus: string }
-  | { name: "Filter Commit Queue" }
-  | { name: "Filter Hidden"; includeHidden: boolean }
-  | { name: "Filter Patches"; filterBy: string };
+  | { name: "Changed page size" }
+  | { name: "Changed project"; projectIdentifier: string }
+  | { name: "Clicked patch link" }
+  | {
+      name: "Filtered for patches";
+      filterBy: string;
+      includeHidden: boolean;
+      includeCommitQueue: boolean;
+    };
 
 export const useProjectPatchesAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();

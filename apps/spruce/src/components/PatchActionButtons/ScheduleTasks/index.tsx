@@ -18,7 +18,7 @@ export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({
   const { sendEvent } = useVersionAnalytics(versionId);
   const props = {
     onClick: () => {
-      sendEvent({ name: "Open Schedule Tasks Modal" });
+      sendEvent({ name: "Viewed schedule tasks modal" });
       setOpen(true);
     },
     "data-cy": "schedule-patch",

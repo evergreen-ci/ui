@@ -2,14 +2,14 @@ import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import { FilterLogic, WordWrapFormat } from "constants/enums";
 
 type Action =
-  | { name: "Opened task link" }
-  | { name: "Opened job logs" }
-  | { name: "Opened raw logs" }
-  | { name: "Opened HTML logs" }
-  | { name: "Clicked copy to Jira" }
-  | { name: "Toggled wrap"; on: boolean }
+  | { name: "Clicked task link" }
+  | { name: "Clicked job logs link" }
+  | { name: "Clicked raw logs link" }
+  | { name: "Clicked HTML logs link" }
+  | { name: "Clicked copy to Jira format button" }
+  | { name: "Toggled word wrap"; on: boolean }
   | { name: "Toggled word wrap format"; format: WordWrapFormat }
-  | { name: "Toggled case sensitivity"; on: boolean }
+  | { name: "Toggled case sensitive search"; on: boolean }
   | { name: "Toggled pretty print"; on: boolean }
   | { name: "Toggled filter logic"; logic: FilterLogic }
   | { name: "Toggled expandable rows"; on: boolean }

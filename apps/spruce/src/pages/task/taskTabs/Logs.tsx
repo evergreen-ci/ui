@@ -57,7 +57,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     setCurrentLog(nextLogType);
     updateQueryParams({ [QueryParams.LogType]: nextLogType });
     sendEvent({
-      name: "Select Logs Type",
+      name: "Changed log preview type",
       logType: nextLogType,
     });
   };
@@ -108,7 +108,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                 target="_blank"
                 onClick={() =>
                   sendEvent({
-                    name: "Click Logs Button",
+                    name: "Clicked log link",
                     logType: currentLog,
                     logViewer: "parsley",
                   })
@@ -126,7 +126,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                 target="_blank"
                 onClick={() =>
                   sendEvent({
-                    name: "Click Logs Button",
+                    name: "Clicked log link",
                     logType: currentLog,
                     logViewer: "html",
                   })
@@ -144,7 +144,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                 target="_blank"
                 onClick={() =>
                   sendEvent({
-                    name: "Click Logs Button",
+                    name: "Clicked log link",
                     logType: currentLog,
                     logViewer: "raw",
                   })

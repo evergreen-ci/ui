@@ -11,7 +11,7 @@ import {
   SegmentedControlOption,
   SegmentedControlProps,
 } from "@leafygreen-ui/segmented-control";
-import { Option, Select } from "@leafygreen-ui/select";
+import { Option, Select, Size as SelectSize } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
@@ -217,6 +217,7 @@ export const LeafyGreenSelect: React.FC<
     elementWrapperCSS,
     enumDisabled,
     enumOptions,
+    sizeVariant,
   } = options;
   const { hasError } = processErrors(rawErrors);
 
@@ -240,6 +241,7 @@ export const LeafyGreenSelect: React.FC<
         state={hasError && !disabled ? "error" : "none"}
         errorMessage={hasError ? rawErrors?.join(", ") : ""}
         popoverZIndex={zIndex.dropdown}
+        size={sizeVariant as SelectSize}
       >
         {enumOptions.map((o) => {
           // LG Select doesn't handle disabled options well. So we need to ensure the selected option is not disabled

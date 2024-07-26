@@ -46,7 +46,7 @@ const CommitTypeSelector = () => {
   const onChange = (value: string[]) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     setRequesters(value);
-    sendEvent({ name: "Filter by requester", requesters: value });
+    sendEvent({ name: "Filtered by requester", requesters: value });
   };
 
   return (

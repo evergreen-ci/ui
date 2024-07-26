@@ -159,7 +159,7 @@ export const VersionTabs: React.FC<Props> = ({
 
     if (previousTab !== undefined && previousTab !== newTabIndex) {
       sendEvent({
-        name: "Change Tab",
+        name: "Changed tab",
         tab: newTab as PatchTab,
       });
     }

@@ -80,7 +80,12 @@ describe("Action Buttons", () => {
         cy.dataCy("card-dropdown").should("be.visible");
       });
       it("Reconfigure link is disabled for mainline commits", () => {
-        cy.dataCy("reconfigure-link").should("have.attr", "disabled");
+        cy.dataCy("reconfigure-link").should("be.visible");
+        cy.dataCy("reconfigure-link").should(
+          "have.attr",
+          "aria-disabled",
+          "true",
+        );
       });
       it("Should not be able to enqueue the version", () => {
         cy.dataCy("enqueue-patch").should("be.disabled");

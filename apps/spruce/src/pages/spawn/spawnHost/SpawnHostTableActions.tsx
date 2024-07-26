@@ -62,7 +62,9 @@ export const CopySSHCommandButton: React.FC<{
             onClick={(event: React.MouseEvent) => {
               event.stopPropagation();
               copyToClipboard(sshCommand);
-              spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
+              spawnAnalytics.sendEvent({
+                name: "Clicked copy SSH command button",
+              });
               setHasCopied(!hasCopied);
             }}
             size={Size.XSmall}

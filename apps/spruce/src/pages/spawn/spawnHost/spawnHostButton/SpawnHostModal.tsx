@@ -138,7 +138,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       timeZone,
     });
     spawnAnalytics.sendEvent({
-      name: "Spawned a host",
+      name: "Created a spawn host",
       isMigration: false,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       params: omit(mutationInput, [

@@ -100,7 +100,7 @@ export const ProfileTab: React.FC = () => {
       },
     });
     sendEvent({
-      name: "Save Profile Info",
+      name: "Saved profile info",
       params: {
         userSettings: {
           timezone: formState.timezone,

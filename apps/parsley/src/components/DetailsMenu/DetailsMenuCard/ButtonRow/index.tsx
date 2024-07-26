@@ -40,7 +40,7 @@ const ButtonRow: React.FC = () => {
               );
               await copyToClipboard(getJiraFormat(bookmarks, getLine));
               setHasCopied(!hasCopied);
-              sendEvent({ name: "Clicked copy to Jira" });
+              sendEvent({ name: "Clicked copy to Jira format button" });
             }}
           >
             JIRA
@@ -59,7 +59,7 @@ const ButtonRow: React.FC = () => {
             disabled={!jobLogsURL}
             href={jobLogsURL}
             leftGlyph={<Icon glyph="Export" />}
-            onClick={() => sendEvent({ name: "Opened job logs" })}
+            onClick={() => sendEvent({ name: "Clicked job logs link" })}
             target="_blank"
           >
             Job logs
@@ -77,7 +77,7 @@ const ButtonRow: React.FC = () => {
             disabled={!rawLogURL}
             href={rawLogURL}
             leftGlyph={<Icon glyph="Export" />}
-            onClick={() => sendEvent({ name: "Opened raw logs" })}
+            onClick={() => sendEvent({ name: "Clicked raw logs link" })}
             target="_blank"
           >
             Raw
@@ -95,7 +95,7 @@ const ButtonRow: React.FC = () => {
             disabled={!htmlLogURL}
             href={htmlLogURL}
             leftGlyph={<Icon glyph="Export" />}
-            onClick={() => sendEvent({ name: "Opened HTML logs" })}
+            onClick={() => sendEvent({ name: "Clicked HTML logs link" })}
             target="_blank"
           >
             HTML

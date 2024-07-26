@@ -14,15 +14,18 @@ import { RequiredQueryParams } from "types/task";
 
 type Action =
   | { name: "Clicked Jira ticket summary link" }
-  | { name: "Filed Build Baron ticket" }
+  | { name: "Created build baron ticket" }
   | { name: "Saved annotation note" }
-  | { name: "Moved annotation"; type: "Issue" | "Suspected Issue" }
+  | {
+      name: "Clicked move annotation button";
+      type: "Issue" | "Suspected Issue";
+    }
   | {
       name: "Clicked annotation link";
       target: "Jira ticket link";
     }
-  | { name: "Removed annotation"; type: "Issue" | "Suspected Issue" }
-  | { name: "Add task annotation"; type: "Issue" | "Suspected Issue" };
+  | { name: "Deleted annotation"; type: "Issue" | "Suspected Issue" }
+  | { name: "Created task annotation"; type: "Issue" | "Suspected Issue" };
 
 export const useAnnotationAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();

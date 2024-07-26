@@ -34,7 +34,7 @@ const ExpandedNavGroup: React.FC<ExpandedNavGroupProps> = ({
           <IconButton
             aria-label="Delete range"
             onClick={() => {
-              sendEvent({ name: "Collapsed lines" });
+              sendEvent({ name: "Toggled expanded lines", open: false });
               collapseLines(idx);
             }}
           >
