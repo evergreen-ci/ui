@@ -20,6 +20,30 @@ describe("GitHub app settings", () => {
     saveButtonEnabled(false);
   });
 
+  it("should be able to save app credentials", () => {
+    cy.dataCy("github-app-credentials-banner").should("be.visible");
+    cy.dataCy("github-app-id-input").type("12345");
+    cy.dataCy("github-private-key-input").type("secret");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    saveButtonEnabled(true);
+    clickSave();
+    cy.validateToast("success", "Successfully updated project");
+
+    cy.dataCy("github-app-credentials-banner").should("not.exist");
+    cy.dataCy("github-app-id-input").should("have.value", "12345");
+    cy.dataCy("github-private-key-input").should("have.value", "{REDACTED}");
+    cy.dataCy("github-app-id-input").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
+    cy.dataCy("github-private-key-input").should(
+      "have.attr",
+      "aria-disabled",
+      "true",
+    );
+  });
+
   it("should be able to save different permission groups for requesters, then return to defaults", () => {
     cy.dataCy("permission-group-input").should("have.length", 7);
     cy.dataCy("permission-group-input").eq(0).as("permission-group-input-0");

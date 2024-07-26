@@ -19,6 +19,12 @@ describe("project data", () => {
 });
 
 const projectForm: AppSettingsFormState = {
+  appCredentials: {
+    githubAppAuth: {
+      appId: 12345,
+      privateKey: "{REDACTED}",
+    },
+  },
   tokenPermissionRestrictions: {
     permissionsByRequester: Object.values(Requester).map((requesterType) => {
       let permissionGroup = "";
@@ -33,8 +39,15 @@ const projectForm: AppSettingsFormState = {
   },
 };
 
-const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
+const projectResult: Pick<
+  ProjectSettingsInput,
+  "githubAppAuth" | "projectId" | "projectRef"
+> = {
   projectId: "project",
+  githubAppAuth: {
+    appId: 12345,
+    privateKey: "{REDACTED}",
+  },
   projectRef: {
     githubPermissionGroupByRequester: {
       [Requester.Gitter]: "permission-group-1",

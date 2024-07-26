@@ -17,12 +17,12 @@ fragment ProjectEventSettings on ProjectEventSettings {
   aliases {
     ...Alias
   }
+  ...ProjectEventAppSettings
   ...ProjectEventGithubCommitQueue
   projectRef {
     hidden
     identifier
     ...ProjectAccessSettings
-    ...ProjectAppSettings
     ...ProjectGeneralSettings
     ...ProjectNotificationSettings
     ...ProjectPatchAliasSettings

@@ -9,10 +9,16 @@ type Tab = ProjectSettingsTabRoutes.GithubAppSettings;
 export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
   if (!data) return null;
 
-  const { projectRef } = data;
+  const { githubAppAuth, projectRef } = data;
   const { githubPermissionGroupByRequester } = projectRef ?? {};
 
   return {
+    appCredentials: {
+      githubAppAuth: {
+        appId: githubAppAuth?.appId ?? null,
+        privateKey: githubAppAuth?.privateKey ?? "",
+      },
+    },
     tokenPermissionRestrictions: {
       permissionsByRequester: Object.values(Requester).map((r) => ({
         requesterType: r,
@@ -32,6 +38,10 @@ export const formToGql = ((formState, isRepo, id) => {
   });
   return {
     ...(isRepo ? { repoId: id } : { projectId: id }),
+    githubAppAuth: {
+      appId: formState?.appCredentials?.githubAppAuth?.appId ?? 0,
+      privateKey: formState?.appCredentials?.githubAppAuth?.privateKey,
+    },
     projectRef: {
       id,
       githubPermissionGroupByRequester,

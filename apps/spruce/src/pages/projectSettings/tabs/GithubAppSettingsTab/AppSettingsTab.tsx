@@ -12,10 +12,18 @@ export const AppSettingsTab: React.FC<TabProps> = ({
   projectData,
 }) => {
   const initialFormState = projectData;
+  const isAppDefined =
+    projectData?.appCredentials?.githubAppAuth?.appId > 0 &&
+    projectData?.appCredentials?.githubAppAuth?.privateKey?.length > 0;
 
   const formSchema = useMemo(
-    () => getFormSchema({ githubPermissionGroups, identifier }),
-    [githubPermissionGroups, identifier],
+    () =>
+      getFormSchema({
+        githubPermissionGroups,
+        identifier,
+        isAppDefined,
+      }),
+    [githubPermissionGroups, identifier, isAppDefined],
   );
 
   return (
