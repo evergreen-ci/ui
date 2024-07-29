@@ -18,7 +18,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   const updateQueryParams = useUpdateURLQueryParams();
 
   const onNextClick = () => {
-    sendEvent({ name: "Paginate", direction: "next" });
+    sendEvent({ name: "Changed page", direction: "next" });
     updateQueryParams({
       [MainlineCommitQueryParams.SkipOrderNumber]:
         // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -27,7 +27,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   };
   const onPrevClick = () => {
     sendEvent({
-      name: "Paginate",
+      name: "Changed page",
       direction: "previous",
     });
     updateQueryParams({

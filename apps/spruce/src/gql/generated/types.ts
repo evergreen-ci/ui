@@ -351,6 +351,17 @@ export type DeleteDistroPayload = {
   deletedDistroId: Scalars["String"]["output"];
 };
 
+/** DeleteGithubAppCredentialsInput is the input to the deleteGithubAppCredentials mutation. */
+export type DeleteGithubAppCredentialsInput = {
+  projectId: Scalars["String"]["input"];
+};
+
+/** DeleteGithubAppCredentialsPayload is returned by the deleteGithubAppCredentials mutation. */
+export type DeleteGithubAppCredentialsPayload = {
+  __typename?: "DeleteGithubAppCredentialsPayload";
+  oldAppId: Scalars["Int"]["output"];
+};
+
 export type Dependency = {
   __typename?: "Dependency";
   buildVariant: Scalars["String"]["output"];
@@ -1070,6 +1081,7 @@ export type Mutation = {
   deactivateStepbackTask: Scalars["Boolean"]["output"];
   defaultSectionToRepo?: Maybe<Scalars["String"]["output"]>;
   deleteDistro: DeleteDistroPayload;
+  deleteGithubAppCredentials?: Maybe<DeleteGithubAppCredentialsPayload>;
   deleteProject: Scalars["Boolean"]["output"];
   deleteSubscriptions: Scalars["Int"]["output"];
   detachProjectFromRepo: Project;
@@ -1180,6 +1192,10 @@ export type MutationDefaultSectionToRepoArgs = {
 
 export type MutationDeleteDistroArgs = {
   opts: DeleteDistroInput;
+};
+
+export type MutationDeleteGithubAppCredentialsArgs = {
+  opts: DeleteGithubAppCredentialsInput;
 };
 
 export type MutationDeleteProjectArgs = {
@@ -3567,6 +3583,11 @@ export type AliasFragment = {
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
 };
 
+export type ProjectAppSettingsFragment = {
+  __typename?: "Project";
+  githubPermissionGroupByRequester?: { [key: string]: any } | null;
+};
+
 export type ProjectContainerSettingsFragment = {
   __typename?: "Project";
   containerSizeDefinitions?: Array<{
@@ -3735,6 +3756,7 @@ export type ProjectSettingsFieldsFragment = {
     repoRefId: string;
     admins?: Array<string> | null;
     restricted?: boolean | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
@@ -4332,6 +4354,7 @@ export type ProjectEventSettingsFragment = {
     versionControlEnabled?: boolean | null;
     admins?: Array<string> | null;
     restricted?: boolean | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
@@ -6098,6 +6121,10 @@ export type HostsQuery = {
   };
 };
 
+export type ImagesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ImagesQuery = { __typename?: "Query"; images: Array<string> };
+
 export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type InstanceTypesQuery = {
@@ -6791,6 +6818,7 @@ export type ProjectEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7003,6 +7031,7 @@ export type ProjectEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7288,6 +7317,7 @@ export type ProjectSettingsQuery = {
       repoRefId: string;
       admins?: Array<string> | null;
       restricted?: boolean | null;
+      githubPermissionGroupByRequester?: { [key: string]: any } | null;
       batchTime: number;
       branch: string;
       deactivatePrevious?: boolean | null;
@@ -7555,6 +7585,7 @@ export type RepoEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7767,6 +7798,7 @@ export type RepoEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;

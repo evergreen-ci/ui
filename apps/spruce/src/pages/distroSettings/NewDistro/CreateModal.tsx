@@ -50,7 +50,7 @@ export const CreateModal: React.FC<Props> = ({ handleClose, open }) => {
       },
     });
     sendEvent({
-      name: "Create new distro",
+      name: "Created new distro",
       newDistroId: formState.newDistroId,
     });
     handleClose();

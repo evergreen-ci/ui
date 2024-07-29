@@ -69,7 +69,7 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
     enqueuePatch({
       variables: { patchId, commitMessage: commitMessageValue },
     });
-    sendEvent({ name: "Enqueue" });
+    sendEvent({ name: "Clicked enqueue tasks button" });
     onFinished();
   };
 

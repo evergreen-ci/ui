@@ -3,16 +3,28 @@ import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import { slugs } from "constants/routes";
 
 type Action =
-  | { name: "Save project"; section: string }
-  | { name: "Save repo"; section: string }
-  | { name: "Default section to repo"; section: string }
-  | { name: "Attach project to repo"; repoOwner: string; repoName: string }
-  | { name: "Detach project from repo"; repoOwner: string; repoName: string }
-  | { name: "Move project to new repo"; repoOwner: string; repoName: string }
-  | { name: "Create new project" }
-  | { name: "Duplicate project"; projectIdToCopy: string }
+  | { name: "Saved project settings"; section: string }
+  | { name: "Saved repo settings"; section: string }
+  | { name: "Clicked default section to repo button"; section: string }
   | {
-      name: "Redirect to project identifier";
+      name: "Clicked attach project to repo button";
+      repoOwner: string;
+      repoName: string;
+    }
+  | {
+      name: "Clicked detach project from repo button";
+      repoOwner: string;
+      repoName: string;
+    }
+  | {
+      name: "Clicked move project to new repo button";
+      repoOwner: string;
+      repoName: string;
+    }
+  | { name: "Created new project" }
+  | { name: "Created duplicate project from project"; projectIdToCopy: string }
+  | {
+      name: "Redirected to project identifier";
       projectId: string;
       projectIdentifier: string;
     };

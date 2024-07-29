@@ -28,7 +28,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
-    cy.dataCy("reconfigure-link").should("be.disabled");
+    cy.dataCy("reconfigure-link").should("have.attr", "aria-disabled", "true");
   });
 
   it("'Schedule' link opens modal and clicking on 'Cancel' closes it.", () => {

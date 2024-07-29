@@ -59,7 +59,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
         <Icon glyph="EvergreenLogo" size={24} />
         <StyledLink
           href={getEvergreenTaskURL(taskID, execution)}
-          onClick={() => sendEvent({ name: "Opened task link" })}
+          onClick={() => sendEvent({ name: "Clicked task link" })}
         >
           Task Page
         </StyledLink>
@@ -109,7 +109,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
       "data-cy": "task-breadcrumb",
       href: getEvergreenTaskURL(taskID, taskExecution),
       onClick: () => {
-        sendEvent({ name: "Opened task link" });
+        sendEvent({ name: "Clicked task link" });
       },
       text: (
         <>

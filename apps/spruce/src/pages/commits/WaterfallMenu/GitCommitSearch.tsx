@@ -28,7 +28,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
   };
 
   const onConfirm = () => {
-    sendEvent({ name: "Search for commit", commit: commitHash });
+    sendEvent({ name: "Filtered for git commit", commit: commitHash });
     setQueryParams({
       [MainlineCommitQueryParams.Revision]: commitHash,
     });
@@ -41,7 +41,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
         data-cy="git-commit-search"
         onClick={() => {
           setModalOpen(true);
-          sendEvent({ name: "Open Git Commit Search Modal" });
+          sendEvent({ name: "Viewed git commit search modal" });
         }}
       >
         Search by Git Hash

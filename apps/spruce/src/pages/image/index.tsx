@@ -1,37 +1,44 @@
+import styled from "@emotion/styled";
+import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { SideNav, SideNavGroup, SideNavItem } from "components/styles";
 import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
+import { size } from "constants/tokens";
+import { useFirstImage } from "hooks";
 import { getTabTitle } from "./getTabTitle";
+import { ImageSelect } from "./ImageSelect";
 
 const Image: React.FC = () => {
-  const {
-    [slugs.imageId]: imageId,
-    [slugs.tab]: currentTab = ImageTabRoutes.BuildInformation,
-  } = useParams<{
+  const { [slugs.imageId]: imageId, [slugs.tab]: currentTab } = useParams<{
     [slugs.imageId]: string;
     [slugs.tab]: ImageTabRoutes;
   }>();
 
-  if (!Object.values(ImageTabRoutes).includes(currentTab)) {
+  const { image: firstImage } = useFirstImage();
+
+  const selectedImage = imageId ?? firstImage;
+
+  if (!Object.values(ImageTabRoutes).includes(currentTab as ImageTabRoutes)) {
     return (
       <Navigate
         replace
-        // @ts-expect-error: TODO fix in DEVPROD-7654
-        to={getImageRoute(imageId, ImageTabRoutes.BuildInformation)}
+        to={getImageRoute(selectedImage, ImageTabRoutes.BuildInformation)}
       />
     );
   }
 
   return (
     <SideNav aria-label="Image" widthOverride={250}>
+      <ButtonsContainer>
+        <ImageSelect selectedImage={selectedImage} />
+      </ButtonsContainer>
       <SideNavGroup>
         {Object.values(ImageTabRoutes).map((tab) => (
           <SideNavItem
             active={tab === currentTab}
             as={Link}
             key={tab}
-            // @ts-expect-error: TODO fix in DEVPROD-7654
-            to={getImageRoute(imageId, tab)}
+            to={getImageRoute(selectedImage, tab)}
             data-cy={`navitem-${tab}`}
           >
             {getTabTitle(tab).title}
@@ -41,5 +48,12 @@ const Image: React.FC = () => {
     </SideNav>
   );
 };
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
+  margin: 0 ${sideNavItemSidePadding}px;
+`;
 
 export default Image;

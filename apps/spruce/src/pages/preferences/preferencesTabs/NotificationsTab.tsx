@@ -69,7 +69,7 @@ export const NotificationsTab: React.FC = () => {
       },
     };
     sendEvent({
-      name: "Save Notifications",
+      name: "Saved notifications",
       params: variables,
     });
     try {

@@ -40,7 +40,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
     setIsAddAnnotationModalVisible(true);
 
     annotationAnalytics.sendEvent({
-      name: "Add task annotation",
+      name: "Created task annotation",
       type: isIssue ? "Issue" : "Suspected Issue",
     });
   };

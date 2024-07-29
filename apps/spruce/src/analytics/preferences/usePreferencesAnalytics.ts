@@ -2,19 +2,18 @@ import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 import { UpdateUserSettingsMutationVariables } from "gql/generated/types";
 
 type Action =
-  | { name: "Change Tab"; tab: string }
-  | { name: "Save Profile Info"; params: UpdateUserSettingsMutationVariables }
-  | { name: "Save Notifications"; params: UpdateUserSettingsMutationVariables }
-  | { name: "Clear Subscriptions" }
-  | { name: "CLI Download Link"; downloadName: string }
-  | { name: "Download Auth File" }
-  | { name: "Reset Key" }
-  | { name: "Create new public key" }
-  | { name: "Update public key" }
-  | { name: "Delete public key" }
-  | { name: "Opt into Spruce" }
-  | { name: "Opt out of Spruce" }
-  | { name: "Toggle polling"; value: "Enabled" | "Disabled" };
+  | { name: "Changed tab"; tab: string }
+  | { name: "Saved profile info"; params: UpdateUserSettingsMutationVariables }
+  | { name: "Saved notifications"; params: UpdateUserSettingsMutationVariables }
+  | { name: "Deleted subscriptions" }
+  | { name: "Clicked CLI download link"; downloadName: string }
+  | { name: "Clicked download auth file" }
+  | { name: "Clicked reset API key" }
+  | { name: "Created new public key" }
+  | { name: "Changed public key" }
+  | { name: "Deleted public key" }
+  | { name: "Toggled spruce"; value: "Enabled" | "Disabled" }
+  | { name: "Toggled polling"; value: "Enabled" | "Disabled" };
 
 export const usePreferencesAnalytics = () =>
   useAnalyticsRoot<Action>("PreferencesPages");

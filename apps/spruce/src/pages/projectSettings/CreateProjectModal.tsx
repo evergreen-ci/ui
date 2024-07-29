@@ -108,7 +108,7 @@ export const CreateProjectModal: React.FC<Props> = ({
         requestS3Creds: formState.requestS3Creds,
       },
     });
-    sendEvent({ name: "Create new project" });
+    sendEvent({ name: "Created new project" });
     handleClose();
   };
 

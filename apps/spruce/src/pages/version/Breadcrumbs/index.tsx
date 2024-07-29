@@ -30,7 +30,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
     text: `Patch ${patchNumber}`,
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
-        name: "Click Link",
+        name: "Clicked link",
         link: "version",
       });
     },
@@ -42,7 +42,7 @@ const VersionPageBreadcrumbs: React.FC<VersionPageBreadcrumbsProps> = ({
     text: shortenGithash(revision),
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
-        name: "Click Link",
+        name: "Clicked link",
         link: "version",
       });
     },
