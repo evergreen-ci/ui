@@ -7,6 +7,7 @@ import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -28,7 +29,7 @@ interface VersionRestartModalProps {
   onCancel: () => void;
   onOk: () => void;
   refetchQueries: string[];
-  versionId?: string;
+  versionId: string;
   visible: boolean;
 }
 
@@ -40,6 +41,8 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   visible,
 }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useVersionAnalytics(versionId);
+
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] =
     useState(false);
   const [restartVersions, { loading: mutationLoading }] = useMutation<
@@ -61,9 +64,8 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
   >(BUILD_VARIANTS_WITH_CHILDREN, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: versionId },
-    skip: !visible,
+    variables: { id: versionId, statuses: finishedTaskStatuses },
+    skip: !visible || !versionId,
   });
 
   const { version } = data || {};
@@ -86,9 +88,6 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     (childVersionId: string) => (selectedFilters: string[]) => {
       setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
     };
-
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { sendEvent } = useVersionAnalytics(versionId);
 
   const handlePatchRestart = () => {
     sendEvent({
@@ -164,7 +163,6 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
               <br />
             </div>
           )}
-
           <ConfirmationMessage weight="medium" data-cy="confirmation-message">
             Are you sure you want to restart the {selectedTotal} selected tasks?
           </ConfirmationMessage>
@@ -195,7 +193,6 @@ const selectedArray = (selected: selectedStrings) => {
 
 const selectTasksTotal = (selectedTasks: versionSelectedTasks) =>
   Object.values(selectedTasks).reduce(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     (total, selectedTask) => selectedArray(selectedTask).length + total,
     0,
   );
@@ -204,7 +201,6 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
   Object.entries(selectedTasks)
     .map(([versionId, tasks]) => ({
       versionId,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       taskIds: selectedArray(tasks),
     }))
     .filter(({ taskIds }) => taskIds.length > 0);
