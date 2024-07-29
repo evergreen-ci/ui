@@ -27,12 +27,11 @@ const searchLogs = (options: searchOptions): number[] => {
   const { getLine, lowerBound, processedLogLines, searchRegex, upperBound } =
     options;
   const matchingLogIndex = new Set<number>();
-  for (let pLLIndex = 0; pLLIndex < processedLogLines.length; pLLIndex++) {
-    const rawLogIndex = processedLogLines[pLLIndex];
-    if (isSectionHeaderRow(rawLogIndex)) {
+  processedLogLines.forEach((processedLogLine) => {
+    if (isSectionHeaderRow(processedLogLine)) {
       for (
-        let i = rawLogIndex.range.start;
-        i < rawLogIndex.range.end && (upperBound ? i <= upperBound : true);
+        let i = processedLogLine.range.start;
+        i < processedLogLine.range.end && (upperBound ? i <= upperBound : true);
         i++
       ) {
         if (i >= lowerBound && searchRegex.test(getLine(i))) {
@@ -41,25 +40,22 @@ const searchLogs = (options: searchOptions): number[] => {
       }
     } else if (
       !(
-        isSkippedLinesRow(rawLogIndex) ||
-        isSectionHeaderRow(rawLogIndex) ||
-        isSubsectionHeaderRow(rawLogIndex)
+        isSkippedLinesRow(processedLogLine) ||
+        isSectionHeaderRow(processedLogLine) ||
+        isSubsectionHeaderRow(processedLogLine)
       )
     ) {
       if (
-        rawLogIndex >= lowerBound &&
-        (upperBound ? upperBound >= rawLogIndex : true)
+        processedLogLine >= lowerBound &&
+        (upperBound ? processedLogLine <= upperBound : true)
       ) {
-        const line = getLine(rawLogIndex);
-        if (searchRegex.test(line)) {
-          matchingLogIndex.add(rawLogIndex);
+        if (searchRegex.test(getLine(processedLogLine))) {
+          matchingLogIndex.add(processedLogLine);
         }
       }
     }
-  }
-  const result = Array.from(matchingLogIndex);
-  result.sort((a, b) => a - b);
-  return result;
+  });
+  return Array.from(matchingLogIndex).sort((a, b) => a - b);
 };
 
 export default searchLogs;
