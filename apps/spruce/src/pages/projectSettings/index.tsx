@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
@@ -40,7 +40,7 @@ import { ProjectType } from "./tabs/utils";
 
 const { validateObjectId } = validators;
 
-export const ProjectSettings: React.FC = () => {
+const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
   const dispatchToast = useToastContext();
   const { [slugs.projectIdentifier]: projectIdentifier, [slugs.tab]: tab } =
@@ -55,6 +55,11 @@ export const ProjectSettings: React.FC = () => {
   const [isRepo, setIsRepo] = useState<boolean>(false);
 
   const { sendEvent } = useProjectSettingsAnalytics();
+
+  useEffect(() => {
+    // Reset state on page change
+    setIsRepo(false);
+  }, [projectIdentifier]);
 
   useProjectRedirect({
     shouldRedirect: identifierIsObjectId,

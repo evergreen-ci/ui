@@ -1,11 +1,5 @@
-import { useParams } from "react-router-dom";
-import { slugs } from "constants/routes";
-import { ProjectSettings as PS } from "./projectSettings/index";
+import { loadable } from "components/SpruceLoader";
 
-export const ProjectSettings: React.FC = () => {
-  const { [slugs.projectIdentifier]: projectIdentifier } = useParams<{
-    [slugs.projectIdentifier]: string | undefined;
-  }>();
-
-  return <PS key={projectIdentifier} />;
-};
+export const ProjectSettings = loadable(
+  () => import("./projectSettings/index"),
+);
