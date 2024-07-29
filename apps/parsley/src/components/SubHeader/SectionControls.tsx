@@ -25,12 +25,20 @@ const SectionControls = () => {
   return (
     <>
       {!allOpen && (
-        <Button onClick={() => toggleAllSections(true)} size="small">
+        <Button
+          data-cy="open-all-sections-btn"
+          onClick={() => toggleAllSections(true)}
+          size="small"
+        >
           Open all sections
         </Button>
       )}
       {!allClosed && (
-        <Button onClick={() => toggleAllSections(false)} size="small">
+        <Button
+          data-cy="close-all-sections-btn"
+          onClick={() => toggleAllSections(false)}
+          size="small"
+        >
           Close all sections
         </Button>
       )}
