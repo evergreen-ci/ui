@@ -83,7 +83,7 @@
     "react-dropzone": "14.2.3",
     "react-router-dom": "6.16.0",
     "react-virtuoso": "4.7.12",
-    "vite-node": "^1.6.0",
+    "vite-node": "^2.0.4",
     "xss": "1.0.15"
   },
   "devDependencies": {
