@@ -1,14 +1,4 @@
 functions:
-  add-runtime-environments-credentials: 
-    command: subprocess.exec
-    silent: true
-    params: 
-      working_dir: ui/.evergreen
-      command: bash scripts/add-runtime-environments-credentials.sh
-      env:
-        BASE_URL: ${staging_runtime_environments_base_url}
-        API_KEY: ${staging_runtime_environments_api_key}
-
   assume-ec2-role:
     command: ec2.assume_role
     params:
@@ -170,6 +160,9 @@ functions:
     params:
       working_dir: ui/${app_dir}
       shell: bash
+      env:
+        STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
+        STAGING_RUNTIME_ENVIRONMENTS_API_KEY: ${staging_runtime_environments_api_key}
       script: |
         ${PREPARE_SHELL}
         # Allow spec filtering for an intentional patch.
@@ -269,7 +262,6 @@ tasks:
   - name: e2e
     commands:
       - func: setup-mongodb
-      - func: add-runtime-environments-credentials
       - func: run-make-background
         vars:
           target: local-evergreen
