@@ -1,3 +1,4 @@
+import { SectionState } from ".";
 import { SectionData } from "./utils";
 
 const step = "1 of 4";
@@ -63,7 +64,7 @@ const sectionData: SectionData = {
     },
   ],
 };
-const initialSectionState = {
+const initialSectionState: SectionState = {
   "function-1": {
     commands: {
       "command-1": {

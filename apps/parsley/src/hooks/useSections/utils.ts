@@ -1,3 +1,4 @@
+import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { Range } from "types/logs";
 import { includesLineNumber } from "utils/logRow";
 import { trimSeverity } from "utils/string";
@@ -170,27 +171,23 @@ const openSectionContainingLineNumberHelper = ({
   sectionState: SectionState;
   lineNumber: number | number[];
 }) => {
-  const lineNumberArray = Array.isArray(lineNumber) ? lineNumber : [lineNumber];
-  const sectionContainingLine = lineNumberArray
-    .map((n) =>
-      sectionData?.commands.find((section) => includesLineNumber(section, n)),
-    )
-    .filter((v) => v) as CommandEntry[];
+  const lineNumberArray = conditionalToArray(lineNumber, true);
+  const sectionContainingLine = sectionData.commands.filter((section) =>
+    lineNumberArray.some((n) => includesLineNumber(section, n)),
+  );
   const nextState = structuredClone(sectionState);
-  let diff = false;
-  if (sectionState) {
-    sectionContainingLine.forEach(({ commandID, functionID }) => {
-      if (
-        sectionState[functionID].commands[commandID].isOpen !== true ||
-        sectionState[functionID].isOpen !== true
-      ) {
-        diff = true;
-      }
-      nextState[functionID].commands[commandID].isOpen = true;
-      nextState[functionID].isOpen = true;
-    });
-  }
-  return diff ? nextState : sectionState;
+  let hasDiff = false;
+  sectionContainingLine.forEach(({ commandID, functionID }) => {
+    if (
+      sectionState[functionID].commands[commandID].isOpen !== true ||
+      sectionState[functionID].isOpen !== true
+    ) {
+      hasDiff = true;
+    }
+    nextState[functionID].commands[commandID].isOpen = true;
+    nextState[functionID].isOpen = true;
+  });
+  return hasDiff ? nextState : sectionState;
 };
 
 /**
