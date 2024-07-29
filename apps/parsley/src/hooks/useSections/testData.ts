@@ -1,3 +1,4 @@
+import { SectionState } from ".";
 import { SectionData } from "./utils";
 
 const step = "1 of 4";
@@ -63,7 +64,7 @@ const sectionData: SectionData = {
     },
   ],
 };
-const sectionStateAllClosed = {
+const sectionStateAllClosed: SectionState = {
   "function-1": {
     commands: {
       "command-1": {
@@ -88,7 +89,7 @@ const sectionStateAllClosed = {
   },
 };
 
-const sectionStateAllOpen = {
+const sectionStateAllOpen: SectionState = {
   "function-1": {
     commands: {
       "command-1": {

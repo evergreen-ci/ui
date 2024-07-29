@@ -20,6 +20,12 @@ const useOpenSectionAndScrollToLine = (
 ) => {
   const [lineNumber, setLineNumber] = useState<number | number[] | undefined>();
 
+  /**
+   * When the lineNumber is set from the callback, calculate the next section state
+   * from the lineNumber. If the next state is the same as the current state,
+   * scroll to the lineNumber and reset lineNumber. If the next state is different,
+   * wait for processedLogLines to update in the following useEffect.
+   */
   useEffect(() => {
     if (lineNumber !== undefined) {
       const hasDiff = openSectionContainingLineNumber({
@@ -37,6 +43,10 @@ const useOpenSectionAndScrollToLine = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lineNumber]);
 
+  /**
+   * When processedLogLines updates and lineNumber is defined,
+   * scroll to the lineNumber and reset lineNumber.
+   */
   useEffect(() => {
     if (lineNumber !== undefined) {
       const scrollIndex = findLineIndex(
