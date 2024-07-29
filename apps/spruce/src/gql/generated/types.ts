@@ -883,7 +883,16 @@ export type Image = {
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   name: Scalars["String"]["output"];
+  packages: Array<Package>;
   versionId: Scalars["String"]["output"];
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImagePackagesArgs = {
+  opts: PackageOpts;
 };
 
 export type InstanceTag = {
@@ -1446,6 +1455,20 @@ export enum OverallocatedRule {
   Ignore = "IGNORE",
   Terminate = "TERMINATE",
 }
+
+export type Package = {
+  __typename?: "Package";
+  manager: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
+export type PackageOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  manager?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+};
 
 export type Parameter = {
   __typename?: "Parameter";

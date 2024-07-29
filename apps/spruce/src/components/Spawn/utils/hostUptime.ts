@@ -48,6 +48,14 @@ type ValidateInput = {
   runContinuously: boolean;
 };
 
+/**
+ * getHostUptimeWarnings returns warning strings based on the host uptime configuration
+ * @param obj - host uptime configuration fields
+ * @param obj.enabledHoursCount - total weekly count of active host hours
+ * @param obj.enabledWeekdaysCount - number of days per week the host is enabled
+ * @param obj.runContinuously - boolean indicating whether the host runs overnight
+ * @returns - A string array with warning text
+ */
 export const getHostUptimeWarnings = ({
   enabledHoursCount,
   enabledWeekdaysCount,
@@ -75,6 +83,11 @@ export const getHostUptimeWarnings = ({
   return [];
 };
 
+/**
+ * getEnabledHoursCount calculates the hours and days per week that a host is configured to run
+ * @param hostUptime - host uptime schedule as configured by the spawn or edit hos tmodal
+ * @returns - object with enabledHoursCount indicating total hours per week and enabledWeekdaysCount indicating number of days per week
+ */
 export const getEnabledHoursCount = (
   hostUptime: HostUptime,
 ): { enabledHoursCount: number; enabledWeekdaysCount: number } => {
@@ -108,6 +121,16 @@ export const getEnabledHoursCount = (
   return { enabledHoursCount, enabledWeekdaysCount };
 };
 
+/**
+ * getSleepSchedule converts form object into GraphQL input type
+ * @param obj - form data object
+ * @param obj.isBetaTester - whether or not user has opted into bet
+ * @param obj.sleepSchedule - sleep schedule configuration
+ * @param obj.temporarilyExemptUntil - temporary exemption date
+ * @param obj.useDefaultUptimeSchedule - boolean indicating whether user has set custom schedule
+ * @param timeZone - user-defined time zone, defaults to UTC
+ * @returns - sleep schedule used as input for GraphQL mutations
+ */
 export const getSleepSchedule = (
   {
     isBetaTester,
