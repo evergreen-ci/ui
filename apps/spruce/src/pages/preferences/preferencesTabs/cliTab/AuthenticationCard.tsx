@@ -33,13 +33,13 @@ ui_server_host: "${config?.ui_server_host}"
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const resetKey = async (e) => {
     e.preventDefault();
-    sendEvent({ name: "Reset Key" });
+    sendEvent({ name: "Clicked reset API key" });
     await post(`/settings/newkey`, {});
     refetch();
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const downloadFile = (e) => {
-    sendEvent({ name: "Download Auth File" });
+    sendEvent({ name: "Clicked download auth file" });
     // This creates a text blob with the contents of `authCode`
     // It then creates a `a` element and generates an objectUrl pointing to the
     // text blob which is used to get the browser to download it as if it were a file

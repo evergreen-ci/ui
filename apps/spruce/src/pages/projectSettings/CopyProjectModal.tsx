@@ -94,7 +94,10 @@ export const CopyProjectModal: React.FC<Props> = ({
         requestS3Creds: formState.requestS3Creds,
       },
     });
-    sendEvent({ name: "Duplicate project", projectIdToCopy: id });
+    sendEvent({
+      name: "Created duplicate project from project",
+      projectIdToCopy: id,
+    });
     handleClose();
   };
 

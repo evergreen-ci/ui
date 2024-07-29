@@ -351,6 +351,17 @@ export type DeleteDistroPayload = {
   deletedDistroId: Scalars["String"]["output"];
 };
 
+/** DeleteGithubAppCredentialsInput is the input to the deleteGithubAppCredentials mutation. */
+export type DeleteGithubAppCredentialsInput = {
+  projectId: Scalars["String"]["input"];
+};
+
+/** DeleteGithubAppCredentialsPayload is returned by the deleteGithubAppCredentials mutation. */
+export type DeleteGithubAppCredentialsPayload = {
+  __typename?: "DeleteGithubAppCredentialsPayload";
+  oldAppId: Scalars["Int"]["output"];
+};
+
 export type Dependency = {
   __typename?: "Dependency";
   buildVariant: Scalars["String"]["output"];
@@ -395,7 +406,7 @@ export type Distro = {
   homeVolumeSettings: HomeVolumeSettings;
   hostAllocatorSettings: HostAllocatorSettings;
   iceCreamSettings: IceCreamSettings;
-  imageId?: Maybe<Scalars["String"]["output"]>;
+  imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
   mountpoints?: Maybe<Array<Scalars["String"]["output"]>>;
@@ -461,7 +472,7 @@ export type DistroInput = {
   homeVolumeSettings: HomeVolumeSettingsInput;
   hostAllocatorSettings: HostAllocatorSettingsInput;
   iceCreamSettings: IceCreamSettingsInput;
-  imageId?: InputMaybe<Scalars["String"]["input"]>;
+  imageId: Scalars["String"]["input"];
   isCluster: Scalars["Boolean"]["input"];
   isVirtualWorkStation: Scalars["Boolean"]["input"];
   mountpoints?: InputMaybe<Array<Scalars["String"]["input"]>>;
@@ -637,6 +648,17 @@ export type GitTag = {
   __typename?: "GitTag";
   pusher: Scalars["String"]["output"];
   tag: Scalars["String"]["output"];
+};
+
+export type GithubAppAuth = {
+  __typename?: "GithubAppAuth";
+  appId?: Maybe<Scalars["Int"]["output"]>;
+  privateKey?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type GithubAppAuthInput = {
+  appId: Scalars["Int"]["input"];
+  privateKey: Scalars["String"]["input"];
 };
 
 export type GithubCheckSubscriber = {
@@ -856,10 +878,21 @@ export type IceCreamSettingsInput = {
 export type Image = {
   __typename?: "Image";
   ami: Scalars["String"]["output"];
+  distros: Array<Distro>;
+  id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   name: Scalars["String"]["output"];
+  packages: Array<Package>;
   versionId: Scalars["String"]["output"];
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImagePackagesArgs = {
+  opts: PackageOpts;
 };
 
 export type InstanceTag = {
@@ -1057,6 +1090,7 @@ export type Mutation = {
   deactivateStepbackTask: Scalars["Boolean"]["output"];
   defaultSectionToRepo?: Maybe<Scalars["String"]["output"]>;
   deleteDistro: DeleteDistroPayload;
+  deleteGithubAppCredentials?: Maybe<DeleteGithubAppCredentialsPayload>;
   deleteProject: Scalars["Boolean"]["output"];
   deleteSubscriptions: Scalars["Int"]["output"];
   detachProjectFromRepo: Project;
@@ -1167,6 +1201,10 @@ export type MutationDefaultSectionToRepoArgs = {
 
 export type MutationDeleteDistroArgs = {
   opts: DeleteDistroInput;
+};
+
+export type MutationDeleteGithubAppCredentialsArgs = {
+  opts: DeleteGithubAppCredentialsInput;
 };
 
 export type MutationDeleteProjectArgs = {
@@ -1417,6 +1455,20 @@ export enum OverallocatedRule {
   Ignore = "IGNORE",
   Terminate = "TERMINATE",
 }
+
+export type Package = {
+  __typename?: "Package";
+  manager: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
+export type PackageOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  manager?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+};
 
 export type Parameter = {
   __typename?: "Parameter";
@@ -1812,6 +1864,7 @@ export type ProjectEventLogEntry = {
 export type ProjectEventSettings = {
   __typename?: "ProjectEventSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
+  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<Project>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -1909,6 +1962,7 @@ export type ProjectPermissionsOptions = {
 export type ProjectSettings = {
   __typename?: "ProjectSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
+  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<Project>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -1922,6 +1976,7 @@ export type ProjectSettings = {
  */
 export type ProjectSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
+  githubAppAuth?: InputMaybe<GithubAppAuthInput>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectId: Scalars["String"]["input"];
   projectRef?: InputMaybe<ProjectInput>;
@@ -3505,6 +3560,7 @@ export type PatchesPagePatchesFragment = {
     status: string;
     projectMetadata?: {
       __typename?: "Project";
+      id: string;
       owner: string;
       repo: string;
     } | null;
@@ -3548,6 +3604,11 @@ export type AliasFragment = {
   variant: string;
   variantTags: Array<string>;
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
+};
+
+export type ProjectAppSettingsFragment = {
+  __typename?: "Project";
+  githubPermissionGroupByRequester?: { [key: string]: any } | null;
 };
 
 export type ProjectContainerSettingsFragment = {
@@ -3718,6 +3779,7 @@ export type ProjectSettingsFieldsFragment = {
     repoRefId: string;
     admins?: Array<string> | null;
     restricted?: boolean | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
@@ -4315,6 +4377,7 @@ export type ProjectEventSettingsFragment = {
     versionControlEnabled?: boolean | null;
     admins?: Array<string> | null;
     restricted?: boolean | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
@@ -5812,7 +5875,7 @@ export type DistroQuery = {
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
-    imageId?: string | null;
+    imageId: string;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
     mountpoints?: Array<string> | null;
@@ -6080,6 +6143,10 @@ export type HostsQuery = {
     }>;
   };
 };
+
+export type ImagesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ImagesQuery = { __typename?: "Query"; images: Array<string> };
 
 export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -6774,6 +6841,7 @@ export type ProjectEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -6986,6 +7054,7 @@ export type ProjectEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7216,6 +7285,7 @@ export type ProjectPatchesQuery = {
         status: string;
         projectMetadata?: {
           __typename?: "Project";
+          id: string;
           owner: string;
           repo: string;
         } | null;
@@ -7270,6 +7340,7 @@ export type ProjectSettingsQuery = {
       repoRefId: string;
       admins?: Array<string> | null;
       restricted?: boolean | null;
+      githubPermissionGroupByRequester?: { [key: string]: any } | null;
       batchTime: number;
       branch: string;
       deactivatePrevious?: boolean | null;
@@ -7537,6 +7608,7 @@ export type RepoEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7749,6 +7821,7 @@ export type RepoEventLogsQuery = {
           versionControlEnabled?: boolean | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -8786,6 +8859,7 @@ export type UserPatchesQuery = {
         status: string;
         projectMetadata?: {
           __typename?: "Project";
+          id: string;
           owner: string;
           repo: string;
         } | null;

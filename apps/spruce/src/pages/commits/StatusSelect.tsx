@@ -15,7 +15,7 @@ export const StatusSelect = () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvent: (_, filterValue: string[]) => {
       sendEvent({
-        name: "Filter by task status",
+        name: "Filtered by task status",
         statuses: filterValue,
       });
     },

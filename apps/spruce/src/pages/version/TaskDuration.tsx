@@ -94,9 +94,10 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
         page={page}
         label="tasks"
         onClear={clearQueryParams}
-        onPageSizeChange={() => {
+        onPageSizeChange={(l) => {
           versionAnalytics.sendEvent({
-            name: "Change Page Size",
+            name: "Changed page size",
+            pageSize: l,
           });
         }}
       />
@@ -117,9 +118,10 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             page={page}
             onClear={clearQueryParams}
-            onPageSizeChange={() => {
+            onPageSizeChange={(l) => {
               versionAnalytics.sendEvent({
-                name: "Change Page Size",
+                name: "Changed page size",
+                pageSize: l,
               });
             }}
           />

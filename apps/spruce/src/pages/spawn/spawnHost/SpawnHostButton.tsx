@@ -47,7 +47,7 @@ export const SpawnHostButton: React.FC = () => {
             onClick={() => {
               setOpenModal(true);
               spawnAnalytics.sendEvent({
-                name: "Opened the Spawn Host Modal",
+                name: "Viewed spawn host modal",
               });
             }}
             data-cy="spawn-host-button"

@@ -63,7 +63,7 @@ export const ProjectSettings: React.FC = () => {
     },
     sendAnalyticsEvent: (projectId: string, identifier: string) => {
       sendEvent({
-        name: "Redirect to project identifier",
+        name: "Redirected to project identifier",
         projectId,
         projectIdentifier: identifier,
       });

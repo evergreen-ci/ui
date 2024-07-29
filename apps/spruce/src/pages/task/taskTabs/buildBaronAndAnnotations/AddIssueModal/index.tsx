@@ -60,7 +60,7 @@ export const AddIssueModal: React.FC<Props> = ({
       setSelectedRowKey(issueKey);
       closeModal();
       annotationAnalytics.sendEvent({
-        name: "Add task annotation",
+        name: "Created task annotation",
         type: isIssue ? "Issue" : "Suspected Issue",
       });
     },

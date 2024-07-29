@@ -105,14 +105,17 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     });
 
     setQueryParams(updatedParams);
-    sendEvent({ name: "Filter Tests", filterBy: Object.keys(filterState) });
+    sendEvent({
+      name: "Filtered tests table",
+      filterBy: Object.keys(filterState),
+    });
   };
 
   const tableSortHandler = useTableSort({
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
-        name: "Sort Tests Table",
+        name: "Sorted tests table",
         sortBy: sorter.map(({ id }) => id as TestSortCategory),
       }),
   });
@@ -189,7 +192,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
           label="tests"
           onClear={clearQueryParams}
           onPageSizeChange={() => {
-            sendEvent({ name: "Change Page Size" });
+            sendEvent({ name: "Changed page size" });
           }}
         />
       }

@@ -81,7 +81,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
           onSave: onSaveOperation,
         },
       });
-      sendEvent({ name: "Save distro", section: tab });
+      sendEvent({ name: "Saved distro", section: tab });
     }
   };
 

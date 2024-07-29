@@ -31,7 +31,7 @@ const columns = (
             target="_blank"
             onClick={() => {
               taskAnalytics.sendEvent({
-                name: "Click Task File Link",
+                name: "Clicked task file link",
                 parsleyAvailable: value.row.original.urlParsley !== null,
                 fileName,
               });
@@ -49,7 +49,7 @@ const columns = (
                 size="small"
                 onClick={() => {
                   taskAnalytics.sendEvent({
-                    name: "Click Task File Parsley Link",
+                    name: "Clicked task file Parsley link",
                     fileName,
                   });
                 }}

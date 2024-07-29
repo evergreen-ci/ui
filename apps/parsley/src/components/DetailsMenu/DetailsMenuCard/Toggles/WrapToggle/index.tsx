@@ -12,7 +12,7 @@ const WrapToggle: React.FC = () => {
       label="Wrap"
       onChange={(value) => {
         setWrap(value);
-        sendEvent({ name: "Toggled wrap", on: value });
+        sendEvent({ name: "Toggled word wrap", on: value });
       }}
       tooltip="Toggle line wrapping for overflowing lines"
       value={wrap}

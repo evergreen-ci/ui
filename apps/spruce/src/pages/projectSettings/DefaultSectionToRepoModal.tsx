@@ -52,7 +52,7 @@ export const DefaultSectionToRepoModal = ({
       onConfirm={() => {
         defaultSectionToRepo();
         sendEvent({
-          name: "Default section to repo",
+          name: "Clicked default section to repo button",
           section,
         });
         handleClose();

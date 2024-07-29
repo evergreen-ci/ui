@@ -24,7 +24,7 @@ export const ChartToggle: React.FC<{
     const chartType = e.target.value as ChartTypes;
     onChangeChartType(chartType);
     sendEvent({
-      name: "Select chart view option",
+      name: "Toggled chart view option",
       viewOption: chartType,
     });
   };
