@@ -172,6 +172,11 @@ export const prettifyTimeZone = new Map(
   timeZones.map(({ str, value }) => [value, str]),
 );
 
+export const abbreviateTimeZone = (tz: string) =>
+  new Date()
+    .toLocaleTimeString("en-us", { timeZone: tz, timeZoneName: "short" })
+    .split(" ")[2];
+
 export const listOfDateFormatStrings = [
   "MM-dd-yyyy",
   "dd-MM-yyyy",

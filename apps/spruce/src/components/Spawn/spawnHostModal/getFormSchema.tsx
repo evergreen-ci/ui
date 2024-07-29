@@ -35,7 +35,7 @@ interface Props {
   noExpirationCheckboxTooltip: string;
   permanentlyExempt: boolean;
   spawnTaskData?: SpawnTaskQuery["task"];
-  timeZone?: string;
+  timeZone: string;
   useSetupScript?: boolean;
   useProjectSetupScript?: boolean;
   userAwsRegion?: string;

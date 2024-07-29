@@ -18,7 +18,6 @@ import {
   useLoadFormData,
 } from "components/Spawn/editHostModal";
 import { SpruceForm } from "components/SpruceForm";
-import { defaultTimeZone } from "constants/fieldMaps";
 import { useToastContext } from "context/toast";
 import {
   EditSpawnHostMutation,
@@ -42,7 +41,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useSpawnAnalytics();
-  const timeZone = useUserTimeZone() || defaultTimeZone;
+  const timeZone =
+    useUserTimeZone() || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const {
     disableExpirationCheckbox,
@@ -79,11 +79,10 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     expirationDetails: {
       expiration: host.expiration ? host.expiration.toString() : null,
       noExpiration: host.noExpiration,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      hostUptime: isNullSleepSchedule(host?.sleepSchedule)
-        ? getHostUptimeFromGql(defaultSleepSchedule)
-        : // @ts-expect-error: FIXME. This comment was added by an automated script.
-          getHostUptimeFromGql(host.sleepSchedule),
+      hostUptime:
+        host?.sleepSchedule && !isNullSleepSchedule(host?.sleepSchedule)
+          ? getHostUptimeFromGql(host.sleepSchedule)
+          : getHostUptimeFromGql({ ...defaultSleepSchedule, timeZone }),
     },
     publicKeySection: { useExisting: true, publicKeyNameDropdown: "" },
   };
@@ -122,7 +121,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     noExpirationCheckboxTooltip,
     permanentlyExempt: !!host.sleepSchedule?.permanentlyExempt,
-    timeZone,
+    timeZone:
+      formState?.expirationDetails?.hostUptime?.details?.timeZone || timeZone,
     volumes,
   });
 
@@ -159,7 +159,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     hostId: host.id,
     myPublicKeys: publicKeys,
     oldUserTags: userTags,
-    timeZone,
   });
 
   const [hasChanges, mutationParams] = computeDiff(

@@ -6,7 +6,7 @@ import { add } from "date-fns";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { hostUptimeDocumentationUrl } from "constants/externalResources";
-import { prettifyTimeZone } from "constants/fieldMaps";
+import { abbreviateTimeZone, timeZones } from "constants/fieldMaps";
 import { size } from "constants/tokens";
 import { MyPublicKeysQuery } from "gql/generated/types";
 import {
@@ -24,7 +24,7 @@ type HostUptimeProps = {
     warnings: string[];
   };
   isEditModal: boolean;
-  timeZone?: string;
+  timeZone: string;
 };
 
 const getHostUptimeSchema = ({
@@ -38,7 +38,7 @@ const getHostUptimeSchema = ({
     properties: {
       useDefaultUptimeSchedule: {
         type: "boolean" as "boolean",
-        title: "Use default host uptime schedule (Mon–Fri, 8am–8pm)",
+        title: `Use default host uptime schedule (Mon–Fri, 8am–8pm ${abbreviateTimeZone(timeZone)})`,
         default: true,
       },
       sleepSchedule: {
@@ -97,7 +97,26 @@ const getHostUptimeSchema = ({
         },
       },
       details: {
-        type: "null" as "null",
+        type: "object" as "object",
+        title: "",
+        properties: {
+          timeZone: {
+            type: "string",
+            title: "Time Zone",
+            default: timeZone,
+            oneOf: [
+              ...timeZones.map(({ str, value }) => ({
+                type: "string" as "string",
+                title: str,
+                enum: [value],
+              })),
+            ],
+          },
+
+          uptimeHours: {
+            type: "null" as "null",
+          },
+        },
       },
       isBetaTester: {
         type: "boolean" as "boolean",
@@ -169,16 +188,35 @@ const getHostUptimeSchema = ({
       },
     },
     details: {
-      "ui:descriptionNode": (
-        <Details
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          timeZone={timeZone}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          totalUptimeHours={hostUptimeWarnings?.enabledHoursCount}
-        />
-      ),
-      "ui:showLabel": false,
-      "ui:warnings": hostUptimeWarnings?.warnings,
+      "ui:elementWrapperCSS": css`
+        align-items: flex-end;
+        display: flex;
+        gap: ${size.xs};
+        flex-wrap: wrap;
+
+        > div {
+          width: 40%;
+        }
+
+        > [role="alert"] {
+          margin-top: 0;
+          width: 100%;
+        }
+      `,
+      timeZone: {
+        "ui:allowDeselect": false,
+        "ui:sizeVariant": "xsmall",
+      },
+      uptimeHours: {
+        "ui:descriptionNode": (
+          <Details
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            totalUptimeHours={hostUptimeWarnings?.enabledHoursCount}
+          />
+        ),
+        "ui:showLabel": false,
+        "ui:warnings": hostUptimeWarnings?.warnings,
+      },
     },
     isBetaTester: {
       "ui:widget": widgets.ToggleWidget,
@@ -210,19 +248,18 @@ const getHostUptimeSchema = ({
   },
 });
 
-const Details: React.FC<{ timeZone: string; totalUptimeHours: number }> = ({
-  timeZone,
+const Details: React.FC<{ totalUptimeHours: number }> = ({
   totalUptimeHours,
 }) => (
   <DetailsDiv data-cy="host-uptime-details">
-    All times are displayed in{" "}
-    <Badge>{prettifyTimeZone.get(timeZone) ?? timeZone}</Badge> •{" "}
-    {totalUptimeHours} host uptime hours per week
+    {" "}
+    • {totalUptimeHours} host uptime hours per week
   </DetailsDiv>
 );
 
 const DetailsDiv = styled.div`
-  margin-bottom: ${size.xs};
+  margin-bottom: 21px;
+  white-space: nowrap;
 `;
 
 type ExpirationProps = {
@@ -234,7 +271,7 @@ type ExpirationProps = {
   isEditModal: boolean;
   noExpirationCheckboxTooltip?: string;
   permanentlyExempt?: boolean;
-  timeZone?: string;
+  timeZone: string;
 };
 
 export const getExpirationDetailsSchema = ({
