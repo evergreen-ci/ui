@@ -24,14 +24,19 @@ interface searchOptions {
  * @returns An array of sorted raw log indices that match the search criteria. SkippedLines are not included in the result.
  */
 const searchLogs = (options: searchOptions): number[] => {
-  const { getLine, lowerBound, processedLogLines, searchRegex, upperBound } =
-    options;
+  const {
+    getLine,
+    lowerBound,
+    processedLogLines,
+    searchRegex,
+    upperBound = Number.MAX_VALUE,
+  } = options;
   const matchingLogIndex = new Set<number>();
   processedLogLines.forEach((processedLogLine) => {
     if (isSectionHeaderRow(processedLogLine)) {
       for (
         let i = processedLogLine.range.start;
-        i < processedLogLine.range.end && (upperBound ? i <= upperBound : true);
+        i < processedLogLine.range.end && i <= upperBound;
         i++
       ) {
         if (i >= lowerBound && searchRegex.test(getLine(i))) {
@@ -45,10 +50,7 @@ const searchLogs = (options: searchOptions): number[] => {
         isSubsectionHeaderRow(processedLogLine)
       )
     ) {
-      if (
-        processedLogLine >= lowerBound &&
-        (upperBound ? processedLogLine <= upperBound : true)
-      ) {
+      if (processedLogLine >= lowerBound && processedLogLine <= upperBound) {
         if (searchRegex.test(getLine(processedLogLine))) {
           matchingLogIndex.add(processedLogLine);
         }
