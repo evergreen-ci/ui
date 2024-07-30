@@ -40,7 +40,7 @@ export const formToGql = ((formState, isRepo, id) => {
     ...(isRepo ? { repoId: id } : { projectId: id }),
     githubAppAuth: {
       appId: formState?.appCredentials?.githubAppAuth?.appId ?? 0,
-      privateKey: formState?.appCredentials?.githubAppAuth?.privateKey,
+      privateKey: formState?.appCredentials?.githubAppAuth?.privateKey ?? "",
     },
     projectRef: {
       id,

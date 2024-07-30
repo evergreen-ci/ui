@@ -107,6 +107,9 @@ export const getFormSchema = ({
     appCredentials: {
       githubAppAuth: {
         "ui:ObjectFieldTemplate": FieldRow,
+        "ui:elementWrapperCSS": css`
+          align-items: flex-start;
+        `,
         appId: {
           "ui:data-cy": "github-app-id-input",
           "ui:disabled": isAppDefined,

@@ -20,7 +20,12 @@ describe("GitHub app settings", () => {
     saveButtonEnabled(false);
   });
 
+  // TODO: Add test for deletion in DEVPROD-9282.
+
   it("should be able to save app credentials", () => {
+    cy.visit(getAppSettingsRoute("logkeeper"));
+    cy.contains("Token Permission Restrictions");
+
     cy.dataCy("github-app-credentials-banner").should("be.visible");
     cy.dataCy("github-app-id-input").type("12345");
     cy.dataCy("github-private-key-input").type("secret");
@@ -42,6 +47,11 @@ describe("GitHub app settings", () => {
       "aria-disabled",
       "true",
     );
+
+    cy.reload();
+    cy.dataCy("github-app-credentials-banner").should("not.exist");
+    cy.dataCy("github-app-id-input").should("have.value", "12345");
+    cy.dataCy("github-private-key-input").should("have.value", "{REDACTED}");
   });
 
   it("should be able to save different permission groups for requesters, then return to defaults", () => {
