@@ -23,6 +23,7 @@ import {
   versionSelectedTasks,
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
+import { TaskStatus } from "types/task";
 import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {
@@ -64,7 +65,10 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
   >(BUILD_VARIANTS_WITH_CHILDREN, {
-    variables: { id: versionId, statuses: finishedTaskStatuses },
+    variables: {
+      id: versionId,
+      statuses: [...finishedTaskStatuses, TaskStatus.Aborted],
+    },
     skip: !visible || !versionId,
   });
 
