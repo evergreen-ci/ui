@@ -884,6 +884,7 @@ export type Image = {
   lastDeployed: Scalars["Time"]["output"];
   name: Scalars["String"]["output"];
   packages: Array<Package>;
+  toolchains: Array<Toolchain>;
   versionId: Scalars["String"]["output"];
 };
 
@@ -893,6 +894,14 @@ export type Image = {
  */
 export type ImagePackagesArgs = {
   opts: PackageOpts;
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImageToolchainsArgs = {
+  opts: ToolchainOpts;
 };
 
 export type InstanceTag = {
@@ -2986,6 +2995,19 @@ export type TicketFields = {
   status: JiraStatus;
   summary: Scalars["String"]["output"];
   updated: Scalars["String"]["output"];
+};
+
+export type Toolchain = {
+  __typename?: "Toolchain";
+  name: Scalars["String"]["output"];
+  path: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
+export type ToolchainOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type TriggerAlias = {
