@@ -31,7 +31,7 @@ const searchLogs = (options: searchOptions): number[] => {
     searchRegex,
     upperBound = Number.MAX_VALUE,
   } = options;
-  const matchingLogIndex = new Set<number>();
+  const matchingLogIndices = new Set<number>();
   processedLogLines.forEach((processedLogLine) => {
     if (isSectionHeaderRow(processedLogLine)) {
       for (
@@ -40,7 +40,7 @@ const searchLogs = (options: searchOptions): number[] => {
         i++
       ) {
         if (i >= lowerBound && searchRegex.test(getLine(i))) {
-          matchingLogIndex.add(i);
+          matchingLogIndices.add(i);
         }
       }
     } else if (
@@ -52,12 +52,12 @@ const searchLogs = (options: searchOptions): number[] => {
     ) {
       if (processedLogLine >= lowerBound && processedLogLine <= upperBound) {
         if (searchRegex.test(getLine(processedLogLine))) {
-          matchingLogIndex.add(processedLogLine);
+          matchingLogIndices.add(processedLogLine);
         }
       }
     }
   });
-  return Array.from(matchingLogIndex).sort((a, b) => a - b);
+  return Array.from(matchingLogIndices).sort((a, b) => a - b);
 };
 
 export default searchLogs;
