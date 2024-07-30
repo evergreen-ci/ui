@@ -6,7 +6,7 @@ import { reportError } from "utils/errorReporting";
 import { releaseSectioning } from "utils/featureFlag";
 import {
   SectionData,
-  openSectionContainingLineNumberHelper,
+  getSectionStateWithOpenSectionBasedOnLineNumber,
   parseSections,
   populateSectionState,
 } from "./utils";
@@ -131,11 +131,12 @@ export const useSections = ({
     if (!sectionData || !sectionState) {
       return false;
     }
-    const [hasDiff, nextState] = openSectionContainingLineNumberHelper({
-      lineNumber,
-      sectionData,
-      sectionState,
-    });
+    const [hasDiff, nextState] =
+      getSectionStateWithOpenSectionBasedOnLineNumber({
+        lineNumber,
+        sectionData,
+        sectionState,
+      });
     if (hasDiff) {
       setSectionState(nextState);
     }

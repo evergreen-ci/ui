@@ -154,7 +154,7 @@ const parseSections = (logs: string[]): SectionData => {
 };
 
 /**
- * This function returns the next section state where all sections that contain the lineNumber values(s)
+ * getSectionStateWithOpenSectionBasedOnLineNumber Gets the next section state where all sections that contain the lineNumber values(s)
  * are open. The return value returns a boolean representing if the next state is different from current state
  * as well as the next section state.
  * @param props is an object with a lineNumber key(s), sectionData and sectionState.
@@ -163,7 +163,7 @@ const parseSections = (logs: string[]): SectionData => {
  * @param props.lineNumber is a number or an array of numbers that represent raw log line numbers.
  * @returns [boolean, SectionState]
  */
-const openSectionContainingLineNumberHelper = ({
+const getSectionStateWithOpenSectionBasedOnLineNumber = ({
   lineNumber,
   sectionData,
   sectionState,
@@ -222,7 +222,7 @@ const populateSectionState = (
 export {
   parseSections,
   reduceFn,
-  openSectionContainingLineNumberHelper,
+  getSectionStateWithOpenSectionBasedOnLineNumber,
   populateSectionState,
 };
 export type { FunctionEntry, SectionData, CommandEntry };
