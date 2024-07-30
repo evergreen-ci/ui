@@ -131,13 +131,15 @@ export const useSections = ({
     if (!sectionData || !sectionState) {
       return false;
     }
-    const nextState = openSectionContainingLineNumberHelper({
+    const [hasDiff, nextState] = openSectionContainingLineNumberHelper({
       lineNumber,
       sectionData,
       sectionState,
     });
-    setSectionState(nextState);
-    return nextState !== sectionState;
+    if (hasDiff) {
+      setSectionState(nextState);
+    }
+    return hasDiff;
   };
 
   return {
