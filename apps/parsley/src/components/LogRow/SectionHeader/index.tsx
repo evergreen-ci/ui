@@ -9,6 +9,7 @@ import { SectionStatus } from "constants/logs";
 import { size } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { CaretToggle } from "../CaretToggle";
+import { SubsectionControls } from "./SubsectionControls";
 
 const { gray } = palette;
 
@@ -47,9 +48,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <Icon fill={gray.dark1} glyph={statusGlyph} />
       <Body>Function: {functionName}</Body>
       <ButtonWrapper>
-        <Button onClick={() => {}} size={Size.XSmall}>
-          Open
-        </Button>
+        <SubsectionControls functionID={functionID} />
       </ButtonWrapper>
     </SectionHeaderWrapper>
   );

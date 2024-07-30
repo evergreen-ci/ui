@@ -31,6 +31,7 @@ export type ToggleFunctionSection = (props: {
 
 export interface UseSectionsResult {
   sectionData: SectionData | undefined;
+  toggleAllCommandsInFunction: (functionID: string, isOpen: boolean) => void;
   toggleCommandSection: ToggleCommandSection;
   toggleFunctionSection: ToggleFunctionSection;
   toggleAllSections: (isOpen: boolean) => void;
@@ -125,6 +126,32 @@ export const useSections = ({
     [],
   );
 
+  /**
+   * toggleAllCommandsInFunction will toggle all commands in a function section.
+   * @param functionID is the id of the function section.
+   * @param isOpen If true, all command sections in the function will be opened including the function.
+   * If false, all command sections will be closed without affecting the function open/close state.
+   */
+  const toggleAllCommandsInFunction = useCallback(
+    (functionID: string, isOpen: boolean) => {
+      setSectionState((currentState) => {
+        if (currentState) {
+          const nextState = structuredClone(currentState);
+          if (isOpen) {
+            nextState[functionID].isOpen = isOpen;
+          }
+          const commands = Object.keys(nextState[functionID].commands);
+          commands.forEach((commandID) => {
+            nextState[functionID].commands[commandID].isOpen = isOpen;
+          });
+          return nextState;
+        }
+        return currentState;
+      });
+    },
+    [],
+  );
+
   const toggleAllSections = useCallback(
     (isOpen: boolean) => {
       if (sectionData) {
@@ -163,6 +190,7 @@ export const useSections = ({
     sectionData,
     sectionState,
     sectioningEnabled,
+    toggleAllCommandsInFunction,
     toggleAllSections,
     toggleCommandSection,
     toggleFunctionSection,
