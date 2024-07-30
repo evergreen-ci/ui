@@ -155,9 +155,8 @@ const parseSections = (logs: string[]): SectionData => {
 
 /**
  * This function returns the next section state where all sections that contain the lineNumber values(s)
- * are open. The return value returns a boolean representing if the next state is different from current state.
- * As well as the next section state. If the next state is the same as the current state, the function will return
- * the current state reference.
+ * are open. The return value returns a boolean representing if the next state is different from current state
+ * as well as the next section state.
  * @param props is an object with a lineNumber key(s), sectionData and sectionState.
  * @param props.sectionData is the parsed section data
  * @param props.sectionState is the current section state
@@ -189,7 +188,7 @@ const openSectionContainingLineNumberHelper = ({
     nextState[functionID].commands[commandID].isOpen = true;
     nextState[functionID].isOpen = true;
   });
-  return [hasDiff, hasDiff ? nextState : sectionState];
+  return [hasDiff, nextState];
 };
 
 /**
