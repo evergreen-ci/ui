@@ -1,5 +1,6 @@
 import { ProcessedLogLines } from "types/logs";
 import {
+  isLogRow,
   isSectionHeaderRow,
   isSkippedLinesRow,
   isSubsectionHeaderRow,
@@ -32,7 +33,16 @@ const searchLogs = (options: searchOptions): number[] => {
     upperBound = Number.MAX_VALUE,
   } = options;
   const matchingLogIndices = new Set<number>();
-  processedLogLines.forEach((processedLogLine) => {
+  for (let pLLIndex = 0; pLLIndex < processedLogLines.length; pLLIndex++) {
+    const processedLogLine = processedLogLines[pLLIndex];
+    if (isLogRow(processedLogLine)) {
+      if (processedLogLine > upperBound) {
+        break;
+      }
+    } else if (processedLogLine.range.start > upperBound) {
+      break;
+    }
+
     if (isSectionHeaderRow(processedLogLine)) {
       for (
         let i = processedLogLine.range.start;
@@ -50,13 +60,13 @@ const searchLogs = (options: searchOptions): number[] => {
         isSubsectionHeaderRow(processedLogLine)
       )
     ) {
-      if (processedLogLine >= lowerBound && processedLogLine <= upperBound) {
+      if (processedLogLine >= lowerBound) {
         if (searchRegex.test(getLine(processedLogLine))) {
           matchingLogIndices.add(processedLogLine);
         }
       }
     }
-  });
+  }
   return Array.from(matchingLogIndices).sort((a, b) => a - b);
 };
 
