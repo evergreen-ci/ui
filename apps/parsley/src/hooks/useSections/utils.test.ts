@@ -394,7 +394,7 @@ describe("openSectionContainingLineNumberHelper", () => {
         isOpen: true,
       },
     };
-    expect(result).toStrictEqual(nextSectionState);
+    expect(result).toStrictEqual([true, nextSectionState]);
   });
 
   it("should return the given sectionState value and reference when the given line number doesn't belong to a section", () => {
@@ -403,8 +403,8 @@ describe("openSectionContainingLineNumberHelper", () => {
       sectionData,
       sectionState: initialSectionState,
     });
-    expect(result).toStrictEqual(initialSectionState);
-    expect(result).toBe(initialSectionState);
+    expect(result).toStrictEqual([false, initialSectionState]);
+    expect(result[1]).not.toBe(initialSectionState);
   });
 
   it("should return the given sectionState value and reference when the given line number's section is already open", () => {
@@ -427,8 +427,8 @@ describe("openSectionContainingLineNumberHelper", () => {
       sectionData,
       sectionState,
     });
-    expect(result).toStrictEqual(sectionState);
-    expect(result).toBe(sectionState);
+    expect(result).toStrictEqual([false, sectionState]);
+    expect(result[1]).not.toBe(sectionState);
   });
 });
 

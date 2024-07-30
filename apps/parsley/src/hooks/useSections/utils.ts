@@ -1,3 +1,4 @@
+import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { Range } from "types/logs";
 import { includesLineNumber } from "utils/logRow";
 import { trimSeverity } from "utils/string";
@@ -154,12 +155,13 @@ const parseSections = (logs: string[]): SectionData => {
 
 /**
  * This function returns the next section state where all sections that contain the lineNumber values(s)
- * are open. If the next state is the same as the current state, the function will return the current state
+ * are open. The return value returns a boolean representing if the next state is different from current state
+ * as well as the next section state.
  * @param props is an object with a lineNumber key(s), sectionData and sectionState.
  * @param props.sectionData is the parsed section data
  * @param props.sectionState is the current section state
  * @param props.lineNumber is a number or an array of numbers that represent raw log line numbers.
- * @returns SectionState | undefined
+ * @returns [boolean, SectionState]
  */
 const openSectionContainingLineNumberHelper = ({
   lineNumber,
@@ -169,28 +171,24 @@ const openSectionContainingLineNumberHelper = ({
   sectionData: SectionData;
   sectionState: SectionState;
   lineNumber: number | number[];
-}) => {
-  const lineNumberArray = Array.isArray(lineNumber) ? lineNumber : [lineNumber];
-  const sectionContainingLine = lineNumberArray
-    .map((n) =>
-      sectionData?.commands.find((section) => includesLineNumber(section, n)),
-    )
-    .filter((v) => v) as CommandEntry[];
+}): [boolean, SectionState] => {
+  const lineNumberArray = conditionalToArray(lineNumber, true);
+  const sectionContainingLine = sectionData.commands.filter((section) =>
+    lineNumberArray.some((n) => includesLineNumber(section, n)),
+  );
   const nextState = structuredClone(sectionState);
-  let diff = false;
-  if (sectionState) {
-    sectionContainingLine.forEach(({ commandID, functionID }) => {
-      if (
-        sectionState[functionID].commands[commandID].isOpen !== true ||
-        sectionState[functionID].isOpen !== true
-      ) {
-        diff = true;
-      }
-      nextState[functionID].commands[commandID].isOpen = true;
-      nextState[functionID].isOpen = true;
-    });
-  }
-  return diff ? nextState : sectionState;
+  let hasDiff = false;
+  sectionContainingLine.forEach(({ commandID, functionID }) => {
+    if (
+      sectionState[functionID].commands[commandID].isOpen !== true ||
+      sectionState[functionID].isOpen !== true
+    ) {
+      hasDiff = true;
+    }
+    nextState[functionID].commands[commandID].isOpen = true;
+    nextState[functionID].isOpen = true;
+  });
+  return [hasDiff, nextState];
 };
 
 /**

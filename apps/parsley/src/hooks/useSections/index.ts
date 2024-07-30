@@ -117,9 +117,8 @@ export const useSections = ({
   );
 
   /**
-   * This function will update the current section state and returns the next section state where
-   * all sections that contain the lineNumber values(s) are open. If the next state is the same as the current state,
-   * the function will return true and false otherwise.
+   * This function will update the current section state. If the next state is the
+   * same as the current state the function will return true and false otherwise.
    * @param param0 is an object with a lineNumber key(s).
    * @param param0.lineNumber is a number or an array of numbers that represent raw log line numbers.
    * @returns true if the sectionState was updated and false otherwise
@@ -132,13 +131,15 @@ export const useSections = ({
     if (!sectionData || !sectionState) {
       return false;
     }
-    const nextState = openSectionContainingLineNumberHelper({
+    const [hasDiff, nextState] = openSectionContainingLineNumberHelper({
       lineNumber,
       sectionData,
       sectionState,
     });
-    setSectionState(nextState);
-    return nextState !== sectionState;
+    if (hasDiff) {
+      setSectionState(nextState);
+    }
+    return hasDiff;
   };
 
   return {

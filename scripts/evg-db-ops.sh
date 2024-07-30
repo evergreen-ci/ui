@@ -7,6 +7,8 @@ URI="mongodb://localhost:27017/$DB_NAME"
 DUMP_ROOT=${TMPDIR}evg_dump
 DUMP_FOLDER="$DUMP_ROOT/$DB_NAME"
 
+RUNTIME_ENVIRONMENTS_SCRIPT_PATH="$(dirname "${BASH_SOURCE[0]}")/add-runtime-environments-creds.js"
+
 # Function to clean up temporary dump files.
 clean_up() {
     rm -rf "$DUMP_ROOT"
@@ -20,8 +22,21 @@ reseed_database() {
         echo "Unable to find Evergreen directory from the sdlschema symlink"
         exit 1
     fi
+
     # Load test data into the database.
     ../bin/load-smoke-data -path ../testdata/local -dbName evergreen_local -amboyDBName amboy_local
+
+    cd -
+
+    # Load credentials for the Image Visibility API.
+    echo "Adding runtime environments credentials..."
+    if [ "$CI" != 'true' ]; then
+        mongosh $DB_NAME --quiet $RUNTIME_ENVIRONMENTS_SCRIPT_PATH
+    else
+        ../../evergreen/mongosh/mongosh $DB_NAME --quiet $RUNTIME_ENVIRONMENTS_SCRIPT_PATH
+    fi
+    echo "Finished adding runtime environments credentials."
+
     cd - || exit
 }
 
