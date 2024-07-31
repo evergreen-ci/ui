@@ -282,6 +282,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 }
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 identifier={identifier}
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                projectId={projectId}
               />
             }
           />
