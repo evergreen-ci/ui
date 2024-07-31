@@ -209,7 +209,7 @@ production environments.
 
 When creating your queries you should be sure to limit the amount of documents
 so you don't accidently export an entire collection you can do this by passing a
-`--limit=<number>` flag to `mongoexport`
+limit to the query.
 
 ### Logkeeper
 
