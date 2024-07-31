@@ -882,6 +882,7 @@ export type Image = {
   id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
+  latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
   packages: Array<Package>;
   toolchains: Array<Toolchain>;

@@ -37,12 +37,14 @@ type ProjectSettings = ProjectSettingsQuery["projectSettings"];
 type RepoSettings = RepoSettingsQuery["repoSettings"];
 
 interface Props {
+  atTop: boolean;
   projectData?: ProjectSettings;
   projectType: ProjectType;
   repoData?: RepoSettings;
 }
 
 export const ProjectSettingsTabs: React.FC<Props> = ({
+  atTop,
   projectData,
   projectType,
   repoData,
@@ -82,6 +84,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
       <NavigationModal />
       <Header
         attachedRepoId={projectData?.projectRef?.repoRefId}
+        atTop={atTop}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         id={projectId || repoId}
         projectType={projectType}

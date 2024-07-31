@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -47,6 +48,23 @@ const ProjectSettings: React.FC = () => {
       [slugs.projectIdentifier]: string | null;
       [slugs.tab]: ProjectSettingsTabRoutes;
     }>();
+
+  const [atTop, setAtTop] = useState(false);
+  const pageWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.screenY < 40) {
+        setAtTop(true);
+      } else {
+        setAtTop(false);
+      }
+    };
+    pageWrapperRef?.current?.addEventListener("scroll", onScroll);
+    return () =>
+      pageWrapperRef?.current?.removeEventListener("scroll", onScroll);
+  }, []);
+
   // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const identifierIsObjectId = validateObjectId(projectIdentifier);
@@ -234,9 +252,17 @@ const ProjectSettings: React.FC = () => {
           />
         </SideNavGroup>
       </SideNav>
-      <PageWrapper data-cy="project-settings-page">
+      <PageWrapper
+        data-cy="project-settings-page"
+        css={css`
+          padding-top: 0;
+          margin-top: ${size.m};
+        `}
+        ref={pageWrapperRef}
+      >
         {hasLoaded ? (
           <ProjectSettingsTabs
+            atTop={atTop}
             projectData={projectData?.projectSettings}
             projectType={projectType}
             repoData={repoData?.repoSettings}

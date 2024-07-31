@@ -16,6 +16,7 @@ import {
 import { ProjectType } from "./tabs/utils";
 
 interface Props {
+  atTop: boolean;
   attachedRepoId?: string;
   id: string;
   projectType: ProjectType;
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({
+  atTop,
   attachedRepoId,
   id,
   projectType,
@@ -35,7 +37,7 @@ export const Header: React.FC<Props> = ({
   const showRepoLink = !projectOnlyTabs.has(tab);
 
   return (
-    <Container>
+    <Container atTop={atTop}>
       <TitleContainer>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
         {projectType === ProjectType.AttachedProject && showRepoLink && (
@@ -59,11 +61,18 @@ export const Header: React.FC<Props> = ({
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ atTop: boolean }>`
   align-items: start;
+  background-color: white;
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${size.l};
+  margin: 0 -${size.l};
+  padding: 0 ${size.l} ${size.s} ${size.l};
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  ${({ atTop }) => atTop && "box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.5);"}
 `;
 
 const TitleContainer = styled.div`
