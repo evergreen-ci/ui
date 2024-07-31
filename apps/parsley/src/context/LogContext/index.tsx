@@ -237,7 +237,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
 
   const openSectionAndScrollToLine = useOpenSectionAndScrollToLine(
     processedLogLines,
-    sectioning.openSectionContainingLineNumber,
+    sectioning.openSectionsContainingLineNumbers,
     scrollToLine,
   );
   const stringifiedSearchResults = searchResults.toString();

@@ -1,8 +1,5 @@
 import { ProcessedLogLines } from "types/logs";
-import {
-  isLogRow,
-  isSectionHeaderRow,
-} from "utils/logRowTypes";
+import { isLogRow, isSectionHeaderRow } from "utils/logRowTypes";
 
 interface searchOptions {
   searchRegex: RegExp;

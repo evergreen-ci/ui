@@ -35,9 +35,7 @@ export interface UseSectionsResult {
   toggleFunctionSection: ToggleFunctionSection;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
-  openSectionContainingLineNumber: (p: {
-    lineNumber: number | number[];
-  }) => boolean;
+  openSectionsContainingLineNumbers: (p: { lineNumbers: number[] }) => boolean;
 }
 
 interface Props {
@@ -117,23 +115,23 @@ export const useSections = ({
   );
 
   /**
-   * This function will update the current section state. If the next state is the
+   * openSectionsContainingLineNumbers Will update the current section state. If the next state is the
    * same as the current state the function will return true and false otherwise.
    * @param param0 is an object with a lineNumber key(s).
-   * @param param0.lineNumber is a number or an array of numbers that represent raw log line numbers.
+   * @param param0.lineNumbers is a number or an array of numbers that represent raw log line numbers.
    * @returns true if the sectionState was updated and false otherwise
    */
-  const openSectionContainingLineNumber = ({
-    lineNumber,
+  const openSectionsContainingLineNumbers = ({
+    lineNumbers,
   }: {
-    lineNumber: number | number[];
+    lineNumbers: number[];
   }): boolean => {
     if (!sectionData || !sectionState) {
       return false;
     }
     const [hasDiff, nextState] =
       getSectionStateWithOpenSectionBasedOnLineNumber({
-        lineNumbers: Array.isArray(lineNumber) ? lineNumber : [lineNumber],
+        lineNumbers,
         sectionData,
         sectionState,
       });
@@ -144,7 +142,7 @@ export const useSections = ({
   };
 
   return {
-    openSectionContainingLineNumber,
+    openSectionsContainingLineNumbers,
     sectionData,
     sectionState,
     sectioningEnabled,
