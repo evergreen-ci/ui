@@ -2,8 +2,6 @@ import { ProcessedLogLines } from "types/logs";
 import {
   isLogRow,
   isSectionHeaderRow,
-  isSkippedLinesRow,
-  isSubsectionHeaderRow,
 } from "utils/logRowTypes";
 
 interface searchOptions {
@@ -35,6 +33,7 @@ const searchLogs = (options: searchOptions): number[] => {
   const matchingLogIndices = new Set<number>();
   for (let pLLIndex = 0; pLLIndex < processedLogLines.length; pLLIndex++) {
     const processedLogLine = processedLogLines[pLLIndex];
+    // Since processedLogLines is ordered by line number, we can stop searching if we are out of range for our upper bound.
     if (isLogRow(processedLogLine)) {
       if (processedLogLine > upperBound) {
         break;
@@ -53,13 +52,7 @@ const searchLogs = (options: searchOptions): number[] => {
           matchingLogIndices.add(i);
         }
       }
-    } else if (
-      !(
-        isSkippedLinesRow(processedLogLine) ||
-        isSectionHeaderRow(processedLogLine) ||
-        isSubsectionHeaderRow(processedLogLine)
-      )
-    ) {
+    } else if (isLogRow(processedLogLine)) {
       if (processedLogLine >= lowerBound) {
         if (searchRegex.test(getLine(processedLogLine))) {
           matchingLogIndices.add(processedLogLine);
