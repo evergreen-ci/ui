@@ -133,7 +133,7 @@ export const useSections = ({
     }
     const [hasDiff, nextState] =
       getSectionStateWithOpenSectionBasedOnLineNumber({
-        lineNumber,
+        lineNumbers: Array.isArray(lineNumber) ? lineNumber : [lineNumber],
         sectionData,
         sectionState,
       });

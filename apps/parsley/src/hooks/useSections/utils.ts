@@ -1,4 +1,3 @@
-import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { Range } from "types/logs";
 import { includesLineNumber } from "utils/logRow";
 import { trimSeverity } from "utils/string";
@@ -154,27 +153,26 @@ const parseSections = (logs: string[]): SectionData => {
 };
 
 /**
- * getSectionStateWithOpenSectionBasedOnLineNumber Gets the next section state where all sections that contain the lineNumber values(s)
+ * getSectionStateWithOpenSectionBasedOnLineNumber Gets the next section state where all sections that contain the lineNumber values
  * are open. The return value returns a boolean representing if the next state is different from current state
  * as well as the next section state.
  * @param props is an object with a lineNumber key(s), sectionData and sectionState.
  * @param props.sectionData is the parsed section data
  * @param props.sectionState is the current section state
- * @param props.lineNumber is a number or an array of numbers that represent raw log line numbers.
+ * @param props.lineNumbers is an array of numbers that represent raw log line numbers.
  * @returns [boolean, SectionState]
  */
 const getSectionStateWithOpenSectionBasedOnLineNumber = ({
-  lineNumber,
+  lineNumbers,
   sectionData,
   sectionState,
 }: {
   sectionData: SectionData;
   sectionState: SectionState;
-  lineNumber: number | number[];
+  lineNumbers: number[];
 }): [boolean, SectionState] => {
-  const lineNumberArray = conditionalToArray(lineNumber, true);
   const sectionContainingLine = sectionData.commands.filter((section) =>
-    lineNumberArray.some((n) => includesLineNumber(section, n)),
+    lineNumbers.some((n) => includesLineNumber(section, n)),
   );
   const nextState = structuredClone(sectionState);
   let hasDiff = false;

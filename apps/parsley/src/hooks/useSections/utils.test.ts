@@ -376,7 +376,7 @@ describe("parseSections", () => {
 describe("getSectionStateWithOpenSectionBasedOnLineNumber", () => {
   it("should open the sections containing the line number", () => {
     const result = getSectionStateWithOpenSectionBasedOnLineNumber({
-      lineNumber: 1,
+      lineNumbers: [1],
       sectionData,
       sectionState: initialSectionState,
     });
@@ -399,7 +399,7 @@ describe("getSectionStateWithOpenSectionBasedOnLineNumber", () => {
 
   it("should return the given sectionState value and reference when the given line number doesn't belong to a section", () => {
     const result = getSectionStateWithOpenSectionBasedOnLineNumber({
-      lineNumber: 100,
+      lineNumbers: [100],
       sectionData,
       sectionState: initialSectionState,
     });
@@ -423,7 +423,7 @@ describe("getSectionStateWithOpenSectionBasedOnLineNumber", () => {
       },
     };
     const result = getSectionStateWithOpenSectionBasedOnLineNumber({
-      lineNumber: 1,
+      lineNumbers: [1],
       sectionData,
       sectionState,
     });
