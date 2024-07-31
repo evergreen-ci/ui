@@ -79,7 +79,6 @@ const EventsTable: React.FC<{}> = () => {
     defaultColumn: {
       enableColumnFilter: false,
     },
-    manualPagination: true,
   });
 
   return (

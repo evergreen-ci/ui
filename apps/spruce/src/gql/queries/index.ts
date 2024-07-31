@@ -24,6 +24,7 @@ import HAS_VERSION from "./has-version.graphql";
 import HOST_EVENTS from "./host-events.graphql";
 import HOST from "./host.graphql";
 import HOSTS from "./hosts.graphql";
+import IMAGE_PACKAGES from "./image-packages.graphql";
 import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
 import IS_PATCH_CONFIGURED from "./is-patch-configured.graphql";
@@ -110,6 +111,7 @@ export {
   HOST_EVENTS,
   HOST,
   HOSTS,
+  IMAGE_PACKAGES,
   IMAGES,
   INSTANCE_TYPES,
   IS_PATCH_CONFIGURED,
