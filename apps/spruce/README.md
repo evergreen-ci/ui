@@ -181,35 +181,33 @@ production environments.
 
 1. You should identify if the data you need is located in the staging or prod db
    and connect to them using the instructions in the Evergreen Operations Guide
-2. Run `mongo` to open the the mongo shell.
-3. Identify the query you need to fetch the data you are looking for.
+2. Identify the query you need to fetch the data you are looking for.
 
-   ```
+   ```sh
    Atlas atlas-mxabkq-shard-0 [primary] mci> db.distro.find({_id: "archlinux-small"}) // the full query
    ```
 
-4. Write the file to your local system using the following command
+3. Write the file to your local system using the following command
 
+   ```sh
+   Atlas atlas-mxabkq-shard-0 [primary] mci> fs.writeFileSync('output.json', JSON.stringify(db.distro.find({_id: "archlinux-small"})))
    ```
-   fs.writeFileSync('output.json', JSON.stringify(db.distro.find({_id: "archlinux-small"})))
-   ```
 
-   After running this command a file will be saved to your filesystem with the
-   results of the query.
+   A file will be saved to your filesystem with the results of the query.
 
-5. Exit the ssh session using `exit` or `Ctrl + D`
-6. You should ensure this file does not contain any sensitive information before
+4. Exit the ssh session using `exit` or `Ctrl + D`
+5. You should ensure this file does not contain any sensitive information before
    committing it to the repository.
-7. Once you have this file you can copy the contents of it to the relevant
+6. Once you have this file you can copy the contents of it to the relevant
    `testdata/local/<collection>.json` file with in the evergreen folder
-8. You can then run `yarn evg-db-ops --reseed` to repopulate the local database
+7. You can then run `yarn evg-db-ops --reseed` to repopulate the local database
    with your new data.
 
 **Notes**
 
 When creating your queries you should be sure to limit the amount of documents
-so you don't accidently export an entire collection you can do this by passing a
-limit to the query.
+so you don't accidently export an entire collection. You can do this by passing
+a limit to the query.
 
 ### Logkeeper
 
