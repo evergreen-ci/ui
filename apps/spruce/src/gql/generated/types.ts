@@ -882,8 +882,10 @@ export type Image = {
   id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
+  latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
   packages: Array<Package>;
+  toolchains: Array<Toolchain>;
   versionId: Scalars["String"]["output"];
 };
 
@@ -893,6 +895,14 @@ export type Image = {
  */
 export type ImagePackagesArgs = {
   opts: PackageOpts;
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImageToolchainsArgs = {
+  opts: ToolchainOpts;
 };
 
 export type InstanceTag = {
@@ -2988,6 +2998,19 @@ export type TicketFields = {
   updated: Scalars["String"]["output"];
 };
 
+export type Toolchain = {
+  __typename?: "Toolchain";
+  name: Scalars["String"]["output"];
+  path: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
+export type ToolchainOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
 export type TriggerAlias = {
   __typename?: "TriggerAlias";
   alias: Scalars["String"]["output"];
@@ -3607,8 +3630,29 @@ export type AliasFragment = {
 };
 
 export type ProjectAppSettingsFragment = {
-  __typename?: "Project";
-  githubPermissionGroupByRequester?: { [key: string]: any } | null;
+  __typename?: "ProjectSettings";
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+    privateKey?: string | null;
+  } | null;
+  projectRef?: {
+    __typename?: "Project";
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
+  } | null;
+};
+
+export type ProjectEventAppSettingsFragment = {
+  __typename?: "ProjectEventSettings";
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+    privateKey?: string | null;
+  } | null;
+  projectRef?: {
+    __typename?: "Project";
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
+  } | null;
 };
 
 export type ProjectContainerSettingsFragment = {
@@ -3777,9 +3821,9 @@ export type ProjectSettingsFieldsFragment = {
     id: string;
     identifier: string;
     repoRefId: string;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     admins?: Array<string> | null;
     restricted?: boolean | null;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
@@ -3961,6 +4005,11 @@ export type ProjectSettingsFieldsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+  } | null;
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+    privateKey?: string | null;
   } | null;
 };
 
@@ -4375,9 +4424,9 @@ export type ProjectEventSettingsFragment = {
     repoRefId: string;
     tracksPushEvents?: boolean | null;
     versionControlEnabled?: boolean | null;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     admins?: Array<string> | null;
     restricted?: boolean | null;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     batchTime: number;
     branch: string;
     deactivatePrevious?: boolean | null;
@@ -4552,6 +4601,11 @@ export type ProjectEventSettingsFragment = {
     adminOnlyVars: Array<string>;
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
+  } | null;
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+    privateKey?: string | null;
   } | null;
 };
 
@@ -6839,9 +6893,9 @@ export type ProjectEventLogsQuery = {
           repoRefId: string;
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7023,6 +7077,11 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+        } | null;
+        githubAppAuth?: {
+          __typename?: "GithubAppAuth";
+          appId?: number | null;
+          privateKey?: string | null;
         } | null;
       } | null;
       before?: {
@@ -7052,9 +7111,9 @@ export type ProjectEventLogsQuery = {
           repoRefId: string;
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7236,6 +7295,11 @@ export type ProjectEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+        } | null;
+        githubAppAuth?: {
+          __typename?: "GithubAppAuth";
+          appId?: number | null;
+          privateKey?: string | null;
         } | null;
       } | null;
     }>;
@@ -7338,9 +7402,9 @@ export type ProjectSettingsQuery = {
       id: string;
       identifier: string;
       repoRefId: string;
+      githubPermissionGroupByRequester?: { [key: string]: any } | null;
       admins?: Array<string> | null;
       restricted?: boolean | null;
-      githubPermissionGroupByRequester?: { [key: string]: any } | null;
       batchTime: number;
       branch: string;
       deactivatePrevious?: boolean | null;
@@ -7526,6 +7590,11 @@ export type ProjectSettingsQuery = {
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
     } | null;
+    githubAppAuth?: {
+      __typename?: "GithubAppAuth";
+      appId?: number | null;
+      privateKey?: string | null;
+    } | null;
   };
 };
 
@@ -7606,9 +7675,9 @@ export type RepoEventLogsQuery = {
           repoRefId: string;
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -7790,6 +7859,11 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+        } | null;
+        githubAppAuth?: {
+          __typename?: "GithubAppAuth";
+          appId?: number | null;
+          privateKey?: string | null;
         } | null;
       } | null;
       before?: {
@@ -7819,9 +7893,9 @@ export type RepoEventLogsQuery = {
           repoRefId: string;
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           batchTime: number;
           branch: string;
           deactivatePrevious?: boolean | null;
@@ -8003,6 +8077,11 @@ export type RepoEventLogsQuery = {
           adminOnlyVars: Array<string>;
           privateVars: Array<string>;
           vars?: { [key: string]: any } | null;
+        } | null;
+        githubAppAuth?: {
+          __typename?: "GithubAppAuth";
+          appId?: number | null;
+          privateKey?: string | null;
         } | null;
       } | null;
     }>;

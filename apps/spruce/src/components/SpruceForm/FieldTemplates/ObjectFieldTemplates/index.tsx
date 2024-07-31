@@ -157,9 +157,14 @@ export const FieldRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
   const dataCy = uiSchema?.["ui:data-cy"];
+  const css = uiSchema?.["ui:elementWrapperCSS"];
   const fields = getFields(properties, formData.isDisabled);
 
-  return <RowContainer data-cy={dataCy}>{fields}</RowContainer>;
+  return (
+    <RowContainer css={css} data-cy={dataCy}>
+      {fields}
+    </RowContainer>
+  );
 };
 
 const RowContainer = styled.div`

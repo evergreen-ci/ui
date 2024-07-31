@@ -18,12 +18,12 @@ fragment ProjectSettingsFields on ProjectSettings {
   aliases {
     ...Alias
   }
+  ...ProjectAppSettings
   ...ProjectGithubCommitQueue
   projectRef {
     id
     identifier
     ...ProjectAccessSettings
-    ...ProjectAppSettings
     ...ProjectContainerSettings
     ...ProjectGeneralSettings
     ...ProjectNotificationSettings
