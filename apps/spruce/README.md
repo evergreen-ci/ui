@@ -206,7 +206,7 @@ production environments.
 **Notes**
 
 When creating your queries you should be sure to limit the amount of documents
-so you don't accidently export an entire collection. You can do this by passing
+so you don't accidentally export an entire collection. You can do this by passing
 a limit to the query.
 
 ### Logkeeper
