@@ -5718,6 +5718,7 @@ export type BuildVariantsForTaskNameQuery = {
 
 export type BuildVariantsWithChildrenQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  statuses: Array<Scalars["String"]["input"]>;
 }>;
 
 export type BuildVariantsWithChildrenQuery = {
