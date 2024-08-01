@@ -6,7 +6,7 @@ import { reportError } from "utils/errorReporting";
 import { releaseSectioning } from "utils/featureFlag";
 import {
   SectionData,
-  getSectionStateWithOpenSectionBasedOnLineNumber,
+  getOpenSectionStateBasedOnLineNumbers,
   parseSections,
   populateSectionState,
 } from "./utils";
@@ -131,12 +131,11 @@ export const useSections = ({
     if (!sectionData || !sectionState) {
       return false;
     }
-    const [hasDiff, nextState] =
-      getSectionStateWithOpenSectionBasedOnLineNumber({
-        lineNumbers,
-        sectionData,
-        sectionState,
-      });
+    const [hasDiff, nextState] = getOpenSectionStateBasedOnLineNumbers({
+      lineNumbers,
+      sectionData,
+      sectionState,
+    });
     if (hasDiff) {
       setSectionState(nextState);
     }

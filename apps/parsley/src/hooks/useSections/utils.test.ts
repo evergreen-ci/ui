@@ -1,7 +1,7 @@
 import { initialSectionState, sectionData } from "./testData";
 import {
   SectionData,
-  getSectionStateWithOpenSectionBasedOnLineNumber,
+  getOpenSectionStateBasedOnLineNumbers,
   parseSections,
   populateSectionState,
   processLine,
@@ -373,9 +373,9 @@ describe("parseSections", () => {
   });
 });
 
-describe("getSectionStateWithOpenSectionBasedOnLineNumber", () => {
+describe("getOpenSectionStateBasedOnLineNumbers", () => {
   it("should open the sections containing the line number", () => {
-    const result = getSectionStateWithOpenSectionBasedOnLineNumber({
+    const result = getOpenSectionStateBasedOnLineNumbers({
       lineNumbers: [1],
       sectionData,
       sectionState: initialSectionState,
@@ -398,7 +398,7 @@ describe("getSectionStateWithOpenSectionBasedOnLineNumber", () => {
   });
 
   it("should return the given sectionState value and reference when the given line number doesn't belong to a section", () => {
-    const result = getSectionStateWithOpenSectionBasedOnLineNumber({
+    const result = getOpenSectionStateBasedOnLineNumbers({
       lineNumbers: [100],
       sectionData,
       sectionState: initialSectionState,
@@ -422,7 +422,7 @@ describe("getSectionStateWithOpenSectionBasedOnLineNumber", () => {
         isOpen: true,
       },
     };
-    const result = getSectionStateWithOpenSectionBasedOnLineNumber({
+    const result = getOpenSectionStateBasedOnLineNumbers({
       lineNumbers: [1],
       sectionData,
       sectionState,
