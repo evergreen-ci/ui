@@ -3,38 +3,16 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Body } from "@leafygreen-ui/typography";
-import { ArrayFieldTemplateProps, ObjectFieldTemplateProps } from "@rjsf/core";
+import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
-import { getFields } from "components/SpruceForm/utils";
 import { BaseTable } from "components/Table/BaseTable";
 import { size, tableColumnOffset } from "constants/tokens";
 import { Unpacked } from "types/utils";
 
-export const PermissionObjectFieldTemplate: React.FC<
-  Pick<ObjectFieldTemplateProps, "formData" | "properties">
-> = ({ formData, properties }) => {
-  const [permissionType, permissionValue] = getFields(
-    properties,
-    formData.isDisabled,
-  );
-  return (
-    <RowContainer>
-      {permissionType}
-      {permissionValue}
-    </RowContainer>
-  );
-};
-
-const RowContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: ${size.l};
-`;
-
 type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;
 
-export const PermissionArrayFieldTemplate: React.FC<
+export const ArrayFieldTemplate: React.FC<
   Pick<ArrayFieldTemplateProps, "items" | "onAddClick">
 > = ({ items, onAddClick }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);

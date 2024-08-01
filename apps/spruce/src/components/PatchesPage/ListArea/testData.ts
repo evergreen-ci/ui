@@ -12,6 +12,7 @@ const patchData = {
   id: "667b2f7f7a878200076f23d1",
   projectIdentifier: "evergreen-ui",
   projectMetadata: {
+    id: "123456",
     owner: "evergreen-ci",
     repo: "ui",
   },

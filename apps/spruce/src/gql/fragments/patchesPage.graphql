@@ -13,6 +13,7 @@ fragment PatchesPagePatches on Patches {
     id
     projectIdentifier
     projectMetadata {
+      id
       owner
       repo
     }

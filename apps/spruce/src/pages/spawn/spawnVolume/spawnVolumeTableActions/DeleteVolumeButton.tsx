@@ -44,7 +44,7 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
       data-cy="delete-volume-popconfirm"
       onConfirm={() => {
         spawnAnalytics.sendEvent({
-          name: "Delete volume",
+          name: "Deleted a volume",
           volumeId: volume.id,
         });
         removeVolume({ variables: { volumeId: volume.id } });

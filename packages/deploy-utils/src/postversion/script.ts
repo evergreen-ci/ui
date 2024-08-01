@@ -1,5 +1,13 @@
 #!/usr/bin/env -S vite-node --script
 
-import { postversion } from ".";
+import { push, pushTags } from "../utils/git";
+import { countdownTimer } from "../utils/shell";
 
-postversion();
+push();
+
+await countdownTimer(
+  10,
+  (n) => `Waiting ${n}s for Evergreen to pick up the version.`,
+);
+
+pushTags();

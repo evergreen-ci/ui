@@ -18,7 +18,7 @@ export const useBreadcrumbRoot = (
         text: userPatchesPageTitle,
         onClick: () => {
           breadcrumbAnalytics.sendEvent({
-            name: "Click Link",
+            name: "Clicked link",
             link: "myPatches",
           });
         },
@@ -29,7 +29,7 @@ export const useBreadcrumbRoot = (
         text: projectIdentifier,
         onClick: () => {
           breadcrumbAnalytics.sendEvent({
-            name: "Click Link",
+            name: "Clicked link",
             link: "waterfall",
           });
         },

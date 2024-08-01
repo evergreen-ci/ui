@@ -8,7 +8,7 @@ import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
-import { commitQueueRequester } from "constants/patch";
+import { commitQueueRequester } from "constants/requesters";
 import { getTaskHistoryRoute, slugs } from "constants/routes";
 import { mergeTaskName } from "constants/task";
 import { useToastContext } from "context/toast";
@@ -204,7 +204,7 @@ export const ActionButtons: React.FC<Props> = ({
       data-cy="unschedule-task"
       onClick={() => {
         unscheduleTask();
-        taskAnalytics.sendEvent({ name: "Unschedule" });
+        taskAnalytics.sendEvent({ name: "Clicked unschedule task button" });
       }}
     >
       Unschedule
@@ -215,7 +215,7 @@ export const ActionButtons: React.FC<Props> = ({
       disabled={disabled || !canAbort}
       onClick={() => {
         abortTask();
-        taskAnalytics.sendEvent({ name: "Abort" });
+        taskAnalytics.sendEvent({ name: "Clicked abort task button" });
       }}
     >
       Abort
@@ -269,7 +269,7 @@ export const ActionButtons: React.FC<Props> = ({
               data-cy="task-history"
               key="task-history"
               onClick={() => {
-                taskAnalytics.sendEvent({ name: "Click See History Button" });
+                taskAnalytics.sendEvent({ name: "Clicked see history link" });
               }}
               as={HistoryLink}
               disabled={displayName === mergeTaskName}
@@ -286,7 +286,7 @@ export const ActionButtons: React.FC<Props> = ({
           loading={loadingScheduleTask}
           onClick={() => {
             scheduleTask();
-            taskAnalytics.sendEvent({ name: "Schedule" });
+            taskAnalytics.sendEvent({ name: "Clicked schedule task button" });
           }}
         >
           Schedule
@@ -308,7 +308,11 @@ export const ActionButtons: React.FC<Props> = ({
               onClick={() => {
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 restartTask({ variables: { taskId, failedOnly: false } });
-                taskAnalytics.sendEvent({ name: "Restart" });
+                taskAnalytics.sendEvent({
+                  name: "Clicked restart task button",
+                  allTasks: true,
+                  isDisplayTask: true,
+                });
               }}
             >
               Restart all tasks
@@ -317,7 +321,11 @@ export const ActionButtons: React.FC<Props> = ({
               onClick={() => {
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 restartTask({ variables: { taskId, failedOnly: true } });
-                taskAnalytics.sendEvent({ name: "Restart" });
+                taskAnalytics.sendEvent({
+                  name: "Clicked restart task button",
+                  allTasks: false,
+                  isDisplayTask: true,
+                });
               }}
             >
               Restart unsuccessful tasks
@@ -333,7 +341,10 @@ export const ActionButtons: React.FC<Props> = ({
             onClick={() => {
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               restartTask({ variables: { taskId, failedOnly: false } });
-              taskAnalytics.sendEvent({ name: "Restart" });
+              taskAnalytics.sendEvent({
+                name: "Clicked restart task button",
+                isDisplayTask: false,
+              });
             }}
           >
             Restart
@@ -345,7 +356,7 @@ export const ActionButtons: React.FC<Props> = ({
           key="notifications"
           disabled={disabled}
           onClick={() => {
-            taskAnalytics.sendEvent({ name: "Open Notification Modal" });
+            taskAnalytics.sendEvent({ name: "Viewed notification modal" });
             setIsVisibleModal(true);
           }}
         >

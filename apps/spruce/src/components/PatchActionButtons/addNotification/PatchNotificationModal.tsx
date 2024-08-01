@@ -25,7 +25,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       resourceId={versionId}
       sendAnalyticsEvent={(subscription) =>
-        sendEvent({ name: "Add Notification", subscription })
+        sendEvent({ name: "Created notification", subscription })
       }
       subscriptionMethods={versionSubscriptionMethods}
       triggers={versionTriggers}

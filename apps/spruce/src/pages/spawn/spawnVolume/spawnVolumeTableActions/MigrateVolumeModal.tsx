@@ -106,7 +106,7 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
       migrateVolumeId: volume.id,
     });
     sendEvent({
-      name: "Spawned a host",
+      name: "Created a spawn host",
       isMigration: true,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       params: omit(mutationInput, [

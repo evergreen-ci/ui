@@ -122,7 +122,7 @@ export const Task = () => {
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               latestExecution={latestExecution}
               updateExecution={(n: number) => {
-                taskAnalytics.sendEvent({ name: "Change Execution" });
+                taskAnalytics.sendEvent({ name: "Changed execution" });
                 updateQueryParams({
                   execution: `${n}`,
                 });

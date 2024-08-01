@@ -124,7 +124,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             variant: applyStrictRegex(buildVariant),
           })}
           onClick={() =>
-            taskAnalytics.sendEvent({ name: "Click Build Variant Link" })
+            taskAnalytics.sendEvent({
+              name: "Clicked metadata link",
+              linkType: "build variant link",
+            })
           }
         >
           {buildVariantDisplayName || buildVariant}
@@ -137,7 +140,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getProjectPatchesRoute(projectIdentifier)}
           onClick={() =>
-            taskAnalytics.sendEvent({ name: "Click Project Link" })
+            taskAnalytics.sendEvent({
+              name: "Clicked metadata link",
+              linkType: "project link",
+            })
           }
         >
           {projectIdentifier}
@@ -217,7 +223,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             as={Link}
             data-cy="base-task-link"
             onClick={() =>
-              taskAnalytics.sendEvent({ name: "Click Base Commit" })
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                linkType: "base commit",
+              })
             }
             to={getTaskRoute(baseTaskId)}
           >
@@ -245,7 +254,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               execution: displayTask.execution,
             })}
             onClick={() =>
-              taskAnalytics.sendEvent({ name: "Click Display Task Link" })
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                linkType: "display task link",
+              })
             }
           >
             {displayTask.displayName}
@@ -258,7 +270,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           <StyledRouterLink
             data-cy="task-distro-link"
             onClick={() =>
-              taskAnalytics.sendEvent({ name: "Click Distro Link" })
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                linkType: "distro link",
+              })
             }
             to={getDistroSettingsRoute(distroId)}
           >
@@ -275,7 +290,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           <StyledLink
             data-cy="task-host-link"
             href={getHostRoute(hostId)}
-            onClick={() => taskAnalytics.sendEvent({ name: "Click Host Link" })}
+            onClick={() =>
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                linkType: "host link",
+              })
+            }
           >
             {hostId}
           </StyledLink>
@@ -287,7 +307,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           <StyledLink
             data-cy="task-pod-link"
             href={getPodRoute(podId)}
-            onClick={() => taskAnalytics.sendEvent({ name: "Click Pod Link" })}
+            onClick={() =>
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                linkType: "pod link",
+              })
+            }
           >
             {podId}
           </StyledLink>
@@ -309,7 +334,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               taskId,
             })}
             onClick={() =>
-              taskAnalytics.sendEvent({ name: "Click Spawn Host" })
+              taskAnalytics.sendEvent({
+                name: "Clicked metadata link",
+                linkType: "spawn host link",
+              })
             }
           >
             Spawn host
@@ -324,8 +352,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               href={link.url}
               onClick={() =>
                 taskAnalytics.sendEvent({
-                  name: "Click Annotation Link",
-                  linkText: link.text,
+                  name: "Clicked metadata link",
+                  linkType: "annotation link",
                 })
               }
             >
@@ -395,7 +423,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
               onClick={() => {
                 onHideCue();
-                taskAnalytics.sendEvent({ name: "Click Trace Link" });
+                taskAnalytics.sendEvent({
+                  name: "Clicked metadata link",
+                  linkType: "honeycomb trace link",
+                });
               }}
               hideExternalIcon={false}
             >
@@ -412,7 +443,10 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               )}
               onClick={() => {
                 onHideCue();
-                taskAnalytics.sendEvent({ name: "Click Trace Metrics Link" });
+                taskAnalytics.sendEvent({
+                  name: "Clicked metadata link",
+                  linkType: "honeycomb metrics link",
+                });
               }}
               hideExternalIcon={false}
             >

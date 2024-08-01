@@ -11,11 +11,13 @@
 #import "./periodicBuilds.graphql"
 #import "./viewsAndFilters.graphql"
 #import "./permissionGroups.graphql"
+#import "./appSettings.graphql"
 
 fragment ProjectEventSettings on ProjectEventSettings {
   aliases {
     ...Alias
   }
+  ...ProjectEventAppSettings
   ...ProjectEventGithubCommitQueue
   projectRef {
     hidden

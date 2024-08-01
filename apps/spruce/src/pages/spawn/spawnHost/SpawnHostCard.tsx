@@ -103,7 +103,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
       <IDEContainer>
         <StyledLink
           href={getIdeUrl(host.id)}
-          onClick={() => sendEvent({ name: "Opened IDE" })}
+          onClick={() => sendEvent({ name: "Clicked open IDE button" })}
         >
           Open IDE (Deprecated)
         </StyledLink>

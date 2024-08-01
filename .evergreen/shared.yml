@@ -160,6 +160,9 @@ functions:
     params:
       working_dir: ui/${app_dir}
       shell: bash
+      env:
+        STAGING_RUNTIME_ENVIRONMENTS_BASE_URL: ${staging_runtime_environments_base_url}
+        STAGING_RUNTIME_ENVIRONMENTS_API_KEY: ${staging_runtime_environments_api_key}
       script: |
         ${PREPARE_SHELL}
         # Allow spec filtering for an intentional patch.

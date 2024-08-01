@@ -1,11 +1,11 @@
 import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
 
 type Action =
-  | { name: "Select Distro"; distro: string }
-  | { name: "Click Task Link" }
-  | { name: "Click Version Link" }
-  | { name: "Click Project Link" }
-  | { name: "Click Activated By Link" };
+  | { name: "Changed distro"; distro: string }
+  | { name: "Clicked task link" }
+  | { name: "Clicked version link" }
+  | { name: "Clicked project link" }
+  | { name: "Clicked activated by link" };
 
 export const useTaskQueueAnalytics = () =>
   useAnalyticsRoot<Action>("TaskQueue");

@@ -86,7 +86,7 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
               <Popconfirm
                 align="right"
                 onConfirm={() => {
-                  sendEvent({ name: "Delete public key" });
+                  sendEvent({ name: "Deleted public key" });
                   removePublicKey({ variables: { keyName: name } });
                 }}
                 trigger={

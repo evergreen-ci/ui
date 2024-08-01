@@ -12,11 +12,13 @@
 #import "./containers.graphql"
 #import "./viewsAndFilters.graphql"
 #import "./permissionGroups.graphql"
+#import "./appSettings.graphql"
 
 fragment ProjectSettingsFields on ProjectSettings {
   aliases {
     ...Alias
   }
+  ...ProjectAppSettings
   ...ProjectGithubCommitQueue
   projectRef {
     id

@@ -38,7 +38,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           href={urlParsley}
           onClick={() =>
             sendEvent({
-              name: "Click Test Logs Button",
+              name: "Clicked test log link",
               logViewer: "parsley",
               testStatus: status,
             })
@@ -56,7 +56,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           href={urlHTML}
           onClick={() =>
             sendEvent({
-              name: "Click Test Logs Button",
+              name: "Clicked test log link",
               logViewer: "html",
               testStatus: status,
             })
@@ -74,7 +74,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           href={urlRaw}
           onClick={() =>
             sendEvent({
-              name: "Click Test Logs Button",
+              name: "Clicked test log link",
               logViewer: "raw",
               testStatus: status,
             })
@@ -86,7 +86,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
       {filters && !isExecutionTask && (
         <TaskHistoryTestsButton
           onClick={() => {
-            sendEvent({ name: "Click See History Button" });
+            sendEvent({ name: "Clicked see history link" });
           }}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getTaskHistoryRoute(project?.identifier, displayName, {

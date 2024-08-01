@@ -106,7 +106,7 @@ const PatchCard: React.FC<PatchCardProps> = ({
         <DescriptionLink
           data-cy="patch-card-patch-link"
           to={getVersionRoute(id)}
-          onClick={() => analytics.sendEvent({ name: "Click Patch Link" })}
+          onClick={() => analytics.sendEvent({ name: "Clicked patch link" })}
         >
           {description || "no description"}
         </DescriptionLink>

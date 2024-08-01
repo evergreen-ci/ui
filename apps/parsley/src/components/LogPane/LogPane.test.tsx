@@ -110,7 +110,6 @@ describe("logPane", () => {
       vi.useFakeTimers();
       const mockedLogContext = vi.spyOn(logContext, "useLogContext");
       const mockedScrollToLine = vi.fn();
-
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
         listRef: createRef(),
@@ -138,7 +137,6 @@ describe("logPane", () => {
       vi.useFakeTimers();
       const mockedLogContext = vi.spyOn(logContext, "useLogContext");
       const mockedScrollToLine = vi.fn();
-
       mockedLogContext.mockImplementation(() => ({
         failingLine: 22,
         listRef: createRef(),
@@ -160,7 +158,9 @@ describe("logPane", () => {
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalledTimes(1);
       });
-      expect(mockedScrollToLine).toHaveBeenCalledWith(5);
+      await waitFor(() => {
+        expect(mockedScrollToLine).toHaveBeenCalledWith(5);
+      });
     });
   });
 });

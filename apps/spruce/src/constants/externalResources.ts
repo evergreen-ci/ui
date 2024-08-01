@@ -35,6 +35,14 @@ export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocum
 export const githubPermissionsDocumentationUrl =
   "https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app";
 
+/**
+ * TODO: Documentation must be written by app team. Update this URL in DEVPROD-8967.
+ */
+export const githubTokenPermissionRestrictionsUrl = "";
+
+export const githubAppCredentialsDocumentationUrl =
+  "https://wiki.corp.mongodb.com/x/tavkC";
+
 export const ignoredFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#ignoring-changes-to-certain-files`;
 
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;

@@ -16,58 +16,55 @@ import { RequiredQueryParams, LogTypes } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley";
 type Action =
-  | { name: "Filter Tests"; filterBy: string | string[] }
+  | { name: "Filtered tests table"; filterBy: string | string[] }
   | {
-      name: "Sort Tests Table";
+      name: "Sorted tests table";
       sortBy: TestSortCategory | TestSortCategory[];
     }
   | {
-      name: "Sort Execution Tasks Table";
+      name: "Sorted execution tasks table";
       sortBy: TaskSortCategory | TaskSortCategory[];
     }
-  | { name: "Restart" }
-  | { name: "Schedule" }
-  | { name: "Abort" }
-  | { name: "Set Priority"; priority: number }
-  | { name: "Unschedule" }
-  | { name: "Change Page Size" }
-  | { name: "Change Tab"; tab: string }
-  | { name: "Change Execution" }
-  | { name: "Click Logs Button"; logType: LogTypes; logViewer: LogViewer }
-  | { name: "Click Test Logs Button"; logViewer: LogViewer; testStatus: string }
-  | { name: "Click Annotation Link"; linkText: string }
-  | { name: "Select Logs Type"; logType: LogTypes }
-  | { name: "Open Notification Modal" }
   | {
-      name: "Add Notification";
+      name: "Clicked restart task button";
+      isDisplayTask: false;
+    }
+  | {
+      name: "Clicked restart task button";
+      allTasks: boolean;
+      isDisplayTask: true;
+    }
+  | {
+      name: "Clicked execution tasks table link";
+    }
+  | { name: "Clicked schedule task button" }
+  | { name: "Clicked abort task button" }
+  | { name: "Changed task priority"; priority: number }
+  | { name: "Clicked unschedule task button" }
+  | { name: "Changed page size" }
+  | { name: "Changed tab"; tab: string }
+  | { name: "Changed execution" }
+  | { name: "Clicked log link"; logType: LogTypes; logViewer: LogViewer }
+  | { name: "Clicked test log link"; logViewer: LogViewer; testStatus: string }
+  | { name: "Clicked annotation link"; linkText: string }
+  | { name: "Changed log preview type"; logType: LogTypes }
+  | { name: "Viewed notification modal" }
+  | {
+      name: "Created notification";
       subscription: SaveSubscriptionForUserMutationVariables["subscription"];
     }
-  | { name: "Click Base Commit" }
-  | { name: "Click Host Link" }
-  | { name: "Click Pod Link" }
-  | { name: "Click Spawn Host" }
-  | { name: "Click Distro Link" }
-  | { name: "Click Build Variant Link" }
-  | { name: "Click Execution Task Link" }
-  | { name: "Click Display Task Link" }
-  | { name: "Click Project Link" }
-  | { name: "Click See History Button" }
+  | { name: "Clicked see history link" }
+  | { name: "Clicked metadata link"; linkType: string }
   | {
-      name: "Click Task File Link";
+      name: "Clicked task file link";
       parsleyAvailable: boolean;
       fileName: string;
     }
   | {
-      name: "Click Task File Parsley Link";
+      name: "Clicked task file Parsley link";
       fileName: string;
     }
-  | { name: "Click Trace Link" }
-  | { name: "Click Trace Metrics Link" }
-  | { name: "Click Last Passing Stepback Task Link" }
-  | { name: "Click Last Failing Stepback Task Link" }
-  | { name: "Click Previous Stepback Task Link" }
-  | { name: "Click Next Stepback Task Link" }
-  | { name: "Submit Relevant Commit Selector"; type: CommitType };
+  | { name: "Clicked relevant commit"; type: CommitType };
 
 export const useTaskAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();

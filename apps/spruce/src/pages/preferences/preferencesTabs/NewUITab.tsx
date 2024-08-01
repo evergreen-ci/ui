@@ -39,7 +39,8 @@ export const NewUITab: React.FC = () => {
 
   const handleOnChangeNewUI = (c: boolean) => {
     sendEvent({
-      name: c ? "Opt into Spruce" : "Opt out of Spruce",
+      name: "Toggled spruce",
+      value: c ? "Enabled" : "Disabled",
     });
     updateUserSettings({
       variables: {
@@ -56,7 +57,7 @@ export const NewUITab: React.FC = () => {
   const handleOnChangePolling = () => {
     const nextState = Cookies.get(DISABLE_QUERY_POLLING) !== "true";
     sendEvent({
-      name: "Toggle polling",
+      name: "Toggled polling",
       value: nextState ? "Enabled" : "Disabled",
     });
     Cookies.set(DISABLE_QUERY_POLLING, nextState.toString());
