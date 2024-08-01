@@ -20,6 +20,7 @@ const { blue, gray } = palette;
 export interface SearchableDropdownProps<T> {
   allowMultiSelect?: boolean;
   buttonRenderer?: (option: T | T[]) => React.ReactNode;
+  className?: string;
   ["data-cy"]?: string;
   disabled?: boolean;
   label?: React.ReactNode;
@@ -40,6 +41,7 @@ export interface SearchableDropdownProps<T> {
 const SearchableDropdown = <T extends {}>({
   allowMultiSelect = false,
   buttonRenderer,
+  className,
   "data-cy": dataCy = "searchable-dropdown",
   disabled = false,
   label,
@@ -149,7 +151,7 @@ const SearchableDropdown = <T extends {}>({
   }
 
   return (
-    <Container>
+    <Container className={className}>
       {label && <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>}
       <Wrapper>
         <Dropdown

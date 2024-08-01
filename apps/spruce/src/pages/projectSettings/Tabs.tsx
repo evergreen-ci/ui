@@ -81,7 +81,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     <Container>
       <NavigationModal />
       <Header
-        attachedRepoId={projectData?.projectRef?.repoRefId}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         id={projectId || repoId}
         projectType={projectType}
