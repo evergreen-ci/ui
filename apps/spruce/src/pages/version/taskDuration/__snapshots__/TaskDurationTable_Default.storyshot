@@ -25,7 +25,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-76dd2i"
+                  class="leafygreen-ui-tcjr3n"
                   data-cy="task-name-filter-popover"
                   tabindex="0"
                 >
@@ -70,7 +70,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Table Filter Popover Icon"
-                  class="leafygreen-ui-76dd2i"
+                  class="leafygreen-ui-tcjr3n"
                   data-cy="status-filter-popover"
                   tabindex="0"
                 >
@@ -115,7 +115,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Table Search Popover Icon"
-                  class="leafygreen-ui-76dd2i"
+                  class="leafygreen-ui-tcjr3n"
                   data-cy="build-variant-filter-popover"
                   tabindex="0"
                 >
@@ -157,7 +157,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Task Duration"
-                class="leafygreen-ui-76dd2i"
+                class="leafygreen-ui-tcjr3n"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -208,7 +208,7 @@
                 aria-disabled="false"
                 aria-hidden="false"
                 aria-label="Expand row"
-                class="leafygreen-ui-7f9p5r"
+                class="leafygreen-ui-v4n7tr"
                 tabindex="0"
               >
                 <div
