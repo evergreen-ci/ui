@@ -22,9 +22,9 @@ const useOpenSectionAndScrollToLine = (
   const [lineNumbers, setLineNumbers] = useState<number[] | undefined>();
 
   /**
-   * When the lineNumber is set from the callback, calculate the next section state
-   * from the lineNumber. If the next state is the same as the current state,
-   * scroll to the lineNumber and reset lineNumber. If the next state is different,
+   * When lineNumbers is set from the callback, calculate the next section state from
+   * lineNumbers. If the next state is the same as the current state, scroll to the
+   * first element in lineNumbers and reset lineNumbers. If the next state is different,
    * wait for processedLogLines to update in the following useEffect.
    */
   useEffect(() => {
@@ -42,8 +42,8 @@ const useOpenSectionAndScrollToLine = (
   }, [lineNumbers]);
 
   /**
-   * When processedLogLines updates and lineNumber is defined,
-   * scroll to the lineNumber and reset lineNumber.
+   * When processedLogLines updates and lineNumbers is defined,
+   * scroll to the first element in lineNumbers and reset lineNumbers.
    */
   useEffect(() => {
     if (lineNumbers !== undefined) {
