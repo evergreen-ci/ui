@@ -27,6 +27,7 @@ import {
 } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { useFilterParam } from "hooks/useFilterParam";
+import { useOpenSectionAndScrollToLine } from "hooks/useOpenSectionAndScrollToLine";
 import { useQueryParam } from "hooks/useQueryParam";
 import { UseSectionsResult, useSections } from "hooks/useSections";
 import { ExpandedLines, ProcessedLogLines } from "types/logs";
@@ -73,6 +74,7 @@ interface LogContextState {
   setLogMetadata: (logMetadata: LogMetadata) => void;
   setSearch: (search: string) => void;
   sectioning: UseSectionsResult;
+  openSectionAndScrollToLine: (lineNumber: number | number[]) => void;
 }
 
 const LogContext = createContext<LogContextState | null>(null);
@@ -227,19 +229,21 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
     });
 
     return results;
-  }, [
-    state.searchState.searchTerm,
-    processedLogLines,
-    upperRange,
-    lowerRange,
-    getLine,
-    dispatch,
-  ]);
+    // processedLogLines doesn't need to be in the dependency array because the search results would
+    // only change if a new filter is applied and a new filter cannot be applied if a search term
+    // is active since they use the same input. This is a perf optimzation that prevents search from
+    // being re-run when a section is toggled.
+  }, [state.searchState.searchTerm, upperRange, lowerRange, getLine, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const openSectionAndScrollToLine = useOpenSectionAndScrollToLine(
+    processedLogLines,
+    sectioning.openSectionsContainingLineNumbers,
+    scrollToLine,
+  );
   const stringifiedSearchResults = searchResults.toString();
   useEffect(() => {
     if (searchResults.length > 0) {
-      scrollToLine(searchResults[0]);
+      openSectionAndScrollToLine(searchResults);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stringifiedSearchResults, scrollToLine]);
@@ -339,12 +343,13 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       getResmokeLineColor,
       ingestLines,
       isUploadedLog: state.logMetadata?.logType === LogTypes.LOCAL_UPLOAD,
+      openSectionAndScrollToLine,
       paginate: (direction: DIRECTION) => {
         const { searchIndex, searchRange } = state.searchState;
         if (searchIndex !== undefined && searchRange !== undefined) {
           const nextPage = getNextPage(searchIndex, searchRange, direction);
           dispatch({ nextPage, type: "PAGINATE" });
-          scrollToLine(searchResults[nextPage]);
+          openSectionAndScrollToLine(searchResults[nextPage]);
         }
       },
       scrollToLine,
@@ -388,6 +393,7 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
       setHighlightFilters,
       highlightFilters,
       sectioning,
+      openSectionAndScrollToLine,
     ],
   );
 
