@@ -884,7 +884,7 @@ export type Image = {
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
-  packages: PackagesResponse;
+  packages: Array<Package>;
   toolchains: Array<Toolchain>;
   versionId: Scalars["String"]["output"];
 };
@@ -1478,17 +1478,6 @@ export type PackageOpts = {
   manager?: InputMaybe<Scalars["String"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
-};
-
-/**
- * PackagesResponse is the return value for the packages query.
- * It contains an array of Packages matching the filter conditions and count information.
- */
-export type PackagesResponse = {
-  __typename?: "PackagesResponse";
-  filteredPackagesCount?: Maybe<Scalars["Int"]["output"]>;
-  packages: Array<Package>;
-  totalPackagesCount: Scalars["Int"]["output"];
 };
 
 export type Parameter = {
@@ -3020,17 +3009,6 @@ export type ToolchainOpts = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
   page?: InputMaybe<Scalars["Int"]["input"]>;
-};
-
-/**
- * ToolchainsResponse is the return value for the toolchains query.
- * It contains an array of Toolchains matching the filter conditions and count information.
- */
-export type ToolchainsResponse = {
-  __typename?: "ToolchainsResponse";
-  filteredToolchainsCount?: Maybe<Scalars["Int"]["output"]>;
-  toolchains: Array<Toolchain>;
-  totalToolchainsCount: Scalars["Int"]["output"];
 };
 
 export type TriggerAlias = {
