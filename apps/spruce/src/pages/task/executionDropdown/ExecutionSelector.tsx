@@ -35,23 +35,20 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
   const executionsLoading = allExecutionsResult?.loading;
   const { Option } = Select;
   const getDateCopy = useDateFormat();
-  let baseCurrentExecution = currentExecution;
-  if (Number.isNaN(currentExecution) && latestExecution !== null) {
-    baseCurrentExecution = latestExecution;
-  }
   return (
     <StyledSelect
       aria-disabled={executionsLoading}
       data-cy="execution-select"
       disabled={executionsLoading}
-      key={baseCurrentExecution}
+      key={currentExecution}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      onChange={(selected: number) => {
+      onChange={(selected: number | null) => {
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
         updateExecution(selected);
       }}
       placeholder="Choose an execution"
-      value={`Execution ${formatZeroIndexForDisplay(baseCurrentExecution)}${
-        baseCurrentExecution === latestExecution ? " (latest)" : ""
+      value={`Execution ${formatZeroIndexForDisplay(currentExecution)}${
+        currentExecution === latestExecution ? " (latest)" : ""
       }`}
     >
       {allExecutions?.map((singleExecution) => {

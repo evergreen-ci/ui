@@ -108,7 +108,7 @@ export const TaskDurationTable: React.FC<Props> = ({
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             original: { id },
           },
-        }) => <TaskLink taskId={id} taskName={getValue()} />,
+        }) => <TaskLink taskId={id} taskName={getValue()} execution={0} />,
         meta: {
           search: {
             "data-cy": "task-name-filter-popover",
