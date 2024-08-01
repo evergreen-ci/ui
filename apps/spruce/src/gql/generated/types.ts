@@ -882,8 +882,27 @@ export type Image = {
   id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
+  latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
+  packages: PackagesResponse;
+  toolchains: Array<Toolchain>;
   versionId: Scalars["String"]["output"];
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImagePackagesArgs = {
+  opts: PackageOpts;
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImageToolchainsArgs = {
+  opts: ToolchainOpts;
 };
 
 export type InstanceTag = {
@@ -1446,6 +1465,31 @@ export enum OverallocatedRule {
   Ignore = "IGNORE",
   Terminate = "TERMINATE",
 }
+
+export type Package = {
+  __typename?: "Package";
+  manager: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
+export type PackageOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  manager?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+/**
+ * PackagesResponse is the return value for the packages query.
+ * It contains an array of Packages matching the filter conditions and count information.
+ */
+export type PackagesResponse = {
+  __typename?: "PackagesResponse";
+  filteredPackagesCount?: Maybe<Scalars["Int"]["output"]>;
+  packages: Array<Package>;
+  totalPackagesCount: Scalars["Int"]["output"];
+};
 
 export type Parameter = {
   __typename?: "Parameter";
@@ -2963,6 +3007,30 @@ export type TicketFields = {
   status: JiraStatus;
   summary: Scalars["String"]["output"];
   updated: Scalars["String"]["output"];
+};
+
+export type Toolchain = {
+  __typename?: "Toolchain";
+  name: Scalars["String"]["output"];
+  path: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
+export type ToolchainOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+/**
+ * ToolchainsResponse is the return value for the toolchains query.
+ * It contains an array of Toolchains matching the filter conditions and count information.
+ */
+export type ToolchainsResponse = {
+  __typename?: "ToolchainsResponse";
+  filteredToolchainsCount?: Maybe<Scalars["Int"]["output"]>;
+  toolchains: Array<Toolchain>;
+  totalToolchainsCount: Scalars["Int"]["output"];
 };
 
 export type TriggerAlias = {
