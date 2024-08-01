@@ -4917,6 +4917,18 @@ export type DeleteDistroMutation = {
   deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
 };
 
+export type DeleteGithubAppCredentialsMutationVariables = Exact<{
+  projectId: Scalars["String"]["input"];
+}>;
+
+export type DeleteGithubAppCredentialsMutation = {
+  __typename?: "Mutation";
+  deleteGithubAppCredentials?: {
+    __typename?: "DeleteGithubAppCredentialsPayload";
+    oldAppId: number;
+  } | null;
+};
+
 export type DeleteProjectMutationVariables = Exact<{
   projectId: Scalars["String"]["input"];
 }>;
@@ -5744,6 +5756,7 @@ export type BuildVariantsForTaskNameQuery = {
 
 export type BuildVariantsWithChildrenQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  statuses: Array<Scalars["String"]["input"]>;
 }>;
 
 export type BuildVariantsWithChildrenQuery = {

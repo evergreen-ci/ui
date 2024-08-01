@@ -13,11 +13,8 @@ import {
 } from "constants/routes";
 import { size } from "constants/tokens";
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
-import {
-  ArrayFieldTemplate,
-  RequesterTypeField,
-  GithubAppActions,
-} from "./FieldTemplates";
+import { GithubAppActions, RequesterTypeField } from "./Fields";
+import { ArrayFieldTemplate } from "./FieldTemplates";
 
 /** All permissions group is the default if no permission group is set. */
 const allPermissionsGroup = "";
@@ -29,10 +26,12 @@ export const getFormSchema = ({
   githubPermissionGroups,
   identifier,
   isAppDefined,
+  projectId,
 }: {
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
   identifier: string;
   isAppDefined: boolean;
+  projectId: string;
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -113,16 +112,18 @@ export const getFormSchema = ({
         appId: {
           "ui:data-cy": "github-app-id-input",
           "ui:disabled": isAppDefined,
+          "ui:elementWrapperCSS": appFieldCss,
         },
         privateKey: {
           "ui:data-cy": "github-private-key-input",
           "ui:disabled": isAppDefined,
+          "ui:elementWrapperCSS": appFieldCss,
         },
       },
       actions: {
         "ui:field": GithubAppActions,
         "ui:showLabel": false,
-        options: { isAppDefined },
+        options: { isAppDefined, projectId },
       },
     },
     tokenPermissionRestrictions: {
@@ -158,14 +159,14 @@ export const getFormSchema = ({
           "ui:ObjectFieldTemplate": FieldRow,
           requesterType: {
             "ui:field": RequesterTypeField,
-            "ui:elementWrapperCSS": fieldCss,
+            "ui:elementWrapperCSS": tokenFieldCss,
             "ui:showLabel": false,
           },
           permissionGroup: {
             "ui:allowDeselect": false,
             "ui:ariaLabelledBy": "Permission Group",
             "ui:data-cy": "permission-group-input",
-            "ui:elementWrapperCSS": fieldCss,
+            "ui:elementWrapperCSS": tokenFieldCss,
             "ui:sizeVariant": "small",
           },
         },
@@ -174,8 +175,12 @@ export const getFormSchema = ({
   },
 });
 
-const fieldCss = css`
+const tokenFieldCss = css`
   margin: ${size.xs} 0;
+`;
+
+const appFieldCss = css`
+  max-width: unset;
 `;
 
 const StyledDescription = styled.span`
