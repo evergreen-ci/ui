@@ -1,3 +1,19 @@
-fragment ProjectAppSettings on Project {
-  githubPermissionGroupByRequester
+fragment ProjectAppSettings on ProjectSettings {
+  githubAppAuth {
+    appId
+    privateKey
+  }
+  projectRef {
+    githubPermissionGroupByRequester
+  }
+}
+
+fragment ProjectEventAppSettings on ProjectEventSettings {
+  githubAppAuth {
+    appId
+    privateKey
+  }
+  projectRef {
+    githubPermissionGroupByRequester
+  }
 }

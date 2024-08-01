@@ -2553,7 +2553,22 @@
     "@leafygreen-ui/tokens" "^2.5.2"
     polished "^4.2.2"
 
-"@leafygreen-ui/checkbox@13.1.0", "@leafygreen-ui/checkbox@^13.1.0":
+"@leafygreen-ui/checkbox@13.1.1":
+  version "13.1.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-13.1.1.tgz#5a30cfcf60a2584e457c37f7b5bab1b2e9c5dc9d"
+  integrity sha512-KMd+uPwD5r6iVyzq2pYwE8scgji3ER2/isr+bdOY0SUjNp83P5XXrGmSW/lf11NHihQ687EkrM4iNOyAwG1AZg==
+  dependencies:
+    "@leafygreen-ui/a11y" "^1.4.13"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/hooks" "^8.1.3"
+    "@leafygreen-ui/lib" "^13.4.0"
+    "@leafygreen-ui/palette" "^4.0.10"
+    "@leafygreen-ui/tokens" "^2.5.2"
+    "@leafygreen-ui/typography" "^19.0.0"
+    "@lg-tools/test-harnesses" "^0.1.2"
+    react-transition-group "^4.4.5"
+
+"@leafygreen-ui/checkbox@^13.1.0":
   version "13.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-13.1.0.tgz#77c23464cf3ee8a06a61c14d5e14de4e2312734f"
   integrity sha512-Cu+Jqunde+yTYqdUvRe/o2gBZE/WI8nyhvS+Ozy2PB1KMN95PCQ/oCU1oMI3n5/gQTbFEXi4ia54eln0TRgh7w==
@@ -2962,10 +2977,19 @@
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-"@leafygreen-ui/lib@^13.0.0", "@leafygreen-ui/lib@^13.1.0", "@leafygreen-ui/lib@^13.2.0", "@leafygreen-ui/lib@^13.3.0", "@leafygreen-ui/lib@^13.4.0", "@leafygreen-ui/lib@^13.5.0", "@leafygreen-ui/lib@^13.6.0", "@leafygreen-ui/lib@^13.6.1":
+"@leafygreen-ui/lib@^13.0.0", "@leafygreen-ui/lib@^13.1.0", "@leafygreen-ui/lib@^13.3.0", "@leafygreen-ui/lib@^13.4.0", "@leafygreen-ui/lib@^13.5.0", "@leafygreen-ui/lib@^13.6.0", "@leafygreen-ui/lib@^13.6.1":
   version "13.6.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-13.6.1.tgz#345a20fa4e326844445ab147d1ec76106173d0a7"
   integrity sha512-NaA0qmbY3QUg0GMpbaK0cdif2lRnGrzXMadi3ETRXHgMRljHi4y5I+v02bjggQ7vOW9VWhSooCF5HTtNd5j3fw==
+  dependencies:
+    "@storybook/csf" "^0.1.0"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+
+"@leafygreen-ui/lib@^13.2.0":
+  version "13.7.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-13.7.0.tgz#8dc1c95dd47c6243f18cf2b9ae5c800dfd26112d"
+  integrity sha512-R+2br+QrCABPefv5SD4DOAduIveoVxFtSRqk51frjLyATHLUhg7SwV783KJ0ipofCfsLdae2CZRSzT7MAVbSEA==
   dependencies:
     "@storybook/csf" "^0.1.0"
     lodash "^4.17.21"
@@ -4291,10 +4315,10 @@
     lodash "^4.17.21"
     redent "^3.0.0"
 
-"@testing-library/jest-dom@6.4.6":
-  version "6.4.6"
-  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-6.4.6.tgz#ec1df8108651bed5475534955565bed88c6732ce"
-  integrity sha512-8qpnGVincVDLEcQXWaHOf6zmlbwTKc6Us6PPu4CRnPXCzo2OGBS5cwgMMOWdxDpEz1mkbvXHpEy99M5Yvt682w==
+"@testing-library/jest-dom@6.4.8":
+  version "6.4.8"
+  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-6.4.8.tgz#9c435742b20c6183d4e7034f2b329d562c079daa"
+  integrity sha512-JD0G+Zc38f5MBHA4NgxQMR5XtO5Jx9g86jqturNTt2WUfRmLDIY7iKkWHDCCTiDuFMre6nxAD5wHw9W5kI4rGw==
   dependencies:
     "@adobe/css-tools" "^4.4.0"
     "@babel/runtime" "^7.9.2"

@@ -1,8 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import InlineDefinition from "@leafygreen-ui/inline-definition";
-import { Body } from "@leafygreen-ui/typography";
-import { Field } from "@rjsf/core";
 import { GetFormSchema } from "components/SpruceForm";
 import {
   CardFieldTemplate,
@@ -11,16 +8,12 @@ import {
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { githubTokenPermissionRestrictionsUrl } from "constants/externalResources";
 import {
-  requesterToTitle,
-  requesterToDescription,
-  Requester,
-} from "constants/requesters";
-import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
 import { size } from "constants/tokens";
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
+import { GithubAppActions, RequesterTypeField } from "./Fields";
 import { ArrayFieldTemplate } from "./FieldTemplates";
 
 /** All permissions group is the default if no permission group is set. */
@@ -32,9 +25,13 @@ const noPermissionsGroup = "No Permissions";
 export const getFormSchema = ({
   githubPermissionGroups,
   identifier,
+  isAppDefined,
+  projectId,
 }: {
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
   identifier: string;
+  isAppDefined: boolean;
+  projectId: string;
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -43,6 +40,25 @@ export const getFormSchema = ({
       appCredentials: {
         type: "object" as "object",
         title: "App Credentials",
+        properties: {
+          githubAppAuth: {
+            type: "object" as "object",
+            properties: {
+              appId: {
+                type: ["number", "null"],
+                title: "App ID",
+              },
+              privateKey: {
+                type: "string" as "string",
+                title: "App Key",
+              },
+            },
+          },
+          actions: {
+            type: "null" as "null",
+            title: "",
+          },
+        },
       },
       tokenPermissionRestrictions: {
         type: "object" as "object",
@@ -87,6 +103,29 @@ export const getFormSchema = ({
     },
   },
   uiSchema: {
+    appCredentials: {
+      githubAppAuth: {
+        "ui:ObjectFieldTemplate": FieldRow,
+        "ui:elementWrapperCSS": css`
+          align-items: flex-start;
+        `,
+        appId: {
+          "ui:data-cy": "github-app-id-input",
+          "ui:disabled": isAppDefined,
+          "ui:elementWrapperCSS": appFieldCss,
+        },
+        privateKey: {
+          "ui:data-cy": "github-private-key-input",
+          "ui:disabled": isAppDefined,
+          "ui:elementWrapperCSS": appFieldCss,
+        },
+      },
+      actions: {
+        "ui:field": GithubAppActions,
+        "ui:showLabel": false,
+        options: { isAppDefined, projectId },
+      },
+    },
     tokenPermissionRestrictions: {
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       "ui:description": (
@@ -120,14 +159,14 @@ export const getFormSchema = ({
           "ui:ObjectFieldTemplate": FieldRow,
           requesterType: {
             "ui:field": RequesterTypeField,
-            "ui:elementWrapperCSS": fieldCss,
+            "ui:elementWrapperCSS": tokenFieldCss,
             "ui:showLabel": false,
           },
           permissionGroup: {
             "ui:allowDeselect": false,
             "ui:ariaLabelledBy": "Permission Group",
             "ui:data-cy": "permission-group-input",
-            "ui:elementWrapperCSS": fieldCss,
+            "ui:elementWrapperCSS": tokenFieldCss,
             "ui:sizeVariant": "small",
           },
         },
@@ -136,17 +175,12 @@ export const getFormSchema = ({
   },
 });
 
-const RequesterTypeField: Field = ({ formData }: { formData: Requester }) =>
-  requesterToDescription[formData] ? (
-    <InlineDefinition definition={requesterToDescription[formData]}>
-      {requesterToTitle[formData]}
-    </InlineDefinition>
-  ) : (
-    <Body>{requesterToTitle[formData]}</Body>
-  );
-
-const fieldCss = css`
+const tokenFieldCss = css`
   margin: ${size.xs} 0;
+`;
+
+const appFieldCss = css`
+  max-width: unset;
 `;
 
 const StyledDescription = styled.span`

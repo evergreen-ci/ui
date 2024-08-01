@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
@@ -7,6 +7,7 @@ import { useProjectSettingsAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {
+  StyledRouterLink,
   SideNav,
   SideNavGroup,
   SideNavItem,
@@ -34,6 +35,7 @@ import { ProjectSettingsProvider } from "./Context";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { getTabTitle } from "./getTabTitle";
 import { ProjectSettingsTabs } from "./Tabs";
+import { projectOnlyTabs } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 const { validateObjectId } = validators;
@@ -53,6 +55,11 @@ const ProjectSettings: React.FC = () => {
   const [isRepo, setIsRepo] = useState<boolean>(false);
 
   const { sendEvent } = useProjectSettingsAnalytics();
+
+  useEffect(() => {
+    // Reset state on page change
+    setIsRepo(false);
+  }, [projectIdentifier]);
 
   useProjectRedirect({
     shouldRedirect: identifierIsObjectId,
@@ -148,12 +155,27 @@ const ProjectSettings: React.FC = () => {
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <SideNav aria-label="Project Settings" widthOverride={250}>
         <ButtonsContainer>
-          <ProjectSelect
+          <StyledProjectSelect
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             selectedProjectIdentifier={projectLabel}
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
+          {projectType === ProjectType.AttachedProject && repoId && (
+            <StyledRouterLink
+              arrowAppearance="persist"
+              to={getProjectSettingsRoute(
+                repoId,
+                tab && projectOnlyTabs.has(tab)
+                  ? ProjectSettingsTabRoutes.General
+                  : tab,
+              )}
+              data-cy="attached-repo-link"
+            >
+              <strong>Go to repo settings</strong>
+            </StyledRouterLink>
+          )}
+
           <CreateDuplicateProjectButton
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             id={project?.projectRef?.id}
@@ -268,11 +290,15 @@ const ProjectSettingsNavItem: React.FC<{
 const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 
 const ButtonsContainer = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
   margin: 0 ${size.s};
+`;
 
-  > :not(:last-child) {
-    margin-bottom: ${size.xs};
-  }
+const StyledProjectSelect = styled(ProjectSelect)`
+  width: 100%;
 `;
 
 export default ProjectSettings;

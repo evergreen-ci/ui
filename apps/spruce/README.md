@@ -11,8 +11,8 @@ Spruce is the React UI for MongoDB's continuous integration software.
    v100.8.0+ installed
 3. Run `yarn install`
 4. Start a local Evergreen server by doing the following:
-    - Clone the [Evergreen repo](https://github.com/evergreen-ci/evergreen)
-    - From the Evergreen directory, run `make local-evergreen`
+   - Clone the [Evergreen repo](https://github.com/evergreen-ci/evergreen)
+   - From the Evergreen directory, run `make local-evergreen`
 5. Run `yarn run dev`. This will launch the app and point it at the local
    Evergreen server you just started.
 
@@ -37,8 +37,8 @@ results.
    linting with ESLint like so
    `ln -s <path_to_evergreen_repo>/graphql/schema sdlschema`
 2. Run `yarn run eslint` to see the results of query linting in your terminal or
-   install a plugin to integrate ESlint into your editor. If you are using
-   VS Code, we recommend ESLint by Dirk Baeumer.
+   install a plugin to integrate ESlint into your editor. If you are using VS
+   Code, we recommend ESLint by Dirk Baeumer.
 
 ### Environment Variables
 
@@ -98,8 +98,7 @@ Cypress.
 ### Unit tests
 
 Unit tests are used to test individual features in isolation. We utilize
-[Vitest](https://vitest.dev) to execute our unit tests and generate
-reports.
+[Vitest](https://vitest.dev) to execute our unit tests and generate reports.
 
 There are 3 types of unit tests you may encounter in this codebase.
 
@@ -121,9 +120,12 @@ that rely on React Router.
 
 Often times you may find yourself writing
 [custom React hooks](https://reactjs.org/docs/hooks-custom.html). The best way
-to test these is using React Testing Library's [`renderHook`](https://testing-library.com/docs/react-testing-library/api#renderhook) utility. This allows you to test your custom hooks in isolation without
-needing to wrap them in a component. It provides several methods that make it
-easy to assert and test different behaviors in your hooks. Such as [`waitFor`](https://testing-library.com/docs/dom-testing-library/api-async/#waitfor), 
+to test these is using React Testing Library's
+[`renderHook`](https://testing-library.com/docs/react-testing-library/api#renderhook)
+utility. This allows you to test your custom hooks in isolation without needing
+to wrap them in a component. It provides several methods that make it easy to
+assert and test different behaviors in your hooks. Such as
+[`waitFor`](https://testing-library.com/docs/dom-testing-library/api-async/#waitfor),
 which will wait for your hook to rerender before allowing a test to proceed.
 
 #### Standard utility tests
@@ -134,7 +136,8 @@ run and often just test standard JavaScript functions.
 - You can run all unit tests using `yarn test run`
 - You can run a specific unit test using `yarn test run <test_name>`
 - You can run Vitest in watch mode using `yarn test`. This will open an
-  interactive CLI that can be used to automatically run tests as you update them.
+  interactive CLI that can be used to automatically run tests as you update
+  them.
 
 ### E2E tests
 
@@ -177,66 +180,44 @@ way to do so is to populate the local db using real data from the staging or
 production environments.
 
 1. You should identify if the data you need is located in the staging or prod db
-   and ssh into them (You should be connected to the office network or vpn
-   before proceeding). The urls for these db servers can be located in the
-   `fabfile.py` located in the evergreen directory or
-   [here](https://github.com/10gen/kernel-tools/blob/master/evergreen/fabfile.py).
-2. You should ensure you are connected to a secondary node before proceeding.
-3. Run `mongo` to open the the mongo shell.
-4. Identify the query you need to fetch the data you are looking for.
+   and connect to them using the instructions in the Evergreen Operations Guide
+2. Identify the query you need to fetch the data you are looking for.
 
-   ```
-   mci:SECONDARY> rs.secondaryOk() // Allows read operations on a secondary node
-   mci:SECONDARY> use mci // use the correct db
-   switched to db mci
-   mci:SECONDARY>  db.distro.find({_id: "archlinux-small"}) // the full query
+   ```sh
+   Atlas atlas-mxabkq-shard-0 [primary] mci> db.distro.find({_id: "archlinux-small"}) // the full query
    ```
 
-5. Exit from the mongo shell and prepare to run `mongoexport`
+3. Write the file to your local system using the following command
 
-   ```
-   mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}'
-   2020-07-29T17:41:50.266+0000	connected to: localhost
-   2020-07-29T17:41:50.269+0000	exported 1 record
+   ```sh
+   Atlas atlas-mxabkq-shard-0 [primary] mci> fs.writeFileSync('output.json', JSON.stringify(db.distro.find({_id: "archlinux-small"})))
    ```
 
-   After running this command a file will be saved to your home directory with
-   the results of the `mongoexport`
+   A file will be saved to your filesystem with the results of the query.
 
-   _Note you may need to provide the full path to mongoexport on the staging db_
-
-   ```
-   /var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.0.5/bin/mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}'
-   2020-07-29T17:41:50.266+0000	connected to: localhost
-   2020-07-29T17:41:50.269+0000	exported 1 record
-   ```
-
-6. Exit the ssh session using `exit` or `Ctrl + D`
-7. You can now transfer this json file to your local system by running the
-   following command. `scp <db you sshed into>:~/distro.json .` This will save a
-   file named `distro.json` to the current directory
-8. You should run this file through the scramble-eggs script to sanitize it and
-   remove any sensitive information `make scramble file=<path to file>.json`
-   from within the evergreen folder
-9. Once you have this file you can copy the contents of it to the relevant
+4. Exit the ssh session using `exit` or `Ctrl + D`
+5. You should ensure this file does not contain any sensitive information before
+   committing it to the repository.
+6. Once you have this file you can copy the contents of it to the relevant
    `testdata/local/<collection>.json` file with in the evergreen folder
-10. You can then run `yarn evg-db-ops --reseed` to repopulate the local database
-    with your new data.
+7. You can then run `yarn evg-db-ops --reseed` to repopulate the local database
+   with your new data.
 
 **Notes**
 
 When creating your queries you should be sure to limit the amount of documents
-so you don't accidently export an entire collection you can do this by passing a
-`--limit=<number>` flag to `mongoexport`
+so you don't accidentally export an entire collection. You can do this by passing
+a limit to the query.
 
 ### Logkeeper
 
-Spruce has a minimal dependency on Logkeeper: it is used by Cypress tests on
-the Job Logs page. If you'd like to get set up to develop these tests, complete
-the following:
+Spruce has a minimal dependency on Logkeeper: it is used by Cypress tests on the
+Job Logs page. If you'd like to get set up to develop these tests, complete the
+following:
 
 1. Clone the [Logkeeper repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `yarn bootstrap-logkeeper` within Spruce to download some sample resmoke logs from S3.
+2. Run `yarn bootstrap-logkeeper` within Spruce to download some sample resmoke
+   logs from S3.
 3. Run the command output by the previous step to seed the env variables and
    start the local logkeeper server at http://localhost:8080.
 
