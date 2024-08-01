@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Banner from "@leafygreen-ui/banner";
-import Button from "@leafygreen-ui/button";
+import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
+import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { Field } from "@rjsf/core";
-import { ConfirmationModal } from "components/ConfirmationModal";
+import {
+  ConfirmationModal,
+  Variant as ModalVariant,
+} from "components/ConfirmationModal";
 import { StyledLink } from "components/styles";
 import { githubAppCredentialsDocumentationUrl } from "constants/externalResources";
 import { useToastContext } from "context/toast";
@@ -31,7 +34,7 @@ const DeleteAppCredentialsButton: React.FC<{
     },
     onError: (err) => {
       dispatchToast.error(
-        `There was an error deleting GitHub app credentials: ${err.message}`,
+        `There was an error deleting the GitHub app credentials: ${err.message}`,
       );
     },
     refetchQueries: ["ProjectSettings"],
@@ -50,14 +53,18 @@ const DeleteAppCredentialsButton: React.FC<{
         open={open}
         submitDisabled={loading}
         title="Delete GitHub app credentials?"
-        variant="danger"
+        variant={ModalVariant.Danger}
       >
         <p>
           Confirm that you want to remove the GitHub app credentials associated
           with this project.
         </p>
       </ConfirmationModal>
-      <Button data-cy={dataCy} onClick={() => setOpen(true)}>
+      <Button
+        data-cy={dataCy}
+        onClick={() => setOpen(true)}
+        variant={ButtonVariant.Danger}
+      >
         Delete key
       </Button>
     </>
@@ -75,12 +82,17 @@ const GithubAppActions: Field = ({ uiSchema }) => {
       projectId={projectId}
     />
   ) : (
-    <Banner data-cy="github-app-credentials-banner" variant="warning">
-      App ID and Key must be saved in order for token permissions restrictions
+    <Banner
+      data-cy="github-app-credentials-banner"
+      variant={BannerVariant.Warning}
+    >
+      App ID and key must be saved in order for token permissions restrictions
       to take effect. <br />
+      For more information, see the{" "}
       <StyledLink href={githubAppCredentialsDocumentationUrl}>
         GitHub App Documentation
       </StyledLink>
+      .
     </Banner>
   );
 };
