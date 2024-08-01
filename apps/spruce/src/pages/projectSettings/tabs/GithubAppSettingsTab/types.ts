@@ -19,4 +19,5 @@ export type TabProps = {
   identifier: string;
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
   projectData: AppSettingsFormState;
+  projectId: string;
 };

@@ -882,6 +882,7 @@ export type Image = {
   id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
+  latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
   packages: Array<Package>;
   toolchains: Array<Toolchain>;
@@ -4876,6 +4877,18 @@ export type DeleteDistroMutationVariables = Exact<{
 export type DeleteDistroMutation = {
   __typename?: "Mutation";
   deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
+};
+
+export type DeleteGithubAppCredentialsMutationVariables = Exact<{
+  projectId: Scalars["String"]["input"];
+}>;
+
+export type DeleteGithubAppCredentialsMutation = {
+  __typename?: "Mutation";
+  deleteGithubAppCredentials?: {
+    __typename?: "DeleteGithubAppCredentialsPayload";
+    oldAppId: number;
+  } | null;
 };
 
 export type DeleteProjectMutationVariables = Exact<{
