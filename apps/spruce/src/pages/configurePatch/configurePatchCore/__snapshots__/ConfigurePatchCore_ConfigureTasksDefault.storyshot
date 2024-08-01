@@ -362,7 +362,7 @@
                       <button
                         aria-disabled="false"
                         aria-label="Select plus button"
-                        class="leafygreen-ui-tcjr3n"
+                        class="leafygreen-ui-76dd2i"
                         tabindex="0"
                       >
                         <div
@@ -391,11 +391,9 @@
                   </div>
                   <div
                     class="leafygreen-ui-55kazc css-1oxhyic-InlineCheckbox eoqkpw10"
-                    data-lgid="lg-checkbox"
                   >
                     <label
-                      class="leafygreen-ui-1srek1y"
-                      data-lgid="lg-label"
+                      class="leafygreen-ui-75mjfl"
                       for="checkbox-343"
                       id="checkbox-343-label"
                     >
@@ -457,11 +455,9 @@
                 >
                   <div
                     class="leafygreen-ui-55kazc"
-                    data-lgid="lg-checkbox"
                   >
                     <label
-                      class="leafygreen-ui-1srek1y"
-                      data-lgid="lg-label"
+                      class="leafygreen-ui-75mjfl"
                       for="checkbox-344"
                       id="checkbox-344-label"
                     >
@@ -508,11 +504,9 @@
                   </div>
                   <div
                     class="leafygreen-ui-55kazc"
-                    data-lgid="lg-checkbox"
                   >
                     <label
-                      class="leafygreen-ui-1srek1y"
-                      data-lgid="lg-label"
+                      class="leafygreen-ui-75mjfl"
                       for="checkbox-345"
                       id="checkbox-345-label"
                     >

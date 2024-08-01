@@ -22,7 +22,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Name"
-                class="leafygreen-ui-tcjr3n"
+                class="leafygreen-ui-76dd2i"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -59,7 +59,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Task Status"
-                class="leafygreen-ui-tcjr3n"
+                class="leafygreen-ui-76dd2i"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -96,7 +96,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Base Status"
-                class="leafygreen-ui-tcjr3n"
+                class="leafygreen-ui-76dd2i"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -133,7 +133,7 @@
               <button
                 aria-disabled="false"
                 aria-label="Sort by Variant"
-                class="leafygreen-ui-tcjr3n"
+                class="leafygreen-ui-76dd2i"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >

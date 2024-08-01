@@ -29,7 +29,7 @@
                 <button
                   aria-disabled="false"
                   aria-label="Sort by Name"
-                  class="leafygreen-ui-tcjr3n"
+                  class="leafygreen-ui-76dd2i"
                   data-testid="lg-table-sort-icon-button"
                   tabindex="0"
                 >
