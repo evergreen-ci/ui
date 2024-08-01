@@ -1,4 +1,5 @@
 import {
+  getEnabledHoursCount,
   getHostUptimeFromGql,
   getHostUptimeWarnings,
   getNextHostStart,
@@ -595,6 +596,92 @@ describe("getNextHostStart", () => {
     expect(getNextHostStart("", tuesday)).toStrictEqual({
       nextStartDay: "Tuesday",
       nextStartTime: null,
+    });
+  });
+});
+
+describe("getEnabledHoursCount", () => {
+  it("calculates uptime for default schedule", () => {
+    expect(
+      getEnabledHoursCount({
+        isBetaTester: true,
+        useDefaultUptimeSchedule: true,
+        sleepSchedule: {
+          enabledWeekdays: [],
+          timeSelection: {
+            startTime: "",
+            stopTime: "",
+            runContinuously: true,
+          },
+        },
+      }),
+    ).toStrictEqual({
+      enabledHoursCount: 60,
+      enabledWeekdaysCount: 5,
+    });
+  });
+
+  it("calculates uptime for custom schedule", () => {
+    expect(
+      getEnabledHoursCount({
+        isBetaTester: true,
+        useDefaultUptimeSchedule: false,
+        sleepSchedule: {
+          enabledWeekdays: [false, true, true, true, true, true, false],
+          timeSelection: {
+            runContinuously: false,
+            startTime:
+              "Mon Jan 01 1900 07:00:00 GMT+0000 (Coordinated Universal Time)",
+            stopTime:
+              "Mon Jan 01 1900 20:00:00 GMT+0000 (Coordinated Universal Time)",
+          },
+        },
+      }),
+    ).toStrictEqual({
+      enabledHoursCount: 65,
+      enabledWeekdaysCount: 5,
+    });
+  });
+
+  it("calculates uptime for continuously running schedule", () => {
+    expect(
+      getEnabledHoursCount({
+        isBetaTester: true,
+        useDefaultUptimeSchedule: false,
+        sleepSchedule: {
+          enabledWeekdays: [false, true, true, true, true, true, false],
+          timeSelection: {
+            runContinuously: true,
+            startTime: "",
+            stopTime: "",
+          },
+        },
+      }),
+    ).toStrictEqual({
+      enabledHoursCount: 120,
+      enabledWeekdaysCount: 5,
+    });
+  });
+
+  it("calculates uptime for overnight schedule", () => {
+    expect(
+      getEnabledHoursCount({
+        isBetaTester: true,
+        useDefaultUptimeSchedule: false,
+        sleepSchedule: {
+          enabledWeekdays: [false, true, true, true, true, true, false],
+          timeSelection: {
+            runContinuously: false,
+            startTime:
+              "Mon Jan 01 1900 20:00:00 GMT+0000 (Coordinated Universal Time)",
+            stopTime:
+              "Mon Jan 01 1900 03:00:00 GMT+0000 (Coordinated Universal Time)",
+          },
+        },
+      }),
+    ).toStrictEqual({
+      enabledHoursCount: 35,
+      enabledWeekdaysCount: 5,
     });
   });
 });
