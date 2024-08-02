@@ -49,5 +49,7 @@ const Container = styled.div<{ atTop: boolean }>`
   top: 0;
   z-index: 1;
 
-  ${({ atTop }) => atTop && "box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.5);"}
+  ${({ atTop }) =>
+    !atTop &&
+    "box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); clip-path: inset(0px 0px -5px 0px);"}
 `;
