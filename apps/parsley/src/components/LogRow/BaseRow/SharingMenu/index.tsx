@@ -20,7 +20,6 @@ const SharingMenu: React.FC = () => {
     selectedLines,
     setOpenMenu: setOpen,
   } = useMultiLineSelectContext();
-  console.log(open);
   const { getLine, isUploadedLog, processedLogLines } = useLogContext();
   const [params, setParams] = useQueryParams();
   const dispatchToast = useToastContext();
