@@ -16,10 +16,14 @@
   "dependencies": {
     "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.0",
+    "@honeycombio/opentelemetry-web": "^0.5.0",
     "@leafygreen-ui/emotion": "4.0.7",
     "@leafygreen-ui/icon": "11.28.0",
     "@leafygreen-ui/text-input": "13.0.2",
-    "@leafygreen-ui/tokens": "2.5.2"
+    "@leafygreen-ui/tokens": "2.5.2",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-web": "^0.40.0",
+    "@opentelemetry/instrumentation-user-interaction": "^0.39.0"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "*",
