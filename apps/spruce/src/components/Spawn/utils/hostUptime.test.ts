@@ -614,6 +614,9 @@ describe("getEnabledHoursCount", () => {
             runContinuously: true,
           },
         },
+        details: {
+          timeZone: "America/New_York",
+        },
       }),
     ).toStrictEqual({
       enabledHoursCount: 60,
@@ -636,6 +639,9 @@ describe("getEnabledHoursCount", () => {
               "Mon Jan 01 1900 20:00:00 GMT+0000 (Coordinated Universal Time)",
           },
         },
+        details: {
+          timeZone: "America/New_York",
+        },
       }),
     ).toStrictEqual({
       enabledHoursCount: 65,
@@ -655,6 +661,9 @@ describe("getEnabledHoursCount", () => {
             startTime: "",
             stopTime: "",
           },
+        },
+        details: {
+          timeZone: "America/New_York",
         },
       }),
     ).toStrictEqual({
@@ -677,6 +686,9 @@ describe("getEnabledHoursCount", () => {
             stopTime:
               "Mon Jan 01 1900 03:00:00 GMT+0000 (Coordinated Universal Time)",
           },
+        },
+        details: {
+          timeZone: "America/New_York",
         },
       }),
     ).toStrictEqual({
