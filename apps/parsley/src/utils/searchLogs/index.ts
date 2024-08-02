@@ -1,9 +1,5 @@
 import { ProcessedLogLines } from "types/logs";
-import {
-  isSectionHeaderRow,
-  isSkippedLinesRow,
-  isSubsectionHeaderRow,
-} from "utils/logRowTypes";
+import { isLogRow, isSectionHeaderRow } from "utils/logRowTypes";
 
 interface searchOptions {
   searchRegex: RegExp;
@@ -31,8 +27,18 @@ const searchLogs = (options: searchOptions): number[] => {
     searchRegex,
     upperBound = Number.MAX_VALUE,
   } = options;
-  const matchingLogIndex = new Set<number>();
-  processedLogLines.forEach((processedLogLine) => {
+  const matchingLogIndices = new Set<number>();
+  for (let pLLIndex = 0; pLLIndex < processedLogLines.length; pLLIndex++) {
+    const processedLogLine = processedLogLines[pLLIndex];
+    // Since processedLogLines is ordered by line number, we can stop searching if we are out of range for our upper bound.
+    if (isLogRow(processedLogLine)) {
+      if (processedLogLine > upperBound) {
+        break;
+      }
+    } else if (processedLogLine.range.start > upperBound) {
+      break;
+    }
+
     if (isSectionHeaderRow(processedLogLine)) {
       for (
         let i = processedLogLine.range.start;
@@ -40,24 +46,18 @@ const searchLogs = (options: searchOptions): number[] => {
         i++
       ) {
         if (i >= lowerBound && searchRegex.test(getLine(i))) {
-          matchingLogIndex.add(i);
+          matchingLogIndices.add(i);
         }
       }
-    } else if (
-      !(
-        isSkippedLinesRow(processedLogLine) ||
-        isSectionHeaderRow(processedLogLine) ||
-        isSubsectionHeaderRow(processedLogLine)
-      )
-    ) {
-      if (processedLogLine >= lowerBound && processedLogLine <= upperBound) {
+    } else if (isLogRow(processedLogLine)) {
+      if (processedLogLine >= lowerBound) {
         if (searchRegex.test(getLine(processedLogLine))) {
-          matchingLogIndex.add(processedLogLine);
+          matchingLogIndices.add(processedLogLine);
         }
       }
     }
-  });
-  return Array.from(matchingLogIndex).sort((a, b) => a - b);
+  }
+  return Array.from(matchingLogIndices).sort((a, b) => a - b);
 };
 
 export default searchLogs;

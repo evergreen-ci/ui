@@ -1,6 +1,6 @@
-query BuildVariantsWithChildren($id: String!) {
+query BuildVariantsWithChildren($id: String!, $statuses: [String!]!) {
   version(versionId: $id) {
-    buildVariants(options: {}) {
+    buildVariants(options: { statuses: $statuses }) {
       displayName
       tasks {
         baseStatus
@@ -12,7 +12,7 @@ query BuildVariantsWithChildren($id: String!) {
       variant
     }
     childVersions {
-      buildVariants(options: {}) {
+      buildVariants(options: { statuses: $statuses }) {
         displayName
         tasks {
           baseStatus

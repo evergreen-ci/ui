@@ -4,12 +4,14 @@ import { useOpenSectionAndScrollToLine } from ".";
 
 describe("useOpenSectionAndScrollToLine", () => {
   it("Should scroll to the line number in 1 render if section state is not updated.", async () => {
-    const openSectionContainingLineNumberMock = vi.fn().mockReturnValue(false);
+    const openSectionsContainingLineNumbersMock = vi
+      .fn()
+      .mockReturnValue(false);
     const scrollMock = vi.fn();
     const { result } = renderHook(() =>
       useOpenSectionAndScrollToLine(
         processedLogLines,
-        openSectionContainingLineNumberMock,
+        openSectionsContainingLineNumbersMock,
         scrollMock,
       ),
     );
@@ -17,7 +19,7 @@ describe("useOpenSectionAndScrollToLine", () => {
       result.current(4);
     });
     await waitFor(() => {
-      expect(openSectionContainingLineNumberMock).toHaveBeenCalledTimes(1);
+      expect(openSectionsContainingLineNumbersMock).toHaveBeenCalledTimes(1);
     });
     await waitFor(() => {
       expect(scrollMock).toHaveBeenCalledOnce();
@@ -28,13 +30,13 @@ describe("useOpenSectionAndScrollToLine", () => {
   });
 
   it("Should scroll to the line number in 2 renders if section state is updated. The second update occurs after processedLogLines is updated due to section state changing.", async () => {
-    const openSectionContainingLineNumberMock = vi.fn().mockReturnValue(true);
+    const openSectionsContainingLineNumbersMock = vi.fn().mockReturnValue(true);
     const scrollMock = vi.fn();
     const { rerender, result } = renderHook(
       (props) =>
         useOpenSectionAndScrollToLine(
           props.processedLogLines,
-          openSectionContainingLineNumberMock,
+          openSectionsContainingLineNumbersMock,
           scrollMock,
         ),
       {
@@ -47,7 +49,7 @@ describe("useOpenSectionAndScrollToLine", () => {
       result.current(4);
     });
     await waitFor(() => {
-      expect(openSectionContainingLineNumberMock).toHaveBeenCalledTimes(1);
+      expect(openSectionsContainingLineNumbersMock).toHaveBeenCalledTimes(1);
     });
     await waitFor(() => {
       expect(scrollMock).toHaveBeenCalledTimes(0);
@@ -65,12 +67,14 @@ describe("useOpenSectionAndScrollToLine", () => {
   });
 
   it("when given multiple lines, open all sections containing those lines and scroll to the first given line", async () => {
-    const openSectionContainingLineNumberMock = vi.fn().mockReturnValue(false);
+    const openSectionsContainingLineNumbersMock = vi
+      .fn()
+      .mockReturnValue(false);
     const scrollMock = vi.fn();
     const { result } = renderHook(() =>
       useOpenSectionAndScrollToLine(
         processedLogLines,
-        openSectionContainingLineNumberMock,
+        openSectionsContainingLineNumbersMock,
         scrollMock,
       ),
     );
@@ -79,8 +83,8 @@ describe("useOpenSectionAndScrollToLine", () => {
       result.current(lines);
     });
     await waitFor(() => {
-      expect(openSectionContainingLineNumberMock).toHaveBeenCalledWith({
-        lineNumber: lines,
+      expect(openSectionsContainingLineNumbersMock).toHaveBeenCalledWith({
+        lineNumbers: lines,
       });
     });
     await waitFor(() => {

@@ -27,4 +27,12 @@ const isSubsectionHeaderRow = (
 ): logLine is SubsectionHeaderRow =>
   typeof logLine === "object" && logLine.rowType === RowType.SubsectionHeader;
 
-export { isSectionHeaderRow, isSkippedLinesRow, isSubsectionHeaderRow };
+const isLogRow = (logLine: ProcessedLogLine): logLine is number =>
+  typeof logLine === "number";
+
+export {
+  isSectionHeaderRow,
+  isSkippedLinesRow,
+  isSubsectionHeaderRow,
+  isLogRow,
+};
