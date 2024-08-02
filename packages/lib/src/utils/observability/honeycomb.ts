@@ -1,6 +1,7 @@
 import { HoneycombWebSDK } from "@honeycombio/opentelemetry-web";
 import { getWebAutoInstrumentations } from "@opentelemetry/auto-instrumentations-web";
 import { UserInteractionInstrumentation } from "@opentelemetry/instrumentation-user-interaction";
+import { getElementName } from "./utils";
 
 interface HoneycombConfig {
   serviceName: string;
@@ -40,7 +41,17 @@ const initializeHoneycomb = ({
           },
         }),
 
-        new UserInteractionInstrumentation(),
+        new UserInteractionInstrumentation({
+          shouldPreventSpanCreation: (event, element, span) => {
+            span.setAttribute("target.id", element.id);
+            span.setAttribute(
+              "target.data-cy",
+              element.getAttribute("data-cy") ?? "no data-cy",
+            );
+
+            span.updateName(`${event}: ${getElementName(element)}`);
+          },
+        }),
       ],
       // Add user.id as an attribute to all traces.
       resourceAttributes: {
