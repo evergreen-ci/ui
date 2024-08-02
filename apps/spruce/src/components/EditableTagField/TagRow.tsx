@@ -1,7 +1,7 @@
 import { useReducer, useMemo } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import TextInput from "@leafygreen-ui/text-input";
+import TextArea from "@leafygreen-ui/text-area";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -40,7 +40,7 @@ export const TagRow: React.FC<TagRowProps> = ({
         <FlexContainer>
           <FlexColumnContainer>
             <Section>
-              <TextInput
+              <TextArea
                 label="Key"
                 id={`tag_key_${tagId}`}
                 value={key}
@@ -54,7 +54,7 @@ export const TagRow: React.FC<TagRowProps> = ({
           </FlexColumnContainer>
           <FlexColumnContainer>
             <Section>
-              <TextInput
+              <TextArea
                 label="Value"
                 id={`tag_value_${tagId}`}
                 value={value}
