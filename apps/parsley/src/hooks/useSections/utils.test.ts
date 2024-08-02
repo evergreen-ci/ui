@@ -5,7 +5,7 @@ import {
 } from "./testData";
 import {
   SectionData,
-  openSectionContainingLineNumberHelper,
+  getOpenSectionStateBasedOnLineNumbers,
   parseSections,
   populateSectionState,
   processLine,
@@ -377,10 +377,10 @@ describe("parseSections", () => {
   });
 });
 
-describe("openSectionContainingLineNumberHelper", () => {
+describe("getOpenSectionStateBasedOnLineNumbers", () => {
   it("should open the sections containing the line number", () => {
-    const result = openSectionContainingLineNumberHelper({
-      lineNumber: 1,
+    const result = getOpenSectionStateBasedOnLineNumbers({
+      lineNumbers: [1],
       sectionData,
       sectionState: sectionStateAllClosed,
     });
@@ -398,17 +398,17 @@ describe("openSectionContainingLineNumberHelper", () => {
         isOpen: true,
       },
     };
-    expect(result).toStrictEqual(nextSectionState);
+    expect(result).toStrictEqual([true, nextSectionState]);
   });
 
   it("should return the given sectionState value and reference when the given line number doesn't belong to a section", () => {
-    const result = openSectionContainingLineNumberHelper({
-      lineNumber: 100,
+    const result = getOpenSectionStateBasedOnLineNumbers({
+      lineNumbers: [100],
       sectionData,
       sectionState: sectionStateAllClosed,
     });
-    expect(result).toStrictEqual(sectionStateAllClosed);
-    expect(result).toBe(sectionStateAllClosed);
+    expect(result).toStrictEqual([false, sectionStateAllClosed]);
+    expect(result[1]).not.toBe(sectionStateAllClosed);
   });
 
   it("should return the given sectionState value and reference when the given line number's section is already open", () => {
@@ -426,13 +426,13 @@ describe("openSectionContainingLineNumberHelper", () => {
         isOpen: true,
       },
     };
-    const result = openSectionContainingLineNumberHelper({
-      lineNumber: 1,
+    const result = getOpenSectionStateBasedOnLineNumbers({
+      lineNumbers: [1],
       sectionData,
       sectionState,
     });
-    expect(result).toStrictEqual(sectionState);
-    expect(result).toBe(sectionState);
+    expect(result).toStrictEqual([false, sectionState]);
+    expect(result[1]).not.toBe(sectionState);
   });
 });
 

@@ -879,13 +879,24 @@ export type Image = {
   __typename?: "Image";
   ami: Scalars["String"]["output"];
   distros: Array<Distro>;
+  events: Array<ImageEvent>;
   id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
+  latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
   packages: Array<Package>;
   toolchains: Array<Toolchain>;
   versionId: Scalars["String"]["output"];
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImageEventsArgs = {
+  limit: Scalars["Int"]["input"];
+  page: Scalars["Int"]["input"];
 };
 
 /**
@@ -903,6 +914,34 @@ export type ImagePackagesArgs = {
 export type ImageToolchainsArgs = {
   opts: ToolchainOpts;
 };
+
+export type ImageEvent = {
+  __typename?: "ImageEvent";
+  amiAfter: Scalars["String"]["output"];
+  amiBefore?: Maybe<Scalars["String"]["output"]>;
+  entries: Array<ImageEventEntry>;
+  timestamp: Scalars["Time"]["output"];
+};
+
+export type ImageEventEntry = {
+  __typename?: "ImageEventEntry";
+  action: ImageEventEntryAction;
+  after: Scalars["String"]["output"];
+  before: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  type: ImageEventType;
+};
+
+export enum ImageEventEntryAction {
+  Added = "ADDED",
+  Deleted = "DELETED",
+  Updated = "UPDATED",
+}
+
+export enum ImageEventType {
+  Package = "PACKAGE",
+  Toolchain = "TOOLCHAIN",
+}
 
 export type InstanceTag = {
   __typename?: "InstanceTag";
@@ -4878,6 +4917,18 @@ export type DeleteDistroMutation = {
   deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
 };
 
+export type DeleteGithubAppCredentialsMutationVariables = Exact<{
+  projectId: Scalars["String"]["input"];
+}>;
+
+export type DeleteGithubAppCredentialsMutation = {
+  __typename?: "Mutation";
+  deleteGithubAppCredentials?: {
+    __typename?: "DeleteGithubAppCredentialsPayload";
+    oldAppId: number;
+  } | null;
+};
+
 export type DeleteProjectMutationVariables = Exact<{
   projectId: Scalars["String"]["input"];
 }>;
@@ -5705,6 +5756,7 @@ export type BuildVariantsForTaskNameQuery = {
 
 export type BuildVariantsWithChildrenQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  statuses: Array<Scalars["String"]["input"]>;
 }>;
 
 export type BuildVariantsWithChildrenQuery = {

@@ -1,4 +1,3 @@
-import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { Range } from "types/logs";
 import { includesLineNumber } from "utils/logRow";
 import { trimSeverity } from "utils/string";
@@ -154,26 +153,26 @@ const parseSections = (logs: string[]): SectionData => {
 };
 
 /**
- * This function returns the next section state where all sections that contain the lineNumber values(s)
- * are open. If the next state is the same as the current state, the function will return the current state
+ * getOpenSectionStateBasedOnLineNumbers Gets the next section state where all sections that contain the lineNumber values(s)
+ * are open. The return value returns a boolean representing if the next state is different from current state
+ * as well as the next section state.
  * @param props is an object with a lineNumber key(s), sectionData and sectionState.
  * @param props.sectionData is the parsed section data
  * @param props.sectionState is the current section state
- * @param props.lineNumber is a number or an array of numbers that represent raw log line numbers.
- * @returns SectionState | undefined
+ * @param props.lineNumbers is an array of numbers that represent raw log line numbers.
+ * @returns [boolean, SectionState]
  */
-const openSectionContainingLineNumberHelper = ({
-  lineNumber,
+const getOpenSectionStateBasedOnLineNumbers = ({
+  lineNumbers,
   sectionData,
   sectionState,
 }: {
   sectionData: SectionData;
   sectionState: SectionState;
-  lineNumber: number | number[];
-}) => {
-  const lineNumberArray = conditionalToArray(lineNumber, true);
+  lineNumbers: number[];
+}): [boolean, SectionState] => {
   const sectionContainingLine = sectionData.commands.filter((section) =>
-    lineNumberArray.some((n) => includesLineNumber(section, n)),
+    lineNumbers.some((n) => includesLineNumber(section, n)),
   );
   const nextState = structuredClone(sectionState);
   let hasDiff = false;
@@ -187,7 +186,7 @@ const openSectionContainingLineNumberHelper = ({
     nextState[functionID].commands[commandID].isOpen = true;
     nextState[functionID].isOpen = true;
   });
-  return hasDiff ? nextState : sectionState;
+  return [hasDiff, nextState];
 };
 
 interface PopulateSectionStateParams {
@@ -230,7 +229,7 @@ const populateSectionState = ({
 export {
   parseSections,
   reduceFn,
-  openSectionContainingLineNumberHelper,
+  getOpenSectionStateBasedOnLineNumbers,
   populateSectionState,
 };
 export type { FunctionEntry, SectionData, CommandEntry };

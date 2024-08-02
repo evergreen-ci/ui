@@ -6,7 +6,7 @@ import { reportError } from "utils/errorReporting";
 import { releaseSectioning } from "utils/featureFlag";
 import {
   SectionData,
-  openSectionContainingLineNumberHelper,
+  getOpenSectionStateBasedOnLineNumbers,
   parseSections,
   populateSectionState,
 } from "./utils";
@@ -37,8 +37,8 @@ export interface UseSectionsResult {
   toggleAllSections: (isOpen: boolean) => void;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
-  openSectionContainingLineNumber: (p: {
-    lineNumber: number | number[];
+  openSectionsContainingLineNumbers: (options: {
+    lineNumbers: number[];
   }) => boolean;
 }
 
@@ -163,30 +163,33 @@ export const useSections = ({
 
   /**
    * This function will update the current section state. If the next state is the
+   * openSectionsContainingLineNumbers Will update the current section state. If the next state is the
    * same as the current state the function will return true and false otherwise.
-   * @param param0 is an object with a lineNumber key(s).
-   * @param param0.lineNumber is a number or an array of numbers that represent raw log line numbers.
+   * @param options is an object with a lineNumber key(s).
+   * @param options.lineNumbers is a number or an array of numbers that represent raw log line numbers.
    * @returns true if the sectionState was updated and false otherwise
    */
-  const openSectionContainingLineNumber = ({
-    lineNumber,
+  const openSectionsContainingLineNumbers = ({
+    lineNumbers,
   }: {
-    lineNumber: number | number[];
+    lineNumbers: number[];
   }): boolean => {
     if (!sectionData || !sectionState) {
       return false;
     }
-    const nextState = openSectionContainingLineNumberHelper({
-      lineNumber,
+    const [hasDiff, nextState] = getOpenSectionStateBasedOnLineNumbers({
+      lineNumbers,
       sectionData,
       sectionState,
     });
-    setSectionState(nextState);
-    return nextState !== sectionState;
+    if (hasDiff) {
+      setSectionState(nextState);
+    }
+    return hasDiff;
   };
 
   return {
-    openSectionContainingLineNumber,
+    openSectionsContainingLineNumbers,
     sectionData,
     sectionState,
     sectioningEnabled,
