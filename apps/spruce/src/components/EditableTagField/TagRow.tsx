@@ -138,6 +138,7 @@ const FlexColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: ${size.xs};
+  flex-grow: 1;
 `;
 
 const Section = styled(FlexColumnContainer)`
