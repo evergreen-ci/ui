@@ -15,8 +15,8 @@ const LogWindow: React.FC = () => {
     failingLine,
     hasLogs,
     lineCount,
+    openSectionAndScrollToLine,
     processedLogLines,
-    scrollToLine,
   } = useLogContext();
 
   return (
@@ -29,8 +29,7 @@ const LogWindow: React.FC = () => {
       <BookmarksBar
         failingLine={failingLine}
         lineCount={lineCount}
-        processedLogLines={processedLogLines}
-        scrollToLine={scrollToLine}
+        scrollToLine={openSectionAndScrollToLine}
       />
       <ColumnContainer>
         <SubHeader />
