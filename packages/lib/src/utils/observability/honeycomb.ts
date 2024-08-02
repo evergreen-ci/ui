@@ -12,9 +12,7 @@ interface HoneycombConfig {
 const initializeHoneycomb = ({
   apiKey,
   debug,
-  endpoint,
   serviceName,
-  uiUrl,
 }: HoneycombConfig) => {
   const userId = localStorage.getItem("userId") ?? undefined;
 
