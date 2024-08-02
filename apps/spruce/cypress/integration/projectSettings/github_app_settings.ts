@@ -20,6 +20,52 @@ describe("GitHub app settings", () => {
     saveButtonEnabled(false);
   });
 
+  it("should be able to delete & save app credentials", () => {
+    cy.dataCy("github-app-id-input").as("appId");
+    cy.dataCy("github-private-key-input").as("privateKey");
+
+    // Delete GitHub app credentials.
+    cy.dataCy("delete-app-credentials-button").should("be.visible");
+    cy.dataCy("delete-app-credentials-button").click();
+    cy.dataCy("delete-github-credentials-modal").should("be.visible");
+    cy.dataCy("delete-github-credentials-modal")
+      .find("button")
+      .contains("Delete")
+      .parent()
+      .click();
+    cy.validateToast("success");
+
+    cy.dataCy("github-app-credentials-banner").should("be.visible");
+    cy.get("@appId").should("have.value", "");
+    cy.get("@privateKey").should("have.value", "");
+    cy.get("@appId").should("have.attr", "aria-disabled", "false");
+    cy.get("@privateKey").should("have.attr", "aria-disabled", "false");
+
+    cy.reload();
+    cy.dataCy("github-app-credentials-banner").should("be.visible");
+    cy.get("@appId").should("have.value", "");
+    cy.get("@privateKey").should("have.value", "");
+
+    // Add GitHub app credentials.
+    cy.get("@appId").type("12345");
+    cy.get("@privateKey").type("secret");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    saveButtonEnabled(true);
+    clickSave();
+    cy.validateToast("success", "Successfully updated project");
+
+    cy.dataCy("github-app-credentials-banner").should("not.exist");
+    cy.get("@appId").should("have.value", "12345");
+    cy.get("@privateKey").should("have.value", "{REDACTED}");
+    cy.get("@appId").should("have.attr", "aria-disabled", "true");
+    cy.get("@privateKey").should("have.attr", "aria-disabled", "true");
+
+    cy.reload();
+    cy.dataCy("github-app-credentials-banner").should("not.exist");
+    cy.get("@appId").should("have.value", "12345");
+    cy.get("@privateKey").should("have.value", "{REDACTED}");
+  });
+
   it("should be able to save different permission groups for requesters, then return to defaults", () => {
     cy.dataCy("permission-group-input").should("have.length", 7);
     cy.dataCy("permission-group-input").eq(0).as("permission-group-input-0");

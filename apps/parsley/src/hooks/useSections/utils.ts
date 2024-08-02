@@ -1,5 +1,7 @@
 import { Range } from "types/logs";
+import { includesLineNumber } from "utils/logRow";
 import { trimSeverity } from "utils/string";
+import { SectionState } from ".";
 
 enum SectionStatus {
   Running = "Running",
@@ -150,5 +152,75 @@ const parseSections = (logs: string[]): SectionData => {
   return { commands, functions };
 };
 
-export { parseSections, reduceFn };
+/**
+ * getOpenSectionStateBasedOnLineNumbers Gets the next section state where all sections that contain the lineNumber values(s)
+ * are open. The return value returns a boolean representing if the next state is different from current state
+ * as well as the next section state.
+ * @param props is an object with a lineNumber key(s), sectionData and sectionState.
+ * @param props.sectionData is the parsed section data
+ * @param props.sectionState is the current section state
+ * @param props.lineNumbers is an array of numbers that represent raw log line numbers.
+ * @returns [boolean, SectionState]
+ */
+const getOpenSectionStateBasedOnLineNumbers = ({
+  lineNumbers,
+  sectionData,
+  sectionState,
+}: {
+  sectionData: SectionData;
+  sectionState: SectionState;
+  lineNumbers: number[];
+}): [boolean, SectionState] => {
+  const sectionContainingLine = sectionData.commands.filter((section) =>
+    lineNumbers.some((n) => includesLineNumber(section, n)),
+  );
+  const nextState = structuredClone(sectionState);
+  let hasDiff = false;
+  sectionContainingLine.forEach(({ commandID, functionID }) => {
+    if (
+      sectionState[functionID].commands[commandID].isOpen !== true ||
+      sectionState[functionID].isOpen !== true
+    ) {
+      hasDiff = true;
+    }
+    nextState[functionID].commands[commandID].isOpen = true;
+    nextState[functionID].isOpen = true;
+  });
+  return [hasDiff, nextState];
+};
+
+/**
+ * populateSectionState Populates the section state based on the section data.
+ * All sections are set closed except those containing the given line number.
+ * @param sectionData - The parsed section data
+ * @param openSectionContainingLine - The line number to be used to determine which section to open
+ * @returns A sectionState coresponding to sectionData with the specified section open
+ */
+const populateSectionState = (
+  sectionData: SectionData,
+  openSectionContainingLine: number | undefined,
+): SectionState => {
+  const { commands, functions } = sectionData;
+  const sectionState: SectionState = {};
+  functions.forEach(({ functionID }) => {
+    sectionState[functionID] = { commands: {}, isOpen: false };
+  });
+  commands.forEach((sectionEntry) => {
+    const { commandID, functionID } = sectionEntry;
+    if (includesLineNumber(sectionEntry, openSectionContainingLine)) {
+      sectionState[functionID].isOpen = true;
+      sectionState[functionID].commands[commandID] = { isOpen: true };
+    } else {
+      sectionState[functionID].commands[commandID] = { isOpen: false };
+    }
+  });
+  return sectionState;
+};
+
+export {
+  parseSections,
+  reduceFn,
+  getOpenSectionStateBasedOnLineNumbers,
+  populateSectionState,
+};
 export type { FunctionEntry, SectionData, CommandEntry };

@@ -40,6 +40,9 @@ export const githubPermissionsDocumentationUrl =
  */
 export const githubTokenPermissionRestrictionsUrl = "";
 
+export const githubAppCredentialsDocumentationUrl =
+  "https://wiki.corp.mongodb.com/x/tavkC";
+
 export const ignoredFilesDocumentationUrl = `${wikiBaseUrl}/Project-Configuration/Project-Configuration-Files#ignoring-changes-to-certain-files`;
 
 export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;

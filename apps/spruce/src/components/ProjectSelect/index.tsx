@@ -13,6 +13,7 @@ import { Unpacked } from "types/utils";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 interface ProjectSelectProps {
+  className?: string;
   getRoute: (projectIdentifier: string) => string;
   isProjectSettingsPage?: boolean;
   onSubmit?: (projectIdentifier: string) => void;
@@ -21,6 +22,7 @@ interface ProjectSelectProps {
 }
 
 export const ProjectSelect: React.FC<ProjectSelectProps> = ({
+  className,
   getRoute,
   isProjectSettingsPage = false,
   onSubmit = () => {},
@@ -96,6 +98,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
 
   return (
     <SearchableDropdown
+      className={className}
       label={showLabel ? "Project" : null}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       value={
