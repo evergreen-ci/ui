@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { UseSectionsResult } from "hooks/useSections";
 import { ProcessedLogLines } from "types/logs";
 import { findLineIndex } from "utils/findLineIndex";
@@ -7,58 +8,60 @@ import { findLineIndex } from "utils/findLineIndex";
  * useOpenSectionAndScrollToLine hook is used to open sections containing given line number(s) and scroll to the first given line number.
  * This hook is designed to scroll even if sections are disabled.
  * @param processedLogLines These are the visible log lines that are currently rendered in the log pane.
- * @param openSectionContainingLineNumber This function is used to open the section containing the line number. The function returns true if
+ * @param openSectionsContainingLineNumbers This function is used to open the section containing the line number. The function returns true if
  * the section is already open and false otherwise.
- * @param scroll This function is used to scroll to the line number.
+ * @param scrollToLine This function is used to scroll to the line number.
  * @returns A setter function that accepts one or many line numbers so scroll to. If multiple lines numbers are passed, open
  * their corresponding sections and scroll to the first line.
  */
 const useOpenSectionAndScrollToLine = (
   processedLogLines: ProcessedLogLines,
-  openSectionContainingLineNumber: UseSectionsResult["openSectionContainingLineNumber"],
-  scroll: (lineNumber: number) => void,
+  openSectionsContainingLineNumbers: UseSectionsResult["openSectionsContainingLineNumbers"],
+  scrollToLine: (lineNumber: number) => void,
 ) => {
-  const [lineNumber, setLineNumber] = useState<number | number[] | undefined>();
+  const [lineNumbers, setLineNumbers] = useState<number[] | undefined>();
 
   /**
-   * When the lineNumber is set from the callback, calculate the next section state
-   * from the lineNumber. If the next state is the same as the current state,
-   * scroll to the lineNumber and reset lineNumber. If the next state is different,
+   * When lineNumbers is set from the callback, calculate the next section state from
+   * lineNumbers. If the next state is the same as the current state, scroll to the
+   * first element in lineNumbers and reset lineNumbers. If the next state is different,
    * wait for processedLogLines to update in the following useEffect.
    */
   useEffect(() => {
-    if (lineNumber !== undefined) {
-      const hasDiff = openSectionContainingLineNumber({
-        lineNumber,
+    if (lineNumbers !== undefined) {
+      const hasDiff = openSectionsContainingLineNumbers({
+        lineNumbers,
       });
       if (!hasDiff) {
-        const scrollIndex = findLineIndex(
-          processedLogLines,
-          Array.isArray(lineNumber) ? lineNumber[0] : lineNumber,
-        );
-        scroll(scrollIndex);
-        setLineNumber(undefined);
+        const scrollIndex = findLineIndex(processedLogLines, lineNumbers[0]);
+        scrollToLine(scrollIndex);
+        setLineNumbers(undefined);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lineNumber]);
+  }, [lineNumbers]);
 
   /**
-   * When processedLogLines updates and lineNumber is defined,
-   * scroll to the lineNumber and reset lineNumber.
+   * When processedLogLines updates and lineNumbers is defined,
+   * scroll to the first element in lineNumbers and reset lineNumbers.
    */
   useEffect(() => {
-    if (lineNumber !== undefined) {
-      const scrollIndex = findLineIndex(
-        processedLogLines,
-        Array.isArray(lineNumber) ? lineNumber[0] : lineNumber,
-      );
-      scroll(scrollIndex);
-      setLineNumber(undefined);
+    if (lineNumbers !== undefined) {
+      const scrollIndex = findLineIndex(processedLogLines, lineNumbers[0]);
+      scrollToLine(scrollIndex);
+      setLineNumbers(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [processedLogLines]);
-  return setLineNumber;
+
+  const openSectionAndScrollToLine = useCallback(
+    (lineNumberInput: number | number[]) => {
+      setLineNumbers(conditionalToArray(lineNumberInput, true));
+    },
+    [],
+  );
+
+  return openSectionAndScrollToLine;
 };
 
 export { useOpenSectionAndScrollToLine };

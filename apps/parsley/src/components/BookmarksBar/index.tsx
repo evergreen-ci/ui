@@ -15,7 +15,7 @@ const { gray, green, red } = palette;
 interface BookmarksBarProps {
   failingLine?: number;
   lineCount: number;
-  scrollToLine: (scrollIndex: number) => void;
+  scrollToLine: (lineNumber: number) => void;
 }
 
 const BookmarksBar: React.FC<BookmarksBarProps> = ({

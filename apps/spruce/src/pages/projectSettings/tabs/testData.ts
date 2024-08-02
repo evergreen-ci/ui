@@ -7,6 +7,10 @@ import {
 import { JiraTicketType } from "types/jira";
 
 const projectBase: ProjectSettingsQuery["projectSettings"] = {
+  githubAppAuth: {
+    appId: 12345,
+    privateKey: "{REDACTED}",
+  },
   githubWebhooksEnabled: true,
   projectRef: {
     externalLinks: [
