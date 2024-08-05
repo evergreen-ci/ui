@@ -1,15 +1,10 @@
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
-import { RowType } from "types/logs";
 import BookmarksBar from ".";
 
 describe("bookmarks bar", () => {
   it("should not add bookmarks if there are no log lines", async () => {
     const { router } = renderWithRouterMatch(
-      <BookmarksBar
-        lineCount={0}
-        processedLogLines={[]}
-        scrollToLine={vi.fn()}
-      />,
+      <BookmarksBar lineCount={0} scrollToLine={vi.fn()} />,
     );
     await waitFor(() => {
       expect(router.state.location.search).toBe("");
@@ -18,11 +13,7 @@ describe("bookmarks bar", () => {
 
   it("should add a single bookmark of 0 if there is only a single log line", async () => {
     const { router } = renderWithRouterMatch(
-      <BookmarksBar
-        lineCount={1}
-        processedLogLines={[1]}
-        scrollToLine={vi.fn()}
-      />,
+      <BookmarksBar lineCount={1} scrollToLine={vi.fn()} />,
     );
     await waitFor(() => {
       expect(router.state.location.search).toBe("?bookmarks=0");
@@ -31,11 +22,7 @@ describe("bookmarks bar", () => {
 
   it("should set 0 and last log line as the initial bookmarks", async () => {
     const { router } = renderWithRouterMatch(
-      <BookmarksBar
-        lineCount={11}
-        processedLogLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        scrollToLine={vi.fn()}
-      />,
+      <BookmarksBar lineCount={11} scrollToLine={vi.fn()} />,
     );
     await waitFor(() => {
       expect(router.state.location.search).toBe("?bookmarks=0,10");
@@ -44,12 +31,7 @@ describe("bookmarks bar", () => {
 
   it("should properly display sorted bookmarks, shareLine, and failingLine", () => {
     renderWithRouterMatch(
-      <BookmarksBar
-        failingLine={3}
-        lineCount={11}
-        processedLogLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        scrollToLine={vi.fn()}
-      />,
+      <BookmarksBar failingLine={3} lineCount={11} scrollToLine={vi.fn()} />,
       {
         route: "?bookmarks=1&shareLine=5",
       },
@@ -67,11 +49,7 @@ describe("bookmarks bar", () => {
   it("should be able to clear all bookmarks without removing share line", async () => {
     const user = userEvent.setup();
     const { router } = renderWithRouterMatch(
-      <BookmarksBar
-        lineCount={11}
-        processedLogLines={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        scrollToLine={vi.fn()}
-      />,
+      <BookmarksBar lineCount={11} scrollToLine={vi.fn()} />,
       {
         route: "?bookmarks=1,3&shareLine=5",
       },
@@ -84,15 +62,11 @@ describe("bookmarks bar", () => {
     expect(router.state.location.search).toBe("?shareLine=5");
   });
 
-  it("should call scrollToLine when clicking on a log line (with no collapsed lines)", async () => {
+  it("should call scrollToLine when clicking on a log line", async () => {
     const user = userEvent.setup();
     const scrollToLine = vi.fn();
     renderWithRouterMatch(
-      <BookmarksBar
-        lineCount={5}
-        processedLogLines={[0, 1, 2, 3, 4]}
-        scrollToLine={scrollToLine}
-      />,
+      <BookmarksBar lineCount={5} scrollToLine={scrollToLine} />,
       {
         route: "?bookmarks=1,3",
       },
@@ -100,27 +74,5 @@ describe("bookmarks bar", () => {
     await user.click(screen.getByDataCy("bookmark-3"));
     expect(scrollToLine).toHaveBeenCalledTimes(1);
     expect(scrollToLine).toHaveBeenCalledWith(3);
-  });
-
-  it("should call scrollToLine when clicking on a log line (with collapsed lines)", async () => {
-    const user = userEvent.setup();
-    const scrollToLine = vi.fn();
-    renderWithRouterMatch(
-      <BookmarksBar
-        lineCount={5}
-        processedLogLines={[
-          { range: { end: 3, start: 0 }, rowType: RowType.SkippedLines },
-          3,
-          4,
-        ]}
-        scrollToLine={scrollToLine}
-      />,
-      {
-        route: "?bookmarks=1,3",
-      },
-    );
-    await user.click(screen.getByDataCy("bookmark-3"));
-    expect(scrollToLine).toHaveBeenCalledTimes(1);
-    expect(scrollToLine).toHaveBeenCalledWith(1);
   });
 });

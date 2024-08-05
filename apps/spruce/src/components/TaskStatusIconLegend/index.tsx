@@ -49,7 +49,8 @@ export const TaskStatusIconLegend: React.FC = () => {
         justify="end"
         active={isActive}
         usePortal
-        popoverZIndex={zIndex.popover}
+        // In some cases, the z-index of the popover needs to be higher than the rest of the app due to some components having a higher z-index.
+        popoverZIndex={zIndex.tooltip}
       >
         <StyledPopoverContainer>
           <TitleContainer>
