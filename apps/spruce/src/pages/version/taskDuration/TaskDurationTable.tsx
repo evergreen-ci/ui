@@ -6,6 +6,7 @@ import {
   SortingState,
   getFacetedMinMaxValues,
   useLeafyGreenTable,
+  LGColumnDef,
 } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
@@ -15,7 +16,11 @@ import { onChangeHandler } from "components/Table/utils";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { slugs } from "constants/routes";
-import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
+import {
+  VersionTaskDurationsQuery,
+  SortDirection,
+  Task,
+} from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
@@ -93,7 +98,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     setQueryParams(updatedParams);
   };
 
-  const columns = useMemo(
+  const columns: LGColumnDef<Task>[] = useMemo(
     () => [
       {
         id: PatchTasksQueryParams.TaskName,
@@ -102,13 +107,17 @@ export const TaskDurationTable: React.FC<Props> = ({
         size: 250,
         enableColumnFilter: true,
         cell: ({
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           getValue,
           row: {
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            original: { id },
+            original: { execution, id },
           },
-        }) => <TaskLink taskId={id} taskName={getValue()} execution={0} />,
+        }) => (
+          <TaskLink
+            taskId={id}
+            taskName={getValue() as string}
+            execution={execution}
+          />
+        ),
         meta: {
           search: {
             "data-cy": "task-name-filter-popover",
@@ -150,19 +159,16 @@ export const TaskDurationTable: React.FC<Props> = ({
         enableSorting: true,
         size: 250,
         cell: ({
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           column,
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           getValue,
           row: {
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             original: { status },
           },
         }) => (
           <TaskDurationCell
             status={status}
             maxTimeTaken={column.getFacetedMinMaxValues()?.[1] ?? 0}
-            timeTaken={getValue()}
+            timeTaken={getValue() as number}
           />
         ),
       },
@@ -175,6 +181,7 @@ export const TaskDurationTable: React.FC<Props> = ({
   const table = useLeafyGreenTable<
     VersionTaskDurationsQuery["version"]["tasks"]["data"][0]
   >({
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     columns,
     containerRef: tableContainerRef,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
