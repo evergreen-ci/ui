@@ -38,7 +38,7 @@ const logs = [
 const renderSharingMenu = () => {
   const { Component: MenuComponent, hook } = renderComponentWithHook(
     useMultiLineSelectContext,
-    <SharingMenu defaultOpen />,
+    <SharingMenu />,
   );
   const { Component } = RenderFakeToastContext(<MenuComponent />);
   const utils = renderWithRouterMatch(<Component />, { wrapper });
@@ -49,11 +49,29 @@ const renderSharingMenu = () => {
 };
 
 describe("sharingMenu", () => {
-  it("should render an open menu", () => {
-    renderSharingMenu();
-    expect(screen.getByText("Copy selected contents")).toBeInTheDocument();
+  it("should render an open menu after setting it to open", async () => {
+    const { hook } = renderSharingMenu();
+    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
+    act(() => {
+      hook.current.setOpenMenu(true);
+    });
     expect(
       screen.getByText("Copy share link to selected line"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Only search on range")).toBeInTheDocument();
+  });
+  it("should render an open menu after selecting a start and end line", async () => {
+    const { hook } = renderSharingMenu();
+    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
+    act(() => {
+      hook.current.handleSelectLine(1, false);
+    });
+    expect(screen.queryByText("Copy share link to selected lines")).toBeNull();
+    act(() => {
+      hook.current.handleSelectLine(3, true);
+    });
+    expect(
+      screen.getByText("Copy share link to selected lines"),
     ).toBeInTheDocument();
     expect(screen.getByText("Only search on range")).toBeInTheDocument();
   });
@@ -79,6 +97,7 @@ describe("sharingMenu", () => {
 
     const { hook } = renderSharingMenu();
     act(() => {
+      hook.current.setOpenMenu(true);
       hook.current.handleSelectLine(1, false);
     });
 
@@ -148,7 +167,7 @@ describe("sharingMenu", () => {
     };
     const { Component: MenuComponent, hook } = renderComponentWithHook(
       useSpecialHook,
-      <SharingMenu defaultOpen />,
+      <SharingMenu />,
     );
     const { Component } = RenderFakeToastContext(<MenuComponent />);
     renderWithRouterMatch(<Component />, {
