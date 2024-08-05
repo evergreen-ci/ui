@@ -22,7 +22,7 @@ interface SectionLineMetadata {
  */
 export const processLine = (str: string): SectionLineMetadata | null => {
   const regex =
-    /(Running|Finished) command '([^']+)' in function '([^']+)' \(step ([^)]+)\)[^.]*\./;
+    /(Running|Finished) command '([^']+)'(?: \('[^']*'\))? in function '([^']+)' \(step ([^)]+)\)[^.]*\./;
   const match = trimSeverity(str).match(regex);
   if (match) {
     return {
