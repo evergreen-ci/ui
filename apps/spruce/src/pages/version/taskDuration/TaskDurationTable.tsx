@@ -7,6 +7,7 @@ import {
   getFacetedMinMaxValues,
   useLeafyGreenTable,
   LGColumnDef,
+  LeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
@@ -16,11 +17,7 @@ import { onChangeHandler } from "components/Table/utils";
 import { TaskLink } from "components/TasksTable/TaskLink";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { slugs } from "constants/routes";
-import {
-  VersionTaskDurationsQuery,
-  SortDirection,
-  Task,
-} from "gql/generated/types";
+import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
@@ -29,6 +26,8 @@ import { TaskDurationCell } from "./TaskDurationCell";
 const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
+type TaskDurationColumnData =
+  VersionTaskDurationsQuery["version"]["tasks"]["data"][0];
 interface Props {
   tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];
   loading: boolean;
@@ -53,7 +52,6 @@ export const TaskDurationTable: React.FC<Props> = ({
     [], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
@@ -98,7 +96,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     setQueryParams(updatedParams);
   };
 
-  const columns: LGColumnDef<Task>[] = useMemo(
+  const columns: LGColumnDef<TaskDurationColumnData>[] = useMemo(
     () => [
       {
         id: PatchTasksQueryParams.TaskName,
@@ -177,45 +175,42 @@ export const TaskDurationTable: React.FC<Props> = ({
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const table = useLeafyGreenTable<
-    VersionTaskDurationsQuery["version"]["tasks"]["data"][0]
-  >({
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    columns,
-    containerRef: tableContainerRef,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    data: tasks ?? [],
-    defaultColumn: {
-      // Handle bug in sorting order
-      // https://github.com/TanStack/table/issues/4289
-      sortDescFirst: false,
-    },
-    getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    initialState: {
-      columnFilters: initialFilters,
-      sorting: initialSort,
-    },
-    manualFiltering: true,
-    manualPagination: true,
-    manualSorting: true,
-    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+  const table: LeafyGreenTable<TaskDurationColumnData> =
+    useLeafyGreenTable<TaskDurationColumnData>({
+      columns,
+      containerRef: tableContainerRef,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      setFilters,
-      (updatedState) => {
-        updateFilters(updatedState);
-        table.resetRowSelection();
+      data: tasks ?? [],
+      defaultColumn: {
+        // Handle bug in sorting order
+        // https://github.com/TanStack/table/issues/4289
+        sortDescFirst: false,
       },
-    ),
-    onSortingChange: onChangeHandler<SortingState>(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      setSorting,
-      (updatedState) => {
-        updateSort(updatedState);
-        table.resetRowSelection();
+      getFacetedMinMaxValues: getFacetedMinMaxValues(),
+      initialState: {
+        columnFilters: initialFilters,
+        sorting: initialSort,
       },
-    ),
-  });
+      manualFiltering: true,
+      manualPagination: true,
+      manualSorting: true,
+      onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        setFilters,
+        (updatedState) => {
+          updateFilters(updatedState);
+          table.resetRowSelection();
+        },
+      ),
+      onSortingChange: onChangeHandler<SortingState>(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        setSorting,
+        (updatedState) => {
+          updateSort(updatedState);
+          table.resetRowSelection();
+        },
+      ),
+    });
 
   return (
     <BaseTable
