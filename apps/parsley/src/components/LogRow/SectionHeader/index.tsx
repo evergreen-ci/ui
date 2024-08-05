@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import Button, { Size } from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";

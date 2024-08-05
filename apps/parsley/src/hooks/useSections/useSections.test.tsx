@@ -341,6 +341,49 @@ describe("useSections", () => {
     });
   });
 
+  it("toggleAllCommandsInFunction toggles the open state of all commands in a function. When isOpen is true, the function is toggle open.", async () => {
+    InitializeFakeToastContext();
+    const { result } = renderHook(() => useSections({ logs, ...metadata }), {
+      wrapper,
+    });
+    await waitFor(() => {
+      expect(result.current.sectionData).toStrictEqual(sectionData);
+    });
+    await waitFor(() => {
+      expect(result.current.sectionState).toStrictEqual(sectionStateAllClosed);
+    });
+    act(() => {
+      result.current.toggleAllCommandsInFunction("function-1", true);
+    });
+    await waitFor(() => {
+      expect(result.current.sectionState).toStrictEqual({
+        ...sectionStateAllClosed,
+        "function-1": {
+          commands: {
+            "command-1": { isOpen: true },
+            "command-6": { isOpen: true },
+          },
+          isOpen: true,
+        },
+      });
+    });
+    act(() => {
+      result.current.toggleAllCommandsInFunction("function-1", false);
+    });
+    await waitFor(() => {
+      expect(result.current.sectionState).toStrictEqual({
+        ...sectionStateAllClosed,
+        "function-1": {
+          commands: {
+            "command-1": { isOpen: false },
+            "command-6": { isOpen: false },
+          },
+          isOpen: true,
+        },
+      });
+    });
+  });
+
   const logs = [
     "normal log line",
     "Running command 'c1' in function 'f-1' (step 1 of 4).",
