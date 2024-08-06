@@ -10,27 +10,49 @@ import {
 
 describe("processLine", () => {
   it("should correctly parse a log line indicating a running section", () => {
-    const logLine =
-      "Running command 'ec2.assume_role' in function 'assume-ec2-role' (step 1.3 of 4) in block 'pre'.";
-    const expectedMetadata = {
+    expect(
+      processLine(
+        "Running command 'ec2.assume_role' in function 'assume-ec2-role' (step 1.3 of 4) in block 'pre'.",
+      ),
+    ).toStrictEqual({
       commandName: "ec2.assume_role",
       functionName: "assume-ec2-role",
       status: "Running",
       step: "1.3 of 4",
-    };
-    expect(processLine(logLine)).toStrictEqual(expectedMetadata);
+    });
+    expect(
+      processLine(
+        "Running command 'some_command' ('command_write') in function 'some_function' (step 8 of 9).",
+      ),
+    ).toStrictEqual({
+      commandName: "some_command",
+      functionName: "some_function",
+      status: "Running",
+      step: "8 of 9",
+    });
   });
 
   it("should correctly parse a log line indicating a finished section", () => {
-    const logLine =
-      "Finished command 'shell.exec' in function 'yarn-preview' (step 6 of 9.9) in 415.963µs.";
-    const expectedMetadata = {
+    expect(
+      processLine(
+        "Finished command 'shell.exec' in function 'yarn-preview' (step 6 of 9.9) in 415.963µs.",
+      ),
+    ).toStrictEqual({
       commandName: "shell.exec",
       functionName: "yarn-preview",
       status: "Finished",
       step: "6 of 9.9",
-    };
-    expect(processLine(logLine)).toStrictEqual(expectedMetadata);
+    });
+    expect(
+      processLine(
+        "Finished command 'some_command' ('cleanup environment') in function 'some_function' (step 5 of 9) in 1.72598ms.",
+      ),
+    ).toStrictEqual({
+      commandName: "some_command",
+      functionName: "some_function",
+      status: "Finished",
+      step: "5 of 9",
+    });
   });
 
   it("should return null for a log line that does not indicate a section", () => {
