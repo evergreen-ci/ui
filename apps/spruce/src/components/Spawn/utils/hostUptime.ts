@@ -9,8 +9,7 @@ import {
 } from "date-fns";
 import { ValidateProps } from "components/SpruceForm";
 import { days } from "constants/fieldMaps";
-import { SleepScheduleInput } from "gql/generated/types";
-import { Optional } from "types/utils";
+import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";
 import { FormState as EditFormState } from "../editHostModal";
 import { FormState as SpawnFormState } from "../spawnHostModal";
 
@@ -37,7 +36,10 @@ export type HostUptime = {
       runContinuously: boolean;
     };
   };
-  details?: null;
+  details: {
+    timeZone: string;
+    uptimeHours?: null;
+  };
   isBetaTester: boolean;
   temporarilyExemptUntil?: string;
 };
@@ -128,18 +130,17 @@ export const getEnabledHoursCount = (
  * @param obj.sleepSchedule - sleep schedule configuration
  * @param obj.temporarilyExemptUntil - temporary exemption date
  * @param obj.useDefaultUptimeSchedule - boolean indicating whether user has set custom schedule
- * @param timeZone - user-defined time zone, defaults to UTC
+ * @param obj.details - details form object
+ * @param obj.details.timeZone - user-selected time zone
  * @returns - sleep schedule used as input for GraphQL mutations
  */
-export const getSleepSchedule = (
-  {
-    isBetaTester,
-    sleepSchedule,
-    temporarilyExemptUntil,
-    useDefaultUptimeSchedule,
-  }: HostUptime,
-  timeZone: string,
-): SleepScheduleInput => {
+export const getSleepSchedule = ({
+  details: { timeZone },
+  isBetaTester,
+  sleepSchedule,
+  temporarilyExemptUntil,
+  useDefaultUptimeSchedule,
+}: HostUptime): SleepScheduleInput => {
   if (useDefaultUptimeSchedule) {
     return {
       ...defaultSleepSchedule,
@@ -203,24 +204,24 @@ const toTimeString = (date: Date): string =>
     minute: "2-digit",
   });
 
-type RequiredSleepSchedule = Optional<SleepScheduleInput, "timeZone">;
-
-export const defaultSleepSchedule: RequiredSleepSchedule = {
+export const defaultSleepSchedule: Omit<SleepSchedule, "timeZone"> = {
   dailyStartTime: toTimeString(defaultStartDate),
   dailyStopTime: toTimeString(defaultStopDate),
+  isBetaTester: false,
   permanentlyExempt: false,
   shouldKeepOff: false,
   wholeWeekdaysOff: [0, 6],
 };
 
 export const getHostUptimeFromGql = (
-  sleepSchedule: RequiredSleepSchedule,
+  sleepSchedule: SleepSchedule,
 ): HostUptime => {
   const {
     dailyStartTime,
     dailyStopTime,
     isBetaTester,
     temporarilyExemptUntil,
+    timeZone,
     wholeWeekdaysOff,
   } = sleepSchedule;
 
@@ -253,11 +254,12 @@ export const getHostUptimeFromGql = (
               runContinuously: true,
             },
     },
+    details: { timeZone },
   };
 };
 
 export const matchesDefaultUptimeSchedule = (
-  sleepSchedule: RequiredSleepSchedule,
+  sleepSchedule: SleepSchedule,
 ): boolean => {
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;
 
@@ -323,7 +325,7 @@ export const validator = (permanentlyExempt: boolean) =>
       // Return error based on whether runContinously enabled
       if (timeSelection?.runContinuously) {
         // @ts-expect-error
-        errors.expirationDetails?.hostUptime?.details?.addError?.(
+        errors.expirationDetails?.hostUptime?.details?.uptimeHours?.addError?.(
           "Please pause your host for at least 1 day per week.",
         );
         return errors;
@@ -332,7 +334,7 @@ export const validator = (permanentlyExempt: boolean) =>
         maxUptimeHours / enabledWeekdaysCount,
       );
       // @ts-expect-error
-      errors.expirationDetails?.hostUptime?.details?.addError?.(
+      errors.expirationDetails?.hostUptime?.details?.uptimeHours?.addError?.(
         `Please reduce your host uptime to a max of ${hourlyRequirement} hours per day.`,
       );
       return errors;
@@ -348,7 +350,7 @@ export const validator = (permanentlyExempt: boolean) =>
  * @param sleepSchedule - sleepSchedule as returned from Evergreen
  * @returns boolean indicating whether the sleep schedule is effectively unset.
  */
-export const isNullSleepSchedule = (sleepSchedule: RequiredSleepSchedule) => {
+export const isNullSleepSchedule = (sleepSchedule: SleepSchedule) => {
   if (!sleepSchedule) return true;
 
   const { dailyStartTime, dailyStopTime, wholeWeekdaysOff } = sleepSchedule;

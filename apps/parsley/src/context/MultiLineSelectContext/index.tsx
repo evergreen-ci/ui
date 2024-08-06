@@ -13,6 +13,7 @@ import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 type MultiLineSelectContextState = {
   handleSelectLine: (selectedLine: number, shiftClick: boolean) => void;
   clearSelection: () => void;
+  setOpenMenu: (v: boolean) => void;
   menuPosition: number | undefined;
   openMenu: boolean;
   selectedLines: {
@@ -96,27 +97,22 @@ const MultiLineSelectContextProvider: React.FC<{
     [selectedLines, setSelectedLines, clearSelection],
   );
 
-  const bothLinesSelected = useMemo(
-    () =>
-      selectedLines.startingLine !== undefined &&
-      selectedLines.endingLine !== undefined,
-    [selectedLines],
-  );
   const memoizedContext = useMemo(
     () => ({
       clearSelection,
       handleSelectLine,
       menuPosition,
-      openMenu: openMenu && bothLinesSelected,
+      openMenu,
       selectedLines,
+      setOpenMenu,
     }),
     [
       clearSelection,
       handleSelectLine,
       menuPosition,
       openMenu,
-      bothLinesSelected,
       selectedLines,
+      setOpenMenu,
     ],
   );
   return (

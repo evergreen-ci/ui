@@ -158,6 +158,7 @@ describe("editSpawnHostModal", () => {
         </MockedProvider>,
       );
       expect(screen.queryByDataCy("edit-spawn-host-modal")).toBeVisible();
+      expect(screen.getByText("Central Time")).toBeVisible();
       await user.click(
         screen.getByText("Use default host uptime schedule", {
           exact: false,
@@ -309,7 +310,7 @@ const baseSpawnHost: MyHost = {
     ...defaultSleepSchedule,
     isBetaTester: true,
     temporarilyExemptUntil: null,
-    timeZone: "America/New_York",
+    timeZone: "America/Chicago",
   },
   __typename: "Host",
 };
