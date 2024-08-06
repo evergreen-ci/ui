@@ -473,18 +473,16 @@ const DetailsDescription = ({
 
   const fullText =
     status === TaskStatus.Failed
-      ? `Failing command: ${processFailingCommand(
-          description,
-          isContainerTask,
-        )}`
+      ? `${processFailingCommand(description, isContainerTask)}`
       : `Command: ${description}`;
   const shouldTruncate = fullText.length > MAX_CHAR;
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 
   return (
-    <span>
+    <MetadataItem>
       {shouldTruncate ? (
         <>
+          <StyledBody weight="medium">Failing Command: </StyledBody>
           {truncatedText}{" "}
           <ExpandedText
             align="right"
@@ -497,7 +495,7 @@ const DetailsDescription = ({
       ) : (
         fullText
       )}
-    </span>
+    </MetadataItem>
   );
 };
 
@@ -530,4 +528,10 @@ const HoneycombLinkContainer = styled.span`
 const OOMTrackerMessage = styled(MetadataItem)`
   color: ${red.dark2};
   font-weight: 500;
+`;
+
+const StyledBody = styled.b`
+  color: ${red.base};
+  display: inline;
+  font-weight: bold;
 `;
