@@ -1,25 +1,18 @@
 import { useCallback, useMemo } from "react";
-import {
-  ActionType,
-  Analytics,
-  AnalyticsObject,
-  Properties,
-  addPageAction,
-} from "analytics/addPageAction";
-
-interface P extends Properties {}
+import type { Properties, ActionType } from "@evg-ui/lib/analytics/types";
+import { sendEventTrace } from "@evg-ui/lib/src/analytics/utils";
+import { Analytics, AnalyticsObject } from "analytics/addPageAction";
 
 export const useAnalyticsRoot = <Action extends ActionType>(
   object: AnalyticsObject,
-  attributes: { [key: string]: any } = {},
+  attributes: Properties = {},
 ): Analytics<Action> => {
-  const sendEvent: Analytics<Action>["sendEvent"] = useCallback(
-    (action) => {
-      const userId = localStorage.getItem("userId");
-      addPageAction<Action, P>(action, {
+  const sendEvent = useCallback(
+    (action: Action) => {
+      const userId = localStorage.getItem("userId") || "";
+      sendEventTrace<AnalyticsObject>(action, {
         object,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        userId,
+        "user.id": userId,
         ...attributes,
       });
     },
