@@ -13,14 +13,12 @@ interface Props {
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   formData: FormState;
   oldUserTags: { key: string; value: string }[];
-  timeZone: string;
 }
 export const formToGql = ({
   formData,
   hostId,
   myPublicKeys,
   oldUserTags,
-  timeZone,
 }: Props): EditSpawnHostMutationVariables => {
   const {
     expirationDetails,
@@ -78,8 +76,6 @@ export const formToGql = ({
     },
     savePublicKey: !useExisting && savePublicKey,
     sleepSchedule:
-      noExpiration && hostUptime
-        ? getSleepSchedule(hostUptime, timeZone)
-        : null,
+      noExpiration && hostUptime ? getSleepSchedule(hostUptime) : null,
   };
 };

@@ -23,7 +23,7 @@ interface Props {
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   noExpirationCheckboxTooltip: string;
   permanentlyExempt: boolean;
-  timeZone?: string;
+  timeZone: string;
   volumes: MyVolumesQuery["myVolumes"];
 }
 

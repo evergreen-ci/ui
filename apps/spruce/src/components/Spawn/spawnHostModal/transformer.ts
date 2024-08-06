@@ -15,7 +15,6 @@ interface Props {
   myPublicKeys: MyPublicKeysQuery["myPublicKeys"];
   spawnTaskData?: SpawnTaskQuery["task"];
   migrateVolumeId?: string;
-  timeZone?: string;
 }
 export const formToGql = ({
   formData,
@@ -23,7 +22,6 @@ export const formToGql = ({
   migrateVolumeId,
   myPublicKeys,
   spawnTaskData,
-  timeZone,
 }: Props): SpawnHostMutationVariables["spawnHostInput"] => {
   const {
     expirationDetails,
@@ -50,8 +48,7 @@ export const formToGql = ({
     noExpiration: expirationDetails?.noExpiration,
     sleepSchedule:
       expirationDetails?.noExpiration && hostUptime
-        ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-          getSleepSchedule(hostUptime, timeZone)
+        ? getSleepSchedule(hostUptime)
         : null,
     volumeId:
       migrateVolumeId ||
