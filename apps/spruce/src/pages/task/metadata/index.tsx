@@ -482,7 +482,7 @@ const DetailsDescription = ({
     <MetadataItem>
       {shouldTruncate ? (
         <>
-          <StyledBody weight="medium">Failing Command: </StyledBody>
+          <StyledBody>Failing Command: </StyledBody>
           {truncatedText}{" "}
           <ExpandedText
             align="right"
