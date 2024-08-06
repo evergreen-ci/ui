@@ -65,8 +65,9 @@ const ProjectSettings: React.FC = () => {
       }
     }, 250);
     pageWrapperRef?.current?.addEventListener("scroll", onScroll);
-    return () =>
-      pageWrapperRef?.current?.removeEventListener("scroll", onScroll);
+
+    const wrapper = pageWrapperRef.current;
+    return () => wrapper?.removeEventListener("scroll", onScroll);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
