@@ -104,13 +104,11 @@ const getHostUptimeSchema = ({
             type: "string",
             title: "Time Zone",
             default: timeZone,
-            oneOf: [
-              ...timeZones.map(({ str, value }) => ({
-                type: "string" as "string",
-                title: str,
-                enum: [value],
-              })),
-            ],
+            oneOf: timeZones.map(({ str, value }) => ({
+              type: "string" as "string",
+              title: str,
+              enum: [value],
+            })),
           },
 
           uptimeHours: {
