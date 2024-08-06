@@ -1,7 +1,7 @@
+import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
 import queryString from "query-string";
 import { Task as TaskType } from "gql/generated/types";
 import { evergreenURL, logkeeperURL } from "utils/environmentVariables";
-import { stringifyQuery } from "utils/query-string";
 
 /**
  *

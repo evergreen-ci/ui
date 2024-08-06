@@ -1,4 +1,4 @@
-import { parseQueryString } from "utils/query-string";
+import { parseQueryString } from "@evg-ui/lib/utils/query-string";
 
 export interface Analytics<Action> {
   sendEvent: (action: Action) => void;
