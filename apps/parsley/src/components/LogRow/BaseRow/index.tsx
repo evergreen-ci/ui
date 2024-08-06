@@ -59,7 +59,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
   ...rest
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
-  const { selectedLines } = useMultiLineSelectContext();
+  const { menuPosition, selectedLines } = useMultiLineSelectContext();
   const [shareLine, setShareLine] = useQueryParam<number | undefined>(
     QueryParams.ShareLine,
     undefined,
@@ -73,7 +73,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
 
   const bookmarked = bookmarks.includes(lineNumber);
   const failed = failingLine === lineNumber;
-  const highlighted = searchLine === lineIndex;
+  const highlighted = searchLine === lineNumber;
   const shared = shareLine === lineNumber;
 
   // Clicking link icon should set or unset the share line.
@@ -108,8 +108,6 @@ const BaseRow: React.FC<BaseRowProps> = ({
       lineNumber <= selectedLines.endingLine) ||
     selectedLines.startingLine === lineNumber;
 
-  const { menuPosition, openMenu } = useMultiLineSelectContext();
-
   return (
     <RowContainer
       {...rest}
@@ -125,7 +123,7 @@ const BaseRow: React.FC<BaseRowProps> = ({
       shared={shared}
     >
       {menuPosition === lineNumber ? (
-        <SharingMenu defaultOpen={openMenu} />
+        <SharingMenu />
       ) : (
         <MenuIcon aria-label="Share link" onClick={handleClick}>
           <ShareIcon

@@ -55,7 +55,7 @@ describe("searchLogs", () => {
     expect(getLine).toHaveBeenCalledWith(0);
     expect(getLine).toHaveBeenCalledWith(1);
   });
-  it("should not match on folded lines and should return the processedLogLine index", () => {
+  it("should not match on skipped lines and should return the raw log index", () => {
     const lines = ["line 1", "line 2", "line 3", "line 4"];
     const getLine = vi.fn((index: number) => lines[index]);
     const processedLogLines: ProcessedLogLines = [
@@ -70,13 +70,22 @@ describe("searchLogs", () => {
       searchRegex: /line/,
     };
     const matchingIndices = searchLogs(options);
-    expect(matchingIndices).toStrictEqual([0, 2]);
+    expect(matchingIndices).toStrictEqual([0, 3]);
     expect(getLine).toHaveBeenCalledTimes(2);
     expect(getLine).toHaveBeenCalledWith(0);
     expect(getLine).toHaveBeenCalledWith(3);
   });
-  it("should not search lines that are folded, sections, or if they are out of the range", () => {
-    const lines = ["line 1", "line 2", "line 3", "line 4"];
+
+  it("should search lines that are in open and closed sections when they are in range", () => {
+    const lines = [
+      "line 1",
+      "line 2",
+      "line 3",
+      "line 4",
+      "line 5",
+      "line 6",
+      "line 7",
+    ];
     const getLine = vi.fn((index: number) => lines[index]);
     const processedLogLines: ProcessedLogLines = [
       0,
@@ -84,22 +93,140 @@ describe("searchLogs", () => {
         functionID: "function-1",
         functionName: "test",
         isOpen: true,
-        range: { end: 2, start: 1 },
+        range: { end: 3, start: 1 },
         rowType: RowType.SectionHeader,
       },
-      { range: { end: 3, start: 2 }, rowType: RowType.SkippedLines },
-      3,
+      {
+        commandID: "command-1",
+        commandName: "shell.exec",
+        functionID: "function-1",
+        isOpen: false,
+        range: { end: 3, start: 1 },
+        rowType: RowType.SubsectionHeader,
+        step: "1 of 1",
+      },
+      { range: { end: 7, start: 3 }, rowType: RowType.SkippedLines },
     ];
     const options = {
       getLine,
       lowerBound: 0,
       processedLogLines,
       searchRegex: /line/,
-      upperBound: 1,
     };
     const matchingIndices = searchLogs(options);
-    expect(matchingIndices).toStrictEqual([0]);
-    expect(getLine).toHaveBeenCalledTimes(1);
-    expect(getLine).toHaveBeenCalledWith(0);
+    expect(matchingIndices).toStrictEqual([0, 1, 2]);
+  });
+  it("should respect range boundaries when searching lines that are in open and closed sections", () => {
+    const lines = [
+      "line 1",
+      "line 2",
+      "line 3",
+      "line 4",
+      "line 5",
+      "line 6",
+      "line 7",
+    ];
+    const getLine = vi.fn((index: number) => lines[index]);
+    const processedLogLines: ProcessedLogLines = [
+      0,
+      {
+        functionID: "function-1",
+        functionName: "test",
+        isOpen: false,
+        range: { end: 3, start: 1 },
+        rowType: RowType.SectionHeader,
+      },
+      {
+        commandID: "command-1",
+        commandName: "shell.exec",
+        functionID: "function-1",
+        isOpen: false,
+        range: { end: 3, start: 1 },
+        rowType: RowType.SubsectionHeader,
+        step: "1 of 1",
+      },
+      { range: { end: 7, start: 3 }, rowType: RowType.SkippedLines },
+    ];
+    const options = {
+      getLine,
+      lowerBound: 1,
+      processedLogLines,
+      searchRegex: /line/,
+      upperBound: 2,
+    };
+    const matchingIndices = searchLogs(options);
+    expect(matchingIndices).toStrictEqual([1, 2]);
+  });
+  it("should return the correct log indexes when searching on logs where the boundary crosses over multiple sections and skipped lines", () => {
+    const lines = [
+      "line 1",
+      "line 2",
+      "line 3",
+      "line 4",
+      "line 5",
+      "line 6",
+      "line 7",
+      "line 8",
+      "line 9",
+      "line 10",
+      "line 11",
+    ];
+    const getLine = vi.fn((index: number) => lines[index]);
+    const processedLogLines: ProcessedLogLines = [
+      0,
+      {
+        functionID: "function-1",
+        functionName: "test",
+        isOpen: true,
+        range: { end: 3, start: 1 },
+        rowType: RowType.SectionHeader,
+      },
+      {
+        commandID: "command-1",
+        commandName: "shell.exec",
+        functionID: "function-1",
+        isOpen: false,
+        range: { end: 2, start: 1 },
+        rowType: RowType.SubsectionHeader,
+        step: "1 of 1",
+      },
+      {
+        commandID: "command-2",
+        commandName: "shell.exec",
+        functionID: "function-1",
+        isOpen: true,
+        range: { end: 3, start: 2 },
+        rowType: RowType.SubsectionHeader,
+        step: "1 of 1",
+      },
+      { range: { end: 5, start: 3 }, rowType: RowType.SkippedLines },
+      5,
+      { range: { end: 8, start: 6 }, rowType: RowType.SkippedLines },
+      {
+        functionID: "function-8",
+        functionName: "test",
+        isOpen: false,
+        range: { end: 11, start: 8 },
+        rowType: RowType.SectionHeader,
+      },
+      {
+        commandID: "command-8",
+        commandName: "shell.exec",
+        functionID: "function-1",
+        isOpen: false,
+        range: { end: 11, start: 8 },
+        rowType: RowType.SubsectionHeader,
+        step: "1 of 1",
+      },
+    ];
+    const options = {
+      getLine,
+      lowerBound: 1,
+      processedLogLines,
+      searchRegex: /line/,
+      upperBound: 9,
+    };
+    const matchingIndices = searchLogs(options);
+    expect(matchingIndices).toStrictEqual([1, 2, 5, 8, 9]);
   });
 });
