@@ -39,7 +39,7 @@ export const ParametersContent: React.FC<Props> = ({
       <EditableTagField
         inputTags={patchParameters}
         onChange={setPatchParams}
-        buttonText="Add Parameter"
+        buttonText="Add parameter"
       />
     )}
   </ParamsContainer>
