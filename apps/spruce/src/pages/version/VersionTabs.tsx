@@ -6,7 +6,7 @@ import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getVersionRoute, slugs } from "constants/routes";
-import { Patch } from "gql/generated/types";
+import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { DownstreamTasks } from "pages/version/DownstreamTasks";
@@ -20,7 +20,7 @@ const { parseQueryString } = queryString;
 interface Props {
   taskCount: number;
   isPatch: boolean;
-  childPatches: Array<Patch>;
+  childPatches: NonNullable<VersionQuery["version"]["patch"]>["childPatches"];
 }
 
 const getDownstreamTabName = (
@@ -69,7 +69,7 @@ const tabMap = ({
   versionId,
 }: {
   taskCount: number;
-  childPatches: Array<Patch>;
+  childPatches: NonNullable<VersionQuery["version"]["patch"]>["childPatches"];
   numFailedChildPatches: number;
   numStartedChildPatches: number;
   numSuccessChildPatches: number;
