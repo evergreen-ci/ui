@@ -120,7 +120,6 @@ export const TagRow: React.FC<TagRowProps> = ({
 
 const ButtonContainer = styled.div`
   margin-top: ${size.m};
-  margin-bottom: ${size.xxs};
 `;
 const FlexContainer = styled.div`
   display: flex;
