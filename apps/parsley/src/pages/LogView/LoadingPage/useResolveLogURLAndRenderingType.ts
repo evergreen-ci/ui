@@ -189,9 +189,13 @@ export const useResolveLogURLAndRenderingType = ({
             text: false,
           });
       renderingType = LogRenderingTypes.Default;
+
+      // This is for backwards compatbility with older task logs that don't details.failingCommand (adjust in DEVPROD-9689)
+      const potentialFailingCommand =
+        task?.details?.failingCommand || task?.details?.description;
       failingCommand =
-        task?.details?.status === "failed" && task?.details?.description
-          ? task.details.description
+        task?.details?.status === "failed" && potentialFailingCommand
+          ? potentialFailingCommand
           : "";
       break;
     }

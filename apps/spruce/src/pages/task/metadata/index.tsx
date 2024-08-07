@@ -234,15 +234,17 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </InlineCode>
         </MetadataItem>
       )}
-      {details?.description && (
-        <MetadataItem data-cy="task-metadata-description">
-          <DetailsDescription
-            description={details.description}
-            isContainerTask={isContainerTask}
-            status={details?.status}
-          />
-        </MetadataItem>
-      )}
+      {details?.description ||
+        (details?.failingCommand && (
+          <MetadataItem data-cy="task-metadata-description">
+            <DetailsDescription
+              description={details?.description ?? ""}
+              failingCommand={details?.failingCommand ?? ""}
+              isContainerTask={isContainerTask}
+              status={details?.status}
+            />
+          </MetadataItem>
+        ))}
       {details?.timeoutType && details?.timeoutType !== "" && (
         <MetadataItem>Timeout type: {details?.timeoutType}</MetadataItem>
       )}
@@ -462,19 +464,22 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
 
 const DetailsDescription = ({
   description,
+  failingCommand,
   isContainerTask,
   status,
 }: {
   description: string;
+  failingCommand: string;
   isContainerTask: boolean;
   status: string;
 }) => {
   const MAX_CHAR = 100;
 
+  const baseCopy = description || failingCommand;
   const fullText =
     status === TaskStatus.Failed
-      ? `${processFailingCommand(description, isContainerTask)}`
-      : `Command: ${description}`;
+      ? `${processFailingCommand(baseCopy, isContainerTask)}`
+      : `Command: ${baseCopy}`;
   const shouldTruncate = fullText.length > MAX_CHAR;
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 
