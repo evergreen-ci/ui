@@ -33,6 +33,8 @@ export interface AnalyticsProperties {
 }
 
 /**
+ * DO NOT USE THIS IN YOUR CODE
+ *
  * `AnalyticsObject` is a string that represents the object to send with an event to our analytics provider.
  * @example - "Page Name"
  * @example - "Component Name"

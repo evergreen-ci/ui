@@ -7,8 +7,11 @@ import { addPageAction } from "./utils";
  * @param object - The analytics object to send with the event this is typically the page name or component name we are tracking
  * @returns - The sendEvent function to send an event to our analytics provider
  */
-export const useAnalyticsRoot = <Action extends ActionType>(
-  object: AnalyticsObject,
+export const useAnalyticsRoot = <
+  Action extends ActionType,
+  Object extends AnalyticsObject,
+>(
+  object: Object,
 ): Analytics<Action> => {
   const sendEvent: Analytics<Action>["sendEvent"] = useCallback(
     (action) => {
