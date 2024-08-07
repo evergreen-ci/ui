@@ -22,7 +22,6 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
   const allImageEventsFetchedCopy =
     events.length > 0 ? "No more events to show." : "No events to show.";
 
-  console.log(`hiiiiievents: ${events}`);
   return (
     <Container>
       {events.map((event) => {

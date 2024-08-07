@@ -14,7 +14,7 @@ export const useEvents = (
 ) => {
   const dispatchToast = useToastContext();
 
-  const { allImageEventsFetched } = useImageEvents(limit);
+  const { allImageEventsFetched, onCompleted } = useImageEvents();
   const { data, fetchMore, loading } = useQuery<
     ImageEventsQuery,
     ImageEventsQueryVariables
@@ -24,11 +24,12 @@ export const useEvents = (
       limit,
       page,
     },
+    notifyOnNetworkStatusChange: true,
+    onCompleted: ({ image: events = [] }) => onCompleted(events),
     onError: (e) => {
       dispatchToast.error(e.message);
     },
   });
-
   const events = data?.image?.events ?? [];
 
   return { allImageEventsFetched, events, fetchMore, loading };
