@@ -92,8 +92,15 @@
         class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-description"
       >
-        <span>
-          Failing command: Long description that requirese use of the inline definition component. This would ...
+        <p
+          class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        >
+          <b
+            class="css-60sdmx-StyledBody ebphozh0"
+          >
+            Failing Command: 
+          </b>
+          Long description that requires use of the inline definition component. This would include details ab...
            
           <span
             class="leafygreen-ui-vm4wms"
@@ -105,7 +112,7 @@
               more
             </small>
           </span>
-        </span>
+        </p>
       </p>
       <p
         class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
