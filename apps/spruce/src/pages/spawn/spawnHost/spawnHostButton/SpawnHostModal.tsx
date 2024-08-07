@@ -16,7 +16,6 @@ import {
   FormState,
 } from "components/Spawn/spawnHostModal";
 import { SpruceForm } from "components/SpruceForm";
-import { defaultTimeZone } from "constants/fieldMaps";
 import { useToastContext } from "context/toast";
 import {
   SpawnHostMutation,
@@ -41,7 +40,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
-  const timeZone = useUserTimeZone() || defaultTimeZone;
+  const timeZone =
+    useUserTimeZone() || Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   // Handle distroId, taskId query param
   const { search } = useLocation();
@@ -118,7 +118,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     isMigration: false,
     isVirtualWorkstation: !!selectedDistro?.isVirtualWorkStation,
     spawnTaskData: spawnTaskData?.task,
-    timeZone,
+    timeZone:
+      formState?.expirationDetails?.hostUptime?.details?.timeZone || timeZone,
     useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
     useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
   });
