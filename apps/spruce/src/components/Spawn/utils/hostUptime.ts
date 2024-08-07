@@ -1,4 +1,3 @@
-import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { setToUTCMidnight } from "@leafygreen-ui/date-utils";
 import {
   isAfter,
@@ -7,6 +6,7 @@ import {
   isTomorrow,
   parse,
 } from "date-fns";
+import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { ValidateProps } from "components/SpruceForm";
 import { days } from "constants/fieldMaps";
 import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";

@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
-import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { ParseOptions } from "query-string";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { QueryParams } from "constants/queryParams";
 import { parseQueryString, stringifyQuery } from "utils/query-string";
 
