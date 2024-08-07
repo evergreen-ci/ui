@@ -26,10 +26,10 @@ import { TaskDurationCell } from "./TaskDurationCell";
 const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
-type TaskDurationColumnData =
+type TaskDurationData =
   VersionTaskDurationsQuery["version"]["tasks"]["data"][0];
 interface Props {
-  tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];
+  tasks: TaskDurationData[];
   loading: boolean;
   numLoadingRows: number;
 }
@@ -96,7 +96,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     setQueryParams(updatedParams);
   };
 
-  const columns: LGColumnDef<TaskDurationColumnData>[] = useMemo(
+  const columns: LGColumnDef<TaskDurationData>[] = useMemo(
     () => [
       {
         id: PatchTasksQueryParams.TaskName,
@@ -175,8 +175,8 @@ export const TaskDurationTable: React.FC<Props> = ({
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const table: LeafyGreenTable<TaskDurationColumnData> =
-    useLeafyGreenTable<TaskDurationColumnData>({
+  const table: LeafyGreenTable<TaskDurationData> =
+    useLeafyGreenTable<TaskDurationData>({
       columns,
       containerRef: tableContainerRef,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
