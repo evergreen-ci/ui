@@ -229,7 +229,7 @@ export const VersionPage: React.FC = () => {
         <PageLayout>
           <PageContent>
             <VersionTabs
-              {...(childPatches ? { childPatches } : {})}
+              childPatches={childPatches}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               isPatch={version?.isPatch}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
