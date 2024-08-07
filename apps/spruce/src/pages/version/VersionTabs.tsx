@@ -17,10 +17,13 @@ import TaskDuration from "./TaskDuration";
 
 const { parseQueryString } = queryString;
 
+type ChildPatches = NonNullable<
+  VersionQuery["version"]["patch"]
+>["childPatches"];
 interface Props {
   taskCount: number;
   isPatch: boolean;
-  childPatches: NonNullable<VersionQuery["version"]["patch"]>["childPatches"];
+  childPatches: ChildPatches;
 }
 
 const getDownstreamTabName = (
@@ -69,7 +72,7 @@ const tabMap = ({
   versionId,
 }: {
   taskCount: number;
-  childPatches: NonNullable<VersionQuery["version"]["patch"]>["childPatches"];
+  childPatches: ChildPatches;
   numFailedChildPatches: number;
   numStartedChildPatches: number;
   numSuccessChildPatches: number;
