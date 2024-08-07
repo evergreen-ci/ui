@@ -7,6 +7,9 @@ export const cache = new InMemoryCache({
         distroEvents: {
           keyArgs: ["$distroId"],
         },
+        image: {
+          keyArgs: ["$id"],
+        },
         projectEvents: {
           keyArgs: ["$identifier"],
         },
@@ -35,6 +38,15 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    Image: {
+      fields: {
+        events: {
+          merge(existing = [], incoming = []) {
+            return [...existing, ...incoming];
+          },
+        },
+      },
+    },
     ProjectEvents: {
       fields: {
         count: {
@@ -43,8 +55,8 @@ export const cache = new InMemoryCache({
           },
         },
         eventLogEntries: {
-          merge(existing = [], incoming = []) {
-            return [...existing, ...incoming];
+          merge(existing, incoming, { mergeObjects }) {
+            return mergeObjects(existing, incoming);
           },
         },
       },

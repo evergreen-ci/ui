@@ -24,7 +24,7 @@ export const EventLog: React.FC<EventLogProps> = ({
 }) => {
   const allEventsFetchedCopy =
     events.length > 0 ? "No more events to show." : "No events to show.";
-
+  console.log(allEventsFetched);
   return (
     <Container data-cy="event-log">
       {events.map((event) => {
