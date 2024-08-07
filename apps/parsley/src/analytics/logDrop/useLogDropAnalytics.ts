@@ -1,4 +1,5 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsObject } from "analytics/types";
 import { LogTypes } from "constants/enums";
 
 type Action =
@@ -10,4 +11,5 @@ type Action =
       fileSize?: number;
     };
 
-export const useLogDropAnalytics = () => useAnalyticsRoot<Action>("LogDrop");
+export const useLogDropAnalytics = () =>
+  useAnalyticsRoot<Action, AnalyticsObject>("LogDrop");

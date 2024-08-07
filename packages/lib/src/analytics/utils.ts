@@ -1,4 +1,4 @@
-import { parseQueryString } from "utils/query-string";
+import { parseQueryString } from "../utils/query-string";
 import { ActionType, AnalyticsProperties } from "./types";
 
 /**

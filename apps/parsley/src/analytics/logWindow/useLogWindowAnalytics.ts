@@ -1,4 +1,5 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsObject } from "analytics/types";
 import { DIRECTION } from "context/LogContext/types";
 import { Filter } from "types/logs";
 
@@ -38,4 +39,4 @@ type Action =
     };
 
 export const useLogWindowAnalytics = () =>
-  useAnalyticsRoot<Action>("LogWindow");
+  useAnalyticsRoot<Action, AnalyticsObject>("LogWindow");
