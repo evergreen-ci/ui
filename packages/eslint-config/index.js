@@ -196,6 +196,11 @@ module.exports = {
           },
           {
             group: "internal",
+            pattern: "@evg-ui/**",
+            position: "before",
+          },
+          {
+            group: "internal",
             pattern:
               "(analytics|components|constants|context|gql|hoc|hooks|pages|types|utils)/**",
             position: "before",
