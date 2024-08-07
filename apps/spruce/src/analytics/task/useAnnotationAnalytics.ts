@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsObject } from "analytics/types";
 import { slugs } from "constants/routes";
 import {
   BuildBaronQuery,
@@ -50,7 +51,7 @@ export const useAnnotationAnalytics = () => {
   const { annotation } = eventData?.task || {};
   const { buildBaronConfigured } = bbData?.buildBaron || {};
 
-  return useAnalyticsRoot<Action>("Annotations", {
+  return useAnalyticsRoot<Action, AnalyticsObject>("Annotations", {
     taskId,
     annotation,
     bbConfigured: buildBaronConfigured,

@@ -12,12 +12,13 @@ export const useAnalyticsRoot = <
   Object extends AnalyticsObject,
 >(
   object: Object,
+  attributes: { [key: string]: any } = {},
 ): Analytics<Action> => {
   const sendEvent: Analytics<Action>["sendEvent"] = useCallback(
     (action) => {
-      addPageAction<Action>(action, { object });
+      addPageAction<Action>(action, { object, ...attributes });
     },
-    [object],
+    [object, attributes],
   );
 
   return useMemo(() => ({ sendEvent }), [sendEvent]);
