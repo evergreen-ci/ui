@@ -21,13 +21,15 @@ import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
+import { Unpacked } from "types/utils";
 import { TaskDurationCell } from "./TaskDurationCell";
 
 const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
-type TaskDurationData =
-  VersionTaskDurationsQuery["version"]["tasks"]["data"][0];
+type TaskDurationData = Unpacked<
+  VersionTaskDurationsQuery["version"]["tasks"]["data"]
+>;
 interface Props {
   tasks: TaskDurationData[];
   loading: boolean;
