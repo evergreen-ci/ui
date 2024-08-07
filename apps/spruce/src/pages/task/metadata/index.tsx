@@ -532,6 +532,4 @@ const OOMTrackerMessage = styled(MetadataItem)`
 
 const StyledBody = styled.b`
   color: ${red.base};
-  display: inline;
-  font-weight: bold;
 `;
