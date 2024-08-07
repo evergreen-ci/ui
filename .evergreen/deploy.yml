@@ -3,19 +3,9 @@ functions:
     - command: shell.exec
       params:
         working_dir: ui/${app_dir}
+        add_expansions_to_env: true
         env:
           BUCKET: ${bucket_arg}
-          NEW_RELIC_ACCOUNT_ID: ${NEW_RELIC_ACCOUNT_ID}
-          NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
-          NEW_RELIC_TRUST_KEY: ${NEW_RELIC_TRUST_KEY}
-          PARSLEY_NEW_RELIC_AGENT_ID: ${PARSLEY_NEW_RELIC_AGENT_ID}
-          PARSLEY_NEW_RELIC_APPLICATION_ID: ${PARSLEY_NEW_RELIC_APPLICATION_ID}
-          PARSLEY_SENTRY_AUTH_TOKEN: ${PARSLEY_SENTRY_AUTH_TOKEN}
-          REACT_APP_PARSLEY_SENTRY_DSN: ${REACT_APP_PARSLEY_SENTRY_DSN}
-          REACT_APP_SPRUCE_SENTRY_DSN: ${REACT_APP_SPRUCE_SENTRY_DSN}
-          SPRUCE_NEW_RELIC_AGENT_ID: ${SPRUCE_NEW_RELIC_AGENT_ID}
-          SPRUCE_NEW_RELIC_APPLICATION_ID: ${SPRUCE_NEW_RELIC_APPLICATION_ID}
-          SPRUCE_SENTRY_AUTH_TOKEN: ${SPRUCE_SENTRY_AUTH_TOKEN}
         script: |
           ${PREPARE_SHELL}
           yarn deploy-utils-setup-credentials "${target}"
@@ -60,6 +50,14 @@ functions:
           ${PREPARE_SHELL}
           yarn deploy-utils-email
 
+  should-deploy:
+    - command: shell.exec
+      params:
+        working_dir: ui/${app_dir}
+        script: |
+          ${PREPARE_SHELL}
+          yarn deploy-utils-should-deploy
+
   write-previous-deploy:
     - command: shell.exec
       params:
@@ -79,6 +77,7 @@ tasks:
           app_dir: apps/parsley
           bucket_arg: ${parsley_bucket_staging}
           target: staging
+
   - name: deploy-parsley-beta
     commands:
       - func: symlink
@@ -89,6 +88,7 @@ tasks:
           app_dir: apps/parsley
           bucket_arg: ${parsley_bucket_beta}
           target: beta
+
   - name: deploy-parsley-prod
     commands:
       - func: write-previous-deploy
@@ -98,6 +98,7 @@ tasks:
           bucket_arg: ${parsley_bucket}
           target: production
       - func: email
+
   - name: deploy-spruce-staging
     commands:
       - func: symlink
@@ -108,6 +109,7 @@ tasks:
           app_dir: apps/spruce
           bucket_arg: ${spruce_bucket_staging}
           target: staging
+
   - name: deploy-spruce-beta
     commands:
       - func: symlink
@@ -118,6 +120,7 @@ tasks:
           app_dir: apps/spruce
           bucket_arg: ${spruce_bucket_beta}
           target: beta
+
   - name: deploy-spruce-prod
     commands:
       - func: write-previous-deploy
@@ -127,3 +130,16 @@ tasks:
           bucket_arg: ${spruce_bucket}
           target: production
       - func: email
+
+  - name: sync-spruce-staging
+    commands:
+      - func: should-deploy
+      # - func: assume-staging-ec2-role
+      - func: symlink
+        vars:
+          app_dir: apps/spruce
+      - func: deploy
+        vars:
+          app_dir: apps/spruce
+          bucket_arg: ${spruce_bucket_staging}
+          target: staging

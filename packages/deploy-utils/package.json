@@ -28,6 +28,7 @@
     "deploy-utils-email": "src/email/script.ts",
     "deploy-utils-postversion": "src/postversion/script.ts",
     "deploy-utils-setup-credentials": "src/setup-credentials/script.ts",
+    "deploy-utils-should-deploy": "src/should-deploy/script.ts",
     "deploy-utils-write-previous-deploy": "src/write-previous-deploy/script.ts"
   }
 }
