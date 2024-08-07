@@ -190,7 +190,7 @@ export const useResolveLogURLAndRenderingType = ({
           });
       renderingType = LogRenderingTypes.Default;
 
-      // This is for backwards compatbility with older task logs that don't details.failingCommand (adjust in DEVPROD-9689)
+      // TODO DEVPROD-9689: Parsley should not examine TaskEndDetail.description GQL type to determine failing log line
       const potentialFailingCommand =
         task?.details?.failingCommand || task?.details?.description;
       failingCommand =
