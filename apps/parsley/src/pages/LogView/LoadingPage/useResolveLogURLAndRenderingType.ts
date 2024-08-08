@@ -189,9 +189,13 @@ export const useResolveLogURLAndRenderingType = ({
             text: false,
           });
       renderingType = LogRenderingTypes.Default;
+
+      // TODO DEVPROD-9689: Parsley should not examine TaskEndDetail.description GQL type to determine failing log line
+      const potentialFailingCommand =
+        task?.details?.failingCommand || task?.details?.description;
       failingCommand =
-        task?.details?.status === "failed" && task?.details?.description
-          ? task.details.description
+        task?.details?.status === "failed" && potentialFailingCommand
+          ? potentialFailingCommand
           : "";
       break;
     }

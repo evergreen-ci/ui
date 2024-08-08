@@ -5,6 +5,7 @@ query Task($taskId: String!, $execution: Int) {
     ...BaseTask
     details {
       description
+      failingCommand
       status
     }
     logs {
