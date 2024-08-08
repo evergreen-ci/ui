@@ -2,12 +2,12 @@ import { parseQueryString } from "../utils/query-string";
 import { ActionType, AnalyticsProperties } from "./types";
 
 /**
- * `addPageAction` is a function that sends an event to our analytics provider
+ * `addNewRelicPageAction` is a function that sends an event to our analytics provider
  * @param action - The action to send to our analytics provider
  * @param action.name - The name of the action to send to our analytics provider
  * @param properties - The properties to send with the event
  */
-export const addPageAction = <A extends ActionType>(
+export const addNewRelicPageAction = <A extends ActionType>(
   { name, ...actionProps }: A,
   properties: AnalyticsProperties,
 ) => {
