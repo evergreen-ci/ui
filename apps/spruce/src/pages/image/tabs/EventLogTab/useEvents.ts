@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useToastContext } from "context/toast";
 import {
@@ -5,7 +6,7 @@ import {
   ImageEventsQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
-import { IMAGE_EVENT_LIMIT, useImageEvents } from "../../ImageEventLog";
+import { IMAGE_EVENT_LIMIT } from "../../ImageEventLog";
 
 export const useEvents = (
   imageId: string,
@@ -14,7 +15,6 @@ export const useEvents = (
 ) => {
   const dispatchToast = useToastContext();
 
-  const { allImageEventsFetched, onCompleted } = useImageEvents();
   const { data, fetchMore, loading } = useQuery<
     ImageEventsQuery,
     ImageEventsQueryVariables
@@ -24,13 +24,33 @@ export const useEvents = (
       limit,
       page,
     },
+    fetchPolicy: "no-cache",
     notifyOnNetworkStatusChange: true,
-    onCompleted: ({ image: events = [] }) => onCompleted(events),
     onError: (e) => {
       dispatchToast.error(e.message);
     },
+    onCompleted: () => {
+      if (events.length === 0) {
+        // Initially, set events to show data.
+        setEvents(data?.image?.events || []);
+      }
+    },
   });
-  const events = data?.image?.events ?? [];
+  const [events, setEvents] = useState(data?.image?.events ?? []);
+  const [allImageEventsFetched, setAllImageEventsFetched] = useState(false);
 
-  return { allImageEventsFetched, events, fetchMore, loading };
+  useEffect(() => {
+    if (events.length > 0 && events.length < IMAGE_EVENT_LIMIT) {
+      setAllImageEventsFetched(true);
+    }
+  }, [events]);
+
+  return {
+    allImageEventsFetched,
+    setAllImageEventsFetched,
+    events,
+    setEvents,
+    fetchMore,
+    loading,
+  };
 };

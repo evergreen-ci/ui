@@ -10,6 +10,7 @@ import {
 import { useParams } from "react-router-dom";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
+import { useFirstImage } from "hooks";
 import { ImageEventLog, IMAGE_EVENT_LIMIT } from "../../ImageEventLog";
 import { useEvents } from "./useEvents";
 
@@ -37,13 +38,21 @@ const subtitleText = (
 );
 
 export const EventLogTab: React.FC = () => {
-  const { [slugs.imageId]: imageId } = useParams<{
+  const { [slugs.imageId]: routeImageId } = useParams<{
     [slugs.imageId]: string;
   }>();
-  const { allImageEventsFetched, events, fetchMore, loading } = useEvents(
-    // @ts-expect-error
-    imageId,
-  );
+
+  const { image: firstImage } = useFirstImage();
+  const imageId = routeImageId ?? firstImage;
+
+  const {
+    allImageEventsFetched,
+    events,
+    fetchMore,
+    loading,
+    setAllImageEventsFetched,
+    setEvents,
+  } = useEvents(imageId);
 
   return (
     <>
@@ -63,6 +72,14 @@ export const EventLogTab: React.FC = () => {
               imageId,
               page: Math.floor(events.length / IMAGE_EVENT_LIMIT),
             },
+          }).then((response) => {
+            const newEvents = response.data?.image?.events || [];
+            setEvents((prevEvents) => [...prevEvents, ...newEvents]);
+            if (newEvents.length < IMAGE_EVENT_LIMIT) {
+              setAllImageEventsFetched(true);
+              console.log(newEvents.length);
+              console.log("set to true because of new events");
+            }
           });
         }}
         loading={loading}
