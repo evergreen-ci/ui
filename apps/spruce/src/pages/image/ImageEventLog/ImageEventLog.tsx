@@ -4,6 +4,7 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { LoadingButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { ImageEvent } from "gql/generated/types";
+import { ImageEventDiffTable } from "../ImageEventDiffTable";
 import { Header } from "./Header";
 
 type ImageEventLogProps = {
@@ -25,7 +26,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
   return (
     <Container>
       {events.map((event) => {
-        const { amiAfter, amiBefore, timestamp } = event;
+        const { amiAfter, amiBefore, entries, timestamp } = event;
         return (
           <ImageEventLogCard key={`event_log_${timestamp}`}>
             <Header
@@ -34,6 +35,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
               amiBefore={amiBefore}
               timestamp={timestamp}
             />
+            <ImageEventDiffTable entries={entries} />
           </ImageEventLogCard>
         );
       })}
