@@ -32,9 +32,10 @@ type sendEvent<Action extends ActionType> = (action: Action) => void;
 
 /**
  * `AnalyticsProperties` is an object that represents the properties and additional metadata to send with an event to our analytics provider.
+ *
  */
 export interface AnalyticsProperties {
-  [key: string]: string | number;
+  [key: string]: string | number | boolean;
 }
 
 /**
