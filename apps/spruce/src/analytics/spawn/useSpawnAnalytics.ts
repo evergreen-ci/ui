@@ -1,4 +1,3 @@
-import { Analytics } from "analytics/addPageAction";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsObject } from "analytics/types";
 import {
@@ -43,7 +42,3 @@ type Action =
 
 export const useSpawnAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsObject>("SpawnPages");
-
-type SpawnHostAnalytics = Analytics<Action>;
-
-export type { SpawnHostAnalytics as Analytics };

@@ -26,6 +26,11 @@ export interface ActionType {
 }
 
 /**
+ * `sendEvent` is the function call to send an analytics event. It requires an Action
+ */
+type sendEvent<Action extends ActionType> = (action: Action) => void;
+
+/**
  * `AnalyticsProperties` is an object that represents the properties and additional metadata to send with an event to our analytics provider.
  */
 export interface AnalyticsProperties {
@@ -45,5 +50,11 @@ export type AnalyticsObject = string;
  * `Analytics` is an object that represents the analytics provider and the function to send an event to the provider.
  */
 export interface Analytics<Action extends ActionType> {
-  sendEvent: (action: Action) => void;
+  sendEvent: sendEvent<Action>;
 }
+
+/**
+ * `ExtractAnalyticsSendEvent` is a utility type that can be used to extract the sendEvent function from an analytics hook.
+ */
+export type ExtractAnalyticsSendEvent<A extends () => Analytics<any>> =
+  ReturnType<A>["sendEvent"];
