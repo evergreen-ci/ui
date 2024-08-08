@@ -253,7 +253,7 @@
                             >
                               <input
                                 aria-checked="true"
-                                aria-describedby="lg-305"
+                                aria-describedby="lg-281"
                                 aria-disabled="false"
                                 checked=""
                                 class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
@@ -281,7 +281,7 @@
                               for="chart-radio-percent"
                             >
                               <input
-                                aria-describedby="lg-306"
+                                aria-describedby="lg-282"
                                 aria-disabled="false"
                                 class="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                                 data-cy="cy-chart-percent-radio"
