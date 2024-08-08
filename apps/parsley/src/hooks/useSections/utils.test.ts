@@ -1,4 +1,8 @@
-import { initialSectionState, sectionData } from "./testData";
+import {
+  sectionData,
+  sectionStateAllClosed,
+  sectionStateAllOpen,
+} from "./testData";
 import {
   SectionData,
   getOpenSectionStateBasedOnLineNumbers,
@@ -400,10 +404,10 @@ describe("getOpenSectionStateBasedOnLineNumbers", () => {
     const result = getOpenSectionStateBasedOnLineNumbers({
       lineNumbers: [1],
       sectionData,
-      sectionState: initialSectionState,
+      sectionState: sectionStateAllClosed,
     });
     const nextSectionState = {
-      ...initialSectionState,
+      ...sectionStateAllClosed,
       "function-1": {
         commands: {
           "command-1": {
@@ -423,15 +427,15 @@ describe("getOpenSectionStateBasedOnLineNumbers", () => {
     const result = getOpenSectionStateBasedOnLineNumbers({
       lineNumbers: [100],
       sectionData,
-      sectionState: initialSectionState,
+      sectionState: sectionStateAllClosed,
     });
-    expect(result).toStrictEqual([false, initialSectionState]);
-    expect(result[1]).not.toBe(initialSectionState);
+    expect(result).toStrictEqual([false, sectionStateAllClosed]);
+    expect(result[1]).not.toBe(sectionStateAllClosed);
   });
 
   it("should return the given sectionState value and reference when the given line number's section is already open", () => {
     const sectionState = {
-      ...initialSectionState,
+      ...sectionStateAllClosed,
       "function-1": {
         commands: {
           "command-1": {
@@ -455,18 +459,50 @@ describe("getOpenSectionStateBasedOnLineNumbers", () => {
 });
 
 describe("populateSectionState", () => {
-  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' is undefined", () => {
-    const result = populateSectionState(sectionData, undefined);
-    expect(result).toStrictEqual(initialSectionState);
+  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' is undefined or false", () => {
+    expect(
+      populateSectionState({
+        openSectionContainingLine: undefined,
+        sectionData,
+      }),
+    ).toStrictEqual(sectionStateAllClosed);
+    expect(
+      populateSectionState({
+        isOpen: false,
+        openSectionContainingLine: undefined,
+        sectionData,
+      }),
+    ).toStrictEqual(sectionStateAllClosed);
+  });
+  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' is undefined or false", () => {
+    expect(
+      populateSectionState({
+        openSectionContainingLine: undefined,
+        sectionData,
+      }),
+    ).toStrictEqual(sectionStateAllClosed);
+    expect(
+      populateSectionState({
+        isOpen: false,
+        openSectionContainingLine: undefined,
+        sectionData,
+      }),
+    ).toStrictEqual(sectionStateAllClosed);
   });
   it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' does not match a section", () => {
-    const result = populateSectionState(sectionData, 999999);
-    expect(result).toStrictEqual(initialSectionState);
+    const result = populateSectionState({
+      openSectionContainingLine: 999999,
+      sectionData,
+    });
+    expect(result).toStrictEqual(sectionStateAllClosed);
   });
   it("should populate the section state based on the section data with all sections closed except the sections containing 'openSectionContainingLine'", () => {
-    const result = populateSectionState(sectionData, 1);
+    const result = populateSectionState({
+      openSectionContainingLine: 1,
+      sectionData,
+    });
     expect(result).toStrictEqual({
-      ...initialSectionState,
+      ...sectionStateAllClosed,
       "function-1": {
         commands: {
           "command-1": {
@@ -479,5 +515,13 @@ describe("populateSectionState", () => {
         isOpen: true,
       },
     });
+  });
+  it("should populate the section state based on the section data with all sections open when isOpen is true", () => {
+    const result = populateSectionState({
+      isOpen: true,
+      openSectionContainingLine: undefined,
+      sectionData,
+    });
+    expect(result).toStrictEqual(sectionStateAllOpen);
   });
 });
