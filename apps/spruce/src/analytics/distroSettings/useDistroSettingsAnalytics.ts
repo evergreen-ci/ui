@@ -11,6 +11,6 @@ type Action =
 export const useDistroSettingsAnalytics = () => {
   const { [slugs.distroId]: distroId } = useParams();
   return useAnalyticsRoot<Action, AnalyticsObject>("DistroSettings", {
-    distroId,
+    "distro.id": distroId || "",
   });
 };

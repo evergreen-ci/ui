@@ -29,7 +29,7 @@ export const usePatchAnalytics = (id: string) => {
   const { status } = eventData?.patch || {};
 
   return useAnalyticsRoot<Action, AnalyticsObject>("Patch", {
-    patchStatus: status,
-    patchId: id,
+    "patch.status": status || "",
+    "patch.id": id,
   });
 };

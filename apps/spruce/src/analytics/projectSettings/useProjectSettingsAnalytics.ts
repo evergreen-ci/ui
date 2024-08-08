@@ -33,6 +33,6 @@ type Action =
 export const useProjectSettingsAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   return useAnalyticsRoot<Action, AnalyticsObject>("ProjectSettings", {
-    projectIdentifier,
+    "project.identifier": projectIdentifier || "",
   });
 };

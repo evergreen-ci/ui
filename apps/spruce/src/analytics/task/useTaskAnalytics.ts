@@ -89,11 +89,11 @@ export const useTaskAnalytics = () => {
   const isLatestExecution = latestExecution === execution;
 
   return useAnalyticsRoot<Action, AnalyticsObject>("Task", {
-    taskStatus,
-    execution,
-    isLatestExecution: isLatestExecution.toString(),
-    taskId,
-    failedTestCount,
-    projectIdentifier: identifier,
+    "task.status": taskStatus || "",
+    "task.execution": execution,
+    "task.isLatestExecution": isLatestExecution,
+    "task.id": taskId || "",
+    "task.failedTestCount": failedTestCount || "",
+    "task.project.identifier": identifier,
   });
 };

@@ -64,7 +64,7 @@ export const useVersionAnalytics = (id: string) => {
   const { status } = eventData?.version || {};
 
   return useAnalyticsRoot<Action, AnalyticsObject>("Version", {
-    versionStatus: status,
-    versionId: id,
+    "version.status": status || "",
+    "version.id": id,
   });
 };
