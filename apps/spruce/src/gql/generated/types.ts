@@ -6250,6 +6250,28 @@ export type HostsQuery = {
   };
 };
 
+export type ImageDistrosQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+}>;
+
+export type ImageDistrosQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    distros: Array<{
+      __typename?: "Distro";
+      name: string;
+      provider: Provider;
+      providerSettingsList: Array<any>;
+      hostAllocatorSettings: {
+        __typename?: "HostAllocatorSettings";
+        maximumHosts: number;
+      };
+    }>;
+  } | null;
+};
+
 export type ImagesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ImagesQuery = { __typename?: "Query"; images: Array<string> };

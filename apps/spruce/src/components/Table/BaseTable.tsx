@@ -156,6 +156,7 @@ export const BaseTable = forwardRef(
                       key={row.id}
                       virtualRow={vr}
                       isSelected={selectedRowIndexes.includes(row.index)}
+                      dataCyRow={dataCyRow}
                     />
                   );
                 })
@@ -166,6 +167,7 @@ export const BaseTable = forwardRef(
                     // @ts-expect-error: FIXME. This comment was added by an automated script.
                     virtualRow={null}
                     isSelected={selectedRowIndexes.includes(row.index)}
+                    dataCyRow={dataCyRow}
                   />
                 ))}
           </TableBody>
@@ -183,17 +185,19 @@ export const BaseTable = forwardRef(
 const cellPaddingStyle = { paddingBottom: size.xxs, paddingTop: size.xxs };
 
 const RenderableRow = <T extends LGRowData>({
+  dataCyRow = "leafygreen-table-row",
   isSelected = false,
   row,
   virtualRow,
 }: {
+  dataCyRow?: string;
   row: LeafyGreenTableRow<T>;
   virtualRow: VirtualItem;
   isSelected?: boolean;
 }) => (
   <Row
     row={row}
-    data-cy="leafygreen-table-row"
+    data-cy={dataCyRow}
     className={css`
       &[aria-hidden="false"] td > div {
         max-height: unset;
