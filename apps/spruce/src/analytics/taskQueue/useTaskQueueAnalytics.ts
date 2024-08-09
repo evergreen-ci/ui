@@ -1,4 +1,5 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
   | { name: "Changed distro"; distro: string }
@@ -8,4 +9,4 @@ type Action =
   | { name: "Clicked activated by link" };
 
 export const useTaskQueueAnalytics = () =>
-  useAnalyticsRoot<Action>("TaskQueue");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("TaskQueue");

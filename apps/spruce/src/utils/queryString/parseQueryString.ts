@@ -9,13 +9,6 @@ export const parseQueryString = (search: string): ParseQueryString =>
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   queryString.parse(search, { arrayFormat: "comma" });
 
-export const parseQueryStringAsValue = (search: string) =>
-  queryString.parse(search, {
-    arrayFormat: "comma",
-    parseBooleans: true,
-    parseNumbers: true,
-  });
-
 export const getString = (param: string | string[] = ""): string =>
   Array.isArray(param) ? param[0] : param;
 

@@ -1,10 +1,10 @@
+import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { TestStatus, HistoryQueryParams } from "types/history";
 import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { toArray } from "utils/array";
-import { stringifyQuery } from "utils/queryString";
 
 export enum PageNames {
   Patches = "patches",

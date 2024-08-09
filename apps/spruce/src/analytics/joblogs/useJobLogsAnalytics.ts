@@ -1,4 +1,5 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
   | {
@@ -11,6 +12,6 @@ type Action =
   | { name: "Clicked Parsley test log link"; buildId?: string };
 
 export const useJobLogsAnalytics = (isLogkeeper: boolean) =>
-  useAnalyticsRoot<Action>("JobLogs", {
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("JobLogs", {
     isLogkeeperHostedLog: isLogkeeper,
   });

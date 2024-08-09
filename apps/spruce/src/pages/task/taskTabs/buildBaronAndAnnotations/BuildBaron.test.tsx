@@ -1,7 +1,5 @@
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
-  AnnotationEventDataQuery,
-  AnnotationEventDataQueryVariables,
   BuildBaronCreateTicketMutation,
   BuildBaronCreateTicketMutationVariables,
   BuildBaronQuery,
@@ -20,7 +18,6 @@ import {
 import { getUserMock } from "gql/mocks/getUser";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import {
-  ANNOTATION_EVENT_DATA,
   BUILD_BARON,
   CREATED_TICKETS,
   JIRA_CUSTOM_CREATED_ISSUES,
@@ -318,35 +315,12 @@ const jiraIssuesMock: ApolloMock<
   },
 };
 
-const annotationEventDataMock: ApolloMock<
-  AnnotationEventDataQuery,
-  AnnotationEventDataQueryVariables
-> = {
-  request: {
-    query: ANNOTATION_EVENT_DATA,
-    variables: {
-      taskId,
-      execution,
-    },
-  },
-  result: {
-    data: {
-      task: {
-        id: taskId,
-        execution,
-        annotation: null,
-      },
-    },
-  },
-};
-
 const buildBaronMocks = [
   customCreatedIssuesMock,
   fileJiraTicketMock,
   getBuildBaronMock,
   getJiraTicketsMock,
   getSpruceConfigMock,
-  annotationEventDataMock,
   getUserSettingsMock,
   getUserMock,
   jiraIssuesMock,

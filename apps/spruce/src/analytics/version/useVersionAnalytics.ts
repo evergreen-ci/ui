@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import {
   SaveSubscriptionForUserMutationVariables,
   VersionQuery,
@@ -62,8 +63,8 @@ export const useVersionAnalytics = (id: string) => {
   );
   const { status } = eventData?.version || {};
 
-  return useAnalyticsRoot<Action>("Version", {
-    versionStatus: status,
-    versionId: id,
+  return useAnalyticsRoot<Action, AnalyticsIdentifier>("Version", {
+    "version.status": status || "",
+    "version.id": id,
   });
 };
