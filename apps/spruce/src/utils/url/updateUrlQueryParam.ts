@@ -1,5 +1,5 @@
-import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
 import { NavigateFunction } from "react-router-dom";
+import { stringifyQuery } from "@evg-ui/lib/utils/query-string";
 import { parseQueryString } from "utils/queryString";
 
 export const updateUrlQueryParam = (
