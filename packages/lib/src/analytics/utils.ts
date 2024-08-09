@@ -21,7 +21,7 @@ export const addNewRelicPageAction = <A extends ActionType>(
 
   if (typeof newrelic !== "object") {
     // These will only print when new relic is not available such as during local development
-    console.log("ANALYTICS EVENT ", { name, attributesToSend });
+    console.debug("ANALYTICS EVENT ", { name, attributesToSend });
     return;
   }
 
