@@ -1,0 +1,10 @@
+query ImagePackages($imageId: String!, $opts: PackageOpts!) {
+  image(imageId: $imageId) {
+    id
+    packages(opts: $opts) {
+      manager
+      name
+      version
+    }
+  }
+}

@@ -6250,6 +6250,25 @@ export type HostsQuery = {
   };
 };
 
+export type ImagePackagesQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: PackageOpts;
+}>;
+
+export type ImagePackagesQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    packages: Array<{
+      __typename?: "Package";
+      manager: string;
+      name: string;
+      version: string;
+    }>;
+  } | null;
+};
+
 export type ImagesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ImagesQuery = { __typename?: "Query"; images: Array<string> };
