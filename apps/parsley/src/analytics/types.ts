@@ -1,4 +1,4 @@
-export type AnalyticsObject =
+export type AnalyticsIdentifier =
   | "LogDrop"
   | "LogWindow"
   | "Preferences"

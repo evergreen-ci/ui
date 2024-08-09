@@ -1,5 +1,5 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
-import { AnalyticsObject } from "analytics/types";
+import { AnalyticsIdentifier } from "analytics/types";
 
 type Action = {
   name: "Clicked link";
@@ -7,4 +7,4 @@ type Action = {
 };
 
 export const useBreadcrumbAnalytics = () =>
-  useAnalyticsRoot<Action, AnalyticsObject>("Breadcrumb");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("Breadcrumb");

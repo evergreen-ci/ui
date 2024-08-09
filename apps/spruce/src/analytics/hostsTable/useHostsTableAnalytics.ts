@@ -1,5 +1,5 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
-import { AnalyticsObject } from "analytics/types";
+import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
   | { name: "Filtered hosts table"; filterBy: string | string[] }
@@ -10,6 +10,6 @@ type Action =
   | { name: "Clicked update host status button"; status: string };
 
 export const useHostsTableAnalytics = (isHostPage?: boolean) =>
-  useAnalyticsRoot<Action, AnalyticsObject>(
+  useAnalyticsRoot<Action, AnalyticsIdentifier>(
     isHostPage ? "HostPage" : "AllHostsPage",
   );

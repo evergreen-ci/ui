@@ -1,5 +1,5 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
-import { AnalyticsObject } from "analytics/types";
+import { AnalyticsIdentifier } from "analytics/types";
 import { UpdateUserSettingsMutationVariables } from "gql/generated/types";
 
 type Action =
@@ -17,4 +17,4 @@ type Action =
   | { name: "Toggled polling"; value: "Enabled" | "Disabled" };
 
 export const usePreferencesAnalytics = () =>
-  useAnalyticsRoot<Action, AnalyticsObject>("PreferencesPages");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("PreferencesPages");

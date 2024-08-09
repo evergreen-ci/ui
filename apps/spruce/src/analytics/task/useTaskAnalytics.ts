@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
-import { AnalyticsObject } from "analytics/types";
+import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 import {
   SaveSubscriptionForUserMutationVariables,
@@ -88,7 +88,7 @@ export const useTaskAnalytics = () => {
   } = eventData?.task || {};
   const isLatestExecution = latestExecution === execution;
 
-  return useAnalyticsRoot<Action, AnalyticsObject>("Task", {
+  return useAnalyticsRoot<Action, AnalyticsIdentifier>("Task", {
     "task.status": taskStatus || "",
     "task.execution": execution,
     "task.isLatestExecution": isLatestExecution,

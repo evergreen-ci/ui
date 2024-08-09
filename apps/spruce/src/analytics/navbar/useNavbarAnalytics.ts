@@ -1,5 +1,5 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
-import { AnalyticsObject } from "analytics/types";
+import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
   | { name: "Clicked admin settings link" }
@@ -19,4 +19,4 @@ type Action =
   | { name: "Clicked commit queue link" };
 
 export const useNavbarAnalytics = () =>
-  useAnalyticsRoot<Action, AnalyticsObject>("Navbar");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("Navbar");

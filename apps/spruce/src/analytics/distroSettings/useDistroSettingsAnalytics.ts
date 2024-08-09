@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
-import { AnalyticsObject } from "analytics/types";
+import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 
 type Action =
@@ -10,7 +10,7 @@ type Action =
 
 export const useDistroSettingsAnalytics = () => {
   const { [slugs.distroId]: distroId } = useParams();
-  return useAnalyticsRoot<Action, AnalyticsObject>("DistroSettings", {
+  return useAnalyticsRoot<Action, AnalyticsIdentifier>("DistroSettings", {
     "distro.id": distroId || "",
   });
 };

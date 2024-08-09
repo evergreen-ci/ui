@@ -1,5 +1,5 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
-import { AnalyticsObject } from "analytics/types";
+import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
   | { name: "Changed page size" }
@@ -12,4 +12,4 @@ type Action =
     };
 
 export const useUserPatchesAnalytics = () =>
-  useAnalyticsRoot<Action, AnalyticsObject>("UserPatches");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("UserPatches");

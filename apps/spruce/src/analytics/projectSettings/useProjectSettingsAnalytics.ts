@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
-import { AnalyticsObject } from "analytics/types";
+import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 
 type Action =
@@ -32,7 +32,7 @@ type Action =
 
 export const useProjectSettingsAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-  return useAnalyticsRoot<Action, AnalyticsObject>("ProjectSettings", {
+  return useAnalyticsRoot<Action, AnalyticsIdentifier>("ProjectSettings", {
     "project.identifier": projectIdentifier || "",
   });
 };

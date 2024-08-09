@@ -1,5 +1,5 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
-import { AnalyticsObject } from "analytics/types";
+import { AnalyticsIdentifier } from "analytics/types";
 import {
   EditSpawnHostMutationVariables,
   SpawnHostMutationVariables,
@@ -41,4 +41,4 @@ type Action =
   | { name: "Changed tab"; tab: string };
 
 export const useSpawnAnalytics = () =>
-  useAnalyticsRoot<Action, AnalyticsObject>("SpawnPages");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("SpawnPages");
