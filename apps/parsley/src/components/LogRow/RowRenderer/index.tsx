@@ -31,9 +31,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     scrollToLine,
     searchLine,
     searchState,
-    sectioning,
   } = useLogContext();
-  const { toggleCommandSection, toggleFunctionSection } = sectioning;
   const { prettyPrint, wordWrapFormat, wrap } = preferences;
 
   const { searchTerm } = searchState;
@@ -81,7 +79,6 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           functionID={processedLogLine.functionID}
           functionName={processedLogLine.functionName}
           lineIndex={index}
-          onToggle={toggleFunctionSection}
           open={processedLogLine.isOpen}
           status={
             includesLineNumber(processedLogLine, failingLine)
@@ -99,7 +96,6 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
           commandName={processedLogLine.commandName}
           functionID={processedLogLine.functionID}
           lineIndex={index}
-          onToggle={toggleCommandSection}
           open={processedLogLine.isOpen}
           step={processedLogLine.step}
         />

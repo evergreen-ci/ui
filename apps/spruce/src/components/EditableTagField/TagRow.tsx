@@ -1,7 +1,7 @@
 import { useReducer, useMemo } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import TextInput from "@leafygreen-ui/text-input";
+import TextArea from "@leafygreen-ui/text-area";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -33,82 +33,74 @@ export const TagRow: React.FC<TagRowProps> = ({
   const { canSave, isInputValid, key, shouldShowNewTag, value } = state;
 
   return (
-    <FlexColumnContainer
-      data-cy={!shouldShowNewTag ? "add-tag-button-row" : "user-tag-row"}
-    >
+    <>
       {shouldShowNewTag && (
-        <FlexContainer>
+        <FlexContainer data-cy="user-tag-row">
           <FlexColumnContainer>
-            <Section>
-              <TextInput
-                label="Key"
-                id={`tag_key_${tagId}`}
-                value={key}
-                onChange={(e) =>
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  dispatch({ type: "updateTag", key: e.target.value })
-                }
-                data-cy="user-tag-key-field"
-              />
-            </Section>
+            <TextArea
+              label="Key"
+              id={`tag_key_${tagId}`}
+              value={key}
+              onChange={(e) =>
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                dispatch({ type: "updateTag", key: e.target.value })
+              }
+              data-cy="user-tag-key-field"
+            />
           </FlexColumnContainer>
           <FlexColumnContainer>
-            <Section>
-              <TextInput
-                label="Value"
-                id={`tag_value_${tagId}`}
-                value={value}
-                onChange={(e) =>
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  dispatch({ type: "updateTag", value: e.target.value })
-                }
-                data-cy="user-tag-value-field"
-              />
-            </Section>
+            <TextArea
+              label="Value"
+              id={`tag_value_${tagId}`}
+              value={value}
+              onChange={(e) =>
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                dispatch({ type: "updateTag", value: e.target.value })
+              }
+              data-cy="user-tag-value-field"
+            />
           </FlexColumnContainer>
-          <IconButtonContainer>
-            {canSave ? (
-              <IconButton
-                aria-label="Update tag"
-                disabled={
-                  !isInputValid ||
+          {canSave ? (
+            <IconButton
+              aria-label="Update tag"
+              disabled={
+                !isInputValid ||
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                ((isNewTag || key !== tag.key) && !isValidKey(key))
+              }
+            >
+              <Icon
+                glyph="Checkmark"
+                data-cy="user-tag-edit-icon"
+                onClick={() => {
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  ((isNewTag || key !== tag.key) && !isValidKey(key))
+                  dispatch({
+                    type: isNewTag ? "cancelNewTag" : "inActive",
+                  });
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  onUpdateTag(
+                    { key, value },
+                    // @ts-expect-error: FIXME. This comment was added by an automated script.
+                    !isNewTag && key !== tag.key ? tag.key : undefined,
+                  );
+                }}
+              />
+            </IconButton>
+          ) : (
+            <IconButton aria-label="Delete Tag">
+              <Icon
+                glyph="Trash"
+                onClick={
+                  isNewTag
+                    ? // @ts-expect-error: FIXME. This comment was added by an automated script.
+                      () => dispatch({ type: "cancelNewTag" })
+                    : // @ts-expect-error: FIXME. This comment was added by an automated script.
+                      () => onDelete(tag.key)
                 }
-              >
-                <Icon
-                  glyph="Checkmark"
-                  data-cy="user-tag-edit-icon"
-                  onClick={() => {
-                    // @ts-expect-error: FIXME. This comment was added by an automated script.
-                    dispatch({
-                      type: isNewTag ? "cancelNewTag" : "inActive",
-                    });
-                    // @ts-expect-error: FIXME. This comment was added by an automated script.
-                    onUpdateTag(
-                      { key, value },
-                      // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      !isNewTag && key !== tag.key ? tag.key : undefined,
-                    );
-                  }}
-                />
-              </IconButton>
-            ) : (
-              <IconButton aria-label="Delete Tag">
-                <Icon
-                  glyph="Trash"
-                  onClick={
-                    isNewTag
-                      ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-                        () => dispatch({ type: "cancelNewTag" })
-                      : // @ts-expect-error: FIXME. This comment was added by an automated script.
-                        () => onDelete(tag.key)
-                  }
-                  data-cy="user-tag-trash-icon"
-                />
-              </IconButton>
-            )}
-          </IconButtonContainer>
+                data-cy="user-tag-trash-icon"
+              />
+            </IconButton>
+          )}
         </FlexContainer>
       )}
       {!shouldShowNewTag && (
@@ -122,7 +114,7 @@ export const TagRow: React.FC<TagRowProps> = ({
           </PlusButton>
         </ButtonContainer>
       )}
-    </FlexColumnContainer>
+    </>
   );
 };
 
@@ -138,12 +130,6 @@ const FlexColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: ${size.xs};
-`;
-
-const Section = styled(FlexColumnContainer)`
   margin-top: ${size.m};
-`;
-
-const IconButtonContainer = styled.div`
-  margin-bottom: ${size.xxs};
+  flex-grow: 1;
 `;

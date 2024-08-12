@@ -1,10 +1,10 @@
 import { useState, forwardRef } from "react";
+import IconButton from "@leafygreen-ui/icon-button";
+import { palette } from "@leafygreen-ui/palette";
 import {
   TextInputWithGlyph,
   TextInputWithGlyphProps,
 } from "@evg-ui/lib/components/TextInputWithGlyph";
-import IconButton from "@leafygreen-ui/icon-button";
-import { palette } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
 import IconTooltip from "components/IconTooltip";
 
