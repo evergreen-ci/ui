@@ -43,8 +43,11 @@ export const cache = new InMemoryCache({
       fields: {
         events: {
           keyArgs: false,
-          // @ts-expect-error
-          merge(existing, incoming, { args: { page = 0 } }) {
+          merge(existing: any[], incoming: any[], { args }) {
+            let page = 0;
+            if (args) {
+              page = args.page;
+            }
             const merged = existing ? existing.slice(0) : [];
             for (let i = 0; i < incoming.length; ++i) {
               merged[page * IMAGE_EVENT_LIMIT + i] = incoming[i];
@@ -62,8 +65,8 @@ export const cache = new InMemoryCache({
           },
         },
         eventLogEntries: {
-          merge(existing, incoming, { mergeObjects }) {
-            return mergeObjects(existing, incoming);
+          merge(existing = [], incoming = []) {
+            return [...existing, ...incoming];
           },
         },
       },

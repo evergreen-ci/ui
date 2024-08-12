@@ -2,24 +2,17 @@ import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import {
+  ColumnFiltersState,
   useLeafyGreenTable,
   LGColumnDef,
   filterFns,
   getFilteredRowModel,
 } from "@leafygreen-ui/table";
 import { BaseTable } from "components/Table/BaseTable";
+import { onChangeHandler } from "components/Table/utils";
 import { TreeDataEntry } from "components/TreeSelect";
 import { tableColumnOffset } from "constants/tokens";
 import { ImageEventEntry, ImageEventEntryAction } from "gql/generated/types";
-
-const DefaultEmptyMessage = styled.span`
-  margin-left: ${tableColumnOffset};
-`;
-
-export enum ImageEventTypeV2 {
-  Package = "Packages",
-  Toolchain = "Toolchains",
-}
 
 export const imageEventEntryActionTreeData = [
   {
@@ -39,6 +32,11 @@ export const imageEventEntryActionTreeData = [
   },
 ];
 
+export enum ImageEventTypeV2 {
+  Package = "Packages",
+  Toolchain = "Toolchains",
+}
+
 export const imageEventTypeToCopy = {
   [ImageEventTypeV2.Package]: "Package",
   [ImageEventTypeV2.Toolchain]: "Toolchain",
@@ -52,20 +50,14 @@ export const imageEventTypeTreeData: TreeDataEntry[] = Object.entries(
   key,
 }));
 
-export const ImageEventEntryActionToCopy = {
-  [ImageEventEntryAction.Added]: "ADDED",
-  [ImageEventEntryAction.Updated]: "UPDATED",
-  [ImageEventEntryAction.Deleted]: "DELETED",
-};
-
-interface ImageEventDiffTableProps {
+interface ImageEventLogTableProps {
   entries: ImageEventEntry[];
 }
 
-export const ImageEventDiffTable: React.FC<ImageEventDiffTableProps> = ({
+export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
   entries,
 }) => {
-  const [columnFilters, setColumnFilters] = useState([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<ImageEventEntry>({
     columns,
@@ -74,19 +66,21 @@ export const ImageEventDiffTable: React.FC<ImageEventDiffTableProps> = ({
     defaultColumn: {
       enableColumnFilter: false,
     },
-    // @ts-expect-error
-    onColumnFiltersChange: setColumnFilters,
+    onColumnFiltersChange:
+      onChangeHandler<ColumnFiltersState>(setColumnFilters),
     state: {
       columnFilters,
     },
     getFilteredRowModel: getFilteredRowModel(),
   });
+
   const emptyComponent = (
     <DefaultEmptyMessage>
       No changes detected within the scope. The scope can be expanded upon
       request from the runtime environments team.
     </DefaultEmptyMessage>
   );
+
   return (
     <BaseTable
       shouldAlternateRowColor
@@ -109,7 +103,6 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     accessorKey: "type",
     cell: ({ getValue }) => {
       const value = getValue() as ImageEventTypeV2;
-      console.log(value);
       return imageEventTypeToCopy[value] ?? value;
     },
     enableColumnFilter: true,
@@ -156,3 +149,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     },
   },
 ];
+
+const DefaultEmptyMessage = styled.span`
+  margin-left: ${tableColumnOffset};
+`;

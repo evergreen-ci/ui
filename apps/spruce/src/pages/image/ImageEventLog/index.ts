@@ -1,2 +1,2 @@
-export { IMAGE_EVENT_LIMIT } from "./useImageEvents";
 export { ImageEventLog } from "./ImageEventLog";
+export const IMAGE_EVENT_LIMIT = 5;

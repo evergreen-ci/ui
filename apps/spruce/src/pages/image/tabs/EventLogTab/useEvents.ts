@@ -30,26 +30,32 @@ export const useEvents = (
       dispatchToast.error(e.message);
     },
     onCompleted: () => {
-      if (events.length === 0) {
-        // Initially, set events to show data.
-        setEvents(data?.image?.events || []);
+      if (eventLogEntries) {
+        // Initially, set event log entries to show data.
+        setEventLogEntries(data?.image?.events?.eventLogEntries || []);
       }
     },
   });
-  const [events, setEvents] = useState(data?.image?.events ?? []);
-  const [allImageEventsFetched, setAllImageEventsFetched] = useState(false);
+  const [eventLogEntries, setEventLogEntries] = useState(
+    data?.image?.events?.eventLogEntries ?? [],
+  );
+  const [allEventLogEntriesFetched, setAllEventLogEntriesFetched] =
+    useState(false);
 
   useEffect(() => {
-    if (events.length > 0 && events.length < IMAGE_EVENT_LIMIT) {
-      setAllImageEventsFetched(true);
+    if (
+      eventLogEntries.length > 0 &&
+      eventLogEntries.length < IMAGE_EVENT_LIMIT
+    ) {
+      setAllEventLogEntriesFetched(true);
     }
-  }, [events]);
+  }, [eventLogEntries]);
 
   return {
-    allImageEventsFetched,
-    setAllImageEventsFetched,
-    events,
-    setEvents,
+    allEventLogEntriesFetched,
+    setAllEventLogEntriesFetched,
+    eventLogEntries,
+    setEventLogEntries,
     fetchMore,
     loading,
   };

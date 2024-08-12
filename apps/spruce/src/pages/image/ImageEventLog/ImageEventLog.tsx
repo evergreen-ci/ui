@@ -4,23 +4,23 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { LoadingButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { ImageEvent } from "gql/generated/types";
-import { ImageEventDiffTable } from "../ImageEventDiffTable";
+import { ImageEventLogTable } from "../ImageEventLogTable";
 import { Header } from "./Header";
 
 type ImageEventLogProps = {
-  allImageEventsFetched: boolean;
+  allEventsFetched: boolean;
   events: ImageEvent[];
   handleFetchMore: () => void;
   loading?: boolean;
 };
 
 export const ImageEventLog: React.FC<ImageEventLogProps> = ({
-  allImageEventsFetched,
+  allEventsFetched,
   events,
   handleFetchMore,
   loading,
 }) => {
-  const allImageEventsFetchedCopy =
+  const allEventsFetchedCopy =
     events.length > 0 ? "No more events to show." : "No events to show.";
 
   return (
@@ -35,11 +35,11 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
               amiBefore={amiBefore}
               timestamp={timestamp}
             />
-            <ImageEventDiffTable entries={entries} />
+            <ImageEventLogTable entries={entries} />
           </ImageEventLogCard>
         );
       })}
-      {!allImageEventsFetched && !!events.length && (
+      {!allEventsFetched && !!events.length && (
         <LoadingButton
           loading={loading}
           onClick={handleFetchMore}
@@ -48,9 +48,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
           Load more events
         </LoadingButton>
       )}
-      {allImageEventsFetched && (
-        <Subtitle>{allImageEventsFetchedCopy}</Subtitle>
-      )}
+      {allEventsFetched && <Subtitle>{allEventsFetchedCopy}</Subtitle>}
     </Container>
   );
 };
