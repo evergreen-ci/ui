@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { ApolloError } from "@apollo/client";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { palette } from "@leafygreen-ui/palette";
@@ -34,6 +35,7 @@ import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
 import { string } from "utils";
+import { isFailedTaskStatus } from "utils/statuses";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import ETATimer from "./ETATimer";
@@ -470,19 +472,28 @@ const DetailsDescription = ({
   status: string;
 }) => {
   const MAX_CHAR = 100;
-
-  const fullText =
-    status === TaskStatus.Failed
-      ? `${processFailingCommand(description, isContainerTask)}`
-      : `Command: ${description}`;
+  const isFailingTask = isFailedTaskStatus(status);
+  const fullText = isFailingTask
+    ? `${processFailingCommand(description, isContainerTask)}`
+    : `${description}`;
   const shouldTruncate = fullText.length > MAX_CHAR;
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 
   return (
     <MetadataItem>
+      {isFailingTask ? (
+        <b
+          css={css`
+            color: ${red.base};
+          `}
+        >
+          Failing Command:{" "}
+        </b>
+      ) : (
+        <span>Command: </span>
+      )}
       {shouldTruncate ? (
         <>
-          <StyledBody>Failing Command: </StyledBody>
           {truncatedText}{" "}
           <ExpandedText
             align="right"
@@ -528,8 +539,4 @@ const HoneycombLinkContainer = styled.span`
 const OOMTrackerMessage = styled(MetadataItem)`
   color: ${red.dark2};
   font-weight: 500;
-`;
-
-const StyledBody = styled.b`
-  color: ${red.base};
 `;
