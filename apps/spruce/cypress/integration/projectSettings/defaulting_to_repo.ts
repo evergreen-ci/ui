@@ -67,8 +67,13 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Saves when batch time is updated", () => {
-      cy.dataCy("batch-time-input").type("12");
+      cy.dataCy("batch-time-input").clear().type("12");
       clickSave();
+      cy.dataCy("batch-time-input").should("have.value", 12);
+      cy.validateToast("success", "Successfully updated project");
+      cy.dataCy("batch-time-input").clear();
+      clickSave();
+      cy.dataCy("batch-time-input").should("have.value", 0);
       cy.validateToast("success", "Successfully updated project");
     });
   });
