@@ -77,8 +77,6 @@ export const EventLogTab: React.FC = () => {
             setEvents((prevEvents) => [...prevEvents, ...newEvents]);
             if (newEvents.length < IMAGE_EVENT_LIMIT) {
               setAllImageEventsFetched(true);
-              console.log(newEvents.length);
-              console.log("set to true because of new events");
             }
           });
         }}
