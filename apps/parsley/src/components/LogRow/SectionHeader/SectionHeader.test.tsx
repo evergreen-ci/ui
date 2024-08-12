@@ -1,16 +1,35 @@
 import { SectionStatus } from "constants/logs";
-import { render, screen, userEvent } from "test_utils";
+import * as logContext from "context/LogContext";
+import { logContextWrapper } from "context/LogContext/test_utils";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
+import { renderWithRouterMatch, screen, userEvent } from "test_utils";
 import SectionHeader from ".";
 
+const wrapper = logContextWrapper();
+
 describe("SectionHeader", () => {
+  beforeEach(() => {
+    InitializeFakeToastContext();
+    const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+    mockedLogContext.mockImplementation(() => ({
+      // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+      sectioning: {
+        toggleFunctionSection: vi.fn(),
+      },
+    }));
+  });
   it("displays function name", () => {
-    render(<SectionHeader {...sectionHeaderProps} functionName="load_data" />);
+    renderWithRouterMatch(
+      <SectionHeader {...sectionHeaderProps} functionName="load_data" />,
+      { wrapper },
+    );
     expect(screen.getByText("Function: load_data")).toBeVisible();
   });
 
   it("displays checkmark icon if status is passing", () => {
-    render(
+    renderWithRouterMatch(
       <SectionHeader {...sectionHeaderProps} status={SectionStatus.Pass} />,
+      { wrapper },
     );
     expect(
       screen.getByLabelText("Checkmark With Circle Icon"),
@@ -18,14 +37,15 @@ describe("SectionHeader", () => {
   });
 
   it("displays X icon if status is failing", () => {
-    render(
+    renderWithRouterMatch(
       <SectionHeader {...sectionHeaderProps} status={SectionStatus.Fail} />,
+      { wrapper },
     );
     expect(screen.getByLabelText("XWith Circle Icon")).toBeInTheDocument();
   });
 
   it("renders as opened if 'open' prop is true", async () => {
-    render(<SectionHeader {...sectionHeaderProps} open />);
+    renderWithRouterMatch(<SectionHeader {...sectionHeaderProps} open />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
@@ -33,7 +53,10 @@ describe("SectionHeader", () => {
   });
 
   it("renders as closed if 'open' prop is false", async () => {
-    render(<SectionHeader {...sectionHeaderProps} open={false} />);
+    renderWithRouterMatch(
+      <SectionHeader {...sectionHeaderProps} open={false} />,
+      { wrapper },
+    );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
@@ -42,20 +65,30 @@ describe("SectionHeader", () => {
 
   it("should call onOpen function when 'open' button is clicked", async () => {
     const user = userEvent.setup();
-    const onToggle = vi.fn();
-    render(<SectionHeader {...sectionHeaderProps} onToggle={onToggle} />);
+    const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+    const toggleFunctionSectionMock = vi.fn();
+    mockedLogContext.mockImplementation(() => ({
+      // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
+      sectioning: {
+        toggleFunctionSection: toggleFunctionSectionMock,
+      },
+    }));
+    renderWithRouterMatch(<SectionHeader {...sectionHeaderProps} />, {
+      wrapper,
+    });
     const openButton = screen.getByDataCy("caret-toggle");
     await user.click(openButton);
-    expect(onToggle).toHaveBeenCalledTimes(1);
-    expect(onToggle).toHaveBeenCalledWith({
+    expect(toggleFunctionSectionMock).toHaveBeenCalledTimes(1);
+    expect(toggleFunctionSectionMock).toHaveBeenCalledWith({
       functionID: "function-4",
       isOpen: true,
     });
   });
 
   it("open and close state is controlled by the 'open' prop", async () => {
-    const { rerender } = render(
+    const { rerender } = renderWithRouterMatch(
       <SectionHeader {...sectionHeaderProps} open={false} />,
+      { wrapper },
     );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
@@ -78,7 +111,6 @@ const sectionHeaderProps = {
   functionID: "function-4",
   functionName: "load_data",
   lineIndex: 0,
-  onToggle: vi.fn(),
   open: false,
   status: SectionStatus.Pass,
 };
