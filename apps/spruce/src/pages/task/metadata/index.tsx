@@ -234,17 +234,16 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </InlineCode>
         </MetadataItem>
       )}
-      {details?.description ||
-        (details?.failingCommand && (
-          <MetadataItem data-cy="task-metadata-description">
-            <DetailsDescription
-              description={details?.description ?? ""}
-              failingCommand={details?.failingCommand ?? ""}
-              isContainerTask={isContainerTask}
-              status={details?.status}
-            />
-          </MetadataItem>
-        ))}
+      {(details?.description || details?.failingCommand) && (
+        <MetadataItem data-cy="task-metadata-description">
+          <DetailsDescription
+            description={details?.description ?? ""}
+            failingCommand={details?.failingCommand ?? ""}
+            isContainerTask={isContainerTask}
+            status={details?.status}
+          />
+        </MetadataItem>
+      )}
       {details?.timeoutType && details?.timeoutType !== "" && (
         <MetadataItem>Timeout type: {details?.timeoutType}</MetadataItem>
       )}
