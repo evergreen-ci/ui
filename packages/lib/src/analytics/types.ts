@@ -39,16 +39,6 @@ export interface AnalyticsProperties {
 }
 
 /**
- * DO NOT USE THIS IN YOUR CODE
- *
- * This is simply a clever named type to help with the typing of the `useAnalyticsRoot` hook.
- * `AnalyticsIdentifier` is a string that represents the object to send with an event to our analytics provider.
- * @example - "Page Name"
- * @example - "Component Name"
- */
-export type AnalyticsIdentifier = string;
-
-/**
  * `Analytics` is an object that represents the analytics provider and the function to send an event to the provider.
  */
 export interface Analytics<Action extends ActionType> {
