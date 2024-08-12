@@ -1,34 +1,18 @@
-### `lib` Directory Readme
+# `lib` Directory Readme
 
-#### Overview
+## Overview
 
-The `lib` directory is a new addition to our project structure, designed to
-house shared code used across our two main projects. This centralization of
-common components and utilities aims to improve code reusability and
-maintainability, ensuring that updates and bug fixes can be applied in a single
-location.
+The `lib` directory is designed to house shared code used across our two main
+projects. This centralization of common components and utilities aims to improve
+code reusability and maintainability, ensuring that updates and bug fixes can be
+applied in a single location.
 
-#### Structure
-
-The `lib` directory contains various modules and functions that are shared
-between the projects. It is organized as follows:
-
-```
-lib/
-├── module1/
-│   ├── file1.ts
-│   └── file2.ts
-├── module2/
-│   └── file3.tsx
-└── README.md
-```
-
-#### Best Practices for Managing Dependencies
+## Best Practices for Managing Dependencies
 
 When moving shared code to the `lib` directory, it is essential to manage
 dependencies correctly to avoid duplication and maintain consistency.
 
-**External Dependencies:**
+### External Dependencies:
 
 - If the shared code in the `lib` directory has an external dependency that is
   not directly used by the individual projects, it is best practice to remove
@@ -36,7 +20,7 @@ dependencies correctly to avoid duplication and maintain consistency.
   `lib` folder. This approach centralizes the dependency management and avoids
   redundancy.
 
-**Project-Specific Dependencies:**
+### Project-Specific Dependencies:
 
 - If the shared code depends on an external library that is also used directly
   by the individual projects, the dependency should be installed in both the
@@ -44,10 +28,10 @@ dependencies correctly to avoid duplication and maintain consistency.
   necessary dependencies available, and any version-specific requirements are
   respected.
 
-#### Example
+### Example
 
 Consider a scenario where both Project A and Project B utilize a utility
-function from `lib/module1/file1.js` that depends on an external library,
+function from `lib/module1/file1.ts` that depends on an external library,
 `external-lib`.
 
 - If `external-lib` is used exclusively by `lib/module1/file1.ts`, it should be
@@ -55,7 +39,7 @@ function from `lib/module1/file1.js` that depends on an external library,
 - If `external-lib` is also used directly by Project A or Project B, it should
   be installed in both the respective project and the `lib` directory.
 
-#### Contribution Guidelines
+## Contribution Guidelines
 
 When contributing to the `lib` directory, please ensure that:
 
