@@ -9,7 +9,12 @@ import {
 } from "@leafygreen-ui/table";
 import { BaseTable } from "components/Table/BaseTable";
 import { TreeDataEntry } from "components/TreeSelect";
+import { tableColumnOffset } from "constants/tokens";
 import { ImageEventEntry, ImageEventEntryAction } from "gql/generated/types";
+
+const DefaultEmptyMessage = styled.span`
+  margin-left: ${tableColumnOffset};
+`;
 
 export enum ImageEventTypeV2 {
   Package = "Packages",
@@ -61,8 +66,6 @@ export const ImageEventDiffTable: React.FC<ImageEventDiffTableProps> = ({
   entries,
 }) => {
   const [columnFilters, setColumnFilters] = useState([]);
-  console.log("column filters");
-  console.log(columnFilters);
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<ImageEventEntry>({
     columns,
@@ -78,13 +81,20 @@ export const ImageEventDiffTable: React.FC<ImageEventDiffTableProps> = ({
     },
     getFilteredRowModel: getFilteredRowModel(),
   });
-
-  return <BaseTable shouldAlternateRowColor table={table} />;
+  const emptyComponent = (
+    <DefaultEmptyMessage>
+      No changes detected within the scope. The scope can be expanded upon
+      request from the runtime environments team.
+    </DefaultEmptyMessage>
+  );
+  return (
+    <BaseTable
+      shouldAlternateRowColor
+      table={table}
+      emptyComponent={emptyComponent}
+    />
+  );
 };
-
-const CellText = styled.span`
-  font-size: 13px;
-`;
 
 const columns: LGColumnDef<ImageEventEntry>[] = [
   {
@@ -114,12 +124,12 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
   {
     header: "Before",
     accessorKey: "before",
-    cell: ({ getValue }) => <CellText>{getValue() as string}</CellText>,
+    cell: ({ getValue }) => getValue() as string,
   },
   {
     header: "After",
     accessorKey: "after",
-    cell: ({ getValue }) => <CellText>{getValue() as string}</CellText>,
+    cell: ({ getValue }) => getValue() as string,
   },
   {
     header: "Action",
