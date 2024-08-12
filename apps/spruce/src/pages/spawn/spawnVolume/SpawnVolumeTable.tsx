@@ -1,10 +1,14 @@
 import { useMemo, useRef } from "react";
+import styled from "@emotion/styled";
 import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { formatDistanceToNow } from "date-fns";
+import Icon from "components/Icon";
 import { DoesNotExpire } from "components/Spawn";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { getSpawnHostRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { MyVolume, QueryParams, TableVolume } from "types/spawn";
 import { SpawnVolumeCard } from "./SpawnVolumeCard";
@@ -113,9 +117,24 @@ const columns = [
     cell: ({ getValue, row }) => {
       const expiration = getValue();
       const { noExpiration } = row.original;
-      return noExpiration || !expiration
-        ? DoesNotExpire
-        : formatDistanceToNow(expiration);
+      const isUnexpirable = noExpiration || !expiration;
+      return (
+        <>
+          {isUnexpirable ? DoesNotExpire : formatDistanceToNow(expiration)}
+          {!isUnexpirable && row.original.hostID && (
+            <Tooltip
+              trigger={
+                <IconContainer>
+                  <Icon glyph="InfoWithCircle" />
+                </IconContainer>
+              }
+              triggerEvent="hover"
+            >
+              Expiration is not applicable to mounted volumes.
+            </Tooltip>
+          )}
+        </>
+      );
     },
   },
   {
@@ -124,3 +143,9 @@ const columns = [
     cell: ({ row }) => <SpawnVolumeTableActions volume={row.original} />,
   },
 ];
+
+const IconContainer = styled.span`
+  margin-left: ${size.xxs};
+  top: 2px;
+  vertical-align: text-top;
+`;
