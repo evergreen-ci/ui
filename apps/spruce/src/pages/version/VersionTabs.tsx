@@ -17,23 +17,65 @@ import TaskDuration from "./TaskDuration";
 
 const { parseQueryString } = queryString;
 
+type ChildPatches = NonNullable<
+  VersionQuery["version"]["patch"]
+>["childPatches"];
 interface Props {
   taskCount: number;
   isPatch: boolean;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  childPatches: VersionQuery["version"]["patch"]["childPatches"];
+  childPatches: ChildPatches;
 }
+
+const getDownstreamTabName = (
+  numFailedChildPatches: number,
+  numStartedChildPatches: number,
+  numSuccessChildPatches: number,
+) => {
+  if (numFailedChildPatches > 0) {
+    return (
+      <TabLabelWithBadge
+        badgeText={numFailedChildPatches}
+        badgeVariant="red"
+        dataCyBadge="downstream-tab-badge"
+        tabLabel="Downstream Projects"
+      />
+    );
+  }
+  if (numStartedChildPatches > 0) {
+    return (
+      <TabLabelWithBadge
+        badgeText={numStartedChildPatches}
+        badgeVariant="yellow"
+        dataCyBadge="downstream-tab-badge"
+        tabLabel="Downstream Projects"
+      />
+    );
+  }
+  if (numSuccessChildPatches > 0) {
+    return (
+      <TabLabelWithBadge
+        badgeText={numSuccessChildPatches}
+        badgeVariant="green"
+        dataCyBadge="downstream-tab-badge"
+        tabLabel="Downstream Projects"
+      />
+    );
+  }
+};
 
 const tabMap = ({
   childPatches,
   numFailedChildPatches,
+  numStartedChildPatches,
+  numSuccessChildPatches,
   taskCount,
   versionId,
 }: {
   taskCount: number;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  childPatches: VersionQuery["version"]["patch"]["childPatches"];
+  childPatches: ChildPatches;
   numFailedChildPatches: number;
+  numStartedChildPatches: number;
+  numSuccessChildPatches: number;
   versionId: string;
 }) => ({
   [PatchTab.Tasks]: (
@@ -63,18 +105,11 @@ const tabMap = ({
   ),
   [PatchTab.Downstream]: (
     <Tab
-      name={
-        numFailedChildPatches ? (
-          <TabLabelWithBadge
-            badgeText={numFailedChildPatches}
-            badgeVariant="red"
-            dataCyBadge="downstream-tab-badge"
-            tabLabel="Downstream Projects"
-          />
-        ) : (
-          "Downstream Projects"
-        )
-      }
+      name={getDownstreamTabName(
+        numFailedChildPatches,
+        numStartedChildPatches,
+        numSuccessChildPatches,
+      )}
       id="downstream-tab"
       data-cy="downstream-tab"
       key="downstream-tab"
@@ -109,13 +144,20 @@ export const VersionTabs: React.FC<Props> = ({
 
   const allTabs = useMemo(() => {
     const numFailedChildPatches = childPatches
-      ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-        childPatches.filter((c) => c.status === PatchStatus.Failed).length
+      ? childPatches.filter((c) => c.status === PatchStatus.Failed).length
+      : 0;
+    const numStartedChildPatches = childPatches
+      ? childPatches.filter((c) => c.status === PatchStatus.Started).length
+      : 0;
+    const numSuccessChildPatches = childPatches
+      ? childPatches.filter((c) => c.status === PatchStatus.Success).length
       : 0;
     return tabMap({
       taskCount,
       childPatches,
       numFailedChildPatches,
+      numStartedChildPatches,
+      numSuccessChildPatches,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       versionId,
     });
