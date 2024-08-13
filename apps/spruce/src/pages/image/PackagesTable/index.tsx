@@ -1,13 +1,17 @@
 import { useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
+import Pagination from "@leafygreen-ui/pagination";
+import {
+  useLeafyGreenTable,
+  LGColumnDef,
+  ColumnFiltersState,
+} from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
-import PageSizeSelector from "components/PageSizeSelector";
-import Pagination from "components/Pagination";
 import { SettingsCard } from "components/SettingsCard";
 import { BaseTable } from "components/Table/BaseTable";
 import { slugs } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   Package,
@@ -26,13 +30,19 @@ export const PackagesTable: React.FC = () => {
     pageIndex: 0,
     pageSize: 10,
   });
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const { data: packagesData } = useQuery<
     ImagePackagesQuery,
     ImagePackagesQueryVariables
   >(IMAGE_PACKAGES, {
     variables: {
       imageId: selectedImage,
-      opts: { page: pagination.pageIndex, limit: pagination.pageSize },
+      opts: {
+        page: pagination.pageIndex,
+        limit: pagination.pageSize,
+        // @ts-expect-error
+        name: columnFilters.find((filter) => filter.id === "name")?.value,
+      },
     },
     onError(err) {
       dispatchToast.error(
@@ -57,6 +67,7 @@ export const PackagesTable: React.FC = () => {
       accessorKey: "name",
       cell: ({ getValue }) => <span>{getValue() as string}</span>,
       enableColumnFilter: true,
+      filterFn: "includesString",
     },
     {
       header: "Manager",
@@ -79,10 +90,13 @@ export const PackagesTable: React.FC = () => {
       enableColumnFilter: false,
     },
     manualPagination: true,
+    manualFiltering: true,
     rowCount: totalNumPackages,
     state: {
       pagination,
+      columnFilters,
     },
+    onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,
   });
 
@@ -90,16 +104,18 @@ export const PackagesTable: React.FC = () => {
     <SettingsCard>
       <BaseTable table={table} shouldAlternateRowColor />
       <PaginationWrapper>
-        <PageSizeSelector
-          value={pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(e);
-          }}
-        />
         <Pagination
-          currentPage={pagination.pageIndex}
-          totalResults={totalNumPackages}
-          pageSize={pagination.pageSize}
+          itemsPerPage={table.getState().pagination.pageSize}
+          onItemsPerPageOptionChange={(value: string) => {
+            table.setPageSize(Number(value));
+          }}
+          numTotalItems={totalNumPackages}
+          currentPage={table.getState().pagination.pageIndex + 1}
+          onCurrentPageOptionChange={(value: string) => {
+            table.setPageIndex(Number(value) - 1);
+          }}
+          onBackArrowClick={() => table.previousPage()}
+          onForwardArrowClick={() => table.nextPage()}
         />
       </PaginationWrapper>
     </SettingsCard>
@@ -108,5 +124,6 @@ export const PackagesTable: React.FC = () => {
 
 const PaginationWrapper = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  margin-top: ${size.xs};
 `;
