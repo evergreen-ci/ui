@@ -3477,6 +3477,7 @@ export type TaskQuery = {
     details?: {
       __typename?: "TaskEndDetail";
       description?: string | null;
+      failingCommand?: string | null;
       status: string;
     } | null;
     logs: {
