@@ -1,9 +1,8 @@
 import { useMemo, useRef } from "react";
 import styled from "@emotion/styled";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
-import Tooltip from "@leafygreen-ui/tooltip";
 import { formatDistanceToNow } from "date-fns";
-import Icon from "components/Icon";
 import { DoesNotExpire } from "components/Spawn";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
@@ -122,16 +121,11 @@ const columns = [
         <>
           {isUnexpirable ? DoesNotExpire : formatDistanceToNow(expiration)}
           {!isUnexpirable && row.original.hostID && (
-            <Tooltip
-              trigger={
-                <IconContainer>
-                  <Icon glyph="InfoWithCircle" />
-                </IconContainer>
-              }
-              triggerEvent="hover"
-            >
-              Expiration is not applicable to mounted volumes.
-            </Tooltip>
+            <InfoContainer>
+              <InfoSprinkle>
+                Expiration is not applicable to mounted volumes.
+              </InfoSprinkle>
+            </InfoContainer>
           )}
         </>
       );
@@ -144,8 +138,7 @@ const columns = [
   },
 ];
 
-const IconContainer = styled.span`
-  margin-left: ${size.xxs};
-  top: 2px;
-  vertical-align: text-top;
+const InfoContainer = styled.div`
+  position: relative;
+  left: ${size.xxs};
 `;
