@@ -15,6 +15,7 @@ export const taskQuery: TaskQuery = {
     executionTasksFull: null,
     displayTask: null,
     details: {
+      failingCommand: "",
       description:
         "Long description that requires use of the inline definition component. This would include details about where the task failed.",
       diskDevices: [],

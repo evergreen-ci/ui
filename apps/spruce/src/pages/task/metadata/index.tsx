@@ -236,10 +236,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </InlineCode>
         </MetadataItem>
       )}
-      {details?.description && (
+      {(details?.description || details?.failingCommand) && (
         <MetadataItem data-cy="task-metadata-description">
           <DetailsDescription
-            description={details.description}
+            description={details?.description ?? ""}
+            failingCommand={details?.failingCommand ?? ""}
             isContainerTask={isContainerTask}
             status={details?.status}
           />
@@ -464,18 +465,22 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
 
 const DetailsDescription = ({
   description,
+  failingCommand,
   isContainerTask,
   status,
 }: {
   description: string;
+  failingCommand: string;
   isContainerTask: boolean;
   status: string;
 }) => {
   const MAX_CHAR = 100;
   const isFailingTask = isFailedTaskStatus(status);
+  const baseCopy = description || failingCommand;
   const fullText = isFailingTask
-    ? `${processFailingCommand(description, isContainerTask)}`
-    : `${description}`;
+    ? `${processFailingCommand(baseCopy, isContainerTask)}`
+    : `${baseCopy}`;
+
   const shouldTruncate = fullText.length > MAX_CHAR;
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 

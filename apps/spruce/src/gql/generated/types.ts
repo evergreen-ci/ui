@@ -879,7 +879,7 @@ export type Image = {
   __typename?: "Image";
   ami: Scalars["String"]["output"];
   distros: Array<Distro>;
-  events: Array<ImageEvent>;
+  events: ImageEventsPayload;
   id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
@@ -942,6 +942,12 @@ export enum ImageEventType {
   Package = "PACKAGE",
   Toolchain = "TOOLCHAIN",
 }
+
+export type ImageEventsPayload = {
+  __typename?: "ImageEventsPayload";
+  count: Scalars["Int"]["output"];
+  eventLogEntries: Array<ImageEvent>;
+};
 
 export type InstanceTag = {
   __typename?: "InstanceTag";
@@ -8844,6 +8850,7 @@ export type TaskQuery = {
       __typename?: "TaskEndDetail";
       description?: string | null;
       diskDevices: Array<string>;
+      failingCommand?: string | null;
       status: string;
       timedOut?: boolean | null;
       timeoutType?: string | null;
