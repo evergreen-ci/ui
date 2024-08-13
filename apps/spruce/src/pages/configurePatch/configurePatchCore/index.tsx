@@ -32,7 +32,6 @@ import {
   ChildPatchAlias,
   ConfigurePatchQuery,
   ProjectBuildVariant,
-  VariantTask,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
 import {
@@ -47,6 +46,7 @@ import { largeNumFinalizedTasksThreshold } from "../../../constants/task";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
+import { getNumEstimatedActivatedGeneratedTasks } from "./utils";
 
 interface ConfigurePatchCoreProps {
   patch: ConfigurePatchQuery["patch"];
@@ -352,37 +352,6 @@ const filterAliases = (
 ): PatchTriggerAlias[] => {
   const invokedAliases = new Set(childPatchAliases.map(({ alias }) => alias));
   return patchTriggerAliases.filter(({ alias }) => !invokedAliases.has(alias));
-};
-
-const getNumEstimatedActivatedGeneratedTasks = (
-  selectedBuildVariantTasks: VariantTasksState,
-  variantsTasks: Array<VariantTask>,
-  generatedTaskCounts: { [key: string]: number },
-): number => {
-  const existingTasks = new Set<string>();
-  let count = 0;
-
-  variantsTasks.forEach((variantTask) => {
-    const variant = variantTask.name;
-    variantTask.tasks.forEach((task) => {
-      existingTasks.add(`${variant}-${task}`);
-    });
-  });
-
-  Object.keys(selectedBuildVariantTasks).forEach((variant) => {
-    Object.keys(selectedBuildVariantTasks[variant]).forEach((task) => {
-      if (
-        selectedBuildVariantTasks[variant][task] &&
-        !existingTasks.has(`${variant}-${task}`)
-      ) {
-        count += 1;
-        if (generatedTaskCounts[`${variant}-${task}`]) {
-          count += generatedTaskCounts[`${variant}-${task}`];
-        }
-      }
-    });
-  });
-  return count;
 };
 
 const StyledInput = styled(TextInput)`
