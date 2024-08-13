@@ -1,7 +1,11 @@
 import { useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
+import PageSizeSelector from "components/PageSizeSelector";
+import Pagination from "components/Pagination";
+import { SettingsCard } from "components/SettingsCard";
 import { BaseTable } from "components/Table/BaseTable";
 import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
@@ -18,11 +22,18 @@ export const PackagesTable: React.FC = () => {
   const { image: firstImage } = useFirstImage();
   const selectedImage = imageId ?? firstImage;
   const dispatchToast = useToastContext();
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
   const { data: packagesData } = useQuery<
     ImagePackagesQuery,
     ImagePackagesQueryVariables
   >(IMAGE_PACKAGES, {
-    variables: { imageId: selectedImage, opts: {} },
+    variables: {
+      imageId: selectedImage,
+      opts: { page: pagination.pageIndex, limit: pagination.pageSize },
+    },
     onError(err) {
       dispatchToast.error(
         `There was an error loading image packages: ${err.message}`,
@@ -59,11 +70,6 @@ export const PackagesTable: React.FC = () => {
     },
   ];
 
-  const [pagination] = useState({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Package>({
     columns,
@@ -77,7 +83,30 @@ export const PackagesTable: React.FC = () => {
     state: {
       pagination,
     },
+    onPaginationChange: setPagination,
   });
 
-  return <BaseTable table={table} shouldAlternateRowColor />;
+  return (
+    <SettingsCard>
+      <BaseTable table={table} shouldAlternateRowColor />
+      <PaginationWrapper>
+        <PageSizeSelector
+          value={pagination.pageSize}
+          onChange={(e) => {
+            table.setPageSize(e);
+          }}
+        />
+        <Pagination
+          currentPage={pagination.pageIndex}
+          totalResults={totalNumPackages}
+          pageSize={pagination.pageSize}
+        />
+      </PaginationWrapper>
+    </SettingsCard>
+  );
 };
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
