@@ -25,8 +25,8 @@ const Image: React.FC = () => {
   const selectedImage = imageId ?? firstImage;
 
   if (
-    !Object.values(ImageTabRoutes).includes(currentTab as ImageTabRoutes) ||
-    currentTab === undefined
+    currentTab === undefined ||
+    !Object.values(ImageTabRoutes).includes(currentTab as ImageTabRoutes)
   ) {
     return (
       <Navigate

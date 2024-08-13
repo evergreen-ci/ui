@@ -69,7 +69,7 @@ const columns: LGColumnDef<Distro>[] = [
   {
     header: "Name",
     accessorKey: "name",
-    size: 300,
+    size: 200,
     cell: ({ getValue }) => {
       const distro = getValue() as string;
       return (

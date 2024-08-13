@@ -35,5 +35,5 @@ export const ImageTabs: React.FC<ImageTabsProps> = ({
 
 const Container = styled.div`
   min-width: 600px;
-  width: 60%;
+  max-width: 75%;
 `;
