@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
@@ -35,6 +35,11 @@ export const PackagesTable: React.FC = () => {
     [packagesData?.image?.packages.data],
   );
 
+  const totalNumPackages = useMemo(
+    () => packagesData?.image?.packages.totalCount ?? 0,
+    [packagesData?.image?.packages.totalCount],
+  );
+
   const columns: LGColumnDef<Package>[] = [
     {
       header: "Name",
@@ -54,6 +59,11 @@ export const PackagesTable: React.FC = () => {
     },
   ];
 
+  const [pagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Package>({
     columns,
@@ -61,6 +71,11 @@ export const PackagesTable: React.FC = () => {
     containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,
+    },
+    manualPagination: true,
+    rowCount: totalNumPackages,
+    state: {
+      pagination,
     },
   });
 
