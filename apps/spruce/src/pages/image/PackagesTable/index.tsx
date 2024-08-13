@@ -31,8 +31,8 @@ export const PackagesTable: React.FC = () => {
   });
 
   const packageEntries = useMemo(
-    () => packagesData?.image?.packages ?? [],
-    [packagesData?.image?.packages],
+    () => packagesData?.image?.packages.data ?? [],
+    [packagesData?.image?.packages.data],
   );
 
   const columns: LGColumnDef<Package>[] = [
@@ -57,7 +57,7 @@ export const PackagesTable: React.FC = () => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Package>({
     columns,
-    data: packageEntries ?? [],
+    data: packageEntries,
     containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,
