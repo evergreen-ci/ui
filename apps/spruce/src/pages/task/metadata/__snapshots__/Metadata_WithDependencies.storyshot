@@ -96,10 +96,9 @@
           class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
         >
           <b
-            class="css-11k78l8-DetailsDescription"
+            class="css-qyvtrs-StyledB ebphozh0"
           >
-            Failing Command:
-             
+            Failing Command: 
           </b>
           Long description that requires use of the inline definition component. This would include details ab...
            
@@ -167,7 +166,7 @@
         </a>
       </p>
       <div
-        class="css-5f1fjg-DependsOnContainer ebphozh2"
+        class="css-5f1fjg-DependsOnContainer ebphozh3"
         data-cy="depends-on-container"
       >
         <div>
