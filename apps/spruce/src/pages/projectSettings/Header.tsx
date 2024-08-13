@@ -1,53 +1,31 @@
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
-import { StyledRouterLink } from "components/styles";
-import {
-  getProjectSettingsRoute,
-  ProjectSettingsTabRoutes,
-} from "constants/routes";
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
 import {
-  projectOnlyTabs,
   WritableProjectSettingsTabs,
   WritableProjectSettingsType,
 } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 interface Props {
-  attachedRepoId?: string;
+  atTop: boolean;
   id: string;
   projectType: ProjectType;
   tab: ProjectSettingsTabRoutes;
 }
 
-export const Header: React.FC<Props> = ({
-  attachedRepoId,
-  id,
-  projectType,
-  tab,
-}) => {
+export const Header: React.FC<Props> = ({ atTop, id, projectType, tab }) => {
   const { title } = getTabTitle(tab);
   const saveable = Object.values(WritableProjectSettingsTabs).includes(
     tab as WritableProjectSettingsType,
   );
-  const showRepoLink = !projectOnlyTabs.has(tab);
 
   return (
-    <Container>
-      <TitleContainer>
-        <H2 data-cy="project-settings-tab-title">{title}</H2>
-        {projectType === ProjectType.AttachedProject && showRepoLink && (
-          <StyledRouterLink
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            to={getProjectSettingsRoute(attachedRepoId, tab)}
-            data-cy="attached-repo-link"
-          >
-            <strong>Go to repo settings</strong>
-          </StyledRouterLink>
-        )}
-      </TitleContainer>
+    <Container atTop={atTop}>
+      <H2 data-cy="project-settings-tab-title">{title}</H2>
       {saveable && (
         <HeaderButtons
           id={id}
@@ -59,13 +37,19 @@ export const Header: React.FC<Props> = ({
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ atTop: boolean }>`
   align-items: start;
+  background-color: white;
   display: flex;
+  gap: ${size.s};
   justify-content: space-between;
-  margin-bottom: ${size.l};
-`;
+  margin: 0 -${size.l};
+  padding: 0 ${size.l} ${size.s} ${size.l};
+  position: sticky;
+  top: 0;
+  z-index: 1;
 
-const TitleContainer = styled.div`
-  margin-right: ${size.s};
+  ${({ atTop }) =>
+    !atTop &&
+    "box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); clip-path: inset(0px 0px -5px 0px);"}
 `;

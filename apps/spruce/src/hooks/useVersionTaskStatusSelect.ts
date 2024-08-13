@@ -7,7 +7,7 @@ export interface selectedStrings {
 }
 
 export type versionSelectedTasks = {
-  [id: string]: selectedStrings | undefined;
+  [id: string]: selectedStrings;
 };
 
 type versionFilters = {
@@ -68,10 +68,10 @@ type UpdatedVersionBuildVariantType = Omit<GroupedBuildVariant, "tasks"> & {
 
 type task = {
   id: string;
-  execution: number;
-  displayName: string;
-  status: string;
   baseStatus?: string;
+  displayName: string;
+  execution: number;
+  status: string;
 };
 
 type ChildVersions = {
@@ -103,23 +103,18 @@ export const useVersionTaskStatusSelect = (
     const selected = taskIds[taskVersion];
 
     if (typeof selected === "string") {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       if (newState[taskVersion][selected]) {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         newState[taskVersion][selected] = false;
       } else {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         newState[taskVersion][selected] = true;
       }
     } else {
       // Enter this condition when a parent checkbox is clicked.
       // If every task is already checked, uncheck them. Otherwise, check them.
       const nextCheckedState = !selected.every(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         (selectedId) => selectedTasks[taskVersion][selectedId],
       );
       selected.forEach((selectedId) => {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         newState[taskVersion][selectedId] = nextCheckedState;
       });
     }

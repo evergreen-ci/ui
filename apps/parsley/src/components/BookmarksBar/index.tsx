@@ -9,22 +9,18 @@ import Popconfirm from "components/Popconfirm";
 import { QueryParams } from "constants/queryParams";
 import { size, zIndex } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
-import { ProcessedLogLines } from "types/logs";
-import { findLineIndex } from "utils/findLineIndex";
 
 const { gray, green, red } = palette;
 
 interface BookmarksBarProps {
   failingLine?: number;
   lineCount: number;
-  processedLogLines: ProcessedLogLines;
-  scrollToLine: (scrollIndex: number) => void;
+  scrollToLine: (lineNumber: number) => void;
 }
 
 const BookmarksBar: React.FC<BookmarksBarProps> = ({
   failingLine,
   lineCount,
-  processedLogLines,
   scrollToLine,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
@@ -55,14 +51,6 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
   const lineNumbers = Array.from(
     new Set([...bookmarks, shareLine ?? 0, failingLine ?? 0]),
   ).sort((a, b) => a - b);
-
-  // Finds the corresponding index of a line number and scrolls to it.
-  const scrollToIndex = (lineNumber: number): void => {
-    const lineIndex = findLineIndex(processedLogLines, lineNumber);
-    if (lineIndex !== -1) {
-      scrollToLine(lineIndex);
-    }
-  };
 
   return (
     <Container>
@@ -101,7 +89,7 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
             failed={l === failingLine}
             onClick={() => {
               sendEvent({ name: "Used bookmark to navigate to a line" });
-              scrollToIndex(l);
+              scrollToLine(l);
             }}
           >
             <span data-bookmark={l}>{l}</span>

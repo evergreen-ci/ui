@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
+import throttle from "lodash.throttle";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
 import {
+  StyledRouterLink,
   SideNav,
   SideNavGroup,
   SideNavItem,
@@ -34,6 +37,7 @@ import { ProjectSettingsProvider } from "./Context";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { getTabTitle } from "./getTabTitle";
 import { ProjectSettingsTabs } from "./Tabs";
+import { projectOnlyTabs } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 const { validateObjectId } = validators;
@@ -47,12 +51,36 @@ const ProjectSettings: React.FC = () => {
       [slugs.projectIdentifier]: string | null;
       [slugs.tab]: ProjectSettingsTabRoutes;
     }>();
+
+  const [atTop, setAtTop] = useState(true);
+  const pageWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = throttle(() => {
+      if (!pageWrapperRef?.current) return;
+      if (pageWrapperRef?.current?.scrollTop < 40) {
+        setAtTop(true);
+      } else {
+        setAtTop(false);
+      }
+    }, 250);
+    pageWrapperRef?.current?.addEventListener("scroll", onScroll);
+
+    const wrapper = pageWrapperRef.current;
+    return () => wrapper?.removeEventListener("scroll", onScroll);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const identifierIsObjectId = validateObjectId(projectIdentifier);
   const [isRepo, setIsRepo] = useState<boolean>(false);
 
   const { sendEvent } = useProjectSettingsAnalytics();
+
+  useEffect(() => {
+    // Reset state on page change
+    setIsRepo(false);
+  }, [projectIdentifier]);
 
   useProjectRedirect({
     shouldRedirect: identifierIsObjectId,
@@ -148,12 +176,27 @@ const ProjectSettings: React.FC = () => {
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <SideNav aria-label="Project Settings" widthOverride={250}>
         <ButtonsContainer>
-          <ProjectSelect
+          <StyledProjectSelect
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             selectedProjectIdentifier={projectLabel}
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
+          {projectType === ProjectType.AttachedProject && repoId && (
+            <StyledRouterLink
+              arrowAppearance="persist"
+              to={getProjectSettingsRoute(
+                repoId,
+                tab && projectOnlyTabs.has(tab)
+                  ? ProjectSettingsTabRoutes.General
+                  : tab,
+              )}
+              data-cy="attached-repo-link"
+            >
+              <strong>Go to repo settings</strong>
+            </StyledRouterLink>
+          )}
+
           <CreateDuplicateProjectButton
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             id={project?.projectRef?.id}
@@ -234,9 +277,17 @@ const ProjectSettings: React.FC = () => {
           />
         </SideNavGroup>
       </SideNav>
-      <PageWrapper data-cy="project-settings-page">
+      <PageWrapper
+        data-cy="project-settings-page"
+        css={css`
+          padding-top: 0;
+          margin-top: ${size.m};
+        `}
+        ref={pageWrapperRef}
+      >
         {hasLoaded ? (
           <ProjectSettingsTabs
+            atTop={atTop}
             projectData={projectData?.projectSettings}
             projectType={projectType}
             repoData={repoData?.repoSettings}
@@ -268,11 +319,15 @@ const ProjectSettingsNavItem: React.FC<{
 const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 
 const ButtonsContainer = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xs};
   margin: 0 ${size.s};
+`;
 
-  > :not(:last-child) {
-    margin-bottom: ${size.xs};
-  }
+const StyledProjectSelect = styled(ProjectSelect)`
+  width: 100%;
 `;
 
 export default ProjectSettings;

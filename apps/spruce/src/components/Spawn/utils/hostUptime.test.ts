@@ -13,6 +13,7 @@ describe("matchesDefaultUptimeSchedule", () => {
     const sched = {
       dailyStartTime: "08:00",
       dailyStopTime: "20:00",
+      isBetaTester: true,
       permanentlyExempt: true,
       shouldKeepOff: true,
       timeZone: "America/New_York",
@@ -25,6 +26,7 @@ describe("matchesDefaultUptimeSchedule", () => {
     const sched = {
       dailyStartTime: "08:30",
       dailyStopTime: "20:00",
+      isBetaTester: true,
       permanentlyExempt: true,
       shouldKeepOff: true,
       timeZone: "America/New_York",
@@ -37,6 +39,7 @@ describe("matchesDefaultUptimeSchedule", () => {
     const sched = {
       dailyStartTime: "08:00",
       dailyStopTime: "21:00",
+      isBetaTester: true,
       permanentlyExempt: true,
       shouldKeepOff: true,
       timeZone: "America/New_York",
@@ -49,6 +52,7 @@ describe("matchesDefaultUptimeSchedule", () => {
     const sched = {
       dailyStartTime: "08:00",
       dailyStopTime: "20:00",
+      isBetaTester: false,
       permanentlyExempt: true,
       shouldKeepOff: true,
       timeZone: "America/New_York",
@@ -79,12 +83,19 @@ describe("validator", () => {
                 runContinuously: true,
               },
             },
+            details: {
+              timeZone: "America/New_York",
+            },
           },
           noExpiration: false,
         },
       },
-      // @ts-expect-error
-      { expirationDetails: { hostUptime: { details: { addError: f } } } },
+      {
+        expirationDetails: {
+          // @ts-expect-error
+          hostUptime: { details: { uptimeHours: { addError: f } } },
+        },
+      },
     );
     expect(f).toHaveBeenCalledTimes(0);
   });
@@ -105,12 +116,19 @@ describe("validator", () => {
                 runContinuously: true,
               },
             },
+            details: {
+              timeZone: "America/New_York",
+            },
           },
           noExpiration: true,
         },
       },
-      // @ts-expect-error
-      { expirationDetails: { hostUptime: { details: { addError: f } } } },
+      {
+        expirationDetails: {
+          // @ts-expect-error
+          hostUptime: { details: { uptimeHours: { addError: f } } },
+        },
+      },
     );
     expect(f).toHaveBeenCalledTimes(1);
   });
@@ -131,12 +149,19 @@ describe("validator", () => {
                 runContinuously: true,
               },
             },
+            details: {
+              timeZone: "America/New_York",
+            },
           },
           noExpiration: true,
         },
       },
-      // @ts-expect-error
-      { expirationDetails: { hostUptime: { details: { addError: f } } } },
+      {
+        expirationDetails: {
+          // @ts-expect-error
+          hostUptime: { details: { uptimeHours: { addError: f } } },
+        },
+      },
     );
     expect(f).toHaveBeenCalledTimes(1);
   });
@@ -156,6 +181,9 @@ describe("validator", () => {
                 stopTime: "",
                 runContinuously: true,
               },
+            },
+            details: {
+              timeZone: "America/New_York",
             },
           },
           noExpiration: true,
@@ -184,6 +212,9 @@ describe("validator", () => {
               },
             },
             temporarilyExemptUntil: new Date("2024-01-05").toString(),
+            details: {
+              timeZone: "America/New_York",
+            },
           },
           noExpiration: true,
         },
@@ -227,6 +258,9 @@ describe("validator", () => {
                   runContinuously: true,
                 },
               },
+              details: {
+                timeZone: "America/New_York",
+              },
               temporarilyExemptUntil: new Date("2001-01-01").toString(),
             },
             noExpiration: true,
@@ -258,6 +292,9 @@ describe("validator", () => {
                   runContinuously: true,
                 },
               },
+              details: {
+                timeZone: "America/New_York",
+              },
               temporarilyExemptUntil: new Date("2025-01-01").toString(),
             },
             noExpiration: true,
@@ -288,6 +325,9 @@ describe("validator", () => {
                   stopTime: "",
                   runContinuously: true,
                 },
+              },
+              details: {
+                timeZone: "America/New_York",
               },
               temporarilyExemptUntil: new Date("2024-01-05").toString(),
             },
@@ -332,6 +372,9 @@ describe("getHostUptimeFromGql", () => {
       },
       temporarilyExemptUntil: "",
       isBetaTester: true,
+      details: {
+        timeZone: "America/New_York",
+      },
     });
   });
 
@@ -361,6 +404,9 @@ describe("getHostUptimeFromGql", () => {
       temporarilyExemptUntil:
         "Mon Jul 01 2024 00:00:00 GMT+0000 (Coordinated Universal Time)",
       isBetaTester: true,
+      details: {
+        timeZone: "America/New_York",
+      },
     });
   });
 
@@ -372,7 +418,7 @@ describe("getHostUptimeFromGql", () => {
       permanentlyExempt: true,
       shouldKeepOff: true,
       temporarilyExemptUntil: null,
-      timeZone: "America/New_York",
+      timeZone: "America/Chicago",
       wholeWeekdaysOff: [0, 6],
     };
     expect(getHostUptimeFromGql(sched)).toStrictEqual({
@@ -389,6 +435,9 @@ describe("getHostUptimeFromGql", () => {
       },
       temporarilyExemptUntil: "",
       isBetaTester: true,
+      details: {
+        timeZone: "America/Chicago",
+      },
     });
   });
 });
@@ -396,23 +445,23 @@ describe("getHostUptimeFromGql", () => {
 describe("getSleepSchedule", () => {
   it("sets the default schedule", () => {
     expect(
-      getSleepSchedule(
-        {
-          useDefaultUptimeSchedule: true,
-          isBetaTester: false,
-          sleepSchedule: {
-            enabledWeekdays: [false, false, true, true, true, true, false],
-            timeSelection: {
-              runContinuously: true,
-              startTime:
-                "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-              stopTime:
-                "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-            },
+      getSleepSchedule({
+        useDefaultUptimeSchedule: true,
+        isBetaTester: false,
+        sleepSchedule: {
+          enabledWeekdays: [false, false, true, true, true, true, false],
+          timeSelection: {
+            runContinuously: true,
+            startTime:
+              "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
+            stopTime:
+              "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
           },
         },
-        "America/New_York",
-      ),
+        details: {
+          timeZone: "America/New_York",
+        },
+      }),
     ).toStrictEqual({
       dailyStartTime: "08:00",
       dailyStopTime: "20:00",
@@ -426,23 +475,23 @@ describe("getSleepSchedule", () => {
 
   it("sets continuously running days", () => {
     expect(
-      getSleepSchedule(
-        {
-          useDefaultUptimeSchedule: false,
-          isBetaTester: false,
-          sleepSchedule: {
-            enabledWeekdays: [false, false, true, true, true, true, false],
-            timeSelection: {
-              runContinuously: true,
-              startTime:
-                "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-              stopTime:
-                "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-            },
+      getSleepSchedule({
+        useDefaultUptimeSchedule: false,
+        isBetaTester: false,
+        sleepSchedule: {
+          enabledWeekdays: [false, false, true, true, true, true, false],
+          timeSelection: {
+            runContinuously: true,
+            startTime:
+              "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
+            stopTime:
+              "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
           },
         },
-        "America/New_York",
-      ),
+        details: {
+          timeZone: "America/New_York",
+        },
+      }),
     ).toStrictEqual({
       dailyStartTime: "",
       dailyStopTime: "",
@@ -456,23 +505,23 @@ describe("getSleepSchedule", () => {
 
   it("sets start and stop times", () => {
     expect(
-      getSleepSchedule(
-        {
-          useDefaultUptimeSchedule: false,
-          isBetaTester: true,
-          sleepSchedule: {
-            enabledWeekdays: [false, false, true, true, true, true, false],
-            timeSelection: {
-              runContinuously: false,
-              startTime:
-                "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
-              stopTime:
-                "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
-            },
+      getSleepSchedule({
+        useDefaultUptimeSchedule: false,
+        isBetaTester: true,
+        sleepSchedule: {
+          enabledWeekdays: [false, false, true, true, true, true, false],
+          timeSelection: {
+            runContinuously: false,
+            startTime:
+              "Sun Dec 31 1899 08:00:00 GMT+0000 (Coordinated Universal Time)",
+            stopTime:
+              "Sun Dec 31 1899 20:00:00 GMT+0000 (Coordinated Universal Time)",
           },
         },
-        "America/New_York",
-      ),
+        details: {
+          timeZone: "America/New_York",
+        },
+      }),
     ).toStrictEqual({
       dailyStartTime: "08:00",
       dailyStopTime: "20:00",
@@ -565,6 +614,9 @@ describe("getEnabledHoursCount", () => {
             runContinuously: true,
           },
         },
+        details: {
+          timeZone: "America/New_York",
+        },
       }),
     ).toStrictEqual({
       enabledHoursCount: 60,
@@ -587,6 +639,9 @@ describe("getEnabledHoursCount", () => {
               "Mon Jan 01 1900 20:00:00 GMT+0000 (Coordinated Universal Time)",
           },
         },
+        details: {
+          timeZone: "America/New_York",
+        },
       }),
     ).toStrictEqual({
       enabledHoursCount: 65,
@@ -606,6 +661,9 @@ describe("getEnabledHoursCount", () => {
             startTime: "",
             stopTime: "",
           },
+        },
+        details: {
+          timeZone: "America/New_York",
         },
       }),
     ).toStrictEqual({
@@ -628,6 +686,9 @@ describe("getEnabledHoursCount", () => {
             stopTime:
               "Mon Jan 01 1900 03:00:00 GMT+0000 (Coordinated Universal Time)",
           },
+        },
+        details: {
+          timeZone: "America/New_York",
         },
       }),
     ).toStrictEqual({

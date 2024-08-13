@@ -36,6 +36,7 @@ describe("Views & filters page", () => {
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("parsley-filter-list").children().should("have.length", 3);
 
+      cy.dataCy("delete-item-button").first().scrollIntoView();
       cy.dataCy("delete-item-button").first().should("be.visible").click();
       clickSave();
       cy.validateToast("success", "Successfully updated project");

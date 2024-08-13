@@ -11,6 +11,7 @@ export const AppSettingsTab: React.FC<TabProps> = ({
   githubPermissionGroups,
   identifier,
   projectData,
+  projectId,
 }) => {
   const initialFormState = projectData;
   const isAppDefined =
@@ -23,8 +24,9 @@ export const AppSettingsTab: React.FC<TabProps> = ({
         githubPermissionGroups,
         identifier,
         isAppDefined,
+        projectId,
       }),
-    [githubPermissionGroups, identifier, isAppDefined],
+    [githubPermissionGroups, identifier, isAppDefined, projectId],
   );
 
   return (

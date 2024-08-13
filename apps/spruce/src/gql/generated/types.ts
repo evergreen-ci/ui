@@ -2777,6 +2777,7 @@ export type TaskEndDetail = {
   __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]["output"]>;
   diskDevices: Array<Scalars["String"]["output"]>;
+  failingCommand?: Maybe<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
@@ -4917,6 +4918,18 @@ export type DeleteDistroMutation = {
   deleteDistro: { __typename?: "DeleteDistroPayload"; deletedDistroId: string };
 };
 
+export type DeleteGithubAppCredentialsMutationVariables = Exact<{
+  projectId: Scalars["String"]["input"];
+}>;
+
+export type DeleteGithubAppCredentialsMutation = {
+  __typename?: "Mutation";
+  deleteGithubAppCredentials?: {
+    __typename?: "DeleteGithubAppCredentialsPayload";
+    oldAppId: number;
+  } | null;
+};
+
 export type DeleteProjectMutationVariables = Exact<{
   projectId: Scalars["String"]["input"];
 }>;
@@ -5744,6 +5757,7 @@ export type BuildVariantsForTaskNameQuery = {
 
 export type BuildVariantsWithChildrenQueryVariables = Exact<{
   id: Scalars["String"]["input"];
+  statuses: Array<Scalars["String"]["input"]>;
 }>;
 
 export type BuildVariantsWithChildrenQuery = {
