@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { ApolloError } from "@apollo/client";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { palette } from "@leafygreen-ui/palette";
@@ -487,13 +486,7 @@ const DetailsDescription = ({
   return (
     <MetadataItem>
       {isFailingTask ? (
-        <b
-          css={css`
-            color: ${red.base};
-          `}
-        >
-          Failing Command:{" "}
-        </b>
+        <StyledB>Failing Command: </StyledB>
       ) : (
         <span>Command: </span>
       )}
@@ -544,4 +537,8 @@ const HoneycombLinkContainer = styled.span`
 const OOMTrackerMessage = styled(MetadataItem)`
   color: ${red.dark2};
   font-weight: 500;
+`;
+
+const StyledB = styled.b`
+  color: ${red.base};
 `;
