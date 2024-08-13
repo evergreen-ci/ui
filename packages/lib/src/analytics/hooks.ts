@@ -17,8 +17,11 @@ type AnalyticsIdentifier = string;
  * @param attributes - The additional properties that will be passed into our analytics event.
  * @returns - The sendEvent function to send an event to our analytics provider
  */
-export const useAnalyticsRoot = <Action extends ActionType>(
-  analyticsIdentifier: AnalyticsIdentifier,
+export const useAnalyticsRoot = <
+  Action extends ActionType,
+  Identifier extends AnalyticsIdentifier,
+>(
+  analyticsIdentifier: Identifier,
   attributes: AnalyticsProperties = {},
 ): Analytics<Action> => {
   const sendEvent: Analytics<Action>["sendEvent"] = useCallback(
