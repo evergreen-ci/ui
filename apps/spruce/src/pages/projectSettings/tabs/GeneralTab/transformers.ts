@@ -36,7 +36,7 @@ export const gqlToForm = ((data, options = {}) => {
           "identifier" in projectRef && {
             identifier: projectRef.identifier,
           }),
-        batchTime: projectRef?.batchTime || null,
+        batchTime: projectRef?.batchTime || 0,
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         remotePath: projectRef.remotePath,
         // @ts-expect-error: FIXME. This comment was added by an automated script.
