@@ -1590,6 +1590,7 @@ export type Patch = {
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
+  generatedTaskCounts: Scalars["Map"]["output"];
   githash: Scalars["String"]["output"];
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
@@ -3251,6 +3252,7 @@ export type Version = {
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]["output"]>;
+  generatedTaskCounts: Scalars["Map"]["output"];
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];

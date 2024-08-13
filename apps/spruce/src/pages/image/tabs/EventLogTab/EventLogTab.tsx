@@ -59,7 +59,7 @@ export const EventLogTab: React.FC = () => {
       <Container>
         <TitleContainer>
           <StyledOverline>Event Log</StyledOverline>
-          <H2>{imageId}</H2>
+          <H2 data-cy="image-title">{imageId}</H2>
           <Subtitle>{subtitleText}</Subtitle>
         </TitleContainer>
       </Container>
