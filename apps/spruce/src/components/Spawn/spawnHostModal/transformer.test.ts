@@ -11,7 +11,6 @@ describe("spawn host modal", () => {
           formData,
           myPublicKeys,
           spawnTaskData: null,
-          timeZone: "America/New_York",
         }),
       ).toStrictEqual(mutationInput);
     });
@@ -26,7 +25,6 @@ describe("spawn host modal", () => {
           myPublicKeys,
           spawnTaskData: null,
           migrateVolumeId,
-          timeZone: "America/New_York",
         }),
       ).toStrictEqual({
         ...mutationInput,
@@ -120,6 +118,7 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
               runContinuously: false,
             },
           },
+          details: { timeZone: "America/New_York" },
         },
       },
       homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },

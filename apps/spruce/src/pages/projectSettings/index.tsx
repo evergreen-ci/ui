@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
+import throttle from "lodash.throttle";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
@@ -49,6 +51,25 @@ const ProjectSettings: React.FC = () => {
       [slugs.projectIdentifier]: string | null;
       [slugs.tab]: ProjectSettingsTabRoutes;
     }>();
+
+  const [atTop, setAtTop] = useState(true);
+  const pageWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = throttle(() => {
+      if (!pageWrapperRef?.current) return;
+      if (pageWrapperRef?.current?.scrollTop < 40) {
+        setAtTop(true);
+      } else {
+        setAtTop(false);
+      }
+    }, 250);
+    pageWrapperRef?.current?.addEventListener("scroll", onScroll);
+
+    const wrapper = pageWrapperRef.current;
+    return () => wrapper?.removeEventListener("scroll", onScroll);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const identifierIsObjectId = validateObjectId(projectIdentifier);
@@ -256,9 +277,17 @@ const ProjectSettings: React.FC = () => {
           />
         </SideNavGroup>
       </SideNav>
-      <PageWrapper data-cy="project-settings-page">
+      <PageWrapper
+        data-cy="project-settings-page"
+        css={css`
+          padding-top: 0;
+          margin-top: ${size.m};
+        `}
+        ref={pageWrapperRef}
+      >
         {hasLoaded ? (
           <ProjectSettingsTabs
+            atTop={atTop}
             projectData={projectData?.projectSettings}
             projectType={projectType}
             repoData={repoData?.repoSettings}

@@ -8,7 +8,6 @@ describe("edit spawn host modal", () => {
         hostId: "host_id",
         myPublicKeys,
         oldUserTags,
-        timeZone: "America/New_York",
       }),
     ).toStrictEqual({
       hostId: "host_id",
@@ -66,6 +65,9 @@ const formState = {
           stopTime: "Fri May 03 2024 17:00:00",
           runContinuously: false,
         },
+      },
+      details: {
+        timeZone: "America/New_York",
       },
     },
   },
