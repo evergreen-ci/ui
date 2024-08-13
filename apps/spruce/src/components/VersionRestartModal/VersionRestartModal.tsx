@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
@@ -24,6 +25,9 @@ import {
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatus } from "types/task";
+import { taskSchedulingLimitsDocumentationUrl } from "../../constants/externalResources";
+import { largeNumFinalizedTasksThreshold } from "../../constants/task";
+import { StyledLink } from "../styles";
 import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {
@@ -110,6 +114,12 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 
   const selectedTotal = selectTasksTotal(selectedTasks || {});
 
+  const generatedTaskCounts = version?.generatedTaskCounts ?? {};
+  const numEstimatedActivatedGeneratedTasks =
+    getNumEstimatedActivatedGeneratedTasks(
+      selectedTasks || {},
+      generatedTaskCounts,
+    );
   return (
     <ConfirmationModal
       title="Modify Version"
@@ -167,6 +177,19 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
               <br />
             </div>
           )}
+
+          {selectedTotal + numEstimatedActivatedGeneratedTasks >
+            largeNumFinalizedTasksThreshold && (
+            <Banner data-cy="disabled-webhook-banner" variant="warning">
+              This is a large operation, expected to schedule{" "}
+              {selectedTotal + numEstimatedActivatedGeneratedTasks} tasks.
+              Please confirm that this number of tasks is necessary before
+              continuing. For more information, please refer to our{" "}
+              <StyledLink href={taskSchedulingLimitsDocumentationUrl}>
+                docs.
+              </StyledLink>
+            </Banner>
+          )}
           <ConfirmationMessage weight="medium" data-cy="confirmation-message">
             Are you sure you want to restart the {selectedTotal} selected tasks?
           </ConfirmationMessage>
@@ -208,6 +231,29 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
       taskIds: selectedArray(tasks),
     }))
     .filter(({ taskIds }) => taskIds.length > 0);
+
+const getNumEstimatedActivatedGeneratedTasks = (
+  selectedTasks: versionSelectedTasks,
+  generatedTaskCounts: { [key: string]: number },
+) =>
+  Object.values(selectedTasks).reduce(
+    (total, selectedTask) =>
+      countEstimatedGeneratedTasks(selectedTask, generatedTaskCounts) + total,
+    0,
+  );
+
+const countEstimatedGeneratedTasks = (
+  selected: selectedStrings,
+  generatedTaskCounts: { [key: string]: number },
+) => {
+  let numEstimatedActivatedGeneratedTasks = 0;
+  Object.keys(selected).forEach((task) => {
+    if (selected[task] && generatedTaskCounts[task]) {
+      numEstimatedActivatedGeneratedTasks += generatedTaskCounts[task];
+    }
+  });
+  return numEstimatedActivatedGeneratedTasks;
+};
 
 const ConfirmationMessage = styled(Body)<BodyProps>`
   padding: ${size.s} 0;

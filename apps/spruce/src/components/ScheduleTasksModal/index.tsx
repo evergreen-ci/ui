@@ -1,6 +1,7 @@
 import { useReducer, useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
@@ -16,6 +17,9 @@ import {
 } from "gql/generated/types";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { UNSCHEDULED_TASKS } from "gql/queries";
+import { taskSchedulingLimitsDocumentationUrl } from "../../constants/externalResources";
+import { largeNumFinalizedTasksThreshold } from "../../constants/task";
+import { StyledLink } from "../styles";
 import { initialState, reducer } from "./reducer";
 
 interface ScheduleTasksModalProps {
@@ -69,6 +73,12 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   useEffect(() => {
     dispatch({ type: "ingestData", taskData });
   }, [taskData]);
+
+  const numEstimatedActivatedGeneratedTasks =
+    getNumEstimatedActivatedGeneratedTasks(
+      selectedTasks,
+      taskData?.version?.generatedTaskCounts ?? {},
+    );
 
   return (
     <ConfirmationModal
@@ -159,6 +169,18 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                 );
               },
             )}
+            {selectedTasks.size + numEstimatedActivatedGeneratedTasks >
+              largeNumFinalizedTasksThreshold && (
+              <Banner data-cy="disabled-webhook-banner" variant="warning">
+                This is a large operation, expected to schedule{" "}
+                {selectedTasks.size + numEstimatedActivatedGeneratedTasks}{" "}
+                tasks. Please confirm that this number of tasks is necessary
+                before continuing. For more information, please refer to our{" "}
+                <StyledLink href={taskSchedulingLimitsDocumentationUrl}>
+                  docs.
+                </StyledLink>
+              </Banner>
+            )}
           </>
         )}
         {!loadingTaskData && !sortedBuildVariantGroups.length && (
@@ -167,6 +189,19 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
       </ContentWrapper>
     </ConfirmationModal>
   );
+};
+
+const getNumEstimatedActivatedGeneratedTasks = (
+  selectedTasks: Set<string>,
+  generatedTaskCounts: { [key: string]: number },
+): number => {
+  let numEstimatedActivatedGeneratedTasks = 0;
+  selectedTasks.forEach((key) => {
+    if (generatedTaskCounts[key]) {
+      numEstimatedActivatedGeneratedTasks += generatedTaskCounts[key];
+    }
+  });
+  return numEstimatedActivatedGeneratedTasks;
 };
 
 // 307px represents the height to subtract to prevent an overflow on the modal

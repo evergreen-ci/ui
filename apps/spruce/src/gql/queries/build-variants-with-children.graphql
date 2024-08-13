@@ -23,10 +23,12 @@ query BuildVariantsWithChildren($id: String!, $statuses: [String!]!) {
         }
         variant
       }
+      generatedTaskCounts
       id
       project
       projectIdentifier
     }
+    generatedTaskCounts
     id
   }
 }

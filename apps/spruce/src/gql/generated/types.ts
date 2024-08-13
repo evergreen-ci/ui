@@ -885,8 +885,8 @@ export type Image = {
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
-  packages: Array<Package>;
-  toolchains: Array<Toolchain>;
+  packages: ImagePackagesPayload;
+  toolchains: ImageToolchainsPayload;
   versionId: Scalars["String"]["output"];
 };
 
@@ -947,6 +947,20 @@ export type ImageEventsPayload = {
   __typename?: "ImageEventsPayload";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<ImageEvent>;
+};
+
+export type ImagePackagesPayload = {
+  __typename?: "ImagePackagesPayload";
+  data: Array<Package>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
+};
+
+export type ImageToolchainsPayload = {
+  __typename?: "ImageToolchainsPayload";
+  data: Array<Toolchain>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
 };
 
 export type InstanceTag = {
@@ -1576,6 +1590,7 @@ export type Patch = {
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
+  generatedTaskCounts: Scalars["Map"]["output"];
   githash: Scalars["String"]["output"];
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
@@ -3237,6 +3252,7 @@ export type Version = {
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]["output"]>;
+  generatedTaskCounts: Scalars["Map"]["output"];
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
@@ -5770,6 +5786,7 @@ export type BuildVariantsWithChildrenQuery = {
   __typename?: "Query";
   version: {
     __typename?: "Version";
+    generatedTaskCounts: any;
     id: string;
     buildVariants?: Array<{
       __typename?: "GroupedBuildVariant";
@@ -5786,6 +5803,7 @@ export type BuildVariantsWithChildrenQuery = {
     }> | null;
     childVersions?: Array<{
       __typename?: "Version";
+      generatedTaskCounts: any;
       id: string;
       project: string;
       projectIdentifier: string;
@@ -6725,6 +6743,7 @@ export type ConfigurePatchQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
+    generatedTaskCounts: any;
     projectIdentifier: string;
     activated: boolean;
     alias?: string | null;
@@ -8919,6 +8938,7 @@ export type UndispatchedTasksQuery = {
   __typename?: "Query";
   version: {
     __typename?: "Version";
+    generatedTaskCounts: any;
     id: string;
     tasks: {
       __typename?: "VersionTasks";

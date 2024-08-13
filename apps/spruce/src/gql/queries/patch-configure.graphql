@@ -15,6 +15,7 @@ query ConfigurePatch($id: String!) {
         tasks
       }
     }
+    generatedTaskCounts
     patchTriggerAliases {
       alias
       childProjectId

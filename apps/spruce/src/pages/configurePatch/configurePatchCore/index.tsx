@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Banner from "@leafygreen-ui/banner";
 import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
@@ -17,6 +18,7 @@ import {
   PageContent,
   PageLayout,
   PageSider,
+  StyledLink,
 } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getProjectPatchesRoute, getVersionRoute } from "constants/routes";
@@ -30,6 +32,7 @@ import {
   ChildPatchAlias,
   ConfigurePatchQuery,
   ProjectBuildVariant,
+  VariantTask,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
 import {
@@ -39,6 +42,8 @@ import {
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
+import { taskSchedulingLimitsDocumentationUrl } from "../../../constants/externalResources";
+import { largeNumFinalizedTasksThreshold } from "../../../constants/task";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
@@ -153,6 +158,13 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     );
   }
 
+  const numEstimatedActivatedGeneratedTasks =
+    getNumEstimatedActivatedGeneratedTasks(
+      selectedBuildVariantTasks,
+      initialPatch.variantsTasks,
+      patch?.generatedTaskCounts ?? {},
+    );
+
   return (
     <>
       <FlexRow>
@@ -186,6 +198,20 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
           </LoadingButton>
         </ButtonWrapper>
       </FlexRow>
+      {numEstimatedActivatedGeneratedTasks >
+        largeNumFinalizedTasksThreshold && (
+        <BannerContainer>
+          <Banner data-cy="disabled-webhook-banner" variant="warning">
+            This is a large operation, expected to schedule{" "}
+            {numEstimatedActivatedGeneratedTasks} tasks. Please confirm that
+            this number of tasks is necessary before continuing. For more
+            information, please refer to our{" "}
+            <StyledLink href={taskSchedulingLimitsDocumentationUrl}>
+              docs.
+            </StyledLink>
+          </Banner>
+        </BannerContainer>
+      )}
       <PageLayout hasSider>
         <PageSider>
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
@@ -328,6 +354,37 @@ const filterAliases = (
   return patchTriggerAliases.filter(({ alias }) => !invokedAliases.has(alias));
 };
 
+const getNumEstimatedActivatedGeneratedTasks = (
+  selectedBuildVariantTasks: VariantTasksState,
+  variantsTasks: Array<VariantTask>,
+  generatedTaskCounts: { [key: string]: number },
+): number => {
+  const existingTasks = new Set<string>();
+  let count = 0;
+
+  variantsTasks.forEach((variantTask) => {
+    const variant = variantTask.name;
+    variantTask.tasks.forEach((task) => {
+      existingTasks.add(`${variant}-${task}`);
+    });
+  });
+
+  Object.keys(selectedBuildVariantTasks).forEach((variant) => {
+    Object.keys(selectedBuildVariantTasks[variant]).forEach((task) => {
+      if (
+        selectedBuildVariantTasks[variant][task] &&
+        !existingTasks.has(`${variant}-${task}`)
+      ) {
+        count += 1;
+        if (generatedTaskCounts[`${variant}-${task}`]) {
+          count += generatedTaskCounts[`${variant}-${task}`];
+        }
+      }
+    });
+  });
+  return count;
+};
+
 const StyledInput = styled(TextInput)`
   font-weight: bold;
   font-size: ${fontSize.m};
@@ -345,6 +402,10 @@ const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
   gap: ${size.s};
+`;
+
+const BannerContainer = styled.div`
+  margin-bottom: ${size.s};
 `;
 
 export default ConfigurePatchCore;
