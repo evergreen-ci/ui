@@ -879,14 +879,14 @@ export type Image = {
   __typename?: "Image";
   ami: Scalars["String"]["output"];
   distros: Array<Distro>;
-  events: Array<ImageEvent>;
+  events: ImageEventsPayload;
   id: Scalars["String"]["output"];
   kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
-  packages: Array<Package>;
-  toolchains: Array<Toolchain>;
+  packages: ImagePackagesPayload;
+  toolchains: ImageToolchainsPayload;
   versionId: Scalars["String"]["output"];
 };
 
@@ -942,6 +942,26 @@ export enum ImageEventType {
   Package = "PACKAGE",
   Toolchain = "TOOLCHAIN",
 }
+
+export type ImageEventsPayload = {
+  __typename?: "ImageEventsPayload";
+  count: Scalars["Int"]["output"];
+  eventLogEntries: Array<ImageEvent>;
+};
+
+export type ImagePackagesPayload = {
+  __typename?: "ImagePackagesPayload";
+  data: Array<Package>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
+};
+
+export type ImageToolchainsPayload = {
+  __typename?: "ImageToolchainsPayload";
+  data: Array<Toolchain>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
+};
 
 export type InstanceTag = {
   __typename?: "InstanceTag";
@@ -1570,6 +1590,7 @@ export type Patch = {
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
+  generatedTaskCounts: Scalars["Map"]["output"];
   githash: Scalars["String"]["output"];
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
@@ -2777,6 +2798,7 @@ export type TaskEndDetail = {
   __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]["output"]>;
   diskDevices: Array<Scalars["String"]["output"]>;
+  failingCommand?: Maybe<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3230,6 +3252,7 @@ export type Version = {
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]["output"]>;
+  generatedTaskCounts: Scalars["Map"]["output"];
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
@@ -6180,6 +6203,28 @@ export type HostsQuery = {
   };
 };
 
+export type ImageDistrosQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+}>;
+
+export type ImageDistrosQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    distros: Array<{
+      __typename?: "Distro";
+      name: string;
+      provider: Provider;
+      providerSettingsList: Array<any>;
+      hostAllocatorSettings: {
+        __typename?: "HostAllocatorSettings";
+        maximumHosts: number;
+      };
+    }>;
+  } | null;
+};
+
 export type ImagesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ImagesQuery = { __typename?: "Query"; images: Array<string> };
@@ -8774,6 +8819,7 @@ export type TaskQuery = {
       __typename?: "TaskEndDetail";
       description?: string | null;
       diskDevices: Array<string>;
+      failingCommand?: string | null;
       status: string;
       timedOut?: boolean | null;
       timeoutType?: string | null;

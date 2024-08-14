@@ -3,16 +3,11 @@ import styled from "@emotion/styled";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParams } from "hooks/useQueryParam";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import { ProcessedLogLines } from "types/logs";
 import BookmarksBar from ".";
 
 export default {
   component: BookmarksBar,
 } satisfies CustomMeta<typeof BookmarksBar>;
-const processedLogLines: ProcessedLogLines = Array.from(
-  { length: 100 },
-  (_, i) => i,
-);
 
 const Story = ({ ...args }: React.ComponentProps<typeof BookmarksBar>) => {
   const [, setSearchParams] = useQueryParams();
@@ -38,7 +33,6 @@ export const Default: CustomStoryObj<typeof BookmarksBar> = {
   args: {
     failingLine: 10,
     lineCount: 100,
-    processedLogLines,
   },
   render: (args) => <Story {...args} />,
 };

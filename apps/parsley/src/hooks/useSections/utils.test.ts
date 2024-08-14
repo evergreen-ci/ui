@@ -1,28 +1,62 @@
-import { SectionData, parseSections, processLine, reduceFn } from "./utils";
+import {
+  sectionData,
+  sectionStateAllClosed,
+  sectionStateAllOpen,
+} from "./testData";
+import {
+  SectionData,
+  getOpenSectionStateBasedOnLineNumbers,
+  parseSections,
+  populateSectionState,
+  processLine,
+  reduceFn,
+} from "./utils";
 
 describe("processLine", () => {
   it("should correctly parse a log line indicating a running section", () => {
-    const logLine =
-      "Running command 'ec2.assume_role' in function 'assume-ec2-role' (step 1.3 of 4) in block 'pre'.";
-    const expectedMetadata = {
+    expect(
+      processLine(
+        "Running command 'ec2.assume_role' in function 'assume-ec2-role' (step 1.3 of 4) in block 'pre'.",
+      ),
+    ).toStrictEqual({
       commandName: "ec2.assume_role",
       functionName: "assume-ec2-role",
       status: "Running",
       step: "1.3 of 4",
-    };
-    expect(processLine(logLine)).toStrictEqual(expectedMetadata);
+    });
+    expect(
+      processLine(
+        "Running command 'some_command' ('command_write') in function 'some_function' (step 8 of 9).",
+      ),
+    ).toStrictEqual({
+      commandName: "some_command",
+      functionName: "some_function",
+      status: "Running",
+      step: "8 of 9",
+    });
   });
 
   it("should correctly parse a log line indicating a finished section", () => {
-    const logLine =
-      "Finished command 'shell.exec' in function 'yarn-preview' (step 6 of 9.9) in 415.963µs.";
-    const expectedMetadata = {
+    expect(
+      processLine(
+        "Finished command 'shell.exec' in function 'yarn-preview' (step 6 of 9.9) in 415.963µs.",
+      ),
+    ).toStrictEqual({
       commandName: "shell.exec",
       functionName: "yarn-preview",
       status: "Finished",
       step: "6 of 9.9",
-    };
-    expect(processLine(logLine)).toStrictEqual(expectedMetadata);
+    });
+    expect(
+      processLine(
+        "Finished command 'some_command' ('cleanup environment') in function 'some_function' (step 5 of 9) in 1.72598ms.",
+      ),
+    ).toStrictEqual({
+      commandName: "some_command",
+      functionName: "some_function",
+      status: "Finished",
+      step: "5 of 9",
+    });
   });
 
   it("should return null for a log line that does not indicate a section", () => {
@@ -362,5 +396,132 @@ describe("parseSections", () => {
   it("should return empty arrays if the logs array is empty", () => {
     const logs: string[] = [];
     expect(parseSections(logs)).toEqual({ commands: [], functions: [] });
+  });
+});
+
+describe("getOpenSectionStateBasedOnLineNumbers", () => {
+  it("should open the sections containing the line number", () => {
+    const result = getOpenSectionStateBasedOnLineNumbers({
+      lineNumbers: [1],
+      sectionData,
+      sectionState: sectionStateAllClosed,
+    });
+    const nextSectionState = {
+      ...sectionStateAllClosed,
+      "function-1": {
+        commands: {
+          "command-1": {
+            isOpen: true,
+          },
+          "command-6": {
+            isOpen: false,
+          },
+        },
+        isOpen: true,
+      },
+    };
+    expect(result).toStrictEqual([true, nextSectionState]);
+  });
+
+  it("should return the given sectionState value and reference when the given line number doesn't belong to a section", () => {
+    const result = getOpenSectionStateBasedOnLineNumbers({
+      lineNumbers: [100],
+      sectionData,
+      sectionState: sectionStateAllClosed,
+    });
+    expect(result).toStrictEqual([false, sectionStateAllClosed]);
+    expect(result[1]).not.toBe(sectionStateAllClosed);
+  });
+
+  it("should return the given sectionState value and reference when the given line number's section is already open", () => {
+    const sectionState = {
+      ...sectionStateAllClosed,
+      "function-1": {
+        commands: {
+          "command-1": {
+            isOpen: true,
+          },
+          "command-6": {
+            isOpen: false,
+          },
+        },
+        isOpen: true,
+      },
+    };
+    const result = getOpenSectionStateBasedOnLineNumbers({
+      lineNumbers: [1],
+      sectionData,
+      sectionState,
+    });
+    expect(result).toStrictEqual([false, sectionState]);
+    expect(result[1]).not.toBe(sectionState);
+  });
+});
+
+describe("populateSectionState", () => {
+  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' is undefined or false", () => {
+    expect(
+      populateSectionState({
+        openSectionContainingLine: undefined,
+        sectionData,
+      }),
+    ).toStrictEqual(sectionStateAllClosed);
+    expect(
+      populateSectionState({
+        isOpen: false,
+        openSectionContainingLine: undefined,
+        sectionData,
+      }),
+    ).toStrictEqual(sectionStateAllClosed);
+  });
+  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' is undefined or false", () => {
+    expect(
+      populateSectionState({
+        openSectionContainingLine: undefined,
+        sectionData,
+      }),
+    ).toStrictEqual(sectionStateAllClosed);
+    expect(
+      populateSectionState({
+        isOpen: false,
+        openSectionContainingLine: undefined,
+        sectionData,
+      }),
+    ).toStrictEqual(sectionStateAllClosed);
+  });
+  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' does not match a section", () => {
+    const result = populateSectionState({
+      openSectionContainingLine: 999999,
+      sectionData,
+    });
+    expect(result).toStrictEqual(sectionStateAllClosed);
+  });
+  it("should populate the section state based on the section data with all sections closed except the sections containing 'openSectionContainingLine'", () => {
+    const result = populateSectionState({
+      openSectionContainingLine: 1,
+      sectionData,
+    });
+    expect(result).toStrictEqual({
+      ...sectionStateAllClosed,
+      "function-1": {
+        commands: {
+          "command-1": {
+            isOpen: true,
+          },
+          "command-6": {
+            isOpen: false,
+          },
+        },
+        isOpen: true,
+      },
+    });
+  });
+  it("should populate the section state based on the section data with all sections open when isOpen is true", () => {
+    const result = populateSectionState({
+      isOpen: true,
+      openSectionContainingLine: undefined,
+      sectionData,
+    });
+    expect(result).toStrictEqual(sectionStateAllOpen);
   });
 });

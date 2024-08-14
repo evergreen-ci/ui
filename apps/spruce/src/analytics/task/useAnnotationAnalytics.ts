@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 import { BuildBaronQuery, BuildBaronQueryVariables } from "gql/generated/types";
 import { BUILD_BARON } from "gql/queries";
@@ -36,7 +37,8 @@ export const useAnnotationAnalytics = () => {
 
   const { buildBaronConfigured } = bbData?.buildBaron || {};
 
-  return useAnalyticsRoot<Action>("Annotations", {
-    "buildbaron.configured": buildBaronConfigured,
+  return useAnalyticsRoot<Action, AnalyticsIdentifier>("Annotations", {
+    "task.id": taskId || "",
+    buildBaronConfigured: buildBaronConfigured || false,
   });
 };

@@ -51,3 +51,5 @@ export const hostStatuses: Status[] = [
 ];
 
 export const MCI_USER = "mci";
+
+export const defaultEC2Region = "us-east-1";

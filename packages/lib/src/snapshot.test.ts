@@ -1,4 +1,3 @@
-import { projectAnnotations } from "@evg-ui/storybook-addon";
 import {
   composeStories,
   Meta,
@@ -9,6 +8,7 @@ import {
 import { act, render } from "@testing-library/react";
 import { expect } from "vitest";
 import path from "path";
+import { projectAnnotations } from "@evg-ui/storybook-addon";
 
 setProjectAnnotations([projectAnnotations]);
 

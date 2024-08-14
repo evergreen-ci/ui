@@ -1,4 +1,5 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import {
   ProjectHealthView,
   SaveSubscriptionForUserMutationVariables,
@@ -49,4 +50,6 @@ type Action =
   | { name: "Viewed task history page" }; // "Commit chart"
 
 export const useProjectHealthAnalytics = (p: { page: pageType }) =>
-  useAnalyticsRoot<Action>("ProjectHealthPages", { page: p.page });
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("ProjectHealthPages", {
+    page: p.page,
+  });

@@ -34,6 +34,7 @@ import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
 import { string } from "utils";
+import { isFailedTaskStatus } from "utils/statuses";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import ETATimer from "./ETATimer";
@@ -234,10 +235,11 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </InlineCode>
         </MetadataItem>
       )}
-      {details?.description && (
+      {(details?.description || details?.failingCommand) && (
         <MetadataItem data-cy="task-metadata-description">
           <DetailsDescription
-            description={details.description}
+            description={details?.description ?? ""}
+            failingCommand={details?.failingCommand ?? ""}
             isContainerTask={isContainerTask}
             status={details?.status}
           />
@@ -462,27 +464,32 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
 
 const DetailsDescription = ({
   description,
+  failingCommand,
   isContainerTask,
   status,
 }: {
   description: string;
+  failingCommand: string;
   isContainerTask: boolean;
   status: string;
 }) => {
   const MAX_CHAR = 100;
+  const isFailingTask = isFailedTaskStatus(status);
+  const baseCopy = description || failingCommand;
+  const fullText = isFailingTask
+    ? `${processFailingCommand(baseCopy, isContainerTask)}`
+    : `${baseCopy}`;
 
-  const fullText =
-    status === TaskStatus.Failed
-      ? `Failing command: ${processFailingCommand(
-          description,
-          isContainerTask,
-        )}`
-      : `Command: ${description}`;
   const shouldTruncate = fullText.length > MAX_CHAR;
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 
   return (
-    <span>
+    <MetadataItem>
+      {isFailingTask ? (
+        <StyledB>Failing Command: </StyledB>
+      ) : (
+        <span>Command: </span>
+      )}
       {shouldTruncate ? (
         <>
           {truncatedText}{" "}
@@ -497,7 +504,7 @@ const DetailsDescription = ({
       ) : (
         fullText
       )}
-    </span>
+    </MetadataItem>
   );
 };
 
@@ -530,4 +537,8 @@ const HoneycombLinkContainer = styled.span`
 const OOMTrackerMessage = styled(MetadataItem)`
   color: ${red.dark2};
   font-weight: 500;
+`;
+
+const StyledB = styled.b`
+  color: ${red.base};
 `;

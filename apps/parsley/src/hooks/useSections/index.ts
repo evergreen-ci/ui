@@ -4,8 +4,12 @@ import { useToastContext } from "context/toast";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { reportError } from "utils/errorReporting";
 import { releaseSectioning } from "utils/featureFlag";
-import { includesLineNumber } from "utils/logRow";
-import { SectionData, parseSections } from "./utils";
+import {
+  SectionData,
+  getOpenSectionStateBasedOnLineNumbers,
+  parseSections,
+  populateSectionState,
+} from "./utils";
 
 export type SectionState = {
   [functionID: string]: {
@@ -27,10 +31,15 @@ export type ToggleFunctionSection = (props: {
 
 export interface UseSectionsResult {
   sectionData: SectionData | undefined;
+  toggleAllCommandsInFunction: (functionID: string, isOpen: boolean) => void;
   toggleCommandSection: ToggleCommandSection;
   toggleFunctionSection: ToggleFunctionSection;
+  toggleAllSections: (isOpen: boolean) => void;
   sectionState: SectionState | undefined;
   sectioningEnabled: boolean;
+  openSectionsContainingLineNumbers: (options: {
+    lineNumbers: number[];
+  }) => boolean;
 }
 
 interface Props {
@@ -76,7 +85,10 @@ export const useSections = ({
   useEffect(() => {
     if (sectionData && sectionState === undefined) {
       setSectionState(
-        populateSectionState(sectionData, onInitOpenSectionContainingLine),
+        populateSectionState({
+          openSectionContainingLine: onInitOpenSectionContainingLine,
+          sectionData,
+        }),
       );
     }
   }, [sectionData, sectionState, onInitOpenSectionContainingLine]);
@@ -87,6 +99,11 @@ export const useSections = ({
         if (currentState) {
           const nextState = { ...currentState };
           nextState[functionID].isOpen = isOpen;
+          const commands = Object.keys(nextState[functionID].commands);
+          // If the function is being opened and contains 1 command, open the command as well
+          if (commands.length === 1 && isOpen) {
+            nextState[functionID].commands[commands[0]].isOpen = isOpen;
+          }
           return nextState;
         }
         return currentState;
@@ -94,6 +111,7 @@ export const useSections = ({
     },
     [],
   );
+
   const toggleCommandSection: ToggleCommandSection = useCallback(
     ({ commandID, functionID, isOpen }) => {
       setSectionState((currentState) => {
@@ -108,32 +126,76 @@ export const useSections = ({
     [],
   );
 
+  /**
+   * toggleAllCommandsInFunction will toggle all commands in a function section.
+   * @param functionID is the id of the function section.
+   * @param isOpen If true, all command sections in the function will be opened including the function.
+   * If false, all command sections will be closed without affecting the function open/close state.
+   */
+  const toggleAllCommandsInFunction = useCallback(
+    (functionID: string, isOpen: boolean) => {
+      setSectionState((currentState) => {
+        if (currentState) {
+          const nextState = structuredClone(currentState);
+          if (isOpen) {
+            nextState[functionID].isOpen = isOpen;
+          }
+          const commands = Object.keys(nextState[functionID].commands);
+          commands.forEach((commandID) => {
+            nextState[functionID].commands[commandID].isOpen = isOpen;
+          });
+          return nextState;
+        }
+        return currentState;
+      });
+    },
+    [],
+  );
+
+  const toggleAllSections = useCallback(
+    (isOpen: boolean) => {
+      if (sectionData) {
+        setSectionState(() => populateSectionState({ isOpen, sectionData }));
+      }
+    },
+    [sectionData],
+  );
+
+  /**
+   * This function will update the current section state. If the next state is the
+   * openSectionsContainingLineNumbers Will update the current section state. If the next state is the
+   * same as the current state the function will return true and false otherwise.
+   * @param options is an object with a lineNumber key(s).
+   * @param options.lineNumbers is a number or an array of numbers that represent raw log line numbers.
+   * @returns true if the sectionState was updated and false otherwise
+   */
+  const openSectionsContainingLineNumbers = ({
+    lineNumbers,
+  }: {
+    lineNumbers: number[];
+  }): boolean => {
+    if (!sectionData || !sectionState) {
+      return false;
+    }
+    const [hasDiff, nextState] = getOpenSectionStateBasedOnLineNumbers({
+      lineNumbers,
+      sectionData,
+      sectionState,
+    });
+    if (hasDiff) {
+      setSectionState(nextState);
+    }
+    return hasDiff;
+  };
+
   return {
+    openSectionsContainingLineNumbers,
     sectionData,
     sectionState,
     sectioningEnabled,
+    toggleAllCommandsInFunction,
+    toggleAllSections,
     toggleCommandSection,
     toggleFunctionSection,
   };
-};
-
-const populateSectionState = (
-  sectionData: SectionData,
-  openSectionContainingLine: number | undefined,
-): SectionState => {
-  const { commands, functions } = sectionData;
-  const sectionState: SectionState = {};
-  functions.forEach(({ functionID }) => {
-    sectionState[functionID] = { commands: {}, isOpen: false };
-  });
-  commands.forEach((sectionEntry) => {
-    const { commandID, functionID } = sectionEntry;
-    if (includesLineNumber(sectionEntry, openSectionContainingLine)) {
-      sectionState[functionID].isOpen = true;
-      sectionState[functionID].commands[commandID] = { isOpen: true };
-    } else {
-      sectionState[functionID].commands[commandID] = { isOpen: false };
-    }
-  });
-  return sectionState;
 };

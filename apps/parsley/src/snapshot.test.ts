@@ -1,7 +1,7 @@
-import { projectAnnotations } from "@evg-ui/storybook-addon";
 import { composeStories, setProjectAnnotations } from "@storybook/react";
 import { expect } from "vitest";
 import path from "path";
+import { projectAnnotations } from "@evg-ui/storybook-addon";
 import { act, render, stubGetClientRects } from "test_utils";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import * as previewAnnotations from "../.storybook/preview";

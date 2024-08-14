@@ -70,7 +70,7 @@ export const AddIssueModal: React.FC<Props> = ({
         `There was an error adding the issue: ${error.message}`,
       );
     },
-    refetchQueries: ["AnnotationEventData"],
+    refetchQueries: ["SuspectedIssues", "Issues"],
   });
 
   const spruceConfig = useSpruceConfig();

@@ -172,6 +172,21 @@ export const prettifyTimeZone = new Map(
   timeZones.map(({ str, value }) => [value, str]),
 );
 
+/**
+ * abbreviateTimeZone returns the shortened version of a time zone
+ * @param tz - JS timeZone option used by toLocaleTimeString
+ * @returns - shortened string, or empty string if invalid time zone provided
+ */
+export const abbreviateTimeZone = (tz: string) => {
+  try {
+    return new Date()
+      .toLocaleTimeString("en-us", { timeZone: tz, timeZoneName: "short" })
+      .split(" ")[2];
+  } catch (e) {
+    return "";
+  }
+};
+
 export const listOfDateFormatStrings = [
   "MM-dd-yyyy",
   "dd-MM-yyyy",
