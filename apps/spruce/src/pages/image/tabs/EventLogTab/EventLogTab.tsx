@@ -11,8 +11,9 @@ import { useParams } from "react-router-dom";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useFirstImage } from "hooks";
-import { ImageEventLog, IMAGE_EVENT_LIMIT } from "../../ImageEventLog";
-import { useEvents } from "./useEvents";
+import { IMAGE_EVENT_LIMIT } from "pages/image/useEvents";
+import { ImageEventLog } from "../../ImageEventLog";
+import { useImageEvents } from "./useImageEvents";
 
 const { blue, gray } = palette;
 const subtitleText = (
@@ -46,13 +47,13 @@ export const EventLogTab: React.FC = () => {
   const imageId = routeImageId ?? firstImage;
 
   const {
-    allEventLogEntriesFetched,
-    eventLogEntries,
+    allEventsFetched,
+    events,
     fetchMore,
     loading,
-    setAllEventLogEntriesFetched,
-    setEventLogEntries,
-  } = useEvents(imageId);
+    // setAllEventLogEntriesFetched,
+    // setEvents,
+  } = useImageEvents(imageId);
 
   return (
     <>
@@ -64,22 +65,23 @@ export const EventLogTab: React.FC = () => {
         </TitleContainer>
       </Container>
       <ImageEventLog
-        allEventsFetched={allEventLogEntriesFetched}
-        events={eventLogEntries}
+        allEventsFetched={allEventsFetched}
+        events={events}
         handleFetchMore={() => {
           fetchMore({
             variables: {
               imageId,
-              page: Math.floor(eventLogEntries.length / IMAGE_EVENT_LIMIT),
+              page: Math.floor(events.length / IMAGE_EVENT_LIMIT),
             },
-          }).then((response) => {
-            const newEvents =
-              response.data?.image?.events?.eventLogEntries || [];
-            setEventLogEntries((prevEvents) => [...prevEvents, ...newEvents]);
-            if (newEvents.length < IMAGE_EVENT_LIMIT) {
-              setAllEventLogEntriesFetched(true);
-            }
           });
+          // .then((response) => {
+          //   const newEvents =
+          //     response.data?.image?.events?.eventLogEntries || [];
+          //   setEventLogEntries((prevEvents) => [...prevEvents, ...newEvents]);
+          //   if (newEvents.length < IMAGE_EVENT_LIMIT) {
+          //     setAllEventLogEntriesFetched(true);
+          //   }
+          // });
         }}
         loading={loading}
       />

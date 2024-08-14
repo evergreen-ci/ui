@@ -1,5 +1,5 @@
 import { InMemoryCache } from "@apollo/client";
-import { IMAGE_EVENT_LIMIT } from "pages/image/ImageEventLog";
+import { IMAGE_EVENT_LIMIT } from "pages/image/useEvents";
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -39,11 +39,25 @@ export const cache = new InMemoryCache({
         },
       },
     },
-    Image: {
+    ImageEventsPayload: {
       fields: {
-        events: {
-          keyArgs: false,
+        count: {
+          merge(existing = 0, incoming = 0) {
+            console.log("count");
+            return existing + incoming;
+          },
+        },
+        // eventLogEntries: {
+        //   merge(existing = [], incoming = []) {
+        //     return [...existing, ...incoming];
+        //   },
+        // },
+        eventLogEntries: {
           merge(existing: any[], incoming: any[], { args }) {
+            console.log("existing");
+            console.log(existing);
+            console.log("incoming");
+            console.log(incoming);
             let page = 0;
             if (args) {
               page = args.page;
@@ -52,6 +66,8 @@ export const cache = new InMemoryCache({
             for (let i = 0; i < incoming.length; ++i) {
               merged[page * IMAGE_EVENT_LIMIT + i] = incoming[i];
             }
+            console.log("merged");
+            console.log(merged);
             return merged;
           },
         },

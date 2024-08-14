@@ -28,7 +28,10 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
       {events.map((event) => {
         const { amiAfter, amiBefore, entries, timestamp } = event;
         return (
-          <ImageEventLogCard data-cy="image-event-log-card">
+          <ImageEventLogCard
+            key={`event_log_${timestamp}`}
+            data-cy="image-event-log-card"
+          >
             <Header
               amiAfter={amiAfter}
               amiBefore={amiBefore ?? ""}
