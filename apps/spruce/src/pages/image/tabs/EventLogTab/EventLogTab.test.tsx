@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -11,8 +12,12 @@ import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
 import { EventLogTab } from "./EventLogTab";
 
-// @ts-expect-error
-const Wrapper = ({ children, mocks = [mock()] }) => (
+type WrapperProps = {
+  children: ReactNode;
+  mocks?: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables>[];
+};
+
+const Wrapper: React.FC<WrapperProps> = ({ children, mocks = [mock()] }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
 
