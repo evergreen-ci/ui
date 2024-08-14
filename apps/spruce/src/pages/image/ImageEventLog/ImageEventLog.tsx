@@ -31,8 +31,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
           <ImageEventLogCard data-cy="image-event-log-card">
             <Header
               amiAfter={amiAfter}
-              // @ts-expect-error
-              amiBefore={amiBefore}
+              amiBefore={amiBefore ?? ""}
               timestamp={timestamp}
             />
             <ImageEventLogTable entries={entries} />
