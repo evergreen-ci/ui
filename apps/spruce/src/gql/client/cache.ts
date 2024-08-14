@@ -8,9 +8,6 @@ export const cache = new InMemoryCache({
         distroEvents: {
           keyArgs: ["$distroId"],
         },
-        // image: {
-        //   keyArgs: ["$id", "$page"],
-        // },
         projectEvents: {
           keyArgs: ["$identifier"],
         },
@@ -43,32 +40,20 @@ export const cache = new InMemoryCache({
       keyFields: [],
       fields: {
         events: {
+          keyArgs: ["$imageId"],
           merge(existing, incoming, { args }) {
-            // merge(existing, incoming, { mergeObjects }) {
-            //   console.log(existing);
-            //   console.log(incoming);
-            //   console.log(mergeObjects(existing, incoming));
-            //   return mergeObjects(existing, incoming);
-            console.log("existing");
-            console.log(existing);
             const {
               count: existingCount = 0,
               eventLogEntries: existingEntries = [],
             } = existing || {};
-            console.log("incoming");
-            console.log(incoming);
             const { count: incomingCount, eventLogEntries: incomingEntries } =
               incoming;
             const count = existingCount + incomingCount;
             const page = args?.page ?? 0;
-            console.log("page");
-            console.log(page);
             const merged = existingEntries ? existingEntries.slice(0) : [];
             for (let i = 0; i < incomingEntries.length; ++i) {
               merged[page * IMAGE_EVENT_LIMIT + i] = incomingEntries[i];
             }
-            console.log("eventLogEntries");
-            console.log(merged);
             return {
               count,
               eventLogEntries: merged,
@@ -76,44 +61,6 @@ export const cache = new InMemoryCache({
           },
         },
       },
-      // ImageEventsPayload: {
-      //   fields: {
-      //     events: {
-      //       merge(existing = { count: 0, eventLogEntries: [] }, incoming, { args })) {
-
-      //       }
-      //     },
-      //   count: {
-      //     merge(existing = 0, incoming = 0) {
-      //       console.log("existing");
-      //       console.log(existing);
-      //       console.log("incoming");
-      //       console.log(incoming);
-      //       console.log("count");
-      //       console.log(existing + incoming);
-      //       return existing + incoming;
-      //     },
-      //   },
-      //   eventLogEntries: {
-      //     merge(existing: any[], incoming: any[], { args }) {
-      //       console.log("existing");
-      //       console.log(existing);
-      //       console.log("incoming");
-      //       console.log(incoming);
-      //       let page = 0;
-      //       if (args) {
-      //         page = args.page;
-      //       }
-      //       const merged = existing ? existing.slice(0) : [];
-      //       for (let i = 0; i < incoming.length; ++i) {
-      //         merged[page * IMAGE_EVENT_LIMIT + i] = incoming[i];
-      //       }
-      //       console.log("merged");
-      //       console.log(merged);
-      //       return merged;
-      //     },
-      //   },
-      // },
     },
     ProjectEvents: {
       fields: {

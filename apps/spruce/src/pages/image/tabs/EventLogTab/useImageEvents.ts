@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { useToastContext } from "context/toast";
 import {
@@ -15,8 +15,8 @@ export const useImageEvents = (
 ) => {
   const dispatchToast = useToastContext();
 
-  const { allEventsFetched, onCompleted } = useEvents();
-  const { data, fetchMore, loading } = useQuery<
+  const { allEventsFetched, onCompleted, setPrevCount } = useEvents();
+  const { data, fetchMore, loading, previousData } = useQuery<
     ImageEventsQuery,
     ImageEventsQueryVariables
   >(IMAGE_EVENTS, {
@@ -28,49 +28,23 @@ export const useImageEvents = (
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ image }) => {
       if (image?.events) {
-        onCompleted();
+        onCompleted(image?.events?.count);
       }
     },
-    // onCompleted: () => {
-    //   // if (eventLogEntries) {
-    //   //   // Initially, set event log entries to show data.
-    //   //   setEventLogEntries(data?.image?.events?.eventLogEntries || []);
-    //   // }
-    // },
     onError: (e) => {
       dispatchToast.error(e.message);
     },
   });
-  // const [eventLogEntries, setEventLogEntries] = useState(
-  //   data?.image?.events?.eventLogEntries ?? [],
-  // );
-  // const [allEventLogEntriesFetched, setAllEventLogEntriesFetched] =
-  //   useState(false);
   const events = useMemo(
     () => data?.image?.events?.eventLogEntries ?? [],
     [data],
   );
 
-  // console.log(events);
-  // console.log("previousData");
-  // console.log(previousData);
-  // console.log(data === previousData);
-
-  // useEffect(() => {
-  //   if (events.length > 0 && events.length < IMAGE_EVENT_LIMIT) {
-  //     setAllEventsFetched(true);
-  //   }
-  // }, [events, setAllEventsFetched]);
-
-  // useEffect(() => {
-  //   setPrevCount(previousData?.image?.events?.count ?? 0);
-  // }, [previousData, setPrevCount]);
+  useEffect(() => {
+    setPrevCount(previousData?.image?.events?.count ?? 0);
+  }, [previousData, setPrevCount]);
 
   return {
-    // allEventLogEntriesFetched,
-    // setAllEventLogEntriesFetched,
-    // eventLogEntries,
-    // setEventLogEntries,
     allEventsFetched,
     events,
     fetchMore,
