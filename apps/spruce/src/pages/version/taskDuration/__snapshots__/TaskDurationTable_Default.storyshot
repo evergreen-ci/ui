@@ -192,7 +192,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
@@ -463,7 +463,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
@@ -553,7 +553,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-2"
         >
@@ -643,7 +643,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-3"
         >
@@ -733,7 +733,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-4"
         >
@@ -823,7 +823,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-5"
         >
@@ -913,7 +913,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-6"
         >
@@ -1003,7 +1003,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-7"
         >
@@ -1093,7 +1093,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-8"
         >
@@ -1183,7 +1183,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-9"
         >
