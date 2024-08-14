@@ -116,25 +116,29 @@ const targetsFromChangedFiles = (files) => {
   return Array.from(targets);
 };
 
-const generateE2E = (bv) => {
+/**
+ * generateParallelE2ETasks creates the top-level tasks required for a build variant's parallelized Cypress testing.
+ * Note that the task steps included here should likely be in sync with those included in the base e2e task.
+ * @param bv - build variant name
+ * @returns - array of tasks
+ */
+const generateParallelE2ETasks = (bv) => {
   const specs = getSpecs(`./apps/${bv}/cypress/integration`);
-  return specs.map((spec, i) => {
-    return {
-      name: `e2e_${bv}_${i}`,
-      commands: [
-        { func: "setup-mongodb" },
-        { func: "run-make-background", vars: { target: "local-evergreen" } },
-        { func: "symlink" },
-        { func: "seed-bucket-data" },
-        { func: "run-logkeeper" },
-        { func: "yarn-build" },
-        { func: "yarn-preview" },
-        { func: "wait-for-evergreen" },
-        { func: "yarn-verify-backend" },
-        { func: "yarn-cypress", vars: { cypress_spec: spec } },
-      ],
-    };
-  });
+  return specs.map((spec, i) => ({
+    name: `e2e_${bv}_${i}`,
+    commands: [
+      { func: "setup-mongodb" },
+      { func: "run-make-background", vars: { target: "local-evergreen" } },
+      { func: "symlink" },
+      { func: "seed-bucket-data" },
+      { func: "run-logkeeper" },
+      { func: "yarn-build" },
+      { func: "yarn-preview" },
+      { func: "wait-for-evergreen" },
+      { func: "yarn-verify-backend" },
+      { func: "yarn-cypress", vars: { cypress_spec: spec } },
+    ],
+  }));
 };
 
 /**
@@ -155,7 +159,7 @@ const generateTasks = () => {
     TASK_MAPPING[bv].forEach((name) => {
       if (name === Tasks.E2EParallel) {
         // Make display tasks
-        const e2eTasks = generateE2E(bv);
+        const e2eTasks = generateParallelE2ETasks(bv);
         tasks.push(...e2eTasks);
         bvTasks.push(...e2eTasks.map(({ name }) => ({ name }))),
           displayTasks.push({
