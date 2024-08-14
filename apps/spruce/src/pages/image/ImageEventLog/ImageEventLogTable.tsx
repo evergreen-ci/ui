@@ -74,11 +74,14 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
     getFilteredRowModel: getFilteredRowModel(),
   });
 
+  const hasFilters = columnFilters.length > 0;
+
+  const emptyMessage = hasFilters
+    ? "No data to display"
+    : "No changes detected within the scope. The scope can be expanded upon request from the runtime environments team.";
+
   const emptyComponent = (
-    <DefaultEmptyMessage>
-      No changes detected within the scope. The scope can be expanded upon
-      request from the runtime environments team.
-    </DefaultEmptyMessage>
+    <DefaultEmptyMessage>{emptyMessage}</DefaultEmptyMessage>
   );
 
   return (
@@ -94,7 +97,6 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
   {
     header: "Name",
     accessorKey: "name",
-    cell: ({ getValue }) => getValue() as string,
     enableColumnFilter: true,
     filterFn: filterFns.includesString,
   },
@@ -117,12 +119,10 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
   {
     header: "Before",
     accessorKey: "before",
-    cell: ({ getValue }) => getValue() as string,
   },
   {
     header: "After",
     accessorKey: "after",
-    cell: ({ getValue }) => getValue() as string,
   },
   {
     header: "Action",

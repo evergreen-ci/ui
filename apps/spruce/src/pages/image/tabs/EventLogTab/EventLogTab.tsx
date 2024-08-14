@@ -39,14 +39,8 @@ export const EventLogTab: React.FC = () => {
   const { image: firstImage } = useFirstImage();
   const imageId = routeImageId ?? firstImage;
 
-  const {
-    allEventsFetched,
-    events,
-    fetchMore,
-    loading,
-    // setAllEventLogEntriesFetched,
-    // setEvents,
-  } = useImageEvents(imageId);
+  const { allEventsFetched, events, fetchMore, loading } =
+    useImageEvents(imageId);
 
   return (
     <>
@@ -67,14 +61,6 @@ export const EventLogTab: React.FC = () => {
               page: Math.floor(events.length / IMAGE_EVENT_LIMIT),
             },
           });
-          // .then((response) => {
-          //   const newEvents =
-          //     response.data?.image?.events?.eventLogEntries || [];
-          //   setEventLogEntries((prevEvents) => [...prevEvents, ...newEvents]);
-          //   if (newEvents.length < IMAGE_EVENT_LIMIT) {
-          //     setAllEventLogEntriesFetched(true);
-          //   }
-          // });
         }}
         loading={loading}
       />
