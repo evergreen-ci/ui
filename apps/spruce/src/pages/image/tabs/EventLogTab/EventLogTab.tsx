@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
-import { H2, Overline, OverlineProps, Body } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { StyledLink } from "components/styles";
 import { slugs } from "constants/routes";
@@ -10,7 +9,6 @@ import { IMAGE_EVENT_LIMIT } from "pages/image/useEvents";
 import { ImageEventLog } from "../../ImageEventLog";
 import { useImageEvents } from "./useImageEvents";
 
-const { gray } = palette;
 const subtitleText = (
   <>
     With the exception of static hosts, AMI changes correspond to changes in the{" "}
@@ -45,11 +43,7 @@ export const EventLogTab: React.FC = () => {
   return (
     <>
       <Container>
-        <TitleContainer>
-          <StyledOverline>Event Log</StyledOverline>
-          <H2 data-cy="image-title">{imageId}</H2>
-          <Body>{subtitleText}</Body>
-        </TitleContainer>
+        <Body>{subtitleText}</Body>
       </Container>
       <ImageEventLog
         allEventsFetched={allEventsFetched}
@@ -73,12 +67,4 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${size.l};
-`;
-
-const TitleContainer = styled.div`
-  margin-right: ${size.s};
-`;
-
-const StyledOverline = styled(Overline)<OverlineProps>`
-  color: ${gray.dark1};
 `;
