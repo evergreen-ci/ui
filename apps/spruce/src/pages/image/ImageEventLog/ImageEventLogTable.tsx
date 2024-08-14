@@ -14,7 +14,7 @@ import { TreeDataEntry } from "components/TreeSelect";
 import { tableColumnOffset } from "constants/tokens";
 import { ImageEventEntry, ImageEventEntryAction } from "gql/generated/types";
 
-export const imageEventEntryActionTreeData = [
+const imageEventEntryActionTreeData = [
   {
     title: "ADDED",
     value: ImageEventEntryAction.Added,
@@ -32,17 +32,17 @@ export const imageEventEntryActionTreeData = [
   },
 ];
 
-export enum ImageEventTypeV2 {
+enum ImageEventTypeV2 {
   Package = "Packages",
   Toolchain = "Toolchains",
 }
 
-export const imageEventTypeToCopy = {
+const imageEventTypeToCopy = {
   [ImageEventTypeV2.Package]: "Package",
   [ImageEventTypeV2.Toolchain]: "Toolchain",
 };
 
-export const imageEventTypeTreeData: TreeDataEntry[] = Object.entries(
+const imageEventTypeTreeData: TreeDataEntry[] = Object.entries(
   imageEventTypeToCopy,
 ).map(([key, value]) => ({
   title: value,

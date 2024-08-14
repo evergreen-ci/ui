@@ -1,13 +1,8 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import {
-  H2,
-  Overline,
-  OverlineProps,
-  Body,
-  BodyProps,
-} from "@leafygreen-ui/typography";
+import { H2, Overline, OverlineProps, Body } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
+import { StyledLink } from "components/styles";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useFirstImage } from "hooks";
@@ -15,25 +10,23 @@ import { IMAGE_EVENT_LIMIT } from "pages/image/useEvents";
 import { ImageEventLog } from "../../ImageEventLog";
 import { useImageEvents } from "./useImageEvents";
 
-const { blue, gray } = palette;
+const { gray } = palette;
 const subtitleText = (
   <>
     With the exception of static hosts, AMI changes correspond to changes in the{" "}
-    <a
-      href="https://github.com/10gen/buildhost-configuration"
+    <StyledLink
       target="_blank"
-      rel="noopener noreferrer"
+      href="https://github.com/10gen/buildhost-configuration"
     >
       buildhost-configuration
-    </a>{" "}
+    </StyledLink>{" "}
     and{" "}
-    <a
-      href="https://github.com/10gen/buildhost-post-config"
+    <StyledLink
       target="_blank"
-      rel="noopener noreferrer"
+      href="https://github.com/10gen/buildhost-post-config"
     >
       buildhost-post-config
-    </a>{" "}
+    </StyledLink>{" "}
     repos.
   </>
 );
@@ -61,7 +54,7 @@ export const EventLogTab: React.FC = () => {
         <TitleContainer>
           <StyledOverline>Event Log</StyledOverline>
           <H2 data-cy="image-title">{imageId}</H2>
-          <Subtitle>{subtitleText}</Subtitle>
+          <Body>{subtitleText}</Body>
         </TitleContainer>
       </Container>
       <ImageEventLog
@@ -102,15 +95,4 @@ const TitleContainer = styled.div`
 
 const StyledOverline = styled(Overline)<OverlineProps>`
   color: ${gray.dark1};
-`;
-
-const Subtitle = styled(Body)<BodyProps>`
-  color: ${gray.base};
-  a {
-    color: ${blue.base};
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
 `;

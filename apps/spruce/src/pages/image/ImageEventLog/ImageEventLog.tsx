@@ -4,8 +4,8 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { LoadingButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { ImageEvent } from "gql/generated/types";
-import { ImageEventLogTable } from "../ImageEventLogTable";
 import { Header } from "./Header";
+import { ImageEventLogTable } from "./ImageEventLogTable";
 
 type ImageEventLogProps = {
   allEventsFetched: boolean;

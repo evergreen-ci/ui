@@ -15,17 +15,16 @@ export const Header: React.FC<Props> = ({ amiAfter, amiBefore, timestamp }) => {
   return (
     <StyledHeader>
       <Subtitle>{getDateCopy(timestamp)}</Subtitle>
-      <StyledDisclaimer>
+      <Disclaimer>
         AMI changed from {amiBefore} to {amiAfter}
-      </StyledDisclaimer>
+      </Disclaimer>
     </StyledHeader>
   );
 };
 
 const StyledHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.xxs};
   padding-bottom: ${size.s};
-`;
-
-const StyledDisclaimer = styled(Disclaimer)`
-  padding-top: ${size.xxs};
 `;
