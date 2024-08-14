@@ -70,168 +70,163 @@
     </div>
   </div>
   <section
-    class="ant-layout ant-layout-has-sider css-1aoao0r-PageLayout-whiteBackground e1xf068s9"
+    class="css-1fnoxta-PageLayout e1xf068s9"
   >
     <aside
-      class="ant-layout-sider ant-layout-sider-dark css-1vgfpw2-PageSider-whiteBackground e1xf068s8"
-      style="flex: 0 0 275px; max-width: 275px; min-width: 275px; width: 275px;"
+      class="css-9485dj-PageSider e1xf068s8"
     >
       <div
-        class="ant-layout-sider-children"
+        class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
       >
-        <div
-          class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+        <div>
+          <p
+            class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+          >
+            Patch Metadata
+          </p>
+          <hr
+            class="css-qqg5h5-Divider eb6szep0"
+          />
+        </div>
+        <p
+          class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
         >
-          <div>
-            <p
-              class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+          Submitted by: 
+          mohamed.khelif
+        </p>
+        <p
+          class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        >
+          Submitted at: 
+          2020-08-28T15:00:17Z
+        </p>
+        <p
+          class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        >
+          Project:
+           
+          <a
+            class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+            href="/project/spruce/patches"
+          >
+            <span>
+              spruce
+            </span>
+          </a>
+        </p>
+      </div>
+      <div
+        class="css-1rkkuaq-DisableWrapper e1xdo4m90"
+        data-cy="build-variant-select-wrapper"
+      >
+        <span
+          class="css-1etd4q7-UserSelectWrapper e1xdo4m91"
+        >
+          <div
+            class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1ecxdul"
+          >
+            <div
+              class="css-993586-Container-cardSidePadding e14bc6yx5"
             >
-              Patch Metadata
-            </p>
-            <hr
-              class="css-qqg5h5-Divider eb6szep0"
-            />
+              <p
+                class="leafygreen-ui-1miy0xp"
+              >
+                Select Build Variants and Tasks
+              </p>
+              <p
+                class="leafygreen-ui-110o31d"
+                data-lgid="lg-description"
+              >
+                Use Shift + Click to edit multiple variants simultaneously.
+              </p>
+              <hr
+                class="css-qqg5h5-Divider eb6szep0"
+              />
+            </div>
+            <div
+              class="css-1xp9bbh-ScrollableBuildVariantContainer e14bc6yx0"
+            >
+              <div
+                class="css-9u3o4h-BuildVariant-cardSidePadding e14bc6yx3"
+                data-cy="build-variant-list-item"
+                data-selected="true"
+              >
+                <div
+                  class="css-xk6ynb-VariantName e14bc6yx2"
+                >
+                  <p
+                    class="leafygreen-ui-1miy0xp"
+                  >
+                    Ubuntu 20.04
+                  </p>
+                </div>
+              </div>
+              <div
+                class="css-yy9i1r-BuildVariant-cardSidePadding e14bc6yx3"
+                data-cy="build-variant-list-item"
+                data-selected="false"
+              >
+                <div
+                  class="css-xk6ynb-VariantName e14bc6yx2"
+                >
+                  <p
+                    class="leafygreen-ui-1tb6tuo"
+                  >
+                    Ubuntu 22.04
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <p
-            class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
-          >
-            Submitted by: 
-            mohamed.khelif
-          </p>
-          <p
-            class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
-          >
-            Submitted at: 
-            2020-08-28T15:00:17Z
-          </p>
-          <p
-            class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
-          >
-            Project:
-             
-            <a
-              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-              href="/project/spruce/patches"
-            >
-              <span>
-                spruce
-              </span>
-            </a>
-          </p>
-        </div>
-        <div
-          class="css-1rkkuaq-DisableWrapper e1xdo4m90"
-          data-cy="build-variant-select-wrapper"
-        >
-          <span
-            class="css-1etd4q7-UserSelectWrapper e1xdo4m91"
+          <div
+            class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1ecxdul"
           >
             <div
-              class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1ecxdul"
+              class="css-993586-Container-cardSidePadding e14bc6yx5"
+            >
+              <p
+                class="leafygreen-ui-1miy0xp"
+              >
+                Select Downstream Tasks
+              </p>
+              <p
+                class="leafygreen-ui-110o31d"
+                data-lgid="lg-description"
+              >
+                Use Shift + Click to edit multiple variants simultaneously.
+              </p>
+              <hr
+                class="css-qqg5h5-Divider eb6szep0"
+              />
+            </div>
+            <div
+              class="css-1xp9bbh-ScrollableBuildVariantContainer e14bc6yx0"
             >
               <div
-                class="css-993586-Container-cardSidePadding e14bc6yx5"
-              >
-                <p
-                  class="leafygreen-ui-1miy0xp"
-                >
-                  Select Build Variants and Tasks
-                </p>
-                <p
-                  class="leafygreen-ui-110o31d"
-                  data-lgid="lg-description"
-                >
-                  Use Shift + Click to edit multiple variants simultaneously.
-                </p>
-                <hr
-                  class="css-qqg5h5-Divider eb6szep0"
-                />
-              </div>
-              <div
-                class="css-1xp9bbh-ScrollableBuildVariantContainer e14bc6yx0"
+                class="css-yy9i1r-BuildVariant-cardSidePadding e14bc6yx3"
+                data-cy="trigger-alias-list-item"
+                data-selected="false"
               >
                 <div
-                  class="css-9u3o4h-BuildVariant-cardSidePadding e14bc6yx3"
-                  data-cy="build-variant-list-item"
-                  data-selected="true"
+                  class="css-xk6ynb-VariantName e14bc6yx2"
                 >
-                  <div
-                    class="css-xk6ynb-VariantName e14bc6yx2"
+                  <p
+                    class="leafygreen-ui-1tb6tuo"
                   >
-                    <p
-                      class="leafygreen-ui-1miy0xp"
-                    >
-                      Ubuntu 20.04
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="css-yy9i1r-BuildVariant-cardSidePadding e14bc6yx3"
-                  data-cy="build-variant-list-item"
-                  data-selected="false"
-                >
-                  <div
-                    class="css-xk6ynb-VariantName e14bc6yx2"
-                  >
-                    <p
-                      class="leafygreen-ui-1tb6tuo"
-                    >
-                      Ubuntu 22.04
-                    </p>
-                  </div>
+                    evergreen (evergreen)
+                  </p>
                 </div>
               </div>
             </div>
-            <div
-              class="css-1ff72qn-SiderCard-StyledSiderCard e14bc6yx4 leafygreen-ui-1ecxdul"
-            >
-              <div
-                class="css-993586-Container-cardSidePadding e14bc6yx5"
-              >
-                <p
-                  class="leafygreen-ui-1miy0xp"
-                >
-                  Select Downstream Tasks
-                </p>
-                <p
-                  class="leafygreen-ui-110o31d"
-                  data-lgid="lg-description"
-                >
-                  Use Shift + Click to edit multiple variants simultaneously.
-                </p>
-                <hr
-                  class="css-qqg5h5-Divider eb6szep0"
-                />
-              </div>
-              <div
-                class="css-1xp9bbh-ScrollableBuildVariantContainer e14bc6yx0"
-              >
-                <div
-                  class="css-yy9i1r-BuildVariant-cardSidePadding e14bc6yx3"
-                  data-cy="trigger-alias-list-item"
-                  data-selected="false"
-                >
-                  <div
-                    class="css-xk6ynb-VariantName e14bc6yx2"
-                  >
-                    <p
-                      class="leafygreen-ui-1tb6tuo"
-                    >
-                      evergreen (evergreen)
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </span>
-        </div>
+          </div>
+        </span>
       </div>
     </aside>
     <section
-      class="ant-layout css-1aoao0r-PageLayout-whiteBackground e1xf068s9"
+      class="css-1fk6utf-PageLayout e1xf068s9"
     >
       <main
-        class="ant-layout-content css-8bxtim-PageContent e1xf068s7"
+        class="css-7qhrew-PageContent e1xf068s7"
       >
         <div
           class="css-1svlhkk-StyledTabs e1g8s93l0"

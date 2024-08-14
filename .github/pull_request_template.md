@@ -1,5 +1,5 @@
 DEVPROD-NNNNN
-<!-- Does this PR need a 🔵Spruce or 🟢Parsley label? -->
+<!-- Does this PR need a 🔵Spruce or 🟢Parsley label? Add it in the sidebar 👉 -->
 
 ### Description
 <!-- add description, context, thought process, etc -->
