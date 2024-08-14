@@ -24,7 +24,10 @@ const Image: React.FC = () => {
 
   const selectedImage = imageId ?? firstImage;
 
-  if (!Object.values(ImageTabRoutes).includes(currentTab as ImageTabRoutes)) {
+  if (
+    currentTab === undefined ||
+    !Object.values(ImageTabRoutes).includes(currentTab as ImageTabRoutes)
+  ) {
     return (
       <Navigate
         replace
@@ -54,7 +57,7 @@ const Image: React.FC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper>
-        <ImageTabs />
+        <ImageTabs imageId={selectedImage} currentTab={currentTab} />
       </PageWrapper>
     </>
   );

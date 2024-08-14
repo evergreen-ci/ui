@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { useAnnotationAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { IssueLink } from "gql/generated/types";
@@ -30,7 +29,6 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   tickets,
   userCanModify,
 }) => {
-  const annotationAnalytics = useAnnotationAnalytics();
   const title = isIssue ? "Issues" : "Suspected Issues";
   const buttonText = isIssue ? "Add Issue" : "Add Suspected Issue";
   const [isAddAnnotationModalVisible, setIsAddAnnotationModalVisible] =
@@ -38,11 +36,6 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
 
   const handleAdd = () => {
     setIsAddAnnotationModalVisible(true);
-
-    annotationAnalytics.sendEvent({
-      name: "Created task annotation",
-      type: isIssue ? "Issue" : "Suspected Issue",
-    });
   };
   return (
     <>

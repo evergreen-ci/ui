@@ -15,7 +15,7 @@ describe("taskDurationTable", () => {
         <TaskDurationTable tasks={tasks} loading={false} numLoadingRows={10} />
       </MockedProvider>,
     );
-    expect(screen.queryAllByDataCy("leafygreen-table-row")).toHaveLength(2);
+    expect(screen.queryAllByDataCy("task-duration-table-row")).toHaveLength(2);
   });
 
   it("opens nested row on click", async () => {
@@ -29,7 +29,7 @@ describe("taskDurationTable", () => {
       screen.queryByText("check_codegen_execution_task"),
     ).not.toBeVisible();
     const expandRowButton = within(
-      screen.queryAllByDataCy("leafygreen-table-row")[0],
+      screen.queryAllByDataCy("task-duration-table-row")[0],
     ).queryByRole("button");
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(expandRowButton);
