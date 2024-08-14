@@ -48,7 +48,6 @@ const AnnotationNote: React.FC<Props> = ({
         `There was an error updating this note: ${error.message}`,
       );
     },
-    refetchQueries: ["AnnotationEventData"],
   });
   const saveAnnotationNote = () => {
     updateAnnotationNote({
