@@ -8898,6 +8898,7 @@ export type TaskQuery = {
       __typename?: "TaskEndDetail";
       description?: string | null;
       diskDevices: Array<string>;
+      failingCommand?: string | null;
       status: string;
       timedOut?: boolean | null;
       timeoutType?: string | null;

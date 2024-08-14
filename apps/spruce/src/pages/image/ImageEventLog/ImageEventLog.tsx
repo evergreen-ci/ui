@@ -28,7 +28,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
       {events.map((event) => {
         const { amiAfter, amiBefore, entries, timestamp } = event;
         return (
-          <ImageEventLogCard data-cy="image-event">
+          <ImageEventLogCard data-cy="image-event-log-card">
             <Header
               amiAfter={amiAfter}
               // @ts-expect-error
@@ -41,7 +41,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
       })}
       {!allEventsFetched && !!events.length && (
         <LoadingButton
-          data-cy="load-more"
+          data-cy="load-more-button"
           loading={loading}
           onClick={handleFetchMore}
           variant="primary"

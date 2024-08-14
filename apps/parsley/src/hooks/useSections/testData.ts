@@ -64,7 +64,7 @@ const sectionData: SectionData = {
     },
   ],
 };
-const initialSectionState: SectionState = {
+const sectionStateAllClosed: SectionState = {
   "function-1": {
     commands: {
       "command-1": {
@@ -89,4 +89,59 @@ const initialSectionState: SectionState = {
   },
 };
 
-export { sectionData, initialSectionState };
+const sectionStateAllOpen: SectionState = {
+  "function-1": {
+    commands: {
+      "command-1": {
+        isOpen: true,
+      },
+      "command-6": {
+        isOpen: true,
+      },
+    },
+    isOpen: true,
+  },
+  "function-9": {
+    commands: {
+      "command-9": {
+        isOpen: true,
+      },
+      "command-12": {
+        isOpen: true,
+      },
+    },
+    isOpen: true,
+  },
+};
+
+const sectionStateSomeOpen: SectionState = {
+  "function-1": {
+    commands: {
+      "command-1": {
+        isOpen: false,
+      },
+      "command-6": {
+        isOpen: true,
+      },
+    },
+    isOpen: true,
+  },
+  "function-9": {
+    commands: {
+      "command-9": {
+        isOpen: false,
+      },
+      "command-12": {
+        isOpen: false,
+      },
+    },
+    isOpen: false,
+  },
+};
+
+export {
+  sectionData,
+  sectionStateAllClosed,
+  sectionStateAllOpen,
+  sectionStateSomeOpen,
+};

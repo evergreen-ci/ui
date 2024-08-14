@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import Button, { Size } from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
@@ -7,15 +6,15 @@ import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
 import { SectionStatus } from "constants/logs";
 import { size } from "constants/tokens";
-import { ToggleFunctionSection } from "hooks/useSections";
+import { useLogContext } from "context/LogContext";
 import { CaretToggle } from "../CaretToggle";
+import { SubsectionControls } from "./SubsectionControls";
 
 const { gray } = palette;
 
 interface SectionHeaderProps extends Row {
   functionName: string;
   functionID: string;
-  onToggle: ToggleFunctionSection;
   open: boolean;
   status: SectionStatus;
 }
@@ -23,10 +22,10 @@ interface SectionHeaderProps extends Row {
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   functionID,
   functionName,
-  onToggle,
   open,
   status,
 }) => {
+  const { sectioning } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
   const statusGlyph =
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
@@ -41,16 +40,14 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             sectionName: functionName,
             sectionType: "function",
           });
-          onToggle({ functionID, isOpen: !open });
+          sectioning.toggleFunctionSection({ functionID, isOpen: !open });
         }}
         open={open}
       />
       <Icon fill={gray.dark1} glyph={statusGlyph} />
       <Body>Function: {functionName}</Body>
       <ButtonWrapper>
-        <Button onClick={() => {}} size={Size.XSmall}>
-          Open
-        </Button>
+        <SubsectionControls functionID={functionID} />
       </ButtonWrapper>
     </SectionHeaderWrapper>
   );
