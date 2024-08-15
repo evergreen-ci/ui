@@ -1,30 +1,30 @@
 import styled from "@emotion/styled";
-import { H2 } from "@leafygreen-ui/typography";
+import { H2, Overline } from "@leafygreen-ui/typography";
 import { ImageTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
 import { getTabTitle } from "./getTabTitle";
 
-interface Props {
+interface HeaderProps {
+  imageId: string;
   tab: ImageTabRoutes;
 }
 
-export const Header: React.FC<Props> = ({ tab }) => {
+export const Header: React.FC<HeaderProps> = ({ imageId, tab }) => {
   const { title } = getTabTitle(tab);
 
   return (
-    <Container>
+    <Container data-cy="image-tab-title">
+      <Overline>{title}</Overline>
       <TitleContainer>
-        <H2>{title}</H2>
+        <H2>{imageId}</H2>
       </TitleContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  align-items: start;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: ${size.l};
+  flex-direction: column;
 `;
 
 const TitleContainer = styled.div`

@@ -1,18 +1,24 @@
 import styled from "@emotion/styled";
-import { useParams, Routes, Route, Navigate } from "react-router-dom";
-import { ImageTabRoutes, slugs } from "constants/routes";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { ImageTabRoutes } from "constants/routes";
+import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { Header } from "./Header";
 import { BuildInformationTab } from "./tabs/index";
 
-export const ImageTabs: React.FC = () => {
-  const { [slugs.tab]: tab } = useParams<{
-    [slugs.tab]: ImageTabRoutes;
-  }>();
+type ImageTabsProps = {
+  imageId: string;
+  currentTab: ImageTabRoutes;
+};
+
+export const ImageTabs: React.FC<ImageTabsProps> = ({
+  currentTab,
+  imageId,
+}) => {
+  useScrollToAnchor();
 
   return (
     <Container>
-      {/* @ts-expect-error: FIXME */}
-      <Header tab={tab} />
+      <Header imageId={imageId} tab={currentTab} />
       <Routes>
         <Route
           path="*"
@@ -20,7 +26,7 @@ export const ImageTabs: React.FC = () => {
         />
         <Route
           path={ImageTabRoutes.BuildInformation}
-          element={<BuildInformationTab />}
+          element={<BuildInformationTab imageId={imageId} />}
         />
       </Routes>
     </Container>
@@ -29,5 +35,5 @@ export const ImageTabs: React.FC = () => {
 
 const Container = styled.div`
   min-width: 600px;
-  width: 60%;
+  max-width: 75%;
 `;

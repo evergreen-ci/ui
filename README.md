@@ -4,15 +4,27 @@ The new home of [Spruce](/apps/spruce) and [Parsley](/apps/parsley).
 
 ## Monorepo Tips & Tricks
 
-Check out the [Yarn Workspaces documentation](https://classic.yarnpkg.com/lang/en/docs/workspaces/) for more.
+Learn about our monorepo shared library [here](packages/lib/README.md).
 
-### Upgrades
+Check out the
+[Yarn Workspaces documentation](https://classic.yarnpkg.com/lang/en/docs/workspaces/)
+for more.
+
+### Dependencies
 
 To upgrade a dependency across workspaces:
 
 ```bash
 yarn upgrade-interactive [--latest] [package-name]
 ```
+
+To remove all installed dependencies:
+
+```bash
+yarn clean
+```
+
+You can then rerun `yarn install`.
 
 ### Scripts
 
@@ -27,18 +39,22 @@ For example, `yarn workspace spruce run storybook`.
 ### Testing
 
 To run all unit tests across the repository, from root:
+
 ```bash
 yarn test
 ```
 
 To run a particular workspace's unit tests from root:
+
 ```bash
 yarn test --project [workspace-name]
 ```
 
 ### Storybook
 
-Spruce, Parsley, and @evg-ui/lib all have their own storybooks, but there's also a shared storybook that combines them into one interface. From root, just run:
+Spruce, Parsley, and @evg-ui/lib all have their own storybooks, but there's also
+a shared storybook that combines them into one interface. From root, just run:
+
 ```bash
 yarn storybook
 ```

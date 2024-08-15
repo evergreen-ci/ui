@@ -1,1 +1,1 @@
-export { BuildInformationTab } from "./BuildInformationTab/BuildInformationTab";
+export { BuildInformationTab } from "./BuildInformationTab/index";

@@ -8,7 +8,7 @@ import {
   ColumnFiltersState,
 } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
-import { SettingsCard } from "components/SettingsCard";
+import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { BaseTable } from "components/Table/BaseTable";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
@@ -101,24 +101,27 @@ export const PackagesTable: React.FC = () => {
   });
 
   return (
-    <SettingsCard>
-      <BaseTable table={table} shouldAlternateRowColor />
-      <PaginationWrapper>
-        <Pagination
-          itemsPerPage={table.getState().pagination.pageSize}
-          onItemsPerPageOptionChange={(value: string) => {
-            table.setPageSize(Number(value));
-          }}
-          numTotalItems={totalNumPackages}
-          currentPage={table.getState().pagination.pageIndex + 1}
-          onCurrentPageOptionChange={(value: string) => {
-            table.setPageIndex(Number(value) - 1);
-          }}
-          onBackArrowClick={() => table.previousPage()}
-          onForwardArrowClick={() => table.nextPage()}
-        />
-      </PaginationWrapper>
-    </SettingsCard>
+    <>
+      <SettingsCardTitle>Packages</SettingsCardTitle>
+      <SettingsCard>
+        <BaseTable table={table} shouldAlternateRowColor />
+        <PaginationWrapper>
+          <Pagination
+            itemsPerPage={table.getState().pagination.pageSize}
+            onItemsPerPageOptionChange={(value: string) => {
+              table.setPageSize(Number(value));
+            }}
+            numTotalItems={totalNumPackages}
+            currentPage={table.getState().pagination.pageIndex + 1}
+            onCurrentPageOptionChange={(value: string) => {
+              table.setPageIndex(Number(value) - 1);
+            }}
+            onBackArrowClick={() => table.previousPage()}
+            onForwardArrowClick={() => table.nextPage()}
+          />
+        </PaginationWrapper>
+      </SettingsCard>
+    </>
   );
 };
 
