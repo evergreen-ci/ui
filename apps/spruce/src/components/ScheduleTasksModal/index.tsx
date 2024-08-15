@@ -1,7 +1,6 @@
 import { useReducer, useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
@@ -17,9 +16,7 @@ import {
 } from "gql/generated/types";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { UNSCHEDULED_TASKS } from "gql/queries";
-import { taskSchedulingLimitsDocumentationUrl } from "../../constants/externalResources";
-import { largeNumFinalizedTasksThreshold } from "../../constants/task";
-import { StyledLink } from "../styles";
+import { TaskSchedulingWarningBanner } from "../Banners/TaskSchedulingWarningBanner";
 import { initialState, reducer } from "./reducer";
 
 interface ScheduleTasksModalProps {
@@ -74,7 +71,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     dispatch({ type: "ingestData", taskData });
   }, [taskData]);
 
-  const numEstimatedActivatedGeneratedTasks =
+  const estimatedActivatedGeneratedTasksCount =
     getNumEstimatedActivatedGeneratedTasks(
       selectedTasks,
       taskData?.version?.generatedTaskCounts ?? {},
@@ -169,18 +166,11 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                 );
               },
             )}
-            {selectedTasks.size + numEstimatedActivatedGeneratedTasks >
-              largeNumFinalizedTasksThreshold && (
-              <Banner data-cy="disabled-webhook-banner" variant="warning">
-                This is a large operation, expected to schedule{" "}
-                {selectedTasks.size + numEstimatedActivatedGeneratedTasks}{" "}
-                tasks. Please confirm that this number of tasks is necessary
-                before continuing. For more information, please refer to our{" "}
-                <StyledLink href={taskSchedulingLimitsDocumentationUrl}>
-                  docs.
-                </StyledLink>
-              </Banner>
-            )}
+            <TaskSchedulingWarningBanner
+              totalTasks={
+                selectedTasks.size + estimatedActivatedGeneratedTasksCount
+              }
+            />
           </>
         )}
         {!loadingTaskData && !sortedBuildVariantGroups.length && (

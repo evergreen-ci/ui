@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
@@ -25,9 +24,7 @@ import {
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatus } from "types/task";
-import { taskSchedulingLimitsDocumentationUrl } from "../../constants/externalResources";
-import { largeNumFinalizedTasksThreshold } from "../../constants/task";
-import { StyledLink } from "../styles";
+import { TaskSchedulingWarningBanner } from "../Banners/TaskSchedulingWarningBanner";
 import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {
@@ -115,7 +112,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   const selectedTotal = selectTasksTotal(selectedTasks || {});
 
   const generatedTaskCounts = version?.generatedTaskCounts ?? {};
-  const numEstimatedActivatedGeneratedTasks =
+  const estimatedActivatedGeneratedTasksCount =
     getNumEstimatedActivatedGeneratedTasks(
       selectedTasks || {},
       generatedTaskCounts,
@@ -177,19 +174,9 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
               <br />
             </div>
           )}
-
-          {selectedTotal + numEstimatedActivatedGeneratedTasks >
-            largeNumFinalizedTasksThreshold && (
-            <Banner data-cy="disabled-webhook-banner" variant="warning">
-              This is a large operation, expected to schedule{" "}
-              {selectedTotal + numEstimatedActivatedGeneratedTasks} tasks.
-              Please confirm that this number of tasks is necessary before
-              continuing. For more information, please refer to our{" "}
-              <StyledLink href={taskSchedulingLimitsDocumentationUrl}>
-                docs.
-              </StyledLink>
-            </Banner>
-          )}
+          <TaskSchedulingWarningBanner
+            totalTasks={selectedTotal + estimatedActivatedGeneratedTasksCount}
+          />
           <ConfirmationMessage weight="medium" data-cy="confirmation-message">
             Are you sure you want to restart the {selectedTotal} selected tasks?
           </ConfirmationMessage>

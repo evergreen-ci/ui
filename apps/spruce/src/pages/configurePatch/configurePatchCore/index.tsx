@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
 import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
@@ -18,7 +17,6 @@ import {
   PageContent,
   PageLayout,
   PageSider,
-  StyledLink,
 } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getProjectPatchesRoute, getVersionRoute } from "constants/routes";
@@ -41,8 +39,7 @@ import {
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
-import { taskSchedulingLimitsDocumentationUrl } from "../../../constants/externalResources";
-import { largeNumFinalizedTasksThreshold } from "../../../constants/task";
+import { TaskSchedulingWarningBanner } from "../../../components/Banners/TaskSchedulingWarningBanner";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
@@ -158,7 +155,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     );
   }
 
-  const numEstimatedActivatedGeneratedTasks =
+  const estimatedActivatedGeneratedTasksCount =
     getNumEstimatedActivatedGeneratedTasks(
       selectedBuildVariantTasks,
       initialPatch.variantsTasks,
@@ -198,20 +195,11 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
           </LoadingButton>
         </ButtonWrapper>
       </FlexRow>
-      {numEstimatedActivatedGeneratedTasks >
-        largeNumFinalizedTasksThreshold && (
-        <BannerContainer>
-          <Banner data-cy="disabled-webhook-banner" variant="warning">
-            This is a large operation, expected to schedule{" "}
-            {numEstimatedActivatedGeneratedTasks} tasks. Please confirm that
-            this number of tasks is necessary before continuing. For more
-            information, please refer to our{" "}
-            <StyledLink href={taskSchedulingLimitsDocumentationUrl}>
-              docs.
-            </StyledLink>
-          </Banner>
-        </BannerContainer>
-      )}
+      <BannerContainer>
+        <TaskSchedulingWarningBanner
+          totalTasks={estimatedActivatedGeneratedTasksCount}
+        />
+      </BannerContainer>
       <PageLayout hasSider>
         <PageSider>
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
