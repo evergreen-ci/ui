@@ -36,7 +36,10 @@ export const gqlToForm = ((data, options = {}) => {
           "identifier" in projectRef && {
             identifier: projectRef.identifier,
           }),
-        batchTime: projectRef?.batchTime || 0,
+        batchTime:
+          projectRef?.batchTime ||
+          // Allow attached projects to show repo fallback value
+          (projectType === ProjectType.AttachedProject ? null : 0),
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         remotePath: projectRef.remotePath,
         // @ts-expect-error: FIXME. This comment was added by an automated script.

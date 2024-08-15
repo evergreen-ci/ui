@@ -2,6 +2,7 @@ import { clickSave } from "../../utils";
 import {
   getGeneralRoute,
   getVirtualWorkstationRoute,
+  project,
   projectUseRepoEnabled,
   repo,
   saveButtonEnabled,
@@ -66,11 +67,32 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated project");
     });
 
-    it("Saves when batch time is updated", () => {
+    it.only("Saves when batch time is updated", () => {
       cy.dataCy("batch-time-input").clear().type("12");
       clickSave();
       cy.dataCy("batch-time-input").should("have.value", 12);
       cy.validateToast("success", "Successfully updated project");
+      // Check if clearing attached project defaults batchtime to repo value
+      cy.dataCy("batch-time-input").clear();
+      clickSave();
+      cy.dataCy("batch-time-input")
+        .invoke("attr", "placeholder")
+        .should("equal", "60 (Default from repo)");
+      cy.validateToast("success", "Successfully updated project");
+      // Update repo batch time and check if project batch time placeholder is updated
+      cy.dataCy("attached-repo-link").click();
+      cy.dataCy("batch-time-input").should("have.value", 60);
+      cy.dataCy("batch-time-input").clear();
+      clickSave();
+      cy.dataCy("batch-time-input").should("have.value", 0);
+      cy.validateToast("success", "Successfully updated repo");
+      cy.visit(origin);
+      cy.dataCy("batch-time-input")
+        .invoke("attr", "placeholder")
+        .should("equal", "0 (Default from repo)");
+      // Check if clearing project batch time saves as 0 instead of null
+      cy.visit(getGeneralRoute(project));
+      cy.dataCy("batch-time-input").should("have.value", 60);
       cy.dataCy("batch-time-input").clear();
       clickSave();
       cy.dataCy("batch-time-input").should("have.value", 0);
