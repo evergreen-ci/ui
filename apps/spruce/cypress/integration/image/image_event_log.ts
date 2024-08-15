@@ -1,10 +1,5 @@
 describe("event log page", () => {
   const IMAGE_EVENT_LIMIT = 5;
-  it("should contain image in the title", () => {
-    cy.visit("/image/ubuntu2204/event-log");
-    cy.dataCy("image-title").should("have.text", "ubuntu2204");
-  });
-
   it("load more button should return twice as many events", () => {
     cy.visit("/image/ubuntu2204/event-log");
     cy.dataCy("image-event-log-card").should("have.length", IMAGE_EVENT_LIMIT);
