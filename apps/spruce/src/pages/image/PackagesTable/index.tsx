@@ -103,7 +103,7 @@ export const PackagesTable: React.FC = () => {
   return (
     <>
       <SettingsCardTitle>Packages</SettingsCardTitle>
-      <SettingsCard>
+      <SettingsCard data-cy="packages-table-card">
         <BaseTable table={table} shouldAlternateRowColor />
         <PaginationWrapper>
           <Pagination
