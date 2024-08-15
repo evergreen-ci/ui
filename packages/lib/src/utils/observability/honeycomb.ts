@@ -5,12 +5,13 @@ import { detectGraphqlQuery } from "./utils";
 interface HoneycombConfig {
   serviceName: string;
   endpoint: string;
-  uiUrl: string;
+  backendURL?: string;
   debug: boolean;
   apiKey: string;
 }
 const initializeHoneycomb = ({
   apiKey,
+  backendURL,
   debug,
   serviceName,
 }: HoneycombConfig) => {
@@ -41,7 +42,7 @@ const initializeHoneycomb = ({
             },
 
             // Allow connecting frontend & backend traces.
-            // propagateTraceHeaderCorsUrls: [new RegExp(getUiUrl())],
+            propagateTraceHeaderCorsUrls: [backendURL || ""],
           },
           "@opentelemetry/instrumentation-document-load": {
             ignoreNetworkEvents: true,

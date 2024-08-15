@@ -1,17 +1,16 @@
 import React from "react";
-import { initializeHoneycomb } from "@evg-ui/lib/utils/observability";
 import ReactDOM from "react-dom/client";
+import { initializeHoneycomb } from "@evg-ui/lib/utils/observability";
 import { initializeErrorHandling } from "components/ErrorHandling";
-import { getUiUrl } from "utils/environmentVariables";
+import { isDevelopmentBuild } from "utils/environmentVariables";
 import App from "./App";
 
 initializeErrorHandling();
 initializeHoneycomb({
   serviceName: "spruce",
-  debug: true,
+  debug: isDevelopmentBuild(),
   endpoint: process.env.HONEYCOMB_ENDPOINT || "",
-  uiUrl: getUiUrl(),
-  apiKey: process.env.HONEYCOMB_API_KEY || "",
+  apiKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
