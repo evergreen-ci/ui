@@ -15,18 +15,14 @@ import {
 import { ApolloMock } from "types/gql";
 import { PackagesTable } from ".";
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider
-    mocks={[imagePackagesPageOneMock, imagePackagesNameFilterMock]}
-  >
-    {children}
-  </MockedProvider>
-);
-
 describe("packages table", () => {
   it("shows name field data", async () => {
-    const { Component } = RenderFakeToastContext(<PackagesTable />);
-    render(<Component />, { wrapper });
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[imagePackagesPageOneMock]}>
+        <PackagesTable />
+      </MockedProvider>,
+    );
+    render(<Component />);
     await waitFor(() => {
       expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
     });
@@ -43,9 +39,7 @@ describe("packages table", () => {
       "certifi",
       "chardet",
     ];
-
     const rows = within(card).getAllByDataCy("packages-table-row");
-
     for (let i = 0; i < expectedNames.length; i++) {
       expect(within(rows[i]).getAllByRole("cell")[0]).toHaveTextContent(
         expectedNames[i],
@@ -54,15 +48,17 @@ describe("packages table", () => {
   });
 
   it("shows manager field data", async () => {
-    const { Component } = RenderFakeToastContext(<PackagesTable />);
-    render(<Component />, { wrapper });
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[imagePackagesPageOneMock]}>
+        <PackagesTable />
+      </MockedProvider>,
+    );
+    render(<Component />);
     await waitFor(() => {
       expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
     });
     const card = screen.getByDataCy("packages-table-card");
-
     const rows = within(card).getAllByDataCy("packages-table-row");
-
     for (let i = 0; i < 10; i++) {
       expect(within(rows[i]).getAllByRole("cell")[1]).toHaveTextContent(
         "pip 22.0.2 from (python 3.10)",
@@ -71,8 +67,12 @@ describe("packages table", () => {
   });
 
   it("shows version field data", async () => {
-    const { Component } = RenderFakeToastContext(<PackagesTable />);
-    render(<Component />, { wrapper });
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[imagePackagesPageOneMock]}>
+        <PackagesTable />
+      </MockedProvider>,
+    );
+    render(<Component />);
     await waitFor(() => {
       expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
     });
@@ -89,9 +89,7 @@ describe("packages table", () => {
       "2020.6.20",
       "4.0.0",
     ];
-
     const rows = within(card).getAllByDataCy("packages-table-row");
-
     for (let i = 0; i < expectedNames.length; i++) {
       expect(within(rows[i]).getAllByRole("cell")[2]).toHaveTextContent(
         expectedNames[i],
@@ -101,8 +99,14 @@ describe("packages table", () => {
 
   it("supports name filter", async () => {
     const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(<PackagesTable />);
-    render(<Component />, { wrapper });
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider
+        mocks={[imagePackagesPageOneMock, imagePackagesNameFilterMock]}
+      >
+        <PackagesTable />
+      </MockedProvider>,
+    );
+    render(<Component />);
     await waitFor(() => {
       expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
     });
@@ -116,6 +120,28 @@ describe("packages table", () => {
     );
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(1);
+    });
+  });
+
+  it("supports pagination", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider
+        mocks={[imagePackagesPageOneMock, imagePackagesPageTwoMock]}
+      >
+        <PackagesTable />
+      </MockedProvider>,
+    );
+    render(<Component />);
+    await waitFor(() => {
+      expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
+    });
+    await user.click(screen.getByTestId("lg-pagination-next-button"));
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(5);
     });
   });
 });
@@ -227,6 +253,60 @@ const imagePackagesNameFilterMock: ApolloMock<
             },
           ],
           filteredCount: 1,
+          totalCount: 15,
+        },
+      },
+    },
+  },
+};
+
+const imagePackagesPageTwoMock: ApolloMock<
+  ImagePackagesQuery,
+  ImagePackagesQueryVariables
+> = {
+  request: {
+    query: IMAGE_PACKAGES,
+    variables: {
+      imageId: "ubuntu2204",
+      opts: {
+        page: 1,
+        limit: 10,
+      },
+    },
+  },
+  result: {
+    data: {
+      image: {
+        id: "ubuntu2204",
+        packages: {
+          data: [
+            {
+              manager: "pip 22.0.2 from (python 3.10)",
+              name: "click",
+              version: "8.0.3",
+            },
+            {
+              manager: "pip 22.0.2 from (python 3.10)",
+              name: "cloud-init",
+              version: "22.3.4",
+            },
+            {
+              manager: "pip 22.0.2 from (python 3.10)",
+              name: "colorama",
+              version: "0.4.4",
+            },
+            {
+              manager: "pip 22.0.2 from (python 3.10)",
+              name: "command-not-found",
+              version: "0.3",
+            },
+            {
+              manager: "pip 22.0.2 from (python 3.10)",
+              name: "configobj",
+              version: "5.0.6",
+            },
+          ],
+          filteredCount: 15,
           totalCount: 15,
         },
       },

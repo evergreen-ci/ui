@@ -40,8 +40,8 @@ export const PackagesTable: React.FC = () => {
       opts: {
         page: pagination.pageIndex,
         limit: pagination.pageSize,
-        // @ts-expect-error
-        name: columnFilters.find((filter) => filter.id === "name")?.value,
+        name: columnFilters.find((filter) => filter.id === "name")
+          ?.value as string,
       },
     },
     onError(err) {
