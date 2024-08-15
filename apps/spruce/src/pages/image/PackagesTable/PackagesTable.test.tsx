@@ -15,18 +15,27 @@ import {
 import { ApolloMock } from "types/gql";
 import { PackagesTable } from ".";
 
+const wrapper = ({ children }: { children: React.ReactNode }) => (
+  <MockedProvider
+    mocks={[
+      imagePackagesPageOneMock,
+      imagePackagesNameFilterMock,
+      imagePackagesPageTwoMock,
+    ]}
+  >
+    {children}
+  </MockedProvider>
+);
+
 describe("packages table", () => {
   it("shows name field data", async () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[imagePackagesPageOneMock]}>
-        <PackagesTable />
-      </MockedProvider>,
+      <PackagesTable imageId="ubuntu2204" />,
     );
-    render(<Component />);
+    render(<Component />, { wrapper });
     await waitFor(() => {
-      expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
+      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
-    const card = screen.getByDataCy("packages-table-card");
     const expectedNames = [
       "alabaster",
       "attrs",
@@ -39,7 +48,7 @@ describe("packages table", () => {
       "certifi",
       "chardet",
     ];
-    const rows = within(card).getAllByDataCy("packages-table-row");
+    const rows = screen.getAllByDataCy("packages-table-row");
     for (let i = 0; i < expectedNames.length; i++) {
       expect(within(rows[i]).getAllByRole("cell")[0]).toHaveTextContent(
         expectedNames[i],
@@ -50,15 +59,14 @@ describe("packages table", () => {
   it("shows manager field data", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[imagePackagesPageOneMock]}>
-        <PackagesTable />
+        <PackagesTable imageId="ubuntu2204" />
       </MockedProvider>,
     );
     render(<Component />);
     await waitFor(() => {
-      expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
+      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
-    const card = screen.getByDataCy("packages-table-card");
-    const rows = within(card).getAllByDataCy("packages-table-row");
+    const rows = screen.getAllByDataCy("packages-table-row");
     for (let i = 0; i < 10; i++) {
       expect(within(rows[i]).getAllByRole("cell")[1]).toHaveTextContent(
         "pip 22.0.2 from (python 3.10)",
@@ -69,15 +77,14 @@ describe("packages table", () => {
   it("shows version field data", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[imagePackagesPageOneMock]}>
-        <PackagesTable />
+        <PackagesTable imageId="ubuntu2204" />
       </MockedProvider>,
     );
     render(<Component />);
     await waitFor(() => {
-      expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
+      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
-    const card = screen.getByDataCy("packages-table-card");
-    const expectedNames = [
+    const expectedVersions = [
       "0.7.12",
       "21.2.0",
       "20.2.0",
@@ -89,10 +96,10 @@ describe("packages table", () => {
       "2020.6.20",
       "4.0.0",
     ];
-    const rows = within(card).getAllByDataCy("packages-table-row");
-    for (let i = 0; i < expectedNames.length; i++) {
+    const rows = screen.getAllByDataCy("packages-table-row");
+    for (let i = 0; i < expectedVersions.length; i++) {
       expect(within(rows[i]).getAllByRole("cell")[2]).toHaveTextContent(
-        expectedNames[i],
+        expectedVersions[i],
       );
     }
   });
@@ -103,13 +110,10 @@ describe("packages table", () => {
       <MockedProvider
         mocks={[imagePackagesPageOneMock, imagePackagesNameFilterMock]}
       >
-        <PackagesTable />
+        <PackagesTable imageId="ubuntu2204" />
       </MockedProvider>,
     );
     render(<Component />);
-    await waitFor(() => {
-      expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
-    });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
@@ -129,13 +133,10 @@ describe("packages table", () => {
       <MockedProvider
         mocks={[imagePackagesPageOneMock, imagePackagesPageTwoMock]}
       >
-        <PackagesTable />
+        <PackagesTable imageId="ubuntu2204" />
       </MockedProvider>,
     );
     render(<Component />);
-    await waitFor(() => {
-      expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
-    });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });

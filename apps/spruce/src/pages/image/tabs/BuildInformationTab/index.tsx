@@ -13,6 +13,8 @@ export const BuildInformationTab: React.FC<BuildInformationTabProps> = ({
     <SpruceFormContainer title="Distros">
       <DistrosTable imageId={imageId} />
     </SpruceFormContainer>
-    <PackagesTable />
+    <SpruceFormContainer title="Packages">
+      <PackagesTable imageId={imageId} />
+    </SpruceFormContainer>
   </>
 );

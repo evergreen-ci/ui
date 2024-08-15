@@ -7,10 +7,7 @@ import {
   LGColumnDef,
   ColumnFiltersState,
 } from "@leafygreen-ui/table";
-import { useParams } from "react-router-dom";
-import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { BaseTable } from "components/Table/BaseTable";
-import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -19,24 +16,26 @@ import {
   ImagePackagesQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_PACKAGES } from "gql/queries";
-import { useFirstImage } from "hooks";
 
-export const PackagesTable: React.FC = () => {
-  const { [slugs.imageId]: imageId } = useParams();
-  const { image: firstImage } = useFirstImage();
-  const selectedImage = imageId ?? firstImage;
+type PackagesTableProps = {
+  imageId: string;
+};
+
+const PAGE_SIZE = 10;
+
+export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   const dispatchToast = useToastContext();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: PAGE_SIZE,
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const { data: packagesData } = useQuery<
+  const { data: packagesData, loading } = useQuery<
     ImagePackagesQuery,
     ImagePackagesQueryVariables
   >(IMAGE_PACKAGES, {
     variables: {
-      imageId: selectedImage,
+      imageId,
       opts: {
         page: pagination.pageIndex,
         limit: pagination.pageSize,
@@ -106,29 +105,28 @@ export const PackagesTable: React.FC = () => {
 
   return (
     <>
-      <SettingsCardTitle>Packages</SettingsCardTitle>
-      <SettingsCard data-cy="packages-table-card">
-        <BaseTable
-          data-cy-row="packages-table-row"
-          table={table}
-          shouldAlternateRowColor
+      <BaseTable
+        data-cy-row="packages-table-row"
+        table={table}
+        shouldAlternateRowColor
+        loading={loading}
+        loadingRows={PAGE_SIZE}
+      />
+      <PaginationWrapper>
+        <Pagination
+          itemsPerPage={table.getState().pagination.pageSize}
+          onItemsPerPageOptionChange={(value: string) => {
+            table.setPageSize(Number(value));
+          }}
+          numTotalItems={totalNumPackages}
+          currentPage={table.getState().pagination.pageIndex + 1}
+          onCurrentPageOptionChange={(value: string) => {
+            table.setPageIndex(Number(value) - 1);
+          }}
+          onBackArrowClick={() => table.previousPage()}
+          onForwardArrowClick={() => table.nextPage()}
         />
-        <PaginationWrapper>
-          <Pagination
-            itemsPerPage={table.getState().pagination.pageSize}
-            onItemsPerPageOptionChange={(value: string) => {
-              table.setPageSize(Number(value));
-            }}
-            numTotalItems={totalNumPackages}
-            currentPage={table.getState().pagination.pageIndex + 1}
-            onCurrentPageOptionChange={(value: string) => {
-              table.setPageIndex(Number(value) - 1);
-            }}
-            onBackArrowClick={() => table.previousPage()}
-            onForwardArrowClick={() => table.nextPage()}
-          />
-        </PaginationWrapper>
-      </SettingsCard>
+      </PaginationWrapper>
     </>
   );
 };
