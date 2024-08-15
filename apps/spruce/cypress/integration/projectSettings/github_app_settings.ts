@@ -58,7 +58,7 @@ describe("GitHub app settings", () => {
     cy.get("@appId").should("have.value", "12345");
     cy.get("@privateKey").should("have.value", "{REDACTED}");
     cy.get("@appId").should("have.attr", "aria-disabled", "true");
-    cy.get("@privateKey").should("have.attr", "disabled", "");
+    cy.get("@privateKey").should("have.attr", "disabled");
 
     cy.reload();
     cy.dataCy("github-app-credentials-banner").should("not.exist");
