@@ -2,7 +2,13 @@ import { trace } from "@opentelemetry/api";
 import { parseQueryString } from "../utils/query-string";
 import { ActionType, AnalyticsProperties } from "./types";
 
-const sendEventTrace = <A extends ActionType>(
+/**
+ * `sendEventTrace` is a function that sends an event to our analytics provider in the form of a OTEL trace
+ * @param action - The action to send to our analytics provider
+ * @param action.name - The name of the action to send to our analytics provider
+ * @param properties - The properties to send with the event
+ */
+export const sendEventTrace = <A extends ActionType>(
   { name, ...actionProps }: A,
   properties: AnalyticsProperties,
 ) => {
@@ -13,12 +19,10 @@ const sendEventTrace = <A extends ActionType>(
       ...properties,
       ...actionProps,
     });
-    console.log("Sending event trace", name, properties);
+    console.debug("Sending event trace", name, properties);
     span.end();
   });
 };
-
-export { sendEventTrace };
 
 /**
  * `addNewRelicPageAction` is a function that sends an event to our analytics provider
