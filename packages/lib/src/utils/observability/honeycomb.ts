@@ -1,7 +1,6 @@
 import { HoneycombWebSDK } from "@honeycombio/opentelemetry-web";
 import { getWebAutoInstrumentations } from "@opentelemetry/auto-instrumentations-web";
-import { UserInteractionInstrumentation } from "@opentelemetry/instrumentation-user-interaction";
-import { getElementName } from "./utils";
+import { detectGraphqlQuery } from "./utils";
 
 interface HoneycombConfig {
   serviceName: string;
@@ -27,29 +26,25 @@ const initializeHoneycomb = ({
             applyCustomAttributesOnSpan: (span, request) => {
               if (span && request) {
                 const body = request.body as string;
-                const bodyJson = JSON.parse(body);
-                console.log(bodyJson);
-                const { operationName = "Could not detect operation" } =
-                  bodyJson;
-                span.setAttribute("graphql.operation_name", operationName);
-                console.log(span);
+                const graphqlQuery = detectGraphqlQuery(body);
+                if (graphqlQuery) {
+                  span.setAttribute(
+                    "graphql.operation_name",
+                    graphqlQuery.operationName,
+                  );
+                  span.setAttribute(
+                    "graphql.query_type",
+                    graphqlQuery.queryType,
+                  );
+                }
               }
             },
 
             // Allow connecting frontend & backend traces.
             // propagateTraceHeaderCorsUrls: [new RegExp(getUiUrl())],
           },
-        }),
-
-        new UserInteractionInstrumentation({
-          shouldPreventSpanCreation: (event, element, span) => {
-            span.setAttribute("target.id", element.id);
-            span.setAttribute(
-              "target.data-cy",
-              element.getAttribute("data-cy") ?? "no data-cy",
-            );
-
-            span.updateName(`${event}: ${getElementName(element)}`);
+          "@opentelemetry/instrumentation-document-load": {
+            ignoreNetworkEvents: true,
           },
         }),
       ],
