@@ -161,11 +161,11 @@ const generateTasks = () => {
         // Make display tasks
         const e2eTasks = generateParallelE2ETasks(bv);
         tasks.push(...e2eTasks);
-        bvTasks.push(...e2eTasks.map(({ name }) => ({ name }))),
-          displayTasks.push({
-            name: Tasks.E2EParallel,
-            execution_tasks: e2eTasks.map(({ name }) => name),
-          });
+        bvTasks.push(...e2eTasks.map(({ name }) => ({ name })));
+        displayTasks.push({
+          name: Tasks.E2EParallel,
+          execution_tasks: e2eTasks.map(({ name }) => name),
+        });
       } else {
         bvTasks.push({ name });
       }

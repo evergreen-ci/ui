@@ -44,11 +44,11 @@ const getDirs = (dirPath) => {
 };
 
 /**
- * getDirSizes creates a map of directory sizes. The keys represent each subdirectory within dirPath, and the value represents the directory's size. An entry is also added for the root directory size (i.e. the size of all files at root, omitting subdirectories)
+ * getCypressDirSizes creates a map of directory sizes. The keys represent each subdirectory within dirPath, and the value represents the directory's size. An entry is also added for the root directory size (i.e. the size of all files at root, omitting subdirectories)
  * @param {string} dirPath - string representing the root directory path
  * @returns {Object.<string, number>} - mapping of subdirectory path to its size
  */
-const getDirSizes = (dirPath) => {
+const getCypressDirSizes = (dirPath) => {
   const makeRelative = (d) => d.substring(d.indexOf("cypress"));
 
   const dirSizeMap = {};
@@ -64,7 +64,7 @@ const getDirSizes = (dirPath) => {
 };
 
 /**
- * sortDirSizes sorts the {[filepath]: size} map returned by getDirSizes in descending order.
+ * sortDirSizes sorts the {[filepath]: size} map returned by getCypressDirSizes in descending order.
  * @param {Object.<string, number>} dirSizeMap - map of filepath to size
  * @returns {Object.<string, number>} - sorted map
  */
@@ -94,7 +94,7 @@ const bucketSpecs = (specs, bucketCount) => {
  * @returns {Array.<string>} - array of comma-separated specs. Each array entry represents the specs to be run in a parallelized execution task.
  */
 export const getSpecs = (dirPath) => {
-  const dirSizes = getDirSizes(dirPath);
+  const dirSizes = getCypressDirSizes(dirPath);
   const sorted = sortDirSizes(dirSizes);
   const buckets = bucketSpecs(sorted, PARALLEL_COUNT);
   return buckets.map((specs) => specs.join());
