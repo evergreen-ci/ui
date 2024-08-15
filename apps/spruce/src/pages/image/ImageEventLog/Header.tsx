@@ -14,8 +14,10 @@ export const Header: React.FC<Props> = ({ amiAfter, amiBefore, timestamp }) => {
 
   return (
     <StyledHeader>
-      <Subtitle>{getDateCopy(timestamp)}</Subtitle>
-      <Disclaimer>
+      <Subtitle data-cy="event-log-timestamp">
+        {getDateCopy(timestamp)}
+      </Subtitle>
+      <Disclaimer data-cy="event-log-ami">
         AMI changed from {amiBefore} to {amiAfter}
       </Disclaimer>
     </StyledHeader>

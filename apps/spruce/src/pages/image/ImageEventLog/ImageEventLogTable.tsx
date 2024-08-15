@@ -81,11 +81,14 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
     : "No changes detected within the scope. The scope can be expanded upon request from the runtime environments team.";
 
   const emptyComponent = (
-    <DefaultEmptyMessage>{emptyMessage}</DefaultEmptyMessage>
+    <DefaultEmptyMessage data-cy="image-event-log-empty-message">
+      {emptyMessage}
+    </DefaultEmptyMessage>
   );
 
   return (
     <BaseTable
+      data-cy-row="image-event-log-table-row"
       shouldAlternateRowColor
       table={table}
       emptyComponent={emptyComponent}
@@ -99,6 +102,13 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     accessorKey: "name",
     enableColumnFilter: true,
     filterFn: filterFns.includesString,
+    meta: {
+      search: {
+        "data-cy": "image-event-log-name-filter",
+        placeholder: "Search name",
+      },
+      width: "15%",
+    },
   },
   {
     header: "Type",
@@ -111,6 +121,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     filterFn: filterFns.arrIncludesSome,
     meta: {
       treeSelect: {
+        "data-cy": "image-event-log-type-filter",
         filterOptions: false,
         options: imageEventTypeTreeData,
       },
@@ -131,6 +142,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     filterFn: filterFns.arrIncludesSome,
     meta: {
       treeSelect: {
+        "data-cy": "image-event-log-action-filter",
         filterOptions: false,
         options: imageEventEntryActionTreeData,
       },
