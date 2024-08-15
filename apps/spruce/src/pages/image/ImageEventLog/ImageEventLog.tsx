@@ -41,7 +41,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
           </ImageEventLogCard>
         );
       })}
-      {!allEventsFetched && !!events.length && (
+      {!allEventsFetched && events.length > 0 && (
         <LoadingButton
           data-cy="load-more-button"
           loading={loading}

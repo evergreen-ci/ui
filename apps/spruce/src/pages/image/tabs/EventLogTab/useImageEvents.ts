@@ -26,11 +26,7 @@ export const useImageEvents = (
       page,
     },
     notifyOnNetworkStatusChange: true,
-    onCompleted: ({ image }) => {
-      if (image?.events) {
-        onCompleted(image?.events?.count);
-      }
-    },
+    onCompleted: ({ image }) => onCompleted(image?.events?.count ?? 0),
     onError: (e) => {
       dispatchToast.error(e.message);
     },

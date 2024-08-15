@@ -37,7 +37,6 @@ export const cache = new InMemoryCache({
       },
     },
     Image: {
-      keyFields: [],
       fields: {
         events: {
           keyArgs: ["$imageId"],

@@ -80,18 +80,16 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
     ? "No data to display"
     : "No changes detected within the scope. The scope can be expanded upon request from the runtime environments team.";
 
-  const emptyComponent = (
-    <DefaultEmptyMessage data-cy="image-event-log-empty-message">
-      {emptyMessage}
-    </DefaultEmptyMessage>
-  );
-
   return (
     <BaseTable
       data-cy-row="image-event-log-table-row"
       shouldAlternateRowColor
       table={table}
-      emptyComponent={emptyComponent}
+      emptyComponent={
+        <DefaultEmptyMessage data-cy="image-event-log-empty-message">
+          {emptyMessage}
+        </DefaultEmptyMessage>
+      }
     />
   );
 };

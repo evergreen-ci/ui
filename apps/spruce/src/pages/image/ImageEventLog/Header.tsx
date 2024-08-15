@@ -3,13 +3,17 @@ import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { useDateFormat } from "hooks";
 
-interface Props {
+interface HeaderProps {
   amiBefore: string;
   amiAfter: string;
   timestamp: Date;
 }
 
-export const Header: React.FC<Props> = ({ amiAfter, amiBefore, timestamp }) => {
+export const Header: React.FC<HeaderProps> = ({
+  amiAfter,
+  amiBefore,
+  timestamp,
+}) => {
   const getDateCopy = useDateFormat();
 
   return (

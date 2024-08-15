@@ -22,7 +22,9 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe("image event log page", async () => {
   it("does not show a load more button when all events are shown", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -36,7 +38,9 @@ describe("image event log page", async () => {
   });
 
   it("shows proper timestamps", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -58,7 +62,9 @@ describe("image event log page", async () => {
   });
 
   it("shows proper AMI changes", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -81,7 +87,9 @@ describe("image event log page", async () => {
   });
 
   it("shows proper text for cards with empty tables", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
 
     await waitFor(() => {
@@ -122,7 +130,9 @@ describe("image event log page", async () => {
   });
 
   it("shows proper name field table entries", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -142,7 +152,9 @@ describe("image event log page", async () => {
 
   it("supports name field filter", async () => {
     const user = userEvent.setup();
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -172,7 +184,9 @@ describe("image event log page", async () => {
   });
 
   it("shows proper type field table entries", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -187,7 +201,9 @@ describe("image event log page", async () => {
   });
 
   it("supports type field filter", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -218,7 +234,9 @@ describe("image event log page", async () => {
   });
 
   it("shows proper before field table entries", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -235,7 +253,9 @@ describe("image event log page", async () => {
   });
 
   it("shows proper after field table entries", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -252,7 +272,9 @@ describe("image event log page", async () => {
   });
 
   it("shows proper action field table entries", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
@@ -273,7 +295,9 @@ describe("image event log page", async () => {
   });
 
   it("supports filtering for action field", async () => {
-    const { Component } = RenderFakeToastContext(<EventLogTab />);
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
