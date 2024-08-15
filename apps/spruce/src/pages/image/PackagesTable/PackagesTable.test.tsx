@@ -5,12 +5,22 @@ import {
   ImagePackagesQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_PACKAGES } from "gql/queries";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  waitFor,
+  within,
+  userEvent,
+} from "test_utils";
 import { ApolloMock } from "types/gql";
 import { PackagesTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={[imagePackagesPageOneMock]}>{children}</MockedProvider>
+  <MockedProvider
+    mocks={[imagePackagesPageOneMock, imagePackagesNameFilterMock]}
+  >
+    {children}
+  </MockedProvider>
 );
 
 describe("packages table", () => {
@@ -19,6 +29,93 @@ describe("packages table", () => {
     render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
+    });
+    const card = screen.getByDataCy("packages-table-card");
+    const expectedNames = [
+      "alabaster",
+      "attrs",
+      "Automat",
+      "Babel",
+      "bcrypt",
+      "beautifulsoup4",
+      "blinker",
+      "breezy",
+      "certifi",
+      "chardet",
+    ];
+
+    const rows = within(card).getAllByDataCy("packages-table-row");
+
+    for (let i = 0; i < expectedNames.length; i++) {
+      expect(within(rows[i]).getAllByRole("cell")[0]).toHaveTextContent(
+        expectedNames[i],
+      );
+    }
+  });
+
+  it("shows manager field data", async () => {
+    const { Component } = RenderFakeToastContext(<PackagesTable />);
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
+    });
+    const card = screen.getByDataCy("packages-table-card");
+
+    const rows = within(card).getAllByDataCy("packages-table-row");
+
+    for (let i = 0; i < 10; i++) {
+      expect(within(rows[i]).getAllByRole("cell")[1]).toHaveTextContent(
+        "pip 22.0.2 from (python 3.10)",
+      );
+    }
+  });
+
+  it("shows version field data", async () => {
+    const { Component } = RenderFakeToastContext(<PackagesTable />);
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
+    });
+    const card = screen.getByDataCy("packages-table-card");
+    const expectedNames = [
+      "0.7.12",
+      "21.2.0",
+      "20.2.0",
+      "2.8.0",
+      "3.2.0",
+      "4.10.0",
+      "1.4",
+      "3.2.1",
+      "2020.6.20",
+      "4.0.0",
+    ];
+
+    const rows = within(card).getAllByDataCy("packages-table-row");
+
+    for (let i = 0; i < expectedNames.length; i++) {
+      expect(within(rows[i]).getAllByRole("cell")[2]).toHaveTextContent(
+        expectedNames[i],
+      );
+    }
+  });
+
+  it("supports name filter", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(<PackagesTable />);
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.getByDataCy("packages-table-card")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
+    });
+    await user.click(screen.getByDataCy("package-name-filter"));
+    await user.type(
+      screen.getByPlaceholderText("Search name"),
+      "bcrypt{enter}",
+    );
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(1);
     });
   });
 });
@@ -95,6 +192,41 @@ const imagePackagesPageOneMock: ApolloMock<
             },
           ],
           filteredCount: 15,
+          totalCount: 15,
+        },
+      },
+    },
+  },
+};
+
+const imagePackagesNameFilterMock: ApolloMock<
+  ImagePackagesQuery,
+  ImagePackagesQueryVariables
+> = {
+  request: {
+    query: IMAGE_PACKAGES,
+    variables: {
+      imageId: "ubuntu2204",
+      opts: {
+        page: 0,
+        limit: 10,
+        name: "bcrypt",
+      },
+    },
+  },
+  result: {
+    data: {
+      image: {
+        id: "ubuntu2204",
+        packages: {
+          data: [
+            {
+              manager: "pip 22.0.2 from (python 3.10)",
+              name: "bcrypt",
+              version: "3.2.0",
+            },
+          ],
+          filteredCount: 1,
           totalCount: 15,
         },
       },

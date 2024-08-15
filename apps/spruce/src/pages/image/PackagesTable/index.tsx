@@ -65,19 +65,23 @@ export const PackagesTable: React.FC = () => {
     {
       header: "Name",
       accessorKey: "name",
-      cell: ({ getValue }) => <span>{getValue() as string}</span>,
       enableColumnFilter: true,
       filterFn: "includesString",
+      meta: {
+        search: {
+          "data-cy": "package-name-filter",
+          placeholder: "Search name",
+        },
+        width: "15%",
+      },
     },
     {
       header: "Manager",
       accessorKey: "manager",
-      cell: ({ getValue }) => <span>{getValue() as string}</span>,
     },
     {
       header: "Version",
       accessorKey: "version",
-      cell: ({ getValue }) => <span>{getValue() as string}</span>,
     },
   ];
 
@@ -104,7 +108,11 @@ export const PackagesTable: React.FC = () => {
     <>
       <SettingsCardTitle>Packages</SettingsCardTitle>
       <SettingsCard data-cy="packages-table-card">
-        <BaseTable table={table} shouldAlternateRowColor />
+        <BaseTable
+          data-cy-row="packages-table-row"
+          table={table}
+          shouldAlternateRowColor
+        />
         <PaginationWrapper>
           <Pagination
             itemsPerPage={table.getState().pagination.pageSize}
