@@ -159,6 +159,7 @@ describe("image event log page", async () => {
       ).toHaveLength(1);
     });
     await user.clear(screen.getByPlaceholderText("Search name"));
+    await user.type(screen.getByPlaceholderText("Search name"), "{enter}");
     await user.type(
       screen.getByPlaceholderText("Search name"),
       "blahblah{enter}",
