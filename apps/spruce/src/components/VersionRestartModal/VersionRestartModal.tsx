@@ -24,6 +24,7 @@ import {
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatus } from "types/task";
+import { getNumEstimatedActivatedTasks } from "../../utils/tasks/estimatedActivatedTasks";
 import { TaskSchedulingWarningBanner } from "../Banners/TaskSchedulingWarningBanner";
 import VersionTasks from "./VersionTasks";
 
@@ -112,11 +113,10 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   const selectedTotal = selectTasksTotal(selectedTasks || {});
 
   const generatedTaskCounts = version?.generatedTaskCounts ?? {};
-  const estimatedActivatedGeneratedTasksCount =
-    getNumEstimatedActivatedGeneratedTasks(
-      selectedTasks || {},
-      generatedTaskCounts,
-    );
+  const estimatedActivatedTasksCount = getNumEstimatedActivatedTasks(
+    selectedTasks || {},
+    generatedTaskCounts,
+  );
   return (
     <ConfirmationModal
       title="Modify Version"
@@ -175,7 +175,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
             </div>
           )}
           <TaskSchedulingWarningBanner
-            totalTasks={selectedTotal + estimatedActivatedGeneratedTasksCount}
+            totalTasks={estimatedActivatedTasksCount}
           />
           <ConfirmationMessage weight="medium" data-cy="confirmation-message">
             Are you sure you want to restart the {selectedTotal} selected tasks?
@@ -218,29 +218,6 @@ const getTaskIds = (selectedTasks: versionSelectedTasks) =>
       taskIds: selectedArray(tasks),
     }))
     .filter(({ taskIds }) => taskIds.length > 0);
-
-const getNumEstimatedActivatedGeneratedTasks = (
-  selectedTasks: versionSelectedTasks,
-  generatedTaskCounts: { [key: string]: number },
-) =>
-  Object.values(selectedTasks).reduce(
-    (total, selectedTask) =>
-      countEstimatedGeneratedTasks(selectedTask, generatedTaskCounts) + total,
-    0,
-  );
-
-const countEstimatedGeneratedTasks = (
-  selected: selectedStrings,
-  generatedTaskCounts: { [key: string]: number },
-) => {
-  let numEstimatedActivatedGeneratedTasks = 0;
-  Object.keys(selected).forEach((task) => {
-    if (selected[task] && generatedTaskCounts[task]) {
-      numEstimatedActivatedGeneratedTasks += generatedTaskCounts[task];
-    }
-  });
-  return numEstimatedActivatedGeneratedTasks;
-};
 
 const ConfirmationMessage = styled(Body)<BodyProps>`
   padding: ${size.s} 0;

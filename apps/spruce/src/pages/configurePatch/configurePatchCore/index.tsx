@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
+import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { LoadingButton } from "components/Buttons";
 import { CodeChanges } from "components/CodeChanges";
 import {
@@ -39,11 +40,10 @@ import {
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
-import { TaskSchedulingWarningBanner } from "../../../components/Banners/TaskSchedulingWarningBanner";
+import { getNumEstimatedActivatedTasks } from "utils/tasks/estimatedActivatedTasks";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
-import { getNumEstimatedActivatedGeneratedTasks } from "./utils";
 
 interface ConfigurePatchCoreProps {
   patch: ConfigurePatchQuery["patch"];
@@ -155,12 +155,11 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     );
   }
 
-  const estimatedActivatedGeneratedTasksCount =
-    getNumEstimatedActivatedGeneratedTasks(
-      selectedBuildVariantTasks,
-      initialPatch.variantsTasks,
-      patch?.generatedTaskCounts ?? {},
-    );
+  const estimatedActivatedTasksCount = getNumEstimatedActivatedTasks(
+    selectedBuildVariantTasks,
+    patch?.generatedTaskCounts ?? {},
+    initialPatch.variantsTasks,
+  );
 
   return (
     <>
@@ -197,7 +196,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
       </FlexRow>
       <BannerContainer>
         <TaskSchedulingWarningBanner
-          totalTasks={estimatedActivatedGeneratedTasksCount}
+          totalTasks={estimatedActivatedTasksCount}
         />
       </BannerContainer>
       <PageLayout hasSider>

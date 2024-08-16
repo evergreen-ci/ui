@@ -1,6 +1,6 @@
 import Banner from "@leafygreen-ui/banner";
-import { taskSchedulingLimitsDocumentationUrl } from "../../constants/externalResources";
-import { StyledLink } from "../styles";
+import { StyledLink } from "components/styles";
+import { taskSchedulingLimitsDocumentationUrl } from "constants/externalResources";
 
 interface TaskSchedulingWarningBannerProps {
   totalTasks: number;
@@ -11,7 +11,7 @@ export const TaskSchedulingWarningBanner: React.FC<
   TaskSchedulingWarningBannerProps
 > = ({ totalTasks }) =>
   totalTasks >= largeNumFinalizedTasksThreshold ? (
-    <Banner data-cy="disabled-webhook-banner" variant="warning">
+    <Banner variant="warning">
       This is a large operation, expected to schedule {totalTasks} tasks. Please
       confirm that this number of tasks is necessary before continuing. For more
       information, please refer to our{" "}

@@ -16,6 +16,7 @@ import {
 } from "gql/generated/types";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { UNSCHEDULED_TASKS } from "gql/queries";
+import { getNumEstimatedActivatedTasks } from "utils/tasks/estimatedActivatedTasks";
 import { TaskSchedulingWarningBanner } from "../Banners/TaskSchedulingWarningBanner";
 import { initialState, reducer } from "./reducer";
 
@@ -71,11 +72,10 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     dispatch({ type: "ingestData", taskData });
   }, [taskData]);
 
-  const estimatedActivatedGeneratedTasksCount =
-    getNumEstimatedActivatedGeneratedTasks(
-      selectedTasks,
-      taskData?.version?.generatedTaskCounts ?? {},
-    );
+  const estimatedActivatedTasksCount = getNumEstimatedActivatedTasks(
+    selectedTasks,
+    taskData?.version?.generatedTaskCounts ?? {},
+  );
 
   return (
     <ConfirmationModal
@@ -167,9 +167,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
               },
             )}
             <TaskSchedulingWarningBanner
-              totalTasks={
-                selectedTasks.size + estimatedActivatedGeneratedTasksCount
-              }
+              totalTasks={estimatedActivatedTasksCount}
             />
           </>
         )}
@@ -179,19 +177,6 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
       </ContentWrapper>
     </ConfirmationModal>
   );
-};
-
-const getNumEstimatedActivatedGeneratedTasks = (
-  selectedTasks: Set<string>,
-  generatedTaskCounts: { [key: string]: number },
-): number => {
-  let numEstimatedActivatedGeneratedTasks = 0;
-  selectedTasks.forEach((key) => {
-    if (generatedTaskCounts[key]) {
-      numEstimatedActivatedGeneratedTasks += generatedTaskCounts[key];
-    }
-  });
-  return numEstimatedActivatedGeneratedTasks;
 };
 
 // 307px represents the height to subtract to prevent an overflow on the modal
