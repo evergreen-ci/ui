@@ -31,7 +31,7 @@ export const TaskLink: React.FC<TaskLinkProps> = ({
       to={getTaskRoute(taskId)}
       width={linkWidth}
     >
-      {taskId + taskId}
+      {taskId}
     </ShortenedRouterLink>
   );
 };
