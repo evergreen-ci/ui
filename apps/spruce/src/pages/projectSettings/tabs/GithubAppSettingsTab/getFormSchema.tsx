@@ -118,6 +118,7 @@ export const getFormSchema = ({
           "ui:data-cy": "github-private-key-input",
           "ui:disabled": isAppDefined,
           "ui:elementWrapperCSS": appFieldCss,
+          "ui:widget": "textarea",
         },
       },
       actions: {
