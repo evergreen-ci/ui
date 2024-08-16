@@ -1,5 +1,5 @@
 import { ProcessedLogLines } from "types/logs";
-import { isLogRow, isSectionHeaderRow } from "utils/logRowTypes";
+import { isLogRow, isSectionHeaderRow, isSubsectionHeaderRow } from "utils/logRowTypes";
 
 interface searchOptions {
   searchRegex: RegExp;
@@ -39,7 +39,7 @@ const searchLogs = (options: searchOptions): number[] => {
       break;
     }
 
-    if (isSectionHeaderRow(processedLogLine)) {
+    if (isSectionHeaderRow(processedLogLine) || (isSubsectionHeaderRow(processedLogLine) && processedLogLine.isTopLevelCommand)) {
       for (
         let i = processedLogLine.range.start;
         i < processedLogLine.range.end && i <= upperBound;

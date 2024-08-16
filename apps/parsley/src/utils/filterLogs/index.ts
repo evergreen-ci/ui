@@ -80,18 +80,23 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
       for (let idx = 0; idx < logLines.length; idx++) {
         const func = sectionData.functions[funcIndex];
         const isFuncStart = func && idx === func.range.start;
-        const isFuncOpen = sectionState[func?.functionID]?.isOpen ?? false;
+        const isFuncOpen =
+          (sectionState[func?.functionID]?.isOpen || func?.containsTopLevelCommand) ??
+          false;
 
         const command = sectionData.commands[commandIndex];
         const isCommandStart = command && idx === command.range.start;
 
+        // A function start is detected.
         if (isFuncStart) {
-          // A function start is detected.
-          filteredLines.push({
-            ...func,
-            isOpen: isFuncOpen,
-            rowType: RowType.SectionHeader,
-          });
+          // Don't show the function header if contains a top-level command.
+          if (!func.containsTopLevelCommand) {
+            filteredLines.push({
+              ...func,
+              isOpen: isFuncOpen,
+              rowType: RowType.SectionHeader,
+            });
+          }
           funcIndex += 1;
           if (!isFuncOpen) {
             // The function is closed. Skip all log lines until the end of the function.

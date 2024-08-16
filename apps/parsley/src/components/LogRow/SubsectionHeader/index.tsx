@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
+import Icon from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
+import { SectionStatus } from "constants/logs";
 import { size } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { CaretToggle } from "../CaretToggle";
@@ -15,6 +17,7 @@ interface SectionHeaderProps extends Row {
   commandID: string;
   open: boolean;
   step: string;
+  status: SectionStatus | undefined;
 }
 
 const SubsectionHeader: React.FC<SectionHeaderProps> = ({
@@ -22,10 +25,14 @@ const SubsectionHeader: React.FC<SectionHeaderProps> = ({
   commandName,
   functionID,
   open,
+  status,
   step,
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const { sectioning } = useLogContext();
+  const statusGlyph =
+    status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
+  const Wrapper = status ? SectionHeaderWrapper : SubsectionHeaderWrapper;
   return (
     <Wrapper aria-expanded={open} data-cy="section-header">
       <CaretToggle
@@ -44,6 +51,7 @@ const SubsectionHeader: React.FC<SectionHeaderProps> = ({
         }}
         open={open}
       />
+      {status && <Icon fill={gray.dark1} glyph={statusGlyph} />}
       <Body>
         Command: {commandName} (step {step})
       </Body>
@@ -51,7 +59,7 @@ const SubsectionHeader: React.FC<SectionHeaderProps> = ({
   );
 };
 
-const Wrapper = styled.div`
+const SubsectionHeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xs};
@@ -59,6 +67,13 @@ const Wrapper = styled.div`
   padding-left: 48px;
   border-bottom: 1px solid ${gray.light1};
   background-color: ${gray.light2};
+`;
+const SectionHeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xs};
+  padding: ${size.xxs} 0;
+  border-bottom: 1px solid ${gray.light2};
 `;
 
 export default SubsectionHeader;
