@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import {
   PatchQuery,
   PatchQueryVariables,
@@ -27,8 +28,8 @@ export const usePatchAnalytics = (id: string) => {
   });
   const { status } = eventData?.patch || {};
 
-  return useAnalyticsRoot<Action>("Patch", {
-    patchStatus: status,
-    patchId: id,
+  return useAnalyticsRoot<Action, AnalyticsIdentifier>("Patch", {
+    "patch.status": status || "",
+    "patch.id": id,
   });
 };

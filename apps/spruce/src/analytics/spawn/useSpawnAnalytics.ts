@@ -1,5 +1,5 @@
-import { Analytics } from "analytics/addPageAction";
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import {
   EditSpawnHostMutationVariables,
   SpawnHostMutationVariables,
@@ -40,8 +40,5 @@ type Action =
   | { name: "Clicked open IDE button" }
   | { name: "Changed tab"; tab: string };
 
-export const useSpawnAnalytics = () => useAnalyticsRoot<Action>("SpawnPages");
-
-type SpawnHostAnalytics = Analytics<Action>;
-
-export type { SpawnHostAnalytics as Analytics };
+export const useSpawnAnalytics = () =>
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("SpawnPages");

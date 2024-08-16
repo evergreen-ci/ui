@@ -165,7 +165,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="execution-tasks-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
@@ -248,7 +248,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="execution-tasks-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >

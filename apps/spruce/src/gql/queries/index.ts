@@ -1,6 +1,5 @@
 import AGENT_LOGS from "./agent-logs.graphql";
 import ALL_LOGS from "./all-logs.graphql";
-import ANNOTATION_EVENT_DATA from "./annotation-event-data.graphql";
 import AWS_REGIONS from "./aws-regions.graphql";
 import BASE_VERSION_AND_TASK from "./base-version-and-task.graphql";
 import BUILD_BARON_CONFIGURED from "./build-baron-configured.graphql";
@@ -24,6 +23,7 @@ import HAS_VERSION from "./has-version.graphql";
 import HOST_EVENTS from "./host-events.graphql";
 import HOST from "./host.graphql";
 import HOSTS from "./hosts.graphql";
+import IMAGE_DISTROS from "./image-distros.graphql";
 import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
 import IS_PATCH_CONFIGURED from "./is-patch-configured.graphql";
@@ -86,7 +86,6 @@ import VIEWABLE_PROJECTS from "./viewable-projects.graphql";
 export {
   AGENT_LOGS,
   ALL_LOGS,
-  ANNOTATION_EVENT_DATA,
   AWS_REGIONS,
   BASE_VERSION_AND_TASK,
   BUILD_BARON_CONFIGURED,
@@ -110,6 +109,7 @@ export {
   HOST_EVENTS,
   HOST,
   HOSTS,
+  IMAGE_DISTROS,
   IMAGES,
   INSTANCE_TYPES,
   IS_PATCH_CONFIGURED,
