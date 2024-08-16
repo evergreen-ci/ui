@@ -885,6 +885,7 @@ export type Image = {
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
+  operatingSystem: ImageOperatingSystemPayload;
   packages: ImagePackagesPayload;
   toolchains: ImageToolchainsPayload;
   versionId: Scalars["String"]["output"];
@@ -955,6 +956,13 @@ export type ImageEventsPayload = {
   __typename?: "ImageEventsPayload";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<ImageEvent>;
+};
+
+export type ImageOperatingSystemPayload = {
+  __typename?: "ImageOperatingSystemPayload";
+  data: Array<OsInfo>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
 };
 
 export type ImagePackagesPayload = {
