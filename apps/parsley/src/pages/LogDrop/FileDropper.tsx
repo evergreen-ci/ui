@@ -66,8 +66,8 @@ const FileDropper: React.FC = () => {
                   SentryBreadcrumb.UI,
                 );
                 sendEvent({
-                  fileSize: logLines?.length,
-                  logType,
+                  "file.size": logLines?.length,
+                  "log.type": logType,
                   name: "System Event processed uploaded log file",
                 });
                 setFileName(state.file.name);
