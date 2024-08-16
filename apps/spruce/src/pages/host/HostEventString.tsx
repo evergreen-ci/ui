@@ -1,10 +1,9 @@
 import Code from "@leafygreen-ui/code";
 import { Accordion } from "components/Accordion";
-import { ShortenedRouterLink } from "components/styles";
-import { getTaskRoute } from "constants/routes";
 import { HostEventLogData } from "gql/generated/types";
 import { HostEvent, HostMonitorOp } from "types/host";
 import { string } from "utils";
+import { TaskLink } from "./TaskLink";
 
 const { stringifyNanoseconds } = string;
 
@@ -26,20 +25,6 @@ const getTerminationString = (monitorOp: string) => {
       return `${monitorOp}`;
   }
 };
-
-interface TaskLinkProps {
-  "data-cy": string;
-  taskId: string;
-}
-const TaskLink: React.FC<TaskLinkProps> = ({ "data-cy": dataCy, taskId }) => (
-  <ShortenedRouterLink
-    data-cy={dataCy}
-    title={taskId}
-    to={getTaskRoute(taskId)}
-  >
-    {taskId}
-  </ShortenedRouterLink>
-);
 
 interface HostEventStringProps {
   eventType: string;
@@ -230,6 +215,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
             taskId={data.taskId}
             data-cy="host-running-task-cleared-link"
           />
+          )
         </div>
       );
     case HostEvent.HostMonitorFlag:
