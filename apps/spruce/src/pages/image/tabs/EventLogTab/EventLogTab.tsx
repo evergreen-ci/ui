@@ -6,7 +6,7 @@ import {
   buildHostPostConfigRepoURL,
 } from "constants/externalResources";
 import { size } from "constants/tokens";
-import { IMAGE_EVENT_LIMIT } from "pages/image/useEvents";
+import { IMAGE_EVENT_LIMIT } from "pages/image/ImageEventLog";
 import { ImageEventLog } from "../../ImageEventLog";
 import { useImageEvents } from "./useImageEvents";
 
@@ -22,7 +22,6 @@ export const EventLogTab: React.FC<EventLogTabProps> = ({ imageId }) => {
     <>
       <Container>
         <Body>
-          {" "}
           With the exception of static hosts, AMI changes correspond to changes
           in the{" "}
           <StyledLink target="_blank" href={buildHostConfigurationRepoURL}>

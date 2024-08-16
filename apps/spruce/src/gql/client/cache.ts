@@ -1,5 +1,5 @@
 import { InMemoryCache } from "@apollo/client";
-import { IMAGE_EVENT_LIMIT } from "pages/image/useEvents";
+import { IMAGE_EVENT_LIMIT } from "pages/image/ImageEventLog";
 
 export const cache = new InMemoryCache({
   typePolicies: {

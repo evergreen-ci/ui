@@ -885,6 +885,7 @@ export type Image = {
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
+  operatingSystem: ImageOperatingSystemPayload;
   packages: ImagePackagesPayload;
   toolchains: ImageToolchainsPayload;
   versionId: Scalars["String"]["output"];
@@ -897,6 +898,14 @@ export type Image = {
 export type ImageEventsArgs = {
   limit: Scalars["Int"]["input"];
   page: Scalars["Int"]["input"];
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImageOperatingSystemArgs = {
+  opts: OperatingSystemOpts;
 };
 
 /**
@@ -947,6 +956,13 @@ export type ImageEventsPayload = {
   __typename?: "ImageEventsPayload";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<ImageEvent>;
+};
+
+export type ImageOperatingSystemPayload = {
+  __typename?: "ImageOperatingSystemPayload";
+  data: Array<OsInfo>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
 };
 
 export type ImagePackagesPayload = {
@@ -1512,10 +1528,22 @@ export type NotificationsInput = {
   spawnHostOutcome?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type OsInfo = {
+  __typename?: "OSInfo";
+  name: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
 export type OomTrackerInfo = {
   __typename?: "OomTrackerInfo";
   detected: Scalars["Boolean"]["output"];
   pids?: Maybe<Array<Scalars["Int"]["output"]>>;
+};
+
+export type OperatingSystemOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export enum OverallocatedRule {

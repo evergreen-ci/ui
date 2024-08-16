@@ -1,12 +1,13 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
+import { useEvents } from "components/Settings/EventLog";
 import { useToastContext } from "context/toast";
 import {
   ImageEventsQuery,
   ImageEventsQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
-import { IMAGE_EVENT_LIMIT, useEvents } from "pages/image/useEvents";
+import { IMAGE_EVENT_LIMIT } from "pages/image/ImageEventLog";
 
 export const useImageEvents = (
   imageId: string,
@@ -15,7 +16,8 @@ export const useImageEvents = (
 ) => {
   const dispatchToast = useToastContext();
 
-  const { allEventsFetched, onCompleted, setPrevCount } = useEvents();
+  const { allEventsFetched, onCompleted, setPrevCount } =
+    useEvents(IMAGE_EVENT_LIMIT);
   const { data, fetchMore, loading, previousData } = useQuery<
     ImageEventsQuery,
     ImageEventsQueryVariables

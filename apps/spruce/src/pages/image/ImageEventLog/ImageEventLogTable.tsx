@@ -7,6 +7,7 @@ import {
   LGColumnDef,
   filterFns,
   getFilteredRowModel,
+  getFacetedUniqueValues,
 } from "@leafygreen-ui/table";
 import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
@@ -72,6 +73,7 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
       columnFilters,
     },
     getFilteredRowModel: getFilteredRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
   const hasFilters = columnFilters.length > 0;
@@ -120,7 +122,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     meta: {
       treeSelect: {
         "data-cy": "image-event-log-type-filter",
-        filterOptions: false,
+        filterOptions: true,
         options: imageEventTypeTreeData,
       },
     },
@@ -141,7 +143,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     meta: {
       treeSelect: {
         "data-cy": "image-event-log-action-filter",
-        filterOptions: false,
+        filterOptions: true,
         options: imageEventEntryActionTreeData,
       },
     },
