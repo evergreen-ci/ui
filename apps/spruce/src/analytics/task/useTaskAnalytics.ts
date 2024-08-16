@@ -4,7 +4,6 @@ import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 import {
-  SaveSubscriptionForUserMutationVariables,
   TaskQuery,
   TaskQueryVariables,
   TaskSortCategory,
@@ -45,25 +44,30 @@ type Action =
   | { name: "Changed page size" }
   | { name: "Changed tab"; tab: string }
   | { name: "Changed execution" }
-  | { name: "Clicked log link"; logType: LogTypes; logViewer: LogViewer }
-  | { name: "Clicked test log link"; logViewer: LogViewer; testStatus: string }
-  | { name: "Clicked annotation link"; linkText: string }
-  | { name: "Changed log preview type"; logType: LogTypes }
+  | { name: "Clicked log link"; "log.type": LogTypes; "log.viewer": LogViewer }
+  | {
+      name: "Clicked test log link";
+      "log.viewer": LogViewer;
+      "test.status": string;
+    }
+  | { name: "Clicked annotation link"; "link.text": string }
+  | { name: "Changed log preview type"; "log.type": LogTypes }
   | { name: "Viewed notification modal" }
   | {
       name: "Created notification";
-      subscription: SaveSubscriptionForUserMutationVariables["subscription"];
+      "subscription.type": string;
+      "subscription.trigger": string;
     }
   | { name: "Clicked see history link" }
-  | { name: "Clicked metadata link"; linkType: string }
+  | { name: "Clicked metadata link"; "link.type": string }
   | {
       name: "Clicked task file link";
-      parsleyAvailable: boolean;
-      fileName: string;
+      "parsley.available": boolean;
+      "file.name": string;
     }
   | {
       name: "Clicked task file Parsley link";
-      fileName: string;
+      "file.name": string;
     }
   | { name: "Clicked relevant commit"; type: CommitType };
 

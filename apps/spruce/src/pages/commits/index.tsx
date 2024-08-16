@@ -73,8 +73,8 @@ const Commits = () => {
   const sendAnalyticsEvent = (id: string, identifier: string) => {
     sendEvent({
       name: "Redirected to project identifier",
-      projectId: id,
-      projectIdentifier: identifier,
+      "project.id": id,
+      "project.identifier": identifier,
     });
   };
   const { isRedirecting } = useProjectRedirect({

@@ -75,7 +75,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     setQueryParams(updatedParams);
     sendEvent({
       name: "Filtered task duration table",
-      filterBy: Object.keys(filterState),
+      "filter.by": Object.keys(filterState),
     });
   };
 
