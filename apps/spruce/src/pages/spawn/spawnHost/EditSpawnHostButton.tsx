@@ -40,7 +40,7 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
                 setOpenModal(true);
                 spawnAnalytics.sendEvent({
                   name: "Viewed edit spawn host modal",
-                  hostId: host.id,
+                  "host.id": host.id,
                   status: host.status,
                 });
               }}

@@ -36,7 +36,10 @@ export const HostTable: React.FC<{
 
   const handlePageSizeChange = (pageSize: number): void => {
     setLimit(pageSize);
-    hostsTableAnalytics.sendEvent({ name: "Changed page size", pageSize });
+    hostsTableAnalytics.sendEvent({
+      name: "Changed page size",
+      "page.size": pageSize,
+    });
   };
 
   const columns: LGColumnDef<HostEvent>[] = useMemo(

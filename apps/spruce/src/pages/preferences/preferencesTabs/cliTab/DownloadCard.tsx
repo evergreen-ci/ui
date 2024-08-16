@@ -95,7 +95,7 @@ const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
         onClick={() => {
           sendEvent({
             name: "Clicked CLI download link",
-            downloadName: title,
+            "download.name": title,
           });
         }}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -124,8 +124,7 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
           onClick={() => {
             sendEvent({
               name: "Clicked CLI download link",
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              downloadName: binary.displayName,
+              "download.name": binary.displayName || "",
             });
           }}
           key={`link_${binary.url}`}

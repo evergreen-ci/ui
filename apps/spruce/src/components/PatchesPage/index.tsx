@@ -64,9 +64,9 @@ export const PatchesPage: React.FC<Props> = ({
       sendAnalyticsEvent: (filterBy: string) =>
         analytics.sendEvent({
           name: "Filtered for patches",
-          filterBy,
-          includeHidden: includeHiddenCheckboxChecked,
-          includeCommitQueue: isCommitQueueCheckboxChecked,
+          "filter.by": filterBy,
+          "filter.include.hidden": includeHiddenCheckboxChecked,
+          "filter.include.commit.queue": isCommitQueueCheckboxChecked,
         }),
     });
   usePageTitle(pageTitle);
@@ -78,9 +78,9 @@ export const PatchesPage: React.FC<Props> = ({
     Cookies.set(cookie, e.target.checked ? "true" : "false");
     analytics.sendEvent({
       name: "Filtered for patches",
-      filterBy: filterInput,
-      includeHidden: includeHiddenCheckboxChecked,
-      includeCommitQueue: e.target.checked,
+      "filter.by": filterInput,
+      "filter.include.hidden": includeHiddenCheckboxChecked,
+      "filter.include.commit.queue": e.target.checked,
     });
   };
 
@@ -91,9 +91,9 @@ export const PatchesPage: React.FC<Props> = ({
     Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
     analytics.sendEvent({
       name: "Filtered for patches",
-      filterBy: filterInput,
-      includeHidden: e.target.checked,
-      includeCommitQueue: isCommitQueueCheckboxChecked,
+      "filter.by": filterInput,
+      "filter.include.hidden": e.target.checked,
+      "filter.include.commit.queue": isCommitQueueCheckboxChecked,
     });
   };
 

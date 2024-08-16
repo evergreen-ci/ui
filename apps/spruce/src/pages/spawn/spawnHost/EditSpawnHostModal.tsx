@@ -27,7 +27,6 @@ import { EDIT_SPAWN_HOST } from "gql/mutations";
 import { useUserTimeZone } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
-import { omit } from "utils/object";
 
 interface EditSpawnHostModalProps {
   visible?: boolean;
@@ -169,11 +168,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const onSubmit = () => {
     sendEvent({
       name: "Changed spawn host settings",
-      params: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        hostId: host.id,
-        ...omit(mutationParams, ["publicKey"]),
-      },
     });
     editSpawnHostMutation({
       variables: {

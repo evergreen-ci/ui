@@ -48,8 +48,8 @@ export const MountVolumeModal: React.FC<Props> = ({
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Changed mounted volume on host",
-          volumeId: volume.id,
-          hostId: selectedHostId,
+          "volume.id": volume.id,
+          "host.id": selectedHostId,
         });
         attachVolume({
           variables: {

@@ -54,7 +54,7 @@ export const CopyModal: React.FC<Props> = ({ handleClose, open }) => {
     });
     sendEvent({
       name: "Clicked duplicate distro",
-      newDistroId: formState.newDistroId,
+      "distro.id": formState.newDistroId,
     });
     handleClose();
   };

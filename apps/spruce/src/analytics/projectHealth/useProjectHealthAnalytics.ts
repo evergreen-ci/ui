@@ -35,9 +35,9 @@ type Action =
       "project.id": string;
       "project.identifier": string;
     } // "Commit chart"
-  | { name: "Toggled chart view option"; viewOption: string } // "Commit chart"
+  | { name: "Toggled chart view option"; "view.option": string } // "Commit chart"
   | { name: "Toggled folded commit"; toggle: "open" | "close" } // "Variant history" | "Task history"
-  | { name: "Toggled icon view mode"; iconView: ProjectHealthView } // "Commit chart"
+  | { name: "Toggled icon view mode"; "icon.view": ProjectHealthView } // "Commit chart"
   | { name: "Toggled task icon legend"; open: boolean } // "Task history" | "Variant history" | "Commit chart"
   | { name: "Viewed commit chart label tooltip" } // "Commit chart"
   | { name: "Viewed git commit search modal" } // "Commit chart"
