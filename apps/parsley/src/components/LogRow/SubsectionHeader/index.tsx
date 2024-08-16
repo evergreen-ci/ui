@@ -33,8 +33,8 @@ const SubsectionHeader: React.FC<SectionHeaderProps> = ({
           sendEvent({
             name: "Toggled section",
             open: !open,
-            sectionName: commandName,
-            sectionType: "command",
+            "section.name": commandName,
+            "section.type": "command",
           });
           sectioning.toggleCommandSection({
             commandID,

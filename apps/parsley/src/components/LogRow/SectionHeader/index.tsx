@@ -37,8 +37,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           sendEvent({
             name: "Toggled section",
             open: !open,
-            sectionName: functionName,
-            sectionType: "function",
+            "section.name": functionName,
+            "section.type": "function",
           });
           sectioning.toggleFunctionSection({ functionID, isOpen: !open });
         }}
