@@ -58,11 +58,9 @@ describe("packages table", () => {
 
   it("shows manager field data", async () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[imagePackagesPageOneMock]}>
-        <PackagesTable imageId="ubuntu2204" />
-      </MockedProvider>,
+      <PackagesTable imageId="ubuntu2204" />,
     );
-    render(<Component />);
+    render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
@@ -76,11 +74,9 @@ describe("packages table", () => {
 
   it("shows version field data", async () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[imagePackagesPageOneMock]}>
-        <PackagesTable imageId="ubuntu2204" />
-      </MockedProvider>,
+      <PackagesTable imageId="ubuntu2204" />,
     );
-    render(<Component />);
+    render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
@@ -107,13 +103,9 @@ describe("packages table", () => {
   it("supports name filter", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
-      <MockedProvider
-        mocks={[imagePackagesPageOneMock, imagePackagesNameFilterMock]}
-      >
-        <PackagesTable imageId="ubuntu2204" />
-      </MockedProvider>,
+      <PackagesTable imageId="ubuntu2204" />,
     );
-    render(<Component />);
+    render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
@@ -130,13 +122,9 @@ describe("packages table", () => {
   it("supports pagination", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
-      <MockedProvider
-        mocks={[imagePackagesPageOneMock, imagePackagesPageTwoMock]}
-      >
-        <PackagesTable imageId="ubuntu2204" />
-      </MockedProvider>,
+      <PackagesTable imageId="ubuntu2204" />,
     );
-    render(<Component />);
+    render(<Component />, { wrapper });
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
@@ -164,55 +152,67 @@ const imagePackagesPageOneMock: ApolloMock<
   result: {
     data: {
       image: {
+        __typename: "Image",
         id: "ubuntu2204",
         packages: {
+          __typename: "ImagePackagesPayload",
           data: [
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "alabaster",
               version: "0.7.12",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "attrs",
               version: "21.2.0",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "Automat",
               version: "20.2.0",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "Babel",
               version: "2.8.0",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "bcrypt",
               version: "3.2.0",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "beautifulsoup4",
               version: "4.10.0",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "blinker",
               version: "1.4",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "breezy",
               version: "3.2.1",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "certifi",
               version: "2020.6.20",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "chardet",
               version: "4.0.0",
@@ -244,10 +244,13 @@ const imagePackagesNameFilterMock: ApolloMock<
   result: {
     data: {
       image: {
+        __typename: "Image",
         id: "ubuntu2204",
         packages: {
+          __typename: "ImagePackagesPayload",
           data: [
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "bcrypt",
               version: "3.2.0",
@@ -278,30 +281,37 @@ const imagePackagesPageTwoMock: ApolloMock<
   result: {
     data: {
       image: {
+        __typename: "Image",
         id: "ubuntu2204",
         packages: {
+          __typename: "ImagePackagesPayload",
           data: [
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "click",
               version: "8.0.3",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "cloud-init",
               version: "22.3.4",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "colorama",
               version: "0.4.4",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "command-not-found",
               version: "0.3",
             },
             {
+              __typename: "Package",
               manager: "pip 22.0.2 from (python 3.10)",
               name: "configobj",
               version: "5.0.6",

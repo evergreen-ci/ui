@@ -1,14 +1,12 @@
 import { useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
-import Pagination from "@leafygreen-ui/pagination";
 import {
   useLeafyGreenTable,
   LGColumnDef,
   ColumnFiltersState,
 } from "@leafygreen-ui/table";
 import { BaseTable } from "components/Table/BaseTable";
-import { size } from "constants/tokens";
+import { DEFAULT_PAGE_SIZE } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
   Package,
@@ -21,13 +19,11 @@ type PackagesTableProps = {
   imageId: string;
 };
 
-const PAGE_SIZE = 10;
-
 export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   const dispatchToast = useToastContext();
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: PAGE_SIZE,
+    pageSize: DEFAULT_PAGE_SIZE,
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const { data: packagesData, loading } = useQuery<
@@ -55,34 +51,10 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
     [packagesData?.image?.packages.data],
   );
 
-  const totalNumPackages = useMemo(
-    () => packagesData?.image?.packages.totalCount ?? 0,
-    [packagesData?.image?.packages.totalCount],
+  const numPackages = useMemo(
+    () => packagesData?.image?.packages.filteredCount ?? 0,
+    [packagesData?.image?.packages.filteredCount],
   );
-
-  const columns: LGColumnDef<Package>[] = [
-    {
-      header: "Name",
-      accessorKey: "name",
-      enableColumnFilter: true,
-      filterFn: "includesString",
-      meta: {
-        search: {
-          "data-cy": "package-name-filter",
-          placeholder: "Search name",
-        },
-        width: "15%",
-      },
-    },
-    {
-      header: "Manager",
-      accessorKey: "manager",
-    },
-    {
-      header: "Version",
-      accessorKey: "version",
-    },
-  ];
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Package>({
@@ -94,45 +66,53 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
     },
     manualPagination: true,
     manualFiltering: true,
-    rowCount: totalNumPackages,
+    rowCount: numPackages,
     state: {
       pagination,
       columnFilters,
     },
     onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,
+    autoResetPageIndex: false,
   });
 
+  if (table.getRowModel().rows.length === 0 && table.getRowCount() !== 0) {
+    table.firstPage();
+  }
+
   return (
-    <>
-      <BaseTable
-        data-cy-row="packages-table-row"
-        table={table}
-        shouldAlternateRowColor
-        loading={loading}
-        loadingRows={PAGE_SIZE}
-      />
-      <PaginationWrapper>
-        <Pagination
-          itemsPerPage={table.getState().pagination.pageSize}
-          onItemsPerPageOptionChange={(value: string) => {
-            table.setPageSize(Number(value));
-          }}
-          numTotalItems={totalNumPackages}
-          currentPage={table.getState().pagination.pageIndex + 1}
-          onCurrentPageOptionChange={(value: string) => {
-            table.setPageIndex(Number(value) - 1);
-          }}
-          onBackArrowClick={() => table.previousPage()}
-          onForwardArrowClick={() => table.nextPage()}
-        />
-      </PaginationWrapper>
-    </>
+    <BaseTable
+      data-cy-row="packages-table-row"
+      table={table}
+      shouldAlternateRowColor
+      loading={loading}
+      loadingRows={pagination.pageSize}
+      pagination
+      total={numPackages}
+    />
   );
 };
 
-const PaginationWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: ${size.xs};
-`;
+const columns: LGColumnDef<Package>[] = [
+  {
+    header: "Name",
+    accessorKey: "name",
+    enableColumnFilter: true,
+    filterFn: "includesString",
+    meta: {
+      search: {
+        "data-cy": "package-name-filter",
+        placeholder: "Search name",
+      },
+      width: "15%",
+    },
+  },
+  {
+    header: "Manager",
+    accessorKey: "manager",
+  },
+  {
+    header: "Version",
+    accessorKey: "version",
+  },
+];

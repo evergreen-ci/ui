@@ -1,6 +1,7 @@
 import { ForwardedRef, forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
+import Pagination from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
 import {
   Cell,
@@ -57,6 +58,9 @@ type SpruceTableProps = {
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
+  pagination?: boolean;
+  /** number of total rows the table will have */
+  total?: number;
   /** rows that will have a blue tint to represent that they are selected */
   selectedRowIndexes?: number[];
 };
@@ -69,8 +73,10 @@ export const BaseTable = forwardRef(
       emptyComponent,
       loading,
       loadingRows = 5,
+      pagination = false,
       selectedRowIndexes = [],
       table,
+      total,
       ...args
     }: SpruceTableProps & TableProps<any>,
     ref: ForwardedRef<HTMLDivElement>,
@@ -177,6 +183,23 @@ export const BaseTable = forwardRef(
           (emptyComponent || (
             <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
           ))}
+        {pagination && table && (
+          <PaginationWrapper>
+            <Pagination
+              itemsPerPage={table.getState().pagination.pageSize}
+              onItemsPerPageOptionChange={(value: string) => {
+                table.setPageSize(Number(value));
+              }}
+              numTotalItems={total}
+              currentPage={table.getState().pagination.pageIndex + 1}
+              onCurrentPageOptionChange={(value: string) => {
+                table.setPageIndex(Number(value) - 1);
+              }}
+              onBackArrowClick={() => table.previousPage()}
+              onForwardArrowClick={() => table.nextPage()}
+            />
+          </PaginationWrapper>
+        )}
       </>
     );
   },
@@ -253,3 +276,9 @@ const StyledExpandedContent = styled(ExpandedContent)`
     flex-grow: 1;
   }
 ` as typeof ExpandedContent;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: ${size.xs};
+`;
