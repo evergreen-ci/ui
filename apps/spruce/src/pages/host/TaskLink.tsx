@@ -21,7 +21,8 @@ export const TaskLink: React.FC<TaskLinkProps> = ({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const linkWidth = screenWidth > 1200 ? screenWidth - 1000 : 200;
+  const linkWidth =
+    screenWidth > BREAKPOINT ? screenWidth - BREAKPOINT - MIN_WIDTH : MIN_WIDTH;
 
   return (
     <ShortenedRouterLink
@@ -34,3 +35,6 @@ export const TaskLink: React.FC<TaskLinkProps> = ({
     </ShortenedRouterLink>
   );
 };
+
+const BREAKPOINT = 1200;
+const MIN_WIDTH = 200;
