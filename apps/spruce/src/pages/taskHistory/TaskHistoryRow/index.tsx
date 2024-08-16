@@ -34,33 +34,33 @@ const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
         sendEvent({
           name: "Clicked commit label",
           link: "githash",
-          commitType: "active",
+          "commit.type": "active",
         }),
       onClickFoldedGithash: () =>
         sendEvent({
           name: "Clicked commit label",
           link: "githash",
-          commitType: "inactive",
+          "commit.type": "inactive",
         }),
       onClickUpstreamProject: () => {
         sendEvent({
           name: "Clicked commit label",
           link: "upstream project",
-          commitType: "active",
+          "commit.type": "active",
         });
       },
       onClickJiraTicket: () => {
         sendEvent({
           name: "Clicked commit label",
           link: "jira",
-          commitType: "active",
+          "commit.type": "active",
         });
       },
       onClickFoldedJiraTicket: () => {
         sendEvent({
           name: "Clicked commit label",
           link: "jira",
-          commitType: "inactive",
+          "commit.type": "inactive",
         });
       },
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -112,7 +112,7 @@ const generateColumns = (
             onClick={({ taskStatus }) => {
               sendEvent({
                 name: "Clicked task cell",
-                taskStatus,
+                "task.status": taskStatus,
               });
             }}
             inactive={inactive}

@@ -11,11 +11,11 @@ import { PATCH } from "gql/queries";
 type Action =
   | {
       name: "Filtered downstream tasks table";
-      filterBy: string | string[];
+      "filter.by": string | string[];
     }
   | {
       name: "Sorted downstream tasks table";
-      sortBy: TaskSortCategory | TaskSortCategory[];
+      "sort.by": TaskSortCategory | TaskSortCategory[];
     }
   | { name: "Toggled patch visibility"; hidden: boolean }
   | { name: "Clicked patch reconfigure link" };

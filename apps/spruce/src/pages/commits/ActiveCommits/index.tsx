@@ -29,21 +29,21 @@ export const ActiveCommitLabel: React.FC<ActiveCommitLabelProps> = ({
       onClickGithash={() => {
         sendEvent({
           name: "Clicked commit label",
-          commitType: "active",
+          "commit.type": "active",
           link: "githash",
         });
       }}
       onClickJiraTicket={() => {
         sendEvent({
           name: "Clicked commit label",
-          commitType: "active",
+          "commit.type": "active",
           link: "jira",
         });
       }}
       onClickUpstreamProject={() => {
         sendEvent({
           name: "Clicked commit label",
-          commitType: "active",
+          "commit.type": "active",
           link: "upstream project",
         });
       }}
