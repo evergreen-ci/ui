@@ -108,9 +108,12 @@ export const BaseTable = forwardRef(
                         (meta?.treeSelect ? (
                           <TableFilterPopover
                             data-cy={meta.treeSelect?.["data-cy"]}
-                            onConfirm={(value) =>
-                              header.column.setFilterValue(value)
-                            }
+                            onConfirm={(value) => {
+                              header.column.setFilterValue(value);
+                              if (usePagination && table) {
+                                table.firstPage();
+                              }
+                            }}
                             options={
                               meta.treeSelect?.filterOptions
                                 ? meta.treeSelect.options.filter(
@@ -131,7 +134,7 @@ export const BaseTable = forwardRef(
                             data-cy={meta?.search?.["data-cy"]}
                             onConfirm={(value) => {
                               header.column.setFilterValue(value);
-                              if (table) {
+                              if (usePagination && table) {
                                 table.firstPage();
                               }
                             }}
