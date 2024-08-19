@@ -354,13 +354,16 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
           __typename: "Image",
           id: "ubuntu2204",
           events: {
+            __typename: "ImageEventsPayload",
             count: 5,
             eventLogEntries: [
               {
+                __typename: "ImageEvent",
                 amiAfter: "ami-03bfb241d1718c8a2",
                 amiBefore: "ami-03e245926032896f9",
                 entries: [
                   {
+                    __typename: "ImageEventEntry",
                     // @ts-expect-error: Actual provided input from API does not match ImageEventType.Package type
                     type: "Packages",
                     name: "apache2-bin",
@@ -369,6 +372,7 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                     action: ImageEventEntryAction.Updated,
                   },
                   {
+                    __typename: "ImageEventEntry",
                     // @ts-expect-error: Actual provided input from API does not match ImageEventType.Toolchain type
                     type: "Toolchains",
                     name: "golang",
@@ -377,6 +381,7 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                     action: ImageEventEntryAction.Added,
                   },
                   {
+                    __typename: "ImageEventEntry",
                     // @ts-expect-error: Actual provided input from API does not match ImageEventType.Package type
                     type: "Packages",
                     name: "containerd.io",
@@ -388,24 +393,28 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                 timestamp: new Date("2024-08-07T17:57:00-04:00"),
               },
               {
+                __typename: "ImageEvent",
                 amiAfter: "ami-03e245926032896f9",
                 amiBefore: "ami-03e24592603281234",
                 entries: [],
                 timestamp: new Date("2023-08-07T17:57:00-04:00"),
               },
               {
+                __typename: "ImageEvent",
                 amiAfter: "ami-03e24592603281234",
                 amiBefore: "ami-03e24592603281235",
                 entries: [],
                 timestamp: new Date("2022-08-07T17:57:00-04:00"),
               },
               {
+                __typename: "ImageEvent",
                 amiAfter: "ami-03e24592603281235",
                 amiBefore: "ami-03e24592603281236",
                 entries: [],
                 timestamp: new Date("2021-08-07T17:57:00-04:00"),
               },
               {
+                __typename: "ImageEvent",
                 amiAfter: "ami-03e24592603281236",
                 amiBefore: "ami-03e24592603281237",
                 entries: [],
