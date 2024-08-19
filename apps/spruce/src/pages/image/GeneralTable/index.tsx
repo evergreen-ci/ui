@@ -12,7 +12,7 @@ import {
 import { IMAGE_GENERAL } from "gql/queries";
 import { useDateFormat } from "hooks";
 
-type PropertyValue = {
+type GeneralInfo = {
   property: string;
   value: React.ReactNode;
 };
@@ -38,21 +38,19 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
   const getDateCopy = useDateFormat();
   const image = imageData?.image;
 
-  const tableData = useMemo(() => {
-    if (!image) return [];
-
-    return [
+  const tableData = useMemo(
+    () => [
       {
         property: "Last deployed",
-        value: image.lastDeployed ? getDateCopy(image.lastDeployed) : "N/A",
+        value: image?.lastDeployed ? getDateCopy(image.lastDeployed) : "N/A",
       },
       {
         property: "Amazon Machine Image (AMI)",
-        value: image.ami ?? "N/A",
+        value: image?.ami ?? "N/A",
       },
       {
         property: "Latest task",
-        value: image.latestTask?.id ? (
+        value: image?.latestTask?.id ? (
           <StyledRouterLink to={getTaskRoute(image.latestTask?.id)}>
             <WordBreak>{image.latestTask?.id}</WordBreak>
           </StyledRouterLink>
@@ -62,27 +60,16 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
       },
       {
         property: "Latest task time",
-        value: image.latestTask?.finishTime
+        value: image?.latestTask?.finishTime
           ? getDateCopy(image.latestTask.finishTime)
           : "N/A",
       },
-    ];
-  }, [image, getDateCopy]);
-
-  const columns: LGColumnDef<PropertyValue>[] = [
-    {
-      header: "Property",
-      accessorKey: "property",
-    },
-    {
-      header: "Value",
-      accessorKey: "value",
-      cell: ({ getValue }) => getValue(),
-    },
-  ];
+    ],
+    [image, getDateCopy],
+  );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const table = useLeafyGreenTable<PropertyValue>({
+  const table = useLeafyGreenTable<GeneralInfo>({
     columns,
     data: tableData,
     containerRef: tableContainerRef,
@@ -100,3 +87,15 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
     />
   );
 };
+
+const columns: LGColumnDef<GeneralInfo>[] = [
+  {
+    header: "Property",
+    accessorKey: "property",
+  },
+  {
+    header: "Value",
+    accessorKey: "value",
+    cell: ({ getValue }) => getValue(),
+  },
+];
