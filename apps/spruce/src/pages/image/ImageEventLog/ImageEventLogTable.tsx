@@ -13,7 +13,11 @@ import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { TreeDataEntry } from "components/TreeSelect";
 import { tableColumnOffset } from "constants/tokens";
-import { ImageEventEntry, ImageEventEntryAction } from "gql/generated/types";
+import {
+  ImageEventEntry,
+  ImageEventEntryAction,
+  ImageEventType,
+} from "gql/generated/types";
 
 const imageEventEntryActionTreeData = [
   {
@@ -33,14 +37,14 @@ const imageEventEntryActionTreeData = [
   },
 ];
 
-enum ImageEventTypeV2 {
-  Package = "Packages",
-  Toolchain = "Toolchains",
-}
+// enum ImageEventTypeV2 {
+//   Package = "Packages",
+//   Toolchain = "Toolchains",
+// }
 
 const imageEventTypeToCopy = {
-  [ImageEventTypeV2.Package]: "Package",
-  [ImageEventTypeV2.Toolchain]: "Toolchain",
+  [ImageEventType.Package]: "Package",
+  [ImageEventType.Toolchain]: "Toolchain",
 };
 
 const imageEventTypeTreeData: TreeDataEntry[] = Object.entries(
@@ -114,7 +118,8 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     header: "Type",
     accessorKey: "type",
     cell: ({ getValue }) => {
-      const value = getValue() as ImageEventTypeV2;
+      const value = getValue() as ImageEventType;
+      console.log(value);
       return imageEventTypeToCopy[value] ?? value;
     },
     enableColumnFilter: true,

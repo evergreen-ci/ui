@@ -7,7 +7,8 @@ import {
   ImageEventsQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
-import { IMAGE_EVENT_LIMIT } from "pages/image/ImageEventLog";
+
+export const IMAGE_EVENT_LIMIT = 5;
 
 export const useImageEvents = (
   imageId: string,

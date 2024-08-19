@@ -6,8 +6,8 @@ import {
   buildHostPostConfigRepoURL,
 } from "constants/externalResources";
 import { size } from "constants/tokens";
-import { IMAGE_EVENT_LIMIT } from "pages/image/ImageEventLog";
-import { ImageEventLog } from "../../ImageEventLog";
+import { ImageEventLog } from "pages/image/ImageEventLog";
+import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
 import { useImageEvents } from "./useImageEvents";
 
 type EventLogTabProps = {
