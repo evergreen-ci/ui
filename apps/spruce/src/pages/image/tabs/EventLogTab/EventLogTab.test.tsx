@@ -161,21 +161,15 @@ describe("image event log page", async () => {
     });
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
     await user.click(within(card0).getByDataCy("image-event-log-name-filter"));
-    await user.type(
-      screen.getByPlaceholderText("Search name"),
-      "golang{enter}",
-    );
+    const searchBar = screen.getByPlaceholderText("Search name");
+    await user.type(searchBar, "golang{enter}");
     await waitFor(() => {
       expect(
         within(card0).queryAllByDataCy("image-event-log-table-row"),
       ).toHaveLength(1);
     });
-    await user.clear(screen.getByPlaceholderText("Search name"));
-    await user.type(screen.getByPlaceholderText("Search name"), "{enter}");
-    await user.type(
-      screen.getByPlaceholderText("Search name"),
-      "blahblah{enter}",
-    );
+    await user.clear(searchBar);
+    await user.type(searchBar, "blahblah{enter}");
     await waitFor(() => {
       expect(
         within(card0).queryAllByDataCy("image-event-log-table-row"),
