@@ -9,9 +9,8 @@ import {
   getFilteredRowModel,
   getFacetedUniqueValues,
 } from "@leafygreen-ui/table";
+import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { BaseTable } from "components/Table/BaseTable";
-import { onChangeHandler } from "components/Table/utils";
-import { TreeDataEntry } from "components/TreeSelect";
 import { tableColumnOffset } from "constants/tokens";
 import {
   ImageEventEntry,
@@ -37,19 +36,23 @@ const imageEventEntryActionTreeData = [
   },
 ];
 
-const imageEventTypeToCopy = {
-  [ImageEventType.Package]: "Package",
-  [ImageEventType.Toolchain]: "Toolchain",
-  [ImageEventType.OperatingSystem]: "OS",
-};
-
-const imageEventTypeTreeData: TreeDataEntry[] = Object.entries(
-  imageEventTypeToCopy,
-).map(([key, value]) => ({
-  title: value,
-  value: key,
-  key,
-}));
+const imageEventTypeTreeData = [
+  {
+    title: "Package",
+    value: ImageEventType.Package,
+    key: ImageEventType.Package,
+  },
+  {
+    title: "Toolchain",
+    value: ImageEventType.Toolchain,
+    key: ImageEventType.Toolchain,
+  },
+  {
+    title: "Operating System",
+    value: ImageEventType.OperatingSystem,
+    key: ImageEventType.OperatingSystem,
+  },
+];
 
 interface ImageEventLogTableProps {
   entries: ImageEventEntry[];
@@ -67,8 +70,7 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
     defaultColumn: {
       enableColumnFilter: false,
     },
-    onColumnFiltersChange:
-      onChangeHandler<ColumnFiltersState>(setColumnFilters),
+    onColumnFiltersChange: setColumnFilters,
     state: {
       columnFilters,
     },
@@ -107,7 +109,6 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
         "data-cy": "image-event-log-name-filter",
         placeholder: "Search name",
       },
-      width: "15%",
     },
   },
   {
@@ -115,8 +116,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     accessorKey: "type",
     cell: ({ getValue }) => {
       const value = getValue() as ImageEventType;
-      console.log(value);
-      return imageEventTypeToCopy[value] ?? value;
+      return toSentenceCase(value);
     },
     enableColumnFilter: true,
     filterFn: filterFns.arrIncludesSome,

@@ -59,12 +59,10 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 150%;
+  align-items: left;
 `;
 
 const ImageEventLogCard = styled(Card)`
-  width: 100%;
   margin-bottom: ${size.l};
   padding: ${size.m};
 `;

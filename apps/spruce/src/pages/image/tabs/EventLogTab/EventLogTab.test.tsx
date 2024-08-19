@@ -21,11 +21,11 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={[imageEventsMock]}>{children}</MockedProvider>
 );
 enum Column {
-  Name = "0",
-  Type = "1",
-  Before = "2",
-  After = "3",
-  Action = "4",
+  Name = 0,
+  Type = 1,
+  Before = 2,
+  After = 3,
+  Action = 4,
 }
 
 describe("image event log page", async () => {
@@ -38,7 +38,7 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
 
-    // Do no expect the load more button on the page.
+    // The load more button should not be present on the page because there are no more events.
     await waitFor(() => {
       expect(screen.getByDataCy("load-more-button")).toBeInTheDocument();
     });
@@ -166,7 +166,7 @@ describe("image event log page", async () => {
       ).toHaveLength(1);
     });
 
-    // Filter for blahblah.
+    // Filter for nonexistent item.
     await user.clear(searchBar);
     await user.type(searchBar, "blahblah{enter}");
     await waitFor(() => {
@@ -188,13 +188,13 @@ describe("image event log page", async () => {
     const rows = within(card0).getAllByDataCy("image-event-log-table-row");
 
     // Expect each row to display the correct type.
-    expect(within(rows[0]).getAllByRole("cell")[1]).toHaveTextContent(
+    expect(within(rows[0]).getAllByRole("cell")[Column.Type]).toHaveTextContent(
       "Package",
     );
-    expect(within(rows[1]).getAllByRole("cell")[1]).toHaveTextContent(
+    expect(within(rows[1]).getAllByRole("cell")[Column.Type]).toHaveTextContent(
       "Toolchain",
     );
-    expect(within(rows[2]).getAllByRole("cell")[1]).toHaveTextContent(
+    expect(within(rows[2]).getAllByRole("cell")[Column.Type]).toHaveTextContent(
       "Package",
     );
   });

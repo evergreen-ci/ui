@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
+import { palette } from "@leafygreen-ui/palette";
+import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { StyledLink } from "components/styles";
 import {
   buildHostConfigurationRepoURL,
@@ -9,6 +10,8 @@ import { size } from "constants/tokens";
 import { ImageEventLog } from "pages/image/ImageEventLog";
 import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
 import { useImageEvents } from "./useImageEvents";
+
+const { gray } = palette;
 
 type EventLogTabProps = {
   imageId: string;
@@ -21,7 +24,7 @@ export const EventLogTab: React.FC<EventLogTabProps> = ({ imageId }) => {
   return (
     <>
       <Container>
-        <Body>
+        <StyledBody data-cy="header-text">
           With the exception of static hosts, AMI changes correspond to changes
           in the{" "}
           <StyledLink target="_blank" href={buildHostConfigurationRepoURL}>
@@ -32,7 +35,7 @@ export const EventLogTab: React.FC<EventLogTabProps> = ({ imageId }) => {
             buildhost-post-config
           </StyledLink>{" "}
           repos.
-        </Body>
+        </StyledBody>
       </Container>
       <ImageEventLog
         allEventsFetched={allEventsFetched}
@@ -56,4 +59,9 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${size.l};
+  color: ${gray};
+`;
+
+const StyledBody = styled(Body)<BodyProps>`
+  color: ${gray.base};
 `;

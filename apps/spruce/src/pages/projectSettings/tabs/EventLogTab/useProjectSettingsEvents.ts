@@ -8,7 +8,7 @@ import {
   RepoEventLogsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
-import { EVENT_LIMIT, useEvents } from "hooks/useEvents";
+import { EVENT_LIMIT, useEvents } from "hooks/useEvents/index";
 
 export const useProjectSettingsEvents = (
   projectIdentifier: string,
