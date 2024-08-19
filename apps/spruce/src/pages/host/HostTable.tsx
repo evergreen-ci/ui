@@ -44,9 +44,7 @@ export const HostTable: React.FC<{
       {
         header: "Date",
         accessorKey: "timestamp",
-        cell: ({ getValue }) => (
-          <DateContainer>{getDateCopy(getValue() as Date)}</DateContainer>
-        ),
+        cell: ({ getValue }) => getDateCopy(getValue() as Date),
       },
       {
         header: "Event",
@@ -117,7 +115,4 @@ const TableTitle = styled.div`
 const PaginationWrapper = styled.div`
   display: flex;
   align-items: center;
-`;
-const DateContainer = styled.div`
-  white-space: nowrap;
 `;
