@@ -59,6 +59,26 @@ describe("processLine", () => {
     });
   });
 
+  it("parses out top-level commands", () => {
+    expect(
+      processLine("Running command 'subprocess.exec' (step 9 of 9)."),
+    ).toStrictEqual({
+      commandName: "subprocess.exec",
+      functionName: undefined,
+      status: "Running",
+      step: "9 of 9",
+    });
+    expect(
+      processLine(
+        "Finished command 'subprocess.exec' (step 9 of 9) in 1.72598ms.",
+      ),
+    ).toStrictEqual({
+      commandName: "subprocess.exec",
+      functionName: undefined,
+      status: "Finished",
+      step: "9 of 9",
+    });
+  });
   it("should return null for a log line that does not indicate a section", () => {
     const logLine = "This is a regular log line.";
     expect(processLine(logLine)).toBeNull();
@@ -77,12 +97,14 @@ describe("reduceFn", () => {
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
+          isTopLevelCommand: false,
           range: { end: -1, start: 0 },
           step: "6 of 9",
         },
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-0",
           functionName: "yarn-preview",
           range: { end: -1, start: 0 },
@@ -120,6 +142,7 @@ describe("reduceFn", () => {
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
+          isTopLevelCommand: false,
           range: {
             end: 5,
             start: 0,
@@ -129,6 +152,7 @@ describe("reduceFn", () => {
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-0",
           functionName: "yarn-preview",
           range: {
@@ -196,8 +220,8 @@ describe("parseSections", () => {
       "Running command 'c3' in function 'f-2' (step 1 of 4).",
       "normal log line",
       "Finished command 'c3' in function 'f-2' (step 1 of 4).",
-      "Running command 'c4' in function 'f-2' (step 1 of 4).",
-      "Finished command 'c4' in function 'f-2' (step 1 of 4).",
+      "Running command 'c4' (step 1 of 4).",
+      "Finished command 'c4' (step 1 of 4).",
       "Running command 'c5' in function 'f-3' (step 1 of 4).",
       "normal log line",
       "normal log line",
@@ -242,8 +266,8 @@ describe("parseSections", () => {
         {
           commandID: "command-9",
           commandName: "c4",
-          functionID: "function-6",
-          isTopLevelCommand: false,
+          functionID: "function-9",
+          isTopLevelCommand: true,
           range: {
             end: 11,
             start: 9,
@@ -277,8 +301,17 @@ describe("parseSections", () => {
           functionID: "function-6",
           functionName: "f-2",
           range: {
-            end: 11,
+            end: 9,
             start: 6,
+          },
+        },
+        {
+          containsTopLevelCommand: true,
+          functionID: "function-9",
+          functionName: undefined,
+          range: {
+            end: 11,
+            start: 9,
           },
         },
         {
@@ -322,6 +355,7 @@ describe("parseSections", () => {
           commandID: "command-1",
           commandName: "c1",
           functionID: "function-1",
+          isTopLevelCommand: false,
           range: {
             end: 6,
             start: 1,
@@ -332,6 +366,7 @@ describe("parseSections", () => {
           commandID: "command-6",
           commandName: "c2",
           functionID: "function-1",
+          isTopLevelCommand: false,
           range: {
             end: 8,
             start: 6,
@@ -342,6 +377,7 @@ describe("parseSections", () => {
           commandID: "command-9",
           commandName: "c3",
           functionID: "function-9",
+          isTopLevelCommand: false,
           range: {
             end: 12,
             start: 9,
@@ -352,6 +388,7 @@ describe("parseSections", () => {
           commandID: "command-12",
           commandName: "c4",
           functionID: "function-9",
+          isTopLevelCommand: false,
           range: {
             end: 14,
             start: 12,
@@ -361,6 +398,7 @@ describe("parseSections", () => {
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-1",
           functionName: "f-1",
           range: {
@@ -369,6 +407,7 @@ describe("parseSections", () => {
           },
         },
         {
+          containsTopLevelCommand: false,
           functionID: "function-9",
           functionName: "f-2",
           range: {
