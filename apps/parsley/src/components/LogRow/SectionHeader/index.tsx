@@ -4,6 +4,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
+import { SectionHeaderWrapper } from "components/styles";
 import { SectionStatus } from "constants/logs";
 import { size } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
@@ -52,14 +53,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     </SectionHeaderWrapper>
   );
 };
-
-const SectionHeaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xs};
-  padding: ${size.xxs} 0;
-  border-bottom: 1px solid ${gray.light2};
-`;
 
 const ButtonWrapper = styled.div`
   display: flex;

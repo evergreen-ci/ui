@@ -11,8 +11,10 @@ const SubsectionHeaderStory = () => (
     <SubsectionHeader
       {...SubsectionHeaderProps}
       commandName="shell.exec"
+      isTopLevelCommand={false}
       lineIndex={0}
       open
+      status={undefined}
     />
   </Container>
 );
