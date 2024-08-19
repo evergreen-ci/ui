@@ -81,7 +81,8 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
         const func = sectionData.functions[funcIndex];
         const isFuncStart = func && idx === func.range.start;
         const isFuncOpen =
-          (sectionState[func?.functionID]?.isOpen || func?.containsTopLevelCommand) ??
+          (sectionState[func?.functionID]?.isOpen ||
+            func?.containsTopLevelCommand) ??
           false;
 
         const command = sectionData.commands[commandIndex];

@@ -95,7 +95,8 @@ const reduceFn = (
     const containsTopLevelCommand = currentLine.functionName === undefined;
     const isNewSection =
       functions.length === 0 ||
-      functions[functions.length - 1].functionName !== currentLine.functionName ||
+      functions[functions.length - 1].functionName !==
+        currentLine.functionName ||
       containsTopLevelCommand;
     if (isNewSection) {
       const isPreviousSectionRunning =
@@ -108,10 +109,10 @@ const reduceFn = (
         );
       }
       functions.push({
+        containsTopLevelCommand,
         functionID: `function-${logIndex}`,
         functionName: currentLine.functionName,
         range: { end: ONGOING_ENTRY, start: logIndex },
-        containsTopLevelCommand
       });
     }
     const isPreviousCommandRunning =
@@ -126,9 +127,9 @@ const reduceFn = (
       commandID: `command-${logIndex}`,
       commandName: currentLine.commandName,
       functionID: functions[functions.length - 1].functionID,
+      isTopLevelCommand: containsTopLevelCommand,
       range: { end: ONGOING_ENTRY, start: logIndex },
       step: currentLine.step,
-      isTopLevelCommand: containsTopLevelCommand
     });
   }
   return { commands, functions };

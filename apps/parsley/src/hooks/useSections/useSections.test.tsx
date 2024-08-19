@@ -420,6 +420,7 @@ describe("useSections", () => {
         commandID: "command-1",
         commandName: "c1",
         functionID: "function-1",
+        isTopLevelCommand: false,
         range: {
           end: 6,
           start: 1,
@@ -429,6 +430,7 @@ describe("useSections", () => {
     ],
     functions: [
       {
+        containsTopLevelCommand: false,
         functionID: "function-1",
         functionName: "f-1",
         range: {

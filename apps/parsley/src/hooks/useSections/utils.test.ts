@@ -97,12 +97,14 @@ describe("reduceFn", () => {
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
+          isTopLevelCommand: false,
           range: { end: -1, start: 0 },
           step: "6 of 9",
         },
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-0",
           functionName: "yarn-preview",
           range: { end: -1, start: 0 },
@@ -157,12 +159,14 @@ describe("reduceFn", () => {
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
+          isTopLevelCommand: false,
           range: { end: -1, start: 0 },
           step: "2 of 8",
         },
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-0",
           functionName: "yarn-preview",
           range: { end: -1, start: 0 },
@@ -206,6 +210,7 @@ describe("parseSections", () => {
           commandID: "command-1",
           commandName: "c1",
           functionID: "function-1",
+          isTopLevelCommand: false,
           range: {
             end: 3,
             start: 1,
@@ -216,6 +221,7 @@ describe("parseSections", () => {
           commandID: "command-3",
           commandName: "c2",
           functionID: "function-1",
+          isTopLevelCommand: false,
           range: {
             end: 5,
             start: 3,
@@ -226,6 +232,7 @@ describe("parseSections", () => {
           commandID: "command-6",
           commandName: "c3",
           functionID: "function-6",
+          isTopLevelCommand: false,
           range: {
             end: 9,
             start: 6,
@@ -236,6 +243,7 @@ describe("parseSections", () => {
           commandID: "command-9",
           commandName: "c4",
           functionID: "function-6",
+          isTopLevelCommand: false,
           range: {
             end: 11,
             start: 9,
@@ -246,6 +254,7 @@ describe("parseSections", () => {
           commandID: "command-11",
           commandName: "c5",
           functionID: "function-11",
+          isTopLevelCommand: false,
           range: {
             end: 15,
             start: 11,
@@ -255,6 +264,7 @@ describe("parseSections", () => {
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-1",
           functionName: "f-1",
           range: {
@@ -263,6 +273,7 @@ describe("parseSections", () => {
           },
         },
         {
+          containsTopLevelCommand: false,
           functionID: "function-6",
           functionName: "f-2",
           range: {
@@ -271,6 +282,7 @@ describe("parseSections", () => {
           },
         },
         {
+          containsTopLevelCommand: false,
           functionID: "function-11",
           functionName: "f-3",
           range: {
