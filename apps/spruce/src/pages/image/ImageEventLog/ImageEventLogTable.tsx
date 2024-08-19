@@ -37,14 +37,10 @@ const imageEventEntryActionTreeData = [
   },
 ];
 
-// enum ImageEventTypeV2 {
-//   Package = "Packages",
-//   Toolchain = "Toolchains",
-// }
-
 const imageEventTypeToCopy = {
   [ImageEventType.Package]: "Package",
   [ImageEventType.Toolchain]: "Toolchain",
+  [ImageEventType.OperatingSystem]: "OS",
 };
 
 const imageEventTypeTreeData: TreeDataEntry[] = Object.entries(

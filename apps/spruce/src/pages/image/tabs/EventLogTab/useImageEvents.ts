@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import { useEvents } from "components/Settings/EventLog";
 import { useToastContext } from "context/toast";
 import {
   ImageEventsQuery,
   ImageEventsQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
+import { useEvents } from "hooks/useEvents";
 
 export const IMAGE_EVENT_LIMIT = 5;
 

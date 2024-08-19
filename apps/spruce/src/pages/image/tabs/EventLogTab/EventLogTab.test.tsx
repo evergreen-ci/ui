@@ -1,6 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
+  ImageEventType,
   ImageEventsQuery,
   ImageEventsQueryVariables,
   ImageEventEntryAction,
@@ -19,6 +20,13 @@ import { EventLogTab } from "./EventLogTab";
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={[imageEventsMock]}>{children}</MockedProvider>
 );
+enum Column {
+  Name = "0",
+  Type = "1",
+  Before = "2",
+  After = "3",
+  Action = "4",
+}
 
 describe("image event log page", async () => {
   it("does not show a load more button when all events are shown", async () => {
@@ -29,6 +37,8 @@ describe("image event log page", async () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
+
+    // Do no expect the load more button on the page.
     await waitFor(() => {
       expect(screen.getByDataCy("load-more-button")).toBeInTheDocument();
     });
@@ -46,6 +56,7 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
 
+    // Expect correct timestamps on the page.
     const timestampElements = screen.queryAllByDataCy("event-log-timestamp");
     expect(timestampElements).toHaveLength(5);
     const expectedTimestamps = [
@@ -70,9 +81,9 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
 
+    // Expect correct AMI text on the page.
     const amiElements = screen.queryAllByDataCy("event-log-ami");
     expect(amiElements).toHaveLength(5);
-
     const expectedAmiTexts = [
       "AMI changed from ami-03e245926032896f9 to ami-03bfb241d1718c8a2",
       "AMI changed from ami-03e24592603281234 to ami-03e245926032896f9",
@@ -80,7 +91,6 @@ describe("image event log page", async () => {
       "AMI changed from ami-03e24592603281236 to ami-03e24592603281235",
       "AMI changed from ami-03e24592603281237 to ami-03e24592603281236",
     ];
-
     amiElements.forEach((element, index) => {
       expect(element.textContent?.trim()).toBe(expectedAmiTexts[index]);
     });
@@ -91,7 +101,6 @@ describe("image event log page", async () => {
       <EventLogTab imageId="ubuntu2204" />,
     );
     render(<Component />, { wrapper });
-
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
@@ -99,34 +108,18 @@ describe("image event log page", async () => {
     const expectedEmptyMessage =
       "No changes detected within the scope. The scope can be expanded upon request from the runtime environments team.";
 
-    const card0 = screen.getAllByDataCy("image-event-log-card")[0];
+    const cards = screen.getAllByDataCy("image-event-log-card");
     expect(
-      within(card0).queryByDataCy("image-event-log-empty-message"),
+      within(cards[0]).queryByDataCy("image-event-log-empty-message"),
     ).toBeNull();
 
-    const card1 = screen.getAllByDataCy("image-event-log-card")[1];
-    const emptyMessageElement1 = within(card1).getByDataCy(
-      "image-event-log-empty-message",
-    );
-    expect(emptyMessageElement1).toHaveTextContent(expectedEmptyMessage);
-
-    const card2 = screen.getAllByDataCy("image-event-log-card")[2];
-    const emptyMessageElement2 = within(card2).getByDataCy(
-      "image-event-log-empty-message",
-    );
-    expect(emptyMessageElement2).toHaveTextContent(expectedEmptyMessage);
-
-    const card3 = screen.getAllByDataCy("image-event-log-card")[3];
-    const emptyMessageElement3 = within(card3).getByDataCy(
-      "image-event-log-empty-message",
-    );
-    expect(emptyMessageElement3).toHaveTextContent(expectedEmptyMessage);
-
-    const card4 = screen.getAllByDataCy("image-event-log-card")[4];
-    const emptyMessageElement4 = within(card4).getByDataCy(
-      "image-event-log-empty-message",
-    );
-    expect(emptyMessageElement4).toHaveTextContent(expectedEmptyMessage);
+    // Expects cards to contain the empty message.
+    for (let i = 1; i <= 4; i++) {
+      const emptyMessageElement = within(cards[i]).getByDataCy(
+        "image-event-log-empty-message",
+      );
+      expect(emptyMessageElement).toHaveTextContent(expectedEmptyMessage);
+    }
   });
 
   it("shows proper name field table entries", async () => {
@@ -138,14 +131,16 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
-    const row0 = within(card0).getAllByDataCy("image-event-log-table-row")[0];
-    expect(within(row0).getAllByRole("cell")[0]).toHaveTextContent(
+    const rows = within(card0).getAllByDataCy("image-event-log-table-row");
+
+    // Expect each row of the table to have the correct name.
+    expect(within(rows[0]).getAllByRole("cell")[Column.Name]).toHaveTextContent(
       "apache2-bin",
     );
-    const row1 = within(card0).getAllByDataCy("image-event-log-table-row")[1];
-    expect(within(row1).getAllByRole("cell")[0]).toHaveTextContent("golang");
-    const row2 = within(card0).getAllByDataCy("image-event-log-table-row")[2];
-    expect(within(row2).getAllByRole("cell")[0]).toHaveTextContent(
+    expect(within(rows[1]).getAllByRole("cell")[Column.Name]).toHaveTextContent(
+      "golang",
+    );
+    expect(within(rows[2]).getAllByRole("cell")[Column.Name]).toHaveTextContent(
       "containerd.io",
     );
   });
@@ -162,12 +157,16 @@ describe("image event log page", async () => {
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
     await user.click(within(card0).getByDataCy("image-event-log-name-filter"));
     const searchBar = screen.getByPlaceholderText("Search name");
+
+    // Filter for golang.
     await user.type(searchBar, "golang{enter}");
     await waitFor(() => {
       expect(
         within(card0).queryAllByDataCy("image-event-log-table-row"),
       ).toHaveLength(1);
     });
+
+    // Filter for blahblah.
     await user.clear(searchBar);
     await user.type(searchBar, "blahblah{enter}");
     await waitFor(() => {
@@ -186,12 +185,18 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
-    const row0 = within(card0).getAllByDataCy("image-event-log-table-row")[0];
-    expect(within(row0).getAllByRole("cell")[1]).toHaveTextContent("Package");
-    const row1 = within(card0).getAllByDataCy("image-event-log-table-row")[1];
-    expect(within(row1).getAllByRole("cell")[1]).toHaveTextContent("Toolchain");
-    const row2 = within(card0).getAllByDataCy("image-event-log-table-row")[2];
-    expect(within(row2).getAllByRole("cell")[1]).toHaveTextContent("Package");
+    const rows = within(card0).getAllByDataCy("image-event-log-table-row");
+
+    // Expect each row to display the correct type.
+    expect(within(rows[0]).getAllByRole("cell")[1]).toHaveTextContent(
+      "Package",
+    );
+    expect(within(rows[1]).getAllByRole("cell")[1]).toHaveTextContent(
+      "Toolchain",
+    );
+    expect(within(rows[2]).getAllByRole("cell")[1]).toHaveTextContent(
+      "Package",
+    );
   });
 
   it("supports type field filter", async () => {
@@ -205,21 +210,29 @@ describe("image event log page", async () => {
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
     within(card0).getByDataCy("image-event-log-type-filter").click();
     const treeSelectOptions = await screen.findByDataCy("tree-select-options");
+
+    // Set filter to Toolchain.
     within(treeSelectOptions).getByText("Toolchain").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(1);
     });
+
+    // Clear filter.
     within(treeSelectOptions).getByText("Toolchain").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(3);
     });
+
+    // Set filter to Package.
     within(treeSelectOptions).getByText("Package").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(2);
     });
+
+    // Clear filter.
     within(treeSelectOptions).getByText("Package").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
@@ -236,14 +249,18 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
-    const row0 = within(card0).getAllByDataCy("image-event-log-table-row")[0];
-    expect(within(row0).getAllByRole("cell")[2]).toHaveTextContent(
-      "2.4.52-1ubuntu4.8",
-    );
-    const row1 = within(card0).getAllByDataCy("image-event-log-table-row")[1];
-    expect(within(row1).getAllByRole("cell")[2]).toHaveTextContent("");
-    const row2 = within(card0).getAllByDataCy("image-event-log-table-row")[2];
-    expect(within(row2).getAllByRole("cell")[2]).toHaveTextContent("1.6.28-1");
+    const rows = within(card0).getAllByDataCy("image-event-log-table-row");
+
+    // Expect each row to have the correct before version.
+    expect(
+      within(rows[0]).getAllByRole("cell")[Column.Before],
+    ).toHaveTextContent("2.4.52-1ubuntu4.8");
+    expect(
+      within(rows[1]).getAllByRole("cell")[Column.Before],
+    ).toHaveTextContent("");
+    expect(
+      within(rows[2]).getAllByRole("cell")[Column.Before],
+    ).toHaveTextContent("1.6.28-1");
   });
 
   it("shows proper after field table entries", async () => {
@@ -255,14 +272,18 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
-    const row0 = within(card0).getAllByDataCy("image-event-log-table-row")[0];
-    expect(within(row0).getAllByRole("cell")[3]).toHaveTextContent(
-      "2.4.52-1ubuntu4.10",
-    );
-    const row1 = within(card0).getAllByDataCy("image-event-log-table-row")[1];
-    expect(within(row1).getAllByRole("cell")[3]).toHaveTextContent("go1.21.13");
-    const row2 = within(card0).getAllByDataCy("image-event-log-table-row")[2];
-    expect(within(row2).getAllByRole("cell")[3]).toHaveTextContent("");
+    const rows = within(card0).getAllByDataCy("image-event-log-table-row");
+
+    // Expect each row to have the correct after version.
+    expect(
+      within(rows[0]).getAllByRole("cell")[Column.After],
+    ).toHaveTextContent("2.4.52-1ubuntu4.10");
+    expect(
+      within(rows[1]).getAllByRole("cell")[Column.After],
+    ).toHaveTextContent("go1.21.13");
+    expect(
+      within(rows[2]).getAllByRole("cell")[Column.After],
+    ).toHaveTextContent("");
   });
 
   it("shows proper action field table entries", async () => {
@@ -274,18 +295,18 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
-    const row0 = within(card0).getAllByDataCy("image-event-log-table-row")[0];
-    expect(within(row0).getAllByRole("cell")[4]).toHaveTextContent(
-      ImageEventEntryAction.Updated,
-    );
-    const row1 = within(card0).getAllByDataCy("image-event-log-table-row")[1];
-    expect(within(row1).getAllByRole("cell")[4]).toHaveTextContent(
-      ImageEventEntryAction.Added,
-    );
-    const row2 = within(card0).getAllByDataCy("image-event-log-table-row")[2];
-    expect(within(row2).getAllByRole("cell")[4]).toHaveTextContent(
-      ImageEventEntryAction.Deleted,
-    );
+    const rows = within(card0).getAllByDataCy("image-event-log-table-row");
+
+    // Expect each row to have the correct action.
+    expect(
+      within(rows[0]).getAllByRole("cell")[Column.Action],
+    ).toHaveTextContent(ImageEventEntryAction.Updated);
+    expect(
+      within(rows[1]).getAllByRole("cell")[Column.Action],
+    ).toHaveTextContent(ImageEventEntryAction.Added);
+    expect(
+      within(rows[2]).getAllByRole("cell")[Column.Action],
+    ).toHaveTextContent(ImageEventEntryAction.Deleted);
   });
 
   it("supports filtering for action field", async () => {
@@ -299,31 +320,43 @@ describe("image event log page", async () => {
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
     within(card0).getByDataCy("image-event-log-action-filter").click();
     const treeSelectOptions = await screen.findByDataCy("tree-select-options");
+
+    // Filter for UPDATED field.
     within(treeSelectOptions).getByText("UPDATED").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(1);
     });
+
+    // Clear filter.
     within(treeSelectOptions).getByText("UPDATED").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(3);
     });
+
+    // Filter for ADDED field.
     within(treeSelectOptions).getByText("ADDED").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(1);
     });
+
+    // Clear filter.
     within(treeSelectOptions).getByText("ADDED").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(3);
     });
+
+    // Filter for DELETED field.
     within(treeSelectOptions).getByText("DELETED").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(1);
     });
+
+    // Clear filter.
     within(treeSelectOptions).getByText("DELETED").click();
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
@@ -358,8 +391,7 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                 entries: [
                   {
                     __typename: "ImageEventEntry",
-                    // @ts-expect-error: Actual provided input from API does not match ImageEventType.Package type
-                    type: "Packages",
+                    type: ImageEventType.Package,
                     name: "apache2-bin",
                     before: "2.4.52-1ubuntu4.8",
                     after: "2.4.52-1ubuntu4.10",
@@ -367,8 +399,7 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                   },
                   {
                     __typename: "ImageEventEntry",
-                    // @ts-expect-error: Actual provided input from API does not match ImageEventType.Toolchain type
-                    type: "Toolchains",
+                    type: ImageEventType.Toolchain,
                     name: "golang",
                     before: "",
                     after: "go1.21.13",
@@ -376,8 +407,7 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                   },
                   {
                     __typename: "ImageEventEntry",
-                    // @ts-expect-error: Actual provided input from API does not match ImageEventType.Package type
-                    type: "Packages",
+                    type: ImageEventType.Package,
                     name: "containerd.io",
                     before: "1.6.28-1",
                     after: "",
