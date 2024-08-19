@@ -69,20 +69,17 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
     ];
   }, [image, getDateCopy]);
 
-  const columns: LGColumnDef<PropertyValue>[] = useMemo(
-    () => [
-      {
-        header: "Property",
-        accessorKey: "property",
-      },
-      {
-        header: "Value",
-        accessorKey: "value",
-        cell: ({ getValue }) => getValue(),
-      },
-    ],
-    [],
-  );
+  const columns: LGColumnDef<PropertyValue>[] = [
+    {
+      header: "Property",
+      accessorKey: "property",
+    },
+    {
+      header: "Value",
+      accessorKey: "value",
+      cell: ({ getValue }) => getValue(),
+    },
+  ];
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<PropertyValue>({
