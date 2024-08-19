@@ -4,6 +4,7 @@ import {
   useLeafyGreenTable,
   LGColumnDef,
   ColumnFiltersState,
+  PaginationState,
 } from "@leafygreen-ui/table";
 import { BaseTable } from "components/Table/BaseTable";
 import { DEFAULT_PAGE_SIZE } from "constants/index";
@@ -21,7 +22,7 @@ type PackagesTableProps = {
 
 export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   const dispatchToast = useToastContext();
-  const [pagination, setPagination] = useState({
+  const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: DEFAULT_PAGE_SIZE,
   });
@@ -73,7 +74,6 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
     },
     onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,
-    autoResetPageIndex: false,
   });
 
   if (table.getRowModel().rows.length === 0 && table.getRowCount() !== 0) {
@@ -87,8 +87,8 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
       shouldAlternateRowColor
       loading={loading}
       loadingRows={pagination.pageSize}
-      pagination
-      total={numPackages}
+      usePagination
+      numTotalItems={numPackages}
     />
   );
 };
@@ -104,7 +104,6 @@ const columns: LGColumnDef<Package>[] = [
         "data-cy": "package-name-filter",
         placeholder: "Search name",
       },
-      width: "15%",
     },
   },
   {

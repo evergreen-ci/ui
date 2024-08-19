@@ -36,18 +36,14 @@ describe("packages table", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
-    const expectedNames = [
-      "alabaster",
-      "attrs",
-      "Automat",
-      "Babel",
-      "bcrypt",
-      "beautifulsoup4",
-      "blinker",
-      "breezy",
-      "certifi",
-      "chardet",
-    ];
+    const expectedNames: string[] = [];
+    for (let i = 0; i < 10; i++) {
+      const packageData =
+        imagePackagesPageOneMock.result?.data?.image?.packages.data[i];
+      if (packageData && packageData.name) {
+        expectedNames.push(packageData.name);
+      }
+    }
     const rows = screen.getAllByDataCy("packages-table-row");
     for (let i = 0; i < expectedNames.length; i++) {
       expect(within(rows[i]).getAllByRole("cell")[0]).toHaveTextContent(
@@ -80,18 +76,14 @@ describe("packages table", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
-    const expectedVersions = [
-      "0.7.12",
-      "21.2.0",
-      "20.2.0",
-      "2.8.0",
-      "3.2.0",
-      "4.10.0",
-      "1.4",
-      "3.2.1",
-      "2020.6.20",
-      "4.0.0",
-    ];
+    const expectedVersions: string[] = [];
+    for (let i = 0; i < 10; i++) {
+      const packageData =
+        imagePackagesPageOneMock.result?.data?.image?.packages.data[i];
+      if (packageData && packageData.version) {
+        expectedVersions.push(packageData.version);
+      }
+    }
     const rows = screen.getAllByDataCy("packages-table-row");
     for (let i = 0; i < expectedVersions.length; i++) {
       expect(within(rows[i]).getAllByRole("cell")[2]).toHaveTextContent(

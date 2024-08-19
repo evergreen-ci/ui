@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import Pagination from "@leafygreen-ui/pagination";
@@ -58,9 +58,9 @@ type SpruceTableProps = {
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
-  pagination?: boolean;
-  /** number of total rows the table will have */
-  total?: number;
+  usePagination?: boolean;
+  /** number of total items the table will have */
+  numTotalItems?: number;
   /** rows that will have a blue tint to represent that they are selected */
   selectedRowIndexes?: number[];
 };
@@ -73,10 +73,10 @@ export const BaseTable = forwardRef(
       emptyComponent,
       loading,
       loadingRows = 5,
-      pagination = false,
+      numTotalItems,
       selectedRowIndexes = [],
       table,
-      total,
+      usePagination = false,
       ...args
     }: SpruceTableProps & TableProps<any>,
     ref: ForwardedRef<HTMLDivElement>,
@@ -86,6 +86,18 @@ export const BaseTable = forwardRef(
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const { rows } = table.getRowModel();
     const hasVirtualRows = virtualRows && virtualRows.length > 0;
+
+    // Auto-redirect user to first page when filter applied.
+    useEffect(() => {
+      if (
+        table &&
+        table.getRowModel().rows.length === 0 &&
+        table.getRowCount() !== 0
+      ) {
+        table.firstPage();
+      }
+    }, [table]);
+
     return (
       <>
         <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
@@ -183,22 +195,20 @@ export const BaseTable = forwardRef(
           (emptyComponent || (
             <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
           ))}
-        {pagination && table && (
-          <PaginationWrapper>
-            <Pagination
-              itemsPerPage={table.getState().pagination.pageSize}
-              onItemsPerPageOptionChange={(value: string) => {
-                table.setPageSize(Number(value));
-              }}
-              numTotalItems={total}
-              currentPage={table.getState().pagination.pageIndex + 1}
-              onCurrentPageOptionChange={(value: string) => {
-                table.setPageIndex(Number(value) - 1);
-              }}
-              onBackArrowClick={() => table.previousPage()}
-              onForwardArrowClick={() => table.nextPage()}
-            />
-          </PaginationWrapper>
+        {usePagination && table && (
+          <StyledPagination
+            itemsPerPage={table.getState().pagination.pageSize}
+            onItemsPerPageOptionChange={(value: string) => {
+              table.setPageSize(Number(value));
+            }}
+            numTotalItems={numTotalItems}
+            currentPage={table.getState().pagination.pageIndex + 1}
+            onCurrentPageOptionChange={(value: string) => {
+              table.setPageIndex(Number(value) - 1);
+            }}
+            onBackArrowClick={() => table.previousPage()}
+            onForwardArrowClick={() => table.nextPage()}
+          />
         )}
       </>
     );
@@ -277,7 +287,8 @@ const StyledExpandedContent = styled(ExpandedContent)`
   }
 ` as typeof ExpandedContent;
 
-const PaginationWrapper = styled.div`
+// @ts-expect-error
+const StyledPagination = styled(Pagination)`
   display: flex;
   justify-content: space-between;
   margin-top: ${size.xs};
