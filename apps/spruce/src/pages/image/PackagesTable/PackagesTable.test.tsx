@@ -38,9 +38,7 @@ describe("packages table", () => {
     });
     const expectedNames = (
       imagePackagesPageOneMock.result?.data?.image?.packages.data || []
-    )
-      .slice(0, 10)
-      .map((packageData) => packageData?.name);
+    ).map(({ name }) => name);
 
     const rows = screen.getAllByDataCy("packages-table-row");
     expectedNames.forEach((expectedName, i) => {
@@ -76,9 +74,7 @@ describe("packages table", () => {
     });
     const expectedVersions = (
       imagePackagesPageOneMock.result?.data?.image?.packages.data || []
-    )
-      .slice(0, 10)
-      .map((packageData) => packageData?.version);
+    ).map(({ version }) => version);
 
     const rows = screen.getAllByDataCy("packages-table-row");
     expectedVersions.forEach((expectedVersion, i) => {

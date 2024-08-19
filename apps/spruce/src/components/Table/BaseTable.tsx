@@ -60,9 +60,9 @@ type SpruceTableProps = {
   loadingRows?: number;
   /** number of total items the table will have */
   numTotalItems?: number;
-  usePagination?: boolean;
   /** rows that will have a blue tint to represent that they are selected */
   selectedRowIndexes?: number[];
+  usePagination?: boolean;
 };
 
 export const BaseTable = forwardRef(
@@ -129,9 +129,12 @@ export const BaseTable = forwardRef(
                         ) : (
                           <TableSearchPopover
                             data-cy={meta?.search?.["data-cy"]}
-                            onConfirm={(value) =>
-                              header.column.setFilterValue(value)
-                            }
+                            onConfirm={(value) => {
+                              header.column.setFilterValue(value);
+                              if (table) {
+                                table.firstPage();
+                              }
+                            }}
                             placeholder={meta?.search?.placeholder}
                             value={
                               (header?.column?.getFilterValue() as string) ?? ""

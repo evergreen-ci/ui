@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, useEffect } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -80,23 +80,6 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
     onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,
   });
-
-  // Auto-redirect user to first page when filter applied.
-  useEffect(() => {
-    if (
-      table &&
-      packagesData?.image?.packages.filteredCount &&
-      packagesData?.image?.packages.totalCount &&
-      packagesData?.image?.packages.filteredCount <
-        packagesData?.image?.packages.totalCount
-    ) {
-      table.firstPage();
-    }
-  }, [
-    table,
-    packagesData?.image?.packages.filteredCount,
-    packagesData?.image?.packages.totalCount,
-  ]);
 
   return (
     <BaseTable
