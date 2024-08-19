@@ -36,20 +36,18 @@ describe("packages table", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
-    const expectedNames: string[] = [];
-    for (let i = 0; i < 10; i++) {
-      const packageData =
-        imagePackagesPageOneMock.result?.data?.image?.packages.data[i];
-      if (packageData && packageData.name) {
-        expectedNames.push(packageData.name);
-      }
-    }
+    const expectedNames = (
+      imagePackagesPageOneMock.result?.data?.image?.packages.data || []
+    )
+      .slice(0, 10)
+      .map((packageData) => packageData?.name);
+
     const rows = screen.getAllByDataCy("packages-table-row");
-    for (let i = 0; i < expectedNames.length; i++) {
+    expectedNames.forEach((expectedName, i) => {
       expect(within(rows[i]).getAllByRole("cell")[0]).toHaveTextContent(
-        expectedNames[i],
+        expectedName,
       );
-    }
+    });
   });
 
   it("shows manager field data", async () => {
@@ -76,20 +74,18 @@ describe("packages table", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
-    const expectedVersions: string[] = [];
-    for (let i = 0; i < 10; i++) {
-      const packageData =
-        imagePackagesPageOneMock.result?.data?.image?.packages.data[i];
-      if (packageData && packageData.version) {
-        expectedVersions.push(packageData.version);
-      }
-    }
+    const expectedVersions = (
+      imagePackagesPageOneMock.result?.data?.image?.packages.data || []
+    )
+      .slice(0, 10)
+      .map((packageData) => packageData?.version);
+
     const rows = screen.getAllByDataCy("packages-table-row");
-    for (let i = 0; i < expectedVersions.length; i++) {
+    expectedVersions.forEach((expectedVersion, i) => {
       expect(within(rows[i]).getAllByRole("cell")[2]).toHaveTextContent(
-        expectedVersions[i],
+        expectedVersion,
       );
-    }
+    });
   });
 
   it("supports name filter", async () => {

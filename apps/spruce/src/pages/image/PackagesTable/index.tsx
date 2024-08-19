@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -53,8 +53,13 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   );
 
   const numPackages = useMemo(
-    () => packagesData?.image?.packages.filteredCount ?? 0,
-    [packagesData?.image?.packages.filteredCount],
+    () =>
+      packagesData?.image?.packages.filteredCount ??
+      packagesData?.image?.packages.totalCount,
+    [
+      packagesData?.image?.packages.filteredCount,
+      packagesData?.image?.packages.totalCount,
+    ],
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -76,9 +81,22 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
     onPaginationChange: setPagination,
   });
 
-  if (table.getRowModel().rows.length === 0 && table.getRowCount() !== 0) {
-    table.firstPage();
-  }
+  // Auto-redirect user to first page when filter applied.
+  useEffect(() => {
+    if (
+      table &&
+      packagesData?.image?.packages.filteredCount &&
+      packagesData?.image?.packages.totalCount &&
+      packagesData?.image?.packages.filteredCount <
+        packagesData?.image?.packages.totalCount
+    ) {
+      table.firstPage();
+    }
+  }, [
+    table,
+    packagesData?.image?.packages.filteredCount,
+    packagesData?.image?.packages.totalCount,
+  ]);
 
   return (
     <BaseTable

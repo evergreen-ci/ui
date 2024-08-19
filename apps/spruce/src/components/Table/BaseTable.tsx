@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, useEffect } from "react";
+import { ForwardedRef, forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import Pagination from "@leafygreen-ui/pagination";
@@ -58,9 +58,9 @@ type SpruceTableProps = {
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
-  usePagination?: boolean;
   /** number of total items the table will have */
   numTotalItems?: number;
+  usePagination?: boolean;
   /** rows that will have a blue tint to represent that they are selected */
   selectedRowIndexes?: number[];
 };
@@ -86,18 +86,6 @@ export const BaseTable = forwardRef(
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     const { rows } = table.getRowModel();
     const hasVirtualRows = virtualRows && virtualRows.length > 0;
-
-    // Auto-redirect user to first page when filter applied.
-    useEffect(() => {
-      if (
-        table &&
-        table.getRowModel().rows.length === 0 &&
-        table.getRowCount() !== 0
-      ) {
-        table.firstPage();
-      }
-    }, [table]);
-
     return (
       <>
         <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
@@ -289,7 +277,5 @@ const StyledExpandedContent = styled(ExpandedContent)`
 
 // @ts-expect-error
 const StyledPagination = styled(Pagination)`
-  display: flex;
-  justify-content: space-between;
   margin-top: ${size.xs};
 `;

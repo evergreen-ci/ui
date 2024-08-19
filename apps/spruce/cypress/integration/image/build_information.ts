@@ -6,4 +6,11 @@ describe("build information", () => {
       cy.contains("ubuntu1804-workstation");
     });
   });
+
+  describe("packages", () => {
+    it("should show the corresponding packages", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("packages-table-row").should("have.length", 10);
+    });
+  });
 });
