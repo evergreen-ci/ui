@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { getTaskRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
@@ -54,7 +54,7 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
         property: "Latest task",
         value: image.latestTask?.id ? (
           <StyledRouterLink to={getTaskRoute(image.latestTask?.id)}>
-            {image.latestTask?.id}
+            <WordBreak>{image.latestTask?.id}</WordBreak>
           </StyledRouterLink>
         ) : (
           "N/A"
