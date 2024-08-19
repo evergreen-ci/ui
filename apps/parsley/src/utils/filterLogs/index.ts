@@ -92,9 +92,12 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
         if (isFuncStart) {
           // Don't show the function header if contains a top-level command.
           if (!func.containsTopLevelCommand) {
+            const { functionID, functionName, range } = func;
             filteredLines.push({
-              ...func,
+              functionID,
+              functionName,
               isOpen: isFuncOpen,
+              range,
               rowType: RowType.SectionHeader,
             });
           }
