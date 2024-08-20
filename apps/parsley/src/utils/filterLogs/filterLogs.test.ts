@@ -197,6 +197,75 @@ describe("filterLogs", () => {
         }),
       ).toStrictEqual(someSectionsOpen);
     });
+    it("does not output functions containing a top-level command", () => {
+      expect(
+        filterLogs({
+          ...params,
+          logLines: logsWithTopLevelCommands,
+          sectionData: sectionDataForLogsWithTopLevelCommands,
+          sectionState: {
+            "function-1": {
+              commands: {
+                "command-1": { isOpen: true },
+                "command-6": { isOpen: true },
+              },
+              isOpen: false,
+            },
+            "function-9": {
+              commands: {
+                "command-9": { isOpen: false },
+              },
+              isOpen: true,
+            },
+            "function-12": {
+              commands: {
+                "command-12": { isOpen: true },
+              },
+              isOpen: false,
+            },
+          },
+        }),
+      ).toStrictEqual([
+        0,
+        {
+          functionID: "function-1",
+          functionName: "f-1",
+          isOpen: false,
+          range: {
+            end: 8,
+            start: 1,
+          },
+          rowType: "SectionHeader",
+        },
+        8,
+        {
+          commandID: "command-9",
+          commandName: "c3",
+          functionID: "function-9",
+          isOpen: false,
+          isTopLevelCommand: true,
+          range: {
+            end: 12,
+            start: 9,
+          },
+          rowType: "SubsectionHeader",
+          step: "1 of 4",
+        },
+        {
+          functionID: "function-12",
+          functionName: "f-2",
+          isOpen: false,
+          range: {
+            end: 14,
+            start: 12,
+          },
+          rowType: "SectionHeader",
+        },
+        14,
+        15,
+        16,
+      ]);
+    });
 
     it("all sections closed", () => {
       expect(
@@ -304,6 +373,102 @@ describe("filterLogs", () => {
     "normal log line",
   ];
 
+  const logsWithTopLevelCommands = [
+    "normal log line",
+    "Running command 'c1' in function 'f-1' (step 1 of 4).",
+    "normal log line",
+    "normal log line",
+    "normal log line",
+    "Finished command 'c1' in function 'f-1' (step 1 of 4).",
+    "Running command 'c2' in function 'f-1' (step 1 of 4).",
+    "Finished command 'c2' in function 'f-1' (step 1 of 4).",
+    "normal log line",
+    "Running command 'c3' (step 1 of 4).",
+    "normal log line",
+    "Finished command 'c3' (step 1 of 4).",
+    "Running command 'c4' in function 'f-2' (step 1 of 4).",
+    "Finished command 'c4' in function 'f-2' (step 1 of 4).",
+    "normal log line",
+    "normal log line",
+    "normal log line",
+  ];
+  const sectionDataForLogsWithTopLevelCommands = {
+    commands: [
+      {
+        commandID: "command-1",
+        commandName: "c1",
+        functionID: "function-1",
+        isTopLevelCommand: false,
+        range: {
+          end: 6,
+          start: 1,
+        },
+        step: "1 of 4",
+      },
+      {
+        commandID: "command-6",
+        commandName: "c2",
+        functionID: "function-1",
+        isTopLevelCommand: false,
+        range: {
+          end: 8,
+          start: 6,
+        },
+        step: "1 of 4",
+      },
+      {
+        commandID: "command-9",
+        commandName: "c3",
+        functionID: "function-9",
+        isTopLevelCommand: true,
+        range: {
+          end: 12,
+          start: 9,
+        },
+        step: "1 of 4",
+      },
+      {
+        commandID: "command-12",
+        commandName: "c4",
+        functionID: "function-12",
+        isTopLevelCommand: false,
+        range: {
+          end: 14,
+          start: 12,
+        },
+        step: "1 of 4",
+      },
+    ],
+    functions: [
+      {
+        containsTopLevelCommand: false,
+        functionID: "function-1",
+        functionName: "f-1",
+        range: {
+          end: 8,
+          start: 1,
+        },
+      },
+      {
+        containsTopLevelCommand: true,
+        functionID: "function-9",
+        functionName: undefined,
+        range: {
+          end: 12,
+          start: 9,
+        },
+      },
+      {
+        containsTopLevelCommand: false,
+        functionID: "function-12",
+        functionName: "f-2",
+        range: {
+          end: 14,
+          start: 12,
+        },
+      },
+    ],
+  };
   const step = "1 of 4";
   const sectionData: SectionData = {
     commands: [
