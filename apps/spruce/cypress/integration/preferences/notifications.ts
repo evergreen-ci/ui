@@ -1,5 +1,4 @@
 const pageRoute = "/preferences/notifications";
-
 describe("preferences/notifications", () => {
   describe("global subscription settings", () => {
     it("updating a field should enable the submit button", () => {
@@ -32,18 +31,18 @@ describe("preferences/notifications", () => {
     });
 
     it("shows all of a user's subscriptions and expands with details", () => {
-      cy.dataCy("leafygreen-table-row").should("have.length", 3);
+      cy.dataCy("subscription-row").should("have.length", 3);
 
       cy.dataCy("regex-selectors").should("not.be.visible");
       cy.dataCy("trigger-data").should("not.be.visible");
-      cy.dataCy("leafygreen-table-row")
+      cy.dataCy("subscription-row")
         .eq(0)
         .within(() => {
           cy.get("button").first().click();
         });
       cy.dataCy("regex-selectors").should("be.visible");
       cy.dataCy("trigger-data").should("not.be.visible");
-      cy.dataCy("leafygreen-table-row")
+      cy.dataCy("subscription-row")
         .eq(2)
         .within(() => {
           cy.get("button").first().click();
@@ -53,7 +52,7 @@ describe("preferences/notifications", () => {
     });
 
     it("Shows the selected count in the 'Delete' button", () => {
-      cy.dataCy("leafygreen-table-row")
+      cy.dataCy("subscription-row")
         .eq(0)
         .within(() => {
           cy.get("input[type=checkbox]").check({ force: true });
@@ -78,14 +77,14 @@ describe("preferences/notifications", () => {
 
     describe("Deleting subscriptions", () => {
       it("Deletes a single subscription", () => {
-        cy.dataCy("leafygreen-table-row")
+        cy.dataCy("subscription-row")
           .eq(0)
           .within(() => {
             cy.get("input[type=checkbox]").check({ force: true });
           });
         cy.dataCy("delete-some-button").click();
         cy.validateToast("success", "Deleted 1 subscription.");
-        cy.dataCy("leafygreen-table-row").should("have.length", 2);
+        cy.dataCy("subscription-row").should("have.length", 2);
       });
     });
   });

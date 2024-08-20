@@ -885,6 +885,7 @@ export type Image = {
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
   name: Scalars["String"]["output"];
+  operatingSystem: ImageOperatingSystemPayload;
   packages: ImagePackagesPayload;
   toolchains: ImageToolchainsPayload;
   versionId: Scalars["String"]["output"];
@@ -897,6 +898,14 @@ export type Image = {
 export type ImageEventsArgs = {
   limit: Scalars["Int"]["input"];
   page: Scalars["Int"]["input"];
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImageOperatingSystemArgs = {
+  opts: OperatingSystemOpts;
 };
 
 /**
@@ -939,6 +948,7 @@ export enum ImageEventEntryAction {
 }
 
 export enum ImageEventType {
+  OperatingSystem = "OPERATING_SYSTEM",
   Package = "PACKAGE",
   Toolchain = "TOOLCHAIN",
 }
@@ -947,6 +957,13 @@ export type ImageEventsPayload = {
   __typename?: "ImageEventsPayload";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<ImageEvent>;
+};
+
+export type ImageOperatingSystemPayload = {
+  __typename?: "ImageOperatingSystemPayload";
+  data: Array<OsInfo>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
 };
 
 export type ImagePackagesPayload = {
@@ -1512,10 +1529,22 @@ export type NotificationsInput = {
   spawnHostOutcome?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type OsInfo = {
+  __typename?: "OSInfo";
+  name: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
 export type OomTrackerInfo = {
   __typename?: "OomTrackerInfo";
   detected: Scalars["Boolean"]["output"];
   pids?: Maybe<Array<Scalars["Int"]["output"]>>;
+};
+
+export type OperatingSystemOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export enum OverallocatedRule {
@@ -5589,75 +5618,6 @@ export type AllLogsQuery = {
   } | null;
 };
 
-export type AnnotationEventDataQueryVariables = Exact<{
-  taskId: Scalars["String"]["input"];
-  execution?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type AnnotationEventDataQuery = {
-  __typename?: "Query";
-  task?: {
-    __typename?: "Task";
-    execution: number;
-    id: string;
-    annotation?: {
-      __typename?: "Annotation";
-      id: string;
-      taskExecution: number;
-      taskId: string;
-      webhookConfigured: boolean;
-      createdIssues?: Array<{
-        __typename?: "IssueLink";
-        issueKey?: string | null;
-        url?: string | null;
-        source?: {
-          __typename?: "Source";
-          author: string;
-          requester: string;
-          time: Date;
-        } | null;
-      }> | null;
-      issues?: Array<{
-        __typename?: "IssueLink";
-        issueKey?: string | null;
-        url?: string | null;
-        source?: {
-          __typename?: "Source";
-          author: string;
-          requester: string;
-          time: Date;
-        } | null;
-      }> | null;
-      metadataLinks?: Array<{
-        __typename?: "MetadataLink";
-        text: string;
-        url: string;
-      }> | null;
-      note?: {
-        __typename?: "Note";
-        message: string;
-        source: {
-          __typename?: "Source";
-          author: string;
-          requester: string;
-          time: Date;
-        };
-      } | null;
-      suspectedIssues?: Array<{
-        __typename?: "IssueLink";
-        issueKey?: string | null;
-        url?: string | null;
-        source?: {
-          __typename?: "Source";
-          author: string;
-          requester: string;
-          time: Date;
-        } | null;
-      }> | null;
-    } | null;
-  } | null;
-};
-
 export type AwsRegionsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AwsRegionsQuery = {
@@ -6270,6 +6230,52 @@ export type HostsQuery = {
       } | null;
     }>;
   };
+};
+
+export type ImageDistrosQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+}>;
+
+export type ImageDistrosQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    distros: Array<{
+      __typename?: "Distro";
+      name: string;
+      provider: Provider;
+      providerSettingsList: Array<any>;
+      hostAllocatorSettings: {
+        __typename?: "HostAllocatorSettings";
+        maximumHosts: number;
+      };
+    }>;
+  } | null;
+};
+
+export type ImagePackagesQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: PackageOpts;
+}>;
+
+export type ImagePackagesQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    packages: {
+      __typename?: "ImagePackagesPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{
+        __typename?: "Package";
+        manager: string;
+        name: string;
+        version: string;
+      }>;
+    };
+  } | null;
 };
 
 export type ImagesQueryVariables = Exact<{ [key: string]: never }>;

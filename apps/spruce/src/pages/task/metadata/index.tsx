@@ -34,6 +34,7 @@ import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
 import { string } from "utils";
+import { isFailedTaskStatus } from "utils/statuses";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import ETATimer from "./ETATimer";
@@ -473,20 +474,24 @@ const DetailsDescription = ({
   status: string;
 }) => {
   const MAX_CHAR = 100;
-
+  const isFailingTask = isFailedTaskStatus(status);
   const baseCopy = description || failingCommand;
-  const fullText =
-    status === TaskStatus.Failed
-      ? `${processFailingCommand(baseCopy, isContainerTask)}`
-      : `Command: ${baseCopy}`;
+  const fullText = isFailingTask
+    ? `${processFailingCommand(baseCopy, isContainerTask)}`
+    : `${baseCopy}`;
+
   const shouldTruncate = fullText.length > MAX_CHAR;
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 
   return (
     <MetadataItem>
+      {isFailingTask ? (
+        <StyledB>Failing Command: </StyledB>
+      ) : (
+        <span>Command: </span>
+      )}
       {shouldTruncate ? (
         <>
-          <StyledBody>Failing Command: </StyledBody>
           {truncatedText}{" "}
           <ExpandedText
             align="right"
@@ -534,6 +539,6 @@ const OOMTrackerMessage = styled(MetadataItem)`
   font-weight: 500;
 `;
 
-const StyledBody = styled.b`
+const StyledB = styled.b`
   color: ${red.base};
 `;

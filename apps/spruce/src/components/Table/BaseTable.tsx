@@ -1,6 +1,7 @@
 import { ForwardedRef, forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
+import Pagination from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
 import {
   Cell,
@@ -57,8 +58,11 @@ type SpruceTableProps = {
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
+  /** number of total items the table will have */
+  numTotalItems?: number;
   /** rows that will have a blue tint to represent that they are selected */
   selectedRowIndexes?: number[];
+  usePagination?: boolean;
 };
 
 export const BaseTable = forwardRef(
@@ -69,8 +73,10 @@ export const BaseTable = forwardRef(
       emptyComponent,
       loading,
       loadingRows = 5,
+      numTotalItems,
       selectedRowIndexes = [],
       table,
+      usePagination = false,
       ...args
     }: SpruceTableProps & TableProps<any>,
     ref: ForwardedRef<HTMLDivElement>,
@@ -102,9 +108,12 @@ export const BaseTable = forwardRef(
                         (meta?.treeSelect ? (
                           <TableFilterPopover
                             data-cy={meta.treeSelect?.["data-cy"]}
-                            onConfirm={(value) =>
-                              header.column.setFilterValue(value)
-                            }
+                            onConfirm={(value) => {
+                              header.column.setFilterValue(value);
+                              if (usePagination && table) {
+                                table.firstPage();
+                              }
+                            }}
                             options={
                               meta.treeSelect?.filterOptions
                                 ? meta.treeSelect.options.filter(
@@ -123,9 +132,12 @@ export const BaseTable = forwardRef(
                         ) : (
                           <TableSearchPopover
                             data-cy={meta?.search?.["data-cy"]}
-                            onConfirm={(value) =>
-                              header.column.setFilterValue(value)
-                            }
+                            onConfirm={(value) => {
+                              header.column.setFilterValue(value);
+                              if (usePagination && table) {
+                                table.firstPage();
+                              }
+                            }}
                             placeholder={meta?.search?.placeholder}
                             value={
                               (header?.column?.getFilterValue() as string) ?? ""
@@ -156,6 +168,7 @@ export const BaseTable = forwardRef(
                       key={row.id}
                       virtualRow={vr}
                       isSelected={selectedRowIndexes.includes(row.index)}
+                      dataCyRow={dataCyRow}
                     />
                   );
                 })
@@ -166,6 +179,7 @@ export const BaseTable = forwardRef(
                     // @ts-expect-error: FIXME. This comment was added by an automated script.
                     virtualRow={null}
                     isSelected={selectedRowIndexes.includes(row.index)}
+                    dataCyRow={dataCyRow}
                   />
                 ))}
           </TableBody>
@@ -175,6 +189,21 @@ export const BaseTable = forwardRef(
           (emptyComponent || (
             <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
           ))}
+        {usePagination && table && (
+          <StyledPagination
+            itemsPerPage={table.getState().pagination.pageSize}
+            onItemsPerPageOptionChange={(value: string) => {
+              table.setPageSize(Number(value));
+            }}
+            numTotalItems={numTotalItems}
+            currentPage={table.getState().pagination.pageIndex + 1}
+            onCurrentPageOptionChange={(value: string) => {
+              table.setPageIndex(Number(value) - 1);
+            }}
+            onBackArrowClick={() => table.previousPage()}
+            onForwardArrowClick={() => table.nextPage()}
+          />
+        )}
       </>
     );
   },
@@ -183,17 +212,19 @@ export const BaseTable = forwardRef(
 const cellPaddingStyle = { paddingBottom: size.xxs, paddingTop: size.xxs };
 
 const RenderableRow = <T extends LGRowData>({
+  dataCyRow = "leafygreen-table-row",
   isSelected = false,
   row,
   virtualRow,
 }: {
+  dataCyRow?: string;
   row: LeafyGreenTableRow<T>;
   virtualRow: VirtualItem;
   isSelected?: boolean;
 }) => (
   <Row
     row={row}
-    data-cy="leafygreen-table-row"
+    data-cy={dataCyRow}
     className={css`
       &[aria-hidden="false"] td > div {
         max-height: unset;
@@ -249,3 +280,8 @@ const StyledExpandedContent = styled(ExpandedContent)`
     flex-grow: 1;
   }
 ` as typeof ExpandedContent;
+
+// @ts-expect-error
+const StyledPagination = styled(Pagination)`
+  margin-top: ${size.xs};
+`;

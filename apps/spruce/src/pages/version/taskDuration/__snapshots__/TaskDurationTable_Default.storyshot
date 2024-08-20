@@ -1,6 +1,6 @@
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd862"
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
     tabindex="0"
   >
     <table
@@ -192,7 +192,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
@@ -236,7 +236,7 @@
               </button>
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_model_distro_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_model_distro_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
@@ -316,7 +316,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -393,7 +393,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -463,7 +463,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
@@ -477,7 +477,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_rest_data_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_rest_data_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
@@ -553,7 +553,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-2"
         >
@@ -567,7 +567,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_agent_internal_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_agent_internal_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
@@ -643,7 +643,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-3"
         >
@@ -657,7 +657,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_evergreen_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_evergreen_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
@@ -733,7 +733,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-4"
         >
@@ -747,7 +747,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_model_artifact_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_model_artifact_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
@@ -823,7 +823,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-5"
         >
@@ -837,7 +837,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_thirdparty_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_thirdparty_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
@@ -913,7 +913,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-6"
         >
@@ -927,7 +927,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_model_event_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_model_event_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
@@ -1003,7 +1003,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-7"
         >
@@ -1017,7 +1017,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_model_testresult_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_model_testresult_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
@@ -1093,7 +1093,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-8"
         >
@@ -1107,7 +1107,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_model_alertrecord_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_model_alertrecord_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
@@ -1183,7 +1183,7 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
           data-selected="false"
           id="lg-table-row-9"
         >
@@ -1197,7 +1197,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/evg_ubuntu1604_container_test_model_patch_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18"
+                href="/task/evg_ubuntu1604_container_test_model_patch_fd73e06c7bc6c5dcdf7a671dece0153916e64212_23_01_04_16_01_18?execution=0"
               >
                 <span>
                   <span
