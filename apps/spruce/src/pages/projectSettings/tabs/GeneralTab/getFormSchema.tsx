@@ -95,7 +95,7 @@ export const getFormSchema = (
               batchTime: {
                 type: ["number", "null"],
                 title: "Batch Time",
-                minimum: 1,
+                minimum: 0,
               },
               remotePath: {
                 type: "string" as "string",
@@ -317,8 +317,11 @@ export const getFormSchema = (
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
           "ui:data-cy": "batch-time-input",
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          ...placeholderIf(repoData?.generalConfiguration?.other?.batchTime),
+          ...placeholderIf(
+            repoData?.generalConfiguration?.other?.batchTime === null
+              ? "0"
+              : repoData?.generalConfiguration?.other?.batchTime ?? "",
+          ),
         },
         remotePath: {
           "ui:description":

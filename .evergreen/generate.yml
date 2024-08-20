@@ -23,8 +23,8 @@ tasks:
   - name: generate-tasks
     commands:
       - func: run-generate-tasks
+      - func: attach-generated
       - command: generate.tasks
         params:
           files:
             - ui/.evergreen/generate-tasks.json
-      - func: attach-generated
