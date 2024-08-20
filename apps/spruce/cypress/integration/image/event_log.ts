@@ -10,7 +10,7 @@ describe("event log page", () => {
     );
   });
 
-  it("should show no events when non-existent filter is applied", () => {
+  it("should show no events when filtering for a nonexistent item", () => {
     cy.visit("/image/ubuntu2204/event-log");
     cy.dataCy("image-event-log-card").should("have.length", IMAGE_EVENT_LIMIT);
     cy.dataCy("image-event-log-name-filter").first().click();

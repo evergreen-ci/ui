@@ -10,12 +10,12 @@ import {
 import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
 import { useEvents } from "hooks/useEvents";
 
-const EVENT_LIMIT = 15;
+const PROJECT_EVENT_LIMIT = 15;
 
 export const useProjectSettingsEvents = (
   projectIdentifier: string,
   isRepo: boolean,
-  limit: number = EVENT_LIMIT,
+  limit: number = PROJECT_EVENT_LIMIT,
 ) => {
   const dispatchToast = useToastContext();
 

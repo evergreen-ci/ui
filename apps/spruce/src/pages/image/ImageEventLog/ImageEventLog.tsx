@@ -60,10 +60,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: ${size.l};
 `;
 
 const ImageEventLogCard = styled(Card)`
   width: 100%;
-  margin-bottom: ${size.l};
   padding: ${size.m};
 `;

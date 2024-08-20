@@ -8,11 +8,11 @@ import {
 } from "gql/generated/types";
 import { DISTRO_EVENTS } from "gql/queries";
 
-const EVENT_LIMIT = 15;
+const DISTRO_EVENT_LIMIT = 15;
 
 export const useDistroEvents = (
   distroId: string,
-  limit: number = EVENT_LIMIT,
+  limit: number = DISTRO_EVENT_LIMIT,
 ) => {
   const dispatchToast = useToastContext();
 
