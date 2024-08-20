@@ -1,3 +1,4 @@
+import { SectionStatus } from "constants/logs";
 import * as logContext from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
@@ -18,16 +19,19 @@ describe("SubsectionHeader", () => {
     }));
   });
   it("displays command name", () => {
-    renderWithRouterMatch(<SubsectionHeader {...sectionHeaderProps} />, {
+    renderWithRouterMatch(<SubsectionHeader {...subsectionHeaderProps} />, {
       wrapper,
     });
     expect(screen.getByText("Command: shell.exec (step 1 of 4)")).toBeVisible();
   });
 
   it("renders as opened if 'open' prop is true", async () => {
-    renderWithRouterMatch(<SubsectionHeader {...sectionHeaderProps} open />, {
-      wrapper,
-    });
+    renderWithRouterMatch(
+      <SubsectionHeader {...subsectionHeaderProps} open />,
+      {
+        wrapper,
+      },
+    );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
@@ -36,7 +40,7 @@ describe("SubsectionHeader", () => {
 
   it("renders as closed if 'open' prop is false", async () => {
     renderWithRouterMatch(
-      <SubsectionHeader {...sectionHeaderProps} open={false} />,
+      <SubsectionHeader {...subsectionHeaderProps} open={false} />,
       { wrapper },
     );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
@@ -55,7 +59,7 @@ describe("SubsectionHeader", () => {
         toggleCommandSection: toggleFunctionSectionMock,
       },
     }));
-    renderWithRouterMatch(<SubsectionHeader {...sectionHeaderProps} />, {
+    renderWithRouterMatch(<SubsectionHeader {...subsectionHeaderProps} />, {
       wrapper,
     });
     const openButton = screen.getByDataCy("caret-toggle");
@@ -70,32 +74,44 @@ describe("SubsectionHeader", () => {
 
   it("open and close state is controlled by the 'open' prop", async () => {
     const { rerender } = renderWithRouterMatch(
-      <SubsectionHeader {...sectionHeaderProps} open={false} />,
+      <SubsectionHeader {...subsectionHeaderProps} open={false} />,
       { wrapper },
     );
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
-    rerender(<SubsectionHeader {...sectionHeaderProps} open />);
+    rerender(<SubsectionHeader {...subsectionHeaderProps} open />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "true",
     );
-    rerender(<SubsectionHeader {...sectionHeaderProps} open={false} />);
+    rerender(<SubsectionHeader {...subsectionHeaderProps} open={false} />);
     expect(screen.getByDataCy("section-header")).toHaveAttribute(
       "aria-expanded",
       "false",
     );
   });
+  it("should show status icon if status is defined", () => {
+    renderWithRouterMatch(
+      <SubsectionHeader
+        {...subsectionHeaderProps}
+        status={SectionStatus.Pass}
+      />,
+      { wrapper },
+    );
+    expect(screen.getByLabelText("Checkmark With Circle Icon")).toBeVisible();
+  });
 });
 
-const sectionHeaderProps = {
+const subsectionHeaderProps = {
   commandID: "command-1",
   commandName: "shell.exec",
   functionID: "function-1",
+  isTopLevelCommand: false,
   lineIndex: 0,
   onToggle: vi.fn(),
   open: false,
+  status: undefined,
   step: "1 of 4",
 };

@@ -1,0 +1,192 @@
+<div>
+  <div
+    class="css-1mysoqc"
+  >
+    <div
+      aria-expanded="true"
+      class="css-1rb3q1p-SectionHeaderWrapper e11pnhus1"
+      data-cy="section-header"
+    >
+      <button
+        aria-disabled="false"
+        aria-label="Click to open or close section"
+        class="leafygreen-ui-tcjr3n"
+        data-cy="caret-toggle"
+        tabindex="0"
+      >
+        <div
+          class="leafygreen-ui-xhlipt"
+        >
+          <svg
+            aria-label="Chevron Right Icon"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1oyg0iq0"
+            fill="none"
+            height="16"
+            open=""
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </button>
+      <svg
+        aria-label="Checkmark With Circle Icon"
+        class="leafygreen-ui-jc2z8v"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm2.448-10.104a.997.997 0 1 1 1.508 1.306l-4.572 5.28a1 1 0 0 1-1.64-.07l-1.82-2.868a1 1 0 1 1 1.69-1.07l1.1 1.734 3.734-4.312Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <p
+        class="leafygreen-ui-1tb6tuo"
+      >
+        Function: 
+        populate_expansions
+      </p>
+      <div
+        class="css-1vdykhn-ButtonWrapper e1lqywm10"
+      />
+    </div>
+    <div
+      aria-expanded="true"
+      class="css-1rb3q1p-SectionHeaderWrapper e11pnhus1"
+      data-cy="section-header"
+    >
+      <button
+        aria-disabled="false"
+        aria-label="Click to open or close section"
+        class="leafygreen-ui-tcjr3n"
+        data-cy="caret-toggle"
+        tabindex="0"
+      >
+        <div
+          class="leafygreen-ui-xhlipt"
+        >
+          <svg
+            aria-label="Chevron Right Icon"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1oyg0iq0"
+            fill="none"
+            height="16"
+            open=""
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </button>
+      <svg
+        aria-label="Checkmark With Circle Icon"
+        class="leafygreen-ui-jc2z8v"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm2.448-10.104a.997.997 0 1 1 1.508 1.306l-4.572 5.28a1 1 0 0 1-1.64-.07l-1.82-2.868a1 1 0 1 1 1.69-1.07l1.1 1.734 3.734-4.312Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <p
+        class="leafygreen-ui-1tb6tuo"
+      >
+        Function: 
+        setup_mongodb_database_and_seed_with_data
+      </p>
+      <div
+        class="css-1vdykhn-ButtonWrapper e1lqywm10"
+      />
+    </div>
+    <div
+      aria-expanded="true"
+      class="css-1rb3q1p-SectionHeaderWrapper e11pnhus1"
+      data-cy="section-header"
+    >
+      <button
+        aria-disabled="false"
+        aria-label="Click to open or close section"
+        class="leafygreen-ui-tcjr3n"
+        data-cy="caret-toggle"
+        tabindex="0"
+      >
+        <div
+          class="leafygreen-ui-xhlipt"
+        >
+          <svg
+            aria-label="Chevron Right Icon"
+            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1oyg0iq0"
+            fill="none"
+            height="16"
+            open=""
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </button>
+      <svg
+        aria-label="XWith Circle Icon"
+        class="leafygreen-ui-jc2z8v"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm1.414-9.828a1 1 0 1 1 1.414 1.414L9.414 8l1.414 1.414a1 1 0 1 1-1.414 1.414L8 9.414l-1.414 1.414a1 1 0 1 1-1.414-1.414L6.586 8 5.172 6.586a1 1 0 0 1 1.414-1.414L8 6.586l1.414-1.414Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <p
+        class="leafygreen-ui-1tb6tuo"
+      >
+        Function: 
+        build_frontend
+      </p>
+      <div
+        class="css-1vdykhn-ButtonWrapper e1lqywm10"
+      />
+    </div>
+  </div>
+</div>
