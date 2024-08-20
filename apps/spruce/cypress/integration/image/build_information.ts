@@ -25,7 +25,9 @@ describe("build information", () => {
         .invoke("text")
         .as("firstPackageName", { type: "static" });
 
-      cy.get("[data-testid=lg-pagination-next-button]").click();
+      cy.dataCy("packages-card").within(() => {
+        cy.get("[data-testid=lg-pagination-next-button]").click();
+      });
 
       // First package name on second page.
       cy.dataCy("packages-table-row")
@@ -70,7 +72,9 @@ describe("build information", () => {
         .invoke("text")
         .as("firstToolchainName", { type: "static" });
 
-      cy.get("[data-testid=lg-pagination-next-button]").click();
+      cy.dataCy("toolchains-card").within(() => {
+        cy.get("[data-testid=lg-pagination-next-button]").click();
+      });
 
       // First toolchain name on second page.
       cy.dataCy("toolchains-table-row")
