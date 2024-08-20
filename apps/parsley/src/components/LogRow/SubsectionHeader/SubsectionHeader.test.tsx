@@ -100,7 +100,7 @@ describe("SubsectionHeader", () => {
       />,
       { wrapper },
     );
-    expect(screen.getByLabelText("Checkmark with circle")).toBeVisible();
+    expect(screen.getByLabelText("Checkmark With Circle Icon")).toBeVisible();
   });
 });
 
