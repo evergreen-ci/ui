@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 import { join, parse } from "path";
+import { getSpecs } from "./parallelize-e2e.js";
 
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
 
@@ -8,6 +9,7 @@ const Tasks = {
   CheckCodegen: "check_codegen",
   Compile: "compile",
   E2E: "e2e",
+  E2EParallel: "e2e_parallel",
   Lint: "lint",
   Snapshots: "snapshots",
   Storybook: "storybook",
@@ -39,7 +41,7 @@ const TASK_MAPPING = {
   spruce: [
     Tasks.CheckCodegen,
     Tasks.Compile,
-    Tasks.E2E,
+    Tasks.E2EParallel,
     Tasks.Lint,
     Tasks.Snapshots,
     Tasks.Storybook,
@@ -115,6 +117,31 @@ const targetsFromChangedFiles = (files) => {
 };
 
 /**
+ * generateParallelE2ETasks creates the top-level tasks required for a build variant's parallelized Cypress testing.
+ * Note that the task steps included here should likely be in sync with those included in the base e2e task.
+ * @param bv - build variant name
+ * @returns - array of tasks
+ */
+const generateParallelE2ETasks = (bv) => {
+  const specs = getSpecs(`./apps/${bv}/cypress/integration`);
+  return specs.map((spec, i) => ({
+    name: `e2e_${bv}_${i}`,
+    commands: [
+      { func: "setup-mongodb" },
+      { func: "run-make-background", vars: { target: "local-evergreen" } },
+      { func: "symlink" },
+      { func: "seed-bucket-data" },
+      { func: "run-logkeeper" },
+      { func: "yarn-build" },
+      { func: "yarn-preview" },
+      { func: "wait-for-evergreen" },
+      { func: "yarn-verify-backend" },
+      { func: "yarn-cypress", vars: { cypress_spec: spec } },
+    ],
+  }));
+};
+
+/**
  * generateTasks generates an object indicating build variants and tasks to run based on changed files.
  * @returns an Evergreen-compliant generate.tasks object.
  */
@@ -124,11 +151,35 @@ const generateTasks = () => {
     changes.length === 0
       ? Object.keys(TASK_MAPPING)
       : targetsFromChangedFiles(changes);
-  const buildvariants = targets.map((bv) => ({
-    name: bv,
-    tasks: TASK_MAPPING[bv].map((name) => ({ name })),
-  }));
-  return { buildvariants };
+
+  const tasks = [];
+  const buildvariants = targets.map((bv) => {
+    const bvTasks = [];
+    const displayTasks = [];
+    TASK_MAPPING[bv].forEach((name) => {
+      if (name === Tasks.E2EParallel) {
+        // Make display tasks
+        const e2eTasks = generateParallelE2ETasks(bv);
+        tasks.push(...e2eTasks);
+        bvTasks.push(...e2eTasks.map(({ name }) => ({ name })));
+        displayTasks.push({
+          name: Tasks.E2EParallel,
+          execution_tasks: e2eTasks.map(({ name }) => name),
+        });
+      } else {
+        bvTasks.push({ name });
+      }
+    });
+    const variant = {
+      name: bv,
+      tasks: bvTasks,
+      display_tasks: displayTasks,
+    };
+
+    return variant;
+  });
+
+  return { buildvariants, tasks };
 };
 
 const main = () => {

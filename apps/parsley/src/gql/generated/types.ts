@@ -948,6 +948,7 @@ export enum ImageEventEntryAction {
 }
 
 export enum ImageEventType {
+  OperatingSystem = "OPERATING_SYSTEM",
   Package = "PACKAGE",
   Toolchain = "TOOLCHAIN",
 }

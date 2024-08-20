@@ -948,6 +948,7 @@ export enum ImageEventEntryAction {
 }
 
 export enum ImageEventType {
+  OperatingSystem = "OPERATING_SYSTEM",
   Package = "PACKAGE",
   Toolchain = "TOOLCHAIN",
 }
@@ -6250,6 +6251,30 @@ export type ImageDistrosQuery = {
         maximumHosts: number;
       };
     }>;
+  } | null;
+};
+
+export type ImagePackagesQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: PackageOpts;
+}>;
+
+export type ImagePackagesQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    packages: {
+      __typename?: "ImagePackagesPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{
+        __typename?: "Package";
+        manager: string;
+        name: string;
+        version: string;
+      }>;
+    };
   } | null;
 };
 

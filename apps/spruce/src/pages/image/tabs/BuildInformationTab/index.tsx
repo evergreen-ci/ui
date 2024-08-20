@@ -1,5 +1,6 @@
 import { SpruceFormContainer } from "components/SpruceForm";
 import { DistrosTable } from "pages/image/DistrosTable";
+import { PackagesTable } from "pages/image/PackagesTable";
 
 type BuildInformationTabProps = {
   imageId: string;
@@ -8,7 +9,12 @@ type BuildInformationTabProps = {
 export const BuildInformationTab: React.FC<BuildInformationTabProps> = ({
   imageId,
 }) => (
-  <SpruceFormContainer title="Distros">
-    <DistrosTable imageId={imageId} />
-  </SpruceFormContainer>
+  <>
+    <SpruceFormContainer title="Distros">
+      <DistrosTable imageId={imageId} />
+    </SpruceFormContainer>
+    <SpruceFormContainer title="Packages">
+      <PackagesTable imageId={imageId} />
+    </SpruceFormContainer>
+  </>
 );
