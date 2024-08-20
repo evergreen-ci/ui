@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ImageTabRoutes } from "constants/routes";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { Header } from "./Header";
-import { BuildInformationTab } from "./tabs/index";
+import { BuildInformationTab, EventLogTab } from "./tabs/index";
 
 type ImageTabsProps = {
   imageId: string;
@@ -27,6 +27,10 @@ export const ImageTabs: React.FC<ImageTabsProps> = ({
         <Route
           path={ImageTabRoutes.BuildInformation}
           element={<BuildInformationTab imageId={imageId} />}
+        />
+        <Route
+          path={ImageTabRoutes.EventLog}
+          element={<EventLogTab imageId={imageId} />}
         />
       </Routes>
     </Container>
