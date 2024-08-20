@@ -145,7 +145,7 @@ describe("image event log page", async () => {
     );
   });
 
-  it("supports name field filter", async () => {
+  it("supports name field filter for existing entries", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <EventLogTab imageId="ubuntu2204" />,
@@ -160,15 +160,32 @@ describe("image event log page", async () => {
 
     // Filter for golang.
     await user.type(searchBar, "golang{enter}");
+    expect(searchBar).toHaveValue("golang");
     await waitFor(() => {
       expect(
         within(card0).queryAllByDataCy("image-event-log-table-row"),
       ).toHaveLength(1);
     });
+  });
+
+  it("supports name field filter for non-existent entries", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
+    });
+    const card0 = screen.getAllByDataCy("image-event-log-card")[0];
+    await user.click(within(card0).getByDataCy("image-event-log-name-filter"));
+    const searchBar = screen.getByPlaceholderText("Search name");
 
     // Filter for nonexistent item.
-    await user.clear(searchBar);
     await user.type(searchBar, "blahblah{enter}");
+    await waitFor(() => {
+      expect(searchBar).toHaveValue("blahblah");
+    });
     await waitFor(() => {
       expect(
         within(card0).queryAllByDataCy("image-event-log-table-row"),
