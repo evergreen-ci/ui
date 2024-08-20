@@ -10,11 +10,11 @@ import {
   ImageGeneralQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_GENERAL } from "gql/queries";
-import { useDateFormat } from "hooks";
+// import { useDateFormat } from "hooks";
 
 type GeneralInfo = {
   property: string;
-  value: React.ReactNode;
+  value: React.ReactNode | string;
 };
 
 type GeneralTableProps = {
@@ -35,15 +35,16 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
     },
   });
 
-  const getDateCopy = useDateFormat();
-  const image = imageData?.image;
+  // const getDateCopy = useDateFormat();
+
+  const image = useMemo(() => imageData?.image, [imageData?.image]);
 
   const tableData = useMemo(
     () => [
-      {
-        property: "Last deployed",
-        value: image?.lastDeployed ? getDateCopy(image.lastDeployed) : "N/A",
-      },
+      // {
+      //   property: "Last deployed",
+      //   value: image?.lastDeployed ? getDateCopy(image.lastDeployed) : "N/A",
+      // },
       {
         property: "Amazon Machine Image (AMI)",
         value: image?.ami ?? "N/A",
@@ -51,27 +52,27 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
       {
         property: "Latest task",
         value: image?.latestTask?.id ? (
-          <StyledRouterLink to={getTaskRoute(image.latestTask?.id)}>
-            <WordBreak>{image.latestTask?.id}</WordBreak>
+          <StyledRouterLink to={getTaskRoute(image.latestTask.id)}>
+            <WordBreak>{image.latestTask.id}</WordBreak>
           </StyledRouterLink>
         ) : (
           "N/A"
         ),
       },
-      {
-        property: "Latest task time",
-        value: image?.latestTask?.finishTime
-          ? getDateCopy(image.latestTask.finishTime)
-          : "N/A",
-      },
+      // {
+      //   property: "Latest task time",
+      //   value: image?.latestTask?.finishTime
+      //     ? getDateCopy(image.latestTask.finishTime)
+      //     : "N/A",
+      // },
     ],
-    [image, getDateCopy],
+    [image],
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<GeneralInfo>({
-    columns,
-    data: tableData,
+    columns: useMemo(() => columns, []),
+    data: useMemo(() => tableData, [tableData]),
     containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,
