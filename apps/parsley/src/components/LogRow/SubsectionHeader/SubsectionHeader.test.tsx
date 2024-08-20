@@ -1,3 +1,4 @@
+import { SectionStatus } from "constants/logs";
 import * as logContext from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
@@ -90,6 +91,16 @@ describe("SubsectionHeader", () => {
       "aria-expanded",
       "false",
     );
+  });
+  it("should show status icon if status is defined", () => {
+    renderWithRouterMatch(
+      <SubsectionHeader
+        {...subsectionHeaderProps}
+        status={SectionStatus.Pass}
+      />,
+      { wrapper },
+    );
+    expect(screen.getByLabelText("Checkmark with circle")).toBeVisible();
   });
 });
 
