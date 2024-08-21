@@ -1,5 +1,6 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
+import { SectionStatus } from "constants/logs";
 import { DIRECTION } from "context/LogContext/types";
 import { Filter } from "types/logs";
 
@@ -32,11 +33,27 @@ type Action =
   | { name: "Toggled expanded lines"; open: false }
   | { name: "Used search result pagination"; direction: DIRECTION }
   | {
-      name: "Toggled section";
+      name: "Clicked section toggle caret";
       sectionName: string;
       sectionType: "command" | "function";
       open: boolean;
-    };
+      status?: SectionStatus;
+      isNested: boolean;
+    }
+  | { name: "Clicked open all sections button" }
+  | { name: "Clicked close all sections button" }
+  | {
+      name: "Clicked open subsections button";
+      functionName: string;
+      status: SectionStatus;
+      wasfunctionClosed: boolean;
+    }
+  | {
+      name: "Clicked close subsections button";
+      functionName: string;
+      status: SectionStatus;
+    }
+  | { name: "Viewed log with sections"; sectionsEnabled: boolean };
 
 export const useLogWindowAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("LogWindow");
