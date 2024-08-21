@@ -10,7 +10,8 @@ import {
   ImageGeneralQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_GENERAL } from "gql/queries";
-import { getDateCopy } from "utils/string";
+import { useDateFormat } from "hooks";
+// import { getDateCopy } from "utils/string";
 
 type GeneralInfo = {
   property: string;
@@ -35,10 +36,12 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
     },
   });
 
-  const image = useMemo(() => imageData?.image, [imageData?.image]);
+  const getDateCopy = useDateFormat();
 
-  const tableData = useMemo(
-    () => [
+  const data = useMemo(() => {
+    const image = imageData?.image;
+
+    return [
       {
         property: "Last deployed",
         value: image?.lastDeployed ? getDateCopy(image.lastDeployed) : "N/A",
@@ -63,14 +66,14 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
           ? getDateCopy(image.latestTask.finishTime)
           : "N/A",
       },
-    ],
-    [image],
-  );
+    ];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageData?.image]);
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<GeneralInfo>({
-    columns: useMemo(() => columns, []),
-    data: useMemo(() => tableData, [tableData]),
+    columns,
+    data,
     containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,
@@ -81,6 +84,7 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
     <BaseTable
       data-cy-row="general-table-row"
       loading={loading}
+      loadingRows={data.length}
       shouldAlternateRowColor
       table={table}
     />
