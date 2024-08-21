@@ -80,7 +80,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
 
     annotationAnalytics.sendEvent({
       name: "Deleted annotation",
-      type: isIssue ? "Issue" : "Suspected Issue",
+      "annotation.type": isIssue ? "Issue" : "Suspected Issue",
     });
   };
 

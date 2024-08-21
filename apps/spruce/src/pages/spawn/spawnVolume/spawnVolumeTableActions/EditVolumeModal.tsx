@@ -67,7 +67,7 @@ export const EditVolumeModal: React.FC<Props> = ({
     const mutationInput = formToGql(initialState, formState, volume.id);
     spawnAnalytics.sendEvent({
       name: "Changed spawn volume settings",
-      "volume.no.expire": mutationInput.noExpiration,
+      "volume.is.unexpirable": mutationInput.noExpiration,
     });
     updateVolumeMutation({
       variables: { updateVolumeInput: mutationInput },

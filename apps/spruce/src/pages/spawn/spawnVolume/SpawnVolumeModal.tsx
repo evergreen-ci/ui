@@ -54,7 +54,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       name: "Created a volume",
       "volume.type": mutationInput.type,
       "volume.size": mutationInput.size,
-      "volume.no.expire": mutationInput.noExpiration || false,
+      "volume.is.unexpirable": mutationInput.noExpiration || false,
     });
     spawnVolumeMutation({
       variables: { spawnVolumeInput: mutationInput },

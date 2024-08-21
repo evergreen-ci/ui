@@ -7,8 +7,8 @@ type Action =
   | {
       name: "Filtered for patches";
       "filter.by": string;
-      "filter.include.hidden": boolean;
-      "filter.include.commit.queue": boolean;
+      "filter.hidden": boolean;
+      "filter.commit_queue": boolean;
     };
 
 export const useUserPatchesAnalytics = () =>

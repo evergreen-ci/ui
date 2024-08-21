@@ -311,7 +311,7 @@ export const ActionButtons: React.FC<Props> = ({
                 taskAnalytics.sendEvent({
                   name: "Clicked restart task button",
                   allTasks: true,
-                  isDisplayTask: true,
+                  "task.is.display_task": true,
                 });
               }}
             >
@@ -324,7 +324,7 @@ export const ActionButtons: React.FC<Props> = ({
                 taskAnalytics.sendEvent({
                   name: "Clicked restart task button",
                   allTasks: false,
-                  isDisplayTask: true,
+                  "task.is.display_task": true,
                 });
               }}
             >
@@ -343,7 +343,7 @@ export const ActionButtons: React.FC<Props> = ({
               restartTask({ variables: { taskId, failedOnly: false } });
               taskAnalytics.sendEvent({
                 name: "Clicked restart task button",
-                isDisplayTask: false,
+                "task.is.display_task": false,
               });
             }}
           >
