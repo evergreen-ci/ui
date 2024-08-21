@@ -60,7 +60,7 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
         performedScroll.current = true;
         sendEvent({
           jumpToFailingLineEnabled: settings.jumpToFailingLineEnabled,
-          name: "Viewed log with sections",
+          name: "Viewed log with sections and jump to failing line",
           sectionsEnabled: settings.sectionsEnabled,
         });
       }, 100);

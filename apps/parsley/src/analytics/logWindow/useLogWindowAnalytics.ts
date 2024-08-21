@@ -54,7 +54,7 @@ type Action =
       status: SectionStatus;
     }
   | {
-      name: "Viewed log with sections";
+      name: "Viewed log with sections and jump to failing line";
       sectionsEnabled: boolean;
       jumpToFailingLineEnabled: boolean;
     };
