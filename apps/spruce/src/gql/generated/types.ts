@@ -6254,6 +6254,38 @@ export type ImageDistrosQuery = {
   } | null;
 };
 
+export type ImageEventsQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  limit: Scalars["Int"]["input"];
+  page: Scalars["Int"]["input"];
+}>;
+
+export type ImageEventsQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    events: {
+      __typename?: "ImageEventsPayload";
+      count: number;
+      eventLogEntries: Array<{
+        __typename?: "ImageEvent";
+        amiAfter: string;
+        amiBefore?: string | null;
+        timestamp: Date;
+        entries: Array<{
+          __typename?: "ImageEventEntry";
+          action: ImageEventEntryAction;
+          after: string;
+          before: string;
+          name: string;
+          type: ImageEventType;
+        }>;
+      }>;
+    };
+  } | null;
+};
+
 export type ImagePackagesQueryVariables = Exact<{
   imageId: Scalars["String"]["input"];
   opts: PackageOpts;
