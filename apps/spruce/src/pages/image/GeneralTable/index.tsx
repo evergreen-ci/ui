@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { StyledRouterLink, WordBreak } from "components/styles";
@@ -11,7 +11,6 @@ import {
 } from "gql/generated/types";
 import { IMAGE_GENERAL } from "gql/queries";
 import { useDateFormat } from "hooks";
-// import { getDateCopy } from "utils/string";
 
 type GeneralInfo = {
   property: string;
