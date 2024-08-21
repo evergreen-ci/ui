@@ -1,9 +1,14 @@
 import Button from "@leafygreen-ui/button";
+import { useLogWindowAnalytics } from "analytics";
+import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 
-const SubsectionControls: React.FC<{ functionID: string }> = ({
-  functionID,
-}) => {
+const SubsectionControls: React.FC<{
+  functionID: string;
+  functionName: string;
+  status: SectionStatus;
+}> = ({ functionID, functionName, status }) => {
+  const { sendEvent } = useLogWindowAnalytics();
   const { sectioning } = useLogContext();
   const { sectionState, toggleAllCommandsInFunction } = sectioning;
   const showExpandButton =
@@ -23,7 +28,15 @@ const SubsectionControls: React.FC<{ functionID: string }> = ({
       {showExpandButton && (
         <Button
           data-cy="open-subsections-btn"
-          onClick={() => toggleAllCommandsInFunction(functionID, true)}
+          onClick={() => {
+            sendEvent({
+              functionName,
+              name: "Clicked open subsections button",
+              status,
+              wasfunctionClosed: !sectionState[functionID].isOpen,
+            });
+            toggleAllCommandsInFunction(functionID, true);
+          }}
           size="xsmall"
         >
           Open subsections
@@ -32,7 +45,14 @@ const SubsectionControls: React.FC<{ functionID: string }> = ({
       {showCloseButton && (
         <Button
           data-cy="close-subsections-btn"
-          onClick={() => toggleAllCommandsInFunction(functionID, false)}
+          onClick={() => {
+            toggleAllCommandsInFunction(functionID, false);
+            sendEvent({
+              functionName,
+              name: "Clicked close subsections button",
+              status,
+            });
+          }}
           size="xsmall"
         >
           Close subsections

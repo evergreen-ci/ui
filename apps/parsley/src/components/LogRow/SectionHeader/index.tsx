@@ -36,10 +36,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <CaretToggle
         onClick={() => {
           sendEvent({
-            name: "Toggled section",
+            isNested: false,
+            name: "Clicked section toggle caret",
             open: !open,
             sectionName: functionName,
             sectionType: "function",
+            status,
           });
           sectioning.toggleFunctionSection({ functionID, isOpen: !open });
         }}
@@ -48,7 +50,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <Icon fill={gray.dark1} glyph={statusGlyph} />
       <Body>Function: {functionName}</Body>
       <ButtonWrapper>
-        <SubsectionControls functionID={functionID} />
+        <SubsectionControls
+          functionID={functionID}
+          functionName={functionName}
+          status={status}
+        />
       </ButtonWrapper>
     </SectionHeaderWrapper>
   );
