@@ -146,7 +146,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
           onClick={() =>
             sendEvent({
               name: "Clicked commit label",
-              commitType: "inactive",
+              "commit.type": "inactive",
               link: "githash",
             })
           }
@@ -163,7 +163,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
             name: "Clicked commit label",
-            commitType: "inactive",
+            "commit.type": "inactive",
             link: "jira",
           });
         })}{" "}

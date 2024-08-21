@@ -80,15 +80,15 @@ export const AttachDetachModal: React.FC<ModalProps> = ({
           attachProjectToRepo();
           sendEvent({
             name: "Clicked attach project to repo button",
-            repoOwner,
-            repoName,
+            "repo.owner": repoOwner,
+            "repo.name": repoName,
           });
         } else {
           detachProjectFromRepo();
           sendEvent({
             name: "Clicked detach project from repo button",
-            repoOwner,
-            repoName,
+            "repo.owner": repoOwner,
+            "repo.name": repoName,
           });
         }
         handleClose();

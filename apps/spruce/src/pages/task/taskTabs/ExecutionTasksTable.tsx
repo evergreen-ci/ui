@@ -81,7 +81,7 @@ export const ExecutionTasksTable: React.FC<Props> = ({
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sorted execution tasks table",
-        sortBy: sorter.map(({ id }) => id as TaskSortCategory),
+        "sort.by": sorter.map(({ id }) => id as TaskSortCategory),
       }),
   });
 

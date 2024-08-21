@@ -88,7 +88,7 @@ const Search: React.FC = () => {
               },
             ]);
           }
-          sendEvent({ filterExpression: value, name: "Created new filter" });
+          sendEvent({ "filter.expression": value, name: "Created new filter" });
           leaveBreadcrumb(
             "Added filter",
             { filterExpression: value },
@@ -101,7 +101,7 @@ const Search: React.FC = () => {
           setSearch("");
           setHighlights([...highlights, value]);
           sendEvent({
-            highlightExpression: value,
+            "highlight.expression": value,
             name: "Created new highlight",
           });
           leaveBreadcrumb(
@@ -118,7 +118,7 @@ const Search: React.FC = () => {
 
   const handleOnChange = (value: string) => {
     setSearch(value);
-    sendEvent({ name: "Used search", searchExpression: value });
+    sendEvent({ name: "Used search", "search.expression": value });
     leaveBreadcrumb(
       "Applied search",
       { searchExpression: value },

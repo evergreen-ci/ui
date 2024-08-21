@@ -61,7 +61,7 @@ export const AddIssueModal: React.FC<Props> = ({
       closeModal();
       annotationAnalytics.sendEvent({
         name: "Created task annotation",
-        type: isIssue ? "Issue" : "Suspected Issue",
+        "annotation.type": isIssue ? "Issue" : "Suspected Issue",
       });
     },
     onError(error) {

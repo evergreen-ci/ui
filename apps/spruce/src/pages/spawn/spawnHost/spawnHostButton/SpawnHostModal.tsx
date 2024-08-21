@@ -26,7 +26,6 @@ import {
 import { SPAWN_HOST } from "gql/mutations";
 import { SPAWN_TASK } from "gql/queries";
 import { useUserTimeZone } from "hooks";
-import { omit } from "utils/object";
 import { getString, parseQueryString } from "utils/queryString";
 
 interface SpawnHostModalProps {
@@ -140,13 +139,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     });
     spawnAnalytics.sendEvent({
       name: "Created a spawn host",
-      isMigration: false,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      params: omit(mutationInput, [
-        "publicKey",
-        "userDataScript",
-        "setUpScript",
-      ]),
+      "host.is.volume.migration": false,
+      "host.is.workstation": selectedDistro?.isVirtualWorkStation || false,
+      "host.distro.id": selectedDistro?.name || "",
+      "host.is.unexpirable": mutationInput?.noExpiration || false,
     });
     spawnHostMutation({
       variables: { spawnHostInput: mutationInput },

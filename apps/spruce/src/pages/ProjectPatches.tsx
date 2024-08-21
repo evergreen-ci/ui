@@ -69,7 +69,7 @@ export const ProjectPatches = () => {
             onSubmit={(p) => {
               analytics.sendEvent({
                 name: "Changed project",
-                projectIdentifier: p,
+                "project.identifier": p,
               });
             }}
           />
