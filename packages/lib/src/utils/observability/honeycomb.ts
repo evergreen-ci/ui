@@ -59,7 +59,7 @@ const initializeHoneycomb = ({
     });
     honeycombSdk.start();
   } catch (e) {
-    console.error(`Could not start honeycomb SDK ${e}`);
+    console.error(`Could not start Honeycomb SDK: ${e}`);
   }
 };
 
