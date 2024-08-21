@@ -1,3 +1,4 @@
+import * as analytics from "analytics";
 import { SectionStatus } from "constants/logs";
 import * as logContext from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
@@ -49,8 +50,13 @@ describe("SubsectionHeader", () => {
     );
   });
 
-  it("should call onOpen function when 'open' button is clicked", async () => {
+  it("should call onOpen function when 'open' button is clicked and send analytics events", async () => {
     const user = userEvent.setup();
+    const mockedAnalytics = vi.spyOn(analytics, "useLogWindowAnalytics");
+    const sendEventMock = vi.fn();
+    mockedAnalytics.mockImplementation(() => ({
+      sendEvent: sendEventMock,
+    }));
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
     const toggleFunctionSectionMock = vi.fn();
     mockedLogContext.mockImplementation(() => ({
@@ -69,6 +75,15 @@ describe("SubsectionHeader", () => {
       commandID: "command-1",
       functionID: "function-1",
       isOpen: true,
+    });
+    expect(sendEventMock).toHaveBeenCalledTimes(1);
+    expect(sendEventMock).toHaveBeenCalledWith({
+      isNested: true,
+      name: "Clicked section toggle caret",
+      open: true,
+      sectionName: "shell.exec",
+      sectionType: "command",
+      status: undefined,
     });
   });
 
