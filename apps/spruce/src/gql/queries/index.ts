@@ -27,6 +27,7 @@ import IMAGE_DISTROS from "./image-distros.graphql";
 import IMAGE_EVENTS from "./image-events.graphql";
 import IMAGE_GENERAL from "./image-general.graphql";
 import IMAGE_PACKAGES from "./image-packages.graphql";
+import IMAGE_TOOLCHAINS from "./image-toolchains.graphql";
 import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
 import IS_PATCH_CONFIGURED from "./is-patch-configured.graphql";
@@ -116,6 +117,7 @@ export {
   IMAGE_EVENTS,
   IMAGE_GENERAL,
   IMAGE_PACKAGES,
+  IMAGE_TOOLCHAINS,
   IMAGES,
   INSTANCE_TYPES,
   IS_PATCH_CONFIGURED,

@@ -10,106 +10,102 @@ import { BaseTable } from "components/Table/BaseTable";
 import { DEFAULT_PAGE_SIZE } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
-  Package,
-  ImagePackagesQuery,
-  ImagePackagesQueryVariables,
+  Toolchain,
+  ImageToolchainsQuery,
+  ImageToolchainsQueryVariables,
 } from "gql/generated/types";
-import { IMAGE_PACKAGES } from "gql/queries";
+import { IMAGE_TOOLCHAINS } from "gql/queries";
 
-type PackagesTableProps = {
+type ToolchainsTableProps = {
   imageId: string;
 };
 
-export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
+export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
+  imageId,
+}) => {
   const dispatchToast = useToastContext();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: DEFAULT_PAGE_SIZE,
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const { data: packagesData, loading } = useQuery<
-    ImagePackagesQuery,
-    ImagePackagesQueryVariables
-  >(IMAGE_PACKAGES, {
+
+  const { data: imageData, loading } = useQuery<
+    ImageToolchainsQuery,
+    ImageToolchainsQueryVariables
+  >(IMAGE_TOOLCHAINS, {
     variables: {
       imageId,
       opts: {
         page: pagination.pageIndex,
         limit: pagination.pageSize,
-        name: columnFilters.find((filter) => filter.id === "name")
-          ?.value as string,
+        name:
+          (columnFilters.find((filter) => filter.id === "name")
+            ?.value as string) ?? undefined,
       },
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error loading image packages: ${err.message}`,
+        `There was an error loading image toolchains: ${err.message}`,
       );
     },
   });
 
-  const packages = useMemo(
-    () => packagesData?.image?.packages.data ?? [],
-    [packagesData?.image?.packages.data],
+  const toolchains = useMemo(
+    () => imageData?.image?.toolchains?.data ?? [],
+    [imageData?.image?.toolchains?.data],
   );
 
-  const numPackages = useMemo(
-    () =>
-      packagesData?.image?.packages.filteredCount ??
-      packagesData?.image?.packages.totalCount,
-    [
-      packagesData?.image?.packages.filteredCount,
-      packagesData?.image?.packages.totalCount,
-    ],
-  );
+  const numTotalItems =
+    imageData?.image?.toolchains?.filteredCount ??
+    imageData?.image?.toolchains?.totalCount;
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const table = useLeafyGreenTable<Package>({
+  const table = useLeafyGreenTable<Toolchain>({
     columns,
-    data: packages,
     containerRef: tableContainerRef,
+    data: toolchains,
     defaultColumn: {
       enableColumnFilter: false,
     },
-    manualPagination: true,
     manualFiltering: true,
-    rowCount: numPackages,
+    manualPagination: true,
+    onColumnFiltersChange: setColumnFilters,
+    onPaginationChange: setPagination,
     state: {
       pagination,
       columnFilters,
     },
-    onColumnFiltersChange: setColumnFilters,
-    onPaginationChange: setPagination,
   });
 
   return (
     <BaseTable
-      data-cy-row="packages-table-row"
-      table={table}
-      shouldAlternateRowColor
+      data-cy-row="toolchains-table-row"
       loading={loading}
       loadingRows={pagination.pageSize}
+      numTotalItems={numTotalItems}
+      shouldAlternateRowColor
+      table={table}
       usePagination
-      numTotalItems={numPackages}
     />
   );
 };
 
-const columns: LGColumnDef<Package>[] = [
+const columns: LGColumnDef<Toolchain>[] = [
   {
     header: "Name",
     accessorKey: "name",
     enableColumnFilter: true,
-    filterFn: "includesString",
     meta: {
       search: {
-        "data-cy": "package-name-filter",
+        "data-cy": "toolchain-name-filter",
         placeholder: "Name regex",
       },
     },
   },
   {
-    header: "Manager",
-    accessorKey: "manager",
+    header: "Path",
+    accessorKey: "path",
   },
   {
     header: "Version",
