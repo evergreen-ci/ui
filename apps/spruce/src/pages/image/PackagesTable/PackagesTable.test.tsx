@@ -94,13 +94,11 @@ describe("packages table", () => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(10);
     });
     await user.click(screen.getByDataCy("package-name-filter"));
-    await user.type(
-      screen.getByPlaceholderText("Search name"),
-      "bcrypt{enter}",
-    );
+    await user.type(screen.getByPlaceholderText("Name regex"), "bcrypt{enter}");
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(1);
     });
+    expect(screen.getByText("1 - 1 of 1 items")).toBeInTheDocument();
   });
 
   it("supports pagination", async () => {
@@ -116,6 +114,7 @@ describe("packages table", () => {
     await waitFor(() => {
       expect(screen.queryAllByDataCy("packages-table-row")).toHaveLength(5);
     });
+    expect(screen.getByText("11 - 15 of 15 items")).toBeInTheDocument();
   });
 });
 
