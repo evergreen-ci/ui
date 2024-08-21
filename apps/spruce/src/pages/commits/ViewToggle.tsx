@@ -52,7 +52,7 @@ export const ViewToggle: React.FC<Props> = ({ identifier }) => {
     setView(value);
     sendEvent({
       name: "Toggled icon view mode",
-      iconView: value,
+      "icon.view": value,
     });
   };
 

@@ -1,41 +1,43 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
-import {
-  EditSpawnHostMutationVariables,
-  SpawnHostMutationVariables,
-  SpawnVolumeMutationVariables,
-  UpdateVolumeMutationVariables,
-} from "gql/generated/types";
 
 type Action =
   | { name: "Clicked copy SSH command button" }
-  | { name: "Changed host status"; status: string }
+  | { name: "Changed host status"; "host.status": string }
   | { name: "Toggled spawn host details panel"; expanded: boolean }
   | { name: "Viewed spawn host modal" }
-  | { name: "Viewed edit spawn host modal"; hostId: string; status: string }
+  | {
+      name: "Viewed edit spawn host modal";
+      "host.id": string;
+      "host.status": string;
+    }
   | {
       name: "Changed spawn host settings";
-      params: EditSpawnHostMutationVariables;
     }
   | {
       name: "Created a spawn host";
-      isMigration: boolean;
-      params: Omit<
-        SpawnHostMutationVariables["spawnHostInput"],
-        "publicKey" | "userDataScript" | "setUpScript"
-      >;
+      "host.is.volume.migration": boolean;
+      "host.is.workstation": boolean;
+      "host.distro.id": string;
+      "host.is.unexpirable": boolean;
     }
   | { name: "Viewed spawn volume modal" }
-  | { name: "Changed mounted volume on host"; volumeId: string; hostId: string }
-  | { name: "Deleted a volume"; volumeId: string }
-  | { name: "Changed unmounted volume on host"; volumeId: string }
+  | {
+      name: "Changed mounted volume on host";
+      "volume.id": string;
+      "host.id": string;
+    }
+  | { name: "Deleted a volume"; "volume.id": string }
+  | { name: "Changed unmounted volume on host"; "volume.id": string }
   | {
       name: "Created a volume";
-      params: SpawnVolumeMutationVariables["spawnVolumeInput"];
+      "volume.type": string;
+      "volume.size": number;
+      "volume.is.unexpirable": boolean;
     }
   | {
       name: "Changed spawn volume settings";
-      params: UpdateVolumeMutationVariables["updateVolumeInput"];
+      "volume.is.unexpirable": boolean;
     }
   | { name: "Clicked open IDE button" }
   | { name: "Changed tab"; tab: string };

@@ -18,7 +18,6 @@ import {
 import { MIGRATE_VOLUME } from "gql/mutations";
 import { AZToRegion } from "pages/spawn/utils";
 import { TableVolume } from "types/spawn";
-import { omit } from "utils/object";
 import { initialState, Page, reducer } from "./migrateVolumeReducer";
 
 interface MigrateVolumeModalProps {
@@ -107,13 +106,10 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     });
     sendEvent({
       name: "Created a spawn host",
-      isMigration: true,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      params: omit(mutationInput, [
-        "publicKey",
-        "userDataScript",
-        "setUpScript",
-      ]),
+      "host.is.volume.migration": true,
+      "host.distro.id": mutationInput?.distroId || "",
+      "host.is.unexpirable": mutationInput?.noExpiration || false,
+      "host.is.workstation": mutationInput?.isVirtualWorkStation || false,
     });
     migrateVolumeMutation({
       variables: {

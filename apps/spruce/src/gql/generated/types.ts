@@ -6254,6 +6254,58 @@ export type ImageDistrosQuery = {
   } | null;
 };
 
+export type ImageEventsQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  limit: Scalars["Int"]["input"];
+  page: Scalars["Int"]["input"];
+}>;
+
+export type ImageEventsQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    events: {
+      __typename?: "ImageEventsPayload";
+      count: number;
+      eventLogEntries: Array<{
+        __typename?: "ImageEvent";
+        amiAfter: string;
+        amiBefore?: string | null;
+        timestamp: Date;
+        entries: Array<{
+          __typename?: "ImageEventEntry";
+          action: ImageEventEntryAction;
+          after: string;
+          before: string;
+          name: string;
+          type: ImageEventType;
+        }>;
+      }>;
+    };
+  } | null;
+};
+
+export type ImageGeneralQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+}>;
+
+export type ImageGeneralQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    ami: string;
+    id: string;
+    lastDeployed: Date;
+    latestTask?: {
+      __typename?: "Task";
+      execution: number;
+      finishTime?: Date | null;
+      id: string;
+    } | null;
+  } | null;
+};
+
 export type ImagePackagesQueryVariables = Exact<{
   imageId: Scalars["String"]["input"];
   opts: PackageOpts;
@@ -6272,6 +6324,30 @@ export type ImagePackagesQuery = {
         __typename?: "Package";
         manager: string;
         name: string;
+        version: string;
+      }>;
+    };
+  } | null;
+};
+
+export type ImageToolchainsQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: ToolchainOpts;
+}>;
+
+export type ImageToolchainsQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    toolchains: {
+      __typename?: "ImageToolchainsPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{
+        __typename?: "Toolchain";
+        name: string;
+        path: string;
         version: string;
       }>;
     };

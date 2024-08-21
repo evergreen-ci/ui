@@ -44,11 +44,11 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
       <CaretToggle
         onClick={() => {
           sendEvent({
-            isNested: !isTopLevelCommand,
             name: "Toggled section caret",
+            nested: !isTopLevelCommand,
             open: !open,
-            sectionName: commandName,
-            sectionType: "command",
+            "section.name": commandName,
+            "section.type": "command",
             status,
           });
           sectioning.toggleCommandSection({

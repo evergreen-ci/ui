@@ -47,7 +47,7 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
     },
   });
 
-  const packageEntries = useMemo(
+  const packages = useMemo(
     () => packagesData?.image?.packages.data ?? [],
     [packagesData?.image?.packages.data],
   );
@@ -65,7 +65,7 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Package>({
     columns,
-    data: packageEntries,
+    data: packages,
     containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,
@@ -103,7 +103,7 @@ const columns: LGColumnDef<Package>[] = [
     meta: {
       search: {
         "data-cy": "package-name-filter",
-        placeholder: "Search name",
+        placeholder: "Name regex",
       },
     },
   },

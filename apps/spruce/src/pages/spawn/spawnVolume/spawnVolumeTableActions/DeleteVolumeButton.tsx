@@ -45,7 +45,7 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Deleted a volume",
-          volumeId: volume.id,
+          "volume.id": volume.id,
         });
         removeVolume({ variables: { volumeId: volume.id } });
       }}

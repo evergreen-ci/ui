@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import {
-  SaveSubscriptionForUserMutationVariables,
   VersionQuery,
   VersionQueryVariables,
   TaskSortCategory,
@@ -12,9 +11,10 @@ import { VERSION } from "gql/queries";
 type Action =
   | {
       name: "Created notification";
-      subscription: SaveSubscriptionForUserMutationVariables["subscription"];
+      "subscription.type": string;
+      "subscription.trigger": string;
     }
-  | { name: "Changed page size"; pageSize: number }
+  | { name: "Changed page size"; "page.size": number }
   | { name: "Changed tab"; tab: string }
   | { name: "Clicked metadata base commit link" }
   | { name: "Filtered by build variant group" }
@@ -25,21 +25,21 @@ type Action =
     }
   | { name: "Clicked metadata previous version link" }
   | { name: "Clicked metadata project patches link" }
-  | { name: "Clicked task table task link"; taskId: string }
+  | { name: "Clicked task table task link"; "task.id": string }
   | { name: "Deleted all filters" }
   | { name: "Clicked enqueue tasks button" }
-  | { name: "Filtered downstream tasks table"; filterBy: string | string[] }
-  | { name: "Filtered tasks table"; filterBy: string | string[] }
-  | { name: "Filtered task duration table"; filterBy: string | string[] }
+  | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }
+  | { name: "Filtered tasks table"; "filter.by": string | string[] }
+  | { name: "Filtered task duration table"; "filter.by": string | string[] }
   | { name: "Viewed notification modal" }
   | { name: "Viewed schedule tasks modal" }
   | { name: "Clicked restart tasks button"; abort: boolean }
   | { name: "Clicked schedule tasks button" }
   | { name: "Clicked patch reconfigure link" }
-  | { name: "Changed version priority"; priority: number }
+  | { name: "Changed version priority"; "version.priority": number }
   | {
       name: "Sorted tasks table";
-      sortBy:
+      "sort.by":
         | TaskSortCategory.BaseStatus
         | TaskSortCategory.Name
         | TaskSortCategory.Status
@@ -47,7 +47,7 @@ type Action =
     }
   | {
       name: "Sorted downstream tasks table";
-      sortBy: TaskSortCategory | TaskSortCategory[];
+      "sort.by": TaskSortCategory | TaskSortCategory[];
     }
   | { name: "Toggled display task expansion"; expanded: boolean }
   | { name: "Clicked unschedule tasks button"; abort: boolean };

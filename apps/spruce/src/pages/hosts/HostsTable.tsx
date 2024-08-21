@@ -85,7 +85,7 @@ export const HostsTable: React.FC<Props> = ({
     setQueryParams(updatedParams);
     sendEvent({
       name: "Filtered hosts table",
-      filterBy: Object.keys(filterState),
+      "filter.by": Object.keys(filterState),
     });
   };
 

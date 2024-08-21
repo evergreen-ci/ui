@@ -100,7 +100,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           onPageSizeChange={(l) => {
             versionAnalytics.sendEvent({
               name: "Changed page size",
-              pageSize: l,
+              "page.size": l,
             });
           }}
         />

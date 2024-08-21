@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { EVENT_LIMIT, useEvents } from "components/Settings/EventLog";
 import { useToastContext } from "context/toast";
 import {
   ProjectEventLogsQuery,
@@ -9,11 +8,14 @@ import {
   RepoEventLogsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_EVENT_LOGS, REPO_EVENT_LOGS } from "gql/queries";
+import { useEvents } from "hooks/useEvents";
+
+const PROJECT_EVENT_LIMIT = 15;
 
 export const useProjectSettingsEvents = (
   projectIdentifier: string,
   isRepo: boolean,
-  limit: number = EVENT_LIMIT,
+  limit: number = PROJECT_EVENT_LIMIT,
 ) => {
   const dispatchToast = useToastContext();
 

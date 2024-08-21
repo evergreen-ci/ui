@@ -37,7 +37,11 @@ export const AddNotification: React.FC<AddNotificationProps> = ({
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         resourceId={projectIdentifier}
         sendAnalyticsEvent={(subscription) =>
-          sendEvent({ name: "Created notification", subscription })
+          sendEvent({
+            name: "Created notification",
+            "subscription.type": subscription.subscriber.type || "",
+            "subscription.trigger": subscription.trigger || "",
+          })
         }
         subscriptionMethods={subscriptionMethods}
         triggers={waterfallTriggers}

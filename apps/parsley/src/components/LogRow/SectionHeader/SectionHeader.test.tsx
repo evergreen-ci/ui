@@ -86,11 +86,11 @@ describe("SectionHeader", () => {
     await user.click(openButton);
     expect(sendEventMock).toHaveBeenCalledTimes(1);
     expect(sendEventMock).toHaveBeenCalledWith({
-      isNested: false,
       name: "Toggled section caret",
+      nested: false,
       open: true,
-      sectionName: "load_data",
-      sectionType: "function",
+      "section.name": "load_data",
+      "section.type": "function",
       status: "pass",
     });
     expect(toggleFunctionSectionMock).toHaveBeenCalledTimes(1);
