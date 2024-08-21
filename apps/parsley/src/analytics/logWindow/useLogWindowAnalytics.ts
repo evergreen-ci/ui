@@ -53,7 +53,11 @@ type Action =
       functionName: string;
       status: SectionStatus;
     }
-  | { name: "Viewed log with sections"; sectionsEnabled: boolean };
+  | {
+      name: "Viewed log with sections";
+      sectionsEnabled: boolean;
+      jumpToFailingLineEnabled: boolean;
+    };
 
 export const useLogWindowAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("LogWindow");
