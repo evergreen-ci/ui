@@ -115,7 +115,7 @@ export const PatchTasksTable: React.FC<Props> = ({
       onColumnHeaderClick={(sortField) =>
         sendEvent({
           name: "Sorted tasks table",
-          sortBy: sortField,
+          "sort.by": sortField,
         })
       }
       taskNameInputProps={taskNameInputProps}

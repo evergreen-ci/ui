@@ -36,10 +36,10 @@ type Action =
   | { name: "Clicked restart tasks button"; abort: boolean }
   | { name: "Clicked schedule tasks button" }
   | { name: "Clicked patch reconfigure link" }
-  | { name: "Changed version priority"; priority: number }
+  | { name: "Changed version priority"; "version.priority": number }
   | {
       name: "Sorted tasks table";
-      sortBy:
+      "sort.by":
         | TaskSortCategory.BaseStatus
         | TaskSortCategory.Name
         | TaskSortCategory.Status

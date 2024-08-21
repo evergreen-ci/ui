@@ -1,10 +1,13 @@
 import { useMemo, useRef } from "react";
+import styled from "@emotion/styled";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
 import { DoesNotExpire } from "components/Spawn";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { getSpawnHostRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { MyVolume, QueryParams, TableVolume } from "types/spawn";
 import { SpawnVolumeCard } from "./SpawnVolumeCard";
@@ -113,9 +116,19 @@ const columns = [
     cell: ({ getValue, row }) => {
       const expiration = getValue();
       const { noExpiration } = row.original;
-      return noExpiration || !expiration
-        ? DoesNotExpire
-        : formatDistanceToNow(expiration);
+      const isUnexpirable = noExpiration || !expiration;
+      return (
+        <>
+          {isUnexpirable ? DoesNotExpire : formatDistanceToNow(expiration)}
+          {!isUnexpirable && row.original.hostID && (
+            <InfoContainer>
+              <InfoSprinkle>
+                Expiration is not applicable to mounted volumes.
+              </InfoSprinkle>
+            </InfoContainer>
+          )}
+        </>
+      );
     },
   },
   {
@@ -124,3 +137,8 @@ const columns = [
     cell: ({ row }) => <SpawnVolumeTableActions volume={row.original} />,
   },
 ];
+
+const InfoContainer = styled.div`
+  position: relative;
+  left: ${size.xxs};
+`;

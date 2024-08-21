@@ -20,8 +20,14 @@ type Action =
       name: "Clicked annotation link";
       target: "Jira ticket link";
     }
-  | { name: "Deleted annotation"; type: "Issue" | "Suspected Issue" }
-  | { name: "Created task annotation"; type: "Issue" | "Suspected Issue" };
+  | {
+      name: "Deleted annotation";
+      "annotation.type": "Issue" | "Suspected Issue";
+    }
+  | {
+      name: "Created task annotation";
+      "annotation.type": "Issue" | "Suspected Issue";
+    };
 
 export const useAnnotationAnalytics = () => {
   const { [slugs.taskId]: taskId } = useParams();

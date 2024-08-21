@@ -16,30 +16,30 @@ import { RequiredQueryParams, LogTypes } from "types/task";
 
 type LogViewer = "raw" | "html" | "parsley";
 type Action =
-  | { name: "Filtered tests table"; filterBy: string | string[] }
+  | { name: "Filtered tests table"; "filter.by": string | string[] }
   | {
       name: "Sorted tests table";
-      sortBy: TestSortCategory | TestSortCategory[];
+      "sort.by": TestSortCategory | TestSortCategory[];
     }
   | {
       name: "Sorted execution tasks table";
-      sortBy: TaskSortCategory | TaskSortCategory[];
+      "sort.by": TaskSortCategory | TaskSortCategory[];
     }
   | {
       name: "Clicked restart task button";
-      isDisplayTask: false;
+      "task.is.display_task": false;
     }
   | {
       name: "Clicked restart task button";
       allTasks: boolean;
-      isDisplayTask: true;
+      "task.is.display_task": true;
     }
   | {
       name: "Clicked execution tasks table link";
     }
   | { name: "Clicked schedule task button" }
   | { name: "Clicked abort task button" }
-  | { name: "Changed task priority"; priority: number }
+  | { name: "Changed task priority"; "task.priority": number }
   | { name: "Clicked unschedule task button" }
   | { name: "Changed page size" }
   | { name: "Changed tab"; tab: string }

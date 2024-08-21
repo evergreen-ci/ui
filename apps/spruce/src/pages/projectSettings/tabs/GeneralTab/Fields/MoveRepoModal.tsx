@@ -78,8 +78,8 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
         });
         sendEvent({
           name: "Clicked move project to new repo button",
-          repoOwner: newOwner,
-          repoName: newRepo,
+          "repo.owner": newOwner,
+          "repo.name": newRepo,
         });
         handleClose();
       }}

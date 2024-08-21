@@ -68,7 +68,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
           onConfirm={() => {
             spawnAnalytics.sendEvent({
               name: "Changed unmounted volume on host",
-              volumeId: volume.id,
+              "volume.id": volume.id,
             });
             detachVolume({ variables: { volumeId: volume.id } });
           }}

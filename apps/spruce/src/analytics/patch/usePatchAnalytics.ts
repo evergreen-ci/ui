@@ -17,7 +17,7 @@ type Action =
       name: "Sorted downstream tasks table";
       "sort.by": TaskSortCategory | TaskSortCategory[];
     }
-  | { name: "Toggled patch visibility"; hidden: boolean }
+  | { name: "Toggled patch visibility"; "patch.hidden": boolean }
   | { name: "Clicked patch reconfigure link" };
 
 export const usePatchAnalytics = (id: string) => {

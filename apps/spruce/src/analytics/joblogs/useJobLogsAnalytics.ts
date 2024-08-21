@@ -9,7 +9,7 @@ type Action =
       execution?: number;
       "group.id"?: string;
     }
-  | { name: "Clicked Parsley test log link"; buildId?: string };
+  | { name: "Clicked Parsley test log link"; "build.id"?: string };
 
 export const useJobLogsAnalytics = (isLogkeeper: boolean) =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("JobLogs", {

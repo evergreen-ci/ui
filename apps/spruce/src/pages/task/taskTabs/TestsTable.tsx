@@ -107,7 +107,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     setQueryParams(updatedParams);
     sendEvent({
       name: "Filtered tests table",
-      filterBy: Object.keys(filterState),
+      "filter.by": Object.keys(filterState),
     });
   };
 
@@ -116,7 +116,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sorted tests table",
-        sortBy: sorter.map(({ id }) => id as TestSortCategory),
+        "sort.by": sorter.map(({ id }) => id as TestSortCategory),
       }),
   });
 
