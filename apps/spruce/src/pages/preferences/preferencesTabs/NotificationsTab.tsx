@@ -69,8 +69,7 @@ export const NotificationsTab: React.FC = () => {
       },
     };
     sendEvent({
-      name: "Saved notifications",
-      params: variables,
+      name: "Saved notification preferences",
     });
     try {
       await updateUserSettings({

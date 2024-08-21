@@ -76,7 +76,7 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
     });
     sendEvent({
       name: "Filtered downstream tasks table",
-      filterBy: Object.keys(filterState),
+      "filter.by": Object.keys(filterState),
     });
   };
 
@@ -88,7 +88,7 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
     dispatch({ type: "setSorts", sorts: updatedSorts });
     sendEvent({
       name: "Sorted downstream tasks table",
-      sortBy: sortingState.map(({ id }) => id as TaskSortCategory),
+      "sort.by": sortingState.map(({ id }) => id as TaskSortCategory),
     });
   };
 

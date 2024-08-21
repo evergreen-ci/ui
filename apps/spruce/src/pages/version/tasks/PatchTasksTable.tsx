@@ -36,7 +36,7 @@ export const PatchTasksTable: React.FC<Props> = ({
   const filterHookProps = {
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
-      sendEvent({ name: "Filtered tasks table", filterBy }),
+      sendEvent({ name: "Filtered tasks table", "filter.by": filterBy }),
   };
   const currentStatusesFilter = useStatusesFilter({
     urlParam: PatchTasksQueryParams.Statuses,
@@ -109,13 +109,13 @@ export const PatchTasksTable: React.FC<Props> = ({
       onClickTaskLink={(taskId) =>
         sendEvent({
           name: "Clicked task table task link",
-          taskId,
+          "task.id": taskId,
         })
       }
       onColumnHeaderClick={(sortField) =>
         sendEvent({
           name: "Sorted tasks table",
-          sortBy: sortField,
+          "sort.by": sortField,
         })
       }
       taskNameInputProps={taskNameInputProps}

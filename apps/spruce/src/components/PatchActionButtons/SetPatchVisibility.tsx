@@ -37,7 +37,10 @@ export const SetPatchVisibility: React.FC<Props> = ({
   return (
     <MenuItem
       onClick={() => {
-        sendEvent({ name: "Toggled patch visibility", hidden: !isPatchHidden });
+        sendEvent({
+          name: "Toggled patch visibility",
+          "patch.hidden": !isPatchHidden,
+        });
         setPatchVisibility({
           variables: { patchIds: [patchId], hidden: !isPatchHidden },
         });

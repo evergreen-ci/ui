@@ -39,8 +39,8 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",
-              logViewer: "parsley",
-              testStatus: status,
+              "log.viewer": "parsley",
+              "test.status": status,
             })
           }
         >
@@ -57,8 +57,8 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",
-              logViewer: "html",
-              testStatus: status,
+              "log.viewer": "html",
+              "test.status": status,
             })
           }
         >
@@ -75,8 +75,8 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",
-              logViewer: "raw",
-              testStatus: status,
+              "log.viewer": "raw",
+              "test.status": status,
             })
           }
         >

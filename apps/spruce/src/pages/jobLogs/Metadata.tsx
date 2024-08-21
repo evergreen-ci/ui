@@ -33,10 +33,10 @@ export const Metadata: React.FC<{
           onClick={() => {
             sendEvent({
               name: "Clicked complete logs link",
-              buildId: metadata.buildId,
-              taskId: metadata.taskId,
+              "build.id": metadata.buildId,
+              "task.id": metadata.taskId,
               execution: metadata.execution,
-              groupID: metadata.groupID,
+              "group.id": metadata.groupID,
             });
           }}
         >
