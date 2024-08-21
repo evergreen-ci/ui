@@ -79,7 +79,7 @@ describe("SubsectionHeader", () => {
     expect(sendEventMock).toHaveBeenCalledTimes(1);
     expect(sendEventMock).toHaveBeenCalledWith({
       isNested: true,
-      name: "Clicked section toggle caret",
+      name: "Toggled section caret",
       open: true,
       sectionName: "shell.exec",
       sectionType: "command",

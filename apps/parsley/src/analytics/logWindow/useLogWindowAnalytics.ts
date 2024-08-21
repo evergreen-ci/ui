@@ -33,7 +33,7 @@ type Action =
   | { name: "Toggled expanded lines"; open: false }
   | { name: "Used search result pagination"; direction: DIRECTION }
   | {
-      name: "Clicked section toggle caret";
+      name: "Toggled section caret";
       sectionName: string;
       sectionType: "command" | "function";
       open: boolean;

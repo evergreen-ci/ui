@@ -37,7 +37,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         onClick={() => {
           sendEvent({
             isNested: false,
-            name: "Clicked section toggle caret",
+            name: "Toggled section caret",
             open: !open,
             sectionName: functionName,
             sectionType: "function",

@@ -45,7 +45,7 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
         onClick={() => {
           sendEvent({
             isNested: !isTopLevelCommand,
-            name: "Clicked section toggle caret",
+            name: "Toggled section caret",
             open: !open,
             sectionName: commandName,
             sectionType: "command",
