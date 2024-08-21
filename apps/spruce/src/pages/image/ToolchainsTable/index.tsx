@@ -10,15 +10,11 @@ import { BaseTable } from "components/Table/BaseTable";
 import { DEFAULT_PAGE_SIZE } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
+  Toolchain,
   ImageToolchainsQuery,
   ImageToolchainsQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_TOOLCHAINS } from "gql/queries";
-import { Unpacked } from "types/utils";
-
-type Toolchain = Unpacked<
-  NonNullable<ImageToolchainsQuery["image"]>["toolchains"]["data"]
->;
 
 type ToolchainsTableProps = {
   imageId: string;
