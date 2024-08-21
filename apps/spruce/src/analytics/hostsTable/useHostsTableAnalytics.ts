@@ -7,7 +7,7 @@ type Action =
   | { name: "Changed page size"; "page.size": number }
   | { name: "Clicked restart jasper button" }
   | { name: "Clicked reprovision host button" }
-  | { name: "Clicked update host status button"; status: string };
+  | { name: "Clicked update host status button"; "host.status": string };
 
 export const useHostsTableAnalytics = (isHostPage?: boolean) =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>(
