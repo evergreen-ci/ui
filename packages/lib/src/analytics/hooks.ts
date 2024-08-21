@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { Analytics, ActionType, AnalyticsProperties } from "./types";
-import { addNewRelicPageAction, sendEventTrace } from "./utils";
+import { sendEventTrace } from "./utils";
 
 /**
  *
@@ -26,12 +26,6 @@ export const useAnalyticsRoot = <
 ): Analytics<Action> => {
   const sendEvent: Analytics<Action>["sendEvent"] = useCallback(
     (action) => {
-      addNewRelicPageAction<Action>(action, {
-        // Map the identifier and attributes to the object field to maintain backwards compatibility
-        // with the previous implementation of the analytics provider
-        object: analyticsIdentifier,
-        ...attributes,
-      });
       sendEventTrace(action, {
         "analytics.identifier": analyticsIdentifier,
         ...attributes,

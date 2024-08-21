@@ -4803,11 +4803,6 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-5.1.2.tgz#07508b45797cb81ec3f273011b054cd0755eddca"
   integrity sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==
 
-"@types/new-relic-browser@1.230.4":
-  version "1.230.4"
-  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-1.230.4.tgz#46070a56b1c9cb3e23abd3b305194d23a1b47b9d"
-  integrity sha512-dsYvm01NyEu9zoIODMQUz7KAhRFFRFY9ZCz6uEDb/SeVylSNHn8P2wbUI71CtNs3PFUrvWOHYR7oAIyceOQ6jg==
-
 "@types/node@*", "@types/node@^20.12.7":
   version "20.12.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.12.tgz#7cbecdf902085cec634fdb362172dfe12b8f2050"

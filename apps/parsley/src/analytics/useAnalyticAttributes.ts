@@ -8,21 +8,21 @@ export const useAnalyticAttributes = () => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    if (typeof window?.newrelic !== "object") {
+    // FIXME: Remove this block after testing
+    if (true) {
       console.debug("Setting logType: ", logType);
       console.debug("Setting userId: ", userId);
-      return;
     }
-
-    const { newrelic } = window;
-    if (logType !== undefined) {
-      newrelic.setCustomAttribute("logType", logType);
-    }
-    if (userId !== null) {
-      newrelic.setCustomAttribute("userId", userId);
-    }
-    if (renderingType !== undefined) {
-      newrelic.setCustomAttribute("renderingType", renderingType);
-    }
+    // TODO: Replace this with honeycomb equivalent
+    // const { newrelic } = window;
+    // if (logType !== undefined) {
+    //   newrelic.setCustomAttribute("logType", logType);
+    // }
+    // if (userId !== null) {
+    //   newrelic.setCustomAttribute("userId", userId);
+    // }
+    // if (renderingType !== undefined) {
+    //   newrelic.setCustomAttribute("renderingType", renderingType);
+    // }
   }, [userId, logType, renderingType]);
 };
