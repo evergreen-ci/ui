@@ -14,7 +14,6 @@ export const sendEventTrace = <A extends ActionType>(
   const tracer = trace.getTracer("analytics");
 
   tracer.startActiveSpan(name, (span) => {
-    // use span.setAttribute to set any relevant attributes
     span.setAttributes({
       ...properties,
       ...actionProps,
