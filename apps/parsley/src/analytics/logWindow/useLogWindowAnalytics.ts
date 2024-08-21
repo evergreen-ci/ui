@@ -44,19 +44,19 @@ type Action =
   | { name: "Clicked close all sections button" }
   | {
       name: "Clicked open subsections button";
-      functionName: string;
+      "function.name": string;
       status: SectionStatus;
-      wasfunctionClosed: boolean;
+      "was.function.closed": boolean;
     }
   | {
       name: "Clicked close subsections button";
-      functionName: string;
+      "function.name": string;
       status: SectionStatus;
     }
   | {
       name: "Viewed log with sections and jump to failing line";
-      sectionsEnabled: boolean;
-      jumpToFailingLineEnabled: boolean;
+      "sections.enabled": boolean;
+      "jump.to.failing.line.enabled": boolean;
     };
 
 export const useLogWindowAnalytics = () =>

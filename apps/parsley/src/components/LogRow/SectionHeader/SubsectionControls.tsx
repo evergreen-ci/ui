@@ -30,10 +30,10 @@ const SubsectionControls: React.FC<{
           data-cy="open-subsections-btn"
           onClick={() => {
             sendEvent({
-              functionName,
+              "function.name": functionName,
               name: "Clicked open subsections button",
               status,
-              wasfunctionClosed: !sectionState[functionID].isOpen,
+              "was.function.closed": !sectionState[functionID].isOpen,
             });
             toggleAllCommandsInFunction(functionID, true);
           }}
@@ -48,7 +48,7 @@ const SubsectionControls: React.FC<{
           onClick={() => {
             toggleAllCommandsInFunction(functionID, false);
             sendEvent({
-              functionName,
+              "function.name": functionName,
               name: "Clicked close subsections button",
               status,
             });
