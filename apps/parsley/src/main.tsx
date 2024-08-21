@@ -9,7 +9,7 @@ initializeErrorHandling();
 initializeHoneycomb({
   apiKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
   debug: isDevelopmentBuild(),
-  endpoint: process.env.HONEYCOMB_ENDPOINT || "",
+  endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
   serviceName: "parsley",
 });
 
