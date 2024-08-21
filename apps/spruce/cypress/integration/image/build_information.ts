@@ -1,4 +1,23 @@
 describe("build information", () => {
+  describe("general", () => {
+    it("should show correct property values", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("general-table-row").should("have.length", 4);
+      cy.dataCy("general-table-row")
+        .eq(0)
+        .should("contain.text", "Last deployed");
+      cy.dataCy("general-table-row")
+        .eq(1)
+        .should("contain.text", "Amazon Machine Image (AMI)");
+      cy.dataCy("general-table-row")
+        .eq(2)
+        .should("contain.text", "Latest task");
+      cy.dataCy("general-table-row")
+        .eq(3)
+        .should("contain.text", "Latest task time");
+    });
+  });
+
   describe("distros", () => {
     it("should show the corresponding distros", () => {
       cy.visit("/image/ubuntu1804");

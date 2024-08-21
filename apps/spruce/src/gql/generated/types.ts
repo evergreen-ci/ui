@@ -6286,6 +6286,26 @@ export type ImageEventsQuery = {
   } | null;
 };
 
+export type ImageGeneralQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+}>;
+
+export type ImageGeneralQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    ami: string;
+    id: string;
+    lastDeployed: Date;
+    latestTask?: {
+      __typename?: "Task";
+      execution: number;
+      finishTime?: Date | null;
+      id: string;
+    } | null;
+  } | null;
+};
+
 export type ImagePackagesQueryVariables = Exact<{
   imageId: Scalars["String"]["input"];
   opts: PackageOpts;
