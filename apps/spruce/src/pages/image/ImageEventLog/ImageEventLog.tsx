@@ -81,6 +81,7 @@ const Container = styled.div`
 
 const SearchContainer = styled.div`
   align-self: flex-start;
+  width: 421px;
 `;
 
 const ImageEventLogCard = styled(Card)`
