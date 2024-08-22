@@ -21,4 +21,22 @@ const mockEnvironmentVariables = () => {
   return { cleanup, mockEnv };
 };
 
-export { mockEnvironmentVariables };
+/**
+ * Tests if a function throws an error with a specific message.
+ * @param func - The function expected to throw an error.
+ * @param errorMessage - The expected error message substring.
+ * @example
+ * expectError(() => someFunction(), 'Expected error message');
+ */
+const expectError = (func: () => void, errorMessage: string) => {
+  let err;
+  try {
+    func();
+  } catch (e) {
+    err = e;
+  }
+  expect(err).toBeInstanceOf(Error);
+  expect((err as Error).message).toContain(errorMessage);
+};
+
+export { mockEnvironmentVariables, expectError };
