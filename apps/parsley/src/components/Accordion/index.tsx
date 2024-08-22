@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
+import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
@@ -68,11 +69,11 @@ const Accordion: React.FC<AccordionProps> = ({
         role="button"
       >
         <AccordionIcon
-          fill={gray.dark1}
-          glyph="ChevronRight"
+          aria-labelledby="Expand or collapse filter"
           open={accordionOpen}
-          size="small"
-        />
+        >
+          <Icon fill={gray.dark1} glyph="ChevronRight" />
+        </AccordionIcon>
         {titleComp}
       </AccordionToggle>
       {subtitle && <SubtitleContainer>{subtitle}</SubtitleContainer>}
@@ -90,16 +91,15 @@ const Accordion: React.FC<AccordionProps> = ({
 
 const AccordionToggle = styled.div`
   display: flex;
-  align-items: center;
   gap: 2px;
   :hover {
     cursor: pointer;
   }
 `;
 
-const AccordionIcon = styled(Icon)<{ open: boolean }>`
+const AccordionIcon = styled(IconButton)<{ open: boolean }>`
   flex-shrink: 0;
-  transform: ${({ open }): string => (open ? "rotate(90deg)" : "unset")};
+  transform: ${({ open }) => (open ? "rotate(90deg)" : "unset")};
   transition-property: transform;
   transition-duration: 150ms;
 `;
