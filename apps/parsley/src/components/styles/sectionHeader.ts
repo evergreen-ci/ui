@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
+import { css } from "@leafygreen-ui/emotion";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
 const { gray } = palette;
 
-export const SectionHeaderWrapper = styled.div`
+export const sectionHeaderWrapperStyle = css`
   display: flex;
   align-items: center;
   gap: ${size.xs};
@@ -12,7 +12,7 @@ export const SectionHeaderWrapper = styled.div`
   border-bottom: 1px solid ${gray.light2};
 `;
 
-export const SubsectionHeaderWrapper = styled.div`
+export const subsectionHeaderWrapperStyle = css`
   display: flex;
   align-items: center;
   gap: ${size.xs};

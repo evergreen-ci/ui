@@ -392,7 +392,7 @@ describe("filterLogs", () => {
     "normal log line",
     "normal log line",
   ];
-  const sectionDataForLogsWithTopLevelCommands = {
+  const sectionDataForLogsWithTopLevelCommands: SectionData = {
     commands: [
       {
         commandID: "command-1",

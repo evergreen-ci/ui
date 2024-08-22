@@ -4,7 +4,7 @@
   >
     <div
       aria-expanded="true"
-      class="css-mu12sx-SubsectionHeaderWrapper e11pnhus0"
+      class="css-dycwd9-Wrapper e1w7l4ch0"
       data-cy="section-header"
     >
       <button
@@ -49,7 +49,7 @@
     </div>
     <div
       aria-expanded="false"
-      class="css-mu12sx-SubsectionHeaderWrapper e11pnhus0"
+      class="css-dycwd9-Wrapper e1w7l4ch0"
       data-cy="section-header"
     >
       <button
@@ -110,7 +110,7 @@
     </div>
     <div
       aria-expanded="true"
-      class="css-mu12sx-SubsectionHeaderWrapper e11pnhus0"
+      class="css-dycwd9-Wrapper e1w7l4ch0"
       data-cy="section-header"
     >
       <button
