@@ -1,11 +1,12 @@
+import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
 import {
-  SectionHeaderWrapper,
-  SubsectionHeaderWrapper,
+  sectionHeaderWrapperStyle,
+  subsectionHeaderWrapperStyle,
 } from "components/styles";
 import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
@@ -36,11 +37,12 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
   const { sectioning } = useLogContext();
   const statusGlyph =
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
-  const Wrapper = isTopLevelCommand
-    ? SectionHeaderWrapper
-    : SubsectionHeaderWrapper;
   return (
-    <Wrapper aria-expanded={open} data-cy="section-header">
+    <Wrapper
+      aria-expanded={open}
+      data-cy="section-header"
+      isTopLevelCommand={isTopLevelCommand}
+    >
       <CaretToggle
         onClick={() => {
           sendEvent({
@@ -65,4 +67,10 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
   );
 };
 
+const Wrapper = styled.div<{ isTopLevelCommand: boolean }>`
+  ${({ isTopLevelCommand }) =>
+    isTopLevelCommand
+      ? sectionHeaderWrapperStyle
+      : subsectionHeaderWrapperStyle};
+`;
 export default SubsectionHeader;
