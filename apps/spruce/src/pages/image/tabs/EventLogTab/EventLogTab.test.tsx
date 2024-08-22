@@ -380,6 +380,48 @@ describe("image event log page", async () => {
       expect(rows).toHaveLength(3);
     });
   });
+
+  it("supports global filter for existing entries", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
+    });
+    const searchBar = screen.getByPlaceholderText("Global search by name");
+
+    // Filter for golang.
+    await user.type(searchBar, "golang{enter}");
+    expect(searchBar).toHaveValue("golang");
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-table-row")).toHaveLength(
+        1,
+      );
+    });
+  });
+
+  it("supports global filter for non-existent entries", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
+    });
+    const searchBar = screen.getByPlaceholderText("Global search by name");
+
+    // Filter for non-existent entry.
+    await user.type(searchBar, "blahblah{enter}");
+    expect(searchBar).toHaveValue("blahblah");
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-table-row")).toHaveLength(
+        0,
+      );
+    });
+  });
 });
 
 const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =

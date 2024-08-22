@@ -10,7 +10,7 @@ describe("event log page", () => {
     );
   });
 
-  it("should show no events when filtering for a nonexistent item", () => {
+  it("should show no events when filtering by name for a nonexistent item", () => {
     cy.visit("/image/ubuntu2204/event-log");
     cy.dataCy("image-event-log-card").should("have.length", IMAGE_EVENT_LIMIT);
     cy.dataCy("image-event-log-name-filter").first().click();
@@ -20,5 +20,12 @@ describe("event log page", () => {
       .within(() => {
         cy.dataCy("image-event-log-table-row").should("have.length", 0);
       });
+  });
+
+  it("should show no events when global filtering for a nonexistent item", () => {
+    cy.visit("/image/ubuntu2204/event-log");
+    cy.dataCy("image-event-log-card").should("have.length", IMAGE_EVENT_LIMIT);
+    cy.get('input[placeholder="Global search by name"]').type("bogus{enter}");
+    cy.dataCy("image-event-log-table-row").should("have.length", 0);
   });
 });
