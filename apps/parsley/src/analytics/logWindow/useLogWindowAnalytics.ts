@@ -36,9 +36,9 @@ type Action =
       name: "Toggled section caret";
       "section.name": string;
       "section.type": "command" | "function";
-      open: boolean;
-      status?: SectionStatus;
-      nested: boolean;
+      "section.open": boolean;
+      "section.status"?: SectionStatus;
+      "section.nested": boolean;
     }
   | { name: "Clicked open all sections button" }
   | { name: "Clicked close all sections button" }

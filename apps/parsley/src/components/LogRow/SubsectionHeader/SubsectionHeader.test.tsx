@@ -80,11 +80,11 @@ describe("SubsectionHeader", () => {
     expect(sendEventMock).toHaveBeenCalledTimes(1);
     expect(sendEventMock).toHaveBeenCalledWith({
       name: "Toggled section caret",
-      nested: true,
-      open: true,
       "section.name": "shell.exec",
+      "section.nested": true,
+      "section.open": true,
+      "section.status": undefined,
       "section.type": "command",
-      status: undefined,
     });
   });
 

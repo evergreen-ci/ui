@@ -87,11 +87,11 @@ describe("SectionHeader", () => {
     expect(sendEventMock).toHaveBeenCalledTimes(1);
     expect(sendEventMock).toHaveBeenCalledWith({
       name: "Toggled section caret",
-      nested: false,
-      open: true,
       "section.name": "load_data",
+      "section.nested": false,
+      "section.open": true,
+      "section.status": "pass",
       "section.type": "function",
-      status: "pass",
     });
     expect(toggleFunctionSectionMock).toHaveBeenCalledTimes(1);
     expect(toggleFunctionSectionMock).toHaveBeenCalledWith({
