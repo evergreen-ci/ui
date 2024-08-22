@@ -92,10 +92,6 @@ describe("Host events", () => {
         text: "Expiration warning sent",
       },
       {
-        hostType: "host-temporary-exemptions-expiration-warning-sent",
-        text: "Temporary exemption expiration warning sent",
-      },
-      {
         hostType: "host-running-task-set",
         text: "Assigned to run task evergreen_ubuntu1604_test_command_patch_5e823e1f28",
       },
