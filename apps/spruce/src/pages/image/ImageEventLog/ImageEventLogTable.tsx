@@ -56,12 +56,12 @@ const imageEventTypeTreeData = [
 
 interface ImageEventLogTableProps {
   entries: ImageEventEntry[];
-  globalFilterQuery: string;
+  globalFilter: string;
 }
 
 export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
   entries,
-  globalFilterQuery,
+  globalFilter,
 }) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -75,7 +75,7 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
     onColumnFiltersChange: setColumnFilters,
     state: {
       columnFilters,
-      globalFilter: globalFilterQuery,
+      globalFilter,
     },
     getFilteredRowModel: getFilteredRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),

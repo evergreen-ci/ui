@@ -22,9 +22,9 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
   handleFetchMore,
   loading,
 }) => {
-  const [globalFilter, setGlobalFilter] = useState("");
-  const handleGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGlobalFilter(e.target.value);
+  const [globalSearch, setGlobalSearch] = useState("");
+  const handleGlobalSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGlobalSearch(e.target.value);
   };
 
   const allEventsFetchedCopy =
@@ -35,10 +35,9 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
       <SearchContainer>
         <SearchInput
           aria-labelledby="event-log-global-search"
-          value={globalFilter}
-          onChange={handleGlobalFilterChange}
+          value={globalSearch}
+          onChange={handleGlobalSearchChange}
           placeholder="Global search by name"
-          data-cy="global-search-input"
         />
       </SearchContainer>
 
@@ -54,10 +53,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
               amiBefore={amiBefore ?? ""}
               timestamp={timestamp}
             />
-            <ImageEventLogTable
-              entries={entries}
-              globalFilterQuery={globalFilter}
-            />
+            <ImageEventLogTable entries={entries} globalFilter={globalSearch} />
           </ImageEventLogCard>
         );
       })}
