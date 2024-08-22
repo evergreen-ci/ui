@@ -84,8 +84,8 @@ describe("SectionControls", () => {
     expect(sendEventMock).toHaveBeenCalledOnce();
     expect(sendEventMock).toHaveBeenCalledWith({
       "function.name": "funcName",
+      "function.status": "pass",
       name: "Clicked open subsections button",
-      status: "pass",
       "was.function.closed": false,
     });
     expect(toggleAllCommandsInFunctionMock).toHaveBeenCalledOnce();
@@ -102,9 +102,9 @@ describe("SectionControls", () => {
     );
     expect(sendEventMock).toHaveBeenCalledTimes(2);
     expect(sendEventMock).toHaveBeenCalledWith({
-      "function.name": "funcName",
+      "function.status": "pass",
       name: "Clicked close subsections button",
-      status: "pass",
+      "section.name": "funcName",
     });
   });
 });

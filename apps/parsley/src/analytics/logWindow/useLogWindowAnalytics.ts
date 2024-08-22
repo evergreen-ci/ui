@@ -45,13 +45,13 @@ type Action =
   | {
       name: "Clicked open subsections button";
       "function.name": string;
-      status: SectionStatus;
+      "function.status": SectionStatus;
       "was.function.closed": boolean;
     }
   | {
       name: "Clicked close subsections button";
       "function.name": string;
-      status: SectionStatus;
+      "function.status": SectionStatus;
     }
   | {
       name: "Viewed log with sections and jump to failing line";
