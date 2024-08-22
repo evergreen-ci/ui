@@ -274,7 +274,11 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         </span>
       );
     case HostEvent.HostTemporaryExemptionExpirationWarningSent:
-      return <span>Temporary exemption expiration warning sent</span>;
+      return (
+        <span data-cy="host-temporary-exemptions-expiration-warning-sent">
+          Temporary exemption expiration warning sent
+        </span>
+      );
     case HostEvent.VolumeMigrationFailed:
       return (
         <span data-cy="host-volume-migration-failed">
