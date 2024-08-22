@@ -36,6 +36,7 @@ const TaskLink: React.FC<TaskLinkProps> = ({ "data-cy": dataCy, taskId }) => (
     data-cy={dataCy}
     title={taskId}
     to={getTaskRoute(taskId)}
+    responsiveBreakpoint={1200}
   >
     {taskId}
   </ShortenedRouterLink>
