@@ -102,9 +102,9 @@ describe("SectionControls", () => {
     );
     expect(sendEventMock).toHaveBeenCalledTimes(2);
     expect(sendEventMock).toHaveBeenCalledWith({
+      "function.name": "funcName",
       "function.status": "pass",
       name: "Clicked close subsections button",
-      "section.name": "funcName",
     });
   });
 });
