@@ -4,7 +4,7 @@
   >
     <div
       aria-expanded="false"
-      class="css-16v51if-Wrapper e1w7l4ch0"
+      class="css-1466mqi-sectionHeaderWrapperStyle"
       data-cy="section-header"
     >
       <button
@@ -65,7 +65,7 @@
     </div>
     <div
       aria-expanded="true"
-      class="css-16v51if-Wrapper e1w7l4ch0"
+      class="css-1466mqi-sectionHeaderWrapperStyle"
       data-cy="section-header"
     >
       <button
@@ -127,7 +127,7 @@
     </div>
     <div
       aria-expanded="true"
-      class="css-16v51if-Wrapper e1w7l4ch0"
+      class="css-1466mqi-sectionHeaderWrapperStyle"
       data-cy="section-header"
     >
       <button

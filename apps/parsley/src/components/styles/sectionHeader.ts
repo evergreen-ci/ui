@@ -1,4 +1,4 @@
-import { css } from "@leafygreen-ui/emotion";
+import { css } from "@emotion/react";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 

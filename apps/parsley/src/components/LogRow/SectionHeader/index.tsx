@@ -32,7 +32,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
 
   return (
-    <Wrapper aria-expanded={open} data-cy="section-header">
+    <div
+      aria-expanded={open}
+      css={sectionHeaderWrapperStyle}
+      data-cy="section-header"
+    >
       <CaretToggle
         onClick={() => {
           sendEvent({
@@ -56,13 +60,10 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           status={status}
         />
       </ButtonWrapper>
-    </Wrapper>
+    </div>
   );
 };
 
-const Wrapper = styled.div`
-  ${sectionHeaderWrapperStyle}
-`;
 const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
