@@ -38,6 +38,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
           value={globalSearch}
           onChange={handleGlobalSearchChange}
           placeholder="Global search by name"
+          data-cy="event-log-global-search"
         />
       </SearchContainer>
 
@@ -81,7 +82,7 @@ const Container = styled.div`
 
 const SearchContainer = styled.div`
   align-self: flex-start;
-  width: 421px;
+  width: 420px;
 `;
 
 const ImageEventLogCard = styled(Card)`

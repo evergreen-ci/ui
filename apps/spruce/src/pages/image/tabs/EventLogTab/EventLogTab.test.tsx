@@ -113,8 +113,12 @@ describe("image event log page", async () => {
       within(cards[0]).queryByDataCy("image-event-log-empty-message"),
     ).toBeNull();
 
+    expect(
+      within(cards[1]).queryByDataCy("image-event-log-empty-message"),
+    ).toBeNull();
+
     // Expects cards to contain the empty message.
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 2; i <= 4; i++) {
       const emptyMessageElement = within(cards[i]).getByDataCy(
         "image-event-log-empty-message",
       );
@@ -397,7 +401,7 @@ describe("image event log page", async () => {
     expect(searchBar).toHaveValue("golang");
     await waitFor(() => {
       expect(screen.queryAllByDataCy("image-event-log-table-row")).toHaveLength(
-        1,
+        2,
       );
     });
   });
@@ -479,7 +483,16 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                 __typename: "ImageEvent",
                 amiAfter: "ami-03e245926032896f9",
                 amiBefore: "ami-03e24592603281234",
-                entries: [],
+                entries: [
+                  {
+                    __typename: "ImageEventEntry",
+                    type: ImageEventType.Toolchain,
+                    name: "golang",
+                    before: "go1.20.14",
+                    after: "",
+                    action: ImageEventEntryAction.Deleted,
+                  },
+                ],
                 timestamp: new Date("2023-08-07T17:57:00-04:00"),
               },
               {

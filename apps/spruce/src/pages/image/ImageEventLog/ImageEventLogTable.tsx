@@ -83,7 +83,7 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
     globalFilterFn: filterFns.includesString,
   });
 
-  const hasFilters = columnFilters.length > 0;
+  const hasFilters = columnFilters.length > 0 || globalFilter;
 
   const emptyMessage = hasFilters
     ? "No data to display"
