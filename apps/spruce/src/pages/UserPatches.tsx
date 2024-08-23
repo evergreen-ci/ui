@@ -1,11 +1,10 @@
 import { useQuery } from "@apollo/client";
-import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { PatchesPage } from "components/PatchesPage";
 import { RequesterSelector } from "components/PatchesPage/RequesterSelector";
 import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryParams";
-import { INCLUDE_COMMIT_QUEUE_USER_PATCHES } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import { githubMergeQueueUser } from "constants/patch";
 import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
@@ -14,19 +13,13 @@ import {
 } from "gql/generated/types";
 import { USER_PATCHES } from "gql/queries";
 import { usePolling, useGetUserPatchesPageTitleAndLink } from "hooks";
-import { useQueryParam } from "hooks/useQueryParam";
-import { PatchPageQueryParams } from "types/patch";
 
 export const UserPatches = () => {
   const dispatchToast = useToastContext();
   const { [slugs.userId]: userId } = useParams();
 
-  const [isCommitQueueCheckboxChecked] = useQueryParam(
-    PatchPageQueryParams.CommitQueue,
-    Cookies.get(INCLUDE_COMMIT_QUEUE_USER_PATCHES) === "true",
-  );
-
   const patchesInput = usePatchesQueryParams();
+  const isMergeQueueUser = userId === githubMergeQueueUser;
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     UserPatchesQuery,
@@ -36,7 +29,8 @@ export const UserPatches = () => {
       userId,
       patchesInput: {
         ...patchesInput,
-        includeCommitQueue: isCommitQueueCheckboxChecked,
+        // Always show merge queue patches for the merge queue user.
+        onlyCommitQueue: isMergeQueueUser,
       },
     },
     fetchPolicy: "cache-and-network",
@@ -52,6 +46,7 @@ export const UserPatches = () => {
   return (
     <PatchesPage
       filterComp={<RequesterSelector />}
+      includeMergeQueuePatches={isMergeQueueUser}
       pageTitle={pageTitle || "User Patches"}
       loading={loading && !data?.user.patches}
       pageType="user"

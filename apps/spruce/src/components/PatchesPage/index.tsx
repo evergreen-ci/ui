@@ -8,7 +8,6 @@ import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import {
   INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
-  INCLUDE_COMMIT_QUEUE_USER_PATCHES,
   INCLUDE_HIDDEN_PATCHES,
 } from "constants/cookies";
 import { size } from "constants/tokens";
@@ -24,6 +23,7 @@ import { usePatchesQueryParams } from "./usePatchesQueryParams";
 
 interface Props {
   filterComp?: React.ReactNode;
+  includeMergeQueuePatches: boolean;
   loading: boolean;
   pageTitle: string;
   pageType: "project" | "user";
@@ -32,6 +32,7 @@ interface Props {
 
 export const PatchesPage: React.FC<Props> = ({
   filterComp,
+  includeMergeQueuePatches,
   loading,
   pageTitle,
   pageType,
@@ -42,15 +43,10 @@ export const PatchesPage: React.FC<Props> = ({
   const analytics =
     pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
   const { setLimit } = usePagination();
-  const cookie =
-    pageType === "project"
-      ? INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES
-      : INCLUDE_COMMIT_QUEUE_USER_PATCHES;
-  const [isCommitQueueCheckboxChecked, setIsCommitQueueCheckboxChecked] =
-    useQueryParam(
-      PatchPageQueryParams.CommitQueue,
-      Cookies.get(cookie) === "true",
-    );
+  const [
+    isGitHubMergeQueueCheckboxChecked,
+    setIsGitHubMergeQueueCheckboxChecked,
+  ] = useQueryParam(PatchPageQueryParams.CommitQueue, includeMergeQueuePatches);
   const [includeHiddenCheckboxChecked, setIsIncludeHiddenCheckboxChecked] =
     useQueryParam(
       PatchPageQueryParams.Hidden,
@@ -66,16 +62,19 @@ export const PatchesPage: React.FC<Props> = ({
           name: "Filtered for patches",
           "filter.by": filterBy,
           "filter.hidden": includeHiddenCheckboxChecked,
-          "filter.commit_queue": isCommitQueueCheckboxChecked,
+          "filter.commit_queue": isGitHubMergeQueueCheckboxChecked,
         }),
     });
   usePageTitle(pageTitle);
 
-  const commitQueueCheckboxOnChange = (
+  const gitHubMergeQueueCheckboxOnChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
-    setIsCommitQueueCheckboxChecked(e.target.checked);
-    Cookies.set(cookie, e.target.checked ? "true" : "false");
+    setIsGitHubMergeQueueCheckboxChecked(e.target.checked);
+    Cookies.set(
+      INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
+      e.target.checked ? "true" : "false",
+    );
     analytics.sendEvent({
       name: "Filtered for patches",
       "filter.by": filterInput,
@@ -93,7 +92,7 @@ export const PatchesPage: React.FC<Props> = ({
       name: "Filtered for patches",
       "filter.by": filterInput,
       "filter.hidden": e.target.checked,
-      "filter.commit_queue": isCommitQueueCheckboxChecked,
+      "filter.commit_queue": isGitHubMergeQueueCheckboxChecked,
     });
   };
 
@@ -117,16 +116,14 @@ export const PatchesPage: React.FC<Props> = ({
         <StatusSelector />
         {filterComp}
         <CheckboxContainer>
-          <Checkbox
-            data-cy="commit-queue-checkbox"
-            onChange={commitQueueCheckboxOnChange}
-            label={
-              pageType === "project"
-                ? "Only Show Commit Queue Patches"
-                : "Include Commit Queue"
-            }
-            checked={isCommitQueueCheckboxChecked}
-          />
+          {pageType === "project" && (
+            <Checkbox
+              data-cy="github-merge-queue-checkbox"
+              onChange={gitHubMergeQueueCheckboxOnChange}
+              label="Only show GitHub Merge Queue patches"
+              checked={isGitHubMergeQueueCheckboxChecked}
+            />
+          )}
           <Checkbox
             data-cy="include-hidden-checkbox"
             onChange={includeHiddenCheckboxOnChange}

@@ -57,9 +57,6 @@ export const ProjectPatches = () => {
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <PatchesPage
-        loading={loading}
-        pageTitle={`${displayName ?? ""} Patches`}
-        pageType="project"
         filterComp={
           <ProjectSelect
             getRoute={getProjectPatchesRoute}
@@ -74,6 +71,10 @@ export const ProjectPatches = () => {
             }}
           />
         }
+        includeMergeQueuePatches={isCommitQueueCheckboxChecked}
+        loading={loading}
+        pageTitle={`${displayName ?? ""} Patches`}
+        pageType="project"
         patches={patches}
       />
     </>
