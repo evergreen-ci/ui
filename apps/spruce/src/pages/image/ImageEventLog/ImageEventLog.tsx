@@ -41,7 +41,6 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
           data-cy="event-log-global-search"
         />
       </SearchContainer>
-
       {events.map((event) => {
         const { amiAfter, amiBefore, entries, timestamp } = event;
         return (
