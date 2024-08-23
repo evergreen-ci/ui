@@ -160,7 +160,7 @@ describe("useSections", () => {
     rerender({
       logType: LogTypes.EVERGREEN_TASK_FILE,
       logs,
-      onInitOpenSectionContainingLine: undefined,
+      onInitOpenSectionsContainingLines: undefined,
       renderingType: LogRenderingTypes.Default,
     });
     rerender({ logs, ...metadata });
@@ -305,13 +305,13 @@ describe("useSections", () => {
     });
   });
 
-  it("should open the section containing 'onInitOpenSectionContainingLine' during initialization only", async () => {
+  it("should open the section containing 'onInitOpenSectionsContainingLines' during initialization only", async () => {
     InitializeFakeToastContext();
     const { rerender, result } = renderHook((args) => useSections(args), {
       initialProps: {
         logType: LogTypes.EVERGREEN_TASK_LOGS,
         logs,
-        onInitOpenSectionContainingLine: 10,
+        onInitOpenSectionsContainingLines: [10],
         renderingType: LogRenderingTypes.Default,
       },
       wrapper,
@@ -335,7 +335,7 @@ describe("useSections", () => {
     rerender({
       logType: LogTypes.EVERGREEN_TASK_LOGS,
       logs,
-      onInitOpenSectionContainingLine: 1,
+      onInitOpenSectionsContainingLines: [1],
       renderingType: LogRenderingTypes.Default,
     });
     await waitFor(() => {
@@ -444,7 +444,7 @@ describe("useSections", () => {
   };
   const metadata = {
     logType: LogTypes.EVERGREEN_TASK_LOGS,
-    onInitOpenSectionContainingLine: undefined,
+    onInitOpenSectionsContainingLines: undefined,
     renderingType: LogRenderingTypes.Default,
   };
 });
