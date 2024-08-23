@@ -14,11 +14,28 @@ describe("distroSettings/navigation", () => {
       cy.location("pathname").should("not.contain", "localhost");
       cy.location("pathname").should("contain", "rhel71-power8-large");
     });
-    it("navigates to the task queue for the selected distro", () => {
+
+    it("can navigate to the task queue for the selected distro", () => {
       cy.dataCy("navitem-task-queue-link").should(
         "have.attr",
         "href",
         "/task-queue/localhost",
+      );
+    });
+
+    it("can navigate to the image build information for the selected distro", () => {
+      cy.dataCy("navitem-image-build-information-link").should(
+        "have.attr",
+        "href",
+        "/image/ubuntu2204/build-information",
+      );
+    });
+
+    it("can navigate to the image event log for the selected distro", () => {
+      cy.dataCy("navitem-image-event-log-link").should(
+        "have.attr",
+        "href",
+        "/image/ubuntu2204/event-log",
       );
     });
 
