@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
@@ -38,10 +37,14 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
   const statusGlyph =
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
   return (
-    <Wrapper
+    <div
       aria-expanded={open}
+      css={
+        isTopLevelCommand
+          ? sectionHeaderWrapperStyle
+          : subsectionHeaderWrapperStyle
+      }
       data-cy="section-header"
-      isTopLevelCommand={isTopLevelCommand}
     >
       <CaretToggle
         onClick={() => {
@@ -63,14 +66,8 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
       <Body>
         Command: {commandName} (step {step})
       </Body>
-    </Wrapper>
+    </div>
   );
 };
 
-const Wrapper = styled.div<{ isTopLevelCommand: boolean }>`
-  ${({ isTopLevelCommand }) =>
-    isTopLevelCommand
-      ? sectionHeaderWrapperStyle
-      : subsectionHeaderWrapperStyle};
-`;
 export default SubsectionHeader;

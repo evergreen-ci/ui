@@ -1,9 +1,10 @@
+import { css } from "@emotion/react";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
 const { gray } = palette;
 
-export const sectionHeaderWrapperStyle = `
+export const sectionHeaderWrapperStyle = css`
   display: flex;
   align-items: center;
   gap: ${size.xs};
@@ -11,7 +12,7 @@ export const sectionHeaderWrapperStyle = `
   border-bottom: 1px solid ${gray.light2};
 `;
 
-export const subsectionHeaderWrapperStyle = `
+export const subsectionHeaderWrapperStyle = css`
   display: flex;
   align-items: center;
   gap: ${size.xs};
