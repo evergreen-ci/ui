@@ -426,6 +426,41 @@ describe("image event log page", async () => {
       );
     });
   });
+
+  it("global filter takes precedence over table filters", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
+    });
+    const card0 = screen.getAllByDataCy("image-event-log-card")[0];
+    await user.click(within(card0).getByDataCy("image-event-log-name-filter"));
+    const searchBar = screen.getByPlaceholderText("Search name");
+
+    // Filter for golang.
+    await user.type(searchBar, "golang{enter}");
+    expect(searchBar).toHaveValue("golang");
+    await waitFor(() => {
+      expect(
+        within(card0).queryAllByDataCy("image-event-log-table-row"),
+      ).toHaveLength(1);
+    });
+
+    const globalSearchBar = screen.getByPlaceholderText(
+      "Global search by name",
+    );
+    // Filter for non-existent entry.
+    await user.type(globalSearchBar, "blahblah{enter}");
+    expect(globalSearchBar).toHaveValue("blahblah");
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-table-row")).toHaveLength(
+        0,
+      );
+    });
+  });
 });
 
 const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
