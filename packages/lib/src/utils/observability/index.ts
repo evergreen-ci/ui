@@ -1,4 +1,2 @@
-export {
-  initializeHoneycomb,
-  injectOpenTelemetryProviderIntoWindow,
-} from "./honeycomb";
+export { initializeHoneycomb } from "./honeycomb";
+export { injectOpenTelemetryProviderIntoWindow } from "./openTelemetryWindowProvider/utils";

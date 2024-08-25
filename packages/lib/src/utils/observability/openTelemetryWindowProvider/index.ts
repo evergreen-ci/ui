@@ -9,28 +9,21 @@ import { OpenTelemetryGlobalAttributeWindowProvider } from "./types";
 class OpenTelemetryWindowProvider
   implements OpenTelemetryGlobalAttributeWindowProvider
 {
-  globalAttributes: Set<AttributeValue>;
-
   private attributesMap: Map<string, AttributeValue>;
 
   constructor() {
-    this.globalAttributes = new Set();
     this.attributesMap = new Map();
     console.debug("OpenTelemetryWindowProvider initialized");
   }
 
   setGlobalAttribute(key: string, value: AttributeValue): void {
     this.attributesMap.set(key, value);
-    this.globalAttributes.add(value);
-    console.debug(`Set global attribute: ${key} = ${value}`);
   }
 
   removeGlobalAttribute(key: string): void {
     const value = this.attributesMap.get(key);
     if (value) {
       this.attributesMap.delete(key);
-      this.globalAttributes.delete(value);
-      console.debug(`Removed global attribute: ${key}`);
     }
   }
 
@@ -43,7 +36,6 @@ class OpenTelemetryWindowProvider
   }
 
   getGlobalAttribute(key: string): AttributeValue | undefined {
-    console.debug(`Get global attribute: ${key}`);
     return this.attributesMap.get(key);
   }
 }

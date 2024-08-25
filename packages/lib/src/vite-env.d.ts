@@ -1,4 +1,4 @@
-import { OpenTelemetryGlobalAttributeWindowProvider } from "./utils/observability/types";
+import { OpenTelemetryGlobalAttributeWindowProvider } from "./utils/observability/openTelemetryWindowProvider/types";
 
 declare global {
   interface Window {
