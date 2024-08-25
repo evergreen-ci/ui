@@ -12,13 +12,13 @@ export const useAnalyticAttributes = () => {
     // TODO: Replace this with honeycomb equivalent
     if (openTelemetry) {
       if (logType !== undefined) {
-        openTelemetry.setGlobalAttribute("logType", logType);
+        openTelemetry.setGlobalAttribute("log.type", logType);
       }
       if (userId !== null) {
-        openTelemetry.setGlobalAttribute("userId", userId);
+        openTelemetry.setGlobalAttribute("user.id", userId);
       }
       if (renderingType !== undefined) {
-        openTelemetry.setGlobalAttribute("renderingType", renderingType);
+        openTelemetry.setGlobalAttribute("rendering.type", renderingType);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

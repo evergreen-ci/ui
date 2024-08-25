@@ -6,7 +6,7 @@ export const useAnalyticsAttributes = () => {
 
   useEffect(() => {
     if (userId !== null && openTelemetry) {
-      openTelemetry.setGlobalAttribute("userId", userId);
+      openTelemetry.setGlobalAttribute("user.id", userId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
