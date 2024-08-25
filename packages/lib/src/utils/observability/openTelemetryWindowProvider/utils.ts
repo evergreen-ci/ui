@@ -6,7 +6,11 @@ import { OpenTelemetryWindowProvider } from ".";
  */
 const injectOpenTelemetryProviderIntoWindow = () => {
   console.info("Injecting OpenTelemetry provider into window object");
-  window.openTelemetry = new OpenTelemetryWindowProvider();
+  if (!window.openTelemetry) {
+    window.openTelemetry = new OpenTelemetryWindowProvider();
+  } else {
+    console.warn("OpenTelemetry provider already exists in window");
+  }
 };
 
 export { injectOpenTelemetryProviderIntoWindow };
