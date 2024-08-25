@@ -1,6 +1,5 @@
 import { HoneycombWebSDK } from "@honeycombio/opentelemetry-web";
 import { getWebAutoInstrumentations } from "@opentelemetry/auto-instrumentations-web";
-import { OpenTelemetryWindowProvider } from "./openTelemetryWindowProvider";
 import { detectGraphqlQuery } from "./utils";
 
 /**
@@ -91,13 +90,4 @@ const initializeHoneycomb = ({
   }
 };
 
-/**
- * Injects the OpenTelemetry provider into the window object.
- *
- */
-const injectOpenTelemetryProviderIntoWindow = () => {
-  console.info("Injecting OpenTelemetry provider into window object");
-  window.openTelemetry = new OpenTelemetryWindowProvider();
-};
-
-export { initializeHoneycomb, injectOpenTelemetryProviderIntoWindow };
+export { initializeHoneycomb };
