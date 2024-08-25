@@ -13,7 +13,6 @@ class OpenTelemetryWindowProvider
 
   constructor() {
     this.attributesMap = new Map();
-    console.debug("OpenTelemetryWindowProvider initialized");
   }
 
   setGlobalAttribute(key: string, value: AttributeValue): void {
