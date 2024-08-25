@@ -9,7 +9,6 @@ export const useAnalyticAttributes = () => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    // TODO: Replace this with honeycomb equivalent
     if (openTelemetry) {
       if (logType !== undefined) {
         openTelemetry.setGlobalAttribute("log.type", logType);
