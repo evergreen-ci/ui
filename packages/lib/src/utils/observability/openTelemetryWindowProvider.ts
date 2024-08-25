@@ -1,5 +1,5 @@
 import { AttributeValue } from "@opentelemetry/api";
-import { OpenTelemeteryGlobalAttributeWindowProvider } from "./types";
+import { OpenTelemetryGlobalAttributeWindowProvider } from "./types";
 
 /**
  * OpenTelemetryWindowProvider is a class that provides a way to set and remove global attributes
@@ -7,7 +7,7 @@ import { OpenTelemeteryGlobalAttributeWindowProvider } from "./types";
  * We can use this to add global attributes to all spans and traces
  */
 class OpenTelemetryWindowProvider
-  implements OpenTelemeteryGlobalAttributeWindowProvider
+  implements OpenTelemetryGlobalAttributeWindowProvider
 {
   globalAttributes: Set<AttributeValue>;
 
@@ -16,11 +16,13 @@ class OpenTelemetryWindowProvider
   constructor() {
     this.globalAttributes = new Set();
     this.attributesMap = new Map();
+    console.debug("OpenTelemetryWindowProvider initialized");
   }
 
   setGlobalAttribute(key: string, value: AttributeValue): void {
     this.attributesMap.set(key, value);
     this.globalAttributes.add(value);
+    console.debug(`Set global attribute: ${key} = ${value}`);
   }
 
   removeGlobalAttribute(key: string): void {
@@ -28,6 +30,7 @@ class OpenTelemetryWindowProvider
     if (value) {
       this.attributesMap.delete(key);
       this.globalAttributes.delete(value);
+      console.debug(`Removed global attribute: ${key}`);
     }
   }
 
@@ -40,6 +43,7 @@ class OpenTelemetryWindowProvider
   }
 
   getGlobalAttribute(key: string): AttributeValue | undefined {
+    console.debug(`Get global attribute: ${key}`);
     return this.attributesMap.get(key);
   }
 }

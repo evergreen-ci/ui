@@ -11,10 +11,13 @@ export const sendEventTrace = <A extends ActionType>(
   { name, ...actionProps }: A,
   properties: AnalyticsProperties,
 ) => {
+  const { openTelemetry } = window;
+  const globalAttributes = openTelemetry?.getGlobalAttributes() ?? {};
   const tracer = trace.getTracer("analytics");
 
   tracer.startActiveSpan(name, (span) => {
     span.setAttributes({
+      ...globalAttributes,
       ...properties,
       ...actionProps,
     });

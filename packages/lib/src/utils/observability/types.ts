@@ -1,6 +1,6 @@
 import { AttributeValue } from "@opentelemetry/api";
 
-interface OpenTelemeteryGlobalAttributeWindowProvider {
+interface OpenTelemetryGlobalAttributeWindowProvider {
   globalAttributes: Set<AttributeValue>;
   setGlobalAttribute: (key: string, value: AttributeValue) => void;
   removeGlobalAttribute: (key: string) => void;
@@ -8,4 +8,4 @@ interface OpenTelemeteryGlobalAttributeWindowProvider {
   getGlobalAttribute: (key: string) => AttributeValue | undefined;
 }
 
-export type { OpenTelemeteryGlobalAttributeWindowProvider };
+export type { OpenTelemetryGlobalAttributeWindowProvider };

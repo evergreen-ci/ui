@@ -2,15 +2,12 @@ import { useEffect } from "react";
 
 export const useAnalyticsAttributes = () => {
   const userId = localStorage.getItem("userId");
+  const { openTelemetry } = window;
 
-  // TODO: Replace this with honeycomb equivalent
   useEffect(() => {
-    if (true) {
-      console.log("Setting userId: ", userId);
-      return;
+    if (userId !== null && openTelemetry) {
+      openTelemetry.setGlobalAttribute("userId", userId);
     }
-    if (userId !== null) {
-      // newrelic.setCustomAttribute("userId", userId);
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 };
