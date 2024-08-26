@@ -3,7 +3,6 @@ import * as logContext from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import { renderWithRouterMatch, screen, userEvent } from "test_utils";
-import { expectError } from "test_utils/utils";
 import SubsectionHeader from ".";
 
 const wrapper = logContextWrapper();
@@ -103,10 +102,7 @@ describe("SubsectionHeader", () => {
     );
     expect(screen.getByLabelText("Checkmark With Circle Icon")).toBeVisible();
     rerender(<SubsectionHeader {...subsectionHeaderProps} />);
-    expectError(
-      () => screen.getByLabelText("Checkmark With Circle Icon"),
-      "Unable to find a label with the text of: Checkmark With Circle Icon",
-    );
+    expect(screen.queryByLabelText("Checkmark With Circle Icon")).toBeNull();
   });
 });
 
