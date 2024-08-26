@@ -113,8 +113,12 @@ describe("image event log page", async () => {
       within(cards[0]).queryByDataCy("image-event-log-empty-message"),
     ).toBeNull();
 
+    expect(
+      within(cards[1]).queryByDataCy("image-event-log-empty-message"),
+    ).toBeNull();
+
     // Expects cards to contain the empty message.
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 2; i <= 4; i++) {
       const emptyMessageElement = within(cards[i]).getByDataCy(
         "image-event-log-empty-message",
       );
@@ -380,6 +384,83 @@ describe("image event log page", async () => {
       expect(rows).toHaveLength(3);
     });
   });
+
+  it("supports global filter for existing entries", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
+    });
+    const searchBar = screen.getByPlaceholderText("Global search by name");
+
+    // Filter for golang.
+    await user.type(searchBar, "golang{enter}");
+    expect(searchBar).toHaveValue("golang");
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-table-row")).toHaveLength(
+        2,
+      );
+    });
+  });
+
+  it("supports global filter for non-existent entries", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
+    });
+    const searchBar = screen.getByPlaceholderText("Global search by name");
+
+    // Filter for non-existent entry.
+    await user.type(searchBar, "blahblah{enter}");
+    expect(searchBar).toHaveValue("blahblah");
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-table-row")).toHaveLength(
+        0,
+      );
+    });
+  });
+
+  it("global filter takes precedence over table filters", async () => {
+    const user = userEvent.setup();
+    const { Component } = RenderFakeToastContext(
+      <EventLogTab imageId="ubuntu2204" />,
+    );
+    render(<Component />, { wrapper });
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
+    });
+    const card0 = screen.getAllByDataCy("image-event-log-card")[0];
+    await user.click(within(card0).getByDataCy("image-event-log-name-filter"));
+    const searchBar = screen.getByPlaceholderText("Search name");
+
+    // Filter for golang.
+    await user.type(searchBar, "golang{enter}");
+    expect(searchBar).toHaveValue("golang");
+    await waitFor(() => {
+      expect(
+        within(card0).queryAllByDataCy("image-event-log-table-row"),
+      ).toHaveLength(1);
+    });
+
+    const globalSearchBar = screen.getByPlaceholderText(
+      "Global search by name",
+    );
+    // Filter for non-existent entry.
+    await user.type(globalSearchBar, "blahblah{enter}");
+    expect(globalSearchBar).toHaveValue("blahblah");
+    await waitFor(() => {
+      expect(screen.queryAllByDataCy("image-event-log-table-row")).toHaveLength(
+        0,
+      );
+    });
+  });
 });
 
 const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
@@ -437,7 +518,16 @@ const imageEventsMock: ApolloMock<ImageEventsQuery, ImageEventsQueryVariables> =
                 __typename: "ImageEvent",
                 amiAfter: "ami-03e245926032896f9",
                 amiBefore: "ami-03e24592603281234",
-                entries: [],
+                entries: [
+                  {
+                    __typename: "ImageEventEntry",
+                    type: ImageEventType.Toolchain,
+                    name: "golang",
+                    before: "go1.20.14",
+                    after: "",
+                    action: ImageEventEntryAction.Deleted,
+                  },
+                ],
                 timestamp: new Date("2023-08-07T17:57:00-04:00"),
               },
               {
