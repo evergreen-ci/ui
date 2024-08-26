@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
-import { showGitHubAccessTokenProject } from "constants/featureFlags";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
@@ -269,42 +268,37 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             />
           }
         />
-        {showGitHubAccessTokenProject && (
-          <Route
-            path={ProjectSettingsTabRoutes.GithubAppSettings}
-            element={
-              <AppSettingsTab
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.GithubAppSettings]
-                    .projectData
-                }
-                githubPermissionGroups={
-                  projectData?.projectRef?.githubDynamicTokenPermissionGroups ??
-                  []
-                }
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                identifier={identifier}
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                projectId={projectId}
-              />
-            }
-          />
-        )}
-        {showGitHubAccessTokenProject && (
-          <Route
-            path={ProjectSettingsTabRoutes.GithubPermissionGroups}
-            element={
-              <PermissionGroupsTab
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                identifier={identifier}
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
-                    .projectData
-                }
-              />
-            }
-          />
-        )}
+        <Route
+          path={ProjectSettingsTabRoutes.GithubAppSettings}
+          element={
+            <AppSettingsTab
+              projectData={
+                tabData[ProjectSettingsTabRoutes.GithubAppSettings].projectData
+              }
+              githubPermissionGroups={
+                projectData?.projectRef?.githubDynamicTokenPermissionGroups ??
+                []
+              }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              identifier={identifier}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              projectId={projectId}
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.GithubPermissionGroups}
+          element={
+            <PermissionGroupsTab
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              identifier={identifier}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
+                  .projectData
+              }
+            />
+          }
+        />
         <Route
           path={ProjectSettingsTabRoutes.EventLog}
           element={
