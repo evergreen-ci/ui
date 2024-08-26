@@ -12,33 +12,33 @@ interface HoneycombConfig {
   endpoint: string;
   backendURL?: string;
   debug: boolean;
-  /** The API key for the Honeycomb SDK */
-  apiKey: string;
+  /** The INGEST key for the Honeycomb SDK */
+  ingestKey: string;
 }
 
 /**
  * Initializes the Honeycomb SDK with the provided configuration.
  * @param config - The configuration object for the Honeycomb SDK.
- * @param config.apiKey - The Honeycomb API key.
+ * @param config.ingestKey - The Honeycomb INGEST API key.
  * @param config.backendURL - The backend URL.
  * @param config.debug - Whether to start the SDK in debug mode.
  * @param config.serviceName - The name of the service.
  */
 const initializeHoneycomb = ({
-  apiKey,
   backendURL,
   debug,
+  ingestKey,
   serviceName,
 }: HoneycombConfig) => {
-  if (debug && !apiKey) {
+  if (debug && !ingestKey) {
     console.warn(
-      "Honeycomb API key was not provided. Starting SDK in debug mode.",
+      "Honeycomb INGEST API key was not provided. Starting SDK in debug mode.",
     );
     return;
   }
-  if (!apiKey) {
+  if (!ingestKey) {
     console.error(
-      "Honeycomb API key is required to start the SDK in production mode.",
+      "Honeycomb INGEST API key is required to start the SDK in production mode.",
     );
   } else {
     try {
@@ -81,7 +81,7 @@ const initializeHoneycomb = ({
         },
         localVisualizations: debug,
         serviceName,
-        apiKey,
+        apiKey: ingestKey,
       });
       honeycombSdk.start();
     } catch (e) {
