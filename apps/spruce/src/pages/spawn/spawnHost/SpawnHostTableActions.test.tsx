@@ -187,7 +187,6 @@ describe("spawn host table", () => {
             ...baseSpawnHost,
             sleepSchedule: {
               ...defaultSleepSchedule,
-              isBetaTester: true,
               nextStartTime: null,
               timeZone: "America/New_York",
               permanentlyExempt: true,
@@ -215,7 +214,6 @@ describe("spawn host table", () => {
             ...baseSpawnHost,
             sleepSchedule: {
               ...defaultSleepSchedule,
-              isBetaTester: true,
               nextStartTime: null,
               timeZone: "America/New_York",
               permanentlyExempt: false,
@@ -243,7 +241,6 @@ describe("spawn host table", () => {
             ...baseSpawnHost,
             sleepSchedule: {
               ...defaultSleepSchedule,
-              isBetaTester: false,
               nextStartTime: null,
               timeZone: "America/New_York",
               permanentlyExempt: true,
@@ -302,7 +299,6 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
-    isBetaTester: true,
     nextStartTime: new Date("2024-06-06T08:00:00Z"),
     temporarilyExemptUntil: null,
     timeZone: "America/New_York",
