@@ -37,6 +37,7 @@ const base: Record<TargetEnvironment, Record<string, string | undefined>> = {
 
     REACT_APP_HONEYCOMB_BASE_URL:
       "https://ui.honeycomb.io/mongodb-4b/environments/staging",
+    REACT_APP_HONEYCOMB_ENDPOINT: process.env.HONEYCOMB_ENDPOINT_STAGING,
     REACT_APP_HONEYCOMB_INGEST_KEY: process.env.HONEYCOMB_INGEST_KEY_STAGING,
     REACT_APP_LOGKEEPER_URL: "https://logkeeper2.staging.build.10gen.cc",
     REACT_APP_PARSLEY_URL: "https://parsley-staging.corp.mongodb.com",
@@ -72,6 +73,7 @@ const base: Record<TargetEnvironment, Record<string, string | undefined>> = {
 
     REACT_APP_HONEYCOMB_BASE_URL:
       "https://ui.honeycomb.io/mongodb-4b/environments/production",
+    REACT_APP_HONEYCOMB_ENDPOINT: process.env.HONEYCOMB_ENDPOINT_PROD,
     REACT_APP_HONEYCOMB_INGEST_KEY: process.env.HONEYCOMB_INGEST_KEY_PROD,
     REACT_APP_LOGKEEPER_URL: "https://logkeeper2.build.10gen.cc",
     REACT_APP_PARSLEY_URL: "https://parsley.mongodb.com",
