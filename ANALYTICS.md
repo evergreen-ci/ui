@@ -46,11 +46,3 @@ In these examples, using underscores instead of excessive dot nesting keeps the 
 
 When creating span attributes, aim to balance the need for context with simplicity. Use namespaces thoughtfully to provide clarity without overcomplicating the attribute structure. This approach will help maintain both readability and utility in our analytics.
 
-#### 4. Examples
-
-Here are some examples that follow these best practices:
-
-- `service.request.count` (Good: Provides context and is concise)
-- `database.query.duration` (Good: Clearly indicates the context of the metric)
-- `user.login.success` (Good: Clear, contextual, and not overly nested)
-
