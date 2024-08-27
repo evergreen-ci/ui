@@ -6,10 +6,7 @@ import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";
-import {
-  INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
-  INCLUDE_HIDDEN_PATCHES,
-} from "constants/cookies";
+import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
@@ -23,7 +20,6 @@ import { usePatchesQueryParams } from "./usePatchesQueryParams";
 
 interface Props {
   filterComp?: React.ReactNode;
-  includeMergeQueuePatches: boolean;
   loading: boolean;
   pageTitle: string;
   pageType: "project" | "user";
@@ -32,57 +28,42 @@ interface Props {
 
 export const PatchesPage: React.FC<Props> = ({
   filterComp,
-  includeMergeQueuePatches,
   loading,
   pageTitle,
   pageType,
   patches,
 }) => {
+  usePageTitle(pageTitle);
   const userPatchesAnalytics = useUserPatchesAnalytics();
   const projectPatchesAnalytics = useProjectPatchesAnalytics();
   const analytics =
     pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
+
+  // Handle pagination logic.
   const { setLimit } = usePagination();
-  const [
-    isGitHubMergeQueueCheckboxChecked,
-    setIsGitHubMergeQueueCheckboxChecked,
-  ] = useQueryParam(PatchPageQueryParams.CommitQueue, includeMergeQueuePatches);
+  const { limit, page } = usePatchesQueryParams();
+  const handlePageSizeChange = (pageSize: number): void => {
+    setLimit(pageSize);
+    analytics.sendEvent({ name: "Changed page size" });
+  };
+
+  // Handle filtering by patch description.
+  const { setAndSubmitInputValue } = useFilterInputChangeHandler({
+    urlParam: PatchPageQueryParams.PatchName,
+    resetPage: true,
+    sendAnalyticsEvent: (filterBy: string) =>
+      analytics.sendEvent({
+        name: "Filtered for patches",
+        "filter.by": filterBy,
+      }),
+  });
+
+  // Handle filtering for hidden patches.
   const [includeHiddenCheckboxChecked, setIsIncludeHiddenCheckboxChecked] =
     useQueryParam(
       PatchPageQueryParams.Hidden,
       Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
     );
-  const { limit, page } = usePatchesQueryParams();
-  const { inputValue: filterInput, setAndSubmitInputValue } =
-    useFilterInputChangeHandler({
-      urlParam: PatchPageQueryParams.PatchName,
-      resetPage: true,
-      sendAnalyticsEvent: (filterBy: string) =>
-        analytics.sendEvent({
-          name: "Filtered for patches",
-          "filter.by": filterBy,
-          "filter.hidden": includeHiddenCheckboxChecked,
-          "filter.commit_queue": isGitHubMergeQueueCheckboxChecked,
-        }),
-    });
-  usePageTitle(pageTitle);
-
-  const gitHubMergeQueueCheckboxOnChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    setIsGitHubMergeQueueCheckboxChecked(e.target.checked);
-    Cookies.set(
-      INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
-      e.target.checked ? "true" : "false",
-    );
-    analytics.sendEvent({
-      name: "Filtered for patches",
-      "filter.by": filterInput,
-      "filter.hidden": includeHiddenCheckboxChecked,
-      "filter.commit_queue": e.target.checked,
-    });
-  };
-
   const includeHiddenCheckboxOnChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
@@ -90,21 +71,14 @@ export const PatchesPage: React.FC<Props> = ({
     Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
     analytics.sendEvent({
       name: "Filtered for patches",
-      "filter.by": filterInput,
       "filter.hidden": e.target.checked,
-      "filter.commit_queue": isGitHubMergeQueueCheckboxChecked,
     });
-  };
-
-  const handlePageSizeChange = (pageSize: number): void => {
-    setLimit(pageSize);
-    analytics.sendEvent({ name: "Changed page size" });
   };
 
   return (
     <PageWrapper>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
-      <FiltersWrapperSpaceBetween hasAdditionalFilterComp={!!filterComp}>
+      <FiltersWrapperSpaceBetween>
         <TextInputWithValidation
           aria-label="Search patch descriptions"
           placeholder="Patch description regex"
@@ -115,22 +89,12 @@ export const PatchesPage: React.FC<Props> = ({
         />
         <StatusSelector />
         {filterComp}
-        <CheckboxContainer>
-          {pageType === "project" && (
-            <Checkbox
-              data-cy="github-merge-queue-checkbox"
-              onChange={gitHubMergeQueueCheckboxOnChange}
-              label="Only show GitHub Merge Queue patches"
-              checked={isGitHubMergeQueueCheckboxChecked}
-            />
-          )}
-          <Checkbox
-            data-cy="include-hidden-checkbox"
-            onChange={includeHiddenCheckboxOnChange}
-            label="Include hidden"
-            checked={includeHiddenCheckboxChecked}
-          />
-        </CheckboxContainer>
+        <HiddenCheckbox
+          data-cy="include-hidden-checkbox"
+          onChange={includeHiddenCheckboxOnChange}
+          label="Include hidden"
+          checked={includeHiddenCheckboxChecked}
+        />
       </FiltersWrapperSpaceBetween>
       <PaginationRow>
         <Pagination
@@ -158,21 +122,14 @@ const PaginationRow = styled.div`
   justify-content: flex-end;
   align-items: center;
 `;
-const FiltersWrapperSpaceBetween = styled(FiltersWrapper)<{
-  hasAdditionalFilterComp: boolean;
-}>`
+
+const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   display: grid;
-  grid-template-columns:
-    repeat(
-      ${({ hasAdditionalFilterComp }) => (hasAdditionalFilterComp ? 3 : 2)},
-      1fr
-    )
-    2fr;
+  grid-template-columns: repeat(4, 1fr) auto;
   grid-column-gap: ${size.s};
 `;
 
-const CheckboxContainer = styled.div`
-  display: flex;
-  justify-content: end;
-  gap: ${size.xs};
+// @ts-expect-error
+const HiddenCheckbox = styled(Checkbox)`
+  justify-content: flex-end;
 `;

@@ -82,6 +82,20 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("restart-version").should("be.disabled");
   });
 
+  it("'Add to commit queue' shows enqueue modal", () => {
+    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("enqueue-patch").should("exist");
+  });
+
+  it("'Add to commit queue' is disabled for unfinalized patch", () => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("enqueue-patch").should("be.disabled");
+  });
+
   it("Toggle patch visibility", () => {
     // "Include hidden" checkbox is not checked and patch is visible
     cy.getInputByLabel("Include hidden").should("not.be.checked");
