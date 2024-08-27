@@ -4,6 +4,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
+import { sectionHeaderWrapperStyle } from "components/styles";
 import { SectionStatus } from "constants/logs";
 import { size } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
@@ -31,7 +32,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
 
   return (
-    <SectionHeaderWrapper aria-expanded={open} data-cy="section-header">
+    <div
+      aria-expanded={open}
+      css={sectionHeaderWrapperStyle}
+      data-cy="section-header"
+    >
       <CaretToggle
         onClick={() => {
           sendEvent({
@@ -49,17 +54,9 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <ButtonWrapper>
         <SubsectionControls functionID={functionID} />
       </ButtonWrapper>
-    </SectionHeaderWrapper>
+    </div>
   );
 };
-
-const SectionHeaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xs};
-  padding: ${size.xxs} 0;
-  border-bottom: 1px solid ${gray.light2};
-`;
 
 const ButtonWrapper = styled.div`
   display: flex;
