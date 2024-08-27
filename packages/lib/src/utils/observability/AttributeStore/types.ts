@@ -1,6 +1,9 @@
 import { AttributeValue } from "@opentelemetry/api";
 
-interface OpenTelemetryGlobalAttributeWindowProvider {
+/**
+ * `AttributeStore` is an interface that provides a way to set and remove global attributes for use in OpenTelemetry spans.
+ */
+interface AttributeStore {
   /** `setGlobalAttribute` saves a new span attribute key and value to the store */
   setGlobalAttribute: (key: string, value: AttributeValue) => void;
   /** `removeGlobalAttribute` deletes a span attribute from the store */
@@ -11,4 +14,4 @@ interface OpenTelemetryGlobalAttributeWindowProvider {
   getGlobalAttribute: (key: string) => AttributeValue | undefined;
 }
 
-export type { OpenTelemetryGlobalAttributeWindowProvider };
+export type { AttributeStore };

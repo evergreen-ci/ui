@@ -1,14 +1,12 @@
 import { AttributeValue } from "@opentelemetry/api";
-import { OpenTelemetryGlobalAttributeWindowProvider } from "./types";
+import { AttributeStore } from "./types";
 
 /**
- * OpenTelemetryWindowProvider is a class that provides a way to set and remove global attributes
+ * OpenTelemetryAttributeStore is a class that provides a way to set and remove global attributes
  * for OpenTelemetry in the window object.
  * We can use this to add global attributes to all spans and traces
  */
-class OpenTelemetryWindowProvider
-  implements OpenTelemetryGlobalAttributeWindowProvider
-{
+class OpenTelemetryAttributeStore implements AttributeStore {
   private attributesMap: Map<string, AttributeValue>;
 
   constructor() {
@@ -39,4 +37,4 @@ class OpenTelemetryWindowProvider
   }
 }
 
-export { OpenTelemetryWindowProvider };
+export { OpenTelemetryAttributeStore };

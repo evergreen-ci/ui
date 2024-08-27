@@ -11,8 +11,12 @@ export const sendEventTrace = <A extends ActionType>(
   { name, ...actionProps }: A,
   properties: AnalyticsProperties,
 ) => {
-  const { openTelemetry } = window;
-  const globalAttributes = openTelemetry?.getGlobalAttributes() ?? {};
+  const { AttributeStore } = window;
+  if (!AttributeStore) {
+    console.error("AttributeStore not found on window object");
+    return;
+  }
+  const globalAttributes = AttributeStore.getGlobalAttributes() ?? {};
   const tracer = trace.getTracer("analytics");
 
   tracer.startActiveSpan(name, (span) => {

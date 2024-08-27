@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { OpenTelemetryGlobalAttributeWindowProvider } from "@evg-ui/lib/utils/observability/types";
+import { AttributeStore } from "@evg-ui/lib/utils/observability/types";
 
 declare global {
   module "*.graphql" {
@@ -9,6 +9,11 @@ declare global {
     export default content;
   }
   interface Window {
-    openTelemetry: OpenTelemetryGlobalAttributeWindowProvider | null;
+    /**
+     * `AttributeStore` is an interface that provides a way to set and remove global attributes for use in OpenTelemetry spans.
+     * We can use this to add global attributes to all spans and traces
+     * This is a global object that is injected into the window object.
+     */
+    AttributeStore: AttributeStore | null;
   }
 }

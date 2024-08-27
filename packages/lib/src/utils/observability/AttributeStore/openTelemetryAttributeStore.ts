@@ -1,11 +1,11 @@
 import { AttributeValue } from "@opentelemetry/api";
-import { OpenTelemetryWindowProvider } from ".";
+import { OpenTelemetryAttributeStore } from ".";
 
-describe("OpenTelemetryWindowProvider", () => {
-  let provider: OpenTelemetryWindowProvider;
+describe("AttributeStore", () => {
+  let provider: OpenTelemetryAttributeStore;
 
   beforeEach(() => {
-    provider = new OpenTelemetryWindowProvider();
+    provider = new OpenTelemetryAttributeStore();
   });
 
   test("should initialize with an empty attributes map", () => {
