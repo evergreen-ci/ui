@@ -55,8 +55,8 @@ type Action =
     }
   | {
       name: "Viewed log with sections and jump to failing line";
-      "sections.enabled": boolean;
-      "jump.to.failing.line.enabled": boolean;
+      "settings.sections.enabled": boolean;
+      "settings.jump_to_failing_line.enabled": boolean;
     };
 
 export const useLogWindowAnalytics = () =>

@@ -59,9 +59,10 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
         }
         performedScroll.current = true;
         sendEvent({
-          "jump.to.failing.line.enabled": settings.jumpToFailingLineEnabled,
           name: "Viewed log with sections and jump to failing line",
-          "sections.enabled": settings.sectionsEnabled,
+          "settings.jump_to_failing_line.enabled":
+            settings.jumpToFailingLineEnabled,
+          "settings.sections.enabled": settings.sectionsEnabled,
         });
       }, 100);
       return () => clearTimeout(timeoutId);

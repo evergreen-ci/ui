@@ -56,10 +56,12 @@ const imageEventTypeTreeData = [
 
 interface ImageEventLogTableProps {
   entries: ImageEventEntry[];
+  globalFilter: string;
 }
 
 export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
   entries,
+  globalFilter,
 }) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -73,12 +75,15 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
     onColumnFiltersChange: setColumnFilters,
     state: {
       columnFilters,
+      globalFilter,
     },
     getFilteredRowModel: getFilteredRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    enableGlobalFilter: true,
+    globalFilterFn: filterFns.includesString,
   });
 
-  const hasFilters = columnFilters.length > 0;
+  const hasFilters = columnFilters.length > 0 || globalFilter;
 
   const emptyMessage = hasFilters
     ? "No data to display"

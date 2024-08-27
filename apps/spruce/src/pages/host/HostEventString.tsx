@@ -36,6 +36,7 @@ const TaskLink: React.FC<TaskLinkProps> = ({ "data-cy": dataCy, taskId }) => (
     data-cy={dataCy}
     title={taskId}
     to={getTaskRoute(taskId)}
+    responsiveBreakpoint={1200}
   >
     {taskId}
   </ShortenedRouterLink>
@@ -267,12 +268,14 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           <b> {data.taskStatus}</b>
         </div>
       );
-    case HostEvent.HostExpirationWarningSet:
+    case HostEvent.HostExpirationWarningSent:
       return (
         <span data-cy="host-expiration-warning-set">
           Expiration warning sent
         </span>
       );
+    case HostEvent.HostTemporaryExemptionExpirationWarningSent:
+      return <span>Temporary exemption expiration warning sent</span>;
     case HostEvent.VolumeMigrationFailed:
       return (
         <span data-cy="host-volume-migration-failed">
