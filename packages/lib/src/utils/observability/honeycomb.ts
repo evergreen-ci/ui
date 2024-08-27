@@ -8,9 +8,11 @@ import { detectGraphqlQuery } from "./utils";
 interface HoneycombConfig {
   /** The service name for the app we are running e.g. spruce or parsley */
   serviceName: string;
-  /** The endpoint for the Honeycomb SDK to connect to if we are not using the default */
+  /** The endpoint for the Honeycomb SDK to send traces to if we are not using the default */
   endpoint: string;
+  /** The url for our honeycomb instrumented server to connect frontend and backend traces together */
   backendURL?: string;
+  /** Whether to enable debug mode in the honeycomb sdk this will enable additional logging and print links to traces */
   debug: boolean;
   /** The INGEST key for the Honeycomb SDK */
   ingestKey: string;
@@ -23,10 +25,12 @@ interface HoneycombConfig {
  * @param config.backendURL - The backend URL.
  * @param config.debug - Whether to start the SDK in debug mode.
  * @param config.serviceName - The name of the service.
+ * @param config.endpoint - The endpoint for the Honeycomb SDK to send traces to if we are not using the default.
  */
 const initializeHoneycomb = ({
   backendURL,
   debug,
+  endpoint,
   ingestKey,
   serviceName,
 }: HoneycombConfig) => {
@@ -45,7 +49,7 @@ const initializeHoneycomb = ({
       const userId = localStorage.getItem("userId") ?? undefined;
       const honeycombSdk = new HoneycombWebSDK({
         debug,
-        // endpoint: endpoint,
+        endpoint,
         instrumentations: [
           getWebAutoInstrumentations({
             "@opentelemetry/instrumentation-fetch": {

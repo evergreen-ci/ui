@@ -10,10 +10,10 @@ import App from "./App";
 
 initializeErrorHandling();
 initializeHoneycomb({
-  serviceName: "spruce",
   debug: isDevelopmentBuild(),
   endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
   ingestKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
+  serviceName: "spruce",
 });
 injectOpenTelemetryAttributeStoreIntoWindow();
 
