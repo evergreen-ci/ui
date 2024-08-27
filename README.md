@@ -10,6 +10,9 @@ Check out the
 [Yarn Workspaces documentation](https://classic.yarnpkg.com/lang/en/docs/workspaces/)
 for more.
 
+### Analytics
+Read more about our analytics practices [here](ANALYTICS.md).
+
 ### Upgrades
 
 To upgrade a dependency across workspaces:
