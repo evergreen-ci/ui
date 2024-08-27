@@ -1,5 +1,6 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
+import { SectionStatus } from "constants/logs";
 import { DIRECTION } from "context/LogContext/types";
 import { Filter } from "types/logs";
 
@@ -32,10 +33,30 @@ type Action =
   | { name: "Toggled expanded lines"; open: false }
   | { name: "Used search result pagination"; direction: DIRECTION }
   | {
-      name: "Toggled section";
+      name: "Toggled section caret";
       "section.name": string;
       "section.type": "command" | "function";
-      open: boolean;
+      "section.open": boolean;
+      "section.status"?: SectionStatus;
+      "section.nested": boolean;
+    }
+  | { name: "Clicked open all sections button" }
+  | { name: "Clicked close all sections button" }
+  | {
+      name: "Clicked open subsections button";
+      "function.name": string;
+      "function.status": SectionStatus;
+      "was.function.closed": boolean;
+    }
+  | {
+      name: "Clicked close subsections button";
+      "function.name": string;
+      "function.status": SectionStatus;
+    }
+  | {
+      name: "Viewed log with sections and jump to failing line";
+      "settings.sections.enabled": boolean;
+      "settings.jump_to_failing_line.enabled": boolean;
     };
 
 export const useLogWindowAnalytics = () =>
