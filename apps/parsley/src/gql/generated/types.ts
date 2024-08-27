@@ -2556,7 +2556,7 @@ export type SleepSchedule = {
   __typename?: "SleepSchedule";
   dailyStartTime: Scalars["String"]["output"];
   dailyStopTime: Scalars["String"]["output"];
-  isBetaTester: Scalars["Boolean"]["output"];
+  isBetaTester?: Maybe<Scalars["Boolean"]["output"]>;
   nextStartTime?: Maybe<Scalars["Time"]["output"]>;
   nextStopTime?: Maybe<Scalars["Time"]["output"]>;
   permanentlyExempt: Scalars["Boolean"]["output"];
