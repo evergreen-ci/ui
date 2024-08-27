@@ -1,7 +1,9 @@
 import Button from "@leafygreen-ui/button";
+import { useLogWindowAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";
 
 const SectionControls = () => {
+  const { sendEvent } = useLogWindowAnalytics();
   const { sectioning } = useLogContext();
   const { sectionState, sectioningEnabled, toggleAllSections } = sectioning;
   if (!sectioningEnabled) {
@@ -27,7 +29,10 @@ const SectionControls = () => {
       {!allOpen && (
         <Button
           data-cy="open-all-sections-btn"
-          onClick={() => toggleAllSections(true)}
+          onClick={() => {
+            toggleAllSections(true);
+            sendEvent({ name: "Clicked open all sections button" });
+          }}
           size="small"
         >
           Open all sections
@@ -36,7 +41,10 @@ const SectionControls = () => {
       {!allClosed && (
         <Button
           data-cy="close-all-sections-btn"
-          onClick={() => toggleAllSections(false)}
+          onClick={() => {
+            toggleAllSections(false);
+            sendEvent({ name: "Clicked close all sections button" });
+          }}
           size="small"
         >
           Close all sections

@@ -100,9 +100,8 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
           }
           funcIndex += 1;
           if (!renderCommands) {
-            // The function is closed. Skip all log lines until the end of the function.
-            idx = func.range.end - 1;
             // Skip all commands until the end of the function.
+            idx = func.range.end - 1;
             while (
               sectionData.commands[commandIndex] &&
               sectionData.commands[commandIndex].functionID === func.functionID

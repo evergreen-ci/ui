@@ -1,3 +1,4 @@
+import * as analytics from "analytics";
 import * as logContext from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
@@ -73,9 +74,14 @@ describe("SectionControls", () => {
     expect(screen.queryByText("Close all sections")).toBeVisible();
   });
 
-  it("Clicking on buttons calls 'toggleAllSections' with correct parameters", async () => {
+  it("Clicking on buttons calls 'toggleAllSections' with correct parameters and sends analytics events", async () => {
     const user = userEvent.setup();
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
+    const mockedAnalytics = vi.spyOn(analytics, "useLogWindowAnalytics");
+    const sendEventMock = vi.fn();
+    mockedAnalytics.mockImplementation(() => ({
+      sendEvent: sendEventMock,
+    }));
     const toggleAllSectionsMock = vi.fn();
     mockedLogContext.mockImplementation(() => ({
       // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
@@ -88,10 +94,18 @@ describe("SectionControls", () => {
     renderWithRouterMatch(<SectionControls />, { wrapper });
     expect(screen.getByDataCy("open-all-sections-btn")).toBeVisible();
     await user.click(screen.getByDataCy("open-all-sections-btn"));
+    expect(sendEventMock).toHaveBeenCalledOnce();
+    expect(sendEventMock).toHaveBeenCalledWith({
+      name: "Clicked open all sections button",
+    });
     expect(toggleAllSectionsMock).toHaveBeenCalledOnce();
     await user.click(screen.getByDataCy("close-all-sections-btn"));
     await waitFor(() =>
       expect(toggleAllSectionsMock).toHaveBeenCalledWith(false),
     );
+    expect(sendEventMock).toHaveBeenCalledTimes(2);
+    expect(sendEventMock).toHaveBeenCalledWith({
+      name: "Clicked close all sections button",
+    });
   });
 });

@@ -38,7 +38,11 @@
       </button>
       <svg
         aria-label="XWith Circle Icon"
+<<<<<<< HEAD
         class="leafygreen-ui-1xsx4zj"
+=======
+        class="leafygreen-ui-jc2z8v"
+>>>>>>> b00200d6bfec435e38fbfa49d713c63968340585
         fill="none"
         height="16"
         role="img"
