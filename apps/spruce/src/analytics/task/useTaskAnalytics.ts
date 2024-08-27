@@ -27,12 +27,12 @@ type Action =
     }
   | {
       name: "Clicked restart task button";
-      "task.is.display_task": false;
+      "task.is_display_task": false;
     }
   | {
       name: "Clicked restart task button";
       allTasks: boolean;
-      "task.is.display_task": true;
+      "task.is_display_task": true;
     }
   | {
       name: "Clicked execution tasks table link";
@@ -62,7 +62,7 @@ type Action =
   | { name: "Clicked metadata link"; "link.type": string }
   | {
       name: "Clicked task file link";
-      "parsley.available": boolean;
+      "parsley.is_available": boolean;
       "file.name": string;
     }
   | {
@@ -95,9 +95,9 @@ export const useTaskAnalytics = () => {
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Task", {
     "task.status": taskStatus || "",
     "task.execution": execution,
-    "task.isLatestExecution": isLatestExecution,
+    "task.is_latest_execution": isLatestExecution,
     "task.id": taskId || "",
-    "task.failedTestCount": failedTestCount || "",
+    "task.failed_test_count": failedTestCount || "",
     "task.project.identifier": identifier,
   });
 };

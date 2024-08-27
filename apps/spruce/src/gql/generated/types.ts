@@ -2556,7 +2556,7 @@ export type SleepSchedule = {
   __typename?: "SleepSchedule";
   dailyStartTime: Scalars["String"]["output"];
   dailyStopTime: Scalars["String"]["output"];
-  isBetaTester: Scalars["Boolean"]["output"];
+  isBetaTester?: Maybe<Scalars["Boolean"]["output"]>;
   nextStartTime?: Maybe<Scalars["Time"]["output"]>;
   nextStopTime?: Maybe<Scalars["Time"]["output"]>;
   permanentlyExempt: Scalars["Boolean"]["output"];
@@ -6741,7 +6741,7 @@ export type MyHostsQuery = {
       __typename?: "SleepSchedule";
       dailyStartTime: string;
       dailyStopTime: string;
-      isBetaTester: boolean;
+      isBetaTester?: boolean | null;
       nextStartTime?: Date | null;
       permanentlyExempt: boolean;
       shouldKeepOff: boolean;

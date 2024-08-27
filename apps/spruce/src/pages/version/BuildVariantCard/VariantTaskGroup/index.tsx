@@ -94,7 +94,8 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
                 onClick={() => {
                   sendEvent({
                     name: "Filtered by build variant and task status group",
-                    taskSquareStatuses: Object.keys(groupedStatusCounts),
+                    "filter.task_square_statuses":
+                      Object.keys(groupedStatusCounts),
                   });
                 }}
                 status={umbrellaStatus}
