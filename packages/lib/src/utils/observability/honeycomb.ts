@@ -10,9 +10,9 @@ interface HoneycombConfig {
   serviceName: string;
   /** The endpoint for the Honeycomb SDK to send traces to if we are not using the default */
   endpoint: string;
-  /** The url for our honeycomb instrumented server to connect frontend and backend traces together */
+  /** The url for our Honeycomb instrumented server to connect frontend and backend traces together */
   backendURL?: string;
-  /** Whether to enable debug mode in the honeycomb sdk this will enable additional logging and print links to traces */
+  /** Whether to enable debug mode in the Honeycomb SDK this will enable additional logging and print links to traces */
   debug: boolean;
   /** The INGEST key for the Honeycomb SDK */
   ingestKey: string;
@@ -70,7 +70,6 @@ const initializeHoneycomb = ({
                   }
                 }
               },
-
               // Allow connecting frontend & backend traces.
               propagateTraceHeaderCorsUrls: [backendURL || ""],
             },
