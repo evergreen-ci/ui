@@ -106,10 +106,10 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
     });
     sendEvent({
       name: "Created a spawn host",
-      "host.is.volume.migration": true,
+      "host.is_volume_migration": true,
       "host.distro.id": mutationInput?.distroId || "",
-      "host.is.unexpirable": mutationInput?.noExpiration || false,
-      "host.is.workstation": mutationInput?.isVirtualWorkStation || false,
+      "host.is_unexpirable": mutationInput?.noExpiration || false,
+      "host.is_workstation": mutationInput?.isVirtualWorkStation || false,
     });
     migrateVolumeMutation({
       variables: {

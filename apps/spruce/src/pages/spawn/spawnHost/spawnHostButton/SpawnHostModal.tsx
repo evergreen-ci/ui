@@ -139,10 +139,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     });
     spawnAnalytics.sendEvent({
       name: "Created a spawn host",
-      "host.is.volume.migration": false,
-      "host.is.workstation": selectedDistro?.isVirtualWorkStation || false,
+      "host.is_volume_migration": false,
+      "host.is_workstation": selectedDistro?.isVirtualWorkStation || false,
       "host.distro.id": selectedDistro?.name || "",
-      "host.is.unexpirable": mutationInput?.noExpiration || false,
+      "host.is_unexpirable": mutationInput?.noExpiration || false,
     });
     spawnHostMutation({
       variables: { spawnHostInput: mutationInput },
