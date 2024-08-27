@@ -74,7 +74,7 @@ const whatChanged = () => {
   const mergeBase = getMergeBase();
   try {
     const diffFiles = execSync(
-      `git diff ${mergeBase} --name-only --diff-filter=d`,
+      `git diff ${mergeBase} --name-only`,
     )
       .toString()
       .trim();

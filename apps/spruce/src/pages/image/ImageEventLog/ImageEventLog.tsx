@@ -1,5 +1,7 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
+import { SearchInput } from "@leafygreen-ui/search-input";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { LoadingButton } from "components/Buttons";
 import { size } from "constants/tokens";
@@ -20,11 +22,25 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
   handleFetchMore,
   loading,
 }) => {
+  const [globalSearch, setGlobalSearch] = useState("");
+  const handleGlobalSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGlobalSearch(e.target.value);
+  };
+
   const allEventsFetchedCopy =
     events.length > 0 ? "No more events to show." : "No events to show.";
 
   return (
     <Container>
+      <SearchContainer>
+        <SearchInput
+          aria-labelledby="event-log-global-search"
+          value={globalSearch}
+          onChange={handleGlobalSearchChange}
+          placeholder="Global search by name"
+          data-cy="event-log-global-search"
+        />
+      </SearchContainer>
       {events.map((event) => {
         const { amiAfter, amiBefore, entries, timestamp } = event;
         return (
@@ -37,7 +53,7 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
               amiBefore={amiBefore ?? ""}
               timestamp={timestamp}
             />
-            <ImageEventLogTable entries={entries} />
+            <ImageEventLogTable entries={entries} globalFilter={globalSearch} />
           </ImageEventLogCard>
         );
       })}
@@ -61,6 +77,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: ${size.l};
+`;
+
+const SearchContainer = styled.div`
+  align-self: flex-start;
+  width: 420px;
 `;
 
 const ImageEventLogCard = styled(Card)`

@@ -110,6 +110,7 @@ describe("useOpenSectionAndScrollToLine", () => {
       commandName: "shell.exec",
       functionID: "function-4",
       isOpen: true,
+      isTopLevelCommand: false,
       range: { end: 6, start: 4 },
       rowType: RowType.SubsectionHeader,
       step: "1 of 4",

@@ -4,6 +4,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
+import { sectionHeaderWrapperStyle } from "components/styles";
 import { SectionStatus } from "constants/logs";
 import { size } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
@@ -31,13 +32,19 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
 
   return (
-    <SectionHeaderWrapper aria-expanded={open} data-cy="section-header">
+    <div
+      aria-expanded={open}
+      css={sectionHeaderWrapperStyle}
+      data-cy="section-header"
+    >
       <CaretToggle
         onClick={() => {
           sendEvent({
-            name: "Toggled section",
-            open: !open,
+            name: "Toggled section caret",
             "section.name": functionName,
+            "section.nested": false,
+            "section.open": !open,
+            "section.status": status,
             "section.type": "function",
           });
           sectioning.toggleFunctionSection({ functionID, isOpen: !open });
@@ -47,19 +54,15 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <Icon fill={gray.dark1} glyph={statusGlyph} />
       <Body>Function: {functionName}</Body>
       <ButtonWrapper>
-        <SubsectionControls functionID={functionID} />
+        <SubsectionControls
+          functionID={functionID}
+          functionName={functionName}
+          status={status}
+        />
       </ButtonWrapper>
-    </SectionHeaderWrapper>
+    </div>
   );
 };
-
-const SectionHeaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${size.xs};
-  padding: ${size.xxs} 0;
-  border-bottom: 1px solid ${gray.light2};
-`;
 
 const ButtonWrapper = styled.div`
   display: flex;
