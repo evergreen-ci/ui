@@ -9,7 +9,7 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import TextInput from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
-import { Body, Error } from "@leafygreen-ui/typography";
+import { Body, BodyProps, Error } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import Accordion from "components/Accordion";
 import Icon from "components/Icon";
@@ -88,9 +88,13 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
               <Error>{validationMessage}</Error>
             </IconWithTooltip>
           )}
-          <Body id={id} weight="medium">
+          <FilterExpression
+            aria-expanded={openAccordion}
+            expanded={openAccordion}
+            id={id}
+          >
             {expression}
-          </Body>
+          </FilterExpression>
           <IconButtonContainer>
             <Toggle
               aria-label={visible ? "Hide filter" : "Show filter"}
@@ -212,7 +216,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
 
 const AccordionTitle = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: ${size.xxs};
   overflow: hidden;
 `;
@@ -224,9 +228,18 @@ const AccordionContent = styled.div`
   padding-right: ${size.xxs};
 `;
 
+const FilterExpression = styled(Body)<{ expanded: boolean } & BodyProps>`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: ${({ expanded }) => (expanded ? "unset" : 1)};
+  overflow: hidden;
+  font-weight: medium;
+  margin-top: ${size.xxs};
+`;
+
 const IconButtonContainer = styled.div`
-  position: absolute;
-  right: 0;
+  display: flex;
+  align-items: center;
 `;
 
 const StyledTextInput = styled(TextInput)`
