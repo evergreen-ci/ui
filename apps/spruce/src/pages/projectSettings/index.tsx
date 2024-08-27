@@ -15,7 +15,6 @@ import {
   SideNavItem,
   PageWrapper,
 } from "components/styles";
-import { showGitHubAccessTokenProject } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -259,13 +258,13 @@ const ProjectSettings: React.FC = () => {
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Plugins}
           />
-          {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
+          {projectType !== ProjectType.Repo && (
             <ProjectSettingsNavItem
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.GithubAppSettings}
             />
           )}
-          {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
+          {projectType !== ProjectType.Repo && (
             <ProjectSettingsNavItem
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.GithubPermissionGroups}

@@ -293,12 +293,18 @@ describe("filterLogs", () => {
         filterLogs({
           ...params,
           sectionState: {
-            "f-1": {
-              commands: { c1: { isOpen: true }, c4: { isOpen: true } },
+            "function-1": {
+              commands: {
+                "command-1": { isOpen: true },
+                "command-6": { isOpen: true },
+              },
               isOpen: false,
             },
-            "f-2": {
-              commands: { c3: { isOpen: false }, c4: { isOpen: false } },
+            "function-9": {
+              commands: {
+                "command-9": { isOpen: false },
+                "command-12": { isOpen: false },
+              },
               isOpen: false,
             },
           },

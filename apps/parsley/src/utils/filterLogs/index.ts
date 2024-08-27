@@ -80,11 +80,8 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
       for (let idx = 0; idx < logLines.length; idx++) {
         const func = sectionData.functions[funcIndex];
         const isFuncStart = func && idx === func.range.start;
-        const isFuncOpen =
-          (sectionState[func?.functionID]?.isOpen ||
-            func?.containsTopLevelCommand) ??
-          false;
-
+        const isFuncOpen = sectionState[func?.functionID]?.isOpen;
+        const renderCommands = isFuncOpen || func?.containsTopLevelCommand;
         const command = sectionData.commands[commandIndex];
         const isCommandStart = command && idx === command.range.start;
 
@@ -102,10 +99,9 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
             });
           }
           funcIndex += 1;
-          if (!isFuncOpen) {
-            // The function is closed. Skip all log lines until the end of the function.
-            idx = func.range.end - 1;
+          if (!renderCommands) {
             // Skip all commands until the end of the function.
+            idx = func.range.end - 1;
             while (
               sectionData.commands[commandIndex] &&
               sectionData.commands[commandIndex].functionID === func.functionID
@@ -114,7 +110,10 @@ const filterLogs = (options: FilterLogsParams): ProcessedLogLines => {
             }
           }
         }
-        if (isCommandStart && ((isFuncStart && isFuncOpen) || !isFuncStart)) {
+        if (
+          isCommandStart &&
+          ((isFuncStart && renderCommands) || !isFuncStart)
+        ) {
           // A command start is detected.
           const commandLine = getProccessedCommandLine(command, sectionState);
           filteredLines.push(commandLine);
