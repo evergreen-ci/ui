@@ -17,18 +17,18 @@ describe("etaTimer", () => {
     render(
       <ETATimer startTime={startTime} expectedDuration={expectedDuration} />,
     );
-    expect(screen.getByText("ETA: 10s")).toBeInTheDocument();
+    expect(screen.getByText("10s")).toBeInTheDocument();
     act(() => {
       vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
-      expect(screen.getByText("ETA: 9s")).toBeInTheDocument();
+      expect(screen.getByText("9s")).toBeInTheDocument();
     });
     act(() => {
       vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
-      expect(screen.getByText("ETA: 8s")).toBeInTheDocument();
+      expect(screen.getByText("8s")).toBeInTheDocument();
     });
   });
   it("stops counting down when it reaches 0", async () => {
@@ -37,12 +37,12 @@ describe("etaTimer", () => {
     render(
       <ETATimer startTime={startTime} expectedDuration={expectedDuration} />,
     );
-    expect(screen.getByText("ETA: 1s")).toBeInTheDocument();
+    expect(screen.getByText("1s")).toBeInTheDocument();
     act(() => {
       vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
-      expect(screen.getByText("ETA: 0s")).toBeInTheDocument();
+      expect(screen.getByText("0s")).toBeInTheDocument();
     });
     expect(global.clearInterval).toHaveBeenCalledTimes(2);
     expect(vi.getTimerCount()).toBe(0);
