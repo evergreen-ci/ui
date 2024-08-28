@@ -155,7 +155,9 @@ const LogContextProvider: React.FC<LogContextProviderProps> = ({
   const sectioning = useSections({
     logType: state.logMetadata?.logType,
     logs: state.logs,
-    onInitOpenSectionContainingLine: shareLine ?? state.failingLine,
+    onInitOpenSectionsContainingLines: [shareLine, state.failingLine].filter(
+      (v): v is number => v !== undefined,
+    ),
     renderingType: state.logMetadata?.renderingType,
   });
 
