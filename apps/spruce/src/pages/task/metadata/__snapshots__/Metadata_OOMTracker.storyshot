@@ -106,17 +106,13 @@
         class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-description"
       >
-        <p
-          class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        <b
+          class="css-1wckecy-MetadataLabel e1ul56zb0"
+          color="#DB3030"
         >
-          <b
-            class="css-1wckecy-MetadataLabel e1ul56zb0"
-            color="#DB3030"
-          >
-            Failing Command: 
-          </b>
-          'shell.exec' in function 'yarn-test' (step 1 of 1)
-        </p>
+          Failing Command: 
+        </b>
+        'shell.exec' in function 'yarn-test' (step 1 of 1)
       </p>
       <p
         class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"

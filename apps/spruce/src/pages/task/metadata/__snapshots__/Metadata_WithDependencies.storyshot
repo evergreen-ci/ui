@@ -106,28 +106,24 @@
         class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-description"
       >
-        <p
-          class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        <b
+          class="css-1wckecy-MetadataLabel e1ul56zb0"
+          color="#DB3030"
         >
-          <b
-            class="css-1wckecy-MetadataLabel e1ul56zb0"
-            color="#DB3030"
+          Failing Command: 
+        </b>
+        Long description that requires use of the inline definition component. This would include details ab...
+         
+        <span
+          class="leafygreen-ui-vm4wms"
+          tabindex="0"
+        >
+          <small
+            class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
           >
-            Failing Command: 
-          </b>
-          Long description that requires use of the inline definition component. This would include details ab...
-           
-          <span
-            class="leafygreen-ui-vm4wms"
-            tabindex="0"
-          >
-            <small
-              class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
-            >
-              more
-            </small>
-          </span>
-        </p>
+            more
+          </small>
+        </span>
       </p>
     </div>
     <div
