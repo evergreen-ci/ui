@@ -3,8 +3,8 @@ import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
   | {
-      name: "Clicked feature modal cancel button";
-      release: "beta" | "production";
+      name: "Clicked sections feature modal cancel button";
+      release: "beta";
     }
   | { name: "Clicked feature modal enable sections buttons"; release: "beta" }
   | { name: "Clicked sections toggle guide cue close button"; release: "beta" }

@@ -35,7 +35,7 @@ export const SectionsFeatureModal = () => {
       onClose={() => {
         closeFeatureModal();
         sendEvent({
-          name: "Clicked feature modal cancel button",
+          name: "Clicked sections feature modal cancel button",
           release: "beta",
         });
       }}
