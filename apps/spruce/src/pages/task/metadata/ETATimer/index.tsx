@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { MetadataItem } from "components/MetadataCard";
+import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 import { useRunningTime } from "hooks";
 import { string } from "utils";
 
@@ -22,7 +22,7 @@ const ETATimer: React.FC<ETATimerProps> = ({ expectedDuration, startTime }) => {
   if (eta < 0) return null;
   return (
     <MetadataItem data-cy="task-metadata-eta">
-      ETA: {msToDuration(eta)}
+      <MetadataLabel>ETA:</MetadataLabel> {msToDuration(eta)}
     </MetadataItem>
   );
 };

@@ -6,9 +6,9 @@ type Action =
   | { name: "Clicked patch link" }
   | {
       name: "Filtered for patches";
-      "filter.by": string;
-      "filter.hidden": boolean;
-      "filter.commit_queue": boolean;
+      "filter.by"?: string;
+      "filter.hidden"?: boolean;
+      "filter.commit_queue"?: boolean;
     };
 
 export const useUserPatchesAnalytics = () =>

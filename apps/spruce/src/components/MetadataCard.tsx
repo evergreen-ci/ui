@@ -74,3 +74,7 @@ const Item = styled(Body)<BodyProps>`
     margin-bottom: 12px;
   }
 `;
+
+export const MetadataLabel = styled.b<{ color?: string }>`
+  ${({ color }) => color && `color: ${color};`}
+`;

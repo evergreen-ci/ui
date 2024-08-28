@@ -10,10 +10,13 @@ import {
   PageWrapper,
 } from "components/styles";
 import { SideNavItemLink } from "components/styles/SideNav";
+import { showImageVisibilityPage } from "constants/featureFlags";
 import {
   DistroSettingsTabRoutes,
   getDistroSettingsRoute,
+  getImageRoute,
   getTaskQueueRoute,
+  ImageTabRoutes,
   slugs,
 } from "constants/routes";
 import { size } from "constants/tokens";
@@ -89,6 +92,28 @@ const DistroSettings: React.FC = () => {
           >
             Task Queue
           </SideNavItemLink>
+          {showImageVisibilityPage && (
+            <SideNavItemLink
+              to={getImageRoute(
+                data?.distro?.imageId ?? "",
+                ImageTabRoutes.BuildInformation,
+              )}
+              data-cy="navitem-image-build-information-link"
+            >
+              Image Build Information
+            </SideNavItemLink>
+          )}
+          {showImageVisibilityPage && (
+            <SideNavItemLink
+              to={getImageRoute(
+                data?.distro?.imageId ?? "",
+                ImageTabRoutes.EventLog,
+              )}
+              data-cy="navitem-image-event-log-link"
+            >
+              Image Event Log
+            </SideNavItemLink>
+          )}
         </SideNavGroup>
       </SideNav>
       <PageWrapper data-cy="distro-settings-page">
