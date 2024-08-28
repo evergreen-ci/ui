@@ -5,6 +5,7 @@ import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
 import { ParsleySettingsInput } from "gql/generated/types";
+import { releaseSectioning } from "utils/featureFlag";
 import BaseToggle from "../BaseToggle";
 
 interface JumpToFailingLineToggleProps {
@@ -24,19 +25,21 @@ const JumpToFailingLineToggle: React.FC<JumpToFailingLineToggleProps> = ({
   const triggerRef = useRef<HTMLDivElement>(null);
   return (
     <>
-      <GuideCue
-        beaconAlign="right"
-        data-cy="sections-cue-2"
-        numberOfSteps={1}
-        onPrimaryButtonClick={closeSecondGuideCue}
-        open={isOpenSecondGuideCue}
-        refEl={triggerRef}
-        setOpen={setIsOpenSecondGuideCue}
-        title="Jump to Failing Line"
-      >
-        Combined with sectioning, jump to failing line allows to streamline your
-        failure triage process.
-      </GuideCue>
+      {releaseSectioning && (
+        <GuideCue
+          beaconAlign="right"
+          data-cy="sections-cue-2"
+          numberOfSteps={1}
+          onPrimaryButtonClick={closeSecondGuideCue}
+          open={isOpenSecondGuideCue}
+          refEl={triggerRef}
+          setOpen={setIsOpenSecondGuideCue}
+          title="Jump to Failing Line"
+        >
+          Combined with sectioning, jump to failing line allows to streamline
+          your failure triage process.
+        </GuideCue>
+      )}
       <BaseToggle
         ref={triggerRef}
         data-cy="jump-to-failing-line-toggle"

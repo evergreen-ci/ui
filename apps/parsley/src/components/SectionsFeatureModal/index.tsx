@@ -6,6 +6,7 @@ import routes from "constants/routes";
 import { zIndex } from "constants/tokens";
 import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
+import { releaseSectioning } from "utils/featureFlag";
 import { graphic } from "./graphic";
 
 export const SectionsFeatureModal = () => {
@@ -15,7 +16,7 @@ export const SectionsFeatureModal = () => {
   const { sendEvent } = useSectionsFeatureDiscoveryAnalytics();
   const { updateSettings } = useParsleySettings();
 
-  return isViewingTaskLog ? (
+  return releaseSectioning && isViewingTaskLog ? (
     <StyledMarketingModal
       buttonText="Enable sectioning"
       data-cy="sections-feature-modal"
