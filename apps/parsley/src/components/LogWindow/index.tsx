@@ -3,6 +3,7 @@ import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import BookmarksBar from "components/BookmarksBar";
 import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
+import { SectionsFeatureModal } from "components/SectionsFeatureModal";
 import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
 import { useLogContext } from "context/LogContext";
@@ -21,6 +22,7 @@ const LogWindow: React.FC = () => {
 
   return (
     <Container data-cy="log-window">
+      <SectionsFeatureModal />
       <SidePanel
         clearExpandedLines={clearExpandedLines}
         collapseLines={collapseLines}
