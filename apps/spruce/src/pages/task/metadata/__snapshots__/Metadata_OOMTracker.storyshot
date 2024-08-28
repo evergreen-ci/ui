@@ -115,19 +115,15 @@
           >
             Failing Command: 
           </b>
-          Long description that requires use of the inline definition component. This would include details ab...
-           
-          <span
-            class="leafygreen-ui-vm4wms"
-            tabindex="0"
-          >
-            <small
-              class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
-            >
-              more
-            </small>
-          </span>
+          'shell.exec' in function 'yarn-test' (step 1 of 1)
         </p>
+      </p>
+      <p
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+      >
+        Out of Memory Kill detected
+         
+        (PIDs: 12345, 67890)
       </p>
     </div>
     <div
@@ -145,21 +141,65 @@
       </div>
       <p
         class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        data-cy="task-metadata-ami"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
         >
-          Container:
+          AMI:
+        </b>
+         
+        ami-0c83bb0a9f48c15bf
+      </p>
+      <p
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+      >
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          Distro:
         </b>
          
         <a
           class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-          data-cy="task-pod-link"
-          href="/container/pod_id"
+          data-cy="task-distro-link"
+          href="/distro/ubuntu1604-small/settings/general"
+        >
+          <span>
+            ubuntu1604-small
+          </span>
+        </a>
+      </p>
+      <p
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+      >
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          Host:
+        </b>
+         
+        <a
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+          data-cy="task-host-link"
+          href="/host/i-0e0e62799806e037d"
           target="_self"
         >
           <span>
-            pod_id
+            i-0e0e62799806e037d
+          </span>
+        </a>
+      </p>
+      <p
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+      >
+        <a
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+          data-cy="task-spawn-host-link"
+          href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
+        >
+          <span>
+            Spawn host
           </span>
         </a>
       </p>

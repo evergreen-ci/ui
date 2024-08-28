@@ -1,13 +1,13 @@
 <div>
   <div
-    class="css-15y3b4e"
+    class="css-b5r3c0"
   >
     <div
       class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-1miy0xp"
+          class="css-1k03zl5-Title e1ul56zb2 leafygreen-ui-1miy0xp"
         >
           Task Metadata
         </p>
@@ -16,10 +16,14 @@
         />
       </div>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-build-variant"
       >
-        Build Variant:
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          Build Variant:
+        </b>
          
         <a
           class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
@@ -32,10 +36,14 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-project"
       >
-        Project:
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          Project:
+        </b>
          
         <a
           class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
@@ -48,33 +56,39 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
-        Submitted by: 
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          Submitted by:
+        </b>
+         
         mohamed.khelif
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
-        Estimated time to start:
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          Estimated time to start:
+        </b>
          
         <span
-          data-cy="task-metadata-estimated_start"
+          data-cy="task-metadata-estimated-start"
         >
           1s
         </span>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
-        data-cy="task-metadata-base-commit-duration"
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
-        Base commit duration: 
-        nullms
-      </p>
-      <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
-      >
-        Base commit:
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          Base commit:
+        </b>
          
         <a
           class="lg-ui-0000 leafygreen-ui-hvznge"
@@ -89,14 +103,15 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-description"
       >
         <p
-          class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+          class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         >
           <b
-            class="css-qyvtrs-StyledB ebphozh0"
+            class="css-1wckecy-MetadataLabel e1ul56zb0"
+            color="#DB3030"
           >
             Failing Command: 
           </b>
@@ -114,10 +129,40 @@
           </span>
         </p>
       </p>
+    </div>
+    <div
+      class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+    >
+      <div>
+        <p
+          class="css-1k03zl5-Title e1ul56zb2 leafygreen-ui-1miy0xp"
+        >
+          Host Information
+        </p>
+        <hr
+          class="css-qqg5h5-Divider eb6szep0"
+        />
+      </div>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        data-cy="task-metadata-ami"
       >
-        Distro:
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          AMI:
+        </b>
+         
+        ami-0c83bb0a9f48c15bf
+      </p>
+      <p
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+      >
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          Distro:
+        </b>
          
         <a
           class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
@@ -130,16 +175,13 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
-        data-cy="task-metadata-ami"
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
-        AMI: 
-        ami-0c83bb0a9f48c15bf
-      </p>
-      <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
-      >
-        Host:
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          Host:
+        </b>
          
         <a
           class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
@@ -153,7 +195,7 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1tb6tuo"
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <a
           class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
