@@ -18,6 +18,7 @@ export const SectionsFeatureModal = () => {
   return isViewingTaskLog ? (
     <StyledMarketingModal
       buttonText="Enable sectioning"
+      data-cy="sections-feature-modal"
       graphic={graphic}
       graphicStyle="center"
       linkText=""

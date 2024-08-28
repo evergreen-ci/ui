@@ -15,5 +15,5 @@ export const LAST_SELECTED_LOG_TYPE = "last-selected-log-type";
 
 // Cookies for features
 export const SEEN_SECTIONS_BETA_FEATURE_MODAL =
-  "seen-sections-beta-feature-modal";
+  "has-seen-sections-beta-feature-modal";
 export const SEEN_SECTIONS_BETA_GUIDE_CUE = "has-seen-sections-beta-guide-cue";

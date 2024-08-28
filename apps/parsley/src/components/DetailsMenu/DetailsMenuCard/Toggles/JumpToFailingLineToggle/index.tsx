@@ -26,7 +26,7 @@ const JumpToFailingLineToggle: React.FC<JumpToFailingLineToggleProps> = ({
     <>
       <GuideCue
         beaconAlign="right"
-        data-cy="sectioning-cue-2"
+        data-cy="sections-cue-2"
         numberOfSteps={1}
         onPrimaryButtonClick={closeSecondGuideCue}
         open={isOpenSecondGuideCue}

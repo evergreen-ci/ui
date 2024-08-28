@@ -27,7 +27,7 @@ const SectionsToggle: React.FC<SectionsToggleProps> = ({
     <>
       <GuideCue
         currentStep={1}
-        data-cy="sectioning-cue-1"
+        data-cy="sections-cue-1"
         numberOfSteps={1}
         onPrimaryButtonClick={closeFirstGuideCue}
         open={isOpenFirstGuideCue}
