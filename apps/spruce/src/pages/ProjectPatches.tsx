@@ -1,4 +1,6 @@
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
+import Checkbox from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
@@ -22,12 +24,29 @@ import { PatchPageQueryParams } from "types/patch";
 export const ProjectPatches = () => {
   const dispatchToast = useToastContext();
   const analytics = useProjectPatchesAnalytics();
-
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-  const [isCommitQueueCheckboxChecked] = useQueryParam(
+
+  const [
+    isGitHubMergeQueueCheckboxChecked,
+    setIsGitHubMergeQueueCheckboxChecked,
+  ] = useQueryParam(
     PatchPageQueryParams.CommitQueue,
     Cookies.get(INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES) === "true",
   );
+
+  const gitHubMergeQueueCheckboxOnChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    setIsGitHubMergeQueueCheckboxChecked(e.target.checked);
+    Cookies.set(
+      INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
+      e.target.checked ? "true" : "false",
+    );
+    analytics.sendEvent({
+      name: "Filtered for patches",
+      "filter.commit_queue": e.target.checked,
+    });
+  };
 
   const patchesInput = usePatchesQueryParams();
 
@@ -40,7 +59,7 @@ export const ProjectPatches = () => {
       projectIdentifier,
       patchesInput: {
         ...patchesInput,
-        onlyCommitQueue: isCommitQueueCheckboxChecked,
+        onlyCommitQueue: isGitHubMergeQueueCheckboxChecked,
       },
     },
     pollInterval: DEFAULT_POLL_INTERVAL,
@@ -52,30 +71,44 @@ export const ProjectPatches = () => {
   });
   usePolling({ startPolling, stopPolling, refetch });
   const { displayName, patches } = data?.project ?? {};
+
   return (
     <>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       <PatchesPage
+        filterComp={
+          <>
+            <ProjectSelect
+              getRoute={getProjectPatchesRoute}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              selectedProjectIdentifier={projectIdentifier}
+              showLabel={false}
+              onSubmit={(p) => {
+                analytics.sendEvent({
+                  name: "Changed project",
+                  "project.identifier": p,
+                });
+              }}
+            />
+            <GitHubMergeQueueCheckbox
+              data-cy="github-merge-queue-checkbox"
+              onChange={gitHubMergeQueueCheckboxOnChange}
+              label="Only show GitHub Merge Queue patches"
+              checked={isGitHubMergeQueueCheckboxChecked}
+            />
+          </>
+        }
         loading={loading}
         pageTitle={`${displayName ?? ""} Patches`}
         pageType="project"
-        filterComp={
-          <ProjectSelect
-            getRoute={getProjectPatchesRoute}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            selectedProjectIdentifier={projectIdentifier}
-            showLabel={false}
-            onSubmit={(p) => {
-              analytics.sendEvent({
-                name: "Changed project",
-                "project.identifier": p,
-              });
-            }}
-          />
-        }
         patches={patches}
       />
     </>
   );
 };
+
+// @ts-expect-error
+const GitHubMergeQueueCheckbox = styled(Checkbox)`
+  justify-content: flex-end;
+`;
