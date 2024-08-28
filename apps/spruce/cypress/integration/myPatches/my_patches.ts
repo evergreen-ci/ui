@@ -102,59 +102,6 @@ describe("My Patches Page", () => {
       cy.dataCy("patch-card").first().contains(cliPatchTitle);
     });
   });
-  describe("Commit queue checkbox", () => {
-    it("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
-      cy.visit(MY_PATCHES_ROUTE);
-      cy.dataCy("commit-queue-checkbox").should("be.checked");
-      cy.contains(patchOnCommitQueue);
-
-      cy.dataCy("commit-queue-checkbox").uncheck({ force: true });
-      urlSearchParamsAreUpdated({
-        pathname: MY_PATCHES_ROUTE,
-        paramName: "commitQueue",
-        search: "false",
-      });
-      cy.contains(patchOnCommitQueue).should("not.exist");
-      cy.dataCy("commit-queue-checkbox").check({ force: true });
-    });
-
-    it("The commit queue checkbox defaults to a cookie value when the commitQueue query param isn't defined", () => {
-      cy.setCookie("include-commit-queue-user-patches", "true");
-      cy.visit(MY_PATCHES_ROUTE);
-      cy.dataCy("commit-queue-checkbox").should("be.checked");
-      cy.setCookie("include-commit-queue-user-patches", "false");
-      cy.dataCy("commit-queue-checkbox").should("not.be.checked");
-    });
-
-    it("The commitQueue query param has higher precedence than the cookie value when determining commit queue checkbox state", () => {
-      cy.setCookie("include-commit-queue-user-patches", "true");
-      cy.visit(`${MY_PATCHES_ROUTE}?commitQueue=false`);
-      cy.dataCy("commit-queue-checkbox").should("not.be.checked");
-      cy.setCookie("include-commit-queue-user-patches", "false");
-      cy.visit(`${MY_PATCHES_ROUTE}?commitQueue=true`);
-      cy.dataCy("commit-queue-checkbox").should("be.checked");
-    });
-
-    it("Clicking on the commit queue checkbox updates the cookie value", () => {
-      cy.setCookie("include-commit-queue-user-patches", "true");
-      cy.visit(MY_PATCHES_ROUTE);
-      cy.dataCy("commit-queue-checkbox").should("be.checked");
-      cy.contains("Include Commit Queue").click();
-      cy.dataCy("commit-queue-checkbox").should("not.be.checked");
-      cy.getCookie("include-commit-queue-user-patches").should(
-        "have.property",
-        "value",
-        "false",
-      );
-      cy.contains("Include Commit Queue").click();
-      cy.dataCy("commit-queue-checkbox").should("be.checked");
-      cy.getCookie("include-commit-queue-user-patches").should(
-        "have.property",
-        "value",
-        "true",
-      );
-    });
-  });
 
   it("Changing page size updates URL and renders less than or equal to that many rows", () => {
     cy.visit(`${MY_PATCHES_ROUTE}?limit=10`);
@@ -237,8 +184,6 @@ const dataCyNextPage = "next-page-button";
 const dataCyPrevPage = "prev-page-button";
 const dataCyTableRows = "[data-cy=patch-card]";
 
-const patchOnCommitQueue =
-  "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
 const firstPageDisplayNames = [
   "main: EVG-7823 add a commit queue message (#4048)",
   "dist",

@@ -11,7 +11,6 @@ const getPatchCardByDescription = (description: string) =>
 describe("Dropdown Menu of Patch Actions", () => {
   beforeEach(() => {
     cy.visit("/");
-    cy.getInputByLabel("Include Commit Queue").check({ force: true });
   });
 
   it("'Reconfigure' link takes user to patch configure page", () => {
@@ -22,13 +21,6 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("reconfigure-link").should("be.visible");
     cy.dataCy("reconfigure-link").click({ force: true });
     cy.location("pathname").should("include", `/configure`);
-  });
-
-  it("'Reconfigure' link is disabled for patches on commit queue", () => {
-    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
-      cy.dataCy("patch-card-dropdown").click();
-    });
-    cy.dataCy("reconfigure-link").should("have.attr", "aria-disabled", "true");
   });
 
   it("'Schedule' link opens modal and clicking on 'Cancel' closes it.", () => {

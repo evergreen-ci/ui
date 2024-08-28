@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "4.1.70",
+  "version": "4.1.71",
   "private": true,
   "type": "module",
   "scripts": {
@@ -143,7 +143,7 @@
     "@storybook/react": "8.2.9",
     "@storybook/react-vite": "8.2.9",
     "@styled/typescript-styled-plugin": "1.0.1",
-    "@testing-library/jest-dom": "6.4.8",
+    "@testing-library/jest-dom": "6.5.0",
     "@testing-library/react": "16.0.0",
     "@testing-library/user-event": "14.5.2",
     "@types/js-cookie": "^3.0.6",
@@ -153,7 +153,7 @@
     "@types/node": "^20.12.7",
     "@types/pluralize": "0.0.33",
     "@types/prompts": "2.4.9",
-    "@types/react": "18.3.3",
+    "@types/react": "18.3.4",
     "@types/react-dom": "18.3.0",
     "@vitejs/plugin-react": "4.3.1",
     "babel-plugin-import-graphql": "^2.8.1",
