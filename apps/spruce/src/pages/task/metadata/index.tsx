@@ -232,14 +232,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </MetadataItem>
         )}
         {(details?.description || details?.failingCommand) && (
-          <MetadataItem data-cy="task-metadata-description">
-            <DetailsDescription
-              description={details?.description ?? ""}
-              failingCommand={details?.failingCommand ?? ""}
-              isContainerTask={isContainerTask}
-              status={details?.status}
-            />
-          </MetadataItem>
+          <DetailsDescription
+            description={details?.description ?? ""}
+            failingCommand={details?.failingCommand ?? ""}
+            isContainerTask={isContainerTask}
+            status={details?.status}
+          />
         )}
         {details?.timeoutType && details?.timeoutType !== "" && (
           <MetadataItem>
@@ -476,7 +474,7 @@ const DetailsDescription = ({
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 
   return (
-    <MetadataItem>
+    <MetadataItem data-cy="task-metadata-description">
       {isFailingTask ? (
         <MetadataLabel color={red.base}>Failing Command: </MetadataLabel>
       ) : (

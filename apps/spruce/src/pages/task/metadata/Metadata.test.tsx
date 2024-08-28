@@ -34,7 +34,7 @@ describe("metadata", () => {
       },
     );
     expect(
-      screen.queryByDataCy("task-metadata-estimated_start"),
+      screen.queryByDataCy("task-metadata-estimated-start"),
     ).toHaveTextContent("1s");
     expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-started")).toBeNull();

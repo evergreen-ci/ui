@@ -15,18 +15,18 @@ describe("runtimeTimer", () => {
     // 10 seconds ago
     const startTime = new Date(Date.now() - 10000);
     render(<RuntimeTimer startTime={startTime} />);
-    expect(screen.getByText("Running Time: 10s")).toBeInTheDocument();
+    expect(screen.getByText("10s")).toBeInTheDocument();
     act(() => {
       vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
-      expect(screen.getByText("Running Time: 11s")).toBeInTheDocument();
+      expect(screen.getByText("11s")).toBeInTheDocument();
     });
     act(() => {
       vi.runOnlyPendingTimers();
     });
     await waitFor(() => {
-      expect(screen.getByText("Running Time: 12s")).toBeInTheDocument();
+      expect(screen.getByText("12s")).toBeInTheDocument();
     });
   });
 });
