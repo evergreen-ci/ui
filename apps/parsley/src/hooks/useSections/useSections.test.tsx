@@ -335,7 +335,7 @@ describe("useSections", () => {
     rerender({
       logType: LogTypes.EVERGREEN_TASK_LOGS,
       logs,
-      onInitOpenSectionsContainingLines: [1],
+      onInitOpenSectionsContainingLines: [1, 2],
       renderingType: LogRenderingTypes.Default,
     });
     await waitFor(() => {
