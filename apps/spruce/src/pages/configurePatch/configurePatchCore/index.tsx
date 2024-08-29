@@ -32,16 +32,16 @@ import {
   ProjectBuildVariant,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
+import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
+import ConfigureTasks from "./ConfigureTasks";
+import { ParametersContent } from "./ParametersContent";
+import useConfigurePatch from "./useConfigurePatch";
 import {
   AliasState,
   ChildPatchAliased,
   PatchTriggerAlias,
   VariantTasksState,
-  useConfigurePatch,
-} from "hooks/useConfigurePatch";
-import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
-import ConfigureTasks from "./ConfigureTasks";
-import { ParametersContent } from "./ParametersContent";
+} from "./useConfigurePatch/types";
 
 interface ConfigurePatchCoreProps {
   patch: ConfigurePatchQuery["patch"];
