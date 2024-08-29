@@ -3,6 +3,7 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
@@ -13,7 +14,6 @@ import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";
 import { HostCard } from "pages/host/HostCard";
 import { HostEventString } from "pages/host/HostEventString";
-import { Unpacked } from "types/utils";
 
 type HostEvent = Unpacked<HostEventsQuery["hostEvents"]["eventLogEntries"]>;
 

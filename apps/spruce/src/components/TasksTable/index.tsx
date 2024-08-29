@@ -3,6 +3,7 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import pluralize from "pluralize";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledRouterLink } from "components/styles";
 import {
@@ -21,7 +22,7 @@ import {
   SortOrder,
   TaskSortCategory,
 } from "gql/generated/types";
-import { TableOnChange, TaskStatus } from "types/task";
+import { TableOnChange } from "types/task";
 import { sortTasks } from "utils/statuses";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
