@@ -7,15 +7,16 @@
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-1dcyxci leafygreen-ui-cssveg css-11bdqpq-StyledButton erobc1r4"
+        class="lg-ui-button-0000 css-11bdqpq-StyledButton erobc1r4 leafygreen-ui-pnpvk5"
         data-cy="clear-bookmarks"
+        data-lgid="lg-button"
         type="button"
       >
         <div
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-1tpstb3"
+          class="leafygreen-ui-b15bbd"
         >
           Clear
         </div>
