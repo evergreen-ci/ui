@@ -2843,7 +2843,7 @@
     "@leafygreen-ui/typography" "^19.0.0"
     react-transition-group "^4.4.5"
 
-"@leafygreen-ui/form-field@^1.1.1", "@leafygreen-ui/form-field@^1.2.0":
+"@leafygreen-ui/form-field@^1.2.0":
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/form-field/-/form-field-1.2.3.tgz#c15f0ec572cebc5da5e4941bdd3d51c619f4352d"
   integrity sha512-LW2fM9oFgoQH8V4ZrWcrVlo6phNhULy7i5MTQDiHi+HvAkJQl67R2DWl2QuXgBNgkOkgrDM5ccb/J7fD37VO4A==
@@ -2917,14 +2917,6 @@
     "@leafygreen-ui/palette" "^4.0.9"
     "@leafygreen-ui/tokens" "^2.5.2"
     polished "^4.2.2"
-
-"@leafygreen-ui/icon@11.28.0":
-  version "11.28.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.28.0.tgz#728b0a0875a7179e492201208ecad88b8f6262bc"
-  integrity sha512-4MEUSowuU8WjWwIwn7+nufAEXo8T2623TuNHXRC3RdWgW7rWknn6eZXva6IUSvM4I1H+a1rmIPtWc7qRafjYCQ==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.7"
-    lodash "^4.17.21"
 
 "@leafygreen-ui/icon@^11.13.1", "@leafygreen-ui/icon@^11.23.0", "@leafygreen-ui/icon@^11.26.0", "@leafygreen-ui/icon@^11.28.0":
   version "11.29.1"
@@ -3427,19 +3419,6 @@
     "@leafygreen-ui/typography" "^18.4.0"
     "@lg-tools/test-harnesses" "^0.1.2"
 
-"@leafygreen-ui/text-input@13.0.2":
-  version "13.0.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-input/-/text-input-13.0.2.tgz#e1fd177cdcd2f95568b21c81fe3f76fdf262e6f9"
-  integrity sha512-+ccRVd2aKklbYyy3p6QEpH9rtC+IeHiyLub1dXyoTfFzhSaExehkbWMMVFMvaIQtc665qjulr1oQn/nXBMNixw==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.8"
-    "@leafygreen-ui/form-field" "^1.1.1"
-    "@leafygreen-ui/hooks" "^8.1.3"
-    "@leafygreen-ui/lib" "^13.4.0"
-    "@leafygreen-ui/tokens" "^2.5.2"
-    "@leafygreen-ui/typography" "^19.0.0"
-    "@lg-tools/test-harnesses" "^0.1.2"
-
 "@leafygreen-ui/text-input@^13.0.2", "@leafygreen-ui/text-input@^13.1.0":
   version "13.1.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-input/-/text-input-13.1.1.tgz#bcef7e93403695e3511ae7094723a37f7e2d7a37"
@@ -3483,13 +3462,6 @@
     "@leafygreen-ui/palette" "^4.0.10"
     "@leafygreen-ui/tokens" "^2.5.2"
     "@lg-tools/test-harnesses" "^0.1.2"
-
-"@leafygreen-ui/tokens@2.5.2":
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.5.2.tgz#8945c0f85637e1f345a823d3efc48248232fd7bd"
-  integrity sha512-boYt7ipOh9etagJB1my0e6xTK2bvvS4aC+dQFDLB7OTNfs3e6a5TyEMbAPYwFYfBSgpSVcEOT8AsB9emRkal1Q==
-  dependencies:
-    "@leafygreen-ui/palette" "^4.0.9"
 
 "@leafygreen-ui/tokens@^1.4.1":
   version "1.4.1"
