@@ -1,3 +1,4 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   getParsleyBuildLogURL,
   getParsleyCompleteLogsURL,
@@ -6,7 +7,6 @@ import {
   LogkeeperBuildMetadataQuery,
   TaskTestsForJobLogsQuery,
 } from "gql/generated/types";
-import { TaskStatus } from "types/task";
 import {
   JobLogsTableTestResult,
   LogkeeperTestResult,

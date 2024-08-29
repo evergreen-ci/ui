@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
-import { TaskStatus } from "types/task";
 
 interface GroupedTaskStatusBadgeProps {
   count: number;

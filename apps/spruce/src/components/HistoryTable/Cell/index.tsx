@@ -3,11 +3,11 @@ import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { inactiveElementStyle, StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import { TaskStatus } from "types/task";
 import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "../constants";
 import { HistoryTableIcon } from "../HistoryTableIcon";
 

@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
@@ -23,7 +24,6 @@ import {
   versionSelectedTasks,
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
-import { TaskStatus } from "types/task";
 import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -8,7 +9,7 @@ import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
-import { PatchTasksQueryParams, TaskStatus } from "types/task";
+import { PatchTasksQueryParams } from "types/task";
 import { string, statuses } from "utils";
 
 const { groupStatusesByUmbrellaStatus } = statuses;

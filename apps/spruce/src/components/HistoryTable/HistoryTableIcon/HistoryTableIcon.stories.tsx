@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { action } from "@storybook/addon-actions";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./index";
 
 export default {

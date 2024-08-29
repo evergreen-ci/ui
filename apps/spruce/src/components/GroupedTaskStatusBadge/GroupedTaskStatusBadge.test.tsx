@@ -1,3 +1,4 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getVersionRoute } from "constants/routes";
 import {
   renderWithRouterMatch as render,
@@ -5,7 +6,6 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
-import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 
 describe("groupedTaskStatusBadgeIcon", () => {

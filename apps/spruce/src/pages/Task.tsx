@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import PageTitle from "components/PageTitle";
@@ -19,7 +20,7 @@ import { TASK } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";
-import { RequiredQueryParams, TaskStatus } from "types/task";
+import { RequiredQueryParams } from "types/task";
 import { queryString } from "utils";
 import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
