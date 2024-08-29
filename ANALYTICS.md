@@ -2,7 +2,7 @@
 
 Analytics are a crucial component of tracking and understanding user behavior, system performance, and other key metrics. To ensure that our analytics are effective and actionable, we follow a set of best practices. These practices help us maintain consistency, accuracy, and clarity in our analytics data.
 
-When adding or updating a new analytic event utilize the following spreadsheet to ensure that the event is consistent with the rest of the events in the system. [Analytics Event Spreadsheet](https://docs.google.com/spreadsheets/d/1s4_nq8ZiphXp5Uq_-9HT6GPqz-KOyaq6HuvmXYaSNzg/edit?gid=0#gid=0)
+When adding or updating a new analytic event utilize the following spreadsheet to ensure that the event is consistent with the rest of the events in the system: [Analytics Event Spreadsheet](https://docs.google.com/spreadsheets/d/1s4_nq8ZiphXp5Uq_-9HT6GPqz-KOyaq6HuvmXYaSNzg/edit?gid=0#gid=0)
 
 We utilize [Honeycomb for web](https://docs.honeycomb.io/send-data/javascript-browser/honeycomb-distribution/) to track analytic events. Using span attributes in OpenTelemetry, we can provide additional context to our analytics data. Below are some best practices for defining span attributes in OpenTelemetry.
 
