@@ -6,10 +6,10 @@ import {
   ParameterInput,
   VariantTask,
 } from "gql/generated/types";
+import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchTab } from "types/patch";
 import { Unpacked } from "types/utils";
 import { array, queryString, string } from "utils";
-import { useTabShortcut } from "../useTabShortcut";
 
 const { convertArrayToObject, mapStringArrayToObject } = array;
 const { parseQueryString } = queryString;
