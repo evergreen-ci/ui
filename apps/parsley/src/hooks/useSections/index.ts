@@ -46,12 +46,12 @@ interface Props {
   logs: string[];
   logType: string | undefined;
   renderingType: string | undefined;
-  onInitOpenSectionContainingLine: number | undefined;
+  onInitOpenSectionsContainingLines: number[] | undefined;
 }
 export const useSections = ({
   logType,
   logs,
-  onInitOpenSectionContainingLine,
+  onInitOpenSectionsContainingLines,
   renderingType,
 }: Props): UseSectionsResult => {
   const dispatchToast = useToastContext();
@@ -86,12 +86,12 @@ export const useSections = ({
     if (sectionData && sectionState === undefined) {
       setSectionState(
         populateSectionState({
-          openSectionContainingLine: onInitOpenSectionContainingLine,
+          openSectionsContainingLines: onInitOpenSectionsContainingLines,
           sectionData,
         }),
       );
     }
-  }, [sectionData, sectionState, onInitOpenSectionContainingLine]);
+  }, [sectionData, sectionState, onInitOpenSectionsContainingLines]);
 
   const toggleFunctionSection: ToggleFunctionSection = useCallback(
     ({ functionID, isOpen }) => {

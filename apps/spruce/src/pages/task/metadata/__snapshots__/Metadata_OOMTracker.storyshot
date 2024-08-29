@@ -112,18 +112,14 @@
         >
           Failing Command: 
         </b>
-        Long description that requires use of the inline definition component. This would include details ab...
+        'shell.exec' in function 'yarn-test' (step 1 of 1)
+      </p>
+      <p
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+      >
+        Out of Memory Kill detected
          
-        <span
-          class="leafygreen-ui-vm4wms"
-          tabindex="0"
-        >
-          <small
-            class="css-1ghrn41-ButtonText eq9i5u70 leafygreen-ui-6flbwy"
-          >
-            more
-          </small>
-        </span>
+        (PIDs: 12345, 67890)
       </p>
     </div>
     <div

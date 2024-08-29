@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "4.1.70",
+  "version": "4.1.71",
   "private": true,
   "type": "module",
   "scripts": {
@@ -61,7 +61,7 @@
     "@leafygreen-ui/button": "21.0.6",
     "@leafygreen-ui/callout": "9.0.18",
     "@leafygreen-ui/card": "10.0.5",
-    "@leafygreen-ui/checkbox": "13.1.1",
+    "@leafygreen-ui/checkbox": "13.1.2",
     "@leafygreen-ui/code": "14.3.3",
     "@leafygreen-ui/combobox": "9.1.1",
     "@leafygreen-ui/confirmation-modal": "5.0.9",
@@ -72,7 +72,7 @@
     "@leafygreen-ui/expandable-card": "3.1.0",
     "@leafygreen-ui/guide-cue": "5.0.8",
     "@leafygreen-ui/icon": "11.26.0",
-    "@leafygreen-ui/icon-button": "15.0.22",
+    "@leafygreen-ui/icon-button": "15.0.23",
     "@leafygreen-ui/info-sprinkle": "1.0.5",
     "@leafygreen-ui/inline-definition": "6.0.14",
     "@leafygreen-ui/interaction-ring": "7.0.2",
@@ -127,7 +127,7 @@
     "react-router-dom": "6.16.0",
     "react-string-replace": "1.1.1",
     "react-virtuoso": "^4.7.12",
-    "vite-node": "^1.6.0"
+    "vite-node": "^2.0.5"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.11.0",
@@ -143,7 +143,7 @@
     "@storybook/react": "8.2.9",
     "@storybook/react-vite": "8.2.9",
     "@styled/typescript-styled-plugin": "1.0.1",
-    "@testing-library/jest-dom": "6.4.8",
+    "@testing-library/jest-dom": "6.5.0",
     "@testing-library/react": "16.0.0",
     "@testing-library/user-event": "14.5.2",
     "@types/js-cookie": "^3.0.6",
@@ -152,7 +152,7 @@
     "@types/node": "^20.12.7",
     "@types/pluralize": "0.0.33",
     "@types/prompts": "2.4.9",
-    "@types/react": "18.3.3",
+    "@types/react": "18.3.4",
     "@types/react-dom": "18.3.0",
     "@vitejs/plugin-react": "4.3.1",
     "babel-plugin-import-graphql": "^2.8.1",
@@ -176,7 +176,7 @@
     "vite-plugin-env-compatible": "2.0.1",
     "vite-plugin-imp": "2.4.0",
     "vite-tsconfig-paths": "4.3.2",
-    "vitest": "1.6.0",
+    "vitest": "2.0.5",
     "vitest-canvas-mock": "0.3.3"
   },
   "resolutions": {

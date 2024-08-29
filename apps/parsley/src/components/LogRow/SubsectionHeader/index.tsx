@@ -1,5 +1,3 @@
-import Icon from "@leafygreen-ui/icon";
-import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
@@ -10,8 +8,7 @@ import {
 import { SectionStatus } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import { CaretToggle } from "../CaretToggle";
-
-const { gray } = palette;
+import { SectionStatusIcon } from "../SectionStatusIcon";
 
 interface SubsectionHeaderProps extends Row {
   commandName: string;
@@ -34,8 +31,6 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const { sectioning } = useLogContext();
-  const statusGlyph =
-    status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
   return (
     <div
       aria-expanded={open}
@@ -64,7 +59,7 @@ const SubsectionHeader: React.FC<SubsectionHeaderProps> = ({
         }}
         open={open}
       />
-      {status && <Icon fill={gray.dark1} glyph={statusGlyph} />}
+      {status && <SectionStatusIcon status={status} />}
       <Body>
         Command: {commandName} (step {step})
       </Body>

@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import Icon from "@leafygreen-ui/icon";
-import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
@@ -9,9 +7,8 @@ import { SectionStatus } from "constants/logs";
 import { size } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { CaretToggle } from "../CaretToggle";
+import { SectionStatusIcon } from "../SectionStatusIcon";
 import { SubsectionControls } from "./SubsectionControls";
-
-const { gray } = palette;
 
 interface SectionHeaderProps extends Row {
   functionName: string;
@@ -28,8 +25,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   const { sectioning } = useLogContext();
   const { sendEvent } = useLogWindowAnalytics();
-  const statusGlyph =
-    status === SectionStatus.Pass ? "CheckmarkWithCircle" : "XWithCircle";
 
   return (
     <div
@@ -51,7 +46,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         }}
         open={open}
       />
-      <Icon fill={gray.dark1} glyph={statusGlyph} />
+      <SectionStatusIcon status={status} />
       <Body>Function: {functionName}</Body>
       <ButtonWrapper>
         <SubsectionControls
