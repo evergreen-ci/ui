@@ -1,6 +1,6 @@
 import { MemoryRouter, useLocation } from "react-router-dom";
 import { act, renderHook } from "test_utils";
-import { useTableSort } from "../useTableSort";
+import { useTableSort } from ".";
 
 describe("useTableSort", () => {
   it("sets ascending sort", () => {

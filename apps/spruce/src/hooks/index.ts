@@ -1,18 +1,15 @@
-export { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
+export { useFilterInputChangeHandler } from "./useFilterInputChangeHandler";
 export { useTableSort } from "./useTableSort";
-export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
-export { useOnClickOutside } from "hooks/useOnClickOutside";
-export { useVersionTaskStatusSelect } from "hooks/useVersionTaskStatusSelect";
-export { useLegacyUIURL } from "hooks/useLegacyUIURL";
-export { usePageTitle } from "hooks/usePageTitle";
-export { useNetworkStatus } from "hooks/useNetworkStatus";
-export { usePageVisibility } from "hooks/usePageVisibility";
-export { usePolling } from "hooks/usePolling";
-export { useStatusesFilter } from "hooks/useStatusesFilter";
-export {
-  useTableInputFilter,
-  useTableCheckboxFilter,
-} from "hooks/useTableFilters";
+export { useGetUserPatchesPageTitleAndLink } from "./useGetUserPatchesPageTitleAndLink";
+export { useOnClickOutside } from "./useOnClickOutside";
+export { useVersionTaskStatusSelect } from "./useVersionTaskStatusSelect";
+export { useLegacyUIURL } from "./useLegacyUIURL";
+export { usePageTitle } from "./usePageTitle";
+export { useNetworkStatus } from "./useNetworkStatus";
+export { usePageVisibility } from "./usePageVisibility";
+export { usePolling } from "./usePolling";
+export { useStatusesFilter } from "./useStatusesFilter";
+export { useTableInputFilter, useTableCheckboxFilter } from "./useTableFilters";
 export { usePrevious } from "./usePrevious";
 export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";
 export { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
