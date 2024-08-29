@@ -4,8 +4,8 @@ import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
 import { OTHER_USER } from "gql/queries";
-import { useBreadcrumbRoot } from "hooks";
 import { renderHook, waitFor } from "test_utils";
+import { useBreadcrumbRoot } from ".";
 
 const cache = new InMemoryCache({
   typePolicies: {

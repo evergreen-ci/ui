@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
-import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { queryString } from "utils";
+import { useTableInputFilter, useTableCheckboxFilter } from ".";
 
 describe("useTableInputFilter", () => {
   it("accepts an input value", async () => {

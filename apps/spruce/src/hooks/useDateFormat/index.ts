@@ -1,6 +1,6 @@
+import { useUserSettings } from "hooks/useUserSettings";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getDateCopy, DateCopyOptions } from "utils/string";
-import { useUserSettings } from "./useUserSettings";
-import { useUserTimeZone } from "./useUserTimeZone";
 
 export const useDateFormat = () => {
   const timezone = useUserTimeZone();

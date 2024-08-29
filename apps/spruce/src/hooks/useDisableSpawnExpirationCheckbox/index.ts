@@ -6,7 +6,7 @@ import {
   MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { MY_HOSTS, MY_VOLUMES } from "gql/queries";
-import { useSpruceConfig } from "./useSpruceConfig";
+import { useSpruceConfig } from "hooks/useSpruceConfig";
 
 type ListItem =
   | MyHostsQuery["myHosts"][0]
