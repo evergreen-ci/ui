@@ -74,7 +74,7 @@ module.exports = {
           { caseSensitive: true },
         ],
         
-        "react/jsx-sort-props": WARN, // Sort props alphabetically
+        "react/jsx-sort-props": ERROR, // Sort props alphabetically.
       },
     },
     // For test files
