@@ -111,7 +111,7 @@
             Project:
              
             <a
-              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+              class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
               href="/project/spruce/patches"
             >
               <span>
@@ -335,7 +335,7 @@
                         class="leafygreen-ui-1iyoj2o"
                       />
                       <div
-                        class="leafygreen-ui-1s8pxzy"
+                        class="leafygreen-ui-109lyo9"
                       >
                         <div
                           class="leafygreen-ui-1ago99h"
@@ -346,7 +346,7 @@
                             aria-invalid="false"
                             aria-labelledby="search-tasks"
                             autocomplete="on"
-                            class="lg-ui-form-field-input-0001 leafygreen-ui-1ago99h"
+                            class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                             data-cy="task-filter-input"
                             id="lg-form_field-input-332"
                             placeholder="Search tasks regex"

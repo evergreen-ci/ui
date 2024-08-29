@@ -127,7 +127,7 @@
             class="leafygreen-ui-1iyoj2o"
           />
           <div
-            class="leafygreen-ui-1g3bwjo"
+            class="leafygreen-ui-109lyo9"
           >
             <div
               class="leafygreen-ui-1ago99h"
@@ -138,7 +138,7 @@
                 aria-invalid="false"
                 aria-labelledby="searchbar-input"
                 autocomplete="on"
-                class="lg-ui-form-field-input-0002 leafygreen-ui-1ago99h"
+                class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="searchbar-input"
                 id="lg-form_field-input-248"
                 placeholder="optional, regexp to search"

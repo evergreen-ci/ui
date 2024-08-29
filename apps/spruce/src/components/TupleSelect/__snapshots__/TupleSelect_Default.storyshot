@@ -86,7 +86,7 @@
             class="leafygreen-ui-1iyoj2o"
           />
           <div
-            class="leafygreen-ui-1s8pxzy"
+            class="leafygreen-ui-109lyo9"
           >
             <div
               class="leafygreen-ui-1ago99h"
@@ -97,7 +97,7 @@
                 aria-invalid="false"
                 aria-labelledby="Build Variant"
                 autocomplete="on"
-                class="lg-ui-form-field-input-0001 leafygreen-ui-1ago99h"
+                class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="tuple-select-input"
                 id="filter-input"
                 placeholder="Search Build Variant names"
