@@ -224,9 +224,6 @@ following:
    LK_CORS_ORIGINS=http:\/\/localhost:\\d+ LK_EVERGREEN_ORIGIN=http://localhost:8080 LK_PARSLEY_ORIGIN=http://localhost:5173 go run main/logkeeper.go --localPath {abs_path_to_parsley}/bin/_bucketdata
    ```
 
-   Note that all log output is piped to a file named `logkeeperapp.log`. You can
-   use `tail -f logkeeperapp.log` to view the log output.
-
 ## Deployment
 
 ### Requirements
