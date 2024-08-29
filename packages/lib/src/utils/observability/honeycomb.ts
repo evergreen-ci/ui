@@ -71,7 +71,7 @@ const initializeHoneycomb = ({
                 }
               },
               // Allow connecting frontend & backend traces.
-              propagateTraceHeaderCorsUrls: [backendURL || ""],
+              propagateTraceHeaderCorsUrls: [new RegExp(backendURL || "")],
             },
             "@opentelemetry/instrumentation-document-load": {
               ignoreNetworkEvents: true,
