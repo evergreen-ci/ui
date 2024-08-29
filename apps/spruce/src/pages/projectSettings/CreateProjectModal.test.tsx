@@ -1,5 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   CreateProjectMutation,
@@ -17,7 +18,6 @@ import {
   waitFor,
 } from "test_utils";
 import { selectLGOption } from "test_utils/utils";
-import { ApolloMock } from "types/gql";
 import { CreateProjectModal } from "./CreateProjectModal";
 
 const defaultOwner = "evergreen-ci";

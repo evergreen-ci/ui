@@ -1,3 +1,4 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   AddFavoriteProjectMutation,
   AddFavoriteProjectMutationVariables,
@@ -10,7 +11,6 @@ import {
 } from "gql/generated/types";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 const addFavoriteMock: ApolloMock<
   AddFavoriteProjectMutation,

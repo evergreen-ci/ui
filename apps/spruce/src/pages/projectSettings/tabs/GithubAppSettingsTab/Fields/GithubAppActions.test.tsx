@@ -1,5 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { FieldProps } from "@rjsf/core";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   DeleteGithubAppCredentialsMutation,
@@ -7,7 +8,6 @@ import {
 } from "gql/generated/types";
 import { DELETE_GITHUB_APP_CREDENTIALS } from "gql/mutations";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { GithubAppActions } from ".";
 
 const Field = ({ isAppDefined }: { isAppDefined: boolean }) => (
