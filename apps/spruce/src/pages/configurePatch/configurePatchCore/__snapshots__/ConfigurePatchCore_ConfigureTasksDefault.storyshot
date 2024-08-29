@@ -13,8 +13,8 @@
           class="leafygreen-ui-6bdaia"
           data-lgid="lg-label"
           data-testid="lg-form_field-label"
-          for="lg-form_field-input-309"
-          id="lg-form_field-label-306"
+          for="lg-form_field-input-317"
+          id="lg-form_field-label-314"
         >
           Patch Name
         </label>
@@ -29,11 +29,11 @@
             aria-describedby=""
             aria-disabled="false"
             aria-invalid="false"
-            aria-labelledby="lg-form_field-label-306"
+            aria-labelledby="lg-form_field-label-314"
             autocomplete="on"
             class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
             data-cy="patch-name-input"
-            id="lg-form_field-input-309"
+            id="lg-form_field-input-317"
             required=""
             type="text"
             value="test"
@@ -46,7 +46,7 @@
         class="leafygreen-ui-11ydt2g"
         data-lgid="lg-form_field-feedback"
         data-testid="lg-form_field-feedback"
-        id="lg-form_field-feedback-308"
+        id="lg-form_field-feedback-316"
       />
     </div>
     <div
@@ -54,15 +54,16 @@
     >
       <button
         aria-disabled="true"
-        class="lg-ui-button-0000 leafygreen-ui-ln4wk1"
+        class="lg-ui-button-0000 leafygreen-ui-ozl6m"
         data-cy="schedule-patch"
+        data-lgid="lg-button"
         type="button"
       >
         <div
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-v95oty"
+          class="leafygreen-ui-16tr4y"
         >
           Schedule
         </div>
@@ -110,7 +111,7 @@
             Project:
              
             <a
-              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+              class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
               href="/project/spruce/patches"
             >
               <span>
@@ -138,7 +139,7 @@
                   Select Build Variants and Tasks
                 </p>
                 <p
-                  class="leafygreen-ui-110o31d"
+                  class="leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   Use Shift + Click to edit multiple variants simultaneously.
@@ -194,7 +195,7 @@
                   Select Downstream Tasks
                 </p>
                 <p
-                  class="leafygreen-ui-110o31d"
+                  class="leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   Use Shift + Click to edit multiple variants simultaneously.
@@ -235,77 +236,85 @@
       >
         <div
           class="css-1svlhkk-StyledTabs e1g8s93l0"
+          data-lgid="lg-tabs"
         >
           <div
-            class="leafygreen-ui-1knbux5"
+            class="leafygreen-ui-jp7pox"
           >
             <div
               aria-label="Configure Patch Tabs"
               aria-orientation="horizontal"
               class="leafygreen-ui-dy551c"
+              data-lgid="lg-tabs-tab_list"
               role="tablist"
             >
               <button
-                aria-controls="tab-panel-1"
+                aria-controls="tab-panel-318"
                 aria-selected="true"
-                class="leafygreen-ui-1eowt3k"
+                class="leafygreen-ui-oq6if2"
                 data-cy="tasks-tab"
                 data-text="Configure"
-                id="tab-2"
+                id="tab-319"
                 name="Configure"
                 role="tab"
                 tabindex="0"
               >
                 <div
-                  class="leafygreen-ui-cjddr"
+                  class="leafygreen-ui-1nxuzmg"
                 >
                   Configure
                 </div>
               </button>
               <button
-                aria-controls="tab-panel-3"
+                aria-controls="tab-panel-320"
                 aria-selected="false"
-                class="leafygreen-ui-7ok9wl"
+                class="leafygreen-ui-1vvp6ij"
                 data-cy="changes-tab"
                 data-text="Changes"
-                id="tab-4"
+                id="tab-321"
                 name="Changes"
                 role="tab"
                 tabindex="-1"
               >
                 <div
-                  class="leafygreen-ui-cjddr"
+                  class="leafygreen-ui-1nxuzmg"
                 >
                   Changes
                 </div>
               </button>
               <button
-                aria-controls="tab-panel-5"
+                aria-controls="tab-panel-322"
                 aria-selected="false"
-                class="leafygreen-ui-7ok9wl"
+                class="leafygreen-ui-1vvp6ij"
                 data-cy="parameters-tab"
                 data-text="Parameters"
-                id="tab-6"
+                id="tab-323"
                 name="Parameters"
                 role="tab"
                 tabindex="-1"
               >
                 <div
-                  class="leafygreen-ui-cjddr"
+                  class="leafygreen-ui-1nxuzmg"
                 >
                   Parameters
                 </div>
               </button>
             </div>
             <div
-              class="leafygreen-ui-1sg2lsz"
-            />
+              class="leafygreen-ui-ov1ktg"
+            >
+              <div
+                class="leafygreen-ui-1sg2lsz"
+              />
+            </div>
           </div>
-          <div>
+          <div
+            data-lgid="lg-tabs-tab_panels"
+          >
             <div
-              aria-labelledby="tab-2"
+              aria-labelledby="tab-319"
               data-cy="tasks-tab"
-              id="tab-panel-1"
+              id="tab-panel-318"
               role="tabpanel"
             >
               <div
@@ -339,7 +348,7 @@
                             autocomplete="on"
                             class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                             data-cy="task-filter-input"
-                            id="lg-form_field-input-318"
+                            id="lg-form_field-input-332"
                             placeholder="Search tasks regex"
                             required=""
                             type="text"
@@ -353,7 +362,7 @@
                         class="leafygreen-ui-11ydt2g"
                         data-lgid="lg-form_field-feedback"
                         data-testid="lg-form_field-feedback"
-                        id="lg-form_field-feedback-317"
+                        id="lg-form_field-feedback-331"
                       />
                     </div>
                     <div
@@ -396,17 +405,17 @@
                     <label
                       class="leafygreen-ui-1srek1y"
                       data-lgid="lg-label"
-                      for="checkbox-319"
-                      id="checkbox-319-label"
+                      for="checkbox-333"
+                      id="checkbox-333-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-319-label"
+                        aria-labelledby="checkbox-333-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="select-all-checkbox"
-                        id="checkbox-319"
+                        id="checkbox-333"
                         type="checkbox"
                       />
                       <div
@@ -462,17 +471,17 @@
                     <label
                       class="leafygreen-ui-1srek1y"
                       data-lgid="lg-label"
-                      for="checkbox-320"
-                      id="checkbox-320-label"
+                      for="checkbox-334"
+                      id="checkbox-334-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-320-label"
+                        aria-labelledby="checkbox-334-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-320"
+                        id="checkbox-334"
                         type="checkbox"
                       />
                       <div
@@ -513,17 +522,17 @@
                     <label
                       class="leafygreen-ui-1srek1y"
                       data-lgid="lg-label"
-                      for="checkbox-321"
-                      id="checkbox-321-label"
+                      for="checkbox-335"
+                      id="checkbox-335-label"
                     >
                       <input
                         aria-checked="false"
                         aria-disabled="false"
                         aria-label="checkbox"
-                        aria-labelledby="checkbox-321-label"
+                        aria-labelledby="checkbox-335-label"
                         class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
                         data-cy="task-checkbox"
-                        id="checkbox-321"
+                        id="checkbox-335"
                         type="checkbox"
                       />
                       <div
@@ -561,15 +570,15 @@
               </div>
             </div>
             <div
-              aria-labelledby="tab-4"
+              aria-labelledby="tab-321"
               data-cy="changes-tab"
-              id="tab-panel-3"
+              id="tab-panel-320"
               role="tabpanel"
             />
             <div
-              aria-labelledby="tab-6"
+              aria-labelledby="tab-323"
               data-cy="parameters-tab"
-              id="tab-panel-5"
+              id="tab-panel-322"
               role="tabpanel"
             />
           </div>

@@ -113,6 +113,7 @@ export const idSlugs = [
 
 export const redirectRoutes = {
   distroSettings: paths.distros,
+  patch: `${paths.patch}/:${slugs.versionId}`,
   projectSettings: paths.projects,
   userPatches: `${paths.user}/:${slugs.userId}`,
   waterfall: `${paths.waterfall}/:${slugs.projectIdentifier}`,
@@ -130,7 +131,6 @@ export const routes = {
   jobLogs: paths.jobLogs,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
-  patch: `${paths.patch}/:${slugs.versionId}`,
   preferences: paths.preferences,
   projectPatches: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Patches}`,
   projectSettings: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Settings}`,

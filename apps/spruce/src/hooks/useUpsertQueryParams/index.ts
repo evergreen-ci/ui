@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
-import { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
 
 const { upsertQueryParam } = url;
 const { parseQueryString } = queryString;

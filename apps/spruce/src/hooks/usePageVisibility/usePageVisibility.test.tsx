@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { getUserMock } from "gql/mocks/getUser";
-import { usePageVisibility } from "hooks";
 import { act, renderHook } from "test_utils";
+import { usePageVisibility } from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const Provider = ({ children }) => (
