@@ -142,9 +142,9 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
             onClick={() =>
               sendEvent({ name: "Clicked metadata previous version link" })
             }
-            to={getVersionRoute(previousVersion.id || "")}
+            to={getVersionRoute(previousVersion?.id || "")}
           >
-            {shortenGithash(previousVersion.revision || "")}
+            {shortenGithash(previousVersion?.revision || "")}
           </InlineCode>
         </MetadataItem>
       )}
