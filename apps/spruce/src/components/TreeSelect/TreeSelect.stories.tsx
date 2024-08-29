@@ -23,7 +23,7 @@ const BaseTreeSelect = (props: TreeSelectProps) => {
   const [value, setValue] = useState([]);
   return (
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    <TreeSelect tData={treeData} state={value} onChange={setValue} {...props} />
+    <TreeSelect onChange={setValue} state={value} tData={treeData} {...props} />
   );
 };
 

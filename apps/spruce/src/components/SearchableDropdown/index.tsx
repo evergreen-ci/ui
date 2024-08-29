@@ -96,10 +96,10 @@ const SearchableDropdown = <T extends {}>({
     : (v: T) => (
         <SearchableDropdownOption
           key={`searchable_dropdown_option_${v}`}
-          value={v}
-          onClick={() => onClick(v)}
           isChecked={isChecked(v)}
+          onClick={() => onClick(v)}
           showCheckmark={allowMultiSelect}
+          value={v}
         />
       );
 
@@ -155,26 +155,26 @@ const SearchableDropdown = <T extends {}>({
       {label && <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>}
       <Wrapper>
         <Dropdown
-          id={`searchable-dropdown-${label}`}
-          data-cy={dataCy}
-          disabled={disabled}
-          buttonText={buttonText}
+          ref={DropdownRef}
+          aria-disabled={disabled}
           buttonRenderer={
             buttonRenderer ? () => buttonRenderer(value) : undefined
           }
+          buttonText={buttonText}
+          data-cy={dataCy}
+          disabled={disabled}
+          id={`searchable-dropdown-${label}`}
           onClose={resetSearch}
-          ref={DropdownRef}
-          aria-disabled={disabled}
         >
           <TextInputWithGlyph
-            data-cy={`${dataCy}-search-input`}
-            placeholder={searchPlaceholder}
-            value={search}
-            onChange={handleSearch}
-            icon={<Icon glyph="MagnifyingGlass" />}
             aria-label="Search for options"
-            type="search"
             autoFocus
+            data-cy={`${dataCy}-search-input`}
+            icon={<Icon glyph="MagnifyingGlass" />}
+            onChange={handleSearch}
+            placeholder={searchPlaceholder}
+            type="search"
+            value={search}
           />
           <ScrollableList>
             {(visibleOptions as T[])?.map((o) => option(o))}
@@ -198,19 +198,19 @@ export const SearchableDropdownOption = <T extends {}>({
   value,
 }: PropsWithChildren<SearchableDropdownOptionProps<T>>) => (
   <Option
-    onClick={() => onClick(value)}
     key={`select_${value}`}
     data-cy="searchable-dropdown-option"
+    onClick={() => onClick(value)}
   >
     {showCheckmark && (
       <CheckmarkContainer data-cy="checkmark">
         <CheckmarkIcon
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          checked={isChecked}
+          fill={blue.base}
           glyph="Checkmark"
           height={12}
           width={12}
-          fill={blue.base}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          checked={isChecked}
         />
       </CheckmarkContainer>
     )}

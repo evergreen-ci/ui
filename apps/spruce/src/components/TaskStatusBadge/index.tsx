@@ -76,11 +76,11 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
         )}
       >
         <StyledBadge
-          data-cy="task-status-badge"
           key={status}
+          css={badgeWidthMaxContent}
+          data-cy="task-status-badge"
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           variant={mapTaskStatusToBadgeVariant[status]}
-          css={badgeWidthMaxContent}
         >
           {displayStatus}
         </StyledBadge>
@@ -90,8 +90,8 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
 
   return (
     <StyledBadge
-      data-cy="task-status-badge"
       key={status}
+      data-cy="task-status-badge"
       {...customBadgeColors(status)}
     >
       {displayStatus}

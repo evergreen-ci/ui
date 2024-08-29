@@ -26,8 +26,8 @@ const TestSearch = () => {
       <div style={{ paddingTop: size.s }}>
         <FilterBadges
           badges={badges}
-          onRemove={handleOnRemove}
           onClearAll={handleClearAll}
+          onRemove={handleOnRemove}
         />
       </div>
     </div>

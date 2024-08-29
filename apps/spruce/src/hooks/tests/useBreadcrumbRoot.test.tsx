@@ -17,14 +17,14 @@ const cache = new InMemoryCache({
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const SameUserProvider = ({ children }) => (
-  <MockedProvider mocks={[getUserMock, sameUserMock]} cache={cache}>
+  <MockedProvider cache={cache} mocks={[getUserMock, sameUserMock]}>
     {children}
   </MockedProvider>
 );
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const OtherUserProvider = ({ children }) => (
-  <MockedProvider mocks={[getUserMock, otherUserMock]} cache={cache}>
+  <MockedProvider cache={cache} mocks={[getUserMock, otherUserMock]}>
     {children}
   </MockedProvider>
 );

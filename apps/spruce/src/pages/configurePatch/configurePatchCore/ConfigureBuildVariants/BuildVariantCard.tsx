@@ -39,9 +39,9 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({
         const isSelected = selectedMenuItems.includes(name);
         return (
           <BuildVariant
+            key={name}
             data-cy={dataCy}
             data-selected={isSelected}
-            key={name}
             isSelected={isSelected}
             onClick={onClick(name)}
           >

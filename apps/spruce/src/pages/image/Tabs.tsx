@@ -21,16 +21,16 @@ export const ImageTabs: React.FC<ImageTabsProps> = ({
       <Header imageId={imageId} tab={currentTab} />
       <Routes>
         <Route
+          element={<Navigate replace to={ImageTabRoutes.BuildInformation} />}
           path="*"
-          element={<Navigate to={ImageTabRoutes.BuildInformation} replace />}
         />
         <Route
-          path={ImageTabRoutes.BuildInformation}
           element={<BuildInformationTab imageId={imageId} />}
+          path={ImageTabRoutes.BuildInformation}
         />
         <Route
-          path={ImageTabRoutes.EventLog}
           element={<EventLogTab imageId={imageId} />}
+          path={ImageTabRoutes.EventLog}
         />
       </Routes>
     </Container>

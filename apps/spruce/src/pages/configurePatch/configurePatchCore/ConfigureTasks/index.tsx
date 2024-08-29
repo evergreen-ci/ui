@@ -192,29 +192,33 @@ const ConfigureTasks: React.FC<Props> = ({
     <TabContentWrapper>
       <Actions>
         <StyledTextInput
+          ref={searchRef}
           aria-labelledby="search-tasks"
+          data-cy="task-filter-input"
           onChange={(v) => setSearch(v)}
           placeholder="Search tasks regex"
-          ref={searchRef}
-          data-cy="task-filter-input"
           validator={validateRegexp}
         />
         <InlineCheckbox
+          checked={selectAllCheckboxState === CheckboxState.Checked}
           data-cy="select-all-checkbox"
+          disabled={
+            (activated && Object.entries(currentAliases).length > 0) ||
+            shouldShowChildPatchTasks
+          }
           indeterminate={selectAllCheckboxState === CheckboxState.Indeterminate}
-          onChange={onClickSelectAll}
           label={
             <LabelContainer>
               {selectAllCheckboxCopy}
               {shouldShowChildPatchTasks && (
                 <Tooltip
                   justify="middle"
-                  triggerEvent="hover"
                   trigger={
                     <IconContainer>
                       <Icon glyph="InfoWithCircle" />
                     </IconContainer>
                   }
+                  triggerEvent="hover"
                 >
                   Aliases specified via CLI cannot be edited.
                 </Tooltip>
@@ -222,12 +226,12 @@ const ConfigureTasks: React.FC<Props> = ({
               {variantHasActivatedTasks && (
                 <Tooltip
                   justify="middle"
-                  triggerEvent="hover"
                   trigger={
                     <IconContainer>
                       <Icon glyph="InfoWithCircle" />
                     </IconContainer>
                   }
+                  triggerEvent="hover"
                 >
                   Some Tasks in{" "}
                   {pluralize("this", selectedBuildVariants.length)}{" "}
@@ -237,11 +241,7 @@ const ConfigureTasks: React.FC<Props> = ({
               )}
             </LabelContainer>
           }
-          checked={selectAllCheckboxState === CheckboxState.Checked}
-          disabled={
-            (activated && Object.entries(currentAliases).length > 0) ||
-            shouldShowChildPatchTasks
-          }
+          onChange={onClickSelectAll}
         />
       </Actions>
 
@@ -253,12 +253,12 @@ const ConfigureTasks: React.FC<Props> = ({
       <TaskLayoutGrid data-cy="configurePatch-tasks">
         {sortedVisibleTasks.map(([name, state]) => (
           <Checkbox
-            data-cy="task-checkbox"
             key={name}
-            onChange={onClickCheckbox(name)}
-            label={name}
-            indeterminate={isTaskCheckboxIndeterminate(state)}
             checked={isTaskCheckboxChecked(state)}
+            data-cy="task-checkbox"
+            indeterminate={isTaskCheckboxIndeterminate(state)}
+            label={name}
+            onChange={onClickCheckbox(name)}
           />
         ))}
       </TaskLayoutGrid>
@@ -269,23 +269,23 @@ const ConfigureTasks: React.FC<Props> = ({
           <TaskLayoutGrid>
             {Object.entries(currentAliases).map(([name, status]) => (
               <Checkbox
-                data-cy="alias-checkbox"
                 key={name}
-                onChange={onClickCheckbox(name)}
-                label={name}
-                indeterminate={status === CheckboxState.Indeterminate}
                 checked={status === CheckboxState.Checked}
+                data-cy="alias-checkbox"
                 disabled={activated}
+                indeterminate={status === CheckboxState.Indeterminate}
+                label={name}
+                onChange={onClickCheckbox(name)}
               />
             ))}
             {/* Represent child patches invoked from CLI as read-only */}
             {currentChildPatches.map(({ alias }) => (
               <Checkbox
-                data-cy="child-patch-checkbox"
                 key={alias}
-                label={alias}
-                disabled
                 checked
+                data-cy="child-patch-checkbox"
+                disabled
+                label={alias}
               />
             ))}
           </TaskLayoutGrid>

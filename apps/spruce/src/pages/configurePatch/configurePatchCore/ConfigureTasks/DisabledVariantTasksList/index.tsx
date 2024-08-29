@@ -22,11 +22,11 @@ const DisabledVariantTasksList: React.FC<DisabledVariantTasksListProps> = ({
         <TaskLayoutGrid>
           {tasks.map((taskName) => (
             <Checkbox
-              data-cy={dataCy}
               key={`${name}-${taskName}`}
-              label={taskName}
               checked={status === CheckboxState.Checked}
+              data-cy={dataCy}
               disabled
+              label={taskName}
             />
           ))}
         </TaskLayoutGrid>

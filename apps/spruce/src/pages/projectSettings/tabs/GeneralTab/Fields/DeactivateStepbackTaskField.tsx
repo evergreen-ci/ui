@@ -55,12 +55,12 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
   return (
     <ConfirmationModal
       buttonText="Confirm"
+      data-cy="deactivate-stepback-modal"
       onCancel={closeModal}
       onConfirm={onConfirm}
       open={open}
       submitDisabled={hasError || loading}
       title="Deactivate Scheduled Stepback Task"
-      data-cy="deactivate-stepback-modal"
     >
       <p>
         Specify a stepback task to deactivate. To deactivate stepback more
@@ -104,10 +104,10 @@ export const DeactivateStepbackTaskField: Field = ({ uiSchema }) => {
         </Description>
         <div>
           <Button
+            data-cy={id}
             id={id}
             onClick={() => setOpen(true)}
             size="small"
-            data-cy={id}
           >
             Deactivate
           </Button>

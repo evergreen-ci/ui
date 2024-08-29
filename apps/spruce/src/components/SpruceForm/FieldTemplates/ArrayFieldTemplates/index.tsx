@@ -42,17 +42,17 @@ const ArrayItem: React.FC<
   const isDisabled = disabled || readonly;
   const deleteButton = (
     <Button
-      onClick={onDropIndexClick(index)}
+      data-cy="delete-item-button"
       disabled={isDisabled}
       leftGlyph={<Icon glyph="Trash" />}
-      data-cy="delete-item-button"
+      onClick={onDropIndexClick(index)}
       size="small"
     />
   );
   return useExpandableCard ? (
     <StyledExpandableCard
-      defaultOpen={!isDisabled}
       data-cy="expandable-card"
+      defaultOpen={!isDisabled}
       // Override LeafyGreen's string typing for title so we can include buttons. (LG-2193)
       /* @ts-expect-error */
       title={
@@ -71,15 +71,15 @@ const ArrayItem: React.FC<
           {hasMoveUp && (
             <Button
               data-cy="array-up-button"
-              onClick={onReorderClick(index, index - 1)}
               leftGlyph={<Icon glyph="ArrowUp" />}
+              onClick={onReorderClick(index, index - 1)}
             />
           )}
           {hasMoveDown && (
             <Button
               data-cy="array-down-button"
-              onClick={onReorderClick(index, index + 1)}
               leftGlyph={<Icon glyph="ArrowDown" />}
+              onClick={onReorderClick(index, index + 1)}
             />
           )}
         </OrderControls>
@@ -185,7 +185,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         <TitleField id={`${id}__title`} required={required} title={title} />
       )}
       {descriptionNode || (
-        <DescriptionField id={`${id}__description`} description={description} />
+        <DescriptionField description={description} id={`${id}__description`} />
       )}
       {buttonAtBeginning && (
         <AddButtonContainer>
@@ -194,10 +194,10 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         </AddButtonContainer>
       )}
       <ArrayContainer
-        id={id}
+        data-cy={arrayDataCy}
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}
-        data-cy={arrayDataCy}
+        id={id}
       >
         {items.length === 0 && placeholder && (
           <Placeholder>{placeholder}</Placeholder>

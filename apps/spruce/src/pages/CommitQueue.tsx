@@ -45,23 +45,23 @@ export const CommitQueue: React.FC = () => {
       <PageHeader>
         <Column>
           <PageTitle
-            pageTitle={`Commit Queue - ${projectIdentifier}`}
-            title="Commit Queue"
             badge={
               <Badge variant="darkgray">
                 {buildBadgeString(queue ? queue.length : 0)}
               </Badge>
             }
             loading={loading}
+            pageTitle={`Commit Queue - ${projectIdentifier}`}
             size="large"
+            title="Commit Queue"
           />
         </Column>
         <ProjectSelectWrapper>
           <ProjectSelect
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            selectedProjectIdentifier={projectIdentifier}
             data-cy="commit-queue-project-select"
             getRoute={getCommitQueueRoute}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            selectedProjectIdentifier={projectIdentifier}
           />
         </ProjectSelectWrapper>
       </PageHeader>
@@ -75,28 +75,28 @@ export const CommitQueue: React.FC = () => {
           <CommitQueueCard
             key={issue}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            issue={issue}
-            index={formatZeroIndexForDisplay(i)}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            title={patch?.description}
+            activated={patch?.activated}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             author={patch?.author}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            patchId={patch?.id}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            versionId={patch?.versionFull?.id}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            repo={commitQueue?.repo}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            owner={commitQueue?.owner}
+            commitQueueId={commitQueue.projectId}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             commitTime={enqueueTime}
+            index={formatZeroIndexForDisplay(i)}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            issue={issue}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             moduleCodeChanges={patch?.moduleCodeChanges}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            commitQueueId={commitQueue.projectId}
+            owner={commitQueue?.owner}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            activated={patch?.activated}
+            patchId={patch?.id}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            repo={commitQueue?.repo}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            title={patch?.description}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            versionId={patch?.versionFull?.id}
           />
         ))
       ) : (

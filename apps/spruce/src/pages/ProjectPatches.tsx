@@ -81,21 +81,21 @@ export const ProjectPatches = () => {
           <>
             <ProjectSelect
               getRoute={getProjectPatchesRoute}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              selectedProjectIdentifier={projectIdentifier}
-              showLabel={false}
               onSubmit={(p) => {
                 analytics.sendEvent({
                   name: "Changed project",
                   "project.identifier": p,
                 });
               }}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              selectedProjectIdentifier={projectIdentifier}
+              showLabel={false}
             />
             <GitHubMergeQueueCheckbox
-              data-cy="github-merge-queue-checkbox"
-              onChange={gitHubMergeQueueCheckboxOnChange}
-              label="Only show GitHub Merge Queue patches"
               checked={isGitHubMergeQueueCheckboxChecked}
+              data-cy="github-merge-queue-checkbox"
+              label="Only show GitHub Merge Queue patches"
+              onChange={gitHubMergeQueueCheckboxOnChange}
             />
           </>
         }

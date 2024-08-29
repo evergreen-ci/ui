@@ -15,8 +15,8 @@ export const WithConditional: CustomStoryObj<
   render: () => (
     <>
       <TupleSelectWithRegexConditional
-        options={options}
         onSubmit={action("submit")}
+        options={options}
         validator={(v) => v !== "bad"}
         validatorErrorMessage="Invalid Input"
       />

@@ -47,7 +47,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       ...rolledUpVersions
         .slice(0, 1)
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        .map((v) => <CommitCopy v={v} isTooltip key={v.id} />),
+        .map((v) => <CommitCopy key={v.id} isTooltip v={v} />),
       <HiddenCommitsWrapper
         key="hidden_commits"
         data-cy="hidden-commits"
@@ -64,12 +64,12 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       ...rolledUpVersions
         .slice(-2)
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        .map((v) => <CommitCopy v={v} isTooltip key={v.id} />),
+        .map((v) => <CommitCopy key={v.id} isTooltip v={v} />),
     ];
   } else {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     returnedCommits = rolledUpVersions.map((v) => (
-      <CommitCopy v={v} isTooltip key={v.id} />
+      <CommitCopy key={v.id} isTooltip v={v} />
     ));
   }
 
@@ -83,13 +83,14 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       >
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {rolledUpVersions?.map((v) => (
-          <CommitCopy v={v} isTooltip={false} key={v.id} />
+          <CommitCopy key={v.id} isTooltip={false} v={v} />
         ))}
       </DisplayModal>
       <StyledTooltip
-        usePortal={false}
         align="bottom"
+        data-cy="inactive-commits-tooltip"
         justify="middle"
+        popoverZIndex={zIndex.tooltip}
         trigger={
           <ButtonContainer
             onClick={() => {
@@ -106,8 +107,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
           </ButtonContainer>
         }
         triggerEvent="click"
-        popoverZIndex={zIndex.tooltip}
-        data-cy="inactive-commits-tooltip"
+        usePortal={false}
       >
         <TooltipTitleText>
           {versionCount} {tooltipType}

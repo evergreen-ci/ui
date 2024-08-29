@@ -26,8 +26,8 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => (
         {breadcrumbs.length - 1 !== index && (
           <PaddedIcon
             data-cy="breadcrumb-chevron"
-            glyph="ChevronRight"
             fill={gray.dark2}
+            glyph="ChevronRight"
             size="small"
           />
         )}
@@ -49,12 +49,12 @@ const BreadcrumbFragment: React.FC<BreadcrumbFragmentProps> = ({
     <Tooltip
       align="top"
       data-cy="breadcrumb-tooltip"
-      justify="middle"
       enabled={shouldTrimMessage}
+      justify="middle"
       trigger={
         to ? (
           <div data-cy={dataCy}>
-            <StyledRouterLink to={to} onClick={onClick}>
+            <StyledRouterLink onClick={onClick} to={to}>
               {message}
             </StyledRouterLink>
           </div>

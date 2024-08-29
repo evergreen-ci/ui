@@ -10,13 +10,13 @@ import VariantTaskGroup from ".";
 const Wrapper = ({ children }) => <MockedProvider>{children}</MockedProvider>;
 const Component = () => (
   <VariantTaskGroup
-    variant="some_variant"
-    versionId="1"
     displayName="Some Variant"
     statusCounts={[
       { count: 1, status: TaskStatus.Succeeded },
       { count: 2, status: TaskStatus.Failed },
     ]}
+    variant="some_variant"
+    versionId="1"
   />
 );
 describe("variantTaskGroup", () => {

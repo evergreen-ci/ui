@@ -39,7 +39,7 @@ const NavDropdownItem: React.FC<NavDropdownItemType> = ({
     </MenuItem>
   ) : (
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    <MenuItem as="a" data-cy={itemDataCy} onClick={closeMenu} href={href}>
+    <MenuItem as="a" data-cy={itemDataCy} href={href} onClick={closeMenu}>
       {text}
     </MenuItem>
   );
@@ -60,10 +60,10 @@ export const NavDropdown: React.FC<NavDropdownProps> = ({
 
   return (
     <Menu
-      open={openMenu}
-      setOpen={setOpenMenu}
-      popoverZIndex={zIndex.popover}
       justify="start"
+      open={openMenu}
+      popoverZIndex={zIndex.popover}
+      setOpen={setOpenMenu}
       trigger={
         <NavDropdownTitle data-cy={dataCy}>
           {title}

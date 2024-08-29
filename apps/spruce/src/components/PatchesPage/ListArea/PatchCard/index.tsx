@@ -69,8 +69,8 @@ const PatchCard: React.FC<PatchCardProps> = ({
       authorDisplayName
     ) : (
       <StyledRouterLink
-        to={getUserPatchesRoute(author)}
         data-cy="user-patches-link"
+        to={getUserPatchesRoute(author)}
       >
         <strong>{authorDisplayName}</strong>
       </StyledRouterLink>
@@ -78,8 +78,8 @@ const PatchCard: React.FC<PatchCardProps> = ({
   } else {
     patchProject = projectIdentifier ? (
       <StyledRouterLink
-        to={getProjectPatchesRoute(projectIdentifier)}
         data-cy="project-patches-link"
+        to={getProjectPatchesRoute(projectIdentifier)}
       >
         <strong>{projectIdentifier}</strong>
       </StyledRouterLink>
@@ -90,14 +90,14 @@ const PatchCard: React.FC<PatchCardProps> = ({
 
   const badges = stats?.map(({ count, statusCounts, umbrellaStatus }) => (
     <GroupedTaskStatusBadge
-      status={umbrellaStatus}
+      key={`${versionId}_${umbrellaStatus}`}
       count={count}
-      statusCounts={statusCounts}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       href={getVersionRoute(versionId, {
         statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
       })}
-      key={`${versionId}_${umbrellaStatus}`}
+      status={umbrellaStatus}
+      statusCounts={statusCounts}
     />
   ));
   return (
@@ -105,8 +105,8 @@ const PatchCard: React.FC<PatchCardProps> = ({
       <Left>
         <DescriptionLink
           data-cy="patch-card-patch-link"
-          to={getVersionRoute(id)}
           onClick={() => analytics.sendEvent({ name: "Clicked patch link" })}
+          to={getVersionRoute(id)}
         >
           {description || "no description"}
         </DescriptionLink>
@@ -130,12 +130,12 @@ const PatchCard: React.FC<PatchCardProps> = ({
       <Right>
         {hidden && <Badge data-cy="hidden-badge">Hidden</Badge>}
         <DropdownMenu
-          patchId={id}
           canEnqueueToCommitQueue={canEnqueueToCommitQueue}
-          isPatchOnCommitQueue={isPatchOnCommitQueue}
-          isPatchHidden={hidden}
-          patchDescription={description}
           hasVersion={!!versionId}
+          isPatchHidden={hidden}
+          isPatchOnCommitQueue={isPatchOnCommitQueue}
+          patchDescription={description}
+          patchId={id}
         />
       </Right>
     </CardWrapper>

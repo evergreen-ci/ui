@@ -42,11 +42,11 @@ const Pagination: React.FC<Props> = ({
   return (
     <Container data-cy="pagination">
       <StyledButton
-        disabled={currentPage === 0}
-        size="small"
         data-cy="prev-page-button"
-        onClick={handlePrevClick}
+        disabled={currentPage === 0}
         leftGlyph={<Icon glyph="ChevronLeft" size="small" />}
+        onClick={handlePrevClick}
+        size="small"
       />
       <PageLabel>
         <Disclaimer>
@@ -54,11 +54,11 @@ const Pagination: React.FC<Props> = ({
         </Disclaimer>
       </PageLabel>
       <StyledButton
-        disabled={numPages === 0 || currentPage === numPages - 1}
         data-cy="next-page-button"
-        size="small"
-        onClick={handleNextClick}
+        disabled={numPages === 0 || currentPage === numPages - 1}
         leftGlyph={<Icon glyph="ChevronRight" size="small" />}
+        onClick={handleNextClick}
+        size="small"
       />
     </Container>
   );

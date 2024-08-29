@@ -64,12 +64,12 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
 
   return (
     <StyledBaseTable
-      data-cy="task-queue-table"
-      table={table}
-      shouldAlternateRowColor
-      emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
       ref={tableContainerRef}
+      data-cy="task-queue-table"
+      emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
       selectedRowIndexes={selectedRowIndexes}
+      shouldAlternateRowColor
+      table={table}
     />
   );
 };
@@ -104,8 +104,8 @@ const taskQueueTableColumns = (
           <TaskCell>
             <StyledRouterLink
               data-cy="current-task-link"
-              to={getTaskRoute(id)}
               onClick={() => sendEvent({ name: "Clicked task link" })}
+              to={getTaskRoute(id)}
             >
               {displayName}
             </StyledRouterLink>
@@ -128,8 +128,8 @@ const taskQueueTableColumns = (
           value.row.original.projectIdentifier || value.row.original.project;
         return (
           <StyledRouterLink
-            to={getProjectPatchesRoute(project)}
             onClick={() => sendEvent({ name: "Clicked project link" })}
+            to={getProjectPatchesRoute(project)}
           >
             {project}
           </StyledRouterLink>
@@ -141,8 +141,8 @@ const taskQueueTableColumns = (
       accessorKey: "version",
       cell: (value) => (
         <StyledRouterLink
-          to={getVersionRoute(value.row.original.version)}
           onClick={() => sendEvent({ name: "Clicked version link" })}
+          to={getVersionRoute(value.row.original.version)}
         >
           <WordBreak>{value.row.original.version}</WordBreak>
         </StyledRouterLink>
@@ -159,8 +159,8 @@ const taskQueueTableColumns = (
       accessorKey: "activatedBy",
       cell: (value) => (
         <StyledRouterLink
-          to={getUserPatchesRoute(value.row.original.activatedBy)}
           onClick={() => sendEvent({ name: "Clicked activated by link" })}
+          to={getUserPatchesRoute(value.row.original.activatedBy)}
         >
           <WordBreak>{value.row.original.activatedBy}</WordBreak>
         </StyledRouterLink>

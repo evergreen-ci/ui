@@ -99,7 +99,7 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskId="task_id" initialPriority={10} />
+          <SetPriority initialPriority={10} taskId="task_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);

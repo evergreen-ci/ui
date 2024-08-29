@@ -26,27 +26,27 @@ export const CommitChartTooltip: React.FC<Props> = ({
   const zeroCountStatus = getStatusesWithZeroCount(groupedTaskStats);
   return (
     <Tooltip
-      usePortal={false}
       align="right"
       justify="middle"
       popoverZIndex={zIndex.popover}
       trigger={trigger}
       triggerEvent="hover"
+      usePortal={false}
     >
-      <TooltipContainer data-cy="commit-chart-tooltip" css={sharedCss}>
+      <TooltipContainer css={sharedCss} data-cy="commit-chart-tooltip">
         {groupedTaskStats.map(({ color, count, statuses, umbrellaStatus }) => (
           <FlexColumnContainer key={color} data-cy="current-status-count">
             <TotalCount
-              status={umbrellaStatus}
+              active
+              color={color}
+              count={count}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               eta={
                 umbrellaStatus === TaskStatus.RunningUmbrella && eta
                   ? eta
                   : null
               }
-              color={color}
-              count={count}
-              active
+              status={umbrellaStatus}
             />
             {umbrellaStatus === TaskStatus.Failed && (
               <SubStatusText css={sharedCss}>{`(${statuses.join(
@@ -58,11 +58,11 @@ export const CommitChartTooltip: React.FC<Props> = ({
         {zeroCountStatus.map((umbrellaStatus) => (
           <TotalCount
             key={umbrellaStatus}
-            status={umbrellaStatus}
+            active={false}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             color={mapTaskToBarchartColor[umbrellaStatus]}
             count={0}
-            active={false}
+            status={umbrellaStatus}
           />
         ))}
       </TooltipContainer>

@@ -60,22 +60,22 @@ export const LeafyGreenTextInput: React.FC<
     state: hasError ? TextInputState.Error : TextInputState.None,
   };
   return (
-    <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
+    <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <StyledTextInput
-        type={inputType}
-        data-cy={dataCy}
-        value={value === null || value === undefined ? "" : `${value}`}
+        aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
-        label={label}
-        placeholder={placeholder || undefined}
+        data-cy={dataCy}
         description={description}
-        optional={optional}
         disabled={disabled || readonly}
+        label={label}
         onChange={({ target }) =>
           target.value === "" ? onChange(emptyValue) : onChange(target.value)
         }
-        aria-label={ariaLabel}
+        optional={optional}
+        placeholder={placeholder || undefined}
+        type={inputType}
+        value={value === null || value === undefined ? "" : `${value}`}
         {...inputProps}
       />
       {!!warnings?.length && (
@@ -127,8 +127,8 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
             {customLabel || label}
             {tooltipDescription && (
               <Tooltip
-                popoverZIndex={zIndex.tooltip}
                 justify="middle"
+                popoverZIndex={zIndex.tooltip}
                 trigger={
                   <IconContainer>
                     <Icon glyph="InfoWithCircle" size="small" />
@@ -226,29 +226,29 @@ export const LeafyGreenSelect: React.FC<
     ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
 
   return (
-    <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
+    <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <Select
         allowDeselect={allowDeselect !== false}
         description={description}
         disabled={isDisabled}
         value={value}
         {...labelProps}
-        onChange={onChange}
-        placeholder={placeholder}
+        data-cy={dataCy}
+        errorMessage={hasError ? rawErrors?.join(", ") : ""}
         id={dataCy}
         name={dataCy}
-        data-cy={dataCy}
-        state={hasError && !disabled ? "error" : "none"}
-        errorMessage={hasError ? rawErrors?.join(", ") : ""}
+        onChange={onChange}
+        placeholder={placeholder}
         popoverZIndex={zIndex.dropdown}
         size={sizeVariant as SelectSize}
+        state={hasError && !disabled ? "error" : "none"}
       >
         {enumOptions.map((o) => {
           // LG Select doesn't handle disabled options well. So we need to ensure the selected option is not disabled
           const optionDisabled =
             (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
           return (
-            <Option key={o.value} value={o.value} disabled={optionDisabled}>
+            <Option key={o.value} disabled={optionDisabled} value={o.value}>
               {o.label}
             </Option>
           );
@@ -292,9 +292,9 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
           return (
             <Radio
               key={o.value}
-              value={o.value}
-              disabled={disabled || optionDisabled}
               description={description}
+              disabled={disabled || optionDisabled}
+              value={o.value}
             >
               {o.label}
             </Radio>
@@ -332,37 +332,37 @@ export const LeafyGreenRadioBox: React.FC<
     <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
         <LabelContainer>
-          <Label htmlFor={id} disabled={disabled}>
+          <Label disabled={disabled} htmlFor={id}>
             {label}
           </Label>
           {description && <Description>{description}</Description>}
         </LabelContainer>
       )}
       {!!errors && (
-        <StyledBanner variant="danger" data-cy="error-banner">
+        <StyledBanner data-cy="error-banner" variant="danger">
           {errors.join(", ")}
         </StyledBanner>
       )}
       {!!warnings && (
-        <StyledBanner variant="warning" data-cy="warning-banner">
+        <StyledBanner data-cy="warning-banner" variant="warning">
           {warnings.join(", ")}
         </StyledBanner>
       )}
       <RadioBoxGroup
+        data-cy={dataCy}
         id={id}
         name={label}
-        value={valueMap.indexOf(value)}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         onChange={(e) => onChange(valueMap[e.target.value])}
-        data-cy={dataCy}
+        value={valueMap.indexOf(value)}
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;
           return (
             <StyledRadioBox
               key={valueMap.indexOf(o.value)}
-              value={valueMap.indexOf(o.value)}
               disabled={disabled || optionDisabled}
+              value={valueMap.indexOf(o.value)}
             >
               {o.label}
             </StyledRadioBox>
@@ -423,19 +423,19 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
       <TextArea
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         ref={el}
-        placeholder={placeholder || undefined}
         data-cy={dataCy}
-        label={label}
         description={description}
         disabled={disabled || readonly}
-        value={value}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        errorMessage={hasError ? errors.join(", ") : null}
+        label={label}
         onChange={({ target }) =>
           target.value === "" ? onChange(emptyValue) : onChange(target.value)
         }
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        errorMessage={hasError ? errors.join(", ") : null}
+        placeholder={placeholder || undefined}
         rows={rows}
         state={hasError ? "error" : "none"}
+        value={value}
       />
     </ElementWrapper>
   );
@@ -463,20 +463,20 @@ export const LeafyGreenSegmentedControl: React.FC<EnumSpruceWidgetProps> = ({
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <StyledSegmentedControl
+        aria-controls={ariaControls?.join(" ")}
         data-cy={dataCy}
         label={label}
-        value={value}
         onChange={onChange}
-        aria-controls={ariaControls?.join(" ")}
         size={sizeVariant as SegmentedControlProps["size"]}
+        value={value}
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;
           return (
             <SegmentedControlOption
               key={o.value}
-              value={o.value}
               disabled={isDisabled || optionDisabled}
+              value={o.value}
             >
               {o.label}
             </SegmentedControlOption>
@@ -506,14 +506,14 @@ export const LeafyGreenDatePicker: React.FC<
   const isDisabled = disabled || readonly;
 
   return (
-    <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
+    <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <DatePicker
         data-cy="date-picker"
         description={description}
         disabled={isDisabled}
         label={label}
-        min={disableBefore}
         max={disableAfter}
+        min={disableBefore}
         onDateChange={(v) => onChange(v?.toUTCString())}
         value={new Date(value)}
       />

@@ -32,9 +32,9 @@ describe("spawnVolumeModal", () => {
   it("does not render the Spawn Volume Modal when the visible prop is false", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal
-        visible={false}
-        onCancel={() => {}}
         maxSpawnableLimit={1000}
+        onCancel={() => {}}
+        visible={false}
       />,
     );
     render(
@@ -47,7 +47,7 @@ describe("spawnVolumeModal", () => {
 
   it("form contains default values on initial render", async () => {
     const { Component } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />,
+      <SpawnVolumeModal maxSpawnableLimit={1000} onCancel={() => {}} visible />,
     );
     render(
       <MockedProvider mocks={baseMocks}>
@@ -92,7 +92,7 @@ describe("spawnVolumeModal", () => {
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />,
+      <SpawnVolumeModal maxSpawnableLimit={1000} onCancel={() => {}} visible />,
     );
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
@@ -135,7 +135,7 @@ describe("spawnVolumeModal", () => {
       result: { data: { spawnVolume: true } },
     };
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <SpawnVolumeModal visible onCancel={() => {}} maxSpawnableLimit={1000} />,
+      <SpawnVolumeModal maxSpawnableLimit={1000} onCancel={() => {}} visible />,
     );
     render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>

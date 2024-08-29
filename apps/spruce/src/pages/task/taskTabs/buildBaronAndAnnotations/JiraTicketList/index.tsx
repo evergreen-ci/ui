@@ -8,7 +8,7 @@ const JiraTicketList: React.FC<{
 }> = ({ jiraIssues }) => (
   <>
     {jiraIssues.map(({ fields, key }) => (
-      <JiraTicketRow jiraKey={key} fields={fields} key={key} />
+      <JiraTicketRow key={key} fields={fields} jiraKey={key} />
     ))}
   </>
 );

@@ -18,20 +18,20 @@ const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
 }) => (
   <>
     <TicketsTitle>Create a New Ticket</TicketsTitle>
-    <FileTicketButton taskId={taskId} execution={execution} />
+    <FileTicketButton execution={execution} taskId={taskId} />
     {!!tickets?.length && (
       <>
         <TicketsTitle margin>Tickets Created From This Task</TicketsTitle>
         <TicketContainer>
           {tickets.map(({ confidenceScore, issueKey, jiraTicket, url }) => (
             <AnnotationTicketRow
+              key={issueKey}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               confidenceScore={confidenceScore}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               issueKey={issueKey}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               jiraTicket={jiraTicket}
-              key={issueKey}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               url={url}
             />

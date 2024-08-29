@@ -75,13 +75,13 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
 
   return (
     <ConfirmationModal
-      title="Enqueue Patch"
-      open={visible}
-      onConfirm={onConfirm}
-      onCancel={onFinished}
       buttonText="Enqueue"
-      submitDisabled={commitMessageValue.length === 0 || loadingEnqueuePatch}
       data-cy="enqueue-modal"
+      onCancel={onFinished}
+      onConfirm={onConfirm}
+      open={visible}
+      submitDisabled={commitMessageValue.length === 0 || loadingEnqueuePatch}
+      title="Enqueue Patch"
     >
       {preserveCommits ? (
         <Description>
@@ -91,11 +91,11 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
         </Description>
       ) : (
         <StyledTextArea
+          description="Warning: submitting a patch to the commit queue will squash the commits."
           id={COMMIT_MESSAGE_ID}
           label="Commit Message"
-          description="Warning: submitting a patch to the commit queue will squash the commits."
-          value={commitMessageValue}
           onChange={(e) => setCommitMessageValue(e.target.value)}
+          value={commitMessageValue}
         />
       )}
     </ConfirmationModal>

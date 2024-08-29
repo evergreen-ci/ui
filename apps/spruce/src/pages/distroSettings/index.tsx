@@ -73,12 +73,12 @@ const DistroSettings: React.FC = () => {
         <SideNavGroup>
           {Object.values(DistroSettingsTabRoutes).map((tab) => (
             <SideNavItem
+              key={tab}
               active={tab === currentTab}
               as={Link}
-              key={tab}
+              data-cy={`navitem-${tab}`}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               to={getDistroSettingsRoute(distroId, tab)}
-              data-cy={`navitem-${tab}`}
             >
               {getTabTitle(tab).title}
             </SideNavItem>
@@ -86,30 +86,30 @@ const DistroSettings: React.FC = () => {
         </SideNavGroup>
         <SideNavGroup glyph={<Icon glyph="Link" />} header="Links">
           <SideNavItemLink
+            data-cy="navitem-task-queue-link"
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getTaskQueueRoute(distroId)}
-            data-cy="navitem-task-queue-link"
           >
             Task Queue
           </SideNavItemLink>
           {showImageVisibilityPage && (
             <SideNavItemLink
+              data-cy="navitem-image-build-information-link"
               to={getImageRoute(
                 data?.distro?.imageId ?? "",
                 ImageTabRoutes.BuildInformation,
               )}
-              data-cy="navitem-image-build-information-link"
             >
               Image Build Information
             </SideNavItemLink>
           )}
           {showImageVisibilityPage && (
             <SideNavItemLink
+              data-cy="navitem-image-event-log-link"
               to={getImageRoute(
                 data?.distro?.imageId ?? "",
                 ImageTabRoutes.EventLog,
               )}
-              data-cy="navitem-image-event-log-link"
             >
               Image Event Log
             </SideNavItemLink>

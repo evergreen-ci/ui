@@ -229,8 +229,8 @@ const getHostUptimeSchema = ({
           Any schedule configured above will not take effect unless you opt in
           to the beta.{" "}
           <StyledLink
-            href={hostUptimeDocumentationUrl}
             hideExternalIcon={false}
+            href={hostUptimeDocumentationUrl}
           >
             Learn more about host sleep schedules
           </StyledLink>

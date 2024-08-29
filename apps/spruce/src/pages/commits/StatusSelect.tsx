@@ -24,16 +24,16 @@ export const StatusSelect = () => {
     <Container>
       <Label htmlFor="project-task-status-select">Status</Label>
       <Dropdown
-        data-cy="project-task-status-select"
         buttonText={`Task Status: ${
           inputValue.length ? inputValue.join(", ") : noFilterMessage
         }`}
+        data-cy="project-task-status-select"
       >
         <TreeSelect
-          onChange={setAndSubmitInputValue}
-          tData={taskStatusesFilterTreeData}
-          state={inputValue}
           hasStyling={false}
+          onChange={setAndSubmitInputValue}
+          state={inputValue}
+          tData={taskStatusesFilterTreeData}
         />
       </Dropdown>
     </Container>

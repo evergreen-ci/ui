@@ -36,9 +36,9 @@ describe("conditionalWrapper", () => {
   it("should render the element surrounded by the secondary wrapper when the conditional is false and a secondary wrapper is supplied", () => {
     render(
       <ConditionalWrapper
+        altWrapper={(children) => <Wrapper2>{children}</Wrapper2>}
         condition={false}
         wrapper={(children) => <Wrapper1>{children}</Wrapper1>}
-        altWrapper={(children) => <Wrapper2>{children}</Wrapper2>}
       >
         <span>Some Element</span>
       </ConditionalWrapper>,

@@ -23,14 +23,14 @@ export const HistoryTableTestSearch: React.FC<HistoryTableTestSearchProps> = ({
   return (
     <ContentWrapper>
       <TextInput
-        type="search"
-        label="Filter by Failed Tests"
         aria-label="history-table-test-search-input"
-        placeholder="Search test name regex"
-        validatorErrorMessage="Invalid regular expression"
-        onSubmit={handleOnSubmit}
-        validator={validateRegexp}
         clearOnSubmit
+        label="Filter by Failed Tests"
+        onSubmit={handleOnSubmit}
+        placeholder="Search test name regex"
+        type="search"
+        validator={validateRegexp}
+        validatorErrorMessage="Invalid regular expression"
       />
     </ContentWrapper>
   );

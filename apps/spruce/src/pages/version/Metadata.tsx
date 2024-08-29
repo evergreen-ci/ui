@@ -77,7 +77,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
 
   return (
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    <MetadataCard loading={loading} error={null}>
+    <MetadataCard error={null} loading={loading}>
       <MetadataTitle>
         {isPatch ? "Patch Metadata" : "Version Metadata"}
       </MetadataTitle>
@@ -86,10 +86,10 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         Project:{" "}
         {projectIdentifier ? (
           <StyledRouterLink
-            to={getProjectPatchesRoute(projectIdentifier)}
             onClick={() =>
               sendEvent({ name: "Clicked metadata project patches link" })
             }
+            to={getProjectPatchesRoute(projectIdentifier)}
           >
             {projectIdentifier}
           </StyledRouterLink>
@@ -130,8 +130,8 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       <MetadataItem>
         Submitted by:{" "}
         <StyledRouterLink
-          to={getUserPatchesRoute(getAuthorUsername(authorEmail))}
           data-cy="user-patches-link"
+          to={getUserPatchesRoute(getAuthorUsername(authorEmail))}
         >
           {author}
         </StyledRouterLink>

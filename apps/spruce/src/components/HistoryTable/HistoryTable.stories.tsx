@@ -64,7 +64,7 @@ const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
 
   return (
     <div style={{ height: 600, width: "100%", border: "red 1px solid" }}>
-      <HistoryTable loadMoreItems={loadMore} loading={isLoading}>
+      <HistoryTable loading={isLoading} loadMoreItems={loadMore}>
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {type === "task" ? TaskHistoryRow : VariantHistoryRow}
       </HistoryTable>

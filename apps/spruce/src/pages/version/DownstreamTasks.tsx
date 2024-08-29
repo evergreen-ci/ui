@@ -29,13 +29,13 @@ export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
       }) => (
         <DownstreamProjectAccordion
           key={`downstream_project_${id}`}
+          baseVersionID={versionFull?.baseVersion?.id}
+          childPatchId={id}
+          githash={githash}
+          parameters={parameters}
           projectName={projectIdentifier}
           status={versionFull?.status ?? status}
-          childPatchId={id}
           taskCount={taskCount}
-          githash={githash}
-          baseVersionID={versionFull?.baseVersion?.id}
-          parameters={parameters}
         />
       ),
     )}

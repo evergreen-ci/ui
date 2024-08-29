@@ -47,7 +47,7 @@ const AnnotationTicketRowWithActions = forwardRef<
   ) => {
     const { confidenceScore, issueKey, loading, url } = rest;
     return (
-      <Container selected={selected} ref={ref}>
+      <Container ref={ref} selected={selected}>
         <AnnotationTicketRow {...rest} />
         {!loading && (
           <ButtonContainer>
@@ -73,10 +73,10 @@ const AnnotationTicketRowWithActions = forwardRef<
               ),
               children: (
                 <Button
-                  size={Size.Small}
                   data-cy={`move-btn-${issueKey}`}
                   disabled={!userCanModify}
                   leftGlyph={<Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />}
+                  size={Size.Small}
                 >
                   Move to {isIssue ? "suspected issues" : "issues"}
                 </Button>
@@ -103,10 +103,10 @@ const AnnotationTicketRowWithActions = forwardRef<
               ),
               children: (
                 <Button
-                  size="small"
                   data-cy={`${issueKey}-delete-btn`}
-                  leftGlyph={<Icon glyph="Trash" />}
                   disabled={!userCanModify}
+                  leftGlyph={<Icon glyph="Trash" />}
+                  size="small"
                 />
               ),
             })}

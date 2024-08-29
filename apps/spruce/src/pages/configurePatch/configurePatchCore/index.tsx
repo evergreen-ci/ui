@@ -157,10 +157,10 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     <>
       <FlexRow>
         <StyledInput
-          label="Patch Name"
           data-cy="patch-name-input"
-          value={description}
+          label="Patch Name"
           onChange={(e) => setDescription(e.target.value)}
+          value={description}
         />
         <ButtonWrapper>
           {activated && (
@@ -202,7 +202,6 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
             </MetadataItem>
           </MetadataCard>
           <ConfigureBuildVariants
-            variants={getVariantEntries(variants, selectedBuildVariantTasks)}
             aliases={[
               ...getPatchTriggerAliasEntries(
                 selectableAliases,
@@ -210,31 +209,32 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
               ),
               ...getChildPatchEntries(childPatchesWithAliases),
             ]}
+            disabled={disableBuildVariantSelect}
             selectedBuildVariants={selectedBuildVariants}
             setSelectedBuildVariants={setSelectedBuildVariants}
-            disabled={disableBuildVariantSelect}
+            variants={getVariantEntries(variants, selectedBuildVariantTasks)}
           />
         </PageSider>
         <PageLayout>
           <PageContent>
             <StyledTabs
+              aria-label="Configure Patch Tabs"
               selected={selectedTab}
               setSelected={setSelectedTab}
-              aria-label="Configure Patch Tabs"
             >
               <Tab data-cy="tasks-tab" name="Configure">
                 <ConfigureTasks
                   activated={activated}
-                  childPatches={childPatchesWithAliases}
-                  totalSelectedTaskCount={totalSelectedTaskCount}
+                  activatedVariants={variantsTasks}
                   aliasCount={aliasCount}
+                  childPatches={childPatchesWithAliases}
                   selectableAliases={selectableAliases}
                   selectedAliases={selectedAliases}
                   selectedBuildVariants={selectedBuildVariants}
                   selectedBuildVariantTasks={selectedBuildVariantTasks}
                   setSelectedAliases={setSelectedAliases}
                   setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-                  activatedVariants={variantsTasks}
+                  totalSelectedTaskCount={totalSelectedTaskCount}
                 />
               </Tab>
               <Tab data-cy="changes-tab" name="Changes">

@@ -79,40 +79,40 @@ const tabMap = ({
   versionId: string;
 }) => ({
   [PatchTab.Tasks]: (
-    <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
+    <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
       <Tasks taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.TaskDuration]: (
     <Tab
-      name="Task Duration"
-      id="duration-tab"
-      data-cy="duration-tab"
       key="duration-tab"
+      data-cy="duration-tab"
+      id="duration-tab"
+      name="Task Duration"
     >
       <TaskDuration taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.Changes]: (
     <Tab
-      name="Changes"
-      id="changes-tab"
-      data-cy="changes-tab"
       key="changes-tab"
+      data-cy="changes-tab"
+      id="changes-tab"
+      name="Changes"
     >
       <CodeChanges patchId={versionId} />
     </Tab>
   ),
   [PatchTab.Downstream]: (
     <Tab
+      key="downstream-tab"
+      data-cy="downstream-tab"
+      id="downstream-tab"
       name={getDownstreamTabName(
         numFailedChildPatches,
         numStartedChildPatches,
         numSuccessChildPatches,
       )}
-      id="downstream-tab"
-      data-cy="downstream-tab"
-      key="downstream-tab"
     >
       <DownstreamTasks childPatches={childPatches} />
     </Tab>
@@ -214,9 +214,9 @@ export const VersionTabs: React.FC<Props> = ({
   });
   return (
     <StyledTabs
+      aria-label="Patch Tabs"
       selected={selectedTab}
       setSelected={selectNewTab}
-      aria-label="Patch Tabs"
     >
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {activeTabs.map((t: string) => allTabs[t])}

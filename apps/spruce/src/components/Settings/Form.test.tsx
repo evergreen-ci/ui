@@ -65,7 +65,7 @@ describe("context-based form", () => {
   });
 
   it("disables the entire form when specified", () => {
-    render(<Component tab="bar" disabled />, {
+    render(<Component disabled tab="bar" />, {
       wrapper: TestProvider,
     });
     expect(screen.getByLabelText("Name")).toHaveAttribute(

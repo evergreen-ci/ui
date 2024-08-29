@@ -52,7 +52,7 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
     },
   });
 
-  return <BaseTable table={table} shouldAlternateRowColor />;
+  return <BaseTable shouldAlternateRowColor table={table} />;
 };
 
 const columns = [

@@ -33,11 +33,11 @@ export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
         Add to commit queue
       </DropdownItem>
       <EnqueuePatchModal
-        patchId={patchId}
         commitMessage={commitMessage}
-        visible={isVisible}
         onFinished={() => setIsVisible(false)}
+        patchId={patchId}
         refetchQueries={refetchQueries}
+        visible={isVisible}
       />
     </>
   );

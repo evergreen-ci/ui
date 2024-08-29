@@ -54,8 +54,8 @@ export const HostTable: React.FC<{
         accessorKey: "eventType",
         cell: ({ getValue, row }) => (
           <HostEventString
-            eventType={getValue() as string}
             data={row.original.data}
+            eventType={getValue() as string}
           />
         ),
       },
@@ -80,15 +80,15 @@ export const HostTable: React.FC<{
         <StyledSubtitle>Recent Events</StyledSubtitle>
         <PaginationWrapper>
           <Pagination
-            data-cy="host-event-table-pagination"
             currentPage={page}
-            totalResults={eventsCount}
+            data-cy="host-event-table-pagination"
             pageSize={limit}
+            totalResults={eventsCount}
           />
           <PageSizeSelector
             data-cy="host-event-table-page-size-selector"
-            value={limit}
             onChange={handlePageSizeChange}
+            value={limit}
           />
         </PaginationWrapper>
       </TableTitle>

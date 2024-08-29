@@ -49,9 +49,9 @@ export const Layout: React.FC = () => {
       <Outlet />
       {!shouldDisableForTest && !hasUsedSpruceBefore && (
         <WelcomeModal
-          title="Welcome to the New Evergreen UI!"
-          param="hasUsedSpruceBefore"
           carouselCards={newSpruceUser}
+          param="hasUsedSpruceBefore"
+          title="Welcome to the New Evergreen UI!"
         />
       )}
       <FloatingContent>

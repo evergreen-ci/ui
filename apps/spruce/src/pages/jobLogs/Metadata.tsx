@@ -29,7 +29,6 @@ export const Metadata: React.FC<{
         <StyledLink
           data-cy="complete-test-logs-link"
           href={metadata.completeLogsURL}
-          target="_blank"
           onClick={() => {
             sendEvent({
               name: "Clicked complete logs link",
@@ -39,6 +38,7 @@ export const Metadata: React.FC<{
               "group.id": metadata.groupID,
             });
           }}
+          target="_blank"
         >
           Complete logs for all tests
         </StyledLink>

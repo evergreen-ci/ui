@@ -18,10 +18,10 @@ export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   <FlexContainer>
     <SpawnHostActionButton host={host} />
     <CopySSHCommandButton
+      hostStatus={host.status}
+      hostUrl={host.persistentDnsName || host.hostUrl}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       user={host.user}
-      hostUrl={host.persistentDnsName || host.hostUrl}
-      hostStatus={host.status}
     />
     <EditSpawnHostButton host={host} />
   </FlexContainer>
@@ -52,8 +52,8 @@ export const CopySSHCommandButton: React.FC<{
     >
       <Tooltip
         align="top"
-        justify="middle"
         data-cy="copy-ssh-tooltip"
+        justify="middle"
         trigger={
           <Button
             data-cy="copy-ssh-button"
