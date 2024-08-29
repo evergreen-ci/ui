@@ -19,6 +19,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
+import { OneOf } from "types/utils";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 import { isNullish, processErrors } from "./utils";
