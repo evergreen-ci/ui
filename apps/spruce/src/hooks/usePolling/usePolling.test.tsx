@@ -3,8 +3,8 @@ import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getUserMock } from "gql/mocks/getUser";
-import { usePolling } from "hooks";
 import { renderHook, act } from "test_utils";
+import { usePolling } from ".";
 
 vi.mock("js-cookie");
 const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;

@@ -9,7 +9,7 @@ import {
 import { PatchTab } from "types/patch";
 import { Unpacked } from "types/utils";
 import { array, queryString, string } from "utils";
-import { useTabShortcut } from "./useTabShortcut";
+import { useTabShortcut } from "../useTabShortcut";
 
 const { convertArrayToObject, mapStringArrayToObject } = array;
 const { parseQueryString } = queryString;

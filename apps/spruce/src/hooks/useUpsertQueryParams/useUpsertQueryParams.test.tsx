@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useUpsertQueryParams } from "hooks";
 import { renderWithRouterMatch, screen, userEvent } from "test_utils";
+import { useUpsertQueryParams } from ".";
 
 const Content = () => {
   const onSubmit = useUpsertQueryParams();

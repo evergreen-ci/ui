@@ -1,9 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
 import { OTHER_USER } from "gql/queries";
-import { useGetUserPatchesPageTitleAndLink } from "hooks";
 import { renderHook, waitFor } from "test_utils";
 import { ApolloMock } from "types/gql";
+import { useGetUserPatchesPageTitleAndLink } from ".";
 
 const mocks: ApolloMock<OtherUserQuery, OtherUserQueryVariables>[] = [
   {
