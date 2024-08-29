@@ -10,6 +10,7 @@ import { CodeChanges } from "components/CodeChanges";
 import {
   MetadataCard,
   MetadataItem,
+  MetadataLabel,
   MetadataTitle,
 } from "components/MetadataCard";
 import {
@@ -188,14 +189,16 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
       </FlexRow>
       <PageLayout hasSider>
         <PageSider>
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          <MetadataCard error={null}>
+          <MetadataCard>
             <MetadataTitle>Patch Metadata</MetadataTitle>
-            <MetadataItem>Submitted by: {author}</MetadataItem>
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-            <MetadataItem>Submitted at: {time.submittedAt}</MetadataItem>
             <MetadataItem>
-              Project:{" "}
+              <MetadataLabel>Submitted by:</MetadataLabel> {author}
+            </MetadataItem>
+            <MetadataItem>
+              <MetadataLabel>Submitted at:</MetadataLabel> {time?.submittedAt}
+            </MetadataItem>
+            <MetadataItem>
+              <MetadataLabel>Project:</MetadataLabel>{" "}
               <StyledRouterLink to={getProjectPatchesRoute(projectIdentifier)}>
                 {projectIdentifier}
               </StyledRouterLink>

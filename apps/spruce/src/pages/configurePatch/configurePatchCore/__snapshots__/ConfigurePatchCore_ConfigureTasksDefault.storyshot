@@ -95,19 +95,33 @@
           <p
             class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
           >
-            Submitted by: 
+            <b
+              class="css-1xk67r-MetadataLabel e1ul56zb0"
+            >
+              Submitted by:
+            </b>
+             
             mohamed.khelif
           </p>
           <p
             class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
           >
-            Submitted at: 
+            <b
+              class="css-1xk67r-MetadataLabel e1ul56zb0"
+            >
+              Submitted at:
+            </b>
+             
             2020-08-28T15:00:17Z
           </p>
           <p
             class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
           >
-            Project:
+            <b
+              class="css-1xk67r-MetadataLabel e1ul56zb0"
+            >
+              Project:
+            </b>
              
             <a
               class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
