@@ -11,7 +11,9 @@
       >
         Parsley Settings
       </h3>
-      <div>
+      <div
+        data-lgid="lg-tabs"
+      >
         <div
           class="leafygreen-ui-jp7pox"
         >
@@ -19,6 +21,7 @@
             aria-label="Details Card Tabs"
             aria-orientation="horizontal"
             class="leafygreen-ui-dy551c"
+            data-lgid="lg-tabs-tab_list"
             role="tablist"
           >
             <button
@@ -64,7 +67,9 @@
             />
           </div>
         </div>
-        <div>
+        <div
+          data-lgid="lg-tabs-tab_panels"
+        >
           <div
             aria-labelledby="tab-4"
             data-cy="search-and-filter-tab"
@@ -254,6 +259,7 @@
                       aria-labelledby="Case Sensitive Toggle"
                       class="lg-ui-toggle-button-0000 leafygreen-ui-1pz71rg"
                       data-cy="case-sensitive-toggle"
+                      data-lgid="lg-toggle"
                       role="switch"
                       type="button"
                     >
@@ -336,6 +342,7 @@
                       aria-labelledby="Filter Logic Toggle"
                       class="lg-ui-toggle-button-0000 leafygreen-ui-1pz71rg"
                       data-cy="filter-logic-toggle"
+                      data-lgid="lg-toggle"
                       role="switch"
                       type="button"
                     >
@@ -418,6 +425,7 @@
                       aria-labelledby="Highlight Filters Toggle"
                       class="lg-ui-toggle-button-0000 leafygreen-ui-1pz71rg"
                       data-cy="highlight-filters-toggle"
+                      data-lgid="lg-toggle"
                       role="switch"
                       type="button"
                     >
@@ -456,20 +464,21 @@
             >
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
+                class="lg-ui-button-0000 leafygreen-ui-1yht33q"
                 data-cy="jira-button"
+                data-lgid="lg-button"
                 type="button"
               >
                 <div
                   class="leafygreen-ui-v038xi"
                 />
                 <div
-                  class="leafygreen-ui-v95oty"
+                  class="leafygreen-ui-16tr4y"
                 >
                   <svg
                     alt=""
                     aria-hidden="true"
-                    class="leafygreen-ui-5xj6yo"
+                    class="leafygreen-ui-22ecxr"
                     fill="none"
                     height="16"
                     role="presentation"
@@ -489,8 +498,9 @@
               </button>
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
+                class="lg-ui-button-0000 leafygreen-ui-1yht33q"
                 data-cy="job-logs-button"
+                data-lgid="lg-button"
                 target="_blank"
                 type="button"
               >
@@ -498,12 +508,12 @@
                   class="leafygreen-ui-v038xi"
                 />
                 <div
-                  class="leafygreen-ui-v95oty"
+                  class="leafygreen-ui-16tr4y"
                 >
                   <svg
                     alt=""
                     aria-hidden="true"
-                    class="leafygreen-ui-5xj6yo"
+                    class="leafygreen-ui-22ecxr"
                     fill="none"
                     height="16"
                     role="presentation"
@@ -525,8 +535,9 @@
               </button>
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
+                class="lg-ui-button-0000 leafygreen-ui-1yht33q"
                 data-cy="raw-log-button"
+                data-lgid="lg-button"
                 target="_blank"
                 type="button"
               >
@@ -534,12 +545,12 @@
                   class="leafygreen-ui-v038xi"
                 />
                 <div
-                  class="leafygreen-ui-v95oty"
+                  class="leafygreen-ui-16tr4y"
                 >
                   <svg
                     alt=""
                     aria-hidden="true"
-                    class="leafygreen-ui-5xj6yo"
+                    class="leafygreen-ui-22ecxr"
                     fill="none"
                     height="16"
                     role="presentation"
@@ -561,8 +572,9 @@
               </button>
               <button
                 aria-disabled="true"
-                class="lg-ui-button-0000 leafygreen-ui-8fieyo leafygreen-ui-cssveg"
+                class="lg-ui-button-0000 leafygreen-ui-1yht33q"
                 data-cy="html-log-button"
+                data-lgid="lg-button"
                 target="_blank"
                 type="button"
               >
@@ -570,12 +582,12 @@
                   class="leafygreen-ui-v038xi"
                 />
                 <div
-                  class="leafygreen-ui-v95oty"
+                  class="leafygreen-ui-16tr4y"
                 >
                   <svg
                     alt=""
                     aria-hidden="true"
-                    class="leafygreen-ui-5xj6yo"
+                    class="leafygreen-ui-22ecxr"
                     fill="none"
                     height="16"
                     role="presentation"

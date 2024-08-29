@@ -13,14 +13,14 @@
           class="leafygreen-ui-6bdaia"
           data-lgid="lg-label"
           data-testid="lg-form_field-label"
-          for="lg-form_field-input-242"
-          id="lg-form_field-label-239"
+          for="lg-form_field-input-250"
+          id="lg-form_field-label-247"
         >
           Some search field
         </label>
       </div>
       <div
-        class="leafygreen-ui-109lyo9"
+        class="leafygreen-ui-1s8pxzy"
       >
         <div
           class="leafygreen-ui-1ago99h"
@@ -29,10 +29,10 @@
             aria-describedby=""
             aria-disabled="false"
             aria-invalid="false"
-            aria-labelledby="lg-form_field-label-239"
+            aria-labelledby="lg-form_field-label-247"
             autocomplete="on"
-            class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-            id="lg-form_field-input-242"
+            class="lg-ui-form-field-input-0001 leafygreen-ui-1ago99h"
+            id="lg-form_field-input-250"
             required=""
             type="text"
             value=""
@@ -45,7 +45,7 @@
         class="leafygreen-ui-11ydt2g"
         data-lgid="lg-form_field-feedback"
         data-testid="lg-form_field-feedback"
-        id="lg-form_field-feedback-241"
+        id="lg-form_field-feedback-249"
       />
     </div>
     <div

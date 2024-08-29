@@ -61,7 +61,6 @@ export const LeafyGreenTextInput: React.FC<
   };
   return (
     <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <StyledTextInput
         type={inputType}
         data-cy={dataCy}

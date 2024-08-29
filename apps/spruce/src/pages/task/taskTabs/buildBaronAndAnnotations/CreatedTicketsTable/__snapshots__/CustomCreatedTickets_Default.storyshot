@@ -12,15 +12,16 @@
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-h1g1ry"
+        class="lg-ui-button-0000 leafygreen-ui-jnbawn"
         data-cy="file-ticket-button"
+        data-lgid="lg-button"
         type="button"
       >
         <div
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-1tpstb3"
+          class="leafygreen-ui-b15bbd"
         >
           File ticket
         </div>
@@ -40,7 +41,7 @@
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
+        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
         data-cy="DEVPROD-1"
         href="https://spruce.mongodb.com"
         target="_blank"
@@ -51,13 +52,13 @@
         </span>
       </a>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-ohl2hc"
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
         data-cy="DEVPROD-1-badge"
       >
         Done
       </div>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-1qtf7xy"
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
         data-cy="DEVPROD-1-confidence-badge"
       >
         25
@@ -97,7 +98,7 @@
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
+        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
         data-cy="DEVPROD-2"
         href="https://spruce.mongodb.com"
         target="_blank"
@@ -108,13 +109,13 @@
         </span>
       </a>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-ohl2hc"
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
         data-cy="DEVPROD-2-badge"
       >
         In Progress
       </div>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-1qtf7xy"
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
         data-cy="DEVPROD-2-confidence-badge"
       >
         50
