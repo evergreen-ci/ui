@@ -3,6 +3,4 @@ export enum TestStatus {
   Skip = "skip",
   SilentFail = "silentfail",
   Pass = "pass",
-  All = "all",
-  Timeout = "timeout",
 }

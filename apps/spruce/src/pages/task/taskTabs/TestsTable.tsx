@@ -13,6 +13,7 @@ import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import { onChangeHandler } from "components/Table/utils";
+import { ALL_VALUE } from "components/TreeSelect";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
 import {
@@ -31,7 +32,6 @@ import {
   mapFilterParamToId,
   mapIdToFilterParam,
 } from "types/task";
-import { TestStatus } from "types/test";
 import { queryString } from "utils";
 import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 
@@ -281,7 +281,7 @@ const getQueryVariables = (
   const rawStatuses = queryParams[RequiredQueryParams.Statuses];
   const statusList = (
     Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
-  ).filter((v) => v && v !== TestStatus.All);
+  ).filter((v) => v && v !== ALL_VALUE);
   const execution = queryParams[RequiredQueryParams.Execution];
   return {
     id: taskId,

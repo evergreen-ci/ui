@@ -1,5 +1,5 @@
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { TestStatus } from "types/test";
+import { TestStatus } from "@evg-ui/lib/types/test";
 import { statusToBadgeColor, statusCopy } from "./constants";
 
 interface TestStatusBadgeProps {
