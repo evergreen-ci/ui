@@ -1,6 +1,7 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import {
   DistroSettingsRedirect,
+  PatchRedirect,
   ProjectSettingsRedirect,
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
@@ -69,7 +70,7 @@ export const Content: React.FC = () => (
         />
       </Route>
       <Route path={routes.myPatches} element={<MyPatches />} />
-      <Route path={routes.patch} element={<VersionPage />}>
+      <Route path={redirectRoutes.patch} element={<PatchRedirect />}>
         <Route path={`:${slugs.tab}`} element={null} />
       </Route>
       <Route path={`${routes.preferences}/*`} element={<Preferences />}>
