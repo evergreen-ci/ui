@@ -7,8 +7,8 @@ import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
+import { size } from "constants/tokens";
 import ElementWrapper from "../../ElementWrapper";
 import { STANDARD_FIELD_WIDTH } from "../../utils";
 
@@ -54,7 +54,6 @@ const ArrayItem: React.FC<
       data-cy="expandable-card"
       defaultOpen={!isDisabled}
       // Override LeafyGreen's string typing for title so we can include buttons. (LG-2193)
-      /* @ts-expect-error */
       title={
         <>
           <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>

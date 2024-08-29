@@ -19,7 +19,6 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
-import { OneOf } from "types/utils";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 import { isNullish, processErrors } from "./utils";
@@ -61,7 +60,6 @@ export const LeafyGreenTextInput: React.FC<
   };
   return (
     <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <StyledTextInput
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}

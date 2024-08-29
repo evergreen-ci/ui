@@ -4,7 +4,7 @@
     data-cy="jira-ticket-row"
   >
     <a
-      class="lg-ui-0001 e1fnmnn30 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
+      class="lg-ui-0003 e1fnmnn30 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
       data-cy="DEVPROD-123"
       href="https:///browse/DEVPROD-123"
       rel="noopener noreferrer"
@@ -18,7 +18,7 @@
       </span>
     </a>
     <div
-      class="leafygreen-ui-ohl2hc"
+      class="leafygreen-ui-c62i3c"
       data-cy="DEVPROD-123-badge"
     >
       Closed
