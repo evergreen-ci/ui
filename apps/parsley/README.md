@@ -33,7 +33,7 @@ develop against them you will need to run both of the servers locally.
 **Logkeeper**
 
 1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `yarn bootstrap-logkeeper` to download some sample resmoke logs from s3.
+2. Run `yarn bootstrap-s3-logs` to download some sample resmoke logs from s3.
 3. Run the command outputted by the previous step to seed the env variables and
    start the local logkeeper server
 
