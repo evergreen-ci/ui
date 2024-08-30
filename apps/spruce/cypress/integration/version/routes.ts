@@ -11,25 +11,6 @@ const versions = {
 const versionRoute = (id: string) => `/version/${id}`;
 
 describe("Version route", () => {
-  describe("Redirects", () => {
-    it("Redirects to configure patch page if patch is not activated", () => {
-      cy.visit(versionRoute(versions[3]));
-      cy.location().should((loc) => {
-        expect(loc.pathname).to.equal(`/patch/${versions[3]}/configure/tasks`);
-      });
-    });
-    it("Redirects to the commit queue page if a patch is on the commit queue and has not been activated", () => {
-      cy.visit(versionRoute(versions[4]));
-      cy.location().should((loc) => {
-        expect(loc.pathname).to.equal(`/commit-queue/mongodb-mongo-master`);
-      });
-    });
-    it("Throws a 404 if the version and patch doesn't exist", () => {
-      cy.visit(versionRoute(versions[1]));
-      cy.validateToast("error", "Unable to find patch or version i-dont-exist");
-    });
-  });
-
   describe("Metadata", () => {
     it("Shows patch parameters if they exist", () => {
       cy.visit(versionRoute(versions[0]));
@@ -69,13 +50,11 @@ describe("Version route", () => {
     describe("Grouped Task Status Badge", () => {
       it("Shows tooltip with task's name on hover", () => {
         cy.dataCy("build-variants").within(() => {
-          cy.dataCy("grouped-task-status-badge")
-            .first()
-            .trigger("mouseover")
-            .within(($el) => {
-              // @ts-expect-error
-              expect($el.text()).to.contain("1Succeeded");
-            });
+          cy.dataCy("grouped-task-status-badge").first().as("statusBadge");
+          cy.get("@statusBadge").trigger("mouseover");
+          cy.get("@statusBadge").within(($el) => {
+            expect($el.text()).to.contain("1Succeeded");
+          });
         });
       });
 

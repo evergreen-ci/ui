@@ -19,7 +19,6 @@ import DISTROS from "./distros.graphql";
 import FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-tooltip.graphql";
 import GITHUB_ORGS from "./github-orgs.graphql";
 import GITHUB_PROJECT_CONFLICTS from "./github-project-conflicts.graphql";
-import HAS_VERSION from "./has-version.graphql";
 import HOST_EVENTS from "./host-events.graphql";
 import HOST from "./host.graphql";
 import HOSTS from "./hosts.graphql";
@@ -30,7 +29,6 @@ import IMAGE_PACKAGES from "./image-packages.graphql";
 import IMAGE_TOOLCHAINS from "./image-toolchains.graphql";
 import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
-import IS_PATCH_CONFIGURED from "./is-patch-configured.graphql";
 import JIRA_CUSTOM_CREATED_ISSUES from "./jira-custom-created-issues.graphql";
 import JIRA_ISSUES from "./jira-issues.graphql";
 import JIRA_SUSPECTED_ISSUES from "./jira-suspected-issues.graphql";
@@ -109,7 +107,6 @@ export {
   FAILED_TASK_STATUS_ICON_TOOLTIP,
   GITHUB_ORGS,
   GITHUB_PROJECT_CONFLICTS,
-  HAS_VERSION,
   HOST_EVENTS,
   HOST,
   HOSTS,
@@ -120,7 +117,6 @@ export {
   IMAGE_TOOLCHAINS,
   IMAGES,
   INSTANCE_TYPES,
-  IS_PATCH_CONFIGURED,
   JIRA_CUSTOM_CREATED_ISSUES,
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,

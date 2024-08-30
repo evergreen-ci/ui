@@ -6,20 +6,8 @@ describe("Configure Patch Page", () => {
   const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
 
   describe("Initial state reflects patch data", () => {
-    it("Should Redirect to configure page for unconfigured patches", () => {
-      cy.visit(`/version/${unactivatedPatchId}`);
-      cy.location().should((loc) =>
-        expect(loc.pathname).to.eq(
-          `/patch/${unactivatedPatchId}/configure/tasks`,
-        ),
-      );
-    });
-    it("Patch name input field value is patch description", () => {
-      cy.visit(`/version/${unactivatedPatchId}`);
-      cy.dataCy("patch-name-input").should("have.value", "test meee");
-    });
     it("First build variant in list is selected by default", () => {
-      cy.visit(`/version/${unactivatedPatchId}`);
+      cy.visit(`/patch/${unactivatedPatchId}/configure/tasks`);
       cy.dataCy("build-variant-list-item")
         .first()
         .should("have.attr", "data-selected", "true");
@@ -33,6 +21,7 @@ describe("Configure Patch Page", () => {
         expect(loc.pathname).to.eq(`/version/5ecedafb562343215a7ff297/tasks`),
       );
     });
+
     it("should not allow canceling an unconfigured patch", () => {
       cy.visit(`/patch/${unactivatedPatchId}/configure/tasks`);
       cy.dataCy("cancel-button").should("not.exist");
@@ -189,7 +178,7 @@ describe("Configure Patch Page", () => {
 
     describe("Task filter input", () => {
       it("Updating the task filter input filters tasks in view", () => {
-        cy.visit(`/version/${unactivatedPatchId}`);
+        cy.visit(`/patch/${unactivatedPatchId}/configure/tasks`);
         cy.contains("Ubuntu 16.04").click();
         cy.dataCy("task-checkbox").should("have.length", 45);
         cy.dataCy("selected-task-disclaimer").contains(
@@ -203,7 +192,7 @@ describe("Configure Patch Page", () => {
         );
       });
       it("The task filter input works across multiple build variants", () => {
-        cy.visit(`/version/${unactivatedPatchId}`);
+        cy.visit(`/patch/${unactivatedPatchId}/configure/tasks`);
         cy.get("body").type("{meta}", {
           release: false,
         });
@@ -489,7 +478,7 @@ describe("Configure Patch Page", () => {
 
     describe("Selecting a trigger alias", () => {
       beforeEach(() => {
-        cy.visit(`/version/${unactivatedPatchId}`);
+        cy.visit(`/patch/${unactivatedPatchId}/configure/tasks`);
         cy.dataCy("trigger-alias-list-item")
           .contains("logkeeper-alias")
           .click();
@@ -569,7 +558,7 @@ describe("Configure Patch Page", () => {
 
   describe("Scheduling a patch", () => {
     beforeEach(() => {
-      cy.visit(`/patch/${unactivatedPatchId}`);
+      cy.visit(`/patch/${unactivatedPatchId}/configure/tasks`);
     });
     it("Clicking 'Schedule' button schedules patch and redirects to patch page", () => {
       const val = "hello world";

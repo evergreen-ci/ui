@@ -10,6 +10,7 @@ import {
   getProjectPatchesRoute,
   getVersionRoute,
   getUserPatchesRoute,
+  getPatchRoute,
 } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { fontSize, size } from "constants/tokens";
@@ -106,7 +107,11 @@ const PatchCard: React.FC<PatchCardProps> = ({
         <DescriptionLink
           data-cy="patch-card-patch-link"
           onClick={() => analytics.sendEvent({ name: "Clicked patch link" })}
-          to={getVersionRoute(id)}
+          to={
+            isUnconfigured
+              ? getPatchRoute(id, { configure: true })
+              : getVersionRoute(id)
+          }
         >
           {description || "no description"}
         </DescriptionLink>

@@ -6105,12 +6105,6 @@ export type GithubProjectConflictsQuery = {
   };
 };
 
-export type HasVersionQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
-}>;
-
-export type HasVersionQuery = { __typename?: "Query"; hasVersion: boolean };
-
 export type HostEventsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   tag: Scalars["String"]["input"];
@@ -6363,21 +6357,6 @@ export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 export type InstanceTypesQuery = {
   __typename?: "Query";
   instanceTypes: Array<string>;
-};
-
-export type IsPatchConfiguredQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
-}>;
-
-export type IsPatchConfiguredQuery = {
-  __typename?: "Query";
-  patch: {
-    __typename?: "Patch";
-    activated: boolean;
-    alias?: string | null;
-    id: string;
-    projectID: string;
-  };
 };
 
 export type CustomCreatedIssuesQueryVariables = Exact<{
