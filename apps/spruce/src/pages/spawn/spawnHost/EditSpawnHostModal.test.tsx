@@ -308,7 +308,6 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
-    isBetaTester: true,
     temporarilyExemptUntil: null,
     timeZone: "America/Chicago",
   },
@@ -321,7 +320,6 @@ const tempExemptSpawnHost: MyHost = {
   homeVolumeID: "vol-5678",
   sleepSchedule: {
     ...defaultSleepSchedule,
-    isBetaTester: true,
     temporarilyExemptUntil: new Date("2020-01-15"),
     timeZone: "America/New_York",
   },

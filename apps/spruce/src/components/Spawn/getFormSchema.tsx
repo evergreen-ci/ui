@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import { Body } from "@leafygreen-ui/typography";
 import { add } from "date-fns";
 import widgets from "components/SpruceForm/Widgets";
@@ -116,10 +115,6 @@ const getHostUptimeSchema = ({
           },
         },
       },
-      isBetaTester: {
-        type: "boolean" as "boolean",
-        title: "",
-      },
       ...(isEditModal && {
         temporarilyExemptUntil: {
           type: "string" as "string",
@@ -148,6 +143,18 @@ const getHostUptimeSchema = ({
   uiSchema: {
     useDefaultUptimeSchedule: {
       "ui:bold": true,
+      "ui:description": (
+        <>
+          Pausing hosts overnight reduces idle time outside of user-set hours.{" "}
+          <StyledLink
+            hideExternalIcon={false}
+            href={hostUptimeDocumentationUrl}
+          >
+            Learn more about host sleep schedules
+          </StyledLink>
+          .
+        </>
+      ),
     },
     sleepSchedule: {
       enabledWeekdays: {
@@ -215,28 +222,6 @@ const getHostUptimeSchema = ({
         "ui:showLabel": false,
         "ui:warnings": hostUptimeWarnings?.warnings,
       },
-    },
-    isBetaTester: {
-      "ui:widget": widgets.ToggleWidget,
-      "ui:customLabel": (
-        <>
-          <Badge variant="blue">Beta</Badge> Enable host uptime scheduling
-        </>
-      ),
-      "ui:descriptionNode": (
-        <>
-          Pausing hosts overnight reduces idle time outside of user-set hours.
-          Any schedule configured above will not take effect unless you opt in
-          to the beta.{" "}
-          <StyledLink
-            hideExternalIcon={false}
-            href={hostUptimeDocumentationUrl}
-          >
-            Learn more about host sleep schedules
-          </StyledLink>
-          .
-        </>
-      ),
     },
     temporarilyExemptUntil: {
       "ui:disableAfter": exemptionRange.disableAfter,
