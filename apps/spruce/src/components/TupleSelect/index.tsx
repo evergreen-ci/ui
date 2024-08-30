@@ -62,9 +62,10 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           aria-labelledby={selectedOption.displayName}
           clearOnSubmit
           data-cy="tuple-select-input"
-          id="filter-input" // Chrome will overlay a clear "x" button on the input if type is not set to 'search'
+          id="filter-input"
           onSubmit={handleOnSubmit}
           placeholder={selectedOption.placeHolderText}
+          // Chrome will overlay a clear "x" button on the input if type is not set to 'search'
           type="text"
           validator={validator}
           validatorErrorMessage={validatorErrorMessage}
