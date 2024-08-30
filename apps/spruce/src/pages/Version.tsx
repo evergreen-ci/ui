@@ -160,7 +160,6 @@ export const VersionPage: React.FC = () => {
   } = version || {};
   const {
     canEnqueueToCommitQueue,
-    childPatches,
     commitQueuePosition = null,
     patchNumber,
   } = patch || {};
@@ -229,11 +228,8 @@ export const VersionPage: React.FC = () => {
         <PageLayout>
           <PageContent>
             <VersionTabs
-              childPatches={childPatches}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
-              isPatch={version?.isPatch}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              taskCount={version?.taskCount}
+              version={version}
             />
           </PageContent>
         </PageLayout>
