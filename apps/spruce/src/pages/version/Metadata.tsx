@@ -231,7 +231,7 @@ const BaseCommitMetadata: React.FC<BaseCommitMetadataProps> = ({
 
   return (
     <MetadataItem>
-      Base commit:{" "}
+      <MetadataLabel>Base commit:</MetadataLabel>{" "}
       {isBaseVersionPending ? (
         <InlineCode data-cy="patch-base-commit">
           {shortenGithash(revision)}
