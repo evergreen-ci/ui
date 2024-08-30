@@ -147,8 +147,8 @@ const getHostUptimeSchema = ({
         <>
           Pausing hosts overnight reduces idle time outside of user-set hours.{" "}
           <StyledLink
-            href={hostUptimeDocumentationUrl}
             hideExternalIcon={false}
+            href={hostUptimeDocumentationUrl}
           >
             Learn more about host sleep schedules
           </StyledLink>
