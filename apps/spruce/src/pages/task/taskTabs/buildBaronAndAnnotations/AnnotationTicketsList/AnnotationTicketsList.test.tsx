@@ -25,19 +25,19 @@ describe("annotationTicketsList", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={ticketsTableMocks}>
         <AnnotationTicketsList
+          execution={execution}
+          isIssue
           jiraIssues={[
             {
               issueKey: "EVG-1234567",
               url: "https://fake-url/EVG-1234567",
             },
           ]}
-          isIssue
-          taskId={taskId}
-          execution={execution}
-          userCanModify={false}
+          loading
           selectedRowKey=""
           setSelectedRowKey={() => {}}
-          loading
+          taskId={taskId}
+          userCanModify={false}
         />
       </MockedProvider>,
     );

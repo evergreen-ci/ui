@@ -43,7 +43,7 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
         title="Patch Parameters"
       >
         <OverflowContainer>
-          <BaseTable table={table} shouldAlternateRowColor />
+          <BaseTable shouldAlternateRowColor table={table} />
         </OverflowContainer>
       </DisplayModal>
     </>

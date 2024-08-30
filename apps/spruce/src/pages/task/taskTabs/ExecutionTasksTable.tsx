@@ -112,8 +112,8 @@ export const ExecutionTasksTable: React.FC<Props> = ({
       data-cy="execution-tasks-table"
       data-cy-row="execution-tasks-table-row"
       emptyComponent={<TablePlaceholder message="No execution tasks found." />}
-      table={table}
       shouldAlternateRowColor
+      table={table}
     />
   );
 };

@@ -105,6 +105,13 @@ export const DownstreamProjectAccordion: React.FC<
     <Wrapper data-cy="project-accordion">
       <Accordion
         defaultOpen={status === PatchStatus.Failed}
+        subtitle={
+          <DownstreamMetadata
+            baseVersionID={baseVersionID}
+            githash={githash}
+            parameters={parameters}
+          />
+        }
         title={
           <>
             <ProjectTitleWrapper>
@@ -114,13 +121,6 @@ export const DownstreamProjectAccordion: React.FC<
           </>
         }
         titleTag={FlexContainer}
-        subtitle={
-          <DownstreamMetadata
-            baseVersionID={baseVersionID}
-            githash={githash}
-            parameters={parameters}
-          />
-        }
       >
         <AccordionContents>
           <DownstreamTasksTable

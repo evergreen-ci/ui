@@ -50,13 +50,13 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
   return (
     <ConfirmationModal
       buttonText="Delete"
-      variant="danger"
+      data-cy="delete-project-modal"
       onCancel={closeModal}
       onConfirm={onConfirm}
       open={open}
       submitDisabled={loading}
       title={`Delete “${identifier}”?`}
-      data-cy="delete-project-modal"
+      variant="danger"
     >
       <p>This action cannot be undone. Please proceed with caution.</p>
     </ConfirmationModal>
@@ -82,8 +82,8 @@ export const DeleteProjectField: Field = ({ uiSchema }) => {
         after deletion.
       </Description>
       <StyledButton
-        onClick={() => setOpen(true)}
         data-cy="delete-project-button"
+        onClick={() => setOpen(true)}
         variant="danger"
       >
         Delete project

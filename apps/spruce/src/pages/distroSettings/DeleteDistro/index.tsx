@@ -99,11 +99,11 @@ export const DeleteDistro: React.FC = () => {
         enabled={!isAdmin}
         trigger={
           <Button
+            data-cy={id}
+            disabled={!isAdmin}
             id={id}
             onClick={() => setOpen(true)}
             variant="danger"
-            data-cy={id}
-            disabled={!isAdmin}
           >
             Delete distro
           </Button>

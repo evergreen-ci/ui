@@ -23,25 +23,25 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
   validate,
 }) => (
   <Form
-    fields={{ ...baseFields, ...fields }}
-    schema={schema}
-    onChange={onChange}
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    widgets={widgets}
-    uiSchema={uiSchema}
-    formData={formData}
-    tagName={tagName}
     ArrayFieldTemplate={ArrayFieldTemplate}
-    FieldTemplate={DefaultFieldTemplate}
-    ObjectFieldTemplate={ObjectFieldTemplate}
-    transformErrors={transformErrors}
-    showErrorList={false}
-    validate={validate}
-    disabled={disabled}
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     customFormats={customFormats(customFormatFields?.jiraHost)}
+    disabled={disabled}
+    fields={{ ...baseFields, ...fields }}
+    FieldTemplate={DefaultFieldTemplate}
+    formData={formData}
     liveValidate
     noHtml5Validate
+    ObjectFieldTemplate={ObjectFieldTemplate}
+    onChange={onChange}
+    schema={schema}
+    showErrorList={false}
+    tagName={tagName}
+    transformErrors={transformErrors}
+    uiSchema={uiSchema}
+    validate={validate}
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    widgets={widgets}
   >
     {/*  Need to pass in an empty fragment child to remove default submit button */}
     {/* eslint-disable-next-line react/jsx-no-useless-fragment */}

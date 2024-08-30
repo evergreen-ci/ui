@@ -55,9 +55,9 @@ export const RepoConfigField: Field = ({
             {isAttachedProject && !!githubOrgs.length && (
               <>
                 <Button
+                  data-cy="move-repo-button"
                   onClick={() => setMoveModalOpen(true)}
                   size="small"
-                  data-cy="move-repo-button"
                 >
                   Move to New Repo
                 </Button>
@@ -77,19 +77,19 @@ export const RepoConfigField: Field = ({
               enabled={ownerOrRepoHasChanges}
               justify="middle"
               popoverZIndex={zIndex.popover}
-              triggerEvent="hover"
               trigger={
                 <Button
-                  size="small"
-                  onClick={() => setAttachModalOpen(true)}
                   data-cy="attach-repo-button"
                   disabled={ownerOrRepoHasChanges}
+                  onClick={() => setAttachModalOpen(true)}
+                  size="small"
                 >
                   {isAttachedProject
                     ? "Detach from Current Repo"
                     : "Attach to Current Repo"}
                 </Button>
               }
+              triggerEvent="hover"
             >
               Project must be saved with new owner/repo before it can be
               attached.

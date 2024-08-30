@@ -93,27 +93,27 @@ export const AddIssueModal: React.FC<Props> = ({
   return (
     <ConfirmationModal
       {...rest}
-      open={visible}
-      onCancel={handleCancel}
-      title={title}
-      onConfirm={handleSubmit}
       buttonText={`Add ${issueString}`}
-      submitDisabled={!canSubmit}
       data-cy="add-issue-modal"
+      onCancel={handleCancel}
+      onConfirm={handleSubmit}
+      open={visible}
+      submitDisabled={!canSubmit}
+      title={title}
     >
       {jiraHost && (
         <SpruceForm
-          onSubmit={handleSubmit}
-          schema={addIssueModalSchema.schema}
-          uiSchema={addIssueModalSchema.uiSchema}
+          customFormatFields={{
+            jiraHost,
+          }}
           formData={formState}
           onChange={({ errors, formData }) => {
             setFormState(formData);
             setCanSubmit(errors.length === 0);
           }}
-          customFormatFields={{
-            jiraHost,
-          }}
+          onSubmit={handleSubmit}
+          schema={addIssueModalSchema.schema}
+          uiSchema={addIssueModalSchema.uiSchema}
         />
       )}
     </ConfirmationModal>

@@ -105,7 +105,7 @@ describe("inactiveCommitButton", () => {
   });
 
   it("should show unmatching label when there are filters applied", () => {
-    render(<RenderInactiveCommitButton versions={versions} hasFilters />);
+    render(<RenderInactiveCommitButton hasFilters versions={versions} />);
     expect(screen.queryByDataCy("inactive-commits-button")).toHaveTextContent(
       "6Unmatching",
     );

@@ -29,12 +29,12 @@ export const ArrayFieldTemplate: React.FC<
     <>
       <BaseTable
         data-cy="github-permissions-table"
-        table={table}
         emptyComponent={
           <Body style={{ marginLeft: tableColumnOffset }}>
             No permission groups added yet.
           </Body>
         }
+        table={table}
       />
       <ButtonWrapper>
         <PlusButton
@@ -74,9 +74,9 @@ const columns: LGColumnDef<ArrayItem>[] = [
     header: "Action",
     cell: ({ row }) => (
       <Button
-        onClick={row.original.onDropIndexClick(row.index)}
-        leftGlyph={<Icon glyph="Trash" />}
         data-cy="delete-permission-button"
+        leftGlyph={<Icon glyph="Trash" />}
+        onClick={row.original.onDropIndexClick(row.index)}
         size="small"
       />
     ),

@@ -29,53 +29,53 @@ export const PreferencesTabs: React.FC = () => {
       </TitleContainer>
       <Routes>
         <Route
-          path={PreferencesTabRoutes.Profile}
           element={
             <Container>
               <ProfileTab />
             </Container>
           }
+          path={PreferencesTabRoutes.Profile}
         />
         <Route
-          path={PreferencesTabRoutes.Notifications}
           element={
             <WideContainer>
               <NotificationsTab />
             </WideContainer>
           }
+          path={PreferencesTabRoutes.Notifications}
         />
         <Route
-          path={PreferencesTabRoutes.CLI}
           element={
             <Container>
               <CliTab />
             </Container>
           }
+          path={PreferencesTabRoutes.CLI}
         />
         <Route
-          path={PreferencesTabRoutes.NewUI}
           element={
             <Container>
               <NewUITab />
             </Container>
           }
+          path={PreferencesTabRoutes.NewUI}
         />
         <Route
-          path={PreferencesTabRoutes.PublicKeys}
           element={
             <Container>
               <PublicKeysTab />
             </Container>
           }
+          path={PreferencesTabRoutes.PublicKeys}
         />
         <Route
-          path="*"
           element={
             <Navigate
-              to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
               replace
+              to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
             />
           }
+          path="*"
         />
       </Routes>
     </>

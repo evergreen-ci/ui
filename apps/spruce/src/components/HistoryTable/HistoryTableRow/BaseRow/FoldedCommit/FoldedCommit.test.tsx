@@ -16,10 +16,10 @@ describe("foldedCommit", () => {
     render(
       <MockedProvider mocks={[getSpruceConfigMock]}>
         <FoldedCommit
-          index={0}
           data={foldedCommitData}
-          onToggleFoldedCommit={onToggleFoldedCommit}
+          index={0}
           numVisibleCols={5}
+          onToggleFoldedCommit={onToggleFoldedCommit}
           selected={false}
         />
       </MockedProvider>,
@@ -40,10 +40,10 @@ describe("foldedCommit", () => {
     render(
       <MockedProvider mocks={[getSpruceConfigMock]}>
         <FoldedCommit
-          index={0}
           data={data}
-          onToggleFoldedCommit={onToggleFoldedCommit}
+          index={0}
           numVisibleCols={5}
+          onToggleFoldedCommit={onToggleFoldedCommit}
           selected={false}
         />
       </MockedProvider>,

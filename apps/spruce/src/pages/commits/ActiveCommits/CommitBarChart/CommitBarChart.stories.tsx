@@ -19,11 +19,11 @@ export const Default: StoryObj<typeof CommitBarChart> = {
       {versions.map((item) => (
         <CommitBarChart
           key={item.version.id}
-          groupedTaskStats={groupedTaskData[item.version.id].stats}
-          total={groupedTaskData[item.version.id].total}
-          max={max}
           chartType={chartType}
           eta={item.version?.taskStatusStats?.eta}
+          groupedTaskStats={groupedTaskData[item.version.id].stats}
+          max={max}
+          total={groupedTaskData[item.version.id].total}
         />
       ))}
     </FlexRowContainer>

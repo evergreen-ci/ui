@@ -37,10 +37,10 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
   const getDateCopy = useDateFormat();
   return (
     <StyledSelect
+      key={currentExecution}
       aria-disabled={executionsLoading}
       data-cy="execution-select"
       disabled={executionsLoading}
-      key={currentExecution}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       onChange={(selected: number | null) => {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -62,8 +62,8 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
 
         return (
           <Option
-            data-cy={`execution-${singleExecution.execution}`}
             key={singleExecution.execution}
+            data-cy={`execution-${singleExecution.execution}`}
             value={singleExecution.execution}
           >
             <ExecutionInfo>

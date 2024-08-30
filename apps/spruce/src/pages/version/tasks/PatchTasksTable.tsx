@@ -93,19 +93,9 @@ export const PatchTasksTable: React.FC<Props> = ({
 
   return (
     <TasksTable
+      baseStatusSelectorProps={baseStatusSelectorProps}
       isPatch={isPatch}
-      sorts={sorts}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      tableChangeHandler={tableChangeHandler}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      tasks={tasks}
       loading={loading}
-      onExpand={(expanded) => {
-        sendEvent({
-          name: "Toggled display task expansion",
-          expanded,
-        });
-      }}
       onClickTaskLink={(taskId) =>
         sendEvent({
           name: "Clicked task table task link",
@@ -118,10 +108,20 @@ export const PatchTasksTable: React.FC<Props> = ({
           "sort.by": sortField,
         })
       }
-      taskNameInputProps={taskNameInputProps}
-      variantInputProps={variantInputProps}
-      baseStatusSelectorProps={baseStatusSelectorProps}
+      onExpand={(expanded) => {
+        sendEvent({
+          name: "Toggled display task expansion",
+          expanded,
+        });
+      }}
+      sorts={sorts}
       statusSelectorProps={statusSelectorProps}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      tableChangeHandler={tableChangeHandler}
+      taskNameInputProps={taskNameInputProps}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      tasks={tasks}
+      variantInputProps={variantInputProps}
     />
   );
 };

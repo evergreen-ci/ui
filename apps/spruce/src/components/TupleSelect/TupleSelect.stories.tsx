@@ -12,8 +12,8 @@ export const Default: CustomStoryObj<typeof TupleSelect> = {
   render: () => (
     <>
       <TupleSelect
-        options={options}
         onSubmit={action("submit")}
+        options={options}
         validator={(v) => v !== "bad"}
         validatorErrorMessage="Invalid Input"
       />

@@ -14,13 +14,13 @@ export const MigrateButton: React.FC<Props> = ({ volume }) => {
     <>
       <Button
         ref={triggerRef}
-        size={Size.XSmall}
         data-cy={`migrate-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
         onClick={(e) => {
           e.stopPropagation();
           setOpenModal(true);
         }}
+        size={Size.XSmall}
       >
         Migrate
       </Button>

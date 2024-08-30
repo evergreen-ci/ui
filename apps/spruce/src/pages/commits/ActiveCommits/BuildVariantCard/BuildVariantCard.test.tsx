@@ -36,13 +36,13 @@ describe("buildVariantCard", () => {
     render(
       <MockedProvider>
         <BuildVariantCard
-          variant="ubuntu-2204"
-          height={100}
           buildVariantDisplayName="Ubuntu 22.04"
-          projectIdentifier="testing"
-          versionId="abc"
+          height={100}
           order={1}
+          projectIdentifier="testing"
           tasks={tasks}
+          variant="ubuntu-2204"
+          versionId="abc"
         />
       </MockedProvider>,
     );

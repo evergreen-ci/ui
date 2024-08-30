@@ -40,14 +40,14 @@ const Issues: React.FC<IssuesProps> = ({
   );
   return (
     <AnnotationTickets
-      tickets={data?.task?.annotation?.issues || annotation?.issues || []}
-      taskId={taskId}
       execution={execution}
-      userCanModify={userCanModify}
+      isIssue
+      loading={loading}
       selectedRowKey={selectedRowKey}
       setSelectedRowKey={setSelectedRowKey}
-      loading={loading}
-      isIssue
+      taskId={taskId}
+      tickets={data?.task?.annotation?.issues || annotation?.issues || []}
+      userCanModify={userCanModify}
     />
   );
 };

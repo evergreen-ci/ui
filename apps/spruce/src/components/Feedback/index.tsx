@@ -26,17 +26,17 @@ export const Feedback: React.FC = () => {
       justify="end"
       trigger={
         <IconButton aria-label="Show Feedback form">
-          <Icon glyph="Megaphone" color={green.dark1} />
+          <Icon color={green.dark1} glyph="Megaphone" />
         </IconButton>
       }
       triggerEvent="click"
     >
       Feedback for the Evergreen team?{" "}
-      <StyledLink target="_blank" href={jiraImprovementUrl}>
+      <StyledLink href={jiraImprovementUrl} target="_blank">
         Suggest an improvement
       </StyledLink>{" "}
       or{" "}
-      <StyledLink target="_blank" href={jiraBugUrl}>
+      <StyledLink href={jiraBugUrl} target="_blank">
         report a bug
       </StyledLink>
       .

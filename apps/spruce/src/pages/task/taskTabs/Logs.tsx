@@ -101,11 +101,9 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
           <ButtonContainer>
             {parsleyLink && (
               <Button
-                title="High-powered log viewer"
                 data-cy="parsley-log-btn"
                 disabled={noLogs}
                 href={parsleyLink}
-                target="_blank"
                 onClick={() =>
                   sendEvent({
                     name: "Clicked log link",
@@ -113,17 +111,17 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                     "log.viewer": "parsley",
                   })
                 }
+                target="_blank"
+                title="High-powered log viewer"
               >
                 Parsley
               </Button>
             )}
             {htmlLink && (
               <Button
-                title="Plain, colorized log viewer"
                 data-cy="html-log-btn"
                 disabled={noLogs}
                 href={htmlLink}
-                target="_blank"
                 onClick={() =>
                   sendEvent({
                     name: "Clicked log link",
@@ -131,17 +129,17 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                     "log.viewer": "html",
                   })
                 }
+                target="_blank"
+                title="Plain, colorized log viewer"
               >
                 HTML
               </Button>
             )}
             {rawLink && (
               <Button
-                title="Plain text log viewer"
                 data-cy="raw-log-btn"
                 disabled={noLogs}
                 href={rawLink}
-                target="_blank"
                 onClick={() =>
                   sendEvent({
                     name: "Clicked log link",
@@ -149,6 +147,8 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                     "log.viewer": "raw",
                   })
                 }
+                target="_blank"
+                title="Plain text log viewer"
               >
                 Raw
               </Button>

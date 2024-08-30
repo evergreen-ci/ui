@@ -14,11 +14,11 @@ export const Default: CustomStoryObj<typeof GroupedTaskStatusBadge> = {
     <Container>
       {groupedTaskStats.map((item) => (
         <GroupedTaskStatusBadge
-          href="/test"
-          status={item.status}
-          count={item.count}
           key={item.status}
+          count={item.count}
+          href="/test"
           onClick={action(`Click status ${item.status}`)}
+          status={item.status}
           statusCounts={statusCounts}
         />
       ))}

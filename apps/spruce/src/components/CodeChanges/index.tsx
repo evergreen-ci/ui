@@ -36,7 +36,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   const { moduleCodeChanges } = data?.patch ?? {};
 
   if (loading) {
-    return <Skeleton active title paragraph={{ rows: 8 }} />;
+    return <Skeleton active paragraph={{ rows: 8 }} title />;
   }
   if (error) {
     return <div id="patch-error">{error.message}</div>;
@@ -93,19 +93,19 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
               <Title>Changes on {branchName}: </Title>
               <StyledButton
                 data-cy="html-diff-btn"
-                size="small"
-                title="Open diff as html file"
                 href={htmlLink}
+                size="small"
                 target="_blank"
+                title="Open diff as html file"
               >
                 HTML
               </StyledButton>
               <StyledButton
                 data-cy="raw-diff-btn"
-                size="small"
-                title="Open diff as raw file"
                 href={rawLink}
+                size="small"
                 target="_blank"
+                title="Open diff as raw file"
               >
                 Raw
               </StyledButton>

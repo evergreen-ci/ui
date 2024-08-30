@@ -8,18 +8,18 @@ describe("configureTasks", () => {
       const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
+          selectableAliases={[]}
+          selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
             ubuntu2004: { compile: false, test: false },
           }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-          selectableAliases={[]}
-          selectedAliases={{}}
-          totalSelectedTaskCount={0}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
           setSelectedAliases={() => {}}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={0}
         />,
       );
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(2);
@@ -31,19 +31,19 @@ describe("configureTasks", () => {
       const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
+          selectableAliases={[]}
+          selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
             ubuntu2004: { compile: false, test: false },
             ubuntu1804: { e2e: false, lint: false },
           }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-          selectableAliases={[]}
-          selectedAliases={{}}
-          totalSelectedTaskCount={0}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
           setSelectedAliases={() => {}}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={0}
         />,
       );
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(4);
@@ -57,19 +57,19 @@ describe("configureTasks", () => {
       const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
+          selectableAliases={[]}
+          selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
             ubuntu2004: { compile: true, test: true },
             ubuntu1804: { compile: true, lint: true },
           }}
-          totalSelectedTaskCount={3}
-          aliasCount={0}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-          selectableAliases={[]}
-          selectedAliases={{}}
-          childPatches={[]}
-          activated={false}
           setSelectedAliases={() => {}}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={3}
         />,
       );
       expect(screen.queryAllByDataCy("task-checkbox")).toHaveLength(3);
@@ -82,19 +82,19 @@ describe("configureTasks", () => {
       const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
+          selectableAliases={[]}
+          selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
             ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: true, lint: false },
           }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-          selectableAliases={[]}
-          selectedAliases={{}}
-          totalSelectedTaskCount={1}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
           setSelectedAliases={() => {}}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={1}
         />,
       );
       const checkbox = screen.getByLabelText("compile");
@@ -107,18 +107,18 @@ describe("configureTasks", () => {
       const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
+          selectableAliases={[]}
+          selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
             ubuntu2004: { compile: false, test: false },
           }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-          selectableAliases={[]}
-          selectedAliases={{}}
-          totalSelectedTaskCount={0}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
           setSelectedAliases={() => {}}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={0}
         />,
       );
       const checkbox = screen.getByLabelText("compile");
@@ -136,19 +136,19 @@ describe("configureTasks", () => {
       const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
+          selectableAliases={[]}
+          selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
             ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
           }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-          selectableAliases={[]}
-          selectedAliases={{}}
-          totalSelectedTaskCount={0}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
           setSelectedAliases={() => {}}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={0}
         />,
       );
       const checkbox = screen.getByLabelText(
@@ -169,19 +169,19 @@ describe("configureTasks", () => {
       const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
+          selectableAliases={[]}
+          selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
             ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
           }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-          selectableAliases={[]}
-          selectedAliases={{}}
-          totalSelectedTaskCount={0}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
           setSelectedAliases={() => {}}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={0}
         />,
       );
       const checkbox = screen.getByLabelText("compile");
@@ -200,19 +200,19 @@ describe("configureTasks", () => {
       const setSelectedBuildVariantTasks = vi.fn();
       render(
         <ConfigureTasks
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
+          selectableAliases={[]}
+          selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
             ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
           }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-          selectableAliases={[]}
-          selectedAliases={{}}
-          totalSelectedTaskCount={0}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
           setSelectedAliases={() => {}}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={0}
         />,
       );
       const checkbox = screen.getByLabelText(
@@ -233,19 +233,19 @@ describe("configureTasks", () => {
       const selectedBuildVariants = ["ubuntu2004", "ubuntu1804"];
       render(
         <ConfigureTasks
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
+          selectableAliases={[]}
+          selectedAliases={{}}
           selectedBuildVariants={selectedBuildVariants}
           selectedBuildVariantTasks={{
             ubuntu2004: { compile: false, test: false },
             ubuntu1804: { compile: false, lint: false },
           }}
-          setSelectedBuildVariantTasks={() => {}}
-          selectableAliases={[]}
-          selectedAliases={{}}
-          totalSelectedTaskCount={0}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
           setSelectedAliases={() => {}}
+          setSelectedBuildVariantTasks={() => {}}
+          totalSelectedTaskCount={0}
         />,
       );
       await user.type(screen.getByDataCy("task-filter-input"), "compile");
@@ -261,12 +261,9 @@ describe("configureTasks", () => {
       const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
-          selectedBuildVariants={selectedBuildVariants}
-          selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
-            ubuntu1804: { compile: true, lint: false },
-          }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
           selectableAliases={[
             {
               alias: "parsley",
@@ -281,11 +278,14 @@ describe("configureTasks", () => {
             },
           ]}
           selectedAliases={{}}
-          totalSelectedTaskCount={3}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
+          selectedBuildVariants={selectedBuildVariants}
+          selectedBuildVariantTasks={{
+            ubuntu2004: { compile: false, test: false },
+            ubuntu1804: { compile: true, lint: false },
+          }}
           setSelectedAliases={setSelectedAliases}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={3}
         />,
       );
       expect(screen.getByText("ubuntu2204-large")).toBeInTheDocument();
@@ -298,12 +298,9 @@ describe("configureTasks", () => {
       const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
-          selectedBuildVariants={selectedBuildVariants}
-          selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
-            ubuntu1804: { compile: true, lint: false },
-          }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
           selectableAliases={[
             {
               alias: "parsley",
@@ -318,11 +315,14 @@ describe("configureTasks", () => {
             },
           ]}
           selectedAliases={{}}
-          totalSelectedTaskCount={1}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
+          selectedBuildVariants={selectedBuildVariants}
+          selectedBuildVariantTasks={{
+            ubuntu2004: { compile: false, test: false },
+            ubuntu1804: { compile: true, lint: false },
+          }}
           setSelectedAliases={setSelectedAliases}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={1}
         />,
       );
       expect(screen.getByText("ubuntu2204-large")).toBeInTheDocument();
@@ -336,12 +336,9 @@ describe("configureTasks", () => {
       const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
-          selectedBuildVariants={selectedBuildVariants}
-          selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
-            ubuntu1804: { compile: true, lint: false },
-          }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          activated={false}
+          aliasCount={1}
+          childPatches={[]}
           selectableAliases={[
             {
               alias: "parsley",
@@ -356,11 +353,14 @@ describe("configureTasks", () => {
             },
           ]}
           selectedAliases={{ parsley: true }}
-          totalSelectedTaskCount={1}
-          aliasCount={1}
-          childPatches={[]}
-          activated={false}
+          selectedBuildVariants={selectedBuildVariants}
+          selectedBuildVariantTasks={{
+            ubuntu2004: { compile: false, test: false },
+            ubuntu1804: { compile: true, lint: false },
+          }}
           setSelectedAliases={setSelectedAliases}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={1}
         />,
       );
       expect(screen.getByText("ubuntu2204-large")).toBeInTheDocument();
@@ -374,12 +374,9 @@ describe("configureTasks", () => {
       const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
-          selectedBuildVariants={selectedBuildVariants}
-          selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
-            ubuntu1804: { compile: false, lint: false },
-          }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          activated={false}
+          aliasCount={1}
+          childPatches={[]}
           selectableAliases={[
             {
               alias: "parsley",
@@ -394,11 +391,14 @@ describe("configureTasks", () => {
             },
           ]}
           selectedAliases={{ parsley: true }}
-          totalSelectedTaskCount={0}
-          aliasCount={1}
-          childPatches={[]}
-          activated={false}
+          selectedBuildVariants={selectedBuildVariants}
+          selectedBuildVariantTasks={{
+            ubuntu2004: { compile: false, test: false },
+            ubuntu1804: { compile: false, lint: false },
+          }}
           setSelectedAliases={setSelectedAliases}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={0}
         />,
       );
       expect(screen.getByLabelText("compile")).toBeInTheDocument();
@@ -412,12 +412,9 @@ describe("configureTasks", () => {
       const setSelectedAliases = vi.fn();
       render(
         <ConfigureTasks
-          selectedBuildVariants={selectedBuildVariants}
-          selectedBuildVariantTasks={{
-            ubuntu2004: { compile: false, test: false },
-            ubuntu1804: { compile: false, lint: false },
-          }}
-          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          activated={false}
+          aliasCount={0}
+          childPatches={[]}
           selectableAliases={[
             {
               alias: "parsley",
@@ -434,11 +431,14 @@ describe("configureTasks", () => {
           selectedAliases={{
             parsley: false,
           }}
-          totalSelectedTaskCount={0}
-          aliasCount={0}
-          childPatches={[]}
-          activated={false}
+          selectedBuildVariants={selectedBuildVariants}
+          selectedBuildVariantTasks={{
+            ubuntu2004: { compile: false, test: false },
+            ubuntu1804: { compile: false, lint: false },
+          }}
           setSelectedAliases={setSelectedAliases}
+          setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+          totalSelectedTaskCount={0}
         />,
       );
       expect(screen.getByLabelText("Add alias to patch")).toBeInTheDocument();

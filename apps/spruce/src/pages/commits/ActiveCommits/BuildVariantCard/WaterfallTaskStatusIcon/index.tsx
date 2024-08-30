@@ -85,23 +85,23 @@ export const WaterfallTaskStatusIcon: React.FC<
   return (
     <Tooltip
       align="top"
+      enabled={enabled}
       justify="middle"
       popoverZIndex={zIndex.tooltip}
-      enabled={enabled}
       trigger={
         <Link
-          onMouseEnter={() => setEnabled(true)}
-          onMouseLeave={() => setEnabled(false)}
           key={`task_${taskId}`}
           aria-label={`${status} icon`}
-          to={getTaskRoute(taskId)}
+          data-cy="waterfall-task-status-icon"
           onClick={() => {
             sendEvent({ name: "Clicked task status icon", status });
           }}
-          data-cy="waterfall-task-status-icon"
+          onMouseEnter={() => setEnabled(true)}
+          onMouseLeave={() => setEnabled(false)}
+          to={getTaskRoute(taskId)}
         >
           <TaskStatusWrapper data-task-icon={identifier}>
-            <TaskStatusIcon status={status} size={16} />
+            <TaskStatusIcon size={16} status={status} />
           </TaskStatusWrapper>
         </Link>
       }

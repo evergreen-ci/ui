@@ -21,8 +21,8 @@ describe("tupleSelect", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
@@ -42,8 +42,8 @@ describe("tupleSelect", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
@@ -65,8 +65,8 @@ describe("tupleSelect", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,

@@ -40,15 +40,15 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
   const jiraLink = (
     <JiraSummaryLink
-      href={url}
-      target="_blank"
       data-cy={issueKey}
+      href={url}
       onClick={() =>
         annotationAnalytics.sendEvent({
           name: "Clicked annotation link",
           target: "Jira ticket link",
         })
       }
+      target="_blank"
     >
       {issueKey}
       {summary && `: ${summary}`}

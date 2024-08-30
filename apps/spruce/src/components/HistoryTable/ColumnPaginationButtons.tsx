@@ -39,19 +39,19 @@ const ColumnPaginationButtons: React.FC<ColumnPaginationButtonProps> = ({
   return (
     <Container>
       <StyledButton
-        disabled={!hasPreviousPage}
-        onClick={handleOnClickPrev}
         data-cy="prev-page-button"
+        disabled={!hasPreviousPage}
         leftGlyph={<Icon glyph="ChevronLeft" />}
+        onClick={handleOnClickPrev}
       />
       <Disclaimer>
         {currentPage + 1} / {pageCount}
       </Disclaimer>
       <StyledButton
-        disabled={!hasNextPage}
-        onClick={handleOnClickNext}
         data-cy="next-page-button"
+        disabled={!hasNextPage}
         leftGlyph={<Icon glyph="ChevronRight" />}
+        onClick={handleOnClickNext}
       />
     </Container>
   );

@@ -18,7 +18,7 @@ const HostStatusBadge: React.FC<Props> = ({ status }) => (
       {hostStatusToCopy[status]}
     </Badge>
     {status === HostStatus.Terminated && (
-      <IconTooltip fill={red.base} glyph="InfoWithCircle" css={iconMargin}>
+      <IconTooltip css={iconMargin} fill={red.base} glyph="InfoWithCircle">
         Terminated hosts will disappear in 5 minutes. See Event Log for more
         details.
       </IconTooltip>

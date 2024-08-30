@@ -88,16 +88,16 @@ export const SlackNotificationBanner = () => {
 
   return shouldShowSlackBanner ? (
     <Banner
-      variant="info"
       data-cy="slack-notification-banner"
       dismissible
       onClose={hideBanner}
+      variant="info"
     >
       You can receive a Slack notification when your patch is ready.{" "}
       <Popconfirm
+        confirmDisabled={!slackUsername || loadingUpdateUserSettings}
         confirmText="Save"
         onConfirm={() => saveNotificationSettings()}
-        confirmDisabled={!slackUsername || loadingUpdateUserSettings}
         trigger={
           <SubscribeButton data-cy="subscribe-to-notifications">
             Subscribe
@@ -105,13 +105,13 @@ export const SlackNotificationBanner = () => {
         }
       >
         <TextInput
-          label="Slack Username"
+          autoFocus
           data-cy="slack-username-input"
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          value={slackUsername}
+          label="Slack Username"
           onChange={(e) => setSlackUsername(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && saveNotificationSettings()}
-          autoFocus
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          value={slackUsername}
         />
       </Popconfirm>
     </Banner>

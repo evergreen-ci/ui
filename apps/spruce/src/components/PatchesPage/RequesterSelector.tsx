@@ -10,20 +10,20 @@ export const RequesterSelector: React.FC = () => {
 
   return (
     <Combobox
-      label=""
       data-cy="requester-selector"
-      placeholder="Patch submission"
-      value={statusVal}
+      label=""
       multiselect
       onChange={statusValOnChange}
       overflow="scroll-x"
+      placeholder="Patch submission"
+      value={statusVal}
     >
       {options.map(({ displayName, key, value }) => (
         <ComboboxOption
           key={key}
-          value={value}
-          displayName={displayName}
           data-cy={`${value}-option`}
+          displayName={displayName}
+          value={value}
         />
       ))}
     </Combobox>

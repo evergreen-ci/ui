@@ -72,17 +72,17 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
         return (
           <ColumnHeaderCell
             key={`header_cell_${cell.displayName}`}
+            fullDisplayName={cell.displayName}
             link={getVariantHistoryRoute(projectIdentifier, cell.buildVariant)}
-            trimmedDisplayName={trimStringFromMiddle(
-              cell.displayName,
-              maxLength,
-            )}
             onClick={() => {
               sendEvent({
                 name: "Clicked column header",
               });
             }}
-            fullDisplayName={cell.displayName}
+            trimmedDisplayName={trimStringFromMiddle(
+              cell.displayName,
+              maxLength,
+            )}
           />
         );
       })}

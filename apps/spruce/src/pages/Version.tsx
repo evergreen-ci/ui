@@ -216,7 +216,7 @@ export const VersionPage: React.FC = () => {
       >
         {isPatch && (
           // @ts-expect-error: FIXME. This comment was added by an automated script.
-          <NameChangeModal patchId={versionId} originalPatchName={message} />
+          <NameChangeModal originalPatchName={message} patchId={versionId} />
         )}
       </PageTitle>
       <PageLayout hasSider>

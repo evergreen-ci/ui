@@ -15,11 +15,11 @@ export const ActiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
       {data.map(({ label, status }) => (
         <HistoryTableIcon
           key={`${status}_history_table`}
-          status={status}
-          label={label}
           failingTests={label ? failingTests : undefined}
           inactive={false}
+          label={label}
           onClick={action(`clicked ${status}`)}
+          status={status}
         />
       ))}
     </Container>
@@ -32,8 +32,8 @@ export const InactiveIcons: CustomStoryObj<typeof HistoryTableIcon> = {
       {data.map(({ status }) => (
         <HistoryTableIcon
           key={`${status}_history_table_inactive`}
-          status={status}
           inactive
+          status={status}
         />
       ))}
     </Container>

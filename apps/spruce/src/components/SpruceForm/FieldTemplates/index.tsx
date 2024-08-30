@@ -40,20 +40,20 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
         {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
         {isNullType && <>{descriptionNode || description}</>}
         {isNullType && !!errors.length && (
-          <StyledBanner variant="danger" data-cy="error-banner">
+          <StyledBanner data-cy="error-banner" variant="danger">
             {errors.join(", ")}
           </StyledBanner>
         )}
         {isNullType && !!warnings.length && (
-          <StyledBanner variant="warning" data-cy="warning-banner">
+          <StyledBanner data-cy="warning-banner" variant="warning">
             {warnings.join(", ")}
           </StyledBanner>
         )}
         <DefaultFieldContainer
-          id={`${sectionId} ${id}`}
-          className={classNames}
           border={border}
+          className={classNames}
           data-cy={fieldDataCy}
+          id={`${sectionId} ${id}`}
         >
           {children}
         </DefaultFieldContainer>

@@ -72,10 +72,10 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         <MetadataLabel>Project:</MetadataLabel>{" "}
         {projectIdentifier ? (
           <StyledRouterLink
-            to={getProjectPatchesRoute(projectIdentifier)}
             onClick={() =>
               sendEvent({ name: "Clicked metadata project patches link" })
             }
+            to={getProjectPatchesRoute(projectIdentifier)}
           >
             {projectIdentifier}
           </StyledRouterLink>
@@ -118,8 +118,8 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       <MetadataItem>
         <MetadataLabel>Submitted by:</MetadataLabel>{" "}
         <StyledRouterLink
-          to={getUserPatchesRoute(getAuthorUsername(authorEmail))}
           data-cy="user-patches-link"
+          to={getUserPatchesRoute(getAuthorUsername(authorEmail))}
         >
           {author}
         </StyledRouterLink>

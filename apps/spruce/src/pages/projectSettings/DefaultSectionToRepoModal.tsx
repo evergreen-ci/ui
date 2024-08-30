@@ -58,9 +58,9 @@ export const DefaultSectionToRepoModal = ({
         handleClose();
       }}
       open={open}
-      variant="danger"
       requiredInputText="confirm"
       title="Are you sure you want to default all settings in this section to the repo settings?"
+      variant="danger"
     >
       <>
         <Body weight="medium">
