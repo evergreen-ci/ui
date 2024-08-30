@@ -5,6 +5,7 @@ import {
   MetadataCard,
   MetadataItem,
   MetadataTitle,
+  MetadataLabel,
 } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import {
@@ -13,7 +14,6 @@ import {
 } from "constants/externalResources";
 import { Requester } from "constants/requesters";
 import {
-  getCommitQueueRoute,
   getProjectPatchesRoute,
   getTriggerRoute,
   getUserPatchesRoute,
@@ -22,7 +22,6 @@ import {
 import { VersionQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { string } from "utils";
-import { formatZeroIndexForDisplay } from "utils/numbers";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
 
@@ -47,9 +46,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     isPatch,
     manifest,
     parameters,
-    patch,
     previousVersion,
-    project,
     projectIdentifier,
     projectMetadata,
     requester,
@@ -59,31 +56,20 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     versionTiming,
   } = version || {};
   const { sendEvent } = useVersionAnalytics(id);
-  const { commitQueuePosition } = patch || {};
   const { makespan, timeTaken } = versionTiming || {};
-  const {
-    owner: upstreamOwner,
-    project: upstreamProjectIdentifier,
-    repo: upstreamRepo,
-    revision: upstreamRevision,
-    task: upstreamTask,
-    triggerType,
-    version: upstreamVersion,
-  } = upstreamProject || {};
 
   const { branch, owner, repo } = projectMetadata || {};
 
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
 
   return (
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    <MetadataCard error={null} loading={loading}>
+    <MetadataCard loading={loading}>
       <MetadataTitle>
         {isPatch ? "Patch Metadata" : "Version Metadata"}
       </MetadataTitle>
 
       <MetadataItem>
-        Project:{" "}
+        <MetadataLabel>Project:</MetadataLabel>{" "}
         {projectIdentifier ? (
           <StyledRouterLink
             onClick={() =>
@@ -98,13 +84,15 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         )}
       </MetadataItem>
       <MetadataItem>
-        Makespan: {makespan && msToDuration(makespan)}
+        <MetadataLabel>Makespan:</MetadataLabel>{" "}
+        {makespan && msToDuration(makespan)}
       </MetadataItem>
       <MetadataItem>
-        Time taken: {timeTaken && msToDuration(timeTaken)}
+        <MetadataLabel>Time taken:</MetadataLabel>{" "}
+        {timeTaken && msToDuration(timeTaken)}
       </MetadataItem>
       <MetadataItem>
-        Submitted at:{" "}
+        <MetadataLabel>Submitted at:</MetadataLabel>{" "}
         {createTime && (
           <span title={getDateCopy(createTime)}>
             {getDateCopy(createTime, { omitSeconds: true })}
@@ -112,7 +100,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         )}
       </MetadataItem>
       <MetadataItem>
-        Started:{" "}
+        <MetadataLabel>Started:</MetadataLabel>{" "}
         {startTime && (
           <span title={getDateCopy(startTime)}>
             {getDateCopy(startTime, { omitSeconds: true })}
@@ -121,14 +109,14 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       </MetadataItem>
       {finishTime && (
         <MetadataItem>
-          Finished:{" "}
+          <MetadataLabel>Finished:</MetadataLabel>{" "}
           <span title={getDateCopy(finishTime)}>
             {getDateCopy(finishTime, { omitSeconds: true })}
           </span>
         </MetadataItem>
       )}
       <MetadataItem>
-        Submitted by:{" "}
+        <MetadataLabel>Submitted by:</MetadataLabel>{" "}
         <StyledRouterLink
           data-cy="user-patches-link"
           to={getUserPatchesRoute(getAuthorUsername(authorEmail))}
@@ -136,10 +124,9 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           {author}
         </StyledRouterLink>
       </MetadataItem>
-      {isPatch ? (
+      {isPatch && baseVersion ? (
         <BaseCommitMetadata
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          baseVersionId={baseVersion?.id}
+          baseVersionId={baseVersion.id}
           isGithubMergePatch={isGithubMergePatch}
           onClick={() =>
             sendEvent({ name: "Clicked metadata base commit link" })
@@ -148,39 +135,36 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
         />
       ) : (
         <MetadataItem>
-          Previous commit:{" "}
+          <MetadataLabel>Previous commit:</MetadataLabel>{" "}
           <InlineCode
             as={Link}
             data-cy="version-previous-commit"
             onClick={() =>
               sendEvent({ name: "Clicked metadata previous version link" })
             }
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            to={getVersionRoute(previousVersion?.id)}
+            to={getVersionRoute(previousVersion?.id || "")}
           >
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-            {shortenGithash(previousVersion?.revision)}
+            {shortenGithash(previousVersion?.revision || "")}
           </InlineCode>
         </MetadataItem>
       )}
-      {isGithubMergePatch && (
+      {isGithubMergePatch && owner && repo && branch && (
         <MetadataItem>
+          <MetadataLabel>GitHub Merge Queue:</MetadataLabel>{" "}
           <StyledLink
             data-cy="github-merge-queue-link"
             hideExternalIcon={false}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             href={getGithubMergeQueueUrl(owner, repo, branch)}
           >
             GitHub Merge Queue
           </StyledLink>
         </MetadataItem>
       )}
-      {!isPatch && (
+      {!isPatch && owner && repo && revision && (
         <MetadataItem>
-          GitHub commit:{" "}
+          <MetadataLabel>GitHub commit:</MetadataLabel>{" "}
           <InlineCode
             data-cy="version-github-commit"
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             href={getGithubCommitUrl(owner, repo, revision)}
             onClick={() =>
               sendEvent({ name: "Clicked metadata github commit link" })
@@ -190,43 +174,28 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           </InlineCode>
         </MetadataItem>
       )}
-      {isPatch && commitQueuePosition !== null && (
-        <MetadataItem>
-          <StyledRouterLink
-            data-cy="commit-queue-position"
-            to={getCommitQueueRoute(project)}
-          >
-            Commit queue position:{" "}
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-            {formatZeroIndexForDisplay(commitQueuePosition)}
-          </StyledRouterLink>
-        </MetadataItem>
-      )}
       {manifest && <ManifestBlob manifest={manifest} />}
       {upstreamProject && (
         <MetadataItem>
-          Triggered from:{" "}
+          <MetadataLabel>Triggered from:</MetadataLabel>{" "}
           <StyledRouterLink
             to={getTriggerRoute({
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              triggerType,
-              upstreamTask,
-              upstreamVersion,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              upstreamRevision,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              upstreamOwner,
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              upstreamRepo,
+              triggerType: upstreamProject.triggerType,
+              upstreamTask: upstreamProject.task,
+              upstreamVersion: upstreamProject.version,
+              upstreamRevision: upstreamProject.revision,
+              upstreamOwner: upstreamProject.owner,
+              upstreamRepo: upstreamProject.repo,
             })}
           >
-            {upstreamProjectIdentifier}
+            {upstreamProject.project}
           </StyledRouterLink>
         </MetadataItem>
       )}
       <ParametersModal parameters={parameters} />
       {externalLinksForMetadata?.map(({ displayName, url }) => (
         <MetadataItem key={displayName}>
+          <MetadataLabel>{displayName}:</MetadataLabel>{" "}
           <StyledLink data-cy="external-link" href={url}>
             {displayName}
           </StyledLink>
