@@ -150,13 +150,12 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       )}
       {isGithubMergePatch && owner && repo && branch && (
         <MetadataItem>
-          <MetadataLabel>GitHub Merge Queue:</MetadataLabel>{" "}
           <StyledLink
             data-cy="github-merge-queue-link"
             hideExternalIcon={false}
             href={getGithubMergeQueueUrl(owner, repo, branch)}
           >
-            GitHub Merge Queue
+            <MetadataLabel>GitHub Merge Queue</MetadataLabel>
           </StyledLink>
         </MetadataItem>
       )}
