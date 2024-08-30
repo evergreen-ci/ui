@@ -8,8 +8,8 @@ describe("pageSizeSelector", () => {
     render(
       <PageSizeSelector
         data-cy="page-size-selector"
-        value={10}
         onChange={onChange}
+        value={10}
       />,
     );
     await user.click(screen.getByRole("button", { name: "10 / page" }));

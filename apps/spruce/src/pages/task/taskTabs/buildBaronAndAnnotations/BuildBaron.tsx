@@ -29,15 +29,15 @@ const BuildBaron: React.FC<Props> = ({
   );
   return (
     <>
-      {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
+      {loading && <Skeleton active paragraph={{ rows: 4 }} title={false} />}
       {(data || annotation) && (
         <BuildBaronContent
+          annotation={annotation}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           bbData={data?.buildBaron}
-          taskId={taskId}
           execution={execution}
           loading={loading}
-          annotation={annotation}
+          taskId={taskId}
           userCanModify={userCanModify}
         />
       )}

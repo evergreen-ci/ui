@@ -25,15 +25,15 @@ export const ConfirmPatchButton: React.FC<ConfirmPatchButtonProps> = ({
         Remove Patch From Queue
       </StyledButton>
       <ConfirmationModal
+        buttonText="Remove"
         data-cy="commit-queue-confirmation-modal"
-        open={open}
+        onCancel={() => setOpen(false)}
         onConfirm={() => {
           onConfirm();
           setOpen(false);
         }}
-        onCancel={() => setOpen(false)}
+        open={open}
         title="Are you sure you want to remove this patch from the commit queue?"
-        buttonText="Remove"
         variant={Variant.Danger}
       >
         {commitTitle}

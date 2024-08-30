@@ -357,9 +357,9 @@ describe("searchableDropdown", () => {
           ],
           optionRenderer: (option: any, onClick) => (
             <button
-              type="button"
               key={option.value}
               onClick={() => onClick(option.value)}
+              type="button"
             >
               {option.label}
             </button>
@@ -393,9 +393,9 @@ describe("searchableDropdown", () => {
           ],
           optionRenderer: (option: any, onClick) => (
             <button
-              type="button"
               key={option.value}
               onClick={() => onClick(option.value)}
+              type="button"
             >
               {option.label}
             </button>

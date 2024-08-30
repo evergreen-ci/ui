@@ -28,25 +28,25 @@ export const ObjectFieldTemplate = ({
         <TitleContainer>
           <TitleField
             id={`${idSchema.$id}__title`}
-            title={title || uiSchema["ui:title"]}
             required={required}
+            title={title || uiSchema["ui:title"]}
           />
           {tooltipTitle && <InfoSprinkle>{tooltipTitle}</InfoSprinkle>}
         </TitleContainer>
       )}
       {description && (
         <DescriptionField
-          id={`${idSchema.$id}__description`}
           description={description}
+          id={`${idSchema.$id}__description`}
         />
       )}
       {!!errors.length && (
-        <StyledBanner variant="danger" data-cy="error-banner">
+        <StyledBanner data-cy="error-banner" variant="danger">
           {errors.join(", ")}
         </StyledBanner>
       )}
       {!!warnings.length && (
-        <StyledBanner variant="warning" data-cy="warning-banner">
+        <StyledBanner data-cy="warning-banner" variant="warning">
           {warnings.join(", ")}
         </StyledBanner>
       )}
@@ -90,17 +90,17 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   const description = uiDescription || schema.description;
   return (
     <SpruceFormContainer
-      title={uiTitle || title}
-      id={`${idSchema.$id}__title`}
       data-cy={dataCy}
       description={
         description && (
           <DescriptionField
-            id={`${idSchema.$id}__description`}
             description={description}
+            id={`${idSchema.$id}__description`}
           />
         )
       }
+      id={`${idSchema.$id}__title`}
+      title={uiTitle || title}
     >
       {properties.map((prop) => prop.content)}
     </SpruceFormContainer>

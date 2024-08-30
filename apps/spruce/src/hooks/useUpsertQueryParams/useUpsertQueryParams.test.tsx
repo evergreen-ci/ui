@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useUpsertQueryParams } from "hooks";
 import { renderWithRouterMatch, screen, userEvent } from "test_utils";
+import { useUpsertQueryParams } from ".";
 
 const Content = () => {
   const onSubmit = useUpsertQueryParams();
@@ -10,20 +10,20 @@ const Content = () => {
     <>
       <input
         data-cy="category"
+        onChange={(e) => setCategory(e.target.value)}
         type="text"
         value={category}
-        onChange={(e) => setCategory(e.target.value)}
       />
       <input
         data-cy="value"
+        onChange={(e) => setValue(e.target.value)}
         type="text"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
       />
       <button
         data-cy="submit"
-        type="button"
         onClick={() => onSubmit({ category, value })}
+        type="button"
       >
         Submit
       </button>

@@ -60,9 +60,9 @@ export const GeneralTab: React.FC<TabProps> = ({
 
   return (
     <BaseTab
+      formSchema={formSchema}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       initialFormState={initialFormState}
-      formSchema={formSchema}
       tab={tab}
       validate={validate(projectType)}
     />

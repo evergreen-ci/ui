@@ -22,7 +22,7 @@ export const HostCard: React.FC<Props> = ({
   metaData,
 }) => (
   <SiderCard metaData={metaData}>
-    {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
+    {loading && <Skeleton active paragraph={{ rows: 4 }} title={false} />}
     {error && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
     )}

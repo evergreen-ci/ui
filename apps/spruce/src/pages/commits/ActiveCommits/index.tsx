@@ -20,11 +20,10 @@ export const ActiveCommitLabel: React.FC<ActiveCommitLabelProps> = ({
   });
   return (
     <CommitChartLabel
-      versionId={version.id}
+      author={version.author}
+      createTime={version.createTime}
       githash={shortenGithash(version.revision)}
       gitTags={version.gitTags}
-      createTime={version.createTime}
-      author={version.author}
       message={version.message}
       onClickGithash={() => {
         sendEvent({
@@ -48,6 +47,7 @@ export const ActiveCommitLabel: React.FC<ActiveCommitLabelProps> = ({
         });
       }}
       upstreamProject={version.upstreamProject}
+      versionId={version.id}
     />
   );
 };
@@ -89,16 +89,16 @@ export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
       return (
         <BuildVariantCard
           key={`${id}_${variant}`}
-          height={height}
-          variant={variant}
           buildVariantDisplayName={displayName}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           groupedVariantStats={variantStats}
-          versionId={id}
+          height={height}
+          order={order}
           projectIdentifier={projectIdentifier}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           tasks={buildVariant?.tasks}
-          order={order}
+          variant={variant}
+          versionId={id}
         />
       );
     });

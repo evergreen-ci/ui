@@ -73,10 +73,10 @@ export const CommitChart: React.FC<Props> = ({ hasTaskFilter, versions }) => {
   ) : (
     <>
       <Accordion
-        title="Project Health"
-        useIndent={false}
         defaultOpen={chartOpen}
         onToggle={() => onChangeChartOpen(!chartOpen)}
+        title="Project Health"
+        useIndent={false}
       >
         <ChartWrapper>
           <FlexRowContainer>
@@ -87,14 +87,14 @@ export const CommitChart: React.FC<Props> = ({ hasTaskFilter, versions }) => {
                 width={getCommitWidth(commit)}
               >
                 <RenderCommitsChart
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  hasTaskFilter={hasTaskFilter}
-                  commit={commit}
                   chartType={chartType}
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  max={max}
+                  commit={commit}
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
                   groupedResult={versionToGroupedTaskStatsMap}
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  hasTaskFilter={hasTaskFilter}
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  max={max}
                 />
               </CommitWrapper>
             ))}
@@ -105,8 +105,8 @@ export const CommitChart: React.FC<Props> = ({ hasTaskFilter, versions }) => {
           <AbsoluteContainer>
             <ChartToggle
               currentChartType={chartType}
-              onChangeChartType={onChangeChartType}
               defaultOpenAccordion={defaultOpenAccordion}
+              onChangeChartType={onChangeChartType}
               onToggleAccordion={onToggleAccordion}
             />
           </AbsoluteContainer>

@@ -30,15 +30,15 @@ export const ChartToggle: React.FC<{
   };
   return (
     <StyledAccordion
-      title="View options"
       defaultOpen={defaultOpenAccordion}
       onToggle={onToggleAccordion}
+      title="View options"
     >
       <ToggleWrapper>
         <StyledRadioGroup
+          name="chart-select"
           onChange={onChange}
           value={currentChartType}
-          name="chart-select"
         >
           <Radio
             data-cy="cy-chart-absolute-radio"

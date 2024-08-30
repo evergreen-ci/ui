@@ -60,7 +60,7 @@ ui_server_host: "${config?.ui_server_host}"
         <Code language="yaml">{authCode}</Code>
       </CodeContainer>
       <ButtonGroup>
-        <Button variant={Variant.Primary} onClick={downloadFile}>
+        <Button onClick={downloadFile} variant={Variant.Primary}>
           Download file
         </Button>
         <Button onClick={resetKey}>Reset key</Button>

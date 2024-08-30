@@ -3,8 +3,8 @@ import { ApolloQueryResult, OperationVariables } from "@apollo/client";
 import Cookies from "js-cookie";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
-import { useNetworkStatus } from "./useNetworkStatus";
-import { usePageVisibility } from "./usePageVisibility";
+import { useNetworkStatus } from "hooks/useNetworkStatus";
+import { usePageVisibility } from "hooks/usePageVisibility";
 
 interface Props {
   startPolling: (DEFAULT_POLL_INTERVAL: number) => void;

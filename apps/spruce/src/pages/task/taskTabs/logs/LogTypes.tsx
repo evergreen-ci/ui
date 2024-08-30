@@ -244,7 +244,7 @@ const useRenderBody: React.FC<{
   }, [setNoLogs, noLogs]);
 
   if (loading) {
-    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
+    return <Skeleton active paragraph={{ rows: 8 }} title={false} />;
   }
   if (noLogs) {
     return <div data-cy="cy-no-logs">No logs found</div>;

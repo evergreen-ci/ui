@@ -18,15 +18,15 @@ const browserRouter = createBrowserRouter(
   createRoutesFromElements(
     <>
       {(isDevelopmentBuild() || isLocal()) && (
-        <Route path={routes.login} element={<Login />} />
+        <Route element={<Login />} path={routes.login} />
       )}
       <Route
-        path="/*"
         element={
           <GQLWrapper>
             <Content />
           </GQLWrapper>
         }
+        path="/*"
       />
     </>,
   ),

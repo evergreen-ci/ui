@@ -23,22 +23,22 @@ export const ButtonDropdown: React.FC<Props> = ({
   size = "small",
 }) => (
   <Menu
+    adjustOnMutation
+    data-cy="card-dropdown"
+    open={open}
+    popoverZIndex={zIndex.popover}
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    setOpen={setOpen}
     trigger={
       <LoadingButton
-        size={size}
         data-cy={dataCy}
         disabled={disabled}
         loading={loading}
+        size={size}
       >
         <Icon glyph="Ellipsis" />
       </LoadingButton>
     }
-    data-cy="card-dropdown"
-    popoverZIndex={zIndex.popover}
-    adjustOnMutation
-    open={open}
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    setOpen={setOpen}
   >
     {dropdownItems}
   </Menu>

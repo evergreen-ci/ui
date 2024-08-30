@@ -46,8 +46,8 @@ export const UserPatches = () => {
   return (
     <PatchesPage
       filterComp={<RequesterSelector />}
-      pageTitle={pageTitle || "User Patches"}
       loading={loading && !data?.user.patches}
+      pageTitle={pageTitle || "User Patches"}
       pageType="user"
       patches={data?.user.patches}
     />

@@ -12,7 +12,7 @@ export const Default: CustomStoryObj<typeof TestStatusBadge> = {
   render: (args) => (
     <Container>
       {Object.values(TestStatus).map((status) => (
-        <TestStatusBadge {...args} status={status} key={status} />
+        <TestStatusBadge {...args} key={status} status={status} />
       ))}
     </Container>
   ),

@@ -78,7 +78,7 @@ export const getColumnsTemplate = ({ task }: GetColumnsTemplateParams) => [
     header: "Logs",
     sorter: false,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ row }) => <LogsColumn testResult={row.original} task={task} />,
+    cell: ({ row }) => <LogsColumn task={task} testResult={row.original} />,
     meta: {
       width: "20%",
     },

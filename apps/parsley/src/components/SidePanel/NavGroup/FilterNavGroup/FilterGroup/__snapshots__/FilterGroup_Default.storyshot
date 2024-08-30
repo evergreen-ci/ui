@@ -52,13 +52,14 @@
             aria-disabled="false"
             aria-label="Hide filter"
             aria-labelledby=":r0:"
-            class="lg-ui-toggle-button-0000 leafygreen-ui-qt4gv"
+            class="lg-ui-toggle-button-0000 leafygreen-ui-2o8wt6"
+            data-lgid="lg-toggle"
             role="switch"
             title="Hide filter"
             type="button"
           >
             <div
-              class="leafygreen-ui-130cqp8"
+              class="leafygreen-ui-38rddy"
             />
           </button>
           <button
@@ -141,8 +142,8 @@
               Case
             </div>
             <div
-              aria-label="segmented-control-245"
-              aria-owns="segmented-control-245-0 segmented-control-245-1"
+              aria-label="segmented-control-251"
+              aria-owns="segmented-control-251-0 segmented-control-251-1"
               class="leafygreen-ui-18en4yf"
               role="tablist"
             >
@@ -158,7 +159,7 @@
                     aria-controls="Toggle case sensitivity"
                     aria-selected="false"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-245-0"
+                    id="segmented-control-251-0"
                     role="tab"
                     tabindex="-1"
                     type="button"
@@ -187,7 +188,7 @@
                     aria-controls="Toggle case sensitivity"
                     aria-selected="true"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-245-1"
+                    id="segmented-control-251-1"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -221,8 +222,8 @@
               Match
             </div>
             <div
-              aria-label="segmented-control-246"
-              aria-owns="segmented-control-246-0 segmented-control-246-1"
+              aria-label="segmented-control-252"
+              aria-owns="segmented-control-252-0 segmented-control-252-1"
               class="leafygreen-ui-18en4yf"
               role="tablist"
             >
@@ -238,7 +239,7 @@
                     aria-controls="Toggle match type"
                     aria-selected="true"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-246-0"
+                    id="segmented-control-252-0"
                     role="tab"
                     tabindex="0"
                     type="button"
@@ -267,7 +268,7 @@
                     aria-controls="Toggle match type"
                     aria-selected="false"
                     class="leafygreen-ui-ypz97o"
-                    id="segmented-control-246-1"
+                    id="segmented-control-252-1"
                     role="tab"
                     tabindex="-1"
                     type="button"

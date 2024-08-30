@@ -13,5 +13,5 @@ export const Default: CustomStoryObj<typeof PageSizeSelector> = {
 
 const PageSize = () => {
   const [pageSize, setPageSize] = useState(10);
-  return <PageSizeSelector value={pageSize} onChange={setPageSize} />;
+  return <PageSizeSelector onChange={setPageSize} value={pageSize} />;
 };

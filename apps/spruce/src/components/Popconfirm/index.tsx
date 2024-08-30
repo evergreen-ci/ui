@@ -38,34 +38,34 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
 
   return (
     <Tooltip
-      popoverZIndex={zIndex.popover}
-      triggerEvent="click"
-      open={open}
       onClose={onClose}
+      open={open}
+      popoverZIndex={zIndex.popover}
       refEl={refEl}
       setOpen={setOpen}
+      triggerEvent="click"
       {...props}
     >
       <ContentWrapper ref={popoverRef}>
         {children}
         <ButtonWrapper>
           <Button
-            size="small"
             onClick={() => {
               onClose();
               setOpen(false);
             }}
+            size="small"
           >
             Cancel
           </Button>
           <Button
             disabled={confirmDisabled}
-            size="small"
-            variant="primary"
             onClick={(e) => {
               onConfirm(e);
               setOpen(false);
             }}
+            size="small"
+            variant="primary"
           >
             {confirmText}
           </Button>

@@ -8,7 +8,6 @@ module.exports = {
   plugins: ["sort-keys-plus"],
   root: true,
   rules: {
-    "react/jsx-sort-props": WARN, // Sort props alphabetically
     "sort-imports": [
       ERROR,
       {

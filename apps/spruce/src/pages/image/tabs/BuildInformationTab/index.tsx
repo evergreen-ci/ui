@@ -15,13 +15,13 @@ export const BuildInformationTab: React.FC<BuildInformationTabProps> = ({
     <SpruceFormContainer title="General">
       <GeneralTable imageId={imageId} />
     </SpruceFormContainer>
-    <SpruceFormContainer title="Distros" data-cy="distros-card">
+    <SpruceFormContainer data-cy="distros-card" title="Distros">
       <DistrosTable imageId={imageId} />
     </SpruceFormContainer>
-    <SpruceFormContainer title="Packages" data-cy="packages-card">
+    <SpruceFormContainer data-cy="packages-card" title="Packages">
       <PackagesTable imageId={imageId} />
     </SpruceFormContainer>
-    <SpruceFormContainer title="Toolchains" data-cy="toolchains-card">
+    <SpruceFormContainer data-cy="toolchains-card" title="Toolchains">
       <ToolchainsTable imageId={imageId} />
     </SpruceFormContainer>
   </>

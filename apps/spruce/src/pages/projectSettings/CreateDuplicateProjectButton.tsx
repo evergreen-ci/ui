@@ -14,8 +14,8 @@ import { ProjectType } from "./tabs/utils";
 
 const NewProjectButton = (
   <PlusButton
-    size={Size.Small}
     data-cy="new-project-button"
+    size={Size.Small}
     variant={Variant.Primary}
   >
     New Project
@@ -68,11 +68,11 @@ export const CreateDuplicateProjectButton: React.FC<Props> = ({
         })
       ) : (
         <Menu
-          open={menuOpen}
-          setOpen={setMenuOpen}
-          popoverZIndex={zIndex.popover}
-          trigger={NewProjectButton}
           data-cy="new-project-menu"
+          open={menuOpen}
+          popoverZIndex={zIndex.popover}
+          setOpen={setMenuOpen}
+          trigger={NewProjectButton}
         >
           <MenuItem
             data-cy="create-project-button"

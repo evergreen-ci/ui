@@ -69,9 +69,9 @@ export const SpawnVolume = () => {
         </BadgeWrapper>
       </TitleContainer>
       <SpawnVolumeButton
+        maxSpawnableLimit={maxSpawnableLimit}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         volumeLimit={volumeLimit}
-        maxSpawnableLimit={maxSpawnableLimit}
       />
       {volumes.length ? (
         <SpawnVolumeTable volumes={volumes} />

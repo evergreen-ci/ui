@@ -34,18 +34,18 @@ export const HostPopover: React.FC<Props> = ({
     <>
       <ButtonWrapper ref={buttonRef}>
         <Button
-          onClick={() => setActive((curr) => !curr)}
           data-cy={dataCy}
           disabled={disabled}
+          onClick={() => setActive((curr) => !curr)}
         >
           {buttonText}
         </Button>
       </ButtonWrapper>
       <Popover
-        align="bottom"
-        justify="middle"
         active={active}
+        align="bottom"
         data-cy={`${dataCy}-popover`}
+        justify="middle"
         popoverZIndex={zIndex.popover}
       >
         <PopoverContainer ref={popoverRef}>
@@ -54,22 +54,22 @@ export const HostPopover: React.FC<Props> = ({
           <ButtonContainer>
             <ButtonSpacer>
               <Button
-                size="xsmall"
                 disabled={loading}
                 onClick={() => setActive(false)}
+                size="xsmall"
               >
                 No
               </Button>
             </ButtonSpacer>
             <ButtonSpacer>
               <Button
-                variant="primary"
-                size="xsmall"
                 disabled={loading}
                 onClick={() => {
                   onClick();
                   setActive(false);
                 }}
+                size="xsmall"
+                variant="primary"
               >
                 Yes
               </Button>

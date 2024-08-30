@@ -48,9 +48,9 @@ const Dropdown: React.FC<DropdownProps> = ({
     <Container id={id}>
       <StyledButton
         ref={menuButtonRef}
-        onClick={() => setIsOpen(!isOpen)}
         data-cy={dataCy}
         disabled={disabled}
+        onClick={() => setIsOpen(!isOpen)}
         rightGlyph={<Icon glyph={isOpen ? "ChevronUp" : "ChevronDown"} />}
       >
         <ButtonContent>

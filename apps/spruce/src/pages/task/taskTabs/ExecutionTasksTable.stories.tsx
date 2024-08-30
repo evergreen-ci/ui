@@ -9,9 +9,9 @@ export default {
 export const SingleExecution: CustomStoryObj<typeof ExecutionTasksTable> = {
   render: () => (
     <ExecutionTasksTable
-      isPatch
-      executionTasksFull={singleExecution}
       execution={5}
+      executionTasksFull={singleExecution}
+      isPatch
     />
   ),
 };
@@ -19,9 +19,9 @@ export const SingleExecution: CustomStoryObj<typeof ExecutionTasksTable> = {
 export const MultipleExecutions: CustomStoryObj<typeof ExecutionTasksTable> = {
   render: () => (
     <ExecutionTasksTable
-      isPatch
-      executionTasksFull={multipleExecutions}
       execution={14}
+      executionTasksFull={multipleExecutions}
+      isPatch
     />
   ),
 };

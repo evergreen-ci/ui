@@ -25,18 +25,18 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
 }) => (
   <Tooltip
     align="right"
-    justify="middle"
     enabled={!inactive && failingTests.length > 0}
+    justify="middle"
     popoverZIndex={zIndex.tooltip}
     trigger={
       <Container
-        onClick={() => onClick()}
+        aria-disabled={inactive}
         data-cy="history-table-icon"
         data-status={status}
-        aria-disabled={inactive}
+        onClick={() => onClick()}
       >
         <IconContainer>
-          <TaskStatusIcon status={status} size={30} />
+          <TaskStatusIcon size={30} status={status} />
         </IconContainer>
         {!inactive && <Body>{label}</Body>}
       </Container>

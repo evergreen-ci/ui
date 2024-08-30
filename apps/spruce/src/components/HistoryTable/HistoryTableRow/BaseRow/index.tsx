@@ -63,8 +63,8 @@ const BaseRow: React.FC<RowProps> = ({
             <CommitChartLabel
               author={author}
               createTime={createTime}
-              gitTags={gitTags}
               githash={revision}
+              gitTags={gitTags}
               message={message}
               onClickGithash={onClickGithash}
               onClickJiraTicket={onClickJiraTicket}
@@ -80,9 +80,8 @@ const BaseRow: React.FC<RowProps> = ({
     case rowType.FOLDED_COMMITS:
       return (
         <FoldedCommit
-          index={index}
           data={data}
-          selected={selected}
+          index={index}
           numVisibleCols={numVisibleCols || columnLimit}
           onClickGithash={onClickFoldedGithash}
           onClickJiraTicket={onClickFoldedJiraTicket}
@@ -90,6 +89,7 @@ const BaseRow: React.FC<RowProps> = ({
             onToggleFoldedCommit({ isVisible: expanded });
             toggleRowExpansion(rowIndex, expanded);
           }}
+          selected={selected}
         />
       );
     default:

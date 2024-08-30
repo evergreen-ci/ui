@@ -50,13 +50,13 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
     <Container>
       <Combobox
         data-cy="task-selector"
+        disabled={loading}
         label="Tasks"
-        placeholder="Select tasks"
-        value={visibleColumns}
         multiselect
         onChange={onChange}
-        disabled={loading}
         overflow="scroll-x"
+        placeholder="Select tasks"
+        value={visibleColumns}
       >
         {taskNamesForBuildVariant?.map((taskName) => (
           <ComboboxOption key={taskName} value={taskName} />
