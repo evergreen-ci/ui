@@ -6,11 +6,11 @@ describe("taskCell", () => {
   it("should render a task cell corresponding to a passed in status", () => {
     const { rerender } = render(
       <TaskCell
+        loading={false}
         task={{
           id: "some-task-id",
           status: TaskStatus.Succeeded,
         }}
-        loading={false}
       />,
     );
 
@@ -19,11 +19,11 @@ describe("taskCell", () => {
 
     rerender(
       <TaskCell
+        loading={false}
         task={{
           id: "some-task-id",
           status: TaskStatus.Failed,
         }}
-        loading={false}
       />,
     );
     expect(screen.getByLabelText("Failure Icon")).toBeInTheDocument();
@@ -33,11 +33,11 @@ describe("taskCell", () => {
   it("should link to the task page", () => {
     render(
       <TaskCell
+        loading={false}
         task={{
           id: "some-task-id",
           status: TaskStatus.Succeeded,
         }}
-        loading={false}
       />,
     );
     expect(screen.queryByRole("link")).toHaveAttribute(
@@ -49,12 +49,12 @@ describe("taskCell", () => {
   it("should be transparent when it is inactive", () => {
     render(
       <TaskCell
+        inactive
+        loading={false}
         task={{
           id: "some-task-id",
           status: TaskStatus.Succeeded,
         }}
-        inactive
-        loading={false}
       />,
     );
     expect(screen.queryByDataCy("task-cell")).toHaveStyle("opacity: 0.4");
@@ -63,11 +63,11 @@ describe("taskCell", () => {
   it("should render a label when one is passed in", () => {
     render(
       <TaskCell
+        label="some-label"
         task={{
           id: "some-task-id",
           status: TaskStatus.Failed,
         }}
-        label="some-label"
       />,
     );
     expect(screen.getByText("some-label")).toBeInTheDocument();
@@ -77,12 +77,12 @@ describe("taskCell", () => {
     const user = userEvent.setup();
     render(
       <TaskCell
+        failingTests={["some-test"]}
+        loading={false}
         task={{
           id: "some-task-id",
           status: TaskStatus.Failed,
         }}
-        failingTests={["some-test"]}
-        loading={false}
       />,
     );
     // @ts-expect-error: FIXME. This comment was added by an automated script.

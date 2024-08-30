@@ -15,20 +15,20 @@ const menuItems = [
 ];
 describe("navDropdown", () => {
   it("renders the dropdown", () => {
-    render(<NavDropdown title="Dropdown" menuItems={menuItems} />);
+    render(<NavDropdown menuItems={menuItems} title="Dropdown" />);
 
     expect(screen.getByText("Dropdown")).toBeInTheDocument();
   });
   it("opening the dropdown renders all of the buttons", async () => {
     const user = userEvent.setup();
-    render(<NavDropdown title="Dropdown" menuItems={menuItems} />);
+    render(<NavDropdown menuItems={menuItems} title="Dropdown" />);
     await user.click(screen.getByText("Dropdown"));
     expect(screen.getByText("Item 1")).toBeInTheDocument();
     expect(screen.getByText("Item 2")).toBeInTheDocument();
   });
   it("should link to both router and non-router links", async () => {
     const user = userEvent.setup();
-    render(<NavDropdown title="Dropdown" menuItems={menuItems} />);
+    render(<NavDropdown menuItems={menuItems} title="Dropdown" />);
     await user.click(screen.getByText("Dropdown"));
     expect(screen.getByText("Item 1")).toBeInTheDocument();
     expect(screen.getByText("Item 1").closest("a")).toHaveAttribute(
@@ -45,7 +45,6 @@ describe("navDropdown", () => {
     const mockCallback = vi.fn();
     render(
       <NavDropdown
-        title="Dropdown"
         menuItems={[
           {
             "data-cy": "item-1",
@@ -54,6 +53,7 @@ describe("navDropdown", () => {
             onClick: mockCallback,
           },
         ]}
+        title="Dropdown"
       />,
     );
     await user.click(screen.getByText("Dropdown"));

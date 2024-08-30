@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import { MetStatus, RequiredStatus } from "gql/generated/types";
+import { AbortInfo, MetStatus, RequiredStatus } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import { TaskStatus } from "types/task";
 import { Metadata } from "./index";
 
 export default {
@@ -13,11 +14,9 @@ export const Default: CustomStoryObj<typeof Metadata> = {
     <Container>
       <Metadata
         {...args}
-        task={taskQuery.task}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        taskId={taskQuery.task.id}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         error={null}
+        task={taskQuery.task}
+        taskId={taskQuery.task.id}
       />
     </Container>
   ),
@@ -28,7 +27,7 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
     <Container>
       <Metadata
         {...args}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        error={null}
         task={{
           ...taskQuery.task,
           dependsOn: [
@@ -62,10 +61,7 @@ export const WithDependencies: CustomStoryObj<typeof Metadata> = {
             },
           ],
         }}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         taskId={taskQuery.task.id}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        error={null}
       />
     </Container>
   ),
@@ -78,17 +74,13 @@ export const WithAbortMessage: CustomStoryObj<
     <Container>
       <Metadata
         {...args}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        error={null}
         task={{
           ...taskQuery.task,
           aborted: true,
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           abortInfo: abortInfoMap[abortInfoSelection],
         }}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         taskId={taskQuery.task.id}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        error={null}
       />
     </Container>
   ),
@@ -108,66 +100,89 @@ export const WithAbortMessage: CustomStoryObj<
   },
 };
 
+export const OOMTracker: CustomStoryObj<typeof Metadata> = {
+  render: (args) => (
+    <Container>
+      <Metadata
+        {...args}
+        error={null}
+        task={{
+          ...taskQuery.task,
+          details: {
+            failingCommand: "",
+            description: "'shell.exec' in function 'yarn-test' (step 1 of 1)",
+            diskDevices: [],
+            oomTracker: {
+              detected: true,
+              pids: [12345, 67890],
+            },
+            status: TaskStatus.Failed,
+            type: "type",
+          },
+        }}
+        taskId={taskQuery.task.id}
+      />
+    </Container>
+  ),
+};
+
 export const ContainerizedTask: CustomStoryObj<typeof Metadata> = {
   render: (args) => (
     <Container>
       <Metadata
         {...args}
+        error={null}
         task={{
           ...taskQuery.task,
           hostId: null,
           ami: null,
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          distroId: null,
+          distroId: "",
           pod: {
             id: "pod_id",
           },
           spawnHostLink: null,
         }}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         taskId={taskQuery.task.id}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        error={null}
       />
     </Container>
   ),
 };
 
 const Container = styled.div`
-  width: 400px;
+  width: 275px;
 `;
 
-const abortInfoMap = {
+const abortInfoMap: Record<string, AbortInfo> = {
   NoUser: {
     buildVariantDisplayName: "~ Commit Queue",
-    newVersion: null,
+    newVersion: "",
     prClosed: false,
     taskDisplayName: "api-task-server",
     taskID: "abc",
-    user: null,
+    user: "",
   },
   AbortedBecauseOfFailingTask: {
     buildVariantDisplayName: "~ Commit Queue",
-    newVersion: null,
+    newVersion: "",
     prClosed: false,
     taskDisplayName: "api-task-server",
     taskID: "abc",
     user: "apiserver",
   },
   AbortedBecauseOfNewVersion: {
-    buildVariantDisplayName: null,
+    buildVariantDisplayName: "",
     newVersion: "5ee1efb3d1fe073e194e8b5c",
     prClosed: false,
-    taskDisplayName: null,
-    taskID: null,
+    taskDisplayName: "",
+    taskID: "",
     user: "apiserver",
   },
   AbortedBecausePRClosed: {
-    buildVariantDisplayName: null,
-    newVersion: null,
+    buildVariantDisplayName: "",
+    newVersion: "",
     prClosed: true,
-    taskDisplayName: null,
-    taskID: null,
+    taskDisplayName: "",
+    taskID: "",
     user: "apiserver",
   },
 };

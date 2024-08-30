@@ -54,8 +54,8 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
       <Popconfirm
         align="left"
         data-cy="schedule-undispatched-base-popconfirm"
-        open={open}
         onConfirm={onConfirm}
+        open={open}
         refEl={menuItemRef}
         setOpen={setOpen}
       >

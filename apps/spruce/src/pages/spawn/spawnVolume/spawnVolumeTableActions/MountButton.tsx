@@ -13,19 +13,19 @@ export const MountButton: React.FC<Props> = ({ volume }) => {
   return (
     <>
       <Button
-        size={Size.XSmall}
         data-cy={`attach-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
         onClick={(e) => {
           e.stopPropagation();
           setOpenModal(true);
         }}
+        size={Size.XSmall}
       >
         Mount
       </Button>
       <MountVolumeModal
-        visible={openModal}
         onCancel={() => setOpenModal(false)}
+        visible={openModal}
         volume={volume}
       />
     </>

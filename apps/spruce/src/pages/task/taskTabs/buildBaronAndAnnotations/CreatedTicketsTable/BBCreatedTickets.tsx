@@ -20,7 +20,7 @@ const BBCreatedTickets: React.FC<CreatedTicketsProps> = ({
     {buildBaronConfigured && (
       <>
         <TicketsTitle>Create a New Ticket</TicketsTitle>
-        <FileTicketButton taskId={taskId} execution={execution} />
+        <FileTicketButton execution={execution} taskId={taskId} />
       </>
     )}
     {tickets?.length > 0 && (

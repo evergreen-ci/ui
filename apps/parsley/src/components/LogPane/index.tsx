@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import Cookies from "js-cookie";
+import { useLogWindowAnalytics } from "analytics";
 import PaginatedVirtualList from "components/PaginatedVirtualList";
 import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/cookies";
 import { QueryParams } from "constants/queryParams";
@@ -17,6 +18,7 @@ interface LogPaneProps {
 const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
   const { failingLine, listRef, preferences, processedLogLines, scrollToLine } =
     useLogContext();
+  const { sendEvent } = useLogWindowAnalytics();
   const { setPrettyPrint, setWrap, zebraStriping } = preferences;
   const { settings } = useParsleySettings();
   const [shareLine] = useQueryParam<number | undefined>(
@@ -56,6 +58,12 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
           setPrettyPrint(true);
         }
         performedScroll.current = true;
+        sendEvent({
+          name: "Viewed log with sections and jump to failing line",
+          "settings.jump_to_failing_line.enabled":
+            settings.jumpToFailingLineEnabled,
+          "settings.sections.enabled": settings.sectionsEnabled,
+        });
       }, 100);
       return () => clearTimeout(timeoutId);
     }

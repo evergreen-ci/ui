@@ -21,8 +21,8 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
@@ -41,8 +41,8 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
@@ -64,8 +64,8 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
@@ -94,8 +94,8 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
@@ -121,8 +121,8 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,

@@ -43,10 +43,10 @@ export const DayPicker: React.FC<{
     <Container data-cy="daypicker">
       {days.map((day, i) => (
         <Day
+          key={day}
           day={day}
           disabled={disabled}
           handleClick={() => handleClick(i)}
-          key={day}
           selected={selectedDays[i]}
         />
       ))}

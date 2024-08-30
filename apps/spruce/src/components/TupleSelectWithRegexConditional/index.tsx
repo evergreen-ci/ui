@@ -37,27 +37,27 @@ const TupleSelectWithRegexConditional: React.FC<
   return (
     <TupleSelect
       {...rest}
-      onSubmit={handleOnSubmit}
       aria-label="tuple-select-with-regex"
-      validator={isRegex ? validator : () => true}
       label={
         <>
           Add New Filter
           <PaddedSegmentedControl
-            size="xsmall"
-            onChange={setType}
-            value={type}
             aria-controls="tuple-select-with-regex"
+            onChange={setType}
+            size="xsmall"
+            value={type}
           >
-            <SegmentedControlOption value="regex" data-cy="tuple-select-regex">
+            <SegmentedControlOption data-cy="tuple-select-regex" value="regex">
               REGEX
             </SegmentedControlOption>
-            <SegmentedControlOption value="exact" data-cy="tuple-select-exact">
+            <SegmentedControlOption data-cy="tuple-select-exact" value="exact">
               EXACT
             </SegmentedControlOption>
           </PaddedSegmentedControl>
         </>
       }
+      onSubmit={handleOnSubmit}
+      validator={isRegex ? validator : () => true}
     />
   );
 };

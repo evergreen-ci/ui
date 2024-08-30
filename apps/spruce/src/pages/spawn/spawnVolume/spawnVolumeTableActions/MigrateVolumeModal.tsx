@@ -159,13 +159,13 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
 
   return (
     <ConfirmationModal
-      title={title}
+      buttonText={buttonText}
+      data-cy="migrate-modal"
+      onCancel={onCancel}
+      onConfirm={onConfirm}
       open={open}
       submitDisabled={hasError || loadingMigration || volume.migrating}
-      onConfirm={onConfirm}
-      data-cy="migrate-modal"
-      buttonText={buttonText}
-      onCancel={onCancel}
+      title={title}
     >
       <Body>
         Migrate this home volume to a new host. Upon successful migration, the
@@ -173,13 +173,13 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
       </Body>
       {onPageOne && (
         <SpruceForm
-          schema={schema}
-          uiSchema={uiSchema}
           formData={form}
           onChange={({ errors, formData }) => {
             dispatch({ type: "setForm", payload: formData });
             dispatch({ type: "setHasError", payload: errors.length > 0 });
           }}
+          schema={schema}
+          uiSchema={uiSchema}
         />
       )}
     </ConfirmationModal>

@@ -89,7 +89,6 @@ export const SaveModal: React.FC<SaveModalProps> = ({
     <ConfirmationModal
       buttonText="Save"
       data-cy="save-modal"
-      open={open}
       onCancel={() => {
         onCancel?.();
       }}
@@ -97,6 +96,7 @@ export const SaveModal: React.FC<SaveModalProps> = ({
         onConfirm?.();
         handleSave();
       }}
+      open={open}
       title="Save page"
     >
       {banner}

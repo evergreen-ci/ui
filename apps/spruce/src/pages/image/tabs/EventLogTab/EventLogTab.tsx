@@ -27,11 +27,11 @@ export const EventLogTab: React.FC<EventLogTabProps> = ({ imageId }) => {
         <StyledBody data-cy="header-text">
           With the exception of static hosts, AMI changes correspond to changes
           in the{" "}
-          <StyledLink target="_blank" href={buildHostConfigurationRepoURL}>
+          <StyledLink href={buildHostConfigurationRepoURL} target="_blank">
             buildhost-configuration
           </StyledLink>{" "}
           and{" "}
-          <StyledLink target="_blank" href={buildHostPostConfigRepoURL}>
+          <StyledLink href={buildHostPostConfigRepoURL} target="_blank">
             buildhost-post-config
           </StyledLink>{" "}
           repos.

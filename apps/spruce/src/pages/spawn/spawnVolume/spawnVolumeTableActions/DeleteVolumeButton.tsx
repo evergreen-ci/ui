@@ -51,12 +51,12 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
       }}
       trigger={
         <Button
-          size={Size.XSmall}
           data-cy={`trash-${volume.displayName || volume.id}`}
           disabled={loadingRemoveVolume || volume.migrating}
           onClick={(e) => {
             e.stopPropagation();
           }}
+          size={Size.XSmall}
         >
           <Icon glyph="Trash" />
         </Button>
@@ -65,13 +65,13 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
       Delete volume “{volumeName}”?
       {volume.hostID && (
         <Checkbox
+          checked={checkboxAcknowledged}
           data-cy="abort-checkbox"
           label="I understand this volume is currently mounted to a host."
           onChange={(e) => {
             e.nativeEvent.stopPropagation();
             setCheckboxAcknowledged(!checkboxAcknowledged);
           }}
-          checked={checkboxAcknowledged}
         />
       )}
     </Popconfirm>

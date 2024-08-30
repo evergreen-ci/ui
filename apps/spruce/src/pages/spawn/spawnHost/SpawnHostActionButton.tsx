@@ -116,8 +116,8 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
             data-cy="pause-unexpirable-host-button"
             disabled={loading || host.status === HostStatus.Stopping}
             leftGlyph={<Icon glyph={glyph} />}
-            size={Size.XSmall}
             onClick={() => setSleepModalOpen((o) => !o)}
+            size={Size.XSmall}
           />
           <PauseSleepScheduleModal
             handleConfirm={(shouldKeepOff) =>
@@ -134,8 +134,8 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
           <Button
             disabled={loading || host.status === HostStatus.Stopping}
             leftGlyph={<Icon glyph={glyph} />}
-            size={Size.XSmall}
             onClick={() => handleClick(action)}
+            size={Size.XSmall}
           />
         )
       )}
@@ -144,11 +144,11 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         onConfirm={() => handleClick(SpawnHostStatusActions.Terminate)}
         trigger={
           <Button
-            size={Size.XSmall}
             disabled={!canTerminate}
             onClick={(e) => {
               e.stopPropagation();
             }}
+            size={Size.XSmall}
           >
             <Icon glyph="Trash" />
           </Button>
@@ -157,12 +157,12 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         Delete host “{host.displayName || host.id}”?
         {checkboxLabel && (
           <Checkbox
+            checked={checkboxAcknowledged}
             label={checkboxLabel}
             onChange={(e) => {
               e.nativeEvent.stopPropagation();
               setCheckboxAcknowledged(!checkboxAcknowledged);
             }}
-            checked={checkboxAcknowledged}
           />
         )}
       </Popconfirm>

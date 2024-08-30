@@ -47,9 +47,9 @@ describe("copySSHCommandButton", () => {
     render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
-          user={testUser}
-          hostUrl={hostUrl}
           hostStatus={HostStatus.Running}
+          hostUrl={hostUrl}
+          user={testUser}
         />
       </MockedProvider>,
     );
@@ -88,9 +88,9 @@ describe("copySSHCommandButton", () => {
     render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
-          user={testUser}
-          hostUrl=""
           hostStatus={HostStatus.Starting}
+          hostUrl=""
+          user={testUser}
         />
       </MockedProvider>,
     );
@@ -112,9 +112,9 @@ describe("copySSHCommandButton", () => {
     render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
-          user={testUser}
-          hostUrl={hostUrl}
           hostStatus={HostStatus.Terminated}
+          hostUrl={hostUrl}
+          user={testUser}
         />
       </MockedProvider>,
     );

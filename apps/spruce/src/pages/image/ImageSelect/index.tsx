@@ -32,15 +32,15 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
       <Combobox
         clearable={false}
         data-cy="images-select"
-        label="Images"
-        placeholder="Select an image"
-        popoverZIndex={zIndex.popover}
-        portalClassName="images-select-options"
         disabled={loading}
+        label="Images"
         // @ts-expect-error: onChange expects type string | null
         onChange={(imageId: string) => {
           navigate(getImageRoute(imageId));
         }}
+        placeholder="Select an image"
+        popoverZIndex={zIndex.popover}
+        portalClassName="images-select-options"
         value={selectedImage}
       >
         {images?.map((image) => (

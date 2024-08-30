@@ -62,21 +62,21 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
     <FlexColumnContainer id={id}>
       {visibleTags.map((tag) => (
         <TagRow
-          tag={tag}
-          onDelete={deleteHandler}
           key={tag.key}
+          buttonText={buttonText}
+          isValidKey={validateKey}
+          onDelete={deleteHandler}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           onUpdateTag={updateTagHandler}
-          isValidKey={validateKey}
-          buttonText={buttonText}
+          tag={tag}
         />
       ))}
       <TagRow
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        onUpdateTag={updateTagHandler}
+        buttonText={buttonText}
         isNewTag
         isValidKey={validateKey}
-        buttonText={buttonText}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        onUpdateTag={updateTagHandler}
       />
     </FlexColumnContainer>
   );

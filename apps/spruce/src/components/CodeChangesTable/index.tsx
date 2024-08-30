@@ -24,8 +24,8 @@ export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
     <BaseTable
       data-cy="code-changes-table"
       data-cy-row="code-changes-table-row"
-      table={table}
       shouldAlternateRowColor
+      table={table}
     />
   );
 };
@@ -57,12 +57,12 @@ const columns = [
     accessorKey: "additions",
     header: "Additions",
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => <FileDiffText value={getValue()} type="+" />,
+    cell: ({ getValue }) => <FileDiffText type="+" value={getValue()} />,
   },
   {
     accessorKey: "deletions",
     header: "Deletions",
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ getValue }) => <FileDiffText value={getValue()} type="-" />,
+    cell: ({ getValue }) => <FileDiffText type="-" value={getValue()} />,
   },
 ];

@@ -47,9 +47,9 @@ export const VirtualTable: CustomStoryObj<typeof BaseTable> = {
   render: (args) => (
     <TemplateComponent
       {...args}
+      className={virtualScrollingContainerHeight}
       data={makeDefaultRows(10000)}
       useVirtualScrolling
-      className={virtualScrollingContainerHeight}
     />
   ),
   args: {
@@ -147,7 +147,7 @@ const TemplateComponent: React.FC<
     useVirtualScrolling,
   });
 
-  return <BaseTable {...rest} table={table} ref={tableContainerRef} />;
+  return <BaseTable {...rest} ref={tableContainerRef} table={table} />;
 };
 
 interface CellProps {

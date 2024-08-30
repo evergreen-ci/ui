@@ -24,10 +24,10 @@ const AddIssueModal = (
 ) => (
   <MockedProvider mocks={[getSpruceConfigMock, addAnnotationMock]}>
     <AddIssueModalToTest
-      taskId="1"
-      execution={0}
-      visible
       data-cy="add-issue-modal"
+      execution={0}
+      taskId="1"
+      visible
       {...props}
     />
   </MockedProvider>
@@ -41,8 +41,8 @@ describe("addIssueModal", () => {
     const { Component } = RenderFakeToastContext(
       <AddIssueModal
         closeModal={vi.fn()}
-        setSelectedRowKey={vi.fn()}
         isIssue
+        setSelectedRowKey={vi.fn()}
       />,
     );
     render(<Component />);
@@ -64,8 +64,8 @@ describe("addIssueModal", () => {
     const { Component } = RenderFakeToastContext(
       <AddIssueModal
         closeModal={vi.fn()}
-        setSelectedRowKey={vi.fn()}
         isIssue
+        setSelectedRowKey={vi.fn()}
       />,
     );
     render(<Component />);
@@ -92,8 +92,8 @@ describe("addIssueModal", () => {
     const { Component } = RenderFakeToastContext(
       <AddIssueModal
         closeModal={vi.fn()}
-        setSelectedRowKey={vi.fn()}
         isIssue
+        setSelectedRowKey={vi.fn()}
       />,
     );
     render(<Component />);
@@ -136,8 +136,8 @@ describe("addIssueModal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <AddIssueModal
         closeModal={vi.fn()}
-        setSelectedRowKey={setSelectedRowKey}
         isIssue
+        setSelectedRowKey={setSelectedRowKey}
       />,
     );
     render(<Component />);

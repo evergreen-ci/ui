@@ -135,9 +135,9 @@ const VariantHistoryContents: React.FC = () => {
             />
             <TaskSelector
               // @ts-expect-error: FIXME. This comment was added by an automated script.
-              projectIdentifier={projectIdentifier}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               buildVariant={variantName}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              projectIdentifier={projectIdentifier}
             />
           </PageHeaderContent>
         </PageHeader>
@@ -145,13 +145,13 @@ const VariantHistoryContents: React.FC = () => {
           <BadgeWrapper>
             <FilterBadges
               badges={badges}
-              onRemove={(b) => {
-                sendEvent({ name: "Deleted a badge" });
-                handleOnRemove(b);
-              }}
               onClearAll={() => {
                 sendEvent({ name: "Deleted all badges" });
                 handleClearAll();
+              }}
+              onRemove={(b) => {
+                sendEvent({ name: "Deleted a badge" });
+                handleOnRemove(b);
               }}
             />
           </BadgeWrapper>
@@ -173,9 +173,9 @@ const VariantHistoryContents: React.FC = () => {
           />
           <TableWrapper>
             <HistoryTable
-              loadMoreItems={handleLoadMore}
-              loading={loading}
               finalRowCopy="End of variant history"
+              loading={loading}
+              loadMoreItems={handleLoadMore}
             >
               {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
               {VariantHistoryRow}

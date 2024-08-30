@@ -73,7 +73,6 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
           return (
             <ButtonContainer>
               <Button
-                size="small"
                 data-cy="edit-btn"
                 leftGlyph={<Icon glyph="Edit" />}
                 onClick={() => {
@@ -82,6 +81,7 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
                     visible: true,
                   });
                 }}
+                size="small"
               />
               <Popconfirm
                 align="right"
@@ -91,9 +91,9 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
                 }}
                 trigger={
                   <Button
-                    size="small"
                     data-cy="delete-btn"
                     disabled={loadingRemovePublicKey}
+                    size="small"
                   >
                     <Icon glyph="Trash" />
                   </Button>

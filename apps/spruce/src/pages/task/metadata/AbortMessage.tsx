@@ -1,4 +1,4 @@
-import { MetadataItem } from "components/MetadataCard";
+import { MetadataItem, MetadataLabel } from "components/MetadataCard";
 import { StyledRouterLink } from "components/styles";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { AbortInfo } from "gql/generated/types";
@@ -13,10 +13,10 @@ export const AbortMessage: React.FC<AbortInfo> = ({
 }) =>
   user ? (
     <MetadataItem>
-      {`Aborted by: ${user} `}
+      <MetadataLabel>Aborted by:</MetadataLabel> {user}{" "}
       {taskID && buildVariantDisplayName && taskDisplayName && (
         <span>
-          because of failing task:{" "}
+          because of failing task{" "}
           <StyledRouterLink
             data-cy="abort-message-failing-task"
             to={getTaskRoute(taskID)}
@@ -27,7 +27,7 @@ export const AbortMessage: React.FC<AbortInfo> = ({
       )}
       {newVersion && (
         <span>
-          because of a new version:{" "}
+          because of a new version{" "}
           <StyledRouterLink
             data-cy="abort-message-new-version"
             to={getVersionRoute(newVersion)}

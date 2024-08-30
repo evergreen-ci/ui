@@ -89,8 +89,8 @@ const columns: LGColumnDef<Distro>[] = [
           trigger={
             <IconButton aria-label="Information about instance type">
               <Icon
-                glyph="InfoWithCircle"
                 data-cy="instance-type-information"
+                glyph="InfoWithCircle"
               />
             </IconButton>
           }
@@ -98,9 +98,9 @@ const columns: LGColumnDef<Distro>[] = [
         >
           Amazon instance type definitions can be found{" "}
           <StyledLink
-            target="_blank"
-            href={amazonEC2InstanceTypeDocumentationUrl}
             hideExternalIcon={false}
+            href={amazonEC2InstanceTypeDocumentationUrl}
+            target="_blank"
           >
             here
           </StyledLink>

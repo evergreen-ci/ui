@@ -34,7 +34,7 @@ const TaskCell: React.FC<TaskCellProps> = ({
   onClick = () => {},
   task,
 }) => (
-  <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
+  <Cell aria-disabled={inactive} data-cy="task-cell" inactive={inactive}>
     <Link
       onClick={() => {
         onClick({ taskStatus: task.status });
@@ -42,11 +42,11 @@ const TaskCell: React.FC<TaskCellProps> = ({
       to={getTaskRoute(task.id)}
     >
       <HistoryTableIcon
-        inactive={inactive}
-        status={task.status as TaskStatus}
         failingTests={failingTests}
+        inactive={inactive}
         label={label}
         loadingTestResults={loading}
+        status={task.status as TaskStatus}
       />
     </Link>
   </Cell>
@@ -64,7 +64,7 @@ interface LoadingCellProps {
 const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) =>
   isHeader ? (
     <HeaderCell data-cy="loading-header-cell">
-      <Skeleton active title paragraph={false} />
+      <Skeleton active paragraph={false} title />
     </HeaderCell>
   ) : (
     <Cell data-cy="loading-cell">

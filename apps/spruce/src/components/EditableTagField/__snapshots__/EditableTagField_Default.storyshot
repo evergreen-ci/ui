@@ -11,14 +11,17 @@
       >
         <div
           class="leafygreen-ui-1iyoj2o"
+          data-lgid="lg-text_area"
         >
           <label
             class="leafygreen-ui-1fi5x3a"
+            data-lgid="lg-label"
             for="tag_key_1"
           >
             Key
           </label>
           <textarea
+            aria-invalid="false"
             class="leafygreen-ui-18em0fn"
             data-cy="user-tag-key-field"
             id="tag_key_1"
@@ -33,14 +36,17 @@
       >
         <div
           class="leafygreen-ui-1iyoj2o"
+          data-lgid="lg-text_area"
         >
           <label
             class="leafygreen-ui-1fi5x3a"
+            data-lgid="lg-label"
             for="tag_value_1"
           >
             Value
           </label>
           <textarea
+            aria-invalid="false"
             class="leafygreen-ui-18em0fn"
             data-cy="user-tag-value-field"
             id="tag_value_1"
@@ -89,14 +95,17 @@
       >
         <div
           class="leafygreen-ui-1iyoj2o"
+          data-lgid="lg-text_area"
         >
           <label
             class="leafygreen-ui-1fi5x3a"
+            data-lgid="lg-label"
             for="tag_key_2"
           >
             Key
           </label>
           <textarea
+            aria-invalid="false"
             class="leafygreen-ui-18em0fn"
             data-cy="user-tag-key-field"
             id="tag_key_2"
@@ -111,14 +120,17 @@
       >
         <div
           class="leafygreen-ui-1iyoj2o"
+          data-lgid="lg-text_area"
         >
           <label
             class="leafygreen-ui-1fi5x3a"
+            data-lgid="lg-label"
             for="tag_value_2"
           >
             Value
           </label>
           <textarea
+            aria-invalid="false"
             class="leafygreen-ui-18em0fn"
             data-cy="user-tag-value-field"
             id="tag_value_2"
@@ -167,14 +179,17 @@
       >
         <div
           class="leafygreen-ui-1iyoj2o"
+          data-lgid="lg-text_area"
         >
           <label
             class="leafygreen-ui-1fi5x3a"
+            data-lgid="lg-label"
             for="tag_key_3"
           >
             Key
           </label>
           <textarea
+            aria-invalid="false"
             class="leafygreen-ui-18em0fn"
             data-cy="user-tag-key-field"
             id="tag_key_3"
@@ -189,14 +204,17 @@
       >
         <div
           class="leafygreen-ui-1iyoj2o"
+          data-lgid="lg-text_area"
         >
           <label
             class="leafygreen-ui-1fi5x3a"
+            data-lgid="lg-label"
             for="tag_value_3"
           >
             Value
           </label>
           <textarea
+            aria-invalid="false"
             class="leafygreen-ui-18em0fn"
             data-cy="user-tag-value-field"
             id="tag_value_3"
@@ -241,15 +259,16 @@
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-xcwxw8"
+        class="lg-ui-button-0000 leafygreen-ui-5xsnod"
         data-cy="add-tag-button"
+        data-lgid="lg-button"
         type="button"
       >
         <div
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-v95oty"
+          class="leafygreen-ui-16tr4y"
         >
           <svg
             alt=""

@@ -10,10 +10,10 @@ import {
 } from "test_utils";
 import { Metadata } from ".";
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-const wrapper = ({ children }) => (
+const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
 );
+
 describe("metadata", () => {
   beforeAll(() => {
     stubGetClientRects();
@@ -22,12 +22,10 @@ describe("metadata", () => {
   it("renders the metadata card with a pending status", () => {
     render(
       <Metadata
-        taskId={taskId}
+        error={null}
         loading={false}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         task={taskAboutToStart.task}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        error={undefined}
+        taskId={taskId}
       />,
       {
         route: `/task/${taskId}`,
@@ -36,7 +34,7 @@ describe("metadata", () => {
       },
     );
     expect(
-      screen.queryByDataCy("task-metadata-estimated_start"),
+      screen.queryByDataCy("task-metadata-estimated-start"),
     ).toHaveTextContent("1s");
     expect(screen.queryByDataCy("task-metadata-eta")).toBeNull();
     expect(screen.queryByDataCy("task-metadata-started")).toBeNull();
@@ -45,12 +43,10 @@ describe("metadata", () => {
   it("renders the metadata card with a started status", () => {
     render(
       <Metadata
-        taskId={taskId}
+        error={null}
         loading={false}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         task={taskStarted.task}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        error={undefined}
+        taskId={taskId}
       />,
       {
         route: `/task/${taskId}`,
@@ -69,12 +65,10 @@ describe("metadata", () => {
     const user = userEvent.setup();
     render(
       <Metadata
-        taskId={taskId}
+        error={null}
         loading={false}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         task={taskSucceeded.task}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        error={undefined}
+        taskId={taskId}
       />,
       {
         route: `/task/${taskId}`,

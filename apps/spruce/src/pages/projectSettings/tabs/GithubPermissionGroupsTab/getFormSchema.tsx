@@ -103,8 +103,8 @@ export const getFormSchema = ({
             have the permissions that are defined on this page.
           </StyledDescription>
           <StyledLink
-            href={githubPermissionsDocumentationUrl}
             hideExternalIcon={false}
+            href={githubPermissionsDocumentationUrl}
           >
             Learn more about GitHub permissions
           </StyledLink>

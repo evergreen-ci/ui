@@ -1,5 +1,5 @@
-import { useVersionTaskStatusSelect } from "hooks";
 import { renderHook, act } from "test_utils";
+import { useVersionTaskStatusSelect } from ".";
 
 const allFalse = {
   evergreen_lint_generate_lint: false,

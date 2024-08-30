@@ -90,12 +90,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       controls={
         <TableControl
           filteredCount={count}
-          totalCount={taskCount}
+          label="tasks"
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           limit={limit}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          page={page}
-          label="tasks"
           onClear={clearQueryParams}
           onPageSizeChange={(l) => {
             versionAnalytics.sendEvent({
@@ -103,6 +100,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
               "page.size": l,
             });
           }}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          page={page}
+          totalCount={taskCount}
         />
       }
       shouldShowBottomTableControl={tasksData.length > 10}
@@ -110,10 +110,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       <PatchTasksTable
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         isPatch={isPatch}
+        loading={tasksData.length === 0 && loading}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         sorts={sorts}
         tasks={tasksData}
-        loading={tasksData.length === 0 && loading}
       />
     </TableWrapper>
   );
