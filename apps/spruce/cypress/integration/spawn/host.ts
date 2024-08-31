@@ -242,7 +242,9 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("edit-spawn-host-modal").should("be.visible");
 
     cy.getInputByLabel("Temporary Sleep Schedule Exemption").click();
-    cy.get("td[aria-current=true]").next().click();
+    cy.get('button[aria-label="Next month"]').click();
+    cy.get('td[data-testid="lg-date_picker-calendar_cell"]').first().click();
+
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "false");
 
     // LG Date Picker does not respond well to .clear()
