@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   SetVersionPriorityMutation,
@@ -8,7 +9,6 @@ import {
 } from "gql/generated/types";
 import { SET_VERSION_PRIORITY, SET_TASK_PRIORITY } from "gql/mutations";
 import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
-import { ApolloMock } from "types/gql";
 import SetPriority from ".";
 
 describe("setPriority", () => {
@@ -99,7 +99,7 @@ describe("setPriority", () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[setTaskPriority]}>
-          <SetPriority taskId="task_id" initialPriority={10} />
+          <SetPriority initialPriority={10} taskId="task_id" />
         </MockedProvider>,
       );
       renderWithRouterMatch(<Component />);

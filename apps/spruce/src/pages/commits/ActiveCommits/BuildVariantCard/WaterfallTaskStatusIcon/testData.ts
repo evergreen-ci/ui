@@ -1,9 +1,9 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   FailedTaskStatusIconTooltipQuery,
   FailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
 import { FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 const getTooltipQueryMock: ApolloMock<
   FailedTaskStatusIconTooltipQuery,

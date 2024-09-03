@@ -147,13 +147,13 @@ const TaskHistoryContents: React.FC = () => {
           <BadgeWrapper>
             <FilterBadges
               badges={badges}
-              onRemove={(b) => {
-                sendEvent({ name: "Deleted a badge" });
-                handleOnRemove(b);
-              }}
               onClearAll={() => {
                 sendEvent({ name: "Deleted all badges" });
                 handleClearAll();
+              }}
+              onRemove={(b) => {
+                sendEvent({ name: "Deleted a badge" });
+                handleOnRemove(b);
               }}
             />
           </BadgeWrapper>
@@ -175,9 +175,9 @@ const TaskHistoryContents: React.FC = () => {
           />
           <TableWrapper>
             <HistoryTable
-              loadMoreItems={handleLoadMore}
-              loading={loading}
               finalRowCopy="End of task history"
+              loading={loading}
+              loadMoreItems={handleLoadMore}
             >
               {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
               {TaskHistoryRow}

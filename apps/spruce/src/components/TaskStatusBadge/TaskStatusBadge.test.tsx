@@ -1,5 +1,5 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { renderWithRouterMatch, screen } from "test_utils";
-import { TaskStatus } from "types/task";
 import TaskStatusBadge from ".";
 
 describe("taskStatusBadge", () => {
@@ -14,7 +14,7 @@ describe("taskStatusBadge", () => {
   });
   it("should render a link if a task id is passed", () => {
     renderWithRouterMatch(
-      <TaskStatusBadge status="success" id="123" execution={0} />,
+      <TaskStatusBadge execution={0} id="123" status="success" />,
     );
     expect(screen.getByDataCy("task-status-badge")).toBeInTheDocument();
     expect(screen.getByRole("link")).toBeInTheDocument();
@@ -25,7 +25,7 @@ describe("taskStatusBadge", () => {
   });
   it("should render a link to the annotations tab if the status is known issue", () => {
     renderWithRouterMatch(
-      <TaskStatusBadge status={TaskStatus.KnownIssue} id="123" execution={0} />,
+      <TaskStatusBadge execution={0} id="123" status={TaskStatus.KnownIssue} />,
     );
     expect(screen.getByDataCy("task-status-badge")).toBeInTheDocument();
     expect(screen.getByRole("link")).toBeInTheDocument();

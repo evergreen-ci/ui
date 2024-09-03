@@ -20,7 +20,6 @@ const Spawn: React.FC = () => {
         <SideNavGroup header="Hosts & Volumes">
           <SideNavItem
             active={tab === SpawnTab.Host}
-            to={routes.spawnHost}
             as={Link}
             data-cy="host-nav-tab"
             onClick={() =>
@@ -29,12 +28,12 @@ const Spawn: React.FC = () => {
                 tab: SpawnTab.Host,
               })
             }
+            to={routes.spawnHost}
           >
             Hosts
           </SideNavItem>
           <SideNavItem
             active={tab === SpawnTab.Volume}
-            to={routes.spawnVolume}
             as={Link}
             data-cy="volume-nav-tab"
             onClick={() =>
@@ -43,6 +42,7 @@ const Spawn: React.FC = () => {
                 tab: SpawnTab.Volume,
               })
             }
+            to={routes.spawnVolume}
           >
             Volumes
           </SideNavItem>
@@ -50,13 +50,13 @@ const Spawn: React.FC = () => {
       </SideNav>
       <PageWrapper>
         <Routes>
-          <Route path={SpawnTab.Host} element={<SpawnHost />} />
-          <Route path={SpawnTab.Volume} element={<SpawnVolume />} />
+          <Route element={<SpawnHost />} path={SpawnTab.Host} />
+          <Route element={<SpawnVolume />} path={SpawnTab.Volume} />
           <Route
-            path="*"
             element={
-              <Navigate to={`${routes.spawn}/${SpawnTab.Host}`} replace />
+              <Navigate replace to={`${routes.spawn}/${SpawnTab.Host}`} />
             }
+            path="*"
           />
         </Routes>
       </PageWrapper>

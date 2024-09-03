@@ -67,32 +67,32 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     return (
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       <TextInputWithGlyph
-        value={input}
-        onChange={(e) => handleOnChange(e.target.value)}
-        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
-          e.key === "Enter" && handleOnSubmit()
-        }
-        label={label}
-        aria-label={ariaLabel}
         ref={ref}
+        aria-label={ariaLabel}
         icon={
           isValid ? (
             <IconButton
-              onClick={handleOnSubmit}
               aria-label="Select plus button"
+              onClick={handleOnSubmit}
             >
               <Icon glyph="Plus" />
             </IconButton>
           ) : (
             <IconTooltip
-              glyph="Warning"
-              fill={yellow.base}
               aria-label="validation error"
+              fill={yellow.base}
+              glyph="Warning"
             >
               {validatorErrorMessage}
             </IconTooltip>
           )
         }
+        label={label}
+        onChange={(e) => handleOnChange(e.target.value)}
+        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
+          e.key === "Enter" && handleOnSubmit()
+        }
+        value={input}
         {...rest}
       />
     );

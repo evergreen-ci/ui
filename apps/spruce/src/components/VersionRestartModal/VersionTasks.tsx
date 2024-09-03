@@ -34,22 +34,22 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
       <TaskStatusFilters
         onChangeBaseStatusFilter={setBaseStatusFilterTerm}
         onChangeStatusFilter={setVersionStatusFilterTerm}
-        versionId={versionId}
         selectedBaseStatuses={baseStatusFilterTerm || []}
         selectedStatuses={versionStatusFilterTerm || []}
+        versionId={versionId}
       />
       <ContentWrapper>
         {[...buildVariants]
           .sort((a, b) => a.displayName.localeCompare(b.displayName))
           .map((patchBuildVariant) => (
             <BuildVariantAccordion
-              versionId={versionId}
               key={`accordion_${patchBuildVariant.variant}`}
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              tasks={patchBuildVariant.tasks}
               displayName={patchBuildVariant.displayName}
               selectedTasks={tasks}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              tasks={patchBuildVariant.tasks}
               toggleSelectedTask={toggleSelectedTask}
+              versionId={versionId}
             />
           ))}
         <Divider />

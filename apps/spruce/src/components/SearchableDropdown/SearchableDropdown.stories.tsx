@@ -21,6 +21,19 @@ export const CustomOption: CustomStoryObj<
 > = {
   render: (args) => (
     <Dropdown
+      allowMultiSelect
+      label="Custom option select"
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      optionRenderer={(option, onClick, isChecked) => (
+        <button
+          key={option.value}
+          onClick={() => onClick(option.value)}
+          type="button"
+        >
+          {isChecked(option.value) && `✔️`}
+          {option.label}
+        </button>
+      )}
       options={[
         {
           label: "Option 1",
@@ -35,19 +48,6 @@ export const CustomOption: CustomStoryObj<
           value: "3",
         },
       ]}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      optionRenderer={(option, onClick, isChecked) => (
-        <button
-          onClick={() => onClick(option.value)}
-          type="button"
-          key={option.value}
-        >
-          {isChecked(option.value) && `✔️`}
-          {option.label}
-        </button>
-      )}
-      allowMultiSelect
-      label="Custom option select"
       {...args}
     />
   ),
@@ -56,5 +56,5 @@ export const CustomOption: CustomStoryObj<
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const Dropdown = (props) => {
   const [value, setValue] = useState([]);
-  return <SearchableDropdown {...props} value={value} onChange={setValue} />;
+  return <SearchableDropdown {...props} onChange={setValue} value={value} />;
 };

@@ -1,10 +1,10 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   taskStatusToCopy,
   mapTaskStatusToUmbrellaStatus,
   mapTaskToBarchartColor,
   sortedUmbrellaStatus,
 } from "constants/task";
-import { TaskStatus } from "types/task";
 import { toArray, deduplicatedAppend } from "utils/array";
 
 type ColorCount = {

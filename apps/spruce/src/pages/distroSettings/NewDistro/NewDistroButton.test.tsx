@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   UserDistroSettingsPermissionsQuery,
@@ -11,7 +12,6 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { NewDistroButton } from "./NewDistroButton";
 
 const Button = ({ mock = hasPermissionsMock }: { mock?: MockedResponse }) => (

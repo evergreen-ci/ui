@@ -9,9 +9,9 @@ export default {
 export const Default: CustomStoryObj<typeof EditableTagField> = {
   render: () => (
     <EditableTagField
+      buttonText="Add Tag"
       inputTags={instanceTags}
       onChange={action("Change Tag")}
-      buttonText="Add Tag"
     />
   ),
 };

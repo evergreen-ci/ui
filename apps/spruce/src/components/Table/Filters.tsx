@@ -49,15 +49,15 @@ export const InputFilter = ({
   return (
     <FilterWrapper data-cy={`${dataCy}-wrapper`}>
       <TextInput
-        description="Press enter to filter."
-        type="search"
+        ref={inputEl}
         aria-label="Search Table"
         data-cy={`${dataCy}-input-filter`}
-        placeholder={placeholder}
-        value={value}
+        description="Press enter to filter."
         onChange={onChange}
         onKeyPress={(e) => e.key === "Enter" && onFilter()}
-        ref={inputEl}
+        placeholder={placeholder}
+        type="search"
+        value={value}
       />
     </FilterWrapper>
   );
@@ -72,23 +72,23 @@ export const getColumnSearchFilterProps = ({
 }: InputFilterProps) => ({
   filterDropdown: ({ confirm, visible }: FilterDropdownProps) => (
     <InputFilter
-      visible={visible}
-      placeholder={placeholder}
-      value={value}
+      data-cy={dataCy}
       onChange={onChange}
       onFilter={() => {
         onFilter();
         confirm({ closeDropdown: true });
       }}
-      data-cy={dataCy}
+      placeholder={placeholder}
+      value={value}
+      visible={visible}
     />
   ),
   filterIcon: () => (
     <StyledFilterWrapper>
       <Icon
-        glyph="MagnifyingGlass"
-        fill={value.length > 0 ? blue.light1 : defaultColor}
         data-cy={dataCy}
+        fill={value.length > 0 ? blue.light1 : defaultColor}
+        glyph="MagnifyingGlass"
       />
     </StyledFilterWrapper>
   ),
@@ -103,17 +103,17 @@ export const getColumnTreeSelectFilterProps = ({
   filterDropdown: () => (
     <TreeSelect
       data-cy={dataCy}
+      onChange={onChange}
       state={state}
       tData={tData}
-      onChange={onChange}
     />
   ),
   filterIcon: () => (
     <StyledFilterWrapper>
       <Icon
-        glyph="Filter"
-        fill={state.length > 0 ? blue.light1 : defaultColor}
         data-cy={dataCy}
+        fill={state.length > 0 ? blue.light1 : defaultColor}
+        glyph="Filter"
       />
     </StyledFilterWrapper>
   ),
@@ -133,7 +133,7 @@ export const CheckboxFilter = ({
   value,
 }: CheckboxFilterProps) => (
   <FilterWrapper data-cy={`${dataCy}-wrapper`}>
-    <CheckboxGroup value={value} data={statuses} onChange={onChange} />
+    <CheckboxGroup data={statuses} onChange={onChange} value={value} />
   </FilterWrapper>
 );
 
@@ -145,21 +145,21 @@ export const getColumnCheckboxFilterProps = ({
 }: CheckboxFilterProps) => ({
   filterDropdown: ({ confirm }: FilterDropdownProps) => (
     <CheckboxFilter
-      statuses={statuses}
-      value={value}
+      dataCy={dataCy}
       onChange={(e, key) => {
         onChange(e, key);
         confirm({ closeDropdown: true });
       }}
-      dataCy={dataCy}
+      statuses={statuses}
+      value={value}
     />
   ),
   filterIcon: () => (
     <StyledFilterWrapper>
       <Icon
-        glyph="Filter"
-        fill={value.length > 0 ? blue.light1 : defaultColor}
         data-cy={dataCy}
+        fill={value.length > 0 ? blue.light1 : defaultColor}
+        glyph="Filter"
       />
     </StyledFilterWrapper>
   ),

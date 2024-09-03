@@ -22,7 +22,6 @@ import {
   ClientBinary,
 } from "gql/generated/types";
 import { CLIENT_CONFIG } from "gql/queries";
-import { CardType } from "types/leafygreen";
 
 export const DownloadCard = () => {
   const { data, loading } = useQuery<
@@ -59,13 +58,13 @@ export const DownloadCard = () => {
         {topBinaries.map((binary) => (
           <CliDownloadBox
             key={`downloadBox_${binary.url}`}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            description={descriptions[binary.displayName]}
+            link={binary.url}
             title={
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               prettyDisplayNameTop[binary.displayName] || binary.displayName
             }
-            link={binary.url}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            description={descriptions[binary.displayName]}
           />
         ))}
       </CardGroup>
@@ -92,16 +91,16 @@ const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
       <CliDownloadTitle>{title}</CliDownloadTitle>
       {description && <Disclaimer>{description}</Disclaimer>}
       <CliDownloadButton
+        as="a"
+        disabled={!link}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        href={link}
         onClick={() => {
           sendEvent({
             name: "Clicked CLI download link",
             "download.name": title,
           });
         }}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        href={link}
-        disabled={!link}
-        as="a"
         size="small"
       >
         Download
@@ -121,14 +120,14 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
     <LinkContainer>
       {clientBinaries.map((binary) => (
         <StyledLink
+          key={`link_${binary.url}`}
+          href={binary.url}
           onClick={() => {
             sendEvent({
               name: "Clicked CLI download link",
               "download.name": binary.displayName || "",
             });
           }}
-          key={`link_${binary.url}`}
-          href={binary.url}
         >
           {binary.displayName}
         </StyledLink>
@@ -157,7 +156,7 @@ const CardGroup = styled.div`
   margin-bottom: ${size.s};
 `;
 
-const CliDownloadCard = styled<CardType>(Card)`
+const CliDownloadCard = styled(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

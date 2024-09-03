@@ -1050,6 +1050,39 @@
         class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
+          aria-label="Collections Icon"
+          class=""
+          color="#023430"
+          fill="none"
+          height="24"
+          role="img"
+          viewBox="0 0 16 16"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-13A.5.5 0 0 1 1 4V2Z"
+            fill="currentColor"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M2.75 5.5a.75.75 0 0 0-.75.75v7.5c0 .414.336.75.75.75h10.5a.75.75 0 0 0 .75-.75v-7.5a.75.75 0 0 0-.75-.75H2.75ZM6.25 7a.5.5 0 0 0 0 1h3.5a.5.5 0 0 0 0-1h-3.5Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <span>
+        Collections
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <div
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
+      >
+        <svg
           aria-label="Colon Icon"
           class=""
           color="#023430"
@@ -1221,6 +1254,7 @@
           aria-label="Dashboard Icon"
           class=""
           color="#023430"
+          fill="none"
           height="24"
           role="img"
           viewBox="0 0 16 16"
@@ -1228,9 +1262,8 @@
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M0 0h16v16H0V0Zm14 4V2H2v2h12Zm0 10V5H2v9h12ZM8 6v7H6V6h2Zm5 0v4H9V6h4ZM5 8v5H3V8h2Zm8 3v2H9v-2h4Z"
+            d="M2 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-6ZM7 7.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-6ZM7 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-3ZM2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-3Z"
             fill="currentColor"
-            fill-rule="evenodd"
           />
         </svg>
       </div>
@@ -2038,6 +2071,37 @@
       </div>
       <span>
         InfoWithCircle
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <div
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
+      >
+        <svg
+          aria-label="Internal Employee Icon"
+          class=""
+          color="#023430"
+          fill="none"
+          height="24"
+          role="img"
+          viewBox="0 0 16 16"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.5 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM4.343 8.45c-.414-.227-.944-.245-1.252.112A4.482 4.482 0 0 0 2 11.5V14h8.774l-.003-.05-.03-.022s-2.834-2.213-1.27-5.622c-.263-.055-.56.005-.814.144A4.48 4.48 0 0 1 6.5 9a4.48 4.48 0 0 1-2.157-.55Z"
+            fill="currentColor"
+          />
+          <path
+            d="M12.746 7.003c-.36-.448-.672-.903-.736-.998a.016.016 0 0 0-.023 0c-.063.095-.373.55-.732.998-3.084 4.137.486 6.925.486 6.925l.03.021c.026.431.093 1.051.093 1.051h.266s.067-.617.093-1.05l.03-.025c.004.003 3.577-2.785.493-6.922ZM12 13.87s-.16-.144-.203-.217v-.007l.193-4.505c0-.014.02-.014.02 0l.193 4.505v.007a1.522 1.522 0 0 1-.203.217Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <span>
+        InternalEmployee
       </span>
     </div>
     <div
@@ -2938,6 +3002,35 @@
         class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
       >
         <svg
+          aria-label="Primary Icon"
+          class=""
+          color="#023430"
+          fill="none"
+          height="24"
+          role="img"
+          viewBox="0 0 16 16"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm3-8.307C11 5.172 9.918 4 8.433 4H6v8h1.495V9.386h.938C9.918 9.386 11 8.214 11 6.693Zm-1.454 0c0 .653-.453 1.16-1.134 1.16h-.917v-2.32h.917c.68 0 1.134.506 1.134 1.16Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <span>
+        Primary
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <div
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
+      >
+        <svg
           aria-label="Question Mark With Circle Icon"
           class=""
           color="#023430"
@@ -2989,6 +3082,39 @@
       </div>
       <span>
         Read
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <div
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
+      >
+        <svg
+          aria-label="Recommended Icon"
+          class=""
+          color="#023430"
+          fill="none"
+          height="24"
+          role="img"
+          viewBox="0 0 16 16"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m8.148 5.458-.944 1.968V9.59h2.099a.5.5 0 0 0 .491-.407l.223-1.182a.5.5 0 0 0-.491-.593h-.638a.623.623 0 0 1-.61-.636V5.708a.302.302 0 0 0-.13-.25Z"
+            fill="currentColor"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M8.538 1.554a.75.75 0 0 0-1.076 0L6.4 2.648a.75.75 0 0 1-.615.224L4.27 2.716a.75.75 0 0 0-.824.692l-.11 1.52a.75.75 0 0 1-.328.567l-1.261.856a.75.75 0 0 0-.187 1.06l.893 1.235a.75.75 0 0 1 .113.644l-.416 1.467a.75.75 0 0 0 .538.932l1.478.373a.75.75 0 0 1 .501.42l.624 1.39a.75.75 0 0 0 1.011.369l1.372-.665a.75.75 0 0 1 .654 0l1.372.665a.75.75 0 0 0 1.011-.368l.624-1.391a.75.75 0 0 1 .5-.42l1.48-.373a.75.75 0 0 0 .537-.932l-.416-1.467a.75.75 0 0 1 .114-.644l.892-1.235a.75.75 0 0 0-.187-1.06l-1.261-.856a.75.75 0 0 1-.327-.566l-.11-1.52a.75.75 0 0 0-.825-.693l-1.517.156a.75.75 0 0 1-.614-.224L8.538 1.554Zm-1.064 3.28a.577.577 0 0 1 .518-.334c.639 0 1.157.54 1.157 1.208V6.5h.98c.549 0 .96.523.854 1.085l-.412 2.182a.881.881 0 0 1-.854.733H5.435c-.24 0-.435-.294-.435-.546V7.591c0-.251.195-.455.435-.455h.898c.013 0 .027 0 .04.002a.702.702 0 0 1 .03-.072l1.071-2.232Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <span>
+        Recommended
       </span>
     </div>
     <div
@@ -3244,6 +3370,76 @@
       </div>
       <span>
         ShardedCluster
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <div
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
+      >
+        <svg
+          aria-label="Search Index Icon"
+          class=""
+          color="#023430"
+          fill="none"
+          height="24"
+          role="img"
+          viewBox="0 0 16 16"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M8.816 12.754a2.786 2.786 0 0 0 3.396.424l1.622 1.622a.683.683 0 1 0 .966-.966l-1.622-1.622a2.786 2.786 0 1 0-4.362.542Zm2.972-2.972a1.419 1.419 0 1 1-2.006 2.006 1.419 1.419 0 0 1 2.006-2.006Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+          <path
+            d="M12 3.667c0 .083 0 .165-.002.245L12 4v.214c0 .281-.124.55-.393.815-.275.27-.682.512-1.187.715-1.01.405-2.31.613-3.42.613-1.11 0-2.41-.208-3.42-.613-.505-.203-.912-.446-1.187-.715C2.123 4.765 2 4.495 2 4.214V4c0-.033 0-.066.002-.099A12.44 12.44 0 0 1 2 3.667C2 1.857 4.534 1 7 1s5 .857 5 2.667Z"
+            fill="currentColor"
+          />
+          <path
+            d="M2 5.813v1.83c0 .28.124.55.393.815.275.269.682.511 1.187.714 1.01.406 2.31.614 3.42.614l.134-.001A3.785 3.785 0 0 1 12 7.2V5.812c-.357.297-.8.537-1.277.729-1.124.452-2.532.672-3.723.672-1.191 0-2.599-.22-3.723-.672C2.8 6.35 2.357 6.11 2 5.813ZM7 10.643h.003c-.03.816.201 1.64.696 2.334-.232.015-.466.023-.699.023-2.466 0-5-.857-5-2.667 0-.083 0-.165.002-.245A2.229 2.229 0 0 1 2 10v-.758c.357.297.8.537 1.277.729 1.124.451 2.532.672 3.723.672Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <span>
+        SearchIndex
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <div
+        class="leafygreen-ui-cssveg css-1c025ob-IconWrapper exhq3dz0"
+      >
+        <svg
+          aria-label="Secondary Icon"
+          class=""
+          color="#023430"
+          fill="none"
+          height="24"
+          role="img"
+          viewBox="0 0 16 16"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M8 13.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11ZM8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+          <path
+            d="M11 9.67C11 11.112 9.786 12 8.117 12 6.337 12 5.07 10.897 5 9.395h1.972c.07.674.594.996 1.2.996.594 0 .897-.245.897-.613 0-.399-.262-.598-.869-.767l-1.297-.367c-1.2-.337-1.751-1.257-1.751-2.376C5.152 4.95 6.2 4 7.924 4c1.517 0 2.676.889 2.786 2.421H8.807c-.097-.582-.497-.781-.91-.781-.483 0-.814.214-.814.582 0 .43.372.598.786.705l1.214.368C10.434 7.678 11 8.475 11 9.671Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <span>
+        Secondary
       </span>
     </div>
     <div

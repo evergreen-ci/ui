@@ -1,6 +1,6 @@
 import { palette } from "@leafygreen-ui/palette";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { taskStatusToCopy } from "constants/task";
-import { TaskStatus } from "types/task";
 import { groupStatusesByUmbrellaStatus } from "./groupStatusesByUmbrellaStatus";
 
 const { gray, green, purple, red, yellow } = palette;

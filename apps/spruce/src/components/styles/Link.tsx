@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 export const StyledLink = (props) => (
   <LGLink
-    hideExternalIcon
     css={css`
       // Override LeafyGreen's font-weight declaration for Link
       font-weight: inherit;
       font-size: inherit;
       line-height: inherit;
     `}
+    hideExternalIcon
     {...props}
   />
 );

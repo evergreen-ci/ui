@@ -34,9 +34,9 @@ interface TaskLinkProps {
 const TaskLink: React.FC<TaskLinkProps> = ({ "data-cy": dataCy, taskId }) => (
   <ShortenedRouterLink
     data-cy={dataCy}
+    responsiveBreakpoint={1200}
     title={taskId}
     to={getTaskRoute(taskId)}
-    responsiveBreakpoint={1200}
   >
     {taskId}
   </ShortenedRouterLink>
@@ -59,7 +59,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="created">
           Host creation {data.successful ? succeededString : failedString}
           {data.logs && (
-            <HostEventLog title="Additional details" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Additional details" />
           )}
         </div>
       );
@@ -76,7 +76,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="started">
           Host start attempt {data.successful ? succeededString : failedString}
           {data.logs && (
-            <HostEventLog title="Additional details" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Additional details" />
           )}
         </div>
       );
@@ -85,7 +85,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="stopped">
           Host stop attempt {data.successful ? succeededString : failedString}
           {data.logs && (
-            <HostEventLog title="Additional details" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Additional details" />
           )}
         </div>
       );
@@ -94,7 +94,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="modified">
           Host modify attempt {data.successful ? succeededString : failedString}
           {data.logs && (
-            <HostEventLog title="Additional details" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Additional details" />
           )}
         </div>
       );
@@ -143,7 +143,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="host-jasper-restart-error">
           Host encountered error when restarting Jasper service
           {data.logs && (
-            <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Provisioning logs" />
           )}
         </div>
       );
@@ -168,7 +168,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="host-converting-provisioning-error">
           Host encountered error when converting reprovisioning
           {data.logs && (
-            <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Provisioning logs" />
           )}
         </div>
       );
@@ -179,9 +179,9 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           {data.user ? "by" : ""} <b>{data.user}</b>{" "}
           {data.logs && (
             <HostEventLog
-              title="Additional details"
-              logs={data.logs}
               isCode={false}
+              logs={data.logs}
+              title="Additional details"
             />
           )}
         </div>
@@ -197,7 +197,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="host-script-executed">
           Executed script on host
           {data.logs && (
-            <HostEventLog title="Script logs" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Script logs" />
           )}
         </div>
       );
@@ -206,7 +206,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="host-script-execute-failed">
           Failed to execute script on host
           {data.logs && (
-            <HostEventLog title="Script logs" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Script logs" />
           )}
         </div>
       );
@@ -220,7 +220,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
       return (
         <div data-cy="host-running-task-set">
           Assigned to run task{" "}
-          <TaskLink taskId={data.taskId} data-cy="host-running-task-set-link" />
+          <TaskLink data-cy="host-running-task-set-link" taskId={data.taskId} />
         </div>
       );
     case HostEvent.HostRunningTaskCleared:
@@ -228,8 +228,8 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="host-running-task-cleared">
           Current running task cleared (was:{" "}
           <TaskLink
-            taskId={data.taskId}
             data-cy="host-running-task-cleared-link"
+            taskId={data.taskId}
           />
         </div>
       );
@@ -245,7 +245,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <div data-cy="host-provision-failed">
           Provisioning failed{" "}
           {data.logs && (
-            <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Provisioning logs" />
           )}
         </div>
       );
@@ -255,7 +255,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           Teardown script {data.successful ? "ran successfully" : <b>failed</b>}{" "}
           in {stringifyNanoseconds(data.duration, true, true)}
           {data.logs && (
-            <HostEventLog title="Teardown logs" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Teardown logs" />
           )}
         </div>
       );
@@ -263,7 +263,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
       return (
         <div data-cy="host-task-finished">
           Task{" "}
-          <TaskLink taskId={data.taskId} data-cy="host-task-finished-link" />{" "}
+          <TaskLink data-cy="host-task-finished-link" taskId={data.taskId} />{" "}
           completed with status:
           <b> {data.taskStatus}</b>
         </div>
@@ -282,9 +282,9 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           Home volume failed to migrate to new host.
           {data.logs && (
             <HostEventLog
-              title="Volume migration logs"
-              logs={data.logs}
               isCode
+              logs={data.logs}
+              title="Volume migration logs"
             />
           )}
         </span>
@@ -294,7 +294,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
         <span data-cy="host-creation-failed">
           Host creation failed.
           {data.logs && (
-            <HostEventLog title="Host creation logs" logs={data.logs} isCode />
+            <HostEventLog isCode logs={data.logs} title="Host creation logs" />
           )}
         </span>
       );

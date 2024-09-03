@@ -22,7 +22,6 @@ export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
   return (
     <EventLog
       allEventsFetched={allEventsFetched}
-      events={events}
       eventRenderer={({ after, before, data }) =>
         after && before ? (
           <EventDiffTable after={after} before={before} />
@@ -30,6 +29,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit }) => {
           <LegacyEventEntry data={data} />
         )
       }
+      events={events}
       handleFetchMore={() => {
         fetchMore({
           variables: {

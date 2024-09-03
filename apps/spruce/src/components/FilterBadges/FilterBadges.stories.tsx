@@ -39,8 +39,8 @@ const BadgeContainer = () => {
     <div>
       <FilterBadges
         badges={badges}
-        onRemove={removeBadge}
         onClearAll={onClearAll}
+        onRemove={removeBadge}
       />
       <BadgeInput onAdd={addBadge} />
     </div>
@@ -65,16 +65,16 @@ const BadgeInput = ({
   return (
     <div>
       <TextInput
-        placeholder="key"
         label="key"
-        value={badgeKey}
         onChange={(e) => setBadgeKey(e.target.value)}
+        placeholder="key"
+        value={badgeKey}
       />
       <TextInput
-        placeholder="value"
         label="value"
-        value={badgeValue}
         onChange={(e) => setBadgeValue(e.target.value)}
+        placeholder="value"
+        value={badgeValue}
       />
       <StyledButton onClick={handleAdd}>Add</StyledButton>
     </div>

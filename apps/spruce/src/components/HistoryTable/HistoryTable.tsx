@@ -88,26 +88,26 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     <div ref={ref} style={{ height: "100%" }}>
       <Virtuoso
         ref={listRef}
-        totalCount={processedCommitCount}
-        data={processedCommits}
-        itemContent={(index, data) => <Component index={index} data={data} />}
-        endReached={() => {
-          if (!loading) {
-            loadMoreItems();
-          }
-        }}
         components={{
           Footer: () =>
             loading ? (
               <LoadingSection
-                numVisibleCols={visibleColumns.length}
                 numLoadingRows={10}
+                numVisibleCols={visibleColumns.length}
               />
             ) : (
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               <EndOfHistoryRow>{finalRowCopy}</EndOfHistoryRow>
             ),
         }}
+        data={processedCommits}
+        endReached={() => {
+          if (!loading) {
+            loadMoreItems();
+          }
+        }}
+        itemContent={(index, data) => <Component data={data} index={index} />}
+        totalCount={processedCommitCount}
       />
     </div>
   );

@@ -17,7 +17,7 @@ const ErrorFallback = () => (
       </StyledSubtitle>
       <StyledLink href={getSpruceURL()}>Back To Home</StyledLink>
     </Text>
-    <img src={errorPage} alt="Error Background" />
+    <img alt="Error Background" src={errorPage} />
   </Center>
 );
 

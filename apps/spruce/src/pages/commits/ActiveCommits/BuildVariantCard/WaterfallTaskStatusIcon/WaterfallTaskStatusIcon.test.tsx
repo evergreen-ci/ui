@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   FailedTaskStatusIconTooltipQuery,
   FailedTaskStatusIconTooltipQueryVariables,
@@ -14,7 +15,6 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { WaterfallTaskStatusIcon } from ".";
 
 const props = {
@@ -36,8 +36,8 @@ const Content = ({
   <MockedProvider mocks={[getTooltipQueryMock]}>
     <WaterfallTaskStatusIcon
       {...props}
-      status={status}
       hasCedarResults={hasCedarResults}
+      status={status}
     />
   </MockedProvider>
 );
@@ -48,7 +48,7 @@ describe("waterfallTaskStatusIcon", () => {
 
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
     const user = userEvent.setup();
-    render(<Content status="failed" hasCedarResults />);
+    render(<Content hasCedarResults status="failed" />);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
@@ -72,7 +72,7 @@ describe("waterfallTaskStatusIcon", () => {
   });
 
   it("icon should link to task page", async () => {
-    render(<Content status="failed" hasCedarResults />);
+    render(<Content hasCedarResults status="failed" />);
     await waitFor(() => {
       expect(
         screen.getByDataCy("waterfall-task-status-icon"),
@@ -94,7 +94,7 @@ describe("waterfallTaskStatusIcon", () => {
     );
     vi.mocked(removeGlobalHighlightStyle).mockImplementationOnce(() => {});
 
-    render(<Content status="failed" hasCedarResults />);
+    render(<Content hasCedarResults status="failed" />);
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {

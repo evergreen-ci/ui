@@ -31,7 +31,7 @@ export const EventLog: React.FC<EventLogProps> = ({
         const { after, before, timestamp, user } = event;
         return (
           <EventLogCard key={`event_log_${timestamp}`} data-cy="event-log-card">
-            <Header user={user} timestamp={timestamp} />
+            <Header timestamp={timestamp} user={user} />
             {eventRenderer ? (
               eventRenderer(event)
             ) : (

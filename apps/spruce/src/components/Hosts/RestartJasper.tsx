@@ -64,8 +64,8 @@ export const RestartJasper: React.FC<Props> = ({
         <Tooltip
           align="top"
           justify="middle"
-          triggerEvent="hover"
           trigger={children}
+          triggerEvent="hover"
         >
           {jasperTooltipMessage}
         </Tooltip>
@@ -77,9 +77,9 @@ export const RestartJasper: React.FC<Props> = ({
           buttonText="Restart Jasper"
           data-cy="restart-jasper-button"
           disabled={selectedHostIds.length === 0 || !canRestartJasper}
-          titleText={titleText}
           loading={loadingRestartJasper}
           onClick={onClickRestartJasperConfirm}
+          titleText={titleText}
         />
       </div>
     </ConditionalWrapper>

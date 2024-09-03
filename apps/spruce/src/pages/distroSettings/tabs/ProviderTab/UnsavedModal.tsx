@@ -31,9 +31,9 @@ export const UnsavedModal: React.FC<UnsavedModalProps> = ({
           </StyledBanner>
         }
         distro={distro}
-        open
         onCancel={() => blocker.reset?.()}
         onConfirm={() => blocker.proceed?.()}
+        open
         tab={WritableDistroSettingsTabs.Provider}
       />
     )

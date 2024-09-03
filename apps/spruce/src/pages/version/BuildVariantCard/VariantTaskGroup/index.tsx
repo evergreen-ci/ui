@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -8,7 +9,7 @@ import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
-import { PatchTasksQueryParams, TaskStatus } from "types/task";
+import { PatchTasksQueryParams } from "types/task";
 import { string, statuses } from "utils";
 
 const { groupStatusesByUmbrellaStatus } = statuses;
@@ -55,16 +56,16 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
     <div data-cy="patch-build-variant">
       <StyledRouterLink
         css={wordBreakCss}
-        to={getVersionRoute(versionId, {
-          ...versionRouteParams,
-          variant: isVariantSelected ? undefined : applyStrictRegex(variant),
-        })}
+        data-cy="build-variant-display-name"
         onClick={() =>
           sendEvent({
             name: "Filtered by build variant group",
           })
         }
-        data-cy="build-variant-display-name"
+        to={getVersionRoute(versionId, {
+          ...versionRouteParams,
+          variant: isVariantSelected ? undefined : applyStrictRegex(variant),
+        })}
       >
         {displayName}
       </StyledRouterLink>
@@ -91,15 +92,6 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
               <GroupedTaskStatusBadge
                 key={`${versionId}_${variant}_${umbrellaStatus}`}
                 count={count}
-                onClick={() => {
-                  sendEvent({
-                    name: "Filtered by build variant and task status group",
-                    "filter.task_square_statuses":
-                      Object.keys(groupedStatusCounts),
-                  });
-                }}
-                status={umbrellaStatus}
-                statusCounts={groupedStatusCounts}
                 // If the badge is active it should reset the page.
                 href={getVersionRoute(
                   versionId,
@@ -112,6 +104,15 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
                     : { ...versionRouteParams },
                 )}
                 isActive={isBadgeActive}
+                onClick={() => {
+                  sendEvent({
+                    name: "Filtered by build variant and task status group",
+                    "filter.task_square_statuses":
+                      Object.keys(groupedStatusCounts),
+                  });
+                }}
+                status={umbrellaStatus}
+                statusCounts={groupedStatusCounts}
               />
             );
           },

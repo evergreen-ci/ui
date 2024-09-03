@@ -92,13 +92,13 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
   return (
     <BaseTable
       data-cy-row="image-event-log-table-row"
-      shouldAlternateRowColor
-      table={table}
       emptyComponent={
         <DefaultEmptyMessage data-cy="image-event-log-empty-message">
           {emptyMessage}
         </DefaultEmptyMessage>
       }
+      shouldAlternateRowColor
+      table={table}
     />
   );
 };

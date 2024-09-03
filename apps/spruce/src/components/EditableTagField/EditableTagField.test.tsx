@@ -27,9 +27,9 @@ describe("editableTagField", () => {
 
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 
@@ -47,9 +47,9 @@ describe("editableTagField", () => {
     const user = userEvent.setup();
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 
@@ -84,9 +84,9 @@ describe("editableTagField", () => {
     const user = userEvent.setup();
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 
@@ -109,9 +109,9 @@ describe("editableTagField", () => {
     const user = userEvent.setup();
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 
@@ -146,9 +146,9 @@ describe("editableTagField", () => {
     const user = userEvent.setup();
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 

@@ -14,8 +14,8 @@ const Content = () => {
   return (
     <FilterBadges
       badges={badges}
-      onRemove={handleOnRemove}
       onClearAll={handleClearAll}
+      onRemove={handleOnRemove}
     />
   );
 };

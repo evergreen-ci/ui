@@ -4,7 +4,7 @@ import Popconfirm from ".";
 describe("controlled popconfirm", () => {
   it("properly shows content inside the popconfirm", () => {
     render(
-      <Popconfirm open confirmText="OK" setOpen={vi.fn()}>
+      <Popconfirm confirmText="OK" open setOpen={vi.fn()}>
         <div>hello</div>
       </Popconfirm>,
     );
@@ -18,7 +18,7 @@ describe("controlled popconfirm", () => {
     const onConfirm = vi.fn();
     const setOpen = vi.fn();
     render(
-      <Popconfirm open onConfirm={onConfirm} setOpen={setOpen}>
+      <Popconfirm onConfirm={onConfirm} open setOpen={setOpen}>
         <div>hello</div>
       </Popconfirm>,
     );
@@ -33,7 +33,7 @@ describe("controlled popconfirm", () => {
     const onClose = vi.fn();
     const setOpen = vi.fn();
     render(
-      <Popconfirm open onClose={onClose} setOpen={setOpen}>
+      <Popconfirm onClose={onClose} open setOpen={setOpen}>
         <div>hello</div>
       </Popconfirm>,
     );
@@ -45,7 +45,7 @@ describe("controlled popconfirm", () => {
 
   it("disables the confirm button when confirmDisabled is true", () => {
     render(
-      <Popconfirm open confirmDisabled onClose={vi.fn()} setOpen={vi.fn()}>
+      <Popconfirm confirmDisabled onClose={vi.fn()} open setOpen={vi.fn()}>
         <div>hello</div>
       </Popconfirm>,
     );

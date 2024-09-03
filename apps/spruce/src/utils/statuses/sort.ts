@@ -1,4 +1,4 @@
-import { TaskStatus } from "types/task";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 
 const ordering = [
   // red

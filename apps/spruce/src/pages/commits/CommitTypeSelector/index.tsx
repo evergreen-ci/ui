@@ -53,16 +53,16 @@ const CommitTypeSelector = () => {
     <Container>
       <Label htmlFor="requester-select">Requesters</Label>
       <Dropdown
-        data-cy="requester-select"
         buttonText={`Requesters: ${
           requesters.length ? requesters.join(", ") : noFilterMessage
         }`}
+        data-cy="requester-select"
       >
         <TreeSelect
-          onChange={onChange}
-          tData={TreeData}
-          state={requesters}
           hasStyling={false}
+          onChange={onChange}
+          state={requesters}
+          tData={TreeData}
         />
       </Dropdown>
     </Container>

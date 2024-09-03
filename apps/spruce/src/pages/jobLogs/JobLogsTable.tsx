@@ -36,6 +36,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         accessorKey: "name",
         cell: ({ getValue, row }) => (
           <Link
+            hideExternalIcon
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             href={getParsleyLogkeeperTestLogURL(buildId, row.original.id)}
             onClick={() => {
@@ -44,7 +45,6 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
                 "build.id": buildId,
               });
             }}
-            hideExternalIcon
           >
             {getValue() as string}
           </Link>
@@ -63,13 +63,13 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
         accessorKey: "testFile",
         cell: ({ getValue, row }) => (
           <Link
+            hideExternalIcon
             href={row.original?.logs?.urlParsley}
             onClick={() => {
               sendEvent({
                 name: "Clicked Parsley test log link",
               });
             }}
-            hideExternalIcon
           >
             {getValue() as string}
           </Link>
@@ -97,12 +97,12 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   });
   return (
     <BaseTable
-      table={table}
-      shouldAlternateRowColor
-      loading={loading}
       emptyComponent={
         <TablePlaceholder message="No logs found for this job." />
       }
+      loading={loading}
+      shouldAlternateRowColor
+      table={table}
     />
   );
 };

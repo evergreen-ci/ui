@@ -38,16 +38,16 @@ const FilterBadges: React.FC<FilterBadgesProps> = ({
         <SeeMoreModal
           badges={badges}
           notVisibleCount={notVisibleCount}
-          onRemoveBadge={handleOnRemove}
           onClearAll={handleClearAll}
+          onRemoveBadge={handleOnRemove}
         />
       )}
       {badges.length > 0 && (
         <Button
-          variant={Variant.Default}
-          size={Size.XSmall}
-          onClick={handleClearAll}
           data-cy="clear-all-filters"
+          onClick={handleClearAll}
+          size={Size.XSmall}
+          variant={Variant.Default}
         >
           CLEAR ALL FILTERS
         </Button>

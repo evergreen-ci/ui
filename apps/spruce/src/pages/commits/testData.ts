@@ -1,5 +1,5 @@
 import { palette } from "@leafygreen-ui/palette";
-import { TaskStatus } from "types/task";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 
 const { gray, green, purple, red, yellow } = palette;
 
