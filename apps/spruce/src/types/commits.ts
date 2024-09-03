@@ -1,5 +1,5 @@
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { MainlineCommitsQuery } from "gql/generated/types";
-import { Unpacked } from "types/utils";
 
 export enum ProjectFilterOptions {
   BuildVariant = "buildVariants",

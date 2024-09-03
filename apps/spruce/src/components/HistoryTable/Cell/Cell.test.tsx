@@ -1,5 +1,5 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
-import { TaskStatus } from "types/task";
 import { TaskCell } from ".";
 
 describe("taskCell", () => {

@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
 import { size, zIndex } from "constants/tokens";
 import { getStatusesWithZeroCount } from "pages/commits/ActiveCommits/utils";
 import { ColorCount } from "pages/commits/types";
-import { TaskStatus } from "types/task";
 import { msToDuration } from "utils/string";
 
 const { gray } = palette;

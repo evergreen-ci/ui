@@ -1,5 +1,6 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   CopyProjectMutation,
@@ -19,7 +20,6 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { CopyProjectModal } from "./CopyProjectModal";
 
 const newProjectIdentifier = "new_evergreen";

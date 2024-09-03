@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { useParams } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
@@ -37,7 +38,6 @@ import {
 } from "gql/mutations";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { useQueryParam } from "hooks/useQueryParam";
-import { TaskStatus } from "types/task";
 import { RelevantCommits } from "./actionButtons/RelevantCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 

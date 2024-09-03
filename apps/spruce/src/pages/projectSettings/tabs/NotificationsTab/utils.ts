@@ -1,5 +1,5 @@
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { NotificationMethods } from "types/subscription";
-import { Unpacked } from "types/utils";
 import { NotificationsFormState, Notification } from "./types";
 
 export const getTargetForMethod = (

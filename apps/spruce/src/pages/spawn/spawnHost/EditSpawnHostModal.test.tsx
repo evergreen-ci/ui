@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { defaultSleepSchedule } from "components/Spawn/utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -23,7 +24,6 @@ import {
   userEvent,
   within,
 } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { MyHost } from "types/spawn";
 import { EditSpawnHostModal } from "./EditSpawnHostModal";
 
@@ -308,7 +308,6 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
-    isBetaTester: true,
     temporarilyExemptUntil: null,
     timeZone: "America/Chicago",
   },
@@ -321,7 +320,6 @@ const tempExemptSpawnHost: MyHost = {
   homeVolumeID: "vol-5678",
   sleepSchedule: {
     ...defaultSleepSchedule,
-    isBetaTester: true,
     temporarilyExemptUntil: new Date("2020-01-15"),
     timeZone: "America/New_York",
   },

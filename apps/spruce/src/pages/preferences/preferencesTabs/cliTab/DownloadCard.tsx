@@ -22,7 +22,6 @@ import {
   ClientBinary,
 } from "gql/generated/types";
 import { CLIENT_CONFIG } from "gql/queries";
-import { CardType } from "types/leafygreen";
 
 export const DownloadCard = () => {
   const { data, loading } = useQuery<
@@ -157,7 +156,7 @@ const CardGroup = styled.div`
   margin-bottom: ${size.s};
 `;
 
-const CliDownloadCard = styled<CardType>(Card)`
+const CliDownloadCard = styled(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

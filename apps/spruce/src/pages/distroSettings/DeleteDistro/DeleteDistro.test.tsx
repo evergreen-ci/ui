@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   DeleteDistroMutation,
@@ -15,7 +16,6 @@ import {
   waitFor,
   within,
 } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { DeleteDistro } from ".";
 
 const DeleteButton = ({ isAdmin = false }: { isAdmin?: boolean }) => (
