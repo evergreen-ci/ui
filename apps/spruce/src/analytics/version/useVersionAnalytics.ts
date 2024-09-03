@@ -27,7 +27,6 @@ type Action =
   | { name: "Clicked metadata project patches link" }
   | { name: "Clicked task table task link"; "task.id": string }
   | { name: "Deleted all filters" }
-  | { name: "Clicked enqueue tasks button" }
   | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }
   | { name: "Filtered tasks table"; "filter.by": string | string[] }
   | { name: "Filtered task duration table"; "filter.by": string | string[] }

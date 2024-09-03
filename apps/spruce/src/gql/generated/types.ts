@@ -881,14 +881,11 @@ export type Image = {
   distros: Array<Distro>;
   events: ImageEventsPayload;
   id: Scalars["String"]["output"];
-  kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
-  name: Scalars["String"]["output"];
   operatingSystem: ImageOperatingSystemPayload;
   packages: ImagePackagesPayload;
   toolchains: ImageToolchainsPayload;
-  versionId: Scalars["String"]["output"];
 };
 
 /**
@@ -3556,7 +3553,6 @@ export type BasePatchFragment = {
   activated: boolean;
   alias?: string | null;
   author: string;
-  commitQueuePosition?: number | null;
   description: string;
   id: string;
   status: string;
@@ -3663,8 +3659,6 @@ export type PatchesPagePatchesFragment = {
     alias?: string | null;
     author: string;
     authorDisplayName: string;
-    canEnqueueToCommitQueue: boolean;
-    commitQueuePosition?: number | null;
     createTime?: Date | null;
     description: string;
     hidden: boolean;
@@ -5091,16 +5085,6 @@ export type EditSpawnHostMutation = {
   };
 };
 
-export type EnqueuePatchMutationVariables = Exact<{
-  patchId: Scalars["String"]["input"];
-  commitMessage?: InputMaybe<Scalars["String"]["input"]>;
-}>;
-
-export type EnqueuePatchMutation = {
-  __typename?: "Mutation";
-  enqueuePatch: { __typename?: "Patch"; id: string };
-};
-
 export type BuildBaronCreateTicketMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -5193,16 +5177,6 @@ export type RemoveFavoriteProjectMutation = {
     owner: string;
     repo: string;
   };
-};
-
-export type RemoveItemFromCommitQueueMutationVariables = Exact<{
-  commitQueueId: Scalars["String"]["input"];
-  issue: Scalars["String"]["input"];
-}>;
-
-export type RemoveItemFromCommitQueueMutation = {
-  __typename?: "Mutation";
-  removeItemFromCommitQueue?: string | null;
 };
 
 export type RemovePublicKeyMutationVariables = Exact<{
@@ -5359,7 +5333,6 @@ export type SchedulePatchMutation = {
     activated: boolean;
     alias?: string | null;
     author: string;
-    commitQueuePosition?: number | null;
     description: string;
     id: string;
     status: string;
@@ -5518,7 +5491,6 @@ export type UpdatePatchDescriptionMutation = {
     activated: boolean;
     alias?: string | null;
     author: string;
-    commitQueuePosition?: number | null;
     description: string;
     id: string;
     status: string;
@@ -5822,48 +5794,6 @@ export type CodeChangesQuery = {
         fileName: string;
       }>;
     }>;
-  };
-};
-
-export type CommitQueueQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
-}>;
-
-export type CommitQueueQuery = {
-  __typename?: "Query";
-  commitQueue: {
-    __typename?: "CommitQueue";
-    message?: string | null;
-    owner?: string | null;
-    projectId?: string | null;
-    repo?: string | null;
-    queue?: Array<{
-      __typename?: "CommitQueueItem";
-      enqueueTime?: Date | null;
-      issue?: string | null;
-      patch?: {
-        __typename?: "Patch";
-        activated: boolean;
-        author: string;
-        description: string;
-        id: string;
-        moduleCodeChanges: Array<{
-          __typename?: "ModuleCodeChange";
-          branchName: string;
-          htmlLink: string;
-          rawLink: string;
-          fileDiffs: Array<{
-            __typename?: "FileDiff";
-            additions: number;
-            deletions: number;
-            description: string;
-            diffLink: string;
-            fileName: string;
-          }>;
-        }>;
-        versionFull?: { __typename?: "Version"; id: string } | null;
-      } | null;
-    }> | null;
   };
 };
 
@@ -6826,7 +6756,6 @@ export type ConfigurePatchQuery = {
     activated: boolean;
     alias?: string | null;
     author: string;
-    commitQueuePosition?: number | null;
     description: string;
     id: string;
     status: string;
@@ -6904,7 +6833,6 @@ export type PatchQuery = {
     activated: boolean;
     alias?: string | null;
     author: string;
-    commitQueuePosition?: number | null;
     description: string;
     id: string;
     status: string;
@@ -7494,8 +7422,6 @@ export type ProjectPatchesQuery = {
         alias?: string | null;
         author: string;
         authorDisplayName: string;
-        canEnqueueToCommitQueue: boolean;
-        commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
         hidden: boolean;
@@ -9084,8 +9010,6 @@ export type UserPatchesQuery = {
         alias?: string | null;
         author: string;
         authorDisplayName: string;
-        canEnqueueToCommitQueue: boolean;
-        commitQueuePosition?: number | null;
         createTime?: Date | null;
         description: string;
         hidden: boolean;
@@ -9369,8 +9293,6 @@ export type VersionQuery = {
     patch?: {
       __typename?: "Patch";
       alias?: string | null;
-      canEnqueueToCommitQueue: boolean;
-      commitQueuePosition?: number | null;
       id: string;
       patchNumber: number;
       childPatches?: Array<{

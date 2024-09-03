@@ -15,8 +15,7 @@ type Action =
   | { name: "Clicked EVG wiki link" }
   | { name: "Clicked preferences link" }
   | { name: "Clicked notifications link" }
-  | { name: "Clicked task queue link" }
-  | { name: "Clicked commit queue link" };
+  | { name: "Clicked task queue link" };
 
 export const useNavbarAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("Navbar");

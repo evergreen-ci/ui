@@ -57,7 +57,6 @@ export const requesterSubscriberOptions = {
   gitter_request: "Commit",
   patch_request: "Patch",
   github_pull_request: "Pull Request",
-  merge_test: "Commit Queue",
   ad_hoc: "Periodic Build",
 };
 
@@ -475,7 +474,6 @@ export const allowedSelectors = new Set([
 
 export const resourceTypeToCopy = {
   [ResourceType.Build]: "Build",
-  [ResourceType.CommitQueue]: "Commit Queue",
   [ResourceType.Host]: "Host",
   [ResourceType.Patch]: "Patch",
   [ResourceType.Task]: "Task",
