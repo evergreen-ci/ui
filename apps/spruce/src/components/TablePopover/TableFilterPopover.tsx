@@ -40,21 +40,21 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   return (
     <FilterWrapper>
       <IconButton
-        onClick={() => setActive(!active)}
-        active={active}
-        data-cy={dataCy}
-        aria-label="Table Filter Popover Icon"
         ref={buttonRef}
+        active={active}
+        aria-label="Table Filter Popover Icon"
+        data-cy={dataCy}
+        onClick={() => setActive(!active)}
       >
-        <Icon glyph="Filter" small="xsmall" color={iconColor} />
+        <Icon color={iconColor} glyph="Filter" small="xsmall" />
       </IconButton>
-      <Popover align="bottom" justify="middle" active={active}>
+      <Popover active={active} align="bottom" justify="middle">
         <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
           <TreeSelect
             hasStyling={false}
-            tData={options}
-            state={value}
             onChange={onChange}
+            state={value}
+            tData={options}
           />
         </PopoverContainer>
       </Popover>

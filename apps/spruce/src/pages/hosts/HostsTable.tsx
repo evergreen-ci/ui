@@ -6,6 +6,7 @@ import {
   RowSorting,
   SortingState,
   useLeafyGreenTable,
+  LeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
 import { Unpacked } from "@evg-ui/lib/types/utils";
@@ -63,7 +64,6 @@ export const HostsTable: React.FC<Props> = ({
     sendAnalyticsEvents: () => sendEvent({ name: "Sorted hosts table" }),
   });
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
@@ -90,8 +90,8 @@ export const HostsTable: React.FC<Props> = ({
   };
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const table = useLeafyGreenTable<Host>({
+
+  const table: LeafyGreenTable<Host> = useLeafyGreenTable<Host>({
     columns,
     containerRef: tableContainerRef,
     data: hosts ?? [],

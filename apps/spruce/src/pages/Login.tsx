@@ -47,19 +47,19 @@ export const Login: React.FC = () => {
     <Wrapper>
       <label htmlFor="username">Username</label>
       <input
-        type="text"
-        name="username"
         id="username"
-        value={username}
+        name="username"
         onChange={inputChangeHandler(setUsername)}
+        type="text"
+        value={username}
       />
       <label htmlFor="password">Password</label>
       <input
-        type="password"
-        name="password"
         id="password"
-        value={password}
+        name="password"
         onChange={inputChangeHandler(setPassword)}
+        type="password"
+        value={password}
       />
       <button id="login-submit" onClick={loginHandler} type="submit">
         Login

@@ -22,9 +22,9 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
   taskId,
 }) => (
   <Checkbox
-    onClick={onClick}
+    bold={false}
+    checked={checked}
     data-cy="task-status-checkbox"
-    name={taskId}
     label={
       <StateItemWrapper>
         <TaskStatusIcon status={status} />
@@ -32,8 +32,8 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
         <div>{displayName}</div>
       </StateItemWrapper>
     }
-    checked={checked}
-    bold={false}
+    name={taskId}
+    onClick={onClick}
   />
 );
 

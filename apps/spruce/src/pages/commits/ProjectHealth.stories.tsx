@@ -64,10 +64,10 @@ const RenderCommitsWrapper = ({
   return (
     <div style={{ height: "500px" }}>
       <CommitsWrapper
-        versions={updatedVersions}
-        isLoading={isLoading}
-        hasTaskFilter={hasTaskFilter}
         hasFilters={hasFilters}
+        hasTaskFilter={hasTaskFilter}
+        isLoading={isLoading}
+        versions={updatedVersions}
       />
     </div>
   );

@@ -113,9 +113,9 @@ export const TaskDurationTable: React.FC<Props> = ({
           },
         }) => (
           <TaskLink
+            execution={execution}
             taskId={id}
             taskName={getValue() as string}
-            execution={execution}
           />
         ),
         meta: {
@@ -166,8 +166,8 @@ export const TaskDurationTable: React.FC<Props> = ({
           },
         }) => (
           <TaskDurationCell
-            status={status}
             maxTimeTaken={column.getFacetedMinMaxValues()?.[1] ?? 0}
+            status={status}
             timeTaken={getValue() as number}
           />
         ),
@@ -220,9 +220,9 @@ export const TaskDurationTable: React.FC<Props> = ({
       data-cy-row="task-duration-table-row"
       emptyComponent={<TablePlaceholder message="No tasks found." />}
       loading={loading}
-      table={table}
-      shouldAlternateRowColor
       loadingRows={numLoadingRows}
+      shouldAlternateRowColor
+      table={table}
     />
   );
 };

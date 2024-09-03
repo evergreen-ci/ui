@@ -24,8 +24,8 @@ const JiraTicketRow: React.FC<JiraTicketRowProps> = ({ fields, jiraKey }) => {
   return (
     <Container data-cy="jira-ticket-row">
       <JiraSummaryLink
-        href={url}
         data-cy={jiraKey}
+        href={url}
         onClick={() =>
           annotationAnalytics.sendEvent({
             name: "Clicked Jira ticket summary link",

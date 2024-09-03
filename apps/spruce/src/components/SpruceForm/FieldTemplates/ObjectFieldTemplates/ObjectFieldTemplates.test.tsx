@@ -37,9 +37,9 @@ describe("objectFieldTemplates", () => {
       const onChange = vi.fn();
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={onChange}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -48,9 +48,9 @@ describe("objectFieldTemplates", () => {
     it("renders all fields", () => {
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={vi.fn()}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -67,9 +67,9 @@ describe("objectFieldTemplates", () => {
       const user = userEvent.setup();
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={onChange}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -94,9 +94,9 @@ describe("objectFieldTemplates", () => {
     it("applies data-cy attributes", () => {
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={vi.fn()}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -105,9 +105,9 @@ describe("objectFieldTemplates", () => {
     it("renders all fields in a card", () => {
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={vi.fn()}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -123,9 +123,9 @@ describe("objectFieldTemplates", () => {
       const user = userEvent.setup();
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={onChange}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -149,9 +149,9 @@ describe("objectFieldTemplates", () => {
     it("applies data-cy attributes", () => {
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={vi.fn()}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -160,9 +160,9 @@ describe("objectFieldTemplates", () => {
     it("renders all fields in an accordion", () => {
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={vi.fn()}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -178,9 +178,9 @@ describe("objectFieldTemplates", () => {
       const user = userEvent.setup();
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={onChange}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -192,9 +192,9 @@ describe("objectFieldTemplates", () => {
     it("accordion is expanded by default", () => {
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={vi.fn()}
+          schema={ObjectSchema}
           uiSchema={uiSchema}
         />,
       );
@@ -205,9 +205,9 @@ describe("objectFieldTemplates", () => {
     it("accordion is collapsed by default if defaultOpen is false", () => {
       render(
         <SpruceForm
-          schema={ObjectSchema}
           formData={{}}
           onChange={vi.fn()}
+          schema={ObjectSchema}
           uiSchema={{
             ...uiSchema,
             person: { ...uiSchema.person, "ui:defaultOpen": false },

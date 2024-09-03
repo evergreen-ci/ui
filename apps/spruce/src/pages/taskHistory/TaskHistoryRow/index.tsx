@@ -77,13 +77,13 @@ const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
 
   return (
     <BaseRow
-      data={data}
-      index={index}
       columns={orderedColumns}
+      data={data}
+      eventHandlers={eventHandlers}
+      index={index}
       numVisibleCols={visibleColumns.length}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       selected={data?.selected}
-      eventHandlers={eventHandlers}
     />
   );
 };
@@ -109,18 +109,18 @@ const generateColumns = (
         );
         return (
           <TaskCell
+            key={c}
+            failingTests={failingTests}
+            inactive={inactive}
+            label={label}
+            loading={loading}
             onClick={({ taskStatus }) => {
               sendEvent({
                 name: "Clicked task cell",
                 "task.status": taskStatus,
               });
             }}
-            inactive={inactive}
-            key={c}
             task={t}
-            failingTests={failingTests}
-            label={label}
-            loading={loading}
           />
         );
       }

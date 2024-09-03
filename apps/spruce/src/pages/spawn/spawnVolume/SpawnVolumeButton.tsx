@@ -26,8 +26,8 @@ export const SpawnVolumeButton: React.FC<SpawnVolumeButtonProps> = ({
     <PaddedContainer>
       <Tooltip
         align="top"
+        enabled={reachedMaxVolumeSize}
         justify="middle"
-        triggerEvent="hover"
         popoverZIndex={zIndex.tooltip}
         trigger={
           <PlusButton
@@ -43,16 +43,16 @@ export const SpawnVolumeButton: React.FC<SpawnVolumeButtonProps> = ({
             Spawn a volume
           </PlusButton>
         }
-        enabled={reachedMaxVolumeSize}
+        triggerEvent="hover"
       >
         {`You have reached the max volume limit (${volumeLimit} GiB). Delete some volumes to spawn more.`}
       </Tooltip>
       <Info>Limit {volumeLimit} GiB per User</Info>
       {openModal && (
         <SpawnVolumeModal
-          visible={openModal}
-          onCancel={() => setOpenModal(false)}
           maxSpawnableLimit={maxSpawnableLimit}
+          onCancel={() => setOpenModal(false)}
+          visible={openModal}
         />
       )}
     </PaddedContainer>

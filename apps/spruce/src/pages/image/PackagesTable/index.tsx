@@ -84,12 +84,12 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   return (
     <BaseTable
       data-cy-row="packages-table-row"
-      table={table}
-      shouldAlternateRowColor
       loading={loading}
       loadingRows={pagination.pageSize}
-      usePagination
       numTotalItems={numPackages}
+      shouldAlternateRowColor
+      table={table}
+      usePagination
     />
   );
 };

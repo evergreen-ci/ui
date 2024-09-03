@@ -68,12 +68,12 @@ export const NewUITab: React.FC = () => {
     <SettingsCard>
       <PreferenceItem>
         <Toggle
+          aria-label="Toggle new evergreen ui"
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           checked={spruceV1}
           disabled={updateLoading}
-          onChange={handleOnChangeNewUI}
-          aria-label="Toggle new evergreen ui"
           id="prefer-spruce"
+          onChange={handleOnChangeNewUI}
           size="small"
         />
         <Label htmlFor="prefer-spruce">
@@ -83,10 +83,10 @@ export const NewUITab: React.FC = () => {
       </PreferenceItem>
       <PreferenceItem>
         <Toggle
-          checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
-          onChange={handleOnChangePolling}
           aria-label="Toggle background polling"
+          checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
           id="polling"
+          onChange={handleOnChangePolling}
           size="small"
         />
         <Label htmlFor="polling">

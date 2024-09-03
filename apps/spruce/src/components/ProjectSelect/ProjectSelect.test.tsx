@@ -23,8 +23,8 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
-            selectedProjectIdentifier="evergreen"
             getRoute={getCommitsRoute}
+            selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
       );
@@ -39,8 +39,8 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
-            selectedProjectIdentifier="evergreen"
             getRoute={getCommitsRoute}
+            selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
       );
@@ -70,8 +70,8 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock}>
           <ProjectSelect
-            selectedProjectIdentifier="evergreen"
             getRoute={getCommitsRoute}
+            selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
       );
@@ -106,9 +106,9 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
+            selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
       );
@@ -123,9 +123,9 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
+            selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
       );
@@ -155,9 +155,9 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
+            selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
       );
@@ -191,9 +191,9 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
+            selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
       );
@@ -215,9 +215,9 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock}>
           <ProjectSelect
-            selectedProjectIdentifier="evergreen"
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
+            selectedProjectIdentifier="evergreen"
           />
         </MockedProvider>,
       );
@@ -243,9 +243,9 @@ describe("projectSelect", () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={noDisabledProjectsMock}>
           <ProjectSelect
-            selectedProjectIdentifier="spruce"
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
+            selectedProjectIdentifier="spruce"
           />
         </MockedProvider>,
       );

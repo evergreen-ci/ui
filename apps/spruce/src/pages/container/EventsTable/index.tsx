@@ -89,13 +89,13 @@ const EventsTable: React.FC<{}> = () => {
         <TableControlInnerRow>
           <Pagination
             currentPage={page}
-            totalResults={count ?? 0}
             pageSize={limit}
+            totalResults={count ?? 0}
           />
           <PageSizeSelector
             data-cy="pod-events-page-size-selector"
-            value={limit}
             onChange={setLimit}
+            value={limit}
           />
         </TableControlInnerRow>
       </TableTitle>

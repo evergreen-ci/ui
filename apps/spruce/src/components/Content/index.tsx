@@ -34,77 +34,77 @@ import { Layout } from "./Layout";
 export const Content: React.FC = () => (
   <Routes>
     <Route element={<Layout />}>
-      <Route path="/" element={<Navigate to={routes.myPatches} />} />
-      <Route path={routes.commits} element={<Commits />}>
-        <Route path={`:${slugs.projectIdentifier}`} element={null} />
+      <Route element={<Navigate to={routes.myPatches} />} path="/" />
+      <Route element={<Commits />} path={routes.commits}>
+        <Route element={null} path={`:${slugs.projectIdentifier}`} />
       </Route>
-      <Route path={routes.container} element={<Container />} />
+      <Route element={<Container />} path={routes.container} />
       <Route
-        path={redirectRoutes.waterfall}
         element={<WaterfallCommitsRedirect />}
+        path={redirectRoutes.waterfall}
       />
-      <Route path={routes.configurePatch} element={<ConfigurePatch />}>
-        <Route path={`:${slugs.tab}`} element={null} />
+      <Route element={<ConfigurePatch />} path={routes.configurePatch}>
+        <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route path={`${routes.distroSettings}/*`} element={<Distro />}>
-        <Route path={`:${slugs.tab}`} element={null} />
+      <Route element={<Distro />} path={`${routes.distroSettings}/*`}>
+        <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route
-        path={redirectRoutes.distroSettings}
         element={<DistroSettingsRedirect />}
+        path={redirectRoutes.distroSettings}
       />
-      <Route path={routes.host} element={<Host />} />
-      <Route path={routes.hosts} element={<Hosts />} />
+      <Route element={<Host />} path={routes.host} />
+      <Route element={<Hosts />} path={routes.hosts} />
       {showImageVisibilityPage && (
-        <Route path={`${routes.image}/*`} element={<Image />}>
-          <Route path={`:${slugs.tab}`} element={null} />
+        <Route element={<Image />} path={`${routes.image}/*`}>
+          <Route element={null} path={`:${slugs.tab}`} />
         </Route>
       )}
-      <Route path={routes.jobLogs} element={null}>
-        <Route path={`:${slugs.buildId}`} element={<JobLogs isLogkeeper />}>
-          <Route path={`:${slugs.groupId}`} element={null} />
+      <Route element={null} path={routes.jobLogs}>
+        <Route element={<JobLogs isLogkeeper />} path={`:${slugs.buildId}`}>
+          <Route element={null} path={`:${slugs.groupId}`} />
         </Route>
         <Route
-          path={`:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`}
           element={<JobLogs isLogkeeper={false} />}
+          path={`:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`}
         />
       </Route>
-      <Route path={routes.myPatches} element={<MyPatches />} />
-      <Route path={redirectRoutes.patch} element={<PatchRedirect />}>
-        <Route path={`:${slugs.tab}`} element={null} />
+      <Route element={<MyPatches />} path={routes.myPatches} />
+      <Route element={<PatchRedirect />} path={redirectRoutes.patch}>
+        <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route path={`${routes.preferences}/*`} element={<Preferences />}>
-        <Route path={`:${slugs.tab}`} element={null} />
+      <Route element={<Preferences />} path={`${routes.preferences}/*`}>
+        <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route path={routes.projectPatches} element={<ProjectPatches />} />
-      <Route path={`${routes.projectSettings}/*`} element={<ProjectSettings />}>
-        <Route path={`:${slugs.tab}`} element={null} />
+      <Route element={<ProjectPatches />} path={routes.projectPatches} />
+      <Route element={<ProjectSettings />} path={`${routes.projectSettings}/*`}>
+        <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route
-        path={redirectRoutes.projectSettings}
         element={<ProjectSettingsRedirect />}
+        path={redirectRoutes.projectSettings}
       />
-      <Route path={`${routes.spawn}/*`} element={<Spawn />}>
-        <Route path={`:${slugs.tab}`} element={null} />
+      <Route element={<Spawn />} path={`${routes.spawn}/*`}>
+        <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route path={routes.commitQueue} element={<CommitQueue />} />
-      <Route path={routes.task} element={<Task />}>
-        <Route path={`:${slugs.tab}`} element={null} />
+      <Route element={<CommitQueue />} path={routes.commitQueue} />
+      <Route element={<Task />} path={routes.task}>
+        <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route path={routes.taskHistory} element={<TaskHistory />} />
-      <Route path={routes.taskQueue} element={<TaskQueue />}>
-        <Route path={`:${slugs.distroId}`} element={null} />
+      <Route element={<TaskHistory />} path={routes.taskHistory} />
+      <Route element={<TaskQueue />} path={routes.taskQueue}>
+        <Route element={null} path={`:${slugs.distroId}`} />
       </Route>
-      <Route path={routes.userPatches} element={<UserPatches />} />
+      <Route element={<UserPatches />} path={routes.userPatches} />
       <Route
-        path={redirectRoutes.userPatches}
         element={<UserPatchesRedirect />}
+        path={redirectRoutes.userPatches}
       />
-      <Route path={routes.variantHistory} element={<VariantHistory />} />
-      <Route path={routes.version} element={<VersionPage />}>
-        <Route path={`:${slugs.tab}`} element={null} />
+      <Route element={<VariantHistory />} path={routes.variantHistory} />
+      <Route element={<VersionPage />} path={routes.version}>
+        <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route path="*" element={<PageDoesNotExist />} />
+      <Route element={<PageDoesNotExist />} path="*" />
     </Route>
   </Routes>
 );

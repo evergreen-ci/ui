@@ -31,10 +31,7 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
     <ButtonWrapper>
       {urlParsley && (
         <Button
-          title="High-powered log viewer"
           data-cy="test-table-parsley-btn"
-          size="xsmall"
-          target="_blank"
           href={urlParsley}
           onClick={() =>
             sendEvent({
@@ -43,16 +40,16 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
               "test.status": status,
             })
           }
+          size="xsmall"
+          target="_blank"
+          title="High-powered log viewer"
         >
           Parsley
         </Button>
       )}
       {urlHTML && (
         <Button
-          title="Plain, colorized log viewer"
           data-cy="test-table-html-btn"
-          size="xsmall"
-          target="_blank"
           href={urlHTML}
           onClick={() =>
             sendEvent({
@@ -61,16 +58,16 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
               "test.status": status,
             })
           }
+          size="xsmall"
+          target="_blank"
+          title="Plain, colorized log viewer"
         >
           HTML
         </Button>
       )}
       {urlRaw && (
         <Button
-          title="Plain text log viewer"
           data-cy="test-table-raw-btn"
-          size="xsmall"
-          target="_blank"
           href={urlRaw}
           onClick={() =>
             sendEvent({
@@ -79,6 +76,9 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
               "test.status": status,
             })
           }
+          size="xsmall"
+          target="_blank"
+          title="Plain text log viewer"
         >
           Raw
         </Button>

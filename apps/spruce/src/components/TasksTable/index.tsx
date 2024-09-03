@@ -60,11 +60,7 @@ const TasksTable: React.FC<TasksTableProps> = ({
   variantInputProps,
 }) => (
   <Table
-    data-cy="tasks-table"
-    rowKey={rowKey}
-    pagination={false}
-    loading={loading}
-    data-loading={loading}
+    childrenColumnName="executionTasksFull"
     columns={
       sorts
         ? getColumnDefsWithSort({
@@ -89,17 +85,21 @@ const TasksTable: React.FC<TasksTableProps> = ({
             variantInputProps,
           })
     }
-    getPopupContainer={(trigger: HTMLElement) => trigger}
+    data-cy="tasks-table"
+    data-loading={loading}
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     dataSource={tasks}
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    onChange={tableChangeHandler}
-    childrenColumnName="executionTasksFull"
     expandable={{
       onExpand: (expanded) => {
         onExpand(expanded);
       },
     }}
+    getPopupContainer={(trigger: HTMLElement) => trigger}
+    loading={loading}
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    onChange={tableChangeHandler}
+    pagination={false}
+    rowKey={rowKey}
   />
 );
 
@@ -177,7 +177,7 @@ const getColumnDefs = ({
           popoverZIndex={zIndex.tooltip}
           trigger={
             <span>
-              <TaskStatusBadge status={status} id={id} execution={execution} />
+              <TaskStatusBadge execution={execution} id={id} status={status} />
             </span>
           }
         >
@@ -186,7 +186,7 @@ const getColumnDefs = ({
         </Tooltip>
       ) : (
         status && (
-          <TaskStatusBadge status={status} id={id} execution={execution} />
+          <TaskStatusBadge execution={execution} id={id} status={status} />
         )
       ),
     ...(statusSelectorProps && {
@@ -213,11 +213,11 @@ const getColumnDefs = ({
     render: (status: string, { baseTask }) =>
       status && (
         <TaskStatusBadge
-          status={status}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          id={baseTask.id}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           execution={baseTask.execution}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          id={baseTask.id}
+          status={status}
         />
       ),
     ...(baseStatusSelectorProps && {

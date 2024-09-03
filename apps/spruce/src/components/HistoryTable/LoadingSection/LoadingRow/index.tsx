@@ -8,7 +8,7 @@ interface LoadingRowProps {
 const LoadingRow: React.FC<LoadingRowProps> = ({ numVisibleCols }) => (
   <Container>
     <LabelCellContainer>
-      <Skeleton active title={false} paragraph={{ rows: 3 }} />
+      <Skeleton active paragraph={{ rows: 3 }} title={false} />
     </LabelCellContainer>
     {Array.from(Array(numVisibleCols)).map((_, index) => (
       // Disabling key index rules since there is nothing unique about these rows

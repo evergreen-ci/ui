@@ -33,16 +33,16 @@ const Container = () => {
   return (
     <PageWrapper data-cy="host-page">
       <PageTitle
-        title={`Container: ${id}`}
+        badge={<PodStatusBadge status={status as PodStatus} />}
+        loading={loading}
         pageTitle={`Container: ${id}`}
         size="large"
-        loading={loading}
-        badge={<PodStatusBadge status={status as PodStatus} />}
+        title={`Container: ${id}`}
       />
       <PageLayout hasSider>
         <PageSider width={350}>
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          <Metadata loading={loading} pod={pod} error={error} />
+          <Metadata error={error} loading={loading} pod={pod} />
         </PageSider>
         <PageLayout>
           <PageContent>

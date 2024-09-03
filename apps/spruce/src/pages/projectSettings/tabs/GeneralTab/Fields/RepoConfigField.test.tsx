@@ -115,8 +115,8 @@ describe("repoConfigField", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <Field
-        projectType={ProjectType.Project}
         formData={{ owner: "newOwner", repo: defaultFormData.repo }}
+        projectType={ProjectType.Project}
       />,
     );
     render(<Component />);
@@ -141,8 +141,8 @@ describe("repoConfigField", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <Field
-        projectType={ProjectType.Project}
         formData={{ owner: defaultFormData.owner, repo: "newRepo" }}
+        projectType={ProjectType.Project}
       />,
     );
     render(<Component />);

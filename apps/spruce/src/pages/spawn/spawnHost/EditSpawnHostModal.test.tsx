@@ -34,7 +34,7 @@ describe("editSpawnHostModal", () => {
 
   it("renders modal", () => {
     const { Component } = RenderFakeToastContext(
-      <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
+      <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
     );
     render(
       <MockedProvider mocks={baseMocks}>
@@ -46,7 +46,7 @@ describe("editSpawnHostModal", () => {
 
   it("disables save button when no changes have been made", () => {
     const { Component } = RenderFakeToastContext(
-      <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
+      <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
     );
     render(
       <MockedProvider mocks={baseMocks}>
@@ -63,7 +63,7 @@ describe("editSpawnHostModal", () => {
   describe("when default sleep schedule is enabled", () => {
     it("has default sleep schedule checkbox checked", () => {
       const { Component } = RenderFakeToastContext(
-        <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
+        <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
       );
       render(
         <MockedProvider mocks={baseMocks}>
@@ -80,7 +80,7 @@ describe("editSpawnHostModal", () => {
 
     it("has all daypicker elements disabled", () => {
       const { Component } = RenderFakeToastContext(
-        <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
+        <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
       );
       render(
         <MockedProvider mocks={baseMocks}>
@@ -97,7 +97,7 @@ describe("editSpawnHostModal", () => {
 
     it("has default days selected", () => {
       const { Component } = RenderFakeToastContext(
-        <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
+        <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
       );
       render(
         <MockedProvider mocks={baseMocks}>
@@ -127,7 +127,7 @@ describe("editSpawnHostModal", () => {
 
     it("has timepicker elements disabled", () => {
       const { Component } = RenderFakeToastContext(
-        <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
+        <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
       );
       render(
         <MockedProvider mocks={baseMocks}>
@@ -150,7 +150,7 @@ describe("editSpawnHostModal", () => {
     it("shows the updated hour count when changing the schedule", async () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
-        <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
+        <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
       );
       render(
         <MockedProvider mocks={baseMocks}>
@@ -181,7 +181,7 @@ describe("editSpawnHostModal", () => {
     it("shows a warning when user has configured a schedule over the recommended limit", async () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
-        <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
+        <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
       );
       render(
         <MockedProvider mocks={baseMocks}>
@@ -207,7 +207,7 @@ describe("editSpawnHostModal", () => {
     it("shows an error and disables save when user has configured a schedule over the hard limit", async () => {
       const user = userEvent.setup();
       const { Component } = RenderFakeToastContext(
-        <EditSpawnHostModal host={baseSpawnHost} visible onCancel={() => {}} />,
+        <EditSpawnHostModal host={baseSpawnHost} onCancel={() => {}} visible />,
       );
       render(
         <MockedProvider mocks={baseMocks}>
@@ -251,8 +251,8 @@ describe("editSpawnHostModal", () => {
       const { Component } = RenderFakeToastContext(
         <EditSpawnHostModal
           host={tempExemptSpawnHost}
-          visible
           onCancel={() => {}}
+          visible
         />,
       );
       render(
@@ -308,7 +308,6 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
-    isBetaTester: true,
     temporarilyExemptUntil: null,
     timeZone: "America/Chicago",
   },
@@ -321,7 +320,6 @@ const tempExemptSpawnHost: MyHost = {
   homeVolumeID: "vol-5678",
   sleepSchedule: {
     ...defaultSleepSchedule,
-    isBetaTester: true,
     temporarilyExemptUntil: new Date("2020-01-15"),
     timeZone: "America/New_York",
   },

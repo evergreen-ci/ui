@@ -31,8 +31,8 @@ export const AppSettingsTab: React.FC<TabProps> = ({
 
   return (
     <BaseTab
-      initialFormState={initialFormState}
       formSchema={formSchema}
+      initialFormState={initialFormState}
       tab={tab}
       validate={validate}
     />

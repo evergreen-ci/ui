@@ -75,10 +75,10 @@ export const UnscheduleTasks: React.FC<props> = ({
       >
         <Body weight="medium">Unschedule all tasks?</Body>
         <Checkbox
+          checked={abort}
           data-cy="abort-checkbox"
           label="Abort tasks that have already started"
           onChange={() => setAbort(!abort)}
-          checked={abort}
         />
       </Popconfirm>
     </>

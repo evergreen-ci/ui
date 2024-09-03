@@ -42,7 +42,7 @@ describe("loading events", () => {
     const { Component } = RenderFakeToastContext(
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       <Wrapper mocks={[mock(limit)]}>
-        <EventLogTab projectType={ProjectType.AttachedProject} limit={limit} />
+        <EventLogTab limit={limit} projectType={ProjectType.AttachedProject} />
       </Wrapper>,
     );
     render(<Component />, {

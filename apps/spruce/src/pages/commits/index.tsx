@@ -201,8 +201,8 @@ const Commits = () => {
         <HeaderWrapper>
           <ElementWrapper width="35">
             <TupleSelectWithRegexConditional
-              options={tupleSelectOptions}
               onSubmit={onSubmitTupleSelect}
+              options={tupleSelectOptions}
               validator={validateRegexp}
               validatorErrorMessage="Invalid Regular Expression"
             />
@@ -215,8 +215,6 @@ const Commits = () => {
           </ElementWrapper>
           <ElementWrapper width="25">
             <ProjectSelect
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              selectedProjectIdentifier={projectIdentifier}
               getRoute={getCommitsRoute}
               onSubmit={(p: string) => {
                 sendEvent({
@@ -224,21 +222,23 @@ const Commits = () => {
                   project: p,
                 });
               }}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              selectedProjectIdentifier={projectIdentifier}
             />
           </ElementWrapper>
           <WaterfallMenu />
         </HeaderWrapper>
         <BadgeWrapper>
           <FilterBadges
-            onRemove={(b) => {
-              sendEvent({ name: "Deleted a badge" });
-              handleOnRemove(b);
-            }}
+            badges={badges}
             onClearAll={() => {
               sendEvent({ name: "Deleted all badges" });
               handleClearAll();
             }}
-            badges={badges}
+            onRemove={(b) => {
+              sendEvent({ name: "Deleted a badge" });
+              handleOnRemove(b);
+            }}
           />
         </BadgeWrapper>
         <PaginationWrapper>
@@ -246,30 +246,30 @@ const Commits = () => {
           <ViewToggle identifier={projectIdentifier} />
           <PaginationButtons
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            prevPageOrderNumber={prevPageOrderNumber}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             nextPageOrderNumber={nextPageOrderNumber}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            prevPageOrderNumber={prevPageOrderNumber}
           />
         </PaginationWrapper>
         <div ref={ref}>
           <CommitsWrapper
-            versions={versions}
-            revision={revision}
+            hasFilters={hasFilters}
+            hasTaskFilter={hasTasks}
             isLoading={
               (loading && !versions) ||
               !projectIdentifier ||
               isRedirecting ||
               isResizing
             }
-            hasTaskFilter={hasTasks}
-            hasFilters={hasFilters}
+            revision={revision}
+            versions={versions}
           />
         </div>
       </PageContainer>
       {!shouldDisableForTest && !hasUsedMainlineCommitsBefore && (
         <WelcomeModal
-          param="hasUsedMainlineCommitsBefore"
           carouselCards={newMainlineCommitsUser}
+          param="hasUsedMainlineCommitsBefore"
         />
       )}
     </PageWrapper>

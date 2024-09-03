@@ -47,9 +47,9 @@ describe("copySSHCommandButton", () => {
     render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
-          user={testUser}
-          hostUrl={hostUrl}
           hostStatus={HostStatus.Running}
+          hostUrl={hostUrl}
+          user={testUser}
         />
       </MockedProvider>,
     );
@@ -88,9 +88,9 @@ describe("copySSHCommandButton", () => {
     render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
-          user={testUser}
-          hostUrl=""
           hostStatus={HostStatus.Starting}
+          hostUrl=""
+          user={testUser}
         />
       </MockedProvider>,
     );
@@ -112,9 +112,9 @@ describe("copySSHCommandButton", () => {
     render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
-          user={testUser}
-          hostUrl={hostUrl}
           hostStatus={HostStatus.Terminated}
+          hostUrl={hostUrl}
+          user={testUser}
         />
       </MockedProvider>,
     );
@@ -187,7 +187,6 @@ describe("spawn host table", () => {
             ...baseSpawnHost,
             sleepSchedule: {
               ...defaultSleepSchedule,
-              isBetaTester: true,
               nextStartTime: null,
               timeZone: "America/New_York",
               permanentlyExempt: true,
@@ -215,7 +214,6 @@ describe("spawn host table", () => {
             ...baseSpawnHost,
             sleepSchedule: {
               ...defaultSleepSchedule,
-              isBetaTester: true,
               nextStartTime: null,
               timeZone: "America/New_York",
               permanentlyExempt: false,
@@ -243,7 +241,6 @@ describe("spawn host table", () => {
             ...baseSpawnHost,
             sleepSchedule: {
               ...defaultSleepSchedule,
-              isBetaTester: false,
               nextStartTime: null,
               timeZone: "America/New_York",
               permanentlyExempt: true,
@@ -302,7 +299,6 @@ const baseSpawnHost: MyHost = {
   availabilityZone: "us-east-1c",
   sleepSchedule: {
     ...defaultSleepSchedule,
-    isBetaTester: true,
     nextStartTime: new Date("2024-06-06T08:00:00Z"),
     temporarilyExemptUntil: null,
     timeZone: "America/New_York",

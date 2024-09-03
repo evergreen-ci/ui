@@ -42,14 +42,14 @@ const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
   const suspectedIssues = data?.task?.annotation?.suspectedIssues;
   return (
     <AnnotationTickets
-      tickets={suspectedIssues || annotation?.suspectedIssues || []}
-      taskId={taskId}
       execution={execution}
-      userCanModify={userCanModify}
+      isIssue={false}
+      loading={loading}
       selectedRowKey={selectedRowKey}
       setSelectedRowKey={setSelectedRowKey}
-      loading={loading}
-      isIssue={false}
+      taskId={taskId}
+      tickets={suspectedIssues || annotation?.suspectedIssues || []}
+      userCanModify={userCanModify}
     />
   );
 };

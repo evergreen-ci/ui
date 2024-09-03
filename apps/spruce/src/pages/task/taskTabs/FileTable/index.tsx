@@ -47,9 +47,9 @@ const FileTable: React.FC<FileTableProps> = ({ execution, taskId }) => {
     <>
       <StyledSearchInput
         aria-label="Search file names"
-        placeholder="File name regex"
-        onChange={(v) => setSearch(v)}
         data-cy="file-search-input"
+        onChange={(v) => setSearch(v)}
+        placeholder="File name regex"
         validator={validateRegexp}
         validatorErrorMessage="Invalid regex"
       />

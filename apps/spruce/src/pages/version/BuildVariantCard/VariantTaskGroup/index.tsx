@@ -56,16 +56,16 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
     <div data-cy="patch-build-variant">
       <StyledRouterLink
         css={wordBreakCss}
-        to={getVersionRoute(versionId, {
-          ...versionRouteParams,
-          variant: isVariantSelected ? undefined : applyStrictRegex(variant),
-        })}
+        data-cy="build-variant-display-name"
         onClick={() =>
           sendEvent({
             name: "Filtered by build variant group",
           })
         }
-        data-cy="build-variant-display-name"
+        to={getVersionRoute(versionId, {
+          ...versionRouteParams,
+          variant: isVariantSelected ? undefined : applyStrictRegex(variant),
+        })}
       >
         {displayName}
       </StyledRouterLink>
@@ -92,15 +92,6 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
               <GroupedTaskStatusBadge
                 key={`${versionId}_${variant}_${umbrellaStatus}`}
                 count={count}
-                onClick={() => {
-                  sendEvent({
-                    name: "Filtered by build variant and task status group",
-                    taskSquareStatuses: Object.keys(groupedStatusCounts),
-                  });
-                }}
-                status={umbrellaStatus}
-                statusCounts={groupedStatusCounts}
-                // If the badge is active it should reset the page.
                 href={getVersionRoute(
                   versionId,
                   shouldLinkToVariant
@@ -112,6 +103,15 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
                     : { ...versionRouteParams },
                 )}
                 isActive={isBadgeActive}
+                onClick={() => {
+                  sendEvent({
+                    name: "Filtered by build variant and task status group",
+                    taskSquareStatuses: Object.keys(groupedStatusCounts),
+                  });
+                }}
+                // If the badge is active it should reset the page.
+                status={umbrellaStatus}
+                statusCounts={groupedStatusCounts}
               />
             );
           },

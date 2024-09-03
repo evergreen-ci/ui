@@ -26,9 +26,8 @@ const columns = (
       return (
         <CellContainer>
           <StyledLink
-            href={value.row.original.link}
             data-cy="file-link"
-            target="_blank"
+            href={value.row.original.link}
             onClick={() => {
               taskAnalytics.sendEvent({
                 name: "Clicked task file link",
@@ -36,30 +35,31 @@ const columns = (
                 "file.name": fileName,
               });
             }}
+            target="_blank"
           >
             {fileName}
           </StyledLink>
           <Tooltip
+            align="top"
+            enabled={value.row.original.urlParsley === null}
+            justify="middle"
             trigger={
               <Button
-                href={value.row.original.urlParsley}
                 data-cy="parsley-link"
-                target="_blank"
                 disabled={value.row.original.urlParsley === null}
-                size="small"
+                href={value.row.original.urlParsley}
                 onClick={() => {
                   taskAnalytics.sendEvent({
                     name: "Clicked task file Parsley link",
                     "file.name": fileName,
                   });
                 }}
+                size="small"
+                target="_blank"
               >
                 Parsley
               </Button>
             }
-            enabled={value.row.original.urlParsley === null}
-            align="top"
-            justify="middle"
           >
             Only plain text files can be opened in Parsley.
           </Tooltip>
@@ -97,7 +97,7 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   return (
     <Container>
       {taskName && <Subtitle>{taskName}</Subtitle>}
-      <BaseTable table={table} shouldAlternateRowColor />
+      <BaseTable shouldAlternateRowColor table={table} />
     </Container>
   );
 };

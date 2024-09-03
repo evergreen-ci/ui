@@ -74,21 +74,21 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
     <Container>
       <Combobox
         data-cy="build-variant-selector"
+        disabled={loading}
+        filteredOptions={filteredOptions}
         label="Build Variant"
-        placeholder="Select build variants"
-        value={visibleColumns}
         multiselect
         onChange={onChange}
-        disabled={loading}
-        overflow="scroll-x"
         onFilter={onFilter}
-        filteredOptions={filteredOptions}
+        overflow="scroll-x"
+        placeholder="Select build variants"
+        value={visibleColumns}
       >
         {buildVariantsForTaskName?.map((option) => (
           <ComboboxOption
             key={`searchable_dropdown_option_${option.buildVariant}`}
-            value={option.buildVariant}
             displayName={option.displayName}
+            value={option.buildVariant}
           />
         ))}
       </Combobox>

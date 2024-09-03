@@ -91,10 +91,6 @@ export const Task = () => {
         />
       )}
       <PageTitle
-        pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
-        loading={loading}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        title={displayName}
         badge={
           <StyledBadgeWrapper>
             {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
@@ -111,15 +107,19 @@ export const Task = () => {
             task={task}
           />
         }
+        loading={loading}
+        pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        title={displayName}
       />
       <PageLayout hasSider>
         <PageSider>
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           {latestExecution > 0 && (
             <ExecutionSelect
+              currentExecution={selectedExecution}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               id={taskId}
-              currentExecution={selectedExecution}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               latestExecution={latestExecution}
               updateExecution={(n: number) => {
@@ -132,16 +132,16 @@ export const Task = () => {
           )}
           <Metadata
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            taskId={taskId}
-            task={task}
-            loading={loading}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             error={error}
+            loading={loading}
+            task={task}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            taskId={taskId}
           />
         </PageSider>
         <LogWrapper>
           <PageContent>
-            {task && <TaskTabs task={task} isDisplayTask={isDisplayTask} />}
+            {task && <TaskTabs isDisplayTask={isDisplayTask} task={task} />}
           </PageContent>
         </LogWrapper>
       </PageLayout>

@@ -29,7 +29,6 @@ export const NotificationField: React.FC<NotificationFieldProps> = ({
           {notificationFields[notification]}
         </NotificationEvent>
         <StyledRadioGroup
-          row={index}
           onChange={(e) => {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             setNotificationStatus({
@@ -37,6 +36,7 @@ export const NotificationField: React.FC<NotificationFieldProps> = ({
               [notification]: e.target.value,
             });
           }}
+          row={index}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={notificationStatus[notification]}
         >

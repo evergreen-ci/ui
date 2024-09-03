@@ -72,7 +72,7 @@ export const getColumnsTemplate = ({
           popoverZIndex={zIndex.tooltip}
           trigger={
             <span>
-              <TaskStatusBadge status={status} id={id} execution={execution} />
+              <TaskStatusBadge execution={execution} id={id} status={status} />
             </span>
           }
         >
@@ -81,7 +81,7 @@ export const getColumnsTemplate = ({
         </Tooltip>
       ) : (
         getValue() && (
-          <TaskStatusBadge status={status} id={id} execution={execution} />
+          <TaskStatusBadge execution={execution} id={id} status={status} />
         )
       );
     },
@@ -106,9 +106,9 @@ export const getColumnsTemplate = ({
     }) =>
       getValue() && (
         <TaskStatusBadge
-          status={getValue() as string}
-          id={baseTask?.id}
           execution={baseTask?.execution}
+          id={baseTask?.id}
+          status={getValue() as string}
         />
       ),
     meta: {
