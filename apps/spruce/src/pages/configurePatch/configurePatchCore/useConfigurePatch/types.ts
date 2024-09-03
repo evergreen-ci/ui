@@ -1,5 +1,5 @@
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { ConfigurePatchQuery } from "gql/generated/types";
-import { Unpacked } from "types/utils";
 
 // Extract the type of a child patch and append alias field
 export interface ChildPatchAliased

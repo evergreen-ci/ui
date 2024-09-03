@@ -2,9 +2,9 @@ import { useRef } from "react";
 import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { BaseTable } from "components/Table/BaseTable";
 import { tableColumnOffset } from "constants/tokens";
-import { Unpacked } from "types/utils";
 
 type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;
 

@@ -1,10 +1,10 @@
 import { InMemoryCache } from "@apollo/client";
 import { MockedProvider } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { OtherUserQuery, OtherUserQueryVariables } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
 import { OTHER_USER } from "gql/queries";
 import { renderHook, waitFor } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { useBreadcrumbRoot } from ".";
 
 const cache = new InMemoryCache({

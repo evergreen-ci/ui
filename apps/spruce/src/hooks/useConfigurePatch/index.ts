@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { getPatchRoute, slugs } from "constants/routes";
 import {
   ConfigurePatchQuery,
@@ -8,7 +9,6 @@ import {
 } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchTab } from "types/patch";
-import { Unpacked } from "types/utils";
 import { array, queryString, string } from "utils";
 
 const { convertArrayToObject, mapStringArrayToObject } = array;

@@ -1,4 +1,5 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -7,7 +8,6 @@ import {
 } from "gql/generated/types";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { renderHook, waitFor } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { useLastPassingTask } from ".";
 
 interface ProviderProps {

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
   ProjectsQuery,
@@ -9,7 +10,6 @@ import {
   ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
-import { Unpacked } from "types/utils";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 interface ProjectSelectProps {

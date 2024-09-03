@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { defaultSleepSchedule } from "components/Spawn/utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -23,7 +24,6 @@ import {
   userEvent,
   within,
 } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { MyHost } from "types/spawn";
 import { EditSpawnHostModal } from "./EditSpawnHostModal";
 

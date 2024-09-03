@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { size } from "constants/tokens";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import { TaskStatus } from "types/task";
 import TaskStatusBadge from ".";
 
 export default {

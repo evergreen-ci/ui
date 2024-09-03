@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   AddAnnotationIssueMutation,
@@ -13,7 +14,6 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { AddIssueModal as AddIssueModalToTest } from ".";
 
 const AddIssueModal = (

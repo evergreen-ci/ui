@@ -1,12 +1,11 @@
 import { Variant } from "@leafygreen-ui/badge";
-import { TestStatus } from "types/test";
+import { TestStatus } from "@evg-ui/lib/types/test";
 
 export const statusToBadgeColor = {
   [TestStatus.Pass]: Variant.Green,
   [TestStatus.Fail]: Variant.Red,
   [TestStatus.SilentFail]: Variant.Blue,
   [TestStatus.Skip]: Variant.Yellow,
-  [TestStatus.Timeout]: Variant.Red,
 };
 
 export const statusCopy = {
@@ -14,5 +13,4 @@ export const statusCopy = {
   [TestStatus.Fail]: "Fail",
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
-  [TestStatus.Timeout]: "Timeout",
 };
