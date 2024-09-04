@@ -66,7 +66,7 @@ attribute names concise and easier to manage.
 
 ### 3. Snake case
 
-When defining multi word attributes, use snake case to separate words. This
+When defining multi word attributes, use `snake_case` to separate words. This
 ensures that the attribute is readable and easy to understand.
 
 ### 4. Strive for Balance
