@@ -881,14 +881,11 @@ export type Image = {
   distros: Array<Distro>;
   events: ImageEventsPayload;
   id: Scalars["String"]["output"];
-  kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
-  name: Scalars["String"]["output"];
   operatingSystem: ImageOperatingSystemPayload;
   packages: ImagePackagesPayload;
   toolchains: ImageToolchainsPayload;
-  versionId: Scalars["String"]["output"];
 };
 
 /**
