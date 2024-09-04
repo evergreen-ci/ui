@@ -92,6 +92,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
               <GroupedTaskStatusBadge
                 key={`${versionId}_${variant}_${umbrellaStatus}`}
                 count={count}
+                // If the badge is active it should reset the page.
                 href={getVersionRoute(
                   versionId,
                   shouldLinkToVariant
@@ -106,10 +107,10 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
                 onClick={() => {
                   sendEvent({
                     name: "Filtered by build variant and task status group",
-                    taskSquareStatuses: Object.keys(groupedStatusCounts),
+                    "filter.task_square_statuses":
+                      Object.keys(groupedStatusCounts),
                   });
                 }}
-                // If the badge is active it should reset the page.
                 status={umbrellaStatus}
                 statusCounts={groupedStatusCounts}
               />

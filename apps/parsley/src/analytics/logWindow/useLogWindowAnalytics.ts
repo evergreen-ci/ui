@@ -44,14 +44,14 @@ type Action =
   | { name: "Clicked close all sections button" }
   | {
       name: "Clicked open subsections button";
-      "function.name": string;
-      "function.status": SectionStatus;
-      "was.function.closed": boolean;
+      "section.function.name": string;
+      "section.function.status": SectionStatus;
+      "section.function.was_closed": boolean;
     }
   | {
       name: "Clicked close subsections button";
-      "function.name": string;
-      "function.status": SectionStatus;
+      "section.function.name": string;
+      "section.function.status": SectionStatus;
     }
   | {
       name: "Viewed log with sections and jump to failing line";
