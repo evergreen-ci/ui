@@ -1,4 +1,4 @@
-import { StringMap } from "./utils";
+import { StringMap } from "@evg-ui/lib/types/utils";
 
 export enum ResourceType {
   Build = "BUILD",

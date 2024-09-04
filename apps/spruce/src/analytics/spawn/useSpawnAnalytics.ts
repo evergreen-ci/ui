@@ -16,10 +16,10 @@ type Action =
     }
   | {
       name: "Created a spawn host";
-      "host.is.volume.migration": boolean;
-      "host.is.workstation": boolean;
+      "host.is_volume_migration": boolean;
+      "host.is_workstation": boolean;
       "host.distro.id": string;
-      "host.is.unexpirable": boolean;
+      "host.is_unexpirable": boolean;
     }
   | { name: "Viewed spawn volume modal" }
   | {
@@ -33,11 +33,11 @@ type Action =
       name: "Created a volume";
       "volume.type": string;
       "volume.size": number;
-      "volume.is.unexpirable": boolean;
+      "volume.is_unexpirable": boolean;
     }
   | {
       name: "Changed spawn volume settings";
-      "volume.is.unexpirable": boolean;
+      "volume.is_unexpirable": boolean;
     }
   | { name: "Clicked open IDE button" }
   | { name: "Changed tab"; tab: string };

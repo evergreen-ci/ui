@@ -1,3 +1,4 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
@@ -12,7 +13,6 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
 

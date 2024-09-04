@@ -1,6 +1,6 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { MY_VOLUMES } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 export const myVolumesQueryMock: ApolloMock<
   MyVolumesQuery,

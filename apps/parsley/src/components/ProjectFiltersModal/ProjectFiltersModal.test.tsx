@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
@@ -19,7 +20,6 @@ import {
   waitFor,
 } from "test_utils";
 import { renderComponentWithHook } from "test_utils/TestHooks";
-import { ApolloMock } from "types/gql";
 import ProjectFiltersModal from ".";
 
 const wrapper = (mocks: MockedResponse[]) => {

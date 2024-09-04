@@ -1,4 +1,4 @@
-import { Unpacked } from "types/utils";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "./constants";
 import { mainlineCommits, CommitRowType, rowType } from "./types";
 

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { AbortInfo, MetStatus, RequiredStatus } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-import { TaskStatus } from "types/task";
 import { Metadata } from "./index";
 
 export default {

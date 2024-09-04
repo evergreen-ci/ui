@@ -1,3 +1,4 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   BuildBaronCreateTicketMutation,
@@ -26,7 +27,6 @@ import {
 } from "gql/queries";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { MockedProvider } from "test_utils/graphql";
-import { ApolloMock } from "types/gql";
 import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =

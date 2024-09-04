@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import ExpandedText from "components/ExpandedText";
 import {
@@ -29,7 +30,6 @@ import {
 import { zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import { TaskStatus } from "types/task";
 import { string } from "utils";
 import { isFailedTaskStatus } from "utils/statuses";
 import { AbortMessage } from "./AbortMessage";

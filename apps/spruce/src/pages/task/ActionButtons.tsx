@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { useParams } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
@@ -37,7 +38,6 @@ import {
 } from "gql/mutations";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { useQueryParam } from "hooks/useQueryParam";
-import { TaskStatus } from "types/task";
 import { RelevantCommits } from "./actionButtons/RelevantCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
@@ -311,7 +311,7 @@ export const ActionButtons: React.FC<Props> = ({
                 taskAnalytics.sendEvent({
                   name: "Clicked restart task button",
                   allTasks: true,
-                  "task.is.display_task": true,
+                  "task.is_display_task": true,
                 });
               }}
             >
@@ -324,7 +324,7 @@ export const ActionButtons: React.FC<Props> = ({
                 taskAnalytics.sendEvent({
                   name: "Clicked restart task button",
                   allTasks: false,
-                  "task.is.display_task": true,
+                  "task.is_display_task": true,
                 });
               }}
             >
@@ -342,7 +342,7 @@ export const ActionButtons: React.FC<Props> = ({
               restartTask({ variables: { taskId, failedOnly: false } });
               taskAnalytics.sendEvent({
                 name: "Clicked restart task button",
-                "task.is.display_task": false,
+                "task.is_display_task": false,
               });
             }}
             size="small"
