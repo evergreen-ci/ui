@@ -881,14 +881,11 @@ export type Image = {
   distros: Array<Distro>;
   events: ImageEventsPayload;
   id: Scalars["String"]["output"];
-  kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
-  name: Scalars["String"]["output"];
   operatingSystem: ImageOperatingSystemPayload;
   packages: ImagePackagesPayload;
   toolchains: ImageToolchainsPayload;
-  versionId: Scalars["String"]["output"];
 };
 
 /**
@@ -6104,6 +6101,12 @@ export type GithubProjectConflictsQuery = {
     prTestingIdentifiers?: Array<string> | null;
   };
 };
+
+export type HasVersionQueryVariables = Exact<{
+  id: Scalars["String"]["input"];
+}>;
+
+export type HasVersionQuery = { __typename?: "Query"; hasVersion: boolean };
 
 export type HostEventsQueryVariables = Exact<{
   id: Scalars["String"]["input"];

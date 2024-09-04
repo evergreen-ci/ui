@@ -19,6 +19,7 @@ import DISTROS from "./distros.graphql";
 import FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-tooltip.graphql";
 import GITHUB_ORGS from "./github-orgs.graphql";
 import GITHUB_PROJECT_CONFLICTS from "./github-project-conflicts.graphql";
+import HAS_VERSION from "./has-version.graphql";
 import HOST_EVENTS from "./host-events.graphql";
 import HOST from "./host.graphql";
 import HOSTS from "./hosts.graphql";
@@ -107,6 +108,7 @@ export {
   FAILED_TASK_STATUS_ICON_TOOLTIP,
   GITHUB_ORGS,
   GITHUB_PROJECT_CONFLICTS,
+  HAS_VERSION,
   HOST_EVENTS,
   HOST,
   HOSTS,
