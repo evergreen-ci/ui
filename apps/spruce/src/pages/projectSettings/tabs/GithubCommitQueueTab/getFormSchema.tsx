@@ -477,7 +477,7 @@ export const getFormSchema = (
             "ui:data-cy": "cq-override-radio-box",
             ...overrideStyling,
           },
-          "ui:description": CommitQueueAliasesDescription,
+          "ui:description": MergeQueueAliasesDescription,
           mergeQueueAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add merge queue patch definition",
@@ -567,7 +567,7 @@ const PRAliasesDescription = (
   </>
 );
 
-const CommitQueueAliasesDescription = (
+const MergeQueueAliasesDescription = (
   <>
     Changes on the Merge Queue are tested with all variants and tasks that match
     each variant and task regex pair. These aliases{" "}
