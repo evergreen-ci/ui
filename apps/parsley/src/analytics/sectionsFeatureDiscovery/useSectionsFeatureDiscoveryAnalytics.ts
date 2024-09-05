@@ -12,5 +12,6 @@ type Action =
       name: "Clicked jump to failing line toggle guide cue close button";
       release: "beta";
     };
+
 export const useSectionsFeatureDiscoveryAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("SectionsFeatureDiscovery");
