@@ -1,5 +1,5 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskQuery } from "gql/generated/types";
-import { TaskStatus } from "types/task";
 
 type TaskQueryType = {
   task: NonNullable<TaskQuery["task"]>;

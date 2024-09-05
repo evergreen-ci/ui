@@ -1,5 +1,5 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { renderWithRouterMatch, screen } from "test_utils";
-import { TaskStatus } from "types/task";
 import TaskStatusBadge from ".";
 
 describe("taskStatusBadge", () => {

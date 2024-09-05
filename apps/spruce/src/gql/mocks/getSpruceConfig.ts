@@ -1,3 +1,4 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   SpruceConfigQuery,
   SpruceConfigQueryVariables,
@@ -5,7 +6,6 @@ import {
   UserSettingsQueryVariables,
 } from "gql/generated/types";
 import { SPRUCE_CONFIG, USER_SETTINGS } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 export const getSpruceConfigMock: ApolloMock<
   SpruceConfigQuery,

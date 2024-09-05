@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
@@ -8,7 +9,6 @@ import {
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
 import { useLastPassingTask } from "hooks/useLastPassingTask";
 import { useParentTask } from "hooks/useParentTask";
-import { TaskStatus } from "types/task";
 import { string } from "utils";
 import { getTaskFromMainlineCommitsQuery } from "utils/getTaskFromMainlineCommitsQuery";
 import { isFailedTaskStatus } from "utils/statuses";

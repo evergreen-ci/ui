@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   UpdateParsleySettingsMutation,
@@ -7,7 +8,6 @@ import {
 import { UPDATE_PARSLEY_SETTINGS } from "gql/mutations";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { act, renderHook, waitFor } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { useParsleySettings } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

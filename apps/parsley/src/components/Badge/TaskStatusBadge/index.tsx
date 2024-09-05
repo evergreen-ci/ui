@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { taskStatusToCopy } from "constants/task";
-import { TaskStatus } from "types/task";
 
 const { purple } = palette;
 

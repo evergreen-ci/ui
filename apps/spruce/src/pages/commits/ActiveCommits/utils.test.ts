@@ -1,4 +1,4 @@
-import { TaskStatus } from "types/task";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { groupedTaskStats, groupedTaskStatsAll } from "../testData";
 import {
   getStatusesWithZeroCount,

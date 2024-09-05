@@ -150,13 +150,12 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       )}
       {isGithubMergePatch && owner && repo && branch && (
         <MetadataItem>
-          <MetadataLabel>GitHub Merge Queue:</MetadataLabel>{" "}
           <StyledLink
             data-cy="github-merge-queue-link"
             hideExternalIcon={false}
             href={getGithubMergeQueueUrl(owner, repo, branch)}
           >
-            GitHub Merge Queue
+            <MetadataLabel>GitHub Merge Queue</MetadataLabel>
           </StyledLink>
         </MetadataItem>
       )}
@@ -231,7 +230,7 @@ const BaseCommitMetadata: React.FC<BaseCommitMetadataProps> = ({
 
   return (
     <MetadataItem>
-      Base commit:{" "}
+      <MetadataLabel>Base commit:</MetadataLabel>{" "}
       {isBaseVersionPending ? (
         <InlineCode data-cy="patch-base-commit">
           {shortenGithash(revision)}

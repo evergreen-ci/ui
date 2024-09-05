@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -8,7 +9,7 @@ import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
-import { PatchTasksQueryParams, TaskStatus } from "types/task";
+import { PatchTasksQueryParams } from "types/task";
 import { string, statuses } from "utils";
 
 const { groupStatusesByUmbrellaStatus } = statuses;
@@ -91,6 +92,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
               <GroupedTaskStatusBadge
                 key={`${versionId}_${variant}_${umbrellaStatus}`}
                 count={count}
+                // If the badge is active it should reset the page.
                 href={getVersionRoute(
                   versionId,
                   shouldLinkToVariant
@@ -105,10 +107,10 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
                 onClick={() => {
                   sendEvent({
                     name: "Filtered by build variant and task status group",
-                    taskSquareStatuses: Object.keys(groupedStatusCounts),
+                    "filter.task_square_statuses":
+                      Object.keys(groupedStatusCounts),
                   });
                 }}
-                // If the badge is active it should reset the page.
                 status={umbrellaStatus}
                 statusCounts={groupedStatusCounts}
               />

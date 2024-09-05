@@ -109,7 +109,6 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
         noExpiration: true,
         hostUptime: {
           useDefaultUptimeSchedule: true,
-          isBetaTester: true,
           sleepSchedule: {
             enabledWeekdays: [false, false, true, true, true, true],
             timeSelection: {
@@ -145,7 +144,6 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
       sleepSchedule: {
         dailyStartTime: "08:00",
         dailyStopTime: "20:00",
-        isBetaTester: true,
         permanentlyExempt: false,
         timeZone: "America/New_York",
         shouldKeepOff: false,

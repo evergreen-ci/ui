@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   MyHostsQuery,
@@ -21,7 +22,6 @@ import {
   waitFor,
 } from "test_utils";
 import { selectLGOption } from "test_utils/utils";
-import { ApolloMock } from "types/gql";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
 describe("spawnVolumeModal", () => {

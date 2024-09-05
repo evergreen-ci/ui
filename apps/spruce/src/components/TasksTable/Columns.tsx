@@ -1,6 +1,7 @@
 import { LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledRouterLink } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
@@ -9,7 +10,6 @@ import { getVariantHistoryRoute } from "constants/routes";
 import { mergeTaskVariant } from "constants/task";
 import { zIndex } from "constants/tokens";
 import { TaskSortCategory } from "gql/generated/types";
-import { TaskStatus } from "types/task";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
 
