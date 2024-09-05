@@ -1,15 +1,15 @@
-import { commitQueueAlias } from "constants/patch";
+import { mergeQueueAlias } from "constants/patch";
 import { isPatchUnconfigured } from ".";
 
 describe("isPatchUnconfigured", () => {
   it("returns false for an unactivated commit queue patch", () => {
     expect(
-      isPatchUnconfigured({ alias: commitQueueAlias, activated: false }),
+      isPatchUnconfigured({ alias: mergeQueueAlias, activated: false }),
     ).toBe(false);
   });
   it("returns false for an activated commit queue patch", () => {
     expect(
-      isPatchUnconfigured({ alias: commitQueueAlias, activated: true }),
+      isPatchUnconfigured({ alias: mergeQueueAlias, activated: true }),
     ).toBe(false);
   });
   it("returns true for an unactivated non-commit queue patch", () => {

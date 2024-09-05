@@ -28,7 +28,6 @@ query UserSubscriptions {
   userSettings {
     notifications {
       buildBreakId
-      commitQueueId
       patchFinishId
       patchFirstFailureId
       spawnHostExpirationId
