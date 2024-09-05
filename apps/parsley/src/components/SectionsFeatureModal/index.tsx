@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
-import { useMatch } from "react-router-dom";
 import { useSectionsFeatureDiscoveryAnalytics } from "analytics/sectionsFeatureDiscovery/useSectionsFeatureDiscoveryAnalytics";
-import routes from "constants/routes";
+import { LogTypes } from "constants/enums";
+import { supportURL } from "constants/externalLinks";
 import { zIndex } from "constants/tokens";
+import { useLogContext } from "context/LogContext";
 import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { releaseSectioning } from "utils/featureFlag";
@@ -12,7 +13,9 @@ import { graphic } from "./graphic";
 export const SectionsFeatureModal = () => {
   const { closeFeatureModal, isOpenFeatureModal } =
     useSectionsFeatureDiscoveryContext();
-  const isViewingTaskLog = useMatch(routes.evergreenLogs);
+  const { logMetadata } = useLogContext();
+  const isViewingTaskLog =
+    logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS;
   const { sendEvent } = useSectionsFeatureDiscoveryAnalytics();
   const { updateSettings } = useParsleySettings();
 
@@ -51,10 +54,7 @@ export const SectionsFeatureModal = () => {
       </p>
       <p>
         For feedback and questions go to{" "}
-        <a href="https://mongodb.enterprise.slack.com/archives/C0V896UV8">
-          #ask-devprod-evergreen
-        </a>
-        .
+        <a href={supportURL}>#ask-devprod-evergreen</a>.
       </p>
     </StyledMarketingModal>
   ) : null;
