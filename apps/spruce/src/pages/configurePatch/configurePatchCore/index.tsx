@@ -58,6 +58,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     author,
     childPatchAliases,
     childPatches,
+    generatedTaskCounts,
     id,
     patchTriggerAliases,
     project,
@@ -157,8 +158,8 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
   }
 
   const estimatedActivatedTasksCount = getNumEstimatedActivatedTasks(
+    generatedTaskCounts,
     selectedBuildVariantTasks,
-    patch?.generatedTaskCounts ?? {},
     initialPatch.variantsTasks,
   );
 

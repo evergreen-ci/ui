@@ -14,7 +14,7 @@ export const patchQuery: ConfigurePatchQuery = {
     projectIdentifier: "spruce",
     author: "mohamed.khelif",
     activated: false,
-    generatedTaskCounts: {},
+    generatedTaskCounts: [],
     status: "created",
     time: {
       submittedAt: "2020-08-28T15:00:17Z",

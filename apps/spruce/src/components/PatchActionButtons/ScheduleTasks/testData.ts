@@ -19,7 +19,7 @@ const mocks: ApolloMock<
         version: {
           __typename: "Version",
           id: "version_id",
-          generatedTaskCounts: {},
+          generatedTaskCounts: [],
           tasks: {
             __typename: "VersionTasks",
             data: [
@@ -151,7 +151,7 @@ const mocks: ApolloMock<
         version: {
           __typename: "Version",
           id: "version_empty",
-          generatedTaskCounts: {},
+          generatedTaskCounts: [],
           tasks: {
             __typename: "VersionTasks",
             data: [],

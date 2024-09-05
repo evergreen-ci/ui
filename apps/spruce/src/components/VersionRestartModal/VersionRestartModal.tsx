@@ -7,6 +7,7 @@ import { Skeleton } from "antd";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
+import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
@@ -25,7 +26,6 @@ import {
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
 import { getNumEstimatedActivatedTasks } from "../../utils/tasks/estimatedActivatedTasks";
-import { TaskSchedulingWarningBanner } from "../Banners/TaskSchedulingWarningBanner";
 import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {
@@ -112,10 +112,10 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 
   const selectedTotal = selectTasksTotal(selectedTasks || {});
 
-  const generatedTaskCounts = version?.generatedTaskCounts ?? {};
+  const { generatedTaskCounts = [] } = version ?? {};
   const estimatedActivatedTasksCount = getNumEstimatedActivatedTasks(
-    selectedTasks || {},
     generatedTaskCounts,
+    selectedTasks || {},
   );
   return (
     <ConfirmationModal

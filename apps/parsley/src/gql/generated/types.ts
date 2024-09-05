@@ -633,6 +633,14 @@ export type GeneralSubscription = {
   triggerData?: Maybe<Scalars["StringMap"]["output"]>;
 };
 
+export type GeneratedTaskCountResults = {
+  __typename?: "GeneratedTaskCountResults";
+  buildVariantName?: Maybe<Scalars["String"]["output"]>;
+  estimatedTasks: Scalars["Int"]["output"];
+  taskId?: Maybe<Scalars["String"]["output"]>;
+  taskName?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type GitHubDynamicTokenPermissionGroup = {
   __typename?: "GitHubDynamicTokenPermissionGroup";
   name: Scalars["String"]["output"];
@@ -748,6 +756,8 @@ export type Host = {
   distro?: Maybe<DistroInfo>;
   distroId?: Maybe<Scalars["String"]["output"]>;
   elapsed?: Maybe<Scalars["Time"]["output"]>;
+  /** events returns the event log entries for a given host. */
+  events: HostEvents;
   expiration?: Maybe<Scalars["Time"]["output"]>;
   homeVolume?: Maybe<Volume>;
   homeVolumeID?: Maybe<Scalars["String"]["output"]>;
@@ -768,6 +778,13 @@ export type Host = {
   uptime?: Maybe<Scalars["Time"]["output"]>;
   user?: Maybe<Scalars["String"]["output"]>;
   volumes: Array<Volume>;
+};
+
+/** Host models a host, which are used for things like running tasks or as virtual workstations. */
+export type HostEventsArgs = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  sortDir?: InputMaybe<SortDirection>;
 };
 
 export type HostAllocatorSettings = {
@@ -1616,7 +1633,7 @@ export type Patch = {
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
-  generatedTaskCounts: Scalars["Map"]["output"];
+  generatedTaskCounts: Array<GeneratedTaskCountResults>;
   githash: Scalars["String"]["output"];
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
@@ -1879,7 +1896,6 @@ export type Project = {
   perfEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   periodicBuilds?: Maybe<Array<PeriodicBuild>>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
-  private?: Maybe<Scalars["Boolean"]["output"]>;
   projectHealthView: ProjectHealthView;
   remotePath: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
@@ -2018,7 +2034,6 @@ export type ProjectInput = {
   perfEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   periodicBuilds?: InputMaybe<Array<PeriodicBuildInput>>;
   prTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  private?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectHealthView?: InputMaybe<ProjectHealthView>;
   remotePath?: InputMaybe<Scalars["String"]["input"]>;
   repo?: InputMaybe<Scalars["String"]["input"]>;
@@ -2150,6 +2165,7 @@ export type Query = {
   githubProjectConflicts: GithubProjectConflicts;
   hasVersion: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
+  /** @deprecated Use host.events instead. */
   hostEvents: HostEvents;
   hosts: HostsResponse;
   image?: Maybe<Image>;
@@ -2180,6 +2196,7 @@ export type Query = {
   userSettings?: Maybe<UserSettings>;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
+  waterfall?: Maybe<Waterfall>;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -2320,6 +2337,10 @@ export type QueryVersionArgs = {
   versionId: Scalars["String"]["input"];
 };
 
+export type QueryWaterfallArgs = {
+  options: WaterfallOptions;
+};
+
 export type RemoveFavoriteProjectInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
@@ -2366,7 +2387,6 @@ export type RepoRef = {
   perfEnabled: Scalars["Boolean"]["output"];
   periodicBuilds?: Maybe<Array<PeriodicBuild>>;
   prTestingEnabled: Scalars["Boolean"]["output"];
-  private: Scalars["Boolean"]["output"];
   remotePath: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
   repotrackerDisabled: Scalars["Boolean"]["output"];
@@ -2410,7 +2430,6 @@ export type RepoRefInput = {
   perfEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   periodicBuilds?: InputMaybe<Array<PeriodicBuildInput>>;
   prTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  private?: InputMaybe<Scalars["Boolean"]["input"]>;
   remotePath?: InputMaybe<Scalars["String"]["input"]>;
   repo?: InputMaybe<Scalars["String"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -3278,7 +3297,7 @@ export type Version = {
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]["output"]>;
-  generatedTaskCounts: Scalars["Map"]["output"];
+  generatedTaskCounts: Array<GeneratedTaskCountResults>;
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
@@ -3372,6 +3391,41 @@ export type Volume = {
 export type VolumeHost = {
   hostId: Scalars["String"]["input"];
   volumeId: Scalars["String"]["input"];
+};
+
+export type Waterfall = {
+  __typename?: "Waterfall";
+  buildVariants: Array<WaterfallBuildVariant>;
+  versions: Array<Version>;
+};
+
+export type WaterfallBuild = {
+  __typename?: "WaterfallBuild";
+  activated?: Maybe<Scalars["Boolean"]["output"]>;
+  displayName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  tasks: Array<WaterfallTask>;
+  version: Scalars["String"]["output"];
+};
+
+export type WaterfallBuildVariant = {
+  __typename?: "WaterfallBuildVariant";
+  builds: Array<WaterfallBuild>;
+  displayName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+};
+
+export type WaterfallOptions = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  projectIdentifier: Scalars["String"]["input"];
+  requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
+export type WaterfallTask = {
+  __typename?: "WaterfallTask";
+  displayName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  status: Scalars["String"]["output"];
 };
 
 export type Webhook = {
