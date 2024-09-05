@@ -91,21 +91,21 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
     <DisableWrapper data-cy="build-variant-select-wrapper" disabled={disabled}>
       <UserSelectWrapper isHotKeyPressed={state.numButtonsPressed !== 0}>
         <BuildVariantCard
-          onClick={getClickVariantHandler}
-          menuItems={variants}
-          title="Select Build Variants and Tasks"
-          selectedMenuItems={selectedBuildVariants}
           data-cy="build-variant-list-item"
+          menuItems={variants}
+          onClick={getClickVariantHandler}
+          selectedMenuItems={selectedBuildVariants}
+          title="Select Build Variants and Tasks"
         />
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {aliases?.length > 0 && (
           <BuildVariantCard
-            onClick={getClickVariantHandler}
+            data-cy="trigger-alias-list-item"
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             menuItems={aliases}
-            title="Select Downstream Tasks"
+            onClick={getClickVariantHandler}
             selectedMenuItems={selectedBuildVariants}
-            data-cy="trigger-alias-list-item"
+            title="Select Downstream Tasks"
           />
         )}
       </UserSelectWrapper>

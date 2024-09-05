@@ -3,6 +3,7 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
@@ -13,7 +14,6 @@ import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";
 import { HostCard } from "pages/host/HostCard";
 import { HostEventString } from "pages/host/HostEventString";
-import { Unpacked } from "types/utils";
 
 type HostEvent = Unpacked<HostEventsQuery["hostEvents"]["eventLogEntries"]>;
 
@@ -54,8 +54,8 @@ export const HostTable: React.FC<{
         accessorKey: "eventType",
         cell: ({ getValue, row }) => (
           <HostEventString
-            eventType={getValue() as string}
             data={row.original.data}
+            eventType={getValue() as string}
           />
         ),
       },
@@ -80,15 +80,15 @@ export const HostTable: React.FC<{
         <StyledSubtitle>Recent Events</StyledSubtitle>
         <PaginationWrapper>
           <Pagination
-            data-cy="host-event-table-pagination"
             currentPage={page}
-            totalResults={eventsCount}
+            data-cy="host-event-table-pagination"
             pageSize={limit}
+            totalResults={eventsCount}
           />
           <PageSizeSelector
             data-cy="host-event-table-page-size-selector"
-            value={limit}
             onChange={handlePageSizeChange}
+            value={limit}
           />
         </PaginationWrapper>
       </TableTitle>

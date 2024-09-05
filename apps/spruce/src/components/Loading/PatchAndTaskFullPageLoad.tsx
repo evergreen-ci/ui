@@ -13,15 +13,15 @@ export const PatchAndTaskFullPageLoad: React.FC = () => (
     <PageLayout hasSider>
       <PageSider>
         <SiderCard>
-          <Skeleton active title={false} paragraph={{ rows: 4 }} />
+          <Skeleton active paragraph={{ rows: 4 }} title={false} />
         </SiderCard>
         <SiderCard>
-          <Skeleton active title={false} paragraph={{ rows: 4 }} />
+          <Skeleton active paragraph={{ rows: 4 }} title={false} />
         </SiderCard>
       </PageSider>
       <PageLayout>
         <PageContent>
-          <Skeleton active title paragraph={{ rows: 8 }} />
+          <Skeleton active paragraph={{ rows: 8 }} title />
         </PageContent>
       </PageLayout>
     </PageLayout>

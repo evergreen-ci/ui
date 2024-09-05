@@ -1,5 +1,5 @@
+import { Subset } from "@evg-ui/lib/types/utils";
 import { ProjectEventSettings } from "gql/generated/types";
-import { Subset } from "types/utils";
 import { getEventDiffLines } from "./eventLogDiffs";
 
 const beforeAddition: Subset<ProjectEventSettings> = {

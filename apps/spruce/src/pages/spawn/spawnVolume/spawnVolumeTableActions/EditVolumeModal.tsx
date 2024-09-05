@@ -67,7 +67,7 @@ export const EditVolumeModal: React.FC<Props> = ({
     const mutationInput = formToGql(initialState, formState, volume.id);
     spawnAnalytics.sendEvent({
       name: "Changed spawn volume settings",
-      "volume.is.unexpirable": mutationInput.noExpiration,
+      "volume.is_unexpirable": mutationInput.noExpiration,
     });
     updateVolumeMutation({
       variables: { updateVolumeInput: mutationInput },
@@ -91,23 +91,23 @@ export const EditVolumeModal: React.FC<Props> = ({
 
   return (
     <ConfirmationModal
-      title="Edit Volume"
-      open={visible}
-      onCancel={onCancel}
-      submitDisabled={loading || !hasChanges || !!formErrors.length}
       buttonText={loading ? "Saving" : "Save"}
-      onConfirm={updateVolume}
       data-cy="update-volume-modal"
+      onCancel={onCancel}
+      onConfirm={updateVolume}
+      open={visible}
+      submitDisabled={loading || !hasChanges || !!formErrors.length}
+      title="Edit Volume"
     >
       <SpruceForm
-        schema={schema}
-        uiSchema={uiSchema}
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           setFormErrors(errors);
         }}
+        schema={schema}
+        uiSchema={uiSchema}
       />
     </ConfirmationModal>
   );

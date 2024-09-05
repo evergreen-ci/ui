@@ -34,14 +34,14 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
   const variantTitle = (
     <>
       <Checkbox
+        bold
+        checked={matchingTasks === taskLength}
         data-cy="variant-checkbox-select-all"
+        indeterminate={matchingTasks > 0 && matchingTasks !== taskLength}
+        label={displayName}
         onChange={() =>
           toggleSelectedTask({ [versionId]: tasks.map((task) => task.id) })
         }
-        label={displayName}
-        checked={matchingTasks === taskLength}
-        indeterminate={matchingTasks > 0 && matchingTasks !== taskLength}
-        bold
       />
       <BadgeWrapper>
         <Badge data-cy="task-status-badge">
@@ -54,10 +54,10 @@ export const BuildVariantAccordion: React.FC<BuildVariantAccordionProps> = ({
     <Wrapper data-cy="variant-accordion">
       <Accordion title={variantTitle} titleTag={FlexContainer}>
         <TaskStatusCheckboxContainer
-          versionId={versionId}
-          tasks={tasks}
           selectedTasks={selectedTasks}
+          tasks={tasks}
           toggleSelectedTask={toggleSelectedTask}
+          versionId={versionId}
         />
       </Accordion>
     </Wrapper>

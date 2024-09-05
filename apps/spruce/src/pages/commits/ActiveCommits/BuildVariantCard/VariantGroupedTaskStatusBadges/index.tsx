@@ -35,13 +35,13 @@ const VariantGroupedTaskStatusBadges: React.FC<Props> = ({
           <GroupedTaskStatusBadge
             key={`${versionId}_${variant}_${umbrellaStatus}`}
             count={count}
-            onClick={onClick(Object.keys(groupedStatusCounts))}
             href={getVersionRoute(versionId, {
               variant: applyStrictRegex(variant),
               statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
             })}
-            statusCounts={groupedStatusCounts}
+            onClick={onClick(Object.keys(groupedStatusCounts))}
             status={umbrellaStatus}
+            statusCounts={groupedStatusCounts}
           />
         ),
       )}

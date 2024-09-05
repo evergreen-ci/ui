@@ -42,8 +42,8 @@ export const MountVolumeModal: React.FC<Props> = ({
   const [selectedHostId, setSelectedHostId] = useState("");
   return (
     <ConfirmationModal
-      title="Attach Volume to Host"
-      open={visible}
+      buttonText="Mount"
+      data-cy="mount-volume-modal"
       onCancel={onCancel}
       onConfirm={() => {
         spawnAnalytics.sendEvent({
@@ -61,16 +61,16 @@ export const MountVolumeModal: React.FC<Props> = ({
         });
         onCancel();
       }}
+      open={visible}
       submitDisabled={!selectedHostId || loadingAttachVolume}
-      buttonText="Mount"
-      data-cy="mount-volume-modal"
+      title="Attach Volume to Host"
     >
       <ModalContent>
         <MountVolumeSelect
+          autofill
           onChange={setSelectedHostId}
           selectedHostId={selectedHostId}
           targetAvailabilityZone={targetAvailabilityZone}
-          autofill
         />
         <StyledDisclaimer>
           {`Only shows running hosts in zone ${targetAvailabilityZone}.`}

@@ -11,9 +11,9 @@ export default {
 export const Example1: CustomStoryObj<typeof SpruceForm> = {
   render: () => (
     <BaseForm
-      title="Distro Projects"
       data={example1Def.formData}
       schema={example1Def.schema}
+      title="Distro Projects"
       uiSchema={example1Def.uiSchema}
     />
   ),
@@ -22,9 +22,9 @@ export const Example1: CustomStoryObj<typeof SpruceForm> = {
 export const Example2: CustomStoryObj<typeof SpruceForm> = {
   render: () => (
     <BaseForm
-      title="Admin Options"
       data={example2Def.formData}
       schema={example2Def.schema}
+      title="Admin Options"
       uiSchema={example2Def.uiSchema}
     />
   ),
@@ -33,9 +33,9 @@ export const Example2: CustomStoryObj<typeof SpruceForm> = {
 export const Example3: CustomStoryObj<typeof SpruceForm> = {
   render: () => (
     <BaseForm
-      title="UI Options"
       data={example3Def.formData}
       schema={example3Def.schema}
+      title="UI Options"
       uiSchema={example3Def.uiSchema}
     />
   ),
@@ -53,10 +53,10 @@ const BaseForm = ({ data, schema, title, uiSchema }) => {
   return (
     <SpruceFormContainer title={title}>
       <SpruceForm
+        formData={formState}
+        onChange={onChange}
         schema={schema}
         uiSchema={uiSchema}
-        onChange={onChange}
-        formData={formState}
       />
     </SpruceFormContainer>
   );

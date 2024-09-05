@@ -49,7 +49,7 @@ describe("dropdown", () => {
   it("renders a custom button contents when custom buttonRenderer is passed in", () => {
     const customButtonRenderer = () => <div>Custom Button</div>;
     render(
-      <Dropdown buttonText="Some Button" buttonRenderer={customButtonRenderer}>
+      <Dropdown buttonRenderer={customButtonRenderer} buttonText="Some Button">
         {children()}
       </Dropdown>,
     );

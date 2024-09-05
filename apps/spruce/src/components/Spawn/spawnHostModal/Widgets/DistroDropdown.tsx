@@ -37,11 +37,17 @@ export const DistroDropdown: React.FC<DistroEnum & EnumSpruceWidgetProps> = ({
   return (
     <StyledElementWrapper css={elementWrapperCSS}>
       <SearchableDropdown
-        valuePlaceholder={value || "Select a distro"}
-        label={ariaLabelledBy ? undefined : label}
-        value={value}
         data-cy={dataCy}
+        label={ariaLabelledBy ? undefined : label}
         onChange={onChange}
+        optionRenderer={({ distros, title }, onClick) => (
+          <DropdownOption
+            key={title}
+            distros={distros}
+            onClick={onClick}
+            title={title}
+          />
+        )}
         options={searchableOptions}
         searchFunc={(items: DistroGroup[], match: string) =>
           items.map((e) => ({
@@ -51,14 +57,8 @@ export const DistroDropdown: React.FC<DistroEnum & EnumSpruceWidgetProps> = ({
             ),
           }))
         }
-        optionRenderer={({ distros, title }, onClick) => (
-          <DropdownOption
-            key={title}
-            onClick={onClick}
-            title={title}
-            distros={distros}
-          />
-        )}
+        value={value}
+        valuePlaceholder={value || "Select a distro"}
       />
     </StyledElementWrapper>
   );
@@ -104,9 +104,9 @@ const DropdownOption: React.FC<{
       <ListContainer>
         {distros.map((d) => (
           <Option
-            onClick={() => onClick(d)}
             key={d}
             data-cy={`distro-option-${d}`}
+            onClick={() => onClick(d)}
           >
             {d}
           </Option>

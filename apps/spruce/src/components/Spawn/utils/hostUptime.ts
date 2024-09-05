@@ -40,7 +40,6 @@ export type HostUptime = {
     timeZone: string;
     uptimeHours?: null;
   };
-  isBetaTester: boolean;
   temporarilyExemptUntil?: string;
 };
 
@@ -126,7 +125,6 @@ export const getEnabledHoursCount = (
 /**
  * getSleepSchedule converts form object into GraphQL input type
  * @param obj - form data object
- * @param obj.isBetaTester - whether or not user has opted into bet
  * @param obj.sleepSchedule - sleep schedule configuration
  * @param obj.temporarilyExemptUntil - temporary exemption date
  * @param obj.useDefaultUptimeSchedule - boolean indicating whether user has set custom schedule
@@ -136,7 +134,6 @@ export const getEnabledHoursCount = (
  */
 export const getSleepSchedule = ({
   details: { timeZone },
-  isBetaTester,
   sleepSchedule,
   temporarilyExemptUntil,
   useDefaultUptimeSchedule,
@@ -147,7 +144,6 @@ export const getSleepSchedule = ({
       ...(temporarilyExemptUntil
         ? { temporarilyExemptUntil: new Date(temporarilyExemptUntil) }
         : {}),
-      isBetaTester,
       timeZone,
     };
   }
@@ -160,7 +156,6 @@ export const getSleepSchedule = ({
   return {
     dailyStartTime: runContinuously ? "" : toTimeString(new Date(startTime)),
     dailyStopTime: runContinuously ? "" : toTimeString(new Date(stopTime)),
-    isBetaTester,
     permanentlyExempt: false,
     timeZone,
     shouldKeepOff: false,
@@ -207,7 +202,6 @@ const toTimeString = (date: Date): string =>
 export const defaultSleepSchedule: Omit<SleepSchedule, "timeZone"> = {
   dailyStartTime: toTimeString(defaultStartDate),
   dailyStopTime: toTimeString(defaultStopDate),
-  isBetaTester: false,
   permanentlyExempt: false,
   shouldKeepOff: false,
   wholeWeekdaysOff: [0, 6],
@@ -219,7 +213,6 @@ export const getHostUptimeFromGql = (
   const {
     dailyStartTime,
     dailyStopTime,
-    isBetaTester,
     temporarilyExemptUntil,
     timeZone,
     wholeWeekdaysOff,
@@ -228,7 +221,6 @@ export const getHostUptimeFromGql = (
   return {
     useDefaultUptimeSchedule: matchesDefaultUptimeSchedule(sleepSchedule),
     temporarilyExemptUntil: temporarilyExemptUntil?.toString() ?? "",
-    isBetaTester: !!isBetaTester,
     sleepSchedule: {
       enabledWeekdays: new Array(7)
         .fill(false)
@@ -302,8 +294,6 @@ export const validator = (permanentlyExempt: boolean) =>
 
     if (
       !isSleepScheduleActive({
-        // Set true because we to validate sleep schedule regardless of whether user is enabling it
-        isBetaTester: true,
         isTemporarilyExempt: !!temporarilyExemptUntil,
         noExpiration: !!noExpiration,
         permanentlyExempt,
@@ -361,17 +351,14 @@ export const isNullSleepSchedule = (sleepSchedule: SleepSchedule) => {
 };
 
 export const isSleepScheduleActive = ({
-  isBetaTester,
   isTemporarilyExempt,
   noExpiration,
   permanentlyExempt,
 }: {
-  isBetaTester: boolean;
   isTemporarilyExempt: boolean;
   noExpiration: boolean;
   permanentlyExempt: boolean;
 }) => {
-  if (!isBetaTester) return false;
   if (!noExpiration) return false;
   if (isTemporarilyExempt) return false;
   if (permanentlyExempt) return false;

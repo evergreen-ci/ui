@@ -14,15 +14,15 @@ export const LinkToReconfigurePage: React.FC<{
 
   return (
     <DropdownItem
+      as={Link}
       data-cy="reconfigure-link"
       disabled={disabled}
-      as={Link}
-      to={getPatchRoute(patchId, { configure: true })}
       onClick={() => {
         if (!disabled) {
           sendEvent({ name: "Clicked patch reconfigure link" });
         }
       }}
+      to={getPatchRoute(patchId, { configure: true })}
     >
       Reconfigure tasks/variants
     </DropdownItem>

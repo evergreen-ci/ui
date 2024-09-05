@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Size } from "components/Icon";
 import { size } from "constants/tokens";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-import { TaskStatus } from "types/task";
 import { TaskStatusIcon, TaskStatusIconProps } from ".";
 
 const Sizes = {
@@ -28,7 +28,7 @@ export const Default: CustomStoryObj<TaskStatusIconProps> = {
         {taskStatuses.map((status) => (
           <IconContainer key={status}>
             {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-            <TaskStatusIcon status={TaskStatus[status]} size={s} />
+            <TaskStatusIcon size={s} status={TaskStatus[status]} />
             <span>{status}</span>
           </IconContainer>
         ))}

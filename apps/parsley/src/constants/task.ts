@@ -1,4 +1,4 @@
-import { TaskStatus } from "types/task";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 
 export const taskStatusToCopy: Record<string, string> = {
   [TaskStatus.ScheduledUmbrella]: "Scheduled",

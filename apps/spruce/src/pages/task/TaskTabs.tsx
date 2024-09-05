@@ -61,38 +61,38 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
 
   const tabMap = {
     [TaskTab.Logs]: (
-      <Tab name="Logs" data-cy="task-logs-tab" key="task-logs-tab">
+      <Tab key="task-logs-tab" data-cy="task-logs-tab" name="Logs">
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-        <Logs taskId={id} execution={execution} logLinks={logLinks} />
+        <Logs execution={execution} logLinks={logLinks} taskId={id} />
       </Tab>
     ),
     [TaskTab.Tests]: (
       <Tab
+        key="task-tests-tab"
+        data-cy="task-tests-tab"
         name={
           <span>
             {failedTestCount ? (
               <TabLabelWithBadge
-                tabLabel="Tests"
-                badgeVariant="red"
                 badgeText={failedTestCount}
+                badgeVariant="red"
                 dataCyBadge="tests-tab-badge"
+                tabLabel="Tests"
               />
             ) : (
               "Tests"
             )}
           </span>
         }
-        data-cy="task-tests-tab"
-        key="task-tests-tab"
       >
         <TestsTable task={task} />
       </Tab>
     ),
     [TaskTab.ExecutionTasks]: (
       <Tab
-        name="Execution Tasks"
-        data-cy="task-execution-tab"
         key="execution-tasks-tab"
+        data-cy="task-execution-tab"
+        name="Execution Tasks"
       >
         <ExecutionTasksTable
           // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -105,40 +105,40 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     ),
     [TaskTab.Files]: (
       <Tab
+        key="task-files-tab"
+        data-cy="task-files-tab"
         name={
           <span>
             {fileCount !== undefined ? (
               <TabLabelWithBadge
-                tabLabel="Files"
-                badgeVariant="lightgray"
                 badgeText={fileCount}
+                badgeVariant="lightgray"
                 dataCyBadge="files-tab-badge"
+                tabLabel="Files"
               />
             ) : (
               "Files"
             )}
           </span>
         }
-        data-cy="task-files-tab"
-        key="task-files-tab"
       >
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-        <FileTable taskId={id} execution={execution} />
+        <FileTable execution={execution} taskId={id} />
       </Tab>
     ),
     [TaskTab.Annotations]: (
       <Tab
-        name="Failure Details"
-        data-cy="task-build-baron-tab"
         key="task-build-baron-tab"
+        data-cy="task-build-baron-tab"
+        name="Failure Details"
       >
         <BuildBaron
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={annotation}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
-          taskId={id}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           execution={execution}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          taskId={id}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           userCanModify={canModifyAnnotation}
         />
@@ -146,9 +146,9 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     ),
     [TaskTab.TrendCharts]: (
       <Tab
-        name="Trend Charts"
-        data-cy="trend-charts-tab"
         key="trend-charts-tab"
+        data-cy="trend-charts-tab"
+        name="Trend Charts"
       >
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <TrendChartsPlugin taskId={id} />
@@ -223,9 +223,9 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
 
   return (
     <StyledTabs
+      aria-label="Task Page Tabs"
       selected={selectedTab}
       setSelected={setSelectedTab}
-      aria-label="Task Page Tabs"
     >
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {activeTabs.map((tab: string) => tabMap[tab])}

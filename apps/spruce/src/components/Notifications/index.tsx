@@ -122,17 +122,15 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
 
   return (
     <ConfirmationModal
-      data-cy={dataCy}
-      open={visible}
-      onCancel={onCancel}
-      title="Add Subscription"
-      onConfirm={onClickSave}
-      submitDisabled={hasError}
       buttonText="Save"
+      data-cy={dataCy}
+      onCancel={onCancel}
+      onConfirm={onClickSave}
+      open={visible}
+      submitDisabled={hasError}
+      title="Add Subscription"
     >
       <SpruceForm
-        schema={schema}
-        uiSchema={uiSchema}
         formData={formState}
         onChange={({ errors, formData }) => {
           // Update event cookie when it changes.
@@ -142,6 +140,8 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           setFormState(formData);
           setHasError(errors.length !== 0);
         }}
+        schema={schema}
+        uiSchema={uiSchema}
       />
     </ConfirmationModal>
   );

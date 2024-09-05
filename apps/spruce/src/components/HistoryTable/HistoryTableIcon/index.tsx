@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { size, zIndex } from "constants/tokens";
-import { TaskStatus } from "types/task";
 
 interface HistoryTableIconProps {
   status: TaskStatus;
@@ -25,18 +25,18 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
 }) => (
   <Tooltip
     align="right"
-    justify="middle"
     enabled={!inactive && failingTests.length > 0}
+    justify="middle"
     popoverZIndex={zIndex.tooltip}
     trigger={
       <Container
-        onClick={() => onClick()}
+        aria-disabled={inactive}
         data-cy="history-table-icon"
         data-status={status}
-        aria-disabled={inactive}
+        onClick={() => onClick()}
       >
         <IconContainer>
-          <TaskStatusIcon status={status} size={30} />
+          <TaskStatusIcon size={30} status={status} />
         </IconContainer>
         {!inactive && <Body>{label}</Body>}
       </Container>

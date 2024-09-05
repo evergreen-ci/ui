@@ -4,11 +4,11 @@ import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useTaskAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { size } from "constants/tokens";
-import { Unpacked } from "types/utils";
 import { GroupedFiles } from "../types";
 
 type GroupedFilesFile = Unpacked<GroupedFiles["files"]>;
@@ -26,40 +26,40 @@ const columns = (
       return (
         <CellContainer>
           <StyledLink
-            href={value.row.original.link}
             data-cy="file-link"
-            target="_blank"
+            href={value.row.original.link}
             onClick={() => {
               taskAnalytics.sendEvent({
                 name: "Clicked task file link",
-                "parsley.available": value.row.original.urlParsley !== null,
+                "parsley.is_available": value.row.original.urlParsley !== null,
                 "file.name": fileName,
               });
             }}
+            target="_blank"
           >
             {fileName}
           </StyledLink>
           <Tooltip
+            align="top"
+            enabled={value.row.original.urlParsley === null}
+            justify="middle"
             trigger={
               <Button
-                href={value.row.original.urlParsley}
                 data-cy="parsley-link"
-                target="_blank"
                 disabled={value.row.original.urlParsley === null}
-                size="small"
+                href={value.row.original.urlParsley}
                 onClick={() => {
                   taskAnalytics.sendEvent({
                     name: "Clicked task file Parsley link",
                     "file.name": fileName,
                   });
                 }}
+                size="small"
+                target="_blank"
               >
                 Parsley
               </Button>
             }
-            enabled={value.row.original.urlParsley === null}
-            align="top"
-            justify="middle"
           >
             Only plain text files can be opened in Parsley.
           </Tooltip>
@@ -97,7 +97,7 @@ const GroupedFileTable: React.FC<GroupedFileTableProps> = ({
   return (
     <Container>
       {taskName && <Subtitle>{taskName}</Subtitle>}
-      <BaseTable table={table} shouldAlternateRowColor />
+      <BaseTable shouldAlternateRowColor table={table} />
     </Container>
   );
 };

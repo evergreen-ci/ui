@@ -38,18 +38,18 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ card, visible }) => {
       <Body>{description}</Body>
       {img && (
         <ImgContainer
-          src={`/static/img/${img}`}
           alt={alt}
           data-cy="carousel-image"
+          src={`/static/img/${img}`}
         />
       )}
       {video && (
         <VideoContainer
-          loop
-          controls
-          src={`/static/img/${video}`}
           ref={videoRef}
+          controls
           data-cy="carousel-video"
+          loop
+          src={`/static/img/${video}`}
         />
       )}
     </CardContainer>

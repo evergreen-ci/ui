@@ -10,6 +10,7 @@ import { CodeChanges } from "components/CodeChanges";
 import {
   MetadataCard,
   MetadataItem,
+  MetadataLabel,
   MetadataTitle,
 } from "components/MetadataCard";
 import {
@@ -32,16 +33,16 @@ import {
   ProjectBuildVariant,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
+import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
+import ConfigureTasks from "./ConfigureTasks";
+import { ParametersContent } from "./ParametersContent";
+import useConfigurePatch from "./useConfigurePatch";
 import {
   AliasState,
   ChildPatchAliased,
   PatchTriggerAlias,
   VariantTasksState,
-  useConfigurePatch,
-} from "hooks/useConfigurePatch";
-import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
-import ConfigureTasks from "./ConfigureTasks";
-import { ParametersContent } from "./ParametersContent";
+} from "./useConfigurePatch/types";
 
 interface ConfigurePatchCoreProps {
   patch: ConfigurePatchQuery["patch"];
@@ -157,10 +158,10 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     <>
       <FlexRow>
         <StyledInput
-          label="Patch Name"
           data-cy="patch-name-input"
-          value={description}
+          label="Patch Name"
           onChange={(e) => setDescription(e.target.value)}
+          value={description}
         />
         <ButtonWrapper>
           {activated && (
@@ -188,21 +189,22 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
       </FlexRow>
       <PageLayout hasSider>
         <PageSider>
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          <MetadataCard error={null}>
+          <MetadataCard>
             <MetadataTitle>Patch Metadata</MetadataTitle>
-            <MetadataItem>Submitted by: {author}</MetadataItem>
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-            <MetadataItem>Submitted at: {time.submittedAt}</MetadataItem>
             <MetadataItem>
-              Project:{" "}
+              <MetadataLabel>Submitted by:</MetadataLabel> {author}
+            </MetadataItem>
+            <MetadataItem>
+              <MetadataLabel>Submitted at:</MetadataLabel> {time?.submittedAt}
+            </MetadataItem>
+            <MetadataItem>
+              <MetadataLabel>Project:</MetadataLabel>{" "}
               <StyledRouterLink to={getProjectPatchesRoute(projectIdentifier)}>
                 {projectIdentifier}
               </StyledRouterLink>
             </MetadataItem>
           </MetadataCard>
           <ConfigureBuildVariants
-            variants={getVariantEntries(variants, selectedBuildVariantTasks)}
             aliases={[
               ...getPatchTriggerAliasEntries(
                 selectableAliases,
@@ -210,31 +212,32 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
               ),
               ...getChildPatchEntries(childPatchesWithAliases),
             ]}
+            disabled={disableBuildVariantSelect}
             selectedBuildVariants={selectedBuildVariants}
             setSelectedBuildVariants={setSelectedBuildVariants}
-            disabled={disableBuildVariantSelect}
+            variants={getVariantEntries(variants, selectedBuildVariantTasks)}
           />
         </PageSider>
         <PageLayout>
           <PageContent>
             <StyledTabs
+              aria-label="Configure Patch Tabs"
               selected={selectedTab}
               setSelected={setSelectedTab}
-              aria-label="Configure Patch Tabs"
             >
               <Tab data-cy="tasks-tab" name="Configure">
                 <ConfigureTasks
                   activated={activated}
-                  childPatches={childPatchesWithAliases}
-                  totalSelectedTaskCount={totalSelectedTaskCount}
+                  activatedVariants={variantsTasks}
                   aliasCount={aliasCount}
+                  childPatches={childPatchesWithAliases}
                   selectableAliases={selectableAliases}
                   selectedAliases={selectedAliases}
                   selectedBuildVariants={selectedBuildVariants}
                   selectedBuildVariantTasks={selectedBuildVariantTasks}
                   setSelectedAliases={setSelectedAliases}
                   setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-                  activatedVariants={variantsTasks}
+                  totalSelectedTaskCount={totalSelectedTaskCount}
                 />
               </Tab>
               <Tab data-cy="changes-tab" name="Changes">

@@ -83,10 +83,10 @@ describe("SectionControls", () => {
     await user.click(screen.getByDataCy("open-subsections-btn"));
     expect(sendEventMock).toHaveBeenCalledOnce();
     expect(sendEventMock).toHaveBeenCalledWith({
-      "function.name": "funcName",
-      "function.status": "pass",
       name: "Clicked open subsections button",
-      "was.function.closed": false,
+      "section.function.name": "funcName",
+      "section.function.status": "pass",
+      "section.function.was_closed": false,
     });
     expect(toggleAllCommandsInFunctionMock).toHaveBeenCalledOnce();
     expect(toggleAllCommandsInFunctionMock).toHaveBeenCalledWith(
@@ -102,9 +102,9 @@ describe("SectionControls", () => {
     );
     expect(sendEventMock).toHaveBeenCalledTimes(2);
     expect(sendEventMock).toHaveBeenCalledWith({
-      "function.name": "funcName",
-      "function.status": "pass",
       name: "Clicked close subsections button",
+      "section.function.name": "funcName",
+      "section.function.status": "pass",
     });
   });
 });

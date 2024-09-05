@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
-import { TaskStatus } from "types/task";
 import { WaterfallTaskStatusIcon } from ".";
 import { getTooltipQueryMock } from "./testData";
 

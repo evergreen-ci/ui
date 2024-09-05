@@ -1,4 +1,4 @@
-import { Unpacked } from "types/utils";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { BuildType, ProviderFormState, FleetInstanceType } from "./types";
 
 /**

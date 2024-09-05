@@ -15,9 +15,9 @@ export const WaterfallMenu: React.FC = () => {
     <ButtonDropdown
       data-cy="waterfall-menu"
       dropdownItems={dropdownItems}
-      size="default"
       open={menuOpen}
       setOpen={setMenuOpen}
+      size="default"
     />
   );
 };

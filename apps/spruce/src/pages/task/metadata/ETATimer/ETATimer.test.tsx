@@ -15,7 +15,7 @@ describe("etaTimer", () => {
     const startTime = new Date();
     const expectedDuration = 10000;
     render(
-      <ETATimer startTime={startTime} expectedDuration={expectedDuration} />,
+      <ETATimer expectedDuration={expectedDuration} startTime={startTime} />,
     );
     expect(screen.getByText("10s")).toBeInTheDocument();
     act(() => {
@@ -35,7 +35,7 @@ describe("etaTimer", () => {
     const startTime = new Date();
     const expectedDuration = 1000;
     render(
-      <ETATimer startTime={startTime} expectedDuration={expectedDuration} />,
+      <ETATimer expectedDuration={expectedDuration} startTime={startTime} />,
     );
     expect(screen.getByText("1s")).toBeInTheDocument();
     act(() => {
@@ -48,7 +48,7 @@ describe("etaTimer", () => {
     expect(vi.getTimerCount()).toBe(0);
   });
   it("if the eta has been exceeded, it does not render", () => {
-    render(<ETATimer startTime={new Date()} expectedDuration={0} />);
+    render(<ETATimer expectedDuration={0} startTime={new Date()} />);
     expect(screen.queryByTestId("task-metadata-eta")).not.toBeInTheDocument();
   });
 });

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { action } from "@storybook/addon-actions";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
-import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 
 export default {
@@ -14,11 +14,11 @@ export const Default: CustomStoryObj<typeof GroupedTaskStatusBadge> = {
     <Container>
       {groupedTaskStats.map((item) => (
         <GroupedTaskStatusBadge
-          href="/test"
-          status={item.status}
-          count={item.count}
           key={item.status}
+          count={item.count}
+          href="/test"
           onClick={action(`Click status ${item.status}`)}
+          status={item.status}
           statusCounts={statusCounts}
         />
       ))}

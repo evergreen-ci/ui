@@ -1,4 +1,4 @@
-import { Unpacked } from "types/utils";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 
 /**
  * `toggleArray` takes in an array of values regardless of type and a new value and safely inserts the value if it doesn't exist in the array.

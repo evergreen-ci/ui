@@ -1,8 +1,8 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { renderWithRouterMatch as render, screen } from "test_utils";
-import { TaskStatus } from "types/task";
 import { applyStrictRegex } from "utils/string";
 import VariantTaskGroup from ".";
 
@@ -10,13 +10,13 @@ import VariantTaskGroup from ".";
 const Wrapper = ({ children }) => <MockedProvider>{children}</MockedProvider>;
 const Component = () => (
   <VariantTaskGroup
-    variant="some_variant"
-    versionId="1"
     displayName="Some Variant"
     statusCounts={[
       { count: 1, status: TaskStatus.Succeeded },
       { count: 2, status: TaskStatus.Failed },
     ]}
+    variant="some_variant"
+    versionId="1"
   />
 );
 describe("variantTaskGroup", () => {

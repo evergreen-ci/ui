@@ -81,37 +81,37 @@ export const PatchesPage: React.FC<Props> = ({
       <FiltersWrapperSpaceBetween>
         <TextInputWithValidation
           aria-label="Search patch descriptions"
-          placeholder="Patch description regex"
-          onChange={(value) => setAndSubmitInputValue(value)}
           data-cy="patch-description-input"
+          onChange={(value) => setAndSubmitInputValue(value)}
+          placeholder="Patch description regex"
           validator={validateRegexp}
           validatorErrorMessage="Invalid regex"
         />
         <StatusSelector />
         {filterComp}
         <HiddenCheckbox
-          data-cy="include-hidden-checkbox"
-          onChange={includeHiddenCheckboxOnChange}
-          label="Include hidden"
           checked={includeHiddenCheckboxChecked}
+          data-cy="include-hidden-checkbox"
+          label="Include hidden"
+          onChange={includeHiddenCheckboxOnChange}
         />
       </FiltersWrapperSpaceBetween>
       <PaginationRow>
         <Pagination
           currentPage={page}
-          totalResults={patches?.filteredPatchCount ?? 0}
           pageSize={limit}
+          totalResults={patches?.filteredPatchCount ?? 0}
         />
         <PageSizeSelector
           data-cy="my-patches-page-size-selector"
-          value={limit}
           onChange={handlePageSizeChange}
+          value={limit}
         />
       </PaginationRow>
       <ListArea
-        patches={patches?.patches || []}
         loading={loading}
         pageType={pageType}
+        patches={patches?.patches || []}
       />
     </PageWrapper>
   );

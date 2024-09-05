@@ -3,10 +3,11 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { getTaskRoute } from "constants/routes";
 import { taskStatusToCopy } from "constants/task";
-import { TaskStatus, TaskTab } from "types/task";
+import { TaskTab } from "types/task";
 import { statuses } from "utils";
 import { reportError } from "utils/errorReporting";
 
@@ -76,11 +77,11 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
         )}
       >
         <StyledBadge
-          data-cy="task-status-badge"
           key={status}
+          css={badgeWidthMaxContent}
+          data-cy="task-status-badge"
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           variant={mapTaskStatusToBadgeVariant[status]}
-          css={badgeWidthMaxContent}
         >
           {displayStatus}
         </StyledBadge>
@@ -90,8 +91,8 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
 
   return (
     <StyledBadge
-      data-cy="task-status-badge"
       key={status}
+      data-cy="task-status-badge"
       {...customBadgeColors(status)}
     >
       {displayStatus}

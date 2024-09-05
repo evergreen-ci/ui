@@ -1,10 +1,11 @@
-import { TestStatus } from "types/test";
+import { TestStatus } from "@evg-ui/lib/types/test";
+import { ALL_VALUE } from "components/TreeSelect";
 
 export const testStatusesFilterTreeData = [
   {
     title: "All",
-    value: TestStatus.All,
-    key: TestStatus.All,
+    value: ALL_VALUE,
+    key: ALL_VALUE,
   },
   {
     title: "Pass",

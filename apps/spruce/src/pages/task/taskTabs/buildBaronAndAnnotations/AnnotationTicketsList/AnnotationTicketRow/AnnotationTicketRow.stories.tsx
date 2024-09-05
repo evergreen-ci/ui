@@ -9,7 +9,6 @@ export const Default: CustomStoryObj<typeof AnnotationTicketRow> = {
   render: (args) => (
     <AnnotationTicketRow
       issueKey="EVG-123"
-      url="https://www.google.com"
       jiraTicket={{
         key: "key",
         fields: {
@@ -24,6 +23,7 @@ export const Default: CustomStoryObj<typeof AnnotationTicketRow> = {
           assignedTeam: "evg-ui",
         },
       }}
+      url="https://www.google.com"
       {...args}
     />
   ),

@@ -117,15 +117,15 @@ export const PromoteVariablesModal: React.FC<Props> = ({
       </SelectAllContainer>
       {variables.map(({ inRepo, name }) => (
         <Checkbox
-          data-cy="promote-var-checkbox"
           key={name}
+          checked={selected.has(name)}
+          data-cy="promote-var-checkbox"
           label={
             <>
               {name}
               {inRepo && <DuplicateVarTooltip />}
             </>
           }
-          checked={selected.has(name)}
           onClick={handleClickCheckbox(name)}
         />
       ))}

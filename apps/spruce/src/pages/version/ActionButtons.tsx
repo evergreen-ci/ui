@@ -32,36 +32,36 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
-      patchId={versionId}
       disabled={!canReconfigure}
+      patchId={versionId}
     />,
-    <UnscheduleTasks versionId={versionId} key="unschedule-tasks" />,
+    <UnscheduleTasks key="unschedule-tasks" versionId={versionId} />,
     <DisableTasks key="disable-tasks" versionId={versionId} />,
     <ScheduleUndispatchedBaseTasks
       key="schedule-undispatched-base-tasks"
-      versionId={versionId}
       disabled={!isPatch}
+      versionId={versionId}
     />,
-    <SetPriority versionId={versionId} key="priority" />,
+    <SetPriority key="priority" versionId={versionId} />,
     <EnqueuePatch
-      patchId={versionId}
-      commitMessage={patchDescription}
       key="enqueue"
+      commitMessage={patchDescription}
       disabled={!canEnqueueToCommitQueue}
+      patchId={versionId}
     />,
   ];
 
   return (
     <PageButtonRow>
       <ScheduleTasks
-        versionId={versionId}
-        isButton
         disabled={isPatchOnCommitQueue}
+        isButton
+        versionId={versionId}
       />
       <RestartPatch
-        patchId={versionId}
-        isButton
         disabled={isPatchOnCommitQueue}
+        isButton
+        patchId={versionId}
         refetchQueries={["VersionTasks"]}
       />
       <AddNotification patchId={versionId} />

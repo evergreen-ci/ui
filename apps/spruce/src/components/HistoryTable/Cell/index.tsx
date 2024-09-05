@@ -3,11 +3,11 @@ import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { inactiveElementStyle, StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import { TaskStatus } from "types/task";
 import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "../constants";
 import { HistoryTableIcon } from "../HistoryTableIcon";
 
@@ -34,7 +34,7 @@ const TaskCell: React.FC<TaskCellProps> = ({
   onClick = () => {},
   task,
 }) => (
-  <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
+  <Cell aria-disabled={inactive} data-cy="task-cell" inactive={inactive}>
     <Link
       onClick={() => {
         onClick({ taskStatus: task.status });
@@ -42,11 +42,11 @@ const TaskCell: React.FC<TaskCellProps> = ({
       to={getTaskRoute(task.id)}
     >
       <HistoryTableIcon
-        inactive={inactive}
-        status={task.status as TaskStatus}
         failingTests={failingTests}
+        inactive={inactive}
         label={label}
         loadingTestResults={loading}
+        status={task.status as TaskStatus}
       />
     </Link>
   </Cell>
@@ -64,7 +64,7 @@ interface LoadingCellProps {
 const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) =>
   isHeader ? (
     <HeaderCell data-cy="loading-header-cell">
-      <Skeleton active title paragraph={false} />
+      <Skeleton active paragraph={false} title />
     </HeaderCell>
   ) : (
     <Cell data-cy="loading-cell">

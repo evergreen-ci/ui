@@ -68,31 +68,31 @@ export const Navbar: React.FC = () => {
     <StyledNav>
       <NavActionContainer>
         <LogoLink
-          to={routes.myPatches}
           onClick={() => sendEvent({ name: "Clicked logo link" })}
+          to={routes.myPatches}
         >
           <SpruceSummerTreeIcon
-            src={SpruceSummerTree}
             alt="Evergreen tree on an island with a beach ball"
+            src={SpruceSummerTree}
           />
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
-          to={getCommitsRoute(projectIdentifier)}
           onClick={() => sendEvent({ name: "Clicked waterfall link" })}
+          to={getCommitsRoute(projectIdentifier)}
         >
           Project Health
         </PrimaryLink>
         <PrimaryLink
+          onClick={() => sendEvent({ name: "Clicked my patches link" })}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           to={getUserPatchesRoute(userId)}
-          onClick={() => sendEvent({ name: "Clicked my patches link" })}
         >
           My Patches
         </PrimaryLink>
         <PrimaryLink
-          to={routes.spawnHost}
           onClick={() => sendEvent({ name: "Clicked my hosts link" })}
+          to={routes.spawnHost}
         >
           My Hosts
         </PrimaryLink>
@@ -102,8 +102,8 @@ export const Navbar: React.FC = () => {
       <NavActionContainer>
         {legacyURL && (
           <SecondaryLink
-            href={legacyURL}
             data-cy="legacy-ui-link"
+            href={legacyURL}
             onClick={() => sendEvent({ name: "Clicked legacy UI link" })}
           >
             Switch to Legacy UI
@@ -111,8 +111,8 @@ export const Navbar: React.FC = () => {
         )}
         <PrimaryAWithIcon
           href={wikiUrl}
-          target="_blank"
           onClick={() => sendEvent({ name: "Clicked EVG wiki link" })}
+          target="_blank"
         >
           <Icon glyph="QuestionMarkWithCircle" />
           Documentation

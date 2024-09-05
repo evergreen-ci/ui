@@ -47,26 +47,26 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   return (
     <SearchWrapper>
       <IconButton
-        onClick={() => setActive(!active)}
-        active={active}
-        data-cy={dataCy}
-        aria-label="Table Search Popover Icon"
         ref={buttonRef}
+        active={active}
+        aria-label="Table Search Popover Icon"
+        data-cy={dataCy}
+        onClick={() => setActive(!active)}
       >
-        <Icon glyph="MagnifyingGlass" small="xsmall" color={iconColor} />
+        <Icon color={iconColor} glyph="MagnifyingGlass" small="xsmall" />
       </IconButton>
-      <Popover align="bottom" justify="middle" active={active}>
+      <Popover active={active} align="bottom" justify="middle">
         <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
           <TextInput
-            description="Press enter to filter."
-            placeholder={placeholder}
-            type="search"
             aria-label="Search Table"
+            autoFocus
             data-cy={`${dataCy}-input-filter`}
-            value={input}
+            description="Press enter to filter."
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && onEnter()}
-            autoFocus
+            placeholder={placeholder}
+            type="search"
+            value={input}
           />
         </PopoverContainer>
       </Popover>

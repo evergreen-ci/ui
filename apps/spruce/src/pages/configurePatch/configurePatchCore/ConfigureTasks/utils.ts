@@ -1,5 +1,5 @@
 import { VariantTask } from "gql/generated/types";
-import { AliasState, ChildPatchAliased } from "hooks/useConfigurePatch";
+import { AliasState, ChildPatchAliased } from "../useConfigurePatch/types";
 import { CheckboxState } from "./types";
 
 type TaskState = {

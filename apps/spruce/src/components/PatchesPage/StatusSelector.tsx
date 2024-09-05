@@ -14,19 +14,19 @@ export const StatusSelector: React.FC = () => {
 
   return (
     <Dropdown
-      data-cy="my-patch-status-select"
       buttonText={`Patch Status: ${
         statusVal.length
           ? // @ts-expect-error: FIXME. This comment was added by an automated script.
             statusVal.map((v) => statusValToCopy[v]).join(", ")
           : noFilterMessage
       }`}
+      data-cy="my-patch-status-select"
     >
       <TreeSelect
+        hasStyling={false}
         onChange={statusValOnChange}
         state={statusVal}
         tData={treeData}
-        hasStyling={false}
       />
     </Dropdown>
   );

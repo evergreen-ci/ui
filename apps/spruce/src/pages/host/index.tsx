@@ -81,11 +81,7 @@ const Host: React.FC = () => {
       {host && (
         <>
           <PageTitle
-            pageTitle={`Host${hostId ? ` - ${hostId}` : ""}`}
-            title={`Host: ${hostId}`}
             badge={<HostStatusBadge status={status} />}
-            loading={hostMetaDataLoading}
-            size="large"
             buttons={
               <div>
                 <ButtonsWrapper>
@@ -99,39 +95,43 @@ const Host: React.FC = () => {
                   </ButtonSpacer>
                   <ButtonSpacer>
                     <RestartJasper
-                      // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      selectedHostIds={[hostId]}
+                      canRestartJasper={canRestartJasperOrReprovision}
                       hostUrl={hostUrl}
                       isSingleHost
-                      canRestartJasper={canRestartJasperOrReprovision}
                       jasperTooltipMessage="Jasper cannot be restarted for this host"
+                      // @ts-expect-error: FIXME. This comment was added by an automated script.
+                      selectedHostIds={[hostId]}
                     />
                   </ButtonSpacer>
                   <ButtonSpacer>
                     <Reprovision
-                      // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      selectedHostIds={[hostId]}
+                      canReprovision={canRestartJasperOrReprovision}
                       hostUrl={hostUrl}
                       isSingleHost
-                      canReprovision={canRestartJasperOrReprovision}
                       reprovisionTooltipMessage="This host cannot be reprovisioned"
+                      // @ts-expect-error: FIXME. This comment was added by an automated script.
+                      selectedHostIds={[hostId]}
                     />
                   </ButtonSpacer>
                 </ButtonsWrapper>
               </div>
             }
+            loading={hostMetaDataLoading}
+            pageTitle={`Host${hostId ? ` - ${hostId}` : ""}`}
+            size="large"
+            title={`Host: ${hostId}`}
           />
 
           <PageLayout hasSider>
             <PageSider width={350}>
               <Metadata
-                loading={hostMetaDataLoading}
-                host={host}
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 error={error}
+                host={host}
+                loading={hostMetaDataLoading}
               />
               {sshAddress && (
-                <Code language="shell" data-cy="ssh-command">
+                <Code data-cy="ssh-command" language="shell">
                   {sshCommand}
                 </Code>
               )}
@@ -139,15 +139,15 @@ const Host: React.FC = () => {
             <PageLayout>
               <PageContent>
                 <HostTable
-                  loading={hostEventLoading}
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  error={error}
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
                   eventData={hostEventData}
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  error={error}
-                  page={page}
-                  limit={limit}
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
                   eventsCount={eventsCount}
+                  limit={limit}
+                  loading={hostEventLoading}
+                  page={page}
                 />
               </PageContent>
             </PageLayout>
@@ -155,12 +155,12 @@ const Host: React.FC = () => {
         </>
       )}
       <UpdateStatusModal
+        closeModal={() => setIsUpdateStatusModalVisible(false)}
         data-cy="update-host-status-modal"
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         hostIds={[hostId]}
-        visible={isUpdateStatusModalVisible}
-        closeModal={() => setIsUpdateStatusModalVisible(false)}
         isHostPage
+        visible={isUpdateStatusModalVisible}
       />
     </PageWrapper>
   );

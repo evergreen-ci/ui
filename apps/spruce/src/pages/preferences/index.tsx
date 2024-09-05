@@ -25,10 +25,9 @@ const Preferences: React.FC = () => {
   return (
     <>
       <SideNav aria-label="Preferences">
-        <SideNavGroup header="Preferences" glyph={<Icon glyph="Settings" />}>
+        <SideNavGroup glyph={<Icon glyph="Settings" />} header="Preferences">
           <SideNavItem
             active={tab === PreferencesTabRoutes.Profile}
-            to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
             as={Link}
             data-cy="profile-nav-tab"
             onClick={() =>
@@ -37,12 +36,12 @@ const Preferences: React.FC = () => {
                 tab: PreferencesTabRoutes.Profile,
               })
             }
+            to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
           >
             Profile
           </SideNavItem>
           <SideNavItem
             active={tab === PreferencesTabRoutes.Notifications}
-            to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
             as={Link}
             data-cy="notifications-nav-tab"
             onClick={() =>
@@ -51,12 +50,12 @@ const Preferences: React.FC = () => {
                 tab: PreferencesTabRoutes.Notifications,
               })
             }
+            to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
           >
             Notifications
           </SideNavItem>
           <SideNavItem
             active={tab === PreferencesTabRoutes.CLI}
-            to={getPreferencesRoute(PreferencesTabRoutes.CLI)}
             as={Link}
             data-cy="cli-nav-tab"
             onClick={() =>
@@ -65,12 +64,12 @@ const Preferences: React.FC = () => {
                 tab: PreferencesTabRoutes.CLI,
               })
             }
+            to={getPreferencesRoute(PreferencesTabRoutes.CLI)}
           >
             CLI & API
           </SideNavItem>
           <SideNavItem
             active={tab === PreferencesTabRoutes.PublicKeys}
-            to={getPreferencesRoute(PreferencesTabRoutes.PublicKeys)}
             as={Link}
             data-cy="publickeys-nav-tab"
             onClick={() =>
@@ -79,12 +78,12 @@ const Preferences: React.FC = () => {
                 tab: PreferencesTabRoutes.PublicKeys,
               })
             }
+            to={getPreferencesRoute(PreferencesTabRoutes.PublicKeys)}
           >
             Public Keys
           </SideNavItem>
           <SideNavItem
             active={tab === PreferencesTabRoutes.NewUI}
-            to={getPreferencesRoute(PreferencesTabRoutes.NewUI)}
             as={Link}
             data-cy="newui-nav-tab"
             onClick={() =>
@@ -93,6 +92,7 @@ const Preferences: React.FC = () => {
                 tab: PreferencesTabRoutes.NewUI,
               })
             }
+            to={getPreferencesRoute(PreferencesTabRoutes.NewUI)}
           >
             New UI
           </SideNavItem>

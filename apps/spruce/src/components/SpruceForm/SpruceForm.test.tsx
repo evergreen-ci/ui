@@ -6,9 +6,9 @@ describe("spruce form", () => {
     render(
       <SpruceFormContainer title="Just a test">
         <SpruceForm
-          schema={basicForm.schema}
           formData={basicForm.formData}
           onChange={vi.fn()}
+          schema={basicForm.schema}
           uiSchema={basicForm.uiSchema}
         />
       </SpruceFormContainer>,
@@ -32,9 +32,9 @@ describe("spruce form", () => {
     render(
       <SpruceFormContainer title="Just a test">
         <SpruceForm
-          schema={basicForm.schema}
           formData={basicForm.formData}
           onChange={onChange}
+          schema={basicForm.schema}
           uiSchema={basicForm.uiSchema}
         />
       </SpruceFormContainer>,
@@ -75,9 +75,9 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Input">
               <SpruceForm
-                schema={schema}
                 formData={formData}
                 onChange={onChange}
+                schema={schema}
                 uiSchema={uiSchema}
                 validate={validate}
               />
@@ -108,9 +108,9 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Input">
               <SpruceForm
-                schema={schema}
                 formData={formData}
                 onChange={onChange}
+                schema={schema}
                 uiSchema={uiSchema}
               />
             </SpruceFormContainer>,
@@ -137,9 +137,9 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Input">
               <SpruceForm
-                schema={schema}
                 formData={formData}
                 onChange={onChange}
+                schema={schema}
                 uiSchema={uiSchema}
               />
             </SpruceFormContainer>,
@@ -173,9 +173,9 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Area">
               <SpruceForm
-                schema={schema}
                 formData={formData}
                 onChange={onChange}
+                schema={schema}
                 uiSchema={uiSchema}
                 validate={validate}
               />
@@ -206,9 +206,9 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Area">
               <SpruceForm
-                schema={schema}
                 formData={formData}
                 onChange={onChange}
+                schema={schema}
                 uiSchema={uiSchema}
               />
             </SpruceFormContainer>,
@@ -235,9 +235,9 @@ describe("spruce form", () => {
           render(
             <SpruceFormContainer title="Test for Text Area">
               <SpruceForm
-                schema={schema}
                 formData={formData}
                 onChange={onChange}
+                schema={schema}
                 uiSchema={uiSchema}
               />
             </SpruceFormContainer>,
@@ -259,9 +259,9 @@ describe("spruce form", () => {
         const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
-            schema={schema}
             formData={formData}
             onChange={vi.fn()}
+            schema={schema}
             uiSchema={uiSchema}
           />,
         );
@@ -275,9 +275,9 @@ describe("spruce form", () => {
         const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
-            schema={schema}
             formData={formData}
             onChange={vi.fn()}
+            schema={schema}
             uiSchema={uiSchema}
           />,
         );
@@ -293,9 +293,9 @@ describe("spruce form", () => {
         const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
-            schema={schema}
             formData={formData}
             onChange={vi.fn()}
+            schema={schema}
             uiSchema={uiSchema}
           />,
         );
@@ -313,9 +313,9 @@ describe("spruce form", () => {
         const { formData, schema, uiSchema } = select;
         render(
           <SpruceForm
-            schema={schema}
             formData={formData}
             onChange={vi.fn()}
+            schema={schema}
             uiSchema={uiSchema}
           />,
         );
@@ -337,9 +337,9 @@ describe("spruce form", () => {
         const { formData, schema, uiSchema } = radioGroup;
         render(
           <SpruceForm
-            schema={schema}
             formData={formData}
             onChange={vi.fn()}
+            schema={schema}
             uiSchema={uiSchema}
           />,
         );
@@ -351,9 +351,9 @@ describe("spruce form", () => {
         const { formData, schema, uiSchema } = radioGroup;
         render(
           <SpruceForm
-            schema={schema}
             formData={formData}
             onChange={vi.fn()}
+            schema={schema}
             uiSchema={uiSchema}
           />,
         );
@@ -364,9 +364,9 @@ describe("spruce form", () => {
         const { formData, schema, uiSchema } = radioGroup;
         render(
           <SpruceForm
-            schema={schema}
             formData={formData}
             onChange={vi.fn()}
+            schema={schema}
             uiSchema={uiSchema}
           />,
         );

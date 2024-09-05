@@ -13,9 +13,9 @@ export const NodeList: React.FC<NodeListProps> = ({ list }) => (
     {list.map((node, index) => (
       <Node
         key={formatZeroIndexForDisplay(index)}
-        title={node.title}
         child={node.child}
         stepNumber={formatZeroIndexForDisplay(index)}
+        title={node.title}
       />
     ))}
   </NodeContainer>

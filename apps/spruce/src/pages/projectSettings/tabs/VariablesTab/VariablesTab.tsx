@@ -64,9 +64,9 @@ export const VariablesTab: React.FC<TabProps> = ({
     <>
       {modalOpen && (
         <PromoteVariablesModal
-          projectId={identifier}
-          open={modalOpen}
           handleClose={() => setModalOpen(false)}
+          open={modalOpen}
+          projectId={identifier}
           variables={formData.vars.map(({ varName }) => ({
             name: varName,
             inRepo:

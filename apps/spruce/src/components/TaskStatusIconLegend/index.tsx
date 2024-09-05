@@ -33,6 +33,7 @@ export const TaskStatusIconLegend: React.FC = () => {
   return (
     <div>
       <IconButton
+        aria-label="Task Status Icon Legend"
         onClick={() => {
           setIsActive(!isActive);
           sendEvent({
@@ -40,22 +41,23 @@ export const TaskStatusIconLegend: React.FC = () => {
             open: true,
           });
         }}
-        aria-label="Task Status Icon Legend"
       >
         <StyledIcon glyph="QuestionMarkWithCircle" />
       </IconButton>
       <Popover
+        active={isActive}
         align="top"
         justify="end"
-        active={isActive}
-        usePortal
-        // In some cases, the z-index of the popover needs to be higher than the rest of the app due to some components having a higher z-index.
+        // In some cases, the z-index of the popover needs to be higher than the rest
+        // of the app due to some components having a higher z-index.
         popoverZIndex={zIndex.tooltip}
+        usePortal
       >
         <StyledPopoverContainer>
           <TitleContainer>
             <Overline>Icon Legend</Overline>
             <IconButton
+              aria-label="Close Task Status Icon Legend"
               onClick={() => {
                 sendEvent({
                   name: "Toggled task icon legend",
@@ -63,7 +65,6 @@ export const TaskStatusIconLegend: React.FC = () => {
                 });
                 setIsActive(false);
               }}
-              aria-label="Close Task Status Icon Legend"
             >
               <Icon glyph="X" />
             </IconButton>

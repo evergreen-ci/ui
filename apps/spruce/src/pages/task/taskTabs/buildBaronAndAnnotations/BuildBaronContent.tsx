@@ -67,45 +67,45 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
 
   return (
     <Wrapper data-cy="bb-content">
-      {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
+      {loading && <Skeleton active paragraph={{ rows: 4 }} title={false} />}
       {canCreateTickets ? (
         <CustomCreatedTickets
-          taskId={taskId}
           execution={execution}
+          taskId={taskId}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           tickets={customTickets}
         />
       ) : (
         <BBCreatedTickets
-          taskId={taskId}
-          execution={execution}
           buildBaronConfigured={bbData?.buildBaronConfigured}
+          execution={execution}
+          taskId={taskId}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           tickets={bbTickets}
         />
       )}
       <AnnotationNote
+        execution={execution}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         note={annotation?.note}
         taskId={taskId}
-        execution={execution}
         userCanModify={userCanModify}
       />
       <Issues
-        taskId={taskId}
+        annotation={annotation}
         execution={execution}
-        userCanModify={userCanModify}
         selectedRowKey={selectedRowKey}
         setSelectedRowKey={setSelectedRowKey}
-        annotation={annotation}
+        taskId={taskId}
+        userCanModify={userCanModify}
       />
       <SuspectedIssues
-        taskId={taskId}
+        annotation={annotation}
         execution={execution}
-        userCanModify={userCanModify}
         selectedRowKey={selectedRowKey}
         setSelectedRowKey={setSelectedRowKey}
-        annotation={annotation}
+        taskId={taskId}
+        userCanModify={userCanModify}
       />
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {bbData?.searchReturnInfo?.issues.length > 0 && (
