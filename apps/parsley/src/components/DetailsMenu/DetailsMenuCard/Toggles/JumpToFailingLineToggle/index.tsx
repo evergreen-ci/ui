@@ -1,11 +1,9 @@
 import { useRef } from "react";
-import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { usePreferencesAnalytics } from "analytics";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
-import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
+import { JumpToFailingLineToggleGuideCue } from "context/SectionsFeatureDiscoveryContext/JumpToFailingLineToggleGuideCue";
 import { ParsleySettingsInput } from "gql/generated/types";
-import { releaseSectioning } from "utils/featureFlag";
 import BaseToggle from "../BaseToggle";
 
 interface JumpToFailingLineToggleProps {
@@ -20,26 +18,10 @@ const JumpToFailingLineToggle: React.FC<JumpToFailingLineToggleProps> = ({
   const { sendEvent } = usePreferencesAnalytics();
   const { logMetadata } = useLogContext();
   const isTaskLog = logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS;
-  const { closeSecondGuideCue, isOpenSecondGuideCue, setIsOpenSecondGuideCue } =
-    useSectionsFeatureDiscoveryContext();
   const triggerRef = useRef<HTMLDivElement>(null);
   return (
     <>
-      {releaseSectioning && (
-        <GuideCue
-          beaconAlign="right"
-          data-cy="sections-cue-2"
-          numberOfSteps={1}
-          onPrimaryButtonClick={closeSecondGuideCue}
-          open={isOpenSecondGuideCue}
-          refEl={triggerRef}
-          setOpen={setIsOpenSecondGuideCue}
-          title="Jump to Failing Line"
-        >
-          Combined with sectioning, jump to failing line allows to streamline
-          your failure triage process.
-        </GuideCue>
-      )}
+      <JumpToFailingLineToggleGuideCue refEl={triggerRef} />
       <BaseToggle
         ref={triggerRef}
         data-cy="jump-to-failing-line-toggle"
