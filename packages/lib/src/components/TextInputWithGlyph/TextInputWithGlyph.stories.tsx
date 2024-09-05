@@ -21,9 +21,9 @@ const Input = (props: TextInputWithGlyphProps) => {
   return (
     <TextInputWithGlyph
       {...props}
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
       icon={<Icon glyph="MagnifyingGlass" />}
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
     />
   );
 };

@@ -22,10 +22,10 @@ describe("metadata", () => {
   it("renders the metadata card with a pending status", () => {
     render(
       <Metadata
-        taskId={taskId}
+        error={null}
         loading={false}
         task={taskAboutToStart.task}
-        error={null}
+        taskId={taskId}
       />,
       {
         route: `/task/${taskId}`,
@@ -43,10 +43,10 @@ describe("metadata", () => {
   it("renders the metadata card with a started status", () => {
     render(
       <Metadata
-        taskId={taskId}
+        error={null}
         loading={false}
         task={taskStarted.task}
-        error={null}
+        taskId={taskId}
       />,
       {
         route: `/task/${taskId}`,
@@ -65,10 +65,10 @@ describe("metadata", () => {
     const user = userEvent.setup();
     render(
       <Metadata
-        taskId={taskId}
+        error={null}
         loading={false}
         task={taskSucceeded.task}
-        error={null}
+        taskId={taskId}
       />,
       {
         route: `/task/${taskId}`,

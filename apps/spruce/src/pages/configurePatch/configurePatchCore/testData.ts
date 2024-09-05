@@ -1,10 +1,10 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   CodeChangesQuery,
   CodeChangesQueryVariables,
   ConfigurePatchQuery,
 } from "gql/generated/types";
 import { CODE_CHANGES } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 export const patchQuery: ConfigurePatchQuery = {
   patch: {

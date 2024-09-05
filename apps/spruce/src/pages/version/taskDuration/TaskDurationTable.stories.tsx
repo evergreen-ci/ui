@@ -8,9 +8,9 @@ export default {
 export const Default: CustomStoryObj<typeof TaskDurationTable> = {
   render: () => (
     <TaskDurationTable
-      tasks={props.tasks}
       loading={false}
       numLoadingRows={10}
+      tasks={props.tasks}
     />
   ),
 };
@@ -18,9 +18,9 @@ export const Default: CustomStoryObj<typeof TaskDurationTable> = {
 export const LongContent: CustomStoryObj<typeof TaskDurationTable> = {
   render: () => (
     <TaskDurationTable
-      tasks={props.tasksLong}
       loading={false}
       numLoadingRows={10}
+      tasks={props.tasksLong}
     />
   ),
 };

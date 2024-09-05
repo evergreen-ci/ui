@@ -215,11 +215,14 @@ Spruce has a minimal dependency on Logkeeper: it is used by Cypress tests on the
 Job Logs page. If you'd like to get set up to develop these tests, complete the
 following:
 
-1. Clone the [Logkeeper repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `yarn bootstrap-logkeeper` within Spruce to download some sample resmoke
-   logs from S3.
-3. Run the command output by the previous step to seed the env variables and
-   start the local logkeeper server at http://localhost:8080.
+1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
+2. Run `yarn bootstrap-s3-logs` to download some sample resmoke logs from s3.
+3. Run the command outputted by the previous step to seed the env variables and
+   start the local logkeeper server with the following command:
+
+   ```bash
+   LK_CORS_ORIGINS=http:\/\/localhost:\\d+ LK_EVERGREEN_ORIGIN=http://localhost:8080 LK_PARSLEY_ORIGIN=http://localhost:5173 go run main/logkeeper.go --localPath {abs_path_to_spruce}/bin/_bucketdata
+   ```
 
 ## Deployment
 

@@ -30,36 +30,36 @@ export const DropdownMenu: React.FC<Props> = ({
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
-      patchId={patchId}
       disabled={isPatchOnCommitQueue}
       hasVersion={hasVersion}
+      patchId={patchId}
     />,
-    <ScheduleTasks key="schedule" versionId={patchId} disabled={!hasVersion} />,
+    <ScheduleTasks key="schedule" disabled={!hasVersion} versionId={patchId} />,
     <UnscheduleTasks
       key="unschedule"
-      versionId={patchId}
-      refetchQueries={refetchQueries}
       disabled={!hasVersion}
+      refetchQueries={refetchQueries}
+      versionId={patchId}
     />,
     <RestartPatch
-      visibilityControl={restartModalVisibilityControl}
       key="restart"
+      disabled={!hasVersion}
       patchId={patchId}
       refetchQueries={refetchQueries}
-      disabled={!hasVersion}
+      visibilityControl={restartModalVisibilityControl}
     />,
     <EnqueuePatch
-      visibilityControl={enqueueModalVisibilityControl}
       key="enqueue"
-      patchId={patchId}
       commitMessage={patchDescription}
       disabled={!canEnqueueToCommitQueue || !hasVersion}
+      patchId={patchId}
       refetchQueries={refetchQueries}
+      visibilityControl={enqueueModalVisibilityControl}
     />,
     <SetPatchVisibility
       key="hide"
-      patchId={patchId}
       isPatchHidden={isPatchHidden}
+      patchId={patchId}
       refetchQueries={["UserPatches", "ProjectPatches"]}
     />,
   ];

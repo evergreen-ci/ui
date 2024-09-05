@@ -87,23 +87,6 @@ const TaskQueue = () => {
       <StyledH2>Task Queue</StyledH2>
       <SearchableDropdownWrapper>
         <SearchableDropdown
-          data-cy="distro-dropdown"
-          label="Distro"
-          disabled={selectedDistro === undefined}
-          options={distrosData?.taskQueueDistros}
-          searchFunc={handleSearch}
-          valuePlaceholder="Select a distro"
-          optionRenderer={(option, onClick) => (
-            <DistroOption
-              option={option}
-              key={`distro-select-search-option-${option.id}`}
-              onClick={onClick}
-            />
-          )}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          onChange={onChangeDistroSelection}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          value={selectedDistro}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           buttonRenderer={(option: TaskQueueDistro) => (
             <DistroLabel>
@@ -116,6 +99,23 @@ const TaskQueue = () => {
               <DistroName> {option?.id} </DistroName>
             </DistroLabel>
           )}
+          data-cy="distro-dropdown"
+          disabled={selectedDistro === undefined}
+          label="Distro"
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          onChange={onChangeDistroSelection}
+          optionRenderer={(option, onClick) => (
+            <DistroOption
+              key={`distro-select-search-option-${option.id}`}
+              onClick={onClick}
+              option={option}
+            />
+          )}
+          options={distrosData?.taskQueueDistros}
+          searchFunc={handleSearch}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          value={selectedDistro}
+          valuePlaceholder="Select a distro"
         />
       </SearchableDropdownWrapper>
       {
@@ -133,9 +133,9 @@ const TaskQueue = () => {
       }
       {!loadingTaskQueueItems && (
         <TaskQueueTable
+          taskId={taskId}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           taskQueue={taskQueueItemsData?.distroTaskQueue}
-          taskId={taskId}
         />
       )}
     </StyledPageWrapper>

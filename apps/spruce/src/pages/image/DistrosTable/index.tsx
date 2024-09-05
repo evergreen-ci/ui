@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip, { Align, Justify } from "@leafygreen-ui/tooltip";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import Icon from "components/Icon";
 import { StyledRouterLink, StyledLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
@@ -18,7 +19,6 @@ import {
   Provider,
 } from "gql/generated/types";
 import { IMAGE_DISTROS } from "gql/queries";
-import { Unpacked } from "types/utils";
 
 type Distro = Unpacked<NonNullable<ImageDistrosQuery["image"]>["distros"]>;
 
@@ -89,8 +89,8 @@ const columns: LGColumnDef<Distro>[] = [
           trigger={
             <IconButton aria-label="Information about instance type">
               <Icon
-                glyph="InfoWithCircle"
                 data-cy="instance-type-information"
+                glyph="InfoWithCircle"
               />
             </IconButton>
           }
@@ -98,9 +98,9 @@ const columns: LGColumnDef<Distro>[] = [
         >
           Amazon instance type definitions can be found{" "}
           <StyledLink
-            target="_blank"
-            href={amazonEC2InstanceTypeDocumentationUrl}
             hideExternalIcon={false}
+            href={amazonEC2InstanceTypeDocumentationUrl}
+            target="_blank"
           >
             here
           </StyledLink>

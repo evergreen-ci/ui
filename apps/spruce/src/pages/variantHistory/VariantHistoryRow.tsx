@@ -84,13 +84,13 @@ const VariantHistoryRow: React.FC<Props> = ({ data, index }) => {
 
   return (
     <BaseRow
-      data={data}
-      index={index}
       columns={orderedColumns}
+      data={data}
+      eventHandlers={eventHandlers}
+      index={index}
       numVisibleCols={visibleColumns.length}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       selected={data?.selected}
-      eventHandlers={eventHandlers}
     />
   );
 };
@@ -112,18 +112,18 @@ const generateColumns = (
         const { failingTests, inactive, label } = getTaskMetadata(t.id);
         return (
           <TaskCell
+            key={c}
+            failingTests={failingTests}
+            inactive={inactive}
+            label={label}
             onClick={({ taskStatus }) => {
               sendEvent({
                 name: "Clicked task cell",
                 "task.status": taskStatus,
               });
             }}
-            inactive={inactive}
-            key={c}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             task={t}
-            failingTests={failingTests}
-            label={label}
           />
         );
       }

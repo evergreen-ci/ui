@@ -38,11 +38,12 @@ export const SpawnHostButton: React.FC = () => {
     <PaddedContainer>
       <Tooltip
         align="top"
+        enabled={reachedMaxNumHosts}
         justify="middle"
-        triggerEvent="hover"
         popoverZIndex={zIndex.tooltip}
         trigger={
           <PlusButton
+            data-cy="spawn-host-button"
             disabled={reachedMaxNumHosts}
             onClick={() => {
               setOpenModal(true);
@@ -50,12 +51,11 @@ export const SpawnHostButton: React.FC = () => {
                 name: "Viewed spawn host modal",
               });
             }}
-            data-cy="spawn-host-button"
           >
             Spawn a host
           </PlusButton>
         }
-        enabled={reachedMaxNumHosts}
+        triggerEvent="hover"
       >
         {`You have reached the maximum number of hosts (${maxHosts}). Delete some hosts to spawn more.`}
       </Tooltip>

@@ -1,6 +1,6 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { Commit, Commits } from "types/commits";
-import { TaskStatus } from "types/task";
 import { isFailedTaskStatus } from "utils/statuses";
 import { CommitsWrapper } from "./CommitsWrapper";
 
@@ -64,10 +64,10 @@ const RenderCommitsWrapper = ({
   return (
     <div style={{ height: "500px" }}>
       <CommitsWrapper
-        versions={updatedVersions}
-        isLoading={isLoading}
-        hasTaskFilter={hasTaskFilter}
         hasFilters={hasFilters}
+        hasTaskFilter={hasTaskFilter}
+        isLoading={isLoading}
+        versions={updatedVersions}
       />
     </div>
   );

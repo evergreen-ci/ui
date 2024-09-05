@@ -123,32 +123,32 @@ export const EditModal: React.FC<EditModalProps> = ({
 
   return (
     <ConfirmationModal
+      buttonText="Save"
       data-cy="key-edit-modal"
-      open={visible}
       onCancel={closeModal}
       onConfirm={onClickSave}
+      open={visible}
       submitDisabled={errors.length > 0}
-      buttonText="Save"
       title={replaceKeyName ? "Update Public Key" : "Add Public Key"}
     >
       <StyledInput
-        label="Key Name"
-        id={KEY_NAME_ID}
         data-cy={KEY_NAME_ID}
-        value={keyName}
+        id={KEY_NAME_ID}
+        label="Key Name"
         onChange={(e) => {
           setKeyName(e.target.value);
         }}
         spellCheck={false}
+        value={keyName}
       />
       <TextArea
-        label="Public Key"
-        id={KEY_VALUE_ID}
         data-cy={KEY_VALUE_ID}
-        value={keyValue}
+        id={KEY_VALUE_ID}
+        label="Public Key"
         onChange={(e) => setKeyValue(e.target.value)}
         rows={8}
         spellCheck={false}
+        value={keyValue}
       />
       <ErrorContainer>
         {visible &&

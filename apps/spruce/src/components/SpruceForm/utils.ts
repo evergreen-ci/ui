@@ -1,5 +1,5 @@
 import { ObjectFieldTemplateProps } from "@rjsf/core";
-import { Unpacked } from "types/utils";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 
 // Modify a field such that its internal disabled prop is true.
 const disableField = (

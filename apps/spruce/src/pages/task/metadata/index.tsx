@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import ExpandedText from "components/ExpandedText";
 import {
@@ -29,7 +30,6 @@ import {
 import { zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import { TaskStatus } from "types/task";
 import { string } from "utils";
 import { isFailedTaskStatus } from "utils/statuses";
 import { AbortMessage } from "./AbortMessage";
@@ -115,16 +115,16 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             <MetadataLabel>Build Variant:</MetadataLabel>{" "}
             <StyledRouterLink
               data-cy="build-variant-link"
-              to={getVersionRoute(versionID, {
-                page: 0,
-                variant: applyStrictRegex(buildVariant),
-              })}
               onClick={() =>
                 taskAnalytics.sendEvent({
                   name: "Clicked metadata link",
                   "link.type": "build variant link",
                 })
               }
+              to={getVersionRoute(versionID, {
+                page: 0,
+                variant: applyStrictRegex(buildVariant),
+              })}
             >
               {buildVariantDisplayName || buildVariant}
             </StyledRouterLink>
@@ -135,13 +135,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             <MetadataLabel>Project:</MetadataLabel>{" "}
             <StyledRouterLink
               data-cy="project-link"
-              to={getProjectPatchesRoute(projectIdentifier)}
               onClick={() =>
                 taskAnalytics.sendEvent({
                   name: "Clicked metadata link",
                   "link.type": "project link",
                 })
               }
+              to={getProjectPatchesRoute(projectIdentifier)}
             >
               {projectIdentifier}
             </StyledRouterLink>
@@ -175,7 +175,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </MetadataItem>
         ) : null}
         {status === TaskStatus.Started && startTime && expectedDuration ? (
-          <ETATimer startTime={startTime} expectedDuration={expectedDuration} />
+          <ETATimer expectedDuration={expectedDuration} startTime={startTime} />
         ) : null}
         {status === TaskStatus.Started && startTime && (
           <RuntimeTimer startTime={startTime} />
@@ -248,15 +248,15 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           <MetadataItem>
             <MetadataLabel>Display Task:</MetadataLabel>{" "}
             <StyledRouterLink
-              to={getTaskRoute(displayTask.id, {
-                execution: displayTask.execution,
-              })}
               onClick={() =>
                 taskAnalytics.sendEvent({
                   name: "Clicked metadata link",
                   "link.type": "display task link",
                 })
               }
+              to={getTaskRoute(displayTask.id, {
+                execution: displayTask.execution,
+              })}
             >
               {displayTask.displayName}
             </StyledRouterLink>
@@ -315,6 +315,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             <HoneycombLinkContainer>
               <StyledLink
                 data-cy="task-trace-link"
+                hideExternalIcon={false}
                 href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
                 onClick={() => {
                   taskAnalytics.sendEvent({
@@ -322,12 +323,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
                     "link.type": "honeycomb trace link",
                   });
                 }}
-                hideExternalIcon={false}
               >
                 Honeycomb Trace
               </StyledLink>
               <StyledLink
                 data-cy="task-metrics-link"
+                hideExternalIcon={false}
                 href={getHoneycombSystemMetricsUrl(
                   taskId,
                   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -341,7 +342,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
                     "link.type": "honeycomb metrics link",
                   });
                 }}
-                hideExternalIcon={false}
               >
                 Honeycomb System Metrics
               </StyledLink>
@@ -414,17 +414,17 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
             <MetadataItem>
               <StyledRouterLink
                 data-cy="task-spawn-host-link"
-                to={getSpawnHostRoute({
-                  distroId,
-                  spawnHost: true,
-                  taskId,
-                })}
                 onClick={() =>
                   taskAnalytics.sendEvent({
                     name: "Clicked metadata link",
                     "link.type": "spawn host link",
                   })
                 }
+                to={getSpawnHostRoute({
+                  distroId,
+                  spawnHost: true,
+                  taskId,
+                })}
               >
                 Spawn host
               </StyledRouterLink>
@@ -439,9 +439,9 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           {dependsOn.map((dep) => (
             <DependsOn
               key={`dependOnPill_${dep.taskId}`}
-              name={dep.name}
               buildVariant={dep.buildVariant}
               metStatus={dep.metStatus}
+              name={dep.name}
               requiredStatus={dep.requiredStatus}
               taskId={dep.taskId}
             />
@@ -485,10 +485,10 @@ const DetailsDescription = ({
           {truncatedText}{" "}
           <ExpandedText
             align="right"
-            justify="end"
-            popoverZIndex={zIndex.tooltip}
-            message={description}
             data-cy="task-metadata-description-tooltip"
+            justify="end"
+            message={description}
+            popoverZIndex={zIndex.tooltip}
           />
         </>
       ) : (

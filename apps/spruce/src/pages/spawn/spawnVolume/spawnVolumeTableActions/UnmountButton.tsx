@@ -51,17 +51,6 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
 
   return (
     <ConditionalWrapper
-      condition={isHomeVolume}
-      wrapper={(children) => (
-        <Tooltip
-          align="top"
-          justify="middle"
-          trigger={children}
-          triggerEvent="hover"
-        >
-          Cannot unmount home volume
-        </Tooltip>
-      )}
       altWrapper={(children) => (
         <Popconfirm
           align="left"
@@ -77,14 +66,25 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
           Detach this volume {volumeName} from host {hostName}?
         </Popconfirm>
       )}
+      condition={isHomeVolume}
+      wrapper={(children) => (
+        <Tooltip
+          align="top"
+          justify="middle"
+          trigger={children}
+          triggerEvent="hover"
+        >
+          Cannot unmount home volume
+        </Tooltip>
+      )}
     >
       <Button
-        size={Size.XSmall}
         data-cy={`detach-btn-${volume.displayName || volume.id}`}
         disabled={loadingDetachVolume || isHomeVolume || volume.migrating}
         onClick={(e) => {
           e.stopPropagation();
         }}
+        size={Size.XSmall}
       >
         Unmount
       </Button>

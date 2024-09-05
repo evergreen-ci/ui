@@ -27,9 +27,9 @@ const enablePerformanceTooling = {
 
 const PerformanceToolingBanner: Field = () => (
   <Banner
-    variant="warning"
     data-cy="performance-tooling-banner"
     style={{ marginBottom: "20px" }}
+    variant="warning"
   >
     Please confirm these preferences before creating your project. You will not
     be able to configure the project for performance tooling at a later date.

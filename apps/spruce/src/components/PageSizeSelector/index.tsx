@@ -18,12 +18,12 @@ interface Props {
  */
 const PageSizeSelector: React.FC<Props> = ({ onChange, value, ...rest }) => (
   <StyledSelect
+    allowDeselect={false}
     aria-labelledby="page-size-select"
+    onChange={(pageSize: string) => onChange(parseInt(pageSize, 10))}
+    popoverZIndex={zIndex.popover}
     size="small"
     value={value.toString()}
-    onChange={(pageSize: string) => onChange(parseInt(pageSize, 10))}
-    allowDeselect={false}
-    popoverZIndex={zIndex.popover}
     {...rest}
   >
     {PAGE_SIZES.map((limit) => (

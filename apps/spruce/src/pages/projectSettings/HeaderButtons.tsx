@@ -141,17 +141,17 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
     <ButtonRow>
       <Button
         data-cy="save-settings-button"
-        variant="primary"
-        onClick={onClick}
         disabled={hasError || !hasChanges}
+        onClick={onClick}
+        variant="primary"
       >
         Save changes on page
       </Button>
       {projectType === ProjectType.AttachedProject && canDefaultToRepo && (
         <>
           <Button
-            onClick={() => setDefaultModalOpen(true)}
             data-cy="default-to-repo-button"
+            onClick={() => setDefaultModalOpen(true)}
             title="Clicking this button will open a confirmation modal with more information."
           >
             Default to repo on page

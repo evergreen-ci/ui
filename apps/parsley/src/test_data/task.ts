@@ -1,3 +1,4 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   LogkeeperTaskQuery,
   LogkeeperTaskQueryVariables,
@@ -5,7 +6,6 @@ import {
   TaskQueryVariables,
 } from "gql/generated/types";
 import { GET_LOGKEEPER_TASK, GET_TASK } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
   request: {

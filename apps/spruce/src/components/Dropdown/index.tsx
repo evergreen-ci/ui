@@ -7,7 +7,6 @@ import { Body, BodyProps } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
-import { ButtonType } from "types/leafygreen";
 
 const { gray, white } = palette;
 
@@ -48,9 +47,9 @@ const Dropdown: React.FC<DropdownProps> = ({
     <Container id={id}>
       <StyledButton
         ref={menuButtonRef}
-        onClick={() => setIsOpen(!isOpen)}
         data-cy={dataCy}
         disabled={disabled}
+        onClick={() => setIsOpen(!isOpen)}
         rightGlyph={<Icon glyph={isOpen ? "ChevronUp" : "ChevronDown"} />}
       >
         <ButtonContent>
@@ -151,7 +150,7 @@ const menuButtonStyleOverrides = css`
   }
 `;
 
-const StyledButton = styled<ButtonType>(Button)`
+const StyledButton = styled(Button)`
   ${menuButtonStyleOverrides}
   background: white;
   width: 100%;

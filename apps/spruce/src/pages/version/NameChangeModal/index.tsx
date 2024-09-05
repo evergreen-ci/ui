@@ -46,9 +46,9 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
   return (
     <>
       <StyledIconButton
-        onClick={() => setIsOpen(true)}
-        data-cy="name-change-modal-trigger"
         aria-label="name-change-modal-trigger"
+        data-cy="name-change-modal-trigger"
+        onClick={() => setIsOpen(true)}
       >
         <Icon glyph="Edit" />
       </StyledIconButton>
@@ -62,19 +62,19 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
           });
         }}
         open={isOpen}
-        title="Update Patch Name"
         submitDisabled={
           newPatchName === originalPatchName || hasFormError || loading
         }
+        title="Update Patch Name"
       >
         <SpruceForm
-          schema={schema}
-          uiSchema={uiSchema}
           formData={formState}
           onChange={({ errors, formData }) => {
             setHasFormError(!!errors.length);
             setFormState(formData);
           }}
+          schema={schema}
+          uiSchema={uiSchema}
         />
       </ConfirmationModal>
     </>

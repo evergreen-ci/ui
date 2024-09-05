@@ -9,7 +9,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-n4itms"
+          class="leafygreen-ui-1ciuhbt"
         >
           Running
         </div>
@@ -22,7 +22,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ixbeze"
+          class="leafygreen-ui-1uko9cz"
         >
           Starting
         </div>
@@ -35,7 +35,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ixbeze"
+          class="leafygreen-ui-1uko9cz"
         >
           Provisioning
         </div>
@@ -48,7 +48,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ud6teo"
+          class="leafygreen-ui-dhdzha"
         >
           Terminated
         </div>
@@ -82,7 +82,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           Decommissioned
         </div>
@@ -95,7 +95,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           Quarantined
         </div>
@@ -108,7 +108,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           Provision Failed
         </div>
@@ -121,7 +121,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           Initializing
         </div>
@@ -134,7 +134,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           Building
         </div>
@@ -147,7 +147,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           Success
         </div>
@@ -160,7 +160,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           Stopping
         </div>
@@ -173,7 +173,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           Stopped
         </div>
@@ -186,7 +186,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           Failed
         </div>
@@ -199,7 +199,7 @@
         class="css-1rt3rqp-HostStatusWrapper e1bt0ccw0"
       >
         <div
-          class="leafygreen-ui-ohl2hc"
+          class="leafygreen-ui-c62i3c"
         >
           External
         </div>

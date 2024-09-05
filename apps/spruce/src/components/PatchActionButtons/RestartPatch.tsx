@@ -29,30 +29,30 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
     <>
       {isButton ? (
         <Button
-          size="small"
           data-cy="restart-version"
           disabled={disabled}
           onClick={onClick}
+          size="small"
         >
           Restart
         </Button>
       ) : (
         <DropdownItem
-          disabled={disabled}
           data-cy="restart-version"
+          disabled={disabled}
           onClick={onClick}
         >
           Restart
         </DropdownItem>
       )}
       <VersionRestartModal
-        versionId={patchId}
-        visible={isVisible}
+        onCancel={() => setIsVisible(false)}
         onOk={() => {
           setIsVisible(false);
         }}
-        onCancel={() => setIsVisible(false)}
         refetchQueries={refetchQueries}
+        versionId={patchId}
+        visible={isVisible}
       />
     </>
   );

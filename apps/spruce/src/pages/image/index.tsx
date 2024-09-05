@@ -45,11 +45,11 @@ const Image: React.FC = () => {
         <SideNavGroup>
           {Object.values(ImageTabRoutes).map((tab) => (
             <SideNavItem
+              key={tab}
               active={tab === currentTab}
               as={Link}
-              key={tab}
-              to={getImageRoute(selectedImage, tab)}
               data-cy={`navitem-${tab}`}
+              to={getImageRoute(selectedImage, tab)}
             >
               {getTabTitle(tab).title}
             </SideNavItem>
@@ -57,7 +57,7 @@ const Image: React.FC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper>
-        <ImageTabs imageId={selectedImage} currentTab={currentTab} />
+        <ImageTabs currentTab={currentTab} imageId={selectedImage} />
       </PageWrapper>
     </>
   );

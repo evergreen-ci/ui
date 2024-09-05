@@ -25,35 +25,35 @@ export const TaskStatusFilters: React.FC<Props> = ({
     <Container>
       <SelectorWrapper>
         <Dropdown
-          data-cy="task-status-filter"
           buttonText={`Task Status: ${
             selectedStatuses.length
               ? selectedStatuses.join(", ")
               : noFilterMessage
           }`}
+          data-cy="task-status-filter"
         >
           <TreeSelect
+            hasStyling={false}
+            onChange={onChangeStatusFilter}
             state={selectedStatuses}
             tData={currentStatuses}
-            onChange={onChangeStatusFilter}
-            hasStyling={false}
           />
         </Dropdown>
       </SelectorWrapper>
       <SelectorWrapper>
         <Dropdown
-          data-cy="base-task-status-filter"
           buttonText={`Base Task Status: ${
             selectedBaseStatuses.length
               ? selectedBaseStatuses.join(", ")
               : noFilterMessage
           }`}
+          data-cy="base-task-status-filter"
         >
           <TreeSelect
+            hasStyling={false}
+            onChange={onChangeBaseStatusFilter}
             state={selectedBaseStatuses}
             tData={baseStatuses}
-            onChange={onChangeBaseStatusFilter}
-            hasStyling={false}
           />
         </Dropdown>
       </SelectorWrapper>

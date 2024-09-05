@@ -170,11 +170,11 @@ describe("commit queue entry title", () => {
           {...baseProps}
           activated
           issue="1000"
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          patchId={undefined}
           title={titleWithoutPullRequestURL}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           versionId={undefined}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          patchId={undefined}
         />,
       );
       render(

@@ -1,6 +1,6 @@
+import { StringMap } from "@evg-ui/lib/types/utils";
 import { NotificationMethods } from "types/subscription";
 import { Trigger, ExtraField } from "types/triggers";
-import { StringMap } from "types/utils";
 import { FormState, FormExtraFields, FormRegexSelector } from "./types";
 
 // This utils file contains functions used to process the form state.

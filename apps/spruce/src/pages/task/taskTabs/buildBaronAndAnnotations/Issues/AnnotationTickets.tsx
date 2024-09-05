@@ -41,41 +41,41 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
     <>
       <TicketsTitle>{title}</TicketsTitle>
       <Tooltip
+        enabled={!userCanModify}
         trigger={
           <StyledButton
-            onClick={handleAdd}
             data-cy={
               isIssue ? "add-issue-button" : "add-suspected-issue-button"
             }
             disabled={!userCanModify}
+            onClick={handleAdd}
           >
             {buttonText}
           </StyledButton>
         }
-        enabled={!userCanModify}
       >
         You are not authorized to edit failure details
       </Tooltip>
       {tickets.length > 0 && (
         <AnnotationTicketsList
-          jiraIssues={tickets}
-          taskId={taskId}
           execution={execution}
           isIssue={isIssue}
-          userCanModify={userCanModify}
+          jiraIssues={tickets}
+          loading={loading}
           selectedRowKey={selectedRowKey}
           setSelectedRowKey={setSelectedRowKey}
-          loading={loading}
+          taskId={taskId}
+          userCanModify={userCanModify}
         />
       )}
       <AddIssueModal
-        data-cy="addIssueModal"
-        visible={isAddAnnotationModalVisible}
         closeModal={() => setIsAddAnnotationModalVisible(false)}
-        setSelectedRowKey={setSelectedRowKey}
-        taskId={taskId}
+        data-cy="addIssueModal"
         execution={execution}
         isIssue={isIssue}
+        setSelectedRowKey={setSelectedRowKey}
+        taskId={taskId}
+        visible={isAddAnnotationModalVisible}
       />
     </>
   );

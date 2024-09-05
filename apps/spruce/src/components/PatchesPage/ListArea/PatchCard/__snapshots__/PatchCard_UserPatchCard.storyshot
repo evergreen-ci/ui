@@ -7,7 +7,7 @@
       class="css-17a1idw-Center-Left e1v2go1e4"
     >
       <a
-        class="lg-ui-0001 e1v2go1e2 css-1rriyg1-StyledLink-DescriptionLink leafygreen-ui-sv8tvj"
+        class="lg-ui-0003 e1v2go1e2 css-1rriyg1-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
         data-cy="patch-card-patch-link"
         href="/version/667b2f7f7a878200076f23d1/tasks"
       >
@@ -23,7 +23,7 @@
         on
          
         <a
-          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
+          class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
           data-cy="project-patches-link"
           href="/project/evergreen-ui/patches"
         >
@@ -42,7 +42,7 @@
         class="css-12c8t6i-PatchBadgeContainer e1v2go1e1"
       >
         <div
-          class="leafygreen-ui-ud6teo"
+          class="leafygreen-ui-dhdzha"
         >
           Failed
         </div>
@@ -105,15 +105,16 @@
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-2jj1me"
+        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d"
         data-cy="patch-card-dropdown"
+        data-lgid="lg-button"
         type="button"
       >
         <div
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-v95oty"
+          class="leafygreen-ui-16tr4y"
         >
           <svg
             aria-label="Ellipsis Icon"

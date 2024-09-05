@@ -21,7 +21,7 @@ export const MetadataCard: React.FC<Props> = ({
 }) => (
   <SiderCard {...rest}>
     {loading && !error && (
-      <Skeleton active title={false} paragraph={{ rows: 4 }} />
+      <Skeleton active paragraph={{ rows: 4 }} title={false} />
     )}
     {error && !loading && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
@@ -50,7 +50,7 @@ export const MetadataItem: React.FC<ItemProps> = ({
   children,
   "data-cy": dataCy,
 }) => (
-  <Item data-cy={dataCy} as={as}>
+  <Item as={as} data-cy={dataCy}>
     {children}
   </Item>
 );

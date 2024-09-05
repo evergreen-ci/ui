@@ -19,7 +19,6 @@ export const PublicKeysTab: React.FC = () => {
   return (
     <div>
       <PlusButton
-        size="small"
         data-cy="add-key-button"
         onClick={() => {
           setEditModalProps({
@@ -28,6 +27,7 @@ export const PublicKeysTab: React.FC = () => {
             initialPublicKey: null,
           });
         }}
+        size="small"
       >
         Add key
       </PlusButton>

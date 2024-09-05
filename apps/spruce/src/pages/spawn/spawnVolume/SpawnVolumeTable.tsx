@@ -56,7 +56,7 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
     },
   });
 
-  return <BaseTable table={table} shouldAlternateRowColor />;
+  return <BaseTable shouldAlternateRowColor table={table} />;
 };
 
 const getHostDisplayName = (v: TableVolume) =>

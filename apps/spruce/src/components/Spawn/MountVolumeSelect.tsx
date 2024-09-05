@@ -78,20 +78,20 @@ export const MountVolumeSelect = ({
     <ModalContent>
       <InputLabel htmlFor="hostDropdown">{label || "Host Name"}</InputLabel>
       <Select
-        id="hostDropdown"
         aria-labelledby="host-select"
         data-cy="host-select"
-        value={selectedHostId}
-        style={{ width: 200 }}
+        id="hostDropdown"
         onChange={onChange}
+        style={{ width: 200 }}
+        value={selectedHostId}
       >
         {!autofill && (
-          <Option value="" key="clear" data-cy="clear-option">
+          <Option key="clear" data-cy="clear-option" value="">
             {" "}
           </Option>
         )}
         {hostOptions.map(({ displayName, id }) => (
-          <Option value={id} key={id} data-cy={`${id}-option`}>
+          <Option key={id} data-cy={`${id}-option`} value={id}>
             {displayName}
           </Option>
         ))}

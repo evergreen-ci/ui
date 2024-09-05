@@ -119,8 +119,8 @@ const SetPriority: React.FC<SetPriorityProps> = ({
       </div>
       <Popconfirm
         align="left"
-        data-cy={`set-${dataCy}-priority-popconfirm`}
         confirmText="Set"
+        data-cy={`set-${dataCy}-priority-popconfirm`}
         onConfirm={onConfirm}
         open={open}
         refEl={menuItemRef}

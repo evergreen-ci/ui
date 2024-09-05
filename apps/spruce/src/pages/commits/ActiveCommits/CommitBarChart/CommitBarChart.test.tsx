@@ -16,10 +16,10 @@ describe("commitChart", () => {
     render(
       <CommitBarChart
         key={versions[0].version.id}
-        groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
-        total={groupedTaskData[versions[0].version.id].total}
-        max={max}
         chartType={ChartTypes.Absolute}
+        groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
+        max={max}
+        total={groupedTaskData[versions[0].version.id].total}
       />,
     );
     expect(screen.queryAllByDataCy("commit-chart-bar")).toHaveLength(4);
@@ -30,10 +30,10 @@ describe("commitChart", () => {
     render(
       <CommitBarChart
         key={versions[0].version.id}
-        groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
-        total={groupedTaskData[versions[0].version.id].total}
-        max={max}
         chartType={ChartTypes.Absolute}
+        groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
+        max={max}
+        total={groupedTaskData[versions[0].version.id].total}
       />,
     );
 
@@ -50,10 +50,10 @@ describe("commitChart", () => {
     render(
       <CommitBarChart
         key={versions[0].version.id}
-        groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
-        total={groupedTaskData[versions[0].version.id].total}
-        max={max}
         chartType={ChartTypes.Absolute}
+        groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
+        max={max}
+        total={groupedTaskData[versions[0].version.id].total}
       />,
     );
 

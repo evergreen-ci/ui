@@ -65,34 +65,34 @@ const AnnotationNote: React.FC<Props> = ({
     <>
       <TextArea
         aria-labelledby="annotation-note-input"
-        rows={4}
-        id="noteInput"
-        value={newMessage}
-        onChange={(e) => setMessage(e.target.value)}
-        disabled={!userCanModify}
-        label="Note"
         description={
           note &&
           `Updated: ${getDateCopy(note.source.time, { dateOnly: true })}
           Last Edited By: ${note.source.author}
           `
         }
+        disabled={!userCanModify}
+        id="noteInput"
+        label="Note"
+        onChange={(e) => setMessage(e.target.value)}
+        rows={4}
+        value={newMessage}
       />
       <Tooltip
+        enabled={!userCanModify}
         trigger={
           <ButtonWrapper>
             <Button
               data-cy="edit-annotation-button"
-              variant={Variant.Primary}
-              size={Size.XSmall}
-              onClick={saveAnnotationNote}
               disabled={originalMessage === newMessage || !userCanModify}
+              onClick={saveAnnotationNote}
+              size={Size.XSmall}
+              variant={Variant.Primary}
             >
               Save Note
             </Button>
           </ButtonWrapper>
         }
-        enabled={!userCanModify}
       >
         You are not authorized to edit failure details
       </Tooltip>

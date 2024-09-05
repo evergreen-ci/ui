@@ -35,10 +35,10 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
       <SearchContainer>
         <SearchInput
           aria-labelledby="event-log-global-search"
-          value={globalSearch}
+          data-cy="event-log-global-search"
           onChange={handleGlobalSearchChange}
           placeholder="Global search by name"
-          data-cy="event-log-global-search"
+          value={globalSearch}
         />
       </SearchContainer>
       {events.map((event) => {
