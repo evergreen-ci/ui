@@ -10,7 +10,7 @@ import { useParsleySettings } from "hooks/useParsleySettings";
 import { releaseSectioning } from "utils/featureFlag";
 import { graphic } from "./graphic";
 
-export const SectionsFeatureModal = () => {
+const SectionsFeatureModal = () => {
   const { closeFeatureModal, isOpenFeatureModal } =
     useSectionsFeatureDiscoveryContext();
   const { logMetadata } = useLogContext();
@@ -63,3 +63,5 @@ export const SectionsFeatureModal = () => {
 const StyledMarketingModal = styled(MarketingModal)`
   z-index: ${zIndex.max_do_not_use};
 `;
+
+export default SectionsFeatureModal;

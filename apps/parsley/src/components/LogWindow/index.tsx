@@ -1,12 +1,20 @@
+import { lazy } from "react";
 import styled from "@emotion/styled";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import BookmarksBar from "components/BookmarksBar";
 import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
-import { SectionsFeatureModal } from "components/SectionsFeatureModal";
 import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
 import { useLogContext } from "context/LogContext";
+import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
+
+const SectionsFeatureModal = lazy(
+  () =>
+    import(
+      "../../context/SectionsFeatureDiscoveryContext/SectionsFeatureModal"
+    ),
+);
 
 const LogWindow: React.FC = () => {
   const {
@@ -19,10 +27,10 @@ const LogWindow: React.FC = () => {
     openSectionAndScrollToLine,
     processedLogLines,
   } = useLogContext();
-
+  const { isOpenFeatureModal } = useSectionsFeatureDiscoveryContext();
   return (
     <Container data-cy="log-window">
-      <SectionsFeatureModal />
+      {isOpenFeatureModal && <SectionsFeatureModal />}
       <SidePanel
         clearExpandedLines={clearExpandedLines}
         collapseLines={collapseLines}
