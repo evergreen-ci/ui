@@ -20,8 +20,8 @@ const CarouselDots: React.FC<CarouselDotProps> = ({
     {cards.map((card, index) => (
       <Dot
         key={`dot_${card.description}`}
-        data-cy={`carousel-dot-${index}`}
         active={activeSlide === index}
+        data-cy={`carousel-dot-${index}`}
         onClick={() => onClick(index)}
         role="button"
       />

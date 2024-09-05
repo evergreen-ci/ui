@@ -1,6 +1,6 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { GetFormSchema } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
-import { TaskStatus } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { form, ProjectType } from "../utils";
 

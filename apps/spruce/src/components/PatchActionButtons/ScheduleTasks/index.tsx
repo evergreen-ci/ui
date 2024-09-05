@@ -25,7 +25,7 @@ export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({
   };
 
   const modalOpenerComp = isButton ? (
-    <Button size="small" disabled={disabled} {...props}>
+    <Button disabled={disabled} size="small" {...props}>
       Schedule
     </Button>
   ) : (

@@ -1,5 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { FieldProps } from "@rjsf/core";
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   AttachProjectToNewRepoMutation,
@@ -25,7 +26,6 @@ import {
   waitFor,
 } from "test_utils";
 import { selectLGOption } from "test_utils/utils";
-import { ApolloMock } from "types/gql";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";
@@ -115,8 +115,8 @@ describe("repoConfigField", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <Field
-        projectType={ProjectType.Project}
         formData={{ owner: "newOwner", repo: defaultFormData.repo }}
+        projectType={ProjectType.Project}
       />,
     );
     render(<Component />);
@@ -141,8 +141,8 @@ describe("repoConfigField", () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <Field
-        projectType={ProjectType.Project}
         formData={{ owner: defaultFormData.owner, repo: "newRepo" }}
+        projectType={ProjectType.Project}
       />,
     );
     render(<Component />);

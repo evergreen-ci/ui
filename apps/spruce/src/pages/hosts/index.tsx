@@ -91,7 +91,10 @@ const Hosts: React.FC = () => {
 
   const handlePageSizeChange = (pageSize: number): void => {
     setLimit(pageSize);
-    hostsTableAnalytics.sendEvent({ name: "Changed page size", pageSize });
+    hostsTableAnalytics.sendEvent({
+      name: "Changed page size",
+      "page.size": pageSize,
+    });
   };
 
   // UPDATE STATUS MODAL VISIBILITY STATE
@@ -124,7 +127,7 @@ const Hosts: React.FC = () => {
             } of ${totalHostsCount}`}
           </Disclaimer>
           <HostsSelectionWrapper>
-            <Badge variant={Variant.Blue} data-cy="hosts-selection-badge">
+            <Badge data-cy="hosts-selection-badge" variant={Variant.Blue}>
               {selectedHostIds.length} Selected
             </Badge>
             <ButtonWrapper>
@@ -138,49 +141,49 @@ const Hosts: React.FC = () => {
             </ButtonWrapper>
             <ButtonWrapper>
               <RestartJasper
-                selectedHostIds={selectedHostIds}
                 canRestartJasper={canRestartJasper}
                 jasperTooltipMessage={restartJasperError}
+                selectedHostIds={selectedHostIds}
               />
             </ButtonWrapper>
             <ButtonWrapper>
               <Reprovision
-                selectedHostIds={selectedHostIds}
                 canReprovision={canReprovision}
                 reprovisionTooltipMessage={reprovisionError}
+                selectedHostIds={selectedHostIds}
               />
             </ButtonWrapper>
           </HostsSelectionWrapper>
         </SubtitleDataWrapper>
         <TableControlInnerRow>
           <Pagination
-            data-cy="hosts-table-pagination"
             currentPage={page}
-            totalResults={hasFilters ? filteredHostCount : totalHostsCount}
+            data-cy="hosts-table-pagination"
             pageSize={limit}
+            totalResults={hasFilters ? filteredHostCount : totalHostsCount}
           />
           <PageSizeSelector
             data-cy="hosts-table-page-size-selector"
-            value={limit}
             onChange={handlePageSizeChange}
+            value={limit}
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
       <HostsTable
+        hosts={hostItems}
         initialFilters={initialFilters}
         initialSorting={initialSorting}
-        hosts={hostItems}
-        loading={loading && hostItems.length === 0}
         limit={limit}
+        loading={loading && hostItems.length === 0}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         setSelectedHosts={setSelectedHosts}
       />
       <UpdateStatusModal
+        closeModal={() => setIsUpdateStatusModalVisible(false)}
         data-cy="update-host-status-modal"
         hostIds={selectedHostIds}
-        visible={isUpdateStatusModalVisible}
-        closeModal={() => setIsUpdateStatusModalVisible(false)}
         isHostPage={false}
+        visible={isUpdateStatusModalVisible}
       />
     </PageWrapper>
   );

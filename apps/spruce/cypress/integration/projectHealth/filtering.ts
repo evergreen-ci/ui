@@ -1,4 +1,4 @@
-describe("filtering", () => {
+describe("projectHealth/filtering", () => {
   beforeEach(() => {
     cy.visit("/commits/spruce");
   });

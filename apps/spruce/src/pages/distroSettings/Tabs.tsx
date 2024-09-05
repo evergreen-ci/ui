@@ -39,14 +39,13 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
     <Container>
       <NavigationModal />
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      <Header tab={tab} distro={distro} />
+      <Header distro={distro} tab={tab} />
       <Routes>
         <Route
+          element={<Navigate replace to={DistroSettingsTabRoutes.General} />}
           path="*"
-          element={<Navigate to={DistroSettingsTabRoutes.General} replace />}
         />
         <Route
-          path={DistroSettingsTabRoutes.General}
           element={
             <GeneralTab
               distroData={tabData[DistroSettingsTabRoutes.General]}
@@ -54,18 +53,18 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
               minimumHosts={distro.hostAllocatorSettings.minimumHosts}
             />
           }
+          path={DistroSettingsTabRoutes.General}
         />
         <Route
-          path={DistroSettingsTabRoutes.Provider}
           element={
             <ProviderTab
               distro={distro}
               distroData={tabData[DistroSettingsTabRoutes.Provider]}
             />
           }
+          path={DistroSettingsTabRoutes.Provider}
         />
         <Route
-          path={DistroSettingsTabRoutes.Task}
           element={
             <TaskTab
               distroData={tabData[DistroSettingsTabRoutes.Task]}
@@ -73,9 +72,9 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
               provider={distro.provider}
             />
           }
+          path={DistroSettingsTabRoutes.Task}
         />
         <Route
-          path={DistroSettingsTabRoutes.Host}
           element={
             <HostTab
               distroData={tabData[DistroSettingsTabRoutes.Host]}
@@ -83,12 +82,13 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
               provider={distro.provider}
             />
           }
+          path={DistroSettingsTabRoutes.Host}
         />
         <Route
-          path={DistroSettingsTabRoutes.Project}
           element={
             <ProjectTab distroData={tabData[DistroSettingsTabRoutes.Project]} />
           }
+          path={DistroSettingsTabRoutes.Project}
         />
         <Route
           element={<EventLogTab />}

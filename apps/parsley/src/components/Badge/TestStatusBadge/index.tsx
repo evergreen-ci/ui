@@ -1,5 +1,5 @@
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { TestStatus } from "types/test";
+import { TestStatus } from "@evg-ui/lib/types/test";
 
 const statusToBadgeColor = {
   [TestStatus.Pass]: Variant.Green,

@@ -6,14 +6,14 @@ type Action =
   | {
       name: "System Event log downloaded";
       duration: number;
-      type: LogTypes;
-      fileSize: number;
+      "log.type": LogTypes;
+      "log.size": number;
     }
   | {
       name: "System Event log download failed";
       duration: number;
-      type: LogTypes;
-      fileSize: number;
+      "log.type": LogTypes;
+      "log.size": number;
     }
   | {
       name: "System Event log download incomplete";

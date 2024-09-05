@@ -87,43 +87,43 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
     <>
       <TableControl
         filteredCount={count}
-        totalCount={taskCount}
+        label="tasks"
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         limit={limit}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        page={page}
-        label="tasks"
         onClear={clearQueryParams}
         onPageSizeChange={(l) => {
           versionAnalytics.sendEvent({
             name: "Changed page size",
-            pageSize: l,
+            "page.size": l,
           });
         }}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        page={page}
+        totalCount={taskCount}
       />
       <TaskDurationTable
-        tasks={tasksData}
         loading={loading}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         numLoadingRows={limit}
+        tasks={tasksData}
       />
       {shouldShowBottomTableControl && (
         <TableControlWrapper>
           <TableControl
             filteredCount={count}
-            totalCount={taskCount}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            limit={limit}
             label="tasks"
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            page={page}
+            limit={limit}
             onClear={clearQueryParams}
             onPageSizeChange={(l) => {
               versionAnalytics.sendEvent({
                 name: "Changed page size",
-                pageSize: l,
+                "page.size": l,
               });
             }}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            page={page}
+            totalCount={taskCount}
           />
         </TableControlWrapper>
       )}

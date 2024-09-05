@@ -59,6 +59,26 @@ describe("processLine", () => {
     });
   });
 
+  it("parses out top-level commands", () => {
+    expect(
+      processLine("Running command 'subprocess.exec' (step 9 of 9)."),
+    ).toStrictEqual({
+      commandName: "subprocess.exec",
+      functionName: undefined,
+      status: "Running",
+      step: "9 of 9",
+    });
+    expect(
+      processLine(
+        "Finished command 'subprocess.exec' (step 9 of 9) in 1.72598ms.",
+      ),
+    ).toStrictEqual({
+      commandName: "subprocess.exec",
+      functionName: undefined,
+      status: "Finished",
+      step: "9 of 9",
+    });
+  });
   it("should return null for a log line that does not indicate a section", () => {
     const logLine = "This is a regular log line.";
     expect(processLine(logLine)).toBeNull();
@@ -77,12 +97,14 @@ describe("reduceFn", () => {
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
+          isTopLevelCommand: false,
           range: { end: -1, start: 0 },
           step: "6 of 9",
         },
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-0",
           functionName: "yarn-preview",
           range: { end: -1, start: 0 },
@@ -97,12 +119,14 @@ describe("reduceFn", () => {
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
+          isTopLevelCommand: false,
           range: { end: -1, start: 0 },
           step: "6 of 9",
         },
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-0",
           functionName: "yarn-preview",
           range: { end: -1, start: 0 },
@@ -118,6 +142,7 @@ describe("reduceFn", () => {
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
+          isTopLevelCommand: false,
           range: {
             end: 5,
             start: 0,
@@ -127,6 +152,7 @@ describe("reduceFn", () => {
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-0",
           functionName: "yarn-preview",
           range: {
@@ -157,12 +183,14 @@ describe("reduceFn", () => {
           commandID: "command-0",
           commandName: "shell.exec",
           functionID: "function-0",
+          isTopLevelCommand: false,
           range: { end: -1, start: 0 },
           step: "2 of 8",
         },
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-0",
           functionName: "yarn-preview",
           range: { end: -1, start: 0 },
@@ -192,8 +220,8 @@ describe("parseSections", () => {
       "Running command 'c3' in function 'f-2' (step 1 of 4).",
       "normal log line",
       "Finished command 'c3' in function 'f-2' (step 1 of 4).",
-      "Running command 'c4' in function 'f-2' (step 1 of 4).",
-      "Finished command 'c4' in function 'f-2' (step 1 of 4).",
+      "Running command 'c4' (step 1 of 4).",
+      "Finished command 'c4' (step 1 of 4).",
       "Running command 'c5' in function 'f-3' (step 1 of 4).",
       "normal log line",
       "normal log line",
@@ -206,6 +234,7 @@ describe("parseSections", () => {
           commandID: "command-1",
           commandName: "c1",
           functionID: "function-1",
+          isTopLevelCommand: false,
           range: {
             end: 3,
             start: 1,
@@ -216,6 +245,7 @@ describe("parseSections", () => {
           commandID: "command-3",
           commandName: "c2",
           functionID: "function-1",
+          isTopLevelCommand: false,
           range: {
             end: 5,
             start: 3,
@@ -226,6 +256,7 @@ describe("parseSections", () => {
           commandID: "command-6",
           commandName: "c3",
           functionID: "function-6",
+          isTopLevelCommand: false,
           range: {
             end: 9,
             start: 6,
@@ -235,7 +266,8 @@ describe("parseSections", () => {
         {
           commandID: "command-9",
           commandName: "c4",
-          functionID: "function-6",
+          functionID: "function-9",
+          isTopLevelCommand: true,
           range: {
             end: 11,
             start: 9,
@@ -246,6 +278,7 @@ describe("parseSections", () => {
           commandID: "command-11",
           commandName: "c5",
           functionID: "function-11",
+          isTopLevelCommand: false,
           range: {
             end: 15,
             start: 11,
@@ -255,6 +288,7 @@ describe("parseSections", () => {
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-1",
           functionName: "f-1",
           range: {
@@ -263,14 +297,25 @@ describe("parseSections", () => {
           },
         },
         {
+          containsTopLevelCommand: false,
           functionID: "function-6",
           functionName: "f-2",
           range: {
-            end: 11,
+            end: 9,
             start: 6,
           },
         },
         {
+          containsTopLevelCommand: true,
+          functionID: "function-9",
+          functionName: undefined,
+          range: {
+            end: 11,
+            start: 9,
+          },
+        },
+        {
+          containsTopLevelCommand: false,
           functionID: "function-11",
           functionName: "f-3",
           range: {
@@ -310,6 +355,7 @@ describe("parseSections", () => {
           commandID: "command-1",
           commandName: "c1",
           functionID: "function-1",
+          isTopLevelCommand: false,
           range: {
             end: 6,
             start: 1,
@@ -320,6 +366,7 @@ describe("parseSections", () => {
           commandID: "command-6",
           commandName: "c2",
           functionID: "function-1",
+          isTopLevelCommand: false,
           range: {
             end: 8,
             start: 6,
@@ -330,6 +377,7 @@ describe("parseSections", () => {
           commandID: "command-9",
           commandName: "c3",
           functionID: "function-9",
+          isTopLevelCommand: false,
           range: {
             end: 12,
             start: 9,
@@ -340,6 +388,7 @@ describe("parseSections", () => {
           commandID: "command-12",
           commandName: "c4",
           functionID: "function-9",
+          isTopLevelCommand: false,
           range: {
             end: 14,
             start: 12,
@@ -349,6 +398,7 @@ describe("parseSections", () => {
       ],
       functions: [
         {
+          containsTopLevelCommand: false,
           functionID: "function-1",
           functionName: "f-1",
           range: {
@@ -357,6 +407,7 @@ describe("parseSections", () => {
           },
         },
         {
+          containsTopLevelCommand: false,
           functionID: "function-9",
           functionName: "f-2",
           range: {
@@ -459,49 +510,50 @@ describe("getOpenSectionStateBasedOnLineNumbers", () => {
 });
 
 describe("populateSectionState", () => {
-  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' is undefined or false", () => {
+  it("should populate the section state based on the section data with all sections closed when 'openSectionsContainingLines' is undefined or false", () => {
     expect(
       populateSectionState({
-        openSectionContainingLine: undefined,
+        openSectionsContainingLines: undefined,
         sectionData,
       }),
     ).toStrictEqual(sectionStateAllClosed);
     expect(
       populateSectionState({
         isOpen: false,
-        openSectionContainingLine: undefined,
+        openSectionsContainingLines: undefined,
         sectionData,
       }),
     ).toStrictEqual(sectionStateAllClosed);
   });
-  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' is undefined or false", () => {
+  it("should populate the section state based on the section data with all sections closed when 'openSectionsContainingLines' is undefined or false", () => {
     expect(
       populateSectionState({
-        openSectionContainingLine: undefined,
+        openSectionsContainingLines: undefined,
         sectionData,
       }),
     ).toStrictEqual(sectionStateAllClosed);
     expect(
       populateSectionState({
         isOpen: false,
-        openSectionContainingLine: undefined,
+        openSectionsContainingLines: undefined,
         sectionData,
       }),
     ).toStrictEqual(sectionStateAllClosed);
   });
-  it("should populate the section state based on the section data with all sections closed when 'openSectionContainingLine' does not match a section", () => {
+  it("should populate the section state based on the section data with all sections closed when 'openSectionsContainingLines' does not match a section", () => {
     const result = populateSectionState({
-      openSectionContainingLine: 999999,
+      openSectionsContainingLines: [999999],
       sectionData,
     });
     expect(result).toStrictEqual(sectionStateAllClosed);
   });
-  it("should populate the section state based on the section data with all sections closed except the sections containing 'openSectionContainingLine'", () => {
-    const result = populateSectionState({
-      openSectionContainingLine: 1,
-      sectionData,
-    });
-    expect(result).toStrictEqual({
+  it("should populate the section state based on the section data with all sections closed except the sections containing 'openSectionsContainingLines'", () => {
+    expect(
+      populateSectionState({
+        openSectionsContainingLines: [1],
+        sectionData,
+      }),
+    ).toStrictEqual({
       ...sectionStateAllClosed,
       "function-1": {
         commands: {
@@ -515,11 +567,40 @@ describe("populateSectionState", () => {
         isOpen: true,
       },
     });
+    expect(
+      populateSectionState({
+        openSectionsContainingLines: [1, 7, 13],
+        sectionData,
+      }),
+    ).toStrictEqual({
+      "function-1": {
+        commands: {
+          "command-1": {
+            isOpen: true,
+          },
+          "command-6": {
+            isOpen: true,
+          },
+        },
+        isOpen: true,
+      },
+      "function-9": {
+        commands: {
+          "command-9": {
+            isOpen: false,
+          },
+          "command-12": {
+            isOpen: true,
+          },
+        },
+        isOpen: true,
+      },
+    });
   });
   it("should populate the section state based on the section data with all sections open when isOpen is true", () => {
     const result = populateSectionState({
       isOpen: true,
-      openSectionContainingLine: undefined,
+      openSectionsContainingLines: undefined,
       sectionData,
     });
     expect(result).toStrictEqual(sectionStateAllOpen);

@@ -15,7 +15,6 @@ import {
   SideNavItem,
   PageWrapper,
 } from "components/styles";
-import { showGitHubAccessTokenProject } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -90,8 +89,8 @@ const ProjectSettings: React.FC = () => {
     sendAnalyticsEvent: (projectId: string, identifier: string) => {
       sendEvent({
         name: "Redirected to project identifier",
-        projectId,
-        projectIdentifier: identifier,
+        "project.id": projectId,
+        "project.identifier": identifier,
       });
     },
   });
@@ -177,21 +176,21 @@ const ProjectSettings: React.FC = () => {
       <SideNav aria-label="Project Settings" widthOverride={250}>
         <ButtonsContainer>
           <StyledProjectSelect
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            selectedProjectIdentifier={projectLabel}
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            selectedProjectIdentifier={projectLabel}
           />
           {projectType === ProjectType.AttachedProject && repoId && (
             <StyledRouterLink
               arrowAppearance="persist"
+              data-cy="attached-repo-link"
               to={getProjectSettingsRoute(
                 repoId,
                 tab && projectOnlyTabs.has(tab)
                   ? ProjectSettingsTabRoutes.General
                   : tab,
               )}
-              data-cy="attached-repo-link"
             >
               <strong>Go to repo settings</strong>
             </StyledRouterLink>
@@ -259,13 +258,13 @@ const ProjectSettings: React.FC = () => {
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.Plugins}
           />
-          {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
+          {projectType !== ProjectType.Repo && (
             <ProjectSettingsNavItem
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.GithubAppSettings}
             />
           )}
-          {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
+          {projectType !== ProjectType.Repo && (
             <ProjectSettingsNavItem
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.GithubPermissionGroups}
@@ -278,12 +277,12 @@ const ProjectSettings: React.FC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper
-        data-cy="project-settings-page"
+        ref={pageWrapperRef}
         css={css`
           padding-top: 0;
           margin-top: ${size.m};
         `}
-        ref={pageWrapperRef}
+        data-cy="project-settings-page"
       >
         {hasLoaded ? (
           <ProjectSettingsTabs
@@ -309,8 +308,8 @@ const ProjectSettingsNavItem: React.FC<{
   <SideNavItem
     active={tab === currentTab}
     as={Link}
-    to={getProjectSettingsRoute(projectIdentifier, tab)}
     data-cy={`navitem-${tab}`}
+    to={getProjectSettingsRoute(projectIdentifier, tab)}
   >
     {title || getTabTitle(tab).title}
   </SideNavItem>

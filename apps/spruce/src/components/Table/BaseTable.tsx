@@ -1,6 +1,7 @@
 import { ForwardedRef, forwardRef } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
+import Pagination from "@leafygreen-ui/pagination";
 import { palette } from "@leafygreen-ui/palette";
 import {
   Cell,
@@ -57,8 +58,11 @@ type SpruceTableProps = {
   loading?: boolean;
   /** estimated number of rows the table will have */
   loadingRows?: number;
+  /** number of total items the table will have */
+  numTotalItems?: number;
   /** rows that will have a blue tint to represent that they are selected */
   selectedRowIndexes?: number[];
+  usePagination?: boolean;
 };
 
 export const BaseTable = forwardRef(
@@ -69,8 +73,10 @@ export const BaseTable = forwardRef(
       emptyComponent,
       loading,
       loadingRows = 5,
+      numTotalItems,
       selectedRowIndexes = [],
       table,
+      usePagination = false,
       ...args
     }: SpruceTableProps & TableProps<any>,
     ref: ForwardedRef<HTMLDivElement>,
@@ -82,7 +88,7 @@ export const BaseTable = forwardRef(
     const hasVirtualRows = virtualRows && virtualRows.length > 0;
     return (
       <>
-        <StyledTable data-cy={dataCyTable} table={table} ref={ref} {...args}>
+        <StyledTable ref={ref} data-cy={dataCyTable} table={table} {...args}>
           <TableHead isSticky={hasVirtualRows}>
             {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {table.getHeaderGroups().map((headerGroup) => (
@@ -102,9 +108,12 @@ export const BaseTable = forwardRef(
                         (meta?.treeSelect ? (
                           <TableFilterPopover
                             data-cy={meta.treeSelect?.["data-cy"]}
-                            onConfirm={(value) =>
-                              header.column.setFilterValue(value)
-                            }
+                            onConfirm={(value) => {
+                              header.column.setFilterValue(value);
+                              if (usePagination && table) {
+                                table.firstPage();
+                              }
+                            }}
                             options={
                               meta.treeSelect?.filterOptions
                                 ? meta.treeSelect.options.filter(
@@ -123,9 +132,12 @@ export const BaseTable = forwardRef(
                         ) : (
                           <TableSearchPopover
                             data-cy={meta?.search?.["data-cy"]}
-                            onConfirm={(value) =>
-                              header.column.setFilterValue(value)
-                            }
+                            onConfirm={(value) => {
+                              header.column.setFilterValue(value);
+                              if (usePagination && table) {
+                                table.firstPage();
+                              }
+                            }}
                             placeholder={meta?.search?.placeholder}
                             value={
                               (header?.column?.getFilterValue() as string) ?? ""
@@ -152,22 +164,22 @@ export const BaseTable = forwardRef(
                   const row = rows[vr.index];
                   return (
                     <RenderableRow
-                      row={row}
                       key={row.id}
-                      virtualRow={vr}
-                      isSelected={selectedRowIndexes.includes(row.index)}
                       dataCyRow={dataCyRow}
+                      isSelected={selectedRowIndexes.includes(row.index)}
+                      row={row}
+                      virtualRow={vr}
                     />
                   );
                 })
               : rows.map((row) => (
                   <RenderableRow
-                    row={row}
                     key={row.id}
+                    dataCyRow={dataCyRow}
+                    isSelected={selectedRowIndexes.includes(row.index)}
+                    row={row}
                     // @ts-expect-error: FIXME. This comment was added by an automated script.
                     virtualRow={null}
-                    isSelected={selectedRowIndexes.includes(row.index)}
-                    dataCyRow={dataCyRow}
                   />
                 ))}
           </TableBody>
@@ -177,6 +189,21 @@ export const BaseTable = forwardRef(
           (emptyComponent || (
             <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
           ))}
+        {usePagination && table && (
+          <StyledPagination
+            currentPage={table.getState().pagination.pageIndex + 1}
+            itemsPerPage={table.getState().pagination.pageSize}
+            numTotalItems={numTotalItems}
+            onBackArrowClick={() => table.previousPage()}
+            onCurrentPageOptionChange={(value: string) => {
+              table.setPageIndex(Number(value) - 1);
+            }}
+            onForwardArrowClick={() => table.nextPage()}
+            onItemsPerPageOptionChange={(value: string) => {
+              table.setPageSize(Number(value));
+            }}
+          />
+        )}
       </>
     );
   },
@@ -196,8 +223,6 @@ const RenderableRow = <T extends LGRowData>({
   isSelected?: boolean;
 }) => (
   <Row
-    row={row}
-    data-cy={dataCyRow}
     className={css`
       &[aria-hidden="false"] td > div {
         max-height: unset;
@@ -208,7 +233,9 @@ const RenderableRow = <T extends LGRowData>({
         font-weight:bold;
         `}
     `}
+    data-cy={dataCyRow}
     data-selected={isSelected}
+    row={row}
     virtualRow={virtualRow}
   >
     {row.getVisibleCells().map((cell) => (
@@ -221,12 +248,12 @@ const RenderableRow = <T extends LGRowData>({
       row.subRows.map((subRow) => (
         <Row
           key={subRow.id}
-          row={subRow}
           className={css`
             &[aria-hidden="false"] td > div[data-state="entered"] {
               max-height: unset;
             }
           `}
+          row={subRow}
           virtualRow={virtualRow}
         >
           {subRow.getVisibleCells().map((cell) => (
@@ -253,3 +280,8 @@ const StyledExpandedContent = styled(ExpandedContent)`
     flex-grow: 1;
   }
 ` as typeof ExpandedContent;
+
+// @ts-expect-error
+const StyledPagination = styled(Pagination)`
+  margin-top: ${size.xs};
+`;

@@ -1,13 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import {
-  Body,
-  BodyProps,
-  Description,
-  Subtitle,
-  SubtitleProps,
-} from "@leafygreen-ui/typography";
+import { Body, BodyProps, Description } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
@@ -36,7 +30,7 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   const { moduleCodeChanges } = data?.patch ?? {};
 
   if (loading) {
-    return <Skeleton active title paragraph={{ rows: 8 }} />;
+    return <Skeleton active paragraph={{ rows: 8 }} title />;
   }
   if (error) {
     return <div id="patch-error">{error.message}</div>;
@@ -45,7 +39,8 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   if (!moduleCodeChanges.length) {
     return (
       <Title className="cy-no-code-changes">
-        Code changes do not exist, or are too large to display.
+        No code changes were applied, or the code changes are too large to
+        display.
       </Title>
     );
   }
@@ -93,19 +88,19 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
               <Title>Changes on {branchName}: </Title>
               <StyledButton
                 data-cy="html-diff-btn"
-                size="small"
-                title="Open diff as html file"
                 href={htmlLink}
+                size="small"
                 target="_blank"
+                title="Open diff as html file"
               >
                 HTML
               </StyledButton>
               <StyledButton
                 data-cy="raw-diff-btn"
-                size="small"
-                title="Open diff as raw file"
                 href={rawLink}
+                size="small"
                 target="_blank"
+                title="Open diff as raw file"
               >
                 Raw
               </StyledButton>
@@ -126,9 +121,9 @@ const StyledButton = styled(Button)`
   margin-right: ${size.xs};
 `;
 
-const Title = styled(Subtitle)<SubtitleProps>`
-  font-weight: normal;
+const Title = styled(Body)<BodyProps>`
   margin-right: ${size.s};
+  margin-left: ${size.s};
   margin-bottom: ${size.s};
 `;
 

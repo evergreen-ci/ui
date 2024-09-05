@@ -26,8 +26,8 @@ export const ParametersContent: React.FC<Props> = ({
           <ExistingParamsContainer>
             {patchParameters?.map((param) => (
               <StyledBadge
-                data-cy={`badge-${param.key}`}
                 key={`param_${param.key}`}
+                data-cy={`badge-${param.key}`}
               >
                 {param.key}: {param.value}
               </StyledBadge>
@@ -37,9 +37,9 @@ export const ParametersContent: React.FC<Props> = ({
       </>
     ) : (
       <EditableTagField
+        buttonText="Add parameter"
         inputTags={patchParameters}
         onChange={setPatchParams}
-        buttonText="Add parameter"
       />
     )}
   </ParamsContainer>

@@ -10,9 +10,9 @@ export default {
 export const NodeElement: CustomStoryObj<typeof Node> = {
   render: () => (
     <Node
-      title="Download the Command-Line Client."
       child={<Child />}
       stepNumber={1}
+      title="Download the Command-Line Client."
     />
   ),
 };

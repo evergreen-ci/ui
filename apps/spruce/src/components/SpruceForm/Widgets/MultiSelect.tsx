@@ -38,22 +38,22 @@ export const MultiSelect: React.FC<EnumSpruceWidgetProps> = ({
   const selectedOptions = [...value, ...(includeAll ? [ALL_VALUE] : [])];
 
   return (
-    <ElementWrapper limitMaxWidth css={elementWrapperCSS}>
+    <ElementWrapper css={elementWrapperCSS} limitMaxWidth>
       <Container>
         <Label htmlFor={`${label}-multiselect`}>{label}</Label>
         <Dropdown
-          disabled={disabled}
-          id={`${label}-multiselect`}
-          data-cy={dataCy}
           buttonText={`${label}: ${
             value.length ? value.join(", ") : "No options selected."
           }`}
+          data-cy={dataCy}
+          disabled={disabled}
+          id={`${label}-multiselect`}
         >
           <TreeSelect
-            onChange={handleChange}
-            tData={dropdownOptions}
-            state={selectedOptions}
             hasStyling={false}
+            onChange={handleChange}
+            state={selectedOptions}
+            tData={dropdownOptions}
           />
         </Dropdown>
         {rawErrors?.length > 0 && <Error>{rawErrors?.join(", ")}</Error>}

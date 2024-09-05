@@ -19,13 +19,13 @@ const ProjectOption: React.FC<OptionProps> = ({
   onClick,
   projectIdentifier,
 }) => (
-  <ProjectContainer role="button" onClick={() => onClick(projectIdentifier)}>
+  <ProjectContainer onClick={() => onClick(projectIdentifier)} role="button">
     <Body data-cy="project-display-name">
       {displayName || projectIdentifier}
     </Body>
     <FavoriteStar
-      projectIdentifier={projectIdentifier}
       isFavorite={isFavorite}
+      projectIdentifier={projectIdentifier}
     />
   </ProjectContainer>
 );
@@ -53,9 +53,9 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
     {canClickOnRepoGroup ? (
       <Overline
         css={hoverStyles}
-        role="button"
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         onClick={() => onClick(repoIdentifier)}
+        role="button"
       >
         {name}
       </Overline>
@@ -66,8 +66,8 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
     <ListContainer>
       {projects?.map((project) => (
         <ProjectOption
-          onClick={onClick}
           key={project.identifier}
+          onClick={onClick}
           projectIdentifier={project.identifier}
           {...project}
         />

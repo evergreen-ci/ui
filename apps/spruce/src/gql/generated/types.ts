@@ -881,14 +881,11 @@ export type Image = {
   distros: Array<Distro>;
   events: ImageEventsPayload;
   id: Scalars["String"]["output"];
-  kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
-  name: Scalars["String"]["output"];
   operatingSystem: ImageOperatingSystemPayload;
   packages: ImagePackagesPayload;
   toolchains: ImageToolchainsPayload;
-  versionId: Scalars["String"]["output"];
 };
 
 /**
@@ -2556,7 +2553,7 @@ export type SleepSchedule = {
   __typename?: "SleepSchedule";
   dailyStartTime: Scalars["String"]["output"];
   dailyStopTime: Scalars["String"]["output"];
-  isBetaTester: Scalars["Boolean"]["output"];
+  isBetaTester?: Maybe<Scalars["Boolean"]["output"]>;
   nextStartTime?: Maybe<Scalars["Time"]["output"]>;
   nextStopTime?: Maybe<Scalars["Time"]["output"]>;
   permanentlyExempt: Scalars["Boolean"]["output"];
@@ -6256,6 +6253,106 @@ export type ImageDistrosQuery = {
   } | null;
 };
 
+export type ImageEventsQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  limit: Scalars["Int"]["input"];
+  page: Scalars["Int"]["input"];
+}>;
+
+export type ImageEventsQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    events: {
+      __typename?: "ImageEventsPayload";
+      count: number;
+      eventLogEntries: Array<{
+        __typename?: "ImageEvent";
+        amiAfter: string;
+        amiBefore?: string | null;
+        timestamp: Date;
+        entries: Array<{
+          __typename?: "ImageEventEntry";
+          action: ImageEventEntryAction;
+          after: string;
+          before: string;
+          name: string;
+          type: ImageEventType;
+        }>;
+      }>;
+    };
+  } | null;
+};
+
+export type ImageGeneralQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+}>;
+
+export type ImageGeneralQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    ami: string;
+    id: string;
+    lastDeployed: Date;
+    latestTask?: {
+      __typename?: "Task";
+      execution: number;
+      finishTime?: Date | null;
+      id: string;
+    } | null;
+  } | null;
+};
+
+export type ImagePackagesQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: PackageOpts;
+}>;
+
+export type ImagePackagesQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    packages: {
+      __typename?: "ImagePackagesPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{
+        __typename?: "Package";
+        manager: string;
+        name: string;
+        version: string;
+      }>;
+    };
+  } | null;
+};
+
+export type ImageToolchainsQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: ToolchainOpts;
+}>;
+
+export type ImageToolchainsQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    toolchains: {
+      __typename?: "ImageToolchainsPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{
+        __typename?: "Toolchain";
+        name: string;
+        path: string;
+        version: string;
+      }>;
+    };
+  } | null;
+};
+
 export type ImagesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ImagesQuery = { __typename?: "Query"; images: Array<string> };
@@ -6643,7 +6740,6 @@ export type MyHostsQuery = {
       __typename?: "SleepSchedule";
       dailyStartTime: string;
       dailyStopTime: string;
-      isBetaTester: boolean;
       nextStartTime?: Date | null;
       permanentlyExempt: boolean;
       shouldKeepOff: boolean;

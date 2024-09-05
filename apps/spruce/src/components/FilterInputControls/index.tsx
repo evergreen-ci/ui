@@ -15,15 +15,15 @@ export const FilterInputControls: React.FC<Props> = ({
 }) => (
   <ButtonsWrapper data-cy="filter-input-controls">
     <ButtonWrapper>
-      <Button data-cy="reset-button" size="small" onClick={onClickReset}>
+      <Button data-cy="reset-button" onClick={onClickReset} size="small">
         Reset
       </Button>
     </ButtonWrapper>
     <Button
       data-cy="filter-button"
+      onClick={onClickSubmit}
       size="small"
       variant="primary"
-      onClick={onClickSubmit}
     >
       {submitButtonCopy}
     </Button>

@@ -8,15 +8,15 @@ import CommitChartLabel from ".";
 const RenderCommitChartLabel = ({ version }) => (
   <MockedProvider mocks={[getSpruceConfigMock]}>
     <CommitChartLabel
-      versionId={version.id}
-      githash={shortenGithash(version.revision)}
-      createTime={version.createTime}
       author={version.author}
-      message={version.message}
+      createTime={version.createTime}
+      githash={shortenGithash(version.revision)}
       gitTags={[
         { tag: "v1.2.3", pusher: "release-bot" },
         { tag: "v1.2.3-rc0", pusher: "release-bot" },
       ]}
+      message={version.message}
+      versionId={version.id}
     />
   </MockedProvider>
 );

@@ -21,7 +21,7 @@ export const DistroOption: React.FC<DistroOptionProps> = ({
 }) => {
   const { hostCount, id, taskCount } = option;
   return (
-    <Link to={getTaskQueueRoute(id)} onClick={() => onClick(option)}>
+    <Link onClick={() => onClick(option)} to={getTaskQueueRoute(id)}>
       <OptionWrapper>
         <StyledBadge>{pluralize("task", taskCount, true)}</StyledBadge>
         <StyledBadge>{pluralize("host", hostCount, true)}</StyledBadge>

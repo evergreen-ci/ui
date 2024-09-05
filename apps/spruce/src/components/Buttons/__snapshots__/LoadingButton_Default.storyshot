@@ -1,14 +1,15 @@
 <div>
   <button
     aria-disabled="false"
-    class="lg-ui-button-0000 leafygreen-ui-xcwxw8"
+    class="lg-ui-button-0000 leafygreen-ui-5xsnod"
+    data-lgid="lg-button"
     type="button"
   >
     <div
       class="leafygreen-ui-v038xi"
     />
     <div
-      class="leafygreen-ui-v95oty"
+      class="leafygreen-ui-16tr4y"
     >
       Button text
     </div>

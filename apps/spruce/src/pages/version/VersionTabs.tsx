@@ -5,6 +5,7 @@ import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
@@ -20,10 +21,9 @@ const { parseQueryString } = queryString;
 type ChildPatches = NonNullable<
   VersionQuery["version"]["patch"]
 >["childPatches"];
-interface Props {
-  taskCount: number;
-  isPatch: boolean;
-  childPatches: ChildPatches;
+
+interface VersionTabProps {
+  version: VersionQuery["version"];
 }
 
 const getDownstreamTabName = (
@@ -79,50 +79,47 @@ const tabMap = ({
   versionId: string;
 }) => ({
   [PatchTab.Tasks]: (
-    <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
+    <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
       <Tasks taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.TaskDuration]: (
     <Tab
-      name="Task Duration"
-      id="duration-tab"
-      data-cy="duration-tab"
       key="duration-tab"
+      data-cy="duration-tab"
+      id="duration-tab"
+      name="Task Duration"
     >
       <TaskDuration taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.Changes]: (
     <Tab
-      name="Changes"
-      id="changes-tab"
-      data-cy="changes-tab"
       key="changes-tab"
+      data-cy="changes-tab"
+      id="changes-tab"
+      name="Changes"
     >
       <CodeChanges patchId={versionId} />
     </Tab>
   ),
   [PatchTab.Downstream]: (
     <Tab
+      key="downstream-tab"
+      data-cy="downstream-tab"
+      id="downstream-tab"
       name={getDownstreamTabName(
         numFailedChildPatches,
         numStartedChildPatches,
         numSuccessChildPatches,
       )}
-      id="downstream-tab"
-      data-cy="downstream-tab"
-      key="downstream-tab"
     >
       <DownstreamTasks childPatches={childPatches} />
     </Tab>
   ),
 });
-export const VersionTabs: React.FC<Props> = ({
-  childPatches,
-  isPatch,
-  taskCount,
-}) => {
+
+export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   const { [slugs.versionId]: versionId, [slugs.tab]: tab } = useParams<{
     [slugs.versionId]: string;
     [slugs.tab]: PatchTab;
@@ -132,14 +129,17 @@ export const VersionTabs: React.FC<Props> = ({
   const { sendEvent } = useVersionAnalytics(versionId);
   const navigate = useNavigate();
 
+  const { isPatch, patch, requester, taskCount } = version || {};
+  const { childPatches } = patch || {};
+
   const tabIsActive = useMemo(
     () => ({
       [PatchTab.Tasks]: true,
       [PatchTab.TaskDuration]: true,
-      [PatchTab.Changes]: isPatch,
+      [PatchTab.Changes]: isPatch && requester !== Requester.GitHubMergeQueue,
       [PatchTab.Downstream]: childPatches,
     }),
-    [isPatch, childPatches],
+    [isPatch, requester, childPatches],
   );
 
   const allTabs = useMemo(() => {
@@ -153,7 +153,7 @@ export const VersionTabs: React.FC<Props> = ({
       ? childPatches.filter((c) => c.status === PatchStatus.Success).length
       : 0;
     return tabMap({
-      taskCount,
+      taskCount: taskCount ?? 0,
       childPatches,
       numFailedChildPatches,
       numStartedChildPatches,
@@ -214,9 +214,9 @@ export const VersionTabs: React.FC<Props> = ({
   });
   return (
     <StyledTabs
+      aria-label="Patch Tabs"
       selected={selectedTab}
       setSelected={selectNewTab}
-      aria-label="Patch Tabs"
     >
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {activeTabs.map((t: string) => allTabs[t])}

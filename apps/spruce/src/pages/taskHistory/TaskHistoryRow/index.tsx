@@ -34,33 +34,33 @@ const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
         sendEvent({
           name: "Clicked commit label",
           link: "githash",
-          commitType: "active",
+          "commit.type": "active",
         }),
       onClickFoldedGithash: () =>
         sendEvent({
           name: "Clicked commit label",
           link: "githash",
-          commitType: "inactive",
+          "commit.type": "inactive",
         }),
       onClickUpstreamProject: () => {
         sendEvent({
           name: "Clicked commit label",
           link: "upstream project",
-          commitType: "active",
+          "commit.type": "active",
         });
       },
       onClickJiraTicket: () => {
         sendEvent({
           name: "Clicked commit label",
           link: "jira",
-          commitType: "active",
+          "commit.type": "active",
         });
       },
       onClickFoldedJiraTicket: () => {
         sendEvent({
           name: "Clicked commit label",
           link: "jira",
-          commitType: "inactive",
+          "commit.type": "inactive",
         });
       },
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -77,13 +77,13 @@ const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
 
   return (
     <BaseRow
-      data={data}
-      index={index}
       columns={orderedColumns}
+      data={data}
+      eventHandlers={eventHandlers}
+      index={index}
       numVisibleCols={visibleColumns.length}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       selected={data?.selected}
-      eventHandlers={eventHandlers}
     />
   );
 };
@@ -109,18 +109,18 @@ const generateColumns = (
         );
         return (
           <TaskCell
+            key={c}
+            failingTests={failingTests}
+            inactive={inactive}
+            label={label}
+            loading={loading}
             onClick={({ taskStatus }) => {
               sendEvent({
                 name: "Clicked task cell",
-                taskStatus,
+                "task.status": taskStatus,
               });
             }}
-            inactive={inactive}
-            key={c}
             task={t}
-            failingTests={failingTests}
-            label={label}
-            loading={loading}
           />
         );
       }

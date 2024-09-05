@@ -58,7 +58,7 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
     updateQueryParams({ [QueryParams.LogType]: nextLogType });
     sendEvent({
       name: "Changed log preview type",
-      logType: nextLogType,
+      "log.type": nextLogType,
     });
   };
 
@@ -101,54 +101,54 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
           <ButtonContainer>
             {parsleyLink && (
               <Button
-                title="High-powered log viewer"
                 data-cy="parsley-log-btn"
                 disabled={noLogs}
                 href={parsleyLink}
-                target="_blank"
                 onClick={() =>
                   sendEvent({
                     name: "Clicked log link",
-                    logType: currentLog,
-                    logViewer: "parsley",
+                    "log.type": currentLog,
+                    "log.viewer": "parsley",
                   })
                 }
+                target="_blank"
+                title="High-powered log viewer"
               >
                 Parsley
               </Button>
             )}
             {htmlLink && (
               <Button
-                title="Plain, colorized log viewer"
                 data-cy="html-log-btn"
                 disabled={noLogs}
                 href={htmlLink}
-                target="_blank"
                 onClick={() =>
                   sendEvent({
                     name: "Clicked log link",
-                    logType: currentLog,
-                    logViewer: "html",
+                    "log.type": currentLog,
+                    "log.viewer": "html",
                   })
                 }
+                target="_blank"
+                title="Plain, colorized log viewer"
               >
                 HTML
               </Button>
             )}
             {rawLink && (
               <Button
-                title="Plain text log viewer"
                 data-cy="raw-log-btn"
                 disabled={noLogs}
                 href={rawLink}
-                target="_blank"
                 onClick={() =>
                   sendEvent({
                     name: "Clicked log link",
-                    logType: currentLog,
-                    logViewer: "raw",
+                    "log.type": currentLog,
+                    "log.viewer": "raw",
                   })
                 }
+                target="_blank"
+                title="Plain text log viewer"
               >
                 Raw
               </Button>

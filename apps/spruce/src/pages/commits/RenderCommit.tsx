@@ -27,10 +27,10 @@ const RenderCommitsChart: React.FC<RenderCommitsChartProps> = ({
     return (
       <CommitBarChart
         chartType={chartType}
-        total={groupedResult[version.id].total}
-        groupedTaskStats={groupedResult[version.id].stats}
         eta={version.taskStatusStats?.eta}
+        groupedTaskStats={groupedResult[version.id].stats}
         max={max}
+        total={groupedResult[version.id].total}
       />
     );
   }
@@ -56,8 +56,8 @@ const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
   if (rolledUpVersions) {
     return (
       <InactiveCommitButton
-        rolledUpVersions={rolledUpVersions}
         hasFilters={hasFilters}
+        rolledUpVersions={rolledUpVersions}
       />
     );
   }
@@ -76,8 +76,8 @@ export const RenderCommitsBuildVariants: React.FC<
   if (version) {
     return (
       <BuildVariantContainer
-        version={version}
         buildVariantDict={buildVariantDict}
+        version={version}
       />
     );
   }

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import PageTitle from "components/PageTitle";
@@ -19,7 +20,7 @@ import { TASK } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/NotFound";
-import { RequiredQueryParams, TaskStatus } from "types/task";
+import { RequiredQueryParams } from "types/task";
 import { queryString } from "utils";
 import { ActionButtons } from "./task/ActionButtons";
 import TaskPageBreadcrumbs from "./task/Breadcrumbs";
@@ -90,10 +91,6 @@ export const Task = () => {
         />
       )}
       <PageTitle
-        pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
-        loading={loading}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        title={displayName}
         badge={
           <StyledBadgeWrapper>
             {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
@@ -110,15 +107,19 @@ export const Task = () => {
             task={task}
           />
         }
+        loading={loading}
+        pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        title={displayName}
       />
       <PageLayout hasSider>
         <PageSider>
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           {latestExecution > 0 && (
             <ExecutionSelect
+              currentExecution={selectedExecution}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               id={taskId}
-              currentExecution={selectedExecution}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               latestExecution={latestExecution}
               updateExecution={(n: number) => {
@@ -131,16 +132,16 @@ export const Task = () => {
           )}
           <Metadata
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            taskId={taskId}
-            task={task}
-            loading={loading}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             error={error}
+            loading={loading}
+            task={task}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            taskId={taskId}
           />
         </PageSider>
         <LogWrapper>
           <PageContent>
-            {task && <TaskTabs task={task} isDisplayTask={isDisplayTask} />}
+            {task && <TaskTabs isDisplayTask={isDisplayTask} task={task} />}
           </PageContent>
         </LogWrapper>
       </PageLayout>

@@ -18,12 +18,12 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
     {data.map(({ key, title, value: checkboxValue }) => (
       <StyledCheckbox
         key={key}
-        className="cy-checkbox"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e, key)}
-        label={title}
-        checked={value.includes(checkboxValue)}
         bold={false}
+        checked={value.includes(checkboxValue)}
+        className="cy-checkbox"
         data-cy={title}
+        label={title}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e, key)}
       />
     ))}
   </CheckboxesWrapper>

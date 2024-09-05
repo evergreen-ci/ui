@@ -24,7 +24,11 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>
-        taskAnalytics.sendEvent({ name: "Created notification", subscription })
+        taskAnalytics.sendEvent({
+          name: "Created notification",
+          "subscription.type": subscription.subscriber.type || "",
+          "subscription.trigger": subscription.trigger || "",
+        })
       }
       subscriptionMethods={taskSubscriptionMethods}
       triggers={taskTriggers}

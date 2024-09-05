@@ -10,10 +10,13 @@ import {
   PageWrapper,
 } from "components/styles";
 import { SideNavItemLink } from "components/styles/SideNav";
+import { showImageVisibilityPage } from "constants/featureFlags";
 import {
   DistroSettingsTabRoutes,
   getDistroSettingsRoute,
+  getImageRoute,
   getTaskQueueRoute,
+  ImageTabRoutes,
   slugs,
 } from "constants/routes";
 import { size } from "constants/tokens";
@@ -70,12 +73,12 @@ const DistroSettings: React.FC = () => {
         <SideNavGroup>
           {Object.values(DistroSettingsTabRoutes).map((tab) => (
             <SideNavItem
+              key={tab}
               active={tab === currentTab}
               as={Link}
-              key={tab}
+              data-cy={`navitem-${tab}`}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               to={getDistroSettingsRoute(distroId, tab)}
-              data-cy={`navitem-${tab}`}
             >
               {getTabTitle(tab).title}
             </SideNavItem>
@@ -83,12 +86,34 @@ const DistroSettings: React.FC = () => {
         </SideNavGroup>
         <SideNavGroup glyph={<Icon glyph="Link" />} header="Links">
           <SideNavItemLink
+            data-cy="navitem-task-queue-link"
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getTaskQueueRoute(distroId)}
-            data-cy="navitem-task-queue-link"
           >
             Task Queue
           </SideNavItemLink>
+          {showImageVisibilityPage && (
+            <SideNavItemLink
+              data-cy="navitem-image-build-information-link"
+              to={getImageRoute(
+                data?.distro?.imageId ?? "",
+                ImageTabRoutes.BuildInformation,
+              )}
+            >
+              Image Build Information
+            </SideNavItemLink>
+          )}
+          {showImageVisibilityPage && (
+            <SideNavItemLink
+              data-cy="navitem-image-event-log-link"
+              to={getImageRoute(
+                data?.distro?.imageId ?? "",
+                ImageTabRoutes.EventLog,
+              )}
+            >
+              Image Event Log
+            </SideNavItemLink>
+          )}
         </SideNavGroup>
       </SideNav>
       <PageWrapper data-cy="distro-settings-page">

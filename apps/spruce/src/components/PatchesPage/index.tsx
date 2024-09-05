@@ -6,11 +6,7 @@ import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";
-import {
-  INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES,
-  INCLUDE_COMMIT_QUEUE_USER_PATCHES,
-  INCLUDE_HIDDEN_PATCHES,
-} from "constants/cookies";
+import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
@@ -37,53 +33,37 @@ export const PatchesPage: React.FC<Props> = ({
   pageType,
   patches,
 }) => {
+  usePageTitle(pageTitle);
   const userPatchesAnalytics = useUserPatchesAnalytics();
   const projectPatchesAnalytics = useProjectPatchesAnalytics();
   const analytics =
     pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
+
+  // Handle pagination logic.
   const { setLimit } = usePagination();
-  const cookie =
-    pageType === "project"
-      ? INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES
-      : INCLUDE_COMMIT_QUEUE_USER_PATCHES;
-  const [isCommitQueueCheckboxChecked, setIsCommitQueueCheckboxChecked] =
-    useQueryParam(
-      PatchPageQueryParams.CommitQueue,
-      Cookies.get(cookie) === "true",
-    );
+  const { limit, page } = usePatchesQueryParams();
+  const handlePageSizeChange = (pageSize: number): void => {
+    setLimit(pageSize);
+    analytics.sendEvent({ name: "Changed page size" });
+  };
+
+  // Handle filtering by patch description.
+  const { setAndSubmitInputValue } = useFilterInputChangeHandler({
+    urlParam: PatchPageQueryParams.PatchName,
+    resetPage: true,
+    sendAnalyticsEvent: (filterBy: string) =>
+      analytics.sendEvent({
+        name: "Filtered for patches",
+        "filter.by": filterBy,
+      }),
+  });
+
+  // Handle filtering for hidden patches.
   const [includeHiddenCheckboxChecked, setIsIncludeHiddenCheckboxChecked] =
     useQueryParam(
       PatchPageQueryParams.Hidden,
       Cookies.get(INCLUDE_HIDDEN_PATCHES) === "true",
     );
-  const { limit, page } = usePatchesQueryParams();
-  const { inputValue: filterInput, setAndSubmitInputValue } =
-    useFilterInputChangeHandler({
-      urlParam: PatchPageQueryParams.PatchName,
-      resetPage: true,
-      sendAnalyticsEvent: (filterBy: string) =>
-        analytics.sendEvent({
-          name: "Filtered for patches",
-          filterBy,
-          includeHidden: includeHiddenCheckboxChecked,
-          includeCommitQueue: isCommitQueueCheckboxChecked,
-        }),
-    });
-  usePageTitle(pageTitle);
-
-  const commitQueueCheckboxOnChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    setIsCommitQueueCheckboxChecked(e.target.checked);
-    Cookies.set(cookie, e.target.checked ? "true" : "false");
-    analytics.sendEvent({
-      name: "Filtered for patches",
-      filterBy: filterInput,
-      includeHidden: includeHiddenCheckboxChecked,
-      includeCommitQueue: e.target.checked,
-    });
-  };
-
   const includeHiddenCheckboxOnChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
@@ -91,66 +71,47 @@ export const PatchesPage: React.FC<Props> = ({
     Cookies.set(INCLUDE_HIDDEN_PATCHES, e.target.checked ? "true" : "false");
     analytics.sendEvent({
       name: "Filtered for patches",
-      filterBy: filterInput,
-      includeHidden: e.target.checked,
-      includeCommitQueue: isCommitQueueCheckboxChecked,
+      "filter.hidden": e.target.checked,
     });
-  };
-
-  const handlePageSizeChange = (pageSize: number): void => {
-    setLimit(pageSize);
-    analytics.sendEvent({ name: "Changed page size" });
   };
 
   return (
     <PageWrapper>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
-      <FiltersWrapperSpaceBetween hasAdditionalFilterComp={!!filterComp}>
+      <FiltersWrapperSpaceBetween>
         <TextInputWithValidation
           aria-label="Search patch descriptions"
-          placeholder="Patch description regex"
-          onChange={(value) => setAndSubmitInputValue(value)}
           data-cy="patch-description-input"
+          onChange={(value) => setAndSubmitInputValue(value)}
+          placeholder="Patch description regex"
           validator={validateRegexp}
           validatorErrorMessage="Invalid regex"
         />
         <StatusSelector />
         {filterComp}
-        <CheckboxContainer>
-          <Checkbox
-            data-cy="commit-queue-checkbox"
-            onChange={commitQueueCheckboxOnChange}
-            label={
-              pageType === "project"
-                ? "Only Show Commit Queue Patches"
-                : "Include Commit Queue"
-            }
-            checked={isCommitQueueCheckboxChecked}
-          />
-          <Checkbox
-            data-cy="include-hidden-checkbox"
-            onChange={includeHiddenCheckboxOnChange}
-            label="Include hidden"
-            checked={includeHiddenCheckboxChecked}
-          />
-        </CheckboxContainer>
+        <HiddenCheckbox
+          checked={includeHiddenCheckboxChecked}
+          data-cy="include-hidden-checkbox"
+          label="Include hidden"
+          onChange={includeHiddenCheckboxOnChange}
+        />
       </FiltersWrapperSpaceBetween>
       <PaginationRow>
         <Pagination
           currentPage={page}
-          totalResults={patches?.filteredPatchCount ?? 0}
           pageSize={limit}
+          totalResults={patches?.filteredPatchCount ?? 0}
         />
         <PageSizeSelector
           data-cy="my-patches-page-size-selector"
-          value={limit}
           onChange={handlePageSizeChange}
+          value={limit}
         />
       </PaginationRow>
       <ListArea
-        patches={patches?.patches || []}
         loading={loading}
         pageType={pageType}
+        patches={patches?.patches || []}
       />
     </PageWrapper>
   );
@@ -161,21 +122,14 @@ const PaginationRow = styled.div`
   justify-content: flex-end;
   align-items: center;
 `;
-const FiltersWrapperSpaceBetween = styled(FiltersWrapper)<{
-  hasAdditionalFilterComp: boolean;
-}>`
+
+const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   display: grid;
-  grid-template-columns:
-    repeat(
-      ${({ hasAdditionalFilterComp }) => (hasAdditionalFilterComp ? 3 : 2)},
-      1fr
-    )
-    2fr;
+  grid-template-columns: repeat(4, 1fr) auto;
   grid-column-gap: ${size.s};
 `;
 
-const CheckboxContainer = styled.div`
-  display: flex;
-  justify-content: end;
-  gap: ${size.xs};
+// @ts-expect-error
+const HiddenCheckbox = styled(Checkbox)`
+  justify-content: flex-end;
 `;

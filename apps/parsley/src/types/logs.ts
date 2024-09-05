@@ -22,7 +22,7 @@ interface SkippedLinesRow {
 
 interface SectionHeaderRow {
   functionID: string;
-  functionName: string;
+  functionName: string | undefined;
   isOpen: boolean;
   range: Range;
   rowType: RowType.SectionHeader;
@@ -36,6 +36,7 @@ interface SubsectionHeaderRow {
   range: Range;
   rowType: RowType.SubsectionHeader;
   step: string;
+  isTopLevelCommand: boolean;
 }
 
 type ProcessedLogLine =

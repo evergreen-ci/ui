@@ -1,4 +1,4 @@
-import { PartialRecord } from "types/utils";
+import { PartialRecord } from "@evg-ui/lib/types/utils";
 
 // Not included in Requester enum because it will be deprecated.
 const commitQueueRequester = "merge_test";

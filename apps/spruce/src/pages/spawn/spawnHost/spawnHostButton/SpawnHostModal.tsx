@@ -26,7 +26,6 @@ import {
 import { SPAWN_HOST } from "gql/mutations";
 import { SPAWN_TASK } from "gql/queries";
 import { useUserTimeZone } from "hooks";
-import { omit } from "utils/object";
 import { getString, parseQueryString } from "utils/queryString";
 
 interface SpawnHostModalProps {
@@ -140,13 +139,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     });
     spawnAnalytics.sendEvent({
       name: "Created a spawn host",
-      isMigration: false,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      params: omit(mutationInput, [
-        "publicKey",
-        "userDataScript",
-        "setUpScript",
-      ]),
+      "host.is_volume_migration": false,
+      "host.is_workstation": selectedDistro?.isVirtualWorkStation || false,
+      "host.distro.id": selectedDistro?.name || "",
+      "host.is_unexpirable": mutationInput?.noExpiration || false,
     });
     spawnHostMutation({
       variables: { spawnHostInput: mutationInput },
@@ -155,24 +151,24 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   return (
     <ConfirmationModal
-      title="Spawn New Host"
-      open={open}
+      buttonText={loadingSpawnHost ? "Spawning" : "Spawn a host"}
       data-cy="spawn-host-modal"
-      submitDisabled={hasError || loadingSpawnHost}
       onCancel={() => {
         setOpen(false);
       }}
       onConfirm={spawnHost}
-      buttonText={loadingSpawnHost ? "Spawning" : "Spawn a host"}
+      open={open}
+      submitDisabled={hasError || loadingSpawnHost}
+      title="Spawn New Host"
     >
       <SpruceForm
-        schema={schema}
-        uiSchema={uiSchema}
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
           setHasError(errors.length > 0);
         }}
+        schema={schema}
+        uiSchema={uiSchema}
         // @ts-expect-error rjsf v4 has insufficient typing for its validator
         validate={validator(!!spawnHost?.sleepSchedule?.permanentlyExempt)}
       />

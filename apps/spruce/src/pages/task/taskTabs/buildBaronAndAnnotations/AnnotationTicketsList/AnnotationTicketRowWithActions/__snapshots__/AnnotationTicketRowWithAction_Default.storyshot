@@ -7,7 +7,7 @@
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-sv8tvj"
+        class="lg-ui-0003 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
         data-cy="EVG-123"
         href="https://www.google.com"
         target="_blank"
@@ -18,13 +18,13 @@
         </span>
       </a>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-ohl2hc"
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
         data-cy="EVG-123-badge"
       >
         status
       </div>
       <div
-        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-1qtf7xy"
+        class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
         data-cy="EVG-123-confidence-badge"
       >
         50
@@ -64,15 +64,16 @@
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+        class="lg-ui-button-0000 leafygreen-ui-161yf65"
         data-cy="move-btn-EVG-123"
+        data-lgid="lg-button"
         type="button"
       >
         <div
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-v95oty"
+          class="leafygreen-ui-16tr4y"
         >
           <svg
             alt=""
@@ -96,15 +97,16 @@
       </button>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-2jj1me leafygreen-ui-cssveg"
+        class="lg-ui-button-0000 leafygreen-ui-161yf65"
         data-cy="EVG-123-delete-btn"
+        data-lgid="lg-button"
         type="button"
       >
         <div
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-v95oty"
+          class="leafygreen-ui-16tr4y"
         >
           <svg
             alt=""

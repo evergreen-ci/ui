@@ -161,9 +161,9 @@ export const CommitQueueCard: React.FC<Props> = ({
         )}
         <CommitQueueCardActions>
           <ConfirmPatchButton
+            commitTitle={title}
             disabled={loading}
             onConfirm={handleEnroll}
-            commitTitle={title}
           />
         </CommitQueueCardActions>
       </CommitQueueCardGrid>

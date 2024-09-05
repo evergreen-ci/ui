@@ -42,24 +42,24 @@ export const ClearSubscriptions: React.FC = () => {
     <>
       <Button
         data-cy="clear-subscriptions-button"
-        variant={Variant.Danger}
         onClick={() => setShowModal(true)}
+        variant={Variant.Danger}
       >
         Clear all previous subscriptions
       </Button>
       <ConfirmationModal
-        open={showModal}
-        title="Clear All Subscriptions"
+        buttonText="Clear All"
+        onCancel={() => setShowModal(false)}
         onConfirm={() => {
           clearMySubscriptions();
           sendEvent({
             name: "Deleted subscriptions",
           });
         }}
-        onCancel={() => setShowModal(false)}
-        variant="danger"
-        buttonText="Clear All"
+        open={showModal}
         submitDisabled={loading}
+        title="Clear All Subscriptions"
+        variant="danger"
       >
         Are you sure you want to clear all subscriptions you have made on
         individual version, task, and project pages?

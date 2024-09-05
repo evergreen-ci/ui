@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
@@ -23,7 +24,6 @@ import {
   versionSelectedTasks,
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
-import { TaskStatus } from "types/task";
 import { getNumEstimatedActivatedTasks } from "../../utils/tasks/estimatedActivatedTasks";
 import { TaskSchedulingWarningBanner } from "../Banners/TaskSchedulingWarningBanner";
 import VersionTasks from "./VersionTasks";
@@ -119,13 +119,13 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   );
   return (
     <ConfirmationModal
-      title="Modify Version"
-      open={visible}
-      onConfirm={handlePatchRestart}
-      onCancel={onCancel}
       buttonText="Restart"
-      submitDisabled={selectedTotal === 0 || mutationLoading}
       data-cy="version-restart-modal"
+      onCancel={onCancel}
+      onConfirm={handlePatchRestart}
+      open={visible}
+      submitDisabled={selectedTotal === 0 || mutationLoading}
+      title="Modify Version"
     >
       {loading ? (
         <Skeleton active />
@@ -133,7 +133,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
         <>
           <VersionTasks
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            version={version}
+            baseStatusFilterTerm={baseStatusFilterTerm[version?.id]}
             selectedTasks={selectedTasks}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             setBaseStatusFilterTerm={setVersionBaseStatus(version?.id)}
@@ -141,15 +141,15 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
             setVersionStatusFilterTerm={setVersionStatus(version?.id)}
             toggleSelectedTask={toggleSelectedTask}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            baseStatusFilterTerm={baseStatusFilterTerm[version?.id]}
+            version={version}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionStatusFilterTerm={versionStatusFilterTerm[version?.id]}
           />
           {childVersions && (
             <div data-cy="select-downstream">
               <ConfirmationMessage
-                weight="medium"
                 data-cy="confirmation-message"
+                weight="medium"
               >
                 Downstream Tasks
               </ConfirmationMessage>
@@ -160,12 +160,12 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
                 >
                   <TitleContainer>
                     <VersionTasks
-                      version={v}
+                      baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
                       selectedTasks={selectedTasks}
                       setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
                       setVersionStatusFilterTerm={setVersionStatus(v?.id)}
                       toggleSelectedTask={toggleSelectedTask}
-                      baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
+                      version={v}
                       versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
                     />
                   </TitleContainer>
@@ -177,16 +177,16 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
           <TaskSchedulingWarningBanner
             totalTasks={estimatedActivatedTasksCount}
           />
-          <ConfirmationMessage weight="medium" data-cy="confirmation-message">
+          <ConfirmationMessage data-cy="confirmation-message" weight="medium">
             Are you sure you want to restart the {selectedTotal} selected tasks?
           </ConfirmationMessage>
           <Checkbox
+            bold={false}
+            checked={shouldAbortInProgressTasks}
+            label="Abort in progress tasks"
             onChange={() =>
               setShouldAbortInProgressTasks(!shouldAbortInProgressTasks)
             }
-            label="Abort in progress tasks"
-            checked={shouldAbortInProgressTasks}
-            bold={false}
           />
         </>
       )}

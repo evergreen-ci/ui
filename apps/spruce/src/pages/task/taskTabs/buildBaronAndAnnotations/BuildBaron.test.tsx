@@ -1,3 +1,4 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   BuildBaronCreateTicketMutation,
@@ -26,7 +27,6 @@ import {
 } from "gql/queries";
 import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { MockedProvider } from "test_utils/graphql";
-import { ApolloMock } from "types/gql";
 import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =
@@ -40,15 +40,15 @@ describe("buildBaronContent", () => {
 
   it("the BuildBaron component renders without crashing.", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
+      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
-          taskId={taskId}
-          execution={execution}
-          userCanModify
           bbData={buildBaronQuery.buildBaron}
+          execution={execution}
           loading={false}
+          taskId={taskId}
+          userCanModify
         />
       </MockedProvider>,
     );
@@ -64,15 +64,15 @@ describe("buildBaronContent", () => {
   it("clicking on file a new ticket dispatches a toast", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
+      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
-          taskId={taskId}
-          execution={execution}
-          userCanModify
-          loading={false}
           bbData={buildBaronQuery.buildBaron}
+          execution={execution}
+          loading={false}
+          taskId={taskId}
+          userCanModify
         />
       </MockedProvider>,
     );
@@ -91,15 +91,15 @@ describe("buildBaronContent", () => {
 
   it("the correct JiraTicket rows are rendered in the component", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
+      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
-          taskId={taskId}
-          execution={execution}
-          userCanModify
           bbData={buildBaronQuery.buildBaron}
+          execution={execution}
           loading={false}
+          taskId={taskId}
+          userCanModify
         />
       </MockedProvider>,
     );

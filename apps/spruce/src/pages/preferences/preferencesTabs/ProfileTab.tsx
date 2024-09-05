@@ -101,13 +101,6 @@ export const ProfileTab: React.FC = () => {
     });
     sendEvent({
       name: "Saved profile info",
-      params: {
-        userSettings: {
-          timezone: formState.timezone,
-          region: formState.region,
-          dateFormat: formState.dateFormat,
-        },
-      },
     });
   };
 
@@ -119,29 +112,10 @@ export const ProfileTab: React.FC = () => {
     <SettingsCard>
       <ContentWrapper>
         <SpruceForm
+          formData={formState}
           onChange={({ errors, formData }) => {
             setHasErrors(errors.length > 0);
             setFormState(formData);
-          }}
-          formData={formState}
-          uiSchema={{
-            timezone: {
-              "ui:placeholder": "Select a timezone",
-            },
-            region: {
-              "ui:placeholder": "Select an AWS region",
-            },
-            githubUser: {
-              lastKnownAs: {
-                "ui:placeholder": "Enter your GitHub username",
-              },
-            },
-            dateFormat: {
-              "ui:placeholder": "Select a date format",
-            },
-            timeFormat: {
-              "ui:widget": "radio",
-            },
           }}
           schema={{
             properties: {
@@ -203,12 +177,31 @@ export const ProfileTab: React.FC = () => {
               },
             },
           }}
+          uiSchema={{
+            timezone: {
+              "ui:placeholder": "Select a timezone",
+            },
+            region: {
+              "ui:placeholder": "Select an AWS region",
+            },
+            githubUser: {
+              lastKnownAs: {
+                "ui:placeholder": "Enter your GitHub username",
+              },
+            },
+            dateFormat: {
+              "ui:placeholder": "Select a date format",
+            },
+            timeFormat: {
+              "ui:widget": "radio",
+            },
+          }}
         />
         <Button
           data-cy="save-profile-changes-button"
-          variant={Variant.Primary}
           disabled={!hasErrors || updateLoading}
           onClick={handleSubmit}
+          variant={Variant.Primary}
         >
           Save changes
         </Button>

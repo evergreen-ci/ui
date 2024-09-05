@@ -29,10 +29,8 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
           align="top"
           enabled={!canEditSpawnHost}
           justify="middle"
-          triggerEvent="hover"
           trigger={
             <Button
-              size={Size.XSmall}
               data-cy="edit-host-button"
               disabled={!canEditSpawnHost}
               onClick={(e) => {
@@ -40,23 +38,25 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
                 setOpenModal(true);
                 spawnAnalytics.sendEvent({
                   name: "Viewed edit spawn host modal",
-                  hostId: host.id,
-                  status: host.status,
+                  "host.id": host.id,
+                  "host.status": host.status,
                 });
               }}
+              size={Size.XSmall}
             >
               Edit
             </Button>
           }
+          triggerEvent="hover"
         >
           {`Can only edit a spawn host when the status is ${HostStatus.Stopped} or ${HostStatus.Running}`}
         </Tooltip>
       </span>
       <EditSpawnHostModal
         key={host.id}
+        host={host}
         onCancel={() => setOpenModal(false)}
         visible={openModal}
-        host={host}
       />
     </>
   );

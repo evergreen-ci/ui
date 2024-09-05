@@ -41,33 +41,34 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
       </Label>
       <InputGroup>
         <GroupedSelect
-          value={selected}
-          onChange={(v) => setSelected(v)}
-          data-cy="tuple-select-dropdown"
-          aria-labelledby="Tuple Select"
           allowDeselect={false}
+          aria-labelledby="Tuple Select"
+          data-cy="tuple-select-dropdown"
+          onChange={(v) => setSelected(v)}
+          value={selected}
         >
           {options.map((o) => (
             <Option
               key={o.value}
-              value={o.value}
               data-cy={`tuple-select-option-${o.value}`}
+              value={o.value}
             >
               {o.displayName}
             </Option>
           ))}
         </GroupedSelect>
         <GroupedTextInput
-          id="filter-input"
           aria-label={selectedOption.displayName}
           aria-labelledby={selectedOption.displayName}
+          clearOnSubmit
           data-cy="tuple-select-input"
-          type="text" // Chrome will overlay a clear "x" button on the input if type is not set to 'search'
+          id="filter-input"
+          onSubmit={handleOnSubmit}
           placeholder={selectedOption.placeHolderText}
+          // Chrome will overlay a clear "x" button on the input if type is not set to 'search'
+          type="text"
           validator={validator}
           validatorErrorMessage={validatorErrorMessage}
-          onSubmit={handleOnSubmit}
-          clearOnSubmit
         />
       </InputGroup>
     </Container>

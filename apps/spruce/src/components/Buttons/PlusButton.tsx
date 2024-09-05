@@ -9,8 +9,8 @@ export const PlusButton: ExtendableBox<
 > = forwardRef(({ leftGlyph, ...rest }: ButtonProps, ref) => (
   <LeafyGreenButton
     ref={ref}
-    leftGlyph={<Icon glyph="Plus" />}
     as="button"
+    leftGlyph={<Icon glyph="Plus" />}
     {...rest}
   />
 ));

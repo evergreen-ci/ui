@@ -1,3 +1,4 @@
+import * as analytics from "analytics";
 import { SectionStatus } from "constants/logs";
 import * as logContext from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
@@ -63,8 +64,13 @@ describe("SectionHeader", () => {
     );
   });
 
-  it("should call onOpen function when 'open' button is clicked", async () => {
+  it("should call onOpen function when 'open' button is clicked and send analytics events", async () => {
     const user = userEvent.setup();
+    const mockedAnalytics = vi.spyOn(analytics, "useLogWindowAnalytics");
+    const sendEventMock = vi.fn();
+    mockedAnalytics.mockImplementation(() => ({
+      sendEvent: sendEventMock,
+    }));
     const mockedLogContext = vi.spyOn(logContext, "useLogContext");
     const toggleFunctionSectionMock = vi.fn();
     mockedLogContext.mockImplementation(() => ({
@@ -78,6 +84,15 @@ describe("SectionHeader", () => {
     });
     const openButton = screen.getByDataCy("caret-toggle");
     await user.click(openButton);
+    expect(sendEventMock).toHaveBeenCalledTimes(1);
+    expect(sendEventMock).toHaveBeenCalledWith({
+      name: "Toggled section caret",
+      "section.name": "load_data",
+      "section.nested": false,
+      "section.open": true,
+      "section.status": "pass",
+      "section.type": "function",
+    });
     expect(toggleFunctionSectionMock).toHaveBeenCalledTimes(1);
     expect(toggleFunctionSectionMock).toHaveBeenCalledWith({
       functionID: "function-4",

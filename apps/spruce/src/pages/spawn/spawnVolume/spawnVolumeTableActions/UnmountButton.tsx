@@ -51,6 +51,21 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
 
   return (
     <ConditionalWrapper
+      altWrapper={(children) => (
+        <Popconfirm
+          align="left"
+          onConfirm={() => {
+            spawnAnalytics.sendEvent({
+              name: "Changed unmounted volume on host",
+              "volume.id": volume.id,
+            });
+            detachVolume({ variables: { volumeId: volume.id } });
+          }}
+          trigger={children}
+        >
+          Detach this volume {volumeName} from host {hostName}?
+        </Popconfirm>
+      )}
       condition={isHomeVolume}
       wrapper={(children) => (
         <Tooltip
@@ -62,29 +77,14 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
           Cannot unmount home volume
         </Tooltip>
       )}
-      altWrapper={(children) => (
-        <Popconfirm
-          align="left"
-          onConfirm={() => {
-            spawnAnalytics.sendEvent({
-              name: "Changed unmounted volume on host",
-              volumeId: volume.id,
-            });
-            detachVolume({ variables: { volumeId: volume.id } });
-          }}
-          trigger={children}
-        >
-          Detach this volume {volumeName} from host {hostName}?
-        </Popconfirm>
-      )}
     >
       <Button
-        size={Size.XSmall}
         data-cy={`detach-btn-${volume.displayName || volume.id}`}
         disabled={loadingDetachVolume || isHomeVolume || volume.migrating}
         onClick={(e) => {
           e.stopPropagation();
         }}
+        size={Size.XSmall}
       >
         Unmount
       </Button>

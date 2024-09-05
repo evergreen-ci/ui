@@ -1,15 +1,17 @@
 import { useEffect, useReducer } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { getPatchRoute, slugs } from "constants/routes";
-import { ConfigurePatchQuery, ParameterInput } from "gql/generated/types";
+import {
+  ConfigurePatchQuery,
+  ParameterInput,
+  VariantTask,
+} from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchTab } from "types/patch";
-import { queryString, string } from "utils";
-import { AliasState, VariantTasksState } from "./types";
-import { initializeAliasState, initializeTaskState } from "./utils";
-
-const { parseQueryString } = queryString;
-const { omitTypename } = string;
+import { convertArrayToObject, mapStringArrayToObject } from "utils/array";
+import { parseQueryString } from "utils/queryString";
+import { omitTypename } from "utils/string";
+import { AliasState, PatchTriggerAlias, VariantTasksState } from "./types";
 
 type ConfigurePatchState = {
   description: string;
@@ -62,7 +64,7 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
       return {
         ...state,
         selectedBuildVariants: action.buildVariants.sort((a, b) =>
-          a.localeCompare(b),
+          b.localeCompare(a),
         ),
       };
     case "setSelectedBuildVariantTasks":
@@ -123,15 +125,16 @@ interface HookResult extends ConfigurePatchState {
   setSelectedAliases: (aliases: AliasState) => void;
   setSelectedTab: React.Dispatch<React.SetStateAction<number>>;
 }
+
 const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab }>();
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab | null }>();
 
   const { id, project } = patch;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { variants } = project;
-
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
@@ -183,8 +186,7 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     });
   const setSelectedTab = (i: number) =>
     dispatch({ type: "setSelectedTab", tabIndex: i });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const setPatchParams = (params) =>
+  const setPatchParams = (params: ParameterInput[]) =>
     dispatch({ type: "setPatchParams", params });
 
   useTabShortcut({
@@ -204,5 +206,37 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     setSelectedTab,
   };
 };
+
+// Takes in variant tasks and default selected tasks and returns an object
+// With merged variant and default selected tasks auto selected.
+const initializeTaskState = (
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  variantTasks: ConfigurePatchQuery["patch"]["project"]["variants"],
+  defaultSelectedTasks: VariantTask[],
+) => {
+  const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
+  return variantTasks.reduce(
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    (prev, { name: variant, tasks }) => ({
+      ...prev,
+      [variant]: {
+        ...mapStringArrayToObject(tasks, false),
+        ...(defaultTasks[variant]
+          ? mapStringArrayToObject(defaultTasks[variant].tasks, true)
+          : {}),
+      },
+    }),
+    {},
+  );
+};
+
+const initializeAliasState = (patchTriggerAliases: PatchTriggerAlias[]) =>
+  patchTriggerAliases.reduce(
+    (prev, { alias }) => ({
+      ...prev,
+      [alias]: false,
+    }),
+    {},
+  );
 
 export default useConfigurePatch;

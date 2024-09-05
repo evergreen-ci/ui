@@ -55,8 +55,8 @@ const FileTicketButton: React.FC<FileTicketProps> = ({ execution, taskId }) => {
           <ButtonWrapper>
             <Button
               data-cy="file-ticket-button"
-              variant={Variant.Primary}
               size={Size.XSmall}
+              variant={Variant.Primary}
             >
               {buttonText}
             </Button>

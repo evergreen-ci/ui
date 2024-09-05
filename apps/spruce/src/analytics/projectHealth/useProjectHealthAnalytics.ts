@@ -1,9 +1,6 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
-import {
-  ProjectHealthView,
-  SaveSubscriptionForUserMutationVariables,
-} from "gql/generated/types";
+import { ProjectHealthView } from "gql/generated/types";
 
 // The comments below are used to indicate which pageType the action is relevant to (e.g. "Commit chart")
 type pageType = "Commit chart" | "Task history" | "Variant history";
@@ -11,18 +8,19 @@ type Action =
   | { name: "Changed page"; direction: "previous" | "next" } // "Commit chart"
   | { name: "Changed project"; project: string } // "Commit chart"
   | { name: "Clicked column header" } // "Task history" | "Variant history"
-  | { name: "Clicked task cell"; taskStatus: string } // "Task history" | "Variant history"
+  | { name: "Clicked task cell"; "task.status": string } // "Task history" | "Variant history"
   | {
       name: "Clicked commit label";
       link: "jira" | "githash" | "upstream project";
-      commitType: "active" | "inactive";
+      "commit.type": "active" | "inactive";
     } // "Task history" | "Variant history" | "Commit chart"
   | { name: "Clicked grouped task status badge"; statuses: string[] }
   | { name: "Clicked task status icon"; status: string } // "Commit chart"
   | { name: "Clicked variant label" } // "Commit chart"
   | {
       name: "Created notification";
-      subscription: SaveSubscriptionForUserMutationVariables["subscription"];
+      "subscription.type": string;
+      "subscription.trigger": string;
     } // "Commit chart"
   | { name: "Deleted a badge" } // "Variant history" | "Task history" | "Commit chart"
   | { name: "Deleted all badges" } // "Variant history" | "Task history" | "Commit chart"
@@ -34,12 +32,12 @@ type Action =
   | { name: "Filtered for git commit"; commit: string } // "Commit chart"
   | {
       name: "Redirected to project identifier";
-      projectId: string;
-      projectIdentifier: string;
+      "project.id": string;
+      "project.identifier": string;
     } // "Commit chart"
-  | { name: "Toggled chart view option"; viewOption: string } // "Commit chart"
+  | { name: "Toggled chart view option"; "view.option": string } // "Commit chart"
   | { name: "Toggled folded commit"; toggle: "open" | "close" } // "Variant history" | "Task history"
-  | { name: "Toggled icon view mode"; iconView: ProjectHealthView } // "Commit chart"
+  | { name: "Toggled icon view mode"; "icon.view": ProjectHealthView } // "Commit chart"
   | { name: "Toggled task icon legend"; open: boolean } // "Task history" | "Variant history" | "Commit chart"
   | { name: "Viewed commit chart label tooltip" } // "Commit chart"
   | { name: "Viewed git commit search modal" } // "Commit chart"

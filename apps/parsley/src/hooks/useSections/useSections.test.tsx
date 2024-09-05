@@ -94,6 +94,7 @@ describe("useSections", () => {
             commandID: "command-1",
             commandName: "c1",
             functionID: "function-1",
+            isTopLevelCommand: false,
             range: {
               end: 3,
               start: 1,
@@ -103,6 +104,7 @@ describe("useSections", () => {
         ],
         functions: [
           {
+            containsTopLevelCommand: false,
             functionID: "function-1",
             functionName: "f-1",
             range: {
@@ -158,7 +160,7 @@ describe("useSections", () => {
     rerender({
       logType: LogTypes.EVERGREEN_TASK_FILE,
       logs,
-      onInitOpenSectionContainingLine: undefined,
+      onInitOpenSectionsContainingLines: undefined,
       renderingType: LogRenderingTypes.Default,
     });
     rerender({ logs, ...metadata });
@@ -303,13 +305,13 @@ describe("useSections", () => {
     });
   });
 
-  it("should open the section containing 'onInitOpenSectionContainingLine' during initialization only", async () => {
+  it("should open the section containing 'onInitOpenSectionsContainingLines' during initialization only", async () => {
     InitializeFakeToastContext();
     const { rerender, result } = renderHook((args) => useSections(args), {
       initialProps: {
         logType: LogTypes.EVERGREEN_TASK_LOGS,
         logs,
-        onInitOpenSectionContainingLine: 10,
+        onInitOpenSectionsContainingLines: [10],
         renderingType: LogRenderingTypes.Default,
       },
       wrapper,
@@ -333,7 +335,7 @@ describe("useSections", () => {
     rerender({
       logType: LogTypes.EVERGREEN_TASK_LOGS,
       logs,
-      onInitOpenSectionContainingLine: 1,
+      onInitOpenSectionsContainingLines: [1, 2],
       renderingType: LogRenderingTypes.Default,
     });
     await waitFor(() => {
@@ -420,6 +422,7 @@ describe("useSections", () => {
         commandID: "command-1",
         commandName: "c1",
         functionID: "function-1",
+        isTopLevelCommand: false,
         range: {
           end: 6,
           start: 1,
@@ -429,6 +432,7 @@ describe("useSections", () => {
     ],
     functions: [
       {
+        containsTopLevelCommand: false,
         functionID: "function-1",
         functionName: "f-1",
         range: {
@@ -440,7 +444,7 @@ describe("useSections", () => {
   };
   const metadata = {
     logType: LogTypes.EVERGREEN_TASK_LOGS,
-    onInitOpenSectionContainingLine: undefined,
+    onInitOpenSectionsContainingLines: undefined,
     renderingType: LogRenderingTypes.Default,
   };
 });

@@ -10,6 +10,7 @@ import {
   LeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
@@ -21,7 +22,6 @@ import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
-import { Unpacked } from "types/utils";
 import { TaskDurationCell } from "./TaskDurationCell";
 
 const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
@@ -75,7 +75,7 @@ export const TaskDurationTable: React.FC<Props> = ({
     setQueryParams(updatedParams);
     sendEvent({
       name: "Filtered task duration table",
-      filterBy: Object.keys(filterState),
+      "filter.by": Object.keys(filterState),
     });
   };
 
@@ -113,9 +113,9 @@ export const TaskDurationTable: React.FC<Props> = ({
           },
         }) => (
           <TaskLink
+            execution={execution}
             taskId={id}
             taskName={getValue() as string}
-            execution={execution}
           />
         ),
         meta: {
@@ -166,8 +166,8 @@ export const TaskDurationTable: React.FC<Props> = ({
           },
         }) => (
           <TaskDurationCell
-            status={status}
             maxTimeTaken={column.getFacetedMinMaxValues()?.[1] ?? 0}
+            status={status}
             timeTaken={getValue() as number}
           />
         ),
@@ -220,9 +220,9 @@ export const TaskDurationTable: React.FC<Props> = ({
       data-cy-row="task-duration-table-row"
       emptyComponent={<TablePlaceholder message="No tasks found." />}
       loading={loading}
-      table={table}
-      shouldAlternateRowColor
       loadingRows={numLoadingRows}
+      shouldAlternateRowColor
+      table={table}
     />
   );
 };

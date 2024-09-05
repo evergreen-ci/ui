@@ -1,9 +1,9 @@
+import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   UndispatchedTasksQuery,
   UndispatchedTasksQueryVariables,
 } from "gql/generated/types";
 import { UNSCHEDULED_TASKS } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 const mocks: ApolloMock<
   UndispatchedTasksQuery,

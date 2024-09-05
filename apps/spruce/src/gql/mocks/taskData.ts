@@ -1,7 +1,11 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskQuery } from "gql/generated/types";
-import { TaskStatus } from "types/task";
 
-export const taskQuery: TaskQuery = {
+type TaskQueryType = {
+  task: NonNullable<TaskQuery["task"]>;
+};
+
+export const taskQuery: TaskQueryType = {
   task: {
     __typename: "Task",
     id: "someTaskId",

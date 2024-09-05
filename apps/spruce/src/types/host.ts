@@ -1,5 +1,5 @@
+import { PartialRecord } from "@evg-ui/lib/types/utils";
 import { HostsQueryVariables, HostSortBy } from "gql/generated/types";
-import { PartialRecord } from "types/utils";
 
 export enum HostStatus {
   // green: host-running
@@ -66,7 +66,8 @@ export enum HostEvent {
   HostProvisionFailed = "HOST_PROVISION_FAILED",
   HostTeardown = "HOST_TEARDOWN",
   HostTaskFinished = "HOST_TASK_FINISHED",
-  HostExpirationWarningSet = "HOST_EXPIRATION_WARNING_SENT",
+  HostExpirationWarningSent = "HOST_EXPIRATION_WARNING_SENT",
+  HostTemporaryExemptionExpirationWarningSent = "HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT",
   VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
 }
 

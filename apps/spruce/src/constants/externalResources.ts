@@ -38,10 +38,8 @@ export const githubChecksAliasesDocumentationUrl = `${projectDistroSettingsDocum
 export const githubPermissionsDocumentationUrl =
   "https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app";
 
-/**
- * TODO: Documentation must be written by app team. Update this URL in DEVPROD-8967.
- */
-export const githubTokenPermissionRestrictionsUrl = "";
+export const githubTokenPermissionRestrictionsUrl =
+  "https://docs.devprod.prod.corp.mongodb.com/evergreen/Project-Configuration/Project-Commands#githubgenerate_token";
 
 export const githubAppCredentialsDocumentationUrl =
   "https://wiki.corp.mongodb.com/x/tavkC";
@@ -160,3 +158,8 @@ export const getHoneycombSystemMetricsUrl = (
 };
 
 export const adminSettingsURL = `${getUiUrl()}/admin`;
+
+export const buildHostConfigurationRepoURL =
+  "https://github.com/10gen/buildhost-configuration";
+export const buildHostPostConfigRepoURL =
+  "https://github.com/10gen/buildhost-post-config";

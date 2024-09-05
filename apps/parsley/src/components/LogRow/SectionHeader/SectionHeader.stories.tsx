@@ -28,7 +28,7 @@ const SectionHeaderStory = () => (
   </Container>
 );
 
-export const SectionHeaderSingle: CustomStoryObj<typeof SectionHeader> = {
+export const SectionHeaderMany: CustomStoryObj<typeof SectionHeader> = {
   render: () => <SectionHeaderStory />,
 };
 

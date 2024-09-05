@@ -71,22 +71,22 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
     <ClassNames>
       {({ css }) => (
         <Modal
-          setOpen={handleClosed}
-          open={visible}
-          data-cy="welcome-modal"
           className={css`
             z-index: ${zIndex.max_do_not_use};
           `}
+          data-cy="welcome-modal"
+          open={visible}
+          setOpen={handleClosed}
           size="large"
         >
           {title && <CardTitle>{title}</CardTitle>}
           <Carousel
-            dots={false}
             ref={slider}
-            lazyLoad="ondemand"
+            afterChange={(index) => setActiveSlide(index)}
+            dots={false}
             draggable
             infinite={false}
-            afterChange={(index) => setActiveSlide(index)}
+            lazyLoad="ondemand"
           >
             {carouselCards.map((card, index) => (
               <CarouselCard
@@ -112,9 +112,9 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
                 </StyledLink>
               )}
               <Button
-                variant={Variant.Primary}
-                onClick={handleClosed}
                 data-cy="close-welcome-modal"
+                onClick={handleClosed}
+                variant={Variant.Primary}
               >
                 Close
               </Button>
