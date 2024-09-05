@@ -17,6 +17,7 @@ import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "constants/externalResources";
+import { showImageVisibilityPage } from "constants/featureFlags";
 import {
   getDistroSettingsRoute,
   getTaskQueueRoute,
@@ -26,6 +27,7 @@ import {
   getVersionRoute,
   getProjectPatchesRoute,
   getPodRoute,
+  getImageRoute,
 } from "constants/routes";
 import { zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
@@ -70,6 +72,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     generatedBy,
     generatedByName,
     hostId,
+    imageId,
     ingestTime,
     minQueuePosition: taskQueuePosition,
     pod,
@@ -353,7 +356,24 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
 
       {!isDisplayTask && (
         <MetadataCard>
-          <MetadataTitle>Host Information</MetadataTitle>
+          <MetadataTitle>Host Information</MetadataTitle>{" "}
+          {showImageVisibilityPage && !isContainerTask && imageId && (
+            <MetadataItem>
+              <MetadataLabel>Image:</MetadataLabel>{" "}
+              <StyledRouterLink
+                data-cy="task-image-link"
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "image link",
+                  })
+                }
+                to={getImageRoute(imageId)}
+              >
+                {imageId}
+              </StyledRouterLink>
+            </MetadataItem>
+          )}
           {ami && (
             <MetadataItem data-cy="task-metadata-ami">
               <MetadataLabel>AMI:</MetadataLabel> {ami}
