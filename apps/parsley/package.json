@@ -64,7 +64,7 @@
     "@leafygreen-ui/text-input": "^13.0.2",
     "@leafygreen-ui/toast": "^6.1.27",
     "@leafygreen-ui/toggle": "^10.0.4",
-    "@leafygreen-ui/tooltip": "^10.0.10",
+    "@leafygreen-ui/tooltip": "^11.1.0",
     "@leafygreen-ui/typography": "^19.0.0",
     "@sentry/react": "8.27.0",
     "@sentry/types": "8.27.0",
