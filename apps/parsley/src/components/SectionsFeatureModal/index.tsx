@@ -45,8 +45,7 @@ export const SectionsFeatureModal = () => {
       title="Introducing Task Log Sectioning Beta Preview!"
     >
       <p>
-        Parsley now supports sectioning for <b>task logs!</b> You can now group
-        your task logs into sections to make them easier to navigate and
+        Parsley now supports sectioning for <b>task logs!</b> Evergreen organizes your logs by function and command to make them easier to navigate and
         understand.
       </p>
       <p>
