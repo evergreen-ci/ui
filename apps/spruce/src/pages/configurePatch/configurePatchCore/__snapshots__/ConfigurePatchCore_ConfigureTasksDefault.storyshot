@@ -125,7 +125,7 @@
             </b>
              
             <a
-              class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+              class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
               href="/project/spruce/patches"
             >
               <span>
@@ -338,7 +338,7 @@
                   class="css-1ln61zq-Actions eoqkpw16"
                 >
                   <div
-                    class="eoqkpw13 css-1pn85ix-TextInputWrapper-StyledTextInput e17optw11"
+                    class="css-6hd73e-StyledTextInput eoqkpw13 css-mk4qpy-TextInputWrapper e17optw11"
                   >
                     <div
                       aria-labelledby="search-tasks"
