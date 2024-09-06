@@ -14,7 +14,6 @@ import { PageButtonRow } from "components/styles";
 interface ActionButtonProps {
   canReconfigure: boolean;
   isPatch: boolean;
-  patchDescription: string;
   versionId: string;
 }
 

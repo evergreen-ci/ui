@@ -191,8 +191,6 @@ export const VersionPage: React.FC = () => {
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             isPatch={isPatch}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            patchDescription={message}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionId={versionId}
           />
         }
