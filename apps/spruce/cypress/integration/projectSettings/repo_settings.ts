@@ -41,7 +41,7 @@ describe("Repo Settings", () => {
     });
   });
 
-  describe("GitHub/Commit Queue page", () => {
+  describe("GitHub page", () => {
     beforeEach(() => {
       cy.dataCy("navitem-github-commitqueue").click();
       saveButtonEnabled(false);
@@ -106,14 +106,14 @@ describe("Repo Settings", () => {
       });
     });
 
-    describe("Commit Queue section", () => {
+    describe("Merge Queue section", () => {
       beforeEach(() => {
         cy.dataCy("cq-enabled-radio-box")
           .contains("label", "Enabled")
           .as("enableCQButton")
           .scrollIntoView();
       });
-      it("Enabling commit queue shows hidden inputs and error banner", () => {
+      it("Enabling merge queue shows hidden inputs and error banner", () => {
         cy.dataCy("cq-card")
           .children()
           .as("cqCardFields")
@@ -121,26 +121,26 @@ describe("Repo Settings", () => {
 
         cy.get("@enableCQButton").click();
         cy.get("@cqCardFields").should("have.length", 2);
-        cy.contains("Commit Queue Patch Definitions").scrollIntoView();
+        cy.contains("Merge Queue Patch Definitions").scrollIntoView();
         cy.dataCy("error-banner")
           .contains(
-            "A Commit Queue Patch Definition must be specified for this feature to run.",
+            "A Merge Queue Patch Definition must be specified for this feature to run.",
           )
           .should("be.visible");
       });
 
-      it("Does not show override buttons for commit queue patch definitions", () => {
+      it("Does not show override buttons for merge queue patch definitions", () => {
         cy.get("@enableCQButton").click();
         cy.dataCy("cq-override-radio-box").should("not.exist");
       });
 
-      it("Saves a commit queue definition", () => {
+      it("Saves a merge queue definition", () => {
         cy.get("@enableCQButton").click();
         cy.contains("button", "Add Patch Definition").click();
         cy.dataCy("variant-tags-input").first().type("vtag");
         cy.dataCy("task-tags-input").first().type("ttag");
         saveButtonEnabled(false);
-        cy.contains("button", "Add Commit Queue Patch Definition").click();
+        cy.contains("button", "Add merge queue patch definition").click();
         cy.dataCy("variant-tags-input").last().type("cqvtag");
         cy.dataCy("task-tags-input").last().type("cqttag");
         cy.dataCy("warning-banner").should("not.exist");
@@ -193,7 +193,7 @@ describe("Repo Settings", () => {
       cy.dataCy("expandable-card").find("button").should("be.disabled");
     });
 
-    it("Saving a Patch Trigger Alias shows a success toast and updates the Github/Commit Queue page", () => {
+    it("Saving a Patch Trigger Alias shows a success toast and updates the Github page", () => {
       cy.dataCy("add-button")
         .contains("Add Patch Trigger Alias")
         .parent()
@@ -228,7 +228,7 @@ describe("Repo Settings", () => {
         "false",
       );
       saveButtonEnabled(false);
-      // Verify information on Github/Commit Queue page
+      // Verify information on Github page
       cy.dataCy("navitem-github-commitqueue").click();
       cy.contains("GitHub Trigger Aliases").scrollIntoView();
       cy.dataCy("pta-item").should("have.length", 1);

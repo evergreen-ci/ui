@@ -111,6 +111,7 @@ module.exports = {
           { selections: ["OperationDefinition", "FragmentDefinition"] },
         ],
         "@graphql-eslint/no-deprecated": WARN,
+        "@graphql-eslint/selection-set-depth": [WARN, { maxDepth: 8 }],
         // Following rule can possibly be removed after ESLint updates.
         "spaced-comment": OFF,
       },

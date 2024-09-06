@@ -9,7 +9,6 @@ import BUILD_VARIANTS_FOR_TASK_NAME from "./build-variants-for-task-name.graphql
 import BUILD_VARIANTS_WITH_CHILDREN from "./build-variants-with-children.graphql";
 import CLIENT_CONFIG from "./client-config.graphql";
 import CODE_CHANGES from "./code-changes.graphql";
-import COMMIT_QUEUE from "./commit-queue.graphql";
 import CREATED_TICKETS from "./created-tickets.graphql";
 import DISPLAY_TASK from "./display-task.graphql";
 import DISTRO_EVENTS from "./distro-events.graphql";
@@ -99,7 +98,6 @@ export {
   BUILD_VARIANTS_WITH_CHILDREN,
   CLIENT_CONFIG,
   CODE_CHANGES,
-  COMMIT_QUEUE,
   CREATED_TICKETS,
   DISPLAY_TASK,
   DISTRO_EVENTS,

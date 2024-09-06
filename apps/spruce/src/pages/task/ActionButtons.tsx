@@ -9,9 +9,7 @@ import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
-import { commitQueueRequester } from "constants/requesters";
 import { getTaskHistoryRoute, slugs } from "constants/routes";
-import { mergeTaskName } from "constants/task";
 import { useToastContext } from "context/toast";
 import {
   SetTaskPriorityMutation,
@@ -66,13 +64,11 @@ export const ActionButtons: React.FC<Props> = ({
     displayName,
     executionTasksFull,
     project,
-    requester,
     versionMetadata,
   } = task || {};
 
   const { id: versionId, isPatch, order } = versionMetadata || {};
   const { identifier: projectIdentifier } = project || {};
-  const isPatchOnCommitQueue = requester === commitQueueRequester;
   const allExecutionTasksSucceeded =
     executionTasksFull?.every((t) => t.status === TaskStatus.Succeeded) ??
     false;
@@ -268,7 +264,6 @@ export const ActionButtons: React.FC<Props> = ({
               key="task-history"
               as={HistoryLink}
               data-cy="task-history"
-              disabled={displayName === mergeTaskName}
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Clicked see history link" });
               }}
@@ -281,7 +276,7 @@ export const ActionButtons: React.FC<Props> = ({
         <LoadingButton
           key="schedule"
           data-cy="schedule-task"
-          disabled={disabled || !canSchedule || isPatchOnCommitQueue}
+          disabled={disabled || !canSchedule}
           loading={loadingScheduleTask}
           onClick={() => {
             scheduleTask();
@@ -296,7 +291,7 @@ export const ActionButtons: React.FC<Props> = ({
             trigger={
               <LoadingButton
                 data-cy="restart-task"
-                disabled={disabled || !canRestart || isPatchOnCommitQueue}
+                disabled={disabled || !canRestart}
                 loading={loadingRestartTask}
                 size="small"
               >
@@ -335,7 +330,7 @@ export const ActionButtons: React.FC<Props> = ({
           <LoadingButton
             key="restart"
             data-cy="restart-task"
-            disabled={disabled || !canRestart || isPatchOnCommitQueue}
+            disabled={disabled || !canRestart}
             loading={loadingRestartTask}
             onClick={() => {
               // @ts-expect-error: FIXME. This comment was added by an automated script.
