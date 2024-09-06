@@ -24,10 +24,10 @@ const LogWindow: React.FC = () => {
     openSectionAndScrollToLine,
     processedLogLines,
   } = useLogContext();
-  const { isOpenFeatureModal } = useSectionsFeatureDiscoveryContext();
+  const { featureModalOpen } = useSectionsFeatureDiscoveryContext();
   return (
     <Container data-cy="log-window">
-      {isOpenFeatureModal && <SectionsFeatureModal />}
+      {featureModalOpen && <SectionsFeatureModal />}
       <SidePanel
         clearExpandedLines={clearExpandedLines}
         collapseLines={collapseLines}

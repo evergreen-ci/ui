@@ -10,7 +10,7 @@ import { releaseSectioning } from "utils/featureFlag";
 import { graphic } from "./graphic";
 
 const SectionsFeatureModal = () => {
-  const { closeFeatureModal, isOpenFeatureModal } =
+  const { closeFeatureModal, featureModalOpen } =
     useSectionsFeatureDiscoveryContext();
   const { logMetadata } = useLogContext();
   const isViewingTaskLog =
@@ -42,7 +42,7 @@ const SectionsFeatureModal = () => {
           release: "beta",
         });
       }}
-      open={isOpenFeatureModal}
+      open={featureModalOpen}
       showBlob
       title="Introducing Task Log Sectioning Beta Preview!"
     >

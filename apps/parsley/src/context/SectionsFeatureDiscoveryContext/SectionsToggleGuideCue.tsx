@@ -5,7 +5,7 @@ import { releaseSectioning } from "utils/featureFlag";
 export const SectionsToggleGuideCue: React.FC<{
   refEl: GuideCueProps["refEl"];
 }> = ({ refEl }) => {
-  const { closeFirstGuideCue, isOpenFirstGuideCue, setIsOpenFirstGuideCue } =
+  const { closeFirstGuideCue, firstGuideCueOpen, setFirstGuideCueOpen } =
     useSectionsFeatureDiscoveryContext();
   return releaseSectioning ? (
     <GuideCue
@@ -13,9 +13,9 @@ export const SectionsToggleGuideCue: React.FC<{
       data-cy="sections-cue-1"
       numberOfSteps={1}
       onPrimaryButtonClick={closeFirstGuideCue}
-      open={isOpenFirstGuideCue}
+      open={firstGuideCueOpen}
       refEl={refEl}
-      setOpen={setIsOpenFirstGuideCue}
+      setOpen={setFirstGuideCueOpen}
       title="Opt-In to Sectioned Task Logs"
       tooltipAlign="bottom"
       tooltipJustify="end"

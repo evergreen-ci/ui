@@ -5,7 +5,7 @@ import { useSectionsFeatureDiscoveryContext } from ".";
 export const JumpToFailingLineToggleGuideCue: React.FC<{
   refEl: GuideCueProps["refEl"];
 }> = ({ refEl }) => {
-  const { closeSecondGuideCue, isOpenSecondGuideCue, setIsOpenSecondGuideCue } =
+  const { closeSecondGuideCue, secondGuideCueOpen, setSecondGuideCueOpen } =
     useSectionsFeatureDiscoveryContext();
   return releaseSectioning ? (
     <GuideCue
@@ -13,9 +13,9 @@ export const JumpToFailingLineToggleGuideCue: React.FC<{
       data-cy="sections-cue-2"
       numberOfSteps={1}
       onPrimaryButtonClick={closeSecondGuideCue}
-      open={isOpenSecondGuideCue}
+      open={secondGuideCueOpen}
       refEl={refEl}
-      setOpen={setIsOpenSecondGuideCue}
+      setOpen={setSecondGuideCueOpen}
       title="Jump to Failing Line"
     >
       Combined with sectioning, jump to failing line allows to streamline your

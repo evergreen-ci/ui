@@ -12,11 +12,11 @@ const seenSectionsBetaFeatureModal =
   Cookies.get(SEEN_SECTIONS_BETA_FEATURE_MODAL) === "true";
 type SectionsFeatureDiscoveryContextState = {
   closeFeatureModal: () => void;
-  isOpenFeatureModal: boolean;
-  isOpenFirstGuideCue: boolean;
-  setIsOpenFirstGuideCue: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpenSecondGuideCue: boolean;
-  setIsOpenSecondGuideCue: React.Dispatch<React.SetStateAction<boolean>>;
+  featureModalOpen: boolean;
+  firstGuideCueOpen: boolean;
+  setFirstGuideCueOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  secondGuideCueOpen: boolean;
+  setSecondGuideCueOpen: React.Dispatch<React.SetStateAction<boolean>>;
   showGuideCue: boolean;
   closeFirstGuideCue: () => void;
   closeSecondGuideCue: () => void;
@@ -39,53 +39,52 @@ const SectionsFeatureDiscoveryContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const { sendEvent } = useSectionsFeatureDiscoveryAnalytics();
-  const [isOpenFeatureModal, setIsOpenFeatureModal] = useState(
+  const [featureModalOpen, setFeatureModalOpen] = useState(
     !seenSectionsBetaFeatureModal,
   );
-  const [isOpenFirstGuideCue, setIsOpenFirstGuideCue] = useState<boolean>(
-    !isOpenFeatureModal && !seenSectionsBetaGuide,
+  const [firstGuideCueOpen, setFirstGuideCueOpen] = useState<boolean>(
+    !featureModalOpen && !seenSectionsBetaGuide,
   );
-  const [isOpenSecondGuideCue, setIsOpenSecondGuideCue] =
-    useState<boolean>(false);
+  const [secondGuideCueOpen, setSecondGuideCueOpen] = useState<boolean>(false);
   const closeFirstGuideCue = () => {
-    setIsOpenSecondGuideCue(true);
-    setIsOpenFirstGuideCue(false);
+    setSecondGuideCueOpen(true);
+    setFirstGuideCueOpen(false);
     sendEvent({
       name: "Clicked sections toggle guide cue close button",
       release: "beta",
     });
   };
   const closeSecondGuideCue = () => {
-    setIsOpenSecondGuideCue(false);
-    Cookies.set(SEEN_SECTIONS_BETA_GUIDE_CUE, "true");
+    setSecondGuideCueOpen(false);
+    Cookies.set(SEEN_SECTIONS_BETA_GUIDE_CUE, "true", { expires: 365 });
     sendEvent({
       name: "Clicked jump to failing line toggle guide cue close button",
       release: "beta",
     });
   };
   useEffect(() => {
-    if (!isOpenFeatureModal && !seenSectionsBetaGuide) {
-      setIsOpenFirstGuideCue(true);
+    if (!featureModalOpen && !seenSectionsBetaGuide) {
+      setFirstGuideCueOpen(true);
     }
-  }, [isOpenFeatureModal]);
+  }, [featureModalOpen]);
 
   const closeFeatureModal = () => {
-    setIsOpenFeatureModal(false);
-    Cookies.set(SEEN_SECTIONS_BETA_FEATURE_MODAL, "true");
+    setFeatureModalOpen(false);
+    Cookies.set(SEEN_SECTIONS_BETA_FEATURE_MODAL, "true", { expires: 365 });
   };
   const value = useMemo(
     () => ({
       closeFeatureModal,
       closeFirstGuideCue,
       closeSecondGuideCue,
-      isOpenFeatureModal,
-      isOpenFirstGuideCue,
-      isOpenSecondGuideCue,
-      setIsOpenFirstGuideCue,
-      setIsOpenSecondGuideCue,
-      showGuideCue: isOpenFirstGuideCue || isOpenSecondGuideCue,
+      featureModalOpen,
+      firstGuideCueOpen,
+      secondGuideCueOpen,
+      setFirstGuideCueOpen,
+      setSecondGuideCueOpen,
+      showGuideCue: firstGuideCueOpen || secondGuideCueOpen,
     }),
-    [isOpenFirstGuideCue, isOpenSecondGuideCue, isOpenFeatureModal],
+    [firstGuideCueOpen, secondGuideCueOpen, featureModalOpen],
   );
 
   return (
