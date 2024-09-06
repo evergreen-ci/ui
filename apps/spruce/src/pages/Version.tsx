@@ -70,12 +70,7 @@ export const VersionPage: React.FC = () => {
     status,
     warnings,
   } = version || {};
-  const {
-    canEnqueueToCommitQueue,
-    commitQueuePosition = null,
-    patchNumber,
-  } = patch || {};
-  const isPatchOnCommitQueue = commitQueuePosition !== null;
+  const { patchNumber } = patch || {};
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionText = shortenGithash(revision || versionId);
@@ -109,14 +104,9 @@ export const VersionPage: React.FC = () => {
         buttons={
           <ActionButtons
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            canEnqueueToCommitQueue={canEnqueueToCommitQueue}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            canReconfigure={!isPatchOnCommitQueue && isPatch}
+            canReconfigure={isPatch}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             isPatch={isPatch}
-            isPatchOnCommitQueue={isPatchOnCommitQueue}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            patchDescription={message}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionId={versionId}
           />

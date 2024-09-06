@@ -13,7 +13,7 @@ const textAreaCSS = css`
 `;
 
 export enum AliasNames {
-  CommitQueue = "__commit_queue",
+  MergeQueue = "__commit_queue",
   GithubPr = "__github",
   GithubCheck = "__github_checks",
   GitTag = "__git_tag",
@@ -108,9 +108,9 @@ export const sortAliases = (
       } else if (a.alias === AliasNames.GitTag) {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         o.gitTagAliases.push(transformedAlias);
-      } else if (a.alias === AliasNames.CommitQueue) {
+      } else if (a.alias === AliasNames.MergeQueue) {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        o.commitQueueAliases.push(transformedAlias);
+        o.mergeQueueAliases.push(transformedAlias);
       } else {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         o.patchAliases.push(transformedAlias);
@@ -118,7 +118,7 @@ export const sortAliases = (
       return o;
     },
     {
-      commitQueueAliases: [],
+      mergeQueueAliases: [],
       githubPrAliases: [],
       githubCheckAliases: [],
       gitTagAliases: [],

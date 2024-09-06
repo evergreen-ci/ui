@@ -2,8 +2,6 @@ import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
 
 const patchWithoutVersion = "test meee";
 const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
-const patchWithVersionOnCommitQueue =
-  "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
 
 const getPatchCardByDescription = (description: string) =>
   cy.dataCy("patch-card").filter(`:contains(${description})`);
@@ -40,8 +38,6 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("schedule-patch").should("be.disabled");
   });
 
-  // We shouldn't actually unschedule patchWithVersion because patchWithVersionOnCommitQueue is a downstream project
-  // and other integration tests will be affected.
   it("'Unschedule' link opens popconfirm and unschedules patch", () => {
     getPatchCardByDescription(patchWithVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
@@ -59,16 +55,15 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("unschedule-patch").should("be.disabled");
   });
 
-  // This will generate a 'Will Run' status that is used in version/task_filters.ts
   it("'Restart' link shows restart patch modal", () => {
-    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
+    getPatchCardByDescription(patchWithVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("restart-version").click({ force: true });
 
     cy.dataCy("variant-accordion").first().click();
     cy.dataCy("task-status-checkbox").should("exist");
-    cy.contains("generate-lint").click();
+    cy.contains("asdf").click();
     cy.dataCy("version-restart-modal").within(() => {
       cy.contains("Restart").click();
     });
@@ -80,20 +75,6 @@ describe("Dropdown Menu of Patch Actions", () => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("restart-version").should("be.disabled");
-  });
-
-  it("'Add to commit queue' shows enqueue modal", () => {
-    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
-      cy.dataCy("patch-card-dropdown").click();
-    });
-    cy.dataCy("enqueue-patch").should("exist");
-  });
-
-  it("'Add to commit queue' is disabled for unfinalized patch", () => {
-    getPatchCardByDescription(patchWithoutVersion).within(() => {
-      cy.dataCy("patch-card-dropdown").click();
-    });
-    cy.dataCy("enqueue-patch").should("be.disabled");
   });
 
   it("Toggle patch visibility", () => {

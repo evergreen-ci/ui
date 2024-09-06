@@ -3,9 +3,8 @@ const versions = {
   1: "i-dont-exist", // non existent patch
   2: "52a630633ff1227909000021", // patch 2
   3: "5e6bb9e23066155a993e0f1a", // unconfigured patch
-  4: "642de18d2a60edf48b34a8c7", // unactivated patch on commit queue
-  5: "evergreen_33016573166a36bd5f46b4111151899d5c4e95b1", // basecommit for versions[0]
-  6: "5e4ff3abe3c3317e352062e4",
+  4: "evergreen_33016573166a36bd5f46b4111151899d5c4e95b1", // basecommit for versions[0]
+  5: "5e4ff3abe3c3317e352062e4",
 };
 
 const versionRoute = (id: string) => `/version/${id}`;
@@ -24,7 +23,7 @@ describe("Version route", () => {
       cy.visit(versionRoute(versions[0]));
       cy.dataCy("patch-base-commit")
         .should("have.attr", "href")
-        .and("include", `/version/${versions[5]}`);
+        .and("include", `/version/${versions[4]}`);
     });
     it("Doesn't show patch parameters if they don't exist", () => {
       cy.visit(versionRoute(versions[2]));
@@ -160,7 +159,7 @@ describe("Version route", () => {
 
   describe("Page title", () => {
     beforeEach(() => {
-      cy.visit(versionRoute(versions[6]));
+      cy.visit(versionRoute(versions[5]));
     });
     it("Should include a link to Jira", () => {
       cy.dataCy("page-title")
