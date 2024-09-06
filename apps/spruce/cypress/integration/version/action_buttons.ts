@@ -87,9 +87,6 @@ describe("Action Buttons", () => {
           "true",
         );
       });
-      it("Should not be able to enqueue the version", () => {
-        cy.dataCy("enqueue-patch").should("be.disabled");
-      });
     });
   });
 });

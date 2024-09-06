@@ -22,10 +22,6 @@ const requesters = [
     value: "github_pull_request",
   },
   {
-    label: "Commit Queue Merge",
-    value: "merge_test",
-  },
-  {
     label: "Periodic Builds",
     value: "ad_hoc",
   },

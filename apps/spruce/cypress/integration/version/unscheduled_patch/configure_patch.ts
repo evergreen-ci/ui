@@ -603,7 +603,6 @@ const mockedSuccessConfigureResponse = {
       status: "created",
       activated: true,
       alias: "",
-      commitQueuePosition: null,
       variantsTasks: [
         {
           name: "ubuntu1604",

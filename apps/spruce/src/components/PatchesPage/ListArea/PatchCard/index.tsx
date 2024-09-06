@@ -26,15 +26,10 @@ const { gray } = palette;
 
 interface PatchCardProps {
   pageType: "project" | "user";
-  isPatchOnCommitQueue: boolean;
   patch: PatchType;
 }
 
-const PatchCard: React.FC<PatchCardProps> = ({
-  isPatchOnCommitQueue,
-  pageType,
-  patch,
-}) => {
+const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
   const getDateCopy = useDateFormat();
   const userPatchesAnalytics = useUserPatchesAnalytics();
   const projectPatchesAnalytics = useProjectPatchesAnalytics();
@@ -45,7 +40,6 @@ const PatchCard: React.FC<PatchCardProps> = ({
     alias,
     author,
     authorDisplayName,
-    canEnqueueToCommitQueue,
     createTime,
     description,
     hidden,
@@ -130,11 +124,8 @@ const PatchCard: React.FC<PatchCardProps> = ({
       <Right>
         {hidden && <Badge data-cy="hidden-badge">Hidden</Badge>}
         <DropdownMenu
-          canEnqueueToCommitQueue={canEnqueueToCommitQueue}
           hasVersion={!!versionId}
           isPatchHidden={hidden}
-          isPatchOnCommitQueue={isPatchOnCommitQueue}
-          patchDescription={description}
           patchId={id}
         />
       </Right>

@@ -30,7 +30,7 @@ export const ProjectPatches = () => {
     isGitHubMergeQueueCheckboxChecked,
     setIsGitHubMergeQueueCheckboxChecked,
   ] = useQueryParam(
-    PatchPageQueryParams.CommitQueue,
+    PatchPageQueryParams.MergeQueue,
     Cookies.get(INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES) === "true",
   );
 

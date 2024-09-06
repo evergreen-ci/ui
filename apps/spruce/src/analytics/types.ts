@@ -3,7 +3,6 @@ export type AnalyticsIdentifier =
   | "Annotations"
   | "April Fools"
   | "Breadcrumb"
-  | "CommitQueue"
   | "Configure"
   | "DistroSettings"
   | "HostPage"

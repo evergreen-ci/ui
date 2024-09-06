@@ -8,7 +8,6 @@ import {
   getTaskHistoryRoute,
   getVariantHistoryRoute,
   getProjectPatchesRoute,
-  getCommitQueueRoute,
   getCommitsRoute,
 } from "./routes";
 
@@ -21,14 +20,6 @@ describe("getProjectPatchesRoute", () => {
   it("escapes special characters projectIdentifier", () => {
     expect(getProjectPatchesRoute(identifierWithSpecialCharacters)).toBe(
       `/project/${escapedIdentifier}/patches`,
-    );
-  });
-});
-
-describe("getCommitQueueRoute", () => {
-  it("escapes special characters projectIdentifier", () => {
-    expect(getCommitQueueRoute(identifierWithSpecialCharacters)).toBe(
-      `/commit-queue/${escapedIdentifier}`,
     );
   });
 });

@@ -2,7 +2,6 @@ fragment BasePatch on Patch {
   activated
   alias
   author
-  commitQueuePosition
   description
   id
   parameters {
