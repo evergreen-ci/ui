@@ -1,4 +1,4 @@
-import { commitQueueAlias } from "constants/patch";
+import { mergeQueueAlias } from "constants/patch";
 
 interface IsPatchUnconfiguredParams {
   alias: string;
@@ -16,4 +16,4 @@ export const isPatchUnconfigured = ({
   activated,
   alias,
 }: IsPatchUnconfiguredParams): boolean =>
-  !activated && alias !== commitQueueAlias;
+  !activated && alias !== mergeQueueAlias;

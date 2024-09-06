@@ -20,7 +20,6 @@ import DETACH_PROJECT_FROM_REPO from "./detach-project-from-repo.graphql";
 import DETACH_VOLUME from "./detach-volume.graphql";
 import EDIT_ANNOTATION_NOTE from "./edit-annotation-note.graphql";
 import EDIT_SPAWN_HOST from "./edit-spawn-host.graphql";
-import ENQUEUE_PATCH from "./enqueue-patch.graphql";
 import FILE_JIRA_TICKET from "./file-jira-ticket.graphql";
 import FORCE_REPOTRACKER_RUN from "./force-repotracker-run.graphql";
 import MIGRATE_VOLUME from "./migrate-volume.graphql";
@@ -29,7 +28,6 @@ import OVERRIDE_TASK_DEPENDENCIES from "./override-task-dependencies.graphql";
 import PROMOTE_VARS_TO_REPO from "./promote-vars-to-repo.graphql";
 import REMOVE_ANNOTATION from "./remove-annotation.graphql";
 import REMOVE_FAVORITE_PROJECT from "./remove-favorite-project.graphql";
-import REMOVE_ITEM_FROM_COMMIT_QUEUE from "./remove-item-from-commit-queue.graphql";
 import REMOVE_PUBLIC_KEY from "./remove-public-key.graphql";
 import REMOVE_VOLUME from "./remove-volume.graphql";
 import REPROVISION_TO_NEW from "./reprovision-to-new.graphql";
@@ -81,7 +79,6 @@ export {
   DETACH_VOLUME,
   EDIT_ANNOTATION_NOTE,
   EDIT_SPAWN_HOST,
-  ENQUEUE_PATCH,
   FILE_JIRA_TICKET,
   FORCE_REPOTRACKER_RUN,
   MIGRATE_VOLUME,
@@ -90,7 +87,6 @@ export {
   PROMOTE_VARS_TO_REPO,
   REMOVE_ANNOTATION,
   REMOVE_FAVORITE_PROJECT,
-  REMOVE_ITEM_FROM_COMMIT_QUEUE,
   REMOVE_PUBLIC_KEY,
   REMOVE_VOLUME,
   REPROVISION_TO_NEW,

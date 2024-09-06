@@ -33,16 +33,13 @@ develop against them you will need to run both of the servers locally.
 **Logkeeper**
 
 1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `yarn bootstrap-logkeeper` to download some sample resmoke logs from s3.
+2. Run `yarn bootstrap-s3-logs` to download some sample resmoke logs from s3.
 3. Run the command outputted by the previous step to seed the env variables and
-   start the local logkeeper server
+   start the local logkeeper server with the following command:
 
    ```bash
    LK_CORS_ORIGINS=http:\/\/localhost:\\d+ LK_EVERGREEN_ORIGIN=http://localhost:8080 LK_PARSLEY_ORIGIN=http://localhost:5173 go run main/logkeeper.go --localPath {abs_path_to_parsley}/bin/_bucketdata
    ```
-
-   Note that all log output is piped to a file named `logkeeperapp.log`. You can
-   use `tail -f logkeeperapp.log` to view the log output.
 
 ### GraphQL Type Generation
 

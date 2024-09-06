@@ -57,7 +57,6 @@ export enum DistroSettingsTabRoutes {
 }
 
 const paths = {
-  commitQueue: "/commit-queue",
   commits: "/commits",
   container: "/container",
   distro: "/distro",
@@ -120,7 +119,6 @@ export const redirectRoutes = {
 };
 
 export const routes = {
-  commitQueue: `${paths.commitQueue}/:${slugs.projectIdentifier}`,
   commits: paths.commits,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure`,
   container: `${paths.container}/:${slugs.podId}`,
@@ -292,9 +290,6 @@ export const getDistroSettingsRoute = (
   tab
     ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
     : `${paths.distro}/${distroId}/${PageNames.Settings}/${DistroSettingsTabRoutes.General}`;
-
-export const getCommitQueueRoute = (projectIdentifier: string) =>
-  `${paths.commitQueue}/${encodeURIComponent(projectIdentifier)}`;
 
 export const getCommitsRoute = (projectIdentifier: string = "") =>
   `${paths.commits}/${encodeURIComponent(projectIdentifier)}`;

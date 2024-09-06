@@ -1,8 +1,5 @@
 import { PartialRecord } from "@evg-ui/lib/types/utils";
 
-// Not included in Requester enum because it will be deprecated.
-const commitQueueRequester = "merge_test";
-
 enum Requester {
   AdHoc = "ad_hoc",
   GitHubMergeQueue = "github_merge_request",
@@ -30,9 +27,4 @@ const requesterToDescription: PartialRecord<Requester, string> = {
   [Requester.Trigger]: "Downstream trigger versions",
 };
 
-export {
-  Requester,
-  commitQueueRequester,
-  requesterToTitle,
-  requesterToDescription,
-};
+export { Requester, requesterToTitle, requesterToDescription };

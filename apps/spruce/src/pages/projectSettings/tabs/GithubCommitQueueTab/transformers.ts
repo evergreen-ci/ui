@@ -14,8 +14,8 @@ export const mergeProjectRepo = (
 ): GCQFormState => {
   // Merge project and repo objects so that repo config can be displayed on project pages
   const {
-    commitQueue: { patchDefinitions },
     github: { gitTags, githubChecks, prTesting, teams, users },
+    mergeQueue: { patchDefinitions },
   } = repoData;
   const mergedObject: GCQFormState = projectData;
   mergedObject.github.prTesting.repoData = prTesting;
@@ -23,7 +23,7 @@ export const mergeProjectRepo = (
   mergedObject.github.users.repoData = users;
   mergedObject.github.teams.repoData = teams;
   mergedObject.github.gitTags.repoData = gitTags;
-  mergedObject.commitQueue.patchDefinitions.repoData = patchDefinitions;
+  mergedObject.mergeQueue.patchDefinitions.repoData = patchDefinitions;
   return mergedObject;
 };
 
@@ -54,10 +54,10 @@ export const gqlToForm = ((data, options) => {
   } = projectRef;
 
   const {
-    commitQueueAliases,
     gitTagAliases,
     githubCheckAliases,
     githubPrAliases,
+    mergeQueueAliases,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
   } = sortAliases(aliases);
 
@@ -106,11 +106,11 @@ export const gqlToForm = ((data, options) => {
         gitTagAliases,
       },
     },
-    commitQueue: {
+    mergeQueue: {
       enabled: commitQueue.enabled,
       patchDefinitions: {
-        commitQueueAliasesOverride: override(commitQueueAliases),
-        commitQueueAliases,
+        mergeQueueAliasesOverride: override(mergeQueueAliases),
+        mergeQueueAliases,
       },
     },
   };
@@ -119,7 +119,6 @@ export const gqlToForm = ((data, options) => {
 
 export const formToGql = ((
   {
-    commitQueue: { enabled, patchDefinitions },
     github: {
       gitTagVersionsEnabled,
       gitTags,
@@ -132,6 +131,7 @@ export const formToGql = ((
       teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
       users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
     },
+    mergeQueue: { enabled, patchDefinitions },
   },
   isRepo,
   id,
@@ -173,17 +173,17 @@ export const formToGql = ((
     AliasNames.GitTag,
   );
 
-  const commitQueueAliases = transformAliases(
-    patchDefinitions.commitQueueAliases,
-    patchDefinitions.commitQueueAliasesOverride,
-    AliasNames.CommitQueue,
+  const mergeQueueAliases = transformAliases(
+    patchDefinitions.mergeQueueAliases,
+    patchDefinitions.mergeQueueAliasesOverride,
+    AliasNames.MergeQueue,
   );
 
   const aliases = [
     ...githubPrAliases,
     ...githubCheckAliases,
     ...gitTagAliases,
-    ...commitQueueAliases,
+    ...mergeQueueAliases,
   ];
 
   return {

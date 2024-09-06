@@ -11,7 +11,6 @@ import {
   showWaterfallPage,
 } from "constants/featureFlags";
 import { redirectRoutes, routes, slugs } from "constants/routes";
-import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Container } from "pages/Container";
@@ -91,7 +90,6 @@ export const Content: React.FC = () => (
       <Route element={<Spawn />} path={`${routes.spawn}/*`}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<CommitQueue />} path={routes.commitQueue} />
       <Route element={<Task />} path={routes.task}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
