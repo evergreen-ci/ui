@@ -10,10 +10,7 @@ import { useLogContext } from "context/LogContext";
 import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
 
 const SectionsFeatureModal = lazy(
-  () =>
-    import(
-      "../../context/SectionsFeatureDiscoveryContext/SectionsFeatureModal"
-    ),
+  () => import("context/SectionsFeatureDiscoveryContext/SectionsFeatureModal"),
 );
 
 const LogWindow: React.FC = () => {
