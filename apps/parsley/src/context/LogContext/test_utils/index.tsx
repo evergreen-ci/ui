@@ -6,12 +6,12 @@ import { LogContextProvider } from "..";
 export const logContextWrapper = (logs: string[] = []) =>
   function ({ children }: { children: React.ReactNode }) {
     return (
-      <SectionsFeatureDiscoveryContextProvider>
-        <MockedProvider mocks={[parsleySettingsMock]}>
-          <LogContextProvider initialLogLines={logs}>
+      <MockedProvider mocks={[parsleySettingsMock]}>
+        <LogContextProvider initialLogLines={logs}>
+          <SectionsFeatureDiscoveryContextProvider>
             {children}
-          </LogContextProvider>
-        </MockedProvider>
-      </SectionsFeatureDiscoveryContextProvider>
+          </SectionsFeatureDiscoveryContextProvider>
+        </LogContextProvider>
+      </MockedProvider>
     );
   };

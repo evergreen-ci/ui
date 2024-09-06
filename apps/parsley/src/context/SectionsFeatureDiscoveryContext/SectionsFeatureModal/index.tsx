@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
 import { useSectionsFeatureDiscoveryAnalytics } from "analytics/sectionsFeatureDiscovery/useSectionsFeatureDiscoveryAnalytics";
 import { LogTypes } from "constants/enums";
-import { supportURL } from "constants/externalLinks";
 import { zIndex } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
@@ -52,10 +51,7 @@ const SectionsFeatureModal = () => {
         organizes your logs by function and command to make them easier to
         navigate and understand.
       </p>
-      <p>
-        For feedback and questions go to{" "}
-        <a href={supportURL}>#ask-devprod-evergreen</a>.
-      </p>
+      <p>For feedback and questions go to #ask-devprod-evergreen.</p>
     </StyledMarketingModal>
   ) : null;
 };
