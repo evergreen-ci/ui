@@ -142,6 +142,7 @@ export const routes = {
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
   variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
   version: `${paths.version}/:${slugs.versionId}`,
+  waterfall: `${paths.project}/:${slugs.projectIdentifier}/waterfall`,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;

@@ -21,7 +21,7 @@ type Action =
   | { name: "Clicked metadata github commit link" }
   | {
       name: "Filtered by build variant and task status group";
-      taskSquareStatuses: string | string[];
+      "filter.task_square_statuses": string | string[];
     }
   | { name: "Clicked metadata previous version link" }
   | { name: "Clicked metadata project patches link" }

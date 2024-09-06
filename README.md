@@ -2,6 +2,10 @@
 
 The new home of [Spruce](/apps/spruce) and [Parsley](/apps/parsley).
 
+## Analytics
+
+Read more about our analytics practices [here](ANALYTICS.md).
+
 ## Monorepo Tips & Tricks
 
 Learn about our monorepo shared library [here](packages/lib/README.md).

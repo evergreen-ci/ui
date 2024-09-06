@@ -6,7 +6,10 @@ import {
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
 } from "components/Redirects";
-import { showImageVisibilityPage } from "constants/featureFlags";
+import {
+  showImageVisibilityPage,
+  showWaterfallPage,
+} from "constants/featureFlags";
 import { redirectRoutes, routes, slugs } from "constants/routes";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
@@ -28,6 +31,7 @@ import { TaskQueue } from "pages/TaskQueue";
 import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
+import { Waterfall } from "pages/Waterfall";
 import { Layout } from "./Layout";
 
 export const Content: React.FC = () => (
@@ -102,6 +106,9 @@ export const Content: React.FC = () => (
       <Route element={<VersionPage />} path={routes.version}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
+      {showWaterfallPage && (
+        <Route element={<Waterfall />} path={routes.waterfall} />
+      )}
       <Route element={<PageDoesNotExist />} path="*" />
     </Route>
   </Routes>
