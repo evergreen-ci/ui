@@ -79,7 +79,7 @@ describe("transformAliases", () => {
           } as AliasFormType,
         ],
         true,
-        AliasNames.CommitQueue,
+        AliasNames.MergeQueue,
       ),
     ).toStrictEqual([
       {

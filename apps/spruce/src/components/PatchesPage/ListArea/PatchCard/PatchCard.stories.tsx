@@ -13,7 +13,6 @@ export const ProjectPatchCard: CustomStoryObj<typeof PatchCard> = {
   argTypes: {},
   args: {
     pageType: "project",
-    isPatchOnCommitQueue: false,
     patch: patchData,
   },
 };
@@ -23,7 +22,6 @@ export const UserPatchCard: CustomStoryObj<typeof PatchCard> = {
   argTypes: {},
   args: {
     pageType: "user",
-    isPatchOnCommitQueue: false,
     patch: patchData,
   },
 };

@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { useLazyQuery, useQuery } from "@apollo/client";
-import { useParams, Navigate } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
@@ -11,21 +10,12 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import { commitQueueAlias } from "constants/patch";
-import { getCommitQueueRoute, getPatchRoute, slugs } from "constants/routes";
+import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
-import {
-  VersionQuery,
-  VersionQueryVariables,
-  IsPatchConfiguredQuery,
-  IsPatchConfiguredQueryVariables,
-  HasVersionQuery,
-  HasVersionQueryVariables,
-} from "gql/generated/types";
-import { VERSION, IS_PATCH_CONFIGURED, HAS_VERSION } from "gql/queries";
+import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
+import { VERSION } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
-import { isPatchUnconfigured } from "utils/patch";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { WarningBanner, ErrorBanner, IgnoredBanner } from "./version/Banners";
@@ -34,21 +24,17 @@ import BuildVariantCard from "./version/BuildVariantCard";
 import { ActionButtons, Metadata, VersionTabs } from "./version/index";
 import { NameChangeModal } from "./version/NameChangeModal";
 
-// IMPORTANT: If you make any changes to the state logic in this file, please make sure to update the ADR:
-// docs/decisions/2023-12-13_version_page_logic.md
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const { [slugs.versionId]: versionId } = useParams();
   const dispatchToast = useToastContext();
 
-  const [redirectURL, setRedirectURL] = useState(undefined);
-  const [isLoadingData, setIsLoadingData] = useState(true);
-
   // This query is used to fetch the version data.
-  const [getVersion, { data: versionData, error: versionError }] = useLazyQuery<
-    VersionQuery,
-    VersionQueryVariables
-  >(VERSION, {
+  const {
+    data: versionData,
+    error: versionError,
+    loading: versionLoading,
+  } = useQuery<VersionQuery, VersionQueryVariables>(VERSION, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: versionId },
     fetchPolicy: "cache-and-network",
@@ -56,82 +42,14 @@ export const VersionPage: React.FC = () => {
       dispatchToast.error(
         `There was an error loading the version: ${error.message}`,
       );
-      setIsLoadingData(false);
     },
   });
 
-  // If the version is a patch, we need to check if it's been configured.
-  const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
-    IsPatchConfiguredQuery,
-    IsPatchConfiguredQueryVariables
-  >(IS_PATCH_CONFIGURED, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: versionId },
-    onError: (error) => {
-      dispatchToast.error(
-        `There was an error loading this patch: ${error.message}`,
-      );
-      setIsLoadingData(false);
-    },
-  });
-
-  // This query checks if the provided id has a configured version.
-  const { error: hasVersionError } = useQuery<
-    HasVersionQuery,
-    HasVersionQueryVariables
-  >(HAS_VERSION, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: versionId },
-    onCompleted: ({ hasVersion }) => {
-      setIsLoadingData(true);
-      if (hasVersion) {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        getVersion({ variables: { id: versionId } });
-      } else {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        getPatch({ variables: { id: versionId } });
-      }
-    },
-    onError: (error) => {
-      dispatchToast.error(error.message);
-      setIsLoadingData(false);
-    },
-  });
-
-  // Decide where to redirect the user based off of whether or not the patch has been activated.
-  // If the patch is activated and not on the commit queue, we can safely fetch the associated version.
-  useEffect(() => {
-    if (patchData) {
-      const { patch } = patchData;
-      const { activated, alias, projectID } = patch;
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      if (isPatchUnconfigured({ alias, activated })) {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        setRedirectURL(getPatchRoute(versionId, { configure: true }));
-        setIsLoadingData(false);
-      } else if (!activated && alias === commitQueueAlias) {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        setRedirectURL(getCommitQueueRoute(projectID));
-        setIsLoadingData(false);
-      } else {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        getVersion({ variables: { id: versionId } });
-      }
-    }
-  }, [patchData, getVersion, versionId]);
-
-  // If we have successfully loaded a version, we can show the page.
-  useEffect(() => {
-    if (versionData) {
-      setIsLoadingData(false);
-    }
-  }, [versionData]);
-
-  if (isLoadingData) {
+  if (versionLoading) {
     return <PatchAndTaskFullPageLoad />;
   }
 
-  if (hasVersionError || patchError || versionError) {
+  if (versionError) {
     return (
       <PageWrapper data-cy="version-page">
         <PageDoesNotExist />
@@ -139,12 +57,6 @@ export const VersionPage: React.FC = () => {
     );
   }
 
-  // If it's a patch, redirect to the proper page.
-  if (redirectURL) {
-    return <Navigate replace to={redirectURL} />;
-  }
-
-  // If it's a version, proceed with loading the version page.
   const { version } = versionData || {};
   const {
     errors,
@@ -158,12 +70,7 @@ export const VersionPage: React.FC = () => {
     status,
     warnings,
   } = version || {};
-  const {
-    canEnqueueToCommitQueue,
-    commitQueuePosition = null,
-    patchNumber,
-  } = patch || {};
-  const isPatchOnCommitQueue = commitQueuePosition !== null;
+  const { patchNumber } = patch || {};
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionText = shortenGithash(revision || versionId);
@@ -197,14 +104,9 @@ export const VersionPage: React.FC = () => {
         buttons={
           <ActionButtons
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            canEnqueueToCommitQueue={canEnqueueToCommitQueue}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            canReconfigure={!isPatchOnCommitQueue && isPatch}
+            canReconfigure={isPatch}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             isPatch={isPatch}
-            isPatchOnCommitQueue={isPatchOnCommitQueue}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            patchDescription={message}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionId={versionId}
           />

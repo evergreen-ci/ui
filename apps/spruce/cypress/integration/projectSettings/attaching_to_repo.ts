@@ -8,7 +8,7 @@ describe("Attaching Spruce to a repo", () => {
     cy.visit(origin);
   });
 
-  it("Saves and attaches new repo and shows warnings on the Github/Commit Queue page", () => {
+  it("Saves and attaches new repo and shows warnings on the Github page", () => {
     cy.dataCy("repo-input").as("repoInput").clear();
     cy.get("@repoInput").type("evergreen");
     cy.dataCy("attach-repo-button").should(

@@ -134,7 +134,7 @@ describe("Project Settings when defaulting to repo", () => {
     });
   });
 
-  describe("GitHub/Commit Queue page", () => {
+  describe("GitHub page", () => {
     beforeEach(() => {
       cy.dataCy("navitem-github-commitqueue").click();
     });

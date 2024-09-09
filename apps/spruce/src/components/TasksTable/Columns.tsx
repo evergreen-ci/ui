@@ -2,12 +2,10 @@ import { LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledRouterLink } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeDataEntry } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
-import { mergeTaskVariant } from "constants/task";
 import { zIndex } from "constants/tokens";
 import { TaskSortCategory } from "gql/generated/types";
 import { TaskLink } from "./TaskLink";
@@ -130,19 +128,12 @@ export const getColumnsTemplate = ({
         original: { buildVariant, projectIdentifier },
       },
     }) => (
-      <ConditionalWrapper
-        condition={buildVariant !== mergeTaskVariant}
-        wrapper={(children) => (
-          <StyledRouterLink
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
-          >
-            {children}
-          </StyledRouterLink>
-        )}
+      <StyledRouterLink
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
       >
         {getValue() as string}
-      </ConditionalWrapper>
+      </StyledRouterLink>
     ),
     meta: {
       search: {
