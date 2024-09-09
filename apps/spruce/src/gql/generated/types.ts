@@ -6339,21 +6339,6 @@ export type InstanceTypesQuery = {
   instanceTypes: Array<string>;
 };
 
-export type IsPatchConfiguredQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
-}>;
-
-export type IsPatchConfiguredQuery = {
-  __typename?: "Query";
-  patch: {
-    __typename?: "Patch";
-    activated: boolean;
-    alias?: string | null;
-    id: string;
-    projectID: string;
-  };
-};
-
 export type CustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;

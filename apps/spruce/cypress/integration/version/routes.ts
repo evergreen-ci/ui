@@ -10,19 +10,6 @@ const versions = {
 const versionRoute = (id: string) => `/version/${id}`;
 
 describe("Version route", () => {
-  describe("Redirects", () => {
-    it("Redirects to configure patch page if patch is not activated", () => {
-      cy.visit(versionRoute(versions[3]));
-      cy.location().should((loc) => {
-        expect(loc.pathname).to.equal(`/patch/${versions[3]}/configure/tasks`);
-      });
-    });
-    it("Throws a 404 if the version and patch doesn't exist", () => {
-      cy.visit(versionRoute(versions[1]));
-      cy.validateToast("error", "Unable to find patch or version i-dont-exist");
-    });
-  });
-
   describe("Metadata", () => {
     it("Shows patch parameters if they exist", () => {
       cy.visit(versionRoute(versions[0]));
