@@ -34,7 +34,7 @@ import {
   ProjectBuildVariant,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
-import { getNumEstimatedActivatedTasks } from "utils/tasks/estimatedActivatedTasks";
+import { sumActivatedTasksInVariantsTasks } from "utils/tasks/estimatedActivatedTasks";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
@@ -157,9 +157,9 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     );
   }
 
-  const estimatedActivatedTasksCount = getNumEstimatedActivatedTasks(
-    generatedTaskCounts,
+  const estimatedActivatedTasksCount = sumActivatedTasksInVariantsTasks(
     selectedBuildVariantTasks,
+    generatedTaskCounts,
     initialPatch.variantsTasks,
   );
 

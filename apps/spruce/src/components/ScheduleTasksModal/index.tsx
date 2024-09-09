@@ -17,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { UNSCHEDULED_TASKS } from "gql/queries";
-import { getNumEstimatedActivatedTasks } from "utils/tasks/estimatedActivatedTasks";
+import { sumActivatedTasksInSet } from "utils/tasks/estimatedActivatedTasks";
 import { initialState, reducer } from "./reducer";
 
 interface ScheduleTasksModalProps {
@@ -74,9 +74,9 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
 
   const { generatedTaskCounts = [] } = taskData?.version ?? {};
 
-  const estimatedActivatedTasksCount = getNumEstimatedActivatedTasks(
-    generatedTaskCounts,
+  const estimatedActivatedTasksCount = sumActivatedTasksInSet(
     selectedTasks,
+    generatedTaskCounts,
   );
 
   return (

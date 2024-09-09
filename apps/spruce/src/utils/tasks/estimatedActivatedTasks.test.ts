@@ -1,7 +1,11 @@
 import { GeneratedTaskCountResults, VariantTask } from "gql/generated/types";
 import { versionSelectedTasks } from "hooks/useVersionTaskStatusSelect";
 import { VariantTasksState } from "pages/configurePatch/configurePatchCore/useConfigurePatch/types";
-import { getNumEstimatedActivatedTasks } from "./estimatedActivatedTasks";
+import {
+  sumActivatedTasksInSelectedTasks,
+  sumActivatedTasksInSet,
+  sumActivatedTasksInVariantsTasks,
+} from "./estimatedActivatedTasks";
 
 describe("getNumEstimatedActivatedTasks", () => {
   const generatedTaskCounts: GeneratedTaskCountResults[] = [
@@ -26,9 +30,9 @@ describe("getNumEstimatedActivatedTasks", () => {
       { name: "variant1", tasks: ["task1"] },
     ];
     expect(
-      getNumEstimatedActivatedTasks(
-        generatedTaskCounts,
+      sumActivatedTasksInVariantsTasks(
         selectedBuildVariantTasks,
+        generatedTaskCounts,
         variantsTasks,
       ),
     ).toBe(12);
@@ -47,9 +51,9 @@ describe("getNumEstimatedActivatedTasks", () => {
       { name: "variant1", tasks: ["task3"] },
     ];
     expect(
-      getNumEstimatedActivatedTasks(
-        generatedTaskCounts,
+      sumActivatedTasksInVariantsTasks(
         selectedBuildVariantTasks,
+        generatedTaskCounts,
         variantsTasks,
       ),
     ).toBe(0);
@@ -63,16 +67,16 @@ describe("getNumEstimatedActivatedTasks", () => {
       },
     };
     expect(
-      getNumEstimatedActivatedTasks(
-        generatedTaskCounts,
+      sumActivatedTasksInVariantsTasks(
         selectedBuildVariantTasks,
+        generatedTaskCounts,
         [],
       ),
     ).toBe(18);
   });
   it("should compute the correct number of activated tasks to be created when scheduling multiple unscheduled tasks", () => {
     const set = new Set(["task1-variant2", "task2-variant2", "task3-variant2"]);
-    expect(getNumEstimatedActivatedTasks(generatedTaskCounts, set)).toBe(153);
+    expect(sumActivatedTasksInSet(set, generatedTaskCounts)).toBe(153);
   });
   it("should compute the correct number of activated tasks to be created when restarting all tasks in a version", () => {
     const vsts: versionSelectedTasks = {
@@ -82,7 +86,9 @@ describe("getNumEstimatedActivatedTasks", () => {
         "task3-variant2": true,
       },
     };
-    expect(getNumEstimatedActivatedTasks(generatedTaskCounts, vsts)).toBe(153);
+    expect(sumActivatedTasksInSelectedTasks(vsts, generatedTaskCounts)).toBe(
+      153,
+    );
   });
   it("should compute the correct number of activated tasks to be created when restarting some tasks in a version", () => {
     const vsts: versionSelectedTasks = {
@@ -92,9 +98,11 @@ describe("getNumEstimatedActivatedTasks", () => {
         "task3-variant2": true,
       },
     };
-    expect(getNumEstimatedActivatedTasks(generatedTaskCounts, vsts)).toBe(102);
+    expect(sumActivatedTasksInSelectedTasks(vsts, generatedTaskCounts)).toBe(
+      102,
+    );
   });
   it("should compute zero for empty input", () => {
-    expect(getNumEstimatedActivatedTasks([], {})).toBe(0);
+    expect(sumActivatedTasksInSelectedTasks({}, [])).toBe(0);
   });
 });

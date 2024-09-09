@@ -25,7 +25,7 @@ import {
   versionSelectedTasks,
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
-import { getNumEstimatedActivatedTasks } from "../../utils/tasks/estimatedActivatedTasks";
+import { sumActivatedTasksInSelectedTasks } from "utils/tasks/estimatedActivatedTasks";
 import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {
@@ -113,9 +113,9 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
   const selectedTotal = selectTasksTotal(selectedTasks || {});
 
   const { generatedTaskCounts = [] } = version ?? {};
-  const estimatedActivatedTasksCount = getNumEstimatedActivatedTasks(
-    generatedTaskCounts,
+  const estimatedActivatedTasksCount = sumActivatedTasksInSelectedTasks(
     selectedTasks || {},
+    generatedTaskCounts,
   );
   return (
     <ConfirmationModal
