@@ -4,7 +4,6 @@ import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import pluralize from "pluralize";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledRouterLink } from "components/styles";
 import {
   InputFilterProps,
@@ -14,7 +13,6 @@ import {
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeSelectProps } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
-import { mergeTaskVariant } from "constants/task";
 import { zIndex } from "constants/tokens";
 import {
   Task,
@@ -247,19 +245,12 @@ const getColumnDefs = ({
         "data-cy": "variant-input",
       })),
     render: (displayName, { buildVariant, projectIdentifier }) => (
-      <ConditionalWrapper
-        condition={buildVariant !== mergeTaskVariant}
-        wrapper={(children) => (
-          <StyledRouterLink
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
-          >
-            {children}
-          </StyledRouterLink>
-        )}
+      <StyledRouterLink
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
       >
         {displayName}
-      </ConditionalWrapper>
+      </StyledRouterLink>
     ),
   },
 ];

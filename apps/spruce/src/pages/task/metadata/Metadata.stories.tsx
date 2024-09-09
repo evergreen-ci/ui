@@ -154,7 +154,7 @@ const Container = styled.div`
 
 const abortInfoMap: Record<string, AbortInfo> = {
   NoUser: {
-    buildVariantDisplayName: "~ Commit Queue",
+    buildVariantDisplayName: "~ Merge Queue",
     newVersion: "",
     prClosed: false,
     taskDisplayName: "api-task-server",
@@ -162,7 +162,7 @@ const abortInfoMap: Record<string, AbortInfo> = {
     user: "",
   },
   AbortedBecauseOfFailingTask: {
-    buildVariantDisplayName: "~ Commit Queue",
+    buildVariantDisplayName: "~ Merge Queue",
     newVersion: "",
     prClosed: false,
     taskDisplayName: "api-task-server",

@@ -21,7 +21,6 @@ export const useSubscriptionData = () => {
   const globalSubscriptionIds = useMemo(() => {
     const {
       buildBreakId,
-      commitQueueId,
       patchFinishId,
       patchFirstFailureId,
       spawnHostExpirationId,
@@ -29,7 +28,6 @@ export const useSubscriptionData = () => {
     } = data?.userSettings?.notifications ?? {};
     return new Set([
       buildBreakId,
-      commitQueueId,
       patchFinishId,
       patchFirstFailureId,
       spawnHostExpirationId,

@@ -17,12 +17,7 @@ const ListArea: React.FC<ListAreaProps> = ({ loading, pageType, patches }) => {
     return (
       <>
         {patches.map((p) => (
-          <PatchCard
-            key={p.id}
-            isPatchOnCommitQueue={p.commitQueuePosition !== null}
-            pageType={pageType}
-            patch={p}
-          />
+          <PatchCard key={p.id} pageType={pageType} patch={p} />
         ))}
       </>
     );

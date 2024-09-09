@@ -106,11 +106,11 @@ const projectForm: GCQFormState = {
       ],
     },
   },
-  commitQueue: {
+  mergeQueue: {
     enabled: null,
     patchDefinitions: {
-      commitQueueAliasesOverride: true,
-      commitQueueAliases: [
+      mergeQueueAliasesOverride: true,
+      mergeQueueAliases: [
         {
           id: "3",
           alias: "__commit_queue",
@@ -259,11 +259,11 @@ const repoForm: GCQFormState = {
       gitTagAliases: [],
     },
   },
-  commitQueue: {
+  mergeQueue: {
     enabled: true,
     patchDefinitions: {
-      commitQueueAliasesOverride: true,
-      commitQueueAliases: [],
+      mergeQueueAliasesOverride: true,
+      mergeQueueAliases: [],
     },
   },
 };
@@ -408,11 +408,11 @@ const mergedForm: GCQFormState = {
       },
     },
   },
-  commitQueue: {
+  mergeQueue: {
     enabled: null,
     patchDefinitions: {
-      commitQueueAliasesOverride: true,
-      commitQueueAliases: [
+      mergeQueueAliasesOverride: true,
+      mergeQueueAliases: [
         {
           id: "3",
           alias: "__commit_queue",
@@ -433,8 +433,8 @@ const mergedForm: GCQFormState = {
         },
       ],
       repoData: {
-        commitQueueAliasesOverride: true,
-        commitQueueAliases: [],
+        mergeQueueAliasesOverride: true,
+        mergeQueueAliases: [],
       },
     },
   },

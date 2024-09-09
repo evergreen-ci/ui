@@ -11,8 +11,7 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import { commitQueueAlias } from "constants/patch";
-import { getCommitQueueRoute, getPatchRoute, slugs } from "constants/routes";
+import { getPatchRoute, slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   VersionQuery,
@@ -99,19 +98,15 @@ export const VersionPage: React.FC = () => {
   });
 
   // Decide where to redirect the user based off of whether or not the patch has been activated.
-  // If the patch is activated and not on the commit queue, we can safely fetch the associated version.
+  // If the patch is activated, we can safely fetch the associated version.
   useEffect(() => {
     if (patchData) {
       const { patch } = patchData;
-      const { activated, alias, projectID } = patch;
+      const { activated, alias } = patch;
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       if (isPatchUnconfigured({ alias, activated })) {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         setRedirectURL(getPatchRoute(versionId, { configure: true }));
-        setIsLoadingData(false);
-      } else if (!activated && alias === commitQueueAlias) {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        setRedirectURL(getCommitQueueRoute(projectID));
         setIsLoadingData(false);
       } else {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -158,12 +153,7 @@ export const VersionPage: React.FC = () => {
     status,
     warnings,
   } = version || {};
-  const {
-    canEnqueueToCommitQueue,
-    commitQueuePosition = null,
-    patchNumber,
-  } = patch || {};
-  const isPatchOnCommitQueue = commitQueuePosition !== null;
+  const { patchNumber } = patch || {};
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionText = shortenGithash(revision || versionId);
@@ -197,14 +187,9 @@ export const VersionPage: React.FC = () => {
         buttons={
           <ActionButtons
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            canEnqueueToCommitQueue={canEnqueueToCommitQueue}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            canReconfigure={!isPatchOnCommitQueue && isPatch}
+            canReconfigure={isPatch}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             isPatch={isPatch}
-            isPatchOnCommitQueue={isPatchOnCommitQueue}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            patchDescription={message}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionId={versionId}
           />
