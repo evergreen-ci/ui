@@ -12,3 +12,12 @@ export const toSentenceCase = (string: string) => {
   }
   return string[0].toUpperCase() + string.substring(1).toLowerCase();
 };
+
+/**
+ * `toEscapedRegex` takes a string and returns an escaped version of it that can be used in a regex.
+ * @param str - The string to escape.
+ * @returns - The escaped string.
+ */
+export const toEscapedRegex = (str: string): string =>
+  // eslint-disable-next-line no-useless-escape -- This is a function to escape regex characters
+  str.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
