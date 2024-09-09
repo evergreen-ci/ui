@@ -29,7 +29,6 @@ import IMAGE_PACKAGES from "./image-packages.graphql";
 import IMAGE_TOOLCHAINS from "./image-toolchains.graphql";
 import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
-import IS_PATCH_CONFIGURED from "./is-patch-configured.graphql";
 import JIRA_CUSTOM_CREATED_ISSUES from "./jira-custom-created-issues.graphql";
 import JIRA_ISSUES from "./jira-issues.graphql";
 import JIRA_SUSPECTED_ISSUES from "./jira-suspected-issues.graphql";
@@ -118,7 +117,6 @@ export {
   IMAGE_TOOLCHAINS,
   IMAGES,
   INSTANCE_TYPES,
-  IS_PATCH_CONFIGURED,
   JIRA_CUSTOM_CREATED_ISSUES,
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,
