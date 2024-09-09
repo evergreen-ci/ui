@@ -633,6 +633,14 @@ export type GeneralSubscription = {
   triggerData?: Maybe<Scalars["StringMap"]["output"]>;
 };
 
+export type GeneratedTaskCountResults = {
+  __typename?: "GeneratedTaskCountResults";
+  buildVariantName?: Maybe<Scalars["String"]["output"]>;
+  estimatedTasks: Scalars["Int"]["output"];
+  taskId?: Maybe<Scalars["String"]["output"]>;
+  taskName?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type GitHubDynamicTokenPermissionGroup = {
   __typename?: "GitHubDynamicTokenPermissionGroup";
   name: Scalars["String"]["output"];
@@ -1625,7 +1633,7 @@ export type Patch = {
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
-  generatedTaskCounts: Scalars["Map"]["output"];
+  generatedTaskCounts: Array<GeneratedTaskCountResults>;
   githash: Scalars["String"]["output"];
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
@@ -3287,7 +3295,7 @@ export type Version = {
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]["output"]>;
-  generatedTaskCounts: Scalars["Map"]["output"];
+  generatedTaskCounts: Array<GeneratedTaskCountResults>;
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
