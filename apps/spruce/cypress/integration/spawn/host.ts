@@ -250,7 +250,7 @@ describe("Navigating to Spawn Host page", () => {
     cy.get("@currentDateCell")
       .next()
       .then(($el) => {
-        if ($el.attr("aria-disabled") === "false") {
+        if (!$el || $el.attr("aria-disabled") === "false") {
           cy.get("@currentDateCell").next().click();
         } else {
           cy.log("Current date is the last day of the month");
