@@ -4,7 +4,6 @@ import {
   ScheduleTasks,
   RestartPatch,
   UnscheduleTasks,
-  EnqueuePatch,
   AddNotification,
   DisableTasks,
   ScheduleUndispatchedBaseTasks,
@@ -13,20 +12,14 @@ import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 
 interface ActionButtonProps {
-  canEnqueueToCommitQueue: boolean;
   canReconfigure: boolean;
   isPatch: boolean;
-  isPatchOnCommitQueue: boolean;
-  patchDescription: string;
   versionId: string;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
-  canEnqueueToCommitQueue,
   canReconfigure,
   isPatch,
-  isPatchOnCommitQueue,
-  patchDescription,
   versionId,
 }) => {
   const dropdownItems = [
@@ -43,23 +36,12 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       versionId={versionId}
     />,
     <SetPriority key="priority" versionId={versionId} />,
-    <EnqueuePatch
-      key="enqueue"
-      commitMessage={patchDescription}
-      disabled={!canEnqueueToCommitQueue}
-      patchId={versionId}
-    />,
   ];
 
   return (
     <PageButtonRow>
-      <ScheduleTasks
-        disabled={isPatchOnCommitQueue}
-        isButton
-        versionId={versionId}
-      />
+      <ScheduleTasks isButton versionId={versionId} />
       <RestartPatch
-        disabled={isPatchOnCommitQueue}
         isButton
         patchId={versionId}
         refetchQueries={["VersionTasks"]}

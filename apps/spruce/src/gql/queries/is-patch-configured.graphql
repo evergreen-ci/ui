@@ -1,8 +1,0 @@
-query IsPatchConfigured($id: String!) {
-  patch(patchId: $id) {
-    activated
-    alias
-    id
-    projectID
-  }
-}

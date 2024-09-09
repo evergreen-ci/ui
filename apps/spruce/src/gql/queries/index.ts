@@ -9,7 +9,6 @@ import BUILD_VARIANTS_FOR_TASK_NAME from "./build-variants-for-task-name.graphql
 import BUILD_VARIANTS_WITH_CHILDREN from "./build-variants-with-children.graphql";
 import CLIENT_CONFIG from "./client-config.graphql";
 import CODE_CHANGES from "./code-changes.graphql";
-import COMMIT_QUEUE from "./commit-queue.graphql";
 import CREATED_TICKETS from "./created-tickets.graphql";
 import DISPLAY_TASK from "./display-task.graphql";
 import DISTRO_EVENTS from "./distro-events.graphql";
@@ -30,7 +29,6 @@ import IMAGE_PACKAGES from "./image-packages.graphql";
 import IMAGE_TOOLCHAINS from "./image-toolchains.graphql";
 import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
-import IS_PATCH_CONFIGURED from "./is-patch-configured.graphql";
 import JIRA_CUSTOM_CREATED_ISSUES from "./jira-custom-created-issues.graphql";
 import JIRA_ISSUES from "./jira-issues.graphql";
 import JIRA_SUSPECTED_ISSUES from "./jira-suspected-issues.graphql";
@@ -99,7 +97,6 @@ export {
   BUILD_VARIANTS_WITH_CHILDREN,
   CLIENT_CONFIG,
   CODE_CHANGES,
-  COMMIT_QUEUE,
   CREATED_TICKETS,
   DISPLAY_TASK,
   DISTRO_EVENTS,
@@ -120,7 +117,6 @@ export {
   IMAGE_TOOLCHAINS,
   IMAGES,
   INSTANCE_TYPES,
-  IS_PATCH_CONFIGURED,
   JIRA_CUSTOM_CREATED_ISSUES,
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,
