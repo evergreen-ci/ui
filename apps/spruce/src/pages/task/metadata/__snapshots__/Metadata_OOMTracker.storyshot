@@ -142,30 +142,19 @@
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
         >
-          Image:
+          ID:
         </b>
          
         <a
           class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
-          data-cy="task-image-link"
-          href="/image/ubuntu1604/build-information"
+          data-cy="task-host-link"
+          href="/host/i-0e0e62799806e037d"
+          target="_self"
         >
           <span>
-            ubuntu1604
+            i-0e0e62799806e037d
           </span>
         </a>
-      </p>
-      <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
-        data-cy="task-metadata-ami"
-      >
-        <b
-          class="css-1xk67r-MetadataLabel e1ul56zb0"
-        >
-          AMI:
-        </b>
-         
-        ami-0c83bb0a9f48c15bf
       </p>
       <p
         class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
@@ -192,19 +181,30 @@
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
         >
-          ID:
+          Image:
         </b>
          
         <a
           class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
-          data-cy="task-host-link"
-          href="/host/i-0e0e62799806e037d"
-          target="_self"
+          data-cy="task-image-link"
+          href="/image/ubuntu1604/build-information"
         >
           <span>
-            i-0e0e62799806e037d
+            ubuntu1604
           </span>
         </a>
+      </p>
+      <p
+        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        data-cy="task-metadata-ami"
+      >
+        <b
+          class="css-1xk67r-MetadataLabel e1ul56zb0"
+        >
+          AMI:
+        </b>
+         
+        ami-0c83bb0a9f48c15bf
       </p>
       <p
         class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"

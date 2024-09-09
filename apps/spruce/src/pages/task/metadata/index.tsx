@@ -357,6 +357,40 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       {!isDisplayTask && (
         <MetadataCard>
           <MetadataTitle>Host Information</MetadataTitle>{" "}
+          {!isContainerTask && hostId && (
+            <MetadataItem>
+              <MetadataLabel>ID:</MetadataLabel>{" "}
+              <StyledLink
+                data-cy="task-host-link"
+                href={getHostRoute(hostId)}
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "host link",
+                  })
+                }
+              >
+                {hostId}
+              </StyledLink>
+            </MetadataItem>
+          )}
+          {!isContainerTask && distroId && (
+            <MetadataItem>
+              <MetadataLabel>Distro:</MetadataLabel>{" "}
+              <StyledRouterLink
+                data-cy="task-distro-link"
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "distro link",
+                  })
+                }
+                to={getDistroSettingsRoute(distroId)}
+              >
+                {distroId}
+              </StyledRouterLink>
+            </MetadataItem>
+          )}
           {showImageVisibilityPage && !isContainerTask && imageId && (
             <MetadataItem>
               <MetadataLabel>Image:</MetadataLabel>{" "}
@@ -377,40 +411,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           {ami && (
             <MetadataItem data-cy="task-metadata-ami">
               <MetadataLabel>AMI:</MetadataLabel> {ami}
-            </MetadataItem>
-          )}
-          {!isContainerTask && distroId && (
-            <MetadataItem>
-              <MetadataLabel>Distro:</MetadataLabel>{" "}
-              <StyledRouterLink
-                data-cy="task-distro-link"
-                onClick={() =>
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "distro link",
-                  })
-                }
-                to={getDistroSettingsRoute(distroId)}
-              >
-                {distroId}
-              </StyledRouterLink>
-            </MetadataItem>
-          )}
-          {!isContainerTask && hostId && (
-            <MetadataItem>
-              <MetadataLabel>ID:</MetadataLabel>{" "}
-              <StyledLink
-                data-cy="task-host-link"
-                href={getHostRoute(hostId)}
-                onClick={() =>
-                  taskAnalytics.sendEvent({
-                    name: "Clicked metadata link",
-                    "link.type": "host link",
-                  })
-                }
-              >
-                {hostId}
-              </StyledLink>
             </MetadataItem>
           )}
           {isContainerTask && (
