@@ -1,4 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -6,7 +11,6 @@ import {
   DistroEventsQueryVariables,
 } from "gql/generated/types";
 import { DISTRO_EVENTS } from "gql/queries";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { EventLogTab } from "./EventLogTab";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

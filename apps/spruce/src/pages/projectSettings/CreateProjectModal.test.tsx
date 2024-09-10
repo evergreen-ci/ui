@@ -1,5 +1,12 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  stubGetClientRects,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -10,13 +17,6 @@ import {
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
 import { GITHUB_ORGS } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  stubGetClientRects,
-  userEvent,
-  waitFor,
-} from "test_utils";
 import { selectLGOption } from "test_utils/utils";
 import { CreateProjectModal } from "./CreateProjectModal";
 

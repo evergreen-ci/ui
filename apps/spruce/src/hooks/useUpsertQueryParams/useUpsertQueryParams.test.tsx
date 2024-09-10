@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { renderWithRouterMatch, screen, userEvent } from "test_utils";
+import {
+  renderWithRouterMatch,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import { useUpsertQueryParams } from ".";
 
 const Content = () => {

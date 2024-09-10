@@ -1,5 +1,5 @@
+import { renderHook, render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { CharKey, ModifierKey } from "constants/keys";
-import { renderHook, render, screen, userEvent } from "test_utils";
 import useKeyboardShortcut from ".";
 
 describe("useKeyboardShortcut", () => {

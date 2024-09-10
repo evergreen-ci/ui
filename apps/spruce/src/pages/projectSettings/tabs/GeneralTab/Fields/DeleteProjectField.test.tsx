@@ -1,5 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { FieldProps } from "@rjsf/core";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -7,7 +12,6 @@ import {
   DeleteProjectMutationVariables,
 } from "gql/generated/types";
 import { DELETE_PROJECT } from "gql/mutations";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { DeleteProjectField } from ".";
 
 const Field = () => (

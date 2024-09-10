@@ -1,4 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   FailedTaskStatusIconTooltipQuery,
@@ -9,12 +15,6 @@ import {
   injectGlobalHighlightStyle,
   removeGlobalHighlightStyle,
 } from "pages/commits/ActiveCommits/utils";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
 import { WaterfallTaskStatusIcon } from ".";
 
 const props = {

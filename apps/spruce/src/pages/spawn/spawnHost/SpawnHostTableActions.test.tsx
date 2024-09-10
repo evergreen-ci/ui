@@ -1,4 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  act,
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { defaultSleepSchedule } from "components/Spawn/utils";
 import { SECOND } from "constants/index";
@@ -18,13 +25,6 @@ import {
 import { getUserMock } from "gql/mocks/getUser";
 import { myVolumesQueryMock } from "gql/mocks/myVolumesQuery";
 import { INSTANCE_TYPES, MY_HOSTS, MY_PUBLIC_KEYS } from "gql/queries";
-import {
-  act,
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { SpawnHostTable } from "./SpawnHostTable";

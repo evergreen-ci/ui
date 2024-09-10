@@ -1,4 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -9,7 +15,6 @@ import {
 } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
-import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { RelevantCommits } from ".";
 
 describe("relevant commits", () => {

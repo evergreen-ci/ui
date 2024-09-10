@@ -1,4 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  waitFor,
+  within,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -7,12 +13,6 @@ import {
   Provider,
 } from "gql/generated/types";
 import { IMAGE_DISTROS } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  waitFor,
-  within,
-} from "test_utils";
 import { DistrosTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

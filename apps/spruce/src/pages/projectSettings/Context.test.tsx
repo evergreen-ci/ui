@@ -1,7 +1,7 @@
 import { AjvError } from "@rjsf/core";
+import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { WritableProjectSettingsType } from "pages/projectSettings/tabs/types";
-import { act, renderHook, waitFor } from "test_utils";
 import { ProjectSettingsProvider, useProjectSettingsContext } from "./Context";
 
 describe("projectSettingsContext", () => {

@@ -1,5 +1,5 @@
 import { captureException } from "@sentry/react";
-import { render, screen } from "test_utils";
+import { render, screen } from "@evg-ui/lib/test_utils";
 import { mockEnvironmentVariables } from "test_utils/utils";
 import { ErrorBoundary } from "./ErrorBoundary";
 

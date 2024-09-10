@@ -1,9 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
+import {
   injectGlobalDimStyle,
   removeGlobalDimStyle,
 } from "pages/commits/ActiveCommits/utils";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { BuildVariantCard } from ".";
 
 vi.mock("../utils");

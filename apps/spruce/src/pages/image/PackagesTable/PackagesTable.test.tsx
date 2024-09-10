@@ -1,4 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  waitFor,
+  within,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -6,13 +13,6 @@ import {
   ImagePackagesQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_PACKAGES } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  waitFor,
-  within,
-  userEvent,
-} from "test_utils";
 import { PackagesTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

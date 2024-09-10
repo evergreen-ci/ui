@@ -1,6 +1,10 @@
 import { useLocation } from "react-router-dom";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { queryString } from "utils";
 import { useTableInputFilter, useTableCheckboxFilter } from ".";
 

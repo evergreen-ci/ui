@@ -1,8 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  screen,
+} from "@evg-ui/lib/test_utils";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
-import { renderWithRouterMatch as render, screen } from "test_utils";
 import { applyStrictRegex } from "utils/string";
 import VariantTaskGroup from ".";
 

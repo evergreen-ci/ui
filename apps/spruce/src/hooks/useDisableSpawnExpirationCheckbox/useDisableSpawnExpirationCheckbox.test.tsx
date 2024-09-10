@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { renderHook } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import {
   MyHostsQuery,
@@ -8,7 +9,6 @@ import {
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { MY_VOLUMES, MY_HOSTS } from "gql/queries";
-import { renderHook } from "test_utils";
 import { useDisableSpawnExpirationCheckbox } from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

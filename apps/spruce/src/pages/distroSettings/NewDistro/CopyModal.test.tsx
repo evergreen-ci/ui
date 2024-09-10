@@ -1,5 +1,12 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  stubGetClientRects,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -7,13 +14,6 @@ import {
   CopyDistroMutationVariables,
 } from "gql/generated/types";
 import { COPY_DISTRO } from "gql/mutations";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  stubGetClientRects,
-  userEvent,
-  waitFor,
-} from "test_utils";
 import { CopyModal } from "./CopyModal";
 
 const distroIdToCopy = "rhel71-power8-large";
