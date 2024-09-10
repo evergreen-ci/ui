@@ -1,5 +1,4 @@
 import { GuideCue, GuideCueProps } from "@leafygreen-ui/guide-cue";
-import { releaseSectioning } from "utils/featureFlag";
 import { useSectionsFeatureDiscoveryContext } from ".";
 
 export const JumpToFailingLineToggleGuideCue: React.FC<{
@@ -7,7 +6,7 @@ export const JumpToFailingLineToggleGuideCue: React.FC<{
 }> = ({ refEl }) => {
   const { closeSecondGuideCue, secondGuideCueOpen, setSecondGuideCueOpen } =
     useSectionsFeatureDiscoveryContext();
-  return releaseSectioning ? (
+  return (
     <GuideCue
       beaconAlign="right"
       data-cy="sections-cue-2"
@@ -21,5 +20,5 @@ export const JumpToFailingLineToggleGuideCue: React.FC<{
       Combined with sectioning, jump to failing line allows to streamline your
       failure triage process.
     </GuideCue>
-  ) : null;
+  );
 };
