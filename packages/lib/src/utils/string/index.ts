@@ -19,5 +19,4 @@ export const toSentenceCase = (string: string) => {
  * @returns - The escaped string.
  */
 export const toEscapedRegex = (str: string): string =>
-  // eslint-disable-next-line no-useless-escape -- This is a function to escape regex characters
-  str.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+  str.replace(/[-\\/\\^$*+?.()|[\]{}]/g, "\\$&");
