@@ -5,8 +5,6 @@ fragment PatchesPagePatches on Patches {
     alias
     author
     authorDisplayName
-    canEnqueueToCommitQueue
-    commitQueuePosition
     createTime
     description
     hidden

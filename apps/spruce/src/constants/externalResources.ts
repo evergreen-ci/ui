@@ -29,7 +29,7 @@ export const patchAliasesDocumentationUrl = `${projectDistroSettingsDocumentatio
 
 export const pullRequestAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#pr-aliases`;
 
-export const commitQueueAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#commit-queue-aliases`;
+export const mergeQueueAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#merge-queue-aliases`;
 
 export const gitTagAliasesDocumentationUrl = `${projectDistroSettingsDocumentationUrl}#git-tag-aliases`;
 

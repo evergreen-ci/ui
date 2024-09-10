@@ -7,15 +7,6 @@ const errorIfStrict = process.env.STRICT ? ERROR : WARN;
 module.exports = {
   root: true,
   extends: ["@evg-ui"],
-  overrides: [
-    {
-      files: ["src/gql/**/*.graphql"],
-      extends: "plugin:@graphql-eslint/operations-recommended",
-      rules: {
-        "@graphql-eslint/selection-set-depth": OFF,
-      },
-    },
-  ],
   plugins: ["check-file"],
   rules: {
     "check-file/filename-naming-convention": [

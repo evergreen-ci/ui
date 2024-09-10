@@ -3,7 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";
-import { commitQueueAlias } from "constants/patch";
+import { mergeQueueAlias } from "constants/patch";
 import { getVersionRoute, slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
@@ -48,7 +48,7 @@ const ConfigurePatch: React.FC = () => {
   }
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  if (patch.alias === commitQueueAlias) {
+  if (patch.alias === mergeQueueAlias) {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     return <Navigate to={getVersionRoute(patchId)} />;
   }

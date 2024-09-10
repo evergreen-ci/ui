@@ -1,10 +1,10 @@
 {
   "name": "parsley",
-  "version": "2.1.56",
+  "version": "2.1.58",
   "private": true,
   "type": "module",
   "scripts": {
-    "bootstrap-logkeeper": "./scripts/bootstrap-logkeeper.sh",
+    "bootstrap-s3-logs": "../../scripts/bootstrap-s3-logs.sh",
     "build": "tsc && GIT_SHA=`git rev-parse HEAD` APP_VERSION=$npm_package_version vite build",
     "build:local": "env-cmd -e local -r .env-cmdrc.local.json yarn build",
     "build:beta": "env-cmd -e beta yarn build",

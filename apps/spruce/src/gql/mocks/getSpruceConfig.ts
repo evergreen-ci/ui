@@ -82,7 +82,6 @@ export const getUserSettingsMock: ApolloMock<
         notifications: {
           __typename: "Notifications",
           buildBreak: "",
-          commitQueue: "",
           patchFinish: "",
           patchFirstFailure: "",
           spawnHostExpiration: "",

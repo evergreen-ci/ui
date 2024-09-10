@@ -6,7 +6,6 @@ query UserSettings {
     }
     notifications {
       buildBreak
-      commitQueue
       patchFinish
       patchFirstFailure
       spawnHostExpiration

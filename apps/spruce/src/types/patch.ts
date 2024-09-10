@@ -1,5 +1,5 @@
 export enum PatchPageQueryParams {
-  CommitQueue = "commitQueue",
+  MergeQueue = "mergeQueue",
   PatchName = "patchName",
   Statuses = "statuses",
   Page = "page",

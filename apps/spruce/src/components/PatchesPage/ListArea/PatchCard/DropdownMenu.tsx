@@ -4,33 +4,24 @@ import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   UnscheduleTasks,
   RestartPatch,
-  EnqueuePatch,
   ScheduleTasks,
   SetPatchVisibility,
 } from "components/PatchActionButtons";
 
 interface Props {
-  canEnqueueToCommitQueue: boolean;
   hasVersion: boolean;
   isPatchHidden: boolean;
-  isPatchOnCommitQueue: boolean;
-  patchDescription: string;
   patchId: string;
 }
 export const DropdownMenu: React.FC<Props> = ({
-  canEnqueueToCommitQueue,
   hasVersion,
   isPatchHidden,
-  isPatchOnCommitQueue,
-  patchDescription,
   patchId,
 }) => {
   const restartModalVisibilityControl = useState(false);
-  const enqueueModalVisibilityControl = useState(false);
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
-      disabled={isPatchOnCommitQueue}
       hasVersion={hasVersion}
       patchId={patchId}
     />,
@@ -47,14 +38,6 @@ export const DropdownMenu: React.FC<Props> = ({
       patchId={patchId}
       refetchQueries={refetchQueries}
       visibilityControl={restartModalVisibilityControl}
-    />,
-    <EnqueuePatch
-      key="enqueue"
-      commitMessage={patchDescription}
-      disabled={!canEnqueueToCommitQueue || !hasVersion}
-      patchId={patchId}
-      refetchQueries={refetchQueries}
-      visibilityControl={enqueueModalVisibilityControl}
     />,
     <SetPatchVisibility
       key="hide"

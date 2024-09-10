@@ -3,33 +3,13 @@ const versions = {
   1: "i-dont-exist", // non existent patch
   2: "52a630633ff1227909000021", // patch 2
   3: "5e6bb9e23066155a993e0f1a", // unconfigured patch
-  4: "642de18d2a60edf48b34a8c7", // unactivated patch on commit queue
-  5: "evergreen_33016573166a36bd5f46b4111151899d5c4e95b1", // basecommit for versions[0]
-  6: "5e4ff3abe3c3317e352062e4",
+  4: "evergreen_33016573166a36bd5f46b4111151899d5c4e95b1", // basecommit for versions[0]
+  5: "5e4ff3abe3c3317e352062e4",
 };
 
 const versionRoute = (id: string) => `/version/${id}`;
 
 describe("Version route", () => {
-  describe("Redirects", () => {
-    it("Redirects to configure patch page if patch is not activated", () => {
-      cy.visit(versionRoute(versions[3]));
-      cy.location().should((loc) => {
-        expect(loc.pathname).to.equal(`/patch/${versions[3]}/configure/tasks`);
-      });
-    });
-    it("Redirects to the commit queue page if a patch is on the commit queue and has not been activated", () => {
-      cy.visit(versionRoute(versions[4]));
-      cy.location().should((loc) => {
-        expect(loc.pathname).to.equal(`/commit-queue/mongodb-mongo-master`);
-      });
-    });
-    it("Throws a 404 if the version and patch doesn't exist", () => {
-      cy.visit(versionRoute(versions[1]));
-      cy.validateToast("error", "Unable to find patch or version i-dont-exist");
-    });
-  });
-
   describe("Metadata", () => {
     it("Shows patch parameters if they exist", () => {
       cy.visit(versionRoute(versions[0]));
@@ -43,7 +23,7 @@ describe("Version route", () => {
       cy.visit(versionRoute(versions[0]));
       cy.dataCy("patch-base-commit")
         .should("have.attr", "href")
-        .and("include", `/version/${versions[5]}`);
+        .and("include", `/version/${versions[4]}`);
     });
     it("Doesn't show patch parameters if they don't exist", () => {
       cy.visit(versionRoute(versions[2]));
@@ -69,13 +49,11 @@ describe("Version route", () => {
     describe("Grouped Task Status Badge", () => {
       it("Shows tooltip with task's name on hover", () => {
         cy.dataCy("build-variants").within(() => {
-          cy.dataCy("grouped-task-status-badge")
-            .first()
-            .trigger("mouseover")
-            .within(($el) => {
-              // @ts-expect-error
-              expect($el.text()).to.contain("1Succeeded");
-            });
+          cy.dataCy("grouped-task-status-badge").first().as("statusBadge");
+          cy.get("@statusBadge").trigger("mouseover");
+          cy.get("@statusBadge").within(($el) => {
+            expect($el.text()).to.contain("1Succeeded");
+          });
         });
       });
 
@@ -181,7 +159,7 @@ describe("Version route", () => {
 
   describe("Page title", () => {
     beforeEach(() => {
-      cy.visit(versionRoute(versions[6]));
+      cy.visit(versionRoute(versions[5]));
     });
     it("Should include a link to Jira", () => {
       cy.dataCy("page-title")
