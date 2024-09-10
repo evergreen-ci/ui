@@ -3,29 +3,7 @@ import { Accordion } from "components/Accordion";
 import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData } from "gql/generated/types";
-import { HostEvent, HostMonitorOp } from "types/host";
-import { string } from "utils";
-
-const { stringifyNanoseconds } = string;
-
-const getTerminationString = (monitorOp: string) => {
-  switch (monitorOp) {
-    case HostMonitorOp.Decommissioned:
-      return `host was decommissioned.`;
-    case HostMonitorOp.Idle:
-      return `host was idle.`;
-    case HostMonitorOp.Excess:
-      return `pool exceeded maximum hosts limit.`;
-    case HostMonitorOp.ProvisionTimeout:
-      return `host took too long for provisioning to complete.`;
-    case HostMonitorOp.ProvisionFailed:
-      return `provisioning failed.`;
-    case HostMonitorOp.Expired:
-      return `expiration time passed.`;
-    default:
-      return `${monitorOp}`;
-  }
-};
+import { HostEvent } from "types/host";
 
 interface TaskLinkProps {
   "data-cy": string;
@@ -97,12 +75,6 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
             <HostEventLog isCode logs={data.logs} title="Additional details" />
           )}
         </div>
-      );
-    case HostEvent.Fallback:
-      return (
-        <span data-cy="fallback">
-          Host start attempt failed, attempting to fallback to EC2 On-Demand
-        </span>
       );
     case HostEvent.AgentDeployed:
       return (
@@ -233,29 +205,12 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           />
         </div>
       );
-    case HostEvent.HostMonitorFlag:
-      return (
-        <div data-cy="host-monitor-flag">
-          Flagged for termination because:{" "}
-          <b>{getTerminationString(data.monitorOp)}</b>
-        </div>
-      );
     case HostEvent.HostProvisionFailed:
       return (
         <div data-cy="host-provision-failed">
           Provisioning failed{" "}
           {data.logs && (
             <HostEventLog isCode logs={data.logs} title="Provisioning logs" />
-          )}
-        </div>
-      );
-    case HostEvent.HostTeardown:
-      return (
-        <div data-cy="host-teardown">
-          Teardown script {data.successful ? "ran successfully" : <b>failed</b>}{" "}
-          in {stringifyNanoseconds(data.duration, true, true)}
-          {data.logs && (
-            <HostEventLog isCode logs={data.logs} title="Teardown logs" />
           )}
         </div>
       );

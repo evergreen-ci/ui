@@ -84,10 +84,6 @@ describe("Host events", () => {
         text: "Marked as provisioned",
       },
       {
-        hostType: "host-monitor-flag",
-        text: "Flagged for termination because: unreachable",
-      },
-      {
         hostType: "host-expiration-warning-set",
         text: "Expiration warning sent",
       },
@@ -124,11 +120,6 @@ describe("Host events", () => {
         hostType: "host-script-execute-failed",
         text: "Failed to execute script on host",
         logsTitle: "Script logs",
-      },
-      {
-        hostType: "host-teardown",
-        text: "Teardown script failed in < 1 ms",
-        logsTitle: "Teardown logs",
       },
       {
         hostType: "host-provision-failed",
@@ -207,7 +198,7 @@ describe("Host events", () => {
   });
 
   it("host event pagination last page displays the right items", () => {
-    cy.visit("host/i-0f81a2d39744003dd?limit=10&page=3");
+    cy.visit("host/i-0f81a2d39744003dd?limit=10&page=2");
     cy.dataCy("host-provisioned").should("exist");
   });
 
