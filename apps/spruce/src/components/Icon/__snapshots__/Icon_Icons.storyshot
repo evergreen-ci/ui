@@ -903,35 +903,6 @@
       class="css-141et6l"
     >
       <svg
-        aria-label="Collections Icon"
-        class=""
-        color="#000000"
-        fill="none"
-        height="16"
-        role="img"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-13A.5.5 0 0 1 1 4V2Z"
-          fill="currentColor"
-        />
-        <path
-          clip-rule="evenodd"
-          d="M2.75 5.5a.75.75 0 0 0-.75.75v7.5c0 .414.336.75.75.75h10.5a.75.75 0 0 0 .75-.75v-7.5a.75.75 0 0 0-.75-.75H2.75ZM6.25 7a.5.5 0 0 0 0 1h3.5a.5.5 0 0 0 0-1h-3.5Z"
-          fill="currentColor"
-          fill-rule="evenodd"
-        />
-      </svg>
-      <span>
-        Collections
-      </span>
-    </div>
-    <div
-      class="css-141et6l"
-    >
-      <svg
         aria-label="Colon Icon"
         class=""
         color="#000000"
@@ -1346,6 +1317,56 @@
       class="css-141et6l"
     >
       <svg
+        aria-label="Eraser Icon"
+        class=""
+        color="#000000"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M8.381 1.934a2.014 2.014 0 0 1 2.817 0l3.228 3.228a2.014 2.014 0 0 1 0 2.817l-5.258 5.258h5.289c.29 0 .526.235.526.526v.35c0 .292-.235.527-.526.527h-9.51a.702.702 0 0 1-.495-.205l-2.878-2.877a2.014 2.014 0 0 1 0-2.817l6.807-6.807ZM8.1 12.32a.5.5 0 0 0 0-.707L4.747 8.26a.5.5 0 0 0-.707 0L2.566 9.733a.612.612 0 0 0 0 .832l2.518 2.518a.527.527 0 0 0 .372.154h1.51c.139 0 .273-.056.372-.155l.762-.762Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <span>
+        Eraser
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <svg
+        aria-label="Escalation Icon"
+        class=""
+        color="#000000"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M13.361 4.423a.556.556 0 0 0-.26-.97L5.146 2.009a.556.556 0 0 0-.636.69l1.787 6.672a.556.556 0 0 0 .896.28l6.168-5.228ZM2.911 2.102a.556.556 0 0 0-.392.68l3.163 11.806a.556.556 0 1 0 1.074-.287L3.592 2.493a.556.556 0 0 0-.68-.392Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <span>
+        Escalation
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <svg
         aria-label="Export Icon"
         class=""
         color="#000000"
@@ -1407,8 +1428,10 @@
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M8 0c1.6 0 2.8 1.3 2.8 3 0 1.5-1 2.7-2.3 3v2.1l3.1 2.4c.4-.3 1-.5 1.5-.5 1.6 0 2.8 1.3 2.8 3s-1.3 3-2.8 3c-1.6 0-2.8-1.3-2.8-3 0-.7.2-1.3.6-1.8L8 9l-2.9 2.2c.4.5.6 1.1.6 1.8 0 1.7-1.3 3-2.8 3C1.4 16 0 14.7 0 13s1.3-3 2.8-3c.6 0 1.1.2 1.5.5l3.1-2.4V5.9C6.2 5.7 5.2 4.5 5.2 3c0-1.7 1.2-3 2.8-3Zm0 5c.8 0 1.9-.8 1.9-2C9.9 1.9 9 1 8 1c-1 0-1.9.9-1.9 2 0 1.2 1 2 1.9 2Zm-5.2 6c-1 0-1.9.9-1.9 2s.8 2 1.9 2c1.1 0 1.9-.9 1.9-2s-.8-2-1.9-2Zm10.4 0c-1 0-1.9.9-1.9 2s.8 2 1.9 2c1.1 0 1.9-.9 1.9-2s-.9-2-1.9-2Z"
+          clip-rule="evenodd"
+          d="M9.333 4.19a1.276 1.276 0 1 1-2.552 0 1.276 1.276 0 0 1 2.552 0Zm-.32 3.045A3.192 3.192 0 0 0 8.058 1 3.19 3.19 0 0 0 7.1 7.235v1.627l-1.706.984a3.19 3.19 0 1 0 .924 1.677l1.732-1 1.642.948a3.192 3.192 0 0 0 5.88 2.28 3.19 3.19 0 0 0-4.928-3.94l-1.63-.942V7.235Zm3.158 6.025a1.276 1.276 0 1 1 1.276-2.21 1.276 1.276 0 0 1-1.276 2.21ZM2.086 11.517a1.276 1.276 0 1 0 2.21 1.276 1.276 1.276 0 0 0-2.21-1.276Z"
           fill="currentColor"
+          fill-rule="evenodd"
         />
       </svg>
       <span>
@@ -1531,6 +1554,29 @@
       </svg>
       <span>
         Folder
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <svg
+        aria-label="Format Icon"
+        class=""
+        color="#000000"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2 4a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1Zm0 4a1 1 0 0 1 1-1h6a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1Zm1 3a1 1 0 0 0 0 2h10a1 1 0 0 0 0-2H3Zm4-7a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1Zm4 4a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1Z"
+          fill="currentColor"
+        />
+      </svg>
+      <span>
+        Format
       </span>
     </div>
     <div
@@ -2007,13 +2053,13 @@
       >
         <path
           clip-rule="evenodd"
-          d="M1 3a1 1 0 0 1 1-1h4.25a.75.75 0 0 1 .75.75v.5a.75.75 0 0 1-.75.75H3v8h3.25a.75.75 0 0 1 .75.75v.5a.75.75 0 0 1-.75.75H2a1 1 0 0 1-1-1V3Z"
+          d="M15 13a1 1 0 0 1-1 1H9.75a.75.75 0 0 1-.75-.75v-.5a.75.75 0 0 1 .75-.75H13V4H9.75A.75.75 0 0 1 9 3.25v-.5A.75.75 0 0 1 9.75 2H14a1 1 0 0 1 1 1v10Z"
           fill="currentColor"
           fill-rule="evenodd"
         />
         <path
           clip-rule="evenodd"
-          d="M9.495 4.116 6.293 7.318a1 1 0 0 0 0 1.414l3.202 3.202a.75.75 0 0 0 1.06 0l.354-.353a.75.75 0 0 0 0-1.061L9.389 9h4.861a.75.75 0 0 0 .75-.75v-.5a.75.75 0 0 0-.75-.75H9.44l1.469-1.47a.75.75 0 0 0 0-1.06l-.354-.354a.75.75 0 0 0-1.06 0Z"
+          d="m6.505 11.884 3.202-3.202a1 1 0 0 0 0-1.414L6.505 4.066a.75.75 0 0 0-1.06 0l-.354.353a.75.75 0 0 0 0 1.061L6.611 7H1.75a.75.75 0 0 0-.75.75v.5c0 .414.336.75.75.75h4.81l-1.469 1.47a.75.75 0 0 0 0 1.06l.354.354a.75.75 0 0 0 1.06 0Z"
           fill="currentColor"
           fill-rule="evenodd"
         />
@@ -2172,6 +2218,29 @@
       </svg>
       <span>
         Mobile
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <svg
+        aria-label="Moon Icon"
+        class=""
+        color="#000000"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M13.787 10.074a.713.713 0 0 0-.864-.116c-.125.077-.26.135-.394.192-1.766.72-3.888-.21-4.704-2.208-.73-1.795-.086-3.734 1.344-4.617a.72.72 0 0 0 .317-.807A.709.709 0 0 0 8.795 2H8.67c-3.312 0-6 2.688-6 6s2.688 6 6 6a6.003 6.003 0 0 0 5.232-3.062.715.715 0 0 0-.125-.864h.01Z"
+          fill="currentColor"
+        />
+      </svg>
+      <span>
+        Moon
       </span>
     </div>
     <div
@@ -2401,12 +2470,37 @@
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M4.5 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-1ZM10.5 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-1Z"
+          d="M3.5 3.833c0-.46.448-.833 1-.833h1c.552 0 1 .373 1 .833v8.334c0 .46-.448.833-1 .833h-1c-.552 0-1-.373-1-.833V3.833ZM9.5 3.833c0-.46.448-.833 1-.833h1c.552 0 1 .373 1 .833v8.334c0 .46-.448.833-1 .833h-1c-.552 0-1-.373-1-.833V3.833Z"
           fill="currentColor"
         />
       </svg>
       <span>
         Pause
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <svg
+        aria-label="Pending Icon"
+        class=""
+        color="#000000"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M8 11.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Zm0 1.5a5.25 5.25 0 1 0 0-10.5 5.25 5.25 0 0 0 0 10.5Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <span>
+        Pending
       </span>
     </div>
     <div
@@ -2606,6 +2700,35 @@
       </svg>
       <span>
         Primary
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <svg
+        aria-label="Project Icon"
+        class=""
+        color="#000000"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-13A.5.5 0 0 1 1 4V2Z"
+          fill="currentColor"
+        />
+        <path
+          clip-rule="evenodd"
+          d="M2.75 5.5a.75.75 0 0 0-.75.75v7.5c0 .414.336.75.75.75h10.5a.75.75 0 0 0 .75-.75v-7.5a.75.75 0 0 0-.75-.75H2.75ZM6.25 7a.5.5 0 0 0 0 1h3.5a.5.5 0 0 0 0-1h-3.5Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <span>
+        Project
       </span>
     </div>
     <div
@@ -3188,6 +3311,33 @@
       class="css-141et6l"
     >
       <svg
+        aria-label="Stop Icon"
+        class=""
+        color="#000000"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          fill="currentColor"
+          height="10"
+          rx="1"
+          width="10"
+          x="3"
+          y="3"
+        />
+      </svg>
+      <span>
+        Stop
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <svg
         aria-label="String Icon"
         class=""
         color="#000000"
@@ -3205,6 +3355,29 @@
       </svg>
       <span>
         String
+      </span>
+    </div>
+    <div
+      class="css-141et6l"
+    >
+      <svg
+        aria-label="Sun Icon"
+        class=""
+        color="#000000"
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12.24 10.83a.996.996 0 1 0-1.41 1.41l.71.71a.996.996 0 1 0 1.41-1.41l-.71-.71ZM8 12c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1s1-.45 1-1v-1c0-.55-.45-1-1-1ZM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM14 7h-1c-.55 0-1 .45-1 1s.45 1 1 1h1c.55 0 1-.45 1-1s-.45-1-1-1ZM3.76 10.83l-.71.71a.996.996 0 1 0 1.41 1.41l.71-.71a.996.996 0 1 0-1.41-1.41ZM8 4c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1v1c0 .55.45 1 1 1ZM3.76 5.17a.996.996 0 1 0 1.41-1.41l-.71-.71a.996.996 0 1 0-1.41 1.41l.71.71ZM4 8c0-.55-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1h1c.55 0 1-.45 1-1ZM12.24 5.17l.71-.71a.996.996 0 1 0-1.41-1.41l-.71.71a.996.996 0 1 0 1.41 1.41Z"
+          fill="currentColor"
+        />
+      </svg>
+      <span>
+        Sun
       </span>
     </div>
     <div
