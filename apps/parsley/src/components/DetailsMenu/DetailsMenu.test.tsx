@@ -4,12 +4,12 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { renderComponentWithHook } from "@evg-ui/lib/test_utils/hooks";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { useQueryParam } from "hooks/useQueryParam";
-import { renderComponentWithHook } from "test_utils/TestHooks";
 import DetailsMenu from ".";
 
 /**

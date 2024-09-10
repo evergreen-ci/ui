@@ -6,10 +6,10 @@ import {
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
+import { renderComponentWithHook } from "@evg-ui/lib/test_utils/hooks";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
-import { renderComponentWithHook } from "test_utils/TestHooks";
 import WordWrapFormatToggle from ".";
 
 vi.mock("js-cookie");

@@ -7,6 +7,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import { renderComponentWithHook } from "@evg-ui/lib/test_utils/hooks";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
@@ -19,7 +20,6 @@ import { PROJECT_FILTERS } from "gql/queries";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { noFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
-import { renderComponentWithHook } from "test_utils/TestHooks";
 import ProjectFiltersModal from ".";
 
 const wrapper = (mocks: MockedResponse[]) => {
