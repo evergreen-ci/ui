@@ -34,9 +34,9 @@ const initializeHoneycomb = ({
   ingestKey,
   serviceName,
 }: HoneycombConfig) => {
-  if (debug && !ingestKey) {
+  if (debug && (!ingestKey || !endpoint)) {
     console.warn(
-      "Honeycomb INGEST API key was not provided. Starting SDK in debug mode.",
+      "Honeycomb INGEST API key or a collector endpoint was not provided. Starting SDK in debug mode. No traces will be sent.",
     );
     return;
   }
