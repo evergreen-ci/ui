@@ -8807,6 +8807,7 @@ export type TaskQuery = {
     generatedBy?: string | null;
     generatedByName?: string | null;
     hostId?: string | null;
+    imageId: string;
     ingestTime?: Date | null;
     isPerfPluginEnabled: boolean;
     latestExecution: number;
