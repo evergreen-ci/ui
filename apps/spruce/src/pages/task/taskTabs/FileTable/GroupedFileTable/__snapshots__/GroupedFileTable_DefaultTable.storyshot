@@ -77,7 +77,7 @@
                   class="css-1iffxfz-CellContainer epe837f0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="file-link"
                     href="some_link"
                     target="_blank"
@@ -126,7 +126,7 @@
                   class="css-1iffxfz-CellContainer epe837f0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="file-link"
                     href="another_link"
                     target="_blank"

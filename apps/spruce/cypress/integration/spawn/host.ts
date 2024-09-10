@@ -242,7 +242,25 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("edit-spawn-host-modal").should("be.visible");
 
     cy.getInputByLabel("Temporary Sleep Schedule Exemption").click();
-    cy.get("td[aria-current=true]").next().click();
+    cy.get("td[aria-current=true]").as("currentDateCell");
+    // Select a date in the future either this month or next month
+    // if the current date is the last day of the month select the first day of the next month
+    // if it is not select the next day
+    // We can determine if the current date is the last day of the month if the next cell is disabled
+    cy.get("@currentDateCell")
+      .next()
+      .then(($el) => {
+        if (!$el || $el.attr("aria-disabled") === "false") {
+          cy.get("@currentDateCell").next().click();
+        } else {
+          cy.log("Current date is the last day of the month");
+          cy.get('button[aria-label="Next month"]').click();
+          cy.get('td[data-testid="lg-date_picker-calendar_cell"]')
+            .first()
+            .click();
+        }
+      });
+
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "false");
 
     // LG Date Picker does not respond well to .clear()

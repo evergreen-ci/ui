@@ -26,7 +26,7 @@
         </b>
          
         <a
-          class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
@@ -46,7 +46,7 @@
         </b>
          
         <a
-          class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
@@ -91,12 +91,12 @@
         </b>
          
         <a
-          class="lg-ui-0002 leafygreen-ui-hvznge"
+          class="lg-ui-0000 leafygreen-ui-hvznge"
           data-cy="base-task-link"
           href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         >
           <code
-            class="leafygreen-ui-7u0nmx"
+            class="leafygreen-ui-i6ovbf"
           >
             e0ece5a
           </code>
@@ -161,7 +161,7 @@
         </b>
          
         <a
-          class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
           data-cy="task-distro-link"
           href="/distro/ubuntu1604-small/settings/general"
         >
@@ -180,7 +180,7 @@
         </b>
          
         <a
-          class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
           data-cy="task-host-link"
           href="/host/i-0e0e62799806e037d"
           target="_self"
@@ -194,7 +194,7 @@
         class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <a
-          class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
           data-cy="task-spawn-host-link"
           href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         >
@@ -240,7 +240,7 @@
           class="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
             data-cy="depends-on-link"
             href="/task/some_task_id_1"
           >
@@ -297,7 +297,7 @@
           class="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
             data-cy="depends-on-link"
             href="/task/some_task_id_2"
           >
@@ -346,7 +346,7 @@
           class="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
             data-cy="depends-on-link"
             href="/task/some_task_id_3"
           >
@@ -393,7 +393,7 @@
           class="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+            class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
             data-cy="depends-on-link"
             href="/task/some_task_id_4"
           >

@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "4.1.79",
+  "version": "4.1.81",
   "private": true,
   "type": "module",
   "scripts": {
@@ -71,7 +71,7 @@
     "@leafygreen-ui/empty-state": "^1.0.17",
     "@leafygreen-ui/expandable-card": "^3.1.0",
     "@leafygreen-ui/guide-cue": "^5.0.8",
-    "@leafygreen-ui/icon": "^11.26.0",
+    "@leafygreen-ui/icon": "^12.6.0",
     "@leafygreen-ui/icon-button": "^15.0.23",
     "@leafygreen-ui/info-sprinkle": "^1.0.5",
     "@leafygreen-ui/inline-definition": "^6.0.14",
@@ -98,7 +98,7 @@
     "@leafygreen-ui/toast": "^6.1.27",
     "@leafygreen-ui/toggle": "^10.0.17",
     "@leafygreen-ui/tokens": "^2.5.2",
-    "@leafygreen-ui/tooltip": "^10.0.10",
+    "@leafygreen-ui/tooltip": "^11.1.0",
     "@leafygreen-ui/typography": "^19.0.0",
     "@rjsf/core": "4.2.3",
     "@sentry/react": "8.27.0",

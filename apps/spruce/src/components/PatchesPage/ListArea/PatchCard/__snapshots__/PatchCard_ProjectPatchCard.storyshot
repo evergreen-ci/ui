@@ -7,7 +7,7 @@
       class="css-17a1idw-Center-Left e1v2go1e4"
     >
       <a
-        class="lg-ui-0003 e1v2go1e2 css-1rriyg1-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
+        class="lg-ui-0001 e1v2go1e2 css-1rriyg1-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
         data-cy="patch-card-patch-link"
         href="/version/667b2f7f7a878200076f23d1/tasks"
       >
@@ -23,7 +23,7 @@
         by
          
         <a
-          class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
           data-cy="user-patches-link"
           href="/user/mohamed.khelif/patches"
         >

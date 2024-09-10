@@ -41,7 +41,7 @@
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0003 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
+        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
         data-cy="DEVPROD-1"
         href="https://spruce.mongodb.com"
         target="_blank"
@@ -98,7 +98,7 @@
       data-cy="annotation-ticket-row"
     >
       <a
-        class="lg-ui-0003 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
+        class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
         data-cy="DEVPROD-2"
         href="https://spruce.mongodb.com"
         target="_blank"
