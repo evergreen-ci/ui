@@ -1,5 +1,6 @@
 import {
   act,
+  fireEvent,
   queries,
   render,
   renderHook,
@@ -7,16 +8,27 @@ import {
   waitFor,
   within,
 } from "@testing-library/react";
-import type { RenderResult, RenderOptions } from "@testing-library/react";
+import type { RenderOptions, RenderResult } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { createMemoryRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import * as customQueries from "./custom-queries";
 
 type QueriesType = typeof queries;
 type CustomQueriesType = typeof customQueries;
-
 type CustomRenderType = CustomQueriesType & QueriesType;
-type customRenderOptions = RenderOptions<CustomRenderType>;
+type CustomRenderOptions = RenderOptions<CustomRenderType>;
+
+interface RenderWithRouterMatchOptions extends CustomRenderOptions {
+  route?: string;
+  history?: any;
+  path?: string;
+}
+
+// Bind our custom queries to screen.
+// https://github.com/testing-library/dom-testing-library/issues/516
+const boundQueries = within<typeof customQueries>(document.body, customQueries);
+const customScreen = { ...screen, ...boundQueries };
+
 /**
  * `customRender` or `render` takes an instance of react-testing-library's render method
  *  and adds additional selectors for querying components in tests.
@@ -24,7 +36,7 @@ type customRenderOptions = RenderOptions<CustomRenderType>;
  * @param options - Options to pass to render
  * @returns RenderResult with custom queries bound to screen
  */
-const customRender = (ui: React.ReactElement, options?: customRenderOptions) =>
+const customRender = (ui: React.ReactElement, options?: CustomRenderOptions) =>
   render(ui, {
     queries: { ...queries, ...customQueries },
     ...options,
@@ -32,12 +44,6 @@ const customRender = (ui: React.ReactElement, options?: customRenderOptions) =>
 
 const customWithin = (ui: HTMLElement) =>
   within(ui, { ...queries, ...customQueries });
-
-interface renderWithRouterMatchOptions extends customRenderOptions {
-  route?: string;
-  history?: any;
-  path?: string;
-}
 
 /**
  * `renderWithRouterMatch` implements the `customRender` method and wraps a component
@@ -48,20 +54,20 @@ interface renderWithRouterMatchOptions extends customRenderOptions {
  */
 const renderWithRouterMatch = (
   ui: React.ReactElement,
-  options: renderWithRouterMatchOptions = {},
+  options: RenderWithRouterMatchOptions = {},
 ) => {
   const { path = "/", route = "/", wrapper: TestWrapper, ...rest } = options;
 
   const getMemoryRouter = (element: React.ReactElement) => {
     const routes = [
       {
-        path,
         element: TestWrapper ? <TestWrapper>{element}</TestWrapper> : element,
         errorElement: <div>Failed to render component.</div>,
+        path,
       },
       {
-        path: "*",
         element: <div>Not found</div>,
+        path: "*",
       },
     ];
     return createMemoryRouter(routes, {
@@ -83,16 +89,11 @@ const renderWithRouterMatch = (
   };
 
   return {
-    router: memoryRouter,
     rerender: customRerender,
+    router: memoryRouter,
     ...renderRest,
   };
 };
-
-// Bind custom query methods to screen
-// https://github.com/testing-library/dom-testing-library/issues/516
-const boundQueries = within<typeof customQueries>(document.body, customQueries);
-const customScreen = { ...screen, ...boundQueries };
 
 /**
  * `stubGetClientRects` fixes a fallbackFocus error introduced by focus-trap.
@@ -113,6 +114,7 @@ const stubGetClientRects = () => {
 
 export {
   act,
+  fireEvent,
   customRender as render,
   renderHook,
   renderWithRouterMatch,
@@ -122,3 +124,5 @@ export {
   customWithin as within,
   stubGetClientRects,
 };
+
+export type { RenderWithRouterMatchOptions };

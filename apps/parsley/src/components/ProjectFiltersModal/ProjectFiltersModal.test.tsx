@@ -1,4 +1,12 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import {
+  act,
+  renderWithRouterMatch as render,
+  screen,
+  stubGetClientRects,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
@@ -11,14 +19,6 @@ import { PROJECT_FILTERS } from "gql/queries";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { noFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
-import {
-  act,
-  renderWithRouterMatch as render,
-  screen,
-  stubGetClientRects,
-  userEvent,
-  waitFor,
-} from "test_utils";
 import { renderComponentWithHook } from "test_utils/TestHooks";
 import ProjectFiltersModal from ".";
 
