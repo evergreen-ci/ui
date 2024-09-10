@@ -3032,6 +3032,19 @@
     "@leafygreen-ui/typography" "^19.0.0"
     react-lottie-player "^1.5.6"
 
+"@leafygreen-ui/marketing-modal@^4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/marketing-modal/-/marketing-modal-4.2.3.tgz#f80da48f80f60d0713b77155eb91b426d42e06e8"
+  integrity sha512-3rQh0SM1FYpFo/CQubCWZYcgvd0OSCWMAFxMT9ax+xoKZQPwxlPdQ8INWw0B99SF9mVMhP74cmftFQ+88hOcPw==
+  dependencies:
+    "@leafygreen-ui/button" "^21.2.0"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/lib" "^13.3.0"
+    "@leafygreen-ui/modal" "^16.0.7"
+    "@leafygreen-ui/palette" "^4.0.9"
+    "@leafygreen-ui/tokens" "^2.5.2"
+    "@leafygreen-ui/typography" "^19.0.0"
+
 "@leafygreen-ui/menu@^20.0.1":
   version "20.0.3"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-20.0.3.tgz#36a413a99a66fd3b88c167a52460be1a6f6d9305"
@@ -3085,7 +3098,7 @@
     prop-types "^15.8.1"
     react-transition-group "^4.4.5"
 
-"@leafygreen-ui/modal@^16.0.5", "@leafygreen-ui/modal@^16.0.8":
+"@leafygreen-ui/modal@^16.0.5", "@leafygreen-ui/modal@^16.0.7", "@leafygreen-ui/modal@^16.0.8":
   version "16.0.9"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/modal/-/modal-16.0.9.tgz#9b2caca4b7a4f0a0e5de3b7c55075e96c42bff4e"
   integrity sha512-WWcIkapE8Q4m4dJVXIp5t6RhEEoWGwbGW+nB36UC27JrqQHBtfViGQ9zgZFEfZE0qG8jgLke/PvpEoublNZa4A==

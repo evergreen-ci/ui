@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import PopoverButton from "components/PopoverButton";
 import { QueryParams } from "constants/queryParams";
+import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
 import { useQueryParam } from "hooks/useQueryParam";
 import DetailsMenuCard from "./DetailsMenuCard";
 
@@ -12,6 +13,13 @@ interface DetailsMenuProps {
   disabled?: boolean;
 }
 const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
+  const { showGuideCue } = useSectionsFeatureDiscoveryContext();
+  const [isOpen, setIsOpen] = useState(showGuideCue);
+  useEffect(() => {
+    if (showGuideCue) {
+      setIsOpen(true);
+    }
+  }, [showGuideCue]);
   const [lowerRange] = useQueryParam<undefined | number>(
     QueryParams.LowerRange,
     undefined,
@@ -46,6 +54,9 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
       buttonRef={buttonRef}
       buttonText="Details"
       disabled={disabled}
+      disableOutsideClick={showGuideCue}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
       variant={changeVisible ? "primary" : "default"}
       {...rest}
     >

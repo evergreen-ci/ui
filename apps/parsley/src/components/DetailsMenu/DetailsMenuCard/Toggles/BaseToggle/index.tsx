@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Toggle from "@leafygreen-ui/toggle";
@@ -18,31 +19,38 @@ interface BaseToggleProps {
   onChange: (checked: boolean) => void;
 }
 
-const BaseToggle: React.FC<BaseToggleProps> = ({
-  "data-cy": dataCy,
-  disabled = false,
-  label,
-  leftLabel = "OFF",
-  onChange,
-  rightLabel = "ON",
-  tooltip,
-  value,
-}) => (
-  <DetailRow>
-    <DetailsLabel label={tooltip}>{label}</DetailsLabel>
-    <ToggleWrapper>
-      <ToggleLabel>{leftLabel}</ToggleLabel>
-      <Toggle
-        aria-labelledby={`${label} Toggle`}
-        checked={value}
-        data-cy={dataCy}
-        disabled={disabled}
-        onChange={onChange}
-        size="small"
-      />
-      <ToggleLabel>{rightLabel}</ToggleLabel>
-    </ToggleWrapper>
-  </DetailRow>
+const BaseToggle = forwardRef<HTMLDivElement, BaseToggleProps>(
+  (
+    {
+      "data-cy": dataCy,
+      disabled = false,
+      label,
+      leftLabel = "OFF",
+      onChange,
+      rightLabel = "ON",
+      tooltip,
+      value,
+    },
+    ref,
+  ) => (
+    <DetailRow>
+      <DetailsLabel label={tooltip}>{label}</DetailsLabel>
+      <ToggleWrapper>
+        <ToggleLabel>{leftLabel}</ToggleLabel>
+        <div ref={ref}>
+          <Toggle
+            aria-labelledby={`${label} Toggle`}
+            checked={value}
+            data-cy={dataCy}
+            disabled={disabled}
+            onChange={onChange}
+            size="small"
+          />
+        </div>
+        <ToggleLabel>{rightLabel}</ToggleLabel>
+      </ToggleWrapper>
+    </DetailRow>
+  ),
 );
 
 const ToggleLabel = styled(Disclaimer)`
