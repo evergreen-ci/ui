@@ -2890,7 +2890,7 @@
     "@leafygreen-ui/tokens" "^2.5.2"
     polished "^4.2.2"
 
-"@leafygreen-ui/icon@^11.13.1", "@leafygreen-ui/icon@^11.23.0", "@leafygreen-ui/icon@^11.26.0", "@leafygreen-ui/icon@^11.28.0":
+"@leafygreen-ui/icon@^11.13.1", "@leafygreen-ui/icon@^11.23.0":
   version "11.29.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.29.1.tgz#f61115a5b0b36310a5ffb008bf51dd9ae8982917"
   integrity sha512-bCfeJ3mndU5wHayMWfkVWo0NXhPpBpHIG53aox/eRterqLvWg6jWyiuF930MHbyWDNEXC9Qw1WD637kZ93mmog==
@@ -2898,15 +2898,7 @@
     "@leafygreen-ui/emotion" "^4.0.7"
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon@^12.0.1", "@leafygreen-ui/icon@^12.1.0", "@leafygreen-ui/icon@^12.4.0", "@leafygreen-ui/icon@^12.5.4":
-  version "12.5.4"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-12.5.4.tgz#72324715dfbf495aa4a82a34eab0229f76a28ffd"
-  integrity sha512-RsoIN4hfBtJDGuR5ClElCYvpX5+YqjB381EJDZQGC12iQGhhJwCuD4p4NW4O+jWXpt7KGISDKg0Ieao5R/vmpw==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.8"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/icon@^12.5.0", "@leafygreen-ui/icon@^12.6.0":
+"@leafygreen-ui/icon@^12.0.1", "@leafygreen-ui/icon@^12.1.0", "@leafygreen-ui/icon@^12.4.0", "@leafygreen-ui/icon@^12.5.0", "@leafygreen-ui/icon@^12.5.4", "@leafygreen-ui/icon@^12.6.0":
   version "12.6.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-12.6.0.tgz#37b4d7341a479f26b141088bb95e9300516b3834"
   integrity sha512-/+5S0aap/4NMtQlfCBQw0NH/noAkNn9A/5YOTPt86WbmDhsgoaD+BP+7TbO1GfveqZZ61vDwp5TzvP9sYLeDKg==
