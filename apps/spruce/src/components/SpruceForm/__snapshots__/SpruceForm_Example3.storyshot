@@ -39,17 +39,17 @@
                   <label
                     class="leafygreen-ui-1srek1y"
                     data-lgid="lg-label"
-                    for="checkbox-244"
-                    id="checkbox-244-label"
+                    for="checkbox-251"
+                    id="checkbox-251-label"
                   >
                     <input
                       aria-checked="true"
                       aria-disabled="false"
                       aria-label="checkbox"
-                      aria-labelledby="checkbox-244-label"
+                      aria-labelledby="checkbox-251-label"
                       checked=""
                       class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      id="checkbox-244"
+                      id="checkbox-251"
                       type="checkbox"
                     />
                     <div
