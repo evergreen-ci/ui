@@ -1,5 +1,5 @@
 import { render, screen } from "@evg-ui/lib/test_utils";
-import { mockEnvironmentVariables } from "test_utils/utils";
+import { mockEnvironmentVariables } from "@evg-ui/lib/test_utils/utils";
 import { ErrorBoundary } from "./ErrorBoundary";
 
 const { cleanup } = mockEnvironmentVariables();

@@ -1,5 +1,5 @@
 import { init, isInitialized } from "@sentry/react";
-import { mockEnvironmentVariables } from "test_utils/utils";
+import { mockEnvironmentVariables } from "@evg-ui/lib/test_utils/utils";
 import { initializeErrorHandling } from ".";
 
 const { cleanup, mockEnv } = mockEnvironmentVariables();

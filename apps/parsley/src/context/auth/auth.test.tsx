@@ -1,7 +1,7 @@
 import * as router from "react-router";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { mockEnvironmentVariables } from "test_utils/utils";
+import { mockEnvironmentVariables } from "@evg-ui/lib/test_utils/utils";
 import { evergreenURL, graphqlURL } from "utils/environmentVariables";
 import { AuthProvider, useAuthContext } from ".";
 
