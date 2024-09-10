@@ -129,7 +129,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_0"
                   >
@@ -165,7 +165,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -183,7 +183,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -220,7 +220,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -283,7 +283,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_1"
                   >
@@ -319,7 +319,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -337,7 +337,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -374,7 +374,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -437,7 +437,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_2"
                   >
@@ -473,7 +473,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -491,7 +491,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -528,7 +528,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -591,7 +591,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_3"
                   >
@@ -627,7 +627,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -645,7 +645,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -682,7 +682,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -745,7 +745,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_4"
                   >
@@ -781,7 +781,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -799,7 +799,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -836,7 +836,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -899,7 +899,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_5"
                   >
@@ -935,7 +935,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -953,7 +953,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -990,7 +990,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -1053,7 +1053,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_6"
                   >
@@ -1089,7 +1089,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -1107,7 +1107,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -1144,7 +1144,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -1207,7 +1207,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_7"
                   >
@@ -1243,7 +1243,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -1261,7 +1261,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -1298,7 +1298,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -1361,7 +1361,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_8"
                   >
@@ -1397,7 +1397,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -1415,7 +1415,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -1452,7 +1452,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -1515,7 +1515,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_9"
                   >
@@ -1551,7 +1551,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -1569,7 +1569,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -1606,7 +1606,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -1669,7 +1669,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_10"
                   >
@@ -1705,7 +1705,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -1723,7 +1723,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -1760,7 +1760,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -1823,7 +1823,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_11"
                   >
@@ -1859,7 +1859,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -1877,7 +1877,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -1914,7 +1914,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -1977,7 +1977,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_12"
                   >
@@ -2013,7 +2013,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -2031,7 +2031,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -2068,7 +2068,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -2131,7 +2131,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_13"
                   >
@@ -2167,7 +2167,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -2185,7 +2185,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -2222,7 +2222,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -2285,7 +2285,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_14"
                   >
@@ -2321,7 +2321,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -2339,7 +2339,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -2376,7 +2376,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -2439,7 +2439,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_15"
                   >
@@ -2475,7 +2475,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -2493,7 +2493,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -2530,7 +2530,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -2593,7 +2593,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_16"
                   >
@@ -2629,7 +2629,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -2647,7 +2647,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -2684,7 +2684,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -2747,7 +2747,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_17"
                   >
@@ -2783,7 +2783,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -2801,7 +2801,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -2838,7 +2838,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -2901,7 +2901,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_18"
                   >
@@ -2937,7 +2937,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -2955,7 +2955,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -2992,7 +2992,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -3055,7 +3055,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_19"
                   >
@@ -3091,7 +3091,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -3109,7 +3109,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -3146,7 +3146,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -3209,7 +3209,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_20"
                   >
@@ -3245,7 +3245,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -3263,7 +3263,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -3300,7 +3300,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -3363,7 +3363,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_21"
                   >
@@ -3399,7 +3399,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -3417,7 +3417,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -3454,7 +3454,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -3517,7 +3517,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_22"
                   >
@@ -3553,7 +3553,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -3571,7 +3571,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -3608,7 +3608,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -3671,7 +3671,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_23"
                   >
@@ -3707,7 +3707,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -3725,7 +3725,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -3762,7 +3762,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -3825,7 +3825,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_24"
                   >
@@ -3861,7 +3861,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -3879,7 +3879,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -3916,7 +3916,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -3979,7 +3979,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_25"
                   >
@@ -4015,7 +4015,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -4033,7 +4033,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -4070,7 +4070,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -4133,7 +4133,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_26"
                   >
@@ -4169,7 +4169,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -4187,7 +4187,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -4224,7 +4224,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -4287,7 +4287,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_27"
                   >
@@ -4323,7 +4323,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -4341,7 +4341,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -4378,7 +4378,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -4441,7 +4441,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_28"
                   >
@@ -4477,7 +4477,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -4495,7 +4495,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -4532,7 +4532,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -4595,7 +4595,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_29"
                   >
@@ -4631,7 +4631,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -4649,7 +4649,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -4686,7 +4686,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>
@@ -4749,7 +4749,7 @@
                   class="css-1n67wbb-TaskCell e1hj893t0"
                 >
                   <a
-                    class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                     data-cy="current-task-link"
                     href="/task/task_30"
                   >
@@ -4785,7 +4785,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/project/parsley/patches"
                 >
                   <span>
@@ -4803,7 +4803,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/version/mongodb_mongo_v4.2_cef23d286f5f9af1295d8097b33df764cc2201fe/tasks"
                 >
                   <span>
@@ -4840,7 +4840,7 @@
                 data-state="entered"
               >
                 <a
-                  class="lg-ui-0003 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                  class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
                   href="/user/admin/patches"
                 >
                   <span>

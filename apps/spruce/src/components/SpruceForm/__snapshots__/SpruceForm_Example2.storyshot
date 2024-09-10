@@ -280,6 +280,7 @@
                   >
                     <label
                       class="leafygreen-ui-14lohqh"
+                      data-lgid="lg-label"
                       for="radio-group--0"
                     >
                       <input
@@ -307,6 +308,7 @@
                   >
                     <label
                       class="leafygreen-ui-14lohqh"
+                      data-lgid="lg-label"
                       for="radio-group--1"
                     >
                       <input
