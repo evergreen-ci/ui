@@ -2890,7 +2890,7 @@
     "@leafygreen-ui/tokens" "^2.5.2"
     polished "^4.2.2"
 
-"@leafygreen-ui/icon@^11.13.1", "@leafygreen-ui/icon@^11.23.0", "@leafygreen-ui/icon@^11.26.0", "@leafygreen-ui/icon@^11.28.0":
+"@leafygreen-ui/icon@^11.13.1", "@leafygreen-ui/icon@^11.23.0":
   version "11.29.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.29.1.tgz#f61115a5b0b36310a5ffb008bf51dd9ae8982917"
   integrity sha512-bCfeJ3mndU5wHayMWfkVWo0NXhPpBpHIG53aox/eRterqLvWg6jWyiuF930MHbyWDNEXC9Qw1WD637kZ93mmog==
