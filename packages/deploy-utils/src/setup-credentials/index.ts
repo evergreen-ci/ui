@@ -14,20 +14,13 @@ export const setupCredentials = (target: TargetEnvironment) => {
 };
 
 const sharedKeys = {
-  NEW_RELIC_ACCOUNT_ID: process.env.NEW_RELIC_ACCOUNT_ID,
-  NEW_RELIC_LICENSE_KEY: process.env.NEW_RELIC_LICENSE_KEY,
-  NEW_RELIC_TRUST_KEY: process.env.NEW_RELIC_TRUST_KEY,
   NODE_ENV: "production",
-  PARSLEY_NEW_RELIC_AGENT_ID: process.env.PARSLEY_NEW_RELIC_AGENT_ID,
-  PARSLEY_NEW_RELIC_APPLICATION_ID:
-    process.env.PARSLEY_NEW_RELIC_APPLICATION_ID,
+
   PARSLEY_SENTRY_AUTH_TOKEN: process.env.PARSLEY_SENTRY_AUTH_TOKEN,
   REACT_APP_PARSLEY_SENTRY_DSN: process.env.REACT_APP_PARSLEY_SENTRY_DSN,
 
   REACT_APP_SPRUCE_SENTRY_DSN: process.env.REACT_APP_SPRUCE_SENTRY_DSN,
   SPRUCE_SENTRY_AUTH_TOKEN: process.env.SPRUCE_SENTRY_AUTH_TOKEN,
-  SPRUCE_NEW_RELIC_AGENT_ID: process.env.SPRUCE_NEW_RELIC_AGENT_ID,
-  SPRUCE_NEW_RELIC_APPLICATION_ID: process.env.SPRUCE_NEW_RELIC_APPLICATION_ID,
 };
 
 const base: Record<TargetEnvironment, Record<string, string | undefined>> = {
@@ -42,6 +35,10 @@ const base: Record<TargetEnvironment, Record<string, string | undefined>> = {
     REACT_APP_GQL_URL:
       "https://evergreen-staging.corp.mongodb.com/graphql/query",
 
+    REACT_APP_HONEYCOMB_BASE_URL:
+      "https://ui.honeycomb.io/mongodb-4b/environments/staging",
+    REACT_APP_HONEYCOMB_ENDPOINT: process.env.HONEYCOMB_ENDPOINT_STAGING,
+    REACT_APP_HONEYCOMB_INGEST_KEY: process.env.HONEYCOMB_INGEST_KEY_STAGING,
     REACT_APP_LOGKEEPER_URL: "https://logkeeper2.staging.build.10gen.cc",
     REACT_APP_PARSLEY_URL: "https://parsley-staging.corp.mongodb.com",
     REACT_APP_SPRUCE_URL: "https://spruce-staging.corp.mongodb.com",
@@ -76,6 +73,8 @@ const base: Record<TargetEnvironment, Record<string, string | undefined>> = {
 
     REACT_APP_HONEYCOMB_BASE_URL:
       "https://ui.honeycomb.io/mongodb-4b/environments/production",
+    REACT_APP_HONEYCOMB_ENDPOINT: process.env.HONEYCOMB_ENDPOINT_PROD,
+    REACT_APP_HONEYCOMB_INGEST_KEY: process.env.HONEYCOMB_INGEST_KEY_PROD,
     REACT_APP_LOGKEEPER_URL: "https://logkeeper2.build.10gen.cc",
     REACT_APP_PARSLEY_URL: "https://parsley.mongodb.com",
     REACT_APP_SIGNAL_PROCESSING_URL:
