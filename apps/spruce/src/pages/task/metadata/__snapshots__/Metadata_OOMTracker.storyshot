@@ -16,7 +16,7 @@
         />
       </div>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-build-variant"
       >
         <b
@@ -36,7 +36,7 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-project"
       >
         <b
@@ -56,7 +56,7 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -67,7 +67,7 @@
         mohamed.khelif
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -82,7 +82,7 @@
         </span>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -103,7 +103,7 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-description"
       >
         <b
@@ -115,7 +115,7 @@
         'shell.exec' in function 'yarn-test' (step 1 of 1)
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         Out of Memory Kill detected
          
@@ -137,7 +137,7 @@
       </div>
        
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -157,7 +157,7 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -176,8 +176,11 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
+        <span
+          class="leafygreen-ui-1l0cwz5"
+        />
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
         >
@@ -195,7 +198,7 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-ami"
       >
         <b
@@ -207,7 +210,7 @@
         ami-0c83bb0a9f48c15bf
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <a
           class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"

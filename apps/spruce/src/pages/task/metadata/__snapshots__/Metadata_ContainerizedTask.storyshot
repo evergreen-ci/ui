@@ -16,7 +16,7 @@
         />
       </div>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-build-variant"
       >
         <b
@@ -36,7 +36,7 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-project"
       >
         <b
@@ -56,7 +56,7 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -67,7 +67,7 @@
         mohamed.khelif
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -82,7 +82,7 @@
         </span>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -103,7 +103,7 @@
         </a>
       </p>
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
         data-cy="task-metadata-description"
       >
         <b
@@ -141,7 +141,7 @@
       </div>
        
       <p
-        class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+        class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
         <b
           class="css-1xk67r-MetadataLabel e1ul56zb0"
