@@ -1,13 +1,12 @@
 import { GuideCue, GuideCueProps } from "@leafygreen-ui/guide-cue";
 import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
-import { releaseSectioning } from "utils/featureFlag";
 
 export const SectionsToggleGuideCue: React.FC<{
   refEl: GuideCueProps["refEl"];
 }> = ({ refEl }) => {
   const { closeFirstGuideCue, firstGuideCueOpen, setFirstGuideCueOpen } =
     useSectionsFeatureDiscoveryContext();
-  return releaseSectioning ? (
+  return (
     <GuideCue
       currentStep={1}
       data-cy="sections-cue-1"
@@ -23,5 +22,5 @@ export const SectionsToggleGuideCue: React.FC<{
       This beta feature is now available for task logs. Please send over any
       feedback to the #ask-devprod-evergreen channel.
     </GuideCue>
-  ) : null;
+  );
 };

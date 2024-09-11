@@ -75,6 +75,6 @@ describe("Select hosts in hosts page table", () => {
     cy.dataCy("reprovision-button").should("be.visible").click();
     cy.dataCy("reprovision-button-popover").should("be.visible");
     cy.contains("button", "Yes").click();
-    cy.validateToast("success", "Marked hosts to reprovision for 0 hosts");
+    cy.validateToast("success", "Marked hosts to reprovision for 3 hosts");
   });
 });

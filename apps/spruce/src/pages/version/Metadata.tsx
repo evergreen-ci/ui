@@ -155,7 +155,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
             hideExternalIcon={false}
             href={getGithubMergeQueueUrl(owner, repo, branch)}
           >
-            <MetadataLabel>GitHub Merge Queue</MetadataLabel>
+            GitHub Merge Queue
           </StyledLink>
         </MetadataItem>
       )}
@@ -194,7 +194,6 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       <ParametersModal parameters={parameters} />
       {externalLinksForMetadata?.map(({ displayName, url }) => (
         <MetadataItem key={displayName}>
-          <MetadataLabel>{displayName}:</MetadataLabel>{" "}
           <StyledLink data-cy="external-link" href={url}>
             {displayName}
           </StyledLink>
