@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { size } from "constants/tokens";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 import FilterBadges from ".";
 import { FilterBadgeType } from "./FilterBadge";

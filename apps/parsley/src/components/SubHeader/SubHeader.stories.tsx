@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { MockedProvider } from "@apollo/client/testing";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { LogMetadata } from "context/LogContext/types";
 import { evergreenTaskMock, logkeeperMetadataMock } from "test_data/task";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import Subheader from ".";
 
 export default {

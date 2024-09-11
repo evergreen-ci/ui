@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { ApolloMock } from "types/gql";
+import { ApolloMock } from "../types/gql";
 
 type CustomStorybookReactRouterParams = {
   initialEntries?: string[];

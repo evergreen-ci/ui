@@ -1,5 +1,5 @@
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { getUserMock } from "gql/mocks/getUser";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 
 import DateSeparator from ".";
 

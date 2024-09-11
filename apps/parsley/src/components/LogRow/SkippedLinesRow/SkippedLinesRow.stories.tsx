@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import LogPane from "components/LogPane";
 import { ParsleyRow } from "components/LogRow/RowRenderer";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import { ExpandedLines, ProcessedLogLines, RowType } from "types/logs";
 import SkippedLinesRow from ".";
 
