@@ -1,29 +1,30 @@
-import { parseQueryString } from "../utils/query-string";
+import { trace } from "@opentelemetry/api";
 import { ActionType, AnalyticsProperties } from "./types";
 
 /**
- * `addNewRelicPageAction` is a function that sends an event to our analytics provider
+ * `sendEventTrace` is a function that sends an event to our analytics provider in the form of a OTEL trace
  * @param action - The action to send to our analytics provider
  * @param action.name - The name of the action to send to our analytics provider
  * @param properties - The properties to send with the event
  */
-export const addNewRelicPageAction = <A extends ActionType>(
+export const sendEventTrace = <A extends ActionType>(
   { name, ...actionProps }: A,
   properties: AnalyticsProperties,
 ) => {
-  const { newrelic } = window;
-  const { search } = window.location;
-  const attributesToSend = {
-    ...properties,
-    ...parseQueryString(search),
-    ...actionProps,
-  };
-
-  if (typeof newrelic !== "object") {
-    // These will only print when new relic is not available such as during local development
-    console.debug("ANALYTICS EVENT ", { name, attributesToSend });
+  const { AttributeStore } = window;
+  if (!AttributeStore) {
+    console.error("AttributeStore not found on window object");
     return;
   }
+  const globalAttributes = AttributeStore.getGlobalAttributes() ?? {};
+  const tracer = trace.getTracer("analytics");
 
-  newrelic.addPageAction(name, attributesToSend);
+  tracer.startActiveSpan(name, (span) => {
+    span.setAttributes({
+      ...globalAttributes,
+      ...properties,
+      ...actionProps,
+    });
+    span.end();
+  });
 };
