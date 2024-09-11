@@ -12,7 +12,7 @@ describe("toEscapedRegex", () => {
     expect(toEscapedRegex("hello-world")).toBe("hello\\-world");
     expect(toEscapedRegex("hello/world")).toBe("hello\\/world");
     expect(toEscapedRegex("https://example.com")).toBe(
-      `https:\\/\\/example\\.com`,
+      "https:\\/\\/example\\.com",
     );
   });
 });
