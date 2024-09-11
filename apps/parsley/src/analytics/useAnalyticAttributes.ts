@@ -4,25 +4,25 @@ import { useLogContext } from "context/LogContext";
 export const useAnalyticAttributes = () => {
   const { logMetadata } = useLogContext();
   const { logType, renderingType } = logMetadata || {};
+  const { AttributeStore } = window;
 
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    if (typeof window?.newrelic !== "object") {
-      console.debug("Setting logType: ", logType);
-      console.debug("Setting userId: ", userId);
+    if (!AttributeStore) {
+      console.error("AttributeStore not found in window object");
       return;
     }
-
-    const { newrelic } = window;
     if (logType !== undefined) {
-      newrelic.setCustomAttribute("logType", logType);
+      AttributeStore.setGlobalAttribute("log.type", logType);
     }
     if (userId !== null) {
-      newrelic.setCustomAttribute("userId", userId);
+      AttributeStore.setGlobalAttribute("user.id", userId);
     }
     if (renderingType !== undefined) {
-      newrelic.setCustomAttribute("renderingType", renderingType);
+      AttributeStore.setGlobalAttribute("rendering.type", renderingType);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, logType, renderingType]);
 };

@@ -3,6 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import Card from "@leafygreen-ui/card";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
+import { SectionsFeatureDiscoveryContextProvider } from "context/SectionsFeatureDiscoveryContext";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import DetailsMenu from ".";
@@ -12,7 +13,9 @@ export default {
   decorators: [
     (Story: () => JSX.Element) => (
       <MockedProvider mocks={[parsleySettingsMock]}>
-        <Story />
+        <SectionsFeatureDiscoveryContextProvider>
+          <Story />
+        </SectionsFeatureDiscoveryContextProvider>
       </MockedProvider>
     ),
   ],

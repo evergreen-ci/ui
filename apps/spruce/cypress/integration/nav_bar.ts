@@ -55,7 +55,7 @@ describe("Nav Bar", () => {
     cy.dataCy("auxiliary-dropdown-distro-settings").should(
       "have.attr",
       "href",
-      "/distro/localhost/settings/general",
+      "/distro/archlinux-test/settings/general",
     );
   });
   it("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", () => {

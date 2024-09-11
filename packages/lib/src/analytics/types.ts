@@ -1,3 +1,5 @@
+import type { AttributeValue } from "@opentelemetry/api";
+
 /**
  * `ActionTypePrefixes` is a union type of all the prefixes that can be used to create an `ActionType`.
  */
@@ -35,7 +37,7 @@ type sendEvent<Action extends ActionType> = (action: Action) => void;
  *
  */
 export interface AnalyticsProperties {
-  [key: string]: string | number | boolean;
+  [key: string]: AttributeValue;
 }
 
 /**

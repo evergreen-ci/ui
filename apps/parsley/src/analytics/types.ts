@@ -3,4 +3,5 @@ export type AnalyticsIdentifier =
   | "LogWindow"
   | "Preferences"
   | "LoadingPage"
-  | "Shortcut";
+  | "Shortcut"
+  | "SectionsFeatureDiscovery";
