@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
@@ -37,6 +38,7 @@ import { isFailedTaskStatus } from "utils/statuses";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import ETATimer from "./ETATimer";
+import { ImageVisibilityGuideCue } from "./ImageVisibilityGuideCue";
 import RuntimeTimer from "./RuntimeTimer";
 import { Stepback, isInStepback } from "./Stepback";
 
@@ -105,6 +107,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
   const { metadataLinks } = annotation ?? {};
 
   const stepback = isInStepback(task);
+
+  const imageVisibilityGuideCueTriggerRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -393,8 +397,12 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           )}
           {showImageVisibilityPage && !isContainerTask && imageId && (
             <MetadataItem>
+              <ImageVisibilityGuideCue
+                refEl={imageVisibilityGuideCueTriggerRef}
+              />
               <MetadataLabel>Image:</MetadataLabel>{" "}
               <StyledRouterLink
+                ref={imageVisibilityGuideCueTriggerRef}
                 data-cy="task-image-link"
                 onClick={() =>
                   taskAnalytics.sendEvent({
