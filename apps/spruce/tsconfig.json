@@ -3,7 +3,9 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@evg-ui/lib/*": ["../../../packages/lib/src/*"]
+      "@evg-ui/lib/*": [
+        "../../../packages/lib/src/*"
+      ]
     }
   },
   "exclude": [
@@ -13,7 +15,8 @@
   "include": [
     "src",
     "scripts",
-    "config/vitest/setupTests.ts"
+    "config/vitest/setupTests.ts",
+    "src/**/*.d.ts"
   ],
   "references": [
     {
