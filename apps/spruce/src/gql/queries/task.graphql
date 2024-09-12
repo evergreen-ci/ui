@@ -84,7 +84,6 @@ query Task($taskId: String!, $execution: Int) {
     generatedBy
     generatedByName
     hostId
-    imageId
     ingestTime
     isPerfPluginEnabled
     latestExecution

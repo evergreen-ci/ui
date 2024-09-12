@@ -95,7 +95,7 @@ describe("distroSettings/navigation", () => {
       cy.location("pathname").should("not.contain", "/distros");
       cy.location("pathname").should(
         "eq",
-        "/distro/archlinux-test/settings/general",
+        "/distro/localhost/settings/general",
       );
     });
   });
