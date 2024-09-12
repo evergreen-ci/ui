@@ -10,12 +10,12 @@ export const SectionsToggleGuideCue: React.FC<{
   const [open, setOpen] = useState(false);
   useEffect(() => {
     if (firstGuideCueOpen) {
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         setOpen(true);
       }, 200);
-    } else {
-      setOpen(false);
+      return () => clearTimeout(timeoutId);
     }
+    setOpen(false);
   }, [firstGuideCueOpen]);
   return (
     <GuideCue
