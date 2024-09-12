@@ -22,15 +22,4 @@ describe("/image/imageId/random redirect route", () => {
         });
     });
   });
-
-  it("navigates to the image page from the task page", () => {
-    cy.visit(
-      "/task/evergreen_ubuntu1604_test_annotations_b_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
-    );
-    cy.dataCy("task-image-link")
-      .should("have.attr", "href")
-      .and("eq", "/image/ubuntu1604/build-information");
-    cy.dataCy("task-image-link").click();
-    cy.location("pathname").should("eq", "/image/ubuntu1604/build-information");
-  });
 });

@@ -58,7 +58,6 @@ export const taskQuery: TaskQueryType = {
     canUnschedule: false,
     dependsOn: [],
     displayName: "e2e_test",
-    imageId: "ubuntu1604",
     distroId: "ubuntu1604-small",
     estimatedStart: 1000,
     pod: null,
