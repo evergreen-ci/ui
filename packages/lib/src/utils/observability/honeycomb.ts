@@ -40,7 +40,7 @@ const initializeHoneycomb = ({
     );
     return;
   }
-  if (!ingestKey || !endpoint) {
+  if (!ingestKey && !endpoint) {
     console.error(
       "Honeycomb INGEST API key or a collector endpoint is required to start the SDK in production mode.",
     );
