@@ -44,11 +44,9 @@ const Container = () => {
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <Metadata error={error} loading={loading} pod={pod} />
         </PageSider>
-        <PageLayout>
-          <PageContent>
-            <EventsTable />
-          </PageContent>
-        </PageLayout>
+        <PageContent>
+          <EventsTable />
+        </PageContent>
       </PageLayout>
     </PageWrapper>
   );

@@ -136,21 +136,19 @@ const Host: React.FC = () => {
                 </Code>
               )}
             </PageSider>
-            <PageLayout>
-              <PageContent>
-                <HostTable
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  error={error}
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  eventData={hostEventData}
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  eventsCount={eventsCount}
-                  limit={limit}
-                  loading={hostEventLoading}
-                  page={page}
-                />
-              </PageContent>
-            </PageLayout>
+            <PageContent>
+              <HostTable
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                error={error}
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                eventData={hostEventData}
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                eventsCount={eventsCount}
+                limit={limit}
+                loading={hostEventLoading}
+                page={page}
+              />
+            </PageContent>
           </PageLayout>
         </>
       )}

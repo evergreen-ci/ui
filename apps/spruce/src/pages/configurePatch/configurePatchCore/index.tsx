@@ -218,41 +218,39 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
             variants={getVariantEntries(variants, selectedBuildVariantTasks)}
           />
         </PageSider>
-        <PageLayout>
-          <PageContent>
-            <StyledTabs
-              aria-label="Configure Patch Tabs"
-              selected={selectedTab}
-              setSelected={setSelectedTab}
-            >
-              <Tab data-cy="tasks-tab" name="Configure">
-                <ConfigureTasks
-                  activated={activated}
-                  activatedVariants={variantsTasks}
-                  aliasCount={aliasCount}
-                  childPatches={childPatchesWithAliases}
-                  selectableAliases={selectableAliases}
-                  selectedAliases={selectedAliases}
-                  selectedBuildVariants={selectedBuildVariants}
-                  selectedBuildVariantTasks={selectedBuildVariantTasks}
-                  setSelectedAliases={setSelectedAliases}
-                  setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
-                  totalSelectedTaskCount={totalSelectedTaskCount}
-                />
-              </Tab>
-              <Tab data-cy="changes-tab" name="Changes">
-                <CodeChanges patchId={id} />
-              </Tab>
-              <Tab data-cy="parameters-tab" name="Parameters">
-                <ParametersContent
-                  patchActivated={activated}
-                  patchParameters={patchParams}
-                  setPatchParams={setPatchParams}
-                />
-              </Tab>
-            </StyledTabs>
-          </PageContent>
-        </PageLayout>
+        <PageContent>
+          <StyledTabs
+            aria-label="Configure Patch Tabs"
+            selected={selectedTab}
+            setSelected={setSelectedTab}
+          >
+            <Tab data-cy="tasks-tab" name="Configure">
+              <ConfigureTasks
+                activated={activated}
+                activatedVariants={variantsTasks}
+                aliasCount={aliasCount}
+                childPatches={childPatchesWithAliases}
+                selectableAliases={selectableAliases}
+                selectedAliases={selectedAliases}
+                selectedBuildVariants={selectedBuildVariants}
+                selectedBuildVariantTasks={selectedBuildVariantTasks}
+                setSelectedAliases={setSelectedAliases}
+                setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
+                totalSelectedTaskCount={totalSelectedTaskCount}
+              />
+            </Tab>
+            <Tab data-cy="changes-tab" name="Changes">
+              <CodeChanges patchId={id} />
+            </Tab>
+            <Tab data-cy="parameters-tab" name="Parameters">
+              <ParametersContent
+                patchActivated={activated}
+                patchParameters={patchParams}
+                setPatchParams={setPatchParams}
+              />
+            </Tab>
+          </StyledTabs>
+        </PageContent>
       </PageLayout>
     </>
   );
