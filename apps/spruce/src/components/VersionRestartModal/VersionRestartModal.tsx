@@ -7,6 +7,7 @@ import { Skeleton } from "antd";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
+import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
@@ -24,6 +25,7 @@ import {
   versionSelectedTasks,
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
+import { sumActivatedTasksInSelectedTasks } from "utils/tasks/estimatedActivatedTasks";
 import VersionTasks from "./VersionTasks";
 
 interface VersionRestartModalProps {
@@ -110,6 +112,11 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
 
   const selectedTotal = selectTasksTotal(selectedTasks || {});
 
+  const { generatedTaskCounts = [] } = version ?? {};
+  const estimatedActivatedTasksCount = sumActivatedTasksInSelectedTasks(
+    selectedTasks || {},
+    generatedTaskCounts,
+  );
   return (
     <ConfirmationModal
       buttonText="Restart"
@@ -167,6 +174,9 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
               <br />
             </div>
           )}
+          <TaskSchedulingWarningBanner
+            totalTasks={estimatedActivatedTasksCount}
+          />
           <ConfirmationMessage data-cy="confirmation-message" weight="medium">
             Are you sure you want to restart the {selectedTotal} selected tasks?
           </ConfirmationMessage>

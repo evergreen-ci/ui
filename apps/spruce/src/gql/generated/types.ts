@@ -5836,7 +5836,17 @@ export type BuildVariantsWithChildrenQuery = {
           status: string;
         }> | null;
       }> | null;
+      generatedTaskCounts: Array<{
+        __typename?: "GeneratedTaskCountResults";
+        estimatedTasks: number;
+        taskId?: string | null;
+      }>;
     }> | null;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      estimatedTasks: number;
+      taskId?: string | null;
+    }>;
   };
 };
 
@@ -6845,6 +6855,12 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      buildVariantName?: string | null;
+      estimatedTasks: number;
+      taskName?: string | null;
+    }>;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -9014,6 +9030,11 @@ export type UndispatchedTasksQuery = {
   version: {
     __typename?: "Version";
     id: string;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      estimatedTasks: number;
+      taskId?: string | null;
+    }>;
     tasks: {
       __typename?: "VersionTasks";
       data: Array<{
