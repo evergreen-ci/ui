@@ -3,7 +3,6 @@ import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useToastContext } from "context/toast";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { reportError } from "utils/errorReporting";
-import { releaseSectioning } from "utils/featureFlag";
 import {
   SectionData,
   getOpenSectionStateBasedOnLineNumbers,
@@ -61,7 +60,6 @@ export const useSections = ({
   const { settings } = useParsleySettings();
 
   const sectioningEnabled =
-    releaseSectioning &&
     !!settings?.sectionsEnabled &&
     logType === LogTypes.EVERGREEN_TASK_LOGS &&
     renderingType === LogRenderingTypes.Default;

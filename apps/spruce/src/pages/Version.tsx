@@ -127,14 +127,12 @@ export const VersionPage: React.FC = () => {
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <BuildVariantCard versionId={versionId} />
         </PageSider>
-        <PageLayout>
-          <PageContent>
-            <VersionTabs
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
-              version={version}
-            />
-          </PageContent>
-        </PageLayout>
+        <PageContent>
+          <VersionTabs
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            version={version}
+          />
+        </PageContent>
       </PageLayout>
     </PageWrapper>
   );

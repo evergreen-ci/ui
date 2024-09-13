@@ -5,6 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Accordion } from "components/Accordion";
+import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -16,6 +17,7 @@ import {
 } from "gql/generated/types";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { UNSCHEDULED_TASKS } from "gql/queries";
+import { sumActivatedTasksInSet } from "utils/tasks/estimatedActivatedTasks";
 import { initialState, reducer } from "./reducer";
 
 interface ScheduleTasksModalProps {
@@ -69,6 +71,13 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   useEffect(() => {
     dispatch({ type: "ingestData", taskData });
   }, [taskData]);
+
+  const { generatedTaskCounts = [] } = taskData?.version ?? {};
+
+  const estimatedActivatedTasksCount = sumActivatedTasksInSet(
+    selectedTasks,
+    generatedTaskCounts,
+  );
 
   return (
     <ConfirmationModal
@@ -159,6 +168,9 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                 );
               },
             )}
+            <TaskSchedulingWarningBanner
+              totalTasks={estimatedActivatedTasksCount}
+            />
           </>
         )}
         {!loadingTaskData && !sortedBuildVariantGroups.length && (
