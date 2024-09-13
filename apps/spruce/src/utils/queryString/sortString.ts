@@ -34,6 +34,24 @@ export const toSortString = (
     : undefined;
 };
 
+/**
+ * Parses a sort query string or array into an array of sort objects.
+ * The result is in the shape [{ [SortByKey]: SortCategoryEnum, [SortDirectionKey]: SortDirection }, ...]
+ * @template SortByKey - The key for the sort category.
+ * @template SortDirectionKey - The key for the sort direction.
+ * @template SortCategoryEnum - The enum type for sort categories.
+ * @template T - The type of the resulting sort objects, which must include
+ *               both the sort category and direction.
+ * @param sortQuery - A string or an array of strings representing the sort
+ *                    criteria in the format "category:direction".
+ * @param options - An object containing the following properties:
+ * @param options.sortByKey - The key to use for the sort category in the resulting objects.
+ * @param options.sortDirKey -  The key to use for the sort direction in the resulting objects.
+ * @param options.sortCategoryEnum - An object that maps valid sort categories to their
+ *                                   corresponding enum values.
+ * @returns An array of sort objects, each containing the specified sort
+ *          category and direction.
+ */
 export const parseSortString = <
   SortByKey extends string,
   SortDirectionKey extends string,
