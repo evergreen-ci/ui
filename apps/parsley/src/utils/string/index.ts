@@ -135,14 +135,13 @@ export const trimSeverity = (line: string) => {
  * @returns true if line is the failing log line, false otherwise
  */
 export const isFailingLine = (line: string, failingCommand: string) => {
-  console.log(failingCommand);
   const failedExpression = `${failingCommand} failed`;
   const timeoutExpression = `${failingCommand} stopped early`;
   // The "Finished" command is matched when the task status is set to fail by the user.
-  const finished = `Finished command ${failingCommand}`;
+  const finishedExpression = `Finished command ${failingCommand}`;
   return (
     line.includes(failedExpression) ||
     line.includes(timeoutExpression) ||
-    line.includes(finished)
+    line.includes(finishedExpression)
   );
 };
