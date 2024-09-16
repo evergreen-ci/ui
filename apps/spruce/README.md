@@ -43,13 +43,12 @@ results.
 ### Environment Variables
 
 [env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure
-build environments for production, staging and development. We use two files to
-represent these various environments: `.env-cmdrc.local.json` for local builds
-with non-sensitive information, and `.env-cmdrc.json` for builds deployed to S3.
-This file is git ignored because it contains API keys that we do not want to
-publish. It should be named `.env-cmdrc.json` and placed in the root of the
-project. This file is required to deploy Spruce to production and to staging.
-The credential file is located in the R&D Dev Prod 1Password vault.
+build environments for production, staging, and development. We use `.env-cmdrc.json` to
+represent these various environments. `.env-cmdrc.json` does not contain any sensitive 
+information and can be used for local builds or manual builds deployed to S3.
+
+However, since `.env-cmdrc.json` lacks secrets for Sentry and Honeycomb, manual builds
+to S3 will not be able to utilize those services.
 
 ## GraphQL Type Generation
 

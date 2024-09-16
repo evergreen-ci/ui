@@ -1,7 +1,5 @@
 node_modules
 
-.env-cmdrc.json
-
 # misc
 .DS_Store
 

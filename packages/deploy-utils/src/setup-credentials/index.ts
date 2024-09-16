@@ -59,6 +59,7 @@ const base: Record<TargetEnvironment, Record<string, string | undefined>> = {
     REACT_APP_PARSLEY_URL: "https://parsley-beta.corp.mongodb.com",
     REACT_APP_SIGNAL_PROCESSING_URL:
       "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
+    REACT_APP_SPRUCE_URL: "https://spruce-beta.corp.mongodb.com",
     REACT_APP_UI_URL: "https://evergreen.mongodb.com",
   },
   production: {
