@@ -182,6 +182,12 @@ describe("isFailingLine", () => {
         "'shell.exec' in function 'attach-cypress-results' (step 3.3 of 8) in block 'post'",
       ),
     ).toBe(true);
+    expect(
+      isFailingLine(
+        "[2023/01/02 10:42:29.414] Finished command 'shell.exec' in function 'attach-cypress-results' (step 3.3 of 8) in 20.085137ms.",
+        "'shell.exec' in function 'attach-cypress-results' (step 3.3 of 8) in block 'post'",
+      ),
+    ).toBe(true);
   });
   it("should return false if not a failing line", () => {
     expect(
