@@ -2230,7 +2230,7 @@ export type Query = {
   userSettings?: Maybe<UserSettings>;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
-  waterfall?: Maybe<Waterfall>;
+  waterfall: Waterfall;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -3428,7 +3428,9 @@ export type VolumeHost = {
 export type Waterfall = {
   __typename?: "Waterfall";
   buildVariants: Array<WaterfallBuildVariant>;
-  versions: Array<Version>;
+  nextPageOrder: Scalars["Int"]["output"];
+  prevPageOrder: Scalars["Int"]["output"];
+  versions: Array<WaterfallVersion>;
 };
 
 export type WaterfallBuild = {
@@ -3449,6 +3451,10 @@ export type WaterfallBuildVariant = {
 
 export type WaterfallOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Return versions with an order lower than maxOrder. Used for paginating forward. */
+  maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Return versions with an order greater than minOrder. Used for paginating backward. */
+  minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
@@ -3458,6 +3464,12 @@ export type WaterfallTask = {
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
+};
+
+export type WaterfallVersion = {
+  __typename?: "WaterfallVersion";
+  inactiveVersions?: Maybe<Array<Version>>;
+  version?: Maybe<Version>;
 };
 
 export type Webhook = {

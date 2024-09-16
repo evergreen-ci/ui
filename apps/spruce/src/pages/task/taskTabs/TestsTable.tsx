@@ -24,6 +24,7 @@ import {
   TestSortCategory,
   TestResult,
   TaskQuery,
+  TestSortOptions,
 } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
 import { useTableSort, useUpdateURLQueryParams, usePolling } from "hooks";
@@ -266,12 +267,17 @@ const getQueryVariables = (
       ? SortDirection.Desc
       : SortDirection.Asc;
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  let sort = [];
+  let sort: TestSortOptions[] = [];
   if (sortBy && direction) {
     sort = [{ sortBy, direction }];
   } else if (sorts) {
-    sort = parseSortString(sorts, {
+    sort = parseSortString<
+      "sortBy",
+      "direction",
+      TestSortCategory,
+      TestSortOptions
+    >(sorts, {
+      sortCategoryEnum: TestSortCategory,
       sortByKey: "sortBy",
       sortDirKey: "direction",
     });
@@ -286,7 +292,6 @@ const getQueryVariables = (
   return {
     id: taskId,
     execution: queryParamAsNumber(execution),
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sort,
     limitNum: getLimit(queryParams[PaginationQueryParams.Limit]),
     statusList,
