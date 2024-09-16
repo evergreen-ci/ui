@@ -1,11 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
 import {
   act,
+  renderComponentWithHook,
   renderWithRouterMatch,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { renderComponentWithHook } from "@evg-ui/lib/test_utils/hooks";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import {

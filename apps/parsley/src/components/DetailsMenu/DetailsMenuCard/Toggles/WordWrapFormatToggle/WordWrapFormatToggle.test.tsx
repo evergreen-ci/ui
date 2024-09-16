@@ -3,10 +3,10 @@ import { MockInstance } from "vitest";
 import {
   act,
   renderWithRouterMatch as render,
+  renderComponentWithHook,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { renderComponentWithHook } from "@evg-ui/lib/test_utils/hooks";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";

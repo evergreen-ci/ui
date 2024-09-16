@@ -1,10 +1,10 @@
 import { act, waitFor } from "@testing-library/react";
 import {
   renderWithRouterMatch as render,
+  renderComponentWithHook,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
-import { renderComponentWithHook } from "@evg-ui/lib/test_utils/hooks";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";

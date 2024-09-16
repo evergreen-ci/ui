@@ -64,30 +64,4 @@ const useEffectDebugger = (
   useEffect(effectHook, dependencies);
 };
 
-/**
- * `renderComponentWithHook` is a utility function that renders a component with a given hook for use in testing
- * @param useHook - The hook to use
- * @param Comp - The component to render
- * @returns - The component and the hook
- */
-const renderComponentWithHook = <
-  T extends () => any,
-  U extends JSX.Element | null,
->(
-  useHook: T,
-  Comp: U,
-) => {
-  const hook: { current: ReturnType<typeof useHook> } = {
-    current: {} as ReturnType<typeof useHook>,
-  };
-  const Component = () => {
-    hook.current = useHook();
-    return Comp;
-  };
-  return {
-    Component,
-    hook,
-  };
-};
-
-export { useEffectDebugger, renderComponentWithHook };
+export { useEffectDebugger };

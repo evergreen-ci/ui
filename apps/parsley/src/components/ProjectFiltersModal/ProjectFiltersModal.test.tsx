@@ -2,12 +2,12 @@ import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import {
   act,
   renderWithRouterMatch as render,
+  renderComponentWithHook,
   screen,
   stubGetClientRects,
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { renderComponentWithHook } from "@evg-ui/lib/test_utils/hooks";
 import { ApolloMock } from "@evg-ui/lib/types/gql";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";

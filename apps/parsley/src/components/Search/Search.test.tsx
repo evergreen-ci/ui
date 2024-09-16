@@ -1,12 +1,12 @@
 import {
   act,
   renderWithRouterMatch as render,
+  renderComponentWithHook,
   screen,
   stubGetClientRects,
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { renderComponentWithHook } from "@evg-ui/lib/test_utils/hooks";
 import { LogRenderingTypes } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";

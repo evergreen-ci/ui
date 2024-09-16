@@ -1,12 +1,12 @@
 import {
   act,
   render,
+  renderComponentWithHook,
   renderHook,
   screen,
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { renderComponentWithHook } from "@evg-ui/lib/test_utils/hooks";
 import { ToastProvider, useToastContext } from ".";
 import { RenderFakeToastContext } from "./__mocks__";
 import { TOAST_TIMEOUT } from "./constants";
