@@ -1,12 +1,12 @@
 # 2023-12-13 How the version page reasons about what to load
 
-- status: accepted
+- status: deprecated
 - date: 2023-12-13
 - authors: Mohamed Khelif
 
 
-## Changelog
-* date: 2024-09-09
+## Deprecation
+* date: 2024-09-16
 * authors: Minna K-T
 
 The logic contained in this decision doc was entirely removed with the deprecation of the commit queue. Previously, the patches pages would always link to the Version page, and redirection to the Configure Page page or the Commit Queue page would be handled from within the Version component. The patches pages now link to the patch or version page depending on whether a patch is activated, making this logic unnecessary.
