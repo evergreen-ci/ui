@@ -4,7 +4,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
 import { RenderFakeToastContext } from "context/toast/__mocks__";

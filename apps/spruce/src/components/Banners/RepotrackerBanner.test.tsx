@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RepotrackerBanner } from "components/Banners";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {

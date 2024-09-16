@@ -8,7 +8,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";

@@ -4,7 +4,7 @@ import {
   screen,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";

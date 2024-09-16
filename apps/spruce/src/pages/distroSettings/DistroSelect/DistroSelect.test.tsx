@@ -5,7 +5,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
 import { DISTROS } from "gql/queries";
 import { DistroSelect } from ".";

@@ -1,6 +1,6 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
 import { IMAGES } from "gql/queries";
 import { useFirstImage } from ".";

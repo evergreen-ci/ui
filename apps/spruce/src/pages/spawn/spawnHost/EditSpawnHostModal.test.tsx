@@ -6,7 +6,7 @@ import {
   userEvent,
   within,
 } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { defaultSleepSchedule } from "components/Spawn/utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {

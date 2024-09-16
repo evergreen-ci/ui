@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import {
   TaskFilesQuery,
