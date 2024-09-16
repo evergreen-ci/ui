@@ -4,12 +4,11 @@
 - date: 2023-12-13
 - authors: Mohamed Khelif
 
-
 ## Deprecation
 * date: 2024-09-16
 * authors: Minna K-T
 
-The logic contained in this decision doc was entirely removed with the deprecation of the commit queue. Previously, the patches pages would always link to the Version page, and redirection to the Configure Page page or the Commit Queue page would be handled from within the Version component. The patches pages now link to the patch or version page depending on whether a patch is activated, making this logic unnecessary.
+The logic contained in this decision doc was entirely removed with the deprecation of the commit queue. Previously, the patches pages would always link to the Version page, and redirection to the Configure Patch page or the Commit Queue page would be handled within the Version component. The patches pages now link to the Configure Patch or Version page depending on whether a patch is activated, making this logic unnecessary.
 
 Note that this simplification is possible because repotracker, periodic build, trigger request, and git tag versions do not appear on the patches pages. Thus every version that appears on these pages is guaranteed to have a corresponding patch.
 
