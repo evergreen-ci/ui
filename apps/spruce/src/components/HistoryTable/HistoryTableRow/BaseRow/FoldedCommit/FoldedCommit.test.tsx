@@ -1,6 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  userEvent,
+  screen,
+} from "@evg-ui/lib/test_utils";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { renderWithRouterMatch as render, userEvent, screen } from "test_utils";
 import FoldedCommit from ".";
 import { foldedCommitData } from "./testData";
 

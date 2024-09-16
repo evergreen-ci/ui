@@ -1,5 +1,5 @@
 import { MemoryRouter } from "react-router-dom";
-import { renderHook } from "test_utils";
+import { renderHook } from "@evg-ui/lib/test_utils";
 import useScrollToAnchor from ".";
 
 describe("useScrollToAnchor", () => {

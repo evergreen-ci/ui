@@ -27,12 +27,27 @@ export const useQueryVariables = (
 
   // This should be reworked once the antd tables are removed.
   // At the current state, sorts & duration will never both be defined.
-  let sortsToApply: SortOrder[];
+  let sortsToApply: SortOrder[] = [];
+  const opts = {
+    sortByKey: "Key" as "Key",
+    sortDirKey: "Direction" as "Direction",
+    sortCategoryEnum: TaskSortCategory,
+  };
   if (sorts) {
-    sortsToApply = parseSortString(sorts);
+    sortsToApply = parseSortString<
+      "Key",
+      "Direction",
+      TaskSortCategory,
+      SortOrder
+    >(sorts, opts);
   }
   if (duration) {
-    sortsToApply = parseSortString(`${TaskSortCategory.Duration}:${duration}`);
+    sortsToApply = parseSortString<
+      "Key",
+      "Direction",
+      TaskSortCategory,
+      SortOrder
+    >(`${TaskSortCategory.Duration}:${duration}`, opts);
   }
 
   return {
@@ -42,7 +57,6 @@ export const useQueryVariables = (
       taskName: getString(taskName),
       statuses: toArray(statuses),
       baseStatuses: toArray(baseStatuses),
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       sorts: sortsToApply,
       limit,
       page,

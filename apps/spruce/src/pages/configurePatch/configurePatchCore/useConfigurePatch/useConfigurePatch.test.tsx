@@ -1,5 +1,5 @@
 import { MemoryRouter } from "react-router-dom";
-import { renderHook, act } from "test_utils";
+import { renderHook, act } from "@evg-ui/lib/test_utils";
 import useConfigurePatch from ".";
 import { patchQuery } from "../testData";
 

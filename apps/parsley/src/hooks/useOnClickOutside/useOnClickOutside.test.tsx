@@ -1,5 +1,5 @@
 import { createRef } from "react";
-import { render, renderHook, screen, userEvent } from "test_utils";
+import { render, renderHook, screen, userEvent } from "@evg-ui/lib/test_utils";
 import useOnClickOutside from ".";
 
 describe("useOnClickOutside", () => {

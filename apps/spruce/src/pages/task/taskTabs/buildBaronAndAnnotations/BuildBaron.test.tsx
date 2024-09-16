@@ -1,4 +1,9 @@
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   BuildBaronCreateTicketMutation,
@@ -25,7 +30,6 @@ import {
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,
 } from "gql/queries";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { MockedProvider } from "test_utils/graphql";
 import BuildBaronContent from "./BuildBaronContent";
 

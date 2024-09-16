@@ -1,10 +1,14 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { MY_HOSTS } from "gql/queries";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { SpawnHostButton } from "./SpawnHostButton";

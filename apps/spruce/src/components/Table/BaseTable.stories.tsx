@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { WordBreak } from "components/styles";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { BaseTable } from "./BaseTable";
 
 export default {

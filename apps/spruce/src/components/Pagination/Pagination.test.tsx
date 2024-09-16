@@ -1,4 +1,8 @@
-import { renderWithRouterMatch, screen, userEvent } from "test_utils";
+import {
+  renderWithRouterMatch,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import Pagination from ".";
 
 describe("pagination", () => {

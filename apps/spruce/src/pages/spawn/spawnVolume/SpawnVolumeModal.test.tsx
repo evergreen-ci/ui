@@ -1,5 +1,12 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  userEvent,
+  renderWithRouterMatch as render,
+  screen,
+  stubGetClientRects,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   MyHostsQuery,
@@ -14,13 +21,6 @@ import { getUserMock } from "gql/mocks/getUser";
 import { myVolumesQueryMock } from "gql/mocks/myVolumesQuery";
 import { SPAWN_VOLUME } from "gql/mutations";
 import { MY_HOSTS, SUBNET_AVAILABILITY_ZONES } from "gql/queries";
-import {
-  userEvent,
-  renderWithRouterMatch as render,
-  screen,
-  stubGetClientRects,
-  waitFor,
-} from "test_utils";
 import { selectLGOption } from "test_utils/utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 

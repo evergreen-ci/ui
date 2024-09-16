@@ -2,11 +2,15 @@ import { createRef } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
 import { VirtuosoMockContext } from "react-virtuoso";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { parsleySettingsMock } from "test_data/parsleySettings";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import LogPane from ".";
 
 const list = Array.from({ length: 100 }, (_, i) => `${i}`);

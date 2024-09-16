@@ -1,3 +1,9 @@
+import {
+  renderWithRouterMatch,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import * as analytics from "analytics";
 import { SectionStatus } from "constants/logs";
 import * as logContext from "context/LogContext";
@@ -8,7 +14,6 @@ import {
   sectionStateAllOpen,
   sectionStateSomeOpen,
 } from "hooks/useSections/testData";
-import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { SubsectionControls } from "./SubsectionControls";
 
 const wrapper = logContextWrapper();

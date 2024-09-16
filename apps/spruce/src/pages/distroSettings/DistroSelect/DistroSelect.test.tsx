@@ -1,13 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
-import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
-import { DISTROS } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
   waitFor,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
+import { DISTROS } from "gql/queries";
 import { DistroSelect } from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

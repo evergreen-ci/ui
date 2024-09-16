@@ -1,19 +1,19 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { GraphQLError } from "graphql";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
-import {
-  CreateDistroMutation,
-  CreateDistroMutationVariables,
-} from "gql/generated/types";
-import { CREATE_DISTRO } from "gql/mutations";
 import {
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
   userEvent,
   waitFor,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
+import {
+  CreateDistroMutation,
+  CreateDistroMutationVariables,
+} from "gql/generated/types";
+import { CREATE_DISTRO } from "gql/mutations";
 import { CreateModal } from "./CreateModal";
 
 const newDistroId = "new-distro";

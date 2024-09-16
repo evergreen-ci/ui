@@ -1,4 +1,4 @@
-import { render, screen, userEvent, waitFor } from "test_utils";
+import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {

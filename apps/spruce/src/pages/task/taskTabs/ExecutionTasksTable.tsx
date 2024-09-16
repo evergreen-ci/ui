@@ -136,10 +136,22 @@ const getInitialSorting = (queryParams: {
       },
     ];
   } else if (sorts) {
-    const parsedSorts = parseSortString(sorts);
-    initialSorting = parsedSorts.map(({ Direction, Key }) => ({
-      id: Key as TaskSortCategory,
-      desc: Direction === SortDirection.Desc,
+    const parsedSorts = parseSortString<
+      "id",
+      "direction",
+      TaskSortCategory,
+      {
+        id: TaskSortCategory;
+        direction: SortDirection;
+      }
+    >(sorts, {
+      sortCategoryEnum: TaskSortCategory,
+      sortByKey: "id",
+      sortDirKey: "direction",
+    });
+    initialSorting = parsedSorts.map(({ direction, id }) => ({
+      id,
+      desc: direction === SortDirection.Desc,
     }));
   }
 
