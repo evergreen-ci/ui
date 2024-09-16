@@ -35,7 +35,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         title: "Valid Projects",
         items: {
           type: "string" as "string",
-          title: "Project Name",
+          title: "Project ID",
           default: "",
           minLength: 1,
         },
