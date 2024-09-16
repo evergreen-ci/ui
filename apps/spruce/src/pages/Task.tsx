@@ -139,19 +139,13 @@ export const Task = () => {
             taskId={taskId}
           />
         </PageSider>
-        <LogWrapper>
-          <PageContent>
-            {task && <TaskTabs isDisplayTask={isDisplayTask} task={task} />}
-          </PageContent>
-        </LogWrapper>
+        <PageContent>
+          {task && <TaskTabs isDisplayTask={isDisplayTask} task={task} />}
+        </PageContent>
       </PageLayout>
     </PageWrapper>
   );
 };
-
-const LogWrapper = styled(PageLayout)`
-  width: 100%;
-`;
 
 const StyledBadgeWrapper = styled.div`
   > :nth-of-type(2) {

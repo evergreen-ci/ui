@@ -837,13 +837,47 @@ export type HostEventLogData = {
 export type HostEventLogEntry = {
   __typename?: "HostEventLogEntry";
   data: HostEventLogData;
-  eventType?: Maybe<Scalars["String"]["output"]>;
+  eventType?: Maybe<HostEventType>;
   id: Scalars["String"]["output"];
   processedAt: Scalars["Time"]["output"];
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
 };
+
+export enum HostEventType {
+  HostAgentDeployed = "HOST_AGENT_DEPLOYED",
+  HostAgentDeployFailed = "HOST_AGENT_DEPLOY_FAILED",
+  HostAgentMonitorDeployed = "HOST_AGENT_MONITOR_DEPLOYED",
+  HostAgentMonitorDeployFailed = "HOST_AGENT_MONITOR_DEPLOY_FAILED",
+  HostConvertedProvisioning = "HOST_CONVERTED_PROVISIONING",
+  HostConvertingProvisioning = "HOST_CONVERTING_PROVISIONING",
+  HostConvertingProvisioningError = "HOST_CONVERTING_PROVISIONING_ERROR",
+  HostCreated = "HOST_CREATED",
+  HostCreatedError = "HOST_CREATED_ERROR",
+  HostDnsNameSet = "HOST_DNS_NAME_SET",
+  HostExpirationWarningSent = "HOST_EXPIRATION_WARNING_SENT",
+  HostIdleNotification = "HOST_IDLE_NOTIFICATION",
+  HostJasperRestarted = "HOST_JASPER_RESTARTED",
+  HostJasperRestarting = "HOST_JASPER_RESTARTING",
+  HostJasperRestartError = "HOST_JASPER_RESTART_ERROR",
+  HostModified = "HOST_MODIFIED",
+  HostProvisioned = "HOST_PROVISIONED",
+  HostProvisionError = "HOST_PROVISION_ERROR",
+  HostProvisionFailed = "HOST_PROVISION_FAILED",
+  HostRunningTaskCleared = "HOST_RUNNING_TASK_CLEARED",
+  HostRunningTaskSet = "HOST_RUNNING_TASK_SET",
+  HostScriptExecuted = "HOST_SCRIPT_EXECUTED",
+  HostScriptExecuteFailed = "HOST_SCRIPT_EXECUTE_FAILED",
+  HostStarted = "HOST_STARTED",
+  HostStatusChanged = "HOST_STATUS_CHANGED",
+  HostStopped = "HOST_STOPPED",
+  HostTaskFinished = "HOST_TASK_FINISHED",
+  HostTemporaryExemptionExpirationWarningSent = "HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT",
+  HostTerminatedExternally = "HOST_TERMINATED_EXTERNALLY",
+  VolumeExpirationWarningSent = "VOLUME_EXPIRATION_WARNING_SENT",
+  VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
+}
 
 /**
  * HostEvents is the return value for the hostEvents query.
@@ -5802,7 +5836,17 @@ export type BuildVariantsWithChildrenQuery = {
           status: string;
         }> | null;
       }> | null;
+      generatedTaskCounts: Array<{
+        __typename?: "GeneratedTaskCountResults";
+        estimatedTasks: number;
+        taskId?: string | null;
+      }>;
     }> | null;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      estimatedTasks: number;
+      taskId?: string | null;
+    }>;
   };
 };
 
@@ -6107,7 +6151,7 @@ export type HostEventsQuery = {
     count: number;
     eventLogEntries: Array<{
       __typename?: "HostEventLogEntry";
-      eventType?: string | null;
+      eventType?: HostEventType | null;
       id: string;
       processedAt: Date;
       resourceId: string;
@@ -6811,6 +6855,12 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      buildVariantName?: string | null;
+      estimatedTasks: number;
+      taskName?: string | null;
+    }>;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -8807,7 +8857,6 @@ export type TaskQuery = {
     generatedBy?: string | null;
     generatedByName?: string | null;
     hostId?: string | null;
-    imageId: string;
     ingestTime?: Date | null;
     isPerfPluginEnabled: boolean;
     latestExecution: number;
@@ -8981,6 +9030,11 @@ export type UndispatchedTasksQuery = {
   version: {
     __typename?: "Version";
     id: string;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      estimatedTasks: number;
+      taskId?: string | null;
+    }>;
     tasks: {
       __typename?: "VersionTasks";
       data: Array<{

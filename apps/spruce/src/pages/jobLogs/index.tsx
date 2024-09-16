@@ -73,16 +73,14 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
         <PageSider>
           <Metadata loading={loading} metadata={metadata} />
         </PageSider>
-        <PageLayout>
-          <PageContent>
-            <JobLogsTable
-              buildId={buildIdFromParams}
-              isLogkeeper={isLogkeeper}
-              loading={loading}
-              tests={resultsToRender}
-            />
-          </PageContent>
-        </PageLayout>
+        <PageContent>
+          <JobLogsTable
+            buildId={buildIdFromParams}
+            isLogkeeper={isLogkeeper}
+            loading={loading}
+            tests={resultsToRender}
+          />
+        </PageContent>
       </StyledPageLayout>
     </PageWrapper>
   );
