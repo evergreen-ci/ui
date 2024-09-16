@@ -4,7 +4,7 @@ import {
   screen,
   userEvent,
   waitFor,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
 import { CommitRolledUpVersions } from "types/commits";
 import { InactiveCommitButton, MAX_COMMIT_COUNT } from ".";
 

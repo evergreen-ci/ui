@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { getUserMock } from "gql/mocks/getUser";
-import { act, renderHook } from "test_utils";
 import { usePageVisibility } from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.

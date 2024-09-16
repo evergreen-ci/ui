@@ -1,5 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   ProjectEventLogsQuery,
@@ -7,7 +12,6 @@ import {
   ProjectHealthView,
 } from "gql/generated/types";
 import { PROJECT_EVENT_LOGS } from "gql/queries";
-import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { ProjectType } from "../utils";
 import { EventLogTab } from "./EventLogTab";
 

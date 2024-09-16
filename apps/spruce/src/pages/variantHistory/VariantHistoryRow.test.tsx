@@ -1,5 +1,11 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { context, types } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
@@ -9,12 +15,6 @@ import {
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
 import { TASK_TEST_SAMPLE } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
 import { TestStatus } from "types/history";
 import VariantHistoryRow from "./VariantHistoryRow";
 

@@ -11,7 +11,7 @@ import {
 import type { RenderOptions, RenderResult } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import * as customQueries from "./queries";
+import * as customQueries from "./custom-queries";
 
 type QueriesType = typeof queries;
 type CustomQueriesType = typeof customQueries;
@@ -96,6 +96,32 @@ const renderWithRouterMatch = (
 };
 
 /**
+ * `renderComponentWithHook` is a utility function that renders a component with a given hook for use in testing
+ * @param useHook - The hook to use
+ * @param Comp - The component to render
+ * @returns - The component and the hook
+ */
+const renderComponentWithHook = <
+  T extends () => any,
+  U extends JSX.Element | null,
+>(
+  useHook: T,
+  Comp: U,
+) => {
+  const hook: { current: ReturnType<typeof useHook> } = {
+    current: {} as ReturnType<typeof useHook>,
+  };
+  const Component = () => {
+    hook.current = useHook();
+    return Comp;
+  };
+  return {
+    Component,
+    hook,
+  };
+};
+
+/**
  * `stubGetClientRects` fixes a fallbackFocus error introduced by focus-trap.
  * focus-trap only offers legacy CommonJS exports so it can't be mocked by Vitest.
  * Instead, spoof focus-trap into thinking there is a node attached.
@@ -118,6 +144,7 @@ export {
   customRender as render,
   renderHook,
   renderWithRouterMatch,
+  renderComponentWithHook,
   customScreen as screen,
   userEvent,
   waitFor,

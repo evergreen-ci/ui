@@ -1,4 +1,4 @@
-import { renderHook, act } from "test_utils";
+import { renderHook, act } from "@evg-ui/lib/test_utils";
 import { useRunningTime } from "."; // Make sure to adjust the import path
 
 describe("useRunningTime", () => {

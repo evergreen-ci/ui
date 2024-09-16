@@ -1,5 +1,5 @@
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { act, renderHook } from "test_utils";
+import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { MultiLineSelectContextProvider, useMultiLineSelectContext } from ".";
 
 const wrapper = ({

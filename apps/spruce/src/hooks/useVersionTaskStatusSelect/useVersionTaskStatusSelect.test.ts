@@ -1,4 +1,4 @@
-import { renderHook, act } from "test_utils";
+import { renderHook, act } from "@evg-ui/lib/test_utils";
 import { useVersionTaskStatusSelect } from ".";
 
 const allFalse = {

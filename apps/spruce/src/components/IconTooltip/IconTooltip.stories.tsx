@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { Size, glyphs } from "components/Icon";
 import { size } from "constants/tokens";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import IconTooltip, { IconTooltipProps } from ".";
 
 const Sizes = {

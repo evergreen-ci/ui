@@ -1,6 +1,6 @@
 import { css } from "@leafygreen-ui/emotion";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskQueueItem, TaskQueueItemType } from "gql/generated/types";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import TaskQueueTable from ".";
 
 const generateTaskQueue = (length: number): TaskQueueColumnData[] => {

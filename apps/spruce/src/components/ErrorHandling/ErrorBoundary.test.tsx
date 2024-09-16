@@ -1,9 +1,6 @@
 import { captureException } from "@sentry/react";
-import { render, screen } from "test_utils";
-import { mockEnvironmentVariables } from "test_utils/utils";
+import { render, screen } from "@evg-ui/lib/test_utils";
 import { ErrorBoundary } from "./ErrorBoundary";
-
-const { cleanup } = mockEnvironmentVariables();
 
 vi.mock("@sentry/react", async (importOriginal) => {
   const actual = await importOriginal();
@@ -20,7 +17,6 @@ describe("default error boundary", () => {
   });
 
   afterEach(() => {
-    cleanup();
     vi.restoreAllMocks();
   });
 

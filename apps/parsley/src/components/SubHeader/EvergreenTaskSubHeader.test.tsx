@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { render, screen, waitFor } from "@evg-ui/lib/test_utils";
 import { LogTypes } from "constants/enums";
 import { evergreenTaskMock, logkeeperMetadataMock } from "test_data/task";
-import { render, screen, waitFor } from "test_utils";
 import { EvergreenTaskSubHeader } from "./EvergreenTaskSubHeader";
 
 describe("evergreen task subheader", () => {

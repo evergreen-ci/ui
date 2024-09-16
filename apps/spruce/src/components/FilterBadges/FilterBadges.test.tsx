@@ -1,4 +1,10 @@
-import { render, screen, userEvent, waitFor, within } from "test_utils";
+import {
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  within,
+} from "@evg-ui/lib/test_utils";
 import FilterBadges from ".";
 
 describe("filterBadges", () => {

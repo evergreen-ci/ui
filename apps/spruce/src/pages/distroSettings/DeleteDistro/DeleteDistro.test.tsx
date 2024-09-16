@@ -1,5 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+  within,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   DeleteDistroMutation,
@@ -9,13 +16,6 @@ import {
 } from "gql/generated/types";
 import { DELETE_DISTRO } from "gql/mutations";
 import { USER_DISTRO_SETTINGS_PERMISSIONS } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-  within,
-} from "test_utils";
 import { DeleteDistro } from ".";
 
 const DeleteButton = ({ isAdmin = false }: { isAdmin?: boolean }) => (

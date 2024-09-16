@@ -1,6 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { FieldProps } from "@rjsf/core";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  stubGetClientRects,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   AttachProjectToNewRepoMutation,
@@ -18,13 +25,6 @@ import {
   DETACH_PROJECT_FROM_REPO,
 } from "gql/mutations";
 import { GITHUB_ORGS } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  stubGetClientRects,
-  userEvent,
-  waitFor,
-} from "test_utils";
 import { selectLGOption } from "test_utils/utils";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";

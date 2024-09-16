@@ -1,15 +1,11 @@
-import { render, screen } from "test_utils";
-import { mockEnvironmentVariables } from "test_utils/utils";
+import { render, screen } from "@evg-ui/lib/test_utils";
 import { ErrorBoundary } from "./ErrorBoundary";
-
-const { cleanup } = mockEnvironmentVariables();
 
 describe("default error boundary", () => {
   beforeEach(() => {
     vi.spyOn(console, "error").mockImplementation(() => {});
   });
   afterEach(() => {
-    cleanup();
     vi.restoreAllMocks();
   });
   it("should render the passed in component", () => {

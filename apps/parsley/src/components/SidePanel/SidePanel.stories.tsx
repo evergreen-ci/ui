@@ -3,12 +3,12 @@ import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
 import { actions } from "@storybook/addon-actions";
 import { userEvent } from "@storybook/testing-library";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { useQueryParams } from "hooks/useQueryParam";
 import { projectFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import SidePanel from ".";
 
 export default {

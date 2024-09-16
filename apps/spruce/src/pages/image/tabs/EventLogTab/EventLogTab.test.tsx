@@ -1,5 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  waitFor,
+  within,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   ImageEventType,
@@ -8,13 +15,6 @@ import {
   ImageEventEntryAction,
 } from "gql/generated/types";
 import { IMAGE_EVENTS } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  waitFor,
-  within,
-  userEvent,
-} from "test_utils";
 import { EventLogTab } from "./EventLogTab";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

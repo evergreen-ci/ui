@@ -1,9 +1,9 @@
 import Cookie from "js-cookie";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { MockInstance } from "vitest";
+import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes } from "constants/enums";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
-import { act, renderHook, waitFor } from "test_utils";
 import { RowType } from "types/logs";
 import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
 import { useLogContext } from ".";

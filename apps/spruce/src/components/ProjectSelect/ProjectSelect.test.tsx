@@ -1,5 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { getCommitsRoute, getProjectSettingsRoute } from "constants/routes";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -9,7 +15,6 @@ import {
   ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
-import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 
 import { ProjectSelect } from ".";
 

@@ -1,5 +1,20 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { DocumentNode, GraphQLError } from "graphql";
+
+/**
+ * Mock for ApolloProvider this allows you to mock GraphQL queries in tests.
+ */
+export type ApolloMock<Data, Variables> = {
+  request: {
+    query: DocumentNode;
+    variables?: Variables;
+  };
+  result?: {
+    data?: Data;
+    errors?: GraphQLError[];
+  };
+  error?: Error;
+};
 
 type CustomStorybookReactRouterParams = {
   initialEntries?: string[];
