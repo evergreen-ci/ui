@@ -1,13 +1,16 @@
 import { screen, userEvent } from "@evg-ui/lib/test_utils";
 
+/**
+ * `selectLGOption` selects an option from a LG select component
+ * @param dataCy - data-cy selector of the LG select component
+ * @param option - data-cy selector of the option to select
+ */
 const selectLGOption = async (dataCy: string, option: string) => {
   const user = userEvent.setup();
   expect(screen.queryByDataCy(dataCy)).not.toBeDisabled();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  await user.click(screen.queryByDataCy(dataCy));
+  await user.click(screen.getByDataCy(dataCy));
   await screen.findByText(option);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  await user.click(screen.queryByText(option));
+  await user.click(screen.getByDataCy(option));
   expect(screen.queryByDataCy(dataCy)).toHaveTextContent(option);
 };
 
