@@ -15,6 +15,11 @@ query ConfigurePatch($id: String!) {
         tasks
       }
     }
+    generatedTaskCounts {
+      buildVariantName
+      estimatedTasks
+      taskName
+    }
     patchTriggerAliases {
       alias
       childProjectId

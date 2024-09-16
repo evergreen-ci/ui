@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
+import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { LoadingButton } from "components/Buttons";
 import { CodeChanges } from "components/CodeChanges";
 import {
@@ -33,6 +34,7 @@ import {
   ProjectBuildVariant,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
+import { sumActivatedTasksInVariantsTasks } from "utils/tasks/estimatedActivatedTasks";
 import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
@@ -56,6 +58,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     author,
     childPatchAliases,
     childPatches,
+    generatedTaskCounts,
     id,
     patchTriggerAliases,
     project,
@@ -154,6 +157,12 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     );
   }
 
+  const estimatedActivatedTasksCount = sumActivatedTasksInVariantsTasks(
+    selectedBuildVariantTasks,
+    generatedTaskCounts,
+    initialPatch.variantsTasks,
+  );
+
   return (
     <>
       <FlexRow>
@@ -187,6 +196,11 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
           </LoadingButton>
         </ButtonWrapper>
       </FlexRow>
+      <BannerContainer>
+        <TaskSchedulingWarningBanner
+          totalTasks={estimatedActivatedTasksCount}
+        />
+      </BannerContainer>
       <PageLayout hasSider>
         <PageSider>
           <MetadataCard>
@@ -346,6 +360,10 @@ const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
   gap: ${size.s};
+`;
+
+const BannerContainer = styled.div`
+  margin-bottom: ${size.s};
 `;
 
 export default ConfigurePatchCore;

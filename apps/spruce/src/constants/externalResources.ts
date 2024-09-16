@@ -50,6 +50,8 @@ export const cliDocumentationUrl = `${wikiBaseUrl}/CLI`;
 
 export const containersOnboardingDocumentationUrl = `${wikiBaseUrl}/Containers/Container-Tasks`;
 
+export const taskSchedulingLimitsDocumentationUrl = `${wikiBaseUrl}/Reference/Limits#task-scheduling-limits`;
+
 export const windowsPasswordRulesURL =
   "https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)?redirectedfrom=MSDN";
 
