@@ -229,19 +229,8 @@ following:
 
 You must be on the `main` branch if deploying to prod.
 
-An `.env-cmdrc.json` file is required to deploy because it sets the environment
-variables that the application needs in production and staging environments. See
-[Environment Variables](#environment-variables) section for more info about this
-file.
-
 ### How to Deploy:
 
-Run one of the following commands to deploy to the appropriate environment
+For production, use `yarn deploy:prod` to push a git tag and trigger a new build. In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a production build can be pushed directly to S3 with `BUCKET=<production_bucket> yarn deploy:prod --force`.
 
-1. `yarn deploy:prod` = deploy to https://spruce.mongodb.com
-2. `yarn deploy:staging` = deploy to https://spruce-staging.corp.mongodb.com
-3. `yarn deploy:beta` = deploy to https://spruce-beta.corp.mongodb.com (Beta
-   connects to the production backend)
-
-In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a
-production build can be pushed directly to S3 with `yarn deploy:prod --force`.
+For staging and beta environments, run the corresponding deploy task in an Evergreen patch.
