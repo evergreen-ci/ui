@@ -2810,6 +2810,15 @@
     timezone-mock "^1.3.6"
     weekstart "^2.0.0"
 
+"@leafygreen-ui/descendants@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/descendants/-/descendants-1.0.1.tgz#cccf7e9b488fb036a1990fa60e6260be6f004cdb"
+  integrity sha512-hNCZyduixj3An/MjHufHWzDQXsnK5UzDyUSF5LvulBQy7AOVOJLdKlwepvaWj76rQz95tWPSgIkDrolQcv6RAA==
+  dependencies:
+    "@leafygreen-ui/hooks" "^8.1.3"
+    "@leafygreen-ui/lib" "^13.7.0"
+    lodash "^4.17.21"
+
 "@leafygreen-ui/emotion@4.0.7":
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/emotion/-/emotion-4.0.7.tgz#035dceb7c9c71aa244e44dd66d25549aafb23541"
@@ -3198,15 +3207,7 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-1.3.7.tgz#befd1ae4a7e764ff3356a1bbfc63bb08b8a99198"
   integrity sha512-Tr2TmpS0YFJ3hGNbVWQpeseJRo4kTrVumVlZ4aF4hId1JYDzF0TU5JJO40v+brhbgnKsyBu7+Rvz6ExY1NcKew==
 
-"@leafygreen-ui/polymorphic@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-2.0.1.tgz#f15c75bc5fe76ffe465b5742010e50ce4f370eae"
-  integrity sha512-rzNoS0Q50NI6e+qkc0ytLwnCbiBEfDdLTta2WBPT7noi1yshCcPDlM7+g2R6gTRdTNVUSOLVNyt4VeLZOERc6g==
-  dependencies:
-    "@leafygreen-ui/lib" "^13.6.0"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/polymorphic@^2.0.2":
+"@leafygreen-ui/polymorphic@^2.0.0", "@leafygreen-ui/polymorphic@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/polymorphic/-/polymorphic-2.0.2.tgz#187e43c3f8dd502fcaea927a35340ffcddeb25d9"
   integrity sha512-OjP+hPG/cwADShcGa1SZdm51G2wVpbNqpU0B3GonEAvGLcAvG4LDMXa7BWo3GDliNkPtVMS86w0eZzEDmLfKmQ==
@@ -3400,20 +3401,20 @@
     react-transition-group "^4.4.5"
     react-virtual "^2.10.4"
 
-"@leafygreen-ui/tabs@^11.0.4", "@leafygreen-ui/tabs@^11.1.13":
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-11.2.0.tgz#b58108b7876cd0926d2167d8e645edbcf7dbcd00"
-  integrity sha512-5J1rHPC1Gpn7/F5z8UYr7zUqDN6KcwQYrqHLjnl4RTUdFnT1Agr3itZSXFMpa6/fxo22jR62mjT0Jq0ZPSaGkw==
+"@leafygreen-ui/tabs@^13.0.1":
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-13.0.1.tgz#d14a58b9d9b2a33fd6a05c33c635d1ca4bada3d5"
+  integrity sha512-O3rJHkokFytdP57PTBlPT9JnARh4CYMra56PYXrDC5OatZ99grnDl8ayCwPdUW2rUDEbacMZRfd6oGJJFoMYJA==
   dependencies:
-    "@leafygreen-ui/a11y" "^1.4.13"
-    "@leafygreen-ui/box" "^3.1.9"
+    "@leafygreen-ui/a11y" "^1.5.0"
+    "@leafygreen-ui/descendants" "^1.0.0"
     "@leafygreen-ui/emotion" "^4.0.8"
-    "@leafygreen-ui/hooks" "^8.1.3"
-    "@leafygreen-ui/lib" "^13.3.0"
-    "@leafygreen-ui/palette" "^4.0.9"
-    "@leafygreen-ui/portal" "^5.1.1"
-    "@leafygreen-ui/tokens" "^2.7.0"
-    "@leafygreen-ui/typography" "^19.1.1"
+    "@leafygreen-ui/hooks" "^8.1.4"
+    "@leafygreen-ui/lib" "^13.7.0"
+    "@leafygreen-ui/palette" "^4.1.0"
+    "@leafygreen-ui/polymorphic" "^2.0.2"
+    "@leafygreen-ui/tokens" "^2.10.0"
+    "@leafygreen-ui/typography" "^19.3.0"
     "@lg-tools/test-harnesses" "0.1.2"
 
 "@leafygreen-ui/text-area@^8.1.3":
@@ -3481,10 +3482,10 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.5"
 
-"@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.5.1", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.6.0", "@leafygreen-ui/tokens@^2.7.0", "@leafygreen-ui/tokens@^2.8.0", "@leafygreen-ui/tokens@^2.9.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.10.0.tgz#008d77472e53257f043ba7b6f9a9c3d321ec835f"
-  integrity sha512-bnHnuYtlwjvmA2NSijcGsbpTm6HC1FtCLFQs4afmsap7mxX7/foWp2PZ8rJ0GJq/LPbRfdJntDbMdRqHkYCEiQ==
+"@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.10.0", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.5.1", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.6.0", "@leafygreen-ui/tokens@^2.7.0", "@leafygreen-ui/tokens@^2.8.0", "@leafygreen-ui/tokens@^2.9.0":
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.11.0.tgz#42646c571551428de1c5243ec456878761e27508"
+  integrity sha512-/0G+UaDpLBLLtEP1mjGjiDnqReHufUTUkteqNUsyTOz1bpfejoo1anu3f6dZDqNlxoKhHZEEngQ+HvP1l1RJVw==
   dependencies:
     "@leafygreen-ui/lib" "^13.7.0"
     "@leafygreen-ui/palette" "^4.0.9"
