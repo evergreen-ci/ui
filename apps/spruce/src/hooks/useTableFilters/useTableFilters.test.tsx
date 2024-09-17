@@ -136,7 +136,7 @@ const CheckboxFilterTestComponent = () => {
 
   const urlValue = Array.isArray(statusesFromUrl)
     ? statusesFromUrl.join()
-    : statusesFromUrl ?? "none";
+    : (statusesFromUrl ?? "none");
 
   return (
     <>
