@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
-import { Tabs, TabsProps } from "@leafygreen-ui/tabs";
+import { Tabs } from "@leafygreen-ui/tabs";
 import { size } from "constants/tokens";
 
-// @ts-expect-error
-export const StyledTabs = styled(Tabs)<TabsProps>`
-  > div > [role="tablist"] {
+export const StyledTabs = styled(Tabs)`
+  > div {
     margin-bottom: ${size.s};
   }
 `;
