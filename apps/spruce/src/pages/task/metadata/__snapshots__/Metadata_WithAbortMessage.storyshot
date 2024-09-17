@@ -264,6 +264,22 @@
             assigned_to_devprod_evergreen
           </span>
         </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            <span
+              class="lg-ui-chip-inline-definition-0000 leafygreen-ui-vm4wms"
+              tabindex="0"
+            >
+              waiting_for_next_investigat…
+            </span>
+          </span>
+        </span>
       </div>
     </div>
   </div>
