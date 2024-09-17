@@ -1,15 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { PaginationQueryParams } from "constants/queryParams";
+import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
+  SortDirection,
+  TaskSortCategory,
   VersionTaskDurationsQuery,
   VersionTaskDurationsQueryVariables,
 } from "gql/generated/types";
@@ -38,14 +40,17 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const queryVariables = useQueryVariables(search, versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { limit, page } = queryVariables.taskFilterOptions;
+  const { limit, page, sorts } = queryVariables.taskFilterOptions;
+  const [hasInitialized, setHasInitialized] = useState(false);
 
   useEffect(() => {
-    updateQueryParams({
-      [PatchTasksQueryParams.Duration]: "DESC",
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      [PatchTasksQueryParams.Sorts]: undefined,
-    });
+    if (!sorts?.length) {
+      updateQueryParams({
+        [TableQueryParams.SortBy]: TaskSortCategory.Duration,
+        [TableQueryParams.SortDir]: SortDirection.Desc,
+      });
+    }
+    setHasInitialized(true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {
@@ -60,7 +65,8 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
       [PatchTasksQueryParams.BaseStatuses]: undefined,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PaginationQueryParams.Page]: undefined,
-      [PatchTasksQueryParams.Duration]: "DESC",
+      [TableQueryParams.SortBy]: TaskSortCategory.Duration,
+      [TableQueryParams.SortDir]: SortDirection.Desc,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Sorts]: undefined,
     });
@@ -101,12 +107,18 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
         page={page}
         totalCount={taskCount}
       />
-      <TaskDurationTable
-        loading={loading}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        numLoadingRows={limit}
-        tasks={tasksData}
-      />
+      {
+        // Ensures that the TaskDurationTable initial sorting state intializes with
+        // the correct default values when applicable.
+        hasInitialized && (
+          <TaskDurationTable
+            loading={loading}
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
+            numLoadingRows={limit}
+            tasks={tasksData}
+          />
+        )
+      }
       {shouldShowBottomTableControl && (
         <TableControlWrapper>
           <TableControl
