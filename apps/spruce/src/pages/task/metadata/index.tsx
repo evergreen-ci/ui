@@ -566,8 +566,7 @@ const HoneycombLinkContainer = styled.span`
 const TagsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  column-gap: ${size.xs};
-  row-gap: ${size.xs};
+  gap: ${size.xs};
 `;
 
 const OOMTrackerMessage = styled(MetadataItem)`
