@@ -62,6 +62,7 @@
     "@leafygreen-ui/callout": "^9.0.18",
     "@leafygreen-ui/card": "^10.0.5",
     "@leafygreen-ui/checkbox": "^13.1.2",
+    "@leafygreen-ui/chip": "^1.2.1",
     "@leafygreen-ui/code": "^14.3.3",
     "@leafygreen-ui/combobox": "^9.1.1",
     "@leafygreen-ui/confirmation-modal": "^5.0.9",
