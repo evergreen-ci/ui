@@ -22,6 +22,7 @@ import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "constants/externalResources";
+import { showImageVisibilityPage } from "constants/featureFlags";
 import {
   getDistroSettingsRoute,
   getTaskQueueRoute,
@@ -31,6 +32,7 @@ import {
   getVersionRoute,
   getProjectPatchesRoute,
   getPodRoute,
+  getImageRoute,
 } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
@@ -75,6 +77,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     generatedBy,
     generatedByName,
     hostId,
+    imageId,
     ingestTime,
     minQueuePosition: taskQueuePosition,
     pod,
@@ -359,10 +362,22 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
 
       {!isDisplayTask && (
         <MetadataCard>
-          <MetadataTitle>Host Information</MetadataTitle>
-          {ami && (
-            <MetadataItem data-cy="task-metadata-ami">
-              <MetadataLabel>AMI:</MetadataLabel> {ami}
+          <MetadataTitle>Host Information</MetadataTitle>{" "}
+          {!isContainerTask && hostId && (
+            <MetadataItem>
+              <MetadataLabel>ID:</MetadataLabel>{" "}
+              <StyledLink
+                data-cy="task-host-link"
+                href={getHostRoute(hostId)}
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "host link",
+                  })
+                }
+              >
+                {hostId}
+              </StyledLink>
             </MetadataItem>
           )}
           {!isContainerTask && distroId && (
@@ -382,21 +397,26 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               </StyledRouterLink>
             </MetadataItem>
           )}
-          {!isContainerTask && hostId && (
+          {showImageVisibilityPage && !isContainerTask && imageId && (
             <MetadataItem>
-              <MetadataLabel>ID:</MetadataLabel>{" "}
-              <StyledLink
-                data-cy="task-host-link"
-                href={getHostRoute(hostId)}
+              <MetadataLabel>Image:</MetadataLabel>{" "}
+              <StyledRouterLink
+                data-cy="task-image-link"
                 onClick={() =>
                   taskAnalytics.sendEvent({
                     name: "Clicked metadata link",
-                    "link.type": "host link",
+                    "link.type": "image link",
                   })
                 }
+                to={getImageRoute(imageId)}
               >
-                {hostId}
-              </StyledLink>
+                {imageId}
+              </StyledRouterLink>
+            </MetadataItem>
+          )}
+          {ami && (
+            <MetadataItem data-cy="task-metadata-ami">
+              <MetadataLabel>AMI:</MetadataLabel> {ami}
             </MetadataItem>
           )}
           {isContainerTask && (
