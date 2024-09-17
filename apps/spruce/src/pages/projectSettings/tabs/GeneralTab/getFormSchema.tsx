@@ -320,7 +320,7 @@ export const getFormSchema = (
           ...placeholderIf(
             repoData?.generalConfiguration?.other?.batchTime === null
               ? "0"
-              : repoData?.generalConfiguration?.other?.batchTime ?? "",
+              : (repoData?.generalConfiguration?.other?.batchTime ?? ""),
           ),
         },
         remotePath: {

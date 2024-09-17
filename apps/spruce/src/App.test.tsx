@@ -1,5 +1,5 @@
+import { render, screen, waitFor } from "@evg-ui/lib/test_utils";
 import App from "App";
-import { render, screen, waitFor } from "test_utils";
 
 describe("app", () => {
   it("renders without crashing", async () => {

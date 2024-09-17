@@ -1,6 +1,6 @@
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { NodeList } from "pages/preferences/preferencesTabs/cliTab/NodeList";
 import { Node } from "pages/preferences/preferencesTabs/cliTab/nodeList/Node";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 export default {
   title: "Pages/Preferences/Node List",

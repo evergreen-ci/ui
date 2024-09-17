@@ -84,6 +84,7 @@ query Task($taskId: String!, $execution: Int) {
     generatedBy
     generatedByName
     hostId
+    imageId
     ingestTime
     isPerfPluginEnabled
     latestExecution
@@ -115,6 +116,7 @@ query Task($taskId: String!, $execution: Int) {
       nextStepbackTaskId
       previousStepbackTaskId
     }
+    tags
     timeTaken
     totalTestCount
     versionMetadata {

@@ -139,6 +139,7 @@
           class="css-qqg5h5-Divider eb6szep0"
         />
       </div>
+       
       <p
         class="css-1spnncu-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
       >
@@ -159,6 +160,84 @@
           </span>
         </a>
       </p>
+    </div>
+    <div
+      class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+    >
+      <div>
+        <p
+          class="css-1k03zl5-Title e1ul56zb2 leafygreen-ui-1miy0xp"
+        >
+          Tags
+        </p>
+        <hr
+          class="css-qqg5h5-Divider eb6szep0"
+        />
+      </div>
+      <div
+        class="css-kn3v9h-TagsContainer ebphozh1"
+      >
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            concurrency
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            security
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            release
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            assigned_to_devprod_evergreen
+          </span>
+        </span>
+        <span
+          aria-disabled="false"
+          class="leafygreen-ui-1hdho16"
+        >
+          <span
+            class="leafygreen-ui-4uk0j0 lg-ui-chip-text-0000"
+            data-testid="chip-text"
+          >
+            <span
+              class="lg-ui-chip-inline-definition-0000 leafygreen-ui-vm4wms"
+              tabindex="0"
+            >
+              waiting_for_next_investigat…
+            </span>
+          </span>
+        </span>
+      </div>
     </div>
   </div>
 </div>

@@ -116,7 +116,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
           <PatchStatusBadge
             status={
               activated
-                ? versionFull?.status ?? status
+                ? (versionFull?.status ?? status)
                 : PatchStatus.Unconfigured
             }
           />

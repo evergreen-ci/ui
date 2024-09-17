@@ -1,5 +1,5 @@
 import { Key, SorterResult } from "antd/es/table/interface";
-import { Task, SortDirection, TaskSortCategory } from "gql/generated/types";
+import { Task, SortDirection } from "gql/generated/types";
 
 export const getSortString = (columnKey: Key, direction: SortDirection) =>
   columnKey && direction ? `${columnKey}:${direction}` : undefined;
@@ -34,43 +34,54 @@ export const toSortString = (
     : undefined;
 };
 
-// takes a sort query string and parses it into valid GQL params
-// By default, uses keys for task's SortOrder type, but sort field keys can be passed in for use with e.g. tests' TestSortOptions
+/**
+ * Parses a sort query string or array into an array of sort objects.
+ * The result is in the shape [{ [SortByKey]: SortCategoryEnum, [SortDirectionKey]: SortDirection }, ...]
+ * @template SortByKey - The key for the sort category.
+ * @template SortDirectionKey - The key for the sort direction.
+ * @template SortCategoryEnum - The enum type for sort categories.
+ * @template T - The type of the resulting sort objects, which must include
+ *               both the sort category and direction.
+ * @param sortQuery - A string or an array of strings representing the sort
+ *                    criteria in the format "category:direction".
+ * @param options - An object containing the following properties:
+ * @param options.sortByKey - The key to use for the sort category in the resulting objects.
+ * @param options.sortDirKey -  The key to use for the sort direction in the resulting objects.
+ * @param options.sortCategoryEnum - An object that maps valid sort categories to their
+ *                                   corresponding enum values.
+ * @returns An array of sort objects, each containing the specified sort
+ *          category and direction.
+ */
 export const parseSortString = <
-  T extends Record<string, SortDirection | TaskSortCategory>,
+  SortByKey extends string,
+  SortDirectionKey extends string,
+  SortCategoryEnum extends string,
+  T extends Record<SortByKey, SortCategoryEnum> &
+    Record<SortDirectionKey, SortDirection>,
 >(
   sortQuery: string | string[],
   options: {
-    sortByKey: keyof T;
-    sortDirKey: keyof T;
-  } = { sortByKey: "Key", sortDirKey: "Direction" },
+    sortByKey: SortByKey;
+    sortDirKey: SortDirectionKey;
+    sortCategoryEnum: Record<string, SortCategoryEnum>;
+  },
 ): T[] => {
-  let sorts: T[] = [];
-  let sortArray: string[] = [];
-  if (typeof sortQuery === "string") {
-    sortArray = sortQuery.split(";");
-  } else {
-    sortArray = sortQuery;
-  }
-  if (sortArray?.length > 0) {
-    sortArray.forEach((singleSort) => {
-      const parts = singleSort.split(":");
-      if (parts.length !== 2) {
-        return;
-      }
-      if (
-        !Object.values(TaskSortCategory).includes(parts[0] as TaskSortCategory)
-      ) {
-        return;
-      }
-      if (!Object.values(SortDirection).includes(parts[1] as SortDirection)) {
-        return;
-      }
-      sorts = sorts.concat({
-        [options.sortByKey]: parts[0] as TaskSortCategory,
-        [options.sortDirKey]: parts[1] as SortDirection,
+  const { sortByKey, sortCategoryEnum, sortDirKey } = options;
+  const sortArray = Array.isArray(sortQuery) ? sortQuery : sortQuery.split(";");
+  const sorts: T[] = sortArray.reduce((accum: T[], singleSort: string) => {
+    const [category, direction] = singleSort.split(":");
+    if (
+      category &&
+      direction &&
+      Object.values(sortCategoryEnum).includes(category as SortCategoryEnum) &&
+      Object.values(SortDirection).includes(direction as SortDirection)
+    ) {
+      accum.push({
+        [sortByKey]: category as SortCategoryEnum,
+        [sortDirKey]: direction as SortDirection,
       } as T);
-    });
-  }
+    }
+    return accum;
+  }, []);
   return sorts;
 };

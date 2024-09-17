@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from "test_utils";
+import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { useFetch } from ".";
 
 const API_URL = "http://test-evergreen.com/some/endpoint";

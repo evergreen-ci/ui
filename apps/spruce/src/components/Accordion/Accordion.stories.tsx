@@ -1,4 +1,4 @@
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { Accordion } from ".";
 
 export default {

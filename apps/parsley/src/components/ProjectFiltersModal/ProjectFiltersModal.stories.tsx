@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { useQueryParams } from "hooks/useQueryParam";
 import { noFiltersMock, projectFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import ProjectFiltersModal from ".";
 
 export default {

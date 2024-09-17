@@ -1,7 +1,11 @@
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import ParseLogSelect from ".";
 
 vi.mock("js-cookie");

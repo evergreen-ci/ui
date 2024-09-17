@@ -1,11 +1,11 @@
-import { WordWrapFormat } from "constants/enums";
-import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
 import {
   RenderWithRouterMatchOptions,
   renderWithRouterMatch,
   screen,
   userEvent,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
+import { WordWrapFormat } from "constants/enums";
+import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
 import Row from ".";
 
 const renderRow = (

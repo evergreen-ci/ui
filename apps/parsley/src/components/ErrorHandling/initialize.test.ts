@@ -1,8 +1,5 @@
 import { init, isInitialized } from "@sentry/react";
-import { mockEnvironmentVariables } from "test_utils/utils";
 import { initializeErrorHandling } from ".";
-
-const { cleanup, mockEnv } = mockEnvironmentVariables();
 
 vi.mock("@sentry/react", async (importOriginal) => {
   const actual = await importOriginal();
@@ -17,21 +14,21 @@ vi.mock("@sentry/react", async (importOriginal) => {
 describe("should initialize error handlers according to release stage", () => {
   afterEach(() => {
     vi.restoreAllMocks();
-    cleanup();
+    vi.unstubAllEnvs();
   });
 
   it("development", () => {
-    mockEnv("NODE_ENV", "development");
-    mockEnv("REACT_APP_RELEASE_STAGE", "production");
+    vi.stubEnv("NODE_ENV", "development");
+    vi.stubEnv("REACT_APP_RELEASE_STAGE", "production");
     initializeErrorHandling();
 
     expect(vi.mocked(init)).not.toHaveBeenCalled();
   });
 
   it("production", () => {
-    mockEnv("NODE_ENV", "production");
-    mockEnv("REACT_APP_RELEASE_STAGE", "production");
-    mockEnv("REACT_APP_PARSLEY_SENTRY_DSN", "fake-sentry-key");
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("REACT_APP_RELEASE_STAGE", "production");
+    vi.stubEnv("REACT_APP_PARSLEY_SENTRY_DSN", "fake-sentry-key");
     initializeErrorHandling();
 
     expect(vi.mocked(init)).toHaveBeenCalledWith({
@@ -47,9 +44,9 @@ describe("should initialize error handlers according to release stage", () => {
   });
 
   it("beta", () => {
-    mockEnv("REACT_APP_RELEASE_STAGE", "beta");
-    mockEnv("NODE_ENV", "production");
-    mockEnv("REACT_APP_PARSLEY_SENTRY_DSN", "fake-sentry-key");
+    vi.stubEnv("REACT_APP_RELEASE_STAGE", "beta");
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("REACT_APP_PARSLEY_SENTRY_DSN", "fake-sentry-key");
     initializeErrorHandling();
 
     expect(vi.mocked(init)).toHaveBeenCalledWith({
@@ -65,9 +62,9 @@ describe("should initialize error handlers according to release stage", () => {
   });
 
   it("staging", () => {
-    mockEnv("NODE_ENV", "production");
-    mockEnv("REACT_APP_RELEASE_STAGE", "staging");
-    mockEnv("REACT_APP_PARSLEY_SENTRY_DSN", "fake-sentry-key");
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("REACT_APP_RELEASE_STAGE", "staging");
+    vi.stubEnv("REACT_APP_PARSLEY_SENTRY_DSN", "fake-sentry-key");
     initializeErrorHandling();
 
     expect(vi.mocked(init)).toHaveBeenCalledWith({
@@ -85,12 +82,12 @@ describe("should initialize error handlers according to release stage", () => {
 
 describe("should not initialize if the client is already running", () => {
   beforeEach(() => {
-    mockEnv("NODE_ENV", "production");
+    vi.stubEnv("NODE_ENV", "production");
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
-    cleanup();
+    vi.unstubAllEnvs();
   });
 
   it("does not initialize Sentry twice", () => {

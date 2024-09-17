@@ -1,11 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { VersionTaskDurationsQuery } from "gql/generated/types";
 import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
   within,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
+import { VersionTaskDurationsQuery } from "gql/generated/types";
 import { TaskDurationTable } from "./TaskDurationTable";
 
 describe("taskDurationTable", () => {

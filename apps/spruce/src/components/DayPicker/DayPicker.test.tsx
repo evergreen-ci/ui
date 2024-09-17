@@ -1,4 +1,8 @@
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import { DayPicker } from ".";
 
 const defaultState = [false, true, true, true, true, true, false];

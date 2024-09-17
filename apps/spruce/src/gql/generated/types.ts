@@ -8869,6 +8869,7 @@ export type TaskQuery = {
     generatedBy?: string | null;
     generatedByName?: string | null;
     hostId?: string | null;
+    imageId: string;
     ingestTime?: Date | null;
     isPerfPluginEnabled: boolean;
     latestExecution: number;
@@ -8880,6 +8881,7 @@ export type TaskQuery = {
     resetWhenFinished: boolean;
     spawnHostLink?: string | null;
     startTime?: Date | null;
+    tags: Array<string>;
     timeTaken?: number | null;
     totalTestCount: number;
     buildVariant: string;

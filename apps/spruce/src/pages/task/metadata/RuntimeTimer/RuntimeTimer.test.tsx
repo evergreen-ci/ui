@@ -1,4 +1,4 @@
-import { render, screen, waitFor, act } from "test_utils";
+import { render, screen, waitFor, act } from "@evg-ui/lib/test_utils";
 import RuntimeTimer from ".";
 
 describe("runtimeTimer", () => {

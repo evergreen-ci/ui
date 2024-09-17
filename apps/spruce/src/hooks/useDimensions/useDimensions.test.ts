@@ -1,5 +1,5 @@
+import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { useDimensions } from "hooks/useDimensions";
-import { act, renderHook } from "test_utils";
 
 describe("useDimensions", () => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.

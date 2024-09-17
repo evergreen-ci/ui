@@ -5,25 +5,11 @@ import {
   screen,
   userEvent,
   waitFor,
-} from "test_utils";
+  renderComponentWithHook,
+} from "@evg-ui/lib/test_utils";
 import { ToastProvider, useToastContext } from ".";
 import { RenderFakeToastContext } from "./__mocks__";
 import { TOAST_TIMEOUT } from "./constants";
-
-// This function allows us to directly interact with the useToastContext hook and monitor any changes to the DOM.
-const renderComponentWithHook = () => {
-  const hook: { current: ReturnType<typeof useToastContext> } = {
-    current: {} as ReturnType<typeof useToastContext>,
-  };
-  const Component: React.FC = () => {
-    hook.current = useToastContext();
-    return null;
-  };
-  return {
-    Component,
-    hook,
-  };
-};
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>
@@ -38,7 +24,7 @@ describe("toast", () => {
     // from flooding the test runner.
     const errorObject = console.error;
     vi.spyOn(console, "error").mockImplementation(() => {});
-    const { Component } = renderComponentWithHook();
+    const { Component } = renderComponentWithHook(useToastContext, <div />);
     expect(() => render(<Component />)).toThrow(
       "useToastContext must be used within a ToastProvider",
     );
@@ -46,13 +32,16 @@ describe("toast", () => {
   });
 
   it("should not display a toast by default", () => {
-    const { Component } = renderComponentWithHook();
+    const { Component } = renderComponentWithHook(useToastContext, <div />);
     render(<Component />, { wrapper });
     expect(screen.queryByDataCy("toast")).toBeNull();
   });
 
   it("should be able to set a custom title for a toast", async () => {
-    const { Component, hook } = renderComponentWithHook();
+    const { Component, hook } = renderComponentWithHook(
+      useToastContext,
+      <div />,
+    );
     render(<Component />, {
       wrapper,
     });
@@ -66,7 +55,10 @@ describe("toast", () => {
 
   describe("displays a toast which corresponds to the variant dispatched", () => {
     it("success", async () => {
-      const { Component, hook } = renderComponentWithHook();
+      const { Component, hook } = renderComponentWithHook(
+        useToastContext,
+        <div />,
+      );
       render(<Component />, {
         wrapper,
       });
@@ -79,7 +71,10 @@ describe("toast", () => {
     });
 
     it("error", async () => {
-      const { Component, hook } = renderComponentWithHook();
+      const { Component, hook } = renderComponentWithHook(
+        useToastContext,
+        <div />,
+      );
       render(<Component />, {
         wrapper,
       });
@@ -92,7 +87,10 @@ describe("toast", () => {
     });
 
     it("warning", async () => {
-      const { Component, hook } = renderComponentWithHook();
+      const { Component, hook } = renderComponentWithHook(
+        useToastContext,
+        <div />,
+      );
       render(<Component />, {
         wrapper,
       });
@@ -105,7 +103,10 @@ describe("toast", () => {
     });
 
     it("info", async () => {
-      const { Component, hook } = renderComponentWithHook();
+      const { Component, hook } = renderComponentWithHook(
+        useToastContext,
+        <div />,
+      );
       render(<Component />, {
         wrapper,
       });
@@ -118,7 +119,10 @@ describe("toast", () => {
     });
 
     it("progress", async () => {
-      const { Component, hook } = renderComponentWithHook();
+      const { Component, hook } = renderComponentWithHook(
+        useToastContext,
+        <div />,
+      );
       render(<Component />, {
         wrapper,
       });
@@ -137,7 +141,10 @@ describe("toast", () => {
   describe("closing the toast", () => {
     it("should be able to close a toast by clicking the X button by default", async () => {
       const user = userEvent.setup();
-      const { Component, hook } = renderComponentWithHook();
+      const { Component, hook } = renderComponentWithHook(
+        useToastContext,
+        <div />,
+      );
       render(<Component />, {
         wrapper,
       });
@@ -152,7 +159,10 @@ describe("toast", () => {
     });
 
     it("should not be able to close the toast when closable is false", async () => {
-      const { Component, hook } = renderComponentWithHook();
+      const { Component, hook } = renderComponentWithHook(
+        useToastContext,
+        <div />,
+      );
       render(<Component />, {
         wrapper,
       });
@@ -166,7 +176,10 @@ describe("toast", () => {
     it("should trigger a callback function onClose", async () => {
       const user = userEvent.setup();
       const onClose = vi.fn();
-      const { Component, hook } = renderComponentWithHook();
+      const { Component, hook } = renderComponentWithHook(
+        useToastContext,
+        <div />,
+      );
       render(<Component />, {
         wrapper,
       });
@@ -183,7 +196,10 @@ describe("toast", () => {
 
     it("should close on its own after a timeout has completed", async () => {
       vi.useFakeTimers();
-      const { Component, hook } = renderComponentWithHook();
+      const { Component, hook } = renderComponentWithHook(
+        useToastContext,
+        <div />,
+      );
       render(<Component />, {
         wrapper,
       });

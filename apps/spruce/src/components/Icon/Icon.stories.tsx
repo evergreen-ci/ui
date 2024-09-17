@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { size } from "constants/tokens";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 import Icon, { glyphs, Size } from "./index";
 

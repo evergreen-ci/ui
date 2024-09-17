@@ -18,6 +18,13 @@ export const taskQuery: TaskQueryType = {
     ingestTime: null,
     executionTasksFull: null,
     displayTask: null,
+    tags: [
+      "concurrency",
+      "security",
+      "release",
+      "assigned_to_devprod_evergreen",
+      "waiting_for_next_investigation_steps",
+    ],
     details: {
       failingCommand: "",
       description:
@@ -58,6 +65,7 @@ export const taskQuery: TaskQueryType = {
     canUnschedule: false,
     dependsOn: [],
     displayName: "e2e_test",
+    imageId: "ubuntu1604",
     distroId: "ubuntu1604-small",
     estimatedStart: 1000,
     pod: null,

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { size } from "constants/tokens";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import TestStatusBadge from ".";
 
 export default {

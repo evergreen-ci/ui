@@ -135,7 +135,7 @@ const columns: LGColumnDef<Distro>[] = [
       <span>
         {provider === Provider.Ec2Fleet || provider === Provider.Ec2OnDemand
           ? getValue()
-          : providerSettingsList?.[0]?.hosts?.length ?? 0}
+          : (providerSettingsList?.[0]?.hosts?.length ?? 0)}
       </span>
     ),
   },

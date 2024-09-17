@@ -1,6 +1,6 @@
 import { MemoryRouter, useLocation } from "react-router-dom";
+import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { useQueryParams } from "hooks/useQueryParam";
-import { act, renderHook } from "test_utils";
 import { useHighlightParam } from ".";
 
 const useHighlightJointHook = () => {

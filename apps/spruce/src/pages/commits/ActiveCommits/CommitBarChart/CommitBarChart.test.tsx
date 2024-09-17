@@ -1,8 +1,8 @@
+import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
 } from "pages/commits/utils";
-import { render, screen, userEvent, waitFor } from "test_utils";
 import { ChartTypes } from "types/commits";
 import { CommitBarChart } from ".";
 

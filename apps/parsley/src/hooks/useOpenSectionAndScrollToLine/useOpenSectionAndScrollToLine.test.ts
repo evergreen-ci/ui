@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from "test_utils";
+import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ProcessedLogLines, RowType } from "types/logs";
 import { useOpenSectionAndScrollToLine } from ".";
 

@@ -1,17 +1,17 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  waitFor,
+  within,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   ImageGeneralQuery,
   ImageGeneralQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_GENERAL } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  waitFor,
-  within,
-} from "test_utils";
 import { GeneralTable } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

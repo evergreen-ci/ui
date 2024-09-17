@@ -1,4 +1,9 @@
-import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
+import {
+  renderWithRouterMatch,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import BookmarksBar from ".";
 
 describe("bookmarks bar", () => {

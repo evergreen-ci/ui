@@ -1,5 +1,14 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  act,
+  renderWithRouterMatch as render,
+  renderComponentWithHook,
+  screen,
+  stubGetClientRects,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
@@ -11,15 +20,6 @@ import { PROJECT_FILTERS } from "gql/queries";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import { noFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
-import {
-  act,
-  renderWithRouterMatch as render,
-  screen,
-  stubGetClientRects,
-  userEvent,
-  waitFor,
-} from "test_utils";
-import { renderComponentWithHook } from "test_utils/TestHooks";
 import ProjectFiltersModal from ".";
 
 const wrapper = (mocks: MockedResponse[]) => {
