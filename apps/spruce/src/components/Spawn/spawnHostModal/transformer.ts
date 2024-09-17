@@ -67,7 +67,7 @@ export const formToGql = ({
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       name: publicKeySection?.useExisting
         ? publicKeySection?.publicKeyNameDropdown
-        : publicKeySection?.newPublicKeyName ?? "",
+        : (publicKeySection?.newPublicKeyName ?? ""),
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       key: publicKeySection?.useExisting
         ? myPublicKeys.find(
