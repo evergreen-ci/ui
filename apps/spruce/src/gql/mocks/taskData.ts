@@ -18,6 +18,13 @@ export const taskQuery: TaskQueryType = {
     ingestTime: null,
     executionTasksFull: null,
     displayTask: null,
+    tags: [
+      "concurrency",
+      "security",
+      "release",
+      "assigned_to_devprod_evergreen",
+      "waiting_for_next_investigation_steps",
+    ],
     details: {
       failingCommand: "",
       description:

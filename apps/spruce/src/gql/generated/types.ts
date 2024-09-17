@@ -8881,6 +8881,7 @@ export type TaskQuery = {
     resetWhenFinished: boolean;
     spawnHostLink?: string | null;
     startTime?: Date | null;
+    tags: Array<string>;
     timeTaken?: number | null;
     totalTestCount: number;
     buildVariant: string;
