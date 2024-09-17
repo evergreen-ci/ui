@@ -4,7 +4,6 @@ functions:
       params:
         working_dir: ui/${app_dir}
         env:
-          BUCKET: ${bucket_arg}
           PARSLEY_SENTRY_AUTH_TOKEN: ${PARSLEY_SENTRY_AUTH_TOKEN}
           REACT_APP_PARSLEY_SENTRY_DSN: ${REACT_APP_PARSLEY_SENTRY_DSN}
           REACT_APP_SPRUCE_SENTRY_DSN: ${REACT_APP_SPRUCE_SENTRY_DSN}
@@ -20,7 +19,6 @@ functions:
       params:
         working_dir: ui/${app_dir}
         env:
-          BUCKET: ${bucket_arg}
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
@@ -74,7 +72,6 @@ tasks:
       - func: deploy
         vars:
           app_dir: apps/parsley
-          bucket_arg: ${parsley_bucket_staging}
           target: staging
   - name: deploy-parsley-beta
     commands:
@@ -84,7 +81,6 @@ tasks:
       - func: deploy
         vars:
           app_dir: apps/parsley
-          bucket_arg: ${parsley_bucket_beta}
           target: beta
   - name: deploy-parsley-prod
     commands:
@@ -92,7 +88,6 @@ tasks:
       - func: symlink
       - func: deploy
         vars:
-          bucket_arg: ${parsley_bucket}
           target: production
       - func: email
   - name: deploy-spruce-staging
@@ -103,7 +98,6 @@ tasks:
       - func: deploy
         vars:
           app_dir: apps/spruce
-          bucket_arg: ${spruce_bucket_staging}
           target: staging
   - name: deploy-spruce-beta
     commands:
@@ -113,7 +107,6 @@ tasks:
       - func: deploy
         vars:
           app_dir: apps/spruce
-          bucket_arg: ${spruce_bucket_beta}
           target: beta
   - name: deploy-spruce-prod
     commands:
@@ -121,6 +114,5 @@ tasks:
       - func: symlink
       - func: deploy
         vars:
-          bucket_arg: ${spruce_bucket}
           target: production
       - func: email

@@ -10,8 +10,6 @@ export const setupCredentials = (target: TargetEnvironment) => {
   const envVars = {
     ...envJson[target],
     ...base[target],
-    BUCKET: process.env.BUCKET,
-    REACT_APP_RELEASE_STAGE: target,
   };
 
   writeFileSync(filePath, JSON.stringify({ [target]: envVars }));
