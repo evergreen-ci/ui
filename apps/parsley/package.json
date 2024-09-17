@@ -25,7 +25,6 @@
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
     "postversion": "yarn deploy-utils-postversion",
     "prepare": "yarn --cwd='../..' prepare",
-    "prettier": "prettier --write",
     "preview": "serve -s dist -p 4173",
     "prod": "env-cmd -e devProduction -r .env-cmdrc.local.json vite",
     "snapshot": "vitest run snapshot.test.ts",
