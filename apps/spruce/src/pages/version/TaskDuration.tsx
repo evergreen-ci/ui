@@ -108,8 +108,8 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
         totalCount={taskCount}
       />
       {
-        // Ensures that the TaskDurationTable initial sorting state intializes with
-        // the correct default values when applicable.
+        // Ensures that the TaskDurationTable initial sort
+        // button states intialize with the correct default values.
         hasInitialized && (
           <TaskDurationTable
             loading={loading}
