@@ -31,6 +31,7 @@ export const useTableSort = (props?: Props): CallbackType => {
       [TableQueryParams.SortDir]: undefined,
       [TableQueryParams.SortBy]: undefined,
     };
+
     if (sorter.length === 1) {
       const { desc, id } = sorter[0];
       // @ts-expect-error: FIXME. This comment was added by an automated script.
