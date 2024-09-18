@@ -4,7 +4,7 @@
     "src",
     "test_utils/index.tsx",
     "test_utils/custom-queries.ts",
-    "config/vitest/setupTests.ts"
+    "./config/vitest/setupTests.ts"
   ],
   "compilerOptions": {
     "baseUrl": "src",
