@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import LogPane from "components/LogPane";
 import { LogRenderingTypes, LogTypes, WordWrapFormat } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import AnsiRow from ".";
 import { ParsleyRow } from "../RowRenderer";
 

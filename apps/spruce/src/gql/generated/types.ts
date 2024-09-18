@@ -756,6 +756,7 @@ export type Host = {
   distro?: Maybe<DistroInfo>;
   distroId?: Maybe<Scalars["String"]["output"]>;
   elapsed?: Maybe<Scalars["Time"]["output"]>;
+  eventTypes: Array<HostEventType>;
   /** events returns the event log entries for a given host. */
   events: HostEvents;
   expiration?: Maybe<Scalars["Time"]["output"]>;
@@ -782,9 +783,7 @@ export type Host = {
 
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
 export type HostEventsArgs = {
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  sortDir?: InputMaybe<SortDirection>;
+  opts: HostEventsInput;
 };
 
 export type HostAllocatorSettings = {
@@ -837,13 +836,47 @@ export type HostEventLogData = {
 export type HostEventLogEntry = {
   __typename?: "HostEventLogEntry";
   data: HostEventLogData;
-  eventType?: Maybe<Scalars["String"]["output"]>;
+  eventType?: Maybe<HostEventType>;
   id: Scalars["String"]["output"];
   processedAt: Scalars["Time"]["output"];
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
 };
+
+export enum HostEventType {
+  HostAgentDeployed = "HOST_AGENT_DEPLOYED",
+  HostAgentDeployFailed = "HOST_AGENT_DEPLOY_FAILED",
+  HostAgentMonitorDeployed = "HOST_AGENT_MONITOR_DEPLOYED",
+  HostAgentMonitorDeployFailed = "HOST_AGENT_MONITOR_DEPLOY_FAILED",
+  HostConvertedProvisioning = "HOST_CONVERTED_PROVISIONING",
+  HostConvertingProvisioning = "HOST_CONVERTING_PROVISIONING",
+  HostConvertingProvisioningError = "HOST_CONVERTING_PROVISIONING_ERROR",
+  HostCreated = "HOST_CREATED",
+  HostCreatedError = "HOST_CREATED_ERROR",
+  HostDnsNameSet = "HOST_DNS_NAME_SET",
+  HostExpirationWarningSent = "HOST_EXPIRATION_WARNING_SENT",
+  HostIdleNotification = "HOST_IDLE_NOTIFICATION",
+  HostJasperRestarted = "HOST_JASPER_RESTARTED",
+  HostJasperRestarting = "HOST_JASPER_RESTARTING",
+  HostJasperRestartError = "HOST_JASPER_RESTART_ERROR",
+  HostModified = "HOST_MODIFIED",
+  HostProvisioned = "HOST_PROVISIONED",
+  HostProvisionError = "HOST_PROVISION_ERROR",
+  HostProvisionFailed = "HOST_PROVISION_FAILED",
+  HostRunningTaskCleared = "HOST_RUNNING_TASK_CLEARED",
+  HostRunningTaskSet = "HOST_RUNNING_TASK_SET",
+  HostScriptExecuted = "HOST_SCRIPT_EXECUTED",
+  HostScriptExecuteFailed = "HOST_SCRIPT_EXECUTE_FAILED",
+  HostStarted = "HOST_STARTED",
+  HostStatusChanged = "HOST_STATUS_CHANGED",
+  HostStopped = "HOST_STOPPED",
+  HostTaskFinished = "HOST_TASK_FINISHED",
+  HostTemporaryExemptionExpirationWarningSent = "HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT",
+  HostTerminatedExternally = "HOST_TERMINATED_EXTERNALLY",
+  VolumeExpirationWarningSent = "VOLUME_EXPIRATION_WARNING_SENT",
+  VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
+}
 
 /**
  * HostEvents is the return value for the hostEvents query.
@@ -853,6 +886,14 @@ export type HostEvents = {
   __typename?: "HostEvents";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<HostEventLogEntry>;
+};
+
+export type HostEventsInput = {
+  eventTypes?: InputMaybe<Array<HostEventType>>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  /** sort by timestamp */
+  sortDir?: InputMaybe<SortDirection>;
 };
 
 export enum HostSortBy {
@@ -2196,7 +2237,7 @@ export type Query = {
   userSettings?: Maybe<UserSettings>;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
-  waterfall?: Maybe<Waterfall>;
+  waterfall: Waterfall;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -3394,7 +3435,9 @@ export type VolumeHost = {
 export type Waterfall = {
   __typename?: "Waterfall";
   buildVariants: Array<WaterfallBuildVariant>;
-  versions: Array<Version>;
+  nextPageOrder: Scalars["Int"]["output"];
+  prevPageOrder: Scalars["Int"]["output"];
+  versions: Array<WaterfallVersion>;
 };
 
 export type WaterfallBuild = {
@@ -3415,6 +3458,10 @@ export type WaterfallBuildVariant = {
 
 export type WaterfallOptions = {
   limit?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Return versions with an order lower than maxOrder. Used for paginating forward. */
+  maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Return versions with an order greater than minOrder. Used for paginating backward. */
+  minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
@@ -3424,6 +3471,12 @@ export type WaterfallTask = {
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
+};
+
+export type WaterfallVersion = {
+  __typename?: "WaterfallVersion";
+  inactiveVersions?: Maybe<Array<Version>>;
+  version?: Maybe<Version>;
 };
 
 export type Webhook = {
@@ -5802,7 +5855,17 @@ export type BuildVariantsWithChildrenQuery = {
           status: string;
         }> | null;
       }> | null;
+      generatedTaskCounts: Array<{
+        __typename?: "GeneratedTaskCountResults";
+        estimatedTasks: number;
+        taskId?: string | null;
+      }>;
     }> | null;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      estimatedTasks: number;
+      taskId?: string | null;
+    }>;
   };
 };
 
@@ -6107,7 +6170,7 @@ export type HostEventsQuery = {
     count: number;
     eventLogEntries: Array<{
       __typename?: "HostEventLogEntry";
-      eventType?: string | null;
+      eventType?: HostEventType | null;
       id: string;
       processedAt: Date;
       resourceId: string;
@@ -6811,6 +6874,12 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }> | null;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      buildVariantName?: string | null;
+      estimatedTasks: number;
+      taskName?: string | null;
+    }>;
     patchTriggerAliases: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -8819,6 +8888,7 @@ export type TaskQuery = {
     resetWhenFinished: boolean;
     spawnHostLink?: string | null;
     startTime?: Date | null;
+    tags: Array<string>;
     timeTaken?: number | null;
     totalTestCount: number;
     buildVariant: string;
@@ -8981,6 +9051,11 @@ export type UndispatchedTasksQuery = {
   version: {
     __typename?: "Version";
     id: string;
+    generatedTaskCounts: Array<{
+      __typename?: "GeneratedTaskCountResults";
+      estimatedTasks: number;
+      taskId?: string | null;
+    }>;
     tasks: {
       __typename?: "VersionTasks";
       data: Array<{

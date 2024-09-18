@@ -14,13 +14,21 @@ Check out the
 [Yarn Workspaces documentation](https://classic.yarnpkg.com/lang/en/docs/workspaces/)
 for more.
 
-### Upgrades
+### Dependencies
 
 To upgrade a dependency across workspaces:
 
 ```bash
 yarn upgrade-interactive [--latest] [package-name]
 ```
+
+To remove all installed dependencies:
+
+```bash
+yarn clean
+```
+
+You can then rerun `yarn install`.
 
 ### Scripts
 

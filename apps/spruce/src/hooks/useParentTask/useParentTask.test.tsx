@@ -1,11 +1,11 @@
 import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   BaseVersionAndTaskQuery,
   BaseVersionAndTaskQueryVariables,
 } from "gql/generated/types";
 import { BASE_VERSION_AND_TASK } from "gql/queries";
-import { renderHook, waitFor } from "test_utils";
 import { useParentTask } from ".";
 
 interface ProviderProps {

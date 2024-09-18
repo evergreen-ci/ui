@@ -1,4 +1,4 @@
-import { renderHook } from "test_utils";
+import { renderHook } from "@evg-ui/lib/test_utils";
 import useIntersectionObserver from ".";
 
 describe("useIntersectionObserver", () => {

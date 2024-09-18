@@ -3,7 +3,7 @@ import {
   screen,
   userEvent,
   waitFor,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
 import UploadLink from ".";
 
 describe("uploadLink", () => {

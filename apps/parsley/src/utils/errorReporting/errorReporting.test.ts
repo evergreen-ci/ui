@@ -1,12 +1,9 @@
 import { addBreadcrumb, captureException, setTags } from "@sentry/react";
-import { mockEnvironmentVariables } from "test_utils/utils";
 import {
   SentryBreadcrumb,
   leaveBreadcrumb,
   reportError,
 } from "utils/errorReporting";
-
-const { cleanup, mockEnv } = mockEnvironmentVariables();
 
 vi.mock("@sentry/react", async (importOriginal) => {
   const actual = await importOriginal();
@@ -24,7 +21,7 @@ describe("error reporting", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
   });
   afterEach(() => {
-    cleanup();
+    vi.unstubAllEnvs();
     vi.restoreAllMocks();
   });
 
@@ -45,7 +42,7 @@ describe("error reporting", () => {
   });
 
   it("should report errors to Sentry when in production", () => {
-    mockEnv("NODE_ENV", "production");
+    vi.stubEnv("NODE_ENV", "production");
 
     const err = new Error("test error");
     const result = reportError(err);
@@ -56,7 +53,7 @@ describe("error reporting", () => {
   });
 
   it("supports context field", () => {
-    mockEnv("NODE_ENV", "production");
+    vi.stubEnv("NODE_ENV", "production");
     const err = {
       message: "GraphQL Error",
       name: "Error Name",
@@ -71,7 +68,7 @@ describe("error reporting", () => {
   });
 
   it("supports tags", () => {
-    mockEnv("NODE_ENV", "production");
+    vi.stubEnv("NODE_ENV", "production");
     const err = {
       message: "GraphQL Error",
       name: "Error Name",
@@ -93,7 +90,7 @@ describe("breadcrumbs", () => {
     vi.spyOn(console, "debug").mockImplementation(() => {});
   });
   afterEach(() => {
-    cleanup();
+    vi.unstubAllEnvs();
     vi.restoreAllMocks();
   });
 
@@ -113,7 +110,7 @@ describe("breadcrumbs", () => {
 
   it("should report breadcrumbs to Sentry when in production", () => {
     vi.useFakeTimers().setSystemTime(new Date("2020-01-01"));
-    mockEnv("NODE_ENV", "production");
+    vi.stubEnv("NODE_ENV", "production");
 
     const message = "my message";
     const type = SentryBreadcrumb.Info;
@@ -132,7 +129,7 @@ describe("breadcrumbs", () => {
   it("warns when 'from' or 'to' fields are missing with a navigation breadcrumb", () => {
     vi.useFakeTimers().setSystemTime(new Date("2020-01-01"));
     vi.spyOn(console, "warn").mockImplementation(() => {});
-    mockEnv("NODE_ENV", "production");
+    vi.stubEnv("NODE_ENV", "production");
 
     const message = "navigation message";
     const type = SentryBreadcrumb.Navigation;

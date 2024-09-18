@@ -1,4 +1,4 @@
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   CodeChangesQuery,
   CodeChangesQueryVariables,
@@ -14,6 +14,7 @@ export const patchQuery: ConfigurePatchQuery = {
     projectIdentifier: "spruce",
     author: "mohamed.khelif",
     activated: false,
+    generatedTaskCounts: [],
     status: "created",
     time: {
       submittedAt: "2020-08-28T15:00:17Z",

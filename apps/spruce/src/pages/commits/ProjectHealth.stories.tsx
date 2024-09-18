@@ -1,5 +1,5 @@
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { Commit, Commits } from "types/commits";
 import { isFailedTaskStatus } from "utils/statuses";
 import { CommitsWrapper } from "./CommitsWrapper";

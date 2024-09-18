@@ -1,5 +1,8 @@
 import { HoneycombWebSDK } from "@honeycombio/opentelemetry-web";
-import { getWebAutoInstrumentations } from "@opentelemetry/auto-instrumentations-web";
+import {
+  getWebAutoInstrumentations,
+  InstrumentationConfigMap,
+} from "@opentelemetry/auto-instrumentations-web";
 import { detectGraphqlQuery } from "./utils";
 
 /**
@@ -40,43 +43,46 @@ const initializeHoneycomb = ({
     );
     return;
   }
-  if (!ingestKey || !endpoint) {
+  if (!ingestKey && !endpoint) {
     console.error(
       "Honeycomb INGEST API key or a collector endpoint is required to start the SDK in production mode.",
     );
   } else {
     try {
       const userId = localStorage.getItem("userId") ?? undefined;
+      const webAutoInstrumentationConfig: InstrumentationConfigMap = {
+        "@opentelemetry/instrumentation-document-load": {
+          ignoreNetworkEvents: true,
+        },
+      };
+      if (serviceName !== "parsley") {
+        webAutoInstrumentationConfig["@opentelemetry/instrumentation-fetch"] = {
+          // Add GraphQL operation name as an attribute to HTTP traces.
+          applyCustomAttributesOnSpan: (span, request) => {
+            if (span && request) {
+              const { body } = request;
+              if (!body || typeof body !== "string") {
+                return;
+              }
+              const graphqlQuery = detectGraphqlQuery(body);
+              if (graphqlQuery) {
+                span.setAttribute(
+                  "graphql.operation_name",
+                  graphqlQuery.operationName,
+                );
+                span.setAttribute("graphql.query_type", graphqlQuery.queryType);
+              }
+            }
+          },
+          // Allow connecting frontend & backend traces.
+          propagateTraceHeaderCorsUrls: [new RegExp(backendURL || "")],
+        };
+      }
       const honeycombSdk = new HoneycombWebSDK({
         debug,
         endpoint,
         instrumentations: [
-          getWebAutoInstrumentations({
-            "@opentelemetry/instrumentation-fetch": {
-              // Add GraphQL operation name as an attribute to HTTP traces.
-              applyCustomAttributesOnSpan: (span, request) => {
-                if (span && request) {
-                  const body = request.body as string;
-                  const graphqlQuery = detectGraphqlQuery(body);
-                  if (graphqlQuery) {
-                    span.setAttribute(
-                      "graphql.operation_name",
-                      graphqlQuery.operationName,
-                    );
-                    span.setAttribute(
-                      "graphql.query_type",
-                      graphqlQuery.queryType,
-                    );
-                  }
-                }
-              },
-              // Allow connecting frontend & backend traces.
-              propagateTraceHeaderCorsUrls: [new RegExp(backendURL || "")],
-            },
-            "@opentelemetry/instrumentation-document-load": {
-              ignoreNetworkEvents: true,
-            },
-          }),
+          getWebAutoInstrumentations(webAutoInstrumentationConfig),
         ],
         // Add user.id as an attribute to all traces.
         resourceAttributes: {

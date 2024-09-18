@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { TreeSelect } from ".";
 
 describe("treeSelect", () => {

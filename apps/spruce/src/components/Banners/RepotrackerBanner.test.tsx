@@ -1,5 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RepotrackerBanner } from "components/Banners";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
@@ -15,7 +16,6 @@ import {
   USER_PROJECT_SETTINGS_PERMISSIONS,
   REPOTRACKER_ERROR,
 } from "gql/queries";
-import { render, screen, userEvent, waitFor } from "test_utils";
 
 describe("repotracker banner", () => {
   beforeEach(() => {

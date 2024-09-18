@@ -3,7 +3,7 @@ import {
   renderWithRouterMatch as render,
   userEvent,
   waitFor,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
 import { trimStringFromMiddle } from "utils/string";
 import Breadcrumbs from ".";
 

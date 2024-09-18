@@ -1,13 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
-import { getUserMock } from "gql/mocks/getUser";
-import { taskQuery } from "gql/mocks/taskData";
 import {
   renderWithRouterMatch as render,
   screen,
   stubGetClientRects,
   userEvent,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
+import { getUserMock } from "gql/mocks/getUser";
+import { taskQuery } from "gql/mocks/taskData";
 import { Metadata } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

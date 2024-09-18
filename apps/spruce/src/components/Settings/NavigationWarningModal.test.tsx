@@ -4,7 +4,12 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
-import { render, screen, stubGetClientRects, userEvent } from "test_utils";
+import {
+  render,
+  screen,
+  stubGetClientRects,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import {
   NavigationModalProps,
   NavigationWarningModal,

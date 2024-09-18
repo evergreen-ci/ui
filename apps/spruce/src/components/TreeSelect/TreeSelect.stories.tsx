@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import Dropdown from "components/Dropdown";
 import { TreeSelect, TreeSelectProps } from "components/TreeSelect";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 export default {
   component: TreeSelect,

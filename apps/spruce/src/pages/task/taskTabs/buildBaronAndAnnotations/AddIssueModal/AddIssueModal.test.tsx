@@ -1,5 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  stubGetClientRects,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   AddAnnotationIssueMutation,
@@ -7,13 +14,6 @@ import {
 } from "gql/generated/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { ADD_ANNOTATION } from "gql/mutations";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  stubGetClientRects,
-  userEvent,
-  waitFor,
-} from "test_utils";
 import { AddIssueModal as AddIssueModalToTest } from ".";
 
 const AddIssueModal = (

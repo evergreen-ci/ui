@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { VirtuosoMockContext } from "react-virtuoso";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { useLogContext } from "context/LogContext";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import LogPane from ".";
 
 export default {

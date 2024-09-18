@@ -1,4 +1,4 @@
-import { renderHook, userEvent } from "test_utils";
+import { renderHook, userEvent } from "@evg-ui/lib/test_utils";
 import { useTabShortcut } from ".";
 
 describe("useTabShortcut", () => {

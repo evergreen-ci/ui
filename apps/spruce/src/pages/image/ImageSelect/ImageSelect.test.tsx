@@ -1,14 +1,14 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { ApolloMock } from "@evg-ui/lib/types/gql";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
-import { IMAGES } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   screen,
   userEvent,
   waitFor,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import { RenderFakeToastContext } from "context/toast/__mocks__";
+import { ImagesQuery, ImagesQueryVariables } from "gql/generated/types";
+import { IMAGES } from "gql/queries";
 import { ImageSelect } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (

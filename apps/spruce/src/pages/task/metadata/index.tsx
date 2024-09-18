@@ -1,6 +1,11 @@
 import { useRef } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import {
+  Chip,
+  Variant as ChipVariant,
+  TruncationLocation,
+} from "@leafygreen-ui/chip";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
@@ -30,7 +35,7 @@ import {
   getPodRoute,
   getImageRoute,
 } from "constants/routes";
-import { zIndex } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { string } from "utils";
@@ -84,6 +89,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     spawnHostLink,
     startTime,
     status,
+    tags,
     timeTaken,
     versionMetadata,
   } = task || {};
@@ -476,6 +482,23 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           ))}
         </MetadataCard>
       ) : null}
+
+      {tags && tags.length > 0 ? (
+        <MetadataCard>
+          <MetadataTitle>Tags</MetadataTitle>
+          <TagsContainer>
+            {tags.map((t) => (
+              <Chip
+                key={`task-tag-${t}`}
+                chipCharacterLimit={30}
+                chipTruncationLocation={TruncationLocation.End}
+                label={t}
+                variant={ChipVariant.Gray}
+              />
+            ))}
+          </TagsContainer>
+        </MetadataCard>
+      ) : null}
     </>
   );
 };
@@ -546,6 +569,12 @@ const hostTaskStrandedMessage =
 const HoneycombLinkContainer = styled.span`
   display: flex;
   flex-direction: column;
+`;
+
+const TagsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${size.xs};
 `;
 
 const OOMTrackerMessage = styled(MetadataItem)`

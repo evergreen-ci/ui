@@ -1,8 +1,8 @@
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import {
   newSpruceUser,
   newMainlineCommitsUser,
 } from "constants/welcomeModalProps";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import CarouselCard from "./CarouselCard";
 import WelcomeModal from "./WelcomeModal";
 

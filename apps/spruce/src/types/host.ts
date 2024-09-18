@@ -45,7 +45,6 @@ export enum HostEvent {
   Started = "HOST_STARTED",
   Stopped = "HOST_STOPPED",
   Modified = "HOST_MODIFIED",
-  Fallback = "HOST_FALLBACK",
   AgentDeployed = "HOST_AGENT_DEPLOYED",
   AgentMonitorDeployed = "HOST_AGENT_MONITOR_DEPLOYED",
   HostJasperRestarting = "HOST_JASPER_RESTARTING",
@@ -62,22 +61,11 @@ export enum HostEvent {
   HostProvisioned = "HOST_PROVISIONED",
   HostRunningTaskSet = "HOST_RUNNING_TASK_SET",
   HostRunningTaskCleared = "HOST_RUNNING_TASK_CLEARED",
-  HostMonitorFlag = "HOST_MONITOR_FLAG",
   HostProvisionFailed = "HOST_PROVISION_FAILED",
-  HostTeardown = "HOST_TEARDOWN",
   HostTaskFinished = "HOST_TASK_FINISHED",
   HostExpirationWarningSent = "HOST_EXPIRATION_WARNING_SENT",
   HostTemporaryExemptionExpirationWarningSent = "HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT",
   VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
-}
-
-export enum HostMonitorOp {
-  Decommissioned = "decommissioned",
-  Idle = "idle",
-  Excess = "excess",
-  ProvisionTimeout = "provision_timeout",
-  ProvisionFailed = "provision_failed",
-  Expired = "expired",
 }
 
 export enum HostsTableFilterParams {
