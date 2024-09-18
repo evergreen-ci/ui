@@ -283,7 +283,6 @@ export const getInitialParams = (queryParams: {
       },
     ];
   } else if (sorts) {
-    console.log(sorts);
     initialSort = parseSortString(sorts, {
       sortByKey: "sortCategory",
       sortDirKey: "direction",
