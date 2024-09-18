@@ -13,7 +13,8 @@ import { zIndex, size } from "constants/tokens";
 const { blue } = palette;
 
 export const SideNav = styled(LGSideNav)`
-  grid-area: sidenav;
+  flex-shrink: 0;
+  flex-grow: 0;
   z-index: ${zIndex.sideNav};
 `;
 

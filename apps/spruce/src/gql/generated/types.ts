@@ -756,6 +756,7 @@ export type Host = {
   distro?: Maybe<DistroInfo>;
   distroId?: Maybe<Scalars["String"]["output"]>;
   elapsed?: Maybe<Scalars["Time"]["output"]>;
+  eventTypes: Array<HostEventType>;
   /** events returns the event log entries for a given host. */
   events: HostEvents;
   expiration?: Maybe<Scalars["Time"]["output"]>;
@@ -782,9 +783,7 @@ export type Host = {
 
 /** Host models a host, which are used for things like running tasks or as virtual workstations. */
 export type HostEventsArgs = {
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
-  sortDir?: InputMaybe<SortDirection>;
+  opts: HostEventsInput;
 };
 
 export type HostAllocatorSettings = {
@@ -887,6 +886,14 @@ export type HostEvents = {
   __typename?: "HostEvents";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<HostEventLogEntry>;
+};
+
+export type HostEventsInput = {
+  eventTypes?: InputMaybe<Array<HostEventType>>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  /** sort by timestamp */
+  sortDir?: InputMaybe<SortDirection>;
 };
 
 export enum HostSortBy {

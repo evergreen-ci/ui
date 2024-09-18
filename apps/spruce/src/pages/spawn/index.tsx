@@ -1,10 +1,11 @@
 import { useParams, Link, Route, Routes, Navigate } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import {
-  PageWrapper,
   SideNav,
   SideNavGroup,
   SideNavItem,
+  SideNavPageContent,
+  SideNavPageWrapper,
 } from "components/styles";
 import { routes, SpawnTab, slugs } from "constants/routes";
 import { SpawnHost } from "./SpawnHost";
@@ -15,7 +16,7 @@ const Spawn: React.FC = () => {
   const spawnAnalytics = useSpawnAnalytics();
 
   return (
-    <>
+    <SideNavPageWrapper>
       <SideNav aria-label="Hosts & Volumes">
         <SideNavGroup header="Hosts & Volumes">
           <SideNavItem
@@ -48,7 +49,7 @@ const Spawn: React.FC = () => {
           </SideNavItem>
         </SideNavGroup>
       </SideNav>
-      <PageWrapper>
+      <SideNavPageContent>
         <Routes>
           <Route element={<SpawnHost />} path={SpawnTab.Host} />
           <Route element={<SpawnVolume />} path={SpawnTab.Volume} />
@@ -59,8 +60,8 @@ const Spawn: React.FC = () => {
             path="*"
           />
         </Routes>
-      </PageWrapper>
-    </>
+      </SideNavPageContent>
+    </SideNavPageWrapper>
   );
 };
 

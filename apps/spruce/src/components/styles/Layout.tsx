@@ -5,23 +5,33 @@ import { size, fontSize } from "constants/tokens";
 
 const { gray, red } = palette;
 
+// Top-level layout for the entire site. Manages positioning of navbar.
+export const PageGrid = styled.div`
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+`;
+
+// Layout elements for pages with a LeafyGreen SideNav
+export const SideNavPageWrapper = styled.div`
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+`;
+export const SideNavPageContent = styled.div`
+  overflow-x: hidden;
+  overflow-y: scroll;
+  flex-grow: 1;
+  padding: ${size.m} ${size.l};
+`;
+
+// Layout elements for non-LG SideNav pages
 export const PageWrapper = styled.div`
-  grid-area: contents;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: ${size.m} ${size.l};
 `;
-
-export const PageGrid = styled.div`
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "sidenav contents";
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-rows: auto 1fr;
-  height: 100vh;
-`;
-
 export const PageLayout = styled.section<{ hasSider?: boolean }>`
   display: flex;
   flex: auto;

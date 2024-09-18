@@ -7,7 +7,8 @@ import {
   SideNav,
   SideNavGroup,
   SideNavItem,
-  PageWrapper,
+  SideNavPageContent,
+  SideNavPageWrapper,
 } from "components/styles";
 import { SideNavItemLink } from "components/styles/SideNav";
 import { showImageVisibilityPage } from "constants/featureFlags";
@@ -64,63 +65,65 @@ const DistroSettings: React.FC = () => {
 
   return (
     <DistroSettingsProvider>
-      <SideNav aria-label="Distro Settings" widthOverride={250}>
-        <ButtonsContainer>
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          <DistroSelect selectedDistro={distroId} />
-          <NewDistroButton />
-        </ButtonsContainer>
-        <SideNavGroup>
-          {Object.values(DistroSettingsTabRoutes).map((tab) => (
-            <SideNavItem
-              key={tab}
-              active={tab === currentTab}
-              as={Link}
-              data-cy={`navitem-${tab}`}
+      <SideNavPageWrapper>
+        <SideNav aria-label="Distro Settings" widthOverride={250}>
+          <ButtonsContainer>
+            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
+            <DistroSelect selectedDistro={distroId} />
+            <NewDistroButton />
+          </ButtonsContainer>
+          <SideNavGroup>
+            {Object.values(DistroSettingsTabRoutes).map((tab) => (
+              <SideNavItem
+                key={tab}
+                active={tab === currentTab}
+                as={Link}
+                data-cy={`navitem-${tab}`}
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                to={getDistroSettingsRoute(distroId, tab)}
+              >
+                {getTabTitle(tab).title}
+              </SideNavItem>
+            ))}
+          </SideNavGroup>
+          <SideNavGroup glyph={<Icon glyph="Link" />} header="Links">
+            <SideNavItemLink
+              data-cy="navitem-task-queue-link"
               // @ts-expect-error: FIXME. This comment was added by an automated script.
-              to={getDistroSettingsRoute(distroId, tab)}
+              to={getTaskQueueRoute(distroId)}
             >
-              {getTabTitle(tab).title}
-            </SideNavItem>
-          ))}
-        </SideNavGroup>
-        <SideNavGroup glyph={<Icon glyph="Link" />} header="Links">
-          <SideNavItemLink
-            data-cy="navitem-task-queue-link"
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            to={getTaskQueueRoute(distroId)}
-          >
-            Task Queue
-          </SideNavItemLink>
-          {showImageVisibilityPage && (
-            <SideNavItemLink
-              data-cy="navitem-image-build-information-link"
-              to={getImageRoute(
-                data?.distro?.imageId ?? "",
-                ImageTabRoutes.BuildInformation,
-              )}
-            >
-              Image Build Information
+              Task Queue
             </SideNavItemLink>
+            {showImageVisibilityPage && (
+              <SideNavItemLink
+                data-cy="navitem-image-build-information-link"
+                to={getImageRoute(
+                  data?.distro?.imageId ?? "",
+                  ImageTabRoutes.BuildInformation,
+                )}
+              >
+                Image Build Information
+              </SideNavItemLink>
+            )}
+            {showImageVisibilityPage && (
+              <SideNavItemLink
+                data-cy="navitem-image-event-log-link"
+                to={getImageRoute(
+                  data?.distro?.imageId ?? "",
+                  ImageTabRoutes.EventLog,
+                )}
+              >
+                Image Event Log
+              </SideNavItemLink>
+            )}
+          </SideNavGroup>
+        </SideNav>
+        <SideNavPageContent data-cy="distro-settings-page">
+          {!loading && data?.distro && (
+            <DistroSettingsTabs distro={data.distro} />
           )}
-          {showImageVisibilityPage && (
-            <SideNavItemLink
-              data-cy="navitem-image-event-log-link"
-              to={getImageRoute(
-                data?.distro?.imageId ?? "",
-                ImageTabRoutes.EventLog,
-              )}
-            >
-              Image Event Log
-            </SideNavItemLink>
-          )}
-        </SideNavGroup>
-      </SideNav>
-      <PageWrapper data-cy="distro-settings-page">
-        {!loading && data?.distro && (
-          <DistroSettingsTabs distro={data.distro} />
-        )}
-      </PageWrapper>
+        </SideNavPageContent>
+      </SideNavPageWrapper>
     </DistroSettingsProvider>
   );
 };
