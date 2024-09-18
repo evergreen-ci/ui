@@ -24,7 +24,7 @@ export const ImageVisibilityGuideCue: React.FC<{
     <GuideCue
       currentStep={1}
       data-cy="image-visibility-guide-cue"
-      // Remove once the page is ready for release.
+      // TODO: Remove once the page is ready for release in DEVPROD-11433.
       enabled={showImageVisibilityPage}
       numberOfSteps={1}
       onPrimaryButtonClick={closeGuideCue}
@@ -34,8 +34,8 @@ export const ImageVisibilityGuideCue: React.FC<{
       title="Newly Introduced Image Page!"
       tooltipAlign={TooltipAlign.Right}
     >
-      Visit the new Image page to view general configuration and package
-      installation information for Evergreen distros.
+      Visit the Image page to view general information and package installations
+      for Evergreen distros.
     </GuideCue>
   );
 };

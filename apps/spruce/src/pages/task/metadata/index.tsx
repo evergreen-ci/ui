@@ -114,7 +114,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
 
   const stepback = isInStepback(task);
 
-  const imageVisibilityGuideCueTriggerRef = useRef<HTMLDivElement>(null);
+  const imageVisibilityGuideCueTriggerRef = useRef<HTMLAnchorElement>(null);
 
   return (
     <>
