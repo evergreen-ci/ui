@@ -13,14 +13,21 @@ export const msToDuration = (ms: number): string => {
   if (ms === 0) {
     return "0s";
   }
-  const days = Math.floor(ms / (24 * 60 * 60 * 1000));
-  const daysMilli = ms % (24 * 60 * 60 * 1000);
-  const hours = Math.floor(daysMilli / (60 * 60 * 1000));
-  const hoursMilli = ms % (60 * 60 * 1000);
-  const minutes = Math.floor(hoursMilli / (60 * 1000));
-  const minutesMilli = ms % (60 * 1000);
+  const msPerDay = 24 * 60 * 60 * 1000;
+  const days = Math.floor(ms / msPerDay);
+  const daysMilli = ms % msPerDay;
+
+  const msPerHour = 60 * 60 * 1000;
+  const hours = Math.floor(daysMilli / msPerHour);
+  const hoursMilli = ms % msPerHour;
+
+  const msPerMinute = 60 * 1000;
+  const minutes = Math.floor(hoursMilli / msPerMinute);
+  const minutesMilli = ms % msPerMinute;
+
   const seconds = Math.floor(minutesMilli / 1000);
-  if (days > 1) {
+
+  if (days > 0) {
     return `${Math.trunc(days)}d ${hours}h ${minutes}m ${seconds}s`;
   }
   if (hours > 0) {
