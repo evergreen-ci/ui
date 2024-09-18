@@ -28,7 +28,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Running").click({ force: true }),
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 2);
+      cy.dataCy("task-duration-table-row").should("have.length", 3);
       cy.location("search").should(
         "include",
         "page=0&sortBy=DURATION&sortDir=DESC&statuses=failed-umbrella%2Cfailed%2Cknown-issue",
