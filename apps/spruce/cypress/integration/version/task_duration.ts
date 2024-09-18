@@ -98,6 +98,11 @@ describe("Task Duration Tab", () => {
         "include",
         "page=0&sorts=DURATION%3AASC%3BSTATUS%3ADESC",
       );
+      cy.reload();
+      cy.location("search").should(
+        "include",
+        "page=0&sorts=DURATION%3AASC%3BSTATUS%3ADESC",
+      );
     });
 
     it("clearing all filters resets to the default sort", () => {
