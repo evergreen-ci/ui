@@ -26,8 +26,6 @@ export const useQueryVariables = (
     [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
   } = queryParams;
 
-  // This should be reworked once the antd tables are removed.
-  // At the current state, sorts & duration will never both be defined.
   let sortsToApply: SortOrder[] = [];
   const taskSortCategories: string[] = Object.values(TaskSortCategory);
   const parsedSortBy = getString(queryParams[TableQueryParams.SortBy]);
@@ -39,7 +37,8 @@ export const useQueryVariables = (
     parsedSortDir === SortDirection.Desc
       ? SortDirection.Desc
       : SortDirection.Asc;
-
+  // 'sortBy', 'sortDir' and 'sorts' are set by useTableSort in <TaskDurationTable />
+  // 'sorts' is set by <PatchTasksTable />
   if (sortBy && sortDir) {
     sortsToApply = [{ Key: sortBy, Direction: sortDir }];
   } else if (sorts) {
