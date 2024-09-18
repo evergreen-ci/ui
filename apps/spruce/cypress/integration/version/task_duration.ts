@@ -13,7 +13,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("task-duration-table-row").should("have.length", 1);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&taskName=${filterText}`,
+        `page=0&sortBy=DURATION&sortDir=DESC&taskName=${filterText}`,
       );
       // Clear text filter.
       cy.dataCy("task-name-filter-popover").click();
@@ -28,17 +28,20 @@ describe("Task Duration Tab", () => {
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Running").click({ force: true }),
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 3);
+      cy.dataCy("task-duration-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
-        "duration=DESC&page=0&statuses=running-umbrella%2Cstarted%2Cdispatched",
+        "page=0&sortBy=DURATION&sortDir=DESC&statuses=failed-umbrella%2Cfailed%2Cknown-issue",
       );
       // Clear status filter.
       cy.dataCy("status-filter-popover").click();
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Succeeded").click({ force: true }),
       );
-      cy.location("search").should("include", `duration=DESC&page=0`);
+      cy.location("search").should(
+        "include",
+        "page=0&sortBy=DURATION&sortDir=DESC",
+      );
     });
 
     it("updates URL appropriately when build variant filter is applied", () => {
@@ -51,7 +54,7 @@ describe("Task Duration Tab", () => {
       cy.dataCy("task-duration-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&variant=${filterText}`,
+        `page=0&sortBy=DURATION&sortDir=DESC&variant=${filterText}`,
       );
       // Clear text filter.
       cy.dataCy("build-variant-filter-popover").click();
@@ -62,8 +65,10 @@ describe("Task Duration Tab", () => {
 
     it("updates URL appropriately when sort is changing", () => {
       const durationSortControl = "button[aria-label='Sort by Task Duration']";
+      const statusSortControl = "button[aria-label='Sort by Status']";
+      const variantSortControl = "button[aria-label='Sort by Build Variant']";
       // The default sort (DURATION DESC) should be applied
-      cy.location("search").should("include", "duration=DESC");
+      cy.location("search").should("include", "sortBy=DURATION&sortDir=DESC");
       const longestTask = "test-thirdparty";
       cy.contains(longestTask).should("be.visible");
       cy.dataCy("task-duration-table-row")
@@ -72,12 +77,27 @@ describe("Task Duration Tab", () => {
       cy.get(durationSortControl).click();
       cy.location("search").should("not.include", "duration");
       cy.get(durationSortControl).click();
-      cy.location("search").should("include", "duration=ASC");
+      cy.location("search").should("include", "sortBy=DURATION&sortDir=ASC");
       const shortestTask = "test-auth";
       cy.contains(shortestTask).should("be.visible");
       cy.dataCy("task-duration-table-row")
         .first()
         .should("contain", shortestTask);
+      cy.get(statusSortControl).click();
+      cy.location("search").should(
+        "include",
+        "page=0&sorts=DURATION%3AASC%3BSTATUS%3AASC",
+      );
+      cy.get(statusSortControl).click();
+      cy.location("search").should(
+        "include",
+        "page=0&sorts=DURATION%3AASC%3BSTATUS%3ADESC",
+      );
+      cy.get(variantSortControl).click();
+      cy.location("search").should(
+        "include",
+        "page=0&sorts=DURATION%3AASC%3BSTATUS%3ADESC",
+      );
     });
 
     it("clearing all filters resets to the default sort", () => {
@@ -85,9 +105,9 @@ describe("Task Duration Tab", () => {
       cy.get(durationSortControl).click();
       cy.location("search").should("not.include", "duration");
       cy.get(durationSortControl).click();
-      cy.location("search").should("include", "duration=ASC");
+      cy.location("search").should("include", "sortBy=DURATION&sortDir=ASC");
       cy.contains("Clear all filters").click();
-      cy.location("search").should("include", "duration=DESC");
+      cy.location("search").should("include", "sortBy=DURATION&sortDir=DESC");
     });
 
     it("shows message when no test results are found", () => {
