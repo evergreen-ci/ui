@@ -6,7 +6,7 @@ import { size, fontSize } from "constants/tokens";
 const { gray, red } = palette;
 
 // Top-level layout for the entire site. Manages positioning of navbar.
-export const PageGrid = styled.div`
+export const SiteLayout = styled.div`
   display: flex;
   flex-flow: column;
   height: 100vh;
