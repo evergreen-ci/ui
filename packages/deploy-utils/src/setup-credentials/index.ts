@@ -9,7 +9,7 @@ export const setupCredentials = (target: TargetEnvironment) => {
 
   const envVars = {
     ...envJson[target],
-    ...base[target],
+    ...sharedKeys,
   };
 
   writeFileSync(filePath, JSON.stringify({ [target]: envVars }));
@@ -23,21 +23,7 @@ const sharedKeys = {
 
   REACT_APP_SPRUCE_SENTRY_DSN: process.env.REACT_APP_SPRUCE_SENTRY_DSN,
   SPRUCE_SENTRY_AUTH_TOKEN: process.env.SPRUCE_SENTRY_AUTH_TOKEN,
-};
 
-const base: Record<TargetEnvironment, Record<string, string | undefined>> = {
-  staging: {
-    ...sharedKeys,
-    REACT_APP_HONEYCOMB_ENDPOINT: process.env.HONEYCOMB_ENDPOINT_STAGING,
-    REACT_APP_HONEYCOMB_INGEST_KEY: process.env.HONEYCOMB_INGEST_KEY_STAGING,
-  },
-  beta: {
-    ...sharedKeys,
-  },
-  production: {
-    ...sharedKeys,
-    REACT_APP_DEPLOYS_EMAIL: "evergreen-deploys@10gen.com",
-    REACT_APP_HONEYCOMB_ENDPOINT: process.env.HONEYCOMB_ENDPOINT_PROD,
-    REACT_APP_HONEYCOMB_INGEST_KEY: process.env.HONEYCOMB_INGEST_KEY_PROD,
-  },
+  REACT_APP_HONEYCOMB_ENDPOINT: process.env.REACT_APP_HONEYCOMB_ENDPOINT,
+  REACT_APP_HONEYCOMB_INGEST_KEY: process.env.REACT_APP_HONEYCOMB_INGEST_KEY,
 };

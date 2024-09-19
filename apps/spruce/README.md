@@ -44,7 +44,7 @@ results.
 
 [env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure build environments for production, staging, and development. We use `.env-cmdrc.json` to represent these various environments. `.env-cmdrc.json` does not contain any sensitive information and can be used for local builds or manual builds deployed to S3.
 
-Please note that since `.env-cmdrc.json` lacks secrets for Sentry and Honeycomb, manual builds to S3 will not be able to utilize those services.
+Please note that since `.env-cmdrc.json` lacks secrets for Sentry and Honeycomb, manual deploys to S3 will not be able to utilize those services.
 
 ## GraphQL Type Generation
 

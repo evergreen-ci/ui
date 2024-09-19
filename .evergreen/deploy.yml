@@ -2,6 +2,20 @@ functions:
   deploy:
     - command: shell.exec
       params:
+        script: |
+          if [ "${target}" = "staging" ]; then
+            echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_STAGING}" >> honeycomb.yml
+            echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_STAGING}" >> honeycomb.yml
+          elif [ "${target}" = "production" ]; then
+            echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_PROD}" >> honeycomb.yml
+            echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_PROD}" >> honeycomb.yml
+          fi
+    - command: expansions.update
+      params:
+        redact_file_expansions: true
+        file: honeycomb.yml
+    - command: shell.exec
+      params:
         working_dir: ui/${app_dir}
         add_expansions_to_env: true
         script: |
