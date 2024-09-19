@@ -5,7 +5,8 @@ import {
   SideNav,
   SideNavGroup,
   SideNavItem,
-  PageWrapper,
+  SideNavPageContent,
+  SideNavPageWrapper,
 } from "components/styles";
 import {
   PreferencesTabRoutes,
@@ -23,7 +24,7 @@ const Preferences: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
 
   return (
-    <>
+    <SideNavPageWrapper>
       <SideNav aria-label="Preferences">
         <SideNavGroup glyph={<Icon glyph="Settings" />} header="Preferences">
           <SideNavItem
@@ -98,10 +99,10 @@ const Preferences: React.FC = () => {
           </SideNavItem>
         </SideNavGroup>
       </SideNav>
-      <PageWrapper>
+      <SideNavPageContent>
         <PreferencesTabs />
-      </PageWrapper>
-    </>
+      </SideNavPageContent>
+    </SideNavPageWrapper>
   );
 };
 
