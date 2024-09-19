@@ -182,6 +182,12 @@ describe("isFailingLine", () => {
         "'shell.exec' in function 'attach-cypress-results' (step 3.3 of 8) in block 'post'",
       ),
     ).toBe(true);
+    expect(
+      isFailingLine(
+        "[2023/01/02 10:42:29.414] Finished command 'shell.exec' in function 'check-codegen' (step 2 of 2).",
+        "'shell.exec' in function 'check-codegen' (step 2 of 2)",
+      ),
+    ).toBe(true);
   });
   it("should return false if not a failing line", () => {
     expect(
@@ -192,7 +198,7 @@ describe("isFailingLine", () => {
     ).toBe(false);
     expect(
       isFailingLine(
-        "[2023/01/02 10:42:29.414] Finished command 'shell.exec' in function 'check-codegen' (step 2 of 2).",
+        "[2023/01/02 10:42:29.414] Running command 'shell.exec' in function 'check-codegen' (step 2 of 2).",
         "'shell.exec' in function 'check-codegen' (step 2 of 2)",
       ),
     ).toBe(false);

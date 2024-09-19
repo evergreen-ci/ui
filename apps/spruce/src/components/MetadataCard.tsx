@@ -73,6 +73,7 @@ const Item = styled(Body)<BodyProps>`
   :not(:last-child) {
     margin-bottom: 12px;
   }
+  width: fit-content;
 `;
 
 export const MetadataLabel = styled.b<{ color?: string }>`
