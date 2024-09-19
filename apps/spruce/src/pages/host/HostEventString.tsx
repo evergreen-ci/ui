@@ -2,8 +2,7 @@ import Code from "@leafygreen-ui/code";
 import { Accordion } from "components/Accordion";
 import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
-import { HostEventLogData } from "gql/generated/types";
-import { HostEvent } from "types/host";
+import { HostEventLogData, HostEventType } from "gql/generated/types";
 
 interface TaskLinkProps {
   "data-cy": string;
@@ -32,7 +31,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
   const failedString = "failed";
 
   switch (eventType) {
-    case HostEvent.Created:
+    case HostEventType.HostCreated:
       return (
         <div data-cy="created">
           Host creation {data.successful ? succeededString : failedString}
@@ -41,15 +40,15 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.AgentDeployFailed:
+    case HostEventType.HostAgentDeployFailed:
       return <span data-cy="agent-deploy-failed">New agent deploy failed</span>;
-    case HostEvent.ProvisionError:
+    case HostEventType.HostProvisionError:
       return (
         <span data-cy="provision-error">
           Host encountered error during provisioning
         </span>
       );
-    case HostEvent.Started:
+    case HostEventType.HostStarted:
       return (
         <div data-cy="started">
           Host start attempt {data.successful ? succeededString : failedString}
@@ -58,7 +57,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.Stopped:
+    case HostEventType.HostStopped:
       return (
         <div data-cy="stopped">
           Host stop attempt {data.successful ? succeededString : failedString}
@@ -67,7 +66,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.Modified:
+    case HostEventType.HostModified:
       return (
         <div data-cy="modified">
           Host modify attempt {data.successful ? succeededString : failedString}
@@ -76,7 +75,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.AgentDeployed:
+    case HostEventType.HostAgentDeployed:
       return (
         <div data-cy="agent-deployed">
           Agent deployed {data.agentRevision ? "with revision" : ""}{" "}
@@ -84,33 +83,33 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           <b>{data.agentBuild}</b>
         </div>
       );
-    case HostEvent.AgentMonitorDeployed:
+    case HostEventType.HostAgentMonitorDeployed:
       return (
         <div data-cy="agent-monitor-deployed">
           Agent monitor deployed {data.agentRevision ? "with revision" : ""}{" "}
           <b>{data.agentRevision}</b>
         </div>
       );
-    case HostEvent.AgentMonitorDeployFailed:
+    case HostEventType.HostAgentMonitorDeployFailed:
       return (
         <span data-cy="agent-monitor-deploy-failed">
           New agent monitor deploy failed
         </span>
       );
-    case HostEvent.HostJasperRestarting:
+    case HostEventType.HostJasperRestarting:
       return (
         <div data-cy="host-jasper-restarting">
           Jasper service marked as restarting {data.user ? "by" : ""}{" "}
           <b>{data.user}</b>
         </div>
       );
-    case HostEvent.HostJasperRestarted:
+    case HostEventType.HostJasperRestarted:
       return (
         <div data-cy="host-jasper-restarted">
           Jasper service restarted with revision <b>{data.jasperRevision}</b>
         </div>
       );
-    case HostEvent.HostJasperRestartError:
+    case HostEventType.HostJasperRestartError:
       return (
         <div data-cy="host-jasper-restart-error">
           Host encountered error when restarting Jasper service
@@ -119,7 +118,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.HostConvertingProvisioning:
+    case HostEventType.HostConvertingProvisioning:
       return (
         <span data-cy="host-converting-provisioning">
           Host converting provisioning type
@@ -127,7 +126,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           {data.provisioningMethod ? " method" : ""}
         </span>
       );
-    case HostEvent.HostConvertedProvisioning:
+    case HostEventType.HostConvertedProvisioning:
       return (
         <span data-cy="host-converted-provisioning">
           Host successfully converted provisioning type
@@ -135,7 +134,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           {data.provisioningMethod ? " method" : ""}
         </span>
       );
-    case HostEvent.HostConvertingProvisioningError:
+    case HostEventType.HostConvertingProvisioningError:
       return (
         <div data-cy="host-converting-provisioning-error">
           Host encountered error when converting reprovisioning
@@ -144,7 +143,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.HostStatusChanged:
+    case HostEventType.HostStatusChanged:
       return (
         <div data-cy="host-status-changed">
           Status changed from <b>{data.oldStatus}</b> to <b>{data.newStatus}</b>{" "}
@@ -158,13 +157,13 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.HostDNSNameSet:
+    case HostEventType.HostDnsNameSet:
       return (
         <div data-cy="host-dns-name-set">
           DNS Name set to <b>{data.hostname}</b>
         </div>
       );
-    case HostEvent.HostScriptExecuted:
+    case HostEventType.HostScriptExecuted:
       return (
         <div data-cy="host-script-executed">
           Executed script on host
@@ -173,7 +172,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.HostScriptExecuteFailed:
+    case HostEventType.HostScriptExecuteFailed:
       return (
         <div data-cy="host-script-execute-failed">
           Failed to execute script on host
@@ -182,20 +181,20 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.HostProvisioned:
+    case HostEventType.HostProvisioned:
       return (
         <div data-cy="host-provisioned">
           Marked as <b>provisioned</b>
         </div>
       );
-    case HostEvent.HostRunningTaskSet:
+    case HostEventType.HostRunningTaskSet:
       return (
         <div data-cy="host-running-task-set">
           Assigned to run task{" "}
           <TaskLink data-cy="host-running-task-set-link" taskId={data.taskId} />
         </div>
       );
-    case HostEvent.HostRunningTaskCleared:
+    case HostEventType.HostRunningTaskCleared:
       return (
         <div data-cy="host-running-task-cleared">
           Current running task cleared (was:{" "}
@@ -205,7 +204,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           />
         </div>
       );
-    case HostEvent.HostProvisionFailed:
+    case HostEventType.HostProvisionFailed:
       return (
         <div data-cy="host-provision-failed">
           Provisioning failed{" "}
@@ -214,7 +213,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </div>
       );
-    case HostEvent.HostTaskFinished:
+    case HostEventType.HostTaskFinished:
       return (
         <div data-cy="host-task-finished">
           Task{" "}
@@ -223,15 +222,15 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           <b> {data.taskStatus}</b>
         </div>
       );
-    case HostEvent.HostExpirationWarningSent:
+    case HostEventType.HostExpirationWarningSent:
       return (
         <span data-cy="host-expiration-warning-set">
           Expiration warning sent
         </span>
       );
-    case HostEvent.HostTemporaryExemptionExpirationWarningSent:
+    case HostEventType.HostTemporaryExemptionExpirationWarningSent:
       return <span>Temporary exemption expiration warning sent</span>;
-    case HostEvent.VolumeMigrationFailed:
+    case HostEventType.VolumeMigrationFailed:
       return (
         <span data-cy="host-volume-migration-failed">
           Home volume failed to migrate to new host.
@@ -244,7 +243,7 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </span>
       );
-    case HostEvent.HostCreatedError:
+    case HostEventType.HostCreatedError:
       return (
         <span data-cy="host-creation-failed">
           Host creation failed.

@@ -23,17 +23,21 @@ import {
   HostQueryVariables,
   HostEventsQuery,
   HostEventsQueryVariables,
+  HostEventType,
 } from "gql/generated/types";
 import { HOST, HOST_EVENTS } from "gql/queries/index";
 import usePagination from "hooks/usePagination";
+import { useQueryParam } from "hooks/useQueryParam";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
+import { HostQueryParams } from "./constants";
 
 const Host: React.FC = () => {
   const dispatchToast = useToastContext();
   const { [slugs.hostId]: hostId } = useParams();
-  // Query host data
+
+  // Query host data.
   const {
     data: hostData,
     error,
@@ -55,23 +59,31 @@ const Host: React.FC = () => {
 
   const sshAddress = persistentDnsName || hostUrl;
   const sshCommand = `ssh ${user}@${sshAddress}`;
-  const tag = host?.tag ?? "";
 
   const { limit, page } = usePagination();
-  // Query hostEvent data
+  const [eventTypes] = useQueryParam<HostEventType[]>(
+    HostQueryParams.EventType,
+    [],
+  );
+
+  // UPDATE STATUS MODAL VISIBILITY STATE
+  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
+    useState<boolean>(false);
+
+  // Query host event data.
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
     HostEventsQuery,
     HostEventsQueryVariables
   >(HOST_EVENTS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: hostId, tag, page, limit },
+    variables: { id: hostId ?? "", opts: { page, limit, eventTypes } },
+    skip: !hostId,
   });
 
-  const hostEvents = hostEventData?.hostEvents;
-  const eventsCount = hostEvents?.count;
-  // UPDATE STATUS MODAL VISIBILITY STATE
-  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
-    useState<boolean>(false);
+  const hostEvents = hostEventData?.host?.events;
+  const hostEventLogEntries =
+    hostEventData?.host?.events?.eventLogEntries ?? [];
+  const hostEventCount = hostEvents?.count ?? 0;
+  const hostEventTypes = hostEventData?.host?.eventTypes ?? [];
 
   const canRestartJasperOrReprovision =
     host?.status === "running" &&
@@ -138,12 +150,13 @@ const Host: React.FC = () => {
             </PageSider>
             <PageContent>
               <HostTable
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 error={error}
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                eventData={hostEventData}
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                eventsCount={eventsCount}
+                eventCount={hostEventCount}
+                eventLogEntries={hostEventLogEntries}
+                eventTypes={hostEventTypes}
+                initialFilters={[
+                  { id: HostQueryParams.EventType, value: eventTypes },
+                ]}
                 limit={limit}
                 loading={hostEventLoading}
                 page={page}

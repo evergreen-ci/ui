@@ -1,38 +1,71 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
-import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
+import {
+  useLeafyGreenTable,
+  LGColumnDef,
+  ColumnFiltersState,
+  LeafyGreenTable,
+} from "@leafygreen-ui/table";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { BaseTable } from "components/Table/BaseTable";
+import { onChangeHandler } from "components/Table/utils";
 import { size } from "constants/tokens";
-import { HostEventsQuery } from "gql/generated/types";
+import { HostEventsQuery, HostEventType } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";
+import { useQueryParams } from "hooks/useQueryParam";
 import { HostCard } from "pages/host/HostCard";
 import { HostEventString } from "pages/host/HostEventString";
+import { HostQueryParams } from "./constants";
 
-type HostEvent = Unpacked<HostEventsQuery["hostEvents"]["eventLogEntries"]>;
+type HostEvent = Unpacked<
+  NonNullable<HostEventsQuery["host"]>["events"]["eventLogEntries"]
+>;
 
-export const HostTable: React.FC<{
-  loading: boolean;
-  eventData: HostEventsQuery;
-  error: ApolloError;
-  page: number;
+interface HostTableProps {
+  error?: ApolloError;
+  eventCount: number;
+  eventLogEntries: HostEvent[];
+  eventTypes: HostEventType[];
+  initialFilters: ColumnFiltersState;
   limit: number;
-  eventsCount: number;
-}> = ({ error, eventData, eventsCount, limit, loading, page }) => {
-  const isHostPage = true;
-  const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
+  loading: boolean;
+  page: number;
+}
+
+export const HostTable: React.FC<HostTableProps> = ({
+  error,
+  eventCount,
+  eventLogEntries,
+  eventTypes,
+  initialFilters,
+  limit,
+  loading,
+  page,
+}) => {
+  const hostsTableAnalytics = useHostsTableAnalytics(true);
   const { setLimit } = usePagination();
   const getDateCopy = useDateFormat();
-  const logEntries = useMemo(
-    () => eventData?.hostEvents?.eventLogEntries ?? [],
-    [eventData?.hostEvents?.eventLogEntries],
-  );
+  const [columnFilters, setColumnFilters] =
+    useState<ColumnFiltersState>(initialFilters);
+
+  const [, setQueryParams] = useQueryParams();
+
+  const updateFilters = (filterState: ColumnFiltersState) => {
+    const updatedParams = {
+      page: "0",
+    };
+    filterState.forEach(({ id, value }) => {
+      // @ts-ignore-error - value is an unknown type.
+      updatedParams[id] = value;
+    });
+    setQueryParams(updatedParams);
+  };
 
   const handlePageSizeChange = (pageSize: number): void => {
     setLimit(pageSize);
@@ -41,6 +74,18 @@ export const HostTable: React.FC<{
       "page.size": pageSize,
     });
   };
+
+  const eventTypeFilterOptions = useMemo(
+    () =>
+      eventTypes.map((e) => ({
+        title: e.toString().replaceAll("_", " "),
+        value: e,
+        key: e,
+      })),
+    [eventTypes],
+  );
+
+  const hostEvents = useMemo(() => eventLogEntries ?? [], [eventLogEntries]);
 
   const columns: LGColumnDef<HostEvent>[] = useMemo(
     () => [
@@ -52,38 +97,58 @@ export const HostTable: React.FC<{
       {
         header: "Event",
         accessorKey: "eventType",
+        id: HostQueryParams.EventType,
         cell: ({ getValue, row }) => (
           <HostEventString
             data={row.original.data}
             eventType={getValue() as string}
           />
         ),
+        enableColumnFilter: true,
+        meta: {
+          treeSelect: {
+            "data-cy": "event-type-filter",
+            options: eventTypeFilterOptions,
+          },
+        },
       },
     ],
-    [getDateCopy],
+    [getDateCopy, eventTypeFilterOptions],
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const table = useLeafyGreenTable<HostEvent>({
+  const table: LeafyGreenTable<HostEvent> = useLeafyGreenTable<HostEvent>({
     columns,
     containerRef: tableContainerRef,
-    data: logEntries ?? [],
+    data: hostEvents ?? [],
     defaultColumn: {
       enableColumnFilter: false,
     },
+    initialState: {
+      columnFilters: initialFilters,
+    },
+    state: {
+      columnFilters,
+    },
+    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      setColumnFilters,
+      (updatedState) => {
+        updateFilters(updatedState);
+      },
+    ),
     manualPagination: true,
   });
 
   return (
     <HostCard error={error} loading={loading} metaData={false}>
       <TableTitle>
-        <StyledSubtitle>Recent Events</StyledSubtitle>
+        <Subtitle>Recent Events</Subtitle>
         <PaginationWrapper>
           <Pagination
             currentPage={page}
             data-cy="host-event-table-pagination"
             pageSize={limit}
-            totalResults={eventsCount}
+            totalResults={eventCount}
           />
           <PageSizeSelector
             data-cy="host-event-table-page-size-selector"
@@ -93,6 +158,7 @@ export const HostTable: React.FC<{
         </PaginationWrapper>
       </TableTitle>
       <BaseTable
+        data-cy-row="host-events-table-row"
         data-cy-table="host-events-table"
         data-loading={loading}
         loading={loading}
@@ -104,15 +170,11 @@ export const HostTable: React.FC<{
   );
 };
 
-const StyledSubtitle = styled(Subtitle)<SubtitleProps>`
-  margin-bottom: 20px;
-  margin-top: ${size.s};
-`;
-
 const TableTitle = styled.div`
-  flex-wrap: nowrap;
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-between;
+  margin: ${size.s} 0;
 `;
 
 const PaginationWrapper = styled.div`
