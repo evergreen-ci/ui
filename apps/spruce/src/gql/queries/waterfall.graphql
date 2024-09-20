@@ -1,0 +1,20 @@
+#import "../fragments/upstreamProject.graphql"
+
+query Waterfall($options: WaterfallOptions!) {
+  waterfall(options: $options) {
+    versions {
+      version {
+        activated
+        author
+        createTime
+        gitTags {
+          tag
+        }
+        id
+        message
+        revision
+        ...UpstreamProject
+      }
+    }
+  }
+}
