@@ -9042,6 +9042,43 @@ export type TaskQuery = {
   } | null;
 };
 
+export type TestAnalysisQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  options: TaskFilterOptions;
+  opts?: InputMaybe<TestFilterOptions>;
+}>;
+
+export type TestAnalysisQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    tasks: {
+      __typename?: "VersionTasks";
+      count: number;
+      data: Array<{
+        __typename?: "Task";
+        buildVariant: string;
+        buildVariantDisplayName?: string | null;
+        displayName: string;
+        execution: number;
+        id: string;
+        status: string;
+        tests: {
+          __typename?: "TaskTestResult";
+          filteredTestCount: number;
+          testResults: Array<{
+            __typename?: "TestResult";
+            id: string;
+            status: string;
+            testFile: string;
+          }>;
+        };
+      }>;
+    };
+  };
+};
+
 export type UndispatchedTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
 }>;
