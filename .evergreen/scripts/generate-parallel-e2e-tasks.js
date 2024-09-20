@@ -1,10 +1,9 @@
-import { readdirSync, statSync } from "fs";
+import { readdirSync, statSync, writeFileSync } from "fs";
 import { join } from "path";
-
-const PARALLEL_COUNT = 4;
+import { APPS_DIR, PARALLEL_COUNT, Tasks } from "./constants.js"
 
 /**
- *  getDirSize calculates the size of a directory at a given path, optionally including the size of its subdirectories.
+ * getDirSize calculates the size of a directory at a given path, optionally including the size of its subdirectories.
  * @param {string} dirPath - string representing the root directory path
  * @param {boolean} [includeNestedDirs=true] - boolean indicating whether to recurse and calculate size of nested directories
  * @returns {number} - directory size in bytes
@@ -99,3 +98,70 @@ export const getSpecs = (dirPath) => {
   const buckets = bucketSpecs(sorted, PARALLEL_COUNT);
   return buckets.map((specs) => specs.join());
 };
+
+/**
+ * createParallelE2ETasks creates the top-level tasks required for a build variant's parallelized Cypress testing.
+ * Note that the task steps included here should likely be in sync with those included in the base e2e task.
+ * @param bv - build variant name
+ * @returns
+ *  - bvTasks: array of task names for the build variant
+ *  - displayTasks: array of display tasks with corresponding execution tasks
+ *  - tasks: array of tasks
+ */
+export const createParallelE2ETasks = (bv) => {
+  const specs = getSpecs(`./${APPS_DIR}/${bv}/cypress/integration`);
+  const e2eTasks = specs.map((spec, i) => ({
+    name: `e2e_${bv}_${i}`,
+    commands: [
+      { func: "setup-mongodb" },
+      { func: "run-make-background", vars: { target: "local-evergreen" } },
+      { func: "symlink" },
+      { func: "seed-bucket-data" },
+      { func: "run-logkeeper" },
+      { func: "yarn-build" },
+      { func: "yarn-preview" },
+      { func: "wait-for-evergreen" },
+      { func: "yarn-verify-backend" },
+      { func: "yarn-cypress", vars: { cypress_spec: spec } },
+    ],
+  }));
+
+  const bvTasks = e2eTasks.map(({ name }) => ({ name }));
+  const displayTasks = [
+    {
+      name: Tasks.E2EParallel,
+      execution_tasks: e2eTasks.map(({ name }) => name),
+    }
+  ]
+  return { bvTasks, displayTasks, tasks: e2eTasks };
+};
+
+/**
+ * generateParallelE2ETasks generates an object indicating build variants and tasks for running parallelized e2e tasks.
+ * @returns an Evergreen-compliant generate.tasks object
+ */
+const generateParallelE2ETasks = (bv) => {
+  const { tasks, bvTasks, displayTasks } = createParallelE2ETasks(bv);
+  const buildvariants = [
+    {
+      name: bv,
+      tasks: bvTasks,
+      display_tasks: displayTasks,
+    }
+  ]
+  return { buildvariants, tasks };
+};
+
+const main = () => {
+  const fileDestPath = join(process.cwd(), "/.evergreen", "generate-parallel-e2e-tasks.json");
+  const evgObj = generateParallelE2ETasks(process.env.BUILD_VARIANT);
+  const evgJson = JSON.stringify(evgObj);
+
+  try {
+    writeFileSync(fileDestPath, evgJson);
+  } catch (e) {
+    throw new Error("writing file", { cause: e });
+  }
+};
+
+main();

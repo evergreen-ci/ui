@@ -1,57 +1,10 @@
 import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 import { join, parse } from "path";
-import { getSpecs } from "./parallelize-e2e.js";
+import { createParallelE2ETasks } from "./generate-parallel-e2e-tasks.js";
+import { APPS_DIR, TASK_MAPPING, Tasks } from "./constants.js"
 
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
-
-const Tasks = {
-  CheckCodegen: "check_codegen",
-  Compile: "compile",
-  E2E: "e2e",
-  E2EParallel: "e2e_parallel",
-  Lint: "lint",
-  Snapshots: "snapshots",
-  Storybook: "storybook",
-  Test: "test",
-  TypeCheck: "type_check",
-};
-
-// Enumerate each task in a build variant that can run as part of a PR.
-// It would be nice to use tags for this, but Evergreen does not reevaluate tags as part of generate.tasks.
-const TASK_MAPPING = {
-  "deploy-utils": [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
-  lib: [
-    Tasks.Lint,
-    Tasks.Snapshots,
-    Tasks.Storybook,
-    Tasks.Test,
-    Tasks.TypeCheck,
-  ],
-  parsley: [
-    Tasks.CheckCodegen,
-    Tasks.Compile,
-    Tasks.E2E,
-    Tasks.Lint,
-    Tasks.Snapshots,
-    Tasks.Storybook,
-    Tasks.Test,
-    Tasks.TypeCheck,
-  ],
-  spruce: [
-    Tasks.CheckCodegen,
-    Tasks.Compile,
-    Tasks.E2EParallel,
-    Tasks.Lint,
-    Tasks.Snapshots,
-    Tasks.Storybook,
-    Tasks.Test,
-    Tasks.TypeCheck,
-  ],
-};
-
-const APPS_DIR = "apps";
-const fileDestPath = join(process.cwd(), "/.evergreen", "generate-tasks.json");
 
 const getMergeBase = () => {
   try {
@@ -117,31 +70,6 @@ const targetsFromChangedFiles = (files) => {
 };
 
 /**
- * generateParallelE2ETasks creates the top-level tasks required for a build variant's parallelized Cypress testing.
- * Note that the task steps included here should likely be in sync with those included in the base e2e task.
- * @param bv - build variant name
- * @returns - array of tasks
- */
-const generateParallelE2ETasks = (bv) => {
-  const specs = getSpecs(`./apps/${bv}/cypress/integration`);
-  return specs.map((spec, i) => ({
-    name: `e2e_${bv}_${i}`,
-    commands: [
-      { func: "setup-mongodb" },
-      { func: "run-make-background", vars: { target: "local-evergreen" } },
-      { func: "symlink" },
-      { func: "seed-bucket-data" },
-      { func: "run-logkeeper" },
-      { func: "yarn-build" },
-      { func: "yarn-preview" },
-      { func: "wait-for-evergreen" },
-      { func: "yarn-verify-backend" },
-      { func: "yarn-cypress", vars: { cypress_spec: spec } },
-    ],
-  }));
-};
-
-/**
  * generateTasks generates an object indicating build variants and tasks to run based on changed files.
  * @returns an Evergreen-compliant generate.tasks object.
  */
@@ -153,36 +81,34 @@ const generateTasks = () => {
       : targetsFromChangedFiles(changes);
 
   const tasks = [];
-  const buildvariants = targets.map((bv) => {
+  const buildvariants = [];
+
+  targets.forEach((bv) => {
     const bvTasks = [];
     const displayTasks = [];
     TASK_MAPPING[bv].forEach((name) => {
       if (name === Tasks.E2EParallel) {
-        // Make display tasks
-        const e2eTasks = generateParallelE2ETasks(bv);
+        const { bvTasks: e2eBvTasks, displayTasks: e2eDisplayTasks, tasks: e2eTasks } = createParallelE2ETasks(bv);
         tasks.push(...e2eTasks);
-        bvTasks.push(...e2eTasks.map(({ name }) => ({ name })));
-        displayTasks.push({
-          name: Tasks.E2EParallel,
-          execution_tasks: e2eTasks.map(({ name }) => name),
-        });
+        bvTasks.push(...e2eBvTasks);
+        displayTasks.push(...e2eDisplayTasks);
       } else {
         bvTasks.push({ name });
       }
     });
-    const variant = {
+
+    buildvariants.push({
       name: bv,
       tasks: bvTasks,
       display_tasks: displayTasks,
-    };
-
-    return variant;
+    });
   });
 
   return { buildvariants, tasks };
 };
 
 const main = () => {
+  const fileDestPath = join(process.cwd(), "/.evergreen", "generate-tasks.json");
   const evgObj = generateTasks();
   const evgJson = JSON.stringify(evgObj);
 

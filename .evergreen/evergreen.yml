@@ -57,6 +57,7 @@ buildvariants:
       - name: check_codegen
       - name: compile
       - name: e2e
+      - name: generate-parallel-e2e-tasks
       - name: lint
       - name: snapshots
       - name: storybook
@@ -86,6 +87,7 @@ buildvariants:
       - name: check_codegen
       - name: compile
       - name: e2e
+      - name: generate-parallel-e2e-tasks
       - name: lint
       - name: snapshots
       - name: storybook
