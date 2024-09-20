@@ -17,8 +17,8 @@ const Tasks = {
  */
 const TASK_MAPPING = {
     "deploy-utils": [
-        Tasks.Lint, 
-        Tasks.Test, 
+        Tasks.Lint,
+        Tasks.Test,
         Tasks.TypeCheck
     ],
     lib: [
