@@ -48,8 +48,8 @@ const getTestsInTask = (tests: Unpacked<TestAnalysisQueryTasks>["tests"]) =>
 const filterGroupedTests = (
   groupedTests: GroupedTestMap,
   testNamePattern: string,
-  statuses: string[],
-  variants: string[],
+  statuses?: string[] | null,
+  variants?: string[] | null,
 ): GroupedTestMap => {
   const filteredTests = new Map<string, TaskBuildVariantField[]>();
   const regex = new RegExp(testNamePattern);

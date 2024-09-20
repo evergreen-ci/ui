@@ -326,7 +326,7 @@ describe("filterGroupedTests", () => {
 
   test("filters when statuses or variants are undefined (no filtering on that criterion)", () => {
     const testNamePattern = "^test1$";
-    const statuses: string[] = []; // No status filtering
+    const statuses = null; // No status filtering
     const variants = ["variant1", "variant2"];
 
     const result = filterGroupedTests(
