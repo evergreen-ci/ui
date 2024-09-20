@@ -72,6 +72,7 @@
                   aria-label="Table Filter Popover Icon"
                   class="leafygreen-ui-tcjr3n"
                   data-cy="status-filter-popover"
+                  data-highlighted="false"
                   tabindex="0"
                 >
                   <div
