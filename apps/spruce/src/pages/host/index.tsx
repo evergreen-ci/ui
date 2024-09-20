@@ -60,6 +60,10 @@ const Host: React.FC = () => {
   const sshAddress = persistentDnsName || hostUrl;
   const sshCommand = `ssh ${user}@${sshAddress}`;
 
+  const canRestartJasperOrReprovision =
+    status === "running" &&
+    (bootstrapMethod === "ssh" || bootstrapMethod === "user-data");
+
   const { limit, page } = usePagination();
   const [eventTypes] = useQueryParam<HostEventType[]>(
     HostQueryParams.EventType,
@@ -85,9 +89,6 @@ const Host: React.FC = () => {
   const hostEventCount = hostEvents?.count ?? 0;
   const hostEventTypes = hostEventData?.host?.eventTypes ?? [];
 
-  const canRestartJasperOrReprovision =
-    host?.status === "running" &&
-    (bootstrapMethod === "ssh" || bootstrapMethod === "user-data");
   return (
     <PageWrapper data-cy="host-page">
       {host && (
@@ -137,7 +138,6 @@ const Host: React.FC = () => {
           <PageLayout hasSider>
             <PageSider width={350}>
               <Metadata
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 error={error}
                 host={host}
                 loading={hostMetaDataLoading}

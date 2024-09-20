@@ -208,7 +208,7 @@ describe("Host events", () => {
     cy.contains("Hawaii").click();
     cy.contains("button", "Save changes").click();
     cy.visit(pathWithEvents);
-    cy.dataCy("leafygreen-table-row")
+    cy.dataCy("host-events-table-row")
       .first()
       .contains("Sep 30, 2017, 9:11:16 AM");
     // Reset timezone so re-running this test works.
