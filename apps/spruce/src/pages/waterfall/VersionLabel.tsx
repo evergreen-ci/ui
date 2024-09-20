@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { useWaterfallAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { WaterfallQuery } from "gql/generated/types";
@@ -29,9 +29,7 @@ export const VersionLabel: React.FC<VersionFields> = ({
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host ?? "";
 
-  const { sendEvent } = useProjectHealthAnalytics({
-    page: "Waterfall",
-  });
+  const { sendEvent } = useWaterfallAnalytics();
 
   return (
     <VersionContainer>
