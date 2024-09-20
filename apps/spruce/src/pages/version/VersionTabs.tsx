@@ -15,6 +15,7 @@ import { Tasks } from "pages/version/Tasks";
 import { PatchStatus, PatchTab } from "types/patch";
 import { queryString } from "utils";
 import TaskDuration from "./TaskDuration";
+import TestAnalysis from "./TestAnalysis";
 
 const { parseQueryString } = queryString;
 
@@ -124,7 +125,7 @@ const tabMap = ({
       id="test-analysis-tab"
       name="Test Analysis"
     >
-      <div />
+      <TestAnalysis versionId={versionId} />
     </Tab>
   ),
 });
