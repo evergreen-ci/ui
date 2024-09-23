@@ -57,7 +57,6 @@ buildvariants:
       - name: check_codegen
       - name: compile
       - name: e2e
-      - name: generate-parallel-e2e-tasks
       - name: lint
       - name: snapshots
       - name: storybook
@@ -135,12 +134,13 @@ buildvariants:
 
   - name: generator
     display_name: Generator
-    allowed_requesters: ["github_pr"]
+    patch_only: true
     # Omit node_version expansion so that yarn-install fails to save time.
     run_on:
       - ubuntu2204-small
     tasks:
       - generate-tasks
+      - generate-spruce-e2e
 
   - name: deploy
     display_name: Deploys
