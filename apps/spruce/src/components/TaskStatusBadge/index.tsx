@@ -61,46 +61,43 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
     displayStatus = getStatusBadgeCopy(taskStatusToCopy[status]);
   }
 
-  if (status in mapTaskStatusToBadgeVariant) {
-    return (
-      <ConditionalWrapper
-        condition={!!id}
-        wrapper={(children) => (
-          <Link
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            to={getTaskRoute(id, {
-              execution,
-              tab:
-                status === TaskStatus.KnownIssue
-                  ? TaskTab.Annotations
-                  : undefined,
-            })}
-          >
-            {children}
-          </Link>
-        )}
-      >
-        <StyledBadge
-          key={status}
-          css={badgeWidthMaxContent}
-          data-cy="task-status-badge"
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          variant={mapTaskStatusToBadgeVariant[status]}
-        >
-          {taskCount} {pluralize(displayStatus, taskCount || 1)}
-        </StyledBadge>
-      </ConditionalWrapper>
-    );
-  }
-
+  const badgeCopy =
+    taskCount === undefined
+      ? displayStatus
+      : `${taskCount} ${pluralize(displayStatus, taskCount || 1)}`;
   return (
-    <StyledBadge
-      key={status}
-      data-cy="task-status-badge"
-      {...customBadgeColors(status)}
+    <ConditionalWrapper
+      condition={!!id}
+      wrapper={(children) => (
+        <Link
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          to={getTaskRoute(id, {
+            execution,
+            tab:
+              status === TaskStatus.KnownIssue
+                ? TaskTab.Annotations
+                : undefined,
+          })}
+        >
+          {children}
+        </Link>
+      )}
     >
-      {displayStatus}
-    </StyledBadge>
+      <StyledBadge
+        key={status}
+        css={badgeWidthMaxContent}
+        data-cy="task-status-badge"
+        variant={
+          status in mapTaskStatusToBadgeVariant &&
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          mapTaskStatusToBadgeVariant[status]
+        }
+        {...(!(status in mapTaskStatusToBadgeVariant) &&
+          customBadgeColors(status))}
+      >
+        {badgeCopy}
+      </StyledBadge>
+    </ConditionalWrapper>
   );
 };
 

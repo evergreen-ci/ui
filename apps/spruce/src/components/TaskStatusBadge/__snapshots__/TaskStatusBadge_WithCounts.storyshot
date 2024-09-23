@@ -9,9 +9,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-        5
-         
-        Inactives
+        5 Inactives
       </div>
     </div>
     <div
@@ -21,9 +19,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-        5
-         
-        Unstarteds
+        5 Unstarteds
       </div>
     </div>
     <div
@@ -33,9 +29,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-        5
-         
-        Undispatcheds
+        5 Undispatcheds
       </div>
     </div>
     <div
@@ -45,9 +39,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-mibpkn"
         data-cy="task-status-badge"
       >
-        5
-         
-        Will Runs
+        5 Will Runs
       </div>
     </div>
     <div
@@ -57,9 +49,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-        5
-         
-        Unscheduleds
+        5 Unscheduleds
       </div>
     </div>
     <div
@@ -69,9 +59,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1uko9cz"
         data-cy="task-status-badge"
       >
-        5
-         
-        Runnings
+        5 Runnings
       </div>
     </div>
     <div
@@ -81,9 +69,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1uko9cz"
         data-cy="task-status-badge"
       >
-        5
-         
-        Dispatcheds
+        5 Dispatcheds
       </div>
     </div>
     <div
@@ -93,9 +79,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-        5
-         
-        Pendings
+        5 Pendings
       </div>
     </div>
     <div
@@ -105,9 +89,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
         data-cy="task-status-badge"
       >
-        5
-         
-        Succeededs
+        5 Succeededs
       </div>
     </div>
     <div
@@ -117,9 +99,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
-        5
-         
-        Faileds
+        5 Faileds
       </div>
     </div>
     <div
@@ -129,9 +109,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
-        5
-         
-        Test Timed Outs
+        5 Test Timed Outs
       </div>
     </div>
     <div
@@ -141,9 +119,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
-        5
-         
-        Task Timed Outs
+        5 Task Timed Outs
       </div>
     </div>
     <div
@@ -151,12 +127,12 @@
     >
       <div
         border="#B45AF2"
-        class="css-1s6siwj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+        class="leafygreen-ui-1pujqb4 css-14w6iz9-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
         data-cy="task-status-badge"
         fill="#F1D4FD"
         text="#5E0C9E"
       >
-        Setup Failed
+        5 Setup Faileds
       </div>
     </div>
     <div
@@ -164,12 +140,12 @@
     >
       <div
         border="#2D0B59"
-        class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+        class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
         data-cy="task-status-badge"
         fill="#5E0C9E"
         text="#F9EBFF"
       >
-        System Failed
+        5 System Faileds
       </div>
     </div>
     <div
@@ -177,12 +153,12 @@
     >
       <div
         border="#2D0B59"
-        class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+        class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
         data-cy="task-status-badge"
         fill="#5E0C9E"
         text="#F9EBFF"
       >
-        System Timed Out
+        5 System Timed Outs
       </div>
     </div>
     <div
@@ -190,12 +166,12 @@
     >
       <div
         border="#2D0B59"
-        class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+        class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
         data-cy="task-status-badge"
         fill="#5E0C9E"
         text="#F9EBFF"
       >
-        System Unresponsive
+        5 System Unresponsives
       </div>
     </div>
     <div
@@ -205,9 +181,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-        5
-         
-        Blockeds
+        5 Blockeds
       </div>
     </div>
     <div
@@ -217,9 +191,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-        5
-         
-        Aborteds
+        5 Aborteds
       </div>
     </div>
     <div
@@ -229,9 +201,7 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
-        5
-         
-        Known Issues
+        5 Known Issues
       </div>
     </div>
   </div>

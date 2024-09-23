@@ -260,7 +260,6 @@
                 class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
-                 
                 Failed
               </div>
             </div>
@@ -340,7 +339,6 @@
                 class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
-                 
                 Failed
               </div>
             </div>
@@ -418,7 +416,6 @@
                 class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
-                 
                 Succeeded
               </div>
             </div>
@@ -502,7 +499,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -592,7 +589,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -682,7 +679,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -772,7 +769,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -862,7 +859,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -952,7 +949,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1042,7 +1039,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1132,7 +1129,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1222,7 +1219,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"

@@ -9,7 +9,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-         
         Inactive
       </div>
     </div>
@@ -20,7 +19,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-         
         Unstarted
       </div>
     </div>
@@ -31,7 +29,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-         
         Undispatched
       </div>
     </div>
@@ -42,7 +39,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-mibpkn"
         data-cy="task-status-badge"
       >
-         
         Will Run
       </div>
     </div>
@@ -53,7 +49,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-         
         Unscheduled
       </div>
     </div>
@@ -64,7 +59,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1uko9cz"
         data-cy="task-status-badge"
       >
-         
         Running
       </div>
     </div>
@@ -75,7 +69,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1uko9cz"
         data-cy="task-status-badge"
       >
-         
         Dispatched
       </div>
     </div>
@@ -86,7 +79,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-         
         Pending
       </div>
     </div>
@@ -97,7 +89,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
         data-cy="task-status-badge"
       >
-         
         Succeeded
       </div>
     </div>
@@ -108,7 +99,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
-         
         Failed
       </div>
     </div>
@@ -119,7 +109,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
-         
         Test Timed Out
       </div>
     </div>
@@ -130,7 +119,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
-         
         Task Timed Out
       </div>
     </div>
@@ -139,7 +127,7 @@
     >
       <div
         border="#B45AF2"
-        class="css-1s6siwj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+        class="leafygreen-ui-1pujqb4 css-14w6iz9-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
         data-cy="task-status-badge"
         fill="#F1D4FD"
         text="#5E0C9E"
@@ -152,7 +140,7 @@
     >
       <div
         border="#2D0B59"
-        class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+        class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
         data-cy="task-status-badge"
         fill="#5E0C9E"
         text="#F9EBFF"
@@ -165,7 +153,7 @@
     >
       <div
         border="#2D0B59"
-        class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+        class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
         data-cy="task-status-badge"
         fill="#5E0C9E"
         text="#F9EBFF"
@@ -178,7 +166,7 @@
     >
       <div
         border="#2D0B59"
-        class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+        class="leafygreen-ui-1pujqb4 css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0"
         data-cy="task-status-badge"
         fill="#5E0C9E"
         text="#F9EBFF"
@@ -193,7 +181,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-         
         Blocked
       </div>
     </div>
@@ -204,7 +191,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
-         
         Aborted
       </div>
     </div>
@@ -215,7 +201,6 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
-         
         Known Issue
       </div>
     </div>
