@@ -8,6 +8,7 @@ const { getSortString } = queryString;
 
 interface Props {
   sendAnalyticsEvents?: (sorter: SortingState) => void;
+  singleQueryParam?: boolean;
 }
 
 type CallbackType = (sorter: SortingState) => void;
@@ -32,7 +33,7 @@ export const useTableSort = (props?: Props): CallbackType => {
       [TableQueryParams.SortBy]: undefined,
     };
 
-    if (sorter.length === 1) {
+    if (sorter.length === 1 && !props?.singleQueryParam) {
       const { desc, id } = sorter[0];
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       nextQueryParams[TableQueryParams.SortDir] = desc

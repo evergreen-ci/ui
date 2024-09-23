@@ -88,6 +88,7 @@ export const TaskDurationTable: React.FC<Props> = ({
   const setSorting: OnChangeFn<SortingState> = (s) =>
     getDefaultSorting?.(table).onSortingChange?.(s);
   const tableSortHandler = useTableSort({
+    singleQueryParam: true,
     sendAnalyticsEvents: (sorter) =>
       sendEvent({
         name: "Sorted task duration table",
@@ -252,8 +253,6 @@ export const getInitialParams = (queryParams: {
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: statuses,
     [PatchTasksQueryParams.Variant]: variant,
-    [TableQueryParams.SortBy]: sortBy,
-    [TableQueryParams.SortDir]: sortDir,
     [TableQueryParams.Sorts]: sorts,
   } = queryParams;
 
@@ -274,24 +273,15 @@ export const getInitialParams = (queryParams: {
     initialFilters.push({ id: PatchTasksQueryParams.Variant, value: variant });
   }
 
-  let initialSort: SortingState = [];
-  if (sortBy && sortDir) {
-    initialSort = [
-      {
-        id: sortCategoryToColumnId[sortBy],
-        desc: sortDir === SortDirection.Desc,
-      },
-    ];
-  } else if (sorts) {
-    initialSort = parseSortString(sorts, {
-      sortByKey: "sortCategory",
-      sortDirKey: "direction",
-      sortCategoryEnum: TaskSortCategory,
-    }).map(({ direction, sortCategory }) => ({
-      id: sortCategoryToColumnId[sortCategory],
-      desc: direction === SortDirection.Desc,
-    }));
-  }
+  const initialSort: SortingState = parseSortString(sorts, {
+    sortByKey: "sortCategory",
+    sortDirKey: "direction",
+    sortCategoryEnum: TaskSortCategory,
+  }).map(({ direction, sortCategory }) => ({
+    id: sortCategoryToColumnId[sortCategory],
+    desc: direction === SortDirection.Desc,
+  }));
+
   return {
     initialFilters,
     initialSort,

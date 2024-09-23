@@ -28,7 +28,6 @@ const { parseQueryString } = queryString;
 interface Props {
   taskCount: number;
 }
-
 const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { [slugs.versionId]: versionId } = useParams();
@@ -40,16 +39,13 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const queryVariables = useQueryVariables(search, versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { limit, page, sorts } = queryVariables.taskFilterOptions;
+  const { limit, page } = queryVariables.taskFilterOptions;
   const [hasInitialized, setHasInitialized] = useState(false);
 
   useEffect(() => {
-    if (!sorts?.length) {
-      updateQueryParams({
-        [TableQueryParams.SortBy]: TaskSortCategory.Duration,
-        [TableQueryParams.SortDir]: SortDirection.Desc,
-      });
-    }
+    updateQueryParams({
+      [TableQueryParams.Sorts]: defaultSort,
+    });
     setHasInitialized(true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -65,10 +61,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
       [PatchTasksQueryParams.BaseStatuses]: undefined,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PaginationQueryParams.Page]: undefined,
-      [TableQueryParams.SortBy]: TaskSortCategory.Duration,
-      [TableQueryParams.SortDir]: SortDirection.Desc,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      [PatchTasksQueryParams.Sorts]: undefined,
+      [TableQueryParams.Sorts]: defaultSort,
     });
   };
 
@@ -148,3 +141,5 @@ const TableControlWrapper = styled.div`
 `;
 
 export default TaskDuration;
+
+const defaultSort = `${TaskSortCategory.Duration}:${SortDirection.Desc}`;
