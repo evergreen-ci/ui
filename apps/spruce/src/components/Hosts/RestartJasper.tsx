@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import Tooltip from "@leafygreen-ui/tooltip";
+import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { useHostsTableAnalytics } from "analytics";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useToastContext } from "context/toast";
 import {
   RestartJasperMutation,

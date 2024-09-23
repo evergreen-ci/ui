@@ -1,5 +1,5 @@
-import { render, screen } from "@evg-ui/lib/test_utils";
-import { ConditionalWrapper } from "./index";
+import { render, screen } from "test_utils";
+import ConditionalWrapper from ".";
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 const Wrapper1 = ({ children }) => <div data-cy="wrapper-1">{children}</div>;
