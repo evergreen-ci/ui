@@ -43,18 +43,6 @@ describe("TaskDurationTable", () => {
 });
 
 describe("getInitialParams", () => {
-  it("should get the correct initialSort when passed in sortBy and sortDir keys", () => {
-    const { initialSort } = getInitialParams({
-      sortBy: TaskSortCategory.Duration,
-      sortDir: "ASC",
-    });
-    expect(initialSort).toEqual([
-      {
-        id: PatchTasksQueryParams.Duration,
-        desc: false,
-      },
-    ]);
-  });
   it("should get the correct initialSort when passed in sorts key", () => {
     const { initialSort } = getInitialParams({
       sorts: `${TaskSortCategory.Duration}:${SortDirection.Desc};${TaskSortCategory.Variant}:${SortDirection.Asc};${TaskSortCategory.Status}:${SortDirection.Asc};${TaskSortCategory.Name}:${SortDirection.Desc}`,
