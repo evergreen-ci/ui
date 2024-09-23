@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
+import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
 import { size } from "constants/tokens";
