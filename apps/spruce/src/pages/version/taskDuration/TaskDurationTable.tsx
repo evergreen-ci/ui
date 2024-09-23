@@ -273,14 +273,16 @@ export const getInitialParams = (queryParams: {
     initialFilters.push({ id: PatchTasksQueryParams.Variant, value: variant });
   }
 
-  const initialSort: SortingState = parseSortString(sorts, {
-    sortByKey: "sortCategory",
-    sortDirKey: "direction",
-    sortCategoryEnum: TaskSortCategory,
-  }).map(({ direction, sortCategory }) => ({
-    id: sortCategoryToColumnId[sortCategory],
-    desc: direction === SortDirection.Desc,
-  }));
+  const initialSort: SortingState = sorts
+    ? parseSortString(sorts, {
+        sortByKey: "sortCategory",
+        sortDirKey: "direction",
+        sortCategoryEnum: TaskSortCategory,
+      }).map(({ direction, sortCategory }) => ({
+        id: sortCategoryToColumnId[sortCategory],
+        desc: direction === SortDirection.Desc,
+      }))
+    : [];
 
   return {
     initialFilters,
