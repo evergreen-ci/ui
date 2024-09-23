@@ -9,8 +9,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
+        5
          
-        Inactive
+        Inactives
       </div>
     </div>
     <div
@@ -20,8 +21,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
+        5
          
-        Unstarted
+        Unstarteds
       </div>
     </div>
     <div
@@ -31,8 +33,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
+        5
          
-        Undispatched
+        Undispatcheds
       </div>
     </div>
     <div
@@ -42,8 +45,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-mibpkn"
         data-cy="task-status-badge"
       >
+        5
          
-        Will Run
+        Will Runs
       </div>
     </div>
     <div
@@ -53,8 +57,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
+        5
          
-        Unscheduled
+        Unscheduleds
       </div>
     </div>
     <div
@@ -64,8 +69,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1uko9cz"
         data-cy="task-status-badge"
       >
+        5
          
-        Running
+        Runnings
       </div>
     </div>
     <div
@@ -75,8 +81,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1uko9cz"
         data-cy="task-status-badge"
       >
+        5
          
-        Dispatched
+        Dispatcheds
       </div>
     </div>
     <div
@@ -86,8 +93,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
+        5
          
-        Pending
+        Pendings
       </div>
     </div>
     <div
@@ -97,8 +105,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
         data-cy="task-status-badge"
       >
+        5
          
-        Succeeded
+        Succeededs
       </div>
     </div>
     <div
@@ -108,8 +117,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
+        5
          
-        Failed
+        Faileds
       </div>
     </div>
     <div
@@ -119,8 +129,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
+        5
          
-        Test Timed Out
+        Test Timed Outs
       </div>
     </div>
     <div
@@ -130,8 +141,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
+        5
          
-        Task Timed Out
+        Task Timed Outs
       </div>
     </div>
     <div
@@ -193,8 +205,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
+        5
          
-        Blocked
+        Blockeds
       </div>
     </div>
     <div
@@ -204,8 +217,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
         data-cy="task-status-badge"
       >
+        5
          
-        Aborted
+        Aborteds
       </div>
     </div>
     <div
@@ -215,8 +229,9 @@
         class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
         data-cy="task-status-badge"
       >
+        5
          
-        Known Issue
+        Known Issues
       </div>
     </div>
   </div>

@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import pluralize from "pluralize";
 import { Link } from "react-router-dom";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { TaskStatus } from "@evg-ui/lib/types/task";
@@ -36,11 +37,14 @@ interface TaskStatusBadgeProps {
   status: string;
   id?: string;
   execution?: number;
+  /** taskCount is used if you want to display a variant of the task status badge with a count of statuses */
+  taskCount?: number;
 }
 const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   execution,
   id,
   status,
+  taskCount,
 }) => {
   if (!status) {
     return null;
@@ -83,7 +87,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           variant={mapTaskStatusToBadgeVariant[status]}
         >
-          {displayStatus}
+          {taskCount} {pluralize(displayStatus, taskCount || 1)}
         </StyledBadge>
       </ConditionalWrapper>
     );

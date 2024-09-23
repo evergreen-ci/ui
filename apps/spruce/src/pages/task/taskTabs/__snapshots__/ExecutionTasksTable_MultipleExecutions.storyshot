@@ -212,6 +212,7 @@
                   class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
                   data-cy="task-status-badge"
                 >
+                   
                   Succeeded
                 </div>
               </a>
@@ -295,6 +296,7 @@
                   class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
                   data-cy="task-status-badge"
                 >
+                   
                   Succeeded
                 </div>
               </a>

@@ -4,17 +4,17 @@ import TaskStatusBadge from ".";
 
 describe("taskStatusBadge", () => {
   it("should render", () => {
-    renderWithRouterMatch(<TaskStatusBadge status="success" />);
+    renderWithRouterMatch(<TaskStatusBadge status={TaskStatus.Succeeded} />);
     expect(screen.getByDataCy("task-status-badge")).toBeInTheDocument();
   });
   it("should render a badge if no task id is passed", () => {
-    renderWithRouterMatch(<TaskStatusBadge status="success" />);
+    renderWithRouterMatch(<TaskStatusBadge status={TaskStatus.Succeeded} />);
     expect(screen.getByDataCy("task-status-badge")).toBeInTheDocument();
     expect(screen.queryByRole("link")).not.toBeInTheDocument();
   });
   it("should render a link if a task id is passed", () => {
     renderWithRouterMatch(
-      <TaskStatusBadge execution={0} id="123" status="success" />,
+      <TaskStatusBadge execution={0} id="123" status={TaskStatus.Succeeded} />,
     );
     expect(screen.getByDataCy("task-status-badge")).toBeInTheDocument();
     expect(screen.getByRole("link")).toBeInTheDocument();
@@ -33,5 +33,14 @@ describe("taskStatusBadge", () => {
       "href",
       "/task/123/annotations?execution=0",
     );
+  });
+  it("should pluralize the status", () => {
+    const { rerender } = renderWithRouterMatch(
+      <TaskStatusBadge status={TaskStatus.Succeeded} taskCount={2} />,
+    );
+    expect(screen.getByText("2 Succeededs")).toBeInTheDocument();
+    rerender(<TaskStatusBadge status={TaskStatus.Succeeded} taskCount={1} />);
+    expect(screen.getByText("1 Succeeded")).toBeInTheDocument();
+    rerender(<TaskStatusBadge status={TaskStatus.Failed} taskCount={0} />);
   });
 });
