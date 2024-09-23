@@ -2620,16 +2620,16 @@
     "@leafygreen-ui/hooks" "^8.1.3"
     "@leafygreen-ui/lib" "^13.3.0"
 
-"@leafygreen-ui/radio-box-group@^12.0.16":
-  version "12.0.16"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-box-group/-/radio-box-group-12.0.16.tgz#866ad9c82998bf85970201c543aec9ea2073b195"
-  integrity sha512-3jTprIrHO87oUsZCGn+FNkK7/clER+yTLV9GKt13rYlpy429hRs1c9EwNHfhT50DPhENhIIc/XYNMpWTDuWyBg==
+"@leafygreen-ui/radio-box-group@^13.0.2":
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-box-group/-/radio-box-group-13.0.2.tgz#d1e5af3ffa75248b5e0e96d68d82392398b5541e"
+  integrity sha512-1zRW4jeQzwa2i0RdMQ5UPAMTphz0HAy1nQkoNAeMrb+FSlCkfxbTrqWkiqU0f8gkY3ns/cpkNfKhLkYg3eKXWQ==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.7"
-    "@leafygreen-ui/hooks" "^8.0.0"
-    "@leafygreen-ui/lib" "^13.0.0"
-    "@leafygreen-ui/palette" "^4.0.7"
-    "@leafygreen-ui/tokens" "^2.2.0"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/hooks" "^8.1.4"
+    "@leafygreen-ui/lib" "^13.3.0"
+    "@leafygreen-ui/palette" "^4.0.9"
+    "@leafygreen-ui/tokens" "^2.5.2"
 
 "@leafygreen-ui/radio-group@^10.2.4":
   version "10.2.5"

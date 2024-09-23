@@ -100,8 +100,16 @@ describe("Navigating to Spawn Host page", () => {
         .should("be.visible")
         .click();
       cy.dataCy("expirable-radio-box").children().should("have.length", 2);
-      cy.getInputByLabel("Expirable Host").should("not.be.disabled");
-      cy.getInputByLabel("Unexpirable Host").should("be.disabled");
+      cy.getInputByLabel("Expirable Host").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+      cy.getInputByLabel("Unexpirable Host").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
     });
 
     it("Clicking on the spawn host button should open a spawn host modal.", () => {
