@@ -1,19 +1,17 @@
 functions:
   run-generate-tasks:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui
-      script: |
-        node .evergreen/scripts/generate-tasks.js
+      binary: node .evergreen/scripts/generate-tasks.js
 
   run-generate-parallel-e2e-tasks:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: ui
       env:
         BUILD_VARIANT: ${build_variant}
-      script: |
-        node .evergreen/scripts/generate-parallel-e2e-tasks.js
+      binary: node .evergreen/scripts/generate-parallel-e2e-tasks.js
 
   attach-e2e-generated:
     command: s3.put
