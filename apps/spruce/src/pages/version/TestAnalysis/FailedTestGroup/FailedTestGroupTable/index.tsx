@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { StyledRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
@@ -51,9 +52,16 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
   {
     header: "Logs",
     accessorKey: "id",
-    cell: ({ getValue }) => {
-      getValue();
-    },
+    cell: () => (
+      <Button
+        data-cy="failed-test-group-parsley-btn"
+        href="#"
+        target="_blank"
+        title="High-powered log viewer"
+      >
+        Parsley
+      </Button>
+    ),
   },
 ];
 

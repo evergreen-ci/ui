@@ -18,6 +18,9 @@ query TestAnalysis(
           filteredTestCount
           testResults {
             id
+            logs {
+              urlParsley
+            }
             status
             testFile
           }

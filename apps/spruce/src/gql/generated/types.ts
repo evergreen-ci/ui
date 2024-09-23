@@ -9072,6 +9072,7 @@ export type TestAnalysisQuery = {
             id: string;
             status: string;
             testFile: string;
+            logs: { __typename?: "TestLog"; urlParsley?: string | null };
           }>;
         };
       }>;
