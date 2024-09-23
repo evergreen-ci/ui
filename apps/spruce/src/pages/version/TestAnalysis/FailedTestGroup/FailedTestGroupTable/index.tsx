@@ -52,10 +52,10 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
   {
     header: "Logs",
     accessorKey: "id",
-    cell: () => (
+    cell: ({ row }) => (
       <Button
         data-cy="failed-test-group-parsley-btn"
-        href="#"
+        href={row.original.logs.urlParsley}
         target="_blank"
         title="High-powered log viewer"
       >

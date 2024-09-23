@@ -16,25 +16,32 @@ const groupTestsByName = (
 ): Map<string, TaskBuildVariantField[]> =>
   tasks.reduce((testMap, task) => {
     const tests = getTestsInTask(task.tests);
-    const taskInfo = {
+    const taskInfo: TaskBuildVariantField = {
       taskName: task.displayName,
       buildVariant: task.buildVariant,
       id: task.id,
       status: task.status,
+      logs: {
+        urlParsley: "",
+      },
     };
 
     tests.forEach((test) => {
-      if (!testMap.has(test)) {
-        testMap.set(test, []);
+      if (!testMap.has(test.testFile)) {
+        testMap.set(test.testFile, []);
       }
-      testMap.get(test)!.push(taskInfo);
+      taskInfo.logs.urlParsley = test.logs.urlParsley || "";
+      testMap.get(test.testFile)!.push(taskInfo);
     });
 
     return testMap;
   }, new Map<string, TaskBuildVariantField[]>());
 
 const getTestsInTask = (tests: Unpacked<TestAnalysisQueryTasks>["tests"]) =>
-  tests.testResults.map((test) => test.testFile);
+  tests.testResults.map((test) => ({
+    testFile: test.testFile,
+    logs: test.logs,
+  }));
 
 /**
  * Filters a map of test names to an array of tasks by matching test names with a regex,

@@ -221,12 +221,18 @@ describe("filterGroupedTests", () => {
             buildVariant: "variant1",
             id: "task1_id",
             status: "failed",
+            logs: {
+              urlParsley: "",
+            },
           },
           {
             taskName: "task2",
             buildVariant: "variant2",
             id: "task2_id",
             status: "success",
+            logs: {
+              urlParsley: "",
+            },
           },
         ],
       ],
@@ -238,6 +244,9 @@ describe("filterGroupedTests", () => {
             buildVariant: "variant1",
             id: "task3_id",
             status: "success",
+            logs: {
+              urlParsley: "",
+            },
           },
         ],
       ],
@@ -249,6 +258,9 @@ describe("filterGroupedTests", () => {
             buildVariant: "variant3",
             id: "task4_id",
             status: "failed",
+            logs: {
+              urlParsley: "",
+            },
           },
         ],
       ],
@@ -409,12 +421,18 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant1",
             id: "id1",
             status: "passed",
+            logs: {
+              urlParsley: "",
+            },
           },
           {
             taskName: "task2",
             buildVariant: "variant2",
             id: "id2",
             status: "failed",
+            logs: {
+              urlParsley: "",
+            },
           },
         ],
       ],
@@ -426,12 +444,18 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant1",
             id: "id3",
             status: "passed",
+            logs: {
+              urlParsley: "",
+            },
           },
           {
             taskName: "task4",
             buildVariant: "variant3",
             id: "id4",
             status: "failed",
+            logs: {
+              urlParsley: "",
+            },
           },
         ],
       ],
@@ -451,12 +475,18 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant1",
             id: "id1",
             status: "passed",
+            logs: {
+              urlParsley: "",
+            },
           },
           {
             taskName: "task2",
             buildVariant: "variant1",
             id: "id2",
             status: "failed",
+            logs: {
+              urlParsley: "",
+            },
           },
         ],
       ],
@@ -487,12 +517,16 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant1",
             id: "id1",
             status: "passed",
+            logs: {
+              urlParsley: "",
+            },
           },
           {
             taskName: "task2",
             buildVariant: "variant2",
             id: "id2",
             status: "failed",
+            logs: { urlParsley: "" },
           },
         ],
       ],
@@ -504,12 +538,14 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant3",
             id: "id3",
             status: "passed",
+            logs: { urlParsley: "" },
           },
           {
             taskName: "task4",
             buildVariant: "variant4",
             id: "id4",
             status: "failed",
+            logs: { urlParsley: "" },
           },
         ],
       ],

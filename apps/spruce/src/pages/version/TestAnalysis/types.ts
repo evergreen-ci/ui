@@ -6,6 +6,9 @@ type TaskBuildVariantField = {
   buildVariant: string;
   id: string;
   status: string;
+  logs: {
+    urlParsley: string;
+  };
 };
 
 type GroupedTestMap = Map<string, TaskBuildVariantField[]>;
