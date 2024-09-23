@@ -15,7 +15,10 @@ export const Default: CustomStoryObj<typeof FailedTestGroup> = {
         taskName: "TaskName",
         buildVariant: "BuildVariant",
         id: "TaskId",
-        status: "Failed",
+        status: "failed",
+        logs: {
+          urlParsley: "LogsUrl",
+        },
       },
     ],
   },

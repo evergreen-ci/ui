@@ -1,0 +1,252 @@
+<div>
+  <div>
+    <div
+      class="css-58nl5l-AccordionToggle ev0bopr3"
+      data-cy="accordion-toggle"
+      role="button"
+    >
+      <svg
+        aria-label="Caret Right Icon"
+        class=""
+        fill="none"
+        height="16"
+        role="img"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10.796 7.321a.554.554 0 0 1 0 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182Z"
+          fill="currentColor"
+        />
+      </svg>
+      <span>
+        <div
+          class="css-1trlqdf-TitleContainer e162h3hy1"
+        >
+          <p
+            class="leafygreen-ui-1miy0xp"
+          >
+            TestName
+             failed on 
+            1
+             
+            task
+          </p>
+          <div
+            class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
+            data-cy="task-status-badge"
+          >
+            1 Failed
+          </div>
+        </div>
+      </span>
+    </div>
+    <div
+      aria-expanded="false"
+      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+      data-cy="accordion-collapse-container"
+    >
+      <div
+        class="css-1nylm8s-ContentsContainer ev0bopr1"
+      >
+        <div
+          class="css-5hyhvp-StyledCard e162h3hy0 leafygreen-ui-1ecxdul"
+        >
+          <div
+            class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
+            tabindex="0"
+          >
+            <table
+              class="leafygreen-ui-1soynca"
+            >
+              <thead
+                class="leafygreen-ui-bebmcm"
+              >
+                <tr>
+                  <th
+                    class="leafygreen-ui-1vbvlh9"
+                    scope="col"
+                  >
+                    <div
+                      class="leafygreen-ui-ui0te9"
+                    >
+                      Task Name
+                      <button
+                        aria-disabled="false"
+                        aria-label="Sort by Task Name"
+                        class="leafygreen-ui-tcjr3n"
+                        data-testid="lg-table-sort-icon-button"
+                        tabindex="0"
+                      >
+                        <div
+                          class="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Unsorted Icon"
+                            class="leafygreen-ui-jc2z8v"
+                            fill="none"
+                            height="16"
+                            role="img"
+                            viewBox="0 0 16 16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </th>
+                  <th
+                    class="leafygreen-ui-fjoumq"
+                    scope="col"
+                  >
+                    <div
+                      class="leafygreen-ui-ui0te9"
+                    >
+                      Build Variant
+                      <button
+                        aria-disabled="false"
+                        aria-label="Sort by Build Variant"
+                        class="leafygreen-ui-tcjr3n"
+                        data-testid="lg-table-sort-icon-button"
+                        tabindex="0"
+                      >
+                        <div
+                          class="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Unsorted Icon"
+                            class="leafygreen-ui-jc2z8v"
+                            fill="none"
+                            height="16"
+                            role="img"
+                            viewBox="0 0 16 16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </th>
+                  <th
+                    class="leafygreen-ui-fjoumq"
+                    scope="col"
+                  >
+                    <div
+                      class="leafygreen-ui-ui0te9"
+                    >
+                      Failure Type
+                    </div>
+                  </th>
+                  <th
+                    class="leafygreen-ui-fjoumq"
+                    scope="col"
+                  >
+                    <div
+                      class="leafygreen-ui-ui0te9"
+                    >
+                      Logs
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  aria-hidden="false"
+                  class="leafygreen-ui-1t7kozd"
+                  data-cy="leafygreen-table-row"
+                  data-selected="false"
+                  id="lg-table-row-0"
+                >
+                  <td
+                    class="leafygreen-ui-3nxf8o"
+                    style="padding-bottom: 4px; padding-top: 4px;"
+                  >
+                    <div
+                      class="leafygreen-ui-15rig1x"
+                      data-state="entered"
+                    >
+                      <a
+                        class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                        href="/task/TaskId/tests"
+                      >
+                        <span>
+                          TaskName
+                        </span>
+                      </a>
+                    </div>
+                  </td>
+                  <td
+                    class="leafygreen-ui-1by885u"
+                    style="padding-bottom: 4px; padding-top: 4px;"
+                  >
+                    <div
+                      class="leafygreen-ui-15rig1x"
+                      data-state="entered"
+                    >
+                      BuildVariant
+                    </div>
+                  </td>
+                  <td
+                    class="leafygreen-ui-1by885u"
+                    style="padding-bottom: 4px; padding-top: 4px;"
+                  >
+                    <div
+                      class="leafygreen-ui-15rig1x"
+                      data-state="entered"
+                    >
+                      <div
+                        class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
+                        data-cy="task-status-badge"
+                      >
+                        Failed
+                      </div>
+                    </div>
+                  </td>
+                  <td
+                    class="leafygreen-ui-1by885u"
+                    style="padding-bottom: 4px; padding-top: 4px;"
+                  >
+                    <div
+                      class="leafygreen-ui-15rig1x"
+                      data-state="entered"
+                    >
+                      <a
+                        aria-disabled="false"
+                        class="lg-ui-button-0000 leafygreen-ui-5xsnod"
+                        data-cy="failed-test-group-parsley-btn"
+                        data-lgid="lg-button"
+                        href="LogsUrl"
+                        target="_blank"
+                        title="High-powered log viewer"
+                      >
+                        <div
+                          class="leafygreen-ui-v038xi"
+                        />
+                        <div
+                          class="leafygreen-ui-16tr4y"
+                        >
+                          Parsley
+                        </div>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
