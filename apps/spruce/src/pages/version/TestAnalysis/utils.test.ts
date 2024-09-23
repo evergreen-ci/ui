@@ -26,7 +26,14 @@ describe("groupTestsByName", () => {
         execution: 0,
         tests: {
           filteredTestCount: 1,
-          testResults: [{ testFile: "test1", id: "0", status: "fail" }],
+          testResults: [
+            {
+              testFile: "test1",
+              id: "0",
+              status: "fail",
+              logs: { urlParsley: "" },
+            },
+          ],
         },
       },
     ];
@@ -54,8 +61,18 @@ describe("groupTestsByName", () => {
         tests: {
           filteredTestCount: 2,
           testResults: [
-            { testFile: "test1", id: "0", status: "fail" },
-            { testFile: "test2", id: "1", status: "fail" },
+            {
+              testFile: "test1",
+              id: "0",
+              status: "fail",
+              logs: { urlParsley: "" },
+            },
+            {
+              testFile: "test2",
+              id: "1",
+              status: "fail",
+              logs: { urlParsley: "" },
+            },
           ],
         },
       },
@@ -68,8 +85,18 @@ describe("groupTestsByName", () => {
         tests: {
           filteredTestCount: 2,
           testResults: [
-            { testFile: "test2", id: "0", status: "fail" },
-            { testFile: "test3", id: "1", status: "fail" },
+            {
+              testFile: "test2",
+              id: "0",
+              status: "fail",
+              logs: { urlParsley: "" },
+            },
+            {
+              testFile: "test3",
+              id: "1",
+              status: "fail",
+              logs: { urlParsley: "" },
+            },
           ],
         },
       },
@@ -144,8 +171,18 @@ describe("groupTestsByName", () => {
         tests: {
           filteredTestCount: 2,
           testResults: [
-            { testFile: "test1", id: "1", status: "fail" },
-            { testFile: "test1", id: "2", status: "fail" },
+            {
+              testFile: "test1",
+              id: "1",
+              status: "fail",
+              logs: { urlParsley: "" },
+            },
+            {
+              testFile: "test1",
+              id: "2",
+              status: "fail",
+              logs: { urlParsley: "" },
+            },
           ],
         },
       },
