@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { H3, Label } from "@leafygreen-ui/typography";
+import { H3, Label, Body } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { failedTaskStatuses, taskStatusToCopy } from "constants/task";
 import { size } from "constants/tokens";
@@ -22,6 +22,7 @@ import {
   groupTestsByName,
 } from "./utils";
 
+const { green } = palette;
 interface TestAnalysisProps {
   versionId: string;
 }
@@ -61,10 +62,12 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     selectedTaskStatuses,
     selectedBuildVariants,
   );
-  const groupedTestsMapEntries = Array.from(filteredGroupedTestsMap.entries());
-  const testsThatFailedAcrossMoreThanOneTask = groupedTestsMapEntries.filter(
-    ([, tasks]) => tasks.length > 1,
-  );
+  const groupedTestsMapEntries = Array.from(
+    filteredGroupedTestsMap.entries(),
+  ).sort((a, b) => b[1].length - a[1].length);
+
+  const numberOfTestsThatFailedOnMoreThanOneTask =
+    groupedTestsMapEntries.filter(([, tasks]) => tasks.length > 1).length;
 
   return (
     <div>
@@ -72,16 +75,16 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
         <ListSkeleton />
       ) : (
         <div>
-          <H3>
-            {testsThatFailedAcrossMoreThanOneTask.length}{" "}
-            {pluralize("test", testsThatFailedAcrossMoreThanOneTask.length)}{" "}
-            failed across more than one task
-          </H3>
-          <Banner variant="info">
+          <Title>
+            {numberOfTestsThatFailedOnMoreThanOneTask}{" "}
+            {pluralize("test", numberOfTestsThatFailedOnMoreThanOneTask)} failed
+            across more than one task
+          </Title>
+          <Body>
             This page shows tests that failed across more than one task. If a
             test failed on multiple tasks, it may indicate a flaky test or a
             larger issue. Click on the test name to see more details.
-          </Banner>
+          </Body>
           <FilterContainer>
             <div>
               <LabelWrapper>
@@ -152,6 +155,10 @@ const FilterContainer = styled.div`
 `;
 const SpacedDiv = styled.div`
   margin-top: ${size.s};
+`;
+
+const Title = styled(H3)`
+  color: ${green.dark2};
 `;
 
 export default TestAnalysis;
