@@ -5,9 +5,8 @@ import Banner from "@leafygreen-ui/banner";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body, H3, Label } from "@leafygreen-ui/typography";
+import { H3, Label } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
-import { Accordion } from "components/Accordion";
 import { failedTaskStatuses, taskStatusToCopy } from "constants/task";
 import { size } from "constants/tokens";
 import {
@@ -15,6 +14,7 @@ import {
   TestAnalysisQueryVariables,
 } from "gql/generated/types";
 import { TEST_ANALYSIS } from "gql/queries";
+import FailedTestGroup from "./FailedTestGroup";
 import {
   filterGroupedTests,
   getAllBuildVariants,
@@ -73,8 +73,9 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
       ) : (
         <div>
           <H3>
-            {testsThatFailedAcrossMoreThanOneTask.length} tests failed across
-            more than one task
+            {testsThatFailedAcrossMoreThanOneTask.length}{" "}
+            {pluralize("test", testsThatFailedAcrossMoreThanOneTask.length)}{" "}
+            failed across more than one task
           </H3>
           <Banner variant="info">
             This page shows tests that failed across more than one task. If a
@@ -126,21 +127,9 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               ))}
             </Combobox>
           </FilterContainer>
-          {/* Iterate through groupedTestsMap and print the test name followed by the length of value */}
           {groupedTestsMapEntries.map(([test, tasks]) => (
             <SpacedDiv key={test}>
-              <Accordion
-                title={
-                  <Body>
-                    <b>{test}</b> failed on{" "}
-                    <b>
-                      {tasks.length} {pluralize("task", tasks.length)}
-                    </b>
-                  </Body>
-                }
-              >
-                <div />
-              </Accordion>
+              <FailedTestGroup tasks={tasks} testName={test} />
             </SpacedDiv>
           ))}
         </div>
