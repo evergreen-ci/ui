@@ -5,7 +5,7 @@ import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { H3, Label, Body } from "@leafygreen-ui/typography";
+import { H3, Label, Body, H3Props } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { failedTaskStatuses, taskStatusToCopy } from "constants/task";
 import { size } from "constants/tokens";
@@ -157,7 +157,7 @@ const SpacedDiv = styled.div`
   margin-top: ${size.s};
 `;
 
-const Title = styled(H3)`
+const Title = styled(H3)<H3Props>`
   color: ${green.dark2};
 `;
 

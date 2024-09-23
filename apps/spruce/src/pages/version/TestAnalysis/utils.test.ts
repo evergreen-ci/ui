@@ -498,6 +498,9 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant2",
             id: "id3",
             status: "passed",
+            logs: {
+              urlParsley: "",
+            },
           },
         ],
       ],
