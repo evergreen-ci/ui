@@ -153,14 +153,17 @@ const generateParallelE2ETasks = (bv) => {
 };
 
 const main = () => {
-  const fileDestPath = join(process.cwd(), "/.evergreen", "generate-parallel-e2e-tasks.json");
-  const evgObj = generateParallelE2ETasks(process.env.BUILD_VARIANT);
-  const evgJson = JSON.stringify(evgObj);
-
-  try {
-    writeFileSync(fileDestPath, evgJson);
-  } catch (e) {
-    throw new Error("writing file", { cause: e });
+  const buildVariant = process.env.BUILD_VARIANT;
+  if (buildVariant) {
+    const fileDestPath = join(process.cwd(), "/.evergreen", "generate-parallel-e2e-tasks.json");
+    const evgObj = generateParallelE2ETasks(buildVariant);
+    const evgJson = JSON.stringify(evgObj);
+  
+    try {
+      writeFileSync(fileDestPath, evgJson);
+    } catch (e) {
+      throw new Error("writing file", { cause: e });
+    }
   }
 };
 
