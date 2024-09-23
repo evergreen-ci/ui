@@ -1,6 +1,9 @@
 import { useRef } from "react";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
+import { StyledRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
+import { getTaskRoute } from "constants/routes";
+import { TaskTab } from "types/task";
 import { TaskBuildVariantField } from "../../types";
 
 interface FailedTestGroupTableProps {
@@ -23,15 +26,22 @@ const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
 
 const columns: LGColumnDef<TaskBuildVariantField>[] = [
   {
-    header: "Task",
+    header: "Task Name",
     accessorKey: "taskName",
-    cell: ({ getValue }) => getValue() as string,
+    cell: ({ getValue, row }) => (
+      <StyledRouterLink
+        to={getTaskRoute(row.original.id, { tab: TaskTab.Tests })}
+      >
+        {getValue()}
+      </StyledRouterLink>
+    ),
     enableSorting: true,
   },
   {
     header: "Build Variant",
     accessorKey: "buildVariant",
     cell: ({ getValue }) => getValue() as string,
+    enableSorting: true,
   },
   {
     header: "Failure Type",
