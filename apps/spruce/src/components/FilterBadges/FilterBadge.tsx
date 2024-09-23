@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
+import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 
