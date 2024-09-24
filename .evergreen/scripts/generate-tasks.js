@@ -78,24 +78,11 @@ const generateTasks = () => {
     changes.length === 0
       ? Object.keys(TASK_MAPPING)
       : targetsFromChangedFiles(changes);
-
-  const tasks = [];
-  const buildvariants = [];
-
-  targets.forEach((bv) => {
-    const bvTasks = [];
-    const displayTasks = [];
-    TASK_MAPPING[bv].forEach((name) => {
-      bvTasks.push({ name });
-    });
-    buildvariants.push({
-      name: bv,
-      tasks: bvTasks,
-      display_tasks: displayTasks,
-    });
-  });
-
-  return { buildvariants, tasks };
+  const buildvariants = targets.map((bv) => ({
+    name: bv,
+    tasks: TASK_MAPPING[bv].map((name) => ({ name })),
+  }));
+  return { buildvariants };
 };
 
 const main = () => {
