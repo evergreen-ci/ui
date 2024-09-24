@@ -79,6 +79,9 @@ my commit messages`,
       expect(vi.mocked(getReleaseVersion)).toHaveBeenCalledWith(
         "my commit messages",
       );
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "This deploy is a patch release.",
+      );
       expect(vi.mocked(createTagAndPush)).toHaveBeenCalledTimes(1);
       expect(vi.mocked(createTagAndPush)).toHaveBeenCalledWith("patch");
     });

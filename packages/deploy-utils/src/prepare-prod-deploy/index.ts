@@ -68,6 +68,6 @@ export const prepareProdDeploy = async () => {
   console.log(`Commit messages:\n${commitMessages}`);
 
   const version = getReleaseVersion(commitMessages);
-
+  console.log(`This deploy is a ${version} release.`);
   createTagAndPush(version);
 };
