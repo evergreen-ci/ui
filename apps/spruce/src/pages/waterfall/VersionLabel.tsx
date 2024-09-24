@@ -90,9 +90,15 @@ export const VersionLabel: React.FC<VersionFields> = ({
 };
 
 const VersionContainer = styled.div`
+  flex-basis: 20%;
+
   > * {
     font-size: 12px;
     line-height: 1.3;
+  }
+
+  p {
+    word-break: break-all;
   }
 `;
 

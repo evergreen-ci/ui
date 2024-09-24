@@ -9506,6 +9506,7 @@ export type WaterfallQuery = {
     }>;
     versions: Array<{
       __typename?: "WaterfallVersion";
+      inactiveVersions?: Array<{ __typename?: "Version"; id: string }> | null;
       version?: {
         __typename?: "Version";
         activated?: boolean | null;

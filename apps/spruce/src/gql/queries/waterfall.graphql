@@ -18,6 +18,9 @@ query Waterfall($options: WaterfallOptions!) {
       id
     }
     versions {
+      inactiveVersions {
+        id
+      }
       version {
         activated
         author

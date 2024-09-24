@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
@@ -35,49 +35,49 @@ export const WaterfallGrid: React.FC = () => {
     },
   );
 
-  const activeVersionIds = useMemo(
-    () =>
-      data.waterfall.versions.reduce((acc, { version }) => {
-        if (version) {
-          acc.push(version.id);
-        }
-        return acc;
-      }, [] as string[]),
-    [data.waterfall.versions],
-  );
-
   return (
     <Container>
       <Row>
-        <div /> {/* Placeholder div for the build variant label column */}
-        {data.waterfall.versions.map(({ version }) =>
-          version ? <VersionLabel key={version.id} {...version} /> : null,
-        )}
+        <BuildVariantTitle />
+        <Versions>
+          {data.waterfall.versions.map(({ version }) =>
+            version ? (
+              <VersionLabel key={version.id} {...version} />
+            ) : (
+              <InactiveVersion>inactive</InactiveVersion>
+            ),
+          )}
+        </Versions>
       </Row>
       {data.waterfall.buildVariants.map((b) => (
-        <BuildRow key={b.id} activeVersionIds={activeVersionIds} build={b} />
+        <BuildRow key={b.id} build={b} versions={data.waterfall.versions} />
       ))}
     </Container>
   );
 };
 
 const BuildRow: React.FC<{
-  activeVersionIds: string[];
   build: WaterfallBuildVariant;
-}> = ({ activeVersionIds, build }) => {
+  versions: WaterfallQuery["waterfall"]["versions"];
+}> = ({ build, versions }) => {
   const { builds, displayName } = build;
   let buildIndex = 0;
   return (
     <Row>
       <BuildVariantTitle>{displayName}</BuildVariantTitle>
-      {activeVersionIds.map((id) => {
-        if (id === builds[buildIndex].version) {
-          const b = builds[buildIndex];
-          buildIndex += 1;
-          return <BuildGrid key={b.id} build={b} />;
-        }
-        return <Build />;
-      })}
+      <Builds>
+        {versions.map(({ inactiveVersions, version }) => {
+          if (inactiveVersions) {
+            return <InactiveVersion />;
+          }
+          if (version && version.id === builds[buildIndex].version) {
+            const b = builds[buildIndex];
+            buildIndex += 1;
+            return <BuildGrid key={b.id} build={b} />;
+          }
+          return <Build />;
+        })}
+      </Builds>
     </Row>
   );
 };
@@ -98,41 +98,51 @@ const BuildGrid: React.FC<{
 );
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(${LIMIT + 1}, minmax(0, 1fr));
-`;
-
-const Row = styled.div`
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
-
-  > div {
-    padding: ${size.xs};
-    margin: ${size.xs} 0;
-  }
-`;
-
-const BuildVariantTitle = styled.div`
-  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: ${size.s};
 `;
 
 const borderStyle = `1px solid ${gray.light2}`;
 
+const INACTIVE_WIDTH = 80;
+
+const InactiveVersion = styled.div`
+  width: ${INACTIVE_WIDTH}px;
+`;
+
+const Versions = styled.div`
+  display: flex;
+  gap: ${size.s};
+  padding: 0 ${size.xs};
+`;
+
+const Row = styled.div`
+  display: flex;
+  gap: ${size.xs};
+`;
+
+const BuildVariantTitle = styled.div`
+  flex-grow: 0;
+  flex-shrink: 0;
+  word-break: break-word;
+  width: 200px;
+`;
+
+const Builds = styled.div`
+  display: flex;
+  flex-grow: 1;
+  border: ${borderStyle};
+  border-radius: ${size.xs};
+  padding: 8px;
+  gap: ${size.s};
+`;
+
 const Build = styled.div`
-  border-top: ${borderStyle};
-  border-bottom: ${borderStyle};
-  margin: 2px;
+  height: fit-content;
+  margin-right: 8px;
 
-  &:nth-child(2) {
-    border-left: ${borderStyle};
-    border-radius: ${size.xs} 0 0 ${size.xs};
-  }
-
-  &:last-child {
-    border-right: ${borderStyle};
-    border-radius: 0 ${size.xs} ${size.xs} 0;
-  }
+  flex-basis: 20%;
 `;
 
 const SQUARE_SIZE = 16;
