@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
-import { TaskStatus } from "@evg-ui/lib/types/task";
 import { taskStatusToCopy } from "constants/task";
+import { TaskStatus } from "types/task";
 
 const { purple } = palette;
 
@@ -35,24 +35,18 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
 
   const statusText = taskStatusToCopy[status] ?? status;
 
-  if (status in mapTaskStatusToBadgeVariant) {
-    return (
-      <StyledBadge
-        key={status}
-        css={badgeWidthMaxContent}
-        data-cy="task-status-badge"
-        variant={mapTaskStatusToBadgeVariant[status]}
-      >
-        {statusText}
-      </StyledBadge>
-    );
-  }
-
   return (
     <StyledBadge
       key={status}
+      css={badgeWidthMaxContent}
       data-cy="task-status-badge"
-      {...customBadgeColors(status)}
+      variant={
+        status in mapTaskStatusToBadgeVariant
+          ? mapTaskStatusToBadgeVariant[status]
+          : undefined
+      }
+      {...(!(status in mapTaskStatusToBadgeVariant) &&
+        customBadgeColors(status))}
     >
       {statusText}
     </StyledBadge>

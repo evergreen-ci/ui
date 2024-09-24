@@ -1,0 +1,8 @@
+<div>
+  <div
+    class="css-1wbjbpn leafygreen-ui-1ciuhbt"
+    data-cy="task-status-badge"
+  >
+    Succeeded
+  </div>
+</div>
