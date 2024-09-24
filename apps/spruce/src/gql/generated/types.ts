@@ -9486,6 +9486,24 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
+    buildVariants: Array<{
+      __typename?: "WaterfallBuildVariant";
+      displayName: string;
+      id: string;
+      builds: Array<{
+        __typename?: "WaterfallBuild";
+        activated?: boolean | null;
+        displayName: string;
+        id: string;
+        version: string;
+        tasks: Array<{
+          __typename?: "WaterfallTask";
+          displayName: string;
+          id: string;
+          status: string;
+        }>;
+      }>;
+    }>;
     versions: Array<{
       __typename?: "WaterfallVersion";
       version?: {
