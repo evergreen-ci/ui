@@ -140,7 +140,7 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   const { sendEvent } = useVersionAnalytics(versionId);
   const navigate = useNavigate();
 
-  const { isPatch, patch, requester, taskCount } = version || {};
+  const { isPatch, patch, requester, status, taskCount } = version || {};
   const { childPatches } = patch || {};
 
   const tabIsActive = useMemo(
@@ -149,9 +149,9 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       [PatchTab.TaskDuration]: true,
       [PatchTab.Changes]: isPatch && requester !== Requester.GitHubMergeQueue,
       [PatchTab.Downstream]: childPatches,
-      [PatchTab.TestAnalysis]: true,
+      [PatchTab.TestAnalysis]: status !== PatchStatus.Success,
     }),
-    [isPatch, requester, childPatches],
+    [isPatch, requester, childPatches, status],
   );
 
   const allTabs = useMemo(() => {
