@@ -1,4 +1,4 @@
-import { TaskStatus } from "types/task";
+import { TaskStatus } from "../types/task";
 
 export const taskStatusToCopy: Record<string, string> = {
   [TaskStatus.ScheduledUmbrella]: "Scheduled",
