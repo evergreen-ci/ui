@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
@@ -16,6 +17,7 @@ import {
 import { TEST_ANALYSIS } from "gql/queries";
 import FailedTestGroup from "./FailedTestGroup";
 import {
+  countTotalTests,
   filterGroupedTests,
   getAllBuildVariants,
   getAllTaskStatuses,
@@ -69,6 +71,12 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
   const numberOfTestsThatFailedOnMoreThanOneTask =
     groupedTestsMapEntries.filter(([, tasks]) => tasks.length > 1).length;
 
+  const totalTestCount = countTotalTests(groupedTestsMap);
+  const totalFilteredTestCount = countTotalTests(filteredGroupedTestsMap);
+  const hasFilters =
+    selectedTaskStatuses.length > 0 ||
+    selectedBuildVariants.length > 0 ||
+    searchValue.length > 0;
   return (
     <div>
       {loading ? (
@@ -134,6 +142,25 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               ))}
             </Combobox>
           </FilterContainer>
+          <FilterSubheaderContainer>
+            <Body weight="medium">
+              {hasFilters
+                ? `${totalFilteredTestCount}/${totalTestCount} Filtered Failed ${pluralize("Test", totalFilteredTestCount)}`
+                : `${totalTestCount} Total Failed ${pluralize("Test", totalTestCount)}`}
+            </Body>
+            {hasFilters && (
+              <Button
+                onClick={() => {
+                  setSelectedTaskStatuses([]);
+                  setSelectedBuildVariants([]);
+                  setSearchValue("");
+                }}
+                size="xsmall"
+              >
+                Clear Filters
+              </Button>
+            )}
+          </FilterSubheaderContainer>
           {groupedTestsMapEntries.map(([test, tasks]) => (
             <SpacedDiv key={test}>
               <FailedTestGroup tasks={tasks} testName={test} />
@@ -148,6 +175,11 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
 const LabelWrapper = styled.div`
   margin-bottom: ${size.xxs};
   line-height: 20px;
+`;
+const FilterSubheaderContainer = styled.div`
+  display: flex;
+  margin-bottom: ${size.m};
+  gap: ${size.xs};
 `;
 const FilterContainer = styled.div`
   display: flex;

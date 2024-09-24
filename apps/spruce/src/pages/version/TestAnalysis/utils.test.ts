@@ -7,7 +7,76 @@ import {
   groupTestsByName,
   filterGroupedTests,
   getAllBuildVariants,
+  countTotalTests,
 } from "./utils";
+
+describe("countTotalTests", () => {
+  let groupedTests: GroupedTestMap;
+
+  beforeEach(() => {
+    groupedTests = new Map<string, TaskBuildVariantField[]>([
+      [
+        "test1",
+        [
+          {
+            taskName: "task1",
+            buildVariant: "variant1",
+            id: "task1_id",
+            status: "failed",
+            logs: {
+              urlParsley: "",
+            },
+          },
+          {
+            taskName: "task2",
+            buildVariant: "variant2",
+            id: "task2_id",
+            status: "success",
+            logs: {
+              urlParsley: "",
+            },
+          },
+        ],
+      ],
+      [
+        "test2",
+        [
+          {
+            taskName: "task3",
+            buildVariant: "variant1",
+            id: "task3_id",
+            status: "success",
+            logs: {
+              urlParsley: "",
+            },
+          },
+        ],
+      ],
+      [
+        "anotherTest",
+        [
+          {
+            taskName: "task4",
+            buildVariant: "variant3",
+            id: "task4_id",
+            status: "failed",
+            logs: {
+              urlParsley: "",
+            },
+          },
+        ],
+      ],
+    ]);
+  });
+  it("should return 0 when given an empty map", () => {
+    const result = countTotalTests(new Map());
+    expect(result).toBe(0);
+  });
+  it("should return the correct count when given a map with tasks", () => {
+    const result = countTotalTests(groupedTests);
+    expect(result).toBe(4);
+  });
+});
 
 describe("groupTestsByName", () => {
   it("should return an empty map when given an empty array", () => {

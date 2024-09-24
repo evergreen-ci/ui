@@ -126,7 +126,23 @@ const getAllTaskStatuses = (taskMap: Map<string, TaskBuildVariantField[]>) => {
 
   return Array.from(statusSet);
 };
+
+/**
+ * `countTotalTests` counts the total number of tests accounting for a task running on multiple tasks and build variants.
+ * @param taskMap - A Map of test names to an array of TaskBuildVariantField objects.
+ * @returns - The total number of tests.
+ */
+const countTotalTests = (taskMap: Map<string, TaskBuildVariantField[]>) => {
+  let totalTests = 0;
+  taskMap.forEach((task) => {
+    totalTests += task.length;
+  });
+
+  return totalTests;
+};
+
 export {
+  countTotalTests,
   groupTestsByName,
   filterGroupedTests,
   getAllBuildVariants,
