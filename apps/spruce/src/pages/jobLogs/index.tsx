@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import PageTitle from "components/PageTitle";
 import {
   PageContent,
@@ -9,7 +10,6 @@ import {
   PageSider,
   PageWrapper,
 } from "components/styles";
-import TaskStatusBadge from "components/TaskStatusBadge";
 import { getTaskRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";

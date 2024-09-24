@@ -268,7 +268,7 @@
               data-state="entered"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Known Issue
@@ -353,7 +353,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -436,7 +436,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Failed
@@ -519,7 +519,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -602,7 +602,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -685,7 +685,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -768,7 +768,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -851,7 +851,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -934,7 +934,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -1017,7 +1017,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -1100,7 +1100,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -1183,7 +1183,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
