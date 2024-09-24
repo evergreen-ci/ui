@@ -7,9 +7,7 @@ import {
 } from "./types";
 
 /**
- * `groupTestsByName` takes an array of tasks and groups them by test name.
- *  Preserves the task name, build variant, id, and status of each task.
- *  Filters out any tests that only have one task.
+ * `groupTestsByName` takes an array of tasks and groups them by test name. Preserves the task name, build variant, id, and status of each task.
  * @param tasks - an array of tasks
  * @returns - a map of test names to an array of tasks
  */
@@ -36,13 +34,6 @@ const groupTestsByName = (
       testMap.get(test.testFile)!.push(taskInfo);
     });
 
-    // Iterate over the testMap and filter out any tests that only have one task
-    testMap.forEach((t, testName) => {
-      console.log(t, testName);
-      if (t.length === 1) {
-        testMap.delete(testName);
-      }
-    });
     return testMap;
   }, new Map<string, TaskBuildVariantField[]>());
 
