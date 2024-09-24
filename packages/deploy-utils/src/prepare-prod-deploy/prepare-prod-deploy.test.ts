@@ -10,6 +10,8 @@ import {
   deleteTag,
   getLatestTag,
   pushTags,
+  getReleaseVersion,
+  ReleaseVersion,
 } from "../utils/git";
 
 const mockCommit = "0000011111222223333344444555556666677777";
@@ -54,13 +56,10 @@ describe("prepareProdDeploy", () => {
       vi.mocked(getCurrentlyDeployedCommit).mockResolvedValue(
         "0000011111222223333344444555556666677777",
       );
+      vi.mocked(getReleaseVersion).mockReturnValue(ReleaseVersion.Patch);
     });
 
     it("creates tag with patch", async () => {
-      vi.mocked(prompts).mockResolvedValueOnce({
-        title: "Patch",
-        value: "patch",
-      });
       const consoleSpy = vi.spyOn(console, "log").mockImplementation(vi.fn());
       await prepareProdDeploy();
       expect(vi.mocked(getCurrentlyDeployedCommit)).toHaveBeenCalledWith(
@@ -76,6 +75,9 @@ describe("prepareProdDeploy", () => {
       expect(consoleSpy).toHaveBeenCalledWith(
         `Commit messages:
 my commit messages`,
+      );
+      expect(vi.mocked(getReleaseVersion)).toHaveBeenCalledWith(
+        "my commit messages",
       );
       expect(vi.mocked(createTagAndPush)).toHaveBeenCalledTimes(1);
       expect(vi.mocked(createTagAndPush)).toHaveBeenCalledWith("patch");
