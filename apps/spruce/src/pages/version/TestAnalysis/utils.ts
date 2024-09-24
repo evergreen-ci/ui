@@ -19,6 +19,7 @@ const groupTestsByName = (
     const taskInfo: TaskBuildVariantField = {
       taskName: task.displayName,
       buildVariant: task.buildVariant,
+      buildVariantDisplayName: task.buildVariantDisplayName,
       id: task.id,
       status: task.status,
       logs: {
@@ -80,6 +81,10 @@ const filterGroupedTests = (
   return filteredTests;
 };
 
+type BuildVariantNameTuple = {
+  buildVariant: string;
+  buildVariantDisplayName: string;
+};
 /**
  * `getAllBuildVariants` extracts all unique buildVariants from a map of test names to TaskBuildVariantField arrays.
  * @param taskMap - A Map of test names to an array of TaskBuildVariantField objects.
@@ -87,16 +92,22 @@ const filterGroupedTests = (
  */
 const getAllBuildVariants = (
   taskMap: Map<string, TaskBuildVariantField[]>,
-): string[] => {
-  const buildVariantSet = new Set<string>();
+): BuildVariantNameTuple[] => {
+  const buildVariantMap = new Map<string, string>();
 
   taskMap.forEach((taskArray) => {
     taskArray.forEach((task) => {
-      buildVariantSet.add(task.buildVariant);
+      const displayName = task.buildVariantDisplayName || task.buildVariant;
+      buildVariantMap.set(task.buildVariant, displayName);
     });
   });
 
-  return Array.from(buildVariantSet);
+  return Array.from(buildVariantMap.entries()).map(
+    ([buildVariant, buildVariantDisplayName]) => ({
+      buildVariant,
+      buildVariantDisplayName,
+    }),
+  );
 };
 
 /**

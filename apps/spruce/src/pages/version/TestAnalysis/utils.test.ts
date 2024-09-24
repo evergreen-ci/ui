@@ -458,6 +458,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task1",
             buildVariant: "variant1",
+            buildVariantDisplayName: "Variant 1",
             id: "id1",
             status: "passed",
             logs: {
@@ -467,6 +468,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task2",
             buildVariant: "variant2",
+            buildVariantDisplayName: "Variant 2",
             id: "id2",
             status: "failed",
             logs: {
@@ -481,6 +483,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task3",
             buildVariant: "variant1",
+            buildVariantDisplayName: "Variant 1",
             id: "id3",
             status: "passed",
             logs: {
@@ -490,6 +493,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task4",
             buildVariant: "variant3",
+            buildVariantDisplayName: "Variant 3",
             id: "id4",
             status: "failed",
             logs: {
@@ -501,7 +505,11 @@ describe("getAllBuildVariants", () => {
     ]);
 
     const result = getAllBuildVariants(taskMap);
-    expect(result).toEqual(["variant1", "variant2", "variant3"]);
+    expect(result).toEqual([
+      { buildVariant: "variant1", buildVariantDisplayName: "Variant 1" },
+      { buildVariant: "variant2", buildVariantDisplayName: "Variant 2" },
+      { buildVariant: "variant3", buildVariantDisplayName: "Variant 3" },
+    ]);
   });
 
   it("should handle tasks with duplicate build variants", () => {
@@ -512,6 +520,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task1",
             buildVariant: "variant1",
+            buildVariantDisplayName: "Variant 1",
             id: "id1",
             status: "passed",
             logs: {
@@ -521,6 +530,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task2",
             buildVariant: "variant1",
+            buildVariantDisplayName: "Variant 1",
             id: "id2",
             status: "failed",
             logs: {
@@ -535,6 +545,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task3",
             buildVariant: "variant2",
+            buildVariantDisplayName: "Variant 2",
             id: "id3",
             status: "passed",
             logs: {
@@ -546,7 +557,10 @@ describe("getAllBuildVariants", () => {
     ]);
 
     const result = getAllBuildVariants(taskMap);
-    expect(result).toEqual(["variant1", "variant2"]);
+    expect(result).toEqual([
+      { buildVariant: "variant1", buildVariantDisplayName: "Variant 1" },
+      { buildVariant: "variant2", buildVariantDisplayName: "Variant 2" },
+    ]);
   });
 
   it("should return unique build variants from tasks with different build variants", () => {
@@ -557,6 +571,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task1",
             buildVariant: "variant1",
+            buildVariantDisplayName: "Variant 1",
             id: "id1",
             status: "passed",
             logs: {
@@ -566,6 +581,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task2",
             buildVariant: "variant2",
+            buildVariantDisplayName: "Variant 2",
             id: "id2",
             status: "failed",
             logs: { urlParsley: "" },
@@ -578,6 +594,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task3",
             buildVariant: "variant3",
+            buildVariantDisplayName: "Variant 3",
             id: "id3",
             status: "passed",
             logs: { urlParsley: "" },
@@ -585,6 +602,7 @@ describe("getAllBuildVariants", () => {
           {
             taskName: "task4",
             buildVariant: "variant4",
+            buildVariantDisplayName: "Variant 4",
             id: "id4",
             status: "failed",
             logs: { urlParsley: "" },
@@ -594,7 +612,24 @@ describe("getAllBuildVariants", () => {
     ]);
 
     const result = getAllBuildVariants(taskMap);
-    expect(result).toEqual(["variant1", "variant2", "variant3", "variant4"]);
+    expect(result).toEqual([
+      {
+        buildVariant: "variant1",
+        buildVariantDisplayName: "Variant 1",
+      },
+      {
+        buildVariant: "variant2",
+        buildVariantDisplayName: "Variant 2",
+      },
+      {
+        buildVariant: "variant3",
+        buildVariantDisplayName: "Variant 3",
+      },
+      {
+        buildVariant: "variant4",
+        buildVariantDisplayName: "Variant 4",
+      },
+    ]);
   });
 
   it("should return build variants even if there are no tasks", () => {

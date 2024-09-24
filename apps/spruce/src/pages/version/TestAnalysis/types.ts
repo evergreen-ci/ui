@@ -4,6 +4,7 @@ type TestAnalysisQueryTasks = TestAnalysisQuery["version"]["tasks"]["data"];
 type TaskBuildVariantField = {
   taskName: string;
   buildVariant: string;
+  buildVariantDisplayName?: string | null;
   id: string;
   status: string;
   logs: {

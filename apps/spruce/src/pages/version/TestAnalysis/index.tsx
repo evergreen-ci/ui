@@ -125,8 +125,12 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               placeholder="Select a build variant"
               value={selectedBuildVariants}
             >
-              {buildVariants.map((variant) => (
-                <ComboboxOption key={variant} value={variant} />
+              {buildVariants.map((bv) => (
+                <ComboboxOption
+                  key={bv.buildVariant}
+                  displayName={bv.buildVariantDisplayName}
+                  value={bv.buildVariant}
+                />
               ))}
             </Combobox>
           </FilterContainer>
