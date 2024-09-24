@@ -46,6 +46,9 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         id: "task1_id",
         status: "failed",
+        logs: {
+          urlParsley: "",
+        },
       },
     ]);
   });
@@ -114,6 +117,9 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         id: "task1_id",
         status: "failed",
+        logs: {
+          urlParsley: "",
+        },
       },
     ]);
 
@@ -123,12 +129,18 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         id: "task1_id",
         status: "failed",
+        logs: {
+          urlParsley: "",
+        },
       },
       {
         taskName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
         status: "failed",
+        logs: {
+          urlParsley: "",
+        },
       },
     ]);
 
@@ -138,6 +150,9 @@ describe("groupTestsByName", () => {
         buildVariant: "variant2",
         id: "task2_id",
         status: "failed",
+        logs: {
+          urlParsley: "",
+        },
       },
     ]);
   });
@@ -197,12 +212,18 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         id: "task1_id",
         status: "success",
+        logs: {
+          urlParsley: "",
+        },
       },
       {
         taskName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
         status: "success",
+        logs: {
+          urlParsley: "",
+        },
       },
     ]);
   });
@@ -267,7 +288,7 @@ describe("filterGroupedTests", () => {
     ]);
   });
 
-  test("filters tests by regex pattern, statuses, and build variants", () => {
+  it("filters tests by regex pattern, statuses, and build variants", () => {
     const testNamePattern = "^test\\d$"; // Matches 'test1' and 'test2'
     const statuses = ["failed", "success"];
     const variants = ["variant1", "variant2"];
@@ -289,12 +310,18 @@ describe("filterGroupedTests", () => {
         buildVariant: "variant1",
         id: "task1_id",
         status: "failed",
+        logs: {
+          urlParsley: "",
+        },
       },
       {
         taskName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
         status: "success",
+        logs: {
+          urlParsley: "",
+        },
       },
     ]);
 
@@ -304,11 +331,14 @@ describe("filterGroupedTests", () => {
         buildVariant: "variant1",
         id: "task3_id",
         status: "success",
+        logs: {
+          urlParsley: "",
+        },
       },
     ]);
   });
 
-  test("filters tasks by statuses and build variants for a specific test", () => {
+  it("filters tasks by statuses and build variants for a specific test", () => {
     const testNamePattern = "^test1$";
     const statuses = ["failed"];
     const variants = ["variant1"];
@@ -329,11 +359,14 @@ describe("filterGroupedTests", () => {
         buildVariant: "variant1",
         id: "task1_id",
         status: "failed",
+        logs: {
+          urlParsley: "",
+        },
       },
     ]);
   });
 
-  test("returns an empty map when no test names match the regex pattern", () => {
+  it("returns an empty map when no test names match the regex pattern", () => {
     const testNamePattern = "^nonexistentTest$";
     const statuses = ["failed", "success"];
     const variants = ["variant1", "variant2", "variant3"];
@@ -348,7 +381,7 @@ describe("filterGroupedTests", () => {
     expect(result.size).toBe(0);
   });
 
-  test("returns an empty map when no tasks match the statuses and variants", () => {
+  it("returns an empty map when no tasks match the statuses and variants", () => {
     const testNamePattern = "^test1$";
     const statuses = ["success"];
     const variants = ["variant3"];
@@ -363,7 +396,7 @@ describe("filterGroupedTests", () => {
     expect(result.size).toBe(0);
   });
 
-  test("handles invalid regex pattern gracefully", () => {
+  it("handles invalid regex pattern gracefully", () => {
     const testNamePattern = "["; // Invalid regex
     const statuses = ["failed", "success"];
     const variants = ["variant1", "variant2"];
@@ -373,9 +406,9 @@ describe("filterGroupedTests", () => {
     }).toThrowError();
   });
 
-  test("filters when statuses or variants are undefined (no filtering on that criterion)", () => {
+  it("filters when statuses or variants are undefined (no filtering on that criterion)", () => {
     const testNamePattern = "^test1$";
-    const statuses = null; // No status filtering
+    const statuses: string[] = []; // No status filtering
     const variants = ["variant1", "variant2"];
 
     const result = filterGroupedTests(
@@ -392,26 +425,32 @@ describe("filterGroupedTests", () => {
         buildVariant: "variant1",
         id: "task1_id",
         status: "failed",
+        logs: {
+          urlParsley: "",
+        },
       },
       {
         taskName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
         status: "success",
+        logs: {
+          urlParsley: "",
+        },
       },
     ]);
   });
 });
 
 describe("getAllBuildVariants", () => {
-  test("should return an empty array when the map is empty", () => {
+  it("should return an empty array when the map is empty", () => {
     const taskMap = new Map<string, TaskBuildVariantField[]>();
 
     const result = getAllBuildVariants(taskMap);
     expect(result).toEqual([]);
   });
 
-  test("should return a list of unique build variants", () => {
+  it("should return a list of unique build variants", () => {
     const taskMap = new Map<string, TaskBuildVariantField[]>([
       [
         "test1",
@@ -465,7 +504,7 @@ describe("getAllBuildVariants", () => {
     expect(result).toEqual(["variant1", "variant2", "variant3"]);
   });
 
-  test("should handle tasks with duplicate build variants", () => {
+  it("should handle tasks with duplicate build variants", () => {
     const taskMap = new Map<string, TaskBuildVariantField[]>([
       [
         "test1",
@@ -510,7 +549,7 @@ describe("getAllBuildVariants", () => {
     expect(result).toEqual(["variant1", "variant2"]);
   });
 
-  test("should return unique build variants from tasks with different build variants", () => {
+  it("should return unique build variants from tasks with different build variants", () => {
     const taskMap = new Map<string, TaskBuildVariantField[]>([
       [
         "test1",
@@ -558,7 +597,7 @@ describe("getAllBuildVariants", () => {
     expect(result).toEqual(["variant1", "variant2", "variant3", "variant4"]);
   });
 
-  test("should return build variants even if there are no tasks", () => {
+  it("should return build variants even if there are no tasks", () => {
     const taskMap = new Map<string, TaskBuildVariantField[]>([
       ["test1", []],
       ["test2", []],

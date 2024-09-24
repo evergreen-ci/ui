@@ -55,25 +55,25 @@ const getTestsInTask = (tests: Unpacked<TestAnalysisQueryTasks>["tests"]) =>
 const filterGroupedTests = (
   groupedTests: GroupedTestMap,
   testNamePattern: string,
-  statuses?: string[] | null,
-  variants?: string[] | null,
+  statuses: string[],
+  variants: string[],
 ): GroupedTestMap => {
   const filteredTests = new Map<string, TaskBuildVariantField[]>();
   const regex = new RegExp(testNamePattern);
+  const hasStatuses = statuses && statuses.length > 0;
+  const hasVariants = variants && variants.length > 0;
 
   groupedTests.forEach((tasks, testName) => {
-    if (regex.test(testName)) {
-      const filteredTasks = tasks.filter(
-        (task) =>
-          ((statuses && statuses.length === 0) ||
-            (statuses && statuses.includes(task.status))) &&
-          ((variants && variants.length === 0) ||
-            (variants && variants.includes(task.buildVariant))),
-      );
+    if (!regex.test(testName)) return;
 
-      if (filteredTasks.length > 0) {
-        filteredTests.set(testName, filteredTasks);
-      }
+    const filteredTasks = tasks.filter((task) => {
+      const statusMatch = !hasStatuses || statuses.includes(task.status);
+      const variantMatch = !hasVariants || variants.includes(task.buildVariant);
+      return statusMatch && variantMatch;
+    });
+
+    if (filteredTasks.length > 0) {
+      filteredTests.set(testName, filteredTasks);
     }
   });
 
