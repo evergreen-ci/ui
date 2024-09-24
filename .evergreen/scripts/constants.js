@@ -41,7 +41,6 @@ const TASK_MAPPING = {
     spruce: [
       Tasks.CheckCodegen,
       Tasks.Compile,
-      Tasks.E2EParallel,
       Tasks.Lint,
       Tasks.Snapshots,
       Tasks.Storybook,

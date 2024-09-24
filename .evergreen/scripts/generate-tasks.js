@@ -1,8 +1,7 @@
 import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 import { join, parse } from "path";
-import { createParallelE2ETasks } from "./generate-parallel-e2e-tasks.js";
-import { APPS_DIR, TASK_MAPPING, Tasks } from "./constants.js"
+import { APPS_DIR, TASK_MAPPING } from "./constants.js"
 
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
 
@@ -87,16 +86,8 @@ const generateTasks = () => {
     const bvTasks = [];
     const displayTasks = [];
     TASK_MAPPING[bv].forEach((name) => {
-      if (name === Tasks.E2EParallel) {
-        const { bvTasks: e2eBvTasks, displayTasks: e2eDisplayTasks, tasks: e2eTasks } = createParallelE2ETasks(bv);
-        tasks.push(...e2eTasks);
-        bvTasks.push(...e2eBvTasks);
-        displayTasks.push(...e2eDisplayTasks);
-      } else {
-        bvTasks.push({ name });
-      }
+      bvTasks.push({ name });
     });
-
     buildvariants.push({
       name: bv,
       tasks: bvTasks,

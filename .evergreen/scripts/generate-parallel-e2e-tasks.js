@@ -100,15 +100,10 @@ export const getSpecs = (dirPath) => {
 };
 
 /**
- * createParallelE2ETasks creates the top-level tasks required for a build variant's parallelized Cypress testing.
- * Note that the task steps included here should likely be in sync with those included in the base e2e task.
- * @param bv - build variant name
- * @returns
- *  - bvTasks: array of task names for the build variant
- *  - displayTasks: array of display tasks with corresponding execution tasks
- *  - tasks: array of tasks
+ * generateParallelE2ETasks generates an object indicating build variants and tasks for running parallelized e2e tasks.
+ * @returns an Evergreen-compliant generate.tasks object
  */
-export const createParallelE2ETasks = (bv) => {
+const generateParallelE2ETasks = (bv) => {
   const specs = getSpecs(`./${APPS_DIR}/${bv}/cypress/integration`);
   const e2eTasks = specs.map((spec, i) => ({
     name: `e2e_${bv}_${i}`,
@@ -125,7 +120,6 @@ export const createParallelE2ETasks = (bv) => {
       { func: "yarn-cypress", vars: { cypress_spec: spec } },
     ],
   }));
-
   const bvTasks = e2eTasks.map(({ name }) => ({ name }));
   const displayTasks = [
     {
@@ -133,15 +127,6 @@ export const createParallelE2ETasks = (bv) => {
       execution_tasks: e2eTasks.map(({ name }) => name),
     }
   ]
-  return { bvTasks, displayTasks, tasks: e2eTasks };
-};
-
-/**
- * generateParallelE2ETasks generates an object indicating build variants and tasks for running parallelized e2e tasks.
- * @returns an Evergreen-compliant generate.tasks object
- */
-const generateParallelE2ETasks = (bv) => {
-  const { tasks, bvTasks, displayTasks } = createParallelE2ETasks(bv);
   const buildvariants = [
     {
       name: bv,
@@ -149,7 +134,7 @@ const generateParallelE2ETasks = (bv) => {
       display_tasks: displayTasks,
     }
   ]
-  return { buildvariants, tasks };
+  return { buildvariants, tasks: e2eTasks };
 };
 
 const main = () => {

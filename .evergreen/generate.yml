@@ -1,9 +1,14 @@
+include:
+  - filename: .evergreen/attach.yml
+
 functions:
   run-generate-tasks:
     command: subprocess.exec
     params:
       working_dir: ui
-      binary: node .evergreen/scripts/generate-tasks.js
+      binary: "node"
+      args:
+        - ".evergreen/scripts/generate-tasks.js"
 
   run-generate-parallel-e2e-tasks:
     command: subprocess.exec
@@ -11,33 +16,9 @@ functions:
       working_dir: ui
       env:
         BUILD_VARIANT: ${build_variant}
-      binary: node .evergreen/scripts/generate-parallel-e2e-tasks.js
-
-  attach-generated:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
-      local_files_include_filter: ["ui/.evergreen/generate-tasks.json"]
-      remote_file: ${build_variant}/${task_id}/${execution}/generate-tasks.json
-      bucket: evg-bucket-evergreen-ui
-      content_type: text/plain
-      permissions: public-read
-
-  attach-e2e-generated:
-    command: s3.put
-    type: system
-    params:
-      aws_key: ${AWS_ACCESS_KEY_ID}
-      aws_secret: ${AWS_SECRET_ACCESS_KEY}
-      aws_session_token: ${AWS_SESSION_TOKEN}
-      local_files_include_filter: ["ui/.evergreen/generate-parallel-e2e-tasks.json"]
-      remote_file: ${build_variant}/${task_id}/${execution}/generate-parallel-e2e-tasks.json
-      bucket: evg-bucket-evergreen-ui
-      content_type: text/plain
-      permissions: public-read
+      binary: "node"
+      args:
+        - ".evergreen/scripts/generate-parallel-e2e-tasks.js"
 
 tasks:
   - name: generate-tasks
