@@ -2,16 +2,17 @@ import { execSync } from "child_process";
 import { execTrim, green, underline } from "../shell";
 import { DeployableApp } from "../types";
 
-/**
- * `createTagAndPush` is a helper function that creates a new tag.
- * Pushing occurs in the postversion hook triggered by "yarn version"
- * @param version - version indicates the type of upgrade of the new tag.
- */
 enum ReleaseVersion {
   Patch = "patch",
   Minor = "minor",
   Major = "major",
 }
+
+/**
+ * `createTagAndPush` is a helper function that creates a new tag.
+ * Pushing occurs in the postversion hook triggered by "yarn version"
+ * @param version - version indicates the type of upgrade of the new tag.
+ */
 const createTagAndPush = (version: ReleaseVersion) => {
   console.log("Creating new tag...");
   try {
