@@ -273,8 +273,11 @@
         href="/task/1/annotations?execution=0"
       >
         <div
-          class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+          border="#FFCDC7"
+          class="css-prjgud-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
           data-cy="task-status-badge"
+          fill="#FFFFFF"
+          text="#970606"
         >
           Known Issue
         </div>

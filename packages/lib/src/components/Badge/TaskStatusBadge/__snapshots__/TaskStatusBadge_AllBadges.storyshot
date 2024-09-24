@@ -123,8 +123,11 @@
       Aborted
     </div>
     <div
-      class="css-1wbjbpn leafygreen-ui-dhdzha"
+      border="#FFCDC7"
+      class="css-1ga3tbn leafygreen-ui-c62i3c"
       data-cy="task-status-badge"
+      fill="#FFFFFF"
+      text="#970606"
     >
       Known Issue
     </div>

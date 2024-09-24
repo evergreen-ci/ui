@@ -5,7 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 
-const { purple } = palette;
+const { purple, red, white } = palette;
 
 interface BadgeColorProps {
   border?: string;
@@ -67,7 +67,6 @@ const mapTaskStatusToBadgeVariant: Record<string, Variant> = {
   [TaskStatus.TestTimedOut]: Variant.Red,
   [TaskStatus.TaskTimedOut]: Variant.Red,
   [TaskStatus.Succeeded]: Variant.Green,
-  [TaskStatus.KnownIssue]: Variant.Red,
   [TaskStatus.WillRun]: Variant.DarkGray,
 };
 const customBadgeColors = (status: string) => {
@@ -86,7 +85,12 @@ const customBadgeColors = (status: string) => {
         fill: purple.dark2,
         text: purple.light3,
       };
-
+    case TaskStatus.KnownIssue:
+      return {
+        border: red.light2,
+        fill: white,
+        text: red.dark2,
+      };
     default:
       return {};
   }
