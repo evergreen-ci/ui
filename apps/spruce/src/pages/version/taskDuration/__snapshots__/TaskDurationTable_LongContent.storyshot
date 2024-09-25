@@ -60,6 +60,7 @@
                 aria-disabled="false"
                 aria-label="Sort by Task Name"
                 class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -133,6 +134,7 @@
                 aria-disabled="false"
                 aria-label="Sort by Status"
                 class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -206,6 +208,7 @@
                 aria-disabled="false"
                 aria-label="Sort by Build Variant"
                 class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
