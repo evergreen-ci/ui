@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { useSuspenseQuery } from "@apollo/client";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Link, useParams } from "react-router-dom";
@@ -65,19 +66,19 @@ const BuildRow: React.FC<{
   return (
     <Row>
       <BuildVariantTitle>{displayName}</BuildVariantTitle>
-      <Builds>
+      <BuildGroup>
         {versions.map(({ inactiveVersions, version }) => {
           if (inactiveVersions) {
             return <InactiveVersion />;
           }
-          if (version && version.id === builds[buildIndex].version) {
+          if (version && version.id === builds?.[buildIndex]?.version) {
             const b = builds[buildIndex];
             buildIndex += 1;
             return <BuildGrid key={b.id} build={b} />;
           }
           return <Build />;
         })}
-      </Builds>
+      </BuildGroup>
     </Row>
   );
 };
@@ -97,29 +98,19 @@ const BuildGrid: React.FC<{
   </Build>
 );
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${size.s};
-`;
-
-const borderStyle = `1px solid ${gray.light2}`;
-
 const INACTIVE_WIDTH = 80;
+const SQUARE_SIZE = 16;
+
+const Container = styled.div``;
 
 const InactiveVersion = styled.div`
   width: ${INACTIVE_WIDTH}px;
 `;
 
-const Versions = styled.div`
-  display: flex;
-  gap: ${size.s};
-  padding: 0 ${size.xs};
-`;
-
 const Row = styled.div`
   display: flex;
   gap: ${size.xs};
+  margin-bottom: ${size.s};
 `;
 
 const BuildVariantTitle = styled.div`
@@ -129,23 +120,29 @@ const BuildVariantTitle = styled.div`
   width: 200px;
 `;
 
-const Builds = styled.div`
+const gridGroupCss = css`
   display: flex;
-  flex-grow: 1;
-  border: ${borderStyle};
-  border-radius: ${size.xs};
-  padding: 8px;
   gap: ${size.s};
+  flex-grow: 1;
+  padding-left: ${size.xs};
+  padding-right: ${size.xs};
+`;
+
+const Versions = styled.div`
+  ${gridGroupCss}
+`;
+
+const BuildGroup = styled.div`
+  ${gridGroupCss}
+  border: 1px solid ${gray.light2};
+  border-radius: ${size.xs};
+  padding-bottom: ${size.xs};
+  padding-top: ${size.xs};
 `;
 
 const Build = styled.div`
-  height: fit-content;
-  margin-right: 8px;
-
   flex-basis: 20%;
 `;
-
-const SQUARE_SIZE = 16;
 
 const Square = styled(Link)<{ status: string }>`
   width: ${SQUARE_SIZE}px;
@@ -156,7 +153,7 @@ const Square = styled(Link)<{ status: string }>`
   cursor: pointer;
   position: relative;
 
-  /* TODO DEVPROD-11368: Render colors for all statuses. Could potentially use background-image property to render icons. */
+  /* TODO DEVPROD-11368: Render colors for all statuses. Could use background-image property to render icons. */
   ${({ status }) =>
     status === TaskStatus.Succeeded
       ? `background-color: ${green.dark1};`

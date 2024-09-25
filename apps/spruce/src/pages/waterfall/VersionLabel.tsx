@@ -98,7 +98,7 @@ const VersionContainer = styled.div`
   }
 
   p {
-    word-break: break-all;
+    word-break: break-word;
   }
 `;
 
