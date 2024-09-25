@@ -1,23 +1,39 @@
-import { useRef } from "react";
-import Button from "@leafygreen-ui/button";
+import { useRef, useMemo } from "react";
+import Card from "@leafygreen-ui/card";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
-import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
-import { TaskStatus } from "@evg-ui/lib/types/task";
 import { StyledRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
+import FailedTestGroupTable from "./FailedTestGroup/FailedTestGroupTable";
 import { TaskBuildVariantField } from "./types";
 
 interface TestAnalysisTableProps {
-  tasks: TaskBuildVariantField[];
+  tasks: [string, TaskBuildVariantField[]][];
 }
+type TableField = {
+  testName: string;
+  id: string;
+};
 const TestAnalysisTable: React.FC<TestAnalysisTableProps> = ({ tasks }) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const table = useLeafyGreenTable<TaskBuildVariantField>({
+  const tableData = useMemo(
+    () =>
+      Object.entries(tasks).map(([, t]) => ({
+        testName: t[0],
+        id: t[1][0].id,
+        renderExpandedContent: () => (
+          <Card>
+            <FailedTestGroupTable tasks={t[1]} />
+          </Card>
+        ),
+      })),
+    [tasks],
+  );
+  const table = useLeafyGreenTable<TableField>({
     columns,
     containerRef: tableContainerRef,
-    data: tasks,
+    data: tableData,
     defaultColumn: {
       enableColumnFilter: false,
     },
@@ -25,10 +41,10 @@ const TestAnalysisTable: React.FC<TestAnalysisTableProps> = ({ tasks }) => {
   return <BaseTable table={table} />;
 };
 
-const columns: LGColumnDef<TaskBuildVariantField>[] = [
+const columns: LGColumnDef<TableField>[] = [
   {
-    header: "Task Name",
-    accessorKey: "taskName",
+    header: "Test Name",
+    accessorKey: "testName",
     cell: ({ getValue, row }) => (
       <StyledRouterLink
         to={getTaskRoute(row.original.id, { tab: TaskTab.Tests })}
@@ -37,33 +53,6 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
       </StyledRouterLink>
     ),
     enableSorting: true,
-  },
-  {
-    header: "Build Variant",
-    accessorKey: "buildVariant",
-    cell: ({ getValue }) => getValue() as string,
-    enableSorting: true,
-  },
-  {
-    header: "Failure Type",
-    accessorKey: "status",
-    cell: ({ getValue }) => (
-      <TaskStatusBadge status={getValue() as TaskStatus} />
-    ),
-  },
-  {
-    header: "Logs",
-    accessorKey: "id",
-    cell: ({ row }) => (
-      <Button
-        data-cy="failed-test-group-parsley-btn"
-        href={row.original.logs.urlParsley}
-        target="_blank"
-        title="High-powered log viewer"
-      >
-        Parsley
-      </Button>
-    ),
   },
 ];
 
