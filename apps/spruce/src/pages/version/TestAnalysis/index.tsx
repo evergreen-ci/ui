@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
@@ -77,6 +78,9 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     selectedTaskStatuses.length > 0 ||
     selectedBuildVariants.length > 0 ||
     searchValue.length > 0;
+
+  const hasMatchingResults = totalFilteredTestCount > 0;
+  const hasResults = data && totalTestCount > 0;
   return (
     <div>
       {loading ? (
@@ -105,6 +109,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               </LabelWrapper>
               <SearchInput
                 aria-labelledby="test-failure-search-label"
+                disabled={!hasResults}
                 id="test-failure-search-input"
                 onChange={(e) => setSearchValue(e.target.value)}
                 placeholder="Search failed tests (regex)"
@@ -112,6 +117,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               />
             </div>
             <Combobox
+              disabled={!hasResults}
               label="Failure type"
               multiselect
               onChange={setSelectedTaskStatuses}
@@ -127,6 +133,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               ))}
             </Combobox>
             <Combobox
+              disabled={!hasResults}
               label="Build Variant"
               multiselect
               onChange={setSelectedBuildVariants}
@@ -142,30 +149,38 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               ))}
             </Combobox>
           </FilterContainer>
-          <FilterSubheaderContainer>
-            <Body weight="medium">
-              {hasFilters
-                ? `${totalFilteredTestCount}/${totalTestCount} Filtered Failed ${pluralize("Test", totalFilteredTestCount)}`
-                : `${totalTestCount} Total Failed ${pluralize("Test", totalTestCount)}`}
-            </Body>
-            {hasFilters && (
-              <Button
-                onClick={() => {
-                  setSelectedTaskStatuses([]);
-                  setSelectedBuildVariants([]);
-                  setSearchValue("");
-                }}
-                size="xsmall"
-              >
-                Clear Filters
-              </Button>
-            )}
-          </FilterSubheaderContainer>
+          {hasResults && (
+            <FilterSubheaderContainer>
+              <Body weight="medium">
+                {hasFilters
+                  ? `${totalFilteredTestCount}/${totalTestCount} Filtered Failed ${pluralize("Test", totalFilteredTestCount)}`
+                  : `${totalTestCount} Total Failed ${pluralize("Test", totalTestCount)}`}
+              </Body>
+              {hasFilters && (
+                <Button
+                  onClick={() => {
+                    setSelectedTaskStatuses([]);
+                    setSelectedBuildVariants([]);
+                    setSearchValue("");
+                  }}
+                  size="xsmall"
+                >
+                  Clear Filters
+                </Button>
+              )}
+            </FilterSubheaderContainer>
+          )}
           {groupedTestsMapEntries.map(([test, tasks]) => (
             <SpacedDiv key={test}>
               <FailedTestGroup tasks={tasks} testName={test} />
             </SpacedDiv>
           ))}
+          {!hasMatchingResults && (
+            <BasicEmptyState
+              description="For additional analytics on tests please visit Honeycomb"
+              title={`No ${hasResults ? "Matching " : ""}Failed Tests Found`}
+            />
+          )}
         </div>
       )}
     </div>
