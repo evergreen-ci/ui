@@ -29,4 +29,17 @@ describe("TaskStatusBadgeWithLink", () => {
       "/task/123/annotations?execution=0",
     );
   });
+  it("should pluralize the status", () => {
+    const { rerender } = renderWithRouterMatch(
+      <TaskStatusBadgeWithLink status={TaskStatus.Succeeded} taskCount={2} />,
+    );
+    expect(screen.getByText("2 Succeededs")).toBeInTheDocument();
+    rerender(
+      <TaskStatusBadgeWithLink status={TaskStatus.Succeeded} taskCount={1} />,
+    );
+    expect(screen.getByText("1 Succeeded")).toBeInTheDocument();
+    rerender(
+      <TaskStatusBadgeWithLink status={TaskStatus.Failed} taskCount={0} />,
+    );
+  });
 });
