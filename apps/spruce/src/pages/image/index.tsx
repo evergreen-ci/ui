@@ -5,7 +5,8 @@ import {
   SideNav,
   SideNavGroup,
   SideNavItem,
-  PageWrapper,
+  SideNavPageContent,
+  SideNavPageWrapper,
 } from "components/styles";
 import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
@@ -37,7 +38,7 @@ const Image: React.FC = () => {
   }
 
   return (
-    <>
+    <SideNavPageWrapper>
       <SideNav aria-label="Image" widthOverride={250}>
         <ButtonsContainer>
           <ImageSelect selectedImage={selectedImage} />
@@ -56,10 +57,10 @@ const Image: React.FC = () => {
           ))}
         </SideNavGroup>
       </SideNav>
-      <PageWrapper>
+      <SideNavPageContent>
         <ImageTabs currentTab={currentTab} imageId={selectedImage} />
-      </PageWrapper>
-    </>
+      </SideNavPageContent>
+    </SideNavPageWrapper>
   );
 };
 

@@ -20,7 +20,9 @@ export const Header: React.FC = () => (
 );
 
 const StyledHeader = styled.header`
-  grid-area: header;
+  position: sticky;
+  top: 0;
+  width: 100%;
 `;
 
 const BannerContainer = styled.div`

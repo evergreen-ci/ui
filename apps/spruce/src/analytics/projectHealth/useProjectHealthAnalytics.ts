@@ -3,7 +3,11 @@ import { AnalyticsIdentifier } from "analytics/types";
 import { ProjectHealthView } from "gql/generated/types";
 
 // The comments below are used to indicate which pageType the action is relevant to (e.g. "Commit chart")
-type pageType = "Commit chart" | "Task history" | "Variant history";
+type pageType =
+  | "Commit chart"
+  | "Task history"
+  | "Variant history"
+  | "Waterfall";
 type Action =
   | { name: "Changed page"; direction: "previous" | "next" } // "Commit chart"
   | { name: "Changed project"; project: string } // "Commit chart"
@@ -13,7 +17,7 @@ type Action =
       name: "Clicked commit label";
       link: "jira" | "githash" | "upstream project";
       "commit.type": "active" | "inactive";
-    } // "Task history" | "Variant history" | "Commit chart"
+    } // "Task history" | "Variant history" | "Commit chart" | "Waterfall"
   | { name: "Clicked grouped task status badge"; statuses: string[] }
   | { name: "Clicked task status icon"; status: string } // "Commit chart"
   | { name: "Clicked variant label" } // "Commit chart"

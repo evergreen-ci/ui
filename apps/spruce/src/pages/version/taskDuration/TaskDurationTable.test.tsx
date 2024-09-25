@@ -5,10 +5,15 @@ import {
   userEvent,
   within,
 } from "@evg-ui/lib/test_utils";
-import { VersionTaskDurationsQuery } from "gql/generated/types";
-import { TaskDurationTable } from "./TaskDurationTable";
+import {
+  SortDirection,
+  TaskSortCategory,
+  VersionTaskDurationsQuery,
+} from "gql/generated/types";
+import { PatchTasksQueryParams } from "types/task";
+import { getInitialParams, TaskDurationTable } from "./TaskDurationTable";
 
-describe("taskDurationTable", () => {
+describe("TaskDurationTable", () => {
   it("renders all rows", () => {
     render(
       <MockedProvider>
@@ -37,6 +42,31 @@ describe("taskDurationTable", () => {
   });
 });
 
+describe("getInitialParams", () => {
+  it("should get the correct initialSort when passed in sorts key", () => {
+    const { initialSort } = getInitialParams({
+      sorts: `${TaskSortCategory.Duration}:${SortDirection.Desc};${TaskSortCategory.Variant}:${SortDirection.Asc};${TaskSortCategory.Status}:${SortDirection.Asc};${TaskSortCategory.Name}:${SortDirection.Desc}`,
+    });
+    expect(initialSort).toEqual([
+      {
+        desc: true,
+        id: PatchTasksQueryParams.Duration,
+      },
+      {
+        desc: false,
+        id: PatchTasksQueryParams.Variant,
+      },
+      {
+        desc: false,
+        id: PatchTasksQueryParams.Statuses,
+      },
+      {
+        desc: true,
+        id: PatchTasksQueryParams.TaskName,
+      },
+    ]);
+  });
+});
 const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
   {
     id: "spruce_ubuntu1604_check_codegen_patch_345da020487255d1b9fb87bed4ceb98397a0c5a5_624af28fa4cf4714c7a6c19a_22_04_04_13_28_48",
