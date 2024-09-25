@@ -17,7 +17,7 @@ describe("Update Status Modal", () => {
 
     cy.dataCy("host-status-select").click();
 
-    cy.dataCy("decommissioned-option").click();
+    cy.dataCy("terminated-option").click();
 
     cy.dataCy("host-status-notes").type("notes");
 
