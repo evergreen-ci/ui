@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { StyledRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
-import TaskStatusBadge from "components/TaskStatusBadge";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
 import { TaskBuildVariantField } from "../../types";

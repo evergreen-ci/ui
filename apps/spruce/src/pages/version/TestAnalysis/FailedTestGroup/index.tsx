@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import { Body } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Accordion } from "components/Accordion";
-import TaskStatusBadge from "components/TaskStatusBadge";
 import { TaskBuildVariantField } from "../types";
 import FailedTestGroupTable from "./FailedTestGroupTable";
 
