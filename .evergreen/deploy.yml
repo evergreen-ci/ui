@@ -18,19 +18,14 @@ functions:
       params:
         working_dir: ui/${app_dir}
         add_expansions_to_env: true
-        script: |
-          ${PREPARE_SHELL}
-          yarn deploy-utils-setup-credentials "${target}"
-    - command: shell.exec
-      params:
-        working_dir: ui/${app_dir}
         env:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+          NODE_ENV: "production"
         script: |
           ${PREPARE_SHELL}
-          yarn env-cmd -e "${target}" yarn deploy-utils-build-and-push
+          yarn env-cmd -e "${target}" --no-override yarn deploy-utils-build-and-push
 
   email:
     - command: shell.exec
