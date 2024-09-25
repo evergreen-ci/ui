@@ -1,3 +1,4 @@
+import { TableQueryParams } from "constants/queryParams";
 import {
   VersionTasksQueryVariables,
   SortOrder,
@@ -17,38 +18,20 @@ export const useQueryVariables = (
   const { limit, page } = usePagination();
   const queryParams = parseQueryString(search);
   const {
-    [PatchTasksQueryParams.Duration]: duration,
-    [PatchTasksQueryParams.Sorts]: sorts,
+    [TableQueryParams.Sorts]: sorts,
     [PatchTasksQueryParams.Variant]: variant,
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: statuses,
     [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
   } = queryParams;
 
-  // This should be reworked once the antd tables are removed.
-  // At the current state, sorts & duration will never both be defined.
-  let sortsToApply: SortOrder[] = [];
-  const opts = {
-    sortByKey: "Key" as "Key",
-    sortDirKey: "Direction" as "Direction",
-    sortCategoryEnum: TaskSortCategory,
-  };
-  if (sorts) {
-    sortsToApply = parseSortString<
-      "Key",
-      "Direction",
-      TaskSortCategory,
-      SortOrder
-    >(sorts, opts);
-  }
-  if (duration) {
-    sortsToApply = parseSortString<
-      "Key",
-      "Direction",
-      TaskSortCategory,
-      SortOrder
-    >(`${TaskSortCategory.Duration}:${duration}`, opts);
-  }
+  const sortsToApply: SortOrder[] = sorts
+    ? parseSortString<"Key", "Direction", TaskSortCategory, SortOrder>(sorts, {
+        sortByKey: "Key",
+        sortDirKey: "Direction",
+        sortCategoryEnum: TaskSortCategory,
+      })
+    : [];
 
   return {
     versionId,
