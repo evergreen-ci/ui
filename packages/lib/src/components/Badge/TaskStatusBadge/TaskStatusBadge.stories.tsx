@@ -31,6 +31,15 @@ export const AllBadges: CustomStoryObj<typeof TaskStatusBadge> = {
   ),
 };
 
+export const AllBadgesWithTaskCount: CustomStoryObj<typeof TaskStatusBadge> = {
+  render: () => (
+    <Container>
+      {Object.values(TaskStatus).map((status) => (
+        <TaskStatusBadge key={status} status={status} taskCount={2} />
+      ))}
+    </Container>
+  ),
+};
 const Container = styled.div`
   display: flex;
   gap: ${size.xs};

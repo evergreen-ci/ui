@@ -25,6 +25,7 @@
     "@opentelemetry/auto-instrumentations-web": "^0.40.0",
     "@opentelemetry/instrumentation-user-interaction": "^0.39.0",
     "graphql": "16.8.1",
+    "pluralize": "8.0.0",
     "query-string": "9.0.0"
   },
   "devDependencies": {

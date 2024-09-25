@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import pluralize from "pluralize";
 import { taskStatusToCopy } from "../../../constants/task";
 import { TaskStatus } from "../../../types/task";
 
@@ -27,14 +28,21 @@ const StyledBadge = styled(Badge)<BadgeColorProps>`
 
 interface TaskStatusBadgeProps {
   status: string;
+  taskCount?: number;
 }
-const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
+const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
+  status,
+  taskCount,
+}) => {
   if (!status) {
     return null;
   }
 
   const statusText = taskStatusToCopy[status] ?? status;
-
+  const badgeCopy =
+    taskCount === undefined
+      ? statusText
+      : `${taskCount} ${pluralize(statusText, taskCount || 1)}`;
   return (
     <StyledBadge
       key={status}
@@ -42,7 +50,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
       variant={mapTaskStatusToBadgeVariant[status]}
       {...customBadgeColors(status)}
     >
-      {statusText}
+      {badgeCopy}
     </StyledBadge>
   );
 };
