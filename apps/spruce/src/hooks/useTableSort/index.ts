@@ -8,6 +8,7 @@ const { getSortString } = queryString;
 
 interface Props {
   sendAnalyticsEvents?: (sorter: SortingState) => void;
+  // TODO: DEVPROD-11539 - Remove this prop and make the default behavior to use a single query param.
   singleQueryParam?: boolean;
 }
 
