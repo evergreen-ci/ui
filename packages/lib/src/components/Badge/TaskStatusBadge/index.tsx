@@ -2,10 +2,10 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
-import { TaskStatus } from "@evg-ui/lib/types/task";
-import { taskStatusToCopy } from "constants/task";
+import { taskStatusToCopy } from "../../../constants/task";
+import { TaskStatus } from "../../../types/task";
 
-const { purple } = palette;
+const { purple, red, white } = palette;
 
 interface BadgeColorProps {
   border?: string;
@@ -35,23 +35,11 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
 
   const statusText = taskStatusToCopy[status] ?? status;
 
-  if (status in mapTaskStatusToBadgeVariant) {
-    return (
-      <StyledBadge
-        key={status}
-        css={badgeWidthMaxContent}
-        data-cy="task-status-badge"
-        variant={mapTaskStatusToBadgeVariant[status]}
-      >
-        {statusText}
-      </StyledBadge>
-    );
-  }
-
   return (
     <StyledBadge
       key={status}
       data-cy="task-status-badge"
+      variant={mapTaskStatusToBadgeVariant[status]}
       {...customBadgeColors(status)}
     >
       {statusText}
@@ -73,7 +61,6 @@ const mapTaskStatusToBadgeVariant: Record<string, Variant> = {
   [TaskStatus.TestTimedOut]: Variant.Red,
   [TaskStatus.TaskTimedOut]: Variant.Red,
   [TaskStatus.Succeeded]: Variant.Green,
-  [TaskStatus.KnownIssue]: Variant.Red,
   [TaskStatus.WillRun]: Variant.DarkGray,
 };
 const customBadgeColors = (status: string) => {
@@ -92,7 +79,12 @@ const customBadgeColors = (status: string) => {
         fill: purple.dark2,
         text: purple.light3,
       };
-
+    case TaskStatus.KnownIssue:
+      return {
+        border: red.light2,
+        fill: white,
+        text: red.dark2,
+      };
     default:
       return {};
   }
