@@ -38,7 +38,6 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
   return (
     <StyledBadge
       key={status}
-      css={badgeWidthMaxContent}
       data-cy="task-status-badge"
       variant={
         status in mapTaskStatusToBadgeVariant
