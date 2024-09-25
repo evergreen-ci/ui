@@ -268,7 +268,7 @@
               data-state="entered"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Failed
@@ -353,7 +353,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Failed
@@ -436,7 +436,7 @@
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -528,7 +528,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -624,7 +624,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -720,7 +720,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -816,7 +816,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -912,7 +912,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1008,7 +1008,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1104,7 +1104,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1200,7 +1200,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1296,7 +1296,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-nzoz4e-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
