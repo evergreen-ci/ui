@@ -25,6 +25,15 @@ describe("msToDuration", () => {
     expect(msToDuration(ms)).toBe("3d 5h 20m 5s");
   });
 
+  it("converts milli to 1d 19h 44m 29s", () => {
+    const ms =
+      1 * 24 * 60 * 60 * 1000 +
+      19 * 60 * 60 * 1000 +
+      44 * 60 * 1000 +
+      29 * 1000;
+    expect(msToDuration(ms)).toBe("1d 19h 44m 29s");
+  });
+
   it("converts milli to 5h 0m", () => {
     const ms = 5 * 60 * 60 * 1000;
     expect(msToDuration(ms)).toBe("5h 0m");

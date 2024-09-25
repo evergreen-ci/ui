@@ -9477,3 +9477,38 @@ export type ViewableProjectRefsQuery = {
     repo?: { __typename?: "RepoRef"; id: string } | null;
   }>;
 };
+
+export type WaterfallQueryVariables = Exact<{
+  options: WaterfallOptions;
+}>;
+
+export type WaterfallQuery = {
+  __typename?: "Query";
+  waterfall: {
+    __typename?: "Waterfall";
+    versions: Array<{
+      __typename?: "WaterfallVersion";
+      version?: {
+        __typename?: "Version";
+        activated?: boolean | null;
+        author: string;
+        createTime: Date;
+        id: string;
+        message: string;
+        revision: string;
+        gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          owner: string;
+          project: string;
+          repo: string;
+          revision: string;
+          triggerID: string;
+          triggerType: string;
+          task?: { __typename?: "Task"; execution: number; id: string } | null;
+          version?: { __typename?: "Version"; id: string } | null;
+        } | null;
+      } | null;
+    }>;
+  };
+};

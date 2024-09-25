@@ -38,7 +38,7 @@ describe("projectSettings/project_settings", () => {
       cy.dataCy("project-settings-page")
         .find("button")
         .should("have.attr", "aria-disabled", "true");
-      cy.get("input").should("be.disabled");
+      cy.get("input").should("have.attr", "aria-disabled", "true");
     });
   });
 

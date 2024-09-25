@@ -1,0 +1,48 @@
+<div>
+  <div
+    class="css-ee05cj"
+  >
+    <div
+      class="css-14yzyid-VersionContainer e16lgvul1"
+    >
+      <p
+        class="leafygreen-ui-1tb6tuo"
+      >
+        <a
+          class="lg-ui-0000 leafygreen-ui-hvznge"
+          href="/version/evergreen_ui_aec8832bace91f0f3b6d8ad3bb3b27fb4263be83/tasks"
+        >
+          <code
+            class="leafygreen-ui-i6ovbf"
+          >
+            aec8832
+          </code>
+        </a>
+         
+        09/19/2024, 10:56
+      </p>
+      <p
+        class="css-ql9iql-CommitMessage e16lgvul0 leafygreen-ui-1tb6tuo"
+        title="DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)"
+      >
+        <strong>
+          Sophie Stadler
+        </strong>
+         •
+         
+        <a
+          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          data-cy="jira-link"
+          href="https://jira.mongodb.org/browse/DEVPROD-11387"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <span>
+            DEVPROD-11387
+          </span>
+        </a>
+        : Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)
+      </p>
+    </div>
+  </div>
+</div>
