@@ -17,15 +17,16 @@ functions:
     - command: shell.exec
       params:
         working_dir: ui/${app_dir}
-        add_expansions_to_env: true
+        include_expansions_in_env: [REACT_APP_HONEYCOMB_ENDPOINT, REACT_APP_HONEYCOMB_INGEST_KEY, 
+                                    PARSLEY_SENTRY_AUTH_TOKEN, REACT_APP_PARSLEY_SENTRY_DSN, 
+                                    SPRUCE_SENTRY_AUTH_TOKEN, REACT_APP_SPRUCE_SENTRY_DSN]
         env:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
-          NODE_ENV: "production"
         script: |
           ${PREPARE_SHELL}
-          yarn env-cmd -e "${target}" --no-override yarn deploy-utils-build-and-push
+          yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
 
   email:
     - command: shell.exec
