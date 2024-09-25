@@ -259,7 +259,7 @@ tasks:
       - func: symlink
       - func: yarn-build
 
-  # Updates to e2e should also be applied to e2e_parallel in the task generator.
+  # Updates to e2e should also be applied to e2e_parallel in `generate-parallel-e2e-tasks.js`.
   - name: e2e
     commands:
       - func: setup-mongodb
