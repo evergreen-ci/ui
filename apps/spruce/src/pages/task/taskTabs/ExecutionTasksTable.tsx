@@ -77,7 +77,6 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   );
 
   const tableSortHandler = useTableSort({
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sorted execution tasks table",
