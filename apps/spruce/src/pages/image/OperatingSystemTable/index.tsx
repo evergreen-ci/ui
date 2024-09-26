@@ -10,27 +10,30 @@ import { BaseTable } from "components/Table/BaseTable";
 import { DEFAULT_PAGE_SIZE } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
-  Package,
-  ImagePackagesQuery,
-  ImagePackagesQueryVariables,
+  OsInfo,
+  ImageOperatingSystemQuery,
+  ImageOperatingSystemQueryVariables,
 } from "gql/generated/types";
-import { IMAGE_PACKAGES } from "gql/queries";
+import { IMAGE_OPERATING_SYSTEM } from "gql/queries";
 
-type PackagesTableProps = {
+type OperatingSystemTableProps = {
   imageId: string;
 };
 
-export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
+export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
+  imageId,
+}) => {
   const dispatchToast = useToastContext();
+
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: DEFAULT_PAGE_SIZE,
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const { data: packagesData, loading } = useQuery<
-    ImagePackagesQuery,
-    ImagePackagesQueryVariables
-  >(IMAGE_PACKAGES, {
+  const { data: osData, loading } = useQuery<
+    ImageOperatingSystemQuery,
+    ImageOperatingSystemQueryVariables
+  >(IMAGE_OPERATING_SYSTEM, {
     variables: {
       imageId,
       opts: {
@@ -42,37 +45,37 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error loading image packages: ${err.message}`,
+        `There was an error loading operating system information: ${err.message}`,
       );
     },
   });
 
-  const packages = useMemo(
-    () => packagesData?.image?.packages.data ?? [],
-    [packagesData?.image?.packages.data],
+  const operatingSystemInfo = useMemo(
+    () => osData?.image?.operatingSystem.data ?? [],
+    [osData?.image?.operatingSystem.data],
   );
 
-  const numPackages = useMemo(
+  const numTotalItems = useMemo(
     () =>
-      packagesData?.image?.packages.filteredCount ??
-      packagesData?.image?.packages.totalCount,
+      osData?.image?.operatingSystem.filteredCount ??
+      osData?.image?.operatingSystem.totalCount,
     [
-      packagesData?.image?.packages.filteredCount,
-      packagesData?.image?.packages.totalCount,
+      osData?.image?.operatingSystem.filteredCount,
+      osData?.image?.operatingSystem.totalCount,
     ],
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const table = useLeafyGreenTable<Package>({
+  const table = useLeafyGreenTable<OsInfo>({
     columns,
-    data: packages,
+    data: operatingSystemInfo,
     containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,
     },
     manualPagination: true,
     manualFiltering: true,
-    rowCount: numPackages,
+    rowCount: numTotalItems,
     state: {
       pagination,
       columnFilters,
@@ -83,10 +86,10 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
 
   return (
     <BaseTable
-      data-cy-row="packages-table-row"
+      data-cy-row="os-table-row"
       loading={loading}
       loadingRows={pagination.pageSize}
-      numTotalItems={numPackages}
+      numTotalItems={numTotalItems}
       shouldAlternateRowColor
       table={table}
       usePagination
@@ -94,24 +97,21 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   );
 };
 
-const columns: LGColumnDef<Package>[] = [
+const columns: LGColumnDef<OsInfo>[] = [
   {
     header: "Name",
     accessorKey: "name",
     enableColumnFilter: true,
     meta: {
       search: {
-        "data-cy": "package-name-filter",
+        "data-cy": "os-name-filter",
         placeholder: "Name regex",
       },
     },
   },
   {
-    header: "Manager",
-    accessorKey: "manager",
-  },
-  {
     header: "Version",
     accessorKey: "version",
+    cell: ({ getValue }) => (getValue() as string).replace(/"/g, ""),
   },
 ];

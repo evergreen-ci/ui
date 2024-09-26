@@ -26,6 +26,53 @@ describe("build information", () => {
     });
   });
 
+  describe("os", () => {
+    it("should show the corresponding OS info", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("os-table-row").should("have.length", 10);
+    });
+
+    it("should show different OS info on different pages", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("os-table-row").should("have.length", 10);
+
+      // First OS info name on first page.
+      cy.dataCy("os-table-row")
+        .first()
+        .find("td")
+        .first()
+        .invoke("text")
+        .as("firstOSName", { type: "static" });
+
+      cy.dataCy("os-card").within(() => {
+        cy.get("[data-testid=lg-pagination-next-button]").click();
+      });
+
+      // First OS info name on second page.
+      cy.dataCy("os-table-row")
+        .first()
+        .find("td")
+        .first()
+        .invoke("text")
+        .as("nextOSName", { type: "static" });
+
+      // OS info names should not be equal.
+      cy.get("@firstOSName").then((firstOSName) => {
+        cy.get("@nextOSName").then((nextOSName) => {
+          expect(nextOSName).not.to.equal(firstOSName);
+        });
+      });
+    });
+
+    it("should show no OS info when filtering for nonexistent item", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("os-table-row").should("have.length", 10);
+      cy.dataCy("os-name-filter").click();
+      cy.get('input[placeholder="Name regex"]').type("fakeOS{enter}");
+      cy.dataCy("os-table-row").should("have.length", 0);
+    });
+  });
+
   describe("packages", () => {
     it("should show the corresponding packages", () => {
       cy.visit("/image/ubuntu2204");

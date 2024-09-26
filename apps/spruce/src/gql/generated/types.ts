@@ -3250,6 +3250,7 @@ export type User = {
   parsleySettings: ParsleySettings;
   patches: Patches;
   permissions: Permissions;
+  settings: UserSettings;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   userId: Scalars["String"]["output"];
 };
@@ -6348,6 +6349,25 @@ export type ImageGeneralQuery = {
       finishTime?: Date | null;
       id: string;
     } | null;
+  } | null;
+};
+
+export type ImageOperatingSystemQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: OperatingSystemOpts;
+}>;
+
+export type ImageOperatingSystemQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    operatingSystem: {
+      __typename?: "ImageOperatingSystemPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{ __typename?: "OSInfo"; name: string; version: string }>;
+    };
   } | null;
 };
 
