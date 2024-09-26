@@ -6,6 +6,7 @@
     <table
       class="leafygreen-ui-1soynca"
       data-cy="task-duration-table"
+      data-lgid="lg-table"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -13,6 +14,7 @@
         <tr>
           <th
             class="leafygreen-ui-qxqi7i"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -54,10 +56,39 @@
                   </div>
                 </button>
               </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Task Name"
+                class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
           </th>
           <th
             class="leafygreen-ui-13j17tu"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -100,10 +131,39 @@
                   </div>
                 </button>
               </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Status"
+                class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
           </th>
           <th
             class="leafygreen-ui-fjoumq"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -145,10 +205,39 @@
                   </div>
                 </button>
               </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Build Variant"
+                class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
           </th>
           <th
             class="leafygreen-ui-1qsod8o"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -159,6 +248,7 @@
                 aria-disabled="false"
                 aria-label="Sort by Task Duration"
                 class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -166,8 +256,8 @@
                   class="leafygreen-ui-xhlipt"
                 >
                   <svg
-                    aria-label="Sort Descending Icon"
-                    class="leafygreen-ui-1t2jgtk"
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
                     fill="none"
                     height="16"
                     role="img"
@@ -176,7 +266,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M4.45 14.696a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.025h1.312V2.168a1.169 1.169 0 1 1 2.338 0v9.351H6.55c.541 0 .792.673.383 1.027L4.45 14.696ZM8 3a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H8ZM7 7a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1ZM8 9a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H8Z"
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
                       fill="currentColor"
                     />
                   </svg>
@@ -194,11 +284,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
           <td
             class="leafygreen-ui-1dmu2ot"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -210,6 +303,7 @@
                 aria-hidden="false"
                 aria-label="Expand row"
                 class="leafygreen-ui-v4n7tr"
+                data-lgid="lg-table-expand_button"
                 tabindex="0"
               >
                 <div
@@ -251,6 +345,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -258,7 +353,7 @@
               data-state="entered"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Failed
@@ -267,6 +362,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -278,6 +374,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -305,11 +402,14 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.0"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -331,13 +431,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-dhdzha"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Failed
@@ -346,6 +447,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -356,6 +458,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -382,11 +485,14 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.1"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -408,13 +514,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1ciuhbt"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -423,6 +530,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -433,6 +541,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -465,11 +574,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -492,6 +604,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -500,7 +613,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -511,6 +624,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -522,6 +636,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -555,11 +670,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-2"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -582,6 +700,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -590,7 +709,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -601,6 +720,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -612,6 +732,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -645,11 +766,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-3"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -672,6 +796,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -680,7 +805,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -691,6 +816,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -702,6 +828,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -735,11 +862,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-4"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -762,6 +892,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -770,7 +901,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -781,6 +912,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -792,6 +924,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -825,11 +958,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-5"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -852,6 +988,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -860,7 +997,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -871,6 +1008,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -882,6 +1020,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -915,11 +1054,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-6"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -942,6 +1084,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -950,7 +1093,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -961,6 +1104,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -972,6 +1116,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1005,11 +1150,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-7"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1032,6 +1180,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1040,7 +1189,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1051,6 +1200,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1062,6 +1212,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1095,11 +1246,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-8"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1122,6 +1276,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1130,7 +1285,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1141,6 +1296,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1152,6 +1308,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1185,11 +1342,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-9"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1212,6 +1372,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1220,7 +1381,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-c62i3c"
+                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1231,6 +1392,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1242,6 +1404,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div

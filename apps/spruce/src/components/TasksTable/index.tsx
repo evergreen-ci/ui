@@ -10,7 +10,7 @@ import {
   getColumnSearchFilterProps,
   getColumnTreeSelectFilterProps,
 } from "components/Table/Filters";
-import TaskStatusBadge from "components/TaskStatusBadge";
+import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { TreeSelectProps } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
 import { zIndex } from "constants/tokens";
@@ -175,7 +175,11 @@ const getColumnDefs = ({
           popoverZIndex={zIndex.tooltip}
           trigger={
             <span>
-              <TaskStatusBadge execution={execution} id={id} status={status} />
+              <TaskStatusBadgeWithLink
+                execution={execution}
+                id={id}
+                status={status}
+              />
             </span>
           }
         >
@@ -184,7 +188,11 @@ const getColumnDefs = ({
         </Tooltip>
       ) : (
         status && (
-          <TaskStatusBadge execution={execution} id={id} status={status} />
+          <TaskStatusBadgeWithLink
+            execution={execution}
+            id={id}
+            status={status}
+          />
         )
       ),
     ...(statusSelectorProps && {
@@ -210,7 +218,7 @@ const getColumnDefs = ({
     className: "cy-task-table-col-BASE_STATUS",
     render: (status: string, { baseTask }) =>
       status && (
-        <TaskStatusBadge
+        <TaskStatusBadgeWithLink
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           execution={baseTask.execution}
           // @ts-expect-error: FIXME. This comment was added by an automated script.

@@ -1,17 +1,13 @@
-import { useParams } from "react-router-dom";
+import { Suspense } from "react";
 import { PageWrapper } from "components/styles";
-import { slugs } from "constants/routes";
+import { WaterfallGrid } from "./WaterfallGrid";
 
-const Waterfall: React.FC = () => {
-  const { [slugs.projectIdentifier]: projectIdentifier } = useParams<{
-    [slugs.projectIdentifier]: string;
-  }>();
-
-  return (
-    <PageWrapper data-cy="waterfall-page">
-      Waterfall Page for {projectIdentifier}
-    </PageWrapper>
-  );
-};
+const Waterfall: React.FC = () => (
+  <PageWrapper data-cy="waterfall-page">
+    <Suspense fallback={<h3>Loading waterfall...</h3>}>
+      <WaterfallGrid />
+    </Suspense>
+  </PageWrapper>
+);
 
 export default Waterfall;
