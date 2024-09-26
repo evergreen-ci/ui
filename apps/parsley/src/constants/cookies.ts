@@ -12,3 +12,6 @@ export const HAS_OPENED_DRAWER = "has-opened-drawer";
 export const HAS_SEEN_SEARCHBAR_GUIDE_CUE = "has-seen-searchbar-guide-cue";
 
 export const LAST_SELECTED_LOG_TYPE = "last-selected-log-type";
+
+export const HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL =
+  "has-seen-sections-prod-feature-modal";

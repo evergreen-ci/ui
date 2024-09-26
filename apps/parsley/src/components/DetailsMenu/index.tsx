@@ -12,6 +12,7 @@ interface DetailsMenuProps {
   disabled?: boolean;
 }
 const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [lowerRange] = useQueryParam<undefined | number>(
     QueryParams.LowerRange,
     undefined,
@@ -46,6 +47,8 @@ const DetailsMenu: React.FC<DetailsMenuProps> = ({ disabled, ...rest }) => {
       buttonRef={buttonRef}
       buttonText="Details"
       disabled={disabled}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
       variant={changeVisible ? "primary" : "default"}
       {...rest}
     >
