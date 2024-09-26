@@ -225,7 +225,7 @@ describe("Host events", () => {
       // Apply filter.
       cy.dataCy("event-type-filter").click();
       cy.dataCy("event-type-filter-wrapper").should("be.visible");
-      cy.contains("HOST AGENT DEPLOYED").click();
+      cy.contains("Agent deployed").click();
       cy.dataCy("host-events-table-row").should("have.length", 2);
       cy.dataCy("event-type-filter").should(
         "have.attr",
@@ -235,7 +235,7 @@ describe("Host events", () => {
 
       // Remove filter.
       cy.dataCy("event-type-filter-wrapper").should("be.visible");
-      cy.contains("HOST AGENT DEPLOYED").click();
+      cy.contains("Agent deployed").click();
       cy.dataCy("host-events-table-row").should("not.have.length", 2);
       cy.dataCy("event-type-filter").should(
         "have.attr",
@@ -254,12 +254,12 @@ describe("Host events", () => {
         "true",
       );
       cy.dataCy("event-type-filter").click();
-      cy.getInputByLabel("HOST AGENT DEPLOYED").should(
+      cy.getInputByLabel("Agent deployed").should(
         "have.attr",
         "aria-checked",
         "true",
       );
-      cy.getInputByLabel("HOST AGENT DEPLOY FAILED").should(
+      cy.getInputByLabel("Agent deploy failed").should(
         "have.attr",
         "aria-checked",
         "true",

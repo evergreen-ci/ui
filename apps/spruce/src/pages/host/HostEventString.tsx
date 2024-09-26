@@ -1,4 +1,5 @@
 import Code from "@leafygreen-ui/code";
+import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { Accordion } from "components/Accordion";
 import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
@@ -268,3 +269,21 @@ export const HostEventLog: React.FC<{
     </span>
   </Accordion>
 );
+
+/**
+ * `formatHostFilterOption` formats a HostEventType enum to a string that is shown as
+ * a filter option in the dropdown.
+ * @param e - HostEventType to format
+ * @returns a string that satisfies the following:
+ * - HOST prefix is removed
+ * - underscores are replaced with spaces
+ * - adheres to sentence case
+ */
+export const formatHostFilterOption = (e: HostEventType): string => {
+  const option = e
+    .toString()
+    .replace(/HOST/, "")
+    .replace(/_/g, " ")
+    .trimStart();
+  return toSentenceCase(option).replace(/dns/i, "DNS");
+};

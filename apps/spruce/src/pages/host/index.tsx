@@ -37,11 +37,18 @@ const Host: React.FC = () => {
   const dispatchToast = useToastContext();
   const { [slugs.hostId]: hostId } = useParams();
 
-  // Query host data.
+  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
+    useState<boolean>(false);
+  const { limit, page } = usePagination();
+  const [eventTypes] = useQueryParam<HostEventType[]>(
+    HostQueryParams.EventType,
+    [],
+  );
+
   const {
     data: hostData,
     error,
-    loading: hostMetaDataLoading,
+    loading: hostMetadataLoading,
   } = useQuery<HostQuery, HostQueryVariables>(HOST, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: hostId },
@@ -50,6 +57,14 @@ const Host: React.FC = () => {
         `There was an error loading the host: ${err.message}`,
       );
     },
+  });
+
+  const { data: hostEventData, loading: hostEventLoading } = useQuery<
+    HostEventsQuery,
+    HostEventsQueryVariables
+  >(HOST_EVENTS, {
+    variables: { id: hostId ?? "", opts: { page, limit, eventTypes } },
+    skip: !hostId,
   });
 
   const host = hostData?.host;
@@ -63,25 +78,6 @@ const Host: React.FC = () => {
   const canRestartJasperOrReprovision =
     status === "running" &&
     (bootstrapMethod === "ssh" || bootstrapMethod === "user-data");
-
-  const { limit, page } = usePagination();
-  const [eventTypes] = useQueryParam<HostEventType[]>(
-    HostQueryParams.EventType,
-    [],
-  );
-
-  // UPDATE STATUS MODAL VISIBILITY STATE
-  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
-    useState<boolean>(false);
-
-  // Query host event data.
-  const { data: hostEventData, loading: hostEventLoading } = useQuery<
-    HostEventsQuery,
-    HostEventsQueryVariables
-  >(HOST_EVENTS, {
-    variables: { id: hostId ?? "", opts: { page, limit, eventTypes } },
-    skip: !hostId,
-  });
 
   const hostEvents = hostEventData?.host?.events;
   const hostEventLogEntries =
@@ -129,7 +125,7 @@ const Host: React.FC = () => {
                 </ButtonsWrapper>
               </div>
             }
-            loading={hostMetaDataLoading}
+            loading={hostMetadataLoading}
             pageTitle={`Host${hostId ? ` - ${hostId}` : ""}`}
             size="large"
             title={`Host: ${hostId}`}
@@ -140,7 +136,7 @@ const Host: React.FC = () => {
               <Metadata
                 error={error}
                 host={host}
-                loading={hostMetaDataLoading}
+                loading={hostMetadataLoading}
               />
               {sshAddress && (
                 <Code data-cy="ssh-command" language="shell">

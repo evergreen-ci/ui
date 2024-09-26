@@ -20,7 +20,10 @@ import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";
 import { useQueryParams } from "hooks/useQueryParam";
 import { HostCard } from "pages/host/HostCard";
-import { HostEventString } from "pages/host/HostEventString";
+import {
+  HostEventString,
+  formatHostFilterOption,
+} from "pages/host/HostEventString";
 import { HostQueryParams } from "./constants";
 
 type HostEvent = Unpacked<
@@ -78,7 +81,7 @@ export const HostTable: React.FC<HostTableProps> = ({
   const eventTypeFilterOptions = useMemo(
     () =>
       eventTypes.map((e) => ({
-        title: e.toString().replaceAll("_", " "),
+        title: formatHostFilterOption(e),
         value: e,
         key: e,
       })),
@@ -120,7 +123,7 @@ export const HostTable: React.FC<HostTableProps> = ({
   const table: LeafyGreenTable<HostEvent> = useLeafyGreenTable<HostEvent>({
     columns,
     containerRef: tableContainerRef,
-    data: hostEvents ?? [],
+    data: hostEvents,
     defaultColumn: {
       enableColumnFilter: false,
     },
