@@ -1,9 +1,10 @@
 import { LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip from "@leafygreen-ui/tooltip";
 import pluralize from "pluralize";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { StyledRouterLink } from "components/styles";
-import TaskStatusBadge from "components/TaskStatusBadge";
+import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { TreeDataEntry } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
 import { zIndex } from "constants/tokens";
@@ -70,7 +71,11 @@ export const getColumnsTemplate = ({
           popoverZIndex={zIndex.tooltip}
           trigger={
             <span>
-              <TaskStatusBadge execution={execution} id={id} status={status} />
+              <TaskStatusBadgeWithLink
+                execution={execution}
+                id={id}
+                status={status}
+              />
             </span>
           }
         >
@@ -79,7 +84,11 @@ export const getColumnsTemplate = ({
         </Tooltip>
       ) : (
         getValue() && (
-          <TaskStatusBadge execution={execution} id={id} status={status} />
+          <TaskStatusBadgeWithLink
+            execution={execution}
+            id={id}
+            status={status}
+          />
         )
       );
     },
@@ -102,12 +111,14 @@ export const getColumnsTemplate = ({
         original: { baseTask },
       },
     }) =>
-      getValue() && (
-        <TaskStatusBadge
+      baseTask ? (
+        <TaskStatusBadgeWithLink
           execution={baseTask?.execution}
           id={baseTask?.id}
           status={getValue() as string}
         />
+      ) : (
+        <TaskStatusBadge status={getValue() as string} />
       ),
     meta: {
       treeSelect: {
