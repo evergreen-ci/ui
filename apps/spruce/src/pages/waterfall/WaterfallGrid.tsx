@@ -42,12 +42,14 @@ export const WaterfallGrid: React.FC = () => {
     <Container>
       <Row>
         <BuildVariantTitle />
-        <Versions>
+        <Versions data-cy="version-labels">
           {data.waterfall.versions.map(({ version }) =>
             version ? (
               <VersionLabel key={version.id} {...version} />
             ) : (
-              <InactiveVersion>inactive</InactiveVersion>
+              <InactiveVersion data-cy="inactive-label">
+                inactive
+              </InactiveVersion>
             ),
           )}
         </Versions>
@@ -95,10 +97,10 @@ const BuildRow: React.FC<{
           {displayName}
         </StyledLink>
       </BuildVariantTitle>
-      <BuildGroup>
+      <BuildGroup data-cy="build-group">
         {versions.map(({ inactiveVersions, version }) => {
           if (inactiveVersions) {
-            return <InactiveVersion />;
+            return <InactiveVersion data-cy="inactive-column" />;
           }
           // The list of builds returned does not include a placeholder for inactive builds, so we need to check whether the build matches the version in the current column
           if (version && version.id === builds?.[buildIndex]?.version) {
