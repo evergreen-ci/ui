@@ -7,7 +7,7 @@ import { WaterfallGrid } from "./WaterfallGrid";
 
 const Waterfall: React.FC = () => (
   <>
-    {/* Safari performance of the waterfall chokes if using overflow-y: scroll, so we need to scroll the page to scroll instead.
+    {/* Safari performance of the waterfall chokes if using overflow-y: scroll, so we need the page to scroll instead.
     Update navbar layout to accomodate this. */}
     <Global
       styles={css`
