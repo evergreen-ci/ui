@@ -106,7 +106,7 @@ describe("image event log page", async () => {
     });
 
     const expectedEmptyMessage =
-      "No changes detected within the scope. The scope can be expanded upon request from the runtime environments team.";
+      "No changes detected within the scope. The scope can be expanded upon request to the Runtime Environments team.";
 
     const cards = screen.getAllByDataCy("image-event-log-card");
     expect(
