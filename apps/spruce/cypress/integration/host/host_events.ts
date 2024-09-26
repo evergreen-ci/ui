@@ -225,7 +225,7 @@ describe("Host events", () => {
       // Apply filter.
       cy.dataCy("event-type-filter").click();
       cy.dataCy("event-type-filter-wrapper").should("be.visible");
-      cy.contains("Agent deployed").click();
+      cy.getInputByLabel("Agent deployed").check({ force: true });
       cy.dataCy("host-events-table-row").should("have.length", 2);
       cy.dataCy("event-type-filter").should(
         "have.attr",
@@ -235,7 +235,7 @@ describe("Host events", () => {
 
       // Remove filter.
       cy.dataCy("event-type-filter-wrapper").should("be.visible");
-      cy.contains("Agent deployed").click();
+      cy.getInputByLabel("Agent deployed").uncheck({ force: true });
       cy.dataCy("host-events-table-row").should("not.have.length", 2);
       cy.dataCy("event-type-filter").should(
         "have.attr",
