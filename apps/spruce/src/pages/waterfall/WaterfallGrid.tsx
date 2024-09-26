@@ -1,11 +1,13 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Link, useParams } from "react-router-dom";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { getTaskRoute, slugs } from "constants/routes";
+import { useWaterfallAnalytics } from "analytics";
+import { StyledLink } from "components/styles";
+import { getTaskRoute, getVariantHistoryRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import {
   WaterfallBuild,
@@ -51,7 +53,12 @@ export const WaterfallGrid: React.FC = () => {
         </Versions>
       </Row>
       {data.waterfall.buildVariants.map((b) => (
-        <BuildRow key={b.id} build={b} versions={data.waterfall.versions} />
+        <BuildRow
+          key={b.id}
+          build={b}
+          projectIdentifier={projectIdentifier ?? ""}
+          versions={data.waterfall.versions}
+        />
       ))}
     </Container>
   );
@@ -59,22 +66,51 @@ export const WaterfallGrid: React.FC = () => {
 
 const BuildRow: React.FC<{
   build: WaterfallBuildVariant;
+  projectIdentifier: string;
   versions: WaterfallQuery["waterfall"]["versions"];
-}> = ({ build, versions }) => {
+}> = ({ build, projectIdentifier, versions }) => {
+  const { sendEvent } = useWaterfallAnalytics();
+  const handleVariantClick = useCallback(
+    () => sendEvent({ name: "Clicked variant label" }),
+    [sendEvent],
+  );
+  const handleTaskClick = useCallback(
+    (status: string) => () =>
+      sendEvent({
+        name: "Clicked task box",
+        "task.status": status,
+      }),
+    [sendEvent],
+  );
+
   const { builds, displayName } = build;
   let buildIndex = 0;
   return (
     <Row>
-      <BuildVariantTitle>{displayName}</BuildVariantTitle>
+      <BuildVariantTitle>
+        <StyledLink
+          href={getVariantHistoryRoute(projectIdentifier, build.id)}
+          onClick={handleVariantClick}
+        >
+          {displayName}
+        </StyledLink>
+      </BuildVariantTitle>
       <BuildGroup>
         {versions.map(({ inactiveVersions, version }) => {
           if (inactiveVersions) {
             return <InactiveVersion />;
           }
+          // The list of builds returned does not include a placeholder for inactive builds, so we need to check whether the build matches the version in the current column
           if (version && version.id === builds?.[buildIndex]?.version) {
             const b = builds[buildIndex];
             buildIndex += 1;
-            return <BuildGrid key={b.id} build={b} />;
+            return (
+              <BuildGrid
+                key={b.id}
+                build={b}
+                handleTaskClick={handleTaskClick}
+              />
+            );
           }
           return <Build />;
         })}
@@ -85,12 +121,14 @@ const BuildRow: React.FC<{
 
 const BuildGrid: React.FC<{
   build: WaterfallBuild;
-}> = ({ build }) => (
+  handleTaskClick: (s: string) => () => void;
+}> = ({ build, handleTaskClick }) => (
   <Build>
     {build.tasks.map(({ displayName, id, status }) => (
       <SquareMemo
         key={id}
         data-tooltip={displayName}
+        onClick={handleTaskClick(status)}
         status={status}
         to={getTaskRoute(id)}
       />

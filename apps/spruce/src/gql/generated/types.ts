@@ -3250,6 +3250,7 @@ export type User = {
   parsleySettings: ParsleySettings;
   patches: Patches;
   permissions: Permissions;
+  settings: UserSettings;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   userId: Scalars["String"]["output"];
 };
@@ -9492,7 +9493,6 @@ export type WaterfallQuery = {
       id: string;
       builds: Array<{
         __typename?: "WaterfallBuild";
-        activated?: boolean | null;
         displayName: string;
         id: string;
         version: string;
@@ -9509,7 +9509,6 @@ export type WaterfallQuery = {
       inactiveVersions?: Array<{ __typename?: "Version"; id: string }> | null;
       version?: {
         __typename?: "Version";
-        activated?: boolean | null;
         author: string;
         createTime: Date;
         id: string;
