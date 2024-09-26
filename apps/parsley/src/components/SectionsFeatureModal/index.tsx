@@ -20,7 +20,7 @@ const SectionsFeatureModal = () => {
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
-    Cookies.set(HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL, "true");
+    Cookies.set(HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL, "true", { expires: 365 });
   }, [setIsOpen]);
 
   return isViewingTaskLog ? (
