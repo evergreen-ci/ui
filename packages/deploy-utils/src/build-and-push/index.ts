@@ -8,7 +8,7 @@ import { pushToS3 } from "../utils/s3";
  * @param bucket - bucket to push to
  */
 export const buildAndPush = (bucket: string) => {
-  execSync(`yarn build`, { stdio: "inherit" });
+  execSync("yarn build", { stdio: "inherit" });
 
   const currentCommit = getCurrentCommit();
   writeFileSync("dist/commit.txt", currentCommit);
