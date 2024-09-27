@@ -50,7 +50,7 @@ const SectionsFeatureModal = () => {
     >
       <p>
         Parsley now officially supports sectioning for <b>task logs!</b> This
-        feature has been automatically enabled and can be disabled it at any
+        feature has been automatically enabled and can be disabled at any
         time in the Details menu.
       </p>
       <p>For feedback and questions go to #ask-devprod-evergreen.</p>
