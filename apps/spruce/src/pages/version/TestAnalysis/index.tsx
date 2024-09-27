@@ -16,7 +16,7 @@ import {
   TestAnalysisQueryVariables,
 } from "gql/generated/types";
 import { TEST_ANALYSIS } from "gql/queries";
-import TestAnalysisTable from "./TestAnalysisTable";
+import FailedTestGroup from "./FailedTestGroup";
 import {
   countTotalTests,
   filterGroupedTests,
@@ -170,7 +170,11 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               )}
             </FilterSubheaderContainer>
           )}
-          <TestAnalysisTable tasks={groupedTestsMapEntries} />
+          {groupedTestsMapEntries.map(([test, tasks]) => (
+            <SpacedDiv key={test}>
+              <FailedTestGroup tasks={tasks} testName={test} />
+            </SpacedDiv>
+          ))}
           {!hasMatchingResults && (
             <BasicEmptyState
               description="For additional analytics on tests please visit Honeycomb"
@@ -199,6 +203,9 @@ const FilterContainer = styled.div`
   > * {
     width: 30%;
   }
+`;
+const SpacedDiv = styled.div`
+  margin-top: ${size.s};
 `;
 
 const Title = styled(H3)<H3Props>`

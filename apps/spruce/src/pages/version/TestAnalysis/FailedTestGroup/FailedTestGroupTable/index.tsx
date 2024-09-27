@@ -50,9 +50,7 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
     header: "Failure Type",
     accessorKey: "status",
     cell: ({ getValue }) => (
-      <div>
-        <TaskStatusBadge status={getValue() as TaskStatus} />
-      </div>
+      <TaskStatusBadge status={getValue() as TaskStatus} />
     ),
   },
   {
