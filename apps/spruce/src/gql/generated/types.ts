@@ -3250,6 +3250,7 @@ export type User = {
   parsleySettings: ParsleySettings;
   patches: Patches;
   permissions: Permissions;
+  settings: UserSettings;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   userId: Scalars["String"]["output"];
 };
