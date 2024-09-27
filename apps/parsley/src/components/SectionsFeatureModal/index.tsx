@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
 import Cookies from "js-cookie";
@@ -18,10 +18,10 @@ const SectionsFeatureModal = () => {
     Cookies.get(HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL) !== "true",
   );
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setIsOpen(false);
     Cookies.set(HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL, "true", { expires: 365 });
-  }, [setIsOpen]);
+  };
 
   return isViewingTaskLog ? (
     <StyledMarketingModal
