@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { H2, H2Props, H3, H3Props } from "@leafygreen-ui/typography";
+import pluralize from "pluralize";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
@@ -90,12 +91,18 @@ const TaskQueue = () => {
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           buttonRenderer={(option: TaskQueueDistro) => (
             <DistroLabel>
-              <StyledBadge>{`${option?.taskCount || 0} ${
-                option?.taskCount === 1 ? "TASK" : "TASKS"
-              }`}</StyledBadge>
-              <StyledBadge>{`${option?.hostCount || 0} ${
-                option?.hostCount === 1 ? "HOST" : "HOSTS"
-              }`}</StyledBadge>
+              {loadingDistrosData || !selectedDistro ? (
+                <StyledBadge>Loading...</StyledBadge>
+              ) : (
+                <>
+                  <StyledBadge>
+                    {pluralize("task", option?.taskCount ?? 0, true)}
+                  </StyledBadge>
+                  <StyledBadge>
+                    {pluralize("host", option?.hostCount ?? 0, true)}
+                  </StyledBadge>
+                </>
+              )}
               <DistroName> {option?.id} </DistroName>
             </DistroLabel>
           )}
