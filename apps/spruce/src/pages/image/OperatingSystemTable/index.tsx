@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -50,20 +50,11 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
     },
   });
 
-  const operatingSystemInfo = useMemo(
-    () => osData?.image?.operatingSystem.data ?? [],
-    [osData?.image?.operatingSystem.data],
-  );
+  const operatingSystemInfo = osData?.image?.operatingSystem.data ?? [];
 
-  const numTotalItems = useMemo(
-    () =>
-      osData?.image?.operatingSystem.filteredCount ??
-      osData?.image?.operatingSystem.totalCount,
-    [
-      osData?.image?.operatingSystem.filteredCount,
-      osData?.image?.operatingSystem.totalCount,
-    ],
-  );
+  const numTotalItems =
+    osData?.image?.operatingSystem.filteredCount ??
+    osData?.image?.operatingSystem.totalCount;
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<OsInfo>({

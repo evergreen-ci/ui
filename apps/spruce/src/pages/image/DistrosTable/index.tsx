@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -40,15 +40,12 @@ export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
     },
   });
 
-  const distros = useMemo(
-    () => imageData?.image?.distros ?? [],
-    [imageData?.image?.distros],
-  );
+  const distros = imageData?.image?.distros ?? [];
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Distro>({
     columns,
-    data: distros ?? [],
+    data: distros,
     containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,

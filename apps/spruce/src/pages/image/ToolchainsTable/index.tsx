@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -51,10 +51,7 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
     },
   });
 
-  const toolchains = useMemo(
-    () => imageData?.image?.toolchains?.data ?? [],
-    [imageData?.image?.toolchains?.data],
-  );
+  const toolchains = imageData?.image?.toolchains?.data ?? [];
 
   const numTotalItems =
     imageData?.image?.toolchains?.filteredCount ??
