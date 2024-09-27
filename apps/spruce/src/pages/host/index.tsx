@@ -15,6 +15,7 @@ import {
   PageLayout,
   PageContent,
 } from "components/styles";
+import { ALL_VALUE } from "components/TreeSelect";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -63,7 +64,14 @@ const Host: React.FC = () => {
     HostEventsQuery,
     HostEventsQueryVariables
   >(HOST_EVENTS, {
-    variables: { id: hostId ?? "", opts: { page, limit, eventTypes } },
+    variables: {
+      id: hostId ?? "",
+      opts: {
+        page,
+        limit,
+        eventTypes: eventTypes.filter((e) => e.toString() !== ALL_VALUE),
+      },
+    },
     skip: !hostId,
   });
 

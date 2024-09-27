@@ -14,6 +14,7 @@ import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
+import { ALL_VALUE } from "components/TreeSelect";
 import { size } from "constants/tokens";
 import { HostEventsQuery, HostEventType } from "gql/generated/types";
 import { useDateFormat } from "hooks";
@@ -79,12 +80,18 @@ export const HostTable: React.FC<HostTableProps> = ({
   };
 
   const eventTypeFilterOptions = useMemo(
-    () =>
-      eventTypes.map((e) => ({
+    () => [
+      {
+        title: "All",
+        key: ALL_VALUE,
+        value: ALL_VALUE,
+      },
+      ...eventTypes.map((e) => ({
         title: formatHostFilterOption(e),
         value: e,
         key: e,
       })),
+    ],
     [eventTypes],
   );
 
