@@ -42,14 +42,8 @@ results.
 
 ### Environment Variables
 
-[env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure
-build environments for production, staging and development. We use two files to
-represent these various environments: `.env-cmdrc.local.json` for local builds
-with non-sensitive information, and `.env-cmdrc.json` for builds deployed to S3.
-This file is git ignored because it contains API keys that we do not want to
-publish. It should be named `.env-cmdrc.json` and placed in the root of the
-project. This file is required to deploy Spruce to production and to staging.
-The credential file is located in the R&D Dev Prod 1Password vault.
+Read more about environment variables [here](../../packages/deploy-utils/README.md#environment-variables).
+
 
 ## GraphQL Type Generation
 
@@ -226,23 +220,4 @@ following:
 
 ## Deployment
 
-### Requirements
-
-You must be on the `main` branch if deploying to prod.
-
-An `.env-cmdrc.json` file is required to deploy because it sets the environment
-variables that the application needs in production and staging environments. See
-[Environment Variables](#environment-variables) section for more info about this
-file.
-
-### How to Deploy:
-
-Run one of the following commands to deploy to the appropriate environment
-
-1. `yarn deploy:prod` = deploy to https://spruce.mongodb.com
-2. `yarn deploy:staging` = deploy to https://spruce-staging.corp.mongodb.com
-3. `yarn deploy:beta` = deploy to https://spruce-beta.corp.mongodb.com (Beta
-   connects to the production backend)
-
-In case of emergency (i.e. Evergreen, GitHub, or other systems are down), a
-production build can be pushed directly to S3 with `yarn deploy:prod --force`.
+Read more about deployment [here](../../packages/deploy-utils/README.md#deployment).
