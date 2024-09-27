@@ -96,6 +96,9 @@ export const HostTable: React.FC<HostTableProps> = ({
         header: "Date",
         accessorKey: "timestamp",
         cell: ({ getValue }) => getDateCopy(getValue() as Date),
+        meta: {
+          width: "25%",
+        },
       },
       {
         header: "Event",
@@ -135,9 +138,7 @@ export const HostTable: React.FC<HostTableProps> = ({
     },
     onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
       setColumnFilters,
-      (updatedState) => {
-        updateFilters(updatedState);
-      },
+      (updatedState) => updateFilters(updatedState),
     ),
     manualPagination: true,
   });
