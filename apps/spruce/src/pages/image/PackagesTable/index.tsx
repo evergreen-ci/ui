@@ -40,7 +40,7 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
           ?.value as string,
       },
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error loading image packages: ${err.message}`,
       );

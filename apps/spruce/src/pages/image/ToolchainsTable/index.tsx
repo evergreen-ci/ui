@@ -44,7 +44,7 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
             ?.value as string) ?? undefined,
       },
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error loading image toolchains: ${err.message}`,
       );

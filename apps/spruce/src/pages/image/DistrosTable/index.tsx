@@ -33,7 +33,7 @@ export const DistrosTable: React.FC<DistrosTableProps> = ({ imageId }) => {
     ImageDistrosQueryVariables
   >(IMAGE_DISTROS, {
     variables: { imageId },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error loading image distros: ${err.message}`,
       );

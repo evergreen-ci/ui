@@ -15,6 +15,7 @@ import {
   ImageOperatingSystemQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_OPERATING_SYSTEM } from "gql/queries";
+import { linkifyString } from "utils/string";
 
 type OperatingSystemTableProps = {
   imageId: string;
@@ -43,7 +44,7 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
           ?.value as string,
       },
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error loading operating system information: ${err.message}`,
       );
@@ -103,6 +104,7 @@ const columns: LGColumnDef<OsInfo>[] = [
   {
     header: "Version",
     accessorKey: "version",
-    cell: ({ getValue }) => (getValue() as string).replace(/"/g, ""),
+    cell: ({ getValue }) =>
+      linkifyString((getValue() as string).replace(/"/g, "")),
   },
 ];
