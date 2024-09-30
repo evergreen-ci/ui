@@ -2,7 +2,7 @@ import { useState } from "react";
 import Banner, { Variant } from "@leafygreen-ui/banner";
 import Cookies from "js-cookie";
 import { useSpruceConfig } from "hooks";
-import { jiraLinkify } from "utils/string/jiraLinkify";
+import { jiraLinkify } from "utils/string";
 
 export interface SiteBannerProps {
   text: string;

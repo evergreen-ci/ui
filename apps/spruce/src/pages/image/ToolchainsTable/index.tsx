@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -44,17 +44,14 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
             ?.value as string) ?? undefined,
       },
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error loading image toolchains: ${err.message}`,
       );
     },
   });
 
-  const toolchains = useMemo(
-    () => imageData?.image?.toolchains?.data ?? [],
-    [imageData?.image?.toolchains?.data],
-  );
+  const toolchains = imageData?.image?.toolchains?.data ?? [];
 
   const numTotalItems =
     imageData?.image?.toolchains?.filteredCount ??

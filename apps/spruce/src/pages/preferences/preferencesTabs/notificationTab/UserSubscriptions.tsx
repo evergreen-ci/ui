@@ -35,7 +35,7 @@ import {
   NotificationMethods,
   notificationMethodToCopy,
 } from "types/subscription";
-import { jiraLinkify } from "utils/string/jiraLinkify";
+import { jiraLinkify } from "utils/string";
 import { ClearSubscriptions } from "./ClearSubscriptions";
 import { useSubscriptionData } from "./useSubscriptionData";
 import { getResourceRoute } from "./utils";
