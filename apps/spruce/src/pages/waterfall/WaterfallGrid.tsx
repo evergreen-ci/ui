@@ -37,11 +37,14 @@ export const WaterfallGrid: React.FC = () => {
       <Row>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
-          {data.waterfall.versions.map(({ version }) =>
+          {data.waterfall.versions.map(({ inactiveVersions, version }, i) =>
             version ? (
               <VersionLabel key={version.id} {...version} />
             ) : (
-              <InactiveVersion data-cy="inactive-label">
+              <InactiveVersion
+                key={`${inactiveVersions?.[0]?.id}-${i}`} // eslint-disable-line react/no-array-index-key
+                data-cy="inactive-label"
+              >
                 inactive
               </InactiveVersion>
             ),

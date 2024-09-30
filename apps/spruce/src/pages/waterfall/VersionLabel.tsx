@@ -3,7 +3,7 @@ import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useWaterfallAnalytics } from "analytics";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink, wordBreakCss } from "components/styles";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { WaterfallQuery } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
@@ -98,7 +98,7 @@ const VersionContainer = styled.div`
   }
 
   p {
-    word-break: break-word;
+    ${wordBreakCss}
   }
 `;
 

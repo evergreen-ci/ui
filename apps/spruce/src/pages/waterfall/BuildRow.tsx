@@ -54,10 +54,16 @@ export const BuildRow: React.FC<{
       </BuildVariantTitle>
       <BuildGroup data-cy="build-group">
         {versions.map(({ inactiveVersions, version }) => {
-          if (inactiveVersions) {
-            return <InactiveVersion data-cy="inactive-column" />;
+          if (inactiveVersions?.length) {
+            return (
+              <InactiveVersion
+                key={inactiveVersions[0].id}
+                data-cy="inactive-column"
+              />
+            );
           }
-          // The list of builds returned does not include a placeholder for inactive builds, so we need to check whether the build matches the version in the current column
+          /* The list of builds returned does not include a placeholder for inactive builds, so we need to check whether the build matches the version in the current column.
+        Builds are sorted in descending revision order and so match the versions' sort order. */
           if (version && version.id === builds?.[buildIndex]?.version) {
             const b = builds[buildIndex];
             buildIndex += 1;
@@ -69,7 +75,7 @@ export const BuildRow: React.FC<{
               />
             );
           }
-          return <Build />;
+          return <Build key={version?.id} />;
         })}
       </BuildGroup>
     </Row>

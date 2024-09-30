@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { wordBreakCss } from "components/styles";
 import { size } from "constants/tokens";
 
 const BUILD_VARIANT_WIDTH = 200;
@@ -14,9 +15,9 @@ export const gridGroupCss = css`
 `;
 
 export const BuildVariantTitle = styled.div`
+  ${wordBreakCss}
   flex-grow: 0;
   flex-shrink: 0;
-  word-break: break-word;
   width: ${BUILD_VARIANT_WIDTH}px;
 `;
 
