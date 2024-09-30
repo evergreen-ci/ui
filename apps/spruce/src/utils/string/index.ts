@@ -2,7 +2,7 @@ import { format, toZonedTime } from "date-fns-tz";
 import get from "lodash/get";
 import { TimeFormat } from "constants/fieldMaps";
 
-export { linkifyString, githubPRLinkify, jiraLinkify } from "./Linkify";
+export { githubPRLinkify, jiraLinkify } from "./Linkify";
 
 /**
  * `msToDuration` converts a number of milliseconds to a string representing the duration

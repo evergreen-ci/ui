@@ -30,11 +30,4 @@ const jiraLinkify = (
     </StyledLink>
   ));
 
-const linkifyString = (unlinkified: string) =>
-  reactStringReplace(unlinkified, /(https:\/\/.*)/g, (match, i) => (
-    <StyledLink key={`${match}${i}`} href={match} target="__blank">
-      {match}
-    </StyledLink>
-  ));
-
-export { githubPRLinkify, jiraLinkify, linkifyString };
+export { githubPRLinkify, jiraLinkify };

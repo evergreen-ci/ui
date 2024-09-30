@@ -15,7 +15,6 @@ import {
   ImageOperatingSystemQueryVariables,
 } from "gql/generated/types";
 import { IMAGE_OPERATING_SYSTEM } from "gql/queries";
-import { linkifyString } from "utils/string";
 
 type OperatingSystemTableProps = {
   imageId: string;
@@ -104,7 +103,6 @@ const columns: LGColumnDef<OsInfo>[] = [
   {
     header: "Version",
     accessorKey: "version",
-    cell: ({ getValue }) =>
-      linkifyString((getValue() as string).replace(/"/g, "")),
+    cell: ({ getValue }) => (getValue() as string).replace(/"/g, ""),
   },
 ];

@@ -1,5 +1,5 @@
 import { render, screen } from "@evg-ui/lib/test_utils";
-import { githubPRLinkify, jiraLinkify, linkifyString } from "./Linkify";
+import { githubPRLinkify, jiraLinkify } from "./Linkify";
 
 describe("githubPRLinkify", () => {
   it("linkifies a GitHub pull request link", () => {
@@ -25,18 +25,6 @@ describe("jiraLinkify", () => {
 
   it("does not linkify if not a JIRA ticket", () => {
     render(<span>{jiraLinkify("devprod-1234", "jira")}</span>);
-    expect(screen.queryByRole("link")).not.toBeInTheDocument();
-  });
-});
-
-describe("linkifyString", () => {
-  it("linkifies if https", () => {
-    render(<span>{linkifyString("https://github.com/")}</span>);
-    expect(screen.getByRole("link")).toBeInTheDocument();
-  });
-
-  it("does not linkify if http", () => {
-    render(<span>{linkifyString("http://github.com/")}</span>);
     expect(screen.queryByRole("link")).not.toBeInTheDocument();
   });
 });
