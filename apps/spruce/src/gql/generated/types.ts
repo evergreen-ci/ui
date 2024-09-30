@@ -6159,45 +6159,48 @@ export type HasVersionQuery = { __typename?: "Query"; hasVersion: boolean };
 
 export type HostEventsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
-  tag: Scalars["String"]["input"];
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
+  opts: HostEventsInput;
 }>;
 
 export type HostEventsQuery = {
   __typename?: "Query";
-  hostEvents: {
-    __typename?: "HostEvents";
-    count: number;
-    eventLogEntries: Array<{
-      __typename?: "HostEventLogEntry";
-      eventType?: HostEventType | null;
-      id: string;
-      processedAt: Date;
-      resourceId: string;
-      resourceType: string;
-      timestamp?: Date | null;
-      data: {
-        __typename?: "HostEventLogData";
-        agentBuild: string;
-        agentRevision: string;
-        duration: number;
-        execution: string;
-        hostname: string;
-        jasperRevision: string;
-        logs: string;
-        monitorOp: string;
-        newStatus: string;
-        oldStatus: string;
-        provisioningMethod: string;
-        successful: boolean;
-        taskId: string;
-        taskPid: string;
-        taskStatus: string;
-        user: string;
-      };
-    }>;
-  };
+  host?: {
+    __typename?: "Host";
+    eventTypes: Array<HostEventType>;
+    id: string;
+    events: {
+      __typename?: "HostEvents";
+      count: number;
+      eventLogEntries: Array<{
+        __typename?: "HostEventLogEntry";
+        eventType?: HostEventType | null;
+        id: string;
+        processedAt: Date;
+        resourceId: string;
+        resourceType: string;
+        timestamp?: Date | null;
+        data: {
+          __typename?: "HostEventLogData";
+          agentBuild: string;
+          agentRevision: string;
+          duration: number;
+          execution: string;
+          hostname: string;
+          jasperRevision: string;
+          logs: string;
+          monitorOp: string;
+          newStatus: string;
+          oldStatus: string;
+          provisioningMethod: string;
+          successful: boolean;
+          taskId: string;
+          taskPid: string;
+          taskStatus: string;
+          user: string;
+        };
+      }>;
+    };
+  } | null;
 };
 
 export type HostQueryVariables = Exact<{

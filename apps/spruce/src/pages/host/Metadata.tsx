@@ -18,7 +18,7 @@ const { gray } = palette;
 export const Metadata: React.FC<{
   loading: boolean;
   host: HostQuery["host"];
-  error: ApolloError;
+  error: ApolloError | undefined;
 }> = ({ error, host, loading }) => {
   const {
     ami,
