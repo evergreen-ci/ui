@@ -6355,6 +6355,25 @@ export type ImageGeneralQuery = {
   } | null;
 };
 
+export type ImageOperatingSystemQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: OperatingSystemOpts;
+}>;
+
+export type ImageOperatingSystemQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    operatingSystem: {
+      __typename?: "ImageOperatingSystemPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{ __typename?: "OSInfo"; name: string; version: string }>;
+    };
+  } | null;
+};
+
 export type ImagePackagesQueryVariables = Exact<{
   imageId: Scalars["String"]["input"];
   opts: PackageOpts;

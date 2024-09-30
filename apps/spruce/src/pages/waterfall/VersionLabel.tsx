@@ -7,8 +7,7 @@ import { StyledRouterLink, wordBreakCss } from "components/styles";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { WaterfallQuery } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
-import { shortenGithash } from "utils/string";
-import { jiraLinkify } from "utils/string/jiraLinkify";
+import { shortenGithash, jiraLinkify } from "utils/string";
 import { columnBasis } from "./styles";
 
 type VersionFields = NonNullable<
