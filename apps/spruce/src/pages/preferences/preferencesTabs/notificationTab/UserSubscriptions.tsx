@@ -35,7 +35,7 @@ import {
   NotificationMethods,
   notificationMethodToCopy,
 } from "types/subscription";
-import { jiraLinkify } from "utils/string/jiraLinkify";
+import { jiraLinkify } from "utils/string";
 import { ClearSubscriptions } from "./ClearSubscriptions";
 import { useSubscriptionData } from "./useSubscriptionData";
 import { getResourceRoute } from "./utils";
@@ -228,24 +228,24 @@ const SubscriptionsTable: React.FC<{
         </Button>
         <PaginationWrapper>
           <Pagination
-            itemsPerPage={table.getState().pagination.pageSize}
-            onItemsPerPageOptionChange={(value: string) => {
-              table.setPageSize(Number(value));
-            }}
-            numTotalItems={subscriptions.length}
             currentPage={table.getState().pagination.pageIndex + 1}
+            itemsPerPage={table.getState().pagination.pageSize}
+            numTotalItems={subscriptions.length}
+            onBackArrowClick={() => table.previousPage()}
             onCurrentPageOptionChange={(value: string) => {
               table.setPageIndex(Number(value) - 1);
             }}
-            onBackArrowClick={() => table.previousPage()}
             onForwardArrowClick={() => table.nextPage()}
+            onItemsPerPageOptionChange={(value: string) => {
+              table.setPageSize(Number(value));
+            }}
           />
         </PaginationWrapper>
       </InteractiveWrapper>
       <BaseTable
         data-cy-row="subscription-row"
-        table={table}
         shouldAlternateRowColor
+        table={table}
       />
       <TableFooter>
         <ClearSubscriptions />

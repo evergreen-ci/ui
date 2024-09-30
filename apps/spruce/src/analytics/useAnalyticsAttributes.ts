@@ -2,15 +2,16 @@ import { useEffect } from "react";
 
 export const useAnalyticsAttributes = () => {
   const userId = localStorage.getItem("userId");
-  const { newrelic } = window;
+  const { AttributeStore } = window;
 
   useEffect(() => {
-    if (typeof newrelic !== "object") {
-      console.log("Setting userId: ", userId);
+    if (!AttributeStore) {
+      console.error("AttributeStore not found in window object");
       return;
     }
     if (userId !== null) {
-      newrelic.setCustomAttribute("userId", userId);
+      AttributeStore.setGlobalAttribute("user.id", userId);
     }
-  }, [userId, newrelic]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 };

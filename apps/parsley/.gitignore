@@ -6,9 +6,8 @@ cypress/screenshots/
 /src/**/*.css
 build.txt
 build.txt-e
+vite.config.ts.timestamp-*
 
-#env variables
-.env-cmdrc.json
 
 # misc
 .DS_Store

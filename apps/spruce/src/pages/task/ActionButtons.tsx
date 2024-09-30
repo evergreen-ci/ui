@@ -3,14 +3,13 @@ import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { useParams } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
-import { commitQueueRequester } from "constants/requesters";
 import { getTaskHistoryRoute, slugs } from "constants/routes";
-import { mergeTaskName } from "constants/task";
 import { useToastContext } from "context/toast";
 import {
   SetTaskPriorityMutation,
@@ -37,7 +36,6 @@ import {
 } from "gql/mutations";
 import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { useQueryParam } from "hooks/useQueryParam";
-import { TaskStatus } from "types/task";
 import { RelevantCommits } from "./actionButtons/RelevantCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
@@ -66,13 +64,11 @@ export const ActionButtons: React.FC<Props> = ({
     displayName,
     executionTasksFull,
     project,
-    requester,
     versionMetadata,
   } = task || {};
 
   const { id: versionId, isPatch, order } = versionMetadata || {};
   const { identifier: projectIdentifier } = project || {};
-  const isPatchOnCommitQueue = requester === commitQueueRequester;
   const allExecutionTasksSucceeded =
     executionTasksFull?.every((t) => t.status === TaskStatus.Succeeded) ??
     false;
@@ -200,8 +196,8 @@ export const ActionButtons: React.FC<Props> = ({
   const dropdownItems = [
     <DropdownItem
       key="unschedule"
-      disabled={disabled || !canUnschedule}
       data-cy="unschedule-task"
+      disabled={disabled || !canUnschedule}
       onClick={() => {
         unscheduleTask();
         taskAnalytics.sendEvent({ name: "Clicked unschedule task button" });
@@ -241,9 +237,9 @@ export const ActionButtons: React.FC<Props> = ({
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     <SetPriority
       key="set-task-priority"
-      taskId={taskId}
       disabled={disabled || !canSetPriority}
       initialPriority={initialPriority}
+      taskId={taskId}
     />,
     <DropdownItem
       key="override-dependencies"
@@ -265,29 +261,28 @@ export const ActionButtons: React.FC<Props> = ({
           <>
             <RelevantCommits task={task} />
             <Button
-              size="small"
-              data-cy="task-history"
               key="task-history"
+              as={HistoryLink}
+              data-cy="task-history"
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Clicked see history link" });
               }}
-              as={HistoryLink}
-              disabled={displayName === mergeTaskName}
+              size="small"
             >
               See history
             </Button>
           </>
         )}
         <LoadingButton
-          size="small"
-          data-cy="schedule-task"
           key="schedule"
-          disabled={disabled || !canSchedule || isPatchOnCommitQueue}
+          data-cy="schedule-task"
+          disabled={disabled || !canSchedule}
           loading={loadingScheduleTask}
           onClick={() => {
             scheduleTask();
             taskAnalytics.sendEvent({ name: "Clicked schedule task button" });
           }}
+          size="small"
         >
           Schedule
         </LoadingButton>
@@ -295,10 +290,10 @@ export const ActionButtons: React.FC<Props> = ({
           <Menu
             trigger={
               <LoadingButton
-                size="small"
                 data-cy="restart-task"
-                disabled={disabled || !canRestart || isPatchOnCommitQueue}
+                disabled={disabled || !canRestart}
                 loading={loadingRestartTask}
+                size="small"
               >
                 Restart
               </LoadingButton>
@@ -311,7 +306,7 @@ export const ActionButtons: React.FC<Props> = ({
                 taskAnalytics.sendEvent({
                   name: "Clicked restart task button",
                   allTasks: true,
-                  isDisplayTask: true,
+                  "task.is_display_task": true,
                 });
               }}
             >
@@ -324,7 +319,7 @@ export const ActionButtons: React.FC<Props> = ({
                 taskAnalytics.sendEvent({
                   name: "Clicked restart task button",
                   allTasks: false,
-                  isDisplayTask: true,
+                  "task.is_display_task": true,
                 });
               }}
             >
@@ -333,32 +328,32 @@ export const ActionButtons: React.FC<Props> = ({
           </Menu>
         ) : (
           <LoadingButton
-            size="small"
-            data-cy="restart-task"
             key="restart"
-            disabled={disabled || !canRestart || isPatchOnCommitQueue}
+            data-cy="restart-task"
+            disabled={disabled || !canRestart}
             loading={loadingRestartTask}
             onClick={() => {
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               restartTask({ variables: { taskId, failedOnly: false } });
               taskAnalytics.sendEvent({
                 name: "Clicked restart task button",
-                isDisplayTask: false,
+                "task.is_display_task": false,
               });
             }}
+            size="small"
           >
             Restart
           </LoadingButton>
         )}
         <Button
-          size="small"
-          data-cy="notify-task"
           key="notifications"
+          data-cy="notify-task"
           disabled={disabled}
           onClick={() => {
             taskAnalytics.sendEvent({ name: "Viewed notification modal" });
             setIsVisibleModal(true);
           }}
+          size="small"
         >
           Notify me
         </Button>
@@ -371,8 +366,8 @@ export const ActionButtons: React.FC<Props> = ({
         />
       </PageButtonRow>
       <TaskNotificationModal
-        visible={isVisibleModal}
         onCancel={() => setIsVisibleModal(false)}
+        visible={isVisibleModal}
       />
     </>
   );

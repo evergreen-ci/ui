@@ -1,5 +1,5 @@
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { BannerTheme } from "gql/generated/types";
-import { Unpacked } from "types/utils";
 import { ProjectType } from "../utils/types";
 
 export type Notification = Partial<{

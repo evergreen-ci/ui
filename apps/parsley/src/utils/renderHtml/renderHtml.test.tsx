@@ -1,4 +1,4 @@
-import { render, screen } from "test_utils";
+import { render, screen } from "@evg-ui/lib/test_utils";
 import renderHtml from ".";
 
 describe("renderHtml", () => {

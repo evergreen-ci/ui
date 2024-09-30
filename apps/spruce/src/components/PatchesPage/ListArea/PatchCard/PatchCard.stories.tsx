@@ -1,5 +1,5 @@
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import WithToastContext from "test_utils/toast-decorator";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import PatchCard from ".";
 import { patchData } from "../testData";
 
@@ -13,7 +13,6 @@ export const ProjectPatchCard: CustomStoryObj<typeof PatchCard> = {
   argTypes: {},
   args: {
     pageType: "project",
-    isPatchOnCommitQueue: false,
     patch: patchData,
   },
 };
@@ -23,7 +22,6 @@ export const UserPatchCard: CustomStoryObj<typeof PatchCard> = {
   argTypes: {},
   args: {
     pageType: "user",
-    isPatchOnCommitQueue: false,
     patch: patchData,
   },
 };

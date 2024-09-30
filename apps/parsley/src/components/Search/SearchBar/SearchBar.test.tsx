@@ -1,6 +1,6 @@
 import { getTestUtils } from "@leafygreen-ui/text-input";
+import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import { DIRECTION } from "context/LogContext/types";
-import { render, screen, userEvent, waitFor } from "test_utils";
 import SearchBar from ".";
 
 describe("searchbar", () => {

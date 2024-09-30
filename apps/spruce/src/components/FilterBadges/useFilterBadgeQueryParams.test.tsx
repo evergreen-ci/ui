@@ -1,5 +1,9 @@
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import FilterBadges from "components/FilterBadges";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { ProjectFilterOptions } from "types/commits";
 import useFilterBadgeQueryParams from "./useFilterBadgeQueryParams";
 
@@ -14,8 +18,8 @@ const Content = () => {
   return (
     <FilterBadges
       badges={badges}
-      onRemove={handleOnRemove}
       onClearAll={handleClearAll}
+      onRemove={handleOnRemove}
     />
   );
 };

@@ -1,3 +1,4 @@
+import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { LogTypes } from "constants/enums";
 import {
   LOG_FILE_DOWNLOAD_TOO_LARGE_WARNING,
@@ -5,7 +6,6 @@ import {
 } from "constants/errors";
 import { LOG_LINE_SIZE_LIMIT } from "constants/logs";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
-import { renderHook, waitFor } from "test_utils";
 import { useLogDownloader } from ".";
 
 const API_URL = "/some/endpoint";

@@ -6,26 +6,39 @@ import {
   SortingState,
   getFacetedMinMaxValues,
   useLeafyGreenTable,
+  LGColumnDef,
+  LeafyGreenTable,
+  OnChangeFn,
 } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { onChangeHandler } from "components/Table/utils";
 import { TaskLink } from "components/TasksTable/TaskLink";
-import TaskStatusBadge from "components/TaskStatusBadge";
+import { TableQueryParams } from "constants/queryParams";
 import { slugs } from "constants/routes";
-import { VersionTaskDurationsQuery, SortDirection } from "gql/generated/types";
-import { useTaskStatuses } from "hooks";
+import {
+  VersionTaskDurationsQuery,
+  SortDirection,
+  TaskSortCategory,
+} from "gql/generated/types";
+import { useTableSort, useTaskStatuses } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
+import { parseSortString } from "utils/queryString";
 import { TaskDurationCell } from "./TaskDurationCell";
 
 const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
+type TaskDurationData = Unpacked<
+  VersionTaskDurationsQuery["version"]["tasks"]["data"]
+>;
 interface Props {
-  tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];
+  tasks: TaskDurationData[];
   loading: boolean;
   numLoadingRows: number;
 }
@@ -47,8 +60,6 @@ export const TaskDurationTable: React.FC<Props> = ({
     () => getInitialParams(queryParams),
     [], // eslint-disable-line react-hooks/exhaustive-deps
   );
-
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
@@ -70,30 +81,22 @@ export const TaskDurationTable: React.FC<Props> = ({
     setQueryParams(updatedParams);
     sendEvent({
       name: "Filtered task duration table",
-      filterBy: Object.keys(filterState),
+      "filter.by": Object.keys(filterState),
     });
   };
 
-  const setSorting = (s: SortingState) =>
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    getDefaultSorting(table).onSortingChange(s);
+  const setSorting: OnChangeFn<SortingState> = (s) =>
+    getDefaultSorting?.(table).onSortingChange?.(s);
+  const tableSortHandler = useTableSort({
+    singleQueryParam: true,
+    sendAnalyticsEvents: (sorter) =>
+      sendEvent({
+        name: "Sorted task duration table",
+        "sort.by": sorter.map(({ id }) => id),
+      }),
+  });
 
-  const updateSort = (sortState: SortingState) => {
-    const updatedParams = {
-      ...queryParams,
-      page: "0",
-      [PatchTasksQueryParams.Duration]: undefined,
-    };
-
-    sortState.forEach(({ desc, id }) => {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      updatedParams[id] = desc ? SortDirection.Desc : SortDirection.Asc;
-    });
-
-    setQueryParams(updatedParams);
-  };
-
-  const columns = useMemo(
+  const columns: LGColumnDef<TaskDurationData>[] = useMemo(
     () => [
       {
         id: PatchTasksQueryParams.TaskName,
@@ -101,14 +104,19 @@ export const TaskDurationTable: React.FC<Props> = ({
         header: "Task Name",
         size: 250,
         enableColumnFilter: true,
+        enableSorting: true,
         cell: ({
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           getValue,
           row: {
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            original: { id },
+            original: { execution, id },
           },
-        }) => <TaskLink taskId={id} taskName={getValue()} />,
+        }) => (
+          <TaskLink
+            execution={execution}
+            taskId={id}
+            taskName={getValue() as string}
+          />
+        ),
         meta: {
           search: {
             "data-cy": "task-name-filter-popover",
@@ -121,6 +129,7 @@ export const TaskDurationTable: React.FC<Props> = ({
         header: "Status",
         size: 120,
         enableColumnFilter: true,
+        enableSorting: true,
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         cell: ({ getValue }) => <TaskStatusBadge status={getValue()} />,
         meta: {
@@ -136,6 +145,7 @@ export const TaskDurationTable: React.FC<Props> = ({
         header: "Build Variant",
         size: 150,
         enableColumnFilter: true,
+        enableSorting: true,
         meta: {
           search: {
             "data-cy": "build-variant-filter-popover",
@@ -150,19 +160,16 @@ export const TaskDurationTable: React.FC<Props> = ({
         enableSorting: true,
         size: 250,
         cell: ({
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           column,
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           getValue,
           row: {
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             original: { status },
           },
         }) => (
           <TaskDurationCell
-            status={status}
             maxTimeTaken={column.getFacetedMinMaxValues()?.[1] ?? 0}
-            timeTaken={getValue()}
+            status={status}
+            timeTaken={getValue() as number}
           />
         ),
       },
@@ -171,44 +178,44 @@ export const TaskDurationTable: React.FC<Props> = ({
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const table = useLeafyGreenTable<
-    VersionTaskDurationsQuery["version"]["tasks"]["data"][0]
-  >({
-    columns,
-    containerRef: tableContainerRef,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    data: tasks ?? [],
-    defaultColumn: {
-      // Handle bug in sorting order
-      // https://github.com/TanStack/table/issues/4289
-      sortDescFirst: false,
-    },
-    getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    initialState: {
-      columnFilters: initialFilters,
-      sorting: initialSort,
-    },
-    manualFiltering: true,
-    manualPagination: true,
-    manualSorting: true,
-    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+  const table: LeafyGreenTable<TaskDurationData> =
+    useLeafyGreenTable<TaskDurationData>({
+      columns,
+      containerRef: tableContainerRef,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      setFilters,
-      (updatedState) => {
-        updateFilters(updatedState);
-        table.resetRowSelection();
+      data: tasks ?? [],
+      defaultColumn: {
+        enableMultiSort: true,
+        // Handle bug in sorting order
+        // https://github.com/TanStack/table/issues/4289
+        sortDescFirst: false,
       },
-    ),
-    onSortingChange: onChangeHandler<SortingState>(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      setSorting,
-      (updatedState) => {
-        updateSort(updatedState);
-        table.resetRowSelection();
+      isMultiSortEvent: () => true, // Override default requirement for shift-click to multisort.
+      getFacetedMinMaxValues: getFacetedMinMaxValues(),
+      initialState: {
+        columnFilters: initialFilters,
+        sorting: initialSort,
       },
-    ),
-  });
+      manualFiltering: true,
+      manualPagination: true,
+      manualSorting: true,
+      onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        setFilters,
+        (updatedState) => {
+          updateFilters(updatedState);
+          table.resetRowSelection();
+        },
+      ),
+      onSortingChange: onChangeHandler<SortingState>(setSorting, (sorts) => {
+        tableSortHandler(
+          sorts.map(({ desc, id }) => ({
+            id: columnIdToSortCategory[id],
+            desc,
+          })),
+        );
+      }),
+    });
 
   return (
     <BaseTable
@@ -216,14 +223,27 @@ export const TaskDurationTable: React.FC<Props> = ({
       data-cy-row="task-duration-table-row"
       emptyComponent={<TablePlaceholder message="No tasks found." />}
       loading={loading}
-      table={table}
-      shouldAlternateRowColor
       loadingRows={numLoadingRows}
+      shouldAlternateRowColor
+      table={table}
     />
   );
 };
+const columnIdToSortCategory: { [key: string]: TaskSortCategory } = {
+  [PatchTasksQueryParams.Duration]: TaskSortCategory.Duration,
+  [PatchTasksQueryParams.TaskName]: TaskSortCategory.Name,
+  [PatchTasksQueryParams.Statuses]: TaskSortCategory.Status,
+  [PatchTasksQueryParams.Variant]: TaskSortCategory.Variant,
+};
 
-const getInitialParams = (queryParams: {
+const sortCategoryToColumnId: { [key: string]: PatchTasksQueryParams } = {
+  [TaskSortCategory.Duration]: PatchTasksQueryParams.Duration,
+  [TaskSortCategory.Name]: PatchTasksQueryParams.TaskName,
+  [TaskSortCategory.Status]: PatchTasksQueryParams.Statuses,
+  [TaskSortCategory.Variant]: PatchTasksQueryParams.Variant,
+};
+
+export const getInitialParams = (queryParams: {
   [key: string]: any;
 }): {
   initialFilters: ColumnFiltersState;
@@ -233,7 +253,7 @@ const getInitialParams = (queryParams: {
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: statuses,
     [PatchTasksQueryParams.Variant]: variant,
-    [PatchTasksQueryParams.Duration]: duration,
+    [TableQueryParams.Sorts]: sorts,
   } = queryParams;
 
   const initialFilters = [];
@@ -253,20 +273,19 @@ const getInitialParams = (queryParams: {
     initialFilters.push({ id: PatchTasksQueryParams.Variant, value: variant });
   }
 
+  const initialSort: SortingState = sorts
+    ? parseSortString(sorts, {
+        sortByKey: "sortCategory",
+        sortDirKey: "direction",
+        sortCategoryEnum: TaskSortCategory,
+      }).map(({ direction, sortCategory }) => ({
+        id: sortCategoryToColumnId[sortCategory],
+        desc: direction === SortDirection.Desc,
+      }))
+    : [];
+
   return {
     initialFilters,
-    initialSort: duration
-      ? [
-          {
-            id: PatchTasksQueryParams.Duration,
-            desc: duration === SortDirection.Desc,
-          },
-        ]
-      : [
-          {
-            id: PatchTasksQueryParams.Duration,
-            desc: true,
-          },
-        ],
+    initialSort,
   };
 };

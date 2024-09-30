@@ -27,6 +27,7 @@ export default defineConfig({
   projectId: "i1oeyf",
   reporterOptions: {
     mochaFile: "bin/cypress/cypress-[hash].xml",
+    testCaseSwitchClassnameAndName: true,
   },
   videoCompression: false,
   viewportHeight: 800,

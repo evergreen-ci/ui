@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { context } from ".";
 import HistoryTable from "./HistoryTable";
 import { mainlineCommitData } from "./testData";
@@ -64,7 +64,7 @@ const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
 
   return (
     <div style={{ height: 600, width: "100%", border: "red 1px solid" }}>
-      <HistoryTable loadMoreItems={loadMore} loading={isLoading}>
+      <HistoryTable loading={isLoading} loadMoreItems={loadMore}>
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {type === "task" ? TaskHistoryRow : VariantHistoryRow}
       </HistoryTable>

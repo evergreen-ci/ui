@@ -1,5 +1,5 @@
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { CaseSensitivity, MatchType } from "constants/enums";
-import { render, screen, userEvent } from "test_utils";
 import FilterGroup from ".";
 
 const defaultFilter = {

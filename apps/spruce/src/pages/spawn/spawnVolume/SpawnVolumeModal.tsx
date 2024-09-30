@@ -52,7 +52,9 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     const mutationInput = formToGql({ formData: formState });
     spawnAnalytics.sendEvent({
       name: "Created a volume",
-      params: mutationInput,
+      "volume.type": mutationInput.type,
+      "volume.size": mutationInput.size,
+      "volume.is_unexpirable": mutationInput.noExpiration || false,
     });
     spawnVolumeMutation({
       variables: { spawnVolumeInput: mutationInput },
@@ -99,22 +101,22 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
 
   return (
     <ConfirmationModal
-      title="Spawn New Volume"
-      open={visible}
-      onCancel={onCancel}
       buttonText={loadingSpawnVolume ? "Spawning volume" : "Spawn"}
-      onConfirm={spawnVolume}
-      submitDisabled={loadingSpawnVolume || !canSubmit}
       data-cy="spawn-volume-modal"
+      onCancel={onCancel}
+      onConfirm={spawnVolume}
+      open={visible}
+      submitDisabled={loadingSpawnVolume || !canSubmit}
+      title="Spawn New Volume"
     >
       <SpruceForm
-        schema={schema}
-        uiSchema={uiSchema}
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
           setCanSubmit(errors.length === 0);
         }}
+        schema={schema}
+        uiSchema={uiSchema}
       />
     </ConfirmationModal>
   );

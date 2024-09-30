@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useUserPatchesAnalytics, useProjectPatchesAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -10,14 +11,13 @@ import {
   getProjectPatchesRoute,
   getVersionRoute,
   getUserPatchesRoute,
+  getPatchRoute,
 } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { PatchStatus } from "types/patch";
-import { Unpacked } from "types/utils";
-import { isPatchUnconfigured } from "utils/patch";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 import { DropdownMenu } from "./DropdownMenu";
 
@@ -26,15 +26,10 @@ const { gray } = palette;
 
 interface PatchCardProps {
   pageType: "project" | "user";
-  isPatchOnCommitQueue: boolean;
   patch: PatchType;
 }
 
-const PatchCard: React.FC<PatchCardProps> = ({
-  isPatchOnCommitQueue,
-  pageType,
-  patch,
-}) => {
+const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
   const getDateCopy = useDateFormat();
   const userPatchesAnalytics = useUserPatchesAnalytics();
   const projectPatchesAnalytics = useProjectPatchesAnalytics();
@@ -42,10 +37,8 @@ const PatchCard: React.FC<PatchCardProps> = ({
     pageType === "project" ? projectPatchesAnalytics : userPatchesAnalytics;
   const {
     activated,
-    alias,
     author,
     authorDisplayName,
-    canEnqueueToCommitQueue,
     createTime,
     description,
     hidden,
@@ -61,16 +54,15 @@ const PatchCard: React.FC<PatchCardProps> = ({
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? [],
   );
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const isUnconfigured = isPatchUnconfigured({ alias, activated });
+
   let patchProject = null;
   if (pageType === "project") {
     patchProject = unlinkedPRUsers.has(author) ? (
       authorDisplayName
     ) : (
       <StyledRouterLink
-        to={getUserPatchesRoute(author)}
         data-cy="user-patches-link"
+        to={getUserPatchesRoute(author)}
       >
         <strong>{authorDisplayName}</strong>
       </StyledRouterLink>
@@ -78,8 +70,8 @@ const PatchCard: React.FC<PatchCardProps> = ({
   } else {
     patchProject = projectIdentifier ? (
       <StyledRouterLink
-        to={getProjectPatchesRoute(projectIdentifier)}
         data-cy="project-patches-link"
+        to={getProjectPatchesRoute(projectIdentifier)}
       >
         <strong>{projectIdentifier}</strong>
       </StyledRouterLink>
@@ -90,14 +82,14 @@ const PatchCard: React.FC<PatchCardProps> = ({
 
   const badges = stats?.map(({ count, statusCounts, umbrellaStatus }) => (
     <GroupedTaskStatusBadge
-      status={umbrellaStatus}
+      key={`${versionId}_${umbrellaStatus}`}
       count={count}
-      statusCounts={statusCounts}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       href={getVersionRoute(versionId, {
         statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
       })}
-      key={`${versionId}_${umbrellaStatus}`}
+      status={umbrellaStatus}
+      statusCounts={statusCounts}
     />
   ));
   return (
@@ -105,8 +97,12 @@ const PatchCard: React.FC<PatchCardProps> = ({
       <Left>
         <DescriptionLink
           data-cy="patch-card-patch-link"
-          to={getVersionRoute(id)}
           onClick={() => analytics.sendEvent({ name: "Clicked patch link" })}
+          to={
+            activated
+              ? getVersionRoute(id)
+              : getPatchRoute(id, { configure: true })
+          }
         >
           {description || "no description"}
         </DescriptionLink>
@@ -119,9 +115,9 @@ const PatchCard: React.FC<PatchCardProps> = ({
         <PatchBadgeContainer>
           <PatchStatusBadge
             status={
-              isUnconfigured
-                ? PatchStatus.Unconfigured
-                : versionFull?.status ?? status
+              activated
+                ? (versionFull?.status ?? status)
+                : PatchStatus.Unconfigured
             }
           />
         </PatchBadgeContainer>
@@ -130,12 +126,9 @@ const PatchCard: React.FC<PatchCardProps> = ({
       <Right>
         {hidden && <Badge data-cy="hidden-badge">Hidden</Badge>}
         <DropdownMenu
-          patchId={id}
-          canEnqueueToCommitQueue={canEnqueueToCommitQueue}
-          isPatchOnCommitQueue={isPatchOnCommitQueue}
-          isPatchHidden={hidden}
-          patchDescription={description}
           hasVersion={!!versionId}
+          isPatchHidden={hidden}
+          patchId={id}
         />
       </Right>
     </CardWrapper>

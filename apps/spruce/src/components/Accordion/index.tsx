@@ -48,10 +48,10 @@ export const Accordion: React.FC<AccordionProps> = ({
     <div className={className} data-cy={dataCy}>
       {toggleFromBottom && (
         <AnimatedAccordion
-          hide={!isAccordionDisplayed}
-          disableAnimation={disableAnimation}
           aria-expanded={isAccordionDisplayed}
           data-cy="accordion-collapse-container"
+          disableAnimation={disableAnimation}
+          hide={!isAccordionDisplayed}
         >
           {children}
         </AnimatedAccordion>
@@ -71,10 +71,10 @@ export const Accordion: React.FC<AccordionProps> = ({
       )}
       {!toggleFromBottom && (
         <AnimatedAccordion
-          hide={!isAccordionDisplayed}
-          disableAnimation={disableAnimation}
           aria-expanded={isAccordionDisplayed}
           data-cy="accordion-collapse-container"
+          disableAnimation={disableAnimation}
+          hide={!isAccordionDisplayed}
         >
           <ContentsContainer indent={showCaret && useIndent}>
             {children}

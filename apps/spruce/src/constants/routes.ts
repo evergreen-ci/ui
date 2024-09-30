@@ -1,10 +1,10 @@
+import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { TestStatus, HistoryQueryParams } from "types/history";
 import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { toArray } from "utils/array";
-import { stringifyQuery } from "utils/queryString";
 
 export enum PageNames {
   Patches = "patches",
@@ -57,7 +57,6 @@ export enum DistroSettingsTabRoutes {
 }
 
 const paths = {
-  commitQueue: "/commit-queue",
   commits: "/commits",
   container: "/container",
   distro: "/distro",
@@ -113,13 +112,13 @@ export const idSlugs = [
 
 export const redirectRoutes = {
   distroSettings: paths.distros,
+  patch: `${paths.patch}/:${slugs.versionId}`,
   projectSettings: paths.projects,
   userPatches: `${paths.user}/:${slugs.userId}`,
   waterfall: `${paths.waterfall}/:${slugs.projectIdentifier}`,
 };
 
 export const routes = {
-  commitQueue: `${paths.commitQueue}/:${slugs.projectIdentifier}`,
   commits: paths.commits,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure`,
   container: `${paths.container}/:${slugs.podId}`,
@@ -130,7 +129,6 @@ export const routes = {
   jobLogs: paths.jobLogs,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
-  patch: `${paths.patch}/:${slugs.versionId}`,
   preferences: paths.preferences,
   projectPatches: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Patches}`,
   projectSettings: `${paths.project}/:${slugs.projectIdentifier}/${PageNames.Settings}`,
@@ -144,6 +142,7 @@ export const routes = {
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
   variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
   version: `${paths.version}/:${slugs.versionId}`,
+  waterfall: `${paths.project}/:${slugs.projectIdentifier}/waterfall`,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
@@ -291,9 +290,6 @@ export const getDistroSettingsRoute = (
   tab
     ? `${paths.distro}/${distroId}/${PageNames.Settings}/${tab}`
     : `${paths.distro}/${distroId}/${PageNames.Settings}/${DistroSettingsTabRoutes.General}`;
-
-export const getCommitQueueRoute = (projectIdentifier: string) =>
-  `${paths.commitQueue}/${encodeURIComponent(projectIdentifier)}`;
 
 export const getCommitsRoute = (projectIdentifier: string = "") =>
   `${paths.commits}/${encodeURIComponent(projectIdentifier)}`;

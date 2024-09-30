@@ -6,8 +6,10 @@ import {
   RowSorting,
   SortingState,
   useLeafyGreenTable,
+  LeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
@@ -18,7 +20,6 @@ import { HostSortBy, HostsQuery } from "gql/generated/types";
 import { useTableSort } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { HostsTableFilterParams, mapIdToFilterParam } from "types/host";
-import { Unpacked } from "types/utils";
 
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;
 
@@ -63,7 +64,6 @@ export const HostsTable: React.FC<Props> = ({
     sendAnalyticsEvents: () => sendEvent({ name: "Sorted hosts table" }),
   });
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
@@ -85,13 +85,13 @@ export const HostsTable: React.FC<Props> = ({
     setQueryParams(updatedParams);
     sendEvent({
       name: "Filtered hosts table",
-      filterBy: Object.keys(filterState),
+      "filter.by": Object.keys(filterState),
     });
   };
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const table = useLeafyGreenTable<Host>({
+
+  const table: LeafyGreenTable<Host> = useLeafyGreenTable<Host>({
     columns,
     containerRef: tableContainerRef,
     data: hosts ?? [],

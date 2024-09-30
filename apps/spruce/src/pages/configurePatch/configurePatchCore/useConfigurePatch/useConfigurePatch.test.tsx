@@ -1,5 +1,5 @@
 import { MemoryRouter } from "react-router-dom";
-import { renderHook, act } from "test_utils";
+import { renderHook, act } from "@evg-ui/lib/test_utils";
 import useConfigurePatch from ".";
 import { patchQuery } from "../testData";
 
@@ -123,8 +123,8 @@ describe("useConfigurePatch", () => {
         result.current.setSelectedBuildVariants(["ubuntu2204", "ubuntu2004"]);
       });
       expect(result.current.selectedBuildVariants).toStrictEqual([
-        "ubuntu2004",
         "ubuntu2204",
+        "ubuntu2004",
       ]);
     });
     it("should consistently sort multiple build variants", async () => {
@@ -138,8 +138,8 @@ describe("useConfigurePatch", () => {
         result.current.setSelectedBuildVariants(["ubuntu2204", "ubuntu2004"]);
       });
       expect(result.current.selectedBuildVariants).toStrictEqual([
-        "ubuntu2004",
         "ubuntu2204",
+        "ubuntu2004",
       ]);
     });
   });

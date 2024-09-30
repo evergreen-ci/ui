@@ -1,14 +1,15 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
   | { name: "Changed page size" }
   | { name: "Clicked patch link" }
   | {
       name: "Filtered for patches";
-      filterBy: string;
-      includeHidden: boolean;
-      includeCommitQueue: boolean;
+      "filter.by"?: string;
+      "filter.hidden"?: boolean;
+      "filter.commit_queue"?: boolean;
     };
 
 export const useUserPatchesAnalytics = () =>
-  useAnalyticsRoot<Action>("UserPatches");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("UserPatches");

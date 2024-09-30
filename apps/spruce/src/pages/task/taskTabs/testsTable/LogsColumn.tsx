@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskAnalytics } from "analytics";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TestResult, TaskQuery } from "gql/generated/types";
-import { TestStatus } from "types/test";
 import { string } from "utils";
 import { TaskHistoryTestsButton } from "./logsColumn/TaskHistoryTestsButton";
 
@@ -31,54 +31,54 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
     <ButtonWrapper>
       {urlParsley && (
         <Button
-          title="High-powered log viewer"
           data-cy="test-table-parsley-btn"
-          size="xsmall"
-          target="_blank"
           href={urlParsley}
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",
-              logViewer: "parsley",
-              testStatus: status,
+              "log.viewer": "parsley",
+              "test.status": status,
             })
           }
+          size="xsmall"
+          target="_blank"
+          title="High-powered log viewer"
         >
           Parsley
         </Button>
       )}
       {urlHTML && (
         <Button
-          title="Plain, colorized log viewer"
           data-cy="test-table-html-btn"
-          size="xsmall"
-          target="_blank"
           href={urlHTML}
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",
-              logViewer: "html",
-              testStatus: status,
+              "log.viewer": "html",
+              "test.status": status,
             })
           }
+          size="xsmall"
+          target="_blank"
+          title="Plain, colorized log viewer"
         >
           HTML
         </Button>
       )}
       {urlRaw && (
         <Button
-          title="Plain text log viewer"
           data-cy="test-table-raw-btn"
-          size="xsmall"
-          target="_blank"
           href={urlRaw}
           onClick={() =>
             sendEvent({
               name: "Clicked test log link",
-              logViewer: "raw",
-              testStatus: status,
+              "log.viewer": "raw",
+              "test.status": status,
             })
           }
+          size="xsmall"
+          target="_blank"
+          title="Plain text log viewer"
         >
           Raw
         </Button>

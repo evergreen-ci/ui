@@ -80,7 +80,7 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
 
     annotationAnalytics.sendEvent({
       name: "Deleted annotation",
-      type: isIssue ? "Issue" : "Suspected Issue",
+      "annotation.type": isIssue ? "Issue" : "Suspected Issue",
     });
   };
 
@@ -115,15 +115,15 @@ const AnnotationTicketsList: React.FC<AnnotationTicketsListProps> = ({
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {jiraIssues.map((issue) => (
         <AnnotationTicketRowWithActions
-          isIssue={isIssue}
-          issueString={issueString}
-          onMove={handleMove}
-          onRemove={handleRemove}
-          userCanModify={userCanModify}
-          loading={loading}
           key={issue.issueKey}
           ref={issue.issueKey === selectedRowKey ? rowRef : null}
+          isIssue={isIssue}
+          issueString={issueString}
+          loading={loading}
+          onMove={handleMove}
+          onRemove={handleRemove}
           selected={issue.issueKey === selectedRowKey}
+          userCanModify={userCanModify}
           {...issue}
         />
       ))}

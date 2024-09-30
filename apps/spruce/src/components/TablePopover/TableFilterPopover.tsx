@@ -25,7 +25,8 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   value,
 }) => {
   const [active, setActive] = useState(false);
-  const iconColor = value.length ? blue.base : gray.dark2;
+  const hasFilters = value.length > 0;
+  const iconColor = hasFilters ? blue.base : gray.dark2;
 
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
@@ -40,22 +41,27 @@ export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
   return (
     <FilterWrapper>
       <IconButton
-        onClick={() => setActive(!active)}
-        active={active}
-        data-cy={dataCy}
-        aria-label="Table Filter Popover Icon"
         ref={buttonRef}
+        active={active}
+        aria-label="Table Filter Popover Icon"
+        data-cy={dataCy}
+        data-highlighted={hasFilters}
+        onClick={() => setActive(!active)}
       >
-        <Icon glyph="Filter" small="xsmall" color={iconColor} />
+        <Icon color={iconColor} glyph="Filter" small="xsmall" />
       </IconButton>
-      <Popover align="bottom" justify="middle" active={active}>
+      <Popover active={active} align="bottom" justify="middle">
         <PopoverContainer ref={popoverRef} data-cy={`${dataCy}-wrapper`}>
-          <TreeSelect
-            hasStyling={false}
-            tData={options}
-            state={value}
-            onChange={onChange}
-          />
+          {options.length > 0 ? (
+            <TreeSelect
+              hasStyling={false}
+              onChange={onChange}
+              state={value}
+              tData={options}
+            />
+          ) : (
+            <span>No filters available.</span>
+          )}
         </PopoverContainer>
       </Popover>
     </FilterWrapper>

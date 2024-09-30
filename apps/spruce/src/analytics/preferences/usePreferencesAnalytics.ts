@@ -1,12 +1,12 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
-import { UpdateUserSettingsMutationVariables } from "gql/generated/types";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
   | { name: "Changed tab"; tab: string }
-  | { name: "Saved profile info"; params: UpdateUserSettingsMutationVariables }
-  | { name: "Saved notifications"; params: UpdateUserSettingsMutationVariables }
+  | { name: "Saved profile info" }
+  | { name: "Saved notification preferences" }
   | { name: "Deleted subscriptions" }
-  | { name: "Clicked CLI download link"; downloadName: string }
+  | { name: "Clicked CLI download link"; "download.name": string }
   | { name: "Clicked download auth file" }
   | { name: "Clicked reset API key" }
   | { name: "Created new public key" }
@@ -16,4 +16,4 @@ type Action =
   | { name: "Toggled polling"; value: "Enabled" | "Disabled" };
 
 export const usePreferencesAnalytics = () =>
-  useAnalyticsRoot<Action>("PreferencesPages");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("PreferencesPages");

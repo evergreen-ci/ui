@@ -7,7 +7,7 @@ import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
-import { PageGrid } from "components/styles/Layout";
+import { SiteLayout } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import WelcomeModal from "components/WelcomeModal";
 import { CY_DISABLE_NEW_USER_WELCOME_MODAL } from "constants/cookies";
@@ -44,21 +44,21 @@ export const Layout: React.FC = () => {
   }
 
   return (
-    <PageGrid>
+    <SiteLayout>
       <Header />
       <Outlet />
       {!shouldDisableForTest && !hasUsedSpruceBefore && (
         <WelcomeModal
-          title="Welcome to the New Evergreen UI!"
-          param="hasUsedSpruceBefore"
           carouselCards={newSpruceUser}
+          param="hasUsedSpruceBefore"
+          title="Welcome to the New Evergreen UI!"
         />
       )}
       <FloatingContent>
         <TaskStatusIconLegend />
         <Feedback />
       </FloatingContent>
-    </PageGrid>
+    </SiteLayout>
   );
 };
 

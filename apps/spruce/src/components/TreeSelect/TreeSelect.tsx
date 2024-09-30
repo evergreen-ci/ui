@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { palette } from "@leafygreen-ui/palette";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
+import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { FilterInputControls } from "components/FilterInputControls";
 import { tableInputContainerCSS } from "components/styles/Table";
 import { size } from "constants/tokens";
@@ -85,8 +85,8 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
       )}
     >
       <CheckboxContainer
-        hasStyling={hasStyling}
         data-cy={dataCy || "tree-select-options"}
+        hasStyling={hasStyling}
       >
         {renderCheckboxes({
           state: filteredState,
@@ -142,14 +142,14 @@ const renderCheckboxesHelper = ({
   const onChangeFn = (): void =>
     handleOnChange({ state, value: data.value, onChange, tData });
   rows.push(
-    <CheckboxWrapper key={data.key} level={0} isAll={data.value === ALL_VALUE}>
+    <CheckboxWrapper key={data.key} isAll={data.value === ALL_VALUE} level={0}>
       <Checkbox
-        className="cy-checkbox"
-        onChange={onChangeFn}
-        label={data.title}
-        checked={state.includes(data.value)}
         bold={false}
+        checked={state.includes(data.value)}
+        className="cy-checkbox"
         data-cy="checkbox"
+        label={data.title}
+        onChange={onChangeFn}
       />
     </CheckboxWrapper>,
   );
@@ -161,16 +161,16 @@ const renderCheckboxesHelper = ({
       rows.push(
         <CheckboxWrapper
           key={`${data.key}-${child.key}`}
-          level={1}
           isAll={child.value === ALL_VALUE}
+          level={1}
         >
           <Checkbox
-            className="cy-checkbox"
-            onChange={onChangeChildFn}
-            label={child.title}
-            checked={state.includes(child.value)}
             bold={false}
+            checked={state.includes(child.value)}
+            className="cy-checkbox"
             data-cy="checkbox"
+            label={child.title}
+            onChange={onChangeChildFn}
           />
         </CheckboxWrapper>,
       );

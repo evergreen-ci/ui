@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import { Tab, Tabs } from "@leafygreen-ui/tabs";
 import { H3 } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
+import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
-import { releaseSectioning } from "utils/featureFlag";
 import ButtonRow from "./ButtonRow";
 import SearchRangeInput from "./SearchRangeInput";
 import {
@@ -26,7 +26,8 @@ interface DetailsMenuProps {
 
 const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
   ({ "data-cy": dataCy }, ref) => {
-    const [selectedTab, setSelectedTab] = useState(0);
+    const { showGuideCue } = useSectionsFeatureDiscoveryContext();
+    const [selectedTab, setSelectedTab] = useState(showGuideCue ? 1 : 0);
 
     const { settings, updateSettings } = useParsleySettings();
     const { jumpToFailingLineEnabled = true, sectionsEnabled = true } =
@@ -63,12 +64,10 @@ const DetailsMenuCard = forwardRef<HTMLDivElement, DetailsMenuProps>(
                   checked={jumpToFailingLineEnabled}
                   updateSettings={updateSettings}
                 />
-                {releaseSectioning && (
-                  <SectionsToggle
-                    checked={sectionsEnabled}
-                    updateSettings={updateSettings}
-                  />
-                )}
+                <SectionsToggle
+                  checked={sectionsEnabled}
+                  updateSettings={updateSettings}
+                />
               </Column>
             </Row>
           </Tab>

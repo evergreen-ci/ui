@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import {
   ColumnFiltering,
   ColumnFiltersState,
+  LeafyGreenTable,
   RowSorting,
   SortingState,
   useLeafyGreenTable,
@@ -13,6 +14,7 @@ import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import { onChangeHandler } from "components/Table/utils";
+import { ALL_VALUE } from "components/TreeSelect";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
 import {
@@ -22,6 +24,7 @@ import {
   TestSortCategory,
   TestResult,
   TaskQuery,
+  TestSortOptions,
 } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
 import { useTableSort, useUpdateURLQueryParams, usePolling } from "hooks";
@@ -31,7 +34,6 @@ import {
   mapFilterParamToId,
   mapIdToFilterParam,
 } from "types/task";
-import { TestStatus } from "types/test";
 import { queryString } from "utils";
 import { getColumnsTemplate } from "./testsTable/getColumnsTemplate";
 
@@ -107,16 +109,15 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     setQueryParams(updatedParams);
     sendEvent({
       name: "Filtered tests table",
-      filterBy: Object.keys(filterState),
+      "filter.by": Object.keys(filterState),
     });
   };
 
   const tableSortHandler = useTableSort({
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sorted tests table",
-        sortBy: sorter.map(({ id }) => id as TestSortCategory),
+        "sort.by": sorter.map(({ id }) => id as TestSortCategory),
       }),
   });
 
@@ -133,7 +134,6 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultSorting(table).onSortingChange(s);
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const setFilters = (f: ColumnFiltersState) =>
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     getDefaultFiltering(table).onColumnFiltersChange(f);
@@ -141,8 +141,8 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const columns = useMemo(() => getColumnsTemplate({ task }), [task]);
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const table = useLeafyGreenTable<TestResult>({
+
+  const table: LeafyGreenTable<TestResult> = useLeafyGreenTable<TestResult>({
     columns,
     containerRef: tableContainerRef,
     data: testResults ?? [],
@@ -183,17 +183,17 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
         <TableControl
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           filteredCount={filteredTestCount}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          totalCount={totalTestCount}
+          label="tests"
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           limit={limitNum}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          page={pageNum}
-          label="tests"
           onClear={clearQueryParams}
           onPageSizeChange={() => {
             sendEvent({ name: "Changed page size" });
           }}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          page={pageNum}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          totalCount={totalTestCount}
         />
       }
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -266,12 +266,17 @@ const getQueryVariables = (
       ? SortDirection.Desc
       : SortDirection.Asc;
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  let sort = [];
+  let sort: TestSortOptions[] = [];
   if (sortBy && direction) {
     sort = [{ sortBy, direction }];
   } else if (sorts) {
-    sort = parseSortString(sorts, {
+    sort = parseSortString<
+      "sortBy",
+      "direction",
+      TestSortCategory,
+      TestSortOptions
+    >(sorts, {
+      sortCategoryEnum: TestSortCategory,
       sortByKey: "sortBy",
       sortDirKey: "direction",
     });
@@ -281,12 +286,11 @@ const getQueryVariables = (
   const rawStatuses = queryParams[RequiredQueryParams.Statuses];
   const statusList = (
     Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
-  ).filter((v) => v && v !== TestStatus.All);
+  ).filter((v) => v && v !== ALL_VALUE);
   const execution = queryParams[RequiredQueryParams.Execution];
   return {
     id: taskId,
     execution: queryParamAsNumber(execution),
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sort,
     limitNum: getLimit(queryParams[PaginationQueryParams.Limit]),
     statusList,

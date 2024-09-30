@@ -1,6 +1,6 @@
+import { StringMap } from "@evg-ui/lib/types/utils";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery } from "gql/generated/types";
-import { StringMap } from "types/utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 
 type Tab = ProjectSettingsTabRoutes.GithubPermissionGroups;

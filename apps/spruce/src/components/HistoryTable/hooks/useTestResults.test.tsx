@@ -1,10 +1,10 @@
+import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   TaskTestSampleQuery,
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
 import { TASK_TEST_SAMPLE } from "gql/queries";
-import { act, renderHook, waitFor } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
 import { useHistoryTable } from "../HistoryTableContext";
 import { mainlineCommitData } from "../testData";

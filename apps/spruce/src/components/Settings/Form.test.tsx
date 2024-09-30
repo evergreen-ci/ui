@@ -1,5 +1,5 @@
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { ValidateProps } from "components/SpruceForm";
-import { render, screen, userEvent } from "test_utils";
 import { Form, FormProps } from "./Form";
 import {
   FormStateMap,
@@ -65,7 +65,7 @@ describe("context-based form", () => {
   });
 
   it("disables the entire form when specified", () => {
-    render(<Component tab="bar" disabled />, {
+    render(<Component disabled tab="bar" />, {
       wrapper: TestProvider,
     });
     expect(screen.getByLabelText("Name")).toHaveAttribute(

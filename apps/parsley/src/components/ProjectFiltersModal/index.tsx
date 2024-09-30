@@ -59,7 +59,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
       SentryBreadcrumb.User,
     );
     sendEvent({
-      filters: state.selectedFilters,
+      "filter.expressions": state.selectedFilters.map((f) => f.expression),
       name: "Used project filters",
     });
     setOpen(false);

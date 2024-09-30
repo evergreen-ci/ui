@@ -1,7 +1,7 @@
 import { clickSave } from "../../utils";
 import { getContainersRoute, saveButtonEnabled } from "./constants";
 
-describe("Containers", () => {
+describe("projectSettings/containers", () => {
   const destination = getContainersRoute("spruce");
   beforeEach(() => {
     cy.visit(destination);

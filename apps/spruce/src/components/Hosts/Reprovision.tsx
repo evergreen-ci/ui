@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import Tooltip from "@leafygreen-ui/tooltip";
+import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { useHostsTableAnalytics } from "analytics";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useToastContext } from "context/toast";
 import {
   ReprovisionToNewMutation,
@@ -64,8 +64,8 @@ export const Reprovision: React.FC<Props> = ({
         <Tooltip
           align="top"
           justify="middle"
-          triggerEvent="hover"
           trigger={children}
+          triggerEvent="hover"
         >
           {reprovisionTooltipMessage}
         </Tooltip>
@@ -77,9 +77,9 @@ export const Reprovision: React.FC<Props> = ({
           buttonText="Reprovision"
           data-cy="reprovision-button"
           disabled={selectedHostIds.length === 0 || !canReprovision}
-          titleText={titleText}
           loading={loadingReprovision}
           onClick={onClickReprovisionConfirm}
+          titleText={titleText}
         />
       </div>
     </ConditionalWrapper>

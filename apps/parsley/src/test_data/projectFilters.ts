@@ -1,9 +1,9 @@
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_FILTERS } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 export const projectFiltersMock: ApolloMock<
   ProjectFiltersQuery,

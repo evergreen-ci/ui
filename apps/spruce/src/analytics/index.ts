@@ -15,3 +15,4 @@ export { useTaskQueueAnalytics } from "./taskQueue/useTaskQueueAnalytics";
 export { useUserPatchesAnalytics } from "./patches/useUserPatchesAnalytics";
 export { useProjectPatchesAnalytics } from "./patches/useProjectPatchesAnalytics";
 export { useVersionAnalytics } from "./version/useVersionAnalytics";
+export { useWaterfallAnalytics } from "./waterfall/useWaterfallAnalytics";

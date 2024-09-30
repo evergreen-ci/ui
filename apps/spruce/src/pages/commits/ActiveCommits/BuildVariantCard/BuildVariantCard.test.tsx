@@ -1,9 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
+import {
   injectGlobalDimStyle,
   removeGlobalDimStyle,
 } from "pages/commits/ActiveCommits/utils";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { BuildVariantCard } from ".";
 
 vi.mock("../utils");
@@ -36,13 +40,13 @@ describe("buildVariantCard", () => {
     render(
       <MockedProvider>
         <BuildVariantCard
-          variant="ubuntu-2204"
-          height={100}
           buildVariantDisplayName="Ubuntu 22.04"
-          projectIdentifier="testing"
-          versionId="abc"
+          height={100}
           order={1}
+          projectIdentifier="testing"
           tasks={tasks}
+          variant="ubuntu-2204"
+          versionId="abc"
         />
       </MockedProvider>,
     );

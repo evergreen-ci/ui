@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import Dropdown from ".";
 
 const children = () => <div>Some Children</div>;
@@ -49,7 +49,7 @@ describe("dropdown", () => {
   it("renders a custom button contents when custom buttonRenderer is passed in", () => {
     const customButtonRenderer = () => <div>Custom Button</div>;
     render(
-      <Dropdown buttonText="Some Button" buttonRenderer={customButtonRenderer}>
+      <Dropdown buttonRenderer={customButtonRenderer} buttonText="Some Button">
         {children()}
       </Dropdown>,
     );

@@ -1,6 +1,5 @@
 import AGENT_LOGS from "./agent-logs.graphql";
 import ALL_LOGS from "./all-logs.graphql";
-import ANNOTATION_EVENT_DATA from "./annotation-event-data.graphql";
 import AWS_REGIONS from "./aws-regions.graphql";
 import BASE_VERSION_AND_TASK from "./base-version-and-task.graphql";
 import BUILD_BARON_CONFIGURED from "./build-baron-configured.graphql";
@@ -10,7 +9,6 @@ import BUILD_VARIANTS_FOR_TASK_NAME from "./build-variants-for-task-name.graphql
 import BUILD_VARIANTS_WITH_CHILDREN from "./build-variants-with-children.graphql";
 import CLIENT_CONFIG from "./client-config.graphql";
 import CODE_CHANGES from "./code-changes.graphql";
-import COMMIT_QUEUE from "./commit-queue.graphql";
 import CREATED_TICKETS from "./created-tickets.graphql";
 import DISPLAY_TASK from "./display-task.graphql";
 import DISTRO_EVENTS from "./distro-events.graphql";
@@ -24,9 +22,14 @@ import HAS_VERSION from "./has-version.graphql";
 import HOST_EVENTS from "./host-events.graphql";
 import HOST from "./host.graphql";
 import HOSTS from "./hosts.graphql";
+import IMAGE_DISTROS from "./image-distros.graphql";
+import IMAGE_EVENTS from "./image-events.graphql";
+import IMAGE_GENERAL from "./image-general.graphql";
+import IMAGE_OPERATING_SYSTEM from "./image-operating-system.graphql";
+import IMAGE_PACKAGES from "./image-packages.graphql";
+import IMAGE_TOOLCHAINS from "./image-toolchains.graphql";
 import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
-import IS_PATCH_CONFIGURED from "./is-patch-configured.graphql";
 import JIRA_CUSTOM_CREATED_ISSUES from "./jira-custom-created-issues.graphql";
 import JIRA_ISSUES from "./jira-issues.graphql";
 import JIRA_SUSPECTED_ISSUES from "./jira-suspected-issues.graphql";
@@ -82,11 +85,11 @@ import VERSION_TASK_DURATIONS from "./version-task-durations.graphql";
 import VERSION_TASKS from "./version-tasks.graphql";
 import VERSION from "./version.graphql";
 import VIEWABLE_PROJECTS from "./viewable-projects.graphql";
+import WATERFALL from "./waterfall.graphql";
 
 export {
   AGENT_LOGS,
   ALL_LOGS,
-  ANNOTATION_EVENT_DATA,
   AWS_REGIONS,
   BASE_VERSION_AND_TASK,
   BUILD_BARON_CONFIGURED,
@@ -96,7 +99,6 @@ export {
   BUILD_VARIANTS_WITH_CHILDREN,
   CLIENT_CONFIG,
   CODE_CHANGES,
-  COMMIT_QUEUE,
   CREATED_TICKETS,
   DISPLAY_TASK,
   DISTRO_EVENTS,
@@ -110,9 +112,14 @@ export {
   HOST_EVENTS,
   HOST,
   HOSTS,
+  IMAGE_DISTROS,
+  IMAGE_EVENTS,
+  IMAGE_GENERAL,
+  IMAGE_OPERATING_SYSTEM,
+  IMAGE_PACKAGES,
+  IMAGE_TOOLCHAINS,
   IMAGES,
   INSTANCE_TYPES,
-  IS_PATCH_CONFIGURED,
   JIRA_CUSTOM_CREATED_ISSUES,
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,
@@ -139,6 +146,7 @@ export {
   REPO_EVENT_LOGS,
   REPO_SETTINGS,
   REPOTRACKER_ERROR,
+  SECRET_FIELDS,
   SPAWN_EXPIRATION_INFO,
   SPAWN_TASK,
   SPRUCE_CONFIG,
@@ -167,5 +175,5 @@ export {
   VERSION_TASKS,
   VERSION,
   VIEWABLE_PROJECTS,
-  SECRET_FIELDS,
+  WATERFALL,
 };

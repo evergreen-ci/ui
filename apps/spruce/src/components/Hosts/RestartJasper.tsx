@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import Tooltip from "@leafygreen-ui/tooltip";
+import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { useHostsTableAnalytics } from "analytics";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useToastContext } from "context/toast";
 import {
   RestartJasperMutation,
@@ -64,8 +64,8 @@ export const RestartJasper: React.FC<Props> = ({
         <Tooltip
           align="top"
           justify="middle"
-          triggerEvent="hover"
           trigger={children}
+          triggerEvent="hover"
         >
           {jasperTooltipMessage}
         </Tooltip>
@@ -77,9 +77,9 @@ export const RestartJasper: React.FC<Props> = ({
           buttonText="Restart Jasper"
           data-cy="restart-jasper-button"
           disabled={selectedHostIds.length === 0 || !canRestartJasper}
-          titleText={titleText}
           loading={loadingRestartJasper}
           onClick={onClickRestartJasperConfirm}
+          titleText={titleText}
         />
       </div>
     </ConditionalWrapper>

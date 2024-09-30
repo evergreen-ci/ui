@@ -1,12 +1,15 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 
 type Action =
-  | { name: "Filtered hosts table"; filterBy: string | string[] }
+  | { name: "Filtered hosts table"; "filter.by": string | string[] }
   | { name: "Sorted hosts table" }
-  | { name: "Changed page size"; pageSize: number }
+  | { name: "Changed page size"; "page.size": number }
   | { name: "Clicked restart jasper button" }
   | { name: "Clicked reprovision host button" }
-  | { name: "Clicked update host status button"; status: string };
+  | { name: "Clicked update host status button"; "host.status": string };
 
 export const useHostsTableAnalytics = (isHostPage?: boolean) =>
-  useAnalyticsRoot<Action>(isHostPage ? "HostPage" : "AllHostsPage");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>(
+    isHostPage ? "HostPage" : "AllHostsPage",
+  );

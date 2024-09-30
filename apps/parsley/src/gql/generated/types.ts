@@ -633,6 +633,14 @@ export type GeneralSubscription = {
   triggerData?: Maybe<Scalars["StringMap"]["output"]>;
 };
 
+export type GeneratedTaskCountResults = {
+  __typename?: "GeneratedTaskCountResults";
+  buildVariantName?: Maybe<Scalars["String"]["output"]>;
+  estimatedTasks: Scalars["Int"]["output"];
+  taskId?: Maybe<Scalars["String"]["output"]>;
+  taskName?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type GitHubDynamicTokenPermissionGroup = {
   __typename?: "GitHubDynamicTokenPermissionGroup";
   name: Scalars["String"]["output"];
@@ -748,6 +756,9 @@ export type Host = {
   distro?: Maybe<DistroInfo>;
   distroId?: Maybe<Scalars["String"]["output"]>;
   elapsed?: Maybe<Scalars["Time"]["output"]>;
+  eventTypes: Array<HostEventType>;
+  /** events returns the event log entries for a given host. */
+  events: HostEvents;
   expiration?: Maybe<Scalars["Time"]["output"]>;
   homeVolume?: Maybe<Volume>;
   homeVolumeID?: Maybe<Scalars["String"]["output"]>;
@@ -768,6 +779,11 @@ export type Host = {
   uptime?: Maybe<Scalars["Time"]["output"]>;
   user?: Maybe<Scalars["String"]["output"]>;
   volumes: Array<Volume>;
+};
+
+/** Host models a host, which are used for things like running tasks or as virtual workstations. */
+export type HostEventsArgs = {
+  opts: HostEventsInput;
 };
 
 export type HostAllocatorSettings = {
@@ -820,13 +836,47 @@ export type HostEventLogData = {
 export type HostEventLogEntry = {
   __typename?: "HostEventLogEntry";
   data: HostEventLogData;
-  eventType?: Maybe<Scalars["String"]["output"]>;
+  eventType?: Maybe<HostEventType>;
   id: Scalars["String"]["output"];
   processedAt: Scalars["Time"]["output"];
   resourceId: Scalars["String"]["output"];
   resourceType: Scalars["String"]["output"];
   timestamp?: Maybe<Scalars["Time"]["output"]>;
 };
+
+export enum HostEventType {
+  HostAgentDeployed = "HOST_AGENT_DEPLOYED",
+  HostAgentDeployFailed = "HOST_AGENT_DEPLOY_FAILED",
+  HostAgentMonitorDeployed = "HOST_AGENT_MONITOR_DEPLOYED",
+  HostAgentMonitorDeployFailed = "HOST_AGENT_MONITOR_DEPLOY_FAILED",
+  HostConvertedProvisioning = "HOST_CONVERTED_PROVISIONING",
+  HostConvertingProvisioning = "HOST_CONVERTING_PROVISIONING",
+  HostConvertingProvisioningError = "HOST_CONVERTING_PROVISIONING_ERROR",
+  HostCreated = "HOST_CREATED",
+  HostCreatedError = "HOST_CREATED_ERROR",
+  HostDnsNameSet = "HOST_DNS_NAME_SET",
+  HostExpirationWarningSent = "HOST_EXPIRATION_WARNING_SENT",
+  HostIdleNotification = "HOST_IDLE_NOTIFICATION",
+  HostJasperRestarted = "HOST_JASPER_RESTARTED",
+  HostJasperRestarting = "HOST_JASPER_RESTARTING",
+  HostJasperRestartError = "HOST_JASPER_RESTART_ERROR",
+  HostModified = "HOST_MODIFIED",
+  HostProvisioned = "HOST_PROVISIONED",
+  HostProvisionError = "HOST_PROVISION_ERROR",
+  HostProvisionFailed = "HOST_PROVISION_FAILED",
+  HostRunningTaskCleared = "HOST_RUNNING_TASK_CLEARED",
+  HostRunningTaskSet = "HOST_RUNNING_TASK_SET",
+  HostScriptExecuted = "HOST_SCRIPT_EXECUTED",
+  HostScriptExecuteFailed = "HOST_SCRIPT_EXECUTE_FAILED",
+  HostStarted = "HOST_STARTED",
+  HostStatusChanged = "HOST_STATUS_CHANGED",
+  HostStopped = "HOST_STOPPED",
+  HostTaskFinished = "HOST_TASK_FINISHED",
+  HostTemporaryExemptionExpirationWarningSent = "HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT",
+  HostTerminatedExternally = "HOST_TERMINATED_EXTERNALLY",
+  VolumeExpirationWarningSent = "VOLUME_EXPIRATION_WARNING_SENT",
+  VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
+}
 
 /**
  * HostEvents is the return value for the hostEvents query.
@@ -836,6 +886,14 @@ export type HostEvents = {
   __typename?: "HostEvents";
   count: Scalars["Int"]["output"];
   eventLogEntries: Array<HostEventLogEntry>;
+};
+
+export type HostEventsInput = {
+  eventTypes?: InputMaybe<Array<HostEventType>>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
+  /** sort by timestamp */
+  sortDir?: InputMaybe<SortDirection>;
 };
 
 export enum HostSortBy {
@@ -879,15 +937,13 @@ export type Image = {
   __typename?: "Image";
   ami: Scalars["String"]["output"];
   distros: Array<Distro>;
-  events: Array<ImageEvent>;
+  events: ImageEventsPayload;
   id: Scalars["String"]["output"];
-  kernel: Scalars["String"]["output"];
   lastDeployed: Scalars["Time"]["output"];
   latestTask?: Maybe<Task>;
-  name: Scalars["String"]["output"];
-  packages: Array<Package>;
-  toolchains: Array<Toolchain>;
-  versionId: Scalars["String"]["output"];
+  operatingSystem: ImageOperatingSystemPayload;
+  packages: ImagePackagesPayload;
+  toolchains: ImageToolchainsPayload;
 };
 
 /**
@@ -897,6 +953,14 @@ export type Image = {
 export type ImageEventsArgs = {
   limit: Scalars["Int"]["input"];
   page: Scalars["Int"]["input"];
+};
+
+/**
+ * Image is returned by the image query.
+ * It contains information about an image.
+ */
+export type ImageOperatingSystemArgs = {
+  opts: OperatingSystemOpts;
 };
 
 /**
@@ -939,9 +1003,37 @@ export enum ImageEventEntryAction {
 }
 
 export enum ImageEventType {
+  OperatingSystem = "OPERATING_SYSTEM",
   Package = "PACKAGE",
   Toolchain = "TOOLCHAIN",
 }
+
+export type ImageEventsPayload = {
+  __typename?: "ImageEventsPayload";
+  count: Scalars["Int"]["output"];
+  eventLogEntries: Array<ImageEvent>;
+};
+
+export type ImageOperatingSystemPayload = {
+  __typename?: "ImageOperatingSystemPayload";
+  data: Array<OsInfo>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
+};
+
+export type ImagePackagesPayload = {
+  __typename?: "ImagePackagesPayload";
+  data: Array<Package>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
+};
+
+export type ImageToolchainsPayload = {
+  __typename?: "ImageToolchainsPayload";
+  data: Array<Toolchain>;
+  filteredCount: Scalars["Int"]["output"];
+  totalCount: Scalars["Int"]["output"];
+};
 
 export type InstanceTag = {
   __typename?: "InstanceTag";
@@ -1492,10 +1584,22 @@ export type NotificationsInput = {
   spawnHostOutcome?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type OsInfo = {
+  __typename?: "OSInfo";
+  name: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
+};
+
 export type OomTrackerInfo = {
   __typename?: "OomTrackerInfo";
   detected: Scalars["Boolean"]["output"];
   pids?: Maybe<Array<Scalars["Int"]["output"]>>;
+};
+
+export type OperatingSystemOpts = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  page?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export enum OverallocatedRule {
@@ -1570,6 +1674,7 @@ export type Patch = {
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
+  generatedTaskCounts: Array<GeneratedTaskCountResults>;
   githash: Scalars["String"]["output"];
   hidden: Scalars["Boolean"]["output"];
   id: Scalars["ID"]["output"];
@@ -1832,7 +1937,6 @@ export type Project = {
   perfEnabled?: Maybe<Scalars["Boolean"]["output"]>;
   periodicBuilds?: Maybe<Array<PeriodicBuild>>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]["output"]>;
-  private?: Maybe<Scalars["Boolean"]["output"]>;
   projectHealthView: ProjectHealthView;
   remotePath: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
@@ -1971,7 +2075,6 @@ export type ProjectInput = {
   perfEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   periodicBuilds?: InputMaybe<Array<PeriodicBuildInput>>;
   prTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  private?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectHealthView?: InputMaybe<ProjectHealthView>;
   remotePath?: InputMaybe<Scalars["String"]["input"]>;
   repo?: InputMaybe<Scalars["String"]["input"]>;
@@ -2103,6 +2206,7 @@ export type Query = {
   githubProjectConflicts: GithubProjectConflicts;
   hasVersion: Scalars["Boolean"]["output"];
   host?: Maybe<Host>;
+  /** @deprecated Use host.events instead. */
   hostEvents: HostEvents;
   hosts: HostsResponse;
   image?: Maybe<Image>;
@@ -2133,6 +2237,7 @@ export type Query = {
   userSettings?: Maybe<UserSettings>;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
+  waterfall: Waterfall;
 };
 
 export type QueryBbGetCreatedTicketsArgs = {
@@ -2273,6 +2378,10 @@ export type QueryVersionArgs = {
   versionId: Scalars["String"]["input"];
 };
 
+export type QueryWaterfallArgs = {
+  options: WaterfallOptions;
+};
+
 export type RemoveFavoriteProjectInput = {
   projectIdentifier: Scalars["String"]["input"];
 };
@@ -2319,7 +2428,6 @@ export type RepoRef = {
   perfEnabled: Scalars["Boolean"]["output"];
   periodicBuilds?: Maybe<Array<PeriodicBuild>>;
   prTestingEnabled: Scalars["Boolean"]["output"];
-  private: Scalars["Boolean"]["output"];
   remotePath: Scalars["String"]["output"];
   repo: Scalars["String"]["output"];
   repotrackerDisabled: Scalars["Boolean"]["output"];
@@ -2363,7 +2471,6 @@ export type RepoRefInput = {
   perfEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   periodicBuilds?: InputMaybe<Array<PeriodicBuildInput>>;
   prTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  private?: InputMaybe<Scalars["Boolean"]["input"]>;
   remotePath?: InputMaybe<Scalars["String"]["input"]>;
   repo?: InputMaybe<Scalars["String"]["input"]>;
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2506,7 +2613,6 @@ export type SleepSchedule = {
   __typename?: "SleepSchedule";
   dailyStartTime: Scalars["String"]["output"];
   dailyStopTime: Scalars["String"]["output"];
-  isBetaTester: Scalars["Boolean"]["output"];
   nextStartTime?: Maybe<Scalars["Time"]["output"]>;
   nextStopTime?: Maybe<Scalars["Time"]["output"]>;
   permanentlyExempt: Scalars["Boolean"]["output"];
@@ -2519,7 +2625,6 @@ export type SleepSchedule = {
 export type SleepScheduleInput = {
   dailyStartTime: Scalars["String"]["input"];
   dailyStopTime: Scalars["String"]["input"];
-  isBetaTester?: InputMaybe<Scalars["Boolean"]["input"]>;
   permanentlyExempt: Scalars["Boolean"]["input"];
   shouldKeepOff: Scalars["Boolean"]["input"];
   temporarilyExemptUntil?: InputMaybe<Scalars["Time"]["input"]>;
@@ -2777,6 +2882,7 @@ export type TaskEndDetail = {
   __typename?: "TaskEndDetail";
   description?: Maybe<Scalars["String"]["output"]>;
   diskDevices: Array<Scalars["String"]["output"]>;
+  failingCommand?: Maybe<Scalars["String"]["output"]>;
   oomTracker: OomTrackerInfo;
   status: Scalars["String"]["output"];
   timedOut?: Maybe<Scalars["Boolean"]["output"]>;
@@ -3144,6 +3250,7 @@ export type User = {
   parsleySettings: ParsleySettings;
   patches: Patches;
   permissions: Permissions;
+  settings: UserSettings;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
   userId: Scalars["String"]["output"];
 };
@@ -3230,6 +3337,7 @@ export type Version = {
   errors: Array<Scalars["String"]["output"]>;
   externalLinksForMetadata: Array<ExternalLinkForMetadata>;
   finishTime?: Maybe<Scalars["Time"]["output"]>;
+  generatedTaskCounts: Array<GeneratedTaskCountResults>;
   gitTags?: Maybe<Array<GitTag>>;
   id: Scalars["String"]["output"];
   ignored: Scalars["Boolean"]["output"];
@@ -3323,6 +3431,53 @@ export type Volume = {
 export type VolumeHost = {
   hostId: Scalars["String"]["input"];
   volumeId: Scalars["String"]["input"];
+};
+
+export type Waterfall = {
+  __typename?: "Waterfall";
+  buildVariants: Array<WaterfallBuildVariant>;
+  nextPageOrder: Scalars["Int"]["output"];
+  prevPageOrder: Scalars["Int"]["output"];
+  versions: Array<WaterfallVersion>;
+};
+
+export type WaterfallBuild = {
+  __typename?: "WaterfallBuild";
+  activated?: Maybe<Scalars["Boolean"]["output"]>;
+  displayName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  tasks: Array<WaterfallTask>;
+  version: Scalars["String"]["output"];
+};
+
+export type WaterfallBuildVariant = {
+  __typename?: "WaterfallBuildVariant";
+  builds: Array<WaterfallBuild>;
+  displayName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+};
+
+export type WaterfallOptions = {
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Return versions with an order lower than maxOrder. Used for paginating forward. */
+  maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  /** Return versions with an order greater than minOrder. Used for paginating backward. */
+  minOrder?: InputMaybe<Scalars["Int"]["input"]>;
+  projectIdentifier: Scalars["String"]["input"];
+  requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
+export type WaterfallTask = {
+  __typename?: "WaterfallTask";
+  displayName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  status: Scalars["String"]["output"];
+};
+
+export type WaterfallVersion = {
+  __typename?: "WaterfallVersion";
+  inactiveVersions?: Maybe<Array<Version>>;
+  version?: Maybe<Version>;
 };
 
 export type Webhook = {
@@ -3476,6 +3631,7 @@ export type TaskQuery = {
     details?: {
       __typename?: "TaskEndDetail";
       description?: string | null;
+      failingCommand?: string | null;
       status: string;
     } | null;
     logs: {

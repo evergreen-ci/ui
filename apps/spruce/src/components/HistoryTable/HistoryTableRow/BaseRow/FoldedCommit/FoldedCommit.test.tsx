@@ -1,6 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  userEvent,
+  screen,
+} from "@evg-ui/lib/test_utils";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { renderWithRouterMatch as render, userEvent, screen } from "test_utils";
 import FoldedCommit from ".";
 import { foldedCommitData } from "./testData";
 
@@ -16,10 +20,10 @@ describe("foldedCommit", () => {
     render(
       <MockedProvider mocks={[getSpruceConfigMock]}>
         <FoldedCommit
-          index={0}
           data={foldedCommitData}
-          onToggleFoldedCommit={onToggleFoldedCommit}
+          index={0}
           numVisibleCols={5}
+          onToggleFoldedCommit={onToggleFoldedCommit}
           selected={false}
         />
       </MockedProvider>,
@@ -40,10 +44,10 @@ describe("foldedCommit", () => {
     render(
       <MockedProvider mocks={[getSpruceConfigMock]}>
         <FoldedCommit
-          index={0}
           data={data}
-          onToggleFoldedCommit={onToggleFoldedCommit}
+          index={0}
           numVisibleCols={5}
+          onToggleFoldedCommit={onToggleFoldedCommit}
           selected={false}
         />
       </MockedProvider>,

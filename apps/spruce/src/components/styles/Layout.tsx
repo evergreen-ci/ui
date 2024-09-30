@@ -1,43 +1,52 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { H2, H2Props, Body, BodyProps } from "@leafygreen-ui/typography";
-import { Layout } from "antd";
 import { size, fontSize } from "constants/tokens";
 
-const { gray, red, white } = palette;
-const { Content, Sider } = Layout;
+const { gray, red } = palette;
 
-const whiteBackground = css`
-  background: ${white};
-  background-color: ${white};
+// Top-level layout for the entire site. Manages positioning of navbar.
+export const SiteLayout = styled.div`
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
 `;
 
+// Layout elements for pages with a LeafyGreen SideNav
+export const SideNavPageWrapper = styled.div`
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+`;
+export const SideNavPageContent = styled.div`
+  overflow-x: hidden;
+  overflow-y: scroll;
+  flex-grow: 1;
+  padding: ${size.m} ${size.l};
+`;
+
+// Layout elements for non-LG SideNav pages
 export const PageWrapper = styled.div`
-  grid-area: contents;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   padding: ${size.m} ${size.l};
 `;
-
-export const PageGrid = styled.div`
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "sidenav contents";
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-rows: auto 1fr;
-  height: 100vh;
+export const PageLayout = styled.section<{ hasSider?: boolean }>`
+  display: flex;
+  flex: auto;
+  flex-direction: ${({ hasSider }) => (hasSider ? "row" : "column")};
+  min-height: 0;
 `;
-
-/* Flexbox-based antd components to be used together */
-export const PageLayout = styled(Layout)`
-  ${whiteBackground}
+export const PageSider = styled.aside<{ width?: number }>`
+  ${({ width = 275 }) => `
+   max-width: ${width}px;
+   min-width: ${width}px;
+   width: ${width}px;
+   `}
 `;
-export const PageSider = styled(Sider)`
-  ${whiteBackground}
-`;
-export const PageContent = styled(Content)`
+export const PageContent = styled.main`
+  flex: auto;
   margin-left: ${size.s};
   overflow: hidden;
 `;
@@ -78,7 +87,7 @@ export const ErrorMessage = styled(Body)<BodyProps>`
   color: ${red.base};
 `;
 
-export const HR = styled("hr")`
+export const HR = styled.hr`
   background-color: ${gray.light2};
   border: 0;
   height: 1px;

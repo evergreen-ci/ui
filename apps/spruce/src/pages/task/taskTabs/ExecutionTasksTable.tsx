@@ -77,11 +77,10 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   );
 
   const tableSortHandler = useTableSort({
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sorted execution tasks table",
-        sortBy: sorter.map(({ id }) => id as TaskSortCategory),
+        "sort.by": sorter.map(({ id }) => id as TaskSortCategory),
       }),
   });
 
@@ -112,8 +111,8 @@ export const ExecutionTasksTable: React.FC<Props> = ({
       data-cy="execution-tasks-table"
       data-cy-row="execution-tasks-table-row"
       emptyComponent={<TablePlaceholder message="No execution tasks found." />}
-      table={table}
       shouldAlternateRowColor
+      table={table}
     />
   );
 };
@@ -136,10 +135,22 @@ const getInitialSorting = (queryParams: {
       },
     ];
   } else if (sorts) {
-    const parsedSorts = parseSortString(sorts);
-    initialSorting = parsedSorts.map(({ Direction, Key }) => ({
-      id: Key as TaskSortCategory,
-      desc: Direction === SortDirection.Desc,
+    const parsedSorts = parseSortString<
+      "id",
+      "direction",
+      TaskSortCategory,
+      {
+        id: TaskSortCategory;
+        direction: SortDirection;
+      }
+    >(sorts, {
+      sortCategoryEnum: TaskSortCategory,
+      sortByKey: "id",
+      sortDirKey: "direction",
+    });
+    initialSorting = parsedSorts.map(({ direction, id }) => ({
+      id,
+      desc: direction === SortDirection.Desc,
     }));
   }
 

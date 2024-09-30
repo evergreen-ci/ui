@@ -22,28 +22,28 @@ export const TaskStatusCheckboxContainer: React.FC<
 
   return (
     <Virtuoso
-      style={{ height: listHeight, width: "100%" }}
-      totalCount={tasks.length}
       data={tasks}
       itemContent={(_idx, task) => {
         const { baseStatus, displayName, id: taskId, status } = task;
         const checked = !!selectedTasks[taskId];
         return (
           <TaskStatusCheckbox
+            key={taskId}
+            baseStatus={baseStatus}
+            checked={checked}
+            displayName={displayName}
             onClick={() => {
               if (selectedTasks[taskId] !== undefined) {
                 toggleSelectedTask({ [versionId]: taskId });
               }
             }}
-            checked={checked}
-            displayName={displayName}
-            key={taskId}
             status={status}
-            baseStatus={baseStatus}
             taskId={taskId}
           />
         );
       }}
+      style={{ height: listHeight, width: "100%" }}
+      totalCount={tasks.length}
     />
   );
 };

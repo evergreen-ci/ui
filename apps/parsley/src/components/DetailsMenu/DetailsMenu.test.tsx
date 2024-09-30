@@ -1,11 +1,15 @@
 import { act, waitFor } from "@testing-library/react";
+import {
+  renderWithRouterMatch as render,
+  renderComponentWithHook,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { useQueryParam } from "hooks/useQueryParam";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
-import { renderComponentWithHook } from "test_utils/TestHooks";
 import DetailsMenu from ".";
 
 /**

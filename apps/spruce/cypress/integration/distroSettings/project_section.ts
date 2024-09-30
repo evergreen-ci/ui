@@ -17,7 +17,7 @@ describe("project section", () => {
     cy.getInputByLabel("Key").type("key-name");
     cy.getInputByLabel("Value").type("my-value");
     cy.contains("button", "Add project").click();
-    cy.getInputByLabel("Project Name").type("spruce");
+    cy.getInputByLabel("Project ID").type("spruce");
 
     save();
     cy.validateToast("success");
@@ -26,7 +26,7 @@ describe("project section", () => {
     cy.reload();
     cy.getInputByLabel("Key").should("have.value", "key-name");
     cy.getInputByLabel("Value").should("have.value", "my-value");
-    cy.getInputByLabel("Project Name").should("have.value", "spruce");
+    cy.getInputByLabel("Project ID").should("have.value", "spruce");
 
     // Undo changes.
     cy.dataCy("delete-item-button").first().click();

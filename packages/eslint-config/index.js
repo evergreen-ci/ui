@@ -73,6 +73,8 @@ module.exports = {
           errorIfStrict,
           { caseSensitive: true },
         ],
+        
+        "react/jsx-sort-props": ERROR, // Sort props alphabetically.
       },
     },
     // For test files
@@ -109,6 +111,7 @@ module.exports = {
           { selections: ["OperationDefinition", "FragmentDefinition"] },
         ],
         "@graphql-eslint/no-deprecated": WARN,
+        "@graphql-eslint/selection-set-depth": [WARN, { maxDepth: 8 }],
         // Following rule can possibly be removed after ESLint updates.
         "spaced-comment": OFF,
       },
@@ -192,6 +195,11 @@ module.exports = {
           {
             group: "external",
             pattern: "@**",
+            position: "before",
+          },
+          {
+            group: "internal",
+            pattern: "@evg-ui/**",
             position: "before",
           },
           {

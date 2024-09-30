@@ -1,8 +1,8 @@
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import {
   newSpruceUser,
   newMainlineCommitsUser,
 } from "constants/welcomeModalProps";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import CarouselCard from "./CarouselCard";
 import WelcomeModal from "./WelcomeModal";
 
@@ -18,9 +18,9 @@ export default {
 export const NewSpruceUser: CustomStoryObj<typeof WelcomeModal> = {
   render: () => (
     <WelcomeModal
-      title="Welcome to the New Evergreen UI!"
-      param="hasUsedSpruceBefore"
       carouselCards={newSpruceUser}
+      param="hasUsedSpruceBefore"
+      title="Welcome to the New Evergreen UI!"
     />
   ),
 };
@@ -28,8 +28,8 @@ export const NewSpruceUser: CustomStoryObj<typeof WelcomeModal> = {
 export const NewMainlineCommitsUser: CustomStoryObj<typeof WelcomeModal> = {
   render: () => (
     <WelcomeModal
-      param="hasUsedMainlineCommitsBefore"
       carouselCards={newMainlineCommitsUser}
+      param="hasUsedMainlineCommitsBefore"
     />
   ),
 };

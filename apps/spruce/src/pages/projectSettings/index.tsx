@@ -13,9 +13,9 @@ import {
   SideNav,
   SideNavGroup,
   SideNavItem,
-  PageWrapper,
+  SideNavPageContent,
+  SideNavPageWrapper,
 } from "components/styles";
-import { showGitHubAccessTokenProject } from "constants/featureFlags";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -90,8 +90,8 @@ const ProjectSettings: React.FC = () => {
     sendAnalyticsEvent: (projectId: string, identifier: string) => {
       sendEvent({
         name: "Redirected to project identifier",
-        projectId,
-        projectIdentifier: identifier,
+        "project.id": projectId,
+        "project.identifier": identifier,
       });
     },
   });
@@ -174,128 +174,130 @@ const ProjectSettings: React.FC = () => {
     <ProjectSettingsProvider>
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
-      <SideNav aria-label="Project Settings" widthOverride={250}>
-        <ButtonsContainer>
-          <StyledProjectSelect
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            selectedProjectIdentifier={projectLabel}
-            getRoute={getProjectSettingsRoute}
-            isProjectSettingsPage
-          />
-          {projectType === ProjectType.AttachedProject && repoId && (
-            <StyledRouterLink
-              arrowAppearance="persist"
-              to={getProjectSettingsRoute(
-                repoId,
-                tab && projectOnlyTabs.has(tab)
-                  ? ProjectSettingsTabRoutes.General
-                  : tab,
-              )}
-              data-cy="attached-repo-link"
-            >
-              <strong>Go to repo settings</strong>
-            </StyledRouterLink>
-          )}
+      <SideNavPageWrapper>
+        <SideNav aria-label="Project Settings" widthOverride={250}>
+          <ButtonsContainer>
+            <StyledProjectSelect
+              getRoute={getProjectSettingsRoute}
+              isProjectSettingsPage
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              selectedProjectIdentifier={projectLabel}
+            />
+            {projectType === ProjectType.AttachedProject && repoId && (
+              <StyledRouterLink
+                arrowAppearance="persist"
+                data-cy="attached-repo-link"
+                to={getProjectSettingsRoute(
+                  repoId,
+                  tab && projectOnlyTabs.has(tab)
+                    ? ProjectSettingsTabRoutes.General
+                    : tab,
+                )}
+              >
+                <strong>Go to repo settings</strong>
+              </StyledRouterLink>
+            )}
 
-          <CreateDuplicateProjectButton
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            id={project?.projectRef?.id}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            label={projectLabel}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            owner={owner}
-            projectType={projectType}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            repo={repo}
-          />
-        </ButtonsContainer>
+            <CreateDuplicateProjectButton
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              id={project?.projectRef?.id}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              label={projectLabel}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              owner={owner}
+              projectType={projectType}
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repo={repo}
+            />
+          </ButtonsContainer>
 
-        <SideNavGroup>
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.General}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.Access}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.Variables}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.GithubCommitQueue}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.Notifications}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.PatchAliases}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.VirtualWorkstation}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.Containers}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.ViewsAndFilters}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.ProjectTriggers}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.PeriodicBuilds}
-          />
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.Plugins}
-          />
-          {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
+          <SideNavGroup>
             <ProjectSettingsNavItem
               {...sharedProps}
-              tab={ProjectSettingsTabRoutes.GithubAppSettings}
+              tab={ProjectSettingsTabRoutes.General}
             />
-          )}
-          {showGitHubAccessTokenProject && projectType !== ProjectType.Repo && (
             <ProjectSettingsNavItem
               {...sharedProps}
-              tab={ProjectSettingsTabRoutes.GithubPermissionGroups}
+              tab={ProjectSettingsTabRoutes.Access}
             />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.Variables}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.GithubCommitQueue}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.Notifications}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.PatchAliases}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.VirtualWorkstation}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.Containers}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.ViewsAndFilters}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.ProjectTriggers}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.PeriodicBuilds}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.Plugins}
+            />
+            {projectType !== ProjectType.Repo && (
+              <ProjectSettingsNavItem
+                {...sharedProps}
+                tab={ProjectSettingsTabRoutes.GithubAppSettings}
+              />
+            )}
+            {projectType !== ProjectType.Repo && (
+              <ProjectSettingsNavItem
+                {...sharedProps}
+                tab={ProjectSettingsTabRoutes.GithubPermissionGroups}
+              />
+            )}
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.EventLog}
+            />
+          </SideNavGroup>
+        </SideNav>
+        <SideNavPageContent
+          ref={pageWrapperRef}
+          css={css`
+            padding-top: 0;
+            margin-top: ${size.m};
+          `}
+          data-cy="project-settings-page"
+        >
+          {hasLoaded ? (
+            <ProjectSettingsTabs
+              atTop={atTop}
+              projectData={projectData?.projectSettings}
+              projectType={projectType}
+              repoData={repoData?.repoSettings}
+            />
+          ) : (
+            <FormSkeleton />
           )}
-          <ProjectSettingsNavItem
-            {...sharedProps}
-            tab={ProjectSettingsTabRoutes.EventLog}
-          />
-        </SideNavGroup>
-      </SideNav>
-      <PageWrapper
-        data-cy="project-settings-page"
-        css={css`
-          padding-top: 0;
-          margin-top: ${size.m};
-        `}
-        ref={pageWrapperRef}
-      >
-        {hasLoaded ? (
-          <ProjectSettingsTabs
-            atTop={atTop}
-            projectData={projectData?.projectSettings}
-            projectType={projectType}
-            repoData={repoData?.repoSettings}
-          />
-        ) : (
-          <FormSkeleton />
-        )}
-      </PageWrapper>
+        </SideNavPageContent>
+      </SideNavPageWrapper>
     </ProjectSettingsProvider>
   );
 };
@@ -309,8 +311,8 @@ const ProjectSettingsNavItem: React.FC<{
   <SideNavItem
     active={tab === currentTab}
     as={Link}
-    to={getProjectSettingsRoute(projectIdentifier, tab)}
     data-cy={`navitem-${tab}`}
+    to={getProjectSettingsRoute(projectIdentifier, tab)}
   >
     {title || getTabTitle(tab).title}
   </SideNavItem>

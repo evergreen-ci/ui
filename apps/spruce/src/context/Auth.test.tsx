@@ -1,12 +1,9 @@
-import { act, renderHook, waitFor } from "test_utils";
-import { mockEnvironmentVariables } from "test_utils/utils";
+import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import {
   AuthProvider,
   useAuthDispatchContext,
   useAuthStateContext,
 } from "./Auth";
-
-const { cleanup, mockEnv } = mockEnvironmentVariables();
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <AuthProvider>{children}</AuthProvider>
@@ -26,7 +23,7 @@ const useAuthHook = () => {
 
 describe("auth", () => {
   afterEach(() => {
-    cleanup();
+    vi.unstubAllEnvs();
     vi.restoreAllMocks();
   });
 
@@ -104,8 +101,8 @@ describe("auth", () => {
     });
 
     it("should redirect to the Spruce /login page locally", async () => {
-      mockEnv("NODE_ENV", "development");
-      mockEnv("REACT_APP_SPRUCE_URL", "spruce-url");
+      vi.stubEnv("NODE_ENV", "development");
+      vi.stubEnv("REACT_APP_SPRUCE_URL", "spruce-url");
       const mockFetchPromise = vi.fn().mockResolvedValue({});
       vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 
@@ -121,8 +118,8 @@ describe("auth", () => {
     });
 
     it("should redirect to the Evergreen /login page otherwise", async () => {
-      mockEnv("NODE_ENV", "production");
-      mockEnv("REACT_APP_UI_URL", "evergreen-url");
+      vi.stubEnv("NODE_ENV", "production");
+      vi.stubEnv("REACT_APP_UI_URL", "evergreen-url");
       const mockFetchPromise = vi.fn().mockResolvedValue({});
       vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 

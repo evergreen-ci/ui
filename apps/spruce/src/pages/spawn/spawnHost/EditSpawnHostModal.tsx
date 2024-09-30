@@ -27,7 +27,6 @@ import { EDIT_SPAWN_HOST } from "gql/mutations";
 import { useUserTimeZone } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
-import { omit } from "utils/object";
 
 interface EditSpawnHostModalProps {
   visible?: boolean;
@@ -169,11 +168,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const onSubmit = () => {
     sendEvent({
       name: "Changed spawn host settings",
-      params: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        hostId: host.id,
-        ...omit(mutationParams, ["publicKey"]),
-      },
     });
     editSpawnHostMutation({
       variables: {
@@ -186,26 +180,26 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 
   return (
     <ConfirmationModal
-      title="Edit Host Details"
-      open={visible}
+      buttonText={loadingSpawnHost ? "Saving" : "Save"}
       data-cy="edit-spawn-host-modal"
-      submitDisabled={!hasChanges || hasError || loadingSpawnHost}
       onCancel={() => {
         onCancel();
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         setFormState(initialFormState);
       }}
       onConfirm={onSubmit}
-      buttonText={loadingSpawnHost ? "Saving" : "Save"}
+      open={visible}
+      submitDisabled={!hasChanges || hasError || loadingSpawnHost}
+      title="Edit Host Details"
     >
       <SpruceForm
-        schema={schema}
-        uiSchema={uiSchema}
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
           setHasError(errors.length > 0);
         }}
+        schema={schema}
+        uiSchema={uiSchema}
         // @ts-expect-error rjsf v4 has insufficient typing for its validator
         validate={validator(!!host?.sleepSchedule?.permanentlyExempt)}
       />

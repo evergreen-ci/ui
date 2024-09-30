@@ -1,24 +1,29 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { GuideCue } from "@leafygreen-ui/guide-cue";
+import {
+  Chip,
+  Variant as ChipVariant,
+  TruncationLocation,
+} from "@leafygreen-ui/chip";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
-import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import ExpandedText from "components/ExpandedText";
 import {
   MetadataCard,
   MetadataItem,
   MetadataTitle,
+  MetadataLabel,
 } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
-import { SEEN_HONEYCOMB_GUIDE_CUE } from "constants/cookies";
 import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "constants/externalResources";
+import { showImageVisibilityPage } from "constants/featureFlags";
 import {
   getDistroSettingsRoute,
   getTaskQueueRoute,
@@ -28,15 +33,17 @@ import {
   getVersionRoute,
   getProjectPatchesRoute,
   getPodRoute,
+  getImageRoute,
 } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
-import { TaskStatus } from "types/task";
 import { string } from "utils";
+import { isFailedTaskStatus } from "utils/statuses";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import ETATimer from "./ETATimer";
+import { ImageVisibilityGuideCue } from "./ImageVisibilityGuideCue";
 import RuntimeTimer from "./RuntimeTimer";
 import { Stepback, isInStepback } from "./Stepback";
 
@@ -47,7 +54,7 @@ interface Props {
   taskId: string;
   loading: boolean;
   task: TaskQuery["task"];
-  error: ApolloError;
+  error: ApolloError | null;
 }
 
 export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
@@ -66,11 +73,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     displayTask,
     distroId,
     estimatedStart,
+    executionTasksFull,
     expectedDuration,
     finishTime,
     generatedBy,
     generatedByName,
     hostId,
+    imageId,
     ingestTime,
     minQueuePosition: taskQueuePosition,
     pod,
@@ -80,11 +89,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     spawnHostLink,
     startTime,
     status,
+    tags,
     timeTaken,
     versionMetadata,
   } = task || {};
 
   const submittedTime = activatedTime ?? ingestTime;
+  const isDisplayTask = executionTasksFull != null;
   const {
     id: baseTaskId,
     timeTaken: baseTaskDuration,
@@ -100,396 +111,435 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
   const { id: podId } = pod ?? {};
   const isContainerTask = !!podId;
   const { metadataLinks } = annotation ?? {};
-  const [openGuideCue, setOpenGuideCue] = useState(
-    Cookies.get(SEEN_HONEYCOMB_GUIDE_CUE) !== "true",
-  );
-  const triggerRef = useRef(null);
-  const onHideCue = () => {
-    Cookies.set(SEEN_HONEYCOMB_GUIDE_CUE, "true", { expires: 365 });
-    setOpenGuideCue(false);
-  };
+
   const stepback = isInStepback(task);
 
+  const imageVisibilityGuideCueTriggerRef = useRef<HTMLAnchorElement>(null);
+
   return (
-    <MetadataCard error={!task && error ? error : undefined} loading={loading}>
-      <MetadataTitle>Task Metadata</MetadataTitle>
-      <MetadataItem data-cy="task-metadata-build-variant">
-        Build Variant:{" "}
-        <StyledRouterLink
-          data-cy="build-variant-link"
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          to={getVersionRoute(versionID, {
-            page: 0,
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            variant: applyStrictRegex(buildVariant),
-          })}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Clicked metadata link",
-              linkType: "build variant link",
-            })
-          }
-        >
-          {buildVariantDisplayName || buildVariant}
-        </StyledRouterLink>
-      </MetadataItem>
-      <MetadataItem data-cy="task-metadata-project">
-        Project:{" "}
-        <StyledRouterLink
-          data-cy="project-link"
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          to={getProjectPatchesRoute(projectIdentifier)}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Clicked metadata link",
-              linkType: "project link",
-            })
-          }
-        >
-          {projectIdentifier}
-        </StyledRouterLink>
-      </MetadataItem>
-      <MetadataItem>Submitted by: {author}</MetadataItem>
-      {submittedTime && (
-        <MetadataItem data-cy="task-metadata-submitted-at">
-          Submitted at:{" "}
-          <span title={getDateCopy(submittedTime)}>
-            {getDateCopy(submittedTime, { omitSeconds: true })}
-          </span>
-        </MetadataItem>
-      )}
-      {generatedBy && (
-        <MetadataItem>
-          <span>Generated by: </span>
-          <StyledRouterLink to={getTaskRoute(generatedBy)}>
-            {generatedByName}
-          </StyledRouterLink>
-        </MetadataItem>
-      )}
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {estimatedStart > 0 && (
-        <MetadataItem>
-          Estimated time to start:{" "}
-          <span data-cy="task-metadata-estimated_start">
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-            {msToDuration(estimatedStart)}
-          </span>
-        </MetadataItem>
-      )}
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {status === TaskStatus.Started && expectedDuration > 0 && (
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        <ETATimer startTime={startTime} expectedDuration={expectedDuration} />
-      )}
-      {status === TaskStatus.Started && startTime && (
-        <RuntimeTimer startTime={startTime} />
-      )}
-      {startTime && (
-        <MetadataItem>
-          Started:{" "}
-          <span data-cy="task-metadata-started" title={getDateCopy(startTime)}>
-            {getDateCopy(startTime, { omitSeconds: true })}
-          </span>
-        </MetadataItem>
-      )}
-      {finishTime && (
-        <MetadataItem>
-          Finished:{" "}
-          <span
-            data-cy="task-metadata-finished"
-            title={getDateCopy(finishTime)}
-          >
-            {getDateCopy(finishTime, { omitSeconds: true })}
-          </span>
-        </MetadataItem>
-      )}
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {timeTaken > 0 && finishTime && (
-        <MetadataItem data-cy="task-metadata-duration">
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          Duration: {msToDuration(timeTaken)}{" "}
-        </MetadataItem>
-      )}
-      {baseTaskDuration !== undefined && (
-        <MetadataItem data-cy="task-metadata-base-commit-duration">
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          Base commit duration: {msToDuration(baseTaskDuration)}
-        </MetadataItem>
-      )}
-      {baseTaskId && (
-        <MetadataItem>
-          Base commit:{" "}
-          <InlineCode
-            as={Link}
-            data-cy="base-task-link"
-            onClick={() =>
-              taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
-                linkType: "base commit",
-              })
-            }
-            to={getTaskRoute(baseTaskId)}
-          >
-            {baseCommit}
-          </InlineCode>
-        </MetadataItem>
-      )}
-      {details?.description && (
-        <MetadataItem data-cy="task-metadata-description">
-          <DetailsDescription
-            description={details.description}
-            isContainerTask={isContainerTask}
-            status={details?.status}
-          />
-        </MetadataItem>
-      )}
-      {details?.timeoutType && details?.timeoutType !== "" && (
-        <MetadataItem>Timeout type: {details?.timeoutType}</MetadataItem>
-      )}
-      {displayTask && (
-        <MetadataItem>
-          Display Task:{" "}
-          <StyledRouterLink
-            to={getTaskRoute(displayTask.id, {
-              execution: displayTask.execution,
-            })}
-            onClick={() =>
-              taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
-                linkType: "display task link",
-              })
-            }
-          >
-            {displayTask.displayName}
-          </StyledRouterLink>
-        </MetadataItem>
-      )}
-      {!isContainerTask && distroId && (
-        <MetadataItem>
-          Distro:{" "}
-          <StyledRouterLink
-            data-cy="task-distro-link"
-            onClick={() =>
-              taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
-                linkType: "distro link",
-              })
-            }
-            to={getDistroSettingsRoute(distroId)}
-          >
-            {distroId}
-          </StyledRouterLink>
-        </MetadataItem>
-      )}
-      {ami && (
-        <MetadataItem data-cy="task-metadata-ami">AMI: {ami}</MetadataItem>
-      )}
-      {!isContainerTask && hostId && (
-        <MetadataItem>
-          Host:{" "}
-          <StyledLink
-            data-cy="task-host-link"
-            href={getHostRoute(hostId)}
-            onClick={() =>
-              taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
-                linkType: "host link",
-              })
-            }
-          >
-            {hostId}
-          </StyledLink>
-        </MetadataItem>
-      )}
-      {isContainerTask && (
-        <MetadataItem>
-          Container:{" "}
-          <StyledLink
-            data-cy="task-pod-link"
-            href={getPodRoute(podId)}
-            onClick={() =>
-              taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
-                linkType: "pod link",
-              })
-            }
-          >
-            {podId}
-          </StyledLink>
-        </MetadataItem>
-      )}
-      {priority !== 0 && (
-        <MetadataItem data-cy="task-metadata-priority">
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-          Priority: {priority} {priority < 0 && `(Disabled)`}
-        </MetadataItem>
-      )}
-      {spawnHostLink && (
-        <MetadataItem>
-          <StyledRouterLink
-            data-cy="task-spawn-host-link"
-            to={getSpawnHostRoute({
-              distroId,
-              spawnHost: true,
-              taskId,
-            })}
-            onClick={() =>
-              taskAnalytics.sendEvent({
-                name: "Clicked metadata link",
-                linkType: "spawn host link",
-              })
-            }
-          >
-            Spawn host
-          </StyledRouterLink>
-        </MetadataItem>
-      )}
-      {metadataLinks &&
-        metadataLinks.map((link) => (
-          <MetadataItem key={link.text}>
-            <StyledLink
-              data-cy="task-metadata-link"
-              href={link.url}
+    <>
+      <MetadataCard
+        error={!task && error ? error : undefined}
+        loading={loading}
+      >
+        <MetadataTitle>Task Metadata</MetadataTitle>
+        {versionID && buildVariant && (
+          <MetadataItem data-cy="task-metadata-build-variant">
+            <MetadataLabel>Build Variant:</MetadataLabel>{" "}
+            <StyledRouterLink
+              data-cy="build-variant-link"
               onClick={() =>
                 taskAnalytics.sendEvent({
                   name: "Clicked metadata link",
-                  linkType: "annotation link",
+                  "link.type": "build variant link",
                 })
               }
+              to={getVersionRoute(versionID, {
+                page: 0,
+                variant: applyStrictRegex(buildVariant),
+              })}
             >
-              {link.text}
-            </StyledLink>
+              {buildVariantDisplayName || buildVariant}
+            </StyledRouterLink>
           </MetadataItem>
-        ))}
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {taskQueuePosition > 0 && (
+        )}
+        {projectIdentifier && (
+          <MetadataItem data-cy="task-metadata-project">
+            <MetadataLabel>Project:</MetadataLabel>{" "}
+            <StyledRouterLink
+              data-cy="project-link"
+              onClick={() =>
+                taskAnalytics.sendEvent({
+                  name: "Clicked metadata link",
+                  "link.type": "project link",
+                })
+              }
+              to={getProjectPatchesRoute(projectIdentifier)}
+            >
+              {projectIdentifier}
+            </StyledRouterLink>
+          </MetadataItem>
+        )}
         <MetadataItem>
-          Position in queue:{" "}
-          <StyledRouterLink
-            data-cy="task-queue-position"
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            to={getTaskQueueRoute(distroId, taskId)}
-          >
-            {taskQueuePosition}
-          </StyledRouterLink>
+          <MetadataLabel>Submitted by:</MetadataLabel> {author}
         </MetadataItem>
+        {submittedTime && (
+          <MetadataItem data-cy="task-metadata-submitted-at">
+            <MetadataLabel>Submitted at:</MetadataLabel>{" "}
+            <span title={getDateCopy(submittedTime)}>
+              {getDateCopy(submittedTime, { omitSeconds: true })}
+            </span>
+          </MetadataItem>
+        )}
+        {generatedBy && (
+          <MetadataItem>
+            <MetadataLabel>Generated by:</MetadataLabel>{" "}
+            <StyledRouterLink to={getTaskRoute(generatedBy)}>
+              {generatedByName}
+            </StyledRouterLink>
+          </MetadataItem>
+        )}
+        {estimatedStart && estimatedStart > 0 ? (
+          <MetadataItem>
+            <MetadataLabel>Estimated time to start:</MetadataLabel>{" "}
+            <span data-cy="task-metadata-estimated-start">
+              {msToDuration(estimatedStart)}
+            </span>
+          </MetadataItem>
+        ) : null}
+        {status === TaskStatus.Started && startTime && expectedDuration ? (
+          <ETATimer expectedDuration={expectedDuration} startTime={startTime} />
+        ) : null}
+        {status === TaskStatus.Started && startTime && (
+          <RuntimeTimer startTime={startTime} />
+        )}
+        {startTime && (
+          <MetadataItem>
+            <MetadataLabel>Started:</MetadataLabel>{" "}
+            <span
+              data-cy="task-metadata-started"
+              title={getDateCopy(startTime)}
+            >
+              {getDateCopy(startTime, { omitSeconds: true })}
+            </span>
+          </MetadataItem>
+        )}
+        {finishTime && (
+          <MetadataItem>
+            <MetadataLabel>Finished:</MetadataLabel>{" "}
+            <span
+              data-cy="task-metadata-finished"
+              title={getDateCopy(finishTime)}
+            >
+              {getDateCopy(finishTime, { omitSeconds: true })}
+            </span>
+          </MetadataItem>
+        )}
+        {finishTime && timeTaken && timeTaken > 0 ? (
+          <MetadataItem data-cy="task-metadata-duration">
+            <MetadataLabel>Duration:</MetadataLabel> {msToDuration(timeTaken)}
+          </MetadataItem>
+        ) : null}
+        {baseTaskDuration ? (
+          <MetadataItem data-cy="task-metadata-base-commit-duration">
+            <MetadataLabel>Base commit duration:</MetadataLabel>{" "}
+            {msToDuration(baseTaskDuration)}
+          </MetadataItem>
+        ) : null}
+        {baseTaskId && (
+          <MetadataItem>
+            <MetadataLabel>Base commit:</MetadataLabel>{" "}
+            <InlineCode
+              as={Link}
+              data-cy="base-task-link"
+              onClick={() =>
+                taskAnalytics.sendEvent({
+                  name: "Clicked metadata link",
+                  "link.type": "base commit",
+                })
+              }
+              to={getTaskRoute(baseTaskId)}
+            >
+              {baseCommit}
+            </InlineCode>
+          </MetadataItem>
+        )}
+        {(details?.description || details?.failingCommand) && (
+          <DetailsDescription
+            description={details?.description ?? ""}
+            failingCommand={details?.failingCommand ?? ""}
+            isContainerTask={isContainerTask}
+            status={details?.status}
+          />
+        )}
+        {details?.timeoutType && details?.timeoutType !== "" && (
+          <MetadataItem>
+            <MetadataLabel>Timeout type:</MetadataLabel> {details?.timeoutType}
+          </MetadataItem>
+        )}
+        {displayTask && (
+          <MetadataItem>
+            <MetadataLabel>Display Task:</MetadataLabel>{" "}
+            <StyledRouterLink
+              onClick={() =>
+                taskAnalytics.sendEvent({
+                  name: "Clicked metadata link",
+                  "link.type": "display task link",
+                })
+              }
+              to={getTaskRoute(displayTask.id, {
+                execution: displayTask.execution,
+              })}
+            >
+              {displayTask.displayName}
+            </StyledRouterLink>
+          </MetadataItem>
+        )}
+        {priority && priority !== 0 ? (
+          <MetadataItem data-cy="task-metadata-priority">
+            <MetadataLabel>Priority:</MetadataLabel> {priority}{" "}
+            {priority < 0 && `(Disabled)`}
+          </MetadataItem>
+        ) : null}
+        {metadataLinks &&
+          metadataLinks.map((link) => (
+            <MetadataItem key={link.text}>
+              <StyledLink
+                data-cy="task-metadata-link"
+                href={link.url}
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "annotation link",
+                  })
+                }
+              >
+                {link.text}
+              </StyledLink>
+            </MetadataItem>
+          ))}
+        {taskQueuePosition && taskQueuePosition > 0 ? (
+          <MetadataItem>
+            <MetadataLabel>Position in queue:</MetadataLabel>{" "}
+            <StyledRouterLink
+              data-cy="task-queue-position"
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              to={getTaskQueueRoute(distroId, taskId)}
+            >
+              {taskQueuePosition}
+            </StyledRouterLink>
+          </MetadataItem>
+        ) : null}
+        {abortInfo && <AbortMessage {...abortInfo} />}
+        {oomTracker && oomTracker.detected && (
+          <OOMTrackerMessage>
+            Out of Memory Kill detected{" "}
+            {oomTracker.pids ? `(PIDs: ${oomTracker.pids.join(", ")})` : ""}
+          </OOMTrackerMessage>
+        )}
+        {resetWhenFinished && (
+          <MetadataItem data-cy="reset-when-finished">
+            This task will restart when all of the tasks in its task group have
+            finished running.
+          </MetadataItem>
+        )}
+        {taskTrace && startTime && finishTime && (
+          <MetadataItem>
+            <HoneycombLinkContainer>
+              <StyledLink
+                data-cy="task-trace-link"
+                hideExternalIcon={false}
+                href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
+                onClick={() => {
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "honeycomb trace link",
+                  });
+                }}
+              >
+                Honeycomb Trace
+              </StyledLink>
+              <StyledLink
+                data-cy="task-metrics-link"
+                hideExternalIcon={false}
+                href={getHoneycombSystemMetricsUrl(
+                  taskId,
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  diskDevices,
+                  startTime,
+                  finishTime,
+                )}
+                onClick={() => {
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "honeycomb metrics link",
+                  });
+                }}
+              >
+                Honeycomb System Metrics
+              </StyledLink>
+            </HoneycombLinkContainer>
+          </MetadataItem>
+        )}
+        {stepback && <Stepback taskId={taskId} />}
+      </MetadataCard>
+
+      {!isDisplayTask && (
+        <MetadataCard>
+          <MetadataTitle>Host Information</MetadataTitle>{" "}
+          {!isContainerTask && hostId && (
+            <MetadataItem>
+              <MetadataLabel>ID:</MetadataLabel>{" "}
+              <StyledLink
+                data-cy="task-host-link"
+                href={getHostRoute(hostId)}
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "host link",
+                  })
+                }
+              >
+                {hostId}
+              </StyledLink>
+            </MetadataItem>
+          )}
+          {!isContainerTask && distroId && (
+            <MetadataItem>
+              <MetadataLabel>Distro:</MetadataLabel>{" "}
+              <StyledRouterLink
+                data-cy="task-distro-link"
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "distro link",
+                  })
+                }
+                to={getDistroSettingsRoute(distroId)}
+              >
+                {distroId}
+              </StyledRouterLink>
+            </MetadataItem>
+          )}
+          {showImageVisibilityPage && !isContainerTask && imageId && (
+            <MetadataItem>
+              <ImageVisibilityGuideCue
+                refEl={imageVisibilityGuideCueTriggerRef}
+              />
+              <MetadataLabel>Image:</MetadataLabel>{" "}
+              <StyledRouterLink
+                ref={imageVisibilityGuideCueTriggerRef}
+                data-cy="task-image-link"
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "image link",
+                  })
+                }
+                to={getImageRoute(imageId)}
+              >
+                {imageId}
+              </StyledRouterLink>
+            </MetadataItem>
+          )}
+          {ami && (
+            <MetadataItem data-cy="task-metadata-ami">
+              <MetadataLabel>AMI:</MetadataLabel> {ami}
+            </MetadataItem>
+          )}
+          {isContainerTask && (
+            <MetadataItem>
+              <MetadataLabel>Container:</MetadataLabel>{" "}
+              <StyledLink
+                data-cy="task-pod-link"
+                href={getPodRoute(podId)}
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "pod link",
+                  })
+                }
+              >
+                {podId}
+              </StyledLink>
+            </MetadataItem>
+          )}
+          {spawnHostLink && (
+            <MetadataItem>
+              <StyledRouterLink
+                data-cy="task-spawn-host-link"
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Clicked metadata link",
+                    "link.type": "spawn host link",
+                  })
+                }
+                to={getSpawnHostRoute({
+                  distroId,
+                  spawnHost: true,
+                  taskId,
+                })}
+              >
+                Spawn host
+              </StyledRouterLink>
+            </MetadataItem>
+          )}
+        </MetadataCard>
       )}
-      {abortInfo && <AbortMessage {...abortInfo} />}
-      {oomTracker && oomTracker.detected && (
-        <OOMTrackerMessage>
-          Out of Memory Kill detected
-          {oomTracker.pids ? `(PIDs: ${oomTracker.pids.join(", ")}` : ""} )
-        </OOMTrackerMessage>
-      )}
-      {resetWhenFinished && (
-        <MetadataItem data-cy="reset-when-finished">
-          This task will restart when all of the tasks in its task group have
-          finished running.
-        </MetadataItem>
-      )}
-      {dependsOn && dependsOn.length ? (
-        <DependsOnContainer data-cy="depends-on-container">
+
+      {dependsOn && dependsOn.length > 0 ? (
+        <MetadataCard>
           <MetadataTitle>Depends On</MetadataTitle>
           {dependsOn.map((dep) => (
             <DependsOn
               key={`dependOnPill_${dep.taskId}`}
-              name={dep.name}
               buildVariant={dep.buildVariant}
               metStatus={dep.metStatus}
+              name={dep.name}
               requiredStatus={dep.requiredStatus}
               taskId={dep.taskId}
             />
           ))}
-        </DependsOnContainer>
+        </MetadataCard>
       ) : null}
-      {taskTrace && startTime && finishTime && (
-        <MetadataItem>
-          <GuideCue
-            data-cy="migrate-cue"
-            open={openGuideCue}
-            setOpen={setOpenGuideCue}
-            title="Honeycomb!"
-            refEl={triggerRef}
-            numberOfSteps={1}
-            currentStep={1}
-            onPrimaryButtonClick={onHideCue}
-          >
-            Finished tasks link to Honeycomb.
-          </GuideCue>
-          <HoneycombLinkContainer>
-            <StyledLink
-              ref={triggerRef}
-              data-cy="task-trace-link"
-              href={getHoneycombTraceUrl(taskTrace, startTime, finishTime)}
-              onClick={() => {
-                onHideCue();
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  linkType: "honeycomb trace link",
-                });
-              }}
-              hideExternalIcon={false}
-            >
-              Honeycomb Trace
-            </StyledLink>
-            <StyledLink
-              data-cy="task-metrics-link"
-              href={getHoneycombSystemMetricsUrl(
-                taskId,
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                diskDevices,
-                startTime,
-                finishTime,
-              )}
-              onClick={() => {
-                onHideCue();
-                taskAnalytics.sendEvent({
-                  name: "Clicked metadata link",
-                  linkType: "honeycomb metrics link",
-                });
-              }}
-              hideExternalIcon={false}
-            >
-              Honeycomb System Metrics
-            </StyledLink>
-          </HoneycombLinkContainer>
-        </MetadataItem>
-      )}
-      {stepback && <Stepback taskId={taskId} />}
-    </MetadataCard>
+
+      {tags && tags.length > 0 ? (
+        <MetadataCard>
+          <MetadataTitle>Tags</MetadataTitle>
+          <TagsContainer>
+            {tags.map((t) => (
+              <Chip
+                key={`task-tag-${t}`}
+                chipCharacterLimit={30}
+                chipTruncationLocation={TruncationLocation.End}
+                label={t}
+                variant={ChipVariant.Gray}
+              />
+            ))}
+          </TagsContainer>
+        </MetadataCard>
+      ) : null}
+    </>
   );
 };
 
 const DetailsDescription = ({
   description,
+  failingCommand,
   isContainerTask,
   status,
 }: {
   description: string;
+  failingCommand: string;
   isContainerTask: boolean;
   status: string;
 }) => {
   const MAX_CHAR = 100;
+  const isFailingTask = isFailedTaskStatus(status);
+  const baseCopy = description || failingCommand;
+  const fullText = isFailingTask
+    ? `${processFailingCommand(baseCopy, isContainerTask)}`
+    : `${baseCopy}`;
 
-  const fullText =
-    status === TaskStatus.Failed
-      ? `${processFailingCommand(description, isContainerTask)}`
-      : `Command: ${description}`;
   const shouldTruncate = fullText.length > MAX_CHAR;
   const truncatedText = fullText.substring(0, MAX_CHAR).concat("...");
 
   return (
-    <MetadataItem>
+    <MetadataItem data-cy="task-metadata-description">
+      {isFailingTask ? (
+        <MetadataLabel color={red.base}>Failing Command: </MetadataLabel>
+      ) : (
+        <MetadataLabel>Command: </MetadataLabel>
+      )}
       {shouldTruncate ? (
         <>
-          <StyledBody>Failing Command: </StyledBody>
           {truncatedText}{" "}
           <ExpandedText
             align="right"
-            justify="end"
-            popoverZIndex={zIndex.tooltip}
-            message={description}
             data-cy="task-metadata-description-tooltip"
+            justify="end"
+            message={description}
+            popoverZIndex={zIndex.tooltip}
           />
         </>
       ) : (
@@ -516,20 +566,18 @@ const containerTaskStrandedMessage =
 const hostTaskStrandedMessage =
   "Task failed because spot host was unexpectedly terminated by AWS.";
 
-const DependsOnContainer = styled.div`
-  margin-top: ${size.s};
-`;
-
 const HoneycombLinkContainer = styled.span`
   display: flex;
   flex-direction: column;
 `;
 
+const TagsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${size.xs};
+`;
+
 const OOMTrackerMessage = styled(MetadataItem)`
   color: ${red.dark2};
   font-weight: 500;
-`;
-
-const StyledBody = styled.b`
-  color: ${red.base};
 `;

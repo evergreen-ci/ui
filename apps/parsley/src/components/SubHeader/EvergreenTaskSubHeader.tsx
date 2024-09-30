@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { InlineCode } from "@leafygreen-ui/typography";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { usePreferencesAnalytics } from "analytics";
-import { TaskStatusBadge, TestStatusBadge } from "components/Badge";
+import { TestStatusBadge } from "components/Badge";
 import Breadcrumbs from "components/Breadcrumbs";
 import Icon from "components/Icon";
 import { StyledLink } from "components/styles";

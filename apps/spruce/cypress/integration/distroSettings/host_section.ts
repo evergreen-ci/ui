@@ -52,7 +52,7 @@ describe("host section", () => {
       cy.validateToast("success", "Updated distro.");
     });
 
-    it("updates mountpoints", () => {
+    it("updates mountpoints", { retries: { runMode: 2 } }, () => {
       cy.contains("button", "Add Mountpoint").click();
       cy.getInputByLabel("Mountpoint").type("/data");
 

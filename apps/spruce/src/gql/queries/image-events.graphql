@@ -1,0 +1,20 @@
+query ImageEvents($imageId: String!, $limit: Int!, $page: Int!) {
+  image(imageId: $imageId) {
+    events(limit: $limit, page: $page) {
+      count
+      eventLogEntries {
+        amiAfter
+        amiBefore
+        entries {
+          action
+          after
+          before
+          name
+          type
+        }
+        timestamp
+      }
+    }
+    id
+  }
+}

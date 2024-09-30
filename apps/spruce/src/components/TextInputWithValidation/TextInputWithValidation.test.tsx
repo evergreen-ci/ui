@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import TextInputWithValidation from ".";
 
 describe("textInputWithValidation", () => {
@@ -7,9 +7,9 @@ describe("textInputWithValidation", () => {
     const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
-        onSubmit={onSubmit}
-        label="textinput"
         aria-label="textinput"
+        label="textinput"
+        onSubmit={onSubmit}
         validator={(v) => v.length > 5}
       />,
     );
@@ -24,9 +24,9 @@ describe("textInputWithValidation", () => {
     const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
-        onSubmit={onSubmit}
-        label="textinput"
         aria-label="textinput"
+        label="textinput"
+        onSubmit={onSubmit}
       />,
     );
     const input = screen.getByRole("textbox", { name: "textinput" });
@@ -39,9 +39,9 @@ describe("textInputWithValidation", () => {
     const onChange = vi.fn();
     render(
       <TextInputWithValidation
-        onChange={onChange}
-        label="textinput"
         aria-label="textinput"
+        label="textinput"
+        onChange={onChange}
         validator={(v) => v.length >= 5}
       />,
     );
@@ -57,12 +57,12 @@ describe("textInputWithValidation", () => {
     const onSubmit = vi.fn();
     render(
       <TextInputWithValidation
-        onChange={onChange}
-        label="textinput"
         aria-label="textinput"
-        validator={(v) => v.length >= 5}
-        onSubmit={onSubmit}
         clearOnSubmit
+        label="textinput"
+        onChange={onChange}
+        onSubmit={onSubmit}
+        validator={(v) => v.length >= 5}
       />,
     );
     const input = screen.getByRole("textbox", { name: "textinput" });

@@ -1,5 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { render, screen, stubGetClientRects, userEvent } from "test_utils";
+import {
+  render,
+  screen,
+  stubGetClientRects,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import WelcomeModal from "./WelcomeModal";
 
 describe("welcomeModal", () => {

@@ -1,10 +1,10 @@
 import { useCallback, useMemo } from "react";
-import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { useSearchParams } from "react-router-dom";
+import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import {
-  parseQueryStringAsValue as parseQueryString,
-  stringifyQueryAsValue as stringifyQuery,
-} from "utils/queryString";
+  stringifyQuery,
+  parseQueryString,
+} from "@evg-ui/lib/utils/query-string";
 
 /**
  * `useQueryParams` returns all of the query params passed into the url and a function to update them.

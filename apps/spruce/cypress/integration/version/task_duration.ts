@@ -10,10 +10,10 @@ describe("Task Duration Tab", () => {
       cy.dataCy("task-name-filter-popover-input-filter").type(
         `${filterText}{enter}`,
       );
-      cy.dataCy("leafygreen-table-row").should("have.length", 1);
+      cy.dataCy("task-duration-table-row").should("have.length", 1);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&taskName=${filterText}`,
+        `page=0&sorts=DURATION%3ADESC&taskName=${filterText}`,
       );
       // Clear text filter.
       cy.dataCy("task-name-filter-popover").click();
@@ -28,17 +28,17 @@ describe("Task Duration Tab", () => {
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Running").click({ force: true }),
       );
-      cy.dataCy("leafygreen-table-row").should("have.length", 3);
+      cy.dataCy("task-duration-table-row").should("have.length", 3);
       cy.location("search").should(
         "include",
-        "duration=DESC&page=0&statuses=running-umbrella%2Cstarted%2Cdispatched",
+        "page=0&sorts=DURATION%3ADESC&statuses=running-umbrella%2Cstarted%2Cdispatched",
       );
       // Clear status filter.
       cy.dataCy("status-filter-popover").click();
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Succeeded").click({ force: true }),
       );
-      cy.location("search").should("include", `duration=DESC&page=0`);
+      cy.location("search").should("include", "page=0&sorts=DURATION%3ADESC");
     });
 
     it("updates URL appropriately when build variant filter is applied", () => {
@@ -48,10 +48,10 @@ describe("Task Duration Tab", () => {
       cy.dataCy("build-variant-filter-popover-input-filter").type(
         `${filterText}{enter}`,
       );
-      cy.dataCy("leafygreen-table-row").should("have.length", 2);
+      cy.dataCy("task-duration-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&variant=${filterText}`,
+        `page=0&sorts=DURATION%3ADESC&variant=${filterText}`,
       );
       // Clear text filter.
       cy.dataCy("build-variant-filter-popover").click();
@@ -62,18 +62,39 @@ describe("Task Duration Tab", () => {
 
     it("updates URL appropriately when sort is changing", () => {
       const durationSortControl = "button[aria-label='Sort by Task Duration']";
+      const statusSortControl = "button[aria-label='Sort by Status']";
+      const variantSortControl = "button[aria-label='Sort by Build Variant']";
       // The default sort (DURATION DESC) should be applied
-      cy.location("search").should("include", "duration=DESC");
+      cy.location("search").should("include", "sorts=DURATION%3ADESC");
       const longestTask = "test-thirdparty";
       cy.contains(longestTask).should("be.visible");
-      cy.dataCy("leafygreen-table-row").first().should("contain", longestTask);
+      cy.dataCy("task-duration-table-row")
+        .first()
+        .should("contain", longestTask);
       cy.get(durationSortControl).click();
       cy.location("search").should("not.include", "duration");
       cy.get(durationSortControl).click();
-      cy.location("search").should("include", "duration=ASC");
+      cy.location("search").should("include", "sorts=DURATION%3AASC");
       const shortestTask = "test-auth";
       cy.contains(shortestTask).should("be.visible");
-      cy.dataCy("leafygreen-table-row").first().should("contain", shortestTask);
+      cy.dataCy("task-duration-table-row")
+        .first()
+        .should("contain", shortestTask);
+      cy.get(statusSortControl).click();
+      cy.location("search").should(
+        "include",
+        "page=0&sorts=DURATION%3AASC%3BSTATUS%3AASC",
+      );
+      cy.get(statusSortControl).click();
+      cy.location("search").should(
+        "include",
+        "page=0&sorts=DURATION%3AASC%3BSTATUS%3ADESC",
+      );
+      cy.get(variantSortControl).click();
+      cy.location("search").should(
+        "include",
+        "page=0&sorts=DURATION%3AASC%3BSTATUS%3ADESC",
+      );
     });
 
     it("clearing all filters resets to the default sort", () => {
@@ -81,9 +102,9 @@ describe("Task Duration Tab", () => {
       cy.get(durationSortControl).click();
       cy.location("search").should("not.include", "duration");
       cy.get(durationSortControl).click();
-      cy.location("search").should("include", "duration=ASC");
+      cy.location("search").should("include", "sorts=DURATION%3AASC");
       cy.contains("Clear all filters").click();
-      cy.location("search").should("include", "duration=DESC");
+      cy.location("search").should("include", "sorts=DURATION%3ADESC");
     });
 
     it("shows message when no test results are found", () => {

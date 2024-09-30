@@ -42,15 +42,15 @@ const TableControl: React.FC<Props> = ({
     <TableControlOuterRow>
       <FlexContainer>
         <ResultCountLabel
-          dataCyNumerator="filtered-count"
           dataCyDenominator="total-count"
+          dataCyNumerator="filtered-count"
+          denominator={totalCount}
           label={label}
           numerator={filteredCount}
-          denominator={totalCount}
         />
         <PaddedButton
-          onClick={onClearAll}
           data-cy="clear-all-filters"
+          onClick={onClearAll}
           size="small"
         >
           Clear all filters
@@ -58,16 +58,16 @@ const TableControl: React.FC<Props> = ({
       </FlexContainer>
       <TableControlInnerRow>
         <Pagination
-          data-cy="tasks-table-pagination"
           currentPage={page}
-          totalResults={filteredCount}
-          pageSize={limit}
+          data-cy="tasks-table-pagination"
           onChange={onPageChange}
+          pageSize={limit}
+          totalResults={filteredCount}
         />
         <PageSizeSelector
           data-cy="tasks-table-page-size-selector"
-          value={limit}
           onChange={handlePageSizeChange}
+          value={limit}
         />
       </TableControlInnerRow>
     </TableControlOuterRow>

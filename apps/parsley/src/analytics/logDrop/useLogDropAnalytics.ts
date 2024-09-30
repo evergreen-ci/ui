@@ -1,13 +1,15 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import { LogTypes } from "constants/enums";
 
 type Action =
-  | { name: "Clicked file upload link"; hasLogs: boolean }
+  | { name: "Clicked file upload link"; "has.logs": boolean }
   | { name: "Used file dropper to upload file" }
   | {
       name: "System Event processed uploaded log file";
-      logType: LogTypes;
-      fileSize?: number;
+      "log.type": LogTypes;
+      "file.size"?: number;
     };
 
-export const useLogDropAnalytics = () => useAnalyticsRoot<Action>("LogDrop");
+export const useLogDropAnalytics = () =>
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("LogDrop");

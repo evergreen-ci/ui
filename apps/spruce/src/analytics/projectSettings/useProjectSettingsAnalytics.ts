@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 
 type Action =
@@ -8,28 +9,30 @@ type Action =
   | { name: "Clicked default section to repo button"; section: string }
   | {
       name: "Clicked attach project to repo button";
-      repoOwner: string;
-      repoName: string;
+      "repo.owner": string;
+      "repo.name": string;
     }
   | {
       name: "Clicked detach project from repo button";
-      repoOwner: string;
-      repoName: string;
+      "repo.owner": string;
+      "repo.name": string;
     }
   | {
       name: "Clicked move project to new repo button";
-      repoOwner: string;
-      repoName: string;
+      "repo.owner": string;
+      "repo.name": string;
     }
   | { name: "Created new project" }
-  | { name: "Created duplicate project from project"; projectIdToCopy: string }
+  | { name: "Created duplicate project from project"; "project.id": string }
   | {
       name: "Redirected to project identifier";
-      projectId: string;
-      projectIdentifier: string;
+      "project.id": string;
+      "project.identifier": string;
     };
 
 export const useProjectSettingsAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-  return useAnalyticsRoot<Action>("ProjectSettings", { projectIdentifier });
+  return useAnalyticsRoot<Action, AnalyticsIdentifier>("ProjectSettings", {
+    "project.identifier": projectIdentifier || "",
+  });
 };

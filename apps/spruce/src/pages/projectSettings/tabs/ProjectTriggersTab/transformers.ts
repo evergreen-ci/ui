@@ -1,7 +1,7 @@
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectTriggersSettingsFragment } from "gql/generated/types";
 import { ProjectTriggerLevel } from "types/triggers";
-import { Unpacked } from "types/utils";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";

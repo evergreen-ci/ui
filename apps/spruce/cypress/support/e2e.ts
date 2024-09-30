@@ -19,6 +19,7 @@ import {
   CY_DISABLE_COMMITS_WELCOME_MODAL,
   CY_DISABLE_NEW_USER_WELCOME_MODAL,
   SLACK_NOTIFICATION_BANNER,
+  SEEN_IMAGE_VISIBILITY_GUIDE_CUE,
 } from "constants/cookies";
 import { isMutation } from "../utils/graphql-test-utils";
 // Alternatively you can use CommonJS syntax:
@@ -159,6 +160,7 @@ before(() => {
     cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
     cy.setCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL, "true");
     cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
+    cy.setCookie(SEEN_IMAGE_VISIBILITY_GUIDE_CUE, "true");
     mutationDispatched = false;
     cy.intercept("POST", "/graphql/query", (req) => {
       if (isMutation(req)) {

@@ -1,4 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   BaseVersionAndTaskQuery,
@@ -8,8 +15,6 @@ import {
 } from "gql/generated/types";
 import { taskQuery } from "gql/mocks/taskData";
 import { BASE_VERSION_AND_TASK, LAST_MAINLINE_COMMIT } from "gql/queries";
-import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
-import { ApolloMock } from "types/gql";
 import { RelevantCommits } from ".";
 
 describe("relevant commits", () => {
@@ -20,7 +25,6 @@ describe("relevant commits", () => {
     it("the button is disabled when there is no base task", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={[getPatchTaskWithNoBaseTask]}>
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <RelevantCommits task={patchTaskWithNoBaseTask} />
         </MockedProvider>,
       );
@@ -39,7 +43,6 @@ describe("relevant commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getNullParentTask]}
         >
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <RelevantCommits task={mainlineTaskWithBaseVersion} />
         </MockedProvider>,
       );
@@ -57,7 +60,6 @@ describe("relevant commits", () => {
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getParentTaskWithError]}
         >
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <RelevantCommits task={mainlineTaskWithBaseVersion} />
         </MockedProvider>,
       );
@@ -74,7 +76,6 @@ describe("relevant commits", () => {
   it("the button is disabled when no base version exists", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={[getPatchTaskWithNoBaseVersion]}>
-        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <RelevantCommits task={patchTaskWithNoBaseVersion} />
       </MockedProvider>,
     );
@@ -97,7 +98,6 @@ describe("relevant commits", () => {
           getLastExecutedVersion,
         ]}
       >
-        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <RelevantCommits task={patchTaskWithSuccessfulBaseTask} />
       </MockedProvider>,
     );
@@ -136,7 +136,6 @@ describe("relevant commits", () => {
           getBreakingCommit,
         ]}
       >
-        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <RelevantCommits task={patchTaskWithFailingBaseTask} />
       </MockedProvider>,
     );
@@ -176,7 +175,6 @@ describe("relevant commits", () => {
           getBreakingCommit,
         ]}
       >
-        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <RelevantCommits task={patchTaskWithRunningBaseTask} />
       </MockedProvider>,
     );
@@ -583,7 +581,6 @@ const getPatchTaskWithNoBaseTask: ApolloMock<
   },
   result: {
     data: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       task: patchTaskWithNoBaseTask,
     },
   },
@@ -599,7 +596,6 @@ const mainlineTaskWithBaseVersion = {
   status: "success",
   versionMetadata: {
     baseVersion: {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       ...taskQuery.task.versionMetadata,
       id: "baseVersion",
       order: 3676,

@@ -8,8 +8,7 @@ import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
 import { UpstreamProjectFragment, GitTag } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
-import { shortenGithash } from "utils/string";
-import { jiraLinkify } from "utils/string/jiraLinkify";
+import { shortenGithash, jiraLinkify } from "utils/string";
 
 const { gray } = palette;
 const MAX_CHAR = 40;
@@ -59,9 +58,9 @@ const CommitChartLabel: React.FC<Props> = ({
       <LabelText>
         <InlineCode
           as={Link}
+          data-cy="githash-link"
           onClick={onClickGithash}
           to={getVersionRoute(versionId)}
-          data-cy="githash-link"
         >
           {shortenGithash(githash)}
         </InlineCode>{" "}
@@ -102,9 +101,9 @@ const CommitChartLabel: React.FC<Props> = ({
       </LabelText>
       {shortenMessage && (
         <ExpandedText
-          popoverZIndex={zIndex.tooltip}
-          message={message}
           data-cy="long-commit-message-tooltip"
+          message={message}
+          popoverZIndex={zIndex.tooltip}
         />
       )}
       {gitTags && (

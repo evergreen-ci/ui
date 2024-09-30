@@ -133,7 +133,7 @@ export const CreateProjectModal: React.FC<Props> = ({
           uiSchema={form.uiSchema}
         />
       ) : (
-        <Skeleton paragraph={{ rows: 11 }} data-cy="loading-skeleton" />
+        <Skeleton data-cy="loading-skeleton" paragraph={{ rows: 11 }} />
       )}
     </ConfirmationModal>
   );

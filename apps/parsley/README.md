@@ -33,16 +33,13 @@ develop against them you will need to run both of the servers locally.
 **Logkeeper**
 
 1. Clone the [Logkeeper Repository](https://github.com/evergreen-ci/logkeeper)
-2. Run `yarn bootstrap-logkeeper` to download some sample resmoke logs from s3.
+2. Run `yarn bootstrap-s3-logs` to download some sample resmoke logs from s3.
 3. Run the command outputted by the previous step to seed the env variables and
-   start the local logkeeper server
+   start the local logkeeper server with the following command:
 
    ```bash
    LK_CORS_ORIGINS=http:\/\/localhost:\\d+ LK_EVERGREEN_ORIGIN=http://localhost:8080 LK_PARSLEY_ORIGIN=http://localhost:5173 go run main/logkeeper.go --localPath {abs_path_to_parsley}/bin/_bucketdata
    ```
-
-   Note that all log output is piped to a file named `logkeeperapp.log`. You can
-   use `tail -f logkeeperapp.log` to view the log output.
 
 ### GraphQL Type Generation
 
@@ -58,14 +55,7 @@ ln -s <path_to_evergreen_repo>/graphql/schema sdlschema
 
 ### Environment Variables
 
-[env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure
-build environments for production, staging and development. We use two files to
-represent these various environments: `.cmdrc-local.json` for local builds with
-non-sensitive information, and `.env-cmdrc.json` for builds deployed to S3. This
-file is git ignored because it contains API keys that we do not want to publish.
-It should be named `.env-cmdrc.json` and placed at the root of the project. This
-file is required to deploy Parsley to production and to staging. The credential
-file is located in the R&D Dev Prod 1password vault.
+Read more about environment variables [here](../../packages/deploy-utils/README.md#environment-variables).
 
 ### Common errors
 
@@ -77,21 +67,4 @@ file is located in the R&D Dev Prod 1password vault.
 
 ## Deployment
 
-### Requirements
-
-You must be on the `main` Branch if deploying to prod.
-
-A `.env-cmdrc.json` file is required to deploy because it sets the environment
-variables that the application needs for a given deployment environments. See
-[Environment Variables](#environment-variables) section for more info about this
-file.
-
-### How to Deploy:
-
-Run the `deploy:<env>` yarn command
-
-- `yarn deploy:prod` = deploy to https://parsley.mongodb.com
-  - Deploying to production involves following the prompts in the cli command
-    which kicks off an evergreen task that performs the deploy
-- `yarn deploy:beta` = deploy to https://parsley-beta.corp.mongodb.com
-- `yarn deploy:staging` = deploy to https://parsley-staging.corp.mongodb.com
+Read more about deployment [here](../../packages/deploy-utils/README.md#deployment).

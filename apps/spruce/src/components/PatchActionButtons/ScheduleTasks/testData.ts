@@ -1,9 +1,9 @@
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   UndispatchedTasksQuery,
   UndispatchedTasksQueryVariables,
 } from "gql/generated/types";
 import { UNSCHEDULED_TASKS } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 const mocks: ApolloMock<
   UndispatchedTasksQuery,
@@ -19,6 +19,7 @@ const mocks: ApolloMock<
         version: {
           __typename: "Version",
           id: "version_id",
+          generatedTaskCounts: [],
           tasks: {
             __typename: "VersionTasks",
             data: [
@@ -150,6 +151,7 @@ const mocks: ApolloMock<
         version: {
           __typename: "Version",
           id: "version_empty",
+          generatedTaskCounts: [],
           tasks: {
             __typename: "VersionTasks",
             data: [],

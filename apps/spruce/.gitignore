@@ -8,10 +8,6 @@ evg_dump/
 # artifacts
 /src/**/*.css
 
-#env variables
-env/.cmdrc.json
-.env-cmdrc.json
-
 # misc
 .DS_Store
 .env.local

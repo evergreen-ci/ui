@@ -1,12 +1,12 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
-import { Skeleton } from "antd";
+import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { size } from "constants/tokens";
 
 interface Props {
-  error: ApolloError;
+  error?: ApolloError;
   loading?: boolean;
   metaData: boolean;
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export const HostCard: React.FC<Props> = ({
   metaData,
 }) => (
   <SiderCard metaData={metaData}>
-    {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
+    {loading && <ParagraphSkeleton />}
     {error && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
     )}
@@ -31,7 +31,7 @@ export const HostCard: React.FC<Props> = ({
 );
 
 const SiderCard = styled(Card)<StylingProps>`
-  padding: ${size.xs} 0;
+  padding: ${size.s} 0;
   margin-bottom: ${size.l};
   padding-right: ${(props) => (props.metaData ? 0 : size.m)};
   padding-left: ${(props) => (props.metaData ? size.s : size.m)};

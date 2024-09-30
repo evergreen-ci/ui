@@ -1,4 +1,11 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { context, types } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
@@ -8,13 +15,6 @@ import {
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
 import { TASK_TEST_SAMPLE } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
-import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
 import VariantHistoryRow from "./VariantHistoryRow";
 
@@ -53,7 +53,7 @@ const wrapper: React.FC<wrapperProps> = ({ children, mocks = [], state }) => (
 
 describe("variantHistoryRow", () => {
   it("renders a row when there is data", () => {
-    render(<VariantHistoryRow index={0} data={taskRow} />, {
+    render(<VariantHistoryRow data={taskRow} index={0} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
       wrapper: ({ children }) =>
@@ -80,7 +80,7 @@ describe("variantHistoryRow", () => {
   });
 
   it("amount of cells rendered corresponds to the amount of visibleColumns", () => {
-    render(<VariantHistoryRow index={0} data={taskRow} />, {
+    render(<VariantHistoryRow data={taskRow} index={0} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
       wrapper: ({ children }) =>
@@ -102,7 +102,7 @@ describe("variantHistoryRow", () => {
   });
 
   it("renders a blank cell when there isn't a matching variant for that column", () => {
-    render(<VariantHistoryRow index={0} data={taskRow} />, {
+    render(<VariantHistoryRow data={taskRow} index={0} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
       wrapper: ({ children }) =>
@@ -122,7 +122,7 @@ describe("variantHistoryRow", () => {
 
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
     const user = userEvent.setup();
-    render(<VariantHistoryRow index={0} data={taskRow} />, {
+    render(<VariantHistoryRow data={taskRow} index={0} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
       wrapper: ({ children }) =>
@@ -158,7 +158,7 @@ describe("variantHistoryRow", () => {
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
     const user = userEvent.setup();
-    render(<VariantHistoryRow index={0} data={taskRow} />, {
+    render(<VariantHistoryRow data={taskRow} index={0} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
       wrapper: ({ children }) =>
@@ -201,7 +201,7 @@ describe("variantHistoryRow", () => {
   });
 
   it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {
-    render(<VariantHistoryRow index={0} data={taskRow} />, {
+    render(<VariantHistoryRow data={taskRow} index={0} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
       wrapper: ({ children }) =>

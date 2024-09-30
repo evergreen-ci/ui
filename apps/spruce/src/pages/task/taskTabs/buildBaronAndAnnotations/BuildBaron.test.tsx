@@ -1,7 +1,11 @@
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
-  AnnotationEventDataQuery,
-  AnnotationEventDataQueryVariables,
   BuildBaronCreateTicketMutation,
   BuildBaronCreateTicketMutationVariables,
   BuildBaronQuery,
@@ -20,16 +24,13 @@ import {
 import { getUserMock } from "gql/mocks/getUser";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import {
-  ANNOTATION_EVENT_DATA,
   BUILD_BARON,
   CREATED_TICKETS,
   JIRA_CUSTOM_CREATED_ISSUES,
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,
 } from "gql/queries";
-import { renderWithRouterMatch as render, screen, userEvent } from "test_utils";
 import { MockedProvider } from "test_utils/graphql";
-import { ApolloMock } from "types/gql";
 import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =
@@ -43,15 +44,15 @@ describe("buildBaronContent", () => {
 
   it("the BuildBaron component renders without crashing.", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
+      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
-          taskId={taskId}
-          execution={execution}
-          userCanModify
           bbData={buildBaronQuery.buildBaron}
+          execution={execution}
           loading={false}
+          taskId={taskId}
+          userCanModify
         />
       </MockedProvider>,
     );
@@ -67,15 +68,15 @@ describe("buildBaronContent", () => {
   it("clicking on file a new ticket dispatches a toast", async () => {
     const user = userEvent.setup();
     const { Component, dispatchToast } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
+      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
-          taskId={taskId}
-          execution={execution}
-          userCanModify
-          loading={false}
           bbData={buildBaronQuery.buildBaron}
+          execution={execution}
+          loading={false}
+          taskId={taskId}
+          userCanModify
         />
       </MockedProvider>,
     );
@@ -94,15 +95,15 @@ describe("buildBaronContent", () => {
 
   it("the correct JiraTicket rows are rendered in the component", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
+      <MockedProvider addTypename={false} mocks={buildBaronMocks}>
         <BuildBaronContent
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           annotation={null}
-          taskId={taskId}
-          execution={execution}
-          userCanModify
           bbData={buildBaronQuery.buildBaron}
+          execution={execution}
           loading={false}
+          taskId={taskId}
+          userCanModify
         />
       </MockedProvider>,
     );
@@ -318,35 +319,12 @@ const jiraIssuesMock: ApolloMock<
   },
 };
 
-const annotationEventDataMock: ApolloMock<
-  AnnotationEventDataQuery,
-  AnnotationEventDataQueryVariables
-> = {
-  request: {
-    query: ANNOTATION_EVENT_DATA,
-    variables: {
-      taskId,
-      execution,
-    },
-  },
-  result: {
-    data: {
-      task: {
-        id: taskId,
-        execution,
-        annotation: null,
-      },
-    },
-  },
-};
-
 const buildBaronMocks = [
   customCreatedIssuesMock,
   fileJiraTicketMock,
   getBuildBaronMock,
   getJiraTicketsMock,
   getSpruceConfigMock,
-  annotationEventDataMock,
   getUserSettingsMock,
   getUserMock,
   jiraIssuesMock,

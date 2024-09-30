@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import {
   PatchQuery,
   PatchQueryVariables,
@@ -10,13 +11,13 @@ import { PATCH } from "gql/queries";
 type Action =
   | {
       name: "Filtered downstream tasks table";
-      filterBy: string | string[];
+      "filter.by": string | string[];
     }
   | {
       name: "Sorted downstream tasks table";
-      sortBy: TaskSortCategory | TaskSortCategory[];
+      "sort.by": TaskSortCategory | TaskSortCategory[];
     }
-  | { name: "Toggled patch visibility"; hidden: boolean }
+  | { name: "Toggled patch visibility"; "patch.hidden": boolean }
   | { name: "Clicked patch reconfigure link" };
 
 export const usePatchAnalytics = (id: string) => {
@@ -27,8 +28,8 @@ export const usePatchAnalytics = (id: string) => {
   });
   const { status } = eventData?.patch || {};
 
-  return useAnalyticsRoot<Action>("Patch", {
-    patchStatus: status,
-    patchId: id,
+  return useAnalyticsRoot<Action, AnalyticsIdentifier>("Patch", {
+    "patch.status": status || "",
+    "patch.id": id,
   });
 };

@@ -1,4 +1,11 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { context } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
@@ -8,13 +15,6 @@ import {
   TaskTestSampleQueryVariables,
 } from "gql/generated/types";
 import { TASK_TEST_SAMPLE } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
-import { ApolloMock } from "types/gql";
 import { TestStatus } from "types/history";
 import TaskHistoryRow from ".";
 
@@ -52,7 +52,7 @@ const wrapper: React.FC<wrapperProps> = ({ children, mocks = [], state }) => (
 
 describe("taskHistoryRow", () => {
   it("renders a row when there is data", () => {
-    render(<TaskHistoryRow index={0} data={taskRow} />, {
+    render(<TaskHistoryRow data={taskRow} index={0} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -79,7 +79,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("amount of cells rendered should correspond to the amount of visibleColumns", () => {
-    render(<TaskHistoryRow index={0} data={taskRow} />, {
+    render(<TaskHistoryRow data={taskRow} index={0} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -97,7 +97,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("renders a blank cell when there isn't a matching variant for that column", () => {
-    render(<TaskHistoryRow index={0} data={taskRow} />, {
+    render(<TaskHistoryRow data={taskRow} index={0} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -117,7 +117,7 @@ describe("taskHistoryRow", () => {
 
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
     const user = userEvent.setup();
-    render(<TaskHistoryRow index={0} data={taskRow} />, {
+    render(<TaskHistoryRow data={taskRow} index={0} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -155,7 +155,7 @@ describe("taskHistoryRow", () => {
 
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
     const user = userEvent.setup();
-    render(<TaskHistoryRow index={0} data={taskRow} />, {
+    render(<TaskHistoryRow data={taskRow} index={0} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -198,7 +198,7 @@ describe("taskHistoryRow", () => {
   });
 
   it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {
-    render(<TaskHistoryRow index={0} data={taskRow} />, {
+    render(<TaskHistoryRow data={taskRow} index={0} />, {
       route: "/task-history/mci/test-thirdparty",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>

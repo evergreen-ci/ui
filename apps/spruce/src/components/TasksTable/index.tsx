@@ -3,17 +3,16 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import pluralize from "pluralize";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { StyledRouterLink } from "components/styles";
 import {
   InputFilterProps,
   getColumnSearchFilterProps,
   getColumnTreeSelectFilterProps,
 } from "components/Table/Filters";
-import TaskStatusBadge from "components/TaskStatusBadge";
+import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { TreeSelectProps } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
-import { mergeTaskVariant } from "constants/task";
 import { zIndex } from "constants/tokens";
 import {
   Task,
@@ -21,7 +20,7 @@ import {
   SortOrder,
   TaskSortCategory,
 } from "gql/generated/types";
-import { TableOnChange, TaskStatus } from "types/task";
+import { TableOnChange } from "types/task";
 import { sortTasks } from "utils/statuses";
 import { TaskLink } from "./TaskLink";
 import { TaskTableInfo } from "./types";
@@ -59,11 +58,7 @@ const TasksTable: React.FC<TasksTableProps> = ({
   variantInputProps,
 }) => (
   <Table
-    data-cy="tasks-table"
-    rowKey={rowKey}
-    pagination={false}
-    loading={loading}
-    data-loading={loading}
+    childrenColumnName="executionTasksFull"
     columns={
       sorts
         ? getColumnDefsWithSort({
@@ -88,17 +83,21 @@ const TasksTable: React.FC<TasksTableProps> = ({
             variantInputProps,
           })
     }
-    getPopupContainer={(trigger: HTMLElement) => trigger}
+    data-cy="tasks-table"
+    data-loading={loading}
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     dataSource={tasks}
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    onChange={tableChangeHandler}
-    childrenColumnName="executionTasksFull"
     expandable={{
       onExpand: (expanded) => {
         onExpand(expanded);
       },
     }}
+    getPopupContainer={(trigger: HTMLElement) => trigger}
+    loading={loading}
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    onChange={tableChangeHandler}
+    pagination={false}
+    rowKey={rowKey}
   />
 );
 
@@ -176,7 +175,11 @@ const getColumnDefs = ({
           popoverZIndex={zIndex.tooltip}
           trigger={
             <span>
-              <TaskStatusBadge status={status} id={id} execution={execution} />
+              <TaskStatusBadgeWithLink
+                execution={execution}
+                id={id}
+                status={status}
+              />
             </span>
           }
         >
@@ -185,7 +188,11 @@ const getColumnDefs = ({
         </Tooltip>
       ) : (
         status && (
-          <TaskStatusBadge status={status} id={id} execution={execution} />
+          <TaskStatusBadgeWithLink
+            execution={execution}
+            id={id}
+            status={status}
+          />
         )
       ),
     ...(statusSelectorProps && {
@@ -211,12 +218,12 @@ const getColumnDefs = ({
     className: "cy-task-table-col-BASE_STATUS",
     render: (status: string, { baseTask }) =>
       status && (
-        <TaskStatusBadge
-          status={status}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          id={baseTask.id}
+        <TaskStatusBadgeWithLink
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           execution={baseTask.execution}
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
+          id={baseTask.id}
+          status={status}
         />
       ),
     ...(baseStatusSelectorProps && {
@@ -246,19 +253,12 @@ const getColumnDefs = ({
         "data-cy": "variant-input",
       })),
     render: (displayName, { buildVariant, projectIdentifier }) => (
-      <ConditionalWrapper
-        condition={buildVariant !== mergeTaskVariant}
-        wrapper={(children) => (
-          <StyledRouterLink
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
-          >
-            {children}
-          </StyledRouterLink>
-        )}
+      <StyledRouterLink
+        // @ts-expect-error: FIXME. This comment was added by an automated script.
+        to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
       >
         {displayName}
-      </ConditionalWrapper>
+      </StyledRouterLink>
     ),
   },
 ];

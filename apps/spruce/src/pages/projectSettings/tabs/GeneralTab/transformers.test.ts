@@ -107,8 +107,7 @@ const projectForm: GeneralFormState = {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       displayName: null,
       identifier: "project",
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      batchTime: null,
+      batchTime: 0,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       remotePath: null,
       // @ts-expect-error: FIXME. This comment was added by an automated script.

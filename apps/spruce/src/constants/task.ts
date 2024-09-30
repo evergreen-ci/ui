@@ -1,6 +1,6 @@
 import { palette } from "@leafygreen-ui/palette";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
-import { TaskStatus } from "types/task";
 
 const { gray, green, purple, red, yellow } = palette;
 
@@ -279,7 +279,3 @@ export const finishedTaskStatuses = [
   ...failedTaskStatuses,
   TaskStatus.Succeeded,
 ];
-
-// Task name and build variant for the commit queue. Both are owned by Evergreen.
-export const mergeTaskName = "merge-patch";
-export const mergeTaskVariant = "commit-queue-merge";

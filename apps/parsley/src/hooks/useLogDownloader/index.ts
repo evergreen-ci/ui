@@ -125,9 +125,9 @@ const useLogDownloader = ({
           setError(err.message);
           sendEvent({
             duration: Date.now() - timeStart,
-            fileSize: getFileSize(),
+            "log.size": getFileSize(),
+            "log.type": logType,
             name: "System Event log download failed",
-            type: logType,
           });
         })
         .finally(() => {
@@ -142,9 +142,9 @@ const useLogDownloader = ({
           );
           sendEvent({
             duration: Date.now() - timeStart,
-            fileSize: getFileSize(),
+            "log.size": getFileSize(),
+            "log.type": logType,
             name: "System Event log downloaded",
-            type: logType,
           });
           setIsLoading(false);
         });

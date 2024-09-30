@@ -1,3 +1,4 @@
+import { TableQueryParams } from "constants/queryParams";
 import {
   VersionTasksQueryVariables,
   SortOrder,
@@ -17,23 +18,20 @@ export const useQueryVariables = (
   const { limit, page } = usePagination();
   const queryParams = parseQueryString(search);
   const {
-    [PatchTasksQueryParams.Duration]: duration,
-    [PatchTasksQueryParams.Sorts]: sorts,
+    [TableQueryParams.Sorts]: sorts,
     [PatchTasksQueryParams.Variant]: variant,
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: statuses,
     [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
   } = queryParams;
 
-  // This should be reworked once the antd tables are removed.
-  // At the current state, sorts & duration will never both be defined.
-  let sortsToApply: SortOrder[];
-  if (sorts) {
-    sortsToApply = parseSortString(sorts);
-  }
-  if (duration) {
-    sortsToApply = parseSortString(`${TaskSortCategory.Duration}:${duration}`);
-  }
+  const sortsToApply: SortOrder[] = sorts
+    ? parseSortString<"Key", "Direction", TaskSortCategory, SortOrder>(sorts, {
+        sortByKey: "Key",
+        sortDirKey: "Direction",
+        sortCategoryEnum: TaskSortCategory,
+      })
+    : [];
 
   return {
     versionId,
@@ -42,7 +40,6 @@ export const useQueryVariables = (
       taskName: getString(taskName),
       statuses: toArray(statuses),
       baseStatuses: toArray(baseStatuses),
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       sorts: sortsToApply,
       limit,
       page,

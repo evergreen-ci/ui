@@ -5,6 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Accordion } from "components/Accordion";
+import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -16,6 +17,7 @@ import {
 } from "gql/generated/types";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { UNSCHEDULED_TASKS } from "gql/queries";
+import { sumActivatedTasksInSet } from "utils/tasks/estimatedActivatedTasks";
 import { initialState, reducer } from "./reducer";
 
 interface ScheduleTasksModalProps {
@@ -70,21 +72,28 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     dispatch({ type: "ingestData", taskData });
   }, [taskData]);
 
+  const { generatedTaskCounts = [] } = taskData?.version ?? {};
+
+  const estimatedActivatedTasksCount = sumActivatedTasksInSet(
+    selectedTasks,
+    generatedTaskCounts,
+  );
+
   return (
     <ConfirmationModal
-      data-cy="schedule-tasks-modal"
-      open={open}
-      onCancel={closeModal}
-      title="Schedule Tasks"
       buttonText="Schedule"
-      submitDisabled={
-        loadingTaskData || loadingScheduleTasksMutation || !selectedTasks.size
-      }
+      data-cy="schedule-tasks-modal"
+      onCancel={closeModal}
       onConfirm={() => {
         scheduleTasks({
           variables: { taskIds: Array.from(selectedTasks), versionId },
         });
       }}
+      open={open}
+      submitDisabled={
+        loadingTaskData || loadingScheduleTasksMutation || !selectedTasks.size
+      }
+      title="Schedule Tasks"
     >
       <ContentWrapper>
         {loadingTaskData ? (
@@ -93,14 +102,14 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
           <>
             {sortedBuildVariantGroups.length ? (
               <Checkbox
-                data-cy="select-all-tasks"
-                name="select-all-tasks"
-                label="Select all tasks"
                 bold
                 checked={selectedTasks.size === allTasks.length}
+                data-cy="select-all-tasks"
                 indeterminate={
                   selectedTasks.size > 0 && selectedTasks.size < allTasks.length
                 }
+                label="Select all tasks"
+                name="select-all-tasks"
                 onClick={() => {
                   dispatch({
                     type: "toggleSelectAll",
@@ -119,14 +128,15 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                 return (
                   <Wrapper key={buildVariant}>
                     <Accordion
+                      data-cy="build-variant-accordion"
                       title={
                         <Checkbox
-                          data-cy={`${buildVariant}-variant-checkbox`}
-                          name={buildVariant}
-                          label={buildVariantDisplayName}
                           bold
                           checked={allTasksSelected}
+                          data-cy={`${buildVariant}-variant-checkbox`}
                           indeterminate={!allTasksSelected && someTasksSelected}
+                          label={buildVariantDisplayName}
+                          name={buildVariant}
                           onClick={() => {
                             dispatch({
                               type: "toggleBuildVariant",
@@ -135,20 +145,19 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                           }}
                         />
                       }
-                      data-cy="build-variant-accordion"
                     >
                       {tasks.map(({ displayName, id }) => (
                         <Checkbox
                           key={id}
+                          bold={false}
+                          checked={selectedTasks.has(id)}
                           data-cy={`${buildVariant}-${displayName}-task-checkbox`}
-                          name={id}
                           label={
                             <span data-cy="task-checkbox-label">
                               {displayName}
                             </span>
                           }
-                          bold={false}
-                          checked={selectedTasks.has(id)}
+                          name={id}
                           onClick={() => {
                             dispatch({ type: "toggleTask", taskId: id });
                           }}
@@ -159,6 +168,9 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                 );
               },
             )}
+            <TaskSchedulingWarningBanner
+              totalTasks={estimatedActivatedTasksCount}
+            />
           </>
         )}
         {!loadingTaskData && !sortedBuildVariantGroups.length && (

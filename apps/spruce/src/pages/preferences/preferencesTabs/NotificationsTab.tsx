@@ -69,8 +69,7 @@ export const NotificationsTab: React.FC = () => {
       },
     };
     sendEvent({
-      name: "Saved notifications",
-      params: variables,
+      name: "Saved notification preferences",
     });
     try {
       await updateUserSettings({
@@ -90,19 +89,19 @@ export const NotificationsTab: React.FC = () => {
     <>
       <SettingsCard>
         <StyledTextInput
+          data-cy="slack-username-field"
           label="Slack Username"
           onChange={handleFieldUpdate(setSlackUsernameField)}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={slackUsernameField}
-          data-cy="slack-username-field"
         />
         <StyledTextInput
+          data-cy="slack-member-id-field"
+          description="Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'."
           label="Slack Member ID"
           onChange={handleFieldUpdate(setSlackMemberIdField)}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={slackMemberIdField}
-          description="Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'."
-          data-cy="slack-member-id-field"
         />
         <NotificationField
           notifications={newPayload}
@@ -111,9 +110,9 @@ export const NotificationsTab: React.FC = () => {
         />
         <Button
           data-cy="save-profile-changes-button"
-          variant={Variant.Primary}
           disabled={!hasFieldUpdates || updateLoading}
           onClick={handleSave}
+          variant={Variant.Primary}
         >
           Save changes
         </Button>

@@ -10,7 +10,7 @@ enum SectionStatus {
 
 interface SectionLineMetadata {
   commandName: string;
-  functionName: string;
+  functionName: string | undefined;
   status: SectionStatus;
   step: string;
 }
@@ -22,7 +22,7 @@ interface SectionLineMetadata {
  */
 export const processLine = (str: string): SectionLineMetadata | null => {
   const regex =
-    /(Running|Finished) command '([^']+)'(?: \('[^']*'\))? in function '([^']+)' \(step ([^)]+)\)[^.]*\./;
+    /(Running|Finished) command '([^']+)'(?: \('[^']*'\))?(?: in function '([^']+)')? \(step ([^ ]+ of [^)]+)\)[^.]*\./;
   const match = trimSeverity(str).match(regex);
   if (match) {
     return {
@@ -37,8 +37,9 @@ export const processLine = (str: string): SectionLineMetadata | null => {
 
 interface FunctionEntry {
   functionID: string;
-  functionName: string;
+  functionName: string | undefined;
   range: Range;
+  containsTopLevelCommand: boolean;
 }
 
 interface CommandEntry {
@@ -47,6 +48,7 @@ interface CommandEntry {
   functionID: string;
   range: Range;
   step: string;
+  isTopLevelCommand: boolean;
 }
 
 interface SectionData {
@@ -90,9 +92,12 @@ const reduceFn = (
    */
   const ONGOING_ENTRY = -1;
   if (currentLine.status === SectionStatus.Running) {
+    const containsTopLevelCommand = currentLine.functionName === undefined;
     const isNewSection =
       functions.length === 0 ||
-      functions[functions.length - 1].functionName !== currentLine.functionName;
+      functions[functions.length - 1].functionName !==
+        currentLine.functionName ||
+      containsTopLevelCommand;
     if (isNewSection) {
       const isPreviousSectionRunning =
         functions.length &&
@@ -104,6 +109,7 @@ const reduceFn = (
         );
       }
       functions.push({
+        containsTopLevelCommand,
         functionID: `function-${logIndex}`,
         functionName: currentLine.functionName,
         range: { end: ONGOING_ENTRY, start: logIndex },
@@ -121,6 +127,7 @@ const reduceFn = (
       commandID: `command-${logIndex}`,
       commandName: currentLine.commandName,
       functionID: functions[functions.length - 1].functionID,
+      isTopLevelCommand: containsTopLevelCommand,
       range: { end: ONGOING_ENTRY, start: logIndex },
       step: currentLine.step,
     });
@@ -189,29 +196,42 @@ const getOpenSectionStateBasedOnLineNumbers = ({
   return [hasDiff, nextState];
 };
 
+interface PopulateSectionStateParams {
+  sectionData: SectionData;
+  openSectionsContainingLines?: number[];
+  isOpen?: boolean;
+}
 /**
  * populateSectionState Populates the section state based on the section data.
  * All sections are set closed except those containing the given line number.
- * @param sectionData - The parsed section data
- * @param openSectionContainingLine - The line number to be used to determine which section to open
+ * @param params - The parameters for the function
+ * @param params.sectionData - The parsed section data
+ * @param params.openSectionsContainingLines - Line numbers used to determine which sections to open
+ * @param params.isOpen - The default open state for the sections
  * @returns A sectionState coresponding to sectionData with the specified section open
  */
-const populateSectionState = (
-  sectionData: SectionData,
-  openSectionContainingLine: number | undefined,
-): SectionState => {
+
+const populateSectionState = ({
+  isOpen = false,
+  openSectionsContainingLines,
+  sectionData,
+}: PopulateSectionStateParams): SectionState => {
   const { commands, functions } = sectionData;
   const sectionState: SectionState = {};
   functions.forEach(({ functionID }) => {
-    sectionState[functionID] = { commands: {}, isOpen: false };
+    sectionState[functionID] = { commands: {}, isOpen };
   });
   commands.forEach((sectionEntry) => {
     const { commandID, functionID } = sectionEntry;
-    if (includesLineNumber(sectionEntry, openSectionContainingLine)) {
+    if (
+      openSectionsContainingLines?.some((lineNumber) =>
+        includesLineNumber(sectionEntry, lineNumber),
+      )
+    ) {
       sectionState[functionID].isOpen = true;
       sectionState[functionID].commands[commandID] = { isOpen: true };
     } else {
-      sectionState[functionID].commands[commandID] = { isOpen: false };
+      sectionState[functionID].commands[commandID] = { isOpen };
     }
   });
   return sectionState;

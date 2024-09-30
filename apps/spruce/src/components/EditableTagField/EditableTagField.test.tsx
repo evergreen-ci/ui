@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import { EditableTagField } from ".";
 
 const editableTags = [
@@ -27,9 +27,9 @@ describe("editableTagField", () => {
 
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 
@@ -47,9 +47,9 @@ describe("editableTagField", () => {
     const user = userEvent.setup();
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 
@@ -84,9 +84,9 @@ describe("editableTagField", () => {
     const user = userEvent.setup();
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 
@@ -109,9 +109,9 @@ describe("editableTagField", () => {
     const user = userEvent.setup();
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 
@@ -146,9 +146,9 @@ describe("editableTagField", () => {
     const user = userEvent.setup();
     render(
       <EditableTagField
+        buttonText="Add Tag"
         inputTags={editableTags}
         onChange={updateData}
-        buttonText="Add Tag"
       />,
     );
 

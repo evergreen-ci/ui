@@ -1,8 +1,7 @@
-import { StringMap } from "./utils";
+import { StringMap } from "@evg-ui/lib/types/utils";
 
 export enum ResourceType {
   Build = "BUILD",
-  CommitQueue = "COMMIT_QUEUE",
   Host = "HOST",
   Patch = "PATCH",
   Task = "TASK",

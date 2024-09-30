@@ -1,5 +1,5 @@
-import { render, screen, userEvent, waitFor } from "test_utils";
-import { TaskStatus } from "types/task";
+import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { HistoryTableIcon } from ".";
 
 describe("historyTableIcon", () => {
@@ -7,7 +7,7 @@ describe("historyTableIcon", () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
     render(
-      <HistoryTableIcon status={TaskStatus.Succeeded} onClick={onClick} />,
+      <HistoryTableIcon onClick={onClick} status={TaskStatus.Succeeded} />,
     );
     const icon = screen.queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
@@ -30,8 +30,8 @@ describe("historyTableIcon", () => {
     const user = userEvent.setup();
     render(
       <HistoryTableIcon
-        status={TaskStatus.Succeeded}
         failingTests={failingTests}
+        status={TaskStatus.Succeeded}
       />,
     );
     const icon = screen.queryByDataCy("history-table-icon");

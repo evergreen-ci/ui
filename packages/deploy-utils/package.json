@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@evg-ui/lib": "*",
-    "vite-node": "^1.6.0"
+    "vite-node": "^2.0.5"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "*",
@@ -20,14 +20,13 @@
     "eslint": "8.56.0",
     "eslint-plugin-prettier": "5.1.3",
     "typescript": "5.1.3",
-    "vitest": "1.6.0"
+    "vitest": "2.0.5"
   },
   "bin": {
     "deploy-utils-build-and-push": "src/build-and-push/script.ts",
     "deploy-utils-deploy": "src/deploy.ts",
     "deploy-utils-email": "src/email/script.ts",
     "deploy-utils-postversion": "src/postversion/script.ts",
-    "deploy-utils-setup-credentials": "src/setup-credentials/script.ts",
     "deploy-utils-should-deploy": "src/should-deploy/script.ts",
     "deploy-utils-write-previous-deploy": "src/write-previous-deploy/script.ts"
   }

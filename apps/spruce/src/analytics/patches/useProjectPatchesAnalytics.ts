@@ -1,19 +1,22 @@
 import { useParams } from "react-router-dom";
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 
 type Action =
   | { name: "Changed page size" }
-  | { name: "Changed project"; projectIdentifier: string }
+  | { name: "Changed project"; "project.identifier": string }
   | { name: "Clicked patch link" }
   | {
       name: "Filtered for patches";
-      filterBy: string;
-      includeHidden: boolean;
-      includeCommitQueue: boolean;
+      "filter.by"?: string;
+      "filter.hidden"?: boolean;
+      "filter.commit_queue"?: boolean;
     };
 
 export const useProjectPatchesAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-  return useAnalyticsRoot<Action>("ProjectPatches", { projectIdentifier });
+  return useAnalyticsRoot<Action, AnalyticsIdentifier>("ProjectPatches", {
+    "project.identifier": projectIdentifier || "",
+  });
 };

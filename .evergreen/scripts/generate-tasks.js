@@ -1,55 +1,9 @@
 import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 import { join, parse } from "path";
+import { APPS_DIR, TASK_MAPPING } from "./constants.js"
 
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
-
-const Tasks = {
-  CheckCodegen: "check_codegen",
-  Compile: "compile",
-  E2E: "e2e",
-  Lint: "lint",
-  Snapshots: "snapshots",
-  Storybook: "storybook",
-  Test: "test",
-  TypeCheck: "type_check",
-};
-
-// Enumerate each task in a build variant that can run as part of a PR.
-// It would be nice to use tags for this, but Evergreen does not reevaluate tags as part of generate.tasks.
-const TASK_MAPPING = {
-  "deploy-utils": [Tasks.Lint, Tasks.Test, Tasks.TypeCheck],
-  lib: [
-    Tasks.Lint,
-    Tasks.Snapshots,
-    Tasks.Storybook,
-    Tasks.Test,
-    Tasks.TypeCheck,
-  ],
-  parsley: [
-    Tasks.CheckCodegen,
-    Tasks.Compile,
-    Tasks.E2E,
-    Tasks.Lint,
-    Tasks.Snapshots,
-    Tasks.Storybook,
-    Tasks.Test,
-    Tasks.TypeCheck,
-  ],
-  spruce: [
-    Tasks.CheckCodegen,
-    Tasks.Compile,
-    Tasks.E2E,
-    Tasks.Lint,
-    Tasks.Snapshots,
-    Tasks.Storybook,
-    Tasks.Test,
-    Tasks.TypeCheck,
-  ],
-};
-
-const APPS_DIR = "apps";
-const fileDestPath = join(process.cwd(), "/.evergreen", "generate-tasks.json");
 
 const getMergeBase = () => {
   try {
@@ -72,7 +26,7 @@ const whatChanged = () => {
   const mergeBase = getMergeBase();
   try {
     const diffFiles = execSync(
-      `git diff ${mergeBase} --name-only --diff-filter=d`,
+      `git diff ${mergeBase} --name-only`,
     )
       .toString()
       .trim();
@@ -132,6 +86,7 @@ const generateTasks = () => {
 };
 
 const main = () => {
+  const fileDestPath = join(process.cwd(), "/.evergreen", "generate-tasks.json");
   const evgObj = generateTasks();
   const evgJson = JSON.stringify(evgObj);
 

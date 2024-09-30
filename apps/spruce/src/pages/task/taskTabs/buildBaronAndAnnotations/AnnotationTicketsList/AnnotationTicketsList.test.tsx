@@ -1,4 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch as render,
+  screen,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   MoveAnnotationIssueMutation,
@@ -8,8 +13,6 @@ import {
 } from "gql/generated/types";
 import { getUserMock } from "gql/mocks/getUser";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
-import { renderWithRouterMatch as render, screen } from "test_utils";
-import { ApolloMock } from "types/gql";
 import AnnotationTicketsList from ".";
 
 const taskId =
@@ -25,19 +28,19 @@ describe("annotationTicketsList", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={ticketsTableMocks}>
         <AnnotationTicketsList
+          execution={execution}
+          isIssue
           jiraIssues={[
             {
               issueKey: "EVG-1234567",
               url: "https://fake-url/EVG-1234567",
             },
           ]}
-          isIssue
-          taskId={taskId}
-          execution={execution}
-          userCanModify={false}
+          loading
           selectedRowKey=""
           setSelectedRowKey={() => {}}
-          loading
+          taskId={taskId}
+          userCanModify={false}
         />
       </MockedProvider>,
     );

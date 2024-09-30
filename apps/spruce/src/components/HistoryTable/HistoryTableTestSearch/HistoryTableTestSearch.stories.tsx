@@ -1,8 +1,8 @@
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
 import { size } from "constants/tokens";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { TestStatus } from "types/history";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
@@ -26,8 +26,8 @@ const TestSearch = () => {
       <div style={{ paddingTop: size.s }}>
         <FilterBadges
           badges={badges}
-          onRemove={handleOnRemove}
           onClearAll={handleClearAll}
+          onRemove={handleOnRemove}
         />
       </div>
     </div>

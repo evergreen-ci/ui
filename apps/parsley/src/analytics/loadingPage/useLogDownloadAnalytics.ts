@@ -1,18 +1,19 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import { LogTypes } from "constants/enums";
 
 type Action =
   | {
       name: "System Event log downloaded";
       duration: number;
-      type: LogTypes;
-      fileSize: number;
+      "log.type": LogTypes;
+      "log.size": number;
     }
   | {
       name: "System Event log download failed";
       duration: number;
-      type: LogTypes;
-      fileSize: number;
+      "log.type": LogTypes;
+      "log.size": number;
     }
   | {
       name: "System Event log download incomplete";
@@ -22,4 +23,4 @@ type Action =
     };
 
 export const useLogDownloadAnalytics = () =>
-  useAnalyticsRoot<Action>("LoadingPage");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("LoadingPage");

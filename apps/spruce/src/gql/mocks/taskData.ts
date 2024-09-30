@@ -1,7 +1,11 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskQuery } from "gql/generated/types";
-import { TaskStatus } from "types/task";
 
-export const taskQuery: TaskQuery = {
+type TaskQueryType = {
+  task: NonNullable<TaskQuery["task"]>;
+};
+
+export const taskQuery: TaskQueryType = {
   task: {
     __typename: "Task",
     id: "someTaskId",
@@ -14,7 +18,15 @@ export const taskQuery: TaskQuery = {
     ingestTime: null,
     executionTasksFull: null,
     displayTask: null,
+    tags: [
+      "concurrency",
+      "security",
+      "release",
+      "assigned_to_devprod_evergreen",
+      "waiting_for_next_investigation_steps",
+    ],
     details: {
+      failingCommand: "",
       description:
         "Long description that requires use of the inline definition component. This would include details about where the task failed.",
       diskDevices: [],
@@ -53,6 +65,7 @@ export const taskQuery: TaskQuery = {
     canUnschedule: false,
     dependsOn: [],
     displayName: "e2e_test",
+    imageId: "ubuntu1604",
     distroId: "ubuntu1604-small",
     estimatedStart: 1000,
     pod: null,

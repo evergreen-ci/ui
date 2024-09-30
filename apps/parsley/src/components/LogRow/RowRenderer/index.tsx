@@ -31,9 +31,7 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     scrollToLine,
     searchLine,
     searchState,
-    sectioning,
   } = useLogContext();
-  const { toggleCommandSection, toggleFunctionSection } = sectioning;
   const { prettyPrint, wordWrapFormat, wrap } = preferences;
 
   const { searchTerm } = searchState;
@@ -79,9 +77,8 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
       return (
         <SectionHeader
           functionID={processedLogLine.functionID}
-          functionName={processedLogLine.functionName}
+          functionName={processedLogLine.functionName ?? ""}
           lineIndex={index}
-          onToggle={toggleFunctionSection}
           open={processedLogLine.isOpen}
           status={
             includesLineNumber(processedLogLine, failingLine)
@@ -93,14 +90,22 @@ const ParsleyRow: RowRendererFunction = ({ processedLogLines }) => {
     }
 
     if (isSubsectionHeaderRow(processedLogLine)) {
+      let status;
+      // Only show status icon for top-level commands
+      if (processedLogLine.isTopLevelCommand) {
+        status = includesLineNumber(processedLogLine, failingLine)
+          ? SectionStatus.Fail
+          : SectionStatus.Pass;
+      }
       return (
         <SubsectionHeader
           commandID={processedLogLine.commandID}
           commandName={processedLogLine.commandName}
           functionID={processedLogLine.functionID}
+          isTopLevelCommand={processedLogLine.isTopLevelCommand}
           lineIndex={index}
-          onToggle={toggleCommandSection}
           open={processedLogLine.isOpen}
+          status={status}
           step={processedLogLine.step}
         />
       );

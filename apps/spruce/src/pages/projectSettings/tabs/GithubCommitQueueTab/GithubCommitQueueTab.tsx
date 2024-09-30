@@ -89,7 +89,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   return (
     <>
       {!githubWebhooksEnabled && (
-        <Banner data-cy="disabled-webhook-banner" variant="warning">
+        <Banner variant="warning">
           GitHub features are disabled because the Evergreen GitHub App is not
           installed on the saved owner/repo. Contact IT to install the App and
           enable GitHub features.
@@ -113,7 +113,6 @@ const validate = (
 ) =>
   ((formData, errors) => {
     const {
-      commitQueue: { enabled, patchDefinitions },
       github: {
         gitTagVersionsEnabled,
         gitTags,
@@ -122,6 +121,7 @@ const validate = (
         prTesting,
         prTestingEnabled,
       },
+      mergeQueue: { enabled, patchDefinitions },
     } = formData;
 
     // getVersionControlError is a curried function, so save its partial application here to avoid repetition
@@ -169,12 +169,12 @@ const validate = (
       getAliasError(
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         enabled,
-        patchDefinitions?.commitQueueAliasesOverride,
-        patchDefinitions?.commitQueueAliases,
-        repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
+        patchDefinitions?.mergeQueueAliasesOverride,
+        patchDefinitions?.mergeQueueAliases,
+        repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases,
       ) === ErrorType.Error
     ) {
-      errors.github.prTesting.addError("Missing Commit Queue Patch Definition");
+      errors.github.prTesting.addError("Missing Merge Queue Patch Definition");
     }
 
     return errors;

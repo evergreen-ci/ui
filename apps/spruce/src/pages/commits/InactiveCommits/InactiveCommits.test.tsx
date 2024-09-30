@@ -4,7 +4,7 @@ import {
   screen,
   userEvent,
   waitFor,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
 import { CommitRolledUpVersions } from "types/commits";
 import { InactiveCommitButton, MAX_COMMIT_COUNT } from ".";
 
@@ -105,7 +105,7 @@ describe("inactiveCommitButton", () => {
   });
 
   it("should show unmatching label when there are filters applied", () => {
-    render(<RenderInactiveCommitButton versions={versions} hasFilters />);
+    render(<RenderInactiveCommitButton hasFilters versions={versions} />);
     expect(screen.queryByDataCy("inactive-commits-button")).toHaveTextContent(
       "6Unmatching",
     );

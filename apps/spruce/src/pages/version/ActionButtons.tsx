@@ -4,7 +4,6 @@ import {
   ScheduleTasks,
   RestartPatch,
   UnscheduleTasks,
-  EnqueuePatch,
   AddNotification,
   DisableTasks,
   ScheduleUndispatchedBaseTasks,
@@ -13,55 +12,38 @@ import SetPriority from "components/SetPriority";
 import { PageButtonRow } from "components/styles";
 
 interface ActionButtonProps {
-  canEnqueueToCommitQueue: boolean;
   canReconfigure: boolean;
   isPatch: boolean;
-  isPatchOnCommitQueue: boolean;
-  patchDescription: string;
   versionId: string;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
-  canEnqueueToCommitQueue,
   canReconfigure,
   isPatch,
-  isPatchOnCommitQueue,
-  patchDescription,
   versionId,
 }) => {
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
-      patchId={versionId}
       disabled={!canReconfigure}
+      patchId={versionId}
     />,
-    <UnscheduleTasks versionId={versionId} key="unschedule-tasks" />,
+    <UnscheduleTasks key="unschedule-tasks" versionId={versionId} />,
     <DisableTasks key="disable-tasks" versionId={versionId} />,
     <ScheduleUndispatchedBaseTasks
       key="schedule-undispatched-base-tasks"
-      versionId={versionId}
       disabled={!isPatch}
+      versionId={versionId}
     />,
-    <SetPriority versionId={versionId} key="priority" />,
-    <EnqueuePatch
-      patchId={versionId}
-      commitMessage={patchDescription}
-      key="enqueue"
-      disabled={!canEnqueueToCommitQueue}
-    />,
+    <SetPriority key="priority" versionId={versionId} />,
   ];
 
   return (
     <PageButtonRow>
-      <ScheduleTasks
-        versionId={versionId}
-        isButton
-        disabled={isPatchOnCommitQueue}
-      />
+      <ScheduleTasks isButton versionId={versionId} />
       <RestartPatch
-        patchId={versionId}
         isButton
-        disabled={isPatchOnCommitQueue}
+        patchId={versionId}
         refetchQueries={["VersionTasks"]}
       />
       <AddNotification patchId={versionId} />

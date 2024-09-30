@@ -73,7 +73,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
   const onClickUpdate = () => {
     hostsTableAnalytics.sendEvent({
       name: "Clicked update host status button",
-      status,
+      "host.status": status,
     });
     updateHostStatus({ variables: { hostIds, status, notes } });
   };
@@ -85,34 +85,34 @@ export const UpdateStatusModal: React.FC<Props> = ({
 
   return (
     <ConfirmationModal
+      buttonText="Update"
       data-cy={dataCy}
-      open={visible}
       onCancel={onClickCancel}
       onConfirm={onClickUpdate}
-      title="Update Host Status"
-      buttonText="Update"
+      open={visible}
       submitDisabled={!status || loadingUpdateHostStatus}
+      title="Update Host Status"
     >
       <StyledSelect
-        label="Host Status"
         data-cy="host-status-select"
-        value={status}
+        label="Host Status"
         onChange={(s) => {
           setHostStatus(s as UpdateHostStatus);
         }}
+        value={status}
       >
         {hostStatuses.map(({ key, title, value }) => (
-          <Option key={key} value={value} data-cy={`${value}-option`}>
+          <Option key={key} data-cy={`${value}-option`} value={value}>
             {title}
           </Option>
         ))}
       </StyledSelect>
       <TextArea
-        label="Add Notes"
         data-cy="host-status-notes"
-        value={notes}
-        rows={6}
+        label="Add Notes"
         onChange={(e) => setNotesValue(e.target.value)}
+        rows={6}
+        value={notes}
       />
     </ConfirmationModal>
   );

@@ -39,7 +39,7 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
   }, [versions]);
 
   if (isLoading) {
-    return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
+    return <StyledSkeleton active paragraph={{ rows: 6 }} title={false} />;
   }
   if (!versions) {
     return <CommitChart />;
@@ -47,18 +47,18 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
   if (versions) {
     return (
       <ChartContainer>
-        <CommitChart versions={versions} hasTaskFilter={hasTaskFilter} />
+        <CommitChart hasTaskFilter={hasTaskFilter} versions={versions} />
         <StickyContainer>
           <FlexRowContainer>
             {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {versions.map((commit) => (
               <CommitWrapper
                 key={getCommitKey(commit)}
-                width={getCommitWidth(commit)}
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                selected={isCommitSelected(commit, revision)}
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 data-selected={isCommitSelected(commit, revision)}
+                // @ts-expect-error: FIXME. This comment was added by an automated script.
+                selected={isCommitSelected(commit, revision)}
+                width={getCommitWidth(commit)}
               >
                 <RenderCommitsLabel commit={commit} hasFilters={hasFilters} />
               </CommitWrapper>
@@ -70,14 +70,14 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
           {versions.map((commit) => (
             <CommitWrapper
               key={getCommitKey(commit)}
-              width={getCommitWidth(commit)}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               selected={isCommitSelected(commit, revision)}
+              width={getCommitWidth(commit)}
             >
               <RenderCommitsBuildVariants
-                commit={commit}
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 buildVariantDict={buildVariantDict}
+                commit={commit}
               />
             </CommitWrapper>
           ))}

@@ -96,7 +96,7 @@ export const CopyProjectModal: React.FC<Props> = ({
     });
     sendEvent({
       name: "Created duplicate project from project",
-      projectIdToCopy: id,
+      "project.id": id,
     });
     handleClose();
   };

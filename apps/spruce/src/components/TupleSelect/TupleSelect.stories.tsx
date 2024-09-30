@@ -1,6 +1,6 @@
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { action } from "@storybook/addon-actions";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
 import TupleSelect from ".";
 
@@ -12,8 +12,8 @@ export const Default: CustomStoryObj<typeof TupleSelect> = {
   render: () => (
     <>
       <TupleSelect
-        options={options}
         onSubmit={action("submit")}
+        options={options}
         validator={(v) => v !== "bad"}
         validatorErrorMessage="Invalid Input"
       />

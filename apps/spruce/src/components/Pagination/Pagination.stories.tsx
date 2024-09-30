@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import usePagination from "hooks/usePagination";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import Pagination from ".";
 
 export default {

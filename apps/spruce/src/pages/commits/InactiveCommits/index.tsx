@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DisplayModal } from "components/DisplayModal";
 import Icon from "components/Icon";
@@ -11,9 +12,8 @@ import { getVersionRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { CommitRolledUpVersions } from "types/commits";
-import { Unpacked } from "types/utils";
 import { string } from "utils";
-import { jiraLinkify } from "utils/string/jiraLinkify";
+import { jiraLinkify } from "utils/string";
 import { commitChartHeight } from "../constants";
 
 const { shortenGithash, trimStringFromMiddle } = string;
@@ -47,7 +47,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       ...rolledUpVersions
         .slice(0, 1)
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        .map((v) => <CommitCopy v={v} isTooltip key={v.id} />),
+        .map((v) => <CommitCopy key={v.id} isTooltip v={v} />),
       <HiddenCommitsWrapper
         key="hidden_commits"
         data-cy="hidden-commits"
@@ -64,12 +64,12 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       ...rolledUpVersions
         .slice(-2)
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        .map((v) => <CommitCopy v={v} isTooltip key={v.id} />),
+        .map((v) => <CommitCopy key={v.id} isTooltip v={v} />),
     ];
   } else {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     returnedCommits = rolledUpVersions.map((v) => (
-      <CommitCopy v={v} isTooltip key={v.id} />
+      <CommitCopy key={v.id} isTooltip v={v} />
     ));
   }
 
@@ -83,13 +83,14 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       >
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {rolledUpVersions?.map((v) => (
-          <CommitCopy v={v} isTooltip={false} key={v.id} />
+          <CommitCopy key={v.id} isTooltip={false} v={v} />
         ))}
       </DisplayModal>
       <StyledTooltip
-        usePortal={false}
         align="bottom"
+        data-cy="inactive-commits-tooltip"
         justify="middle"
+        popoverZIndex={zIndex.tooltip}
         trigger={
           <ButtonContainer
             onClick={() => {
@@ -106,8 +107,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
           </ButtonContainer>
         }
         triggerEvent="click"
-        popoverZIndex={zIndex.tooltip}
-        data-cy="inactive-commits-tooltip"
+        usePortal={false}
       >
         <TooltipTitleText>
           {versionCount} {tooltipType}
@@ -146,7 +146,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
           onClick={() =>
             sendEvent({
               name: "Clicked commit label",
-              commitType: "inactive",
+              "commit.type": "inactive",
               link: "githash",
             })
           }
@@ -163,7 +163,7 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
             name: "Clicked commit label",
-            commitType: "inactive",
+            "commit.type": "inactive",
             link: "jira",
           });
         })}{" "}

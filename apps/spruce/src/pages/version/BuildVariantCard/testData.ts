@@ -1,9 +1,9 @@
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   BuildVariantStatsQuery,
   BuildVariantStatsQueryVariables,
 } from "gql/generated/types";
 import { BUILD_VARIANTS_STATS } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 const mocks: ApolloMock<
   BuildVariantStatsQuery,

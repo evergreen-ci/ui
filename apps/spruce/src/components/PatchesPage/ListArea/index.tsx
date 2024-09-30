@@ -17,20 +17,15 @@ const ListArea: React.FC<ListAreaProps> = ({ loading, pageType, patches }) => {
     return (
       <>
         {patches.map((p) => (
-          <PatchCard
-            key={p.id}
-            pageType={pageType}
-            patch={p}
-            isPatchOnCommitQueue={p.commitQueuePosition !== null}
-          />
+          <PatchCard key={p.id} pageType={pageType} patch={p} />
         ))}
       </>
     );
   }
   return (
     <BasicEmptyState
-      title="No patches found"
       description="Create a patch to see it here."
+      title="No patches found"
     />
   );
 };

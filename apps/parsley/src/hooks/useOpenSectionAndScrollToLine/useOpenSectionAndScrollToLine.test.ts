@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from "test_utils";
+import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ProcessedLogLines, RowType } from "types/logs";
 import { useOpenSectionAndScrollToLine } from ".";
 
@@ -110,6 +110,7 @@ describe("useOpenSectionAndScrollToLine", () => {
       commandName: "shell.exec",
       functionID: "function-4",
       isOpen: true,
+      isTopLevelCommand: false,
       range: { end: 6, start: 4 },
       rowType: RowType.SubsectionHeader,
       step: "1 of 4",

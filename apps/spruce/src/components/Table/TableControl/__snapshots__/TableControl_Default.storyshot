@@ -26,15 +26,16 @@
       </p>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-2jj1me css-vvan06-PaddedButton et5phr00"
+        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-vvan06-PaddedButton et5phr00"
         data-cy="clear-all-filters"
+        data-lgid="lg-button"
         type="button"
       >
         <div
           class="leafygreen-ui-v038xi"
         />
         <div
-          class="leafygreen-ui-v95oty"
+          class="leafygreen-ui-16tr4y"
         >
           Clear all filters
         </div>
@@ -49,19 +50,20 @@
       >
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-1vou6i4 css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-mze5ol-StyledButton e4w46hm2"
           data-cy="prev-page-button"
+          data-lgid="lg-button"
           type="button"
         >
           <div
             class="leafygreen-ui-v038xi"
           />
           <div
-            class="leafygreen-ui-v95oty"
+            class="leafygreen-ui-16tr4y"
           >
             <svg
               aria-label="Chevron Left Icon"
-              class="leafygreen-ui-2opl5u"
+              class="leafygreen-ui-17pifwg"
               fill="none"
               height="14"
               role="img"
@@ -91,19 +93,20 @@
         </div>
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-1vou6i4 css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-mze5ol-StyledButton e4w46hm2"
           data-cy="next-page-button"
+          data-lgid="lg-button"
           type="button"
         >
           <div
             class="leafygreen-ui-v038xi"
           />
           <div
-            class="leafygreen-ui-v95oty"
+            class="leafygreen-ui-16tr4y"
           >
             <svg
               aria-label="Chevron Right Icon"
-              class="leafygreen-ui-2opl5u"
+              class="leafygreen-ui-17pifwg"
               fill="none"
               height="14"
               role="img"
@@ -126,8 +129,8 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-261-menu"
-          aria-describedby="select-261-description"
+          aria-controls="select-252-menu"
+          aria-describedby="select-252-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
@@ -136,7 +139,7 @@
           data-cy="tasks-table-page-size-selector"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-262"
+          id="select-253"
           type="button"
           value="10"
         >

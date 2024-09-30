@@ -1,0 +1,13 @@
+query ImageDistros($imageId: String!) {
+  image(imageId: $imageId) {
+    distros {
+      hostAllocatorSettings {
+        maximumHosts
+      }
+      name
+      provider
+      providerSettingsList
+    }
+    id
+  }
+}

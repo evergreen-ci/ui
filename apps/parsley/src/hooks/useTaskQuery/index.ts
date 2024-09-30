@@ -26,6 +26,7 @@ type TaskType = BaseTaskFragment & {
   details?:
     | {
         description?: string | null | undefined;
+        failingCommand?: string | null | undefined;
         status: string;
       }
     | null

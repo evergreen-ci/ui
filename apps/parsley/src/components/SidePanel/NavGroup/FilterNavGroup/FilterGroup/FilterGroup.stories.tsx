@@ -1,5 +1,5 @@
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { CaseSensitivity, MatchType } from "constants/enums";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import FilterGroup from ".";
 
 export default {

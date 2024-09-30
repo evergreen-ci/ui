@@ -15,6 +15,7 @@ import {
   PageLayout,
   PageContent,
 } from "components/styles";
+import { ALL_VALUE } from "components/TreeSelect";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -23,21 +24,32 @@ import {
   HostQueryVariables,
   HostEventsQuery,
   HostEventsQueryVariables,
+  HostEventType,
 } from "gql/generated/types";
 import { HOST, HOST_EVENTS } from "gql/queries/index";
 import usePagination from "hooks/usePagination";
+import { useQueryParam } from "hooks/useQueryParam";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
+import { HostQueryParams } from "./constants";
 
 const Host: React.FC = () => {
   const dispatchToast = useToastContext();
   const { [slugs.hostId]: hostId } = useParams();
-  // Query host data
+
+  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
+    useState<boolean>(false);
+  const { limit, page } = usePagination();
+  const [eventTypes] = useQueryParam<HostEventType[]>(
+    HostQueryParams.EventType,
+    [],
+  );
+
   const {
     data: hostData,
     error,
-    loading: hostMetaDataLoading,
+    loading: hostMetadataLoading,
   } = useQuery<HostQuery, HostQueryVariables>(HOST, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: hostId },
@@ -48,6 +60,21 @@ const Host: React.FC = () => {
     },
   });
 
+  const { data: hostEventData, loading: hostEventLoading } = useQuery<
+    HostEventsQuery,
+    HostEventsQueryVariables
+  >(HOST_EVENTS, {
+    variables: {
+      id: hostId ?? "",
+      opts: {
+        page,
+        limit,
+        eventTypes: eventTypes.filter((e) => e.toString() !== ALL_VALUE),
+      },
+    },
+    skip: !hostId,
+  });
+
   const host = hostData?.host;
   const { distro, hostUrl, persistentDnsName, user } = host || {};
   const bootstrapMethod = distro?.bootstrapMethod;
@@ -55,37 +82,23 @@ const Host: React.FC = () => {
 
   const sshAddress = persistentDnsName || hostUrl;
   const sshCommand = `ssh ${user}@${sshAddress}`;
-  const tag = host?.tag ?? "";
-
-  const { limit, page } = usePagination();
-  // Query hostEvent data
-  const { data: hostEventData, loading: hostEventLoading } = useQuery<
-    HostEventsQuery,
-    HostEventsQueryVariables
-  >(HOST_EVENTS, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: hostId, tag, page, limit },
-  });
-
-  const hostEvents = hostEventData?.hostEvents;
-  const eventsCount = hostEvents?.count;
-  // UPDATE STATUS MODAL VISIBILITY STATE
-  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
-    useState<boolean>(false);
 
   const canRestartJasperOrReprovision =
-    host?.status === "running" &&
+    status === "running" &&
     (bootstrapMethod === "ssh" || bootstrapMethod === "user-data");
+
+  const hostEvents = hostEventData?.host?.events;
+  const hostEventLogEntries =
+    hostEventData?.host?.events?.eventLogEntries ?? [];
+  const hostEventCount = hostEvents?.count ?? 0;
+  const hostEventTypes = hostEventData?.host?.eventTypes ?? [];
+
   return (
     <PageWrapper data-cy="host-page">
       {host && (
         <>
           <PageTitle
-            pageTitle={`Host${hostId ? ` - ${hostId}` : ""}`}
-            title={`Host: ${hostId}`}
             badge={<HostStatusBadge status={status} />}
-            loading={hostMetaDataLoading}
-            size="large"
             buttons={
               <div>
                 <ButtonsWrapper>
@@ -99,68 +112,70 @@ const Host: React.FC = () => {
                   </ButtonSpacer>
                   <ButtonSpacer>
                     <RestartJasper
-                      // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      selectedHostIds={[hostId]}
+                      canRestartJasper={canRestartJasperOrReprovision}
                       hostUrl={hostUrl}
                       isSingleHost
-                      canRestartJasper={canRestartJasperOrReprovision}
                       jasperTooltipMessage="Jasper cannot be restarted for this host"
+                      // @ts-expect-error: FIXME. This comment was added by an automated script.
+                      selectedHostIds={[hostId]}
                     />
                   </ButtonSpacer>
                   <ButtonSpacer>
                     <Reprovision
-                      // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      selectedHostIds={[hostId]}
+                      canReprovision={canRestartJasperOrReprovision}
                       hostUrl={hostUrl}
                       isSingleHost
-                      canReprovision={canRestartJasperOrReprovision}
                       reprovisionTooltipMessage="This host cannot be reprovisioned"
+                      // @ts-expect-error: FIXME. This comment was added by an automated script.
+                      selectedHostIds={[hostId]}
                     />
                   </ButtonSpacer>
                 </ButtonsWrapper>
               </div>
             }
+            loading={hostMetadataLoading}
+            pageTitle={`Host${hostId ? ` - ${hostId}` : ""}`}
+            size="large"
+            title={`Host: ${hostId}`}
           />
 
           <PageLayout hasSider>
             <PageSider width={350}>
               <Metadata
-                loading={hostMetaDataLoading}
-                host={host}
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 error={error}
+                host={host}
+                loading={hostMetadataLoading}
               />
               {sshAddress && (
-                <Code language="shell" data-cy="ssh-command">
+                <Code data-cy="ssh-command" language="shell">
                   {sshCommand}
                 </Code>
               )}
             </PageSider>
-            <PageLayout>
-              <PageContent>
-                <HostTable
-                  loading={hostEventLoading}
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  eventData={hostEventData}
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  error={error}
-                  page={page}
-                  limit={limit}
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  eventsCount={eventsCount}
-                />
-              </PageContent>
-            </PageLayout>
+            <PageContent>
+              <HostTable
+                error={error}
+                eventCount={hostEventCount}
+                eventLogEntries={hostEventLogEntries}
+                eventTypes={hostEventTypes}
+                initialFilters={[
+                  { id: HostQueryParams.EventType, value: eventTypes },
+                ]}
+                limit={limit}
+                loading={hostEventLoading}
+                page={page}
+              />
+            </PageContent>
           </PageLayout>
         </>
       )}
       <UpdateStatusModal
+        closeModal={() => setIsUpdateStatusModalVisible(false)}
         data-cy="update-host-status-modal"
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         hostIds={[hostId]}
-        visible={isUpdateStatusModalVisible}
-        closeModal={() => setIsUpdateStatusModalVisible(false)}
         isHostPage
+        visible={isUpdateStatusModalVisible}
       />
     </PageWrapper>
   );

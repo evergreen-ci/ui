@@ -1,6 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
+import {
+  renderWithRouterMatch,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { renderWithRouterMatch, screen, userEvent, waitFor } from "test_utils";
 import { shortenGithash } from "utils/string";
 import CommitChartLabel from ".";
 
@@ -8,15 +13,15 @@ import CommitChartLabel from ".";
 const RenderCommitChartLabel = ({ version }) => (
   <MockedProvider mocks={[getSpruceConfigMock]}>
     <CommitChartLabel
-      versionId={version.id}
-      githash={shortenGithash(version.revision)}
-      createTime={version.createTime}
       author={version.author}
-      message={version.message}
+      createTime={version.createTime}
+      githash={shortenGithash(version.revision)}
       gitTags={[
         { tag: "v1.2.3", pusher: "release-bot" },
         { tag: "v1.2.3-rc0", pusher: "release-bot" },
       ]}
+      message={version.message}
+      versionId={version.id}
     />
   </MockedProvider>
 );

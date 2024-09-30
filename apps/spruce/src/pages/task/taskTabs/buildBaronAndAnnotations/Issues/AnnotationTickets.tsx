@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { useAnnotationAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { IssueLink } from "gql/generated/types";
@@ -30,7 +29,6 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   tickets,
   userCanModify,
 }) => {
-  const annotationAnalytics = useAnnotationAnalytics();
   const title = isIssue ? "Issues" : "Suspected Issues";
   const buttonText = isIssue ? "Add Issue" : "Add Suspected Issue";
   const [isAddAnnotationModalVisible, setIsAddAnnotationModalVisible] =
@@ -38,51 +36,46 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
 
   const handleAdd = () => {
     setIsAddAnnotationModalVisible(true);
-
-    annotationAnalytics.sendEvent({
-      name: "Created task annotation",
-      type: isIssue ? "Issue" : "Suspected Issue",
-    });
   };
   return (
     <>
       <TicketsTitle>{title}</TicketsTitle>
       <Tooltip
+        enabled={!userCanModify}
         trigger={
           <StyledButton
-            onClick={handleAdd}
             data-cy={
               isIssue ? "add-issue-button" : "add-suspected-issue-button"
             }
             disabled={!userCanModify}
+            onClick={handleAdd}
           >
             {buttonText}
           </StyledButton>
         }
-        enabled={!userCanModify}
       >
         You are not authorized to edit failure details
       </Tooltip>
       {tickets.length > 0 && (
         <AnnotationTicketsList
-          jiraIssues={tickets}
-          taskId={taskId}
           execution={execution}
           isIssue={isIssue}
-          userCanModify={userCanModify}
+          jiraIssues={tickets}
+          loading={loading}
           selectedRowKey={selectedRowKey}
           setSelectedRowKey={setSelectedRowKey}
-          loading={loading}
+          taskId={taskId}
+          userCanModify={userCanModify}
         />
       )}
       <AddIssueModal
-        data-cy="addIssueModal"
-        visible={isAddAnnotationModalVisible}
         closeModal={() => setIsAddAnnotationModalVisible(false)}
-        setSelectedRowKey={setSelectedRowKey}
-        taskId={taskId}
+        data-cy="addIssueModal"
         execution={execution}
         isIssue={isIssue}
+        setSelectedRowKey={setSelectedRowKey}
+        taskId={taskId}
+        visible={isAddAnnotationModalVisible}
       />
     </>
   );

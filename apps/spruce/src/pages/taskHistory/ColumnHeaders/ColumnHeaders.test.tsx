@@ -1,3 +1,10 @@
+import {
+  renderWithRouterMatch as render,
+  screen,
+  userEvent,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { taskHistoryMaxLength as maxLength } from "constants/history";
 import { RenderFakeToastContext } from "context/toast/__mocks__";
@@ -7,13 +14,6 @@ import {
   BuildVariantTuple,
 } from "gql/generated/types";
 import { BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-  waitFor,
-} from "test_utils";
-import { ApolloMock } from "types/gql";
 import { string } from "utils";
 import ColumnHeaders from ".";
 

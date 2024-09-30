@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
 import PageSizeSelector from ".";
 
@@ -13,5 +13,5 @@ export const Default: CustomStoryObj<typeof PageSizeSelector> = {
 
 const PageSize = () => {
   const [pageSize, setPageSize] = useState(10);
-  return <PageSizeSelector value={pageSize} onChange={setPageSize} />;
+  return <PageSizeSelector onChange={setPageSize} value={pageSize} />;
 };

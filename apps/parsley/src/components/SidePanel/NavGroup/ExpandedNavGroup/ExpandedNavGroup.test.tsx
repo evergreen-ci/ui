@@ -3,7 +3,7 @@ import {
   screen,
   userEvent,
   within,
-} from "test_utils";
+} from "@evg-ui/lib/test_utils";
 import ExpandedNavGroup from ".";
 
 describe("expanded lines", () => {

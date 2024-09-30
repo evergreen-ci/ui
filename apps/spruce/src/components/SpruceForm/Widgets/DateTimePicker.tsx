@@ -55,24 +55,24 @@ export const DateTimePicker: React.FC<
       {description && <Description>{description}</Description>}
       <DateTimeContainer>
         <DatePicker
-          // @ts-expect-error
-          getPopupContainer={getPopupContainer}
-          data-cy="date-picker"
-          onChange={handleChange}
-          value={currentDateTime}
           allowClear={false}
+          data-cy="date-picker"
           disabled={isDisabled}
           disabledDate={disabledDate}
+          // @ts-expect-error
+          getPopupContainer={getPopupContainer}
+          onChange={handleChange}
+          value={currentDateTime}
         />
         <AntdTimePicker
-          // @ts-expect-error
-          getPopupContainer={getPopupContainer}
-          data-cy="time-picker"
-          onChange={handleChange}
-          value={currentDateTime}
           allowClear={false}
+          data-cy="time-picker"
           disabled={isDisabled}
           disabledDate={disabledDate}
+          // @ts-expect-error
+          getPopupContainer={getPopupContainer}
+          onChange={handleChange}
+          value={currentDateTime}
         />
       </DateTimeContainer>
     </ElementWrapper>
@@ -110,20 +110,20 @@ export const TimePicker: React.FC<
       )}
       {description && <Description>{description}</Description>}
       <AntdTimePicker
+        allowClear={false}
+        data-cy="time-picker"
+        disabled={isDisabled}
+        format={format}
         // @ts-expect-error
         getPopupContainer={getPopupContainer}
         id={id}
-        data-cy="time-picker"
-        format={format}
+        inputReadOnly
         needConfirm
         onChange={handleChange}
-        value={currentDateTime}
-        allowClear={false}
-        disabled={isDisabled}
         showNow={false}
         // Disable typing into timepicker due to Antd bug:
         // https://github.com/ant-design/ant-design/issues/45564
-        inputReadOnly
+        value={currentDateTime}
       />
     </ElementWrapper>
   );

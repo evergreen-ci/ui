@@ -50,14 +50,14 @@ export interface GCQFormState {
       };
     };
   };
-  commitQueue: {
+  mergeQueue: {
     enabled: boolean | null;
     patchDefinitions: {
-      commitQueueAliasesOverride: boolean;
-      commitQueueAliases: Array<AliasFormType>;
+      mergeQueueAliasesOverride: boolean;
+      mergeQueueAliases: Array<AliasFormType>;
       repoData?: {
-        commitQueueAliasesOverride: boolean;
-        commitQueueAliases: Array<AliasFormType>;
+        mergeQueueAliasesOverride: boolean;
+        mergeQueueAliases: Array<AliasFormType>;
       };
     };
   };

@@ -1,4 +1,4 @@
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
 import { ExecutionTasksTable } from "./ExecutionTasksTable";
 
@@ -9,9 +9,9 @@ export default {
 export const SingleExecution: CustomStoryObj<typeof ExecutionTasksTable> = {
   render: () => (
     <ExecutionTasksTable
-      isPatch
-      executionTasksFull={singleExecution}
       execution={5}
+      executionTasksFull={singleExecution}
+      isPatch
     />
   ),
 };
@@ -19,9 +19,9 @@ export const SingleExecution: CustomStoryObj<typeof ExecutionTasksTable> = {
 export const MultipleExecutions: CustomStoryObj<typeof ExecutionTasksTable> = {
   render: () => (
     <ExecutionTasksTable
-      isPatch
-      executionTasksFull={multipleExecutions}
       execution={14}
+      executionTasksFull={multipleExecutions}
+      isPatch
     />
   ),
 };

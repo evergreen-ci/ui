@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
-import { TaskStatus } from "types/task";
 
 interface GroupedTaskStatusBadgeProps {
   count: number;
@@ -28,24 +28,24 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
 
   return (
     <Tooltip
-      enabled={!!statusCounts}
       align="top"
+      darkMode
+      enabled={!!statusCounts}
       justify="middle"
       popoverZIndex={zIndex.tooltip}
-      darkMode
       trigger={
         <div>
           <Link
-            to={href}
-            onClick={() => onClick()}
-            data-cy="grouped-task-status-badge"
             aria-selected={isActive}
+            data-cy="grouped-task-status-badge"
+            onClick={() => onClick()}
+            to={href}
           >
             <BadgeContainer
-              fill={fill}
               border={border}
-              text={text}
+              fill={fill}
               isActive={isActive}
+              text={text}
             >
               <Number>{count}</Number>
               <Status>{taskStatusToCopy[status]}</Status>
@@ -59,7 +59,7 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
         {statusCounts &&
           Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
             <Row key={taskStatus}>
-              <TaskStatusIcon status={taskStatus} size={16} />
+              <TaskStatusIcon size={16} status={taskStatus} />
               <span>
                 <Count>{taskCount}</Count>{" "}
                 {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}

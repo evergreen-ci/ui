@@ -1,11 +1,8 @@
 import * as router from "react-router";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { act, renderHook, waitFor } from "test_utils";
-import { mockEnvironmentVariables } from "test_utils/utils";
+import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { evergreenURL, graphqlURL } from "utils/environmentVariables";
 import { AuthProvider, useAuthContext } from ".";
-
-const { cleanup, mockEnv } = mockEnvironmentVariables();
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MemoryRouter initialEntries={["/"]}>
@@ -37,7 +34,7 @@ describe("auth", () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
-    cleanup();
+    vi.unstubAllEnvs();
   });
 
   it("should error when rendered outside of AuthProvider", () => {
@@ -117,7 +114,7 @@ describe("auth", () => {
 
   describe("logoutAndRedirect", () => {
     it("should redirect to the Parsley /login page locally", async () => {
-      mockEnv("NODE_ENV", "development");
+      vi.stubEnv("NODE_ENV", "development");
       const mockFetchPromise = vi.fn().mockResolvedValue({});
       vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
       const mockNavigate = vi.fn();
@@ -133,7 +130,7 @@ describe("auth", () => {
     });
 
     it("should redirect to the Evergreen /login page otherwise", async () => {
-      mockEnv("NODE_ENV", "production");
+      vi.stubEnv("NODE_ENV", "production");
       const mockFetchPromise = vi.fn().mockResolvedValue({});
       vi.spyOn(global, "fetch").mockImplementation(mockFetchPromise);
 

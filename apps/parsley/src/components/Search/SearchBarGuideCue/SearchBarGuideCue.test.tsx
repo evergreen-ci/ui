@@ -1,6 +1,11 @@
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
-import { render, screen, stubGetClientRects, waitFor } from "test_utils";
+import {
+  render,
+  screen,
+  stubGetClientRects,
+  waitFor,
+} from "@evg-ui/lib/test_utils";
 import SearchBarGuideCue from ".";
 
 vi.mock("js-cookie");

@@ -1,5 +1,5 @@
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import SharingMenu from ".";
 
 export default {

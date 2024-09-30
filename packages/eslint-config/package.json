@@ -4,7 +4,7 @@
   "main": "index.js",
   "private": true,
   "dependencies": {
-    "@emotion/eslint-plugin": "11.11.0",
+    "@emotion/eslint-plugin": "11.12.0",
     "@graphql-eslint/eslint-plugin": "3.20.1",
     "@typescript-eslint/eslint-plugin": "7.8.0",
     "@typescript-eslint/parser": "7.8.0",
@@ -22,7 +22,7 @@
     "eslint-plugin-storybook": "0.8.0",
     "eslint-plugin-testing-library": "^6.2.2",
     "graphql": "16.8.1",
-    "prettier": "3.2.2",
+    "prettier": "3.3.3",
     "typescript": "5.1.3"
   }
 }

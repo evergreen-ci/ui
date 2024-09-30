@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import Dropdown from "components/Dropdown";
 import { TreeSelect, TreeSelectProps } from "components/TreeSelect";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 
 export default {
   component: TreeSelect,
@@ -23,7 +23,7 @@ const BaseTreeSelect = (props: TreeSelectProps) => {
   const [value, setValue] = useState([]);
   return (
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    <TreeSelect tData={treeData} state={value} onChange={setValue} {...props} />
+    <TreeSelect onChange={setValue} state={value} tData={treeData} {...props} />
   );
 };
 

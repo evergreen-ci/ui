@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import PageTitle from "components/PageTitle";
 import {
   PageContent,
@@ -9,7 +10,6 @@ import {
   PageSider,
   PageWrapper,
 } from "components/styles";
-import TaskStatusBadge from "components/TaskStatusBadge";
 import { getTaskRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -44,12 +44,21 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
   return (
     <PageWrapper>
       <PageTitle
-        pageTitle={`Job Logs - ${title}`}
-        title="Job Logs"
-        loading={loading}
-        size="large"
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         badge={null}
+        buttons={
+          <Button
+            data-cy="task-link"
+            href={getTaskRoute(metadata.taskId, {
+              execution: metadata.execution,
+            })}
+          >
+            Task page
+          </Button>
+        }
+        loading={loading}
+        pageTitle={`Job Logs - ${title}`}
+        size="large"
         subtitle={
           <SubtitleContainer>
             <H3>{metadata.displayName}</H3>
@@ -57,32 +66,21 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
             <TaskStatusBadge status={metadata.taskStatus} />
           </SubtitleContainer>
         }
-        buttons={
-          <Button
-            href={getTaskRoute(metadata.taskId, {
-              execution: metadata.execution,
-            })}
-            data-cy="task-link"
-          >
-            Task page
-          </Button>
-        }
+        title="Job Logs"
       />
 
       <StyledPageLayout hasSider>
         <PageSider>
-          <Metadata metadata={metadata} loading={loading} />
+          <Metadata loading={loading} metadata={metadata} />
         </PageSider>
-        <PageLayout>
-          <PageContent>
-            <JobLogsTable
-              buildId={buildIdFromParams}
-              tests={resultsToRender}
-              isLogkeeper={isLogkeeper}
-              loading={loading}
-            />
-          </PageContent>
-        </PageLayout>
+        <PageContent>
+          <JobLogsTable
+            buildId={buildIdFromParams}
+            isLogkeeper={isLogkeeper}
+            loading={loading}
+            tests={resultsToRender}
+          />
+        </PageContent>
       </StyledPageLayout>
     </PageWrapper>
   );

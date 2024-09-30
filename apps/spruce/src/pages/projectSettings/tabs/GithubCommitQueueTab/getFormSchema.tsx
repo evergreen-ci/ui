@@ -4,7 +4,7 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledRouterLink, StyledLink } from "components/styles";
 import {
-  commitQueueAliasesDocumentationUrl,
+  mergeQueueAliasesDocumentationUrl,
   pullRequestAliasesDocumentationUrl,
   gitTagAliasesDocumentationUrl,
   githubChecksAliasesDocumentationUrl,
@@ -193,7 +193,7 @@ export const getFormSchema = (
             },
           },
         },
-        commitQueue: {
+        mergeQueue: {
           type: "object" as "object",
           title: "Merge Queue",
           properties: {
@@ -202,7 +202,7 @@ export const getFormSchema = (
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
-                repoData?.commitQueue?.enabled,
+                repoData?.mergeQueue?.enabled,
               ),
             },
           },
@@ -223,9 +223,9 @@ export const getFormSchema = (
                     },
                     patchDefinitions: {
                       type: "object" as "object",
-                      title: "Commit Queue Patch Definitions",
+                      title: "Merge Queue Patch Definitions",
                       ...overrideRadioBox(
-                        "commitQueueAliases",
+                        "mergeQueueAliases",
                         [
                           "Override Repo Patch Definition",
                           "Default to Repo Patch Definition",
@@ -449,7 +449,7 @@ export const getFormSchema = (
           },
         },
       },
-      commitQueue: {
+      mergeQueue: {
         "ui:ObjectFieldTemplate": CardFieldTemplate,
         "ui:data-cy": "cq-card",
         enabled: {
@@ -459,33 +459,33 @@ export const getFormSchema = (
           ...githubConflictErrorStyling(
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             githubProjectConflicts?.commitQueueIdentifiers,
-            formData?.commitQueue?.enabled,
-            repoData?.commitQueue?.enabled,
-            "the Commit Queue",
+            formData?.mergeQueue?.enabled,
+            repoData?.mergeQueue?.enabled,
+            "the Merge Queue",
           ),
         },
         patchDefinitions: {
           ...errorStyling(
             // @ts-expect-error: FIXME. This comment was added by an automated script.
-            formData?.commitQueue?.enabled,
-            formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
-            formData?.commitQueue?.patchDefinitions?.commitQueueAliases,
-            repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
-            "Commit Queue Patch Definition",
+            formData?.mergeQueue?.enabled,
+            formData?.mergeQueue?.patchDefinitions?.mergeQueueAliasesOverride,
+            formData?.mergeQueue?.patchDefinitions?.mergeQueueAliases,
+            repoData?.mergeQueue?.patchDefinitions?.mergeQueueAliases,
+            "Merge Queue Patch Definition",
           ),
-          commitQueueAliasesOverride: {
+          mergeQueueAliasesOverride: {
             "ui:data-cy": "cq-override-radio-box",
             ...overrideStyling,
           },
-          "ui:description": CommitQueueAliasesDescription,
-          commitQueueAliases: {
+          "ui:description": MergeQueueAliasesDescription,
+          mergeQueueAliases: {
             ...aliasRowUiSchema({
-              addButtonText: "Add Commit Queue Patch Definition",
+              addButtonText: "Add merge queue patch definition",
               numberedTitle: "Patch Definition",
             }),
           },
           repoData: {
-            commitQueueAliases: {
+            mergeQueueAliases: {
               ...aliasRowUiSchema({
                 numberedTitle: "Repo Patch Definition",
                 isRepo: true,
@@ -567,11 +567,11 @@ const PRAliasesDescription = (
   </>
 );
 
-const CommitQueueAliasesDescription = (
+const MergeQueueAliasesDescription = (
   <>
-    Changes on the Commit Queue are tested with all variants and tasks that
-    match each variant and task regex pair. These aliases{" "}
-    <StyledLink href={commitQueueAliasesDocumentationUrl}>
+    Changes on the Merge Queue are tested with all variants and tasks that match
+    each variant and task regex pair. These aliases{" "}
+    <StyledLink href={mergeQueueAliasesDocumentationUrl}>
       may be defined
     </StyledLink>{" "}
     in this project&rsquo;s config YAML instead if Version Control is enabled

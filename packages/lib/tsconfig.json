@@ -1,4 +1,17 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src"]
+  "include": [
+    "src",
+    "test_utils/index.tsx",
+    "test_utils/custom-queries.ts",
+    "./config/vitest/setupTests.ts"
+  ],
+  "compilerOptions": {
+    "baseUrl": "src",
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

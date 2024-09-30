@@ -1,6 +1,6 @@
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { action } from "@storybook/addon-actions";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
 import TupleSelectWithRegexConditional from ".";
 
@@ -15,8 +15,8 @@ export const WithConditional: CustomStoryObj<
   render: () => (
     <>
       <TupleSelectWithRegexConditional
-        options={options}
         onSubmit={action("submit")}
+        options={options}
         validator={(v) => v !== "bad"}
         validatorErrorMessage="Invalid Input"
       />

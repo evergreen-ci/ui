@@ -1,4 +1,5 @@
-import { useAnalyticsRoot } from "analytics/useAnalyticsRoot";
+import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { AnalyticsIdentifier } from "analytics/types";
 import { FilterLogic, WordWrapFormat } from "constants/enums";
 
 type Action =
@@ -19,4 +20,4 @@ type Action =
   | { name: "Toggled sections"; on: boolean };
 
 export const usePreferencesAnalytics = () =>
-  useAnalyticsRoot<Action>("Preferences");
+  useAnalyticsRoot<Action, AnalyticsIdentifier>("Preferences");

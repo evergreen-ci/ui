@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "test_utils";
+import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
 import TupleSelect from ".";
 
 const options = [
@@ -21,8 +21,8 @@ describe("tupleSelect", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
@@ -42,8 +42,8 @@ describe("tupleSelect", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
@@ -65,8 +65,8 @@ describe("tupleSelect", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
-        options={options}
         onSubmit={onSubmit}
+        options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,

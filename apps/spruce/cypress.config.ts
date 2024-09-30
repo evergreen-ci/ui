@@ -11,6 +11,7 @@ export default defineConfig({
     projectId: "yshv48",
     reporterOptions: {
       mochaFile: "bin/cypress/junit-[hash].xml",
+      testCaseSwitchClassnameAndName: true,
     },
     supportFile: "cypress/support/e2e.ts",
     specPattern: "cypress/integration/**/*.ts",

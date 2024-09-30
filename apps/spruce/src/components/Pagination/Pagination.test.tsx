@@ -1,22 +1,26 @@
-import { renderWithRouterMatch, screen, userEvent } from "test_utils";
+import {
+  renderWithRouterMatch,
+  screen,
+  userEvent,
+} from "@evg-ui/lib/test_utils";
 import Pagination from ".";
 
 describe("pagination", () => {
   it("should render the correct page count given total results and page size", () => {
     const { rerender } = renderWithRouterMatch(
-      <Pagination currentPage={0} totalResults={10} pageSize={5} />,
+      <Pagination currentPage={0} pageSize={5} totalResults={10} />,
     );
     expect(screen.getByText("1 / 2")).toBeInTheDocument();
-    rerender(<Pagination currentPage={0} totalResults={10} pageSize={10} />);
+    rerender(<Pagination currentPage={0} pageSize={10} totalResults={10} />);
     expect(screen.getByText("1 / 1")).toBeInTheDocument();
-    rerender(<Pagination currentPage={0} totalResults={100} pageSize={10} />);
+    rerender(<Pagination currentPage={0} pageSize={10} totalResults={100} />);
     expect(screen.getByText("1 / 10")).toBeInTheDocument();
-    rerender(<Pagination currentPage={0} totalResults={0} pageSize={10} />);
+    rerender(<Pagination currentPage={0} pageSize={10} totalResults={0} />);
     expect(screen.getByText("0 / 0")).toBeInTheDocument();
   });
   it("shold disable the previous page if on the first page", () => {
     const { router } = renderWithRouterMatch(
-      <Pagination currentPage={0} totalResults={10} pageSize={5} />,
+      <Pagination currentPage={0} pageSize={5} totalResults={10} />,
     );
     expect(router.state.location.search).toBe("");
     expect(screen.queryByDataCy("prev-page-button")).toHaveAttribute(
@@ -26,7 +30,7 @@ describe("pagination", () => {
   });
   it("should disable the next page if on the last page", () => {
     const { router } = renderWithRouterMatch(
-      <Pagination currentPage={1} totalResults={10} pageSize={5} />,
+      <Pagination currentPage={1} pageSize={5} totalResults={10} />,
     );
     expect(router.state.location.search).toBe("");
     expect(screen.queryByDataCy("next-page-button")).toHaveAttribute(
@@ -37,7 +41,7 @@ describe("pagination", () => {
   it("paginating forward should update the url with the new page number by default", async () => {
     const user = userEvent.setup();
     const { router } = renderWithRouterMatch(
-      <Pagination currentPage={0} totalResults={10} pageSize={5} />,
+      <Pagination currentPage={0} pageSize={5} totalResults={10} />,
     );
 
     expect(router.state.location.search).toBe("");
@@ -47,7 +51,7 @@ describe("pagination", () => {
   it("paginating backward should update the url with the new page number by default", async () => {
     const user = userEvent.setup();
     const { router } = renderWithRouterMatch(
-      <Pagination currentPage={1} totalResults={10} pageSize={5} />,
+      <Pagination currentPage={1} pageSize={5} totalResults={10} />,
     );
 
     expect(router.state.location.search).toBe("");
@@ -61,9 +65,9 @@ describe("pagination", () => {
     renderWithRouterMatch(
       <Pagination
         currentPage={0}
-        totalResults={10}
-        pageSize={5}
         onChange={onChange}
+        pageSize={5}
+        totalResults={10}
       />,
     );
     await user.click(screen.getByDataCy("next-page-button"));
@@ -71,7 +75,7 @@ describe("pagination", () => {
   });
   it("should disable pagination if there  is only one page", () => {
     renderWithRouterMatch(
-      <Pagination currentPage={0} totalResults={5} pageSize={5} />,
+      <Pagination currentPage={0} pageSize={5} totalResults={5} />,
     );
     expect(screen.queryByDataCy("prev-page-button")).toHaveAttribute(
       "aria-disabled",
@@ -84,7 +88,7 @@ describe("pagination", () => {
   });
   it("should disable pagination if there are no pages", () => {
     renderWithRouterMatch(
-      <Pagination currentPage={0} totalResults={5} pageSize={5} />,
+      <Pagination currentPage={0} pageSize={5} totalResults={5} />,
     );
     expect(screen.queryByDataCy("prev-page-button")).toHaveAttribute(
       "aria-disabled",

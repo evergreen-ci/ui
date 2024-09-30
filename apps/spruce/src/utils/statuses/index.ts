@@ -1,16 +1,10 @@
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { failedTaskStatuses, finishedTaskStatuses } from "constants/task";
-import { TaskStatus } from "types/task";
 import { getCurrentStatuses } from "./getCurrentStatuses";
-import { getStatusBadgeCopy } from "./getStatusBadgeCopy";
 import { groupStatusesByUmbrellaStatus } from "./groupStatusesByUmbrellaStatus";
 import { sortTasks } from "./sort";
 
-export {
-  getStatusBadgeCopy,
-  sortTasks,
-  groupStatusesByUmbrellaStatus,
-  getCurrentStatuses,
-};
+export { sortTasks, groupStatusesByUmbrellaStatus, getCurrentStatuses };
 
 export const isFinishedTaskStatus = (status: string): boolean =>
   finishedTaskStatuses.includes(status as TaskStatus);

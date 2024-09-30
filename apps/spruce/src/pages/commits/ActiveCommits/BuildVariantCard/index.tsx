@@ -48,15 +48,15 @@ export const BuildVariantCard: React.FC<Props> = ({
     <>
       {groupedVariantStats && (
         <VariantGroupedTaskStatusBadges
-          statusCounts={groupedVariantStats.statusCounts}
-          versionId={versionId}
-          variant={variant}
           onClick={(statuses) => () => {
             sendEvent({
               name: "Clicked grouped task status badge",
               statuses,
             });
           }}
+          statusCounts={groupedVariantStats.statusCounts}
+          variant={variant}
+          versionId={versionId}
         />
       )}
       {tasks && <RenderTaskIcons tasks={tasks} variant={variant} />}
@@ -66,14 +66,14 @@ export const BuildVariantCard: React.FC<Props> = ({
     <Container>
       <Label
         data-cy="variant-header"
-        to={getVariantHistoryRoute(projectIdentifier, variant, {
-          selectedCommit: order,
-        })}
         onClick={() => {
           sendEvent({
             name: "Clicked variant label",
           });
         }}
+        to={getVariantHistoryRoute(projectIdentifier, variant, {
+          selectedCommit: order,
+        })}
       >
         {buildVariantDisplayName}
       </Label>
@@ -99,12 +99,12 @@ const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks, variant }) =>
       {tasks.map(({ displayName, hasCedarResults, id, status, timeTaken }) => (
         <WaterfallTaskStatusIcon
           key={id}
-          taskId={id}
-          status={status}
           displayName={displayName}
-          timeTaken={timeTaken}
-          identifier={`${variant}-${displayName}`}
           hasCedarResults={hasCedarResults}
+          identifier={`${variant}-${displayName}`}
+          status={status}
+          taskId={id}
+          timeTaken={timeTaken}
         />
       ))}
     </IconContainer>

@@ -1,11 +1,12 @@
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd862"
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
     tabindex="0"
   >
     <table
       class="leafygreen-ui-1soynca"
       data-cy="task-duration-table"
+      data-lgid="lg-table"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -13,6 +14,7 @@
         <tr>
           <th
             class="leafygreen-ui-qxqi7i"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -54,10 +56,39 @@
                   </div>
                 </button>
               </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Task Name"
+                class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
           </th>
           <th
             class="leafygreen-ui-13j17tu"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -72,6 +103,7 @@
                   aria-label="Table Filter Popover Icon"
                   class="leafygreen-ui-tcjr3n"
                   data-cy="status-filter-popover"
+                  data-highlighted="false"
                   tabindex="0"
                 >
                   <div
@@ -99,10 +131,39 @@
                   </div>
                 </button>
               </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Status"
+                class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
           </th>
           <th
             class="leafygreen-ui-fjoumq"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -144,10 +205,39 @@
                   </div>
                 </button>
               </div>
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Build Variant"
+                class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
             </div>
           </th>
           <th
             class="leafygreen-ui-1qsod8o"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -158,6 +248,7 @@
                 aria-disabled="false"
                 aria-label="Sort by Task Duration"
                 class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -165,8 +256,8 @@
                   class="leafygreen-ui-xhlipt"
                 >
                   <svg
-                    aria-label="Sort Descending Icon"
-                    class="leafygreen-ui-1t2jgtk"
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
                     fill="none"
                     height="16"
                     role="img"
@@ -175,7 +266,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M4.45 14.696a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.025h1.312V2.168a1.169 1.169 0 1 1 2.338 0v9.351H6.55c.541 0 .792.673.383 1.027L4.45 14.696ZM8 3a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H8ZM7 7a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1ZM8 9a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H8Z"
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
                       fill="currentColor"
                     />
                   </svg>
@@ -192,12 +283,15 @@
         <tr
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
-          data-cy="leafygreen-table-row"
+          data-cy="task-duration-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
           <td
             class="leafygreen-ui-1dmu2ot"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -209,6 +303,7 @@
                 aria-hidden="false"
                 aria-label="Expand row"
                 class="leafygreen-ui-v4n7tr"
+                data-lgid="lg-table-expand_button"
                 tabindex="0"
               >
                 <div
@@ -235,8 +330,8 @@
                 </div>
               </button>
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_display_sharding_multiversion_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_display_sharding_multiversion_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -250,6 +345,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -257,8 +353,11 @@
               data-state="entered"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
+                border="#FFCDC7"
+                class="css-148ze2g-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
+                fill="#FFFFFF"
+                text="#970606"
               >
                 Known Issue
               </div>
@@ -266,6 +365,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -277,6 +377,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -292,7 +393,7 @@
                   width="100%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   4h 21m
@@ -304,19 +405,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.0"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -330,13 +434,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -345,6 +450,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -355,6 +461,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -369,7 +476,7 @@
                   width="7.954467725033249%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   20m 48s
@@ -381,19 +488,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.1"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -407,13 +517,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-ud6teo"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Failed
@@ -422,6 +533,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -432,6 +544,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -446,7 +559,7 @@
                   width="9.027136730444392%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   23m 37s
@@ -458,19 +571,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.2"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -484,13 +600,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -499,6 +616,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -509,6 +627,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -523,7 +642,7 @@
                   width="8.70728427489644%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   22m 47s
@@ -535,19 +654,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.3"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_03_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_03_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -561,13 +683,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -576,6 +699,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -586,6 +710,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -600,7 +725,7 @@
                   width="11.797563030123234%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   30m 52s
@@ -612,19 +737,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.4"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_04_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_04_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -638,13 +766,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -653,6 +782,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -663,6 +793,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -677,7 +808,7 @@
                   width="12.819045197653036%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   33m 32s
@@ -689,19 +820,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.5"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_05_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_05_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -715,13 +849,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -730,6 +865,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -740,6 +876,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -754,7 +891,7 @@
                   width="1.561061624061495%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   4m 5s
@@ -766,19 +903,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.6"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -792,13 +932,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -807,6 +948,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -817,6 +959,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -831,7 +974,7 @@
                   width="8.291121335033234%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   21m 41s
@@ -843,19 +986,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.7"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -869,13 +1015,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -884,6 +1031,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -894,6 +1042,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -908,7 +1057,7 @@
                   width="10.290223065577619%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   26m 55s
@@ -920,19 +1069,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.8"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -946,13 +1098,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -961,6 +1114,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -971,6 +1125,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -985,7 +1140,7 @@
                   width="12.068941798584602%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   31m 34s
@@ -997,19 +1152,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.9"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_03_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_03_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -1023,13 +1181,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -1038,6 +1197,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1048,6 +1208,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1062,7 +1223,7 @@
                   width="8.153871570650638%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   21m 20s
@@ -1074,19 +1235,22 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.10"
         >
           <td
             class="leafygreen-ui-dm20k9"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <a
-                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-sv8tvj"
-                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_04_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56"
+                class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+                href="/task/mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_04_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56?execution=0"
               >
                 <span>
                   <span
@@ -1100,13 +1264,14 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
               data-state="exited"
             >
               <div
-                class="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-n4itms"
+                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -1115,6 +1280,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1125,6 +1291,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1139,7 +1306,7 @@
                   width="9.329239065652008%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-110o31d"
+                  class="css-9v5y9r-DurationLabel e1c6tk3t0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   24m 24s

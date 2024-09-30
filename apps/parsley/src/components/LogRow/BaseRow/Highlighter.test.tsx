@@ -1,4 +1,4 @@
-import { renderWithRouterMatch, screen } from "test_utils";
+import { renderWithRouterMatch, screen } from "@evg-ui/lib/test_utils";
 import Highlighter from "./Highlighter";
 
 describe("highlighter", () => {

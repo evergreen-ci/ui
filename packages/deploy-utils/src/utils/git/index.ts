@@ -41,13 +41,14 @@ const getCommitMessages = (
 ) => {
   const gitRoot = getGitRoot();
   const appDir = resolve(gitRoot, "apps", app);
+  const packageDir = resolve(gitRoot, "packages");
   const excludeDir = resolve(
     gitRoot,
     "apps",
     app === "spruce" ? "parsley" : "spruce",
   );
   const commitMessages = execTrim(
-    `git log ${fromCommit}..${toCommit} --oneline -- ${appDir} '!${excludeDir}'`,
+    `git log ${fromCommit}..${toCommit} --oneline -- ${appDir} ${packageDir} '!${excludeDir}'`,
   );
   return commitMessages;
 };

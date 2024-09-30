@@ -12,7 +12,7 @@
         <nav
           aria-label="Side panel"
           class="leafygreen-ui-fw8ayd"
-          id="side-nav-253"
+          id="side-nav-266"
         >
           <div
             class="leafygreen-ui-1nmawjt"
@@ -29,7 +29,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-249"
+                    id="menu-group-label-id-262"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -70,7 +70,7 @@
                             Filters
                           </div>
                           <div
-                            class="leafygreen-ui-n4itms"
+                            class="leafygreen-ui-1ciuhbt"
                           >
                             1
                           </div>
@@ -86,7 +86,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-249"
+                    aria-labelledby="menu-group-label-id-262"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -95,52 +95,65 @@
                     >
                       <div>
                         <div
-                          class="css-16i4gmg-AccordionToggle e1bamyem4"
+                          class="css-vntv7t-AccordionToggle e1bamyem4"
                           data-cy="accordion-toggle"
                           role="button"
                         >
-                          <svg
-                            aria-label="Chevron Right Icon"
-                            class="leafygreen-ui-jc2z8v css-7x45r8-AccordionIcon e1bamyem3"
-                            fill="none"
-                            height="14"
+                          <button
+                            aria-disabled="false"
+                            aria-labelledby="Expand or collapse filter"
+                            class="css-7x45r8-AccordionIcon e1bamyem3 leafygreen-ui-tcjr3n"
                             open=""
-                            role="img"
-                            viewBox="0 0 16 16"
-                            width="14"
-                            xmlns="http://www.w3.org/2000/svg"
+                            tabindex="0"
                           >
-                            <path
-                              clip-rule="evenodd"
-                              d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
+                            <div
+                              class="leafygreen-ui-xhlipt"
+                            >
+                              <svg
+                                aria-label="Chevron Right Icon"
+                                class="leafygreen-ui-jc2z8v"
+                                fill="none"
+                                height="16"
+                                role="img"
+                                viewBox="0 0 16 16"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M5.364 14.364a1 1 0 0 0 1.414 0l4.95-4.95.707-.707a1 1 0 0 0 0-1.414l-.707-.707-4.95-4.95a1 1 0 0 0-1.414 0l-.707.707a1 1 0 0 0 0 1.414L8.899 8l-4.242 4.243a1 1 0 0 0 0 1.414l.707.707Z"
+                                  fill="currentColor"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          </button>
                           <div
-                            class="css-1kr6vj4-AccordionTitle e12rc5wm5"
+                            class="css-ze06g-AccordionTitle e12rc5wm6"
                           >
                             <p
-                              class="leafygreen-ui-1miy0xp"
+                              aria-expanded="true"
+                              class="css-1foaoyi-FilterExpression e12rc5wm4 leafygreen-ui-1tb6tuo"
                               id=":r1:"
                             >
                               active filter
                             </p>
                             <div
-                              class="css-1sof2u0-IconButtonContainer e12rc5wm3"
+                              class="css-1yy8s1m-IconButtonContainer e12rc5wm3"
                             >
                               <button
                                 aria-checked="true"
                                 aria-disabled="false"
                                 aria-label="Hide filter"
                                 aria-labelledby=":r1:"
-                                class="lg-ui-toggle-button-0000 leafygreen-ui-qt4gv"
+                                class="lg-ui-toggle-button-0000 leafygreen-ui-2o8wt6"
+                                data-lgid="lg-toggle"
                                 role="switch"
                                 title="Hide filter"
                                 type="button"
                               >
                                 <div
-                                  class="leafygreen-ui-130cqp8"
+                                  class="leafygreen-ui-38rddy"
                                 />
                               </button>
                               <button
@@ -212,7 +225,7 @@
                             class="css-1nylm8s-ContentsContainer e1bamyem1"
                           >
                             <div
-                              class="css-2ra843-AccordionContent e12rc5wm4"
+                              class="css-2ra843-AccordionContent e12rc5wm5"
                             >
                               <div
                                 class="leafygreen-ui-ozfao7 css-7tm8v2-StyledSegmentedControl e12rc5wm0"
@@ -223,8 +236,8 @@
                                   Case
                                 </div>
                                 <div
-                                  aria-label="segmented-control-254"
-                                  aria-owns="segmented-control-254-0 segmented-control-254-1"
+                                  aria-label="segmented-control-267"
+                                  aria-owns="segmented-control-267-0 segmented-control-267-1"
                                   class="leafygreen-ui-18en4yf"
                                   role="tablist"
                                 >
@@ -240,7 +253,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="true"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-254-0"
+                                        id="segmented-control-267-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -269,7 +282,7 @@
                                         aria-controls="Toggle case sensitivity"
                                         aria-selected="false"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-254-1"
+                                        id="segmented-control-267-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -303,8 +316,8 @@
                                   Match
                                 </div>
                                 <div
-                                  aria-label="segmented-control-255"
-                                  aria-owns="segmented-control-255-0 segmented-control-255-1"
+                                  aria-label="segmented-control-268"
+                                  aria-owns="segmented-control-268-0 segmented-control-268-1"
                                   class="leafygreen-ui-18en4yf"
                                   role="tablist"
                                 >
@@ -320,7 +333,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="true"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-255-0"
+                                        id="segmented-control-268-0"
                                         role="tab"
                                         tabindex="0"
                                         type="button"
@@ -349,7 +362,7 @@
                                         aria-controls="Toggle match type"
                                         aria-selected="false"
                                         class="leafygreen-ui-ypz97o"
-                                        id="segmented-control-255-1"
+                                        id="segmented-control-268-1"
                                         role="tab"
                                         tabindex="-1"
                                         type="button"
@@ -387,7 +400,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-250"
+                    id="menu-group-label-id-263"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -433,7 +446,7 @@
                             Expanded Lines
                           </div>
                           <div
-                            class="leafygreen-ui-n4itms"
+                            class="leafygreen-ui-1ciuhbt"
                           >
                             1
                           </div>
@@ -442,7 +455,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-250"
+                    aria-labelledby="menu-group-label-id-263"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -494,7 +507,7 @@
                   <div
                     class="leafygreen-ui-g6ml2m"
                     data-testid="side-nav-group-header-label"
-                    id="menu-group-label-id-251"
+                    id="menu-group-label-id-264"
                   >
                     <div
                       class="leafygreen-ui-1rnl6t5"
@@ -533,7 +546,7 @@
                             Highlighted Terms
                           </div>
                           <div
-                            class="leafygreen-ui-n4itms"
+                            class="leafygreen-ui-1ciuhbt"
                           >
                             2
                           </div>
@@ -542,7 +555,7 @@
                     </div>
                   </div>
                   <ul
-                    aria-labelledby="menu-group-label-id-251"
+                    aria-labelledby="menu-group-label-id-264"
                     class="leafygreen-ui-bdnco"
                   >
                     <div
@@ -713,7 +726,7 @@
           </div>
         </nav>
         <button
-          aria-controls="side-nav-253"
+          aria-controls="side-nav-266"
           aria-expanded="true"
           aria-label="Collapse navigation"
           class="leafygreen-ui-v87gj9"

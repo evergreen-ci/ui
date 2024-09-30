@@ -1,9 +1,9 @@
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import {
   ParsleySettingsQuery,
   ParsleySettingsQueryVariables,
 } from "gql/generated/types";
 import { PARSLEY_SETTINGS } from "gql/queries";
-import { ApolloMock } from "types/gql";
 
 export const parsleySettingsMock: ApolloMock<
   ParsleySettingsQuery,

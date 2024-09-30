@@ -1,7 +1,7 @@
+import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { getCommitsRoute } from "constants/routes";
 
 import WithToastContext from "test_utils/toast-decorator";
-import { CustomStoryObj, CustomMeta } from "test_utils/types";
 import { ProjectSelect } from ".";
 import { mocks } from "./testData";
 
@@ -18,8 +18,8 @@ export default {
 export const Default: CustomStoryObj<typeof ProjectSelect> = {
   render: () => (
     <ProjectSelect
-      selectedProjectIdentifier="evergreen"
       getRoute={getCommitsRoute}
+      selectedProjectIdentifier="evergreen"
     />
   ),
 };
@@ -27,9 +27,9 @@ export const Default: CustomStoryObj<typeof ProjectSelect> = {
 export const WithClickableHeader: CustomStoryObj<typeof ProjectSelect> = {
   render: () => (
     <ProjectSelect
-      selectedProjectIdentifier="evergreen"
       getRoute={getCommitsRoute}
       isProjectSettingsPage
+      selectedProjectIdentifier="evergreen"
     />
   ),
 };

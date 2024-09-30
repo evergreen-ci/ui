@@ -17,13 +17,13 @@ const IconTooltip: React.FC<IconTooltipProps> = ({
   <StyledTooltip
     align="top"
     justify="middle"
-    triggerEvent="hover"
     popoverZIndex={zIndex.tooltip}
     trigger={
       <IconWrapper data-cy={dataCy}>
         <Icon {...rest} />
       </IconWrapper>
     }
+    triggerEvent="hover"
   >
     {children}
   </StyledTooltip>

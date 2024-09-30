@@ -5,6 +5,7 @@ import Icon from "components/Icon";
 import { size, subheaderHeight } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { EvergreenTaskSubHeader } from "./EvergreenTaskSubHeader";
+import { SectionControls } from "./SectionControls";
 
 const { gray } = palette;
 
@@ -45,6 +46,7 @@ const SubHeader: React.FC<SubHeaderProps> = () => {
               testID={testID as string}
             />
           )}
+          <SectionControls />
         </Header>
       )}
     </Container>

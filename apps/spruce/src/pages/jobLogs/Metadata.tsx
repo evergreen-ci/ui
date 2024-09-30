@@ -2,6 +2,7 @@ import { useJobLogsAnalytics } from "analytics";
 import {
   MetadataCard,
   MetadataItem,
+  MetadataLabel,
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
@@ -17,28 +18,34 @@ export const Metadata: React.FC<{
     <MetadataCard loading={loading}>
       <MetadataTitle>Job log details</MetadataTitle>
       {metadata.groupID && (
-        <MetadataItem>Group: {metadata.groupID}</MetadataItem>
+        <MetadataItem>
+          <MetadataLabel>Group:</MetadataLabel> {metadata.groupID}
+        </MetadataItem>
       )}
       {metadata.builder && (
-        <MetadataItem>Builder: {metadata.builder}</MetadataItem>
+        <MetadataItem>
+          <MetadataLabel>Builder:</MetadataLabel> {metadata.builder}
+        </MetadataItem>
       )}
       {metadata.buildNum && (
-        <MetadataItem>Build number: {metadata.buildNum}</MetadataItem>
+        <MetadataItem>
+          <MetadataLabel>Build number:</MetadataLabel> {metadata.buildNum}
+        </MetadataItem>
       )}
       <MetadataItem>
         <StyledLink
           data-cy="complete-test-logs-link"
           href={metadata.completeLogsURL}
-          target="_blank"
           onClick={() => {
             sendEvent({
               name: "Clicked complete logs link",
-              buildId: metadata.buildId,
-              taskId: metadata.taskId,
+              "build.id": metadata.buildId,
+              "task.id": metadata.taskId,
               execution: metadata.execution,
-              groupID: metadata.groupID,
+              "group.id": metadata.groupID,
             });
           }}
+          target="_blank"
         >
           Complete logs for all tests
         </StyledLink>

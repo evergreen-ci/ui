@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
-import { showGitHubAccessTokenProject } from "constants/featureFlags";
 import { ProjectSettingsTabRoutes, slugs } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
@@ -92,20 +91,19 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
       />
       <Routes>
         <Route
-          path={ProjectSettingsTabRoutes.General}
           element={
             <GeneralTab
-              projectId={projectId}
               projectData={
                 tabData[ProjectSettingsTabRoutes.General].projectData
               }
+              projectId={projectId}
               projectType={projectType}
               repoData={tabData[ProjectSettingsTabRoutes.General].repoData}
             />
           }
+          path={ProjectSettingsTabRoutes.General}
         />
         <Route
-          path={ProjectSettingsTabRoutes.Access}
           element={
             <AccessTab
               projectData={tabData[ProjectSettingsTabRoutes.Access].projectData}
@@ -113,9 +111,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               repoData={tabData[ProjectSettingsTabRoutes.Access].repoData}
             />
           }
+          path={ProjectSettingsTabRoutes.Access}
         />
         <Route
-          path={ProjectSettingsTabRoutes.Variables}
           element={
             <VariablesTab
               // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -127,9 +125,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               repoData={tabData[ProjectSettingsTabRoutes.Variables].repoData}
             />
           }
+          path={ProjectSettingsTabRoutes.Variables}
         />
         <Route
-          path={ProjectSettingsTabRoutes.GithubCommitQueue}
           element={
             <GithubCommitQueueTab
               // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -155,9 +153,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               }
             />
           }
+          path={ProjectSettingsTabRoutes.GithubCommitQueue}
         />
         <Route
-          path={ProjectSettingsTabRoutes.Plugins}
           element={
             <PluginsTab
               projectData={
@@ -167,9 +165,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               repoData={tabData[ProjectSettingsTabRoutes.Plugins].repoData}
             />
           }
+          path={ProjectSettingsTabRoutes.Plugins}
         />
         <Route
-          path={ProjectSettingsTabRoutes.Notifications}
           element={
             <NotificationsTab
               id={projectId || repoData?.projectRef?.id}
@@ -182,9 +180,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               }
             />
           }
+          path={ProjectSettingsTabRoutes.Notifications}
         />
         <Route
-          path={ProjectSettingsTabRoutes.PatchAliases}
           element={
             <PatchAliasesTab
               projectData={
@@ -194,9 +192,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               repoData={tabData[ProjectSettingsTabRoutes.PatchAliases].repoData}
             />
           }
+          path={ProjectSettingsTabRoutes.PatchAliases}
         />
         <Route
-          path={ProjectSettingsTabRoutes.VirtualWorkstation}
           element={
             <VirtualWorkstationTab
               // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -210,9 +208,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               }
             />
           }
+          path={ProjectSettingsTabRoutes.VirtualWorkstation}
         />
         <Route
-          path={ProjectSettingsTabRoutes.Containers}
           element={
             <ContainersTab
               // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -224,9 +222,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
             />
           }
+          path={ProjectSettingsTabRoutes.Containers}
         />
         <Route
-          path={ProjectSettingsTabRoutes.ViewsAndFilters}
           element={
             <ViewsAndFiltersTab
               // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -240,9 +238,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               }
             />
           }
+          path={ProjectSettingsTabRoutes.ViewsAndFilters}
         />
         <Route
-          path={ProjectSettingsTabRoutes.ProjectTriggers}
           element={
             <ProjectTriggersTab
               projectData={
@@ -254,9 +252,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               }
             />
           }
+          path={ProjectSettingsTabRoutes.ProjectTriggers}
         />
         <Route
-          path={ProjectSettingsTabRoutes.PeriodicBuilds}
           element={
             <PeriodicBuildsTab
               projectData={
@@ -268,56 +266,52 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               }
             />
           }
+          path={ProjectSettingsTabRoutes.PeriodicBuilds}
         />
-        {showGitHubAccessTokenProject && (
-          <Route
-            path={ProjectSettingsTabRoutes.GithubAppSettings}
-            element={
-              <AppSettingsTab
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.GithubAppSettings]
-                    .projectData
-                }
-                githubPermissionGroups={
-                  projectData?.projectRef?.githubDynamicTokenPermissionGroups ??
-                  []
-                }
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                identifier={identifier}
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                projectId={projectId}
-              />
-            }
-          />
-        )}
-        {showGitHubAccessTokenProject && (
-          <Route
-            path={ProjectSettingsTabRoutes.GithubPermissionGroups}
-            element={
-              <PermissionGroupsTab
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                identifier={identifier}
-                projectData={
-                  tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
-                    .projectData
-                }
-              />
-            }
-          />
-        )}
         <Route
-          path={ProjectSettingsTabRoutes.EventLog}
           element={
-            <EventLogTab
-              projectType={projectType}
-              key={identifier}
-              limit={45}
+            <AppSettingsTab
+              githubPermissionGroups={
+                projectData?.projectRef?.githubDynamicTokenPermissionGroups ??
+                []
+              }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              identifier={identifier}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.GithubAppSettings].projectData
+              }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              projectId={projectId}
             />
           }
+          path={ProjectSettingsTabRoutes.GithubAppSettings}
         />
         <Route
+          element={
+            <PermissionGroupsTab
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              identifier={identifier}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
+                  .projectData
+              }
+            />
+          }
+          path={ProjectSettingsTabRoutes.GithubPermissionGroups}
+        />
+        <Route
+          element={
+            <EventLogTab
+              key={identifier}
+              limit={45}
+              projectType={projectType}
+            />
+          }
+          path={ProjectSettingsTabRoutes.EventLog}
+        />
+        <Route
+          element={<Navigate replace to={ProjectSettingsTabRoutes.General} />}
           path="*"
-          element={<Navigate to={ProjectSettingsTabRoutes.General} replace />}
         />
       </Routes>
     </Container>

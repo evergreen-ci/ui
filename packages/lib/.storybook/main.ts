@@ -1,4 +1,5 @@
 import { resolve } from "path";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default {
   addons: ["@evg-ui/storybook-addon"],
@@ -10,11 +11,14 @@ export default {
     const { mergeConfig } = await import("vite");
 
     return mergeConfig(config, {
-      plugins: {
-        react: {
-          jsxImportSource: "@emotion/react",
-        },
-      },
+      plugins: [
+        tsconfigPaths(),
+        {
+          react: {
+            jsxImportSource: "@emotion/react",
+          }
+        }
+      ],
       resolve: {
         alias: {
           "@leafygreen-ui/emotion": resolve(

@@ -1,4 +1,10 @@
-import { render, screen, userEvent, waitFor, within } from "test_utils";
+import {
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  within,
+} from "@evg-ui/lib/test_utils";
 import FilterBadges from ".";
 
 describe("filterBadges", () => {
@@ -6,7 +12,7 @@ describe("filterBadges", () => {
     const onRemove = vi.fn();
     const onClearAll = vi.fn();
     render(
-      <FilterBadges badges={[]} onRemove={onRemove} onClearAll={onClearAll} />,
+      <FilterBadges badges={[]} onClearAll={onClearAll} onRemove={onRemove} />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(0);
   });
@@ -15,8 +21,8 @@ describe("filterBadges", () => {
     render(
       <FilterBadges
         badges={[{ key: "test", value: "value" }]}
-        onRemove={vi.fn()}
         onClearAll={vi.fn()}
+        onRemove={vi.fn()}
       />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(1);
@@ -30,8 +36,8 @@ describe("filterBadges", () => {
           { key: "test", value: "value" },
           { key: "test2", value: "value2" },
         ]}
-        onRemove={vi.fn()}
         onClearAll={vi.fn()}
+        onRemove={vi.fn()}
       />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(2);
@@ -54,8 +60,8 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={vi.fn()}
         onClearAll={vi.fn()}
+        onRemove={vi.fn()}
       />,
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(8);
@@ -80,8 +86,8 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={vi.fn()}
         onClearAll={vi.fn()}
+        onRemove={vi.fn()}
       />,
     );
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -119,8 +125,8 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={vi.fn()}
         onClearAll={onClearAll}
+        onRemove={vi.fn()}
       />,
     );
     await user.click(screen.getByRole("button", { name: "CLEAR ALL FILTERS" }));
@@ -144,8 +150,8 @@ describe("filterBadges", () => {
           { key: "test9", value: "value9" },
           { key: "test10", value: "value10" },
         ]}
-        onRemove={onRemove}
         onClearAll={vi.fn()}
+        onRemove={onRemove}
       />,
     );
     const closeBadge = screen.queryAllByDataCy("close-badge")[0];
@@ -160,8 +166,8 @@ describe("filterBadges", () => {
     render(
       <FilterBadges
         badges={[{ key: "some", value: longName }]}
-        onRemove={vi.fn()}
         onClearAll={vi.fn()}
+        onRemove={vi.fn()}
       />,
     );
     const truncatedBadge = screen.queryByDataCy("filter-badge");

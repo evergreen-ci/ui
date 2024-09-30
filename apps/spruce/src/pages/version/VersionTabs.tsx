@@ -5,6 +5,7 @@ import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
@@ -17,77 +18,108 @@ import TaskDuration from "./TaskDuration";
 
 const { parseQueryString } = queryString;
 
-interface Props {
-  taskCount: number;
-  isPatch: boolean;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  childPatches: VersionQuery["version"]["patch"]["childPatches"];
+type ChildPatches = NonNullable<
+  VersionQuery["version"]["patch"]
+>["childPatches"];
+
+interface VersionTabProps {
+  version: VersionQuery["version"];
 }
+
+const getDownstreamTabName = (
+  numFailedChildPatches: number,
+  numStartedChildPatches: number,
+  numSuccessChildPatches: number,
+) => {
+  if (numFailedChildPatches > 0) {
+    return (
+      <TabLabelWithBadge
+        badgeText={numFailedChildPatches}
+        badgeVariant="red"
+        dataCyBadge="downstream-tab-badge"
+        tabLabel="Downstream Projects"
+      />
+    );
+  }
+  if (numStartedChildPatches > 0) {
+    return (
+      <TabLabelWithBadge
+        badgeText={numStartedChildPatches}
+        badgeVariant="yellow"
+        dataCyBadge="downstream-tab-badge"
+        tabLabel="Downstream Projects"
+      />
+    );
+  }
+  if (numSuccessChildPatches > 0) {
+    return (
+      <TabLabelWithBadge
+        badgeText={numSuccessChildPatches}
+        badgeVariant="green"
+        dataCyBadge="downstream-tab-badge"
+        tabLabel="Downstream Projects"
+      />
+    );
+  }
+};
 
 const tabMap = ({
   childPatches,
   numFailedChildPatches,
+  numStartedChildPatches,
+  numSuccessChildPatches,
   taskCount,
   versionId,
 }: {
   taskCount: number;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  childPatches: VersionQuery["version"]["patch"]["childPatches"];
+  childPatches: ChildPatches;
   numFailedChildPatches: number;
+  numStartedChildPatches: number;
+  numSuccessChildPatches: number;
   versionId: string;
 }) => ({
   [PatchTab.Tasks]: (
-    <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
+    <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
       <Tasks taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.TaskDuration]: (
     <Tab
-      name="Task Duration"
-      id="duration-tab"
-      data-cy="duration-tab"
       key="duration-tab"
+      data-cy="duration-tab"
+      id="duration-tab"
+      name="Task Duration"
     >
       <TaskDuration taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.Changes]: (
     <Tab
-      name="Changes"
-      id="changes-tab"
-      data-cy="changes-tab"
       key="changes-tab"
+      data-cy="changes-tab"
+      id="changes-tab"
+      name="Changes"
     >
       <CodeChanges patchId={versionId} />
     </Tab>
   ),
   [PatchTab.Downstream]: (
     <Tab
-      name={
-        numFailedChildPatches ? (
-          <TabLabelWithBadge
-            badgeText={numFailedChildPatches}
-            badgeVariant="red"
-            dataCyBadge="downstream-tab-badge"
-            tabLabel="Downstream Projects"
-          />
-        ) : (
-          "Downstream Projects"
-        )
-      }
-      id="downstream-tab"
-      data-cy="downstream-tab"
       key="downstream-tab"
+      data-cy="downstream-tab"
+      id="downstream-tab"
+      name={getDownstreamTabName(
+        numFailedChildPatches,
+        numStartedChildPatches,
+        numSuccessChildPatches,
+      )}
     >
       <DownstreamTasks childPatches={childPatches} />
     </Tab>
   ),
 });
-export const VersionTabs: React.FC<Props> = ({
-  childPatches,
-  isPatch,
-  taskCount,
-}) => {
+
+export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   const { [slugs.versionId]: versionId, [slugs.tab]: tab } = useParams<{
     [slugs.versionId]: string;
     [slugs.tab]: PatchTab;
@@ -97,25 +129,35 @@ export const VersionTabs: React.FC<Props> = ({
   const { sendEvent } = useVersionAnalytics(versionId);
   const navigate = useNavigate();
 
+  const { isPatch, patch, requester, taskCount } = version || {};
+  const { childPatches } = patch || {};
+
   const tabIsActive = useMemo(
     () => ({
       [PatchTab.Tasks]: true,
       [PatchTab.TaskDuration]: true,
-      [PatchTab.Changes]: isPatch,
+      [PatchTab.Changes]: isPatch && requester !== Requester.GitHubMergeQueue,
       [PatchTab.Downstream]: childPatches,
     }),
-    [isPatch, childPatches],
+    [isPatch, requester, childPatches],
   );
 
   const allTabs = useMemo(() => {
     const numFailedChildPatches = childPatches
-      ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-        childPatches.filter((c) => c.status === PatchStatus.Failed).length
+      ? childPatches.filter((c) => c.status === PatchStatus.Failed).length
+      : 0;
+    const numStartedChildPatches = childPatches
+      ? childPatches.filter((c) => c.status === PatchStatus.Started).length
+      : 0;
+    const numSuccessChildPatches = childPatches
+      ? childPatches.filter((c) => c.status === PatchStatus.Success).length
       : 0;
     return tabMap({
-      taskCount,
+      taskCount: taskCount ?? 0,
       childPatches,
       numFailedChildPatches,
+      numStartedChildPatches,
+      numSuccessChildPatches,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       versionId,
     });
@@ -172,9 +214,9 @@ export const VersionTabs: React.FC<Props> = ({
   });
   return (
     <StyledTabs
+      aria-label="Patch Tabs"
       selected={selectedTab}
       setSelected={selectNewTab}
-      aria-label="Patch Tabs"
     >
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {activeTabs.map((t: string) => allTabs[t])}

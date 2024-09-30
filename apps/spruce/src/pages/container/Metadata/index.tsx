@@ -3,6 +3,7 @@ import { InlineCode } from "@leafygreen-ui/typography";
 import {
   MetadataCard,
   MetadataItem,
+  MetadataLabel,
   MetadataTitle,
 } from "components/MetadataCard";
 import { StyledRouterLink, WordBreak } from "components/styles";
@@ -33,19 +34,30 @@ const Metadata: React.FC<{
       <MetadataTitle>Container Details</MetadataTitle>
       {runningTaskId !== "" && (
         <MetadataItem>
-          Running Task:{" "}
+          <MetadataLabel>Running Task:</MetadataLabel>{" "}
           <StyledRouterLink to={taskLink}>
             <WordBreak all>{runningTaskDisplayName}</WordBreak>
           </StyledRouterLink>
         </MetadataItem>
       )}
-      <MetadataItem>Container Type: {type}</MetadataItem>
-      <MetadataItem>CPU: {cpu}</MetadataItem>
-      <MetadataItem>Memory: {memoryMB} MB</MetadataItem>
-      <MetadataItem>Operating System: {os}</MetadataItem>
-      <MetadataItem>CPU Architecture: {arch}</MetadataItem>
       <MetadataItem>
-        Working Directory: <InlineCode>{workingDir}</InlineCode>
+        <MetadataLabel>Container Type:</MetadataLabel> {type}
+      </MetadataItem>
+      <MetadataItem>
+        <MetadataLabel>CPU:</MetadataLabel> {cpu}
+      </MetadataItem>
+      <MetadataItem>
+        <MetadataLabel>Memory:</MetadataLabel> {memoryMB} MB
+      </MetadataItem>
+      <MetadataItem>
+        <MetadataLabel>Operating System:</MetadataLabel> {os}
+      </MetadataItem>
+      <MetadataItem>
+        <MetadataLabel>CPU Architecture:</MetadataLabel> {arch}
+      </MetadataItem>
+      <MetadataItem>
+        <MetadataLabel>Working Directory:</MetadataLabel>{" "}
+        <InlineCode>{workingDir}</InlineCode>
       </MetadataItem>
     </MetadataCard>
   );

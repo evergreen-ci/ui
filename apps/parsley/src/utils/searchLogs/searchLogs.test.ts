@@ -75,7 +75,32 @@ describe("searchLogs", () => {
     expect(getLine).toHaveBeenCalledWith(0);
     expect(getLine).toHaveBeenCalledWith(3);
   });
-
+  it("should search lines that exist in top-level commands", () => {
+    const lines = ["line 1", "line 2", "line 3"];
+    const getLine = vi.fn((index: number) => lines[index]);
+    const processedLogLines: ProcessedLogLines = [
+      0,
+      {
+        commandID: "command-1",
+        commandName: "shell.exec",
+        functionID: "function-1",
+        isOpen: false,
+        isTopLevelCommand: true,
+        range: { end: 2, start: 1 },
+        rowType: RowType.SubsectionHeader,
+        step: "1 of 1",
+      },
+      2,
+    ];
+    const options = {
+      getLine,
+      lowerBound: 0,
+      processedLogLines,
+      searchRegex: /line/,
+    };
+    const matchingIndices = searchLogs(options);
+    expect(matchingIndices).toStrictEqual([0, 1, 2]);
+  });
   it("should search lines that are in open and closed sections when they are in range", () => {
     const lines = [
       "line 1",
@@ -101,6 +126,7 @@ describe("searchLogs", () => {
         commandName: "shell.exec",
         functionID: "function-1",
         isOpen: false,
+        isTopLevelCommand: false,
         range: { end: 3, start: 1 },
         rowType: RowType.SubsectionHeader,
         step: "1 of 1",
@@ -141,6 +167,7 @@ describe("searchLogs", () => {
         commandName: "shell.exec",
         functionID: "function-1",
         isOpen: false,
+        isTopLevelCommand: false,
         range: { end: 3, start: 1 },
         rowType: RowType.SubsectionHeader,
         step: "1 of 1",
@@ -186,6 +213,7 @@ describe("searchLogs", () => {
         commandName: "shell.exec",
         functionID: "function-1",
         isOpen: false,
+        isTopLevelCommand: false,
         range: { end: 2, start: 1 },
         rowType: RowType.SubsectionHeader,
         step: "1 of 1",
@@ -195,6 +223,7 @@ describe("searchLogs", () => {
         commandName: "shell.exec",
         functionID: "function-1",
         isOpen: true,
+        isTopLevelCommand: false,
         range: { end: 3, start: 2 },
         rowType: RowType.SubsectionHeader,
         step: "1 of 1",
@@ -214,6 +243,7 @@ describe("searchLogs", () => {
         commandName: "shell.exec",
         functionID: "function-1",
         isOpen: false,
+        isTopLevelCommand: false,
         range: { end: 11, start: 8 },
         rowType: RowType.SubsectionHeader,
         step: "1 of 1",

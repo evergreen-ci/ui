@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { SectionStatus } from "constants/logs";
-import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import SectionHeader from ".";
 
 export default {
@@ -28,7 +28,7 @@ const SectionHeaderStory = () => (
   </Container>
 );
 
-export const SectionHeaderSingle: CustomStoryObj<typeof SectionHeader> = {
+export const SectionHeaderMany: CustomStoryObj<typeof SectionHeader> = {
   render: () => <SectionHeaderStory />,
 };
 

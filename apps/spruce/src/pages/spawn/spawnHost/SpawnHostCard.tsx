@@ -1,10 +1,8 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import {
-  Analytics,
-  useSpawnAnalytics,
-} from "analytics/spawn/useSpawnAnalytics";
+import { ExtractAnalyticsSendEvent } from "@evg-ui/lib/analytics/types";
+import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getIdeUrl } from "constants/externalResources";
@@ -14,8 +12,6 @@ import { useDateFormat } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { workstationSupportedDistros } from "./constants";
-
-type SendEvent = Analytics["sendEvent"];
 
 interface SpawnHostCardProps {
   host: MyHost;
@@ -36,16 +32,18 @@ const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => {
 
 const HostUptime: React.FC<MyHost> = ({ uptime }) => {
   const getDateCopy = useDateFormat();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  return <span>{getDateCopy(uptime)}</span>;
+  return <span>{getDateCopy(uptime || "")}</span>;
 };
 
 const HostExpiration: React.FC<MyHost> = ({ expiration, noExpiration }) => {
   const getDateCopy = useDateFormat();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  return <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration)}</span>;
+  return (
+    <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration || "")}</span>
+  );
 };
-const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
+const spawnHostCardFieldMaps = (
+  sendEvent: ExtractAnalyticsSendEvent<typeof useSpawnAnalytics>,
+) => ({
   ID: (host: MyHost) => (
     <span>
       {host?.id} (
@@ -69,7 +67,7 @@ const spawnHostCardFieldMaps = (sendEvent: SendEvent) => ({
         (tag) =>
           tag.canBeModified && (
             <PaddedBadge key={`user_tag_${host.id}_${tag.key}`}>
-              {tag?.key}:{tag?.value}
+              {tag.key}:{tag.value}
             </PaddedBadge>
           ),
       )}

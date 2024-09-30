@@ -26,11 +26,11 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
         see {notVisibleCount} more
       </Link>
       <DisplayModal
+        data-cy="see-more-modal"
         open={open}
         setOpen={setOpen}
         size="large"
         title="Applied Filters"
-        data-cy="see-more-modal"
       >
         <BadgeContainer>
           {badges.map((b) => (
@@ -42,9 +42,9 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
           ))}
         </BadgeContainer>
         <Button
-          variant={Variant.Default}
-          size={Size.XSmall}
           onClick={onClearAll}
+          size={Size.XSmall}
+          variant={Variant.Default}
         >
           CLEAR ALL FILTERS
         </Button>

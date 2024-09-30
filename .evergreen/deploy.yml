@@ -2,24 +2,32 @@ functions:
   deploy:
     - command: shell.exec
       params:
-        working_dir: ui/${app_dir}
-        add_expansions_to_env: true
-        env:
-          BUCKET: ${bucket_arg}
         script: |
-          ${PREPARE_SHELL}
-          yarn deploy-utils-setup-credentials "${target}"
+          if [ "${target}" = "staging" ]; then
+            echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_STAGING}" >> honeycomb.yml
+            echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_STAGING}" >> honeycomb.yml
+          elif [ "${target}" = "production" ]; then
+            echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_PROD}" >> honeycomb.yml
+            echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_PROD}" >> honeycomb.yml
+          fi
+    - command: expansions.update
+      params:
+        redact_file_expansions: true
+        file: honeycomb.yml
     - command: shell.exec
       params:
         working_dir: ui/${app_dir}
+        include_expansions_in_env: [REACT_APP_HONEYCOMB_ENDPOINT, REACT_APP_HONEYCOMB_INGEST_KEY, 
+                                    PARSLEY_SENTRY_AUTH_TOKEN, REACT_APP_PARSLEY_SENTRY_DSN, 
+                                    SPRUCE_SENTRY_AUTH_TOKEN, REACT_APP_SPRUCE_SENTRY_DSN]
         env:
-          BUCKET: ${bucket_arg}
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+          BUCKET: ${user_bucket}
         script: |
           ${PREPARE_SHELL}
-          yarn env-cmd -e "${target}" yarn deploy-utils-build-and-push
+          yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
 
   email:
     - command: shell.exec
@@ -75,7 +83,6 @@ tasks:
       - func: deploy
         vars:
           app_dir: apps/parsley
-          bucket_arg: ${parsley_bucket_staging}
           target: staging
 
   - name: deploy-parsley-beta
@@ -86,7 +93,6 @@ tasks:
       - func: deploy
         vars:
           app_dir: apps/parsley
-          bucket_arg: ${parsley_bucket_beta}
           target: beta
 
   - name: deploy-parsley-prod
@@ -95,7 +101,6 @@ tasks:
       - func: symlink
       - func: deploy
         vars:
-          bucket_arg: ${parsley_bucket}
           target: production
       - func: email
 
@@ -107,7 +112,6 @@ tasks:
       - func: deploy
         vars:
           app_dir: apps/spruce
-          bucket_arg: ${spruce_bucket_staging}
           target: staging
 
   - name: deploy-spruce-beta
@@ -118,7 +122,6 @@ tasks:
       - func: deploy
         vars:
           app_dir: apps/spruce
-          bucket_arg: ${spruce_bucket_beta}
           target: beta
 
   - name: deploy-spruce-prod
@@ -127,7 +130,6 @@ tasks:
       - func: symlink
       - func: deploy
         vars:
-          bucket_arg: ${spruce_bucket}
           target: production
       - func: email
 
@@ -140,6 +142,4 @@ tasks:
           app_dir: apps/spruce
       - func: deploy
         vars:
-          app_dir: apps/spruce
-          bucket_arg: ${spruce_bucket_staging}
-          target: staging
+          user_bucket: ${spruce_bucket_staging}

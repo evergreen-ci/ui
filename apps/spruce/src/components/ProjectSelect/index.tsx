@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
   ProjectsQuery,
@@ -9,7 +10,6 @@ import {
   ViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { PROJECTS, VIEWABLE_PROJECTS } from "gql/queries";
-import { Unpacked } from "types/utils";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 interface ProjectSelectProps {
@@ -99,14 +99,9 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   return (
     <SearchableDropdown
       className={className}
+      data-cy="project-select"
+      disabled={loading}
       label={showLabel ? "Project" : null}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      value={
-        selectedProject?.displayName ||
-        selectedProject?.identifier ||
-        selectedProjectIdentifier
-      }
-      options={allProjects}
       onChange={(projectIdentifier: any) => {
         onSubmit(projectIdentifier);
         navigate(getRoute(projectIdentifier));
@@ -114,18 +109,23 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       optionRenderer={(projectGroup, onClick) => (
         <ProjectOptionGroup
           key={projectGroup.groupDisplayName}
-          projects={projectGroup.projects}
-          name={projectGroup.groupDisplayName}
-          onClick={onClick}
-          repoIdentifier={projectGroup?.repo?.id}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           canClickOnRepoGroup={isProjectSettingsPage && projectGroup?.repo?.id}
+          name={projectGroup.groupDisplayName}
+          onClick={onClick}
+          projects={projectGroup.projects}
+          repoIdentifier={projectGroup?.repo?.id}
         />
       )}
+      options={allProjects}
       searchFunc={handleSearch}
-      disabled={loading}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      value={
+        selectedProject?.displayName ||
+        selectedProject?.identifier ||
+        selectedProjectIdentifier
+      }
       valuePlaceholder="Select a project"
-      data-cy="project-select"
     />
   );
 };
