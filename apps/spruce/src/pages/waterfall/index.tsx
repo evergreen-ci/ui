@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { navBarHeight } from "components/Header/Navbar";
 import { size } from "constants/tokens";
 import { WaterfallGrid } from "./WaterfallGrid";
@@ -25,7 +26,8 @@ const Waterfall: React.FC = () => (
       `}
     />
     <PageContainer data-cy="waterfall-page">
-      <Suspense fallback={<h3>Loading waterfall...</h3>}>
+      {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
+      <Suspense fallback={<TableSkeleton numCols={6} numRows={15} />}>
         <WaterfallGrid />
       </Suspense>
     </PageContainer>
