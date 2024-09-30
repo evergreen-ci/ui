@@ -17,14 +17,13 @@ functions:
     - command: shell.exec
       params:
         working_dir: ui/${app_dir}
-        include_expansions_in_env: [REACT_APP_HONEYCOMB_ENDPOINT, REACT_APP_HONEYCOMB_INGEST_KEY, 
+        include_expansions_in_env: [BUCKET, REACT_APP_HONEYCOMB_ENDPOINT, REACT_APP_HONEYCOMB_INGEST_KEY,
                                     PARSLEY_SENTRY_AUTH_TOKEN, REACT_APP_PARSLEY_SENTRY_DSN, 
-                                    SPRUCE_SENTRY_AUTH_TOKEN, REACT_APP_SPRUCE_SENTRY_DSN]
+                                    SPRUCE_SENTRY_AUTH_TOKEN, REACT_APP_SPRUCE_SENTRY_DSN, USER_STAGING_ARN]
         env:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
-          BUCKET: ${user_bucket}
         script: |
           ${PREPARE_SHELL}
           yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
@@ -57,6 +56,19 @@ functions:
         script: |
           ${PREPARE_SHELL}
           yarn deploy-utils-email
+
+  prepare-deploy-vars:
+    - command: shell.exec
+      params:
+        script: |
+          if ! [ -z "${user_bucket}" ]; then
+            echo "BUCKET: spruce-${user_bucket}" >> deploy-vars.yml
+            echo "USER_STAGING_ARN: ${user_staging_arn_prefix}${user_bucket}.ui_put" >> deploy-vars.yml
+          fi
+    - command: expansions.update
+      params:
+        redact_file_expansions: true
+        file: deploy-vars.yml
 
   should-deploy:
     - command: shell.exec
@@ -136,10 +148,14 @@ tasks:
   - name: sync-spruce-staging
     commands:
       - func: should-deploy
-      # - func: assume-staging-ec2-role
+      - func: prepare-deploy-vars
+        vars:
+          user_bucket: ${spruce_bucket_staging}
+      - func: assume-staging-ec2-role
       - func: symlink
         vars:
           app_dir: apps/spruce
       - func: deploy
         vars:
-          user_bucket: ${spruce_bucket_staging}
+          app_dir: apps/spruce
+          target: staging

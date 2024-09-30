@@ -8,7 +8,7 @@ functions:
   assume-staging-ec2-role:
     command: ec2.assume_role
     params:
-      role_arn: ${TODO_STAGING_ROLE_ARN}
+      role_arn: ${USER_STAGING_ARN}
 
   check-codegen:
     command: shell.exec
