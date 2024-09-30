@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { navBarHeight } from "components/Header/Navbar";
 import { size } from "constants/tokens";
+import { VERSION_LIMIT } from "./styles";
 import { WaterfallGrid } from "./WaterfallGrid";
 
 const Waterfall: React.FC = () => (
@@ -27,7 +28,9 @@ const Waterfall: React.FC = () => (
     />
     <PageContainer data-cy="waterfall-page">
       {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
-      <Suspense fallback={<TableSkeleton numCols={6} numRows={15} />}>
+      <Suspense
+        fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
+      >
         <WaterfallGrid />
       </Suspense>
     </PageContainer>

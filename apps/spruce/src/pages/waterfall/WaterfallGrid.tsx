@@ -10,10 +10,9 @@ import {
   gridGroupCss,
   InactiveVersion,
   Row,
+  VERSION_LIMIT,
 } from "./styles";
 import { VersionLabel } from "./VersionLabel";
-
-const LIMIT = 5;
 
 export const WaterfallGrid: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
@@ -26,7 +25,7 @@ export const WaterfallGrid: React.FC = () => {
         options: {
           // @ts-expect-error
           projectIdentifier,
-          limit: LIMIT,
+          limit: VERSION_LIMIT,
         },
       },
     },
@@ -42,7 +41,7 @@ export const WaterfallGrid: React.FC = () => {
               <VersionLabel key={version.id} {...version} />
             ) : (
               <InactiveVersion
-                key={`${inactiveVersions?.[0]?.id}-${i}`} // eslint-disable-line react/no-array-index-key
+                key={inactiveVersions?.[0]?.id ?? i} // eslint-disable-line react/no-array-index-key
                 data-cy="inactive-label"
               >
                 inactive

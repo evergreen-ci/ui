@@ -14,6 +14,7 @@ import {
 } from "gql/generated/types";
 import {
   BuildVariantTitle,
+  columnBasis,
   gridGroupCss,
   InactiveVersion,
   Row,
@@ -93,7 +94,7 @@ const BuildGrid: React.FC<{
         data-tooltip={displayName}
         onClick={handleTaskClick(status)}
         status={status}
-        to={getTaskRoute(id)}
+        to={getTaskRoute(id)} // TODO DEVPROD-11734: use execution in task route
       />
     ))}
   </Build>
@@ -108,7 +109,7 @@ const BuildGroup = styled.div`
 `;
 
 const Build = styled.div`
-  flex-basis: 20%;
+  ${columnBasis}
 `;
 
 const SQUARE_SIZE = 16;

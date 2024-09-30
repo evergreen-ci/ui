@@ -9,6 +9,7 @@ import { WaterfallQuery } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
+import { columnBasis } from "./styles";
 
 type VersionFields = NonNullable<
   Unpacked<WaterfallQuery["waterfall"]["versions"]>["version"]
@@ -90,7 +91,7 @@ export const VersionLabel: React.FC<VersionFields> = ({
 };
 
 const VersionContainer = styled.div`
-  flex-basis: 20%;
+  ${columnBasis}
 
   > * {
     font-size: 12px;

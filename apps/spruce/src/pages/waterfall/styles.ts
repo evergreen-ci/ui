@@ -6,6 +6,13 @@ import { size } from "constants/tokens";
 const BUILD_VARIANT_WIDTH = 200;
 const INACTIVE_WIDTH = 80;
 
+// TODO DEVPROD-11708: Update with dynamic column count
+export const VERSION_LIMIT = 5;
+
+export const columnBasis = css`
+  flex-basis: calc(100% / ${VERSION_LIMIT});
+`;
+
 export const gridGroupCss = css`
   display: flex;
   gap: ${size.s};
