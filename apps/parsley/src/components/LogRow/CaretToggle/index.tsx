@@ -12,7 +12,7 @@ interface Props {
 }
 const CaretToggle: React.FC<Props> = ({ onClick, open }) => (
   <IconButton
-    aria-label="Click to open or close section"
+    aria-label={`Click to ${open ? "close" : "open"} section`}
     data-cy="caret-toggle"
     onClick={onClick}
   >
