@@ -13,30 +13,39 @@ import {
  */
 const groupTestsByName = (
   tasks: TestAnalysisQueryTasks,
-): Map<string, TaskBuildVariantField[]> =>
-  tasks.reduce((testMap, task) => {
+): Map<string, TaskBuildVariantField[]> => {
+  const testMap = new Map<string, TaskBuildVariantField[]>();
+  const processedTasks = new Set<string>();
+
+  tasks.forEach((task) => {
     const tests = getTestsInTask(task.tests);
-    const taskInfo: TaskBuildVariantField = {
-      taskName: task.displayName,
-      buildVariant: task.buildVariant,
-      buildVariantDisplayName: task.buildVariantDisplayName,
-      id: task.id,
-      status: task.status,
-      logs: {
-        urlParsley: "",
-      },
-    };
 
     tests.forEach((test) => {
-      if (!testMap.has(test.testFile)) {
-        testMap.set(test.testFile, []);
-      }
-      taskInfo.logs.urlParsley = test.logs.urlParsley || "";
-      testMap.get(test.testFile)!.push(taskInfo);
-    });
+      const taskKey = `${task.id}-${test.testFile}`; // Create a unique key for task-test combinations
 
-    return testMap;
-  }, new Map<string, TaskBuildVariantField[]>());
+      if (!processedTasks.has(taskKey)) {
+        const taskInfo: TaskBuildVariantField = {
+          taskName: task.displayName,
+          buildVariant: task.buildVariant,
+          buildVariantDisplayName: task.buildVariantDisplayName,
+          id: task.id,
+          status: task.status,
+          logs: {
+            urlParsley: test.logs.urlParsley || "",
+          },
+        };
+
+        if (!testMap.has(test.testFile)) {
+          testMap.set(test.testFile, []);
+        }
+        testMap.get(test.testFile)!.push(taskInfo);
+        processedTasks.add(taskKey); // Mark this task-test combination as processed
+      }
+    });
+  });
+
+  return testMap;
+};
 
 const getTestsInTask = (tests: Unpacked<TestAnalysisQueryTasks>["tests"]) =>
   tests.testResults.map((test) => ({

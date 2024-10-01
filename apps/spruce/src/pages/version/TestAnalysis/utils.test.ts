@@ -279,7 +279,63 @@ describe("groupTestsByName", () => {
       {
         taskName: "task1",
         buildVariant: "variant1",
+        buildVariantDisplayName: undefined,
         id: "task1_id",
+        status: "success",
+        logs: {
+          urlParsley: "",
+        },
+      },
+    ]);
+  });
+  it("should handle multiple tasks with the same test name", () => {
+    const tasks: TestAnalysisQueryTasks = [
+      {
+        displayName: "task1",
+        buildVariant: "variant1",
+        id: "task1_variant1_id",
+        execution: 0,
+        status: "success",
+        tests: {
+          filteredTestCount: 2,
+          testResults: [
+            {
+              testFile: "test1",
+              id: "1",
+              status: "fail",
+              logs: { urlParsley: "" },
+            },
+          ],
+        },
+      },
+      {
+        displayName: "task1",
+        buildVariant: "variant2",
+        id: "task1_variant2_id",
+        execution: 0,
+        status: "success",
+        tests: {
+          filteredTestCount: 2,
+          testResults: [
+            {
+              testFile: "test1",
+              id: "1",
+              status: "fail",
+              logs: { urlParsley: "" },
+            },
+          ],
+        },
+      },
+    ];
+    const result = groupTestsByName(tasks);
+    expect(result.size).toBe(1);
+    expect(result.has("test1")).toBe(true);
+    expect(result.get("test1")).toEqual([
+      {
+        taskName: "task1",
+        buildVariant: "variant1",
+        buildVariantDisplayName: undefined,
+        id: "task1_variant1_id",
         status: "success",
         logs: {
           urlParsley: "",
@@ -287,8 +343,9 @@ describe("groupTestsByName", () => {
       },
       {
         taskName: "task1",
-        buildVariant: "variant1",
-        id: "task1_id",
+        buildVariant: "variant2",
+        buildVariantDisplayName: undefined,
+        id: "task1_variant2_id",
         status: "success",
         logs: {
           urlParsley: "",
