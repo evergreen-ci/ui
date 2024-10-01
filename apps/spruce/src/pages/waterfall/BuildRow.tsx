@@ -87,12 +87,17 @@ const BuildGrid: React.FC<{
   build: WaterfallBuild;
   handleTaskClick: (s: string) => () => void;
 }> = ({ build, handleTaskClick }) => (
-  <Build>
+  <Build
+    onClick={(event: React.MouseEvent) => {
+      handleTaskClick(
+        (event.target as HTMLDivElement)?.getAttribute("status") ?? "",
+      );
+    }}
+  >
     {build.tasks.map(({ displayName, id, status }) => (
       <SquareMemo
         key={id}
         data-tooltip={displayName}
-        onClick={handleTaskClick(status)}
         status={status}
         to={getTaskRoute(id)} // TODO DEVPROD-11734: use execution in task route
       />
