@@ -53,6 +53,7 @@ module.exports = {
           { some: ["nesting", "id"] },
         ],
         "react-hooks/exhaustive-deps": WARN,
+        "react/no-unknown-property": ["error", { ignore: ["css"] }],
         "react-hooks/rules-of-hooks": ERROR,
 
         // Disable some Airbnb rules
@@ -73,7 +74,7 @@ module.exports = {
           errorIfStrict,
           { caseSensitive: true },
         ],
-        
+
         "react/jsx-sort-props": ERROR, // Sort props alphabetically.
       },
     },
