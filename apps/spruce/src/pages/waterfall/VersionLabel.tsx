@@ -3,11 +3,12 @@ import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useWaterfallAnalytics } from "analytics";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink, wordBreakCss } from "components/styles";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { WaterfallQuery } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
+import { columnBasis } from "./styles";
 
 type VersionFields = NonNullable<
   Unpacked<WaterfallQuery["waterfall"]["versions"]>["version"]
@@ -89,9 +90,15 @@ export const VersionLabel: React.FC<VersionFields> = ({
 };
 
 const VersionContainer = styled.div`
+  ${columnBasis}
+
   > * {
     font-size: 12px;
     line-height: 1.3;
+  }
+
+  p {
+    ${wordBreakCss}
   }
 `;
 
