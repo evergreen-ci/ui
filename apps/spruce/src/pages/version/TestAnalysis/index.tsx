@@ -163,11 +163,6 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               </Button>
             </FilterSubheaderContainer>
           )}
-          {/* {groupedTestsMapEntries.map(([test, tasks]) => (
-            <SpacedDiv key={test}>
-              <FailedTestGroup tasks={tasks} testName={test} />
-            </SpacedDiv>
-          ))} */}
 
           <GroupedTestMapList groupedTestsMapEntries={groupedTestsMapEntries} />
           {!hasMatchingResults && (
