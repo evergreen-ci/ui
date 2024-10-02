@@ -5,7 +5,7 @@ import pluralize from "pluralize";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Accordion } from "components/Accordion";
-import { TaskBuildVariantField } from "../types";
+import { TaskBuildVariantField } from "../../types";
 import FailedTestGroupTable from "./FailedTestGroupTable";
 
 interface FailedTestGroupProps {

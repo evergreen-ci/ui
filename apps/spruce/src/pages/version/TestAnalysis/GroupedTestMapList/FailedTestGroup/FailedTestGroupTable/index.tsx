@@ -7,7 +7,7 @@ import { StyledRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
-import { TaskBuildVariantField } from "../../types";
+import { TaskBuildVariantField } from "../../../types";
 
 interface FailedTestGroupTableProps {
   tasks: TaskBuildVariantField[];

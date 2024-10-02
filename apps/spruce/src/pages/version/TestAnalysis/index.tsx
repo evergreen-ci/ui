@@ -9,14 +9,14 @@ import { SearchInput } from "@leafygreen-ui/search-input";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { H3, Label, Body, H3Props } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { failedTaskStatuses, taskStatusToCopy } from "constants/task";
-import { size } from "constants/tokens";
 import {
   TestAnalysisQuery,
   TestAnalysisQueryVariables,
 } from "gql/generated/types";
 import { TEST_ANALYSIS } from "gql/queries";
-import FailedTestGroup from "./FailedTestGroup";
+import GroupedTestMapList from "./GroupedTestMapList";
 import {
   countTotalTests,
   filterGroupedTests,
@@ -170,11 +170,13 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               )}
             </FilterSubheaderContainer>
           )}
-          {groupedTestsMapEntries.map(([test, tasks]) => (
+          {/* {groupedTestsMapEntries.map(([test, tasks]) => (
             <SpacedDiv key={test}>
               <FailedTestGroup tasks={tasks} testName={test} />
             </SpacedDiv>
-          ))}
+          ))} */}
+
+          <GroupedTestMapList groupedTestsMapEntries={groupedTestsMapEntries} />
           {!hasMatchingResults && (
             <BasicEmptyState
               description="For additional analytics on tests please visit Honeycomb"
@@ -210,10 +212,6 @@ const FilterContainer = styled.div`
   > * {
     width: 30%;
   }
-`;
-
-const SpacedDiv = styled.div`
-  margin-top: ${size.s};
 `;
 
 const Title = styled(H3)<H3Props>`
