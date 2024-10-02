@@ -86,7 +86,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
       {loading ? (
         <ListSkeleton />
       ) : (
-        <div>
+        <>
           <Title>
             {numberOfTestsThatFailedOnMoreThanOneTask}{" "}
             {pluralize("test", numberOfTestsThatFailedOnMoreThanOneTask)} failed
@@ -181,7 +181,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               title={`No ${hasResults ? "Matching " : ""}Failed Tests Found`}
             />
           )}
-        </div>
+        </>
       )}
     </Container>
   );
