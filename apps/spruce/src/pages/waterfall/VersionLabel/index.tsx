@@ -8,14 +8,21 @@ import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { WaterfallQuery } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
-import { columnBasis } from "./styles";
+import { columnBasis } from "../styles";
+import { InactiveBadge } from "./InactiveBadge";
 
 type VersionFields = NonNullable<
   Unpacked<WaterfallQuery["waterfall"]["versions"]>["version"]
 >;
 
-export const VersionLabel: React.FC<VersionFields> = ({
+type Props = VersionFields & {
+  commitType: "active" | "inactive";
+  className?: string;
+};
+export const VersionLabel: React.FC<Props> = ({
   author,
+  className,
+  commitType,
   createTime,
   gitTags,
   id,
@@ -32,14 +39,14 @@ export const VersionLabel: React.FC<VersionFields> = ({
   const { sendEvent } = useWaterfallAnalytics();
 
   return (
-    <VersionContainer>
+    <VersionContainer className={className}>
       <Body>
         <InlineCode
           as={Link}
           onClick={() => {
             sendEvent({
               name: "Clicked commit label",
-              "commit.type": "active",
+              "commit.type": commitType,
               link: "githash",
             });
           }}
@@ -48,6 +55,7 @@ export const VersionLabel: React.FC<VersionFields> = ({
           {shortenGithash(revision)}
         </InlineCode>{" "}
         {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+        {commitType === "inactive" && <InactiveBadge />}
       </Body>
       {upstreamProject && (
         <Body>
@@ -56,7 +64,7 @@ export const VersionLabel: React.FC<VersionFields> = ({
             onClick={() => {
               sendEvent({
                 name: "Clicked commit label",
-                "commit.type": "active",
+                "commit.type": commitType,
                 link: "upstream project",
               });
             }}
@@ -79,7 +87,7 @@ export const VersionLabel: React.FC<VersionFields> = ({
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
             name: "Clicked commit label",
-            "commit.type": "active",
+            "commit.type": commitType,
             link: "jira",
           });
         })}
