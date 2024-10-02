@@ -1,7 +1,5 @@
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
-import { slugs } from "constants/routes";
 import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { BuildRow } from "./BuildRow";
@@ -14,16 +12,19 @@ import {
 } from "./styles";
 import { VersionLabel } from "./VersionLabel";
 
-export const WaterfallGrid: React.FC = () => {
-  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+type WaterfallGridProps = {
+  projectIdentifier: string;
+};
 
+export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
+  projectIdentifier,
+}) => {
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {
       skip: !projectIdentifier,
       variables: {
         options: {
-          // @ts-expect-error
           projectIdentifier,
           limit: VERSION_LIMIT,
         },
@@ -36,7 +37,7 @@ export const WaterfallGrid: React.FC = () => {
       <Row>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
-          {data.waterfall.versions.map(({ inactiveVersions, version }, i) =>
+          {data?.waterfall.versions.map(({ inactiveVersions, version }, i) =>
             version ? (
               <VersionLabel key={version.id} {...version} />
             ) : (
@@ -50,12 +51,12 @@ export const WaterfallGrid: React.FC = () => {
           )}
         </Versions>
       </Row>
-      {data.waterfall.buildVariants.map((b) => (
+      {data?.waterfall.buildVariants.map((b) => (
         <BuildRow
           key={b.id}
           build={b}
-          projectIdentifier={projectIdentifier ?? ""}
-          versions={data.waterfall.versions}
+          projectIdentifier={projectIdentifier}
+          versions={data?.waterfall.versions}
         />
       ))}
     </Container>

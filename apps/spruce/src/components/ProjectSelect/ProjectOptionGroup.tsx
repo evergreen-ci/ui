@@ -1,34 +1,63 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Body, Overline } from "@leafygreen-ui/typography";
+import {
+  Body,
+  BodyProps,
+  Overline,
+  OverlineProps,
+} from "@leafygreen-ui/typography";
+import Icon from "components/Icon";
+import {
+  hoverStyles,
+  overlineStyles,
+} from "components/styles/SearchableDropdown";
 import { size } from "constants/tokens";
 import { FavoriteStar } from "./FavoriteStar";
 
-const { gray } = palette;
+const { blue } = palette;
 
 interface OptionProps {
   displayName: string;
   projectIdentifier: string;
   isFavorite: boolean;
   onClick: (identifier: string) => void;
+  isSelected: boolean;
 }
+
 const ProjectOption: React.FC<OptionProps> = ({
   displayName,
   isFavorite,
+  isSelected,
   onClick,
   projectIdentifier,
 }) => (
-  <ProjectContainer onClick={() => onClick(projectIdentifier)} role="button">
-    <Body data-cy="project-display-name">
-      {displayName || projectIdentifier}
-    </Body>
+  <ProjectOptionContainer
+    onClick={() => onClick(projectIdentifier)}
+    role="button"
+  >
     <FavoriteStar
       isFavorite={isFavorite}
       projectIdentifier={projectIdentifier}
     />
-  </ProjectContainer>
+    <Label bolded={isSelected} data-cy="project-display-name">
+      {displayName || projectIdentifier}
+    </Label>
+    {isSelected && <CheckmarkIcon fill={blue.base} glyph="Checkmark" />}
+  </ProjectOptionContainer>
 );
+
+const Label = styled(Body)<BodyProps & { bolded: boolean }>`
+  font-weight: ${({ bolded }) => (bolded ? "bold" : "normal")};
+`;
+
+const ProjectOptionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${size.xxs};
+  padding: ${size.xxs} 0;
+  padding-left: ${size.xxs};
+  ${hoverStyles}
+`;
 
 interface OptionGroupProps {
   name: string;
@@ -40,6 +69,7 @@ interface OptionGroupProps {
     isFavorite: boolean;
   }[];
   onClick: (identifier: string) => void;
+  value: string | undefined;
 }
 export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   canClickOnRepoGroup = false,
@@ -47,26 +77,30 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   onClick,
   projects,
   repoIdentifier,
+  value,
 }) => (
   <OptionGroupContainer>
     {/* if it's the project settings page and it's not the "" group, make the header clickable */}
     {canClickOnRepoGroup ? (
-      <Overline
+      <GroupHeader
         css={hoverStyles}
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         onClick={() => onClick(repoIdentifier)}
         role="button"
       >
         {name}
-      </Overline>
+      </GroupHeader>
     ) : (
-      <Overline>{name}</Overline>
+      <GroupHeader>{name}</GroupHeader>
     )}
 
     <ListContainer>
       {projects?.map((project) => (
         <ProjectOption
           key={project.identifier}
+          isSelected={
+            value === project.displayName || value === project.identifier
+          }
           onClick={onClick}
           projectIdentifier={project.identifier}
           {...project}
@@ -81,27 +115,16 @@ const ListContainer = styled.div`
   padding: 0;
 `;
 
-const ProjectContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  padding: ${size.xxs} ${size.xxs} ${size.xxs} ${size.xs};
-  :hover {
-    background-color: ${gray.light1};
-  }
+const GroupHeader = styled(Overline)<OverlineProps>`
+  ${overlineStyles}
 `;
 
 const OptionGroupContainer = styled.div`
-  padding: ${size.xs};
   word-break: normal;
   overflow-wrap: anywhere;
 `;
 
-const hoverStyles = css`
-  :hover {
-    cursor: pointer;
-    background-color: ${gray.light1};
-  }
-  padding: ${size.xs};
+const CheckmarkIcon = styled(Icon)`
+  margin-left: auto;
+  margin-right: ${size.xs};
 `;

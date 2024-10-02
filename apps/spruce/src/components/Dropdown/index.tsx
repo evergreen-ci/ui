@@ -1,8 +1,9 @@
-import { useRef, Component } from "react";
+import { useRef, Component, useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
+import Popover from "@leafygreen-ui/popover";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
@@ -20,6 +21,7 @@ interface DropdownProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   onClose?: () => void;
+  useHorizontalPadding?: boolean;
 }
 const Dropdown: React.FC<DropdownProps> = ({
   buttonRenderer,
@@ -31,9 +33,16 @@ const Dropdown: React.FC<DropdownProps> = ({
   isOpen,
   onClose = () => {},
   setIsOpen,
+  useHorizontalPadding = true,
 }) => {
-  const listMenuRef = useRef(null);
-  const menuButtonRef = useRef(null);
+  const listMenuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Borrowed from LeafyGreen - measure the menu width from the button ref.
+  const [menuWidth, setMenuWidth] = useState(0);
+  useEffect(() => {
+    setMenuWidth(menuButtonRef.current?.clientWidth ?? 0);
+  }, [menuButtonRef.current?.clientWidth]);
 
   const handleClickOutside = () => {
     setIsOpen(false);
@@ -50,7 +59,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         data-cy={dataCy}
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
-        rightGlyph={<Icon glyph={isOpen ? "ChevronUp" : "ChevronDown"} />}
+        rightGlyph={<Icon glyph="CaretDown" />}
       >
         <ButtonContent>
           <LabelWrapper>
@@ -61,14 +70,21 @@ const Dropdown: React.FC<DropdownProps> = ({
             )}
           </LabelWrapper>
         </ButtonContent>
+        <Menu
+          active={isOpen}
+          adjustOnMutation
+          data-cy={`${dataCy}-options`}
+          onClick={(e) => e.stopPropagation()}
+          popoverZIndex={zIndex.dropdown}
+          refEl={menuButtonRef}
+          style={{
+            width: menuWidth,
+            padding: useHorizontalPadding ? `${size.xs}` : `${size.xs} 0`,
+          }}
+        >
+          <div ref={listMenuRef}>{children}</div>
+        </Menu>
       </StyledButton>
-      {isOpen && (
-        <RelativeWrapper>
-          <OptionsWrapper ref={listMenuRef} data-cy={`${dataCy}-options`}>
-            {children}
-          </OptionsWrapper>
-        </RelativeWrapper>
-      )}
     </Container>
   );
 };
@@ -107,21 +123,18 @@ class DropdownWithRef extends Component<
     );
   }
 }
-// Used to provide a basis for the absolutely positions OptionsWrapper
-const RelativeWrapper = styled.div`
-  position: relative;
-`;
 
-const OptionsWrapper = styled.div`
-  border-radius: ${size.xxs};
-  background-color: ${white};
-  border: 1px solid ${gray.light1};
-  padding: ${size.xs};
-  box-shadow: 0 ${size.xs} ${size.xs} 0 rgba(231, 238, 236, 0.5);
+// Styles lifted from LeafyGreen
+// https://github.com/mongodb/leafygreen-ui/blob/f38cdc3dca3a82a25884d30f43d87cf79997439d/packages/select/src/ListMenu/ListMenu.styles.ts#L34C5-L39C66
+const Menu = styled(Popover)`
+  text-align: left;
   position: absolute;
-  z-index: ${zIndex.dropdown};
-  margin-top: ${size.xs};
-  width: 100%;
+  background-color: ${white};
+  overflow: auto;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 7px 0 ${gray.light2};
+  border: 1px solid ${gray.light2};
 `;
 
 const Container = styled.div`
