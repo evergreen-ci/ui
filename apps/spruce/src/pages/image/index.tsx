@@ -3,7 +3,6 @@ import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { Link, useParams, Navigate } from "react-router-dom";
 import {
   SideNav,
-  SideNavGroup,
   SideNavItem,
   SideNavPageContent,
   SideNavPageWrapper,
@@ -11,9 +10,10 @@ import {
 import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useFirstImage } from "hooks";
-import { getTabTitle } from "./getTabTitle";
 import { ImageSelect } from "./ImageSelect";
 import { ImageTabs } from "./Tabs";
+import { BuildInformationContextProvider } from "./tabs/BuildInformationTab/BuildInformationContext";
+import BuildInformationNavItem from "./tabs/BuildInformationTab/BuildInformationNavItem";
 
 const Image: React.FC = () => {
   const { [slugs.imageId]: imageId, [slugs.tab]: currentTab } = useParams<{
@@ -22,8 +22,8 @@ const Image: React.FC = () => {
   }>();
 
   const { image: firstImage } = useFirstImage();
-
   const selectedImage = imageId ?? firstImage;
+  const scrollContainerId = "side-nav-page-content";
 
   if (
     currentTab === undefined ||
@@ -38,29 +38,33 @@ const Image: React.FC = () => {
   }
 
   return (
-    <SideNavPageWrapper>
-      <SideNav aria-label="Image" widthOverride={250}>
-        <ButtonsContainer>
-          <ImageSelect selectedImage={selectedImage} />
-        </ButtonsContainer>
-        <SideNavGroup>
-          {Object.values(ImageTabRoutes).map((tab) => (
-            <SideNavItem
-              key={tab}
-              active={tab === currentTab}
-              as={Link}
-              data-cy={`navitem-${tab}`}
-              to={getImageRoute(selectedImage, tab)}
-            >
-              {getTabTitle(tab).title}
-            </SideNavItem>
-          ))}
-        </SideNavGroup>
-      </SideNav>
-      <SideNavPageContent>
-        <ImageTabs currentTab={currentTab} imageId={selectedImage} />
-      </SideNavPageContent>
-    </SideNavPageWrapper>
+    <BuildInformationContextProvider scrollContainerId={scrollContainerId}>
+      <SideNavPageWrapper>
+        <SideNav aria-label="Image" widthOverride={250}>
+          <ButtonsContainer>
+            <ImageSelect selectedImage={selectedImage} />
+          </ButtonsContainer>
+          <BuildInformationNavItem
+            key={ImageTabRoutes.BuildInformation}
+            currentTab={currentTab}
+            imageId={selectedImage}
+          />
+          <SideNavItem
+            key={ImageTabRoutes.EventLog}
+            active={ImageTabRoutes.EventLog === currentTab}
+            as={Link}
+            data-cy={`navitem-${ImageTabRoutes.EventLog}`}
+            indentLevel={0}
+            to={getImageRoute(selectedImage, ImageTabRoutes.EventLog)}
+          >
+            Event Log
+          </SideNavItem>
+        </SideNav>
+        <SideNavPageContent id={scrollContainerId}>
+          <ImageTabs currentTab={currentTab} imageId={selectedImage} />
+        </SideNavPageContent>
+      </SideNavPageWrapper>
+    </BuildInformationContextProvider>
   );
 };
 
@@ -69,6 +73,7 @@ const ButtonsContainer = styled.div`
   flex-direction: column;
   gap: ${size.xs};
   margin: 0 ${sideNavItemSidePadding}px;
+  margin-bottom: ${size.xs};
 `;
 
 export default Image;

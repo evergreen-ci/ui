@@ -167,3 +167,25 @@ describe("build information", () => {
     });
   });
 });
+
+describe("side nav", () => {
+  beforeEach(() => {
+    cy.visit("/image/ubuntu2204/build-information");
+  });
+
+  it("highlights different sections as the user scrolls", () => {
+    cy.dataCy("general-card").scrollIntoView();
+    cy.dataCy("navitem-general").should("have.attr", "data-active", "true");
+    cy.dataCy("navitem-distros").should("have.attr", "data-active", "false");
+
+    cy.dataCy("distros-card").scrollIntoView();
+    cy.dataCy("navitem-general").should("have.attr", "data-active", "false");
+    cy.dataCy("navitem-distros").should("have.attr", "data-active", "true");
+  });
+
+  it("can click on different sections to go to a section", () => {
+    cy.dataCy("packages-card").should("not.be.visible");
+    cy.dataCy("navitem-packages").click();
+    cy.dataCy("packages-card").should("be.visible");
+  });
+});
