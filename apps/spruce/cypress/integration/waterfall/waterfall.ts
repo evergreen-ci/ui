@@ -13,7 +13,7 @@ describe("waterfall page", () => {
   });
 
   describe("inactive commits", () => {
-    it("renders an inactive versions button", () => {
+    it("renders an inactive version column and button", () => {
       cy.dataCy("version-labels")
         .children()
         .eq(2)
