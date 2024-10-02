@@ -2,9 +2,25 @@
 
 query Waterfall($options: WaterfallOptions!) {
   waterfall(options: $options) {
+    buildVariants {
+      builds {
+        displayName
+        id
+        tasks {
+          displayName
+          id
+          status
+        }
+        version
+      }
+      displayName
+      id
+    }
     versions {
+      inactiveVersions {
+        id
+      }
       version {
-        activated
         author
         createTime
         gitTags {

@@ -11,4 +11,7 @@ export const PopoverContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: ${size.s};
+
+  max-height: 400px;
+  overflow-y: scroll;
 `;

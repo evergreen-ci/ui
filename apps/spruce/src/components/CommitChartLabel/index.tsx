@@ -8,8 +8,7 @@ import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
 import { UpstreamProjectFragment, GitTag } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
-import { shortenGithash } from "utils/string";
-import { jiraLinkify } from "utils/string/jiraLinkify";
+import { shortenGithash, jiraLinkify } from "utils/string";
 
 const { gray } = palette;
 const MAX_CHAR = 40;
