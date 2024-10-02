@@ -5,7 +5,6 @@
   >
     <table
       class="leafygreen-ui-1soynca"
-      data-lgid="lg-table"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -13,7 +12,6 @@
         <tr>
           <th
             class="leafygreen-ui-1gzchq2"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -58,7 +56,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Name"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -86,7 +83,6 @@
           </th>
           <th
             class="leafygreen-ui-p4wxky"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -131,7 +127,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Type"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -159,7 +154,6 @@
           </th>
           <th
             class="leafygreen-ui-p4wxky"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -204,7 +198,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Size"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -235,11 +228,9 @@
       <tbody>
         <tr
           class=""
-          data-lgid="lg-table-row"
         >
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -252,7 +243,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -265,7 +255,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -279,11 +268,9 @@
         </tr>
         <tr
           class=""
-          data-lgid="lg-table-row"
         >
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -296,7 +283,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -309,7 +295,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -323,11 +308,9 @@
         </tr>
         <tr
           class=""
-          data-lgid="lg-table-row"
         >
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -340,7 +323,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -353,7 +335,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -367,11 +348,9 @@
         </tr>
         <tr
           class=""
-          data-lgid="lg-table-row"
         >
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -384,7 +363,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -397,7 +375,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -411,11 +388,9 @@
         </tr>
         <tr
           class=""
-          data-lgid="lg-table-row"
         >
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -428,7 +403,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"
@@ -441,7 +415,6 @@
           </td>
           <td
             class="leafygreen-ui-eyavws"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-1n4j8xf"

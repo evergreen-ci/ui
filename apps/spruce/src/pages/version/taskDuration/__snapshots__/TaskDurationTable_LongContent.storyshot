@@ -6,7 +6,6 @@
     <table
       class="leafygreen-ui-1soynca"
       data-cy="task-duration-table"
-      data-lgid="lg-table"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -14,7 +13,6 @@
         <tr>
           <th
             class="leafygreen-ui-qxqi7i"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -60,7 +58,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Task Name"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -88,7 +85,6 @@
           </th>
           <th
             class="leafygreen-ui-13j17tu"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -135,7 +131,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Status"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -163,7 +158,6 @@
           </th>
           <th
             class="leafygreen-ui-fjoumq"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -209,7 +203,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Build Variant"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -237,7 +230,6 @@
           </th>
           <th
             class="leafygreen-ui-1qsod8o"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -248,7 +240,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Task Duration"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -284,14 +275,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="task-duration-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
           <td
             class="leafygreen-ui-1dmu2ot"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -303,7 +291,6 @@
                 aria-hidden="false"
                 aria-label="Expand row"
                 class="leafygreen-ui-v4n7tr"
-                data-lgid="lg-table-expand_button"
                 tabindex="0"
               >
                 <div
@@ -345,7 +332,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -365,7 +351,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -377,7 +362,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -405,14 +389,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.0"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -434,7 +415,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -450,7 +430,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -461,7 +440,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -488,14 +466,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.1"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -517,7 +492,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -533,7 +507,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -544,7 +517,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -571,14 +543,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.2"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -600,7 +569,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -616,7 +584,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -627,7 +594,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -654,14 +620,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.3"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -683,7 +646,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -699,7 +661,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -710,7 +671,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -737,14 +697,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.4"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -766,7 +723,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -782,7 +738,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -793,7 +748,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -820,14 +774,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.5"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -849,7 +800,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -865,7 +815,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -876,7 +825,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -903,14 +851,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.6"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -932,7 +877,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -948,7 +892,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -959,7 +902,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -986,14 +928,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.7"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1015,7 +954,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1031,7 +969,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1042,7 +979,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1069,14 +1005,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.8"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1098,7 +1031,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1114,7 +1046,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1125,7 +1056,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1152,14 +1082,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.9"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1181,7 +1108,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1197,7 +1123,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1208,7 +1133,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1235,14 +1159,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.10"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1264,7 +1185,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1280,7 +1200,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -1291,7 +1210,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"

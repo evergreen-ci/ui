@@ -5,7 +5,6 @@
   >
     <table
       class="leafygreen-ui-1soynca"
-      data-lgid="lg-table"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -13,7 +12,6 @@
         <tr>
           <th
             class="leafygreen-ui-1gzchq2"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -58,7 +56,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Name"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -86,7 +83,6 @@
           </th>
           <th
             class="leafygreen-ui-p4wxky"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -131,7 +127,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Type"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -159,7 +154,6 @@
           </th>
           <th
             class="leafygreen-ui-p4wxky"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -204,7 +198,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Size"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -240,14 +233,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
           <td
             class="leafygreen-ui-1dmu2ot"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -259,7 +249,6 @@
                 aria-hidden="false"
                 aria-label="Expand row"
                 class="leafygreen-ui-v4n7tr"
-                data-lgid="lg-table-expand_button"
                 tabindex="0"
               >
                 <div
@@ -298,7 +287,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -318,7 +306,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -340,14 +327,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0.0"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -366,7 +350,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -385,7 +368,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -412,14 +394,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
           <td
             class="leafygreen-ui-1dmu2ot"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -431,7 +410,6 @@
                 aria-hidden="false"
                 aria-label="Expand row"
                 class="leafygreen-ui-v4n7tr"
-                data-lgid="lg-table-expand_button"
                 tabindex="0"
               >
                 <div
@@ -470,7 +448,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -490,7 +467,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -512,14 +488,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-1.0"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -538,7 +511,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -557,7 +529,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -584,14 +555,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-2"
         >
           <td
             class="leafygreen-ui-1dmu2ot"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -603,7 +571,6 @@
                 aria-hidden="false"
                 aria-label="Expand row"
                 class="leafygreen-ui-v4n7tr"
-                data-lgid="lg-table-expand_button"
                 tabindex="0"
               >
                 <div
@@ -642,7 +609,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -662,7 +628,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -684,14 +649,11 @@
         <tr
           aria-hidden="true"
           class="leafygreen-ui-1tnpggy leafygreen-ui-rr51xv"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-2.0"
         >
           <td
             class="leafygreen-ui-dm20k9"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -710,7 +672,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"
@@ -729,7 +690,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
           >
             <div
               class="leafygreen-ui-21vumk"

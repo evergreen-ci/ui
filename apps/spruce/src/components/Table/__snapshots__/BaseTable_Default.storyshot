@@ -5,7 +5,6 @@
   >
     <table
       class="leafygreen-ui-1soynca"
-      data-lgid="lg-table"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -13,7 +12,6 @@
         <tr>
           <th
             class="leafygreen-ui-1gzchq2"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -58,7 +56,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Name"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -86,7 +83,6 @@
           </th>
           <th
             class="leafygreen-ui-p4wxky"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -131,7 +127,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Type"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -159,7 +154,6 @@
           </th>
           <th
             class="leafygreen-ui-p4wxky"
-            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -204,7 +198,6 @@
                 aria-disabled="false"
                 aria-label="Sort by Size"
                 class="leafygreen-ui-tcjr3n"
-                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -237,14 +230,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -264,7 +254,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -284,7 +273,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -307,14 +295,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -334,7 +319,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -354,7 +338,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -377,14 +360,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-2"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -404,7 +384,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -424,7 +403,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -447,14 +425,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-3"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -474,7 +449,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -494,7 +468,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -517,14 +490,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-4"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -544,7 +514,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -564,7 +533,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -587,14 +555,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-5"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -614,7 +579,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -634,7 +598,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -657,14 +620,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-6"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -684,7 +644,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -704,7 +663,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -727,14 +685,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-7"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -754,7 +709,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -774,7 +728,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -797,14 +750,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-8"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -824,7 +774,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -844,7 +793,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -867,14 +815,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-9"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -894,7 +839,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -914,7 +858,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -937,14 +880,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-10"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -964,7 +904,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -984,7 +923,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1007,14 +945,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-11"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1034,7 +969,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1054,7 +988,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1077,14 +1010,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-12"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1104,7 +1034,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1124,7 +1053,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1147,14 +1075,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-13"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1174,7 +1099,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1194,7 +1118,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1217,14 +1140,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-14"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1244,7 +1164,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1264,7 +1183,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1287,14 +1205,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-15"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1314,7 +1229,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1334,7 +1248,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1357,14 +1270,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-16"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1384,7 +1294,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1404,7 +1313,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1427,14 +1335,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-17"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1454,7 +1359,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1474,7 +1378,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1497,14 +1400,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-18"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1524,7 +1424,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1544,7 +1443,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1567,14 +1465,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-19"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1594,7 +1489,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1614,7 +1508,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1637,14 +1530,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-20"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1664,7 +1554,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1684,7 +1573,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1707,14 +1595,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-21"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1734,7 +1619,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1754,7 +1638,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1777,14 +1660,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-22"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1804,7 +1684,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1824,7 +1703,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1847,14 +1725,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-23"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1874,7 +1749,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1894,7 +1768,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1917,14 +1790,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-24"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1944,7 +1814,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1964,7 +1833,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -1987,14 +1855,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-25"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2014,7 +1879,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2034,7 +1898,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2057,14 +1920,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-26"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2084,7 +1944,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2104,7 +1963,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2127,14 +1985,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-27"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2154,7 +2009,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2174,7 +2028,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2197,14 +2050,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-28"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2224,7 +2074,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2244,7 +2093,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2267,14 +2115,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-29"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2294,7 +2139,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2314,7 +2158,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2337,14 +2180,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-30"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2364,7 +2204,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2384,7 +2223,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2407,14 +2245,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-31"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2434,7 +2269,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2454,7 +2288,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2477,14 +2310,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-32"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2504,7 +2334,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2524,7 +2353,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2547,14 +2375,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-33"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2574,7 +2399,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2594,7 +2418,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2617,14 +2440,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-34"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2644,7 +2464,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2664,7 +2483,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2687,14 +2505,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-35"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2714,7 +2529,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2734,7 +2548,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2757,14 +2570,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-36"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2784,7 +2594,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2804,7 +2613,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2827,14 +2635,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-37"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2854,7 +2659,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2874,7 +2678,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2897,14 +2700,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-38"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2924,7 +2724,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2944,7 +2743,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2967,14 +2765,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-39"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -2994,7 +2789,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3014,7 +2808,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3037,14 +2830,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-40"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3064,7 +2854,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3084,7 +2873,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3107,14 +2895,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-41"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3134,7 +2919,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3154,7 +2938,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3177,14 +2960,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-42"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3204,7 +2984,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3224,7 +3003,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3247,14 +3025,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-43"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3274,7 +3049,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3294,7 +3068,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3317,14 +3090,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-44"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3344,7 +3114,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3364,7 +3133,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3387,14 +3155,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-45"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3414,7 +3179,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3434,7 +3198,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3457,14 +3220,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-46"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3484,7 +3244,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3504,7 +3263,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3527,14 +3285,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-47"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3554,7 +3309,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3574,7 +3328,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3597,14 +3350,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-48"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3624,7 +3374,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3644,7 +3393,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3667,14 +3415,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-49"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3694,7 +3439,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3714,7 +3458,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3737,14 +3480,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-50"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3764,7 +3504,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3784,7 +3523,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3807,14 +3545,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-51"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3834,7 +3569,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3854,7 +3588,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3877,14 +3610,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-52"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3904,7 +3634,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3924,7 +3653,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3947,14 +3675,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-53"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3974,7 +3699,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -3994,7 +3718,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4017,14 +3740,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-54"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4044,7 +3764,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4064,7 +3783,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4087,14 +3805,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-55"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4114,7 +3829,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4134,7 +3848,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4157,14 +3870,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-56"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4184,7 +3894,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4204,7 +3913,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4227,14 +3935,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-57"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4254,7 +3959,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4274,7 +3978,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4297,14 +4000,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-58"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4324,7 +4024,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4344,7 +4043,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4367,14 +4065,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-59"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4394,7 +4089,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4414,7 +4108,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4437,14 +4130,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-60"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4464,7 +4154,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4484,7 +4173,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4507,14 +4195,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-61"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4534,7 +4219,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4554,7 +4238,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4577,14 +4260,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-62"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4604,7 +4284,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4624,7 +4303,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4647,14 +4325,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-63"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4674,7 +4349,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4694,7 +4368,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4717,14 +4390,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-64"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4744,7 +4414,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4764,7 +4433,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4787,14 +4455,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-65"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4814,7 +4479,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4834,7 +4498,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4857,14 +4520,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-66"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4884,7 +4544,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4904,7 +4563,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4927,14 +4585,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-67"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4954,7 +4609,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4974,7 +4628,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -4997,14 +4650,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-68"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5024,7 +4674,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5044,7 +4693,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5067,14 +4715,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-69"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5094,7 +4739,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5114,7 +4758,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5137,14 +4780,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-70"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5164,7 +4804,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5184,7 +4823,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5207,14 +4845,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-71"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5234,7 +4869,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5254,7 +4888,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5277,14 +4910,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-72"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5304,7 +4934,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5324,7 +4953,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5347,14 +4975,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-73"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5374,7 +4999,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5394,7 +5018,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5417,14 +5040,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-74"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5444,7 +5064,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5464,7 +5083,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5487,14 +5105,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-75"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5514,7 +5129,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5534,7 +5148,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5557,14 +5170,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-76"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5584,7 +5194,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5604,7 +5213,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5627,14 +5235,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-77"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5654,7 +5259,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5674,7 +5278,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5697,14 +5300,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-78"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5724,7 +5324,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5744,7 +5343,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5767,14 +5365,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-79"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5794,7 +5389,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5814,7 +5408,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5837,14 +5430,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-80"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5864,7 +5454,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5884,7 +5473,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5907,14 +5495,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-81"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5934,7 +5519,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5954,7 +5538,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -5977,14 +5560,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-82"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6004,7 +5584,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6024,7 +5603,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6047,14 +5625,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-83"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6074,7 +5649,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6094,7 +5668,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6117,14 +5690,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-84"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6144,7 +5714,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6164,7 +5733,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6187,14 +5755,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-85"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6214,7 +5779,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6234,7 +5798,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6257,14 +5820,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-86"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6284,7 +5844,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6304,7 +5863,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6327,14 +5885,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-87"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6354,7 +5909,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6374,7 +5928,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6397,14 +5950,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-88"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6424,7 +5974,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6444,7 +5993,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6467,14 +6015,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-89"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6494,7 +6039,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6514,7 +6058,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6537,14 +6080,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-90"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6564,7 +6104,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6584,7 +6123,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6607,14 +6145,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-91"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6634,7 +6169,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6654,7 +6188,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6677,14 +6210,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-92"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6704,7 +6234,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6724,7 +6253,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6747,14 +6275,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-93"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6774,7 +6299,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6794,7 +6318,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6817,14 +6340,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-94"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6844,7 +6364,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6864,7 +6383,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6887,14 +6405,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-95"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6914,7 +6429,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6934,7 +6448,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6957,14 +6470,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-96"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -6984,7 +6494,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7004,7 +6513,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7027,14 +6535,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-97"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7054,7 +6559,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7074,7 +6578,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7097,14 +6600,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-98"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7124,7 +6624,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7144,7 +6643,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7167,14 +6665,11 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="leafygreen-table-row"
-          data-expanded="false"
-          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-99"
         >
           <td
             class="leafygreen-ui-3nxf8o"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7194,7 +6689,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -7214,7 +6708,6 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
