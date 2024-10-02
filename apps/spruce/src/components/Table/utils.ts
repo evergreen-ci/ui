@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { OnChangeFn } from "@leafygreen-ui/table";
 
 /**
@@ -7,7 +8,7 @@ import { OnChangeFn } from "@leafygreen-ui/table";
  * @returns void
  */
 export const onChangeHandler = <T>(
-  setState: OnChangeFn<T>,
+  setState: OnChangeFn<T> | Dispatch<SetStateAction<T>>,
   sideEffect?: (updatedState: T) => void,
 ) =>
   ((updater) => {

@@ -2,7 +2,18 @@ import reactStringReplace from "react-string-replace";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
 
-export const jiraLinkify = (
+const githubPRLinkify = (unlinkified: string | React.ReactNode[]) =>
+  reactStringReplace(
+    unlinkified,
+    /(https:\/\/github.com\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\/pull\/\d+)/g,
+    (match, i) => (
+      <StyledLink key={`${match}${i}`} href={match}>
+        {match}
+      </StyledLink>
+    ),
+  );
+
+const jiraLinkify = (
   unlinkified: string | React.ReactNode[],
   jiraHost: string,
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -18,3 +29,5 @@ export const jiraLinkify = (
       {match}
     </StyledLink>
   ));
+
+export { githubPRLinkify, jiraLinkify };

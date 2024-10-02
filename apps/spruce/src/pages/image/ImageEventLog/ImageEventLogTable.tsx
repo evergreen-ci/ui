@@ -9,7 +9,6 @@ import {
   getFilteredRowModel,
   getFacetedUniqueValues,
 } from "@leafygreen-ui/table";
-import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import { BaseTable } from "components/Table/BaseTable";
 import { tableColumnOffset } from "constants/tokens";
 import {
@@ -48,11 +47,17 @@ const imageEventTypeTreeData = [
     key: ImageEventType.Toolchain,
   },
   {
-    title: "Operating System",
+    title: "OS",
     value: ImageEventType.OperatingSystem,
     key: ImageEventType.OperatingSystem,
   },
 ];
+
+const eventTypeToLabel = {
+  [ImageEventType.Package]: "Package",
+  [ImageEventType.Toolchain]: "Toolchain",
+  [ImageEventType.OperatingSystem]: "OS",
+};
 
 interface ImageEventLogTableProps {
   entries: ImageEventEntry[];
@@ -87,7 +92,7 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
 
   const emptyMessage = hasFilters
     ? "No data to display"
-    : "No changes detected within the scope. The scope can be expanded upon request from the runtime environments team.";
+    : "No changes detected within the scope. The scope can be expanded upon request to the Runtime Environments team.";
 
   return (
     <BaseTable
@@ -121,7 +126,7 @@ const columns: LGColumnDef<ImageEventEntry>[] = [
     accessorKey: "type",
     cell: ({ getValue }) => {
       const value = getValue() as ImageEventType;
-      return toSentenceCase(value);
+      return eventTypeToLabel[value];
     },
     enableColumnFilter: true,
     filterFn: filterFns.arrIncludesSome,
