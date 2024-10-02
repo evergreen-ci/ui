@@ -6355,6 +6355,25 @@ export type ImageGeneralQuery = {
   } | null;
 };
 
+export type ImageOperatingSystemQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: OperatingSystemOpts;
+}>;
+
+export type ImageOperatingSystemQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    operatingSystem: {
+      __typename?: "ImageOperatingSystemPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{ __typename?: "OSInfo"; name: string; version: string }>;
+    };
+  } | null;
+};
+
 export type ImagePackagesQueryVariables = Exact<{
   imageId: Scalars["String"]["input"];
   opts: PackageOpts;
@@ -9490,11 +9509,28 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
+    buildVariants: Array<{
+      __typename?: "WaterfallBuildVariant";
+      displayName: string;
+      id: string;
+      builds: Array<{
+        __typename?: "WaterfallBuild";
+        displayName: string;
+        id: string;
+        version: string;
+        tasks: Array<{
+          __typename?: "WaterfallTask";
+          displayName: string;
+          id: string;
+          status: string;
+        }>;
+      }>;
+    }>;
     versions: Array<{
       __typename?: "WaterfallVersion";
+      inactiveVersions?: Array<{ __typename?: "Version"; id: string }> | null;
       version?: {
         __typename?: "Version";
-        activated?: boolean | null;
         author: string;
         createTime: Date;
         id: string;

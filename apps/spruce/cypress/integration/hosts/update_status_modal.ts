@@ -17,7 +17,7 @@ describe("Update Status Modal", () => {
 
     cy.dataCy("host-status-select").click();
 
-    cy.dataCy("decommissioned-option").click();
+    cy.dataCy("terminated-option").click();
 
     cy.dataCy("host-status-notes").type("notes");
 
@@ -26,7 +26,6 @@ describe("Update Status Modal", () => {
       cy.contains("button", "Update").click({ force: true });
     });
     cy.dataCy("update-host-status-modal").should("not.exist");
-    // Because the static hosts that exists in the dev environment cannot be decommissioned, we should expect an error.
-    cy.validateToast("error");
+    cy.validateToast("success");
   });
 });
