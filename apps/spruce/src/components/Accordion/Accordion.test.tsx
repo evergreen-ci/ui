@@ -86,7 +86,7 @@ describe("Accordion Component", () => {
     const CustomTitleTag = ({ children }: { children: any }) => (
       <h2>{children}</h2>
     );
-    render(<Accordion {...defaultProps} titleTag={CustomTitleTag} />);
+    render(<Accordion {...defaultProps} titleTag={CustomTitleTag as any} />);
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
       titleText,
     );

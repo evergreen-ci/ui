@@ -12,7 +12,7 @@ interface AccordionProps {
   onToggle?: (s: { isVisible: boolean }) => void;
   showCaret?: boolean;
   title: React.ReactNode;
-  titleTag?: React.FC<{ children: any }>;
+  titleTag?: React.FC;
   toggledTitle?: React.ReactNode;
   toggleFromBottom?: boolean;
   useIndent?: boolean;
