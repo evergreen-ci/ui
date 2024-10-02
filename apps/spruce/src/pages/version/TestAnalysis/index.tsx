@@ -74,10 +74,6 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
 
   const totalTestCount = countTotalTests(groupedTestsMap);
   const totalFilteredTestCount = countTotalTests(filteredGroupedTestsMap);
-  const hasFilters =
-    selectedTaskStatuses.length > 0 ||
-    selectedBuildVariants.length > 0 ||
-    searchValue.length > 0;
 
   const hasMatchingResults = totalFilteredTestCount > 0;
   const hasResults = data && totalTestCount > 0;
@@ -152,22 +148,19 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
           {hasResults && (
             <FilterSubheaderContainer>
               <Body weight="medium">
-                {hasFilters
-                  ? `${totalFilteredTestCount}/${totalTestCount} Filtered Failed ${pluralize("Test", totalFilteredTestCount)}`
-                  : `${totalTestCount} Total Failed ${pluralize("Test", totalTestCount)}`}
+                {totalFilteredTestCount}/{totalTestCount} Filtered Failed{" "}
+                {pluralize("Test", totalFilteredTestCount)}
               </Body>
-              {hasFilters && (
-                <Button
-                  onClick={() => {
-                    setSelectedTaskStatuses([]);
-                    setSelectedBuildVariants([]);
-                    setSearchValue("");
-                  }}
-                  size="xsmall"
-                >
-                  Clear Filters
-                </Button>
-              )}
+              <Button
+                onClick={() => {
+                  setSelectedTaskStatuses([]);
+                  setSelectedBuildVariants([]);
+                  setSearchValue("");
+                }}
+                size="xsmall"
+              >
+                Clear Filters
+              </Button>
             </FilterSubheaderContainer>
           )}
           {/* {groupedTestsMapEntries.map(([test, tasks]) => (
