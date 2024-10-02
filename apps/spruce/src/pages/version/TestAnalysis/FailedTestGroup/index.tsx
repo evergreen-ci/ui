@@ -21,6 +21,7 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
 
   return (
     <Accordion
+      shouldRenderChildIfHidden={false}
       title={
         <TitleContainer>
           <Body weight="medium">
