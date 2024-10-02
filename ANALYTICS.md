@@ -77,3 +77,80 @@ overcomplicating the attribute structure. This approach will help maintain both
 readability and utility in our analytics. Read more about OpenTelemetry
 attribute naming
 [here](https://opentelemetry.io/docs/specs/semconv/general/attribute-naming/).
+
+## Querying and Analyzing Data
+
+To begin querying and analyzing data in Honeycomb, follow these steps:
+
+1. **Select the Correct Dataset and Environment**: Ensure you have selected the
+   appropriate dataset and environment before proceeding.
+
+2. **Querying Analytics Events**:
+   - All analytics events are stored in the `library.name = analytics`
+     namespace.
+   - To query analytics events, use the `WHERE` clause to filter by specific
+     attributes. Including `library.name = analytics` ensures that only
+     analytics events are queried.
+   - Each event has a `name` attribute, which can be used to filter for a
+     specific event.
+
+3. **Grouping Data**:
+   - Use the `GROUP BY` clause to organize data by a specific attribute,
+     providing a clearer overview of the data.
+
+### Example Query: Grouping by `name` Attribute
+
+[Example Query](https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/spruce/result/5digXmz9RyA)
+
+This query groups data by the `name` attribute, showing how often each event has
+been triggered. To find a specific name attribute or to find which ones exist
+reference the
+[Analytics Event Spreadsheet](https://docs.google.com/spreadsheets/d/1s4_nq8ZiphXp5Uq_-9HT6GPqz-KOyaq6HuvmXYaSNzg/edit?gid=0#gid=0).
+
+---
+
+## Grouping Data by Custom Attributes
+
+You can also group data by other custom event specific attributes, such as
+`status` or `log.type`, to see the data organized by custom attributes in the
+analytics event.
+
+### Example Query: Grouping by `log.viewer`
+
+[Example Query](https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/spruce/result/gqxr5j4CrDh)
+
+This query groups `Clicked log link` events by the `log.viewer` attribute,
+showing how often a specific log viewer was chosen when viewing a task log.
+
+---
+
+## Grouping Data by `analytics.identifier`
+
+Analytics events in our apps are split by the specific page or component where
+the event is triggered, using the `analytics.identifier` attribute. You can use
+this attribute to group data by the page or component where the event occurred.
+
+For example, if you want to see how many times a user clicked a button on a
+specific page, group the data by `analytics.identifier` to get detailed
+insights.
+
+### Example Query: Grouping by `analytics.identifier`
+
+[Example Query](https://ui.honeycomb.io/mongodb-4b/environments/production/datasets/spruce/result/9geStAzEFQb?hideCompare)
+
+This query searches for the `Click patch link` event, which exists on multiple
+pages. It then groups the data by `analytics.identifier` to show how often each
+event was triggered on specific pages.
+
+---
+
+## Default Attributes
+
+All analytics events have several default attributes that can be used for
+querying. Here are some common default attributes:
+
+- `analytics.identifier`
+- `name`
+- `browser.name`
+- `url.path`
+- `user.id`
