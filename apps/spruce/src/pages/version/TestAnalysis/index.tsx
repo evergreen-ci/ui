@@ -82,7 +82,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
   const hasMatchingResults = totalFilteredTestCount > 0;
   const hasResults = data && totalTestCount > 0;
   return (
-    <div>
+    <Container>
       {loading ? (
         <ListSkeleton />
       ) : (
@@ -93,9 +93,9 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
             across more than one task
           </Title>
           <Body>
-            This page shows tests that failed across more than one task. If a
-            test failed on multiple tasks, it may indicate a flaky test or a
-            larger issue. Click on the test name to see more details.
+            This page provides an overview of all test failures in the current
+            version. If a test fails across multiple tasks, it could suggest a
+            flaky test or a broader issue.
           </Body>
           <FilterContainer>
             <div>
@@ -183,33 +183,42 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
           )}
         </div>
       )}
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  margin: 0 ${size.xs};
+`;
 
 const LabelWrapper = styled.div`
   margin-bottom: ${size.xxs};
   line-height: 20px;
 `;
+
 const FilterSubheaderContainer = styled.div`
   display: flex;
   margin-bottom: ${size.m};
   gap: ${size.xs};
 `;
+
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${size.m};
+  margin-top: ${size.xs};
   > * {
     width: 30%;
   }
 `;
+
 const SpacedDiv = styled.div`
   margin-top: ${size.s};
 `;
 
 const Title = styled(H3)<H3Props>`
   color: ${green.dark2};
+  margin-bottom: ${size.xs};
 `;
 
 export default TestAnalysis;
