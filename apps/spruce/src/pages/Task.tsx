@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
+import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
@@ -11,7 +12,6 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import TaskStatusBadge from "components/TaskStatusBadge";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";
 import { useToastContext } from "context/toast";
@@ -69,7 +69,7 @@ export const Task = () => {
     versionMetadata,
   } = task ?? {};
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const attributed = annotation?.issues?.length > 0;
+  const hasKnownIssueAnnotation = annotation?.issues?.length > 0;
   const isDisplayTask = executionTasksFull != null;
   if (error && !task) {
     return <PageDoesNotExist />;
@@ -95,7 +95,9 @@ export const Task = () => {
           <StyledBadgeWrapper>
             {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             <TaskStatusBadge status={status} />
-            {attributed && <TaskStatusBadge status={TaskStatus.KnownIssue} />}
+            {hasKnownIssueAnnotation && (
+              <TaskStatusBadge status={TaskStatus.KnownIssue} />
+            )}
           </StyledBadgeWrapper>
         }
         buttons={

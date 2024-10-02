@@ -18,7 +18,7 @@ describe("Tabs", () => {
         .should("have.attr", "aria-selected")
         .and("eq", "true");
       locationPathEquals(patches.duration.route);
-      cy.location("search").should("contain", "duration=DESC");
+      cy.location("search").should("contain", "sorts=DURATION%3ADESC");
     });
 
     it("Applies default sorts on task tab when switching from another tab without any filters", () => {

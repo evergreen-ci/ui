@@ -208,7 +208,7 @@ describe("Host events", () => {
     cy.contains("Hawaii").click();
     cy.contains("button", "Save changes").click();
     cy.visit(pathWithEvents);
-    cy.dataCy("leafygreen-table-row")
+    cy.dataCy("host-events-table-row")
       .first()
       .contains("Sep 30, 2017, 9:11:16 AM");
     // Reset timezone so re-running this test works.
@@ -216,5 +216,55 @@ describe("Host events", () => {
     cy.contains("Hawaii").click();
     cy.contains("Select a timezone").click();
     cy.contains("button", "Save changes").click();
+  });
+
+  describe("host event filters", () => {
+    it("can filter for specific events", () => {
+      cy.visit(pathWithEvents);
+
+      // Apply filter.
+      cy.dataCy("event-type-filter").click();
+      cy.dataCy("event-type-filter-wrapper").should("be.visible");
+      cy.getInputByLabel("Agent deployed").check({ force: true });
+      cy.dataCy("host-events-table-row").should("have.length", 2);
+      cy.dataCy("event-type-filter").should(
+        "have.attr",
+        "data-highlighted",
+        "true",
+      );
+
+      // Remove filter.
+      cy.dataCy("event-type-filter-wrapper").should("be.visible");
+      cy.getInputByLabel("Agent deployed").uncheck({ force: true });
+      cy.dataCy("host-events-table-row").should("not.have.length", 2);
+      cy.dataCy("event-type-filter").should(
+        "have.attr",
+        "data-highlighted",
+        "false",
+      );
+    });
+
+    it("filter is properly processed from URL", () => {
+      cy.visit(
+        `${pathWithEvents}?eventType=HOST_AGENT_DEPLOYED%2CHOST_AGENT_DEPLOY_FAILED`,
+      );
+      cy.dataCy("event-type-filter").should(
+        "have.attr",
+        "data-highlighted",
+        "true",
+      );
+      cy.dataCy("event-type-filter").click();
+      cy.getInputByLabel("Agent deployed").should(
+        "have.attr",
+        "aria-checked",
+        "true",
+      );
+      cy.getInputByLabel("Agent deploy failed").should(
+        "have.attr",
+        "aria-checked",
+        "true",
+      );
+      cy.dataCy("host-events-table-row").should("have.length", 3);
+    });
   });
 });

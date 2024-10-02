@@ -4,9 +4,15 @@ import { useParams } from "react-router-dom";
 import { slugs } from "constants/routes";
 import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
+import { BuildRow } from "./BuildRow";
+import {
+  BuildVariantTitle,
+  gridGroupCss,
+  InactiveVersion,
+  Row,
+  VERSION_LIMIT,
+} from "./styles";
 import { VersionLabel } from "./VersionLabel";
-
-const LIMIT = 5;
 
 export const WaterfallGrid: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
@@ -19,7 +25,7 @@ export const WaterfallGrid: React.FC = () => {
         options: {
           // @ts-expect-error
           projectIdentifier,
-          limit: LIMIT,
+          limit: VERSION_LIMIT,
         },
       },
     },
@@ -28,23 +34,36 @@ export const WaterfallGrid: React.FC = () => {
   return (
     <Container>
       <Row>
-        <div /> {/* Placeholder div for the build variant label column */}
-        {data.waterfall.versions.map(({ version }) =>
-          version ? <VersionLabel key={version.id} {...version} /> : null,
-        )}
+        <BuildVariantTitle />
+        <Versions data-cy="version-labels">
+          {data.waterfall.versions.map(({ inactiveVersions, version }, i) =>
+            version ? (
+              <VersionLabel key={version.id} {...version} />
+            ) : (
+              <InactiveVersion
+                key={inactiveVersions?.[0]?.id ?? i} // eslint-disable-line react/no-array-index-key
+                data-cy="inactive-label"
+              >
+                inactive
+              </InactiveVersion>
+            ),
+          )}
+        </Versions>
       </Row>
+      {data.waterfall.buildVariants.map((b) => (
+        <BuildRow
+          key={b.id}
+          build={b}
+          projectIdentifier={projectIdentifier ?? ""}
+          versions={data.waterfall.versions}
+        />
+      ))}
     </Container>
   );
 };
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(${LIMIT + 1}, minmax(0, 1fr));
-  gap: 12px;
-`;
+const Container = styled.div``;
 
-const Row = styled.div`
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
+const Versions = styled.div`
+  ${gridGroupCss}
 `;

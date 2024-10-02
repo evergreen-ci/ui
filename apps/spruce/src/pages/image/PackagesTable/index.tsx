@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -40,27 +40,18 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
           ?.value as string,
       },
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error loading image packages: ${err.message}`,
       );
     },
   });
 
-  const packages = useMemo(
-    () => packagesData?.image?.packages.data ?? [],
-    [packagesData?.image?.packages.data],
-  );
+  const packages = packagesData?.image?.packages.data ?? [];
 
-  const numPackages = useMemo(
-    () =>
-      packagesData?.image?.packages.filteredCount ??
-      packagesData?.image?.packages.totalCount,
-    [
-      packagesData?.image?.packages.filteredCount,
-      packagesData?.image?.packages.totalCount,
-    ],
-  );
+  const numPackages =
+    packagesData?.image?.packages.filteredCount ??
+    packagesData?.image?.packages.totalCount;
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Package>({
@@ -99,7 +90,6 @@ const columns: LGColumnDef<Package>[] = [
     header: "Name",
     accessorKey: "name",
     enableColumnFilter: true,
-    filterFn: "includesString",
     meta: {
       search: {
         "data-cy": "package-name-filter",

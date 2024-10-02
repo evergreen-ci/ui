@@ -13,7 +13,7 @@ import { size, zIndex, fontSize } from "constants/tokens";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
-import { jiraLinkify } from "utils/string/jiraLinkify";
+import { jiraLinkify } from "utils/string";
 import { commitChartHeight } from "../constants";
 
 const { shortenGithash, trimStringFromMiddle } = string;

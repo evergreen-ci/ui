@@ -30,6 +30,7 @@ type Action =
   | { name: "Filtered downstream tasks table"; "filter.by": string | string[] }
   | { name: "Filtered tasks table"; "filter.by": string | string[] }
   | { name: "Filtered task duration table"; "filter.by": string | string[] }
+  | { name: "Sorted task duration table"; "sort.by": string | string[] }
   | { name: "Viewed notification modal" }
   | { name: "Viewed schedule tasks modal" }
   | { name: "Clicked restart tasks button"; abort: boolean }

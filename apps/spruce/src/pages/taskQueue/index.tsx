@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { H2, H2Props, H3, H3Props } from "@leafygreen-ui/typography";
+import { H2, H3 } from "@leafygreen-ui/typography";
+import pluralize from "pluralize";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
@@ -83,19 +84,25 @@ const TaskQueue = () => {
     options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
 
   return (
-    <StyledPageWrapper>
-      <StyledH2>Task Queue</StyledH2>
+    <PageWrapper>
+      <H2>Task Queue</H2>
       <SearchableDropdownWrapper>
         <SearchableDropdown
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           buttonRenderer={(option: TaskQueueDistro) => (
             <DistroLabel>
-              <StyledBadge>{`${option?.taskCount || 0} ${
-                option?.taskCount === 1 ? "TASK" : "TASKS"
-              }`}</StyledBadge>
-              <StyledBadge>{`${option?.hostCount || 0} ${
-                option?.hostCount === 1 ? "HOST" : "HOSTS"
-              }`}</StyledBadge>
+              {loadingDistrosData || !selectedDistro ? (
+                <Badge>Loading...</Badge>
+              ) : (
+                <>
+                  <Badge>
+                    {pluralize("task", option?.taskCount ?? 0, true)}
+                  </Badge>
+                  <Badge>
+                    {pluralize("host", option?.hostCount ?? 0, true)}
+                  </Badge>
+                </>
+              )}
               <DistroName> {option?.id} </DistroName>
             </DistroLabel>
           )}
@@ -122,7 +129,7 @@ const TaskQueue = () => {
         /* Only show name & link if distro exists. */
         !loadingDistrosData && (
           <TableHeader>
-            <StyledH3>{distroId}</StyledH3>
+            <H3>{distroId}</H3>
             <StyledRouterLink
               to={getAllHostsRoute({ distroId, startedBy: MCI_USER })}
             >
@@ -138,20 +145,19 @@ const TaskQueue = () => {
           taskQueue={taskQueueItemsData?.distroTaskQueue}
         />
       )}
-    </StyledPageWrapper>
+    </PageWrapper>
   );
 };
 
 const SearchableDropdownWrapper = styled.div`
+  margin-top: ${size.xs};
   width: 400px;
 `;
 const DistroLabel = styled.div`
   display: flex;
+  gap: ${size.xs};
   align-items: center;
   white-space: nowrap;
-`;
-const StyledBadge = styled(Badge)`
-  margin-right: ${size.xs};
 `;
 const DistroName = styled.div`
   overflow: hidden;
@@ -161,15 +167,6 @@ const TableHeader = styled.div`
   display: flex;
   align-items: center;
   margin: ${size.m} 0 ${size.s} 0;
-`;
-const StyledH2 = styled(H2)<H2Props>`
-  margin-bottom: ${size.xs};
-`;
-const StyledH3 = styled(H3)<H3Props>`
-  margin-right: ${size.s};
-`;
-const StyledPageWrapper = styled(PageWrapper)`
-  display: flex;
-  flex-direction: column;
+  gap: ${size.s};
 `;
 export default TaskQueue;

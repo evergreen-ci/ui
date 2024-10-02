@@ -114,7 +114,6 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   };
 
   const tableSortHandler = useTableSort({
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sorted tests table",
