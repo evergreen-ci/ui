@@ -17,6 +17,7 @@ type VersionFields = NonNullable<
 
 type Props = VersionFields & {
   className?: string;
+  trimMessage?: boolean;
 };
 export const VersionLabel: React.FC<Props> = ({
   activated,
@@ -27,6 +28,7 @@ export const VersionLabel: React.FC<Props> = ({
   id,
   message,
   revision,
+  trimMessage = true,
   upstreamProject,
 }) => {
   const getDateCopy = useDateFormat();
@@ -83,7 +85,10 @@ export const VersionLabel: React.FC<Props> = ({
         </Body>
       )}
       {/* @ts-expect-error */}
-      <CommitMessage title={message}>
+      <CommitMessage
+        title={trimMessage ? message : null}
+        trimMessage={trimMessage}
+      >
         <strong>{author}</strong> &bull;{" "}
         {jiraLinkify(message, jiraHost, () => {
           sendEvent({
@@ -111,9 +116,9 @@ const VersionContainer = styled.div`
   }
 `;
 
-const CommitMessage = styled(Body)`
+const CommitMessage = styled(Body)<{ trimMessage: boolean }>`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  overflow: hidden;
+  ${(props) => props.trimMessage && "overflow: hidden;"}
 `;

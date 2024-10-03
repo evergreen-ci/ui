@@ -67,8 +67,8 @@ const versionWithUpstreamProject = {
   },
 };
 
-const versionInactive = {
-  activated: true,
+const versionInactiveUntrimmedMessage = {
+  activated: false,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T14:56:08Z"),
   gitTags: null,
@@ -77,8 +77,9 @@ const versionInactive = {
     "DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)",
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
   upstreamProject: null,
-  commitType: "inactive" as "inactive",
+  trimMessage: false,
 };
+
 export const Default: StoryObj<typeof VersionLabel> = {
   render: (args) => (
     <Container>
@@ -103,9 +104,9 @@ export const UpstreamProject: StoryObj<typeof VersionLabel> = {
   args: versionWithUpstreamProject,
 };
 
-export const Inactive: StoryObj<typeof VersionLabel> = {
+export const InactiveUntrimmedMessage: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: versionInactive,
+  args: versionInactiveUntrimmedMessage,
 };
 
 const Container = styled.div`

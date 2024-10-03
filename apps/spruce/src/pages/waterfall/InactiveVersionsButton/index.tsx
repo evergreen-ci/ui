@@ -30,7 +30,7 @@ export const InactiveVersionsButton: React.FC<Props> = ({
         {versions?.map((version) => (
           <StyledVersionLabel
             key={version.id}
-            commitType="inactive"
+            trimMessage={false}
             {...version}
           />
         ))}
