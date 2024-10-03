@@ -40,11 +40,13 @@ export const WaterfallGrid: React.FC = () => {
             version ? (
               <VersionLabel key={version.id} commitType="active" {...version} />
             ) : (
-              <InactiveVersionsButton
-                key={inactiveVersions?.[0].id}
-                containerHeight={height}
-                versions={inactiveVersions ?? []}
-              />
+              <InactiveVersion>
+                <InactiveVersionsButton
+                  key={inactiveVersions?.[0].id}
+                  containerHeight={height}
+                  versions={inactiveVersions ?? []}
+                />
+              </InactiveVersion>
             ),
           )}
         </Versions>
