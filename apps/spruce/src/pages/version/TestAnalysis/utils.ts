@@ -72,13 +72,14 @@ const filterGroupedTests = (
   const regex = new RegExp(testNamePattern);
   const hasStatuses = statuses && statuses.length > 0;
   const hasVariants = variants && variants.length > 0;
-
+  const statusSet = new Set(statuses);
+  const variantSet = new Set(variants);
   groupedTests.forEach((tasks, testName) => {
     if (!regex.test(testName)) return;
 
     const filteredTasks = tasks.filter((task) => {
-      const statusMatch = !hasStatuses || statuses.includes(task.status);
-      const variantMatch = !hasVariants || variants.includes(task.buildVariant);
+      const statusMatch = !hasStatuses || statusSet.has(task.status);
+      const variantMatch = !hasVariants || variantSet.has(task.buildVariant);
       return statusMatch && variantMatch;
     });
 

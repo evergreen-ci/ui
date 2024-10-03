@@ -33,6 +33,7 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
           ))}
         </TitleContainer>
       }
+      useIndent={false}
     >
       <StyledCard>
         <FailedTestGroupTable tasks={tasks} />

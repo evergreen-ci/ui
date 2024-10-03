@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -52,12 +52,19 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     },
   });
 
-  const groupedTestsMap = groupTestsByName(
-    data ? data?.version?.tasks?.data : [],
+  const groupedTestsMap = useMemo(
+    () => groupTestsByName(data ? data?.version?.tasks?.data : []),
+    [data],
   );
 
-  const buildVariants = getAllBuildVariants(groupedTestsMap);
-  const taskStatuses = getAllTaskStatuses(groupedTestsMap);
+  const buildVariants = useMemo(
+    () => getAllBuildVariants(groupedTestsMap),
+    [data],
+  );
+  const taskStatuses = useMemo(
+    () => getAllTaskStatuses(groupedTestsMap),
+    [data],
+  );
 
   const filteredGroupedTestsMap = filterGroupedTests(
     groupedTestsMap,
@@ -107,7 +114,9 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
                 aria-labelledby="test-failure-search-label"
                 disabled={!hasResults}
                 id="test-failure-search-input"
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={(e) => {
+                  setSearchValue(e.target.value);
+                }}
                 placeholder="Search failed tests (regex)"
                 value={searchValue}
               />
