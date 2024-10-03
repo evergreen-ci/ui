@@ -109,6 +109,11 @@ export const InactiveUntrimmedMessage: StoryObj<typeof VersionLabel> = {
   args: versionInactiveUntrimmedMessage,
 };
 
+export const SmallSize: StoryObj<typeof VersionLabel> = {
+  ...Default,
+  args: { ...version, size: "small" },
+};
+
 const Container = styled.div`
   max-width: 300px;
 `;

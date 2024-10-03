@@ -18,7 +18,9 @@ type VersionFields = NonNullable<
 type Props = VersionFields & {
   className?: string;
   trimMessage?: boolean;
+  size?: "small" | "default";
 };
+
 export const VersionLabel: React.FC<Props> = ({
   activated,
   author,
@@ -28,6 +30,7 @@ export const VersionLabel: React.FC<Props> = ({
   id,
   message,
   revision,
+  size = "default",
   trimMessage = true,
   upstreamProject,
 }) => {
@@ -42,7 +45,7 @@ export const VersionLabel: React.FC<Props> = ({
   const commitType = activated ? "active" : "inactive";
 
   return (
-    <VersionContainer className={className}>
+    <VersionContainer className={className} size={size}>
       <Body>
         <InlineCode
           as={Link}
@@ -103,13 +106,19 @@ export const VersionLabel: React.FC<Props> = ({
   );
 };
 
-const VersionContainer = styled.div`
+const VersionContainer = styled.div<{ size?: "small" | "default" }>`
   ${columnBasis}
 
-  > * {
-    font-size: 12px;
-    line-height: 1.3;
-  }
+  ${(props) => {
+    if (props.size === "small") {
+      return `
+          > * {
+            font-size: 12px;
+            line-height: 1.3;
+          }
+        `;
+    }
+  }}
 
   p {
     ${wordBreakCss}
