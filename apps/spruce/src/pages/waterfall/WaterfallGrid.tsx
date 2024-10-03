@@ -38,7 +38,7 @@ export const WaterfallGrid: React.FC = () => {
         <Versions data-cy="version-labels">
           {data.waterfall.versions.map(({ inactiveVersions, version }) =>
             version ? (
-              <VersionLabel key={version.id} commitType="active" {...version} />
+              <VersionLabel key={version.id} {...version} />
             ) : (
               <InactiveVersionsButton
                 key={inactiveVersions?.[0].id}

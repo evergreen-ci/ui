@@ -18,6 +18,7 @@ query Waterfall($options: WaterfallOptions!) {
     }
     versions {
       inactiveVersions {
+        activated
         author
         createTime
         gitTags {
@@ -29,6 +30,7 @@ query Waterfall($options: WaterfallOptions!) {
         ...UpstreamProject
       }
       version {
+        activated
         author
         createTime
         gitTags {

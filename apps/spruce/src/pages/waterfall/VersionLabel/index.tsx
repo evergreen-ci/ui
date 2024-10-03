@@ -16,13 +16,12 @@ type VersionFields = NonNullable<
 >;
 
 type Props = VersionFields & {
-  commitType: "active" | "inactive";
   className?: string;
 };
 export const VersionLabel: React.FC<Props> = ({
+  activated,
   author,
   className,
-  commitType,
   createTime,
   gitTags,
   id,
@@ -37,6 +36,8 @@ export const VersionLabel: React.FC<Props> = ({
   const jiraHost = spruceConfig?.jira?.host ?? "";
 
   const { sendEvent } = useWaterfallAnalytics();
+
+  const commitType = activated ? "active" : "inactive";
 
   return (
     <VersionContainer className={className}>
