@@ -18,7 +18,9 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
   testName,
 }) => {
   const statusMap = countStatuses(tasks);
-
+  const sortedStatuses = Object.entries(statusMap).sort((a, b) =>
+    a[0].localeCompare(b[0]),
+  );
   return (
     <Accordion
       shouldRenderChildIfHidden={false}
@@ -28,7 +30,7 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
             {testName} failed on {tasks.length}{" "}
             {pluralize("task", tasks.length)}
           </Body>
-          {Object.entries(statusMap).map(([status, count]) => (
+          {sortedStatuses.map(([status, count]) => (
             <TaskStatusBadge key={status} status={status} taskCount={count} />
           ))}
         </TitleContainer>
