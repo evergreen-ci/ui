@@ -5,11 +5,11 @@ import Button from "@leafygreen-ui/button";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import { palette } from "@leafygreen-ui/palette";
-import { SearchInput } from "@leafygreen-ui/search-input";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { H3, Label, Body, H3Props } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
+import TextInputWithValidation from "components/TextInputWithValidation";
 import { failedTaskStatuses, taskStatusToCopy } from "constants/task";
 import {
   TestAnalysisQuery,
@@ -110,12 +110,12 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
                   Search Test Failures
                 </Label>
               </LabelWrapper>
-              <SearchInput
+              <TextInputWithValidation
                 aria-labelledby="test-failure-search-label"
                 disabled={!hasResults}
                 id="test-failure-search-input"
-                onChange={(e) => {
-                  setSearchValue(e.target.value);
+                onChange={(value) => {
+                  setSearchValue(value);
                 }}
                 placeholder="Search failed tests (regex)"
                 value={searchValue}
@@ -142,6 +142,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               label="Build Variant"
               multiselect
               onChange={setSelectedBuildVariants}
+              overflow="scroll-x"
               placeholder="Select a build variant"
               value={selectedBuildVariants}
             >
