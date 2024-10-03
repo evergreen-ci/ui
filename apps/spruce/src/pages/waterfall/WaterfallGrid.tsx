@@ -8,7 +8,13 @@ import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
 import { BuildRow } from "./BuildRow";
 import { InactiveVersionsButton } from "./InactiveVersionsButton";
-import { BuildVariantTitle, gridGroupCss, Row, VERSION_LIMIT } from "./styles";
+import {
+  BuildVariantTitle,
+  gridGroupCss,
+  InactiveVersion,
+  Row,
+  VERSION_LIMIT,
+} from "./styles";
 import { VersionLabel } from "./VersionLabel";
 
 export const WaterfallGrid: React.FC = () => {
