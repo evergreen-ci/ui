@@ -2,6 +2,7 @@ import { memo, useCallback } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
+import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
@@ -18,9 +19,10 @@ import {
   gridGroupCss,
   InactiveVersion,
   Row,
+  statusColorMap,
 } from "./styles";
 
-const { black, gray, green, white } = palette;
+const { black, gray, white } = palette;
 
 export const BuildRow: React.FC<{
   build: WaterfallBuildVariant;
@@ -94,14 +96,18 @@ const BuildGrid: React.FC<{
       );
     }}
   >
-    {build.tasks.map(({ displayName, id, status }) => (
-      <SquareMemo
-        key={id}
-        data-tooltip={displayName}
-        status={status}
-        to={getTaskRoute(id)} // TODO DEVPROD-11734: use execution in task route
-      />
-    ))}
+    {build.tasks.map(({ displayName, id, status }) => {
+      // If the entire build is inactive, use inactive status for all tasks
+      const taskStatus = build.activated ? status : TaskStatus.Inactive;
+      return (
+        <SquareMemo
+          key={id}
+          data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
+          status={taskStatus}
+          to={getTaskRoute(id)} // TODO DEVPROD-11734: use execution in task route
+        />
+      );
+    })}
   </Build>
 );
 
@@ -129,11 +135,7 @@ const Square = styled(Link)<{ status: string }>`
   position: relative;
 
   /* TODO DEVPROD-11368: Render colors for all statuses. Could use background-image property to render icons. */
-  ${({ status }) =>
-    status === TaskStatus.Succeeded
-      ? `background-color: ${green.dark1};`
-      : `background-color: ${gray.light2};
-  `}
+  ${({ status }) => `background-color: ${statusColorMap[status]};`}
 
   /* Tooltip */
   :before {

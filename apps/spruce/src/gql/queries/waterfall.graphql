@@ -4,6 +4,7 @@ query Waterfall($options: WaterfallOptions!) {
   waterfall(options: $options) {
     buildVariants {
       builds {
+        activated
         displayName
         id
         tasks {
