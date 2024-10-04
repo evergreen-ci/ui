@@ -11,7 +11,7 @@ describe("Shortcuts", () => {
   });
 
   it("should be able to open the keyboard shortcut modal by clicking navbar icon button", () => {
-    cy.get(`[aria-label="Click to open shortcut modal"]`).click();
+    cy.get(`[aria-label="Open shortcut modal"]`).click();
     cy.dataCy("shortcut-modal").should("be.visible");
   });
 });
