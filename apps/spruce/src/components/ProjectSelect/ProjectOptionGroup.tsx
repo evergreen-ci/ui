@@ -18,10 +18,10 @@ const { blue } = palette;
 
 interface OptionProps {
   displayName: string;
-  projectIdentifier: string;
   isFavorite: boolean;
-  onClick: (identifier: string) => void;
   isSelected: boolean;
+  onClick: (identifier: string) => void;
+  projectIdentifier: string;
 }
 
 const ProjectOption: React.FC<OptionProps> = ({
@@ -39,36 +39,41 @@ const ProjectOption: React.FC<OptionProps> = ({
       isFavorite={isFavorite}
       projectIdentifier={projectIdentifier}
     />
-    <Label bolded={isSelected} data-cy="project-display-name">
+    <Label bolded={isSelected ? 1 : 0} data-cy="project-display-name">
       {displayName || projectIdentifier}
     </Label>
     {isSelected && <CheckmarkIcon fill={blue.base} glyph="Checkmark" />}
   </ProjectOptionContainer>
 );
 
-const Label = styled(Body)<BodyProps & { bolded: boolean }>`
+// bolded is a number because booleans aren't valid props to styled components.
+const Label = styled(Body)<BodyProps & { bolded: number }>`
   font-weight: ${({ bolded }) => (bolded ? "bold" : "normal")};
+`;
+
+const CheckmarkIcon = styled(Icon)`
+  margin-left: auto;
+  margin-right: ${size.xs};
 `;
 
 const ProjectOptionContainer = styled.div`
   display: flex;
   align-items: center;
   gap: ${size.xxs};
-  padding: ${size.xxs} 0;
-  padding-left: ${size.xxs};
+  padding: ${size.xxs};
   ${hoverStyles}
 `;
 
 interface OptionGroupProps {
-  name: string;
-  repoIdentifier?: string;
   canClickOnRepoGroup?: boolean;
+  name: string;
+  onClick: (identifier: string) => void;
   projects: {
     displayName: string;
     identifier: string;
     isFavorite: boolean;
   }[];
-  onClick: (identifier: string) => void;
+  repoIdentifier?: string;
   value: string | undefined;
 }
 export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
@@ -78,53 +83,46 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   projects,
   repoIdentifier,
   value,
-}) => (
-  <OptionGroupContainer>
-    {/* if it's the project settings page and it's not the "" group, make the header clickable */}
-    {canClickOnRepoGroup ? (
-      <GroupHeader
-        css={hoverStyles}
+}) => {
+  const groupHeaderProps = canClickOnRepoGroup
+    ? {
+        css: hoverStyles,
         // @ts-expect-error: FIXME. This comment was added by an automated script.
-        onClick={() => onClick(repoIdentifier)}
-        role="button"
-      >
-        {name}
-      </GroupHeader>
-    ) : (
-      <GroupHeader>{name}</GroupHeader>
-    )}
+        onClick: () => onClick(repoIdentifier),
+        role: "button",
+      }
+    : {};
 
-    <ListContainer>
-      {projects?.map((project) => (
-        <ProjectOption
-          key={project.identifier}
-          isSelected={
-            value === project.displayName || value === project.identifier
-          }
-          onClick={onClick}
-          projectIdentifier={project.identifier}
-          {...project}
-        />
-      ))}
-    </ListContainer>
-  </OptionGroupContainer>
-);
+  return (
+    <OptionGroupContainer>
+      <GroupHeader {...groupHeaderProps}>{name}</GroupHeader>
+      <ListContainer>
+        {projects?.map((project) => (
+          <ProjectOption
+            key={project.identifier}
+            isSelected={
+              value === project.displayName || value === project.identifier
+            }
+            onClick={onClick}
+            projectIdentifier={project.identifier}
+            {...project}
+          />
+        ))}
+      </ListContainer>
+    </OptionGroupContainer>
+  );
+};
+
+const GroupHeader = styled(Overline)<OverlineProps>`
+  ${overlineStyles}
+`;
 
 const ListContainer = styled.div`
   margin: 0;
   padding: 0;
 `;
 
-const GroupHeader = styled(Overline)<OverlineProps>`
-  ${overlineStyles}
-`;
-
 const OptionGroupContainer = styled.div`
   word-break: normal;
   overflow-wrap: anywhere;
-`;
-
-const CheckmarkIcon = styled(Icon)`
-  margin-left: auto;
-  margin-right: ${size.xs};
 `;

@@ -12,15 +12,15 @@ import { useOnClickOutside } from "hooks";
 const { gray, white } = palette;
 
 interface DropdownProps {
-  ["data-cy"]?: string;
-  id?: string;
-  disabled?: boolean;
   buttonRenderer?: () => React.ReactNode;
   buttonText?: string;
   children?: React.ReactNode;
+  ["data-cy"]?: string;
+  disabled?: boolean;
+  id?: string;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
   onClose?: () => void;
+  setIsOpen: (isOpen: boolean) => void;
   useHorizontalPadding?: boolean;
 }
 const Dropdown: React.FC<DropdownProps> = ({
@@ -79,7 +79,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           refEl={menuButtonRef}
           style={{
             width: menuWidth,
-            padding: useHorizontalPadding ? `${size.xs}` : `${size.xs} 0`,
+            padding: useHorizontalPadding ? size.xs : `${size.xs} 0`,
           }}
         >
           <div ref={listMenuRef}>{children}</div>
@@ -131,8 +131,8 @@ const Menu = styled(Popover)`
   position: absolute;
   background-color: ${white};
   overflow: auto;
-  border-radius: 12px;
 
+  border-radius: 12px;
   box-shadow: 0 4px 7px 0 ${gray.light2};
   border: 1px solid ${gray.light2};
 `;

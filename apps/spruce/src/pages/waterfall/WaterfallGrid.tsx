@@ -55,7 +55,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           key={b.id}
           build={b}
           projectIdentifier={projectIdentifier}
-          versions={data?.waterfall.versions}
+          versions={data.waterfall.versions}
         />
       ))}
     </Container>
