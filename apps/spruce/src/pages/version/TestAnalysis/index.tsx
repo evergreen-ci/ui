@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -16,6 +16,8 @@ import {
   TestAnalysisQueryVariables,
 } from "gql/generated/types";
 import { TEST_ANALYSIS } from "gql/queries";
+import { useQueryParam } from "hooks/useQueryParam";
+import { TestAnalysisQueryParams } from "types/task";
 import GroupedTestMapList from "./GroupedTestMapList";
 import {
   countTotalTests,
@@ -30,13 +32,19 @@ interface TestAnalysisProps {
   versionId: string;
 }
 const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
-  const [selectedTaskStatuses, setSelectedTaskStatuses] = useState<string[]>(
-    [],
+  const [selectedTaskStatuses, setSelectedTaskStatuses] = useQueryParam<
+    string[]
+  >(TestAnalysisQueryParams.Statuses, []);
+
+  const [selectedBuildVariants, setSelectedBuildVariants] = useQueryParam<
+    string[]
+  >(TestAnalysisQueryParams.Variants, []);
+
+  const [testName, setTestName] = useQueryParam(
+    TestAnalysisQueryParams.TestName,
+    "",
   );
-  const [selectedBuildVariants, setSelectedBuildVariants] = useState<string[]>(
-    [],
-  );
-  const [searchValue, setSearchValue] = useState<string>("");
+
   const { data, loading } = useQuery<
     TestAnalysisQuery,
     TestAnalysisQueryVariables
@@ -59,16 +67,16 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
 
   const buildVariants = useMemo(
     () => getAllBuildVariants(groupedTestsMap),
-    [data],
+    [groupedTestsMap],
   );
   const taskStatuses = useMemo(
     () => getAllTaskStatuses(groupedTestsMap),
-    [data],
+    [groupedTestsMap],
   );
 
   const filteredGroupedTestsMap = filterGroupedTests(
     groupedTestsMap,
-    searchValue,
+    testName,
     selectedTaskStatuses,
     selectedBuildVariants,
   );
@@ -115,10 +123,9 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
                 disabled={!hasResults}
                 id="test-failure-search-input"
                 onChange={(value) => {
-                  setSearchValue(value);
+                  setTestName(value);
                 }}
                 placeholder="Search failed tests (regex)"
-                value={searchValue}
               />
             </div>
             <Combobox
@@ -165,7 +172,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
                 onClick={() => {
                   setSelectedTaskStatuses([]);
                   setSelectedBuildVariants([]);
-                  setSearchValue("");
+                  setTestName("");
                 }}
                 size="xsmall"
               >
