@@ -9,17 +9,17 @@ interface GroupedTestMapListProps {
 const GroupedTestMapList: React.FC<GroupedTestMapListProps> = ({
   groupedTestsMapEntries,
 }) => (
-  <>
+  <Container>
     {groupedTestsMapEntries.map(([testName, tasks]) => (
-      <SpacedDiv>
-        <FailedTestGroup key={testName} tasks={tasks} testName={testName} />
-      </SpacedDiv>
+      <FailedTestGroup key={testName} tasks={tasks} testName={testName} />
     ))}
-  </>
+  </Container>
 );
 
-const SpacedDiv = styled.div`
-  margin-top: ${size.s};
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: ${size.s};
 `;
 
 export default GroupedTestMapList;

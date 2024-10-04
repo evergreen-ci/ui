@@ -43,7 +43,6 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
   {
     header: "Build Variant",
     accessorKey: "buildVariant",
-    cell: ({ getValue }) => getValue() as string,
     enableSorting: true,
   },
   {
@@ -55,7 +54,6 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
   },
   {
     header: "Logs",
-    accessorKey: "id",
     cell: ({ row }) => (
       <Button
         data-cy="failed-test-group-parsley-btn"
