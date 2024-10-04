@@ -18,6 +18,7 @@ import {
 import { TEST_ANALYSIS } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TestAnalysisQueryParams } from "types/task";
+import { validateRegexp } from "utils/validators";
 import GroupedTestMapList from "./GroupedTestMapList";
 import {
   countTotalTests,
@@ -126,6 +127,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
                   setTestName(value);
                 }}
                 placeholder="Search failed tests (regex)"
+                validator={validateRegexp}
               />
             </div>
             <Combobox
