@@ -4,6 +4,13 @@ import { palette } from "@leafygreen-ui/palette";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { wordBreakCss } from "components/styles";
 import { size } from "constants/tokens";
+import {
+  redOutlineX,
+  whiteX,
+  whiteClockWithArrow,
+  whiteGear,
+  whiteWrench,
+} from "./icons";
 
 const { blue, gray, green, purple, red, yellow } = palette;
 
@@ -62,4 +69,15 @@ export const statusColorMap: Record<string, string> = {
   [TaskStatus.WillRun]: gray.dark1,
   [TaskStatus.Pending]: gray.dark1,
   [TaskStatus.Unstarted]: gray.dark1,
+};
+
+export const statusIconMap: Record<string, string> = {
+  [TaskStatus.Failed]: whiteX,
+  [TaskStatus.TaskTimedOut]: whiteClockWithArrow,
+  [TaskStatus.TestTimedOut]: whiteClockWithArrow,
+  [TaskStatus.SetupFailed]: whiteWrench,
+  [TaskStatus.KnownIssue]: redOutlineX,
+  [TaskStatus.SystemFailed]: whiteGear,
+  [TaskStatus.SystemTimedOut]: whiteGear,
+  [TaskStatus.SystemUnresponsive]: whiteGear,
 };

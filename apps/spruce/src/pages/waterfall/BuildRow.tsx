@@ -20,6 +20,7 @@ import {
   InactiveVersion,
   Row,
   statusColorMap,
+  statusIconMap,
 } from "./styles";
 
 const { black, gray, white } = palette;
@@ -134,8 +135,12 @@ const Square = styled(Link)<{ status: string }>`
   cursor: pointer;
   position: relative;
 
-  /* TODO DEVPROD-11368: Render colors for all statuses. Could use background-image property to render icons. */
-  ${({ status }) => `background-color: ${statusColorMap[status]};`}
+  ${({ status }) => {
+    const icon = statusIconMap?.[status];
+    const iconStyle = icon ? `background-image: ${icon};` : "";
+    return `${iconStyle}
+background-color: ${statusColorMap[status]};`;
+  }}
 
   /* Tooltip */
   :before {
