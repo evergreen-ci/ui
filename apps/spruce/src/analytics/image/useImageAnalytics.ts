@@ -2,7 +2,7 @@ import { ColumnFiltersState, PaginationState } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
-import { slugs } from "constants/routes";
+import { ImageTabRoutes, slugs } from "constants/routes";
 
 type Action =
   | {
@@ -26,7 +26,7 @@ type Action =
     }
   | {
       name: "Changed tab";
-      tab: string;
+      tab: ImageTabRoutes;
     }
   | {
       name: "Clicked 'Load more events' button";
