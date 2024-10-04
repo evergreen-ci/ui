@@ -17,6 +17,7 @@ interface AccordionProps {
   toggleFromBottom?: boolean;
   useIndent?: boolean;
   subtitle?: React.ReactNode;
+  /** This prop prevents the accordion from rendering the child component if the accordion is collapsed. It is useful if the child is expensive to render. */
   shouldRenderChildIfHidden?: boolean;
 }
 export const Accordion: React.FC<AccordionProps> = ({
