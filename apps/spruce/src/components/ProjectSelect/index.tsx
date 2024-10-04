@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
+import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import SearchableDropdown from "components/SearchableDropdown";
@@ -93,8 +94,13 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   };
 
   if (allProjects.length === 0 || loading) {
-    return null;
+    return <Skeleton />;
   }
+
+  const value =
+    selectedProject?.displayName ||
+    selectedProject?.identifier ||
+    selectedProjectIdentifier;
 
   return (
     <SearchableDropdown
@@ -115,16 +121,14 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
           onClick={onClick}
           projects={projectGroup.projects}
           repoIdentifier={projectGroup?.repo?.id}
+          value={value}
         />
       )}
       options={allProjects}
       searchFunc={handleSearch}
+      searchPlaceholder="Search projects"
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      value={
-        selectedProject?.displayName ||
-        selectedProject?.identifier ||
-        selectedProjectIdentifier
-      }
+      value={value}
       valuePlaceholder="Select a project"
     />
   );

@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import Dropdown from ".";
 
 const children = () => <div>Some Children</div>;
@@ -18,7 +18,9 @@ describe("dropdown", () => {
     await user.click(button);
     expect(screen.getByText("Some Children")).toBeInTheDocument();
     await user.click(button);
-    expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
+    });
   });
 
   it("clicking on the dropdown contents should not close the dropdown", async () => {
@@ -29,8 +31,7 @@ describe("dropdown", () => {
     expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
     await user.click(button);
     expect(screen.getByText("Some Children")).toBeInTheDocument();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByText("Some Children"));
+    await user.click(screen.getByText("Some Children"));
     expect(screen.getByText("Some Children")).toBeInTheDocument();
   });
 
@@ -43,7 +44,9 @@ describe("dropdown", () => {
     await user.click(button);
     expect(screen.getByText("Some Children")).toBeInTheDocument();
     await user.click(document.body);
-    expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByText("Some Children")).not.toBeInTheDocument();
+    });
   });
 
   it("renders a custom button contents when custom buttonRenderer is passed in", () => {
