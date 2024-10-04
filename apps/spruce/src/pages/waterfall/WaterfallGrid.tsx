@@ -22,7 +22,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {
-      skip: !projectIdentifier,
       variables: {
         options: {
           projectIdentifier,
@@ -37,7 +36,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       <Row>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
-          {data?.waterfall.versions.map(({ inactiveVersions, version }, i) =>
+          {data.waterfall.versions.map(({ inactiveVersions, version }, i) =>
             version ? (
               <VersionLabel key={version.id} {...version} />
             ) : (
@@ -51,7 +50,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           )}
         </Versions>
       </Row>
-      {data?.waterfall.buildVariants.map((b) => (
+      {data.waterfall.buildVariants.map((b) => (
         <BuildRow
           key={b.id}
           build={b}
