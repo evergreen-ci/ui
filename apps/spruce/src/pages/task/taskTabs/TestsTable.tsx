@@ -66,6 +66,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       appliedDefaultSort.current = pathname;
       setQueryParams({
+        ...queryParams,
         [TableQueryParams.SortBy]: TestSortCategory.Status,
         [TableQueryParams.SortDir]: SortDirection.Asc,
       });

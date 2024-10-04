@@ -30,7 +30,7 @@ export const PatchTasksTable: React.FC<Props> = ({
   tasks,
 }) => {
   const { [slugs.versionId]: versionId } = useParams();
-  const [, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams();
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
   const filterHookProps = {
@@ -69,6 +69,7 @@ export const PatchTasksTable: React.FC<Props> = ({
 
   const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
     setQueryParams({
+      ...queryParams,
       sorts: toSortString(sorter),
       [PaginationQueryParams.Page]: "0",
     });

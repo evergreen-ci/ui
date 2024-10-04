@@ -33,7 +33,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const { [slugs.versionId]: versionId } = useParams();
   const { search } = useLocation();
 
-  const [, setQueryParams] = useQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams();
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionAnalytics = useVersionAnalytics(versionId);
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -44,6 +44,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
 
   useEffect(() => {
     setQueryParams({
+      ...queryParams,
       [TableQueryParams.Sorts]: defaultSort,
     });
     setHasInitialized(true);
@@ -51,6 +52,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
 
   const clearQueryParams = () => {
     setQueryParams({
+      ...queryParams,
       [PatchTasksQueryParams.TaskName]: undefined,
       [PatchTasksQueryParams.Variant]: undefined,
       [PatchTasksQueryParams.Statuses]: undefined,
