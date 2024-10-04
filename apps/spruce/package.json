@@ -182,6 +182,11 @@
   "resolutions": {
     "has-symbols": "^1.0.2"
   },
+  "overrides": {
+    "@leafygreen-ui/combobox": {
+      "@leafygreen-ui/hooks": "8.1.3"
+    }
+  },
   "engines": {
     "node": ">=20.11.0"
   }
