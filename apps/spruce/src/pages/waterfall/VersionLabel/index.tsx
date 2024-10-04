@@ -93,13 +93,24 @@ export const VersionLabel: React.FC<Props> = ({
         trimMessage={trimMessage}
       >
         <strong>{author}</strong> &bull;{" "}
-        {jiraLinkify(message, jiraHost, () => {
-          sendEvent({
-            name: "Clicked commit label",
-            "commit.type": commitType,
-            link: "jira",
-          });
-        })}
+        {jiraLinkify(
+          message +
+            message +
+            message +
+            message +
+            message +
+            message +
+            message +
+            message,
+          jiraHost,
+          () => {
+            sendEvent({
+              name: "Clicked commit label",
+              "commit.type": commitType,
+              link: "jira",
+            });
+          },
+        )}
       </CommitMessage>
       {gitTags && <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>}
     </VersionContainer>
@@ -126,8 +137,12 @@ const VersionContainer = styled.div<{ size?: "small" | "default" }>`
 `;
 
 const CommitMessage = styled(Body)<{ trimMessage: boolean }>`
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  ${(props) => props.trimMessage && "overflow: hidden;"}
+  ${(props) =>
+    props.trimMessage &&
+    `
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    `}
 `;
