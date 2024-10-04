@@ -6,6 +6,7 @@
     <table
       class="leafygreen-ui-1soynca"
       data-cy="execution-tasks-table"
+      data-lgid="lg-table"
     >
       <thead
         class="leafygreen-ui-bebmcm"
@@ -13,6 +14,7 @@
         <tr>
           <th
             class="leafygreen-ui-coj2qp"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -23,6 +25,7 @@
                 aria-disabled="false"
                 aria-label="Sort by Name"
                 class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -50,6 +53,7 @@
           </th>
           <th
             class="leafygreen-ui-1ldshj2"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -60,6 +64,7 @@
                 aria-disabled="false"
                 aria-label="Sort by Task Status"
                 class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -87,6 +92,7 @@
           </th>
           <th
             class="leafygreen-ui-1ldshj2"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -97,6 +103,7 @@
                 aria-disabled="false"
                 aria-label="Sort by Base Status"
                 class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -124,6 +131,7 @@
           </th>
           <th
             class="leafygreen-ui-1qsod8o"
+            data-lgid="lg-table-header"
             scope="col"
           >
             <div
@@ -134,6 +142,7 @@
                 aria-disabled="false"
                 aria-label="Sort by Variant"
                 class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
                 data-testid="lg-table-sort-icon-button"
                 tabindex="0"
               >
@@ -166,11 +175,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="execution-tasks-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -193,6 +205,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -213,6 +226,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -222,6 +236,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -243,11 +258,14 @@
           aria-hidden="false"
           class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
           data-cy="execution-tasks-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
           <td
             class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -270,6 +288,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -290,6 +309,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
@@ -299,6 +319,7 @@
           </td>
           <td
             class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div

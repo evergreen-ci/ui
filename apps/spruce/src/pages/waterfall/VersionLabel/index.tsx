@@ -93,24 +93,13 @@ export const VersionLabel: React.FC<Props> = ({
         trimMessage={trimMessage}
       >
         <strong>{author}</strong> &bull;{" "}
-        {jiraLinkify(
-          message +
-            message +
-            message +
-            message +
-            message +
-            message +
-            message +
-            message,
-          jiraHost,
-          () => {
-            sendEvent({
-              name: "Clicked commit label",
-              "commit.type": commitType,
-              link: "jira",
-            });
-          },
-        )}
+        {jiraLinkify(message, jiraHost, () => {
+          sendEvent({
+            name: "Clicked commit label",
+            "commit.type": commitType,
+            link: "jira",
+          });
+        })}
       </CommitMessage>
       {gitTags && <Body>Git Tags: {gitTags.map((g) => g.tag).join(", ")}</Body>}
     </VersionContainer>

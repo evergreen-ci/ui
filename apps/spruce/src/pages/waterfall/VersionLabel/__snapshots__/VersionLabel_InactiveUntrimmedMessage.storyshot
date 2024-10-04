@@ -20,10 +20,14 @@
         </a>
          
         09/19/2024, 10:56
+        <div
+          class="css-etc2w8-StyledBadge e96hp3z0 leafygreen-ui-c62i3c"
+        >
+          Inactive
+        </div>
       </p>
       <p
-        class="css-69ll71-CommitMessage e3zirl00 leafygreen-ui-1tb6tuo"
-        title="DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)"
+        class="css-9ip3is-CommitMessage e3zirl00 leafygreen-ui-1tb6tuo"
       >
         <strong>
           Sophie Stadler
