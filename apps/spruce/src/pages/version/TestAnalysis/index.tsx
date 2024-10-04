@@ -11,6 +11,7 @@ import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import { failedTaskStatuses, taskStatusToCopy } from "constants/task";
+import { useToastContext } from "context/toast";
 import {
   TestAnalysisQuery,
   TestAnalysisQueryVariables,
@@ -18,8 +19,10 @@ import {
 import { TEST_ANALYSIS } from "gql/queries";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TestAnalysisQueryParams } from "types/task";
+import { reportError } from "utils/errorReporting";
 import { validateRegexp } from "utils/validators";
 import GroupedTestMapList from "./GroupedTestMapList";
+import { TaskBuildVariantField } from "./types";
 import {
   countTotalTests,
   filterGroupedTests,
@@ -46,6 +49,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     "",
   );
 
+  const dispatchToast = useToastContext();
   const { data, loading } = useQuery<
     TestAnalysisQuery,
     TestAnalysisQueryVariables
@@ -58,6 +62,9 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
       opts: {
         statuses: ["fail"],
       },
+    },
+    onError: (err) => {
+      dispatchToast.error(`Error fetching test analysis: ${err.message}`);
     },
   });
 
@@ -74,13 +81,19 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     () => getAllTaskStatuses(groupedTestsMap),
     [groupedTestsMap],
   );
+  let filteredGroupedTestsMap = new Map<string, TaskBuildVariantField[]>();
+  try {
+    filteredGroupedTestsMap = filterGroupedTests(
+      groupedTestsMap,
+      testName,
+      selectedTaskStatuses,
+      selectedBuildVariants,
+    );
+  } catch (error) {
+    reportError(new Error(`Invalid Regexp: ${error}`)).severe();
+    dispatchToast.error(`Invalid Regexp: ${error}`);
+  }
 
-  const filteredGroupedTestsMap = filterGroupedTests(
-    groupedTestsMap,
-    testName,
-    selectedTaskStatuses,
-    selectedBuildVariants,
-  );
   const groupedTestsMapEntries = Array.from(
     filteredGroupedTestsMap.entries(),
   ).sort((a, b) => b[1].length - a[1].length);

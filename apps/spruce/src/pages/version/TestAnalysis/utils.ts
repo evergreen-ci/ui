@@ -1,6 +1,5 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";
-import { reportError } from "utils/errorReporting";
 import {
   TestAnalysisQueryTasks,
   TaskBuildVariantField,
@@ -70,12 +69,8 @@ const filterGroupedTests = (
   variants: string[],
 ): GroupedTestMap => {
   const filteredTests = new Map<string, TaskBuildVariantField[]>();
-  let regex = /./;
-  try {
-    regex = new RegExp(testNamePattern);
-  } catch (e) {
-    reportError(new Error(`Invalid Regular Expression: ${e}`)).severe();
-  }
+  const regex = new RegExp(testNamePattern);
+
   const hasStatuses = statuses && statuses.length > 0;
   const hasVariants = variants && variants.length > 0;
   const statusSet = new Set(statuses);
