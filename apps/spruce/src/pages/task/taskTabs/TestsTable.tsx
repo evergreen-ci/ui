@@ -62,7 +62,6 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     if (execution == null) {
       return;
     }
-
     if (sortBy === undefined && appliedDefaultSort.current !== pathname) {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       appliedDefaultSort.current = pathname;
@@ -71,7 +70,7 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
         [TableQueryParams.SortDir]: SortDirection.Asc,
       });
     }
-  }, [pathname, setQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
