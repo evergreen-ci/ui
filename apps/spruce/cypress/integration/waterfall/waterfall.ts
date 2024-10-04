@@ -17,6 +17,7 @@ describe("waterfall page", () => {
       cy.dataCy("version-labels")
         .children()
         .eq(2)
+        .get("button")
         .should("have.attr", "data-cy", "inactive-versions-button");
       cy.dataCy("build-group")
         .first()
