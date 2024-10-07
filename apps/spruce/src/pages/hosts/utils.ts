@@ -25,8 +25,12 @@ const useQueryVariables = (): HostsQueryVariables => {
     currentTaskId,
     statuses,
     startedBy,
-    sortBy,
-    sortDir,
+    sortBy: Object.values(HostSortBy).includes(sortBy)
+      ? sortBy
+      : HostSortBy.Status,
+    sortDir: Object.values(SortDirection).includes(sortDir)
+      ? sortDir
+      : SortDirection.Asc,
     page,
     limit,
   };
