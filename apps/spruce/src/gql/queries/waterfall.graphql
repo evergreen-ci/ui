@@ -21,6 +21,7 @@ query Waterfall($options: WaterfallOptions!) {
         activated
         author
         createTime
+        errors
         gitTags {
           tag
         }
@@ -33,6 +34,7 @@ query Waterfall($options: WaterfallOptions!) {
         activated
         author
         createTime
+        errors
         gitTags {
           tag
         }
