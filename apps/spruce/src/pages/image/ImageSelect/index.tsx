@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
+import { useImageAnalytics } from "analytics";
 import { getImageRoute } from "constants/routes";
 import { zIndex } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -13,6 +14,7 @@ interface ImageSelectProps {
 }
 
 export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
+  const { sendEvent } = useImageAnalytics();
   const navigate = useNavigate();
 
   const dispatchToast = useToastContext();
@@ -36,6 +38,11 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
         label="Images"
         // @ts-expect-error: onChange expects type string | null
         onChange={(imageId: string) => {
+          sendEvent({
+            name: "Changed image",
+            from: selectedImage,
+            to: imageId,
+          });
           navigate(getImageRoute(imageId));
         }}
         placeholder="Select an image"

@@ -10,7 +10,8 @@ type Action =
       "commit.type": "active" | "inactive";
     }
   | { name: "Clicked variant label" }
-  | { name: "Clicked task box"; "task.status": string };
+  | { name: "Clicked task box"; "task.status": string }
+  | { name: "Changed project"; project: string };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();

@@ -18,9 +18,19 @@ query Waterfall($options: WaterfallOptions!) {
     }
     versions {
       inactiveVersions {
+        activated
+        author
+        createTime
+        gitTags {
+          tag
+        }
         id
+        message
+        revision
+        ...UpstreamProject
       }
       version {
+        activated
         author
         createTime
         gitTags {

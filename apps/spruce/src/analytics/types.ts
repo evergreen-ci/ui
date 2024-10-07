@@ -20,4 +20,5 @@ export type AnalyticsIdentifier =
   | "TaskQueue"
   | "UserPatches"
   | "Version"
-  | "Waterfall";
+  | "Waterfall"
+  | "Image";
