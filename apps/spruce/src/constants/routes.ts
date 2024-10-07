@@ -294,6 +294,9 @@ export const getDistroSettingsRoute = (
 export const getCommitsRoute = (projectIdentifier: string = "") =>
   `${paths.commits}/${encodeURIComponent(projectIdentifier)}`;
 
+export const getWaterfallRoute = (projectIdentifier: string = "") =>
+  `${paths.project}/${encodeURIComponent(projectIdentifier)}${paths.waterfall}`;
+
 const getHistoryRoute = (
   basePath: string,
   filters?: {

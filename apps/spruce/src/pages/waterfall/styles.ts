@@ -47,6 +47,7 @@ export const Row = styled.div`
 
 export const InactiveVersion = styled.div`
   width: ${INACTIVE_WIDTH}px;
+  text-align: center;
 `;
 
 export const statusColorMap: Record<string, string> = {

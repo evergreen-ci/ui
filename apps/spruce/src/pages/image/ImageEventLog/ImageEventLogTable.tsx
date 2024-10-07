@@ -9,7 +9,9 @@ import {
   getFilteredRowModel,
   getFacetedUniqueValues,
 } from "@leafygreen-ui/table";
+import { useImageAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
+import { onChangeHandler } from "components/Table/utils";
 import { tableColumnOffset } from "constants/tokens";
 import {
   ImageEventEntry,
@@ -68,7 +70,9 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
   entries,
   globalFilter,
 }) => {
+  const { sendEvent } = useImageAnalytics();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<ImageEventEntry>({
     columns,
@@ -77,7 +81,15 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
     defaultColumn: {
       enableColumnFilter: false,
     },
-    onColumnFiltersChange: setColumnFilters,
+    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      setColumnFilters,
+      (f) =>
+        sendEvent({
+          name: "Filtered table",
+          "table.name": "Image Event Log",
+          "table.filters": f,
+        }),
+    ),
     state: {
       columnFilters,
       globalFilter,

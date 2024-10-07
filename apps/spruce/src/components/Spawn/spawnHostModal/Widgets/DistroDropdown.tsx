@@ -1,12 +1,14 @@
+import { Fragment } from "react";
 import styled from "@emotion/styled";
-import { palette } from "@leafygreen-ui/palette";
 import { Overline } from "@leafygreen-ui/typography";
 import SearchableDropdown from "components/SearchableDropdown";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { EnumSpruceWidgetProps } from "components/SpruceForm/Widgets/types";
+import {
+  hoverStyles,
+  overlineStyles,
+} from "components/styles/SearchableDropdown";
 import { size } from "constants/tokens";
-
-const { gray } = palette;
 
 interface DistroValue {
   adminOnly: boolean;
@@ -99,8 +101,8 @@ const DropdownOption: React.FC<{
   onClick: (distro: string) => void;
 }> = ({ distros, onClick, title }) =>
   distros.length > 0 ? (
-    <OptionContainer key={title}>
-      <Overline>{title}</Overline>
+    <Fragment key={title}>
+      <Overline css={overlineStyles}>{title}</Overline>
       <ListContainer>
         {distros.map((d) => (
           <Option
@@ -112,24 +114,21 @@ const DropdownOption: React.FC<{
           </Option>
         ))}
       </ListContainer>
-    </OptionContainer>
+    </Fragment>
   ) : null;
 
 const ListContainer = styled.div`
   margin: 0;
   padding: 0;
 `;
-const OptionContainer = styled.div`
-  padding: ${size.xs};
-`;
-const Option = styled(OptionContainer)`
+
+const Option = styled.div`
   word-break: normal;
   overflow-wrap: anywhere;
-  cursor: pointer;
-  :hover {
-    background-color: ${gray.light1};
-  }
+  padding: ${size.xs} ${size.s};
+  ${hoverStyles};
 `;
+
 const StyledElementWrapper = styled(ElementWrapper)`
   display: flex;
   flex-direction: column;
