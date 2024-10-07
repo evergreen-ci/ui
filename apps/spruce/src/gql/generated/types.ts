@@ -9552,9 +9552,30 @@ export type WaterfallQuery = {
     }>;
     versions: Array<{
       __typename?: "WaterfallVersion";
-      inactiveVersions?: Array<{ __typename?: "Version"; id: string }> | null;
+      inactiveVersions?: Array<{
+        __typename?: "Version";
+        activated?: boolean | null;
+        author: string;
+        createTime: Date;
+        id: string;
+        message: string;
+        revision: string;
+        gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          owner: string;
+          project: string;
+          repo: string;
+          revision: string;
+          triggerID: string;
+          triggerType: string;
+          task?: { __typename?: "Task"; execution: number; id: string } | null;
+          version?: { __typename?: "Version"; id: string } | null;
+        } | null;
+      }> | null;
       version?: {
         __typename?: "Version";
+        activated?: boolean | null;
         author: string;
         createTime: Date;
         id: string;

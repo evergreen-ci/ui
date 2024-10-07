@@ -13,16 +13,27 @@ describe("waterfall page", () => {
   });
 
   describe("inactive commits", () => {
-    it("renders an inactive version column", () => {
+    it("renders an inactive version column and button", () => {
       cy.dataCy("version-labels")
         .children()
         .eq(2)
-        .should("have.attr", "data-cy", "inactive-label");
+        .get("button")
+        .should("have.attr", "data-cy", "inactive-versions-button");
       cy.dataCy("build-group")
         .first()
         .children()
         .eq(2)
         .should("have.attr", "data-cy", "inactive-column");
+    });
+    it("clicking an inactive versions button renders a inactive versions modal", () => {
+      cy.dataCy("inactive-versions-button").first().click();
+      cy.dataCy("inactive-versions-modal").should("be.visible");
+      cy.dataCy("inactive-versions-modal").contains("1 Inactive Version");
+      cy.dataCy("inactive-versions-modal").contains("e695f65");
+      cy.dataCy("inactive-versions-modal").contains("Mar 2, 2022");
+      cy.dataCy("inactive-versions-modal").contains(
+        "EVG-16356 Use Build Variant stats to fetch grouped build variants (#1106)",
+      );
     });
   });
 
