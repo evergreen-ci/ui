@@ -13,14 +13,13 @@ import {
   WaterfallBuildVariant,
   WaterfallQuery,
 } from "gql/generated/types";
+import { statusColorMap, statusIconMap } from "./icons";
 import {
   BuildVariantTitle,
   columnBasis,
   gridGroupCss,
   InactiveVersion,
   Row,
-  statusColorMap,
-  statusIconMap,
 } from "./styles";
 
 const { black, gray, white } = palette;
