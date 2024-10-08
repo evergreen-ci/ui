@@ -6,7 +6,7 @@ import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { H3, Label, Body, H3Props } from "@leafygreen-ui/typography";
+import { H3, Body, H3Props } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import TextInputWithValidation from "components/TextInputWithValidation";
@@ -106,6 +106,10 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
 
   const hasMatchingResults = totalFilteredTestCount > 0;
   const hasResults = data && totalTestCount > 0;
+  const hasFiltersApplied =
+    selectedTaskStatuses.length > 0 ||
+    selectedBuildVariants.length > 0 ||
+    testName.length > 0;
   return (
     <Container>
       {loading ? (
@@ -124,18 +128,11 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
           </Body>
           <FilterContainer>
             <div>
-              <LabelWrapper>
-                <Label
-                  htmlFor="test-failure-search"
-                  id="test-failure-search-label"
-                >
-                  Search Test Failures
-                </Label>
-              </LabelWrapper>
               <TextInputWithValidation
                 aria-labelledby="test-failure-search-label"
                 disabled={!hasResults}
                 id="test-failure-search-input"
+                label="Search Test Failures"
                 onChange={(value) => {
                   setTestName(value);
                 }}
@@ -180,10 +177,11 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
           {hasResults && (
             <FilterSubheaderContainer>
               <Body weight="medium">
-                {totalFilteredTestCount}/{totalTestCount} Filtered Failed{" "}
+                {totalFilteredTestCount}/{totalTestCount} Failed{" "}
                 {pluralize("Test", totalFilteredTestCount)}
               </Body>
               <Button
+                disabled={hasFiltersApplied}
                 onClick={() => {
                   setSelectedTaskStatuses([]);
                   setSelectedBuildVariants([]);
@@ -211,11 +209,6 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
 
 const Container = styled.div`
   margin: 0 ${size.xs};
-`;
-
-const LabelWrapper = styled.div`
-  margin-bottom: ${size.xxs};
-  line-height: 20px;
 `;
 
 const FilterSubheaderContainer = styled.div`
