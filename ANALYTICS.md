@@ -93,6 +93,9 @@ To begin querying and analyzing data in Honeycomb, follow these steps:
      analytics events are queried.
    - Each event has a `name` attribute, which can be used to filter for a
      specific event.
+   - The production environment is further divided into `production` and `beta`
+     environment events. Use the `environment` attribute to filter for events
+     in a specific environment.
 
 3. **Grouping Data**:
    - Use the `GROUP BY` clause to organize data by a specific attribute,
@@ -154,3 +157,13 @@ querying. Here are some common default attributes:
 - `browser.name`
 - `url.path`
 - `user.id`
+- `environment`
+
+---
+
+### Additional Resources
+- [Honeycomb Query And Visualizing](https://docs.honeycomb.io/investigate/debug/application-data-in-honeycomb/#query-and-visualize)
+- [Honeycomb Best Practices](https://docs.honeycomb.io/get-started/best-practices/)
+- [OpenTelemetry Attribute Naming](https://opentelemetry.io/docs/specs/semconv/general/attribute-naming/)
+- [Honeycomb for Web](https://docs.honeycomb.io/send-data/javascript-browser/honeycomb-distribution/)
+
