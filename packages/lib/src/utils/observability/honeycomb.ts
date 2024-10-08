@@ -19,6 +19,8 @@ interface HoneycombConfig {
   debug: boolean;
   /** The INGEST key for the Honeycomb SDK */
   ingestKey: string;
+  /** The environment we are running in */
+  environment: string;
 }
 
 /**
@@ -29,11 +31,13 @@ interface HoneycombConfig {
  * @param config.debug - Whether to start the SDK in debug mode.
  * @param config.serviceName - The name of the service.
  * @param config.endpoint - The endpoint for the Honeycomb SDK to send traces to if we are not using the default.
+ * @param config.environment - The environment we are running in.
  */
 const initializeHoneycomb = ({
   backendURL,
   debug,
   endpoint,
+  environment,
   ingestKey,
   serviceName,
 }: HoneycombConfig) => {
@@ -87,6 +91,7 @@ const initializeHoneycomb = ({
         // Add user.id as an attribute to all traces.
         resourceAttributes: {
           "user.id": userId,
+          environment,
         },
         localVisualizations: debug,
         serviceName,
