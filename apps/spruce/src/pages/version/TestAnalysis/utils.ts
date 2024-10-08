@@ -1,5 +1,4 @@
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import {
   TestAnalysisQueryTasks,
   TaskBuildVariantField,
@@ -18,9 +17,7 @@ const groupTestsByName = (
   const processedTasks = new Set<string>();
 
   tasks.forEach((task) => {
-    const tests = getTestsInTask(task.tests);
-
-    tests.forEach((test) => {
+    task.tests.testResults.forEach((test) => {
       const taskKey = `${task.id}-${test.testFile}`; // Create a unique key for task-test combinations
 
       if (!processedTasks.has(taskKey)) {
@@ -46,12 +43,6 @@ const groupTestsByName = (
 
   return testMap;
 };
-
-const getTestsInTask = (tests: Unpacked<TestAnalysisQueryTasks>["tests"]) =>
-  tests.testResults.map((test) => ({
-    testFile: test.testFile,
-    logs: test.logs,
-  }));
 
 /**
  * Filters a map of test names to an array of tasks by matching test names with a regex,
