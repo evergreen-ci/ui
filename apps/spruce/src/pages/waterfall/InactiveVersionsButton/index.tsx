@@ -19,7 +19,7 @@ export const InactiveVersionsButton: React.FC<Props> = ({
   containerHeight,
   versions,
 }) => {
-  const numBrokenVersions =
+  const brokenVersionsCount =
     versions?.reduce(
       (accum, { errors }) => (errors.length ? accum + 1 : accum),
       0,
@@ -41,9 +41,10 @@ export const InactiveVersionsButton: React.FC<Props> = ({
           />
         ))}
       </DisplayModal>
-      {numBrokenVersions > 0 && (
+      {brokenVersionsCount > 0 && (
         <StyledBadge data-cy="broken-versions-badge" variant={Variant.Red}>
-          {numBrokenVersions} broken {pluralize("version", numBrokenVersions)}
+          {brokenVersionsCount} broken{" "}
+          {pluralize("version", brokenVersionsCount)}
         </StyledBadge>
       )}
       <Button
