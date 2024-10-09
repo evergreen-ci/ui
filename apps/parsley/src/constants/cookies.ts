@@ -13,7 +13,5 @@ export const HAS_SEEN_SEARCHBAR_GUIDE_CUE = "has-seen-searchbar-guide-cue";
 
 export const LAST_SELECTED_LOG_TYPE = "last-selected-log-type";
 
-// Cookies for features
-export const SEEN_SECTIONS_BETA_FEATURE_MODAL =
-  "has-seen-sections-beta-feature-modal";
-export const SEEN_SECTIONS_BETA_GUIDE_CUE = "has-seen-sections-beta-guide-cue";
+export const HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL =
+  "has-seen-sections-prod-feature-modal";

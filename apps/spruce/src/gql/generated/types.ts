@@ -9577,6 +9577,7 @@ export type WaterfallQuery = {
       id: string;
       builds: Array<{
         __typename?: "WaterfallBuild";
+        activated?: boolean | null;
         displayName: string;
         id: string;
         version: string;

@@ -3,7 +3,6 @@ import { Decorator } from "@storybook/react";
 import { globalStyles } from "../src/components/styles/GlobalStyles";
 import { LogContextProvider } from "../src/context/LogContext";
 import WithToastContext from "../src/test_utils/toast-decorator";
-import { SectionsFeatureDiscoveryContextProvider } from "../src/context/SectionsFeatureDiscoveryContext";
 
 export const decorators: Decorator[] = [
   (Story: () => JSX.Element) => (
@@ -14,9 +13,7 @@ export const decorators: Decorator[] = [
   ),
   (Story: () => JSX.Element) => (
     <LogContextProvider>
-      <SectionsFeatureDiscoveryContextProvider>
-        <Story />
-      </SectionsFeatureDiscoveryContextProvider>
+      <Story />
     </LogContextProvider>
   ),
   WithToastContext,
