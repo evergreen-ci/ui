@@ -114,8 +114,7 @@ declare global {
     cy.login();
     cy.setCookie("has-opened-drawer", "true");
     cy.setCookie("has-seen-searchbar-guide-cue", "true");
-    cy.setCookie("has-seen-sections-beta-guide-cue", "true");
-    cy.setCookie("has-seen-sections-beta-feature-modal", "true");
+    cy.setCookie("has-seen-sections-prod-feature-modal", "true");
     mutationDispatched = false;
     cy.intercept("POST", "/graphql/query", (req) => {
       const isMutation = req.body.query?.startsWith("mutation");
