@@ -4,7 +4,7 @@ import TextInput, { TextInputProps } from "@leafygreen-ui/text-input";
 import { size, textInputHeight } from "../../constants/tokens";
 
 export type TextInputWithGlyphProps = {
-  icon?: React.ReactElement;
+  icon: React.ReactElement;
 } & TextInputProps;
 
 export const TextInputWithGlyph: React.FC<TextInputWithGlyphProps> = forwardRef(
