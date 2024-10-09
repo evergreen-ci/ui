@@ -129,6 +129,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
           <FilterContainer>
             <TextInputWithValidation
               aria-labelledby="test-failure-search-label"
+              defaultValue={testName}
               disabled={!hasResults}
               id="test-failure-search-input"
               label="Search Test Failures"
@@ -177,7 +178,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
                 {pluralize("Test", totalFilteredTestCount)}
               </Body>
               <Button
-                disabled={hasFiltersApplied}
+                disabled={!hasFiltersApplied}
                 onClick={() => {
                   setSelectedTaskStatuses([]);
                   setSelectedBuildVariants([]);
@@ -193,7 +194,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
           <GroupedTestMapList groupedTestsMapEntries={groupedTestsMapEntries} />
           {!hasMatchingResults && (
             <BasicEmptyState
-              description="For additional analytics on tests please visit Honeycomb"
+              description=""
               title={`No ${hasResults ? "Matching " : ""}Failed Tests Found`}
             />
           )}
@@ -219,7 +220,7 @@ const FilterContainer = styled.div`
   margin-bottom: ${size.m};
   margin-top: ${size.xs};
   > * {
-    width: 30%;
+    flex-basis: 30%;
   }
 `;
 
