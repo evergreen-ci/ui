@@ -30,6 +30,7 @@ type TextInputWithValidationProps = {
    * If true, the input will be cleared when the user submits a new input
    */
   clearOnSubmit?: boolean;
+  includeIconButton?: boolean;
 } & Omit<TextInputWithGlyphProps, "icon" | "onSubmit" | "onChange">;
 
 const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
@@ -37,6 +38,7 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     const {
       "aria-label": ariaLabel,
       clearOnSubmit = false,
+      includeIconButton = true,
       label,
       onChange = () => {},
       onSubmit = () => {},
@@ -63,6 +65,14 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       }
       setInput(value);
     };
+    let iconButton;
+    if (isValid && includeIconButton) {
+      iconButton = (
+        <IconButton aria-label="Select plus button" onClick={handleOnSubmit}>
+          <Icon glyph="Plus" />
+        </IconButton>
+      );
+    }
 
     return (
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -71,12 +81,7 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
         aria-label={ariaLabel}
         icon={
           isValid ? (
-            <IconButton
-              aria-label="Select plus button"
-              onClick={handleOnSubmit}
-            >
-              <Icon glyph="Plus" />
-            </IconButton>
+            iconButton
           ) : (
             <IconTooltip
               aria-label="validation error"

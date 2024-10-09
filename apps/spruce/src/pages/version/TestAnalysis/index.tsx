@@ -127,19 +127,18 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
             flaky test or a broader issue.
           </Body>
           <FilterContainer>
-            <div>
-              <TextInputWithValidation
-                aria-labelledby="test-failure-search-label"
-                disabled={!hasResults}
-                id="test-failure-search-input"
-                label="Search Test Failures"
-                onChange={(value) => {
-                  setTestName(value);
-                }}
-                placeholder="Search failed tests (regex)"
-                validator={validateRegexp}
-              />
-            </div>
+            <TextInputWithValidation
+              aria-labelledby="test-failure-search-label"
+              disabled={!hasResults}
+              id="test-failure-search-input"
+              includeIconButton={false}
+              label="Search Test Failures"
+              onChange={(value) => {
+                setTestName(value);
+              }}
+              placeholder="Search failed tests (regex)"
+              validator={validateRegexp}
+            />
             <Combobox
               disabled={!hasResults}
               label="Failure type"
@@ -197,7 +196,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
           <GroupedTestMapList groupedTestsMapEntries={groupedTestsMapEntries} />
           {!hasMatchingResults && (
             <BasicEmptyState
-              description="For additional analytics on tests please visit Honeycomb"
+              description={hasResults ? "Try adjusting your filters" : ""}
               title={`No ${hasResults ? "Matching " : ""}Failed Tests Found`}
             />
           )}
@@ -223,7 +222,7 @@ const FilterContainer = styled.div`
   margin-bottom: ${size.m};
   margin-top: ${size.xs};
   > * {
-    width: 30%;
+    flex-basis: 30%;
   }
 `;
 
