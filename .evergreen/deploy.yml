@@ -10,9 +10,6 @@ functions:
           elif [ "${target}" = "production" ] || [ "${target}" = "beta" ]; then
             echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_PROD}" >> honeycomb.yml
             echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_PROD}" >> honeycomb.yml
-          else
-            echo "REACT_APP_HONEYCOMB_ENDPOINT: " >> honeycomb.yml
-            echo "REACT_APP_HONEYCOMB_INGEST_KEY: " >> honeycomb.yml
           fi
     - command: expansions.update
       params:
