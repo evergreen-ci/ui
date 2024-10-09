@@ -127,19 +127,15 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
             flaky test or a broader issue.
           </Body>
           <FilterContainer>
-            <div>
-              <TextInputWithValidation
-                aria-labelledby="test-failure-search-label"
-                disabled={!hasResults}
-                id="test-failure-search-input"
-                label="Search Test Failures"
-                onChange={(value) => {
-                  setTestName(value);
-                }}
-                placeholder="Search failed tests (regex)"
-                validator={validateRegexp}
-              />
-            </div>
+            <TextInputWithValidation
+              aria-labelledby="test-failure-search-label"
+              disabled={!hasResults}
+              id="test-failure-search-input"
+              label="Search Test Failures"
+              onSubmit={setTestName}
+              placeholder="Search failed tests (regex)"
+              validator={validateRegexp}
+            />
             <Combobox
               disabled={!hasResults}
               label="Failure type"
