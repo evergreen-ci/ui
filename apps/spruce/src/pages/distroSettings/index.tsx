@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
+import { useDistroSettingsAnalytics } from "analytics";
 import Icon from "components/Icon";
 import {
   SideNav,
@@ -33,6 +34,7 @@ import { DistroSettingsTabs } from "./Tabs";
 
 const DistroSettings: React.FC = () => {
   usePageTitle("Distro Settings");
+  const { sendEvent } = useDistroSettingsAnalytics();
   const dispatchToast = useToastContext();
   const { [slugs.distroId]: distroId, [slugs.tab]: currentTab } = useParams<{
     [slugs.distroId]: string;
@@ -89,6 +91,9 @@ const DistroSettings: React.FC = () => {
           <SideNavGroup glyph={<Icon glyph="Link" />} header="Links">
             <SideNavItemLink
               data-cy="navitem-task-queue-link"
+              onClick={() =>
+                sendEvent({ name: "Clicked link", link: "Task Queue" })
+              }
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               to={getTaskQueueRoute(distroId)}
             >
@@ -97,6 +102,12 @@ const DistroSettings: React.FC = () => {
             {showImageVisibilityPage && (
               <SideNavItemLink
                 data-cy="navitem-image-build-information-link"
+                onClick={() =>
+                  sendEvent({
+                    name: "Clicked link",
+                    link: "Image Build Information",
+                  })
+                }
                 to={getImageRoute(
                   data?.distro?.imageId ?? "",
                   ImageTabRoutes.BuildInformation,
@@ -108,6 +119,12 @@ const DistroSettings: React.FC = () => {
             {showImageVisibilityPage && (
               <SideNavItemLink
                 data-cy="navitem-image-event-log-link"
+                onClick={() =>
+                  sendEvent({
+                    name: "Clicked link",
+                    link: "Image Event Log",
+                  })
+                }
                 to={getImageRoute(
                   data?.distro?.imageId ?? "",
                   ImageTabRoutes.EventLog,

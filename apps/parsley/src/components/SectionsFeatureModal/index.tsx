@@ -1,54 +1,57 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
-import { useSectionsFeatureDiscoveryAnalytics } from "analytics/sectionsFeatureDiscovery/useSectionsFeatureDiscoveryAnalytics";
+import Cookies from "js-cookie";
+import { useSectionsFeatureDiscoveryAnalytics } from "analytics";
+import { HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL } from "constants/cookies";
 import { LogTypes } from "constants/enums";
 import { zIndex } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
-import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
-import { useParsleySettings } from "hooks/useParsleySettings";
 import { graphic } from "./graphic";
 
 const SectionsFeatureModal = () => {
-  const { closeFeatureModal, featureModalOpen } =
-    useSectionsFeatureDiscoveryContext();
   const { logMetadata } = useLogContext();
   const isViewingTaskLog =
     logMetadata?.logType === LogTypes.EVERGREEN_TASK_LOGS;
   const { sendEvent } = useSectionsFeatureDiscoveryAnalytics();
-  const { updateSettings } = useParsleySettings();
+  const [isOpen, setIsOpen] = useState(
+    Cookies.get(HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL) !== "true",
+  );
+
+  const closeModal = () => {
+    setIsOpen(false);
+    Cookies.set(HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL, "true", { expires: 365 });
+  };
 
   return isViewingTaskLog ? (
     <StyledMarketingModal
-      buttonText="Enable sectioning"
+      buttonText="Let's go!"
       data-cy="sections-feature-modal"
       graphic={graphic}
       graphicStyle="center"
       linkText=""
       onButtonClick={() => {
-        closeFeatureModal();
-        updateSettings({
-          sectionsEnabled: true,
-        });
+        closeModal();
         sendEvent({
-          name: "Clicked feature modal enable sections buttons",
-          release: "beta",
+          name: "Clicked feature modal confirm button",
+          release: "prod",
         });
       }}
       onClose={() => {
-        closeFeatureModal();
+        closeModal();
         sendEvent({
           name: "Clicked sections feature modal cancel button",
-          release: "beta",
+          release: "prod",
         });
       }}
-      open={featureModalOpen}
+      open={isOpen}
       showBlob
-      title="Introducing Task Log Sectioning Beta Preview!"
+      title="Introducing Task Log Sectioning Official Release!"
     >
       <p>
-        Parsley now supports sectioning for <b>task logs!</b> Evergreen
-        organizes your logs by function and command to make them easier to
-        navigate and understand.
+        Parsley now officially supports sectioning for <b>task logs!</b> This
+        feature has been automatically enabled and can be disabled at any time
+        in the Details menu.
       </p>
       <p>For feedback and questions go to #ask-devprod-evergreen.</p>
     </StyledMarketingModal>

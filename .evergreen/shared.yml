@@ -114,6 +114,7 @@ functions:
         file: expansion.yml
     - command: shell.exec
       params:
+        exec_timeout_secs: 60
         shell: bash
         script: |
           ${PREPARE_SHELL}

@@ -1,50 +1,79 @@
+import { useRef } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
-import { slugs } from "constants/routes";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
+import { useDimensions } from "hooks/useDimensions";
+import { BuildRow } from "./BuildRow";
+import { InactiveVersionsButton } from "./InactiveVersionsButton";
+import {
+  BuildVariantTitle,
+  gridGroupCss,
+  InactiveVersion,
+  Row,
+  VERSION_LIMIT,
+} from "./styles";
 import { VersionLabel } from "./VersionLabel";
 
-const LIMIT = 5;
+type WaterfallGridProps = {
+  projectIdentifier: string;
+};
 
-export const WaterfallGrid: React.FC = () => {
-  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-
+export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
+  projectIdentifier,
+}) => {
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {
-      skip: !projectIdentifier,
       variables: {
         options: {
-          // @ts-expect-error
           projectIdentifier,
-          limit: LIMIT,
+          limit: VERSION_LIMIT,
         },
       },
+      // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
+      pollInterval: DEFAULT_POLL_INTERVAL,
     },
   );
-
+  const refEl = useRef<HTMLDivElement>(null);
+  const { height } = useDimensions(
+    refEl as React.MutableRefObject<HTMLElement>,
+  );
   return (
-    <Container>
+    <Container ref={refEl}>
       <Row>
-        <div /> {/* Placeholder div for the build variant label column */}
-        {data.waterfall.versions.map(({ version }) =>
-          version ? <VersionLabel key={version.id} {...version} /> : null,
-        )}
+        <BuildVariantTitle />
+        <Versions data-cy="version-labels">
+          {data.waterfall.versions.map(({ inactiveVersions, version }) =>
+            version ? (
+              <VersionLabel key={version.id} size="small" {...version} />
+            ) : (
+              <InactiveVersion>
+                <InactiveVersionsButton
+                  key={inactiveVersions?.[0].id}
+                  containerHeight={height}
+                  versions={inactiveVersions ?? []}
+                />
+              </InactiveVersion>
+            ),
+          )}
+        </Versions>
       </Row>
+      {data.waterfall.buildVariants.map((b) => (
+        <BuildRow
+          key={b.id}
+          build={b}
+          projectIdentifier={projectIdentifier}
+          versions={data.waterfall.versions}
+        />
+      ))}
     </Container>
   );
 };
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(${LIMIT + 1}, minmax(0, 1fr));
-  gap: 12px;
-`;
+const Container = styled.div``;
 
-const Row = styled.div`
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
+const Versions = styled.div`
+  ${gridGroupCss}
 `;

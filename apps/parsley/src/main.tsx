@@ -6,7 +6,11 @@ import {
 } from "@evg-ui/lib/utils/observability";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { initializeErrorHandling } from "components/ErrorHandling";
-import { evergreenURL, isDevelopmentBuild } from "utils/environmentVariables";
+import {
+  evergreenURL,
+  getReleaseStage,
+  isDevelopmentBuild,
+} from "utils/environmentVariables";
 import App from "./App";
 
 initializeErrorHandling();
@@ -14,6 +18,7 @@ initializeHoneycomb({
   backendURL: toEscapedRegex(evergreenURL || ""),
   debug: isDevelopmentBuild(),
   endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
+  environment: getReleaseStage(),
   ingestKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
   serviceName: "parsley",
 });

@@ -251,23 +251,34 @@ describe("Navigating to Spawn Host page", () => {
 
     cy.getInputByLabel("Temporary Sleep Schedule Exemption").click();
     cy.get("td[aria-current=true]").as("currentDateCell");
+
     // Select a date in the future either this month or next month
     // if the current date is the last day of the month select the first day of the next month
     // if it is not select the next day
     // We can determine if the current date is the last day of the month if the next cell is disabled
-    cy.get("@currentDateCell")
-      .next()
-      .then(($el) => {
-        if (!$el || $el.attr("aria-disabled") === "false") {
-          cy.get("@currentDateCell").next().click();
-        } else {
-          cy.log("Current date is the last day of the month");
-          cy.get('button[aria-label="Next month"]').click();
-          cy.get('td[data-testid="lg-date_picker-calendar_cell"]')
-            .first()
-            .click();
-        }
-      });
+    cy.get("@currentDateCell").then(($currentDateCell) => {
+      // Get all sibling elements of the current date cell
+      cy.wrap($currentDateCell)
+        .siblings()
+        .then(($siblings) => {
+          // Find the index of the current date cell among its siblings
+          const currentIndex = $siblings.index($currentDateCell);
+
+          // Get the next date cell based on the current index
+          const $nextCell = $siblings.eq(currentIndex + 1);
+
+          // If the next cell exists and is not disabled, click on it
+          if ($nextCell && $nextCell.attr("aria-disabled") === "false") {
+            cy.wrap($nextCell).click();
+          } else {
+            cy.log("Current date is the last day of the month");
+            cy.get('button[aria-label="Next month"]').click();
+            cy.get('td[data-testid="lg-date_picker-calendar_cell"]')
+              .first()
+              .click();
+          }
+        });
+    });
 
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "false");
 

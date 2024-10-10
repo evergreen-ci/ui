@@ -1,4 +1,10 @@
-import { getLatestTag, getTagByCommit, tagIsGreater, tagIsValid } from ".";
+import {
+  getLatestTag,
+  getTagByCommit,
+  tagIsGreater,
+  tagIsValid,
+  getReleaseVersion,
+} from ".";
 
 describe("tagIsValid", () => {
   it("should match on a known valid tag", () => {
@@ -36,6 +42,39 @@ describe("getTagByCommit", () => {
 
   it("returns an empty string when no matching tag is found", () => {
     expect(getTagByCommit("b0319b54b52b6a467af6f428dcccae9956f2e60d")).toBe("");
+  });
+});
+
+describe("getReleaseVersion", () => {
+  it("major has precedence over minor and patch", () => {
+    const commitMessages = `
+    DEVPROD-10186: Add waterfall active version labels [minor] (#399)
+    DEVPROD-828: Add multisort to TaskDurationTable [major] (#406)
+    DEVPROD-9268: Remove secrets from .env-cmdrc.json [minor] (#391)
+    704ef79b DEVPROD-7340 Move ConditionalWrapper to lib and setup vitest for jsdom testing in lib (#398)
+    `;
+    const releaseVersion = getReleaseVersion(commitMessages);
+    expect(releaseVersion).toEqual("major");
+  });
+  it("minor has precedence over patch", () => {
+    const commitMessages = `
+    DEVPROD-10186: Add waterfall active version labels [minor] (#399)
+    DEVPROD-828: Add multisort to TaskDurationTable (#406)
+    DEVPROD-9268: Remove secrets from .env-cmdrc.json [minor] (#391)
+    704ef79b DEVPROD-7340 Move ConditionalWrapper to lib and setup vitest for jsdom testing in lib (#398)
+    `;
+    const releaseVersion = getReleaseVersion(commitMessages);
+    expect(releaseVersion).toEqual("minor");
+  });
+  it("patch is the default value when no version label exists", () => {
+    const commitMessages = `
+    DEVPROD-10186: Add waterfall active version labels (#399)
+    DEVPROD-828: Add multisort to TaskDurationTable (#406)
+    DEVPROD-9268: Remove secrets from .env-cmdrc.json (#391)
+    704ef79b DEVPROD-7340 Move ConditionalWrapper to lib and setup vitest for jsdom testing in lib (#398)
+    `;
+    const releaseVersion = getReleaseVersion(commitMessages);
+    expect(releaseVersion).toEqual("patch");
   });
 });
 

@@ -64,7 +64,7 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
       data-cy={dataCy}
       onClick={onClick}
     >
-      <Icon fill={isFavorite ? green.dark2 : gray.light2} glyph="Favorite" />
+      <Icon fill={isFavorite ? green.dark1 : gray.dark1} glyph="Favorite" />
     </IconButton>
   );
 };

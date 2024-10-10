@@ -7,9 +7,10 @@ import {
   useMemo,
 } from "react";
 import styled from "@emotion/styled";
+import { css } from "@leafygreen-ui/emotion";
 import { palette } from "@leafygreen-ui/palette";
+import { SearchInput } from "@leafygreen-ui/search-input";
 import { Label } from "@leafygreen-ui/typography";
-import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -165,15 +166,17 @@ const SearchableDropdown = <T extends {}>({
           disabled={disabled}
           id={`searchable-dropdown-${label}`}
           onClose={resetSearch}
+          useHorizontalPadding={false}
         >
-          <TextInputWithGlyph
+          <SearchInput
             aria-label="Search for options"
             autoFocus
+            className={css`
+              padding: 0 ${size.xs};
+            `}
             data-cy={`${dataCy}-search-input`}
-            icon={<Icon glyph="MagnifyingGlass" />}
             onChange={handleSearch}
             placeholder={searchPlaceholder}
-            type="search"
             value={search}
           />
           <ScrollableList>

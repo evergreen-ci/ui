@@ -6,7 +6,7 @@ import {
   tagIsGreater,
 } from "../utils/git";
 
-export const shouldDeploy = async (user?: string) => {
+export const shouldDeploy = async () => {
   // const baseUrl = `https://spruce.${user}.evergreen-staging.devprod.prod.corp.mongodb.com`;
   const baseUrl = "https://spruce-staging.corp.mongodb.com";
 
