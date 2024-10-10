@@ -24,7 +24,7 @@ const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
       enableColumnFilter: false,
     },
   });
-  return <BaseTable table={table} />;
+  return <BaseTable data-cy="failed-test-grouped-table" table={table} />;
 };
 
 const columns: LGColumnDef<TaskBuildVariantField>[] = [
