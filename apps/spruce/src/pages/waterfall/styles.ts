@@ -36,7 +36,8 @@ export const Row = styled.div`
 `;
 
 export const InactiveVersion = styled.div<{ hasError: boolean }>`
-  width: ${({ hasError }) =>
+  flex-shrink: 0;
+  flex-basis: ${({ hasError }) =>
     hasError ? INACTIVE_WITH_ERROR_WIDTH : INACTIVE_WITHOUT_ERROR_WIDTH}px;
   text-align: center;
 `;
