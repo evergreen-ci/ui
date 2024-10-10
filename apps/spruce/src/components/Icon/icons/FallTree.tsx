@@ -1,9 +1,13 @@
-export const FallTree: React.FC = () => (
+import { forwardRef } from "react";
+
+export const FallTree = forwardRef<SVGSVGElement>((props, ref) => (
   <svg
+    ref={ref}
     fill="none"
     viewBox="0 0 359 445"
     width="58"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path
       clipRule="evenodd"
@@ -55,11 +59,7 @@ export const FallTree: React.FC = () => (
             values="0.0222233;0.0437326;0.315184;0.522266;0.69419;0.835;0.69419;0.522266;0.315184;0.0437326;0.0222233"
           />
           <animate
-            attributeName="stop-color"
-            begin="0s"
-            calcMode="linear"
-            dur="13s"
-            fill="freeze"
+            attributeName="stop"
             keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1"
             repeatCount="indefinite"
             values="#E4150E;#E86C0A;#E86C0A;#E86C0A;#E86C0A;#EBB906;#E86C0A;#E86C0A;#E86C0A;#E86C0A;#E4150E"
@@ -102,4 +102,4 @@ export const FallTree: React.FC = () => (
       </linearGradient>
     </defs>
   </svg>
-);
+));
