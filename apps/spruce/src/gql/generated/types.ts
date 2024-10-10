@@ -371,6 +371,12 @@ export enum DispatcherVersion {
 }
 
 export type DisplayTask = {
+  __typename?: "DisplayTask";
+  execTasks: Array<Scalars["String"]["output"]>;
+  name: Scalars["String"]["output"];
+};
+
+export type DisplayTaskInput = {
   ExecTasks: Array<Scalars["String"]["input"]>;
   Name: Scalars["String"]["input"];
 };
@@ -3323,12 +3329,13 @@ export type UserSettingsInput = {
 
 export type VariantTask = {
   __typename?: "VariantTask";
+  displayTasks: Array<DisplayTask>;
   name: Scalars["String"]["output"];
   tasks: Array<Scalars["String"]["output"]>;
 };
 
 export type VariantTasks = {
-  displayTasks: Array<DisplayTask>;
+  displayTasks: Array<DisplayTaskInput>;
   tasks: Array<Scalars["String"]["input"]>;
   variant: Scalars["String"]["input"];
 };
@@ -3692,6 +3699,11 @@ export type BasePatchFragment = {
     __typename?: "VariantTask";
     name: string;
     tasks: Array<string>;
+    displayTasks: Array<{
+      __typename?: "DisplayTask";
+      execTasks: Array<string>;
+      name: string;
+    }>;
   }>;
 };
 
@@ -5572,6 +5584,11 @@ export type SchedulePatchMutation = {
       __typename?: "VariantTask";
       name: string;
       tasks: Array<string>;
+      displayTasks: Array<{
+        __typename?: "DisplayTask";
+        execTasks: Array<string>;
+        name: string;
+      }>;
     }>;
   };
 };
@@ -5729,6 +5746,11 @@ export type UpdatePatchDescriptionMutation = {
       __typename?: "VariantTask";
       name: string;
       tasks: Array<string>;
+      displayTasks: Array<{
+        __typename?: "DisplayTask";
+        execTasks: Array<string>;
+        name: string;
+      }>;
     }>;
   };
 };
@@ -7059,6 +7081,11 @@ export type ConfigurePatchQuery = {
       __typename?: "VariantTask";
       name: string;
       tasks: Array<string>;
+      displayTasks: Array<{
+        __typename?: "DisplayTask";
+        execTasks: Array<string>;
+        name: string;
+      }>;
     }>;
   };
 };
@@ -7101,6 +7128,11 @@ export type PatchQuery = {
       __typename?: "VariantTask";
       name: string;
       tasks: Array<string>;
+      displayTasks: Array<{
+        __typename?: "DisplayTask";
+        execTasks: Array<string>;
+        name: string;
+      }>;
     }>;
   };
 };
