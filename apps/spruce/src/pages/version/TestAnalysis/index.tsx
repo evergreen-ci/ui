@@ -162,6 +162,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               {taskStatuses.map((status) => (
                 <ComboboxOption
                   key={status}
+                  data-cy={`task-status-${status}-option`}
                   displayName={taskStatusToCopy[status]}
                   value={status}
                 />
@@ -185,6 +186,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               {buildVariants.map((bv) => (
                 <ComboboxOption
                   key={bv.buildVariant}
+                  data-cy={`build-variant-${bv.buildVariant}-option`}
                   displayName={bv.buildVariantDisplayName}
                   value={bv.buildVariant}
                 />
