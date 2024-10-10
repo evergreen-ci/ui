@@ -80,6 +80,18 @@ const versionInactiveUntrimmedMessage = {
   trimMessage: false,
 };
 
+const versionBroken = {
+  activated: true,
+  author: "Sophie Stadler",
+  createTime: new Date("2024-09-19T14:56:08Z"),
+  gitTags: null,
+  id: "evergreen_ui_aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
+  message:
+    "DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)",
+  revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
+  upstreamProject: null,
+  errors: ["errors happened"],
+};
 export const Default: StoryObj<typeof VersionLabel> = {
   render: (args) => (
     <Container>
@@ -112,6 +124,11 @@ export const InactiveUntrimmedMessage: StoryObj<typeof VersionLabel> = {
 export const SmallSize: StoryObj<typeof VersionLabel> = {
   ...Default,
   args: { ...version, size: "small" },
+};
+
+export const Broken: StoryObj<typeof VersionLabel> = {
+  ...Default,
+  args: versionBroken,
 };
 
 const Container = styled.div`

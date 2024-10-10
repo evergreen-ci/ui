@@ -1,15 +1,16 @@
 import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useWaterfallAnalytics } from "analytics";
 import { StyledRouterLink, wordBreakCss } from "components/styles";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
+import { size as sizeToken } from "constants/tokens";
 import { WaterfallQuery } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
-import { InactiveBadge } from "./InactiveBadge";
 
 type VersionFields = NonNullable<
   Unpacked<WaterfallQuery["waterfall"]["versions"]>["version"]
@@ -26,6 +27,7 @@ export const VersionLabel: React.FC<Props> = ({
   author,
   className,
   createTime,
+  errors,
   gitTags,
   id,
   message,
@@ -61,7 +63,12 @@ export const VersionLabel: React.FC<Props> = ({
           {shortenGithash(revision)}
         </InlineCode>{" "}
         {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-        {commitType === "inactive" && <InactiveBadge />}
+        {commitType === "inactive" && (
+          <StyledBadge variant={Variant.LightGray}>Inactive</StyledBadge>
+        )}
+        {errors.length > 0 && (
+          <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
+        )}
       </Body>
       {upstreamProject && (
         <Body>
@@ -134,4 +141,8 @@ const CommitMessage = styled(Body)<{ trimMessage: boolean }>`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     `}
+`;
+
+const StyledBadge = styled(Badge)`
+  margin-left: ${sizeToken.xs};
 `;

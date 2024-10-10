@@ -9558,6 +9558,7 @@ export type WaterfallQuery = {
         activated?: boolean | null;
         author: string;
         createTime: Date;
+        errors: Array<string>;
         id: string;
         message: string;
         revision: string;
@@ -9579,6 +9580,7 @@ export type WaterfallQuery = {
         activated?: boolean | null;
         author: string;
         createTime: Date;
+        errors: Array<string>;
         id: string;
         message: string;
         revision: string;
