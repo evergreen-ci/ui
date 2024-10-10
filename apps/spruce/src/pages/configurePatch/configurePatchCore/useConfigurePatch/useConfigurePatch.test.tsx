@@ -48,6 +48,7 @@ describe("useConfigurePatch", () => {
           {
             name: "ubuntu2004",
             tasks: ["e2e_test"],
+            displayTasks: [],
           },
         ],
       };
