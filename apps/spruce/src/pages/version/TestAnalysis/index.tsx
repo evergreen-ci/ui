@@ -9,6 +9,7 @@ import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { H3, Body, H3Props } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useVersionAnalytics } from "analytics";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import { failedTaskStatuses, taskStatusToCopy } from "constants/task";
 import { useToastContext } from "context/toast";
@@ -48,6 +49,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     TestAnalysisQueryParams.TestName,
     "",
   );
+  const { sendEvent } = useVersionAnalytics(versionId);
 
   const dispatchToast = useToastContext();
   const { data, loading } = useQuery<
@@ -133,7 +135,13 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               disabled={!hasResults}
               id="test-failure-search-input"
               label="Search Test Failures"
-              onSubmit={setTestName}
+              onSubmit={(value) => {
+                setTestName(value);
+                sendEvent({
+                  name: "Filtered test analysis tab",
+                  "filter.by": "test name",
+                });
+              }}
               placeholder="Search failed tests (regex)"
               validator={validateRegexp}
             />
@@ -141,7 +149,13 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               disabled={!hasResults}
               label="Failure type"
               multiselect
-              onChange={setSelectedTaskStatuses}
+              onChange={(value: string[]) => {
+                setSelectedTaskStatuses(value);
+                sendEvent({
+                  name: "Filtered test analysis tab",
+                  "filter.by": "task statuses",
+                });
+              }}
               placeholder="Select a task status"
               value={selectedTaskStatuses}
             >
@@ -157,7 +171,13 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               disabled={!hasResults}
               label="Build Variant"
               multiselect
-              onChange={setSelectedBuildVariants}
+              onChange={(value: string[]) => {
+                setSelectedBuildVariants(value);
+                sendEvent({
+                  name: "Filtered test analysis tab",
+                  "filter.by": "build variant",
+                });
+              }}
               overflow="scroll-x"
               placeholder="Select a build variant"
               value={selectedBuildVariants}
