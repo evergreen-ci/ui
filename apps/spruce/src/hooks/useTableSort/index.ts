@@ -18,6 +18,7 @@ type CallbackType = (sorter: SortingState) => void;
  * `useTableSort` manages sorting via query params with react-table.
  * @param props - Object containing the following:
  * @param props.sendAnalyticsEvents - Optional callback that makes a call to sendEvent.
+ * @param props.singleQueryParam - Optional boolean that determines whether to use a single query param for sorting.
  * @returns tableChangeHandler - Function that accepts react-table's sort state and updates query params with these values.
  */
 export const useTableSort = (props?: Props): CallbackType => {
