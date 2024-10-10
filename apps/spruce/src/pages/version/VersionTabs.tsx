@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
+import Badge from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
@@ -16,6 +17,7 @@ import { PatchStatus, PatchTab } from "types/patch";
 import { queryString } from "utils";
 import TaskDuration from "./TaskDuration";
 import TestAnalysis from "./TestAnalysis";
+import { TestAnalysisTabGuideCue } from "./TestAnalysis/TestAnalysisTabGuideCue";
 
 const { parseQueryString } = queryString;
 
@@ -69,6 +71,7 @@ const tabMap = ({
   numFailedChildPatches,
   numStartedChildPatches,
   numSuccessChildPatches,
+  refEl,
   taskCount,
   versionId,
 }: {
@@ -78,6 +81,7 @@ const tabMap = ({
   numStartedChildPatches: number;
   numSuccessChildPatches: number;
   versionId: string;
+  refEl: React.RefObject<HTMLElement>;
 }) => ({
   [PatchTab.Tasks]: (
     <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
@@ -123,7 +127,12 @@ const tabMap = ({
       key="test-analysis-tab"
       data-cy="test-analysis-tab"
       id="test-analysis-tab"
-      name="Test Analysis"
+      name={
+        <span ref={refEl as React.Ref<HTMLDivElement>}>
+          Test Analysis
+          <Badge variant="green">New</Badge>
+        </span>
+      }
     >
       <TestAnalysis versionId={versionId} />
     </Tab>
@@ -139,6 +148,7 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
   const navigate = useNavigate();
+  const testAnalysisTabRef = useRef<HTMLDivElement>(null);
 
   const { isPatch, patch, requester, status, taskCount } = version || {};
   const { childPatches } = patch || {};
@@ -170,8 +180,8 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       numFailedChildPatches,
       numStartedChildPatches,
       numSuccessChildPatches,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      versionId,
+      versionId: versionId ?? "",
+      refEl: testAnalysisTabRef,
     });
   }, [taskCount, childPatches, versionId]);
 
@@ -225,13 +235,16 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     setSelectedTab: selectNewTab,
   });
   return (
-    <StyledTabs
-      aria-label="Patch Tabs"
-      selected={selectedTab}
-      setSelected={selectNewTab}
-    >
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {activeTabs.map((t: string) => allTabs[t])}
-    </StyledTabs>
+    <>
+      <TestAnalysisTabGuideCue refEl={testAnalysisTabRef} />
+      <StyledTabs
+        aria-label="Patch Tabs"
+        selected={selectedTab}
+        setSelected={selectNewTab}
+      >
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
+        {activeTabs.map((t: string) => allTabs[t])}
+      </StyledTabs>
+    </>
   );
 };
