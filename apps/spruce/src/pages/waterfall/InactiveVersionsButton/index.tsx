@@ -77,6 +77,5 @@ const StyledVersionLabel = styled(VersionLabel)`
 `;
 
 const StyledBadge = styled(Badge)`
-  top: -${size.xs};
-  position: relative;
+  margin-bottom: ${size.xs};
 `;
