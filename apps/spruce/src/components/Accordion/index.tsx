@@ -17,6 +17,8 @@ interface AccordionProps {
   toggleFromBottom?: boolean;
   useIndent?: boolean;
   subtitle?: React.ReactNode;
+  /** This prop prevents the accordion from rendering the child component if the accordion is collapsed. It is useful if the child is expensive to render. */
+  shouldRenderChildIfHidden?: boolean;
 }
 export const Accordion: React.FC<AccordionProps> = ({
   children,
@@ -25,6 +27,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   defaultOpen = false,
   disableAnimation = false,
   onToggle = () => {},
+  shouldRenderChildIfHidden = true,
   showCaret = true,
   subtitle,
   title,
@@ -44,6 +47,13 @@ export const Accordion: React.FC<AccordionProps> = ({
     <TitleTag>{toggledTitle ? showToggledTitle : title}</TitleTag>
   );
 
+  let contents = null;
+  if (shouldRenderChildIfHidden) {
+    contents = children;
+  } else if (isAccordionDisplayed) {
+    contents = children;
+  }
+
   return (
     <div className={className} data-cy={dataCy}>
       {toggleFromBottom && (
@@ -53,7 +63,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           disableAnimation={disableAnimation}
           hide={!isAccordionDisplayed}
         >
-          {children}
+          {contents}
         </AnimatedAccordion>
       )}
       <AccordionToggle
@@ -77,7 +87,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           hide={!isAccordionDisplayed}
         >
           <ContentsContainer indent={showCaret && useIndent}>
-            {children}
+            {contents}
           </ContentsContainer>
         </AnimatedAccordion>
       )}
@@ -108,6 +118,8 @@ const AnimatedAccordion = styled.div<{
         ? "max-height 0.3s cubic-bezier(0, 1, 0, 1)"
         : "max-height 0.6s ease-in-out"
     }`};
+
+  ${({ hide }) => hide && `display: none;`}
 `;
 
 const ContentsContainer = styled.div`

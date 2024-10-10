@@ -21,7 +21,25 @@
         />
       </svg>
       <span>
-        Accordion
+        <div
+          class="css-1trlqdf-TitleContainer eagaal31"
+        >
+          <p
+            class="leafygreen-ui-1miy0xp"
+          >
+            TestName
+             failed on 
+            1
+             
+            task
+          </p>
+          <div
+            class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+            data-cy="task-status-badge"
+          >
+            1 Failed
+          </div>
+        </div>
       </span>
     </div>
     <div
@@ -30,10 +48,8 @@
       data-cy="accordion-collapse-container"
     >
       <div
-        class="css-1nylm8s-ContentsContainer ev0bopr1"
-      >
-        Accordion content
-      </div>
+        class="css-1ds08bm-ContentsContainer ev0bopr1"
+      />
     </div>
   </div>
 </div>

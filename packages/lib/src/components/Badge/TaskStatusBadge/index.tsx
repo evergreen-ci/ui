@@ -27,14 +27,20 @@ const StyledBadge = styled(Badge)<BadgeColorProps>`
 
 interface TaskStatusBadgeProps {
   status: string;
+  taskCount?: number;
 }
-const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
+const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
+  status,
+  taskCount,
+}) => {
   if (!status) {
     return null;
   }
 
   const statusText = taskStatusToCopy[status] ?? status;
 
+  const badgeCopy =
+    taskCount === undefined ? statusText : `${taskCount} ${statusText}`;
   return (
     <StyledBadge
       key={status}
@@ -42,7 +48,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
       variant={mapTaskStatusToBadgeVariant[status]}
       {...customBadgeColors(status)}
     >
-      {statusText}
+      {badgeCopy}
     </StyledBadge>
   );
 };

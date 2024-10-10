@@ -21,6 +21,7 @@ describe("version/restart_modal", () => {
       cy.dataCy("task-status-checkbox").should("exist");
     });
     it("Clicking on a variant checkbox should toggle its textbox and all the associated tasks", () => {
+      cy.dataCy("variant-accordion").first().click();
       cy.dataCy("task-status-badge").should("contain.text", "0 of 1 Selected");
       cy.dataCy("variant-checkbox-select-all").first().click({ force: true });
       cy.dataCy("task-status-badge").should("contain.text", "1 of 1 Selected");
@@ -28,6 +29,7 @@ describe("version/restart_modal", () => {
       cy.dataCy("task-status-badge").should("contain.text", "0 of 1 Selected");
     });
     it("Clicking on a task should toggle its check box and select the task", () => {
+      cy.dataCy("variant-accordion").first().click();
       cy.dataCy("task-status-checkbox").first().click({ force: true });
       cy.dataCy("task-status-badge").should("contain.text", "1 of 1 Selected");
     });
@@ -67,6 +69,7 @@ describe("version/restart_modal", () => {
 
     it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
       cy.dataCy("version-restart-modal").within(() => {
+        cy.dataCy("variant-accordion").first().click();
         cy.dataCy("task-status-checkbox").first().click({ force: true });
         cy.contains("button", "Restart").click();
       });
