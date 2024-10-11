@@ -1,54 +1,36 @@
 import { ColumnFiltersState, SortingState } from "@tanstack/react-table";
-import { useLocation } from "react-router-dom";
 import {
   HostSortBy,
   HostsQueryVariables,
   SortDirection,
 } from "gql/generated/types";
 import usePagination from "hooks/usePagination";
+import { useQueryParam } from "hooks/useQueryParam";
 import { mapQueryParamToId } from "types/host";
-import { toArray } from "utils/array";
-import { getString, parseQueryString } from "utils/queryString";
-
-type QueryParam = keyof HostsQueryVariables;
-
-const getSortBy = (sortByParam: string | string[] = ""): HostSortBy => {
-  const sortBy = getString(sortByParam) as HostSortBy;
-
-  return Object.values(HostSortBy).includes(sortBy)
-    ? sortBy
-    : HostSortBy.Status; // default sortBy value
-};
-
-const getSortDir = (sortDirParam: string | string[]): SortDirection => {
-  const sortDir = getString(sortDirParam) as SortDirection;
-
-  return Object.values(SortDirection).includes(sortDir)
-    ? sortDir
-    : SortDirection.Asc; // default sortDir value
-};
+import { HostsQueryParams } from "./constants";
 
 const useQueryVariables = (): HostsQueryVariables => {
   const { limit, page } = usePagination();
-  const { search } = useLocation();
-  const {
-    currentTaskId,
-    distroId,
-    hostId,
-    sortBy,
-    sortDir,
-    startedBy,
-    statuses,
-  } = parseQueryString(search) as { [key in QueryParam]: string | string[] };
+  const [currentTaskId] = useQueryParam(HostsQueryParams.CurrentTaskId, "");
+  const [distroId] = useQueryParam(HostsQueryParams.DistroId, "");
+  const [hostId] = useQueryParam(HostsQueryParams.HostId, "");
+  const [sortBy] = useQueryParam(HostsQueryParams.SortBy, HostSortBy.Status);
+  const [sortDir] = useQueryParam(HostsQueryParams.SortDir, SortDirection.Asc);
+  const [startedBy] = useQueryParam(HostsQueryParams.StartedBy, "");
+  const [statuses] = useQueryParam(HostsQueryParams.Statuses, []);
 
   return {
-    hostId: getString(hostId),
-    distroId: getString(distroId),
-    currentTaskId: getString(currentTaskId),
-    statuses: toArray(statuses),
-    startedBy: getString(startedBy),
-    sortBy: getSortBy(sortBy),
-    sortDir: getSortDir(sortDir),
+    hostId,
+    distroId,
+    currentTaskId,
+    statuses,
+    startedBy,
+    sortBy: Object.values(HostSortBy).includes(sortBy)
+      ? sortBy
+      : HostSortBy.Status,
+    sortDir: Object.values(SortDirection).includes(sortDir)
+      ? sortDir
+      : SortDirection.Asc,
     page,
     limit,
   };

@@ -17,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
 import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
@@ -33,7 +33,7 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const { [slugs.versionId]: versionId } = useParams();
   const { search } = useLocation();
 
-  const updateQueryParams = useUpdateURLQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams();
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionAnalytics = useVersionAnalytics(versionId);
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -43,23 +43,20 @@ const TaskDuration: React.FC<Props> = ({ taskCount }) => {
   const [hasInitialized, setHasInitialized] = useState(false);
 
   useEffect(() => {
-    updateQueryParams({
+    setQueryParams({
+      ...queryParams,
       [TableQueryParams.Sorts]: defaultSort,
     });
     setHasInitialized(true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {
-    updateQueryParams({
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
+    setQueryParams({
+      ...queryParams,
       [PatchTasksQueryParams.TaskName]: undefined,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Variant]: undefined,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.Statuses]: undefined,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PatchTasksQueryParams.BaseStatuses]: undefined,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       [PaginationQueryParams.Page]: undefined,
       [TableQueryParams.Sorts]: defaultSort,
     });
