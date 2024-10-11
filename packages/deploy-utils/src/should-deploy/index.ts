@@ -6,9 +6,9 @@ import {
   tagIsGreater,
 } from "../utils/git";
 
-export const shouldDeploy = async () => {
-  // const baseUrl = `https://spruce.${user}.evergreen-staging.devprod.prod.corp.mongodb.com`;
-  const baseUrl = "https://spruce-staging.corp.mongodb.com";
+export const shouldDeploy = async (userBucket: string) => {
+  // const baseUrl = `https://${userBucket}.evergreen-staging.devprod.mongodb.com`;
+  const baseUrl = `http://spruce-${userBucket}.s3-website-us-east-1.amazonaws.com`;
 
   let commit = "";
   try {

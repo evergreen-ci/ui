@@ -77,7 +77,7 @@ functions:
         working_dir: ui/${app_dir}
         script: |
           ${PREPARE_SHELL}
-          yarn deploy-utils-should-deploy
+          USER_BUCKET=${user_bucket} yarn deploy-utils-should-deploy
 
   write-previous-deploy:
     - command: shell.exec
@@ -149,6 +149,8 @@ tasks:
   - name: sync-spruce-staging
     commands:
       - func: should-deploy
+        vars:
+          user_bucket: ${spruce_bucket_staging}
       - func: prepare-deploy-vars
         vars:
           user_bucket: ${spruce_bucket_staging}
