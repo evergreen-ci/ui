@@ -1,5 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
-import Badge from "@leafygreen-ui/badge";
+import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
@@ -71,7 +70,6 @@ const tabMap = ({
   numFailedChildPatches,
   numStartedChildPatches,
   numSuccessChildPatches,
-  refEl,
   taskCount,
   versionId,
 }: {
@@ -81,7 +79,6 @@ const tabMap = ({
   numStartedChildPatches: number;
   numSuccessChildPatches: number;
   versionId: string;
-  refEl: React.RefObject<HTMLElement>;
 }) => ({
   [PatchTab.Tasks]: (
     <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
@@ -128,10 +125,9 @@ const tabMap = ({
       data-cy="test-analysis-tab"
       id="test-analysis-tab"
       name={
-        <span ref={refEl as React.Ref<HTMLDivElement>}>
-          Test Analysis
-          <Badge variant="green">New</Badge>
-        </span>
+        <>
+          Test Analysis <TestAnalysisTabGuideCue />
+        </>
       }
     >
       <TestAnalysis versionId={versionId} />
@@ -148,7 +144,6 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
   const navigate = useNavigate();
-  const testAnalysisTabRef = useRef<HTMLDivElement>(null);
 
   const { isPatch, patch, requester, status, taskCount } = version || {};
   const { childPatches } = patch || {};
@@ -181,7 +176,6 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       numStartedChildPatches,
       numSuccessChildPatches,
       versionId: versionId ?? "",
-      refEl: testAnalysisTabRef,
     });
   }, [taskCount, childPatches, versionId]);
 
@@ -235,18 +229,13 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     setSelectedTab: selectNewTab,
   });
   return (
-    <>
-      {tabIsActive[PatchTab.TestAnalysis] && (
-        <TestAnalysisTabGuideCue refEl={testAnalysisTabRef} />
-      )}
-      <StyledTabs
-        aria-label="Patch Tabs"
-        selected={selectedTab}
-        setSelected={selectNewTab}
-      >
-        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-        {activeTabs.map((t: string) => allTabs[t])}
-      </StyledTabs>
-    </>
+    <StyledTabs
+      aria-label="Patch Tabs"
+      selected={selectedTab}
+      setSelected={selectNewTab}
+    >
+      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
+      {activeTabs.map((t: string) => allTabs[t])}
+    </StyledTabs>
   );
 };
