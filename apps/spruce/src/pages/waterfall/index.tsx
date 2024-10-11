@@ -4,10 +4,15 @@ import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams } from "react-router-dom";
+import { useWaterfallAnalytics } from "analytics";
+import FilterBadges, {
+  useFilterBadgeQueryParams,
+} from "components/FilterBadges";
 import { navBarHeight } from "components/Header/Navbar";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useSpruceConfig } from "hooks";
+import { WaterfallFilterOptions } from "types/waterfall";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { VERSION_LIMIT } from "./styles";
@@ -18,6 +23,12 @@ const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
+
+  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+    new Set([WaterfallFilterOptions.BuildVariant]),
+  );
+
+  const { sendEvent } = useWaterfallAnalytics();
 
   return (
     <>
@@ -31,6 +42,19 @@ const Waterfall: React.FC = () => {
           </Banner>
         )}
         <WaterfallFilters projectIdentifier={projectIdentifier ?? ""} />
+        <BadgeWrapper>
+          <FilterBadges
+            badges={badges}
+            onClearAll={() => {
+              sendEvent({ name: "Deleted all filter badges" });
+              handleClearAll();
+            }}
+            onRemove={(b) => {
+              sendEvent({ name: "Deleted one filter badge" });
+              handleOnRemove(b);
+            }}
+          />
+        </BadgeWrapper>
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
           fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
@@ -63,6 +87,10 @@ const navbarStyles = css`
     width: 100%;
     z-index: 1;
   }
+`;
+
+const BadgeWrapper = styled.div`
+  margin: ${size.s} 0;
 `;
 
 export default Waterfall;
