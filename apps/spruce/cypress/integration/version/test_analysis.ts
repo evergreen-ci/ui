@@ -1,6 +1,5 @@
 describe("Test Analysis", () => {
   beforeEach(() => {
-    cy.setCookie("seen-test-analysis-tab-guide-cue", "true");
     cy.visit("/version/5e4ff3abe3c3317e352062e4/test-analysis");
   });
 

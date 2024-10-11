@@ -158,7 +158,7 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       [PatchTab.Tasks]: true,
       [PatchTab.TaskDuration]: true,
       [PatchTab.Changes]: isPatch && requester !== Requester.GitHubMergeQueue,
-      [PatchTab.Downstream]: childPatches,
+      [PatchTab.Downstream]: childPatches !== undefined,
       [PatchTab.TestAnalysis]: status !== PatchStatus.Success,
     }),
     [isPatch, requester, childPatches, status],
@@ -236,7 +236,9 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   });
   return (
     <>
-      <TestAnalysisTabGuideCue refEl={testAnalysisTabRef} />
+      {tabIsActive[PatchTab.TestAnalysis] && (
+        <TestAnalysisTabGuideCue refEl={testAnalysisTabRef} />
+      )}
       <StyledTabs
         aria-label="Patch Tabs"
         selected={selectedTab}
