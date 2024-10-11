@@ -3489,6 +3489,7 @@ export type WaterfallOptions = {
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type WaterfallTask = {
