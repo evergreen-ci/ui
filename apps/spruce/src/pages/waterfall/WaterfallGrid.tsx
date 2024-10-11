@@ -46,12 +46,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
             version ? (
               <VersionLabel key={version.id} size="small" {...version} />
             ) : (
-              <InactiveVersion
-                hasError={
-                  inactiveVersions?.some(({ errors }) => errors?.length) ??
-                  false
-                }
-              >
+              <InactiveVersion>
                 <InactiveVersionsButton
                   key={inactiveVersions?.[0].id}
                   containerHeight={height}

@@ -4,8 +4,7 @@ import { wordBreakCss } from "components/styles";
 import { size } from "constants/tokens";
 
 const BUILD_VARIANT_WIDTH = 200;
-const INACTIVE_WITHOUT_ERROR_WIDTH = 80;
-const INACTIVE_WITH_ERROR_WIDTH = 150;
+const INACTIVE_WIDTH = 80;
 
 // TODO DEVPROD-11708: Update with dynamic column count
 export const VERSION_LIMIT = 5;
@@ -35,9 +34,8 @@ export const Row = styled.div`
   margin-bottom: ${size.s};
 `;
 
-export const InactiveVersion = styled.div<{ hasError: boolean }>`
+export const InactiveVersion = styled.div`
   flex-shrink: 0;
-  flex-basis: ${({ hasError }) =>
-    hasError ? INACTIVE_WITH_ERROR_WIDTH : INACTIVE_WITHOUT_ERROR_WIDTH}px;
+  flex-basis: ${INACTIVE_WIDTH}px;
   text-align: center;
 `;

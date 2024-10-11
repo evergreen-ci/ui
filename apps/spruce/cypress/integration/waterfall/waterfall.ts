@@ -21,7 +21,7 @@ describe("waterfall page", () => {
         .should("have.attr", "data-cy", "inactive-versions-button");
       cy.dataCy("broken-versions-badge")
         .should("be.visible")
-        .contains("1 broken version");
+        .contains("1 broken");
       cy.dataCy("build-group")
         .first()
         .children()

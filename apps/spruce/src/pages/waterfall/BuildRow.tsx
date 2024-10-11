@@ -60,9 +60,6 @@ export const BuildRow: React.FC<{
               <InactiveVersion
                 key={inactiveVersions[0].id}
                 data-cy="inactive-column"
-                hasError={inactiveVersions?.some(
-                  ({ errors }) => errors?.length,
-                )}
               />
             );
           }
