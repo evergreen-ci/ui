@@ -87,7 +87,6 @@ export const TotalCount: React.FC<TotalCountProps> = ({
   <TotalCountContainer active={active}>
     <Circle color={color} />
     <StatusText css={sharedCss}>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <div>{`Total ${taskStatusToCopy[status]}`}</div>
       {eta &&
         `(${msToDuration(new Date(eta).valueOf() - Date.now())} remaining)`}

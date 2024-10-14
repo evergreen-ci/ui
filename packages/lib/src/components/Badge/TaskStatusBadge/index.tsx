@@ -26,7 +26,7 @@ const StyledBadge = styled(Badge)<BadgeColorProps>`
 `;
 
 interface TaskStatusBadgeProps {
-  status: string;
+  status: TaskStatus;
 }
 const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
   if (!status) {

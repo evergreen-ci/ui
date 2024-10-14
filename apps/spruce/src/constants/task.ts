@@ -4,7 +4,7 @@ import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 
 const { gray, green, purple, red, yellow } = palette;
 
-export const taskStatusToCopy = {
+export const taskStatusToCopy: Record<string, string> = {
   [TaskStatusUmbrella.Scheduled]: "Scheduled",
   [TaskStatusUmbrella.Failed]: "Failed",
   [TaskStatusUmbrella.Running]: "Running",

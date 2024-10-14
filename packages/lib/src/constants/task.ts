@@ -1,11 +1,6 @@
-import { TaskStatus, TaskStatusUmbrella } from "../types/task";
+import { TaskStatus } from "../types/task";
 
-export const taskStatusToCopy: Record<string, string> = {
-  [TaskStatusUmbrella.Scheduled]: "Scheduled",
-  [TaskStatusUmbrella.Failed]: "Failed",
-  [TaskStatusUmbrella.Running]: "Running",
-  [TaskStatusUmbrella.SystemFailure]: "System Failed",
-  [TaskStatusUmbrella.Undispatched]: "Undispatched",
+export const taskStatusToCopy: Record<TaskStatus, string> = {
   [TaskStatus.Aborted]: "Aborted",
   [TaskStatus.Blocked]: "Blocked",
   [TaskStatus.Dispatched]: "Dispatched",
