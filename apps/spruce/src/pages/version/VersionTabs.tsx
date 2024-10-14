@@ -153,7 +153,8 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       [PatchTab.Tasks]: true,
       [PatchTab.TaskDuration]: true,
       [PatchTab.Changes]: isPatch && requester !== Requester.GitHubMergeQueue,
-      [PatchTab.Downstream]: childPatches !== undefined,
+      [PatchTab.Downstream]:
+        childPatches !== undefined && childPatches !== null,
       [PatchTab.TestAnalysis]: status !== PatchStatus.Success,
     }),
     [isPatch, requester, childPatches, status],
