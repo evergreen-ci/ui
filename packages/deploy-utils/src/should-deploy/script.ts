@@ -2,10 +2,10 @@
 
 import { shouldDeploy } from ".";
 
-if (!process.env.USER_BUCKET) {
-  throw Error("Bucket name is required");
+if (!process.env.USER_KEY) {
+  throw Error("User key is required");
 }
 
-if (!(await shouldDeploy(process.env.USER_BUCKET))) {
+if (!(await shouldDeploy(process.env.USER_KEY))) {
   throw Error("Staging is already up to date; terminating.");
 }

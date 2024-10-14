@@ -58,13 +58,13 @@ functions:
           ${PREPARE_SHELL}
           yarn deploy-utils-email
 
-  prepare-deploy-vars:
+  prepare-user-deploy-vars:
     - command: shell.exec
       params:
         script: |
-          if ! [ -z "${user_bucket}" ]; then
-            echo "BUCKET: spruce-${user_bucket}" >> deploy-vars.yml
-            echo "USER_STAGING_ARN: ${user_staging_arn_prefix}${user_bucket}.ui_put" >> deploy-vars.yml
+          if ! [ -z "${user_key}" ]; then
+            echo "BUCKET: spruce-${user_key}" >> deploy-vars.yml
+            echo "USER_STAGING_ARN: ${user_staging_arn_prefix}${user_key}.ui_put" >> deploy-vars.yml
           fi
     - command: expansions.update
       params:
@@ -77,7 +77,7 @@ functions:
         working_dir: ui/${app_dir}
         script: |
           ${PREPARE_SHELL}
-          USER_BUCKET=${user_bucket} yarn deploy-utils-should-deploy
+          USER_KEY=${user_key} yarn deploy-utils-should-deploy
 
   write-previous-deploy:
     - command: shell.exec
@@ -150,10 +150,10 @@ tasks:
     commands:
       - func: should-deploy
         vars:
-          user_bucket: ${spruce_bucket_staging}
-      - func: prepare-deploy-vars
+          user_key: ${staging_user_key}
+      - func: prepare-user-deploy-vars
         vars:
-          user_bucket: ${spruce_bucket_staging}
+          user_key: ${staging_user_key}
       - func: assume-staging-ec2-role
       - func: symlink
         vars:
