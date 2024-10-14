@@ -3,7 +3,7 @@ import {
   renderWithRouterMatch as render,
   screen,
 } from "@evg-ui/lib/test_utils";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { applyStrictRegex } from "utils/string";
@@ -215,7 +215,7 @@ describe("variantTaskGroup", () => {
         expect(failedBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
-            statuses: mapUmbrellaStatusToQueryParam[TaskStatus.FailedUmbrella],
+            statuses: mapUmbrellaStatusToQueryParam[TaskStatusUmbrella.Failed],
             variant: applyStrictRegex("some_variant"),
             page: 0,
           }),
@@ -251,7 +251,7 @@ describe("variantTaskGroup", () => {
         expect(failedBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
-            statuses: mapUmbrellaStatusToQueryParam[TaskStatus.FailedUmbrella],
+            statuses: mapUmbrellaStatusToQueryParam[TaskStatusUmbrella.Failed],
             variant: applyStrictRegex("some_variant"),
             page: 0,
           }),
@@ -287,7 +287,7 @@ describe("variantTaskGroup", () => {
         expect(failedBadge).toHaveAttribute(
           "href",
           getVersionRoute("1", {
-            statuses: mapUmbrellaStatusToQueryParam[TaskStatus.FailedUmbrella],
+            statuses: mapUmbrellaStatusToQueryParam[TaskStatusUmbrella.Failed],
             variant: applyStrictRegex("some_variant"),
             page: 0,
           }),

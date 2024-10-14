@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
@@ -9,7 +9,7 @@ import { fontSize, size, zIndex } from "constants/tokens";
 interface GroupedTaskStatusBadgeProps {
   count: number;
   onClick?: () => void;
-  status: TaskStatus;
+  status: TaskStatusUmbrella;
   statusCounts?: { [key: string]: number };
   href: string;
   isActive?: boolean;
@@ -23,7 +23,6 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
   status,
   statusCounts,
 }) => {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { border, fill, text } = mapUmbrellaStatusColors[status];
 
   return (

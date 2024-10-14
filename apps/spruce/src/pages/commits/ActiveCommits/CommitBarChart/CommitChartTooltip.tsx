@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
 import { size, zIndex } from "constants/tokens";
@@ -42,7 +42,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
               count={count}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               eta={
-                umbrellaStatus === TaskStatus.RunningUmbrella && eta
+                umbrellaStatus === TaskStatusUmbrella.Running && eta
                   ? eta
                   : null
               }

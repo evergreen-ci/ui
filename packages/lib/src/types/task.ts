@@ -46,10 +46,12 @@ export enum TaskStatus {
   Aborted = "aborted",
 
   KnownIssue = "known-issue",
+}
 
-  FailedUmbrella = "failed-umbrella",
-  SystemFailureUmbrella = "system-failure-umbrella",
-  RunningUmbrella = "running-umbrella",
-  UndispatchedUmbrella = "undispatched-umbrella",
-  ScheduledUmbrella = "scheduled-umbrella",
+export enum TaskStatusUmbrella {
+  Failed = "failed-umbrella",
+  SystemFailure = "system-failure-umbrella",
+  Running = "running-umbrella",
+  Undispatched = "undispatched-umbrella",
+  Scheduled = "scheduled-umbrella",
 }

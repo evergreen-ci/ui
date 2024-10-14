@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -123,7 +123,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
 };
 
 const isUmbrellaStatusSet = (
-  status: TaskStatus,
+  status: TaskStatusUmbrella,
   activeStatusSearch: string[],
 ) =>
   arraySymmetricDifference(
