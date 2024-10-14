@@ -7,10 +7,9 @@ import { ParsleyRow } from "components/LogRow/RowRenderer";
 import SidePanel from "components/SidePanel";
 import SubHeader from "components/SubHeader";
 import { useLogContext } from "context/LogContext";
-import { useSectionsFeatureDiscoveryContext } from "context/SectionsFeatureDiscoveryContext";
 
 const SectionsFeatureModal = lazy(
-  () => import("context/SectionsFeatureDiscoveryContext/SectionsFeatureModal"),
+  () => import("components/SectionsFeatureModal"),
 );
 
 const LogWindow: React.FC = () => {
@@ -24,10 +23,9 @@ const LogWindow: React.FC = () => {
     openSectionAndScrollToLine,
     processedLogLines,
   } = useLogContext();
-  const { featureModalOpen } = useSectionsFeatureDiscoveryContext();
   return (
     <Container data-cy="log-window">
-      {featureModalOpen && <SectionsFeatureModal />}
+      <SectionsFeatureModal />
       <SidePanel
         clearExpandedLines={clearExpandedLines}
         collapseLines={collapseLines}

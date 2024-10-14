@@ -4,7 +4,6 @@ import Card from "@leafygreen-ui/card";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
-import { SectionsFeatureDiscoveryContextProvider } from "context/SectionsFeatureDiscoveryContext";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import DetailsMenu from ".";
 
@@ -13,9 +12,7 @@ export default {
   decorators: [
     (Story: () => JSX.Element) => (
       <MockedProvider mocks={[parsleySettingsMock]}>
-        <SectionsFeatureDiscoveryContextProvider>
-          <Story />
-        </SectionsFeatureDiscoveryContextProvider>
+        <Story />
       </MockedProvider>
     ),
   ],

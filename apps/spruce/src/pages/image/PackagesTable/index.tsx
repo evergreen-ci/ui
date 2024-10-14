@@ -6,7 +6,9 @@ import {
   ColumnFiltersState,
   PaginationState,
 } from "@leafygreen-ui/table";
+import { useImageAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
+import { onChangeHandler } from "components/Table/utils";
 import { DEFAULT_PAGE_SIZE } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
@@ -22,11 +24,13 @@ type PackagesTableProps = {
 
 export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useImageAnalytics();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: DEFAULT_PAGE_SIZE,
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
   const { data: packagesData, loading } = useQuery<
     ImagePackagesQuery,
     ImagePackagesQueryVariables
@@ -68,8 +72,22 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
       pagination,
       columnFilters,
     },
-    onColumnFiltersChange: setColumnFilters,
-    onPaginationChange: setPagination,
+    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      setColumnFilters,
+      (f) =>
+        sendEvent({
+          name: "Filtered table",
+          "table.name": "Packages",
+          "table.filters": f,
+        }),
+    ),
+    onPaginationChange: onChangeHandler<PaginationState>(setPagination, (p) =>
+      sendEvent({
+        name: "Changed table pagination",
+        "table.name": "Packages",
+        "table.pagination": p,
+      }),
+    ),
   });
 
   return (

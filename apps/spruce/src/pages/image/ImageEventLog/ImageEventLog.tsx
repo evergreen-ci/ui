@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { useImageAnalytics } from "analytics";
 import { LoadingButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { ImageEvent } from "gql/generated/types";
@@ -22,6 +23,8 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
   handleFetchMore,
   loading,
 }) => {
+  const { sendEvent } = useImageAnalytics();
+
   const [globalSearch, setGlobalSearch] = useState("");
   const handleGlobalSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGlobalSearch(e.target.value);
@@ -37,6 +40,9 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
           aria-labelledby="event-log-global-search"
           data-cy="event-log-global-search"
           onChange={handleGlobalSearchChange}
+          onSubmit={() => {
+            sendEvent({ name: "Used global search", search: globalSearch });
+          }}
           placeholder="Global search by name"
           value={globalSearch}
         />
@@ -61,7 +67,10 @@ export const ImageEventLog: React.FC<ImageEventLogProps> = ({
         <LoadingButton
           data-cy="load-more-button"
           loading={loading}
-          onClick={handleFetchMore}
+          onClick={() => {
+            sendEvent({ name: "Clicked 'Load more events' button" });
+            handleFetchMore();
+          }}
           variant="primary"
         >
           Load more events

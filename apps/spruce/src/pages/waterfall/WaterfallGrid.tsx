@@ -1,10 +1,12 @@
+import { useRef } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
-import { slugs } from "constants/routes";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
+import { useDimensions } from "hooks/useDimensions";
 import { BuildRow } from "./BuildRow";
+import { InactiveVersionsButton } from "./InactiveVersionsButton";
 import {
   BuildVariantTitle,
   gridGroupCss,
@@ -14,37 +16,45 @@ import {
 } from "./styles";
 import { VersionLabel } from "./VersionLabel";
 
-export const WaterfallGrid: React.FC = () => {
-  const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+type WaterfallGridProps = {
+  projectIdentifier: string;
+};
 
+export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
+  projectIdentifier,
+}) => {
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {
-      skip: !projectIdentifier,
       variables: {
         options: {
-          // @ts-expect-error
           projectIdentifier,
           limit: VERSION_LIMIT,
         },
       },
+      // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
+      pollInterval: DEFAULT_POLL_INTERVAL,
     },
   );
-
+  const refEl = useRef<HTMLDivElement>(null);
+  const { height } = useDimensions(
+    refEl as React.MutableRefObject<HTMLElement>,
+  );
   return (
-    <Container>
+    <Container ref={refEl}>
       <Row>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
-          {data.waterfall.versions.map(({ inactiveVersions, version }, i) =>
+          {data.waterfall.versions.map(({ inactiveVersions, version }) =>
             version ? (
-              <VersionLabel key={version.id} {...version} />
+              <VersionLabel key={version.id} size="small" {...version} />
             ) : (
-              <InactiveVersion
-                key={inactiveVersions?.[0]?.id ?? i} // eslint-disable-line react/no-array-index-key
-                data-cy="inactive-label"
-              >
-                inactive
+              <InactiveVersion>
+                <InactiveVersionsButton
+                  key={inactiveVersions?.[0].id}
+                  containerHeight={height}
+                  versions={inactiveVersions ?? []}
+                />
               </InactiveVersion>
             ),
           )}
@@ -54,7 +64,7 @@ export const WaterfallGrid: React.FC = () => {
         <BuildRow
           key={b.id}
           build={b}
-          projectIdentifier={projectIdentifier ?? ""}
+          projectIdentifier={projectIdentifier}
           versions={data.waterfall.versions}
         />
       ))}

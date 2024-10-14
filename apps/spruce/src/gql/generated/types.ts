@@ -3489,6 +3489,7 @@ export type WaterfallOptions = {
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type WaterfallTask = {
@@ -9539,6 +9540,7 @@ export type WaterfallQuery = {
       id: string;
       builds: Array<{
         __typename?: "WaterfallBuild";
+        activated?: boolean | null;
         displayName: string;
         id: string;
         version: string;
@@ -9552,11 +9554,34 @@ export type WaterfallQuery = {
     }>;
     versions: Array<{
       __typename?: "WaterfallVersion";
-      inactiveVersions?: Array<{ __typename?: "Version"; id: string }> | null;
-      version?: {
+      inactiveVersions?: Array<{
         __typename?: "Version";
+        activated?: boolean | null;
         author: string;
         createTime: Date;
+        errors: Array<string>;
+        id: string;
+        message: string;
+        revision: string;
+        gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          owner: string;
+          project: string;
+          repo: string;
+          revision: string;
+          triggerID: string;
+          triggerType: string;
+          task?: { __typename?: "Task"; execution: number; id: string } | null;
+          version?: { __typename?: "Version"; id: string } | null;
+        } | null;
+      }> | null;
+      version?: {
+        __typename?: "Version";
+        activated?: boolean | null;
+        author: string;
+        createTime: Date;
+        errors: Array<string>;
         id: string;
         message: string;
         revision: string;

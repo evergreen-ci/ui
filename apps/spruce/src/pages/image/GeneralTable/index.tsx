@@ -28,7 +28,7 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
     ImageGeneralQueryVariables
   >(IMAGE_GENERAL, {
     variables: { imageId },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error loading the image general table: ${err.message}`,
       );
