@@ -13,7 +13,6 @@ import { size } from "constants/tokens";
 import { useFirstImage } from "hooks";
 import { ImageSelect } from "./ImageSelect";
 import { ImageTabs } from "./Tabs";
-import { BuildInformationContextProvider } from "./tabs/BuildInformationTab/BuildInformationContext";
 import BuildInformationNavItem from "./tabs/BuildInformationTab/BuildInformationNavItem";
 
 const Image: React.FC = () => {
@@ -40,36 +39,35 @@ const Image: React.FC = () => {
   }
 
   return (
-    <BuildInformationContextProvider scrollContainerId={scrollContainerId}>
-      <SideNavPageWrapper>
-        <SideNav aria-label="Image" widthOverride={250}>
-          <ButtonsContainer>
-            <ImageSelect selectedImage={selectedImage} />
-          </ButtonsContainer>
-          <BuildInformationNavItem
-            key={ImageTabRoutes.BuildInformation}
-            currentTab={currentTab}
-            imageId={selectedImage}
-          />
-          <SideNavItem
-            key={ImageTabRoutes.EventLog}
-            active={ImageTabRoutes.EventLog === currentTab}
-            as={Link}
-            data-cy={`navitem-${ImageTabRoutes.EventLog}`}
-            indentLevel={0}
-            onClick={() =>
-              sendEvent({ name: "Changed tab", tab: ImageTabRoutes.EventLog })
-            }
-            to={getImageRoute(selectedImage, ImageTabRoutes.EventLog)}
-          >
-            Event Log
-          </SideNavItem>
-        </SideNav>
-        <SideNavPageContent id={scrollContainerId}>
-          <ImageTabs currentTab={currentTab} imageId={selectedImage} />
-        </SideNavPageContent>
-      </SideNavPageWrapper>
-    </BuildInformationContextProvider>
+    <SideNavPageWrapper>
+      <SideNav aria-label="Image" widthOverride={250}>
+        <ButtonsContainer>
+          <ImageSelect selectedImage={selectedImage} />
+        </ButtonsContainer>
+        <BuildInformationNavItem
+          key={ImageTabRoutes.BuildInformation}
+          currentTab={currentTab}
+          imageId={selectedImage}
+          scrollContainerId={scrollContainerId}
+        />
+        <SideNavItem
+          key={ImageTabRoutes.EventLog}
+          active={ImageTabRoutes.EventLog === currentTab}
+          as={Link}
+          data-cy={`navitem-${ImageTabRoutes.EventLog}`}
+          indentLevel={0}
+          onClick={() =>
+            sendEvent({ name: "Changed tab", tab: ImageTabRoutes.EventLog })
+          }
+          to={getImageRoute(selectedImage, ImageTabRoutes.EventLog)}
+        >
+          Event Log
+        </SideNavItem>
+      </SideNav>
+      <SideNavPageContent id={scrollContainerId}>
+        <ImageTabs currentTab={currentTab} imageId={selectedImage} />
+      </SideNavPageContent>
+    </SideNavPageWrapper>
   );
 };
 

@@ -4,7 +4,7 @@ import { GeneralTable } from "pages/image/GeneralTable";
 import { OperatingSystemTable } from "pages/image/OperatingSystemTable";
 import { PackagesTable } from "pages/image/PackagesTable";
 import { ToolchainsTable } from "pages/image/ToolchainsTable";
-import { useBuildInformationContext } from "./BuildInformationContext";
+import { tocItems } from "./constants";
 
 type BuildInformationTabProps = {
   imageId: string;
@@ -12,46 +12,42 @@ type BuildInformationTabProps = {
 
 export const BuildInformationTab: React.FC<BuildInformationTabProps> = ({
   imageId,
-}) => {
-  const { distrosRef, generalRef, osRef, packagesRef, toolchainsRef } =
-    useBuildInformationContext();
-  return (
-    <>
-      <SpruceFormContainer
-        ref={generalRef}
-        data-cy="general-card"
-        title="General"
-      >
-        <GeneralTable imageId={imageId} />
-      </SpruceFormContainer>
-      <SpruceFormContainer
-        ref={distrosRef}
-        data-cy="distros-card"
-        title="Distros"
-      >
-        <DistrosTable imageId={imageId} />
-      </SpruceFormContainer>
-      <SpruceFormContainer
-        ref={osRef}
-        data-cy="os-card"
-        title="Operating System"
-      >
-        <OperatingSystemTable imageId={imageId} />
-      </SpruceFormContainer>
-      <SpruceFormContainer
-        ref={packagesRef}
-        data-cy="packages-card"
-        title="Packages"
-      >
-        <PackagesTable imageId={imageId} />
-      </SpruceFormContainer>
-      <SpruceFormContainer
-        ref={toolchainsRef}
-        data-cy="toolchains-card"
-        title="Toolchains"
-      >
-        <ToolchainsTable imageId={imageId} />
-      </SpruceFormContainer>
-    </>
-  );
-};
+}) => (
+  <>
+    <SpruceFormContainer
+      data-cy="general-card"
+      id={tocItems.general.observedElementId}
+      title={tocItems.general.title}
+    >
+      <GeneralTable imageId={imageId} />
+    </SpruceFormContainer>
+    <SpruceFormContainer
+      data-cy="distros-card"
+      id={tocItems.distros.observedElementId}
+      title={tocItems.distros.title}
+    >
+      <DistrosTable imageId={imageId} />
+    </SpruceFormContainer>
+    <SpruceFormContainer
+      data-cy="os-card"
+      id={tocItems.os.observedElementId}
+      title={tocItems.os.title}
+    >
+      <OperatingSystemTable imageId={imageId} />
+    </SpruceFormContainer>
+    <SpruceFormContainer
+      data-cy="packages-card"
+      id={tocItems.packages.observedElementId}
+      title={tocItems.packages.title}
+    >
+      <PackagesTable imageId={imageId} />
+    </SpruceFormContainer>
+    <SpruceFormContainer
+      data-cy="toolchains-card"
+      id={tocItems.toolchains.observedElementId}
+      title={tocItems.toolchains.title}
+    >
+      <ToolchainsTable imageId={imageId} />
+    </SpruceFormContainer>
+  </>
+);

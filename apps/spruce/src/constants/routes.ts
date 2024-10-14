@@ -273,7 +273,7 @@ export const getImageRoute = (
   tab?: ImageTabRoutes,
   anchor?: string,
 ) =>
-  `${paths.image}/${imageId}/${tab || ImageTabRoutes.BuildInformation}${anchor ? `#${anchor}` : ""}`;
+  `${paths.image}/${imageId}/${tab ?? ImageTabRoutes.BuildInformation}${anchor ? `#${anchor}` : ""}`;
 
 export const getProjectSettingsRoute = (
   projectId: string,

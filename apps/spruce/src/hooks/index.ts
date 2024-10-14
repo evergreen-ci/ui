@@ -24,4 +24,4 @@ export { useFirstImage } from "./useFirstImage";
 export { useBreadcrumbRoot } from "./useBreadcrumbRoot";
 export { useResize } from "./useResize";
 export { useRunningTime } from "./useRunningTime";
-export { useFindClosestRef } from "./useFindClosestRef";
+export { useTopmostVisibleElement } from "./useTopmostVisibleElement";

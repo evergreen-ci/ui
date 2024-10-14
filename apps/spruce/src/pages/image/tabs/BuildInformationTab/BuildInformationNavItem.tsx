@@ -1,21 +1,37 @@
+import { useState } from "react";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+import { useImageAnalytics } from "analytics";
 import { SideNavItem } from "components/styles";
 import { ImageTabRoutes, getImageRoute } from "constants/routes";
-import { useBuildInformationContext } from "./BuildInformationContext";
+import { useTopmostVisibleElement } from "hooks";
+import { tocItems } from "./constants";
 
 type BuildInformationNavItemProps = {
-  imageId: string;
   currentTab: ImageTabRoutes;
+  imageId: string;
+  scrollContainerId: string;
 };
 
 const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
   currentTab,
   imageId,
+  scrollContainerId,
 }) => {
-  const { activeIndex, buildInformationSections } =
-    useBuildInformationContext();
+  const { sendEvent } = useImageAnalytics();
   const tabIsActive = ImageTabRoutes.BuildInformation === currentTab;
+
+  const [activeItemId, setActiveItemId] = useState("");
+
+  const elements = Array.from(
+    document.querySelectorAll("h3[id^='toc-item']"),
+  ) as HTMLElement[];
+
+  useTopmostVisibleElement({
+    elements,
+    scrollContainerId,
+    setTopmostVisibleElementId: setActiveItemId,
+  });
 
   return (
     <>
@@ -25,15 +41,19 @@ const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
         as={Link}
         data-cy={`navitem-${ImageTabRoutes.BuildInformation}`}
         indentLevel={0}
+        onClick={() =>
+          sendEvent({ name: "Changed tab", tab: ImageTabRoutes.EventLog })
+        }
         to={getImageRoute(imageId, ImageTabRoutes.BuildInformation)}
       >
         Build Information
       </SideNavItem>
-      {buildInformationSections.map((s, idx) => {
-        const isActive = tabIsActive && activeIndex === idx;
+      {Object.keys(tocItems).map((s) => {
+        const item = tocItems[s];
+        const isActive = tabIsActive && item.observedElementId === activeItemId;
         return (
           <SideNavItem
-            key={s.id}
+            key={item.id}
             active={isActive}
             as={Link}
             css={css`
@@ -43,11 +63,15 @@ const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
               }
             `}
             data-active={isActive}
-            data-cy={`navitem-${s.id}`}
+            data-cy={`navitem-${s}`}
             indentLevel={3}
-            to={getImageRoute(imageId, ImageTabRoutes.BuildInformation, s.id)}
+            to={getImageRoute(
+              imageId,
+              ImageTabRoutes.BuildInformation,
+              item.id,
+            )}
           >
-            {s.title}
+            {item.title}
           </SideNavItem>
         );
       })}
