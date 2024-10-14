@@ -13,12 +13,15 @@ describe("waterfall page", () => {
   });
 
   describe("inactive commits", () => {
-    it("renders an inactive version column and button", () => {
+    it("renders an inactive version column, button and broken versions badge", () => {
       cy.dataCy("version-labels")
         .children()
         .eq(2)
-        .get("button")
+        .find("button")
         .should("have.attr", "data-cy", "inactive-versions-button");
+      cy.dataCy("broken-versions-badge")
+        .should("be.visible")
+        .contains("1 broken");
       cy.dataCy("build-group")
         .first()
         .children()
@@ -28,6 +31,7 @@ describe("waterfall page", () => {
     it("clicking an inactive versions button renders a inactive versions modal", () => {
       cy.dataCy("inactive-versions-button").first().click();
       cy.dataCy("inactive-versions-modal").should("be.visible");
+      cy.dataCy("inactive-versions-modal").contains("Broken");
       cy.dataCy("inactive-versions-modal").contains("1 Inactive Version");
       cy.dataCy("inactive-versions-modal").contains("e695f65");
       cy.dataCy("inactive-versions-modal").contains("Mar 2, 2022");
