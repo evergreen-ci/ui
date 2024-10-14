@@ -217,7 +217,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
           {!hasMatchingResults && (
             <BasicEmptyState
               description=""
-              title={`No ${hasResults ? "Matching " : ""}Failed Tests Found`}
+              title={`No ${hasResults ? "matching " : ""}failed tests found`}
             />
           )}
         </>

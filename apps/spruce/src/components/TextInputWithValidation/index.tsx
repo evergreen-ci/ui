@@ -39,6 +39,7 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       "aria-label": ariaLabel,
       clearOnSubmit = false,
       defaultValue,
+      disabled,
       label,
       onChange = () => {},
       onSubmit = () => {},
@@ -71,10 +72,12 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       <TextInputWithGlyph
         ref={ref}
         aria-label={ariaLabel}
+        disabled={disabled}
         icon={
           isValid ? (
             <IconButton
               aria-label="Select plus button"
+              disabled={disabled}
               onClick={handleOnSubmit}
             >
               <Icon glyph="Plus" />
