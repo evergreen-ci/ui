@@ -3,7 +3,6 @@ import GQLProvider from "gql/GQLProvider";
 import { AuthProvider } from "./auth";
 import { LogContextProvider } from "./LogContext";
 import { MultiLineSelectContextProvider } from "./MultiLineSelectContext";
-import { SectionsFeatureDiscoveryContextProvider } from "./SectionsFeatureDiscoveryContext";
 import { ToastProvider } from "./toast";
 
 /**
@@ -21,9 +20,7 @@ const GlobalProviders: React.FC<{ children: React.ReactElement }> = ({
         <GQLProvider>
           <LogContextProvider>
             <MultiLineSelectContextProvider>
-              <SectionsFeatureDiscoveryContextProvider>
-                {children}
-              </SectionsFeatureDiscoveryContextProvider>
+              {children}
             </MultiLineSelectContextProvider>
           </LogContextProvider>
         </GQLProvider>

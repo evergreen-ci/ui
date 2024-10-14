@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { Link, useParams, Navigate } from "react-router-dom";
+import { useImageAnalytics } from "analytics";
 import {
   SideNav,
   SideNavItem,
@@ -20,6 +21,7 @@ const Image: React.FC = () => {
     [slugs.imageId]: string;
     [slugs.tab]: ImageTabRoutes;
   }>();
+  const { sendEvent } = useImageAnalytics();
 
   const { image: firstImage } = useFirstImage();
   const selectedImage = imageId ?? firstImage;
@@ -55,6 +57,9 @@ const Image: React.FC = () => {
             as={Link}
             data-cy={`navitem-${ImageTabRoutes.EventLog}`}
             indentLevel={0}
+            onClick={() =>
+              sendEvent({ name: "Changed tab", tab: ImageTabRoutes.EventLog })
+            }
             to={getImageRoute(selectedImage, ImageTabRoutes.EventLog)}
           >
             Event Log

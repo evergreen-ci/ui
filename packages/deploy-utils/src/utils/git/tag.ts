@@ -2,12 +2,18 @@ import { execSync } from "child_process";
 import { execTrim, green, underline } from "../shell";
 import { DeployableApp } from "../types";
 
+enum ReleaseVersion {
+  Patch = "patch",
+  Minor = "minor",
+  Major = "major",
+}
+
 /**
  * `createTagAndPush` is a helper function that creates a new tag.
  * Pushing occurs in the postversion hook triggered by "yarn version"
  * @param version - version indicates the type of upgrade of the new tag.
  */
-const createTagAndPush = (version: "patch" | "minor" | "major") => {
+const createTagAndPush = (version: ReleaseVersion) => {
   console.log("Creating new tag...");
   try {
     execSync(`yarn version --new-version ${version}`, {
@@ -26,6 +32,21 @@ const createTagAndPush = (version: "patch" | "minor" | "major") => {
       )}`,
     ),
   );
+};
+
+/**
+ * `getReleaseVersion` is a helper function that gets the release version from commit messages.
+ * @param commitMessages - commit messages to parse
+ * @returns - the release version
+ */
+const getReleaseVersion = (commitMessages: string): ReleaseVersion => {
+  let version = ReleaseVersion.Patch;
+  if (/\[major\]/i.test(commitMessages)) {
+    version = ReleaseVersion.Major;
+  } else if (/\[minor\]/i.test(commitMessages)) {
+    version = ReleaseVersion.Minor;
+  }
+  return version;
 };
 
 /**
@@ -84,4 +105,12 @@ const pushTags = () => {
 const tagIsValid = (app: DeployableApp, matchString: string) =>
   new RegExp(`${app}/v\\d+.\\d+.\\d+`).test(matchString);
 
-export { createTagAndPush, deleteTag, getLatestTag, pushTags, tagIsValid };
+export {
+  createTagAndPush,
+  deleteTag,
+  getLatestTag,
+  getReleaseVersion,
+  pushTags,
+  tagIsValid,
+  ReleaseVersion,
+};

@@ -7,6 +7,8 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
+import AnimatedIcon from "components/Icon/AnimatedIcon";
+import { FallTree } from "components/Icon/icons/FallTree";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import {
@@ -22,7 +24,6 @@ import { USER, SPRUCE_CONFIG } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
 import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
-import SpruceSummerTree from "./SpruceSummerTree.svg";
 import { UserDropdown } from "./UserDropdown";
 
 const { validateObjectId } = validators;
@@ -71,10 +72,7 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
-          <SpruceSummerTreeIcon
-            alt="Evergreen tree on an island with a beach ball"
-            src={SpruceSummerTree}
-          />
+          <AnimatedIcon icon={FallTree} />
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
@@ -186,9 +184,4 @@ const secondaryStyle = css`
 
 const SecondaryLink = styled.a`
   ${secondaryStyle}
-`;
-
-const SpruceSummerTreeIcon = styled.img`
-  height: 72px;
-  position: relative;
 `;

@@ -96,6 +96,15 @@ export enum BannerTheme {
   Warning = "WARNING",
 }
 
+export type BetaFeatures = {
+  __typename?: "BetaFeatures";
+  spruceWaterfallEnabled: Scalars["Boolean"]["output"];
+};
+
+export type BetaFeaturesInput = {
+  spruceWaterfallEnabled: Scalars["Boolean"]["input"];
+};
+
 export enum BootstrapMethod {
   LegacySsh = "LEGACY_SSH",
   Ssh = "SSH",
@@ -1269,6 +1278,7 @@ export type Mutation = {
   spawnVolume: Scalars["Boolean"]["output"];
   unscheduleTask: Task;
   unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
+  updateBetaFeatures?: Maybe<UpdateBetaFeaturesPayload>;
   updateHostStatus: Scalars["Int"]["output"];
   updateParsleySettings?: Maybe<UpdateParsleySettingsPayload>;
   updatePublicKey: Array<PublicKey>;
@@ -1518,6 +1528,10 @@ export type MutationUnscheduleTaskArgs = {
 export type MutationUnscheduleVersionTasksArgs = {
   abort: Scalars["Boolean"]["input"];
   versionId: Scalars["String"]["input"];
+};
+
+export type MutationUpdateBetaFeaturesArgs = {
+  opts: UpdateBetaFeaturesInput;
 };
 
 export type MutationUpdateHostStatusArgs = {
@@ -3186,6 +3200,15 @@ export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type UpdateBetaFeaturesInput = {
+  betaFeatures: BetaFeaturesInput;
+};
+
+export type UpdateBetaFeaturesPayload = {
+  __typename?: "UpdateBetaFeaturesPayload";
+  betaFeatures?: Maybe<BetaFeatures>;
+};
+
 export type UpdateParsleySettingsInput = {
   parsleySettings: ParsleySettingsInput;
 };
@@ -3244,6 +3267,7 @@ export type UseSpruceOptionsInput = {
  */
 export type User = {
   __typename?: "User";
+  betaFeatures: BetaFeatures;
   displayName: Scalars["String"]["output"];
   emailAddress: Scalars["String"]["output"];
   parsleyFilters: Array<ParsleyFilter>;
@@ -3465,6 +3489,7 @@ export type WaterfallOptions = {
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type WaterfallTask = {
@@ -9515,6 +9540,7 @@ export type WaterfallQuery = {
       id: string;
       builds: Array<{
         __typename?: "WaterfallBuild";
+        activated?: boolean | null;
         displayName: string;
         id: string;
         version: string;
@@ -9528,11 +9554,34 @@ export type WaterfallQuery = {
     }>;
     versions: Array<{
       __typename?: "WaterfallVersion";
-      inactiveVersions?: Array<{ __typename?: "Version"; id: string }> | null;
-      version?: {
+      inactiveVersions?: Array<{
         __typename?: "Version";
+        activated?: boolean | null;
         author: string;
         createTime: Date;
+        errors: Array<string>;
+        id: string;
+        message: string;
+        revision: string;
+        gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+        upstreamProject?: {
+          __typename?: "UpstreamProject";
+          owner: string;
+          project: string;
+          repo: string;
+          revision: string;
+          triggerID: string;
+          triggerType: string;
+          task?: { __typename?: "Task"; execution: number; id: string } | null;
+          version?: { __typename?: "Version"; id: string } | null;
+        } | null;
+      }> | null;
+      version?: {
+        __typename?: "Version";
+        activated?: boolean | null;
+        author: string;
+        createTime: Date;
+        errors: Array<string>;
         id: string;
         message: string;
         revision: string;

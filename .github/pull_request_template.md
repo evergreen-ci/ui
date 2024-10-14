@@ -1,4 +1,5 @@
 DEVPROD-NNNNN
+<!-- Does this PR have a minor or major SemVer version change? Include [minor] or [major] in the title ☝️ -->
 <!-- Does this PR need a 🔵Spruce or 🟢Parsley label? Add it in the sidebar 👉 -->
 
 ### Description
