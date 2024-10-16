@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { SEEN_TEST_ANALYSIS_TAB_GUIDE_CUE } from "constants/cookies";
 
+// TODO: Remove in https://jira.mongodb.org/browse/DEVPROD-12094
 export const TestAnalysisTabGuideCue: React.FC = () => {
   const [open, setOpen] = useState(
     Cookies.get(SEEN_TEST_ANALYSIS_TAB_GUIDE_CUE) !== "true",
