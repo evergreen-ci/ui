@@ -38,7 +38,7 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     const {
       "aria-label": ariaLabel,
       clearOnSubmit = false,
-      defaultValue,
+      defaultValue = "",
       disabled,
       label,
       onChange = () => {},
@@ -48,7 +48,7 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       ...rest
     } = props;
 
-    const [input, setInput] = useState(defaultValue || "");
+    const [input, setInput] = useState(defaultValue);
     const isValid = validator(input);
 
     const handleOnSubmit = () => {
