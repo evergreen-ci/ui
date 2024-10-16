@@ -118,8 +118,6 @@ const AnimatedAccordion = styled.div<{
         ? "max-height 0.3s cubic-bezier(0, 1, 0, 1)"
         : "max-height 0.6s ease-in-out"
     }`};
-
-  ${({ hide }) => hide && `display: none;`}
 `;
 
 const ContentsContainer = styled.div`
