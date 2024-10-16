@@ -3,6 +3,7 @@ import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { size } from "constants/tokens";
+import { NameFilter } from "./NameFilter";
 
 type WaterfallFiltersProps = {
   projectIdentifier: string;
@@ -14,7 +15,10 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   return (
     <Container>
-      <FilterItem>
+      <FilterItem width={35}>
+        <NameFilter />
+      </FilterItem>
+      <FilterItem width={25}>
         <ProjectSelect
           getRoute={getWaterfallRoute}
           onSubmit={(project: string) => {
@@ -32,7 +36,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
 // Temporary - update styles as more filters are added.
 const FilterItem = styled.div`
-  width: 300px;
+  ${({ width }: { width: number }) => `width: ${width}%;`}
 `;
 
 const Container = styled.div`
