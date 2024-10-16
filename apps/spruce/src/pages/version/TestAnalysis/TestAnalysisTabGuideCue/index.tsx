@@ -34,7 +34,7 @@ export const TestAnalysisTabGuideCue: React.FC = () => {
         tooltipAlign={TooltipAlign.Right}
       >
         Visit the Test Analysis tab to view an overview of common failed test
-        results across your version.
+        results across this version.
       </GuideCue>
       <BadgeRefWrapper ref={badgeRef}>
         <StyledBadge variant="green">NEW</StyledBadge>

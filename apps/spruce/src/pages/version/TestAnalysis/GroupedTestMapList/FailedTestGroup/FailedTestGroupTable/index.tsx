@@ -6,8 +6,8 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { StyledRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { getTaskRoute } from "constants/routes";
+import { TaskBuildVariantField } from "pages/version/TestAnalysis/types";
 import { TaskTab } from "types/task";
-import { TaskBuildVariantField } from "../../../types";
 
 interface FailedTestGroupTableProps {
   tasks: TaskBuildVariantField[];
