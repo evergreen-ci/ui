@@ -1,57 +1,5 @@
 <div>
-  <div
-    class="css-1pp2qz6"
-  >
-    <div
-      class="css-bnbttx-VersionContainer-columnBasis-wordBreakCss e3zirl01"
-    >
-      <p
-        class="leafygreen-ui-1tb6tuo"
-      >
-        <a
-          class="lg-ui-0000 leafygreen-ui-hvznge"
-          href="/version/evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a/tasks"
-        >
-          <code
-            class="leafygreen-ui-i6ovbf"
-          >
-            1309488
-          </code>
-        </a>
-         
-        09/19/2024, 12:06
-      </p>
-      <p
-        class="leafygreen-ui-1tb6tuo"
-      >
-        Triggered by:
-         
-        <a
-          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
-          href="/task/678"
-        >
-          <span>
-            evergreen
-          </span>
-        </a>
-      </p>
-      <p
-        class="css-69ll71-CommitMessage e3zirl00 leafygreen-ui-1tb6tuo"
-        title="spruce/v4.1.87"
-      >
-        <strong>
-          Sophie Stadler
-        </strong>
-         •
-         
-        spruce/v4.1.87
-      </p>
-      <p
-        class="leafygreen-ui-1tb6tuo"
-      >
-        Git Tags: 
-        spruce/v4.1.87
-      </p>
-    </div>
+  <div>
+    Failed to render component.
   </div>
 </div>

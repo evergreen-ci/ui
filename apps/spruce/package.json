@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "4.1.99",
+  "version": "4.1.102",
   "private": true,
   "type": "module",
   "scripts": {
@@ -63,7 +63,7 @@
     "@leafygreen-ui/checkbox": "^13.1.2",
     "@leafygreen-ui/chip": "^1.2.1",
     "@leafygreen-ui/code": "^14.3.3",
-    "@leafygreen-ui/combobox": "^9.1.1",
+    "@leafygreen-ui/combobox": "^9.1.4",
     "@leafygreen-ui/confirmation-modal": "^5.0.9",
     "@leafygreen-ui/date-picker": "^1.1.3",
     "@leafygreen-ui/date-utils": "^0.1.2",

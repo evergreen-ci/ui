@@ -2065,16 +2065,16 @@
     lodash "^4.17.21"
     polished "^4.2.2"
 
-"@leafygreen-ui/combobox@^9.1.1":
-  version "9.1.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/combobox/-/combobox-9.1.3.tgz#b9d3af4543e2a367ea9f493e212fa5688a203f89"
-  integrity sha512-Fb0A45hYhcEumy4fsubzYHenjkgT70ITxEi4A4p8TiobRPfpG5KQqp7vFbRK1ER+5Kq45r8c92PZVjffMKOAMw==
+"@leafygreen-ui/combobox@^9.1.4":
+  version "9.1.4"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/combobox/-/combobox-9.1.4.tgz#3ad9418a2bae31f9eb66c07538f6bba69e2f117f"
+  integrity sha512-0iNBC63pVK54qpOezW81UgX6iWnKNG24duVmo/ChBX72OFgIiWX3OOI/iMS9mCxLWCPT8rt9GgdpGxRFFresnA==
   dependencies:
     "@leafygreen-ui/checkbox" "^13.1.2"
     "@leafygreen-ui/chip" "^1.2.1"
     "@leafygreen-ui/emotion" "^4.0.8"
     "@leafygreen-ui/form-field" "^1.2.4"
-    "@leafygreen-ui/hooks" "^8.1.4"
+    "@leafygreen-ui/hooks" "^8.2.0"
     "@leafygreen-ui/icon" "^12.5.4"
     "@leafygreen-ui/icon-button" "^15.0.23"
     "@leafygreen-ui/input-option" "^2.0.2"
@@ -2255,6 +2255,14 @@
   version "8.1.4"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-8.1.4.tgz#90b682cb05edce30f9e00a1e365a24e69730bf97"
   integrity sha512-1J8C4OnXApwHLljFMzsigTxKUxIGchOWMaqGM+j4X0nZLeSRyjpRL4zuLth0M3yaws8nknOPNMvJdvQEnzC3kQ==
+  dependencies:
+    "@leafygreen-ui/lib" "^13.3.0"
+    lodash "^4.17.21"
+
+"@leafygreen-ui/hooks@^8.2.0":
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-8.2.1.tgz#746ca00f11bea47d34c03760e7734db95e7eb81e"
+  integrity sha512-yozp+WfMo1aNzQJG4WOa4eoxEEMK3T7Q7D2AObRWEPR+jPeeocsBKSHoAkUsfJ/8AklQ+LIWM1SvtUm4iuLXtQ==
   dependencies:
     "@leafygreen-ui/lib" "^13.3.0"
     lodash "^4.17.21"

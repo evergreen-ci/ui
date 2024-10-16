@@ -27,7 +27,7 @@ import {
   TestSortOptions,
 } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
-import { useTableSort, useUpdateURLQueryParams, usePolling } from "hooks";
+import { useTableSort, usePolling } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import {
   RequiredQueryParams,
@@ -48,7 +48,6 @@ interface TestsTableProps {
 
 export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
   const { pathname } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
   const { sendEvent } = useTaskAnalytics();
 
   const [queryParams, setQueryParams] = useQueryParams();
@@ -63,20 +62,16 @@ export const TestsTable: React.FC<TestsTableProps> = ({ task }) => {
     if (execution == null) {
       return;
     }
-
-    if (
-      sortBy === undefined &&
-      updateQueryParams &&
-      appliedDefaultSort.current !== pathname
-    ) {
+    if (sortBy === undefined && appliedDefaultSort.current !== pathname) {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       appliedDefaultSort.current = pathname;
-      updateQueryParams({
+      setQueryParams({
+        ...queryParams,
         [TableQueryParams.SortBy]: TestSortCategory.Status,
         [TableQueryParams.SortDir]: SortDirection.Asc,
       });
     }
-  }, [pathname, updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
