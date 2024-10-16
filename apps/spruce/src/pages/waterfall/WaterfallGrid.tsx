@@ -1,10 +1,16 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
+import {
+  WaterfallQuery,
+  WaterfallQueryVariables,
+  WaterfallVersionFragment,
+} from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
+import { useQueryParam } from "hooks/useQueryParam";
+import { WaterfallFilterOptions } from "types/waterfall";
 import { BuildRow } from "./BuildRow";
 import { InactiveVersionsButton } from "./InactiveVersionsButton";
 import {
@@ -23,6 +29,11 @@ type WaterfallGridProps = {
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
 }) => {
+  const [requesters] = useQueryParam(
+    WaterfallFilterOptions.Requesters,
+    [] as string[],
+  );
+
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {
@@ -40,12 +51,76 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const { height } = useDimensions(
     refEl as React.MutableRefObject<HTMLElement>,
   );
+
+  const [versions, activeVersionIds] = useMemo(() => {
+    const activeIds: Set<string> = new Set();
+    const newRolledUpArray: typeof data.waterfall.versions = [];
+
+    const pushInactive = (v: WaterfallVersionFragment) => {
+      if (!newRolledUpArray?.[newRolledUpArray.length - 1]?.inactiveVersions) {
+        newRolledUpArray.push({ version: null, inactiveVersions: [] });
+      }
+      newRolledUpArray[newRolledUpArray.length - 1].inactiveVersions?.push(v);
+    };
+
+    const pushActive = (v: WaterfallVersionFragment) => {
+      newRolledUpArray.push({
+        inactiveVersions: null,
+        version: v,
+      });
+    };
+
+    data.waterfall.versions.forEach(({ inactiveVersions, version }) => {
+      if (version) {
+        if (
+          !requesters.length ||
+          requesters?.some((r) => r === version.requester)
+        ) {
+          pushActive(version);
+          activeIds.add(version.id);
+        } else {
+          pushInactive(version);
+        }
+      } else if (inactiveVersions) {
+        inactiveVersions.forEach((iv) => pushInactive(iv));
+      }
+    });
+
+    return [newRolledUpArray, activeIds];
+  }, [data, requesters]);
+
+  const hasFilters = useMemo(() => requesters.length, [requesters]);
+
+  const buildVariants = useMemo(() => {
+    if (!hasFilters) {
+      return data.waterfall.buildVariants;
+    }
+
+    const bvs: typeof data.waterfall.buildVariants = [];
+    data.waterfall.buildVariants.forEach((bv) => {
+      if (activeVersionIds.size !== bv.builds.length) {
+        const activeBuilds: typeof bv.builds = [];
+        bv.builds.forEach((b) => {
+          if (activeVersionIds.has(b.version)) {
+            activeBuilds.push(b);
+          }
+        });
+        if (activeBuilds.length) {
+          bvs.push({ ...bv, builds: activeBuilds });
+        }
+      } else {
+        bvs.push(bv);
+      }
+    });
+    return bvs;
+  }, [data, activeVersionIds]);
+
   return (
     <Container ref={refEl}>
       <Row>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
-          {data.waterfall.versions.map(({ inactiveVersions, version }) =>
+          {versions.map(({ inactiveVersions, version }) =>
             version ? (
               <VersionLabel key={version.id} size="small" {...version} />
             ) : (
@@ -60,12 +135,12 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           )}
         </Versions>
       </Row>
-      {data.waterfall.buildVariants.map((b) => (
+      {buildVariants.map((b) => (
         <BuildRow
           key={b.id}
           build={b}
           projectIdentifier={projectIdentifier}
-          versions={data.waterfall.versions}
+          versions={versions}
         />
       ))}
     </Container>

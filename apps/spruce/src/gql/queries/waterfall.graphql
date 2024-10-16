@@ -1,4 +1,4 @@
-#import "../fragments/upstreamProject.graphql"
+#import "../fragments/waterfall.graphql"
 
 query Waterfall($options: WaterfallOptions!) {
   waterfall(options: $options) {
@@ -19,30 +19,10 @@ query Waterfall($options: WaterfallOptions!) {
     }
     versions {
       inactiveVersions {
-        activated
-        author
-        createTime
-        errors
-        gitTags {
-          tag
-        }
-        id
-        message
-        revision
-        ...UpstreamProject
+        ...WaterfallVersion
       }
       version {
-        activated
-        author
-        createTime
-        errors
-        gitTags {
-          tag
-        }
-        id
-        message
-        revision
-        ...UpstreamProject
+        ...WaterfallVersion
       }
     }
   }
