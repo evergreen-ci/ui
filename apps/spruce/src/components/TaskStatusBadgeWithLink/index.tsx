@@ -21,7 +21,7 @@ const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
       tab: status === TaskStatus.KnownIssue ? TaskTab.Annotations : undefined,
     })}
   >
-    <TaskStatusBadge status={status} {...rest} />
+    <TaskStatusBadge status={status as TaskStatus} {...rest} />
   </Link>
 );
 

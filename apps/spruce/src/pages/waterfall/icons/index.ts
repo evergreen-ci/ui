@@ -8,7 +8,7 @@ import whiteX from "./WhiteX";
 
 const { blue, gray, green, purple, red, yellow } = palette;
 
-export const statusColorMap: Record<string, string> = {
+export const statusColorMap: Record<TaskStatus, string> = {
   [TaskStatus.Succeeded]: green.dark1,
   [TaskStatus.Started]: yellow.base,
   [TaskStatus.Dispatched]: yellow.base,
@@ -30,7 +30,7 @@ export const statusColorMap: Record<string, string> = {
   [TaskStatus.Unstarted]: gray.dark1,
 };
 
-export const statusIconMap: Record<string, string> = {
+export const statusIconMap: Partial<Record<TaskStatus, string>> = {
   [TaskStatus.Failed]: whiteX,
   [TaskStatus.TaskTimedOut]: whiteClockWithArrow,
   [TaskStatus.TestTimedOut]: whiteClockWithArrow,

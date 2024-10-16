@@ -118,7 +118,7 @@ export const getColumnsTemplate = ({
           status={getValue() as string}
         />
       ) : (
-        <TaskStatusBadge status={getValue() as string} />
+        <TaskStatusBadge status={getValue() as TaskStatus} />
       ),
     meta: {
       treeSelect: {
