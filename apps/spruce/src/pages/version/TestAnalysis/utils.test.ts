@@ -1,8 +1,4 @@
-import {
-  TestAnalysisQueryTasks,
-  GroupedTestMap,
-  TaskBuildVariantField,
-} from "./types";
+import { TestAnalysisQueryTasks, TaskBuildVariantField } from "./types";
 import {
   groupTestsByName,
   filterGroupedTests,
@@ -10,64 +6,60 @@ import {
   countTotalTests,
 } from "./utils";
 
+const groupedTests = new Map<string, TaskBuildVariantField[]>([
+  [
+    "test1",
+    [
+      {
+        taskName: "task1",
+        buildVariant: "variant1",
+        id: "task1_id",
+        status: "failed",
+        logs: {
+          urlParsley: "",
+        },
+      },
+      {
+        taskName: "task2",
+        buildVariant: "variant2",
+        id: "task2_id",
+        status: "success",
+        logs: {
+          urlParsley: "",
+        },
+      },
+    ],
+  ],
+  [
+    "test2",
+    [
+      {
+        taskName: "task3",
+        buildVariant: "variant1",
+        id: "task3_id",
+        status: "success",
+        logs: {
+          urlParsley: "",
+        },
+      },
+    ],
+  ],
+  [
+    "anotherTest",
+    [
+      {
+        taskName: "task4",
+        buildVariant: "variant3",
+        id: "task4_id",
+        status: "failed",
+        logs: {
+          urlParsley: "",
+        },
+      },
+    ],
+  ],
+]);
 describe("countTotalTests", () => {
-  let groupedTests: GroupedTestMap;
-
-  beforeEach(() => {
-    groupedTests = new Map<string, TaskBuildVariantField[]>([
-      [
-        "test1",
-        [
-          {
-            taskName: "task1",
-            buildVariant: "variant1",
-            id: "task1_id",
-            status: "failed",
-            logs: {
-              urlParsley: "",
-            },
-          },
-          {
-            taskName: "task2",
-            buildVariant: "variant2",
-            id: "task2_id",
-            status: "success",
-            logs: {
-              urlParsley: "",
-            },
-          },
-        ],
-      ],
-      [
-        "test2",
-        [
-          {
-            taskName: "task3",
-            buildVariant: "variant1",
-            id: "task3_id",
-            status: "success",
-            logs: {
-              urlParsley: "",
-            },
-          },
-        ],
-      ],
-      [
-        "anotherTest",
-        [
-          {
-            taskName: "task4",
-            buildVariant: "variant3",
-            id: "task4_id",
-            status: "failed",
-            logs: {
-              urlParsley: "",
-            },
-          },
-        ],
-      ],
-    ]);
-  });
   it("should return 0 when given an empty map", () => {
     const result = countTotalTests(new Map());
     expect(result).toBe(0);
@@ -356,64 +348,6 @@ describe("groupTestsByName", () => {
 });
 
 describe("filterGroupedTests", () => {
-  let groupedTests: GroupedTestMap;
-
-  beforeEach(() => {
-    groupedTests = new Map<string, TaskBuildVariantField[]>([
-      [
-        "test1",
-        [
-          {
-            taskName: "task1",
-            buildVariant: "variant1",
-            id: "task1_id",
-            status: "failed",
-            logs: {
-              urlParsley: "",
-            },
-          },
-          {
-            taskName: "task2",
-            buildVariant: "variant2",
-            id: "task2_id",
-            status: "success",
-            logs: {
-              urlParsley: "",
-            },
-          },
-        ],
-      ],
-      [
-        "test2",
-        [
-          {
-            taskName: "task3",
-            buildVariant: "variant1",
-            id: "task3_id",
-            status: "success",
-            logs: {
-              urlParsley: "",
-            },
-          },
-        ],
-      ],
-      [
-        "anotherTest",
-        [
-          {
-            taskName: "task4",
-            buildVariant: "variant3",
-            id: "task4_id",
-            status: "failed",
-            logs: {
-              urlParsley: "",
-            },
-          },
-        ],
-      ],
-    ]);
-  });
-
   it("filters tests by regex pattern, statuses, and build variants", () => {
     const testNamePattern = "^test\\d$"; // Matches 'test1' and 'test2'
     const statuses = ["failed", "success"];
