@@ -18,7 +18,7 @@ import {
   TestAnalysisQueryVariables,
 } from "gql/generated/types";
 import { TEST_ANALYSIS } from "gql/queries";
-import { useQueryParam } from "hooks/useQueryParam";
+import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { TestAnalysisQueryParams } from "types/task";
 import { reportError } from "utils/errorReporting";
 import { validateRegexp } from "utils/validators";
@@ -49,6 +49,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     TestAnalysisQueryParams.TestName,
     "",
   );
+  const [, setQueryParams] = useQueryParams();
   const { sendEvent } = useVersionAnalytics(versionId);
 
   const dispatchToast = useToastContext();
@@ -200,11 +201,14 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
                 {pluralize("Test", totalFilteredTestCount)}
               </Body>
               <Button
+                data-cy="clear-filter-button"
                 disabled={!hasFiltersApplied}
                 onClick={() => {
-                  setSelectedTaskStatuses([]);
-                  setSelectedBuildVariants([]);
-                  setTestName("");
+                  setQueryParams({
+                    [TestAnalysisQueryParams.Statuses]: [],
+                    [TestAnalysisQueryParams.Variants]: [],
+                    [TestAnalysisQueryParams.TestName]: "",
+                  });
                 }}
                 size="xsmall"
               >
