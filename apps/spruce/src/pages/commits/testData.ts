@@ -1,5 +1,5 @@
 import { palette } from "@leafygreen-ui/palette";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 
 const { gray, green, purple, red, yellow } = palette;
 
@@ -179,13 +179,13 @@ const groupedTaskStatsAll = [
     color: green.dark1,
   },
   {
-    umbrellaStatus: TaskStatus.FailedUmbrella,
+    umbrellaStatus: TaskStatusUmbrella.Failed,
     count: 1,
     statuses: [TaskStatus.Failed],
     color: red.base,
   },
   {
-    umbrellaStatus: TaskStatus.SystemFailureUmbrella,
+    umbrellaStatus: TaskStatusUmbrella.SystemFailure,
     count: 3,
     statuses: [TaskStatus.SystemFailed],
     color: purple.dark2,
@@ -203,7 +203,7 @@ const groupedTaskStatsAll = [
     color: gray.dark1,
   },
   {
-    umbrellaStatus: TaskStatus.RunningUmbrella,
+    umbrellaStatus: TaskStatusUmbrella.Running,
     count: 6,
     statuses: [TaskStatus.Started],
     color: yellow.base,
@@ -221,13 +221,13 @@ const groupedTaskStatsAll = [
     color: gray.dark1,
   },
   {
-    umbrellaStatus: TaskStatus.ScheduledUmbrella,
+    umbrellaStatus: TaskStatusUmbrella.Scheduled,
     count: 7,
     statuses: [TaskStatus.WillRun],
     color: gray.dark1,
   },
   {
-    umbrellaStatus: TaskStatus.UndispatchedUmbrella,
+    umbrellaStatus: TaskStatusUmbrella.Undispatched,
     count: 7,
     statuses: [TaskStatus.Unscheduled],
     color: gray.dark1,
