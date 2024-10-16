@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { size } from "constants/tokens";
@@ -37,6 +37,8 @@ export const Accordion: React.FC<AccordionProps> = ({
   useIndent = true,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
+  const [shouldRenderContents, setShouldRenderContents] = useState(defaultOpen);
+
   const toggleAccordionHandler = (): void => {
     setIsAccordionDisplayed(!isAccordionDisplayed);
     onToggle({ isVisible: !isAccordionDisplayed });
@@ -48,11 +50,21 @@ export const Accordion: React.FC<AccordionProps> = ({
   );
 
   let contents = null;
-  if (shouldRenderChildIfHidden) {
-    contents = children;
-  } else if (isAccordionDisplayed) {
+  if (shouldRenderChildIfHidden || shouldRenderContents) {
     contents = children;
   }
+
+  const handleTransitionEnd = () => {
+    if (!isAccordionDisplayed) {
+      setShouldRenderContents(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isAccordionDisplayed) {
+      setShouldRenderContents(true);
+    }
+  }, [isAccordionDisplayed]);
 
   return (
     <div className={className} data-cy={dataCy}>
@@ -62,6 +74,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           data-cy="accordion-collapse-container"
           disableAnimation={disableAnimation}
           hide={!isAccordionDisplayed}
+          onTransitionEnd={handleTransitionEnd}
         >
           {contents}
         </AnimatedAccordion>
