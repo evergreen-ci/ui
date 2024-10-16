@@ -32,7 +32,7 @@
         </div>
         <div
           aria-expanded="true"
-          class="css-dqbkeh-AnimatedAccordion ev0bopr2"
+          class="css-n5l1wu-AnimatedAccordion ev0bopr2"
           data-cy="accordion-collapse-container"
         >
           <div
@@ -230,7 +230,7 @@
                   </div>
                   <div
                     aria-expanded="true"
-                    class="css-dqbkeh-AnimatedAccordion ev0bopr2"
+                    class="css-n5l1wu-AnimatedAccordion ev0bopr2"
                     data-cy="accordion-collapse-container"
                   >
                     <div

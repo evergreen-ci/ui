@@ -131,35 +131,5 @@
     >
       2 Known Issue
     </div>
-    <div
-      class="css-2hlbd4 leafygreen-ui-c62i3c"
-      data-cy="task-status-badge"
-    >
-      2 Failed
-    </div>
-    <div
-      class="css-2hlbd4 leafygreen-ui-c62i3c"
-      data-cy="task-status-badge"
-    >
-      2 System Failed
-    </div>
-    <div
-      class="css-2hlbd4 leafygreen-ui-c62i3c"
-      data-cy="task-status-badge"
-    >
-      2 Running
-    </div>
-    <div
-      class="css-2hlbd4 leafygreen-ui-c62i3c"
-      data-cy="task-status-badge"
-    >
-      2 Undispatched
-    </div>
-    <div
-      class="css-2hlbd4 leafygreen-ui-c62i3c"
-      data-cy="task-status-badge"
-    >
-      2 Scheduled
-    </div>
   </div>
 </div>
