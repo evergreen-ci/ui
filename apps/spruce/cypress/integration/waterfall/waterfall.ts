@@ -53,4 +53,40 @@ describe("waterfall page", () => {
       cy.get("@builds").eq(5).children().should("have.length", 8);
     });
   });
+
+  describe("requester filtering", () => {
+    it("filters on periodic builds and trigger", () => {
+      cy.dataCy("inactive-versions-button").first().contains("1");
+      cy.dataCy("requester-filter").click();
+      cy.dataCy("ad_hoc-option").click();
+      cy.dataCy("inactive-versions-button").first().contains("6");
+      cy.dataCy("version-label-active").should("have.length", 0);
+
+      cy.dataCy("requester-filter").click();
+      cy.dataCy("trigger_request-option").click();
+      cy.dataCy("inactive-versions-button").first().contains("5");
+      cy.dataCy("version-label-active").should("have.length", 1);
+      cy.dataCy("version-label-active").contains("Triggered by:");
+    });
+
+    it("filters on git tags", () => {
+      cy.dataCy("requester-filter").click();
+      cy.dataCy("git_tag_request-option").click();
+      cy.dataCy("inactive-versions-button").should("have.length", 2);
+      cy.dataCy("inactive-versions-button").first().contains("3");
+      cy.dataCy("inactive-versions-button").eq(1).contains("2");
+      cy.dataCy("version-label-active").contains("Git Tag");
+    });
+
+    it("clears requester filters", () => {
+      cy.dataCy("requester-filter").click();
+      cy.dataCy("gitter_request-option").click();
+      cy.dataCy("version-label-active").should("have.length", 3);
+
+      cy.dataCy("requester-filter").within(() => {
+        cy.get("button[aria-label='Clear selection']").click();
+      });
+      cy.dataCy("version-label-active").should("have.length", 5);
+    });
+  });
 });

@@ -42,7 +42,11 @@ export const VersionLabel: React.FC<Props> = ({
   const commitType = activated ? "active" : "inactive";
 
   return (
-    <VersionContainer className={className} size={size}>
+    <VersionContainer
+      className={className}
+      data-cy={`version-label-${commitType}`}
+      size={size}
+    >
       <Body>
         <InlineCode
           as={Link}

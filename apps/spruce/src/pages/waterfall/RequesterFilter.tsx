@@ -27,6 +27,7 @@ export const RequesterFilter = () => {
 
   return (
     <Combobox
+      data-cy="requester-filter"
       // Use an uncontrolled component so that the transition does not affect combobox rendering
       initialValue={requesters}
       label="Requesters"
@@ -37,6 +38,7 @@ export const RequesterFilter = () => {
     >
       {commitRequesters.map((requester) => (
         <ComboboxOption
+          data-cy={`${requester}-option`}
           displayName={requesterToTitle[requester]}
           value={requester}
         />
