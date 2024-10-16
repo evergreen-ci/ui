@@ -1,4 +1,4 @@
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, useEffect } from "react";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import {
@@ -49,6 +49,10 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     } = props;
 
     const [input, setInput] = useState(defaultValue);
+    useEffect(() => {
+      setInput(defaultValue);
+    }, [defaultValue]);
+
     const isValid = validator(input);
 
     const handleOnSubmit = () => {
