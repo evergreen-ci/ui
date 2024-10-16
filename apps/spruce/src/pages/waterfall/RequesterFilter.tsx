@@ -1,5 +1,6 @@
 import { useTransition } from "react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { useWaterfallAnalytics } from "analytics";
 import { Requester, requesterToTitle } from "constants/requesters";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
@@ -12,6 +13,7 @@ const commitRequesters = [
 ];
 
 export const RequesterFilter = () => {
+  const { sendEvent } = useWaterfallAnalytics();
   const [, startTransition] = useTransition();
   const [requesters, setRequesters] = useQueryParam(
     WaterfallFilterOptions.Requesters,
@@ -22,7 +24,7 @@ export const RequesterFilter = () => {
     startTransition(() => {
       setRequesters(value);
     });
-    // sendEvent({ name: "Filtered by requester", requesters: value });
+    sendEvent({ name: "Filtered by requester", requesters: value });
   };
 
   return (

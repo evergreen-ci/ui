@@ -11,7 +11,8 @@ type Action =
     }
   | { name: "Clicked variant label" }
   | { name: "Clicked task box"; "task.status": string }
-  | { name: "Changed project"; project: string };
+  | { name: "Changed project"; project: string }
+  | { name: "Filtered by requester"; requesters: string[] };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();

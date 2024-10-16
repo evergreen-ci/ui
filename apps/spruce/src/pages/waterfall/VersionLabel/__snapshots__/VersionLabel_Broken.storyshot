@@ -4,6 +4,7 @@
   >
     <div
       class="css-bnbttx-VersionContainer-columnBasis-wordBreakCss e3zirl02"
+      data-cy="version-label-active"
     >
       <p
         class="leafygreen-ui-1tb6tuo"
