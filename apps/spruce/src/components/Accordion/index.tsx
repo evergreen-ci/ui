@@ -13,6 +13,7 @@ interface AccordionProps {
   showCaret?: boolean;
   title: React.ReactNode;
   titleTag?: React.FC;
+  /** `toggledTitle` replaces the title element when the accordion is open */
   toggledTitle?: React.ReactNode;
   toggleFromBottom?: boolean;
   useIndent?: boolean;

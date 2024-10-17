@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
-import { Body } from "@leafygreen-ui/typography";
-import pluralize from "pluralize";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Accordion } from "components/Accordion";
+import { trimStringFromMiddle } from "utils/string";
 import { TaskBuildVariantField } from "../../types";
 import FailedTestGroupTable from "./FailedTestGroupTable";
 
@@ -26,10 +25,15 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
       shouldRenderChildIfHidden={false}
       title={
         <TitleContainer>
-          <Body weight="medium">
-            {testName} failed on {tasks.length}{" "}
-            {pluralize("task", tasks.length)}
-          </Body>
+          <Title title={testName}>{trimStringFromMiddle(testName, 120)}</Title>
+          {sortedStatuses.map(([status, count]) => (
+            <TaskStatusBadge key={status} status={status} taskCount={count} />
+          ))}
+        </TitleContainer>
+      }
+      toggledTitle={
+        <TitleContainer>
+          <Title>{testName}</Title>
           {sortedStatuses.map(([status, count]) => (
             <TaskStatusBadge key={status} status={status} taskCount={count} />
           ))}
@@ -67,11 +71,17 @@ const countStatuses = (tasks: TaskBuildVariantField[]) => {
 
 const TitleContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   gap: ${size.xs};
   align-items: center;
+  width: 100%;
 `;
 const StyledCard = styled(Card)`
   margin-top: ${size.xs};
+`;
+
+const Title = styled.div`
+  display: inline-block;
+  word-break: break-all;
+  max-width: 60vw;
 `;
 export default FailedTestGroup;
