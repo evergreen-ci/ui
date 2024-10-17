@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { size } from "constants/tokens";
@@ -13,10 +13,13 @@ interface AccordionProps {
   showCaret?: boolean;
   title: React.ReactNode;
   titleTag?: React.FC;
+  /** `toggledTitle` replaces the title element when the accordion is open */
   toggledTitle?: React.ReactNode;
   toggleFromBottom?: boolean;
   useIndent?: boolean;
   subtitle?: React.ReactNode;
+  /** This prop prevents the accordion from rendering the child component if the accordion is collapsed. It is useful if the child is expensive to render. */
+  shouldRenderChildIfHidden?: boolean;
 }
 export const Accordion: React.FC<AccordionProps> = ({
   children,
@@ -25,6 +28,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   defaultOpen = false,
   disableAnimation = false,
   onToggle = () => {},
+  shouldRenderChildIfHidden = true,
   showCaret = true,
   subtitle,
   title,
@@ -34,6 +38,8 @@ export const Accordion: React.FC<AccordionProps> = ({
   useIndent = true,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
+  const [shouldRenderContents, setShouldRenderContents] = useState(defaultOpen);
+
   const toggleAccordionHandler = (): void => {
     setIsAccordionDisplayed(!isAccordionDisplayed);
     onToggle({ isVisible: !isAccordionDisplayed });
@@ -44,6 +50,23 @@ export const Accordion: React.FC<AccordionProps> = ({
     <TitleTag>{toggledTitle ? showToggledTitle : title}</TitleTag>
   );
 
+  let contents = null;
+  if (shouldRenderChildIfHidden || shouldRenderContents) {
+    contents = children;
+  }
+
+  const handleTransitionEnd = () => {
+    if (!isAccordionDisplayed) {
+      setShouldRenderContents(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isAccordionDisplayed) {
+      setShouldRenderContents(true);
+    }
+  }, [isAccordionDisplayed]);
+
   return (
     <div className={className} data-cy={dataCy}>
       {toggleFromBottom && (
@@ -52,8 +75,9 @@ export const Accordion: React.FC<AccordionProps> = ({
           data-cy="accordion-collapse-container"
           disableAnimation={disableAnimation}
           hide={!isAccordionDisplayed}
+          onTransitionEnd={handleTransitionEnd}
         >
-          {children}
+          {contents}
         </AnimatedAccordion>
       )}
       <AccordionToggle
@@ -77,7 +101,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           hide={!isAccordionDisplayed}
         >
           <ContentsContainer indent={showCaret && useIndent}>
-            {children}
+            {contents}
           </ContentsContainer>
         </AnimatedAccordion>
       )}

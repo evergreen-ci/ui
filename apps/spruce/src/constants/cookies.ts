@@ -17,3 +17,5 @@ export const SLACK_NOTIFICATION_BANNER = "has-closed-slack-banner";
 export const SUBSCRIPTION_METHOD = "subscription-method";
 export const SEEN_IMAGE_VISIBILITY_GUIDE_CUE =
   "seen-image-visibility-guide-cue";
+export const SEEN_TEST_ANALYSIS_TAB_GUIDE_CUE =
+  "seen-test-analysis-tab-guide-cue";

@@ -74,4 +74,34 @@ describe("textInputWithValidation", () => {
     expect(input).toHaveValue("");
     expect(onSubmit).toHaveBeenCalledWith("test5");
   });
+  it("should reset the input when defaultValue changes", async () => {
+    const user = userEvent.setup();
+
+    const { rerender } = render(
+      <TextInputWithValidation
+        clearOnSubmit
+        defaultValue="initial value"
+        onSubmit={vi.fn()}
+      />,
+    );
+
+    const input = screen.getByRole("textbox");
+    expect(input).toHaveValue("initial value");
+
+    await user.clear(input);
+    expect(input).toHaveValue("");
+
+    await user.type(input, "new value");
+    expect(input).toHaveValue("new value");
+
+    rerender(
+      <TextInputWithValidation
+        clearOnSubmit
+        defaultValue="reset value"
+        onSubmit={vi.fn()}
+      />,
+    );
+
+    expect(input).toHaveValue("reset value");
+  });
 });

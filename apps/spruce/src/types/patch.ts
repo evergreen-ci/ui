@@ -26,6 +26,7 @@ export enum PatchTab {
   Downstream = "downstream-projects",
   TaskDuration = "task-duration",
   Configure = "configure",
+  TestAnalysis = "test-analysis",
 }
 
 export const ALL_PATCH_STATUS = "all";
