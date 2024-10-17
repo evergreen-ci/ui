@@ -1,6 +1,6 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
-import useScrollToAnchor, { anchorScrollTime } from ".";
+import useScrollToAnchor from ".";
 
 describe("useScrollToAnchor", () => {
   const mockElement = { scrollIntoView: vi.fn() };
@@ -25,7 +25,7 @@ describe("useScrollToAnchor", () => {
     );
 
     renderHook(() => useScrollToAnchor(), { wrapper });
-    vi.advanceTimersByTime(anchorScrollTime);
+    vi.runOnlyPendingTimers();
 
     expect(document.getElementById).toHaveBeenCalledWith("test-anchor");
     expect(mockElement.scrollIntoView).toHaveBeenCalledWith({
@@ -40,7 +40,7 @@ describe("useScrollToAnchor", () => {
     );
 
     renderHook(() => useScrollToAnchor(), { wrapper });
-    vi.advanceTimersByTime(anchorScrollTime);
+    vi.runOnlyPendingTimers();
 
     expect(document.getElementById).not.toHaveBeenCalled();
   });
@@ -53,7 +53,7 @@ describe("useScrollToAnchor", () => {
 
     const { unmount } = renderHook(() => useScrollToAnchor(), { wrapper });
     unmount();
-    vi.advanceTimersByTime(anchorScrollTime);
+    vi.runOnlyPendingTimers();
 
     expect(mockElement.scrollIntoView).not.toHaveBeenCalled();
   });

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import LoadingRow from "./LoadingRow";
 
 interface TableLoaderProps {

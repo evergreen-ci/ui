@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const findTopmostVisibleElement = ({
   elements,
@@ -28,17 +28,17 @@ const findTopmostVisibleElement = ({
  * @param obj.elements - list of elements from which to determine the topmost visible element
  * @param obj.scrollContainerId - the ID of the scroll container. Referencing the scroll container is necessary
  * because the hook listens on the "scroll" event.
- * @param obj.setTopmostVisibleElementId - function to set the topmost visible element ID
+ * @returns the ID of the topmost visible element (string)
  */
 export const useTopmostVisibleElement = ({
   elements,
   scrollContainerId,
-  setTopmostVisibleElementId,
 }: {
   elements: HTMLElement[];
   scrollContainerId: string;
-  setTopmostVisibleElementId: (id: string) => void;
 }) => {
+  const [topmostVisibleElementId, setTopmostVisibleElementId] = useState("");
+
   useEffect(() => {
     const scrollElement = document.getElementById(
       scrollContainerId,
@@ -58,4 +58,6 @@ export const useTopmostVisibleElement = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elements]);
+
+  return topmostVisibleElementId;
 };

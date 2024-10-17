@@ -171,6 +171,8 @@ describe("build information", () => {
 describe("side nav", () => {
   beforeEach(() => {
     cy.visit("/image/ubuntu2204/build-information");
+    cy.contains("ubuntu2204").should("be.visible");
+    cy.dataCy("loading-row").should("not.exist");
   });
 
   it("highlights different sections as the user scrolls", () => {
@@ -183,9 +185,11 @@ describe("side nav", () => {
     cy.dataCy("navitem-distros").should("have.attr", "data-active", "true");
   });
 
-  it("can click on different sections to go to a section", () => {
+  it("can click to navigate to different sections", () => {
+    cy.dataCy("navitem-packages").should("have.attr", "data-active", "false");
     cy.dataCy("packages-card").should("not.be.visible");
     cy.dataCy("navitem-packages").click();
+    cy.dataCy("navitem-packages").should("have.attr", "data-active", "true");
     cy.dataCy("packages-card").should("be.visible");
   });
 });

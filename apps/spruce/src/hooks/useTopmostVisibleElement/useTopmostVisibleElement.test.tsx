@@ -13,7 +13,6 @@ describe("useTopmostVisibleElement", () => {
   };
 
   it("should correctly set the topmost visible element as the index of the closest element", async () => {
-    const setTopmostVisibleElementId = vi.fn();
     const scrollContainerId = "scroll-container-id";
 
     render(
@@ -36,18 +35,17 @@ describe("useTopmostVisibleElement", () => {
       document.querySelectorAll("span"),
     ) as HTMLElement[];
 
-    renderHook(() =>
+    const { result } = renderHook(() =>
       useTopmostVisibleElement({
         elements,
-        setTopmostVisibleElementId,
         scrollContainerId,
       }),
     );
 
     scrollPage(scrollContainerId, 408);
-    expect(setTopmostVisibleElementId).toHaveBeenCalledWith("span-2");
+    expect(result.current).toBe("span-2");
 
     scrollPage(scrollContainerId, 121);
-    expect(setTopmostVisibleElementId).toHaveBeenCalledWith("span-1");
+    expect(result.current).toBe("span-1");
   });
 });

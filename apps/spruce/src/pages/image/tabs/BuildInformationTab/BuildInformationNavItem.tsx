@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { useImageAnalytics } from "analytics";
@@ -21,16 +20,13 @@ const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
   const { sendEvent } = useImageAnalytics();
   const tabIsActive = ImageTabRoutes.BuildInformation === currentTab;
 
-  const [activeItemId, setActiveItemId] = useState("");
-
   const elements = Array.from(
     document.querySelectorAll("h3[id^='toc-item']"),
   ) as HTMLElement[];
 
-  useTopmostVisibleElement({
+  const activeItemId = useTopmostVisibleElement({
     elements,
     scrollContainerId,
-    setTopmostVisibleElementId: setActiveItemId,
   });
 
   return (
@@ -48,8 +44,8 @@ const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
       >
         Build Information
       </SideNavItem>
-      {Object.keys(tocItems).map((s) => {
-        const item = tocItems[s];
+      {Object.keys(tocItems).map((key) => {
+        const item = tocItems[key];
         const isActive = tabIsActive && item.observedElementId === activeItemId;
         return (
           <SideNavItem
@@ -63,8 +59,15 @@ const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
               }
             `}
             data-active={isActive}
-            data-cy={`navitem-${s}`}
+            data-cy={`navitem-${item.id}`}
             indentLevel={3}
+            onClick={() =>
+              sendEvent({
+                name: "Clicked section",
+                tab: ImageTabRoutes.EventLog,
+                "tab.section": item.id,
+              })
+            }
             to={getImageRoute(
               imageId,
               ImageTabRoutes.BuildInformation,

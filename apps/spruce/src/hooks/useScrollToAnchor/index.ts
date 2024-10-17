@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
-export const anchorScrollTime = 50;
+export const anchorScrollTime = 100;
 
 /**
  * `useScrollToAnchor` scrolls to an anchor element on the page if the URL contains an anchor.
