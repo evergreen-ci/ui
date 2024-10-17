@@ -1,4 +1,4 @@
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import {
   taskStatusToCopy,
   mapTaskStatusToUmbrellaStatus,
@@ -11,7 +11,7 @@ type ColorCount = {
   count: number;
   statuses: string[];
   color: string;
-  umbrellaStatus: TaskStatus;
+  umbrellaStatus: TaskStatusUmbrella;
   statusCounts: { [key: string]: number };
 };
 
@@ -28,18 +28,16 @@ export const groupStatusesByUmbrellaStatus = (
     if (counts[umbrellaStatus]) {
       counts[umbrellaStatus].count += stat.count;
       counts[umbrellaStatus].statuses = deduplicatedAppend(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         taskStatusToCopy[stat.status],
         counts[umbrellaStatus].statuses,
       );
     } else {
       counts[umbrellaStatus] = {
         count: stat.count,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         statuses: toArray(taskStatusToCopy[stat.status]),
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         color: mapTaskToBarchartColor[umbrellaStatus],
-        umbrellaStatus: umbrellaStatus as TaskStatus,
+        umbrellaStatus: umbrellaStatus as TaskStatusUmbrella,
         statusCounts: {},
       };
     }

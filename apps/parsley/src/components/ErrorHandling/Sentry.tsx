@@ -38,7 +38,6 @@ const initializeSentry = () => {
       environment: getReleaseStage() || "development",
       maxValueLength: 500,
       normalizeDepth: 5,
-      sampleRate: 0.5,
     });
   } catch (e) {
     console.error("Failed to initialize Sentry", e);

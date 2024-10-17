@@ -10,10 +10,7 @@ export default {
 
 export const Default: CustomStoryObj<typeof TaskStatusBadgeWithLink> = {
   render: () => {
-    // filter out umbrella statuses
-    const taskStatuses = Object.values(TaskStatus).filter(
-      (taskName) => !taskName.includes("Umbrella"),
-    );
+    const taskStatuses = Object.values(TaskStatus);
     return (
       <Container>
         {taskStatuses.map((status) => (

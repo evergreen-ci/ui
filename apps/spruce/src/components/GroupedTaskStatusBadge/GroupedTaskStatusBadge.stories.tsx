@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { action } from "@storybook/addon-actions";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 
 import { GroupedTaskStatusBadge } from ".";
 
@@ -29,13 +29,13 @@ export const Default: CustomStoryObj<typeof GroupedTaskStatusBadge> = {
 const groupedTaskStats = [
   { status: TaskStatus.Succeeded, count: 20 },
   { status: TaskStatus.Succeeded, count: 1 },
-  { status: TaskStatus.FailedUmbrella, count: 1 },
-  { status: TaskStatus.RunningUmbrella, count: 2 },
-  { status: TaskStatus.SystemFailureUmbrella, count: 3 },
+  { status: TaskStatusUmbrella.Failed, count: 1 },
+  { status: TaskStatusUmbrella.Running, count: 2 },
+  { status: TaskStatusUmbrella.SystemFailure, count: 3 },
   { status: TaskStatus.SetupFailed, count: 4 },
   { status: TaskStatus.SetupFailed, count: 1 },
-  { status: TaskStatus.UndispatchedUmbrella, count: 5 },
-  { status: TaskStatus.ScheduledUmbrella, count: 5 },
+  { status: TaskStatusUmbrella.Undispatched, count: 5 },
+  { status: TaskStatusUmbrella.Scheduled, count: 5 },
 ];
 
 const Container = styled.div`
