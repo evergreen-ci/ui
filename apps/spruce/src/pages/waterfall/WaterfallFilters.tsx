@@ -3,6 +3,7 @@ import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { size } from "constants/tokens";
+import { RequesterFilter } from "./RequesterFilter";
 
 type WaterfallFiltersProps = {
   projectIdentifier: string;
@@ -14,6 +15,9 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   return (
     <Container>
+      <FilterItem>
+        <RequesterFilter />
+      </FilterItem>
       <FilterItem>
         <ProjectSelect
           getRoute={getWaterfallRoute}

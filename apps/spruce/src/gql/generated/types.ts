@@ -4927,6 +4927,30 @@ export type UpstreamProjectFragment = {
   } | null;
 };
 
+export type WaterfallVersionFragment = {
+  __typename?: "Version";
+  activated?: boolean | null;
+  author: string;
+  createTime: Date;
+  errors: Array<string>;
+  id: string;
+  message: string;
+  requester: string;
+  revision: string;
+  gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+  upstreamProject?: {
+    __typename?: "UpstreamProject";
+    owner: string;
+    project: string;
+    repo: string;
+    revision: string;
+    triggerID: string;
+    triggerType: string;
+    task?: { __typename?: "Task"; execution: number; id: string } | null;
+    version?: { __typename?: "Version"; id: string } | null;
+  } | null;
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
 }>;
@@ -9564,6 +9588,7 @@ export type WaterfallQuery = {
         errors: Array<string>;
         id: string;
         message: string;
+        requester: string;
         revision: string;
         gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
         upstreamProject?: {
@@ -9586,6 +9611,7 @@ export type WaterfallQuery = {
         errors: Array<string>;
         id: string;
         message: string;
+        requester: string;
         revision: string;
         gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
         upstreamProject?: {

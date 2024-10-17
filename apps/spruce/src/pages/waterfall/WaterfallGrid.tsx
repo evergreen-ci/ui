@@ -14,6 +14,7 @@ import {
   Row,
   VERSION_LIMIT,
 } from "./styles";
+import { useFilters } from "./useFilters";
 import { VersionLabel } from "./VersionLabel";
 
 type WaterfallGridProps = {
@@ -40,12 +41,15 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const { height } = useDimensions(
     refEl as React.MutableRefObject<HTMLElement>,
   );
+
+  const { buildVariants, versions } = useFilters(data.waterfall);
+
   return (
     <Container ref={refEl}>
       <Row>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
-          {data.waterfall.versions.map(({ inactiveVersions, version }) =>
+          {versions.map(({ inactiveVersions, version }) =>
             version ? (
               <VersionLabel key={version.id} size="small" {...version} />
             ) : (
@@ -60,12 +64,12 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           )}
         </Versions>
       </Row>
-      {data.waterfall.buildVariants.map((b) => (
+      {buildVariants.map((b) => (
         <BuildRow
           key={b.id}
           build={b}
           projectIdentifier={projectIdentifier}
-          versions={data.waterfall.versions}
+          versions={versions}
         />
       ))}
     </Container>
