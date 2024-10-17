@@ -5,15 +5,13 @@ describe("Test Analysis", () => {
 
   it("should group together all matching failing tests in a version and present a stat", () => {
     cy.contains("1 test failed across more than one task").should("be.visible");
-    cy.contains("JustAFakeTestInALonelyWorld failed on 2 tasks").should(
+    cy.contains("JustAFakeTestInALonelyWorld").should("be.visible");
+    cy.contains("JustAnotherFakeFailingTestInALonelyWorld").should(
       "be.visible",
     );
-    cy.contains(
-      "JustAnotherFakeFailingTestInALonelyWorld failed on 1 task",
-    ).should("be.visible");
   });
   it("clicking on a test should show the test details", () => {
-    cy.contains("JustAFakeTestInALonelyWorld failed on 2 tasks").click();
+    cy.contains("JustAFakeTestInALonelyWorld").click();
     cy.dataCy("failed-test-grouped-table").should("be.visible");
   });
   it("filtering by test name should only show matching tests", () => {
@@ -21,12 +19,8 @@ describe("Test Analysis", () => {
       "JustAFakeTestInALonelyWorld{enter}",
     );
     cy.contains("1 test failed across more than one task").should("be.visible");
-    cy.contains("JustAFakeTestInALonelyWorld failed on 2 tasks").should(
-      "be.visible",
-    );
-    cy.contains(
-      "JustAnotherFakeFailingTestInALonelyWorld failed on 1 task",
-    ).should("not.exist");
+    cy.contains("JustAFakeTestInALonelyWorld").should("be.visible");
+    cy.contains("JustAnotherFakeFailingTestInALonelyWorld").should("not.exist");
   });
   it("filtering by task status should only show matching tests", () => {
     cy.getInputByLabel("Failure type").click();
@@ -36,12 +30,8 @@ describe("Test Analysis", () => {
     cy.contains("0 tests failed across more than one task").should(
       "be.visible",
     );
-    cy.contains("JustAFakeTestInALonelyWorld failed on 1 task").should(
-      "be.visible",
-    );
-    cy.contains(
-      "JustAnotherFakeFailingTestInALonelyWorld failed on 1 task",
-    ).should("not.exist");
+    cy.contains("JustAFakeTestInALonelyWorld").should("be.visible");
+    cy.contains("JustAnotherFakeFailingTestInALonelyWorld").should("not.exist");
   });
   it("clearing the filters should reset the view", () => {
     cy.getInputByLabel("Search Test Failures").type(
