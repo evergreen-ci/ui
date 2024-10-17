@@ -172,7 +172,7 @@ describe("side nav", () => {
   beforeEach(() => {
     cy.visit("/image/ubuntu2204/build-information");
     cy.contains("ubuntu2204").should("be.visible");
-    cy.dataCy("loading-row").should("not.exist");
+    cy.dataCy("table-loader-loading-row").should("not.exist");
   });
 
   it("highlights different sections as the user scrolls", () => {
