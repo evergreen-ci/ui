@@ -25,7 +25,7 @@ describe("useScrollToAnchor", () => {
     );
 
     renderHook(() => useScrollToAnchor(), { wrapper });
-    vi.advanceTimersByTime(500);
+    vi.runOnlyPendingTimers();
 
     expect(document.getElementById).toHaveBeenCalledWith("test-anchor");
     expect(mockElement.scrollIntoView).toHaveBeenCalledWith({
@@ -40,7 +40,7 @@ describe("useScrollToAnchor", () => {
     );
 
     renderHook(() => useScrollToAnchor(), { wrapper });
-    vi.advanceTimersByTime(500);
+    vi.runOnlyPendingTimers();
 
     expect(document.getElementById).not.toHaveBeenCalled();
   });
@@ -53,7 +53,7 @@ describe("useScrollToAnchor", () => {
 
     const { unmount } = renderHook(() => useScrollToAnchor(), { wrapper });
     unmount();
-    vi.advanceTimersByTime(500);
+    vi.runOnlyPendingTimers();
 
     expect(mockElement.scrollIntoView).not.toHaveBeenCalled();
   });
