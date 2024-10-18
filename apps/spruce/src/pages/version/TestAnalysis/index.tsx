@@ -6,7 +6,7 @@ import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { BasicEmptyState } from "@leafygreen-ui/empty-state";
 import { palette } from "@leafygreen-ui/palette";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { H3, Body, H3Props } from "@leafygreen-ui/typography";
+import { H3, Body, H3Props, Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useVersionAnalytics } from "analytics";
@@ -108,7 +108,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
   const totalFilteredTestCount = countTotalTests(filteredGroupedTestsMap);
 
   const hasMatchingResults = totalFilteredTestCount > 0;
-  const hasResults = data && totalTestCount > 0;
+  const hasResults = Boolean(data) && totalTestCount > 0;
   const hasFiltersApplied =
     selectedTaskStatuses.length > 0 ||
     selectedBuildVariants.length > 0 ||
@@ -214,6 +214,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               >
                 Clear Filters
               </Button>
+              {hasFiltersApplied && <Disclaimer>Filters applied</Disclaimer>}
             </FilterSubheaderContainer>
           )}
 
@@ -238,6 +239,7 @@ const FilterSubheaderContainer = styled.div`
   display: flex;
   margin-bottom: ${size.m};
   gap: ${size.xs};
+  align-items: center;
 `;
 
 const FilterContainer = styled.div`
