@@ -1,0 +1,135 @@
+<div>
+  <div
+    class="css-134efv6"
+  >
+    <div
+      class="css-2hlbd4 leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+    >
+      2 Inactive
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+    >
+      2 Unstarted
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+    >
+      2 Undispatched
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-mibpkn"
+      data-cy="task-status-badge"
+    >
+      2 Will Run
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+    >
+      2 Unscheduled
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-1uko9cz"
+      data-cy="task-status-badge"
+    >
+      2 Running
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-1uko9cz"
+      data-cy="task-status-badge"
+    >
+      2 Dispatched
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+    >
+      2 Pending
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-1ciuhbt"
+      data-cy="task-status-badge"
+    >
+      2 Succeeded
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-dhdzha"
+      data-cy="task-status-badge"
+    >
+      2 Failed
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-dhdzha"
+      data-cy="task-status-badge"
+    >
+      2 Test Timed Out
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-dhdzha"
+      data-cy="task-status-badge"
+    >
+      2 Task Timed Out
+    </div>
+    <div
+      border="#B45AF2"
+      class="css-1rx5gd6 leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+      fill="#F1D4FD"
+      text="#5E0C9E"
+    >
+      2 Setup Failed
+    </div>
+    <div
+      border="#2D0B59"
+      class="css-kmvtea leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+      fill="#5E0C9E"
+      text="#F9EBFF"
+    >
+      2 System Failed
+    </div>
+    <div
+      border="#2D0B59"
+      class="css-kmvtea leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+      fill="#5E0C9E"
+      text="#F9EBFF"
+    >
+      2 System Timed Out
+    </div>
+    <div
+      border="#2D0B59"
+      class="css-kmvtea leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+      fill="#5E0C9E"
+      text="#F9EBFF"
+    >
+      2 System Unresponsive
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+    >
+      2 Blocked
+    </div>
+    <div
+      class="css-2hlbd4 leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+    >
+      2 Aborted
+    </div>
+    <div
+      border="#FFCDC7"
+      class="css-i72nwz leafygreen-ui-c62i3c"
+      data-cy="task-status-badge"
+      fill="#FFFFFF"
+      text="#970606"
+    >
+      2 Known Issue
+    </div>
+  </div>
+</div>

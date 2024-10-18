@@ -50,7 +50,8 @@ type Action =
       "sort.by": TaskSortCategory | TaskSortCategory[];
     }
   | { name: "Toggled display task expansion"; expanded: boolean }
-  | { name: "Clicked unschedule tasks button"; abort: boolean };
+  | { name: "Clicked unschedule tasks button"; abort: boolean }
+  | { name: "Filtered test analysis tab"; "filter.by": string | string[] };
 
 export const useVersionAnalytics = (id: string) => {
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(

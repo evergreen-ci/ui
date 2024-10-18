@@ -1,4 +1,4 @@
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, useEffect } from "react";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import {
@@ -26,6 +26,7 @@ type TextInputWithValidationProps = {
   onChange?: (value: string) => void;
   validatorErrorMessage?: string;
   placeholder?: string;
+  defaultValue?: string;
   /**
    * If true, the input will be cleared when the user submits a new input
    */
@@ -37,6 +38,8 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     const {
       "aria-label": ariaLabel,
       clearOnSubmit = false,
+      defaultValue = "",
+      disabled,
       label,
       onChange = () => {},
       onSubmit = () => {},
@@ -45,7 +48,11 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       ...rest
     } = props;
 
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState(defaultValue);
+    useEffect(() => {
+      setInput(defaultValue);
+    }, [defaultValue]);
+
     const isValid = validator(input);
 
     const handleOnSubmit = () => {
@@ -69,10 +76,12 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       <TextInputWithGlyph
         ref={ref}
         aria-label={ariaLabel}
+        disabled={disabled}
         icon={
           isValid ? (
             <IconButton
               aria-label="Select plus button"
+              disabled={disabled}
               onClick={handleOnSubmit}
             >
               <Icon glyph="Plus" />
