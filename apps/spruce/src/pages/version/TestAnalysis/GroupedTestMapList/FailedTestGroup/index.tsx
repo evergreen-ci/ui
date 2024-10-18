@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Accordion } from "components/Accordion";
 import { trimStringFromMiddle } from "utils/string";
 import { TaskBuildVariantField } from "../../types";
@@ -27,7 +28,11 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
         <TitleContainer>
           <Title title={testName}>{trimStringFromMiddle(testName, 120)}</Title>
           {sortedStatuses.map(([status, count]) => (
-            <TaskStatusBadge key={status} status={status} taskCount={count} />
+            <TaskStatusBadge
+              key={status}
+              status={status as TaskStatus}
+              taskCount={count}
+            />
           ))}
         </TitleContainer>
       }
@@ -35,7 +40,11 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
         <TitleContainer>
           <Title>{testName}</Title>
           {sortedStatuses.map(([status, count]) => (
-            <TaskStatusBadge key={status} status={status} taskCount={count} />
+            <TaskStatusBadge
+              key={status}
+              status={status as TaskStatus}
+              taskCount={count}
+            />
           ))}
         </TitleContainer>
       }
