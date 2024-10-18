@@ -45,7 +45,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     string[]
   >(TestAnalysisQueryParams.Variants, []);
 
-  const [testName, setTestName] = useQueryParam(
+  const [testName, setTestName] = useQueryParam<string | undefined>(
     TestAnalysisQueryParams.TestName,
     "",
   );
@@ -88,7 +88,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
   try {
     filteredGroupedTestsMap = filterGroupedTests(
       groupedTestsMap,
-      testName,
+      testName || "",
       selectedTaskStatuses,
       selectedBuildVariants,
     );
@@ -112,7 +112,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
   const hasFiltersApplied =
     selectedTaskStatuses.length > 0 ||
     selectedBuildVariants.length > 0 ||
-    testName.length > 0;
+    (testName || "").length > 0;
   return (
     <Container>
       {loading ? (
@@ -137,7 +137,11 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
               id="test-failure-search-input"
               label="Search Test Failures"
               onSubmit={(value) => {
-                setTestName(value);
+                if (value === "") {
+                  setTestName(undefined);
+                } else {
+                  setTestName(value);
+                }
                 sendEvent({
                   name: "Filtered test analysis tab",
                   "filter.by": "test name",
@@ -148,7 +152,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
             />
             <Combobox
               disabled={!hasResults}
-              label="Failure type"
+              label="Failure Type"
               multiselect
               onChange={(value: string[]) => {
                 setSelectedTaskStatuses(value);
@@ -232,7 +236,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
 };
 
 const Container = styled.div`
-  margin: 0 ${size.xs};
+  margin-right: ${size.xl};
 `;
 
 const FilterSubheaderContainer = styled.div`
@@ -246,7 +250,7 @@ const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${size.m};
-  margin-top: ${size.xs};
+  margin-top: ${size.s};
   > * {
     flex-basis: 30%;
   }

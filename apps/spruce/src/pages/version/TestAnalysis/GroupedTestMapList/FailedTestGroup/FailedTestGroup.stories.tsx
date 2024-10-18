@@ -23,3 +23,23 @@ export const Default: CustomStoryObj<typeof FailedTestGroup> = {
     ],
   },
 };
+
+export const LongTestName: CustomStoryObj<typeof FailedTestGroup> = {
+  render: (args) => <FailedTestGroup {...args} />,
+  argTypes: {},
+  args: {
+    testName:
+      "This_is_a_very_long_test_name_that_should_wrap_This_is_a_very_long_test_name_that_should_wrap_This_is_a_very_long_test_name_that_should_wrap",
+    tasks: [
+      {
+        taskName: "TaskName",
+        buildVariant: "BuildVariant",
+        id: "TaskId",
+        status: "failed",
+        logs: {
+          urlParsley: "LogsUrl",
+        },
+      },
+    ],
+  },
+};

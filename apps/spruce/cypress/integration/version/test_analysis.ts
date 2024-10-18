@@ -23,7 +23,7 @@ describe("Test Analysis", () => {
     cy.contains("JustAnotherFakeFailingTestInALonelyWorld").should("not.exist");
   });
   it("filtering by task status should only show matching tests", () => {
-    cy.getInputByLabel("Failure type").click();
+    cy.getInputByLabel("Failure Type").click();
     cy.dataCy("task-status-known-issue-option").should("be.visible");
     cy.dataCy("task-status-known-issue-option").click();
 
@@ -37,7 +37,7 @@ describe("Test Analysis", () => {
     cy.getInputByLabel("Search Test Failures").type(
       "JustAFakeTestInALonelyWorld{enter}",
     );
-    cy.getInputByLabel("Failure type").click();
+    cy.getInputByLabel("Failure Type").click();
     cy.dataCy("task-status-known-issue-option").should("be.visible");
     cy.dataCy("task-status-known-issue-option").click();
     cy.get("body").type("{esc}");

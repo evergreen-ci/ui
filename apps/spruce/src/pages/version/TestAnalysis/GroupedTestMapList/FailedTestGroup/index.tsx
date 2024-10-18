@@ -26,7 +26,7 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
       shouldRenderChildIfHidden={false}
       title={
         <TitleContainer>
-          <Title title={testName}>{trimStringFromMiddle(testName, 120)}</Title>
+          <Title title={testName}>{trimStringFromMiddle(testName, 90)}</Title>
           {sortedStatuses.map(([status, count]) => (
             <TaskStatusBadge
               key={status}
@@ -48,7 +48,6 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
           ))}
         </TitleContainer>
       }
-      useIndent={false}
     >
       <StyledCard>
         <FailedTestGroupTable tasks={tasks} />
@@ -93,4 +92,5 @@ const Title = styled.div`
   word-break: break-all;
   max-width: 60vw;
 `;
+
 export default FailedTestGroup;
