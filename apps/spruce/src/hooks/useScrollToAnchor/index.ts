@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
+export const anchorScrollTime = 100;
+
 /**
  * `useScrollToAnchor` scrolls to an anchor element on the page if the URL contains an anchor.
  */
@@ -18,7 +20,7 @@ const useScrollToAnchor = () => {
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
-    }, 500);
+    }, anchorScrollTime);
   }, [anchor]);
 
   useEffect(

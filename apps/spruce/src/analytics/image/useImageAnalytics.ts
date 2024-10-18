@@ -29,6 +29,11 @@ type Action =
       tab: ImageTabRoutes;
     }
   | {
+      name: "Clicked section";
+      tab: ImageTabRoutes;
+      "tab.section": string;
+    }
+  | {
       name: "Clicked 'Load more events' button";
     }
   | {

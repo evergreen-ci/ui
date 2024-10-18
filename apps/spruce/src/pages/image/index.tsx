@@ -4,7 +4,6 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { useImageAnalytics } from "analytics";
 import {
   SideNav,
-  SideNavGroup,
   SideNavItem,
   SideNavPageContent,
   SideNavPageWrapper,
@@ -12,9 +11,9 @@ import {
 import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useFirstImage } from "hooks";
-import { getTabTitle } from "./getTabTitle";
 import { ImageSelect } from "./ImageSelect";
 import { ImageTabs } from "./Tabs";
+import BuildInformationNavItem from "./tabs/BuildInformationTab/BuildInformationNavItem";
 
 const Image: React.FC = () => {
   const { [slugs.imageId]: imageId, [slugs.tab]: currentTab } = useParams<{
@@ -25,6 +24,7 @@ const Image: React.FC = () => {
 
   const { image: firstImage } = useFirstImage();
   const selectedImage = imageId ?? firstImage;
+  const scrollContainerId = "side-nav-page-content";
 
   if (
     currentTab === undefined ||
@@ -44,22 +44,27 @@ const Image: React.FC = () => {
         <ButtonsContainer>
           <ImageSelect selectedImage={selectedImage} />
         </ButtonsContainer>
-        <SideNavGroup>
-          {Object.values(ImageTabRoutes).map((tab) => (
-            <SideNavItem
-              key={tab}
-              active={tab === currentTab}
-              as={Link}
-              data-cy={`navitem-${tab}`}
-              onClick={() => sendEvent({ name: "Changed tab", tab })}
-              to={getImageRoute(selectedImage, tab)}
-            >
-              {getTabTitle(tab).title}
-            </SideNavItem>
-          ))}
-        </SideNavGroup>
+        <BuildInformationNavItem
+          key={ImageTabRoutes.BuildInformation}
+          currentTab={currentTab}
+          imageId={selectedImage}
+          scrollContainerId={scrollContainerId}
+        />
+        <SideNavItem
+          key={ImageTabRoutes.EventLog}
+          active={ImageTabRoutes.EventLog === currentTab}
+          as={Link}
+          data-cy={`navitem-${ImageTabRoutes.EventLog}`}
+          indentLevel={0}
+          onClick={() =>
+            sendEvent({ name: "Changed tab", tab: ImageTabRoutes.EventLog })
+          }
+          to={getImageRoute(selectedImage, ImageTabRoutes.EventLog)}
+        >
+          Event Log
+        </SideNavItem>
       </SideNav>
-      <SideNavPageContent>
+      <SideNavPageContent id={scrollContainerId}>
         <ImageTabs currentTab={currentTab} imageId={selectedImage} />
       </SideNavPageContent>
     </SideNavPageWrapper>
@@ -71,6 +76,7 @@ const ButtonsContainer = styled.div`
   flex-direction: column;
   gap: ${size.xs};
   margin: 0 ${sideNavItemSidePadding}px;
+  margin-bottom: ${size.xs};
 `;
 
 export default Image;
