@@ -12,7 +12,7 @@ describe("useTopmostVisibleElement", () => {
     });
   };
 
-  it("should correctly set the topmost visible element as the index of the closest element", async () => {
+  it("should correctly detect the topmost visible element", async () => {
     const scrollContainerId = "scroll-container-id";
 
     render(

@@ -38,7 +38,10 @@ const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
         data-cy={`navitem-${ImageTabRoutes.BuildInformation}`}
         indentLevel={0}
         onClick={() =>
-          sendEvent({ name: "Changed tab", tab: ImageTabRoutes.EventLog })
+          sendEvent({
+            name: "Changed tab",
+            tab: ImageTabRoutes.BuildInformation,
+          })
         }
         to={getImageRoute(imageId, ImageTabRoutes.BuildInformation)}
       >
@@ -64,7 +67,7 @@ const BuildInformationNavItem: React.FC<BuildInformationNavItemProps> = ({
             onClick={() =>
               sendEvent({
                 name: "Clicked section",
-                tab: ImageTabRoutes.EventLog,
+                tab: ImageTabRoutes.BuildInformation,
                 "tab.section": item.id,
               })
             }
