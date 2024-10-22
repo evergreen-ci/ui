@@ -6,7 +6,9 @@ describe("/image/imageId/random redirect route", () => {
     cy.location("pathname").should("not.contain", "/random");
     cy.location("pathname").should("eq", "/image/imageId/build-information");
   });
+});
 
+describe("image dropdown", () => {
   it("navigates to the image when clicked", () => {
     cy.visit("/image/amazon2/build-information");
     cy.dataCy("images-select").should("be.visible").as("button");
@@ -24,7 +26,9 @@ describe("/image/imageId/random redirect route", () => {
         });
     });
   });
+});
 
+describe("task metadata", () => {
   it("shows the image visibility guide cue on task metadata", () => {
     cy.setCookie(SEEN_IMAGE_VISIBILITY_GUIDE_CUE, "false");
     cy.visit(

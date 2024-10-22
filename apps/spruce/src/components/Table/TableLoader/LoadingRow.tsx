@@ -5,7 +5,7 @@ interface LoadingRowProps {
   numColumns: number;
 }
 const LoadingRow: React.FC<LoadingRowProps> = ({ numColumns }) => (
-  <Row>
+  <Row data-cy="table-loader-loading-row">
     {Array.from({ length: numColumns }, (_, i) => (
       <Cell key={i}>
         <Skeleton size="small" />
