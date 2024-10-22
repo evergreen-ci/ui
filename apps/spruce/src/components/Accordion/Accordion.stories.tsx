@@ -3,6 +3,23 @@ import { Accordion } from ".";
 
 export default {
   component: Accordion,
+  argTypes: {
+    defaultOpen: {
+      control: "boolean",
+    },
+    disableAnimation: {
+      control: "boolean",
+    },
+    shouldRenderChildIfHidden: {
+      control: "boolean",
+    },
+    toggleFromBottom: {
+      control: "boolean",
+    },
+    useIndent: {
+      control: "boolean",
+    },
+  },
 } satisfies CustomMeta<typeof Accordion>;
 
 export const Default: CustomStoryObj<typeof Accordion> = {
