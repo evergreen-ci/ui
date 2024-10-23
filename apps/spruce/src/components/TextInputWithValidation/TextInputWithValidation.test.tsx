@@ -74,14 +74,14 @@ describe("textInputWithValidation", () => {
     expect(input).toHaveValue("");
     expect(onSubmit).toHaveBeenCalledWith("test5");
   });
-  it("should reset the input when defaultValue changes", async () => {
+  it("should reset the input when the default value changes", async () => {
     const user = userEvent.setup();
 
     const { rerender } = render(
       <TextInputWithValidation
         clearOnSubmit
-        defaultValue="initial value"
         onSubmit={vi.fn()}
+        value="initial value"
       />,
     );
 
@@ -97,8 +97,8 @@ describe("textInputWithValidation", () => {
     rerender(
       <TextInputWithValidation
         clearOnSubmit
-        defaultValue="reset value"
         onSubmit={vi.fn()}
+        value="reset value"
       />,
     );
 

@@ -26,7 +26,8 @@ type TextInputWithValidationProps = {
   onChange?: (value: string) => void;
   validatorErrorMessage?: string;
   placeholder?: string;
-  defaultValue?: string;
+  /** The value to initialize the text input with */
+  value?: string;
   /**
    * If true, the input will be cleared when the user submits a new input
    */
@@ -38,20 +39,20 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     const {
       "aria-label": ariaLabel,
       clearOnSubmit = false,
-      defaultValue = "",
       disabled,
       label,
       onChange = () => {},
       onSubmit = () => {},
       validator = () => true,
       validatorErrorMessage = "Invalid input",
+      value = "",
       ...rest
     } = props;
 
-    const [input, setInput] = useState(defaultValue);
+    const [input, setInput] = useState(value);
     useEffect(() => {
-      setInput(defaultValue);
-    }, [defaultValue]);
+      setInput(value);
+    }, [value]);
 
     const isValid = validator(input);
 
@@ -64,11 +65,11 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       }
     };
 
-    const handleOnChange = (value: string) => {
-      if (validator(value)) {
-        onChange(value);
+    const handleOnChange = (v: string) => {
+      if (validator(v)) {
+        onChange(v);
       }
-      setInput(value);
+      setInput(v);
     };
 
     return (

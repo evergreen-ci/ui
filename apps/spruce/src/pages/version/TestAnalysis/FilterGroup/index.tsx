@@ -62,7 +62,6 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
       <FilterContainer>
         <TextInputWithValidation
           aria-labelledby="test-failure-search-label"
-          defaultValue={testName}
           disabled={!hasResults}
           id="test-failure-search-input"
           label="Search Test Failures"
@@ -79,6 +78,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
           }}
           placeholder="Search failed tests (regex)"
           validator={validateRegexp}
+          value={testName}
         />
         <Combobox
           disabled={!hasResults}
