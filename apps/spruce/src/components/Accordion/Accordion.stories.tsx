@@ -6,18 +6,29 @@ export default {
   argTypes: {
     defaultOpen: {
       control: "boolean",
+      description: "Whether the accordion should be open by default",
     },
     disableAnimation: {
       control: "boolean",
+      description:
+        "Whether the accordion should animate when opening and closing",
     },
     shouldRenderChildIfHidden: {
       control: "boolean",
+      description:
+        "Whether the child component should be rendered if the accordion is collapsed",
     },
     toggleFromBottom: {
       control: "boolean",
+      description: "Whether the accordion should toggle from the bottom",
     },
     useIndent: {
       control: "boolean",
+      description: "Whether the accordion content should have an indent",
+    },
+    showCaret: {
+      control: "boolean",
+      description: "Whether the accordion should show a caret icon",
     },
   },
 } satisfies CustomMeta<typeof Accordion>;

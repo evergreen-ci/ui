@@ -67,19 +67,23 @@ export const Accordion: React.FC<AccordionProps> = ({
     }
   }, [isAccordionDisplayed]);
 
+  const animatedAccordion = (
+    <AnimatedAccordion
+      aria-expanded={isAccordionDisplayed}
+      data-cy="accordion-collapse-container"
+      disableAnimation={disableAnimation}
+      hide={!isAccordionDisplayed}
+      onTransitionEnd={handleTransitionEnd}
+      style={shouldRenderContents ? { display: "block" } : { display: "none" }}
+    >
+      <ContentsContainer indent={showCaret && useIndent}>
+        {contents}
+      </ContentsContainer>
+    </AnimatedAccordion>
+  );
   return (
     <div className={className} data-cy={dataCy}>
-      {toggleFromBottom && (
-        <AnimatedAccordion
-          aria-expanded={isAccordionDisplayed}
-          data-cy="accordion-collapse-container"
-          disableAnimation={disableAnimation}
-          hide={!isAccordionDisplayed}
-          onTransitionEnd={handleTransitionEnd}
-        >
-          {contents}
-        </AnimatedAccordion>
-      )}
+      {toggleFromBottom && animatedAccordion}
       <AccordionToggle
         data-cy="accordion-toggle"
         onClick={toggleAccordionHandler}
@@ -93,18 +97,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       {subtitle && (
         <SubtitleContainer showCaret={showCaret}>{subtitle}</SubtitleContainer>
       )}
-      {!toggleFromBottom && (
-        <AnimatedAccordion
-          aria-expanded={isAccordionDisplayed}
-          data-cy="accordion-collapse-container"
-          disableAnimation={disableAnimation}
-          hide={!isAccordionDisplayed}
-        >
-          <ContentsContainer indent={showCaret && useIndent}>
-            {contents}
-          </ContentsContainer>
-        </AnimatedAccordion>
-      )}
+      {!toggleFromBottom && animatedAccordion}
     </div>
   );
 };
