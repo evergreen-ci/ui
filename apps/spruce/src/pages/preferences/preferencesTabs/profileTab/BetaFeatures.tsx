@@ -75,7 +75,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
           schema={{
             properties: {
               betaFeatures: {
-                title: "Opt into Beta Features",
+                title: "Opt in to Beta Features",
                 type: "object" as "object",
                 properties: {
                   spruceWaterfallEnabled: {
@@ -90,7 +90,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
           uiSchema={{
             betaFeatures: {
               "ui:description":
-                "Enable beta features to get an early look at new UI changes.",
+                "Enable beta features to get an early look at upcoming UI changes.",
               "ui:data-cy": "beta-features-card",
               spruceWaterfallEnabled: {
                 ...radioUiSchema,
