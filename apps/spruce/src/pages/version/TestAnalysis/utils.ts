@@ -59,7 +59,7 @@ const filterGroupedTests = (
   variants: string[],
 ): GroupedTestMap => {
   const filteredTests = new Map<string, TaskBuildVariantField[]>();
-  const regex = new RegExp(testNamePattern);
+  const regex = new RegExp(testNamePattern, "i");
 
   const hasStatuses = statuses && statuses.length > 0;
   const hasVariants = variants && variants.length > 0;

@@ -495,4 +495,39 @@ describe("filterGroupedTests", () => {
       },
     ]);
   });
+
+  it("performs case insensitive matching on test names", () => {
+    const testNamePattern = "^TEST1$"; // Uppercase
+    const statuses = ["failed", "success"];
+    const variants = ["variant1", "variant2"];
+
+    const result = filterGroupedTests(
+      groupedTests,
+      testNamePattern,
+      statuses,
+      variants,
+    );
+
+    expect(result.size).toBe(1);
+    expect(result.get("test1")).toEqual([
+      {
+        taskName: "task1",
+        buildVariant: "variant1",
+        id: "task1_id",
+        status: "failed",
+        logs: {
+          urlParsley: "",
+        },
+      },
+      {
+        taskName: "task2",
+        buildVariant: "variant2",
+        id: "task2_id",
+        status: "success",
+        logs: {
+          urlParsley: "",
+        },
+      },
+    ]);
+  });
 });
