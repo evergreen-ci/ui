@@ -344,7 +344,7 @@ describe("groupTestsByName", () => {
 
 describe("filterGroupedTests", () => {
   it("filters tests by regex pattern, statuses, and build variants", () => {
-    const testNamePattern = "^test\\d$"; // Matches 'test1' and 'test2'
+    const testNamePattern = /^test\d$/i; // Matches 'test1' and 'test2'
     const statuses = ["failed", "success"];
     const variants = ["variant1", "variant2"];
 
@@ -394,7 +394,7 @@ describe("filterGroupedTests", () => {
   });
 
   it("filters tasks by statuses and build variants for a specific test", () => {
-    const testNamePattern = "^test1$";
+    const testNamePattern = /^test1$/i;
     const statuses = ["failed"];
     const variants = ["variant1"];
 
@@ -422,7 +422,7 @@ describe("filterGroupedTests", () => {
   });
 
   it("returns an empty map when no test names match the regex pattern", () => {
-    const testNamePattern = "^nonexistentTest$";
+    const testNamePattern = /^nonexistentTest$/i;
     const statuses = ["failed", "success"];
     const variants = ["variant1", "variant2", "variant3"];
 
@@ -437,7 +437,7 @@ describe("filterGroupedTests", () => {
   });
 
   it("returns an empty map when no tasks match the statuses and variants", () => {
-    const testNamePattern = "^test1$";
+    const testNamePattern = /^test1$/i;
     const statuses = ["success"];
     const variants = ["variant3"];
 
@@ -451,18 +451,8 @@ describe("filterGroupedTests", () => {
     expect(result.size).toBe(0);
   });
 
-  it("handles invalid regex pattern gracefully", () => {
-    const testNamePattern = "["; // Invalid regex
-    const statuses = ["failed", "success"];
-    const variants = ["variant1", "variant2"];
-
-    expect(() => {
-      filterGroupedTests(groupedTests, testNamePattern, statuses, variants);
-    }).toThrowError();
-  });
-
   it("filters when statuses or variants are undefined (no filtering on that criterion)", () => {
-    const testNamePattern = "^test1$";
+    const testNamePattern = /^test1$/i;
     const statuses: string[] = []; // No status filtering
     const variants = ["variant1", "variant2"];
 
@@ -497,7 +487,7 @@ describe("filterGroupedTests", () => {
   });
 
   it("performs case insensitive matching on test names", () => {
-    const testNamePattern = "^TEST1$"; // Uppercase
+    const testNamePattern = /^TEST1$/i; // Uppercase
     const statuses = ["failed", "success"];
     const variants = ["variant1", "variant2"];
 

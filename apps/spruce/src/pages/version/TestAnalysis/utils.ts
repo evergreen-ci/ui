@@ -54,19 +54,19 @@ const groupTestsByName = (
  */
 const filterGroupedTests = (
   groupedTests: GroupedTestMap,
-  testNamePattern: string,
+  testNamePattern: RegExp,
   statuses: string[],
   variants: string[],
 ): GroupedTestMap => {
   const filteredTests = new Map<string, TaskBuildVariantField[]>();
-  const regex = new RegExp(testNamePattern, "i");
 
-  const hasStatuses = statuses && statuses.length > 0;
-  const hasVariants = variants && variants.length > 0;
   const statusSet = new Set(statuses);
   const variantSet = new Set(variants);
+  const hasStatuses = statusSet.size > 0;
+  const hasVariants = variantSet.size > 0;
+
   groupedTests.forEach((tasks, testName) => {
-    if (!regex.test(testName)) return;
+    if (!testNamePattern.test(testName)) return;
 
     const filteredTasks = tasks.filter((task) => {
       const statusMatch = !hasStatuses || statusSet.has(task.status);

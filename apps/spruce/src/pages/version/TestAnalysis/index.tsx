@@ -19,7 +19,6 @@ import { TestAnalysisQueryParams } from "types/task";
 import { reportError } from "utils/errorReporting";
 import FilterGroup from "./FilterGroup";
 import GroupedTestMapList from "./GroupedTestMapList";
-import { TaskBuildVariantField } from "./types";
 import { countTotalTests, filterGroupedTests, groupTestsByName } from "./utils";
 
 const { green } = palette;
@@ -66,18 +65,20 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
     [data],
   );
 
-  let filteredGroupedTestsMap = new Map<string, TaskBuildVariantField[]>();
+  let testNameRegex = /./;
   try {
-    filteredGroupedTestsMap = filterGroupedTests(
-      groupedTestsMap,
-      testName || "",
-      selectedTaskStatuses,
-      selectedBuildVariants,
-    );
+    testNameRegex = new RegExp(testName || "", "i");
   } catch (error) {
     reportError(new Error(`Invalid Regexp: ${error}`)).severe();
     dispatchToast.error(`Invalid Regexp: ${error}`);
   }
+
+  const filteredGroupedTestsMap = filterGroupedTests(
+    groupedTestsMap,
+    testNameRegex,
+    selectedTaskStatuses,
+    selectedBuildVariants,
+  );
 
   const groupedTestsMapEntries = Array.from(
     filteredGroupedTestsMap.entries(),
