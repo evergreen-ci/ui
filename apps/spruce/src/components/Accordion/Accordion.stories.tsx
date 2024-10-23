@@ -32,7 +32,7 @@ export default {
     },
     caretAlignSelf: {
       control: "radio",
-      options: ["baseline", "center", "end"],
+      options: ["start", "center", "end"],
       description: "Where the caret icon should be aligned",
     },
   },

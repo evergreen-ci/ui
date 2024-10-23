@@ -5,7 +5,7 @@ import { size } from "constants/tokens";
 
 interface AccordionProps {
   /** Where the caret icon should be aligned */
-  caretAlignSelf?: "baseline" | "center" | "end";
+  caretAlignSelf?: "start" | "center" | "end";
   children: React.ReactNode;
   className?: string;
   "data-cy"?: string;

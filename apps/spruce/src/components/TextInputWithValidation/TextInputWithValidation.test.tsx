@@ -74,7 +74,7 @@ describe("textInputWithValidation", () => {
     expect(input).toHaveValue("");
     expect(onSubmit).toHaveBeenCalledWith("test5");
   });
-  it("should reset the input when the default value changes", async () => {
+  it("should reset the input when the default prop value changes", async () => {
     const user = userEvent.setup();
 
     const { rerender } = render(

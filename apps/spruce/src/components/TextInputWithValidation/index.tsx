@@ -26,7 +26,7 @@ type TextInputWithValidationProps = {
   onChange?: (value: string) => void;
   validatorErrorMessage?: string;
   placeholder?: string;
-  /** The value to initialize the text input with */
+  /** The controlled value that should be displayed within the text input */
   value?: string;
   /**
    * If true, the input will be cleared when the user submits a new input

@@ -83,7 +83,7 @@ const countStatuses = (tasks: TaskBuildVariantField[]) => {
 const TitleContainer = styled.div`
   display: flex;
   gap: ${size.xs};
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 `;
 const StyledCard = styled(Card)`
