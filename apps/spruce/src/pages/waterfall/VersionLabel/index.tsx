@@ -2,21 +2,16 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useWaterfallAnalytics } from "analytics";
 import { StyledRouterLink, wordBreakCss } from "components/styles";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
 import { size as sizeToken } from "constants/tokens";
-import { WaterfallQuery } from "gql/generated/types";
+import { WaterfallVersionFragment } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
 
-type VersionFields = NonNullable<
-  Unpacked<WaterfallQuery["waterfall"]["versions"]>["version"]
->;
-
-type Props = VersionFields & {
+type Props = WaterfallVersionFragment & {
   className?: string;
   trimMessage?: boolean;
   size?: "small" | "default";
@@ -47,7 +42,11 @@ export const VersionLabel: React.FC<Props> = ({
   const commitType = activated ? "active" : "inactive";
 
   return (
-    <VersionContainer className={className} size={size}>
+    <VersionContainer
+      className={className}
+      data-cy={`version-label-${commitType}`}
+      size={size}
+    >
       <Body>
         <InlineCode
           as={Link}

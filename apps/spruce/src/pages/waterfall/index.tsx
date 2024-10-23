@@ -30,7 +30,11 @@ const Waterfall: React.FC = () => {
             {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
           </Banner>
         )}
-        <WaterfallFilters projectIdentifier={projectIdentifier ?? ""} />
+        <WaterfallFilters
+          // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
+          key={projectIdentifier}
+          projectIdentifier={projectIdentifier ?? ""}
+        />
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
           fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
