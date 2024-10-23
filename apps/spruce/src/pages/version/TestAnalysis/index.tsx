@@ -237,6 +237,7 @@ const TestAnalysis: React.FC<TestAnalysisProps> = ({ versionId }) => {
 
 const Container = styled.div`
   margin-right: ${size.xl};
+  margin-left: ${size.xxs};
 `;
 
 const FilterSubheaderContainer = styled.div`
