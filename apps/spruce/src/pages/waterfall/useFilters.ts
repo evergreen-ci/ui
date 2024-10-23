@@ -1,12 +1,17 @@
 import { useMemo } from "react";
-import { WaterfallQuery, WaterfallVersionFragment } from "gql/generated/types";
+import {
+  WaterfallBuild,
+  WaterfallBuildVariant,
+  WaterfallQuery,
+  WaterfallVersionFragment,
+} from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
 
 export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
-  const [requesters] = useQueryParam(
+  const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
-    [] as string[],
+    [],
   );
 
   const hasFilters = useMemo(() => requesters.length, [requesters]);
@@ -45,17 +50,17 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
     });
 
     return filteredVersions;
-  }, [requesters, waterfall, hasFilters]);
+  }, [hasFilters, requesters, waterfall]);
 
   const activeVersionIds = useMemo(
     () =>
       new Set(
-        versions.reduce((ids, { version }) => {
+        versions.reduce((ids: string[], { version }) => {
           if (version) {
             ids.push(version.id);
           }
           return ids;
-        }, [] as string[]),
+        }, []),
       ),
     [versions],
   );
@@ -65,10 +70,10 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
       return waterfall.buildVariants;
     }
 
-    const bvs: typeof waterfall.buildVariants = [];
+    const bvs: WaterfallBuildVariant[] = [];
     waterfall.buildVariants.forEach((bv) => {
       if (activeVersionIds.size !== bv.builds.length) {
-        const activeBuilds: typeof bv.builds = [];
+        const activeBuilds: WaterfallBuild[] = [];
         bv.builds.forEach((b) => {
           if (activeVersionIds.has(b.version)) {
             activeBuilds.push(b);
@@ -82,11 +87,17 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
       }
     });
     return bvs;
-  }, [waterfall, activeVersionIds, hasFilters]);
+  }, [activeVersionIds, hasFilters, waterfall]);
 
   return { buildVariants, versions };
 };
 
+/**
+ * matchesRequesters evaluates whether a version should be shown to the user given a set of requester filters
+ * @param version - the version being validated against
+ * @param requesters - list of applied requester filters
+ * @returns - true if no filters are applied, or if the version matches applied filters
+ */
 const matchesRequesters = (
   version: WaterfallVersionFragment,
   requesters: string[],

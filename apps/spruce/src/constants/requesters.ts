@@ -12,8 +12,8 @@ enum Requester {
 
 const requesterToTitle: PartialRecord<Requester, string> = {
   [Requester.AdHoc]: "Periodic build",
-  [Requester.GitHubMergeQueue]: "GitHub Merge Request",
-  [Requester.GitHubPR]: "GitHub Pull Request",
+  [Requester.GitHubMergeQueue]: "GitHub merge request",
+  [Requester.GitHubPR]: "GitHub pull request",
   [Requester.GitTag]: "Git tag",
   [Requester.Gitter]: "Commit",
   [Requester.Patch]: "Patch",
