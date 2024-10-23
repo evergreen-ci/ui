@@ -73,6 +73,7 @@ import TASK_TEST_SAMPLE from "./task-test-sample.graphql";
 import TASK_TESTS_FOR_JOB_LOGS from "./task-tests-for-job-logs.graphql";
 import TASK_TESTS from "./task-tests.graphql";
 import TASK from "./task.graphql";
+import TEST_ANALYSIS from "./test-analysis.graphql";
 import UNSCHEDULED_TASKS from "./undispatched-tasks.graphql";
 import USER_CONFIG from "./user-config.graphql";
 import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
@@ -163,6 +164,7 @@ export {
   TASK_TEST_SAMPLE,
   TASK_TESTS,
   TASK,
+  TEST_ANALYSIS,
   UNSCHEDULED_TASKS,
   USER_CONFIG,
   USER_PATCHES,

@@ -23,6 +23,12 @@ export enum PatchTasksQueryParams {
   Duration = "duration",
 }
 
+export enum TestAnalysisQueryParams {
+  Statuses = "statuses",
+  TestName = "testName",
+  Variants = "variants",
+}
+
 export const mapFilterParamToId = {
   [RequiredQueryParams.Statuses]: TestSortCategory.Status,
   [RequiredQueryParams.TestName]: TestSortCategory.TestName,

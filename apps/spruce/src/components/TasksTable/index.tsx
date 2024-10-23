@@ -191,7 +191,7 @@ const getColumnDefs = ({
           <TaskStatusBadgeWithLink
             execution={execution}
             id={id}
-            status={status}
+            status={status as TaskStatus}
           />
         )
       ),
@@ -223,7 +223,7 @@ const getColumnDefs = ({
           execution={baseTask.execution}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           id={baseTask.id}
-          status={status}
+          status={status as TaskStatus}
         />
       ),
     ...(baseStatusSelectorProps && {

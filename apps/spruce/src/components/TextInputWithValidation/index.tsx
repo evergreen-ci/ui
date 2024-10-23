@@ -1,4 +1,4 @@
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, useEffect } from "react";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import {
@@ -26,6 +26,8 @@ type TextInputWithValidationProps = {
   onChange?: (value: string) => void;
   validatorErrorMessage?: string;
   placeholder?: string;
+  /** The controlled value that should be displayed within the text input */
+  value?: string;
   /**
    * If true, the input will be cleared when the user submits a new input
    */
@@ -37,15 +39,21 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
     const {
       "aria-label": ariaLabel,
       clearOnSubmit = false,
+      disabled,
       label,
       onChange = () => {},
       onSubmit = () => {},
       validator = () => true,
       validatorErrorMessage = "Invalid input",
+      value = "",
       ...rest
     } = props;
 
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState(value);
+    useEffect(() => {
+      setInput(value);
+    }, [value]);
+
     const isValid = validator(input);
 
     const handleOnSubmit = () => {
@@ -57,11 +65,11 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       }
     };
 
-    const handleOnChange = (value: string) => {
-      if (validator(value)) {
-        onChange(value);
+    const handleOnChange = (v: string) => {
+      if (validator(v)) {
+        onChange(v);
       }
-      setInput(value);
+      setInput(v);
     };
 
     return (
@@ -69,10 +77,12 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
       <TextInputWithGlyph
         ref={ref}
         aria-label={ariaLabel}
+        disabled={disabled}
         icon={
           isValid ? (
             <IconButton
               aria-label="Select plus button"
+              disabled={disabled}
               onClick={handleOnSubmit}
             >
               <Icon glyph="Plus" />

@@ -11,7 +11,7 @@
         fill="none"
         height="16"
         role="img"
-        style="align-self: center;"
+        style="align-self: start;"
         viewBox="0 0 16 16"
         width="16"
         xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,22 @@
         />
       </svg>
       <span>
-        Accordion
+        <div
+          class="css-jp8k7a-TitleContainer eagaal32"
+        >
+          <div
+            class="css-wqsx5z-Title eagaal30"
+            title="TestName"
+          >
+            TestName
+          </div>
+          <div
+            class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+            data-cy="task-status-badge"
+          >
+            1 Failed
+          </div>
+        </div>
       </span>
     </div>
     <div
@@ -32,9 +47,7 @@
     >
       <div
         class="css-1nylm8s-ContentsContainer ev0bopr1"
-      >
-        Accordion content
-      </div>
+      />
     </div>
   </div>
 </div>
