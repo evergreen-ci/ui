@@ -22,22 +22,7 @@
         />
       </svg>
       <span>
-        <div
-          class="css-4wb6ky-TitleContainer eagaal32"
-        >
-          <div
-            class="css-13wzv48-Title eagaal30"
-            title="This_is_a_very_long_test_name_that_should_wrap_This_is_a_very_long_test_name_that_should_wrap_This_is_a_very_long_test_name_that_should_wrap"
-          >
-            This_is_a_very_long_test_name_that_should_wra…his_is_a_very_long_test_name_that_should_wrap
-          </div>
-          <div
-            class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
-            data-cy="task-status-badge"
-          >
-            1 Failed
-          </div>
-        </div>
+        Some really long title that will be replaced because ...
       </span>
     </div>
     <div
@@ -47,7 +32,9 @@
     >
       <div
         class="css-1nylm8s-ContentsContainer ev0bopr1"
-      />
+      >
+        Accordion content
+      </div>
     </div>
   </div>
 </div>

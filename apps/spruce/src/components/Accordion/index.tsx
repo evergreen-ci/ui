@@ -4,6 +4,8 @@ import Icon from "@leafygreen-ui/icon";
 import { size } from "constants/tokens";
 
 interface AccordionProps {
+  /** Where the caret icon should be aligned */
+  caretAlignSelf?: "baseline" | "center" | "end";
   children: React.ReactNode;
   className?: string;
   "data-cy"?: string;
@@ -22,6 +24,7 @@ interface AccordionProps {
   shouldRenderChildIfHidden?: boolean;
 }
 export const Accordion: React.FC<AccordionProps> = ({
+  caretAlignSelf = "center",
   children,
   className,
   "data-cy": dataCy,
@@ -89,7 +92,10 @@ export const Accordion: React.FC<AccordionProps> = ({
         role="button"
       >
         {showCaret && (
-          <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
+          <Icon
+            glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"}
+            style={{ alignSelf: caretAlignSelf }}
+          />
         )}
         {titleComp}
       </AccordionToggle>
