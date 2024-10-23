@@ -1,5 +1,5 @@
 import { size } from "@evg-ui/lib/constants/tokens";
-import { render, fireEvent, screen } from "@evg-ui/lib/src/test_utils";
+import { render, screen, userEvent } from "@evg-ui/lib/src/test_utils";
 import { Accordion } from ".";
 
 describe("Accordion Component", () => {
@@ -24,18 +24,19 @@ describe("Accordion Component", () => {
     expect(screen.getByText(subtitleText)).toBeInTheDocument();
   });
 
-  it("toggles content visibility on click", () => {
+  it("toggles content visibility on click", async () => {
+    const user = userEvent.setup();
     render(<Accordion {...defaultProps} />);
     const toggleButton = screen.getByRole("button");
     // Content should be hidden initially
     expect(screen.queryByText(contentText)).not.toBeVisible();
 
     // Click to expand
-    fireEvent.click(toggleButton);
+    await user.click(toggleButton);
     expect(screen.getByText(contentText)).toBeVisible();
 
     // Click to collapse
-    fireEvent.click(toggleButton);
+    await user.click(toggleButton);
     expect(screen.queryByText(contentText)).not.toBeVisible();
   });
 
@@ -44,24 +45,26 @@ describe("Accordion Component", () => {
     expect(screen.getByText(contentText)).toBeVisible();
   });
 
-  it("calls onToggle callback when toggled", () => {
+  it("calls onToggle callback when toggled", async () => {
+    const user = userEvent.setup();
     const onToggleMock = vi.fn();
     render(<Accordion {...defaultProps} onToggle={onToggleMock} />);
     const toggleButton = screen.getByRole("button");
 
-    fireEvent.click(toggleButton);
+    await user.click(toggleButton);
     expect(onToggleMock).toHaveBeenCalledWith({ isVisible: true });
 
-    fireEvent.click(toggleButton);
+    await user.click(toggleButton);
     expect(onToggleMock).toHaveBeenCalledWith({ isVisible: false });
   });
 
-  it("renders toggledTitle when provided and accordion is open", () => {
+  it("renders toggledTitle when provided and accordion is open", async () => {
+    const user = userEvent.setup();
     render(<Accordion {...defaultProps} toggledTitle={toggledTitleText} />);
     const toggleButton = screen.getByRole("button");
 
     // Click to expand
-    fireEvent.click(toggleButton);
+    await user.click(toggleButton);
 
     // The title should now display toggledTitleText
     expect(screen.getByText(toggledTitleText)).toBeInTheDocument();
