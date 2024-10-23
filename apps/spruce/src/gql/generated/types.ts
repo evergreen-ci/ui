@@ -5601,6 +5601,21 @@ export type UnscheduleVersionTasksMutation = {
   unscheduleVersionTasks?: string | null;
 };
 
+export type UpdateBetaFeaturesMutationVariables = Exact<{
+  opts: UpdateBetaFeaturesInput;
+}>;
+
+export type UpdateBetaFeaturesMutation = {
+  __typename?: "Mutation";
+  updateBetaFeatures?: {
+    __typename?: "UpdateBetaFeaturesPayload";
+    betaFeatures?: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    } | null;
+  } | null;
+};
+
 export type UpdateHostStatusMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]["input"]>;
   status: Scalars["String"]["input"];
@@ -9199,6 +9214,47 @@ export type UserPatchesQuery = {
           } | null;
         } | null;
       }>;
+    };
+  };
+};
+
+export type UserPreferencesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserPreferencesQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    betaFeatures: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    };
+    settings: {
+      __typename?: "UserSettings";
+      dateFormat?: string | null;
+      region?: string | null;
+      slackMemberId?: string | null;
+      slackUsername?: string | null;
+      timeFormat?: string | null;
+      timezone?: string | null;
+      githubUser?: {
+        __typename?: "GithubUser";
+        lastKnownAs?: string | null;
+      } | null;
+      notifications?: {
+        __typename?: "Notifications";
+        buildBreak?: string | null;
+        patchFinish?: string | null;
+        patchFirstFailure?: string | null;
+        spawnHostExpiration?: string | null;
+        spawnHostOutcome?: string | null;
+      } | null;
+      useSpruceOptions?: {
+        __typename?: "UseSpruceOptions";
+        hasUsedMainlineCommitsBefore?: boolean | null;
+        hasUsedSpruceBefore?: boolean | null;
+        spruceV1?: boolean | null;
+      } | null;
     };
   };
 };

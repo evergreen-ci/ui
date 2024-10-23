@@ -4,6 +4,7 @@ import { AnalyticsIdentifier } from "analytics/types";
 type Action =
   | { name: "Changed tab"; tab: string }
   | { name: "Saved profile info" }
+  | { name: "Saved beta features" }
   | { name: "Saved notification preferences" }
   | { name: "Deleted subscriptions" }
   | { name: "Clicked CLI download link"; "download.name": string }

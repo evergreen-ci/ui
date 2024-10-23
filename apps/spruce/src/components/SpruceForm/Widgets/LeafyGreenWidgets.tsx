@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -270,7 +271,12 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
     elementWrapperCSS,
     enumDisabled,
     enumOptions,
+    inline,
   } = options;
+
+  // RadioGroup components do not accept boolean props for value, so use the indices instead.
+  const valueMap = enumOptions.map(({ value: val }) => val);
+
   return (
     <ElementWrapper css={elementWrapperCSS}>
       {label && (
@@ -279,21 +285,32 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
         </LabelContainer>
       )}
       <RadioGroup
+        bold={false}
+        css={
+          inline
+            ? css`
+                display: flex;
+                flex-direction: row;
+                gap: ${size.l};
+              `
+            : ""
+        }
         data-cy={dataCy}
         id={id}
         name={label}
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
+        onChange={(e) => onChange(valueMap[Number(e.target.value)])}
+        value={valueMap.indexOf(value)}
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;
           const { description } = o.schema ?? {};
           return (
             <Radio
-              key={o.value}
+              key={valueMap.indexOf(o.value)}
+              data-label={o.label}
               description={description}
               disabled={disabled || optionDisabled}
-              value={o.value}
+              value={valueMap.indexOf(o.value)}
             >
               {o.label}
             </Radio>
@@ -351,8 +368,7 @@ export const LeafyGreenRadioBox: React.FC<
         data-cy={dataCy}
         id={id}
         name={label}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        onChange={(e) => onChange(valueMap[e.target.value])}
+        onChange={(e) => onChange(valueMap[Number(e.target.value)])}
         value={valueMap.indexOf(value)}
       >
         {enumOptions.map((o) => {

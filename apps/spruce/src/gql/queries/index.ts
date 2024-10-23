@@ -77,6 +77,7 @@ import UNSCHEDULED_TASKS from "./undispatched-tasks.graphql";
 import USER_CONFIG from "./user-config.graphql";
 import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
 import USER_PATCHES from "./user-patches.graphql";
+import USER_PREFERENCES from "./user-preferences.graphql";
 import USER_PROJECT_SETTINGS_PERMISSIONS from "./user-project-settings-permissions.graphql";
 import USER_SETTINGS from "./user-settings.graphql";
 import USER_SUBSCRIPTIONS from "./user-subscriptions.graphql";
@@ -166,6 +167,7 @@ export {
   UNSCHEDULED_TASKS,
   USER_CONFIG,
   USER_PATCHES,
+  USER_PREFERENCES,
   USER_DISTRO_SETTINGS_PERMISSIONS,
   USER_PROJECT_SETTINGS_PERMISSIONS,
   USER_SETTINGS,
