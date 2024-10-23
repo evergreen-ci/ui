@@ -11,7 +11,7 @@
         fill="none"
         height="16"
         role="img"
-        style="align-self: center;"
+        style="align-self: baseline;"
         viewBox="0 0 16 16"
         width="16"
         xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@
           class="css-4wb6ky-TitleContainer eagaal32"
         >
           <div
-            class="css-13wzv48-Title eagaal30"
+            class="css-ywc0cw-Title eagaal30"
             title="This_is_a_very_long_test_name_that_should_wrap_This_is_a_very_long_test_name_that_should_wrap_This_is_a_very_long_test_name_that_should_wrap"
           >
             This_is_a_very_long_test_name_that_should_wra…his_is_a_very_long_test_name_that_should_wrap

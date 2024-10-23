@@ -23,10 +23,13 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
   );
   return (
     <Accordion
+      caretAlignSelf="baseline"
       shouldRenderChildIfHidden={false}
       title={
         <TitleContainer>
-          <Title title={testName}>{trimStringFromMiddle(testName, 90)}</Title>
+          <Title allowWrap={false} title={testName}>
+            {trimStringFromMiddle(testName, 90)}
+          </Title>
           {sortedStatuses.map(([status, count]) => (
             <TaskStatusBadge
               key={status}
@@ -38,7 +41,7 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
       }
       toggledTitle={
         <TitleContainer>
-          <Title>{testName}</Title>
+          <Title allowWrap>{testName}</Title>
           {sortedStatuses.map(([status, count]) => (
             <TaskStatusBadge
               key={status}
@@ -87,10 +90,12 @@ const StyledCard = styled(Card)`
   margin-top: ${size.xs};
 `;
 
-const Title = styled.div`
+const Title = styled.div<{ allowWrap: boolean }>`
   display: inline-block;
-  word-break: break-all;
   max-width: 60vw;
+  overflow: hidden;
+  ${({ allowWrap }) => !allowWrap && `white-space: nowrap;`}
+  ${({ allowWrap }) => allowWrap && `word-break: break-all;`}
 `;
 
 export default FailedTestGroup;
