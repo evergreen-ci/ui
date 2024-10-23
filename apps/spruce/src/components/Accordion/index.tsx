@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { size } from "constants/tokens";
@@ -40,10 +40,10 @@ export const Accordion: React.FC<AccordionProps> = ({
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const [shouldRenderContents, setShouldRenderContents] = useState(defaultOpen);
 
-  const toggleAccordionHandler = (): void => {
+  const toggleAccordionHandler = useCallback((): void => {
     setIsAccordionDisplayed(!isAccordionDisplayed);
     onToggle({ isVisible: !isAccordionDisplayed });
-  };
+  }, [isAccordionDisplayed, onToggle]);
   const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
   const TitleTag = titleTag ?? "span";
   const titleComp = (
@@ -74,7 +74,6 @@ export const Accordion: React.FC<AccordionProps> = ({
       disableAnimation={disableAnimation}
       hide={!isAccordionDisplayed}
       onTransitionEnd={handleTransitionEnd}
-      style={shouldRenderContents ? { display: "block" } : { display: "none" }}
     >
       <ContentsContainer indent={showCaret && useIndent}>
         {contents}
@@ -128,7 +127,7 @@ const AnimatedAccordion = styled.div<{
 `;
 
 const ContentsContainer = styled.div`
-  margin-left: ${(props: { indent: boolean }) => props.indent && size.s};
+  margin-left: ${({ indent }: { indent: boolean }) => indent && size.s};
 `;
 
 const SubtitleContainer = styled.div<{ showCaret: boolean }>`

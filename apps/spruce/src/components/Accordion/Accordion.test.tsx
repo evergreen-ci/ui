@@ -29,15 +29,24 @@ describe("Accordion Component", () => {
     render(<Accordion {...defaultProps} />);
     const toggleButton = screen.getByRole("button");
     // Content should be hidden initially
-    expect(screen.queryByText(contentText)).not.toBeVisible();
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
 
     // Click to expand
     await user.click(toggleButton);
-    expect(screen.getByText(contentText)).toBeVisible();
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
 
     // Click to collapse
     await user.click(toggleButton);
-    expect(screen.queryByText(contentText)).not.toBeVisible();
+    expect(screen.getByDataCy("accordion-collapse-container")).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
   });
 
   it("shows content by default when defaultOpen is true", () => {
