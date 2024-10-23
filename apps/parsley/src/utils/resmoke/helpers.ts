@@ -176,10 +176,10 @@ const getSvc = (line: string) => line.match(svcRegex)?.[1];
  * The context
  * @example "ctx":"conn1"
  * @example "ctx":"conn2"
- * @example "ctx":"conn3"
  * @example "ctx":"ConfigServerCatalogCacheLoader::getDatabase"
+ * @example "ctx":"ConfigServerCatalogCacheLoader.local.log"
  */
-const ctxRegex = /"ctx":"([a-zA-Z0-9-:]+)"/;
+const ctxRegex = /"ctx":"([a-zA-Z0-9-:.]+)"/;
 
 /**
  * `getContext` returns the ctx associated with a resmoke line this is found in the resmoke json
