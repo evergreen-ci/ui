@@ -3497,6 +3497,7 @@ export type WaterfallOptions = {
 export type WaterfallTask = {
   __typename?: "WaterfallTask";
   displayName: Scalars["String"]["output"];
+  execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
 };
@@ -9611,6 +9612,7 @@ export type WaterfallQuery = {
         tasks: Array<{
           __typename?: "WaterfallTask";
           displayName: string;
+          execution: number;
           id: string;
           status: string;
         }>;

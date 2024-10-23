@@ -96,7 +96,7 @@ const BuildGrid: React.FC<{
       );
     }}
   >
-    {build.tasks.map(({ displayName, id, status }) => {
+    {build.tasks.map(({ displayName, execution, id, status }) => {
       // If the entire build is inactive, use inactive status for all tasks
       const taskStatus = build.activated
         ? (status as TaskStatus)
@@ -106,7 +106,7 @@ const BuildGrid: React.FC<{
           key={id}
           data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
           status={taskStatus}
-          to={getTaskRoute(id)} // TODO DEVPROD-11734: use execution in task route
+          to={getTaskRoute(id, { execution })}
         />
       );
     })}
