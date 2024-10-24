@@ -2731,7 +2731,7 @@ export type SpruceConfig = {
   secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
-  ui?: Maybe<UiConfig>;
+  ui: UiConfig;
 };
 
 export type StatusCount = {
@@ -3198,6 +3198,7 @@ export type TriggerAliasInput = {
 
 export type UiConfig = {
   __typename?: "UIConfig";
+  betaFeatures: BetaFeatures;
   defaultProject: Scalars["String"]["output"];
   userVoice?: Maybe<Scalars["String"]["output"]>;
 };
@@ -3497,6 +3498,7 @@ export type WaterfallOptions = {
 export type WaterfallTask = {
   __typename?: "WaterfallTask";
   displayName: Scalars["String"]["output"];
+  execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
 };
@@ -5774,6 +5776,22 @@ export type BaseVersionAndTaskQuery = {
         id: string;
         order: number;
       } | null;
+    };
+  } | null;
+};
+
+export type BetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type BetaFeaturesQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    ui: {
+      __typename?: "UIConfig";
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
     };
   } | null;
 };
@@ -8652,7 +8670,7 @@ export type SpruceConfigQuery = {
       unexpirableHostsPerUser: number;
       unexpirableVolumesPerUser: number;
     };
-    ui?: { __typename?: "UIConfig"; defaultProject: string } | null;
+    ui: { __typename?: "UIConfig"; defaultProject: string };
   } | null;
 };
 

@@ -2,6 +2,7 @@ import AGENT_LOGS from "./agent-logs.graphql";
 import ALL_LOGS from "./all-logs.graphql";
 import AWS_REGIONS from "./aws-regions.graphql";
 import BASE_VERSION_AND_TASK from "./base-version-and-task.graphql";
+import BETA_FEATURES from "./beta-features.graphql";
 import BUILD_BARON_CONFIGURED from "./build-baron-configured.graphql";
 import BUILD_BARON from "./build-baron.graphql";
 import BUILD_VARIANTS_STATS from "./build-variant-stats.graphql";
@@ -93,6 +94,7 @@ export {
   ALL_LOGS,
   AWS_REGIONS,
   BASE_VERSION_AND_TASK,
+  BETA_FEATURES,
   BUILD_BARON_CONFIGURED,
   BUILD_BARON,
   BUILD_VARIANTS_FOR_TASK_NAME,

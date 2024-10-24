@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Button, { Variant } from "@leafygreen-ui/button";
+import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
+import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { diff } from "deep-object-diff";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
@@ -21,11 +22,13 @@ type FormState = {
 };
 
 type BetaFeatureSettingsProps = {
-  betaFeatures: BetaFeatures;
+  adminBetaFeatures: BetaFeatures;
+  userBetaFeatures: BetaFeatures;
 };
 
 export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
-  betaFeatures,
+  adminBetaFeatures,
+  userBetaFeatures,
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
@@ -43,7 +46,10 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
     refetchQueries: ["UserPreferences"],
   });
 
-  const initialState = useMemo(() => ({ betaFeatures }), [betaFeatures]);
+  const initialState = useMemo(
+    () => ({ betaFeatures: userBetaFeatures }),
+    [userBetaFeatures],
+  );
   const [formState, setFormState] = useState<FormState>(initialState);
 
   const hasChanges = useMemo(() => {
@@ -64,6 +70,8 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
     });
   };
 
+  const { spruceWaterfallEnabled } = adminBetaFeatures ?? {};
+
   return (
     <SettingsCard>
       <ContentWrapper>
@@ -80,7 +88,13 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
                 properties: {
                   spruceWaterfallEnabled: {
                     type: "boolean" as "boolean",
-                    title: "Use new Spruce waterfall",
+                    // @ts-expect-error
+                    title: (
+                      <Title
+                        enabled={spruceWaterfallEnabled}
+                        title="Use new Spruce waterfall"
+                      />
+                    ),
                     oneOf: radioOptions,
                   },
                 },
@@ -95,6 +109,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
               spruceWaterfallEnabled: {
                 ...radioUiSchema,
                 "ui:data-cy": "spruce-waterfall-enabled",
+                "ui:disabled": !spruceWaterfallEnabled,
               },
             },
           }}
@@ -103,7 +118,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
           data-cy="save-beta-features-button"
           disabled={!hasChanges}
           onClick={handleSubmit}
-          variant={Variant.Primary}
+          variant={ButtonVariant.Primary}
         >
           Save changes
         </Button>
@@ -111,6 +126,20 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
     </SettingsCard>
   );
 };
+
+type TitleProps = {
+  title: string;
+  enabled?: boolean;
+};
+
+const Title: React.FC<TitleProps> = ({ enabled = false, title }) => (
+  <RadioLabel>
+    <span>{title}</span>
+    <Badge variant={enabled ? BadgeVariant.Green : BadgeVariant.LightGray}>
+      {enabled ? "active" : "inactive"}
+    </Badge>
+  </RadioLabel>
+);
 
 const radioOptions = [
   {
@@ -133,11 +162,17 @@ const radioUiSchema = {
   "ui:elementWrapperCSS": css`
     display: flex;
     justify-content: space-between;
-    gap: ${size.l};
+    gap: ${size.m};
     margin-bottom: ${size.xs};
   `,
 };
 
+const RadioLabel = styled.div`
+  display: flex;
+  gap: ${size.xs};
+  align-items: center;
+`;
+
 const ContentWrapper = styled.div`
-  width: 60%;
+  width: 70%;
 `;

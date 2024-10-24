@@ -281,7 +281,9 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
     <ElementWrapper css={elementWrapperCSS}>
       {label && (
         <LabelContainer>
-          <Label htmlFor={id}>{label}</Label>
+          <Label disabled={disabled} htmlFor={id}>
+            {label}
+          </Label>
         </LabelContainer>
       )}
       <RadioGroup

@@ -1,0 +1,9 @@
+query BetaFeatures {
+  spruceConfig {
+    ui {
+      betaFeatures {
+        spruceWaterfallEnabled
+      }
+    }
+  }
+}

@@ -31,10 +31,13 @@ type FormState = {
 
 type SettingsProps = {
   awsRegions: string[];
-  settings: UserSettings;
+  userSettings: UserSettings;
 };
 
-export const Settings: React.FC<SettingsProps> = ({ awsRegions, settings }) => {
+export const Settings: React.FC<SettingsProps> = ({
+  awsRegions,
+  userSettings,
+}) => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
 
@@ -53,13 +56,13 @@ export const Settings: React.FC<SettingsProps> = ({ awsRegions, settings }) => {
 
   const initialState = useMemo(
     () => ({
-      timezone: settings?.timezone ?? "",
-      region: settings?.region ?? "",
-      githubUser: { lastKnownAs: settings?.githubUser?.lastKnownAs || "" },
-      dateFormat: settings?.dateFormat ?? "",
-      timeFormat: settings?.timeFormat || TimeFormat.TwelveHour,
+      timezone: userSettings?.timezone ?? "",
+      region: userSettings?.region ?? "",
+      githubUser: { lastKnownAs: userSettings?.githubUser?.lastKnownAs || "" },
+      dateFormat: userSettings?.dateFormat ?? "",
+      timeFormat: userSettings?.timeFormat || TimeFormat.TwelveHour,
     }),
-    [settings],
+    [userSettings],
   );
   const [formState, setFormState] = useState<FormState>(initialState);
 
