@@ -21,6 +21,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
   tagName,
   uiSchema,
   validate,
+  ...args
 }) => (
   <Form
     ArrayFieldTemplate={ArrayFieldTemplate}
@@ -42,6 +43,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     validate={validate}
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     widgets={widgets}
+    {...args}
   >
     {/*  Need to pass in an empty fragment child to remove default submit button */}
     {/* eslint-disable-next-line react/jsx-no-useless-fragment */}

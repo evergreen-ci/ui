@@ -1,0 +1,7 @@
+mutation UpdateBetaFeatures($opts: UpdateBetaFeaturesInput!) {
+  updateBetaFeatures(opts: $opts) {
+    betaFeatures {
+      spruceWaterfallEnabled
+    }
+  }
+}

@@ -2731,7 +2731,7 @@ export type SpruceConfig = {
   secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
-  ui?: Maybe<UiConfig>;
+  ui: UiConfig;
 };
 
 export type StatusCount = {
@@ -3198,6 +3198,7 @@ export type TriggerAliasInput = {
 
 export type UiConfig = {
   __typename?: "UIConfig";
+  betaFeatures: BetaFeatures;
   defaultProject: Scalars["String"]["output"];
   userVoice?: Maybe<Scalars["String"]["output"]>;
 };
@@ -5626,6 +5627,21 @@ export type UnscheduleVersionTasksMutation = {
   unscheduleVersionTasks?: string | null;
 };
 
+export type UpdateBetaFeaturesMutationVariables = Exact<{
+  opts: UpdateBetaFeaturesInput;
+}>;
+
+export type UpdateBetaFeaturesMutation = {
+  __typename?: "Mutation";
+  updateBetaFeatures?: {
+    __typename?: "UpdateBetaFeaturesPayload";
+    betaFeatures?: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    } | null;
+  } | null;
+};
+
 export type UpdateHostStatusMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]["input"]>;
   status: Scalars["String"]["input"];
@@ -5784,6 +5800,22 @@ export type BaseVersionAndTaskQuery = {
         id: string;
         order: number;
       } | null;
+    };
+  } | null;
+};
+
+export type BetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type BetaFeaturesQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    ui: {
+      __typename?: "UIConfig";
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
     };
   } | null;
 };
@@ -8662,7 +8694,7 @@ export type SpruceConfigQuery = {
       unexpirableHostsPerUser: number;
       unexpirableVolumesPerUser: number;
     };
-    ui?: { __typename?: "UIConfig"; defaultProject: string } | null;
+    ui: { __typename?: "UIConfig"; defaultProject: string };
   } | null;
 };
 
@@ -9262,6 +9294,47 @@ export type UserPatchesQuery = {
           } | null;
         } | null;
       }>;
+    };
+  };
+};
+
+export type UserPreferencesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserPreferencesQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    betaFeatures: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    };
+    settings: {
+      __typename?: "UserSettings";
+      dateFormat?: string | null;
+      region?: string | null;
+      slackMemberId?: string | null;
+      slackUsername?: string | null;
+      timeFormat?: string | null;
+      timezone?: string | null;
+      githubUser?: {
+        __typename?: "GithubUser";
+        lastKnownAs?: string | null;
+      } | null;
+      notifications?: {
+        __typename?: "Notifications";
+        buildBreak?: string | null;
+        patchFinish?: string | null;
+        patchFirstFailure?: string | null;
+        spawnHostExpiration?: string | null;
+        spawnHostOutcome?: string | null;
+      } | null;
+      useSpruceOptions?: {
+        __typename?: "UseSpruceOptions";
+        hasUsedMainlineCommitsBefore?: boolean | null;
+        hasUsedSpruceBefore?: boolean | null;
+        spruceV1?: boolean | null;
+      } | null;
     };
   };
 };

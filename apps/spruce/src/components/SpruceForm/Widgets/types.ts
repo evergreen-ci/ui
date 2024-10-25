@@ -17,6 +17,7 @@ export interface SpruceWidgetProps extends WidgetProps {
     emptyValue: string | null;
     errors: string[];
     focusOnMount: boolean;
+    inline: boolean;
     inputType: TextInputType;
     rows: number;
     showLabel: boolean;
