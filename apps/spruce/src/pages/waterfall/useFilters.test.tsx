@@ -50,9 +50,12 @@ describe("useFilters", () => {
 });
 
 const waterfall = {
+  nextPageOrder: 5,
+  prevPageOrder: 0,
   buildVariants: [
     {
       id: "1",
+      version: "a",
       displayName: "BV 1",
       builds: [
         {
@@ -77,6 +80,7 @@ const waterfall = {
           message: "bar",
           requester: "gitter_request",
           revision: "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8",
+          order: 2,
         },
       ],
       version: null,
@@ -92,6 +96,7 @@ const waterfall = {
         message: "foo",
         requester: "gitter_request",
         revision: "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+        order: 1,
       },
     },
   ],

@@ -3481,9 +3481,11 @@ export type WaterfallBuildVariant = {
   builds: Array<WaterfallBuild>;
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
 };
 
 export type WaterfallOptions = {
+  date?: InputMaybe<Scalars["Time"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
@@ -3497,6 +3499,7 @@ export type WaterfallOptions = {
 export type WaterfallTask = {
   __typename?: "WaterfallTask";
   displayName: Scalars["String"]["output"];
+  execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
 };
@@ -4935,6 +4938,7 @@ export type WaterfallVersionFragment = {
   errors: Array<string>;
   id: string;
   message: string;
+  order: number;
   requester: string;
   revision: string;
   gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
@@ -9598,10 +9602,13 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
+    nextPageOrder: number;
+    prevPageOrder: number;
     buildVariants: Array<{
       __typename?: "WaterfallBuildVariant";
       displayName: string;
       id: string;
+      version: string;
       builds: Array<{
         __typename?: "WaterfallBuild";
         activated?: boolean | null;
@@ -9611,6 +9618,7 @@ export type WaterfallQuery = {
         tasks: Array<{
           __typename?: "WaterfallTask";
           displayName: string;
+          execution: number;
           id: string;
           status: string;
         }>;
@@ -9626,6 +9634,7 @@ export type WaterfallQuery = {
         errors: Array<string>;
         id: string;
         message: string;
+        order: number;
         requester: string;
         revision: string;
         gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
@@ -9649,6 +9658,7 @@ export type WaterfallQuery = {
         errors: Array<string>;
         id: string;
         message: string;
+        order: number;
         requester: string;
         revision: string;
         gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;

@@ -9,6 +9,7 @@ query Waterfall($options: WaterfallOptions!) {
         id
         tasks {
           displayName
+          execution
           id
           status
         }
@@ -16,7 +17,10 @@ query Waterfall($options: WaterfallOptions!) {
       }
       displayName
       id
+      version
     }
+    nextPageOrder
+    prevPageOrder
     versions {
       inactiveVersions {
         ...WaterfallVersion

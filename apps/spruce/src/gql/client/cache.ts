@@ -36,6 +36,85 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    // Waterfall: {
+    //   fields: {
+    //     buildVariants: {
+    //       read(existing, { args }) {
+    //         const order = args?.minOrder ?? args?.maxOrder;
+    //         const limit = args?.limit ?? 0;
+    //         // @ts-expect-error
+    //         const idx = existing.findIndex((e) => e.order === order);
+
+    //         if (idx < 0) {
+    //           return existing;
+    //         }
+    //         // Paginating Backwards
+    //         if (args?.minOrder) {
+    //           const endIndex = idx + 1;
+    //           const startIndex = endIndex - limit;
+    //           // Not correct, does not consider inactive versions
+    //           return existing.slice(startIndex, endIndex);
+    //         }
+    //         // Paginating Forwards
+    //         if (args?.maxOrder) {
+    //           const startIndex = idx;
+    //           const endIndex = startIndex + limit + 1;
+    //           return existing.slice(startIndex, endIndex);
+    //         }
+    //         return existing;
+    //       },
+    //       merge(existing, incoming, { args }) {
+    //         // Paginating Backwards
+    //         if (args?.minOrder) {
+    //           return [...incoming, ...existing];
+    //         }
+    //         // Paginating Forwards
+    //         if (args?.maxOrder) {
+    //           return [...existing, ...incoming];
+    //         }
+    //         return incoming;
+    //       },
+    //     },
+    //     versions: {
+    //       read(existing, { args }) {
+    //         const order = args?.minOrder ?? args?.maxOrder;
+    //         const limit = args?.limit ?? 0;
+    //         // @ts-expect-error
+    //         const idx = existing.findIndex((e) => e.order === order);
+
+    //         if (idx < 0) {
+    //           return existing;
+    //         }
+    //         // Paginating Backwards
+    //         if (args?.minOrder) {
+    //           const endIndex = idx + 1;
+    //           const startIndex = endIndex - limit;
+    //           return existing.slice(startIndex, endIndex);
+    //         }
+    //         // Paginating Forwards
+    //         if (args?.maxOrder) {
+    //           const startIndex = idx;
+    //           const endIndex = startIndex + limit + 1;
+    //           return existing.slice(startIndex, endIndex);
+    //         }
+    //         console.log("Read versions: ", existing);
+    //         return existing;
+    //       },
+    //       merge(existing, incoming, { args }) {
+    //         console.log("Merge versions: ", existing, incoming);
+    //         // Paginating Backwards
+    //         if (args?.minOrder) {
+    //           return [...incoming, ...existing];
+    //         }
+    //         // Paginating Forwards
+    //         if (args?.maxOrder) {
+    //           return [...existing, ...incoming];
+    //         }
+    //         return incoming;
+    //       },
+    //     },
+    //   },
+    // },
     Image: {
       fields: {
         events: {
@@ -104,6 +183,9 @@ export const cache = new InMemoryCache({
           },
         },
       },
+    },
+    WaterfallBuildVariant: {
+      keyFields: ["version", "id"],
     },
   },
 });
