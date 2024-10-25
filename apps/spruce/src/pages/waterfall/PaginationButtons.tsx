@@ -26,7 +26,6 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     if (onNextPage) {
       onNextPage();
     }
-    // it might just refetch and not reference the cache policy
     setQueryParams({
       ...queryParams,
       [WaterfallFilterOptions.MaxOrder]: nextPageOrder,

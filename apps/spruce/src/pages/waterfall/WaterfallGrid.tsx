@@ -37,6 +37,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       options: {
         projectIdentifier,
         limit: VERSION_LIMIT,
+        // Comment out if using fetchMore (pass these in fetchMore functions).
         minOrder,
         maxOrder,
       },
