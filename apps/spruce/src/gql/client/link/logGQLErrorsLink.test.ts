@@ -1,4 +1,4 @@
-import { gql, Operation } from "@apollo/client";
+import { Operation } from "@apollo/client";
 import { GraphQLError } from "graphql";
 import * as ErrorReporting from "utils/errorReporting";
 import { reportingFn } from "./logGQLErrorsLink";
@@ -18,7 +18,8 @@ describe("reportingFn", () => {
       variables: {
         input: { password: "password123", creditCard: "1234567890123456" },
       },
-      query: gql``,
+      // @ts-expect-error: It's not necessary to run an actual query.
+      query: null,
       setContext: vi.fn(),
       getContext: vi.fn(),
       extensions: {},
