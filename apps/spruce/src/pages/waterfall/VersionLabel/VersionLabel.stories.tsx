@@ -4,7 +4,7 @@ import {
   getSpruceConfigMock,
   getUserSettingsMock,
 } from "gql/mocks/getSpruceConfig";
-import { VersionLabel } from ".";
+import { VersionLabel, VersionLabelView } from ".";
 
 export default {
   title: "Pages/Waterfall/VersionLabel",
@@ -123,12 +123,12 @@ export const InactiveUntrimmedMessage: StoryObj<typeof VersionLabel> = {
 
 export const SmallSize: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: { ...version, size: "small" },
+  args: { ...version, view: VersionLabelView.Waterfall },
 };
 
 export const Broken: StoryObj<typeof VersionLabel> = {
   ...Default,
-  args: versionBroken,
+  args: { ...versionBroken, view: VersionLabelView.Waterfall },
 };
 
 const Container = styled.div`
