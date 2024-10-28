@@ -3484,6 +3484,7 @@ export type WaterfallBuildVariant = {
 };
 
 export type WaterfallOptions = {
+  date?: InputMaybe<Scalars["Time"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
