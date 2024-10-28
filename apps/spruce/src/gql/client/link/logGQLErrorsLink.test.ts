@@ -1,3 +1,4 @@
+import { gql, Operation } from "@apollo/client";
 import { GraphQLError } from "graphql";
 import * as ErrorReporting from "utils/errorReporting";
 import { reportingFn } from "./logGQLErrorsLink";
@@ -12,12 +13,12 @@ describe("reportingFn", () => {
 
   it("reportError should be called with secret fields redacted", () => {
     const secretFields = ["password", "creditCard"];
-    const operation = {
+    const operation: Operation = {
       operationName: "exampleOperation",
       variables: {
         input: { password: "password123", creditCard: "1234567890123456" },
       },
-      query: null,
+      query: gql``,
       setContext: vi.fn(),
       getContext: vi.fn(),
       extensions: {},
@@ -26,7 +27,6 @@ describe("reportingFn", () => {
       path: ["a", "path", "1"],
     });
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     reportingFn(secretFields, operation)(gqlErr);
 
     expect(ErrorReporting.reportError).toHaveBeenCalledTimes(1);
