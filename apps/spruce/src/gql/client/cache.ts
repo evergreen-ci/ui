@@ -1,5 +1,11 @@
 import { InMemoryCache } from "@apollo/client";
+import { WaterfallBuildVariant, WaterfallVersion } from "gql/generated/types";
 import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
+import {
+  findIndexMatchingOrder,
+  mergeBuildVariants,
+  readBuildVariants,
+} from "./utils";
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -16,6 +22,145 @@ export const cache = new InMemoryCache({
         },
         hasVersion: {
           keyArgs: ["$patchId"],
+        },
+        waterfall: {
+          keyArgs: ["$projectIdentifier"],
+          // The read function is not correct because it does not account for inactive versions.
+          // It only works if every version on a waterfall is activated.
+          read(existing, { args, readField, variables }) {
+            const minOrder = args?.options?.minOrder ?? 0;
+            const maxOrder = args?.options?.maxOrder ?? 0;
+            const limit = variables?.options?.limit ?? 0;
+
+            console.log("Read args: ", { minOrder, maxOrder, limit });
+
+            // A read function should always return undefined if existing is
+            // undefined. Returning undefined signals that the field is
+            // missing from the cache, which instructs Apollo Client to
+            // fetch its value from your GraphQL server.
+            if (!existing) {
+              return undefined;
+            }
+
+            // Not correct, because a user can load page with a min or max order applied
+            // and in that case it should also returning existing.
+            if (minOrder === 0 && maxOrder === 0) {
+              return existing;
+            }
+
+            const existingVersions =
+              readField<WaterfallVersion[]>("versions", existing) ?? [];
+            const existingBuildVariants =
+              readField<WaterfallBuildVariant[]>("buildVariants", existing) ??
+              [];
+            const nextPageOrder =
+              readField<number>("nextPageOrder", existing) ?? 0;
+            const prevPageOrder =
+              readField<number>("prevPageOrder", existing) ?? 0;
+
+            const versions: WaterfallVersion[] = [];
+            const buildVariants: WaterfallBuildVariant[] = [];
+
+            // Paginating backwards
+            if (minOrder > 0) {
+              const versionIdx = findIndexMatchingOrder(
+                existingVersions,
+                minOrder + 1,
+                readField,
+              );
+              versions.push(
+                ...existingVersions.slice(
+                  versionIdx - limit + 1,
+                  versionIdx + 1,
+                ),
+              );
+              buildVariants.push(
+                ...readBuildVariants(
+                  existingBuildVariants,
+                  versionIdx - limit + 1,
+                  versionIdx + 1,
+                  readField,
+                ),
+              );
+            }
+            // Paginating forwards
+            if (maxOrder > 0) {
+              const versionIdx = findIndexMatchingOrder(
+                existingVersions,
+                maxOrder - 1,
+                readField,
+              );
+              versions.push(
+                ...existingVersions.slice(versionIdx, versionIdx + limit),
+              );
+              buildVariants.push(
+                ...readBuildVariants(
+                  existingBuildVariants,
+                  versionIdx,
+                  versionIdx + limit,
+                  readField,
+                ),
+              );
+            }
+
+            console.log("Read result: ", { versions, buildVariants });
+
+            return {
+              buildVariants,
+              versions,
+              prevPageOrder,
+              nextPageOrder,
+            };
+          },
+          merge(existing, incoming, { args, readField }) {
+            const minOrder = args?.options?.minOrder ?? 0;
+            const maxOrder = args?.options?.maxOrder ?? 0;
+
+            const existingVersions =
+              readField<WaterfallVersion[]>("versions", existing) ?? [];
+            const incomingVersions =
+              readField<WaterfallVersion[]>("versions", incoming) ?? [];
+
+            const existingBuildVariants =
+              readField<WaterfallBuildVariant[]>("buildVariants", existing) ??
+              [];
+            const incomingBuildVariants =
+              readField<WaterfallBuildVariant[]>("buildVariants", incoming) ??
+              [];
+
+            const nextPageOrder =
+              readField<number>("nextPageOrder", incoming) ?? 0;
+            const prevPageOrder =
+              readField<number>("prevPageOrder", incoming) ?? 0;
+
+            // Paginating backwards
+            if (minOrder > 0) {
+              return {
+                buildVariants: mergeBuildVariants(
+                  incomingBuildVariants,
+                  existingBuildVariants,
+                  readField,
+                ),
+                versions: [...incomingVersions, ...existingVersions],
+                prevPageOrder,
+                nextPageOrder,
+              };
+            }
+            // Paginating forwards
+            if (maxOrder > 0) {
+              return {
+                buildVariants: mergeBuildVariants(
+                  existingBuildVariants,
+                  incomingBuildVariants,
+                  readField,
+                ),
+                versions: [...existingVersions, ...incomingVersions],
+                prevPageOrder,
+                nextPageOrder,
+              };
+            }
+            return incoming;
+          },
         },
       },
     },
@@ -36,85 +181,6 @@ export const cache = new InMemoryCache({
         },
       },
     },
-    // Waterfall: {
-    //   fields: {
-    //     buildVariants: {
-    //       read(existing, { args }) {
-    //         const order = args?.minOrder ?? args?.maxOrder;
-    //         const limit = args?.limit ?? 0;
-    //         // @ts-expect-error
-    //         const idx = existing.findIndex((e) => e.order === order);
-
-    //         if (idx < 0) {
-    //           return existing;
-    //         }
-    //         // Paginating Backwards
-    //         if (args?.minOrder) {
-    //           const endIndex = idx + 1;
-    //           const startIndex = endIndex - limit;
-    //           // Not correct, does not consider inactive versions
-    //           return existing.slice(startIndex, endIndex);
-    //         }
-    //         // Paginating Forwards
-    //         if (args?.maxOrder) {
-    //           const startIndex = idx;
-    //           const endIndex = startIndex + limit + 1;
-    //           return existing.slice(startIndex, endIndex);
-    //         }
-    //         return existing;
-    //       },
-    //       merge(existing, incoming, { args }) {
-    //         // Paginating Backwards
-    //         if (args?.minOrder) {
-    //           return [...incoming, ...existing];
-    //         }
-    //         // Paginating Forwards
-    //         if (args?.maxOrder) {
-    //           return [...existing, ...incoming];
-    //         }
-    //         return incoming;
-    //       },
-    //     },
-    //     versions: {
-    //       read(existing, { args }) {
-    //         const order = args?.minOrder ?? args?.maxOrder;
-    //         const limit = args?.limit ?? 0;
-    //         // @ts-expect-error
-    //         const idx = existing.findIndex((e) => e.order === order);
-
-    //         if (idx < 0) {
-    //           return existing;
-    //         }
-    //         // Paginating Backwards
-    //         if (args?.minOrder) {
-    //           const endIndex = idx + 1;
-    //           const startIndex = endIndex - limit;
-    //           return existing.slice(startIndex, endIndex);
-    //         }
-    //         // Paginating Forwards
-    //         if (args?.maxOrder) {
-    //           const startIndex = idx;
-    //           const endIndex = startIndex + limit + 1;
-    //           return existing.slice(startIndex, endIndex);
-    //         }
-    //         console.log("Read versions: ", existing);
-    //         return existing;
-    //       },
-    //       merge(existing, incoming, { args }) {
-    //         console.log("Merge versions: ", existing, incoming);
-    //         // Paginating Backwards
-    //         if (args?.minOrder) {
-    //           return [...incoming, ...existing];
-    //         }
-    //         // Paginating Forwards
-    //         if (args?.maxOrder) {
-    //           return [...existing, ...incoming];
-    //         }
-    //         return incoming;
-    //       },
-    //     },
-    //   },
-    // },
     Image: {
       fields: {
         events: {
