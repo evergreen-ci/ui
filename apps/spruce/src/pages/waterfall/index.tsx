@@ -39,7 +39,10 @@ const Waterfall: React.FC = () => {
         <Suspense
           fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
         >
-          <WaterfallGrid projectIdentifier={projectIdentifier ?? ""} />
+          <WaterfallGrid
+            key={projectIdentifier}
+            projectIdentifier={projectIdentifier ?? ""}
+          />
         </Suspense>
       </PageContainer>
     </>
