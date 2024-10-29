@@ -7,8 +7,7 @@ import {
 } from "../utils/git";
 
 export const shouldDeploy = async (userBucket: string) => {
-  // const baseUrl = `https://${userBucket}.evergreen-staging.devprod.mongodb.com`;
-  const baseUrl = `http://spruce-${userBucket}.s3-website-us-east-1.amazonaws.com`;
+  const baseUrl = `https://spruce.${userBucket}.evergreen-staging.devprod.mongodb.com`;
 
   let commit = "";
   try {
