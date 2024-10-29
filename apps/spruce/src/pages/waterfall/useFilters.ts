@@ -8,7 +8,10 @@ import {
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
 
-export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
+export const useFilters = (
+  waterfall: WaterfallQuery["waterfall"],
+  pins: string[],
+) => {
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
     [],
@@ -66,11 +69,23 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
   );
 
   const buildVariants = useMemo(() => {
-    if (!hasFilters) {
+    if (!hasFilters && !pins.length) {
       return waterfall.buildVariants;
     }
 
     const bvs: WaterfallBuildVariant[] = [];
+
+    let pinIndex = 0;
+    const pushVariant = (variant: WaterfallBuildVariant) => {
+      if (pins.includes(variant.id)) {
+        // If build variant is pinned, insert it at the end of the list of pinned variants
+        bvs.splice(pinIndex, 0, variant);
+        pinIndex += 1;
+      } else {
+        bvs.push(variant);
+      }
+    };
+
     waterfall.buildVariants.forEach((bv) => {
       if (activeVersionIds.size !== bv.builds.length) {
         const activeBuilds: WaterfallBuild[] = [];
@@ -80,14 +95,14 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
           }
         });
         if (activeBuilds.length) {
-          bvs.push({ ...bv, builds: activeBuilds });
+          pushVariant({ ...bv, builds: activeBuilds });
         }
       } else {
-        bvs.push(bv);
+        pushVariant(bv);
       }
     });
     return bvs;
-  }, [activeVersionIds, hasFilters, waterfall]);
+  }, [activeVersionIds, hasFilters, pins, waterfall]);
 
   return { buildVariants, versions };
 };

@@ -50,7 +50,7 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.s};
-  padding: ${size.m} ${size.l};
+  padding: ${size.m};
 `;
 
 /* Safari performance of the waterfall chokes if using overflow-y: scroll, so we need the page to scroll instead.

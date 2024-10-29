@@ -18,14 +18,14 @@ const createWrapper = (props = {}) => {
 describe("useFilters", () => {
   describe("requester filters", () => {
     it("should not make any versions inactive when no filters are applied", () => {
-      const { result } = renderHook(() => useFilters(waterfall), {
+      const { result } = renderHook(() => useFilters(waterfall, []), {
         wrapper: createWrapper(),
       });
       expect(result.current).toMatchObject(waterfall);
     });
 
     it("should move version into inactive versions list and drop build variant when filter is applied", () => {
-      const { result } = renderHook(() => useFilters(waterfall), {
+      const { result } = renderHook(() => useFilters(waterfall, []), {
         wrapper: createWrapper({
           initialEntry: "/project/spruce/waterfall?requesters=git_tag_request",
         }),
