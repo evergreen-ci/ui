@@ -1,18 +1,23 @@
 import styled from "@emotion/styled";
 import { size } from "constants/tokens";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
-import { TaskStatus } from "types/task";
+import { TaskStatus, TaskStatusUmbrella } from "types/task";
 import TaskStatusBadge from ".";
 
 export default {
   component: TaskStatusBadge,
 } satisfies CustomMeta<typeof TaskStatusBadge>;
 
+const statuses = [
+  ...Object.values(TaskStatus),
+  ...Object.values(TaskStatusUmbrella),
+];
+
 export const Default: CustomStoryObj<typeof TaskStatusBadge> = {
   argTypes: {
     status: {
       control: "select",
-      options: Object.values(TaskStatus),
+      options: statuses,
     },
   },
   args: {
@@ -24,8 +29,18 @@ export const Default: CustomStoryObj<typeof TaskStatusBadge> = {
 export const AllBadges: CustomStoryObj<typeof TaskStatusBadge> = {
   render: () => (
     <Container>
-      {Object.values(TaskStatus).map((status) => (
+      {statuses.map((status) => (
         <TaskStatusBadge key={status} status={status} />
+      ))}
+    </Container>
+  ),
+};
+
+export const WithTaskCount: CustomStoryObj<typeof TaskStatusBadge> = {
+  render: () => (
+    <Container>
+      {Object.values(TaskStatus).map((status) => (
+        <TaskStatusBadge key={status} status={status} taskCount={2} />
       ))}
     </Container>
   ),

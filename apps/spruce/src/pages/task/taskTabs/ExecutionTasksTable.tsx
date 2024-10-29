@@ -18,9 +18,8 @@ import {
   SortDirection,
 } from "gql/generated/types";
 import { useTableSort } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { parseSortString } from "utils/queryString";
+import { useQueryParam } from "hooks/useQueryParam";
+import { parseSortString, toSortString } from "utils/queryString";
 
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
@@ -37,20 +36,11 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   isPatch,
 }) => {
   const { sendEvent } = useTaskAnalytics();
-  const updateQueryParams = useUpdateURLQueryParams();
-
-  const [queryParams] = useQueryParams();
-  const sortBy = queryParams[TableQueryParams.SortBy] as string;
-  const sortDir = queryParams[TableQueryParams.SortDir] as string;
-  const sorts = queryParams[TableQueryParams.Sorts] as string;
-
+  const [sorts, setSorts] = useQueryParam(TableQueryParams.Sorts, "");
   // Apply default sort if no sorting method is defined.
   useEffect(() => {
-    if (!sorts && !sortBy && !sortDir) {
-      updateQueryParams({
-        sortBy: TaskSortCategory.Status,
-        sortDir: SortDirection.Asc,
-      });
+    if (!sorts) {
+      setSorts(defaultSortQueryParam);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -61,7 +51,7 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   ]);
 
   const initialSorting = useMemo(
-    () => getInitialSorting(queryParams),
+    () => getInitialSorting(sorts),
     [], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
@@ -77,6 +67,7 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   );
 
   const tableSortHandler = useTableSort({
+    singleQueryParam: true,
     sendAnalyticsEvents: (sorter: SortingState) =>
       sendEvent({
         name: "Sorted execution tasks table",
@@ -117,42 +108,31 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   );
 };
 
-const getInitialSorting = (queryParams: {
-  [key: string]: any;
-}): SortingState => {
-  const {
-    [TableQueryParams.SortBy]: sortBy,
-    [TableQueryParams.SortDir]: sortDir,
-    [TableQueryParams.Sorts]: sorts,
-  } = queryParams;
-
-  let initialSorting = [{ id: TaskSortCategory.Status, desc: false }];
-  if (sortBy && sortDir) {
-    initialSorting = [
-      {
-        id: sortBy as TaskSortCategory,
-        desc: sortDir === SortDirection.Desc,
-      },
-    ];
-  } else if (sorts) {
-    const parsedSorts = parseSortString<
-      "id",
-      "direction",
-      TaskSortCategory,
-      {
-        id: TaskSortCategory;
-        direction: SortDirection;
-      }
-    >(sorts, {
-      sortCategoryEnum: TaskSortCategory,
-      sortByKey: "id",
-      sortDirKey: "direction",
-    });
-    initialSorting = parsedSorts.map(({ direction, id }) => ({
-      id,
-      desc: direction === SortDirection.Desc,
-    }));
-  }
+const getInitialSorting = (sorts: string): SortingState => {
+  const initialSorting = sorts
+    ? parseSortString<
+        "id",
+        "direction",
+        TaskSortCategory,
+        {
+          id: TaskSortCategory;
+          direction: SortDirection;
+        }
+      >(sorts, {
+        sortCategoryEnum: TaskSortCategory,
+        sortByKey: "id",
+        sortDirKey: "direction",
+      }).map(({ direction, id }) => ({
+        id,
+        desc: direction === SortDirection.Desc,
+      }))
+    : [{ id: TaskSortCategory.Status, desc: false }];
 
   return initialSorting;
 };
+
+const defaultSortQueryParam =
+  toSortString({
+    columnKey: TaskSortCategory.Status,
+    order: "ascend",
+  }) ?? "";

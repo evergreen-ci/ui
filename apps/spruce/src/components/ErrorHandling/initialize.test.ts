@@ -43,7 +43,6 @@ describe("should initialize error handlers according to release stage", () => {
       environment: "production",
       maxValueLength: 500,
       normalizeDepth: 5,
-      sampleRate: 0.5,
     });
   });
 
@@ -62,7 +61,6 @@ describe("should initialize error handlers according to release stage", () => {
       environment: "beta",
       maxValueLength: 500,
       normalizeDepth: 5,
-      sampleRate: 0.5,
     });
   });
 
@@ -81,7 +79,6 @@ describe("should initialize error handlers according to release stage", () => {
       environment: "staging",
       maxValueLength: 500,
       normalizeDepth: 5,
-      sampleRate: 0.5,
     });
   });
 });

@@ -35,6 +35,7 @@ export const Row = styled.div`
 `;
 
 export const InactiveVersion = styled.div`
-  width: ${INACTIVE_WIDTH}px;
+  flex-shrink: 0;
+  flex-basis: ${INACTIVE_WIDTH}px;
   text-align: center;
 `;

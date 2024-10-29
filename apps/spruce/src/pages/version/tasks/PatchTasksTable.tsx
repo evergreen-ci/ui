@@ -7,10 +7,10 @@ import { slugs } from "constants/routes";
 import { Task, VersionTasksQuery, SortOrder } from "gql/generated/types";
 import {
   useTaskStatuses,
-  useUpdateURLQueryParams,
   useStatusesFilter,
   useFilterInputChangeHandler,
 } from "hooks";
+import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
 
@@ -30,7 +30,7 @@ export const PatchTasksTable: React.FC<Props> = ({
   tasks,
 }) => {
   const { [slugs.versionId]: versionId } = useParams();
-  const updateQueryParams = useUpdateURLQueryParams();
+  const [queryParams, setQueryParams] = useQueryParams();
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { sendEvent } = useVersionAnalytics(versionId);
   const filterHookProps = {
@@ -68,8 +68,8 @@ export const PatchTasksTable: React.FC<Props> = ({
   });
 
   const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
-    updateQueryParams({
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
+    setQueryParams({
+      ...queryParams,
       sorts: toSortString(sorter),
       [PaginationQueryParams.Page]: "0",
     });

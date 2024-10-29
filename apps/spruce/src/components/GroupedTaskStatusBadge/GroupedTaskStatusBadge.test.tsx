@@ -4,7 +4,7 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { getVersionRoute } from "constants/routes";
 import { GroupedTaskStatusBadge } from ".";
 
@@ -19,7 +19,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
         count={400}
         href={`/version/${versionId}`}
         onClick={onClick}
-        status={TaskStatus.SystemFailureUmbrella}
+        status={TaskStatusUmbrella.SystemFailure}
       />,
       {
         path: "/version/:versionId/:tab",
@@ -38,7 +38,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
       <GroupedTaskStatusBadge
         count={400}
         href={`/version/${versionId}`}
-        status={TaskStatus.SystemFailureUmbrella}
+        status={TaskStatusUmbrella.SystemFailure}
       />,
     );
     expect(screen.getByText("System Failed")).toBeInTheDocument();
@@ -52,7 +52,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
         href={getVersionRoute(versionId, {
           statuses: [TaskStatus.SystemFailed],
         })}
-        status={TaskStatus.SystemFailureUmbrella}
+        status={TaskStatusUmbrella.SystemFailure}
       />,
     );
     expect(screen.queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
@@ -72,7 +72,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
       <GroupedTaskStatusBadge
         count={400}
         href={`/version/${versionId}`}
-        status={TaskStatus.SystemFailureUmbrella}
+        status={TaskStatusUmbrella.SystemFailure}
         statusCounts={statusCounts}
       />,
     );

@@ -1832,6 +1832,7 @@ export type PlannerSettings = {
   generateTaskFactor: Scalars["Int"]["output"];
   groupVersions: Scalars["Boolean"]["output"];
   mainlineTimeInQueueFactor: Scalars["Int"]["output"];
+  numDependentsFactor?: Maybe<Scalars["Float"]["output"]>;
   patchFactor: Scalars["Int"]["output"];
   patchTimeInQueueFactor: Scalars["Int"]["output"];
   targetTime: Scalars["Duration"]["output"];
@@ -1844,6 +1845,7 @@ export type PlannerSettingsInput = {
   generateTaskFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   mainlineTimeInQueueFactor: Scalars["Int"]["input"];
+  numDependentsFactor?: InputMaybe<Scalars["Float"]["input"]>;
   patchFactor: Scalars["Int"]["input"];
   patchTimeInQueueFactor: Scalars["Int"]["input"];
   targetTime: Scalars["Int"]["input"];
@@ -3482,6 +3484,7 @@ export type WaterfallBuildVariant = {
 };
 
 export type WaterfallOptions = {
+  date?: InputMaybe<Scalars["Time"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
@@ -3489,11 +3492,13 @@ export type WaterfallOptions = {
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type WaterfallTask = {
   __typename?: "WaterfallTask";
   displayName: Scalars["String"]["output"];
+  execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
 };
@@ -4911,6 +4916,30 @@ export type RepoVirtualWorkstationSettingsFragment = {
 
 export type UpstreamProjectFragment = {
   __typename?: "Version";
+  upstreamProject?: {
+    __typename?: "UpstreamProject";
+    owner: string;
+    project: string;
+    repo: string;
+    revision: string;
+    triggerID: string;
+    triggerType: string;
+    task?: { __typename?: "Task"; execution: number; id: string } | null;
+    version?: { __typename?: "Version"; id: string } | null;
+  } | null;
+};
+
+export type WaterfallVersionFragment = {
+  __typename?: "Version";
+  activated?: boolean | null;
+  author: string;
+  createTime: Date;
+  errors: Array<string>;
+  id: string;
+  message: string;
+  requester: string;
+  revision: string;
+  gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
   upstreamProject?: {
     __typename?: "UpstreamProject";
     owner: string;
@@ -9089,6 +9118,44 @@ export type TaskQuery = {
   } | null;
 };
 
+export type TestAnalysisQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  options: TaskFilterOptions;
+  opts?: InputMaybe<TestFilterOptions>;
+}>;
+
+export type TestAnalysisQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    tasks: {
+      __typename?: "VersionTasks";
+      count: number;
+      data: Array<{
+        __typename?: "Task";
+        buildVariant: string;
+        buildVariantDisplayName?: string | null;
+        displayName: string;
+        execution: number;
+        id: string;
+        status: string;
+        tests: {
+          __typename?: "TaskTestResult";
+          filteredTestCount: number;
+          testResults: Array<{
+            __typename?: "TestResult";
+            id: string;
+            status: string;
+            testFile: string;
+            logs: { __typename?: "TestLog"; urlParsley?: string | null };
+          }>;
+        };
+      }>;
+    };
+  };
+};
+
 export type UndispatchedTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
 }>;
@@ -9546,6 +9613,7 @@ export type WaterfallQuery = {
         tasks: Array<{
           __typename?: "WaterfallTask";
           displayName: string;
+          execution: number;
           id: string;
           status: string;
         }>;
@@ -9558,8 +9626,10 @@ export type WaterfallQuery = {
         activated?: boolean | null;
         author: string;
         createTime: Date;
+        errors: Array<string>;
         id: string;
         message: string;
+        requester: string;
         revision: string;
         gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
         upstreamProject?: {
@@ -9579,8 +9649,10 @@ export type WaterfallQuery = {
         activated?: boolean | null;
         author: string;
         createTime: Date;
+        errors: Array<string>;
         id: string;
         message: string;
+        requester: string;
         revision: string;
         gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
         upstreamProject?: {
