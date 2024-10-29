@@ -16,10 +16,10 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   return (
     <Container>
-      <FilterItem width={35}>
+      <FilterItem>
         <NameFilter />
       </FilterItem>
-      <FilterItem width={25}>
+      <FilterItem>
         <RequesterFilter />
       </FilterItem>
       <FilterItem>
@@ -41,7 +41,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 // Temporary - update styles as more filters are added.
 const FilterItem = styled.div`
   ${({ width }: { width?: number }) =>
-    `flex-basis: ${width ? `${width}}%` : "300px"};`}
+    `flex-basis: ${width ? `${width}px` : "300px"};`}
 `;
 
 const Container = styled.div`

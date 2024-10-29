@@ -14,7 +14,15 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
     [],
   );
 
-  const hasFilters = useMemo(() => requesters.length, [requesters]);
+  const [buildVariantFilter] = useQueryParam<string[]>(
+    WaterfallFilterOptions.BuildVariant,
+    [],
+  );
+
+  const hasFilters = useMemo(
+    () => requesters.length || buildVariantFilter.length,
+    [requesters],
+  );
 
   const versions = useMemo(() => {
     if (!hasFilters) {
@@ -64,6 +72,19 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
       ),
     [versions],
   );
+  const buildVariantFilterRegex: RegExp[] = useMemo(
+    () =>
+      buildVariantFilter.reduce<RegExp[]>((accum, curr) => {
+        let variantRegex;
+        try {
+          variantRegex = new RegExp(curr, "i");
+        } catch {
+          return accum;
+        }
+        return [...accum, variantRegex];
+      }, []),
+    [buildVariantFilter],
+  );
 
   const buildVariants = useMemo(() => {
     if (!hasFilters) {
@@ -71,7 +92,17 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
     }
 
     const bvs: WaterfallBuildVariant[] = [];
-    waterfall.buildVariants.forEach((bv) => {
+    const waterfallBuildVariants = buildVariantFilterRegex.length
+      ? waterfall.buildVariants.filter(({ displayName }) => {
+          for (let i = 0; i < buildVariantFilterRegex.length; i++) {
+            if (displayName.match(buildVariantFilterRegex[i])) {
+              return true;
+            }
+          }
+          return false;
+        })
+      : waterfall.buildVariants;
+    waterfallBuildVariants.forEach((bv) => {
       if (activeVersionIds.size !== bv.builds.length) {
         const activeBuilds: WaterfallBuild[] = [];
         bv.builds.forEach((b) => {

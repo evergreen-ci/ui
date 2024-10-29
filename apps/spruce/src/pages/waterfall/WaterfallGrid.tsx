@@ -1,12 +1,10 @@
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
-import { useQueryParam } from "hooks/useQueryParam";
-import { WaterfallFilterOptions } from "types/waterfall";
 import { BuildRow } from "./BuildRow";
 import { InactiveVersionsButton } from "./InactiveVersionsButton";
 import {
@@ -26,11 +24,6 @@ type WaterfallGridProps = {
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
 }) => {
-  const [buildVariantFilterParam] = useQueryParam<string[]>(
-    WaterfallFilterOptions.BuildVariant,
-    [],
-  );
-
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {
