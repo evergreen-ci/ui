@@ -1,0 +1,45 @@
+<div>
+  <div
+    class="css-ov1ktg"
+  >
+    <div
+      class="css-1wl27xf-InactiveVersion e1i0zkr30"
+    >
+      <button
+        aria-disabled="false"
+        aria-label="Open inactive versions modal"
+        class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        data-cy="inactive-versions-button"
+        data-lgid="lg-button"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-b15bbd"
+        >
+          <svg
+            aria-label="List Icon"
+            class="leafygreen-ui-a4wnk0"
+            fill="none"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.125 2.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5ZM3.125 6.75a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5ZM1.875 12a1.25 1.25 0 1 1 2.5 0 1.25 1.25 0 0 1-2.5 0ZM6.625 3a1 1 0 0 0 0 2h6.5a1 1 0 1 0 0-2h-6.5ZM5.625 8a1 1 0 0 1 1-1h6.5a1 1 0 1 1 0 2h-6.5a1 1 0 0 1-1-1ZM6.625 11a1 1 0 1 0 0 2h6.5a1 1 0 1 0 0-2h-6.5Z"
+              fill="currentColor"
+            />
+          </svg>
+          1
+          <div
+            class="css-1twzd73-InactiveVersionLine e19pzgwa1"
+          />
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
