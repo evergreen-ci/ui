@@ -12,11 +12,11 @@
   },
   "dependencies": {
     "@apollo/client": "3.8.4",
-    "@storybook/addon-essentials": "8.3.4",
-    "@storybook/addon-interactions": "8.3.4",
-    "@storybook/addon-links": "8.3.4",
+    "@storybook/addon-essentials": "8.3.6",
+    "@storybook/addon-interactions": "8.3.6",
+    "@storybook/addon-links": "8.3.6",
     "react-router-dom": "6.16.0",
-    "storybook": "8.3.4",
+    "storybook": "8.3.6",
     "storybook-addon-apollo-client": "7.3.0"
   },
   "devDependencies": {

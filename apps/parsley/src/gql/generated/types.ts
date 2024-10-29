@@ -1832,6 +1832,7 @@ export type PlannerSettings = {
   generateTaskFactor: Scalars["Int"]["output"];
   groupVersions: Scalars["Boolean"]["output"];
   mainlineTimeInQueueFactor: Scalars["Int"]["output"];
+  numDependentsFactor?: Maybe<Scalars["Float"]["output"]>;
   patchFactor: Scalars["Int"]["output"];
   patchTimeInQueueFactor: Scalars["Int"]["output"];
   targetTime: Scalars["Duration"]["output"];
@@ -1844,6 +1845,7 @@ export type PlannerSettingsInput = {
   generateTaskFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   mainlineTimeInQueueFactor: Scalars["Int"]["input"];
+  numDependentsFactor?: InputMaybe<Scalars["Float"]["input"]>;
   patchFactor: Scalars["Int"]["input"];
   patchTimeInQueueFactor: Scalars["Int"]["input"];
   targetTime: Scalars["Int"]["input"];
@@ -3489,6 +3491,7 @@ export type WaterfallOptions = {
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type WaterfallTask = {

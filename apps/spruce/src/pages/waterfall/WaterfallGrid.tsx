@@ -16,6 +16,7 @@ import {
   Row,
   VERSION_LIMIT,
 } from "./styles";
+import { useFilters } from "./useFilters";
 import { VersionLabel } from "./VersionLabel";
 
 type WaterfallGridProps = {
@@ -48,40 +49,14 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     refEl as React.MutableRefObject<HTMLElement>,
   );
 
-  const buildVariantFilterRegex: RegExp[] = useMemo(
-    () =>
-      buildVariantFilterParam.reduce<RegExp[]>((accum, curr) => {
-        let variantRegex;
-        try {
-          variantRegex = new RegExp(curr, "i");
-        } catch {
-          return accum;
-        }
-        return [...accum, variantRegex];
-      }, []),
-    [buildVariantFilterParam],
-  );
-
-  const buildVariants = useMemo(() => {
-    if (!buildVariantFilterRegex.length) {
-      return data.waterfall.buildVariants;
-    }
-    return data.waterfall.buildVariants.filter(({ displayName }) => {
-      for (let i = 0; i < buildVariantFilterRegex.length; i++) {
-        if (displayName.match(buildVariantFilterRegex[i])) {
-          return true;
-        }
-      }
-      return false;
-    });
-  }, [data, buildVariantFilterParam]);
+  const { buildVariants, versions } = useFilters(data.waterfall);
 
   return (
     <Container ref={refEl}>
       <Row>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
-          {data.waterfall.versions.map(({ inactiveVersions, version }) =>
+          {versions.map(({ inactiveVersions, version }) =>
             version ? (
               <VersionLabel key={version.id} size="small" {...version} />
             ) : (
@@ -101,7 +76,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           key={b.id}
           build={b}
           projectIdentifier={projectIdentifier}
-          versions={data.waterfall.versions}
+          versions={versions}
         />
       ))}
     </Container>

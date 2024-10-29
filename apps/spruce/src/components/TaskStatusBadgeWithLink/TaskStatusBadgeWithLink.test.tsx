@@ -5,7 +5,11 @@ import TaskStatusBadgeWithLink from ".";
 describe("TaskStatusBadgeWithLink", () => {
   it("should render a link if a task id is passed", () => {
     renderWithRouterMatch(
-      <TaskStatusBadgeWithLink execution={0} id="123" status="success" />,
+      <TaskStatusBadgeWithLink
+        execution={0}
+        id="123"
+        status={TaskStatus.Succeeded}
+      />,
     );
     expect(screen.getByDataCy("task-status-badge")).toBeInTheDocument();
     expect(screen.getByRole("link")).toBeInTheDocument();

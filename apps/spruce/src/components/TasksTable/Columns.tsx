@@ -74,7 +74,7 @@ export const getColumnsTemplate = ({
               <TaskStatusBadgeWithLink
                 execution={execution}
                 id={id}
-                status={status}
+                status={status as TaskStatus}
               />
             </span>
           }
@@ -87,7 +87,7 @@ export const getColumnsTemplate = ({
           <TaskStatusBadgeWithLink
             execution={execution}
             id={id}
-            status={status}
+            status={status as TaskStatus}
           />
         )
       );
@@ -115,10 +115,10 @@ export const getColumnsTemplate = ({
         <TaskStatusBadgeWithLink
           execution={baseTask?.execution}
           id={baseTask?.id}
-          status={getValue() as string}
+          status={getValue() as TaskStatus}
         />
       ) : (
-        <TaskStatusBadge status={getValue() as string} />
+        <TaskStatusBadge status={getValue() as TaskStatus} />
       ),
     meta: {
       treeSelect: {

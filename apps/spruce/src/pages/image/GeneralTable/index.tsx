@@ -38,8 +38,11 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
   const getDateCopy = useDateFormat();
 
   const data = useMemo(() => {
-    const image = imageData?.image;
+    if (loading) {
+      return [];
+    }
 
+    const image = imageData?.image;
     return [
       {
         property: "Last deployed",
@@ -83,7 +86,7 @@ export const GeneralTable: React.FC<GeneralTableProps> = ({ imageId }) => {
     <BaseTable
       data-cy-row="general-table-row"
       loading={loading}
-      loadingRows={data.length}
+      loadingRows={4}
       shouldAlternateRowColor
       table={table}
     />

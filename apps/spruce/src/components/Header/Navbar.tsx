@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
+import AnimatedIcon from "components/Icon/AnimatedIcon";
 import { FallTree } from "components/Icon/icons/FallTree";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
@@ -71,7 +72,7 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
-          <FallTree />
+          <AnimatedIcon icon={FallTree} />
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"

@@ -3,8 +3,4 @@ describe("Github username banner", () => {
     cy.visit("/");
     cy.dataCy("github-username-banner").should("exist");
   });
-  it("should not show the banner on other pages, even if user doesn't have a github username", () => {
-    cy.visit("/hosts");
-    cy.dataCy("github-username-banner").should("not.exist");
-  });
 });

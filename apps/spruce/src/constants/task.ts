@@ -1,15 +1,15 @@
 import { palette } from "@leafygreen-ui/palette";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 
 const { gray, green, purple, red, yellow } = palette;
 
-export const taskStatusToCopy = {
-  [TaskStatus.ScheduledUmbrella]: "Scheduled",
-  [TaskStatus.FailedUmbrella]: "Failed",
-  [TaskStatus.RunningUmbrella]: "Running",
-  [TaskStatus.SystemFailureUmbrella]: "System Failed",
-  [TaskStatus.UndispatchedUmbrella]: "Undispatched",
+export const taskStatusToCopy: Record<string, string> = {
+  [TaskStatusUmbrella.Scheduled]: "Scheduled",
+  [TaskStatusUmbrella.Failed]: "Failed",
+  [TaskStatusUmbrella.Running]: "Running",
+  [TaskStatusUmbrella.SystemFailure]: "System Failed",
+  [TaskStatusUmbrella.Undispatched]: "Undispatched",
   [TaskStatus.Aborted]: "Aborted",
   [TaskStatus.Blocked]: "Blocked",
   [TaskStatus.Dispatched]: "Dispatched",
@@ -33,9 +33,9 @@ export const taskStatusToCopy = {
 
 const taskStatuses: TreeDataEntry[] = [
   {
-    title: taskStatusToCopy[TaskStatus.FailedUmbrella],
-    value: TaskStatus.FailedUmbrella,
-    key: TaskStatus.FailedUmbrella,
+    title: taskStatusToCopy[TaskStatusUmbrella.Failed],
+    value: TaskStatusUmbrella.Failed,
+    key: TaskStatusUmbrella.Failed,
     children: [
       {
         title: taskStatusToCopy[TaskStatus.Failed],
@@ -65,9 +65,9 @@ const taskStatuses: TreeDataEntry[] = [
     key: TaskStatus.Succeeded,
   },
   {
-    title: taskStatusToCopy[TaskStatus.RunningUmbrella],
-    value: TaskStatus.RunningUmbrella,
-    key: TaskStatus.RunningUmbrella,
+    title: taskStatusToCopy[TaskStatusUmbrella.Running],
+    value: TaskStatusUmbrella.Running,
+    key: TaskStatusUmbrella.Running,
     children: [
       {
         title: taskStatusToCopy[TaskStatus.Started],
@@ -82,9 +82,9 @@ const taskStatuses: TreeDataEntry[] = [
     ],
   },
   {
-    title: taskStatusToCopy[TaskStatus.ScheduledUmbrella],
-    value: TaskStatus.ScheduledUmbrella,
-    key: TaskStatus.ScheduledUmbrella,
+    title: taskStatusToCopy[TaskStatusUmbrella.Scheduled],
+    value: TaskStatusUmbrella.Scheduled,
+    key: TaskStatusUmbrella.Scheduled,
     children: [
       {
         title: taskStatusToCopy[TaskStatus.WillRun],
@@ -104,9 +104,9 @@ const taskStatuses: TreeDataEntry[] = [
     ],
   },
   {
-    title: taskStatusToCopy[TaskStatus.SystemFailureUmbrella],
-    value: TaskStatus.SystemFailureUmbrella,
-    key: TaskStatus.SystemFailureUmbrella,
+    title: taskStatusToCopy[TaskStatusUmbrella.SystemFailure],
+    value: TaskStatusUmbrella.SystemFailure,
+    key: TaskStatusUmbrella.SystemFailure,
     children: [
       {
         title: taskStatusToCopy[TaskStatus.SystemFailed],
@@ -126,9 +126,9 @@ const taskStatuses: TreeDataEntry[] = [
     ],
   },
   {
-    title: taskStatusToCopy[TaskStatus.UndispatchedUmbrella],
-    value: TaskStatus.UndispatchedUmbrella,
-    key: TaskStatus.UndispatchedUmbrella,
+    title: taskStatusToCopy[TaskStatusUmbrella.Undispatched],
+    value: TaskStatusUmbrella.Undispatched,
+    key: TaskStatus.Undispatched,
     children: [
       {
         title: taskStatusToCopy[TaskStatus.Unscheduled],
@@ -195,38 +195,28 @@ type ColorScheme = {
   text: string;
 };
 
-export const mapUmbrellaStatusColors: Pick<
-  Record<TaskStatus, ColorScheme>,
-  | TaskStatus.UndispatchedUmbrella
-  | TaskStatus.RunningUmbrella
-  | TaskStatus.FailedUmbrella
-  | TaskStatus.SystemFailureUmbrella
-  | TaskStatus.UndispatchedUmbrella
-  | TaskStatus.ScheduledUmbrella
-  | TaskStatus.Succeeded
-  | TaskStatus.SetupFailed
-> = {
-  [TaskStatus.UndispatchedUmbrella]: {
+export const mapUmbrellaStatusColors: Record<string, ColorScheme> = {
+  [TaskStatusUmbrella.Undispatched]: {
     fill: gray.light3,
     border: gray.light2,
     text: gray.dark1,
   },
-  [TaskStatus.RunningUmbrella]: {
+  [TaskStatusUmbrella.Running]: {
     fill: yellow.light3,
     border: yellow.light2,
     text: yellow.dark2,
   },
-  [TaskStatus.SystemFailureUmbrella]: {
+  [TaskStatusUmbrella.SystemFailure]: {
     fill: purple.dark2,
     border: purple.dark3,
     text: purple.light3,
   },
-  [TaskStatus.ScheduledUmbrella]: {
+  [TaskStatusUmbrella.Scheduled]: {
     fill: gray.dark1,
     border: gray.dark2,
     text: gray.light3,
   },
-  [TaskStatus.FailedUmbrella]: {
+  [TaskStatusUmbrella.Failed]: {
     fill: red.light3,
     border: red.light2,
     text: red.dark2,
@@ -244,11 +234,11 @@ export const mapUmbrellaStatusColors: Pick<
 };
 
 export const mapTaskToBarchartColor = {
-  [TaskStatus.UndispatchedUmbrella]: gray.dark1,
-  [TaskStatus.RunningUmbrella]: yellow.base,
-  [TaskStatus.SystemFailureUmbrella]: purple.dark2,
-  [TaskStatus.ScheduledUmbrella]: gray.base,
-  [TaskStatus.FailedUmbrella]: red.base,
+  [TaskStatusUmbrella.Undispatched]: gray.dark1,
+  [TaskStatusUmbrella.Running]: yellow.base,
+  [TaskStatusUmbrella.SystemFailure]: purple.dark2,
+  [TaskStatusUmbrella.Scheduled]: gray.base,
+  [TaskStatusUmbrella.Failed]: red.base,
   [TaskStatus.Succeeded]: green.dark1,
   [TaskStatus.SetupFailed]: purple.light2,
 };
@@ -256,12 +246,12 @@ export const mapTaskToBarchartColor = {
 // Represents order for waterfall barchart
 export const sortedUmbrellaStatus = [
   TaskStatus.Succeeded,
-  TaskStatus.FailedUmbrella,
-  TaskStatus.SystemFailureUmbrella,
+  TaskStatusUmbrella.Failed,
+  TaskStatusUmbrella.SystemFailure,
   TaskStatus.SetupFailed,
-  TaskStatus.RunningUmbrella,
-  TaskStatus.ScheduledUmbrella,
-  TaskStatus.UndispatchedUmbrella,
+  TaskStatusUmbrella.Running,
+  TaskStatusUmbrella.Scheduled,
+  TaskStatusUmbrella.Undispatched,
 ];
 
 export const failedTaskStatuses = [

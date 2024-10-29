@@ -4,8 +4,8 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { getTaskRoute } from "constants/routes";
 import { TaskTab } from "types/task";
 
-interface TaskStatusBadgeWithLinkProps {
-  status: string;
+interface TaskStatusBadgeWithLinkProps
+  extends React.ComponentProps<typeof TaskStatusBadge> {
   id: string;
   execution: number;
 }
@@ -13,6 +13,7 @@ const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
   execution,
   id,
   status,
+  ...rest
 }) => (
   <Link
     to={getTaskRoute(id, {
@@ -20,7 +21,7 @@ const TaskStatusBadgeWithLink: React.FC<TaskStatusBadgeWithLinkProps> = ({
       tab: status === TaskStatus.KnownIssue ? TaskTab.Annotations : undefined,
     })}
   >
-    <TaskStatusBadge status={status} />
+    <TaskStatusBadge status={status as TaskStatus} {...rest} />
   </Link>
 );
 

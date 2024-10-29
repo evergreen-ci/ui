@@ -14,7 +14,8 @@ type Action =
   | { name: "Changed project"; project: string }
   | { name: "Created build variant filter" }
   | { name: "Deleted one filter badge" }
-  | { name: "Deleted all filter badges" };
+  | { name: "Deleted all filter badges" }
+  | { name: "Filtered by requester"; requesters: string[] };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();

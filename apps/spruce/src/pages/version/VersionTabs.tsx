@@ -15,6 +15,8 @@ import { Tasks } from "pages/version/Tasks";
 import { PatchStatus, PatchTab } from "types/patch";
 import { queryString } from "utils";
 import TaskDuration from "./TaskDuration";
+import TestAnalysis from "./TestAnalysis";
+import { TestAnalysisTabGuideCue } from "./TestAnalysis/TestAnalysisTabGuideCue";
 
 const { parseQueryString } = queryString;
 
@@ -117,6 +119,20 @@ const tabMap = ({
       <DownstreamTasks childPatches={childPatches} />
     </Tab>
   ),
+  [PatchTab.TestAnalysis]: (
+    <Tab
+      key="test-analysis-tab"
+      data-cy="test-analysis-tab"
+      id="test-analysis-tab"
+      name={
+        <>
+          Test Analysis <TestAnalysisTabGuideCue />
+        </>
+      }
+    >
+      <TestAnalysis versionId={versionId} />
+    </Tab>
+  ),
 });
 
 export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
@@ -129,7 +145,7 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   const { sendEvent } = useVersionAnalytics(versionId);
   const navigate = useNavigate();
 
-  const { isPatch, patch, requester, taskCount } = version || {};
+  const { isPatch, patch, requester, status, taskCount } = version || {};
   const { childPatches } = patch || {};
 
   const tabIsActive = useMemo(
@@ -137,9 +153,11 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       [PatchTab.Tasks]: true,
       [PatchTab.TaskDuration]: true,
       [PatchTab.Changes]: isPatch && requester !== Requester.GitHubMergeQueue,
-      [PatchTab.Downstream]: childPatches,
+      [PatchTab.Downstream]:
+        childPatches !== undefined && childPatches !== null,
+      [PatchTab.TestAnalysis]: status !== PatchStatus.Success,
     }),
-    [isPatch, requester, childPatches],
+    [isPatch, requester, childPatches, status],
   );
 
   const allTabs = useMemo(() => {
@@ -158,8 +176,7 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       numFailedChildPatches,
       numStartedChildPatches,
       numSuccessChildPatches,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      versionId,
+      versionId: versionId ?? "",
     });
   }, [taskCount, childPatches, versionId]);
 

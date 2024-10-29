@@ -1,4 +1,4 @@
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { groupedTaskStats, groupedTaskStatsAll } from "../testData";
 import {
   getStatusesWithZeroCount,
@@ -11,11 +11,11 @@ import {
 describe("getStatusesWithZeroCount", () => {
   it("return an array of umbrella statuses that have 0 count", () => {
     expect(getStatusesWithZeroCount(groupedTaskStats)).toStrictEqual([
-      TaskStatus.FailedUmbrella,
-      TaskStatus.RunningUmbrella,
-      TaskStatus.ScheduledUmbrella,
-      TaskStatus.SystemFailureUmbrella,
-      TaskStatus.UndispatchedUmbrella,
+      TaskStatusUmbrella.Failed,
+      TaskStatusUmbrella.Running,
+      TaskStatusUmbrella.Scheduled,
+      TaskStatusUmbrella.SystemFailure,
+      TaskStatusUmbrella.Undispatched,
     ]);
   });
   it("should return an empty array when all umbrella statuses are present", () => {
@@ -23,12 +23,12 @@ describe("getStatusesWithZeroCount", () => {
   });
   it("return an array of all umbrella statuses when no umbrella status exists", () => {
     expect(getStatusesWithZeroCount([])).toStrictEqual([
-      TaskStatus.FailedUmbrella,
+      TaskStatusUmbrella.Failed,
       TaskStatus.Succeeded,
-      TaskStatus.RunningUmbrella,
-      TaskStatus.ScheduledUmbrella,
-      TaskStatus.SystemFailureUmbrella,
-      TaskStatus.UndispatchedUmbrella,
+      TaskStatusUmbrella.Running,
+      TaskStatusUmbrella.Scheduled,
+      TaskStatusUmbrella.SystemFailure,
+      TaskStatusUmbrella.Undispatched,
       TaskStatus.SetupFailed,
     ]);
   });

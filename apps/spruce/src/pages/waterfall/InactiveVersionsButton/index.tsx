@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import pluralize from "pluralize";
@@ -18,6 +19,11 @@ export const InactiveVersionsButton: React.FC<Props> = ({
   containerHeight,
   versions,
 }) => {
+  const brokenVersionsCount =
+    versions?.reduce(
+      (accum, { errors }) => (errors.length ? accum + 1 : accum),
+      0,
+    ) ?? 0;
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <>
@@ -35,6 +41,11 @@ export const InactiveVersionsButton: React.FC<Props> = ({
           />
         ))}
       </DisplayModal>
+      {brokenVersionsCount > 0 && (
+        <StyledBadge data-cy="broken-versions-badge" variant={Variant.Red}>
+          {brokenVersionsCount} broken
+        </StyledBadge>
+      )}
       <Button
         aria-label="Open inactive versions modal"
         data-cy="inactive-versions-button"
@@ -62,4 +73,8 @@ const InactiveVersionLine = styled.div<{ containerHeight: number }>`
 
 const StyledVersionLabel = styled(VersionLabel)`
   padding-top: ${size.xs};
+`;
+
+const StyledBadge = styled(Badge)`
+  margin-bottom: ${size.xs};
 `;
