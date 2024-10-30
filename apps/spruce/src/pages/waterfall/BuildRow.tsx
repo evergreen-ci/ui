@@ -11,7 +11,7 @@ import { size } from "constants/tokens";
 import {
   WaterfallBuild,
   WaterfallBuildVariant,
-  WaterfallQuery,
+  WaterfallVersion,
 } from "gql/generated/types";
 import { statusColorMap, statusIconMap } from "./icons";
 import {
@@ -27,7 +27,7 @@ const { black, gray, white } = palette;
 export const BuildRow: React.FC<{
   build: WaterfallBuildVariant;
   projectIdentifier: string;
-  versions: WaterfallQuery["waterfall"]["versions"];
+  versions: WaterfallVersion[];
 }> = ({ build, projectIdentifier, versions }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const handleVariantClick = useCallback(

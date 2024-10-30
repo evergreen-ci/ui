@@ -19,15 +19,14 @@ query Waterfall($options: WaterfallOptions!) {
       id
       version
     }
-    nextPageOrder
-    prevPageOrder
-    versions {
-      inactiveVersions {
-        ...WaterfallVersion
-      }
-      version {
-        ...WaterfallVersion
-      }
+    flattenedVersions {
+      ...WaterfallVersion
+    }
+    pagination {
+      hasNextPage
+      hasPrevPage
+      nextPageOrder
+      prevPageOrder
     }
   }
 }

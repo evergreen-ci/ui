@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -17,6 +17,7 @@ import {
   Row,
   VERSION_LIMIT,
 } from "./styles";
+import { groupInactiveVersions } from "./utils";
 import { VersionLabel } from "./VersionLabel";
 
 type WaterfallGridProps = {
@@ -26,8 +27,8 @@ type WaterfallGridProps = {
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
 }) => {
-  const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
   const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
+  const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
 
   const { data, fetchMore } = useSuspenseQuery<
     WaterfallQuery,
@@ -37,8 +38,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       options: {
         projectIdentifier,
         limit: VERSION_LIMIT,
-        minOrder,
         maxOrder,
+        minOrder,
       },
     },
     // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
@@ -50,34 +51,17 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     refEl as React.MutableRefObject<HTMLElement>,
   );
 
-  const { buildVariants, nextPageOrder, prevPageOrder, versions } =
-    data.waterfall;
+  const { buildVariants, flattenedVersions, pagination } = data.waterfall;
+
+  // @ts-ignore-error: It's complaining about not having all of the Version fields, but that doesn't really matter
+  const versions = groupInactiveVersions(flattenedVersions);
 
   return (
     <Container ref={refEl}>
       <PaginationButtons
-        nextPageOrder={nextPageOrder}
-        onNextPage={() =>
-          fetchMore({
-            variables: {
-              options: {
-                projectIdentifier,
-                maxOrder: nextPageOrder,
-              },
-            },
-          })
-        }
-        onPrevPage={() =>
-          fetchMore({
-            variables: {
-              options: {
-                projectIdentifier,
-                minOrder: prevPageOrder,
-              },
-            },
-          })
-        }
-        prevPageOrder={prevPageOrder}
+        fetchMore={fetchMore}
+        pagination={pagination}
+        projectIdentifier={projectIdentifier}
       />
       <Row>
         <BuildVariantTitle />

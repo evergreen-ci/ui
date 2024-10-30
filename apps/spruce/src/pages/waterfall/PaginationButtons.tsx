@@ -1,31 +1,47 @@
+import { FetchMoreFunction } from "@apollo/client/react/hooks/useSuspenseQuery";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useWaterfallAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
+import {
+  Exact,
+  WaterfallOptions,
+  WaterfallPagination,
+  WaterfallQuery,
+} from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
 
 interface PaginationButtonsProps {
-  nextPageOrder: number;
-  prevPageOrder: number;
-  onNextPage?: () => void;
-  onPrevPage?: () => void;
+  fetchMore: FetchMoreFunction<
+    WaterfallQuery,
+    Exact<{
+      options: WaterfallOptions;
+    }>
+  >;
+  pagination: WaterfallPagination;
+  projectIdentifier: string;
 }
 export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
-  nextPageOrder,
-  onNextPage,
-  onPrevPage,
-  prevPageOrder,
+  fetchMore,
+  pagination,
+  projectIdentifier,
 }) => {
+  const { hasNextPage, hasPrevPage, nextPageOrder, prevPageOrder } = pagination;
   const { sendEvent } = useWaterfallAnalytics();
   const [queryParams, setQueryParams] = useQueryParams();
 
   const onNextClick = () => {
     sendEvent({ name: "Changed page", direction: "next" });
-    if (onNextPage) {
-      onNextPage();
-    }
+    fetchMore({
+      variables: {
+        options: {
+          projectIdentifier,
+          maxOrder: nextPageOrder,
+        },
+      },
+    });
     setQueryParams({
       ...queryParams,
       [WaterfallFilterOptions.MaxOrder]: nextPageOrder,
@@ -38,9 +54,14 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
       name: "Changed page",
       direction: "previous",
     });
-    if (onPrevPage) {
-      onPrevPage();
-    }
+    fetchMore({
+      variables: {
+        options: {
+          projectIdentifier,
+          minOrder: prevPageOrder,
+        },
+      },
+    });
     setQueryParams({
       ...queryParams,
       [WaterfallFilterOptions.MaxOrder]: undefined,
@@ -52,13 +73,13 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     <Container>
       <Button
         data-cy="prev-page-button"
-        disabled={prevPageOrder === 0}
+        disabled={!hasPrevPage}
         leftGlyph={<Icon glyph="ChevronLeft" />}
         onClick={onPrevClick}
       />
       <Button
         data-cy="next-page-button"
-        disabled={nextPageOrder === 0}
+        disabled={!hasNextPage}
         leftGlyph={<Icon glyph="ChevronRight" />}
         onClick={onNextClick}
       />

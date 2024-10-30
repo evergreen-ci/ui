@@ -3462,8 +3462,8 @@ export type VolumeHost = {
 export type Waterfall = {
   __typename?: "Waterfall";
   buildVariants: Array<WaterfallBuildVariant>;
-  nextPageOrder: Scalars["Int"]["output"];
-  prevPageOrder: Scalars["Int"]["output"];
+  flattenedVersions: Array<Version>;
+  pagination: WaterfallPagination;
   versions: Array<WaterfallVersion>;
 };
 
@@ -3494,6 +3494,14 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type WaterfallPagination = {
+  __typename?: "WaterfallPagination";
+  hasNextPage: Scalars["Boolean"]["output"];
+  hasPrevPage: Scalars["Boolean"]["output"];
+  nextPageOrder: Scalars["Int"]["output"];
+  prevPageOrder: Scalars["Int"]["output"];
 };
 
 export type WaterfallTask = {
@@ -9602,8 +9610,6 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
-    nextPageOrder: number;
-    prevPageOrder: number;
     buildVariants: Array<{
       __typename?: "WaterfallBuildVariant";
       displayName: string;
@@ -9624,56 +9630,36 @@ export type WaterfallQuery = {
         }>;
       }>;
     }>;
-    versions: Array<{
-      __typename?: "WaterfallVersion";
-      inactiveVersions?: Array<{
-        __typename?: "Version";
-        activated?: boolean | null;
-        author: string;
-        createTime: Date;
-        errors: Array<string>;
-        id: string;
-        message: string;
-        order: number;
-        requester: string;
+    flattenedVersions: Array<{
+      __typename?: "Version";
+      activated?: boolean | null;
+      author: string;
+      createTime: Date;
+      errors: Array<string>;
+      id: string;
+      message: string;
+      order: number;
+      requester: string;
+      revision: string;
+      gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        owner: string;
+        project: string;
+        repo: string;
         revision: string;
-        gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
-      }> | null;
-      version?: {
-        __typename?: "Version";
-        activated?: boolean | null;
-        author: string;
-        createTime: Date;
-        errors: Array<string>;
-        id: string;
-        message: string;
-        order: number;
-        requester: string;
-        revision: string;
-        gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
+        triggerID: string;
+        triggerType: string;
+        task?: { __typename?: "Task"; execution: number; id: string } | null;
+        version?: { __typename?: "Version"; id: string } | null;
       } | null;
     }>;
+    pagination: {
+      __typename?: "WaterfallPagination";
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+      nextPageOrder: number;
+      prevPageOrder: number;
+    };
   };
 };

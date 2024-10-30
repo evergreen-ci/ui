@@ -3,7 +3,6 @@ import {
   Version,
   WaterfallBuild,
   WaterfallBuildVariant,
-  WaterfallVersion,
 } from "gql/generated/types";
 
 const mergeBuildVariants = (
@@ -28,48 +27,104 @@ const mergeBuildVariants = (
   return newBuildVariants;
 };
 
-const readBuildVariants = (
-  buildVariants: readonly WaterfallBuildVariant[],
-  startIdx: number,
-  endIdx: number,
-  readField: ReadFieldFunction,
-): WaterfallBuildVariant[] => {
-  const newBuildVariants = buildVariants.map((b) => {
-    const displayName = readField<string>("displayName", b) ?? "";
-    const id = readField<string>("id", b) ?? "";
-    const version = readField<string>("version", b) ?? "";
-    const builds = readField<WaterfallBuild[]>("builds", b) ?? [];
+type ReadBuildVariantsProps = {
+  versions: readonly Version[];
+  buildVariants: readonly WaterfallBuildVariant[];
+  readField: ReadFieldFunction;
+};
 
+const readBuildVariants = ({
+  buildVariants,
+  readField,
+  versions,
+}: ReadBuildVariantsProps): WaterfallBuildVariant[] => {
+  const activeVersionIds: string[] = versions.map(
+    (v) => readField<string>("id", v) ?? "",
+  );
+  const newBuildVariants = buildVariants.map((bv) => {
+    const newBuilds: WaterfallBuild[] = [];
+    const builds = readField<WaterfallBuild[]>("builds", bv) ?? [];
+    builds.forEach((build) => {
+      const version = readField<string>("version", build) ?? "";
+      if (activeVersionIds.includes(version)) {
+        newBuilds.push(build);
+      }
+    });
     return {
-      displayName,
-      id,
-      version,
-      builds: builds.slice(startIdx, endIdx),
+      ...bv,
+      builds: newBuilds,
     };
   });
 
   return newBuildVariants;
 };
 
-const findIndexMatchingOrder = (
-  versions: readonly WaterfallVersion[],
-  order: number,
-  readField: ReadFieldFunction,
-) => {
-  const versionIdx = versions.findIndex((v) => {
-    const activeVersion = readField<Version>("version", v) ?? {};
-    const activeOrder = readField<number>("order", activeVersion) ?? 0;
-    const inactiveVersions = readField<Version[]>("inactiveVersions", v) ?? [];
-    return (
-      activeOrder === order ||
-      inactiveVersions?.some((i) => {
-        const inactiveVersion = readField<Version>("version", i) ?? {};
-        const inactiveOrder = readField<number>("order", inactiveVersion) ?? 0;
-        return inactiveOrder === order;
-      })
-    );
-  });
-  return versionIdx;
+type ReadVersionsProps = (
+  | {
+      minOrder: number;
+      maxOrder?: never;
+    }
+  | {
+      minOrder?: never;
+      maxOrder: number;
+    }
+) & {
+  versions: readonly Version[];
+  readField: ReadFieldFunction;
 };
 
-export { mergeBuildVariants, readBuildVariants, findIndexMatchingOrder };
+// In this function, count up to 5 active versions and return the array
+// that contains those 5 active versions along with any inactive versions
+// that exist between them.
+const readVersions = ({
+  maxOrder,
+  minOrder,
+  readField,
+  versions,
+}: ReadVersionsProps): Version[] => {
+  const idx = versions.findIndex((v) => {
+    const versionOrder = readField<number>("order", v) ?? 0;
+    if (minOrder) {
+      return versionOrder === minOrder + 1;
+    }
+    if (maxOrder) {
+      return versionOrder === maxOrder - 1;
+    }
+    return false;
+  });
+
+  let startIndex = maxOrder ? idx : 0;
+  let endIndex = maxOrder ? 0 : idx;
+  let numActivated = 0;
+
+  // Count backwards for paginating backwards.
+  if (minOrder) {
+    for (let i = endIndex; i >= 0; i--) {
+      if (readField<boolean>("activated", versions[i])) {
+        numActivated += 1;
+        if (numActivated === 5) {
+          startIndex = i;
+          break;
+        }
+      }
+    }
+  }
+
+  // Count forwards for paginating forwards.
+  if (maxOrder) {
+    for (let i = startIndex; i < versions.length; i++) {
+      if (readField<boolean>("activated", versions[i])) {
+        numActivated += 1;
+        if (numActivated === 5) {
+          endIndex = i;
+          break;
+        }
+      }
+    }
+  }
+
+  // Add 1 because slice is [inclusive, exclusive).
+  return versions.slice(startIndex, endIndex + 1);
+};
+
+export { readVersions, mergeBuildVariants, readBuildVariants };

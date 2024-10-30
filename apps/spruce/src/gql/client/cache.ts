@@ -1,11 +1,11 @@
 import { InMemoryCache } from "@apollo/client";
-import { WaterfallBuildVariant, WaterfallVersion } from "gql/generated/types";
-import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
 import {
-  findIndexMatchingOrder,
-  mergeBuildVariants,
-  readBuildVariants,
-} from "./utils";
+  WaterfallPagination,
+  WaterfallBuildVariant,
+  Version,
+} from "gql/generated/types";
+import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
+import { mergeBuildVariants, readBuildVariants, readVersions } from "./utils";
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -42,84 +42,51 @@ export const cache = new InMemoryCache({
               return undefined;
             }
 
-            // Not correct, because a user can load page with a min or max order applied
-            // and in that case it should also returning existing.
             if (minOrder === 0 && maxOrder === 0) {
               return existing;
             }
 
-            const existingVersions =
-              readField<WaterfallVersion[]>("versions", existing) ?? [];
+            const existingFlattenedVersions =
+              readField<Version[]>("flattenedVersions", existing) ?? [];
             const existingBuildVariants =
               readField<WaterfallBuildVariant[]>("buildVariants", existing) ??
               [];
-            const nextPageOrder =
-              readField<number>("nextPageOrder", existing) ?? 0;
-            const prevPageOrder =
-              readField<number>("prevPageOrder", existing) ?? 0;
+            const pagination =
+              readField<WaterfallPagination>("pagination", existing) ?? 0;
 
-            const versions: WaterfallVersion[] = [];
-            const buildVariants: WaterfallBuildVariant[] = [];
+            const flattenedVersions: Version[] = readVersions({
+              minOrder,
+              maxOrder,
+              versions: existingFlattenedVersions,
+              readField,
+            });
+            const buildVariants: WaterfallBuildVariant[] = readBuildVariants({
+              versions: flattenedVersions,
+              buildVariants: existingBuildVariants,
+              readField,
+            });
 
-            // Paginating backwards
-            if (minOrder > 0) {
-              const versionIdx = findIndexMatchingOrder(
-                existingVersions,
-                minOrder + 1,
-                readField,
-              );
-              versions.push(
-                ...existingVersions.slice(
-                  versionIdx - limit + 1,
-                  versionIdx + 1,
-                ),
-              );
-              buildVariants.push(
-                ...readBuildVariants(
-                  existingBuildVariants,
-                  versionIdx - limit + 1,
-                  versionIdx + 1,
-                  readField,
-                ),
-              );
-            }
-            // Paginating forwards
-            if (maxOrder > 0) {
-              const versionIdx = findIndexMatchingOrder(
-                existingVersions,
-                maxOrder - 1,
-                readField,
-              );
-              versions.push(
-                ...existingVersions.slice(versionIdx, versionIdx + limit),
-              );
-              buildVariants.push(
-                ...readBuildVariants(
-                  existingBuildVariants,
-                  versionIdx,
-                  versionIdx + limit,
-                  readField,
-                ),
-              );
-            }
-
-            console.log("Read result: ", { versions, buildVariants });
+            console.log("Read result: ", { flattenedVersions, buildVariants });
 
             return {
               buildVariants,
-              versions,
-              prevPageOrder,
-              nextPageOrder,
+              flattenedVersions,
+              pagination,
             };
           },
           merge(existing, incoming, { args, readField }) {
             const minOrder = args?.options?.minOrder ?? 0;
             const maxOrder = args?.options?.maxOrder ?? 0;
 
-            const existingVersions =
-              readField<WaterfallVersion[]>("versions", existing) ?? [];
-            const incomingVersions =
-              readField<WaterfallVersion[]>("versions", incoming) ?? [];
+            const existingFlattenedVersions =
+              readField<Version[]>("flattenedVersions", existing) ?? [];
+            const incomingFlattenedVersions =
+              readField<Version[]>("flattenedVersions", incoming) ?? [];
+
+            console.log({
+              existingFlattenedVersions,
+              incomingFlattenedVersions,
+            });
 
             const existingBuildVariants =
               readField<WaterfallBuildVariant[]>("buildVariants", existing) ??
@@ -128,12 +95,14 @@ export const cache = new InMemoryCache({
               readField<WaterfallBuildVariant[]>("buildVariants", incoming) ??
               [];
 
-            const nextPageOrder =
-              readField<number>("nextPageOrder", incoming) ?? 0;
-            const prevPageOrder =
-              readField<number>("prevPageOrder", incoming) ?? 0;
+            const pagination =
+              readField<WaterfallPagination>("pagination", incoming) ?? 0;
 
-            // Paginating backwards
+            // Need to write a more robust merge function to prevent saving overlapping
+            // data. This happens because we're naively just appending / preprending incoming
+            // data, but not considering the fact that the data may already exist.
+
+            // Paginating backwards.
             if (minOrder > 0) {
               return {
                 buildVariants: mergeBuildVariants(
@@ -141,12 +110,14 @@ export const cache = new InMemoryCache({
                   existingBuildVariants,
                   readField,
                 ),
-                versions: [...incomingVersions, ...existingVersions],
-                prevPageOrder,
-                nextPageOrder,
+                flattenedVersions: [
+                  ...incomingFlattenedVersions,
+                  ...existingFlattenedVersions,
+                ],
+                pagination,
               };
             }
-            // Paginating forwards
+            // Paginating forwards.
             if (maxOrder > 0) {
               return {
                 buildVariants: mergeBuildVariants(
@@ -154,9 +125,11 @@ export const cache = new InMemoryCache({
                   incomingBuildVariants,
                   readField,
                 ),
-                versions: [...existingVersions, ...incomingVersions],
-                prevPageOrder,
-                nextPageOrder,
+                flattenedVersions: [
+                  ...existingFlattenedVersions,
+                  ...incomingFlattenedVersions,
+                ],
+                pagination,
               };
             }
             return incoming;
