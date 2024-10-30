@@ -25,8 +25,6 @@ export const cache = new InMemoryCache({
         },
         waterfall: {
           keyArgs: ["$projectIdentifier"],
-          // The read function is not correct because it does not account for inactive versions.
-          // It only works if every version on a waterfall is activated.
           read(existing, { args, readField, variables }) {
             const minOrder = args?.options?.minOrder ?? 0;
             const maxOrder = args?.options?.maxOrder ?? 0;
