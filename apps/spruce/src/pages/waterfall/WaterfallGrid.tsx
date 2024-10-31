@@ -53,7 +53,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       ...bvs,
       [projectIdentifier]: pins,
     });
-  }, [pins]);
+  }, [pins, projectIdentifier]);
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,

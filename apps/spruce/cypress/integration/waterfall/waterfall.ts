@@ -89,4 +89,24 @@ describe("waterfall page", () => {
       cy.dataCy("version-label-active").should("have.length", 5);
     });
   });
+
+  describe("pinned build variants", () => {
+    beforeEach(() => {
+      cy.visit("/project/evergreen/waterfall");
+    });
+
+    it("clicking the pin button moves the build variant to the top, persist on reload, and unpin on click", () => {
+      cy.dataCy("build-variant-link").first().should("have.text", "Lint");
+      cy.dataCy("pin-button").eq(1).click();
+      cy.dataCy("build-variant-link")
+        .first()
+        .should("have.text", "Ubuntu 16.04");
+      cy.reload();
+      cy.dataCy("build-variant-link")
+        .first()
+        .should("have.text", "Ubuntu 16.04");
+      cy.dataCy("pin-button").eq(1).click();
+      cy.dataCy("build-variant-link").first().should("have.text", "Lint");
+    });
+  });
 });

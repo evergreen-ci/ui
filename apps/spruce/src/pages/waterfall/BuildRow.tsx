@@ -55,11 +55,13 @@ export const BuildRow: React.FC<{
         <StyledIconButton
           active={pinned}
           aria-label="Pin build variant"
+          data-cy="pin-button"
           onClick={handlePinClick}
         >
           <Icon glyph="Pin" />
         </StyledIconButton>
         <StyledLink
+          data-cy="build-variant-link"
           href={getVariantHistoryRoute(projectIdentifier, build.id)}
           onClick={handleVariantClick}
         >
