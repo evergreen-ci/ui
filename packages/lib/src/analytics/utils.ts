@@ -1,6 +1,8 @@
 import { trace } from "@opentelemetry/api";
 import { ActionType, AnalyticsProperties } from "./types";
 
+export const TRACER_NAME = "analytics";
+
 /**
  * `sendEventTrace` is a function that sends an event to our analytics provider in the form of a OTEL trace
  * @param action - The action to send to our analytics provider
@@ -17,7 +19,7 @@ export const sendEventTrace = <A extends ActionType>(
     return;
   }
   const globalAttributes = AttributeStore.getGlobalAttributes() ?? {};
-  const tracer = trace.getTracer("analytics");
+  const tracer = trace.getTracer(TRACER_NAME);
 
   tracer.startActiveSpan(name, (span) => {
     span.setAttributes({
