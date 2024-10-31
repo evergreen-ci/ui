@@ -2,10 +2,11 @@ import { InMemoryCache } from "@apollo/client";
 import {
   WaterfallPagination,
   WaterfallBuildVariant,
-  Version,
+  WaterfallVersionFragment,
 } from "gql/generated/types";
 import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
-import { mergeBuildVariants, readBuildVariants, readVersions } from "./utils";
+import { mergeBuildVariants, readBuildVariants } from "./buildVariants";
+import { mergeVersions, readVersions } from "./versions";
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -26,12 +27,6 @@ export const cache = new InMemoryCache({
         waterfall: {
           keyArgs: ["$projectIdentifier"],
           read(existing, { args, readField, variables }) {
-            const minOrder = args?.options?.minOrder ?? 0;
-            const maxOrder = args?.options?.maxOrder ?? 0;
-            const limit = variables?.options?.limit ?? 0;
-
-            console.log("Read args: ", { minOrder, maxOrder, limit });
-
             // A read function should always return undefined if existing is
             // undefined. Returning undefined signals that the field is
             // missing from the cache, which instructs Apollo Client to
@@ -40,23 +35,31 @@ export const cache = new InMemoryCache({
               return undefined;
             }
 
+            const minOrder = args?.options?.minOrder ?? 0;
+            const maxOrder = args?.options?.maxOrder ?? 0;
+            const limit = variables?.options?.limit ?? 0;
+
             if (minOrder === 0 && maxOrder === 0) {
               return existing;
             }
 
             const existingFlattenedVersions =
-              readField<Version[]>("flattenedVersions", existing) ?? [];
+              readField<WaterfallVersionFragment[]>(
+                "flattenedVersions",
+                existing,
+              ) ?? [];
             const existingBuildVariants =
               readField<WaterfallBuildVariant[]>("buildVariants", existing) ??
               [];
             const pagination =
               readField<WaterfallPagination>("pagination", existing) ?? 0;
 
-            const flattenedVersions: Version[] = readVersions({
+            const flattenedVersions = readVersions({
               minOrder,
               maxOrder,
               versions: existingFlattenedVersions,
               readField,
+              limit,
             });
             const buildVariants: WaterfallBuildVariant[] = readBuildVariants({
               versions: flattenedVersions,
@@ -72,19 +75,17 @@ export const cache = new InMemoryCache({
               pagination,
             };
           },
-          merge(existing, incoming, { args, readField }) {
-            const minOrder = args?.options?.minOrder ?? 0;
-            const maxOrder = args?.options?.maxOrder ?? 0;
-
+          merge(existing, incoming, { readField }) {
             const existingFlattenedVersions =
-              readField<Version[]>("flattenedVersions", existing) ?? [];
+              readField<WaterfallVersionFragment[]>(
+                "flattenedVersions",
+                existing,
+              ) ?? [];
             const incomingFlattenedVersions =
-              readField<Version[]>("flattenedVersions", incoming) ?? [];
-
-            console.log({
-              existingFlattenedVersions,
-              incomingFlattenedVersions,
-            });
+              readField<WaterfallVersionFragment[]>(
+                "flattenedVersions",
+                incoming,
+              ) ?? [];
 
             const existingBuildVariants =
               readField<WaterfallBuildVariant[]>("buildVariants", existing) ??
@@ -96,41 +97,28 @@ export const cache = new InMemoryCache({
             const pagination =
               readField<WaterfallPagination>("pagination", incoming) ?? 0;
 
-            // Need to write a more robust merge function to prevent saving overlapping
-            // data. This happens because we're naively just appending / preprending incoming
-            // data, but not considering the fact that the data may already exist.
+            const flattenedVersions = mergeVersions({
+              incomingVersions: incomingFlattenedVersions,
+              existingVersions: existingFlattenedVersions,
+              readField,
+            });
+            const buildVariants = mergeBuildVariants({
+              incomingBuildVariants,
+              existingBuildVariants,
+              readField,
+              versions: flattenedVersions,
+            });
 
-            // Paginating backwards.
-            if (minOrder > 0) {
-              return {
-                buildVariants: mergeBuildVariants(
-                  incomingBuildVariants,
-                  existingBuildVariants,
-                  readField,
-                ),
-                flattenedVersions: [
-                  ...incomingFlattenedVersions,
-                  ...existingFlattenedVersions,
-                ],
-                pagination,
-              };
-            }
-            // Paginating forwards.
-            if (maxOrder > 0) {
-              return {
-                buildVariants: mergeBuildVariants(
-                  existingBuildVariants,
-                  incomingBuildVariants,
-                  readField,
-                ),
-                flattenedVersions: [
-                  ...existingFlattenedVersions,
-                  ...incomingFlattenedVersions,
-                ],
-                pagination,
-              };
-            }
-            return incoming;
+            // To help verify that this is working, inspect these variables and
+            // check that they do not keep increasing in length as you page
+            // backwards and forwards.
+            console.log("Merge result: ", { flattenedVersions, buildVariants });
+
+            return {
+              buildVariants,
+              flattenedVersions,
+              pagination,
+            };
           },
         },
       },
@@ -220,9 +208,6 @@ export const cache = new InMemoryCache({
           },
         },
       },
-    },
-    WaterfallBuildVariant: {
-      keyFields: ["version", "id"],
     },
   },
 });
