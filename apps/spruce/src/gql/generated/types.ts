@@ -9613,6 +9613,7 @@ export type WaterfallQuery = {
       __typename?: "WaterfallBuildVariant";
       displayName: string;
       id: string;
+      version: string;
       builds: Array<{
         __typename?: "WaterfallBuild";
         activated?: boolean | null;
