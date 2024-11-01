@@ -60,14 +60,14 @@ export const useFilters = ({ buildVariants, versions }: UseFiltersProps) => {
   const activeVersionIds = useMemo(
     () =>
       new Set(
-        versions.reduce((ids: string[], { version }) => {
+        versionsResult.reduce((ids: string[], { version }) => {
           if (version) {
             ids.push(version.id);
           }
           return ids;
         }, []),
       ),
-    [versions],
+    [versionsResult],
   );
 
   const buildVariantsResult = useMemo(() => {
