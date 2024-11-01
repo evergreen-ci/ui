@@ -84,7 +84,7 @@ const navbarStyles = css`
     position: unset !important;
   }
   #banner-container {
-    margin-top: ${navBarHeight};
+    padding-top: ${navBarHeight};
   }
   nav {
     position: fixed !important;

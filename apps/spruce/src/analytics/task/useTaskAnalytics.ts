@@ -88,7 +88,9 @@ export const useTaskAnalytics = () => {
     latestExecution,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     project: { identifier } = { identifier: null },
+    requester = "",
     status: taskStatus,
+    versionMetadata: { isPatch } = { isPatch: false },
   } = eventData?.task || {};
   const isLatestExecution = latestExecution === execution;
 
@@ -99,5 +101,7 @@ export const useTaskAnalytics = () => {
     "task.id": taskId || "",
     "task.failed_test_count": failedTestCount || "",
     "task.project.identifier": identifier,
+    "version.is_patch": isPatch,
+    "version.requester": requester,
   });
 };
