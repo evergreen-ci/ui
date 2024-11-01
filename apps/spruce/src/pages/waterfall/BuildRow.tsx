@@ -13,7 +13,6 @@ import {
   WaterfallBuildVariant,
   WaterfallQuery,
 } from "gql/generated/types";
-import { statusColorMap, statusIconMap } from "./icons";
 import {
   BuildVariantTitle,
   columnBasis,
@@ -21,6 +20,7 @@ import {
   InactiveVersion,
   Row,
   SQUARE_SIZE,
+  taskStatusStyleMap,
 } from "./styles";
 
 const { black, gray, white } = palette;
@@ -135,12 +135,7 @@ const Square = styled(Link)<{ status: TaskStatus }>`
   cursor: pointer;
   position: relative;
 
-  ${({ status }) => {
-    const icon = statusIconMap?.[status];
-    const iconStyle = icon ? `background-image: ${icon};` : "";
-    return `${iconStyle}
-background-color: ${statusColorMap[status]};`;
-  }}
+  ${({ status }) => taskStatusStyleMap[status]}
 
   /* Tooltip */
   :before {

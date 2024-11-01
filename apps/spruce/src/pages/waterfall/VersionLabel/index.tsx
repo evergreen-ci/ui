@@ -11,6 +11,7 @@ import { size as sizeToken } from "constants/tokens";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
+import { columnBasis } from "../styles";
 
 export enum VersionLabelView {
   Modal = "modal",
@@ -18,6 +19,7 @@ export enum VersionLabelView {
 }
 
 type Props = WaterfallVersionFragment & {
+  taskStatsTooltip?: React.ReactNode;
   className?: string;
   shouldDisableText?: boolean;
   view: VersionLabelView;
@@ -34,6 +36,7 @@ export const VersionLabel: React.FC<Props> = ({
   message,
   revision,
   shouldDisableText = false,
+  taskStatsTooltip,
   upstreamProject,
   view,
 }) => {
@@ -55,28 +58,31 @@ export const VersionLabel: React.FC<Props> = ({
       shouldDisableText={shouldDisableText}
       view={view}
     >
-      <Body>
-        <InlineCode
-          as={Link}
-          onClick={() => {
-            sendEvent({
-              name: "Clicked commit label",
-              "commit.type": commitType,
-              link: "githash",
-            });
-          }}
-          to={getVersionRoute(id)}
-        >
-          {shortenGithash(revision)}
-        </InlineCode>{" "}
-        {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-        {commitType === "inactive" && (
-          <StyledBadge variant={Variant.LightGray}>Inactive</StyledBadge>
-        )}
-        {errors.length > 0 && (
-          <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
-        )}
-      </Body>
+      <HeaderLine>
+        <Body>
+          <InlineCode
+            as={Link}
+            onClick={() => {
+              sendEvent({
+                name: "Clicked commit label",
+                "commit.type": commitType,
+                link: "githash",
+              });
+            }}
+            to={getVersionRoute(id)}
+          >
+            {shortenGithash(revision)}
+          </InlineCode>{" "}
+          {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+          {commitType === "inactive" && (
+            <StyledBadge variant={Variant.LightGray}>Inactive</StyledBadge>
+          )}
+          {errors.length > 0 && (
+            <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
+          )}
+        </Body>
+        {view === VersionLabelView.Waterfall && taskStatsTooltip}
+      </HeaderLine>
       {upstreamProject && (
         <Body>
           Triggered by:{" "}
@@ -124,6 +130,7 @@ const VersionContainer = styled.div<
   Pick<WaterfallVersionFragment, "activated"> &
     Pick<Props, "shouldDisableText" | "view">
 >`
+  ${columnBasis}
   ${({ activated, shouldDisableText, view }) =>
     view === VersionLabelView.Waterfall
       ? `
@@ -155,4 +162,12 @@ const CommitMessage = styled(Body)<Pick<Props, "view">>`
 
 const StyledBadge = styled(Badge)`
   margin-left: ${sizeToken.xs};
+`;
+
+const HeaderLine = styled.div`
+  align-items: center;
+  display: flex;
+  > p {
+    flex-grow: 1;
+  }
 `;
