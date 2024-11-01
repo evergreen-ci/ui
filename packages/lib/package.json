@@ -23,7 +23,7 @@
     "@leafygreen-ui/tokens": "^2.5.2",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/auto-instrumentations-web": "^0.40.0",
-    "@opentelemetry/instrumentation-user-interaction": "^0.40.0",
+    "@opentelemetry/instrumentation-user-interaction": "^0.41.0",
     "graphql": "16.8.1",
     "query-string": "9.0.0"
   },

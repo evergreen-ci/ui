@@ -12,7 +12,7 @@ import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
 import { BuildRow } from "./BuildRow";
-import { InactiveVersionsButton } from "./InactiveVersionsButton";
+import { InactiveVersionsButton } from "./InactiveVersions";
 import {
   BuildVariantTitle,
   gridGroupCss,
@@ -21,8 +21,9 @@ import {
   VERSION_LIMIT,
 } from "./styles";
 import { useFilters } from "./useFilters";
+import { useWaterfallTrace } from "./useWaterfallTrace";
 import { groupInactiveVersions } from "./utils";
-import { VersionLabel } from "./VersionLabel";
+import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
   projectIdentifier: string;
@@ -35,6 +36,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 }) => {
   const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
   const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
+  useWaterfallTrace();
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
@@ -77,7 +79,11 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }) =>
             version ? (
-              <VersionLabel key={version.id} size="small" {...version} />
+              <VersionLabel
+                key={version.id}
+                view={VersionLabelView.Waterfall}
+                {...version}
+              />
             ) : (
               <InactiveVersion key={inactiveVersions?.[0].id}>
                 <InactiveVersionsButton
