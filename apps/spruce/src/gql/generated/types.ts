@@ -3462,8 +3462,8 @@ export type VolumeHost = {
 export type Waterfall = {
   __typename?: "Waterfall";
   buildVariants: Array<WaterfallBuildVariant>;
-  nextPageOrder: Scalars["Int"]["output"];
-  prevPageOrder: Scalars["Int"]["output"];
+  flattenedVersions: Array<Version>;
+  pagination: WaterfallPagination;
   versions: Array<WaterfallVersion>;
 };
 
@@ -3481,6 +3481,7 @@ export type WaterfallBuildVariant = {
   builds: Array<WaterfallBuild>;
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
 };
 
 export type WaterfallOptions = {
@@ -3493,6 +3494,14 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type WaterfallPagination = {
+  __typename?: "WaterfallPagination";
+  hasNextPage: Scalars["Boolean"]["output"];
+  hasPrevPage: Scalars["Boolean"]["output"];
+  nextPageOrder: Scalars["Int"]["output"];
+  prevPageOrder: Scalars["Int"]["output"];
 };
 
 export type WaterfallTask = {
@@ -4940,6 +4949,14 @@ export type WaterfallVersionFragment = {
   requester: string;
   revision: string;
   gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+  taskStatusStats?: {
+    __typename?: "TaskStats";
+    counts?: Array<{
+      __typename?: "StatusCount";
+      count: number;
+      status: string;
+    }> | null;
+  } | null;
   upstreamProject?: {
     __typename?: "UpstreamProject";
     owner: string;
@@ -9592,6 +9609,25 @@ export type ViewableProjectRefsQuery = {
   }>;
 };
 
+export type WaterfallVersionStatsQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type WaterfallVersionStatsQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    taskStatusStats?: {
+      __typename?: "TaskStats";
+      counts?: Array<{
+        __typename?: "StatusCount";
+        count: number;
+        status: string;
+      }> | null;
+    } | null;
+  };
+};
+
 export type WaterfallQueryVariables = Exact<{
   options: WaterfallOptions;
 }>;
@@ -9604,6 +9640,7 @@ export type WaterfallQuery = {
       __typename?: "WaterfallBuildVariant";
       displayName: string;
       id: string;
+      version: string;
       builds: Array<{
         __typename?: "WaterfallBuild";
         activated?: boolean | null;
@@ -9632,6 +9669,14 @@ export type WaterfallQuery = {
         requester: string;
         revision: string;
         gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+        taskStatusStats?: {
+          __typename?: "TaskStats";
+          counts?: Array<{
+            __typename?: "StatusCount";
+            count: number;
+            status: string;
+          }> | null;
+        } | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
           owner: string;
@@ -9655,6 +9700,14 @@ export type WaterfallQuery = {
         requester: string;
         revision: string;
         gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+        taskStatusStats?: {
+          __typename?: "TaskStats";
+          counts?: Array<{
+            __typename?: "StatusCount";
+            count: number;
+            status: string;
+          }> | null;
+        } | null;
         upstreamProject?: {
           __typename?: "UpstreamProject";
           owner: string;

@@ -6,6 +6,7 @@ import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
 import { BuildRow } from "./BuildRow";
+import { ColumnHeader } from "./ColumnHeader";
 import { InactiveVersionsButton } from "./InactiveVersionsButton";
 import {
   BuildVariantTitle,
@@ -15,7 +16,6 @@ import {
   VERSION_LIMIT,
 } from "./styles";
 import { useFilters } from "./useFilters";
-import { VersionLabel } from "./VersionLabel";
 
 type WaterfallGridProps = {
   projectIdentifier: string;
@@ -51,7 +51,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }) =>
             version ? (
-              <VersionLabel key={version.id} size="small" {...version} />
+              <ColumnHeader key={version.id} {...version} />
             ) : (
               <InactiveVersion>
                 <InactiveVersionsButton

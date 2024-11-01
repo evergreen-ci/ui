@@ -5,6 +5,7 @@ import { size } from "constants/tokens";
 
 const BUILD_VARIANT_WIDTH = 200;
 const INACTIVE_WIDTH = 80;
+export const SQUARE_SIZE = 16;
 
 // TODO DEVPROD-11708: Update with dynamic column count
 export const VERSION_LIMIT = 5;

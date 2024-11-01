@@ -20,6 +20,7 @@ import {
   gridGroupCss,
   InactiveVersion,
   Row,
+  SQUARE_SIZE,
 } from "./styles";
 
 const { black, gray, white } = palette;
@@ -124,8 +125,6 @@ const BuildGroup = styled.div`
 const Build = styled.div`
   ${columnBasis}
 `;
-
-const SQUARE_SIZE = 16;
 
 const Square = styled(Link)<{ status: TaskStatus }>`
   width: ${SQUARE_SIZE}px;

@@ -9,7 +9,6 @@ import { size as sizeToken } from "constants/tokens";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
-import { columnBasis } from "../styles";
 
 type Props = WaterfallVersionFragment & {
   className?: string;
@@ -113,8 +112,6 @@ export const VersionLabel: React.FC<Props> = ({
 };
 
 const VersionContainer = styled.div<{ size?: "small" | "default" }>`
-  ${columnBasis}
-
   ${(props) => {
     if (props.size === "small") {
       return `
