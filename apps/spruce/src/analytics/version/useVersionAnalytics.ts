@@ -62,10 +62,12 @@ export const useVersionAnalytics = (id: string) => {
       fetchPolicy: "cache-first",
     },
   );
-  const { status } = eventData?.version || {};
+  const { isPatch, requester, status } = eventData?.version || {};
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Version", {
     "version.status": status || "",
     "version.id": id,
+    "version.is_patch": isPatch || false,
+    "version.requester": requester || "",
   });
 };
