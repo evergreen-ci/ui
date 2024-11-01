@@ -17,6 +17,7 @@ query Waterfall($options: WaterfallOptions!) {
       }
       displayName
       id
+      version
     }
     versions {
       inactiveVersions {
