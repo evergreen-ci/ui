@@ -18,7 +18,7 @@ describe("reportingFn", () => {
       variables: {
         input: { password: "password123", creditCard: "1234567890123456" },
       },
-      // @ts-expect-error: It's not necessary to run an actual query.
+      // @ts-ignore-error: It's not necessary to run an actual query.
       query: null,
       setContext: vi.fn(),
       getContext: vi.fn(),
