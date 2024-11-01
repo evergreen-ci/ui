@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { navBarHeight } from "components/Header/Navbar";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
+import { WaterfallPagination } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
@@ -18,6 +19,8 @@ const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
+
+  const [pagination, setPagination] = useState<WaterfallPagination>();
 
   return (
     <>
@@ -33,13 +36,17 @@ const Waterfall: React.FC = () => {
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
           key={projectIdentifier}
+          pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
         />
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
           fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
         >
-          <WaterfallGrid projectIdentifier={projectIdentifier ?? ""} />
+          <WaterfallGrid
+            projectIdentifier={projectIdentifier ?? ""}
+            setPagination={setPagination}
+          />
         </Suspense>
       </PageContainer>
     </>

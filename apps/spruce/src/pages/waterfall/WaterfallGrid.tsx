@@ -1,15 +1,18 @@
-import { Fragment, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
+import {
+  WaterfallPagination,
+  WaterfallQuery,
+  WaterfallQueryVariables,
+} from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
 import { BuildRow } from "./BuildRow";
 import { InactiveVersionsButton } from "./InactiveVersionsButton";
-import { PaginationButtons } from "./PaginationButtons";
 import {
   BuildVariantTitle,
   gridGroupCss,
@@ -17,52 +20,58 @@ import {
   Row,
   VERSION_LIMIT,
 } from "./styles";
+import { useFilters } from "./useFilters";
 import { groupInactiveVersions } from "./utils";
 import { VersionLabel } from "./VersionLabel";
 
 type WaterfallGridProps = {
   projectIdentifier: string;
+  setPagination: (pagination: WaterfallPagination) => void;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
+  setPagination,
 }) => {
   const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
   const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
 
-  const { data, fetchMore } = useSuspenseQuery<
-    WaterfallQuery,
-    WaterfallQueryVariables
-  >(WATERFALL, {
-    variables: {
-      options: {
-        projectIdentifier,
-        limit: VERSION_LIMIT,
-        maxOrder,
-        minOrder,
+  const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
+    WATERFALL,
+    {
+      variables: {
+        options: {
+          projectIdentifier,
+          limit: VERSION_LIMIT,
+          maxOrder,
+          minOrder,
+        },
       },
+      // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
+      pollInterval: DEFAULT_POLL_INTERVAL,
     },
-    // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
-    pollInterval: DEFAULT_POLL_INTERVAL,
-  });
+  );
+
+  useEffect(() => {
+    setPagination(data.waterfall.pagination);
+  }, [setPagination, data.waterfall.pagination]);
 
   const refEl = useRef<HTMLDivElement>(null);
   const { height } = useDimensions(
     refEl as React.MutableRefObject<HTMLElement>,
   );
 
-  const { buildVariants, flattenedVersions, pagination } = data.waterfall;
+  const groupedVersions = groupInactiveVersions(
+    data.waterfall.flattenedVersions,
+  );
 
-  // @ts-ignore-error: It's complaining about not having all of the Version fields, but that doesn't really matter
-  const versions = groupInactiveVersions(flattenedVersions);
+  const { buildVariants, versions } = useFilters({
+    buildVariants: data.waterfall.buildVariants,
+    versions: groupedVersions,
+  });
 
   return (
     <Container ref={refEl}>
-      <PaginationButtons
-        fetchMore={fetchMore}
-        pagination={pagination}
-        projectIdentifier={projectIdentifier}
-      />
       <Row>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">

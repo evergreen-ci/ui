@@ -3,12 +3,16 @@ import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { size } from "constants/tokens";
+import { WaterfallPagination } from "gql/generated/types";
+import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
 
 type WaterfallFiltersProps = {
   projectIdentifier: string;
+  pagination: WaterfallPagination | undefined;
 };
 export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
+  pagination,
   projectIdentifier,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
@@ -30,6 +34,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
           selectedProjectIdentifier={projectIdentifier}
         />
       </FilterItem>
+      <PaginationButtons pagination={pagination} />
     </Container>
   );
 };

@@ -8,11 +8,7 @@ import { useWaterfallAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import {
-  WaterfallBuild,
-  WaterfallBuildVariant,
-  WaterfallVersion,
-} from "gql/generated/types";
+import { WaterfallBuild, WaterfallBuildVariant } from "gql/generated/types";
 import { statusColorMap, statusIconMap } from "./icons";
 import {
   BuildVariantTitle,
@@ -21,6 +17,7 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
+import { WaterfallVersion } from "./types";
 
 const { black, gray, white } = palette;
 

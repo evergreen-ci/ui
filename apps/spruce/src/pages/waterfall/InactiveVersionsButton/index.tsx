@@ -7,12 +7,12 @@ import pluralize from "pluralize";
 import { DisplayModal } from "components/DisplayModal";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
-import { WaterfallQuery } from "gql/generated/types";
+import { WaterfallVersionFragment } from "gql/generated/types";
 import { VersionLabel } from "../VersionLabel";
 
 const { gray } = palette;
 interface Props {
-  versions: WaterfallQuery["waterfall"]["versions"][0]["inactiveVersions"];
+  versions: WaterfallVersionFragment[];
   containerHeight: number | undefined;
 }
 export const InactiveVersionsButton: React.FC<Props> = ({

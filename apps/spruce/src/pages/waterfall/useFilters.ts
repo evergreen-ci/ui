@@ -2,13 +2,18 @@ import { useMemo } from "react";
 import {
   WaterfallBuild,
   WaterfallBuildVariant,
-  WaterfallQuery,
   WaterfallVersionFragment,
 } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
+import { WaterfallVersion } from "./types";
 
-export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
+type UseFiltersProps = {
+  buildVariants: WaterfallBuildVariant[];
+  versions: WaterfallVersion[];
+};
+
+export const useFilters = ({ buildVariants, versions }: UseFiltersProps) => {
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
     [],
@@ -16,12 +21,12 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
 
   const hasFilters = useMemo(() => requesters.length, [requesters]);
 
-  const versions = useMemo(() => {
+  const versionsResult = useMemo(() => {
     if (!hasFilters) {
-      return waterfall.versions;
+      return versions;
     }
 
-    const filteredVersions: typeof waterfall.versions = [];
+    const filteredVersions: typeof versions = [];
 
     const pushInactive = (v: WaterfallVersionFragment) => {
       if (!filteredVersions?.[filteredVersions.length - 1]?.inactiveVersions) {
@@ -37,7 +42,7 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
       });
     };
 
-    waterfall.versions.forEach(({ inactiveVersions, version }) => {
+    versions.forEach(({ inactiveVersions, version }) => {
       if (version) {
         if (matchesRequesters(version, requesters)) {
           pushActive(version);
@@ -50,7 +55,7 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
     });
 
     return filteredVersions;
-  }, [hasFilters, requesters, waterfall]);
+  }, [hasFilters, requesters, versions]);
 
   const activeVersionIds = useMemo(
     () =>
@@ -65,13 +70,13 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
     [versions],
   );
 
-  const buildVariants = useMemo(() => {
+  const buildVariantsResult = useMemo(() => {
     if (!hasFilters) {
-      return waterfall.buildVariants;
+      return buildVariants;
     }
 
     const bvs: WaterfallBuildVariant[] = [];
-    waterfall.buildVariants.forEach((bv) => {
+    buildVariants.forEach((bv) => {
       if (activeVersionIds.size !== bv.builds.length) {
         const activeBuilds: WaterfallBuild[] = [];
         bv.builds.forEach((b) => {
@@ -87,9 +92,9 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
       }
     });
     return bvs;
-  }, [activeVersionIds, hasFilters, waterfall]);
+  }, [activeVersionIds, hasFilters, buildVariants]);
 
-  return { buildVariants, versions };
+  return { buildVariants: buildVariantsResult, versions: versionsResult };
 };
 
 /**

@@ -18,18 +18,33 @@ const createWrapper = (props = {}) => {
 describe("useFilters", () => {
   describe("requester filters", () => {
     it("should not make any versions inactive when no filters are applied", () => {
-      const { result } = renderHook(() => useFilters(waterfall), {
-        wrapper: createWrapper(),
-      });
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            buildVariants: waterfall.buildVariants,
+            versions: waterfall.versions,
+          }),
+        {
+          wrapper: createWrapper(),
+        },
+      );
       expect(result.current).toMatchObject(waterfall);
     });
 
     it("should move version into inactive versions list and drop build variant when filter is applied", () => {
-      const { result } = renderHook(() => useFilters(waterfall), {
-        wrapper: createWrapper({
-          initialEntry: "/project/spruce/waterfall?requesters=git_tag_request",
-        }),
-      });
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            buildVariants: waterfall.buildVariants,
+            versions: waterfall.versions,
+          }),
+        {
+          wrapper: createWrapper({
+            initialEntry:
+              "/project/spruce/waterfall?requesters=git_tag_request",
+          }),
+        },
+      );
 
       const filteredWaterfall = {
         buildVariants: [],
@@ -50,8 +65,6 @@ describe("useFilters", () => {
 });
 
 const waterfall = {
-  nextPageOrder: 5,
-  prevPageOrder: 0,
   buildVariants: [
     {
       id: "1",
