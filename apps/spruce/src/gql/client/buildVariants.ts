@@ -12,7 +12,7 @@ type ReadBuildVariantsProps = {
 };
 
 /**
- * `readVersions` is used to read the appropriate build variants from the cache (if they exist).
+ * `readBuildVariants` is used to read the appropriate build variants from the cache (if they exist).
  * @param opts - object containing arguments to this function
  * @param opts.buildVariants - the existing build variants in the cache
  * @param opts.versions - the versions that we've already identified to return from the read function

@@ -52,10 +52,6 @@ const readVersions = ({
   let endIndex = maxOrder ? 0 : idx;
   let numActivated = 0;
 
-  // NOTE: I think the read function has a bug where it doesn't get the
-  // leading inactive versions on the first page. They are present in the
-  // cache.
-
   // Count backwards for paginating backwards.
   if (minOrder) {
     for (let i = endIndex; i >= 0; i--) {
@@ -82,8 +78,45 @@ const readVersions = ({
     }
   }
 
+  // Unfortunately, have to redo the nextRecentActiveVersion logic here.
+  // Because we're manually taking slices of the data based on the given order
+  // number, we also have to manually check the inactive versions.
+  const nextRecentActiveVersionIdx = getNextRecentActiveVersion({
+    versions,
+    readField,
+    startIndex,
+  });
+
   // Add 1 because slice is [inclusive, exclusive).
-  return versions.slice(startIndex, endIndex + 1);
+  return versions.slice(
+    nextRecentActiveVersionIdx ? nextRecentActiveVersionIdx + 1 : 0,
+    endIndex + 1,
+  );
+};
+
+/**
+ * `getNextRecentActiveVersion` finds the index of the first active version before the given startIndex.
+ * @param opts - object containing arguments to this function
+ * @param opts.startIndex - the index from which we want to take the version slice
+ * @param opts.readField - function provided by Apollo to access fields from Reference objects
+ * @param opts.versions - the existing versions in the cache
+ * @returns index of the next recent active version
+ */
+const getNextRecentActiveVersion = ({
+  readField,
+  startIndex,
+  versions,
+}: {
+  readField: ReadFieldFunction;
+  startIndex: number;
+  versions: readonly WaterfallVersionFragment[];
+}): number => {
+  for (let i = startIndex - 1; i >= 0; i--) {
+    if (readField<boolean>("activated", versions[i])) {
+      return i;
+    }
+  }
+  return 0;
 };
 
 type MergeVersionsProps = {
