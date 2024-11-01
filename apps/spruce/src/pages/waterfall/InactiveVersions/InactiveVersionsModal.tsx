@@ -16,7 +16,7 @@ export const InactiveVersionsModal: React.FC<Props> = ({
   setOpen,
   versions,
 }) => {
-  const hasFilteredVersions =
+  const hasUnmatchingVersions =
     versions?.some(({ activated }) => activated) ?? false;
 
   return (
@@ -24,12 +24,12 @@ export const InactiveVersionsModal: React.FC<Props> = ({
       data-cy="inactive-versions-modal"
       open={open}
       setOpen={setOpen}
-      title={`${versions?.length} ${hasFilteredVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}
+      title={`${versions?.length} ${hasUnmatchingVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}
     >
       {versions?.map((version) => (
         <StyledVersionLabel
           key={version.id}
-          shouldDisableText={hasFilteredVersions}
+          shouldDisableText={hasUnmatchingVersions}
           view={VersionLabelView.Modal}
           {...version}
         />
