@@ -46,7 +46,7 @@ const FilterItem = styled.div`
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: ${size.s};
 `;
