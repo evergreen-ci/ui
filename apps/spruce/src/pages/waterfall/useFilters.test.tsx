@@ -54,6 +54,7 @@ const waterfall = {
     {
       id: "1",
       displayName: "BV 1",
+      version: "a",
       builds: [
         {
           activated: true,

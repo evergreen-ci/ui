@@ -7,7 +7,7 @@ import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
 import { BuildRow } from "./BuildRow";
 import { ColumnHeader } from "./ColumnHeader";
-import { InactiveVersionsButton } from "./InactiveVersionsButton";
+import { InactiveVersionsButton } from "./InactiveVersions";
 import {
   BuildVariantTitle,
   gridGroupCss,
@@ -16,6 +16,7 @@ import {
   VERSION_LIMIT,
 } from "./styles";
 import { useFilters } from "./useFilters";
+import { useWaterfallTrace } from "./useWaterfallTrace";
 
 type WaterfallGridProps = {
   projectIdentifier: string;
@@ -24,6 +25,8 @@ type WaterfallGridProps = {
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
 }) => {
+  useWaterfallTrace();
+
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {

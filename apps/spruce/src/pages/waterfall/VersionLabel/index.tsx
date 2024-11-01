@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
+import { Theme } from "@leafygreen-ui/lib";
+import { color } from "@leafygreen-ui/tokens";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { useWaterfallAnalytics } from "analytics";
@@ -10,10 +12,15 @@ import { WaterfallVersionFragment } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
 
+export enum VersionLabelView {
+  Modal = "modal",
+  Waterfall = "waterfall",
+}
+
 type Props = WaterfallVersionFragment & {
   className?: string;
-  trimMessage?: boolean;
-  size?: "small" | "default";
+  shouldDisableText?: boolean;
+  view: VersionLabelView;
 };
 
 export const VersionLabel: React.FC<Props> = ({
@@ -26,9 +33,9 @@ export const VersionLabel: React.FC<Props> = ({
   id,
   message,
   revision,
-  size = "default",
-  trimMessage = true,
+  shouldDisableText = false,
   upstreamProject,
+  view,
 }) => {
   const getDateCopy = useDateFormat();
   const createDate = new Date(createTime);
@@ -42,9 +49,11 @@ export const VersionLabel: React.FC<Props> = ({
 
   return (
     <VersionContainer
+      activated={activated}
       className={className}
       data-cy={`version-label-${commitType}`}
-      size={size}
+      shouldDisableText={shouldDisableText}
+      view={view}
     >
       <Body>
         <InlineCode
@@ -94,8 +103,8 @@ export const VersionLabel: React.FC<Props> = ({
       )}
       {/* @ts-expect-error */}
       <CommitMessage
-        title={trimMessage ? message : null}
-        trimMessage={trimMessage}
+        title={view === VersionLabelView.Waterfall ? message : null}
+        view={view}
       >
         <strong>{author}</strong> &bull;{" "}
         {jiraLinkify(message, jiraHost, () => {
@@ -111,26 +120,31 @@ export const VersionLabel: React.FC<Props> = ({
   );
 };
 
-const VersionContainer = styled.div<{ size?: "small" | "default" }>`
-  ${(props) => {
-    if (props.size === "small") {
-      return `
+const VersionContainer = styled.div<
+  Pick<WaterfallVersionFragment, "activated"> &
+    Pick<Props, "shouldDisableText" | "view">
+>`
+  ${({ activated, shouldDisableText, view }) =>
+    view === VersionLabelView.Waterfall
+      ? `
           > * {
             font-size: 12px;
             line-height: 1.3;
           }
-        `;
-    }
-  }}
+    `
+      : !activated &&
+        shouldDisableText &&
+        `> * {
+      color: ${color[Theme.Light].text.disabled.default};}`}
 
   p {
     ${wordBreakCss}
   }
 `;
 
-const CommitMessage = styled(Body)<{ trimMessage: boolean }>`
-  ${(props) =>
-    props.trimMessage &&
+const CommitMessage = styled(Body)<Pick<Props, "view">>`
+  ${({ view }) =>
+    view === VersionLabelView.Waterfall &&
     `
     overflow: hidden;
     display: -webkit-box;
