@@ -15,6 +15,7 @@ import {
   VERSION_LIMIT,
 } from "./styles";
 import { useFilters } from "./useFilters";
+import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
@@ -24,6 +25,8 @@ type WaterfallGridProps = {
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
 }) => {
+  useWaterfallTrace();
+
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {
