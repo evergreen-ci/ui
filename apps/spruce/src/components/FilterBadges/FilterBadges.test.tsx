@@ -154,7 +154,7 @@ describe("filterBadges", () => {
         onRemove={onRemove}
       />,
     );
-    const closeBadge = screen.queryAllByDataCy("close-badge")[0];
+    const closeBadge = screen.queryAllByDataTestid("chip-dismiss-button")[0];
     expect(closeBadge).toBeInTheDocument();
     await user.click(closeBadge);
     expect(onRemove).toHaveBeenCalledWith({ key: "test1", value: "value1" });

@@ -68,7 +68,7 @@ describe("waterfall page", () => {
       });
       cy.dataCy("build-variant-label").should("have.length", 0);
 
-      cy.dataCy("close-badge").click();
+      cy.dataTestId("chip-dismiss-button").click();
       cy.dataCy("build-variant-label").should("have.length", 2);
 
       cy.get("[placeholder='Filter build variants'").type("Lint{enter}");
