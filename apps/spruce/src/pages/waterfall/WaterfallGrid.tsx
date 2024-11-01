@@ -1,8 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { trace } from "@opentelemetry/api";
-import { TRACER_NAME } from "@evg-ui/lib/analytics/utils";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
@@ -17,31 +15,17 @@ import {
   VERSION_LIMIT,
 } from "./styles";
 import { useFilters } from "./useFilters";
+import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel } from "./VersionLabel";
 
 type WaterfallGridProps = {
   projectIdentifier: string;
 };
 
-const tracer = trace.getTracer(TRACER_NAME);
-
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
 }) => {
-  let resolveRender: (v?: any) => void;
-  const renderPromise = new Promise((resolve) => {
-    resolveRender = resolve;
-  });
-
-  useEffect(() => {
-    resolveRender();
-  }, []);
-
-  tracer.startActiveSpan("render waterfall", async (span) => {
-    renderPromise.then(() => {
-      span.end();
-    });
-  });
+  useWaterfallTrace();
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
