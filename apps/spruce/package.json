@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.10.4",
-    "@apollo/server": "^4.11.0",
+    "@apollo/server": "^4.11.2",
     "@emotion/css": "11.13.4",
     "@emotion/react": "11.13.3",
     "@emotion/styled": "11.13.0",
