@@ -41,6 +41,7 @@ const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
       )}
     >
       <PaddedChip
+        data-cy="filter-badge"
         label={
           <ChipLabel>
             {badge.key}: {trimmedBadgeName}
