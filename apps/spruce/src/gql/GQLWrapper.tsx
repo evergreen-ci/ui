@@ -1,9 +1,9 @@
 import { ApolloProvider } from "@apollo/client";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
-import { useCreateGQLCLient } from "hooks/useCreateGQLClient";
+import { useCreateGQLClient } from "hooks/useCreateGQLClient";
 
 const GQLWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const client = useCreateGQLCLient();
+  const client = useCreateGQLClient();
   if (!client) {
     return <FullPageLoad />;
   }
