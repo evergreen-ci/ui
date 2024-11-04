@@ -131,7 +131,9 @@ const ProjectSettings: React.FC = () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { repoId },
     onError: (e) => {
-      dispatchToast.error(`There was an error loading ${repoId}: ${e.message}`);
+      dispatchToast.error(
+        `There was an error loading the repo ${repoId}: ${e.message}`,
+      );
     },
   });
 

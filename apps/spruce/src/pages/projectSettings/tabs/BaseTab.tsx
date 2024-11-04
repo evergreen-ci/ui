@@ -1,5 +1,8 @@
+import { useParams } from "react-router-dom";
 import { Form } from "components/Settings/Form";
 import { GetFormSchema, ValidateProps } from "components/SpruceForm";
+import { slugs } from "constants/routes";
+import { useHasProjectOrRepoEditPermission } from "hooks";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
 import { FormStateMap, WritableProjectSettingsType } from "./types";
 
@@ -16,13 +19,20 @@ export const BaseTab = <T extends WritableProjectSettingsType>({
   tab,
   ...rest
 }: BaseTabProps<T>) => {
+  const { [slugs.projectIdentifier]: id } = useParams<{
+    [slugs.projectIdentifier]: string;
+  }>();
+
   const state = useProjectSettingsContext();
   usePopulateForm(initialFormState, tab);
+
+  const canEdit = useHasProjectOrRepoEditPermission(id);
 
   return (
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     <Form<WritableProjectSettingsType, FormStateMap>
       {...rest}
+      disabled={!canEdit}
       state={state}
       tab={tab}
     />

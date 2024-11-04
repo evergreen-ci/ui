@@ -30,6 +30,7 @@ import IMAGE_PACKAGES from "./image-packages.graphql";
 import IMAGE_TOOLCHAINS from "./image-toolchains.graphql";
 import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
+import IS_REPO from "./is-repo.graphql";
 import JIRA_CUSTOM_CREATED_ISSUES from "./jira-custom-created-issues.graphql";
 import JIRA_ISSUES from "./jira-issues.graphql";
 import JIRA_SUSPECTED_ISSUES from "./jira-suspected-issues.graphql";
@@ -79,6 +80,7 @@ import USER_CONFIG from "./user-config.graphql";
 import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
 import USER_PATCHES from "./user-patches.graphql";
 import USER_PROJECT_SETTINGS_PERMISSIONS from "./user-project-settings-permissions.graphql";
+import USER_REPO_SETTINGS_PERMISSIONS from "./user-repo-settings-permissions.graphql";
 import USER_SETTINGS from "./user-settings.graphql";
 import USER_SUBSCRIPTIONS from "./user-subscriptions.graphql";
 import USER from "./user.graphql";
@@ -121,6 +123,7 @@ export {
   IMAGE_TOOLCHAINS,
   IMAGES,
   INSTANCE_TYPES,
+  IS_REPO,
   JIRA_CUSTOM_CREATED_ISSUES,
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,
@@ -170,6 +173,7 @@ export {
   USER_PATCHES,
   USER_DISTRO_SETTINGS_PERMISSIONS,
   USER_PROJECT_SETTINGS_PERMISSIONS,
+  USER_REPO_SETTINGS_PERMISSIONS,
   USER_SETTINGS,
   USER_SUBSCRIPTIONS,
   USER,

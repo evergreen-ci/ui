@@ -1,5 +1,5 @@
-import { useReducer } from "react";
-import { useMutation } from "@apollo/client";
+import { useReducer, useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -12,8 +12,11 @@ import { useToastContext } from "context/toast";
 import {
   PromoteVarsToRepoMutation,
   PromoteVarsToRepoMutationVariables,
+  UserProjectSettingsPermissionsQuery,
+  UserProjectSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import { PROMOTE_VARS_TO_REPO } from "gql/mutations";
+import { USER_PROJECT_SETTINGS_PERMISSIONS } from "gql/queries";
 
 type Action =
   | { type: "checkCheckbox"; names: string[] }
@@ -32,17 +35,19 @@ const reducer = (state: Set<string>, action: Action): Set<string> => {
   }
 };
 
-interface Props {
+type ProjectVariable = {
+  name: string;
+  inRepo: boolean;
+};
+
+interface PromoteVariablesModalProps {
   handleClose: () => void;
   open: boolean;
   projectId: string;
-  variables: Array<{
-    name: string;
-    inRepo: boolean;
-  }>;
+  variables: ProjectVariable[];
 }
 
-export const PromoteVariablesModal: React.FC<Props> = ({
+export const PromoteVariablesModal: React.FC<PromoteVariablesModalProps> = ({
   handleClose,
   open,
   projectId,
@@ -133,6 +138,11 @@ export const PromoteVariablesModal: React.FC<Props> = ({
   );
 };
 
+const getButtonText = (selectedCount: number) =>
+  `Move ${selectedCount === 0 ? "" : selectedCount} variable${
+    selectedCount === 1 ? "" : "s"
+  }`;
+
 const DuplicateVarTooltip: React.FC = () => (
   <Tooltip
     data-cy="duplicate-var-tooltip"
@@ -152,10 +162,47 @@ const DuplicateVarTooltip: React.FC = () => (
   </Tooltip>
 );
 
-const getButtonText = (selectedCount: number) =>
-  `Move ${selectedCount === 0 ? "" : selectedCount} variable${
-    selectedCount === 1 ? "" : "s"
-  }`;
+interface PromoteVariablesModalButtonProps {
+  projectId: string;
+  variables: ProjectVariable[];
+}
+
+export const PromoteVariablesModalButton: React.FC<
+  PromoteVariablesModalButtonProps
+> = ({ projectId, variables }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const { data } = useQuery<
+    UserProjectSettingsPermissionsQuery,
+    UserProjectSettingsPermissionsQueryVariables
+  >(USER_PROJECT_SETTINGS_PERMISSIONS, {
+    variables: { projectIdentifier: projectId },
+    fetchPolicy: "cache-first",
+  });
+  const hasProjectPermission =
+    data?.user?.permissions?.projectPermissions?.edit ?? false;
+
+  return (
+    <>
+      {modalOpen && (
+        <PromoteVariablesModal
+          handleClose={() => setModalOpen(false)}
+          open={modalOpen}
+          projectId={projectId}
+          variables={variables}
+        />
+      )}
+      <Button
+        data-cy="promote-vars-button"
+        disabled={!hasProjectPermission}
+        onClick={() => setModalOpen(true)}
+        size={Size.Small}
+      >
+        Move variables to repo
+      </Button>
+    </>
+  );
+};
 
 const SelectAllContainer = styled.div`
   margin: ${size.s} 0 ${size.xs} 0;

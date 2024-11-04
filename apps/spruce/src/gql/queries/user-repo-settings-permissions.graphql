@@ -1,0 +1,10 @@
+query UserRepoSettingsPermissions($repoId: String!) {
+  user {
+    permissions {
+      repoPermissions(options: { repoId: $repoId }) {
+        edit
+      }
+    }
+    userId
+  }
+}

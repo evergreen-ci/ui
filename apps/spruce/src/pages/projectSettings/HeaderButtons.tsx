@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,11 +16,14 @@ import {
   SaveProjectSettingsForSectionMutationVariables,
   SaveRepoSettingsForSectionMutation,
   SaveRepoSettingsForSectionMutationVariables,
+  UserProjectSettingsPermissionsQuery,
+  UserProjectSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import {
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
+import { USER_PROJECT_SETTINGS_PERMISSIONS } from "gql/queries";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
 import { formToGqlMap } from "./tabs/transformers";
@@ -53,6 +56,17 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   const { [slugs.projectIdentifier]: identifier } = useParams();
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
+
+  const { data } = useQuery<
+    UserProjectSettingsPermissionsQuery,
+    UserProjectSettingsPermissionsQueryVariables
+  >(USER_PROJECT_SETTINGS_PERMISSIONS, {
+    variables: { projectIdentifier: id },
+    skip: isRepo,
+    fetchPolicy: "cache-first",
+  });
+  const hasProjectPermission =
+    data?.user?.permissions?.projectPermissions?.edit ?? false;
 
   const [saveProjectSection] = useMutation<
     SaveProjectSettingsForSectionMutation,
@@ -151,6 +165,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
         <>
           <Button
             data-cy="default-to-repo-button"
+            disabled={!hasProjectPermission}
             onClick={() => setDefaultModalOpen(true)}
             title="Clicking this button will open a confirmation modal with more information."
           >

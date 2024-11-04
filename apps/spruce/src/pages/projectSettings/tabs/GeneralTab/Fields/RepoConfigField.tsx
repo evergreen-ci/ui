@@ -13,6 +13,7 @@ import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";
 
 export const RepoConfigField: Field = ({
+  disabled,
   formData,
   onChange,
   schema,
@@ -43,6 +44,7 @@ export const RepoConfigField: Field = ({
   return (
     <Container hasButtons={!isRepo}>
       <SpruceForm
+        disabled={disabled}
         formData={formData}
         onChange={({ formData: formUpdate }) => onChange(formUpdate)}
         schema={schema}
@@ -56,6 +58,7 @@ export const RepoConfigField: Field = ({
               <>
                 <Button
                   data-cy="move-repo-button"
+                  disabled={disabled}
                   onClick={() => setMoveModalOpen(true)}
                   size="small"
                 >
@@ -80,7 +83,7 @@ export const RepoConfigField: Field = ({
               trigger={
                 <Button
                   data-cy="attach-repo-button"
-                  disabled={ownerOrRepoHasChanges}
+                  disabled={ownerOrRepoHasChanges || disabled}
                   onClick={() => setAttachModalOpen(true)}
                   size="small"
                 >
