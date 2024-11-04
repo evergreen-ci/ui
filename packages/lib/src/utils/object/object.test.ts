@@ -1,4 +1,4 @@
-import { deleteNestedKey } from "./deleteNestedKey";
+import { deleteNestedKey } from ".";
 
 describe("deleteNestedKey", () => {
   it("replaces key with redacted string when it's defined", () => {
