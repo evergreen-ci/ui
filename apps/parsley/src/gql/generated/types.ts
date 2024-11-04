@@ -3462,8 +3462,8 @@ export type VolumeHost = {
 export type Waterfall = {
   __typename?: "Waterfall";
   buildVariants: Array<WaterfallBuildVariant>;
-  nextPageOrder: Scalars["Int"]["output"];
-  prevPageOrder: Scalars["Int"]["output"];
+  flattenedVersions: Array<Version>;
+  pagination: WaterfallPagination;
   versions: Array<WaterfallVersion>;
 };
 
@@ -3481,6 +3481,7 @@ export type WaterfallBuildVariant = {
   builds: Array<WaterfallBuild>;
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
 };
 
 export type WaterfallOptions = {
@@ -3493,6 +3494,14 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type WaterfallPagination = {
+  __typename?: "WaterfallPagination";
+  hasNextPage: Scalars["Boolean"]["output"];
+  hasPrevPage: Scalars["Boolean"]["output"];
+  nextPageOrder: Scalars["Int"]["output"];
+  prevPageOrder: Scalars["Int"]["output"];
 };
 
 export type WaterfallTask = {
