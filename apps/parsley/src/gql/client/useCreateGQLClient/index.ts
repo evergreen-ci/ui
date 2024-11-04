@@ -14,13 +14,17 @@ import { useAuthContext } from "context/auth";
 import { logGQLErrorsLink, retryLink } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
-import { graphqlURL } from "utils/environmentVariables";
+import { graphqlURL, isDevelopmentBuild } from "utils/environmentVariables";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 
 export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
   const { logoutAndRedirect } = useAuthContext();
-  const [secretFields, setSecretFields] = useState<string[]>();
   const [gqlClient, setGQLClient] = useState<any>();
+
+  // SecretFields are not necessary for development builds because nothing is logged.
+  const [secretFields, setSecretFields] = useState<string[] | undefined>(
+    isDevelopmentBuild() ? [] : undefined,
+  );
 
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(graphqlURL ?? "", secretFieldsReq)
