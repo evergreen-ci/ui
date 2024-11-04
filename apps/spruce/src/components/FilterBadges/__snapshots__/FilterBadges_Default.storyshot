@@ -6,6 +6,7 @@
       <span
         aria-disabled="false"
         class="leafygreen-ui-1hdho16 css-11nquuy-PaddedChip e1vs77ku1"
+        data-cy="filter-badge"
       >
         <span
           class="leafygreen-ui-1vw4uea lg-ui-chip-text-0000"
