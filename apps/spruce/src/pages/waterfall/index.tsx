@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
@@ -23,7 +23,7 @@ const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
-
+  const [, startTransition] = useTransition();
   const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
     new Set([WaterfallFilterOptions.BuildVariant]),
   );
@@ -51,11 +51,11 @@ const Waterfall: React.FC = () => {
             badges={badges}
             onClearAll={() => {
               sendEvent({ name: "Deleted all filter badges" });
-              handleClearAll();
+              startTransition(handleClearAll);
             }}
             onRemove={(b) => {
               sendEvent({ name: "Deleted one filter badge" });
-              handleOnRemove(b);
+              startTransition(() => handleOnRemove(b));
             }}
           />
         </BadgeWrapper>
