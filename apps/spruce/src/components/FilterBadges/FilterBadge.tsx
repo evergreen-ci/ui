@@ -40,16 +40,18 @@ const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
         </StyledTooltip>
       )}
     >
-      <PaddedChip
-        data-cy="filter-badge"
-        label={
-          <ChipLabel>
-            {badge.key}: {trimmedBadgeName}
-          </ChipLabel>
-        }
-        onDismiss={onClose}
-        variant="gray"
-      />
+      <span>
+        <PaddedChip
+          data-cy="filter-badge"
+          label={
+            <ChipLabel>
+              {badge.key}: {trimmedBadgeName}
+            </ChipLabel>
+          }
+          onDismiss={onClose}
+          variant="gray"
+        />
+      </span>
     </ConditionalWrapper>
   );
 };
