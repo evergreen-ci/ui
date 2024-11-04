@@ -20,7 +20,7 @@ functions:
         working_dir: ui/${app_dir}
         include_expansions_in_env: [BUCKET, REACT_APP_HONEYCOMB_ENDPOINT, REACT_APP_HONEYCOMB_INGEST_KEY,
                                     PARSLEY_SENTRY_AUTH_TOKEN, REACT_APP_PARSLEY_SENTRY_DSN, 
-                                    SPRUCE_SENTRY_AUTH_TOKEN, REACT_APP_SPRUCE_SENTRY_DSN, USER_STAGING_ARN]
+                                    SPRUCE_SENTRY_AUTH_TOKEN, REACT_APP_SPRUCE_SENTRY_DSN, USER_STAGING_ARN, REACT_APP_SPRUCE_URL, REACT_APP_UI_URL]
         env:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
@@ -64,6 +64,8 @@ functions:
         script: |
           if ! [ -z "${user_key}" ]; then
             echo "BUCKET: spruce-${user_key}" >> deploy-vars.yml
+            echo "REACT_APP_SPRUCE_URL: https://spruce.${user_key}.evergreen-staging.devprod.mongodb.com" >> deploy-vars.yml
+            echo "REACT_APP_UI_URL: https://evergreen-${user_key}.devprod-evergreen.staging.corp.mongodb.com/" >> deploy-vars.yml
             echo "USER_STAGING_ARN: ${user_staging_arn_prefix}${user_key}.ui_put" >> deploy-vars.yml
           fi
     - command: expansions.update

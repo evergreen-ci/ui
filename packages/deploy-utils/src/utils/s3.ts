@@ -4,7 +4,7 @@ export const pushToS3 = (bucket: string) => {
   console.log("Attempting to deploy to S3");
   try {
     execSync(
-      `aws s3 sync dist/ s3://${bucket}/ --acl public-read --follow-symlinks --delete --exclude .env-cmdrc.json`,
+      `aws s3 sync dist/ s3://${bucket}/ --follow-symlinks --delete --exclude .env-cmdrc.json`,
       { stdio: "inherit" },
     );
     console.log("Successfully deployed to S3");
