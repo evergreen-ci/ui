@@ -16,12 +16,14 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   return (
     <Container>
-      <FilterItem>
-        <NameFilter />
-      </FilterItem>
-      <FilterItem>
-        <RequesterFilter />
-      </FilterItem>
+      <Container>
+        <FilterItem width={400}>
+          <NameFilter />
+        </FilterItem>
+        <FilterItem>
+          <RequesterFilter />
+        </FilterItem>
+      </Container>
       <FilterItem>
         <ProjectSelect
           getRoute={getWaterfallRoute}
@@ -41,12 +43,12 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 // Temporary - update styles as more filters are added.
 const FilterItem = styled.div`
   ${({ width }: { width?: number }) =>
-    `flex-basis: ${width ? `${width}px` : "300px"};`}
+    `width: ${width ? `${width}px` : "300px"};`}
 `;
 
 const Container = styled.div`
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: space-between;
+  align-items: end;
   gap: ${size.s};
 `;
