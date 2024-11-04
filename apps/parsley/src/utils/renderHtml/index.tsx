@@ -1,4 +1,5 @@
 import parse, {
+  DOMNode,
   Element,
   HTMLReactParserOptions,
   domToReact,
@@ -7,7 +8,7 @@ import { escapeTags } from "utils/escapeTags";
 
 interface renderHtmlOptions extends HTMLReactParserOptions {
   preserveAttributes?: string[];
-  transform?: {
+  swapMap?: {
     [key: string]: React.ReactNode;
   };
 }
@@ -29,8 +30,8 @@ const renderHtml = (html: string = "", options: renderHtmlOptions = {}) => {
   return parse(escapedHtml, {
     replace: (domNode) => {
       if (domNode instanceof Element) {
-        if (options.transform && options.transform[domNode.name]) {
-          const SwapComponent = options.transform[domNode.name];
+        if (options.transform && options.swapMap?.[domNode.name]) {
+          const SwapComponent = options.swapMap[domNode.name];
           // SwapComponent is just what ever component we want to return from the transform object
           const extraProps =
             options.preserveAttributes &&
@@ -41,7 +42,7 @@ const renderHtml = (html: string = "", options: renderHtmlOptions = {}) => {
           return (
             // @ts-expect-error
             <SwapComponent className={extraProps.class} {...extraProps}>
-              {domToReact(domNode.children)}
+              {domToReact(domNode.children as DOMNode[])}
             </SwapComponent>
           );
         }
