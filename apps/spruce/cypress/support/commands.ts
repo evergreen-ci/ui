@@ -25,7 +25,7 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   "dataTestId",
   (value: string, options: cyGetOptions = {}) => {
-    cy.get(`[data-test-id=${value}]`, options);
+    cy.get(`[data-testid=${value}]`, options);
   },
 );
 
