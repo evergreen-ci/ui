@@ -34,9 +34,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
   setPagination,
 }) => {
+  useWaterfallTrace();
+
   const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
   const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
-  useWaterfallTrace();
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,

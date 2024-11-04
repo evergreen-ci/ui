@@ -41,7 +41,13 @@ const Waterfall: React.FC = () => {
         />
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
-          fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
+          fallback={
+            <TableSkeleton
+              data-cy="waterfall-skeleton"
+              numCols={VERSION_LIMIT + 1}
+              numRows={15}
+            />
+          }
         >
           <WaterfallGrid
             projectIdentifier={projectIdentifier ?? ""}
