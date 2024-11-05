@@ -46,7 +46,7 @@ const Waterfall: React.FC = () => {
           key={projectIdentifier}
           projectIdentifier={projectIdentifier ?? ""}
         />
-        <div>
+        <BadgesContainer>
           <FilterBadges
             badges={badges}
             onClearAll={() => {
@@ -58,7 +58,7 @@ const Waterfall: React.FC = () => {
               startTransition(() => handleOnRemove(b));
             }}
           />
-        </div>
+        </BadgesContainer>
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
           fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
@@ -73,7 +73,6 @@ const Waterfall: React.FC = () => {
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${size.s};
   padding: ${size.m} ${size.l};
 `;
 
@@ -91,6 +90,10 @@ const navbarStyles = css`
     width: 100%;
     z-index: 1;
   }
+`;
+
+const BadgesContainer = styled.div`
+  margin-top: ${size.s};
 `;
 
 export default Waterfall;

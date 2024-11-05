@@ -63,7 +63,7 @@ const ChipLabel = styled.span`
 
 const PaddedChip = styled(Chip)`
   margin-right: ${size.s};
-  margin-bottom: ${size.m};
+  margin-bottom: ${size.s};
 `;
 
 // @ts-expect-error

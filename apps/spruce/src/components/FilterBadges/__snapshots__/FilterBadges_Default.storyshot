@@ -6,7 +6,7 @@
       <span>
         <span
           aria-disabled="false"
-          class="leafygreen-ui-1hdho16 css-11nquuy-PaddedChip e1vs77ku1"
+          class="leafygreen-ui-1hdho16 css-39x5xs-PaddedChip e1vs77ku1"
           data-cy="filter-badge"
         >
           <span
@@ -14,7 +14,7 @@
             data-testid="chip-text"
           >
             <span
-              class="css-13fbrl3-ChipLabel e1vs77ku2"
+              class="css-3rf4c7-ChipLabel e1vs77ku2"
             >
               test
               : 
