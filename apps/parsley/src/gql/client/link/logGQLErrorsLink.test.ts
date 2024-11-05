@@ -14,15 +14,15 @@ describe("reportingFn", () => {
   it("reportError should be called with secret fields redacted", () => {
     const secretFields = ["password", "creditCard"];
     const operation: Operation = {
+      extensions: {},
+      getContext: vi.fn(),
       operationName: "exampleOperation",
-      variables: {
-        input: { password: "password123", creditCard: "1234567890123456" },
-      },
       // @ts-ignore-error: It's not necessary to run an actual query.
       query: null,
       setContext: vi.fn(),
-      getContext: vi.fn(),
-      extensions: {},
+      variables: {
+        input: { creditCard: "1234567890123456", password: "password123" },
+      },
     };
     const gqlErr = new GraphQLError("An error occurred", {
       path: ["a", "path", "1"],
@@ -32,12 +32,12 @@ describe("reportingFn", () => {
 
     expect(ErrorReporting.reportError).toHaveBeenCalledTimes(1);
     expect(ErrorReporting.reportError).toHaveBeenCalledWith(expect.any(Error), {
-      fingerprint: ["exampleOperation", "a", "path", "1"],
-      tags: { operationName: "exampleOperation" },
       context: {
         gqlErr,
-        variables: { input: { password: "REDACTED", creditCard: "REDACTED" } },
+        variables: { input: { creditCard: "REDACTED", password: "REDACTED" } },
       },
+      fingerprint: ["exampleOperation", "a", "path", "1"],
+      tags: { operationName: "exampleOperation" },
     });
   });
 });

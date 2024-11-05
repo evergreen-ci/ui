@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Navigate, useLocation } from "react-router-dom";
+import { fetchWithRetry } from "@evg-ui/lib/utils/request";
 import { useAuthDispatchContext, useAuthStateContext } from "context/Auth";
 import { secretFieldsReq } from "gql/fetch";
 import { getGQLUrl } from "utils/environmentVariables";
-import { fetchWithRetry } from "utils/request";
 
 type LocationState = {
   referrer?: string;
