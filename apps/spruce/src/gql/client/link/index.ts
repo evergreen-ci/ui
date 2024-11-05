@@ -1,8 +1,8 @@
 import { ApolloLink, ServerParseError } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
+import { shouldLogoutAndRedirect } from "@evg-ui/lib/utils/request";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
-import { shouldLogoutAndRedirect } from "utils/request";
 
 export { logGQLToSentryLink } from "./logGQLToSentryLink";
 export { logGQLErrorsLink } from "./logGQLErrorsLink";

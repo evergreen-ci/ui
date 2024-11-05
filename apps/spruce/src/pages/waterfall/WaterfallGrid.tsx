@@ -10,7 +10,7 @@ import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
-import { InactiveVersionsButton } from "./InactiveVersionsButton";
+import { InactiveVersionsButton } from "./InactiveVersions";
 import {
   BuildVariantTitle,
   gridGroupCss,
@@ -19,7 +19,8 @@ import {
   VERSION_LIMIT,
 } from "./styles";
 import { useFilters } from "./useFilters";
-import { VersionLabel } from "./VersionLabel";
+import { useWaterfallTrace } from "./useWaterfallTrace";
+import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
   projectIdentifier: string;
@@ -28,6 +29,8 @@ type WaterfallGridProps = {
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
 }) => {
+  useWaterfallTrace();
+
   const [pins, setPins] = useState<string[]>(
     getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
   );
@@ -82,7 +85,11 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }) =>
             version ? (
-              <VersionLabel key={version.id} size="small" {...version} />
+              <VersionLabel
+                key={version.id}
+                view={VersionLabelView.Waterfall}
+                {...version}
+              />
             ) : (
               <InactiveVersion>
                 <InactiveVersionsButton
