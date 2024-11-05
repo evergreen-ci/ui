@@ -22,8 +22,8 @@ export const TaskStatsTooltip: React.FC<
       trigger={
         <BtnContainer>
           <IconButton
-            aria-label="name-change-modal-trigger"
-            data-cy="name-change-modal-trigger"
+            aria-label="Show task stats"
+            data-cy="task-stats-tooltip-button"
           >
             <Icon glyph="Charts" />
           </IconButton>
@@ -31,20 +31,26 @@ export const TaskStatsTooltip: React.FC<
       }
       triggerEvent="click"
     >
-      <>
+      <Table data-cy="task-stats-tooltip">
         {taskStatusStats?.counts?.map(({ count, status }) => (
           <Row>
             <Count>{count}</Count>
-            <Square status={status as TaskStatus} />
-            {taskStatusToCopy[status as TaskStatus]}
+            <Cell>
+              <Square status={status as TaskStatus} />
+            </Cell>
+            <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
           </Row>
         ))}
-        <Divider />
+        <Row>
+          <Cell colSpan={3}>
+            <Divider />
+          </Cell>
+        </Row>
         <Row>
           <Count>{totalTaskCount}</Count>
-          Total tasks
+          <Cell colSpan={2}>Total tasks</Cell>
         </Row>
-      </>
+      </Table>
     </Tooltip>
   );
 };
@@ -53,15 +59,16 @@ const BtnContainer = styled.div`
   display: inline-block;
 `;
 
-const Row = styled.div`
-  align-items: center;
-  display: flex;
-  gap: ${size.xs};
+const Table = styled.table``;
+
+const Row = styled.tr``;
+
+const Cell = styled.td`
+  padding: 0 ${size.xxs};
 `;
 
-const Count = styled.span`
+const Count = styled(Cell)`
   font-feature-settings: "tnum";
-  min-width: 3em;
   text-align: right;
 `;
 

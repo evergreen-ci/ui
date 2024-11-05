@@ -89,4 +89,14 @@ describe("waterfall page", () => {
       cy.dataCy("version-label-active").should("have.length", 5);
     });
   });
+
+  describe("task stats tooltip", () => {
+    it("shows task stats when clicked", () => {
+      cy.dataCy("task-stats-tooltip").should("not.exist");
+      cy.dataCy("task-stats-tooltip-button").eq(3).click();
+      cy.dataCy("task-stats-tooltip").should("be.visible");
+      cy.dataCy("task-stats-tooltip").should("contain.text", "Failed");
+      cy.dataCy("task-stats-tooltip").should("contain.text", "Succeeded");
+    });
+  });
 });
