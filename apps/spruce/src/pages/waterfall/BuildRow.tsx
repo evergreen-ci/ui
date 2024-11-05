@@ -59,7 +59,7 @@ export const BuildRow: React.FC<Props> = ({
   let buildIndex = 0;
   return (
     <Row>
-      <BuildVariantTitle>
+      <BuildVariantTitle data-cy="build-variant-label">
         <StyledIconButton
           active={pinned}
           aria-label="Pin build variant"

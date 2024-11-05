@@ -1,13 +1,18 @@
-import { Suspense } from "react";
+import { Suspense, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams } from "react-router-dom";
+import { useWaterfallAnalytics } from "analytics";
+import FilterBadges, {
+  useFilterBadgeQueryParams,
+} from "components/FilterBadges";
 import { navBarHeight } from "components/Header/Navbar";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { useSpruceConfig } from "hooks";
+import { WaterfallFilterOptions } from "types/waterfall";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { VERSION_LIMIT } from "./styles";
@@ -18,6 +23,12 @@ const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
+  const [, startTransition] = useTransition();
+  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+    new Set([WaterfallFilterOptions.BuildVariant]),
+  );
+
+  const { sendEvent } = useWaterfallAnalytics();
 
   return (
     <>
@@ -35,6 +46,19 @@ const Waterfall: React.FC = () => {
           key={projectIdentifier}
           projectIdentifier={projectIdentifier ?? ""}
         />
+        <BadgesContainer>
+          <FilterBadges
+            badges={badges}
+            onClearAll={() => {
+              sendEvent({ name: "Deleted all filter badges" });
+              startTransition(handleClearAll);
+            }}
+            onRemove={(b) => {
+              sendEvent({ name: "Deleted one filter badge" });
+              startTransition(() => handleOnRemove(b));
+            }}
+          />
+        </BadgesContainer>
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
           fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
@@ -52,7 +76,6 @@ const Waterfall: React.FC = () => {
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${size.s};
   padding: ${size.m};
 `;
 
@@ -70,6 +93,10 @@ const navbarStyles = css`
     width: 100%;
     z-index: 1;
   }
+`;
+
+const BadgesContainer = styled.div`
+  margin-top: ${size.s};
 `;
 
 export default Waterfall;
