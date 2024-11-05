@@ -1,10 +1,4 @@
-import {
-  getLatestTag,
-  getTagByCommit,
-  tagIsGreater,
-  tagIsValid,
-  getReleaseVersion,
-} from ".";
+import { getLatestTag, getTagByCommit, tagIsValid, getReleaseVersion } from ".";
 
 describe("tagIsValid", () => {
   it("should match on a known valid tag", () => {
@@ -75,17 +69,5 @@ describe("getReleaseVersion", () => {
     `;
     const releaseVersion = getReleaseVersion(commitMessages);
     expect(releaseVersion).toEqual("patch");
-  });
-});
-
-describe("tagIsGreater", () => {
-  it("compares two app-prefixed tags correctly", () => {
-    expect(tagIsGreater("spruce/v3.0.0", "spruce/v2.0.0")).toBe(true);
-    expect(tagIsGreater("parsley/v1.0.0", "parsley/v2.0.0")).toBe(false);
-  });
-
-  it("correctly compares tags without prefix", () => {
-    expect(tagIsGreater("3.1.2", "3.1.1")).toBe(true);
-    expect(tagIsGreater("v1.1.2", "v1.2.1")).toBe(false);
   });
 });

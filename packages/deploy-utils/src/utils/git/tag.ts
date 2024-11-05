@@ -118,26 +118,12 @@ const getTagByCommit = (sha: string) => {
 const tagIsValid = (app: DeployableApp, matchString: string) =>
   new RegExp(`${app}/v\\d+.\\d+.\\d+`).test(matchString);
 
-/**
- * tagIsGreater compares two semantically-versioned tags with an optional prefix of (string)/v.
- * @param a - base tag to test
- * @param b - tag to compare a to
- * @returns - boolean indicating whether a > b
- */
-const tagIsGreater = (a: string, b: string) => {
-  const tagPrefixRegex = /^(.*)\/v/;
-  const aNumeric = a.replace(tagPrefixRegex, "");
-  const bNumeric = b.replace(tagPrefixRegex, "");
-  return aNumeric.localeCompare(bNumeric, undefined, { numeric: true }) === 1;
-};
-
 export {
   createTagAndPush,
   deleteTag,
   getLatestTag,
   getTagByCommit,
   pushTags,
-  tagIsGreater,
   tagIsValid,
   getReleaseVersion,
   ReleaseVersion,

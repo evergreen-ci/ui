@@ -1,43 +1,38 @@
-import { execSync } from "child_process";
 import {
-  getLatestTag,
+  getCurrentCommit,
   getRemotePreviousCommit,
-  getTagByCommit,
-  tagIsGreater,
+  getCommitMessages,
 } from "../utils/git";
 
 export const shouldDeploy = async (userBucket: string) => {
   const baseUrl = `https://spruce.${userBucket}.evergreen-staging.devprod.mongodb.com`;
 
-  let commit = "";
+  let deployedCommit = "";
   try {
-    commit = await getRemotePreviousCommit(baseUrl);
-    commit = commit?.trim();
+    deployedCommit = await getRemotePreviousCommit(baseUrl);
+    deployedCommit = deployedCommit?.trim();
   } catch (e) {
     console.error("Fetching commit failed", e);
   }
 
-  const latestTag = getLatestTag("spruce");
-  const deployedTag = getTagByCommit(commit);
-  if (deployedTag === "") {
-    console.log(
-      "Deployed commit did not match any tag. Continuing deploy with latest tag...",
-    );
-    execSync(`git checkout ${latestTag} --force`);
+  if (deployedCommit === "") {
+    console.log("Deployed commit not found. Continuing deploy with HEAD...");
     return true;
   }
 
-  if (latestTag === deployedTag) {
+  const currentCommit = getCurrentCommit();
+  if (deployedCommit === currentCommit) {
     console.log("Latest tag is already deployed.");
     return false;
   }
 
-  const shouldDeployTag = tagIsGreater(latestTag, deployedTag);
-  if (shouldDeployTag) {
+  // Even if the exact HEAD commit isn't deployed, there may have only been changes to the other app in which case we don't need to deploy.
+  const commitDiff = getCommitMessages("spruce", deployedCommit, currentCommit);
+  if (commitDiff !== "") {
     console.log(
-      `Continuing with deploy from ${deployedTag} to ${latestTag}...`,
+      `Continuing with deploy from ${deployedCommit} to HEAD (${currentCommit})...`,
     );
-    execSync(`git checkout ${latestTag} --force`);
+    return true;
   }
-  return shouldDeployTag;
+  return false;
 };
