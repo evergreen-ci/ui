@@ -26,13 +26,21 @@ import {
 
 const { black, gray, white } = palette;
 
-export const BuildRow: React.FC<{
+type Props = {
   build: WaterfallBuildVariant;
   handlePinClick: () => void;
   pinned: boolean;
   projectIdentifier: string;
   versions: WaterfallQuery["waterfall"]["versions"];
-}> = ({ build, handlePinClick, pinned, projectIdentifier, versions }) => {
+};
+
+export const BuildRow: React.FC<Props> = ({
+  build,
+  handlePinClick,
+  pinned,
+  projectIdentifier,
+  versions,
+}) => {
   const { sendEvent } = useWaterfallAnalytics();
   const handleVariantClick = useCallback(
     () => sendEvent({ name: "Clicked variant label" }),
@@ -140,6 +148,7 @@ const Build = styled.div`
 
 const StyledIconButton = styled(IconButton)`
   top: -${size.xxs};
+  ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
 
 const SQUARE_SIZE = 16;

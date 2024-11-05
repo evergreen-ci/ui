@@ -1,10 +1,15 @@
+import { reportError } from "utils/errorReporting";
+
 type LocalStorageObject = Record<string, any>;
 
 export const getObject = (key: string): LocalStorageObject => {
   const obj = localStorage.getItem(key);
   try {
     return obj ? JSON.parse(obj) : {};
-  } catch {
+  } catch (e) {
+    reportError(
+      new Error(`Getting object '${key}' from localStorage`, { cause: e }),
+    ).warning();
     return {};
   }
 };
