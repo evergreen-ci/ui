@@ -56,6 +56,7 @@ const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
   );
 };
 
+// TODO: DEVPROD-12590
 const ChipLabel = styled.span`
   font-weight: 700;
   text-transform: uppercase;

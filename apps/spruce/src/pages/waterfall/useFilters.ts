@@ -113,7 +113,7 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
       }
     });
     return bvs;
-  }, [activeVersionIds, hasFilters, waterfall]);
+  }, [activeVersionIds, hasFilters, waterfall, buildVariantFilterRegex]);
 
   return { buildVariants, versions };
 };
