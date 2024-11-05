@@ -66,11 +66,18 @@ describe("useFilters", () => {
 
   describe("build variant filters", () => {
     it("should filter build variant list when filter is applied", () => {
-      const { result } = renderHook(() => useFilters(waterfall), {
-        wrapper: createWrapper({
-          initialEntry: "/project/spruce/waterfall?buildVariants=yooo",
-        }),
-      });
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            buildVariants: waterfall.buildVariants,
+            flattenedVersions,
+          }),
+        {
+          wrapper: createWrapper({
+            initialEntry: "/project/spruce/waterfall?buildVariants=yooo",
+          }),
+        },
+      );
 
       const filteredWaterfall = {
         ...waterfall,
@@ -81,11 +88,18 @@ describe("useFilters", () => {
     });
 
     it("build variant filters are added together", () => {
-      const { result } = renderHook(() => useFilters(waterfall), {
-        wrapper: createWrapper({
-          initialEntry: "/project/spruce/waterfall?buildVariants=yooo,bv",
-        }),
-      });
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            buildVariants: waterfall.buildVariants,
+            flattenedVersions,
+          }),
+        {
+          wrapper: createWrapper({
+            initialEntry: "/project/spruce/waterfall?buildVariants=yooo,bv",
+          }),
+        },
+      );
 
       const filteredWaterfall = {
         ...waterfall,
