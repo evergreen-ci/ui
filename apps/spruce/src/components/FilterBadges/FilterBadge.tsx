@@ -57,7 +57,6 @@ const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
 };
 
 const ChipLabel = styled.span`
-  text-transform: uppercase;
   font-weight: 700;
 `;
 
