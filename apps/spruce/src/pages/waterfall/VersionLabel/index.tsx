@@ -12,6 +12,7 @@ import { WaterfallVersionFragment } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
+import { TaskStatsTooltip } from "../TaskStatsTooltip";
 
 export enum VersionLabelView {
   Modal = "modal",
@@ -19,7 +20,6 @@ export enum VersionLabelView {
 }
 
 type Props = WaterfallVersionFragment & {
-  taskStatsTooltip?: React.ReactNode;
   className?: string;
   shouldDisableText?: boolean;
   view: VersionLabelView;
@@ -36,7 +36,7 @@ export const VersionLabel: React.FC<Props> = ({
   message,
   revision,
   shouldDisableText = false,
-  taskStatsTooltip,
+  taskStatusStats,
   upstreamProject,
   view,
 }) => {
@@ -81,7 +81,9 @@ export const VersionLabel: React.FC<Props> = ({
             <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
           )}
         </Body>
-        {view === VersionLabelView.Waterfall && taskStatsTooltip}
+        {view === VersionLabelView.Waterfall && !!taskStatusStats && (
+          <TaskStatsTooltip taskStatusStats={taskStatusStats} />
+        )}
       </HeaderLine>
       {upstreamProject && (
         <Body>
@@ -134,7 +136,7 @@ const VersionContainer = styled.div<
   ${({ activated, shouldDisableText, view }) =>
     view === VersionLabelView.Waterfall
       ? `
-          > * {
+          div, p {
             font-size: 12px;
             line-height: 1.3;
           }

@@ -14,7 +14,6 @@ import {
   Row,
   VERSION_LIMIT,
 } from "./styles";
-import { TaskStatsTooltip } from "./TaskStatsTooltip";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
@@ -55,13 +54,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }) =>
             version ? (
-              <VersionLabel
-                taskStatsTooltip={
-                  <TaskStatsTooltip taskStatusStats={version.taskStatusStats} />
-                }
-                view={VersionLabelView.Waterfall}
-                {...version}
-              />
+              <VersionLabel view={VersionLabelView.Waterfall} {...version} />
             ) : (
               <InactiveVersion>
                 <InactiveVersionsButton

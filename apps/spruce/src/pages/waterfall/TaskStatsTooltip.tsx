@@ -51,7 +51,6 @@ export const TaskStatsTooltip: React.FC<
 
 const BtnContainer = styled.div`
   display: inline-block;
-  right: -2px;
 `;
 
 const Row = styled.div`
