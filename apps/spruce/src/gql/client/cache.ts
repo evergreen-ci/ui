@@ -1,12 +1,5 @@
 import { InMemoryCache } from "@apollo/client";
-import {
-  WaterfallBuildVariant,
-  WaterfallPagination,
-  WaterfallVersionFragment,
-} from "gql/generated/types";
 import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
-import { mergeBuildVariants } from "./buildVariants";
-import { mergeVersions } from "./versions";
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -23,60 +16,6 @@ export const cache = new InMemoryCache({
         },
         hasVersion: {
           keyArgs: ["$patchId"],
-        },
-        waterfall: {
-          keyArgs: ["options", ["projectIdentifier"]],
-          read() {
-            return undefined;
-          },
-          merge(existing, incoming, { readField }) {
-            const existingFlattenedVersions =
-              readField<WaterfallVersionFragment[]>(
-                "flattenedVersions",
-                existing,
-              ) ?? [];
-            const incomingFlattenedVersions =
-              readField<WaterfallVersionFragment[]>(
-                "flattenedVersions",
-                incoming,
-              ) ?? [];
-
-            const existingBuildVariants =
-              readField<WaterfallBuildVariant[]>("buildVariants", existing) ??
-              [];
-            const incomingBuildVariants =
-              readField<WaterfallBuildVariant[]>("buildVariants", incoming) ??
-              [];
-
-            const pagination =
-              readField<WaterfallPagination>("pagination", incoming) ?? 0;
-
-            const flattenedVersions = mergeVersions({
-              incomingVersions: incomingFlattenedVersions,
-              existingVersions: existingFlattenedVersions,
-              readField,
-            });
-            const buildVariants = mergeBuildVariants({
-              incomingBuildVariants,
-              existingBuildVariants,
-              readField,
-              versions: flattenedVersions,
-            });
-
-            // To help verify that this is working, inspect these variables and
-            // check that they do not keep increasing in length as you page
-            // backwards and forwards.
-            console.debug("Merge result: ", {
-              flattenedVersions,
-              buildVariants,
-            });
-
-            return {
-              buildVariants,
-              flattenedVersions,
-              pagination,
-            };
-          },
         },
       },
     },
