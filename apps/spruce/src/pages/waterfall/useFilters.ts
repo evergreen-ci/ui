@@ -21,7 +21,7 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
 
   const hasFilters = useMemo(
     () => requesters.length || buildVariantFilter.length,
-    [requesters],
+    [buildVariantFilter, requesters],
   );
 
   const versions = useMemo(() => {
@@ -92,29 +92,24 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
     }
 
     const bvs: WaterfallBuildVariant[] = [];
-    const waterfallBuildVariants = buildVariantFilterRegex.length
-      ? waterfall.buildVariants.filter(({ displayName }) => {
-          for (let i = 0; i < buildVariantFilterRegex.length; i++) {
-            if (displayName.match(buildVariantFilterRegex[i])) {
-              return true;
+    waterfall.buildVariants.forEach((bv) => {
+      const passesBVFilter =
+        !buildVariantFilterRegex.length ||
+        buildVariantFilterRegex.some((r) => bv.displayName.match(r));
+      if (passesBVFilter) {
+        if (activeVersionIds.size !== bv.builds.length) {
+          const activeBuilds: WaterfallBuild[] = [];
+          bv.builds.forEach((b) => {
+            if (activeVersionIds.has(b.version)) {
+              activeBuilds.push(b);
             }
+          });
+          if (activeBuilds.length) {
+            bvs.push({ ...bv, builds: activeBuilds });
           }
-          return false;
-        })
-      : waterfall.buildVariants;
-    waterfallBuildVariants.forEach((bv) => {
-      if (activeVersionIds.size !== bv.builds.length) {
-        const activeBuilds: WaterfallBuild[] = [];
-        bv.builds.forEach((b) => {
-          if (activeVersionIds.has(b.version)) {
-            activeBuilds.push(b);
-          }
-        });
-        if (activeBuilds.length) {
-          bvs.push({ ...bv, builds: activeBuilds });
+        } else {
+          bvs.push(bv);
         }
-      } else {
-        bvs.push(bv);
       }
     });
     return bvs;
