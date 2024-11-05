@@ -15,12 +15,12 @@ interface PaginationButtonsProps {
 export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   pagination,
 }) => {
-  const { hasNextPage, hasPrevPage, nextPageOrder, prevPageOrder } =
-    pagination ?? {};
   const { sendEvent } = useWaterfallAnalytics();
-
   const [, startTransition] = useTransition();
   const [queryParams, setQueryParams] = useQueryParams();
+
+  const { hasNextPage, hasPrevPage, nextPageOrder, prevPageOrder } =
+    pagination ?? {};
 
   const onNextClick = () => {
     sendEvent({ name: "Changed page", direction: "next" });
@@ -48,7 +48,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   };
 
   return (
-    <Container>
+    <ButtonContainer>
       <Button
         data-cy="prev-page-button"
         disabled={!hasPrevPage}
@@ -61,11 +61,11 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         leftGlyph={<Icon glyph="ChevronRight" />}
         onClick={onNextClick}
       />
-    </Container>
+    </ButtonContainer>
   );
 };
 
-const Container = styled.div`
+const ButtonContainer = styled.div`
   display: flex;
   gap: ${size.xs};
 `;

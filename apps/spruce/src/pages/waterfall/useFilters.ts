@@ -6,6 +6,7 @@ import {
 } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
+import { WaterfallVersion } from "./types";
 import { groupInactiveVersions } from "./utils";
 
 type UseFiltersProps = {
@@ -42,7 +43,7 @@ export const useFilters = ({
       return versions;
     }
 
-    const filteredVersions: typeof versions = [];
+    const filteredVersions: WaterfallVersion[] = [];
 
     const pushInactive = (v: WaterfallVersionFragment) => {
       if (!filteredVersions?.[filteredVersions.length - 1]?.inactiveVersions) {
