@@ -22,7 +22,15 @@ export const useFilters = ({
     [],
   );
 
-  const hasFilters = useMemo(() => requesters.length, [requesters]);
+  const [buildVariantFilter] = useQueryParam<string[]>(
+    WaterfallFilterOptions.BuildVariant,
+    [],
+  );
+
+  const hasFilters = useMemo(
+    () => requesters.length || buildVariantFilter.length,
+    [buildVariantFilter, requesters],
+  );
 
   const versions = useMemo(
     () => groupInactiveVersions(flattenedVersions),
@@ -77,6 +85,19 @@ export const useFilters = ({
       ),
     [versionsResult],
   );
+  const buildVariantFilterRegex: RegExp[] = useMemo(
+    () =>
+      buildVariantFilter.reduce<RegExp[]>((accum, curr) => {
+        let variantRegex;
+        try {
+          variantRegex = new RegExp(curr, "i");
+        } catch {
+          return accum;
+        }
+        return [...accum, variantRegex];
+      }, []),
+    [buildVariantFilter],
+  );
 
   const buildVariantsResult = useMemo(() => {
     if (!hasFilters) {
@@ -85,22 +106,27 @@ export const useFilters = ({
 
     const bvs: WaterfallBuildVariant[] = [];
     buildVariants.forEach((bv) => {
-      if (activeVersionIds.size !== bv.builds.length) {
-        const activeBuilds: WaterfallBuild[] = [];
-        bv.builds.forEach((b) => {
-          if (activeVersionIds.has(b.version)) {
-            activeBuilds.push(b);
+      const passesBVFilter =
+        !buildVariantFilterRegex.length ||
+        buildVariantFilterRegex.some((r) => bv.displayName.match(r));
+      if (passesBVFilter) {
+        if (activeVersionIds.size !== bv.builds.length) {
+          const activeBuilds: WaterfallBuild[] = [];
+          bv.builds.forEach((b) => {
+            if (activeVersionIds.has(b.version)) {
+              activeBuilds.push(b);
+            }
+          });
+          if (activeBuilds.length) {
+            bvs.push({ ...bv, builds: activeBuilds });
           }
-        });
-        if (activeBuilds.length) {
-          bvs.push({ ...bv, builds: activeBuilds });
+        } else {
+          bvs.push(bv);
         }
-      } else {
-        bvs.push(bv);
       }
     });
     return bvs;
-  }, [activeVersionIds, hasFilters, buildVariants]);
+  }, [activeVersionIds, hasFilters, buildVariants, buildVariantFilterRegex]);
 
   return { buildVariants: buildVariantsResult, versions: versionsResult };
 };

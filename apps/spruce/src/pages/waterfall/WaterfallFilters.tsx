@@ -4,6 +4,7 @@ import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { WaterfallPagination } from "gql/generated/types";
+import { NameFilter } from "./NameFilter";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
 
@@ -19,6 +20,9 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   return (
     <Container>
+      <FilterItem>
+        <NameFilter />
+      </FilterItem>
       <FilterItem>
         <RequesterFilter />
       </FilterItem>
@@ -41,7 +45,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
 // Temporary - update styles as more filters are added.
 const FilterItem = styled.div`
-  width: 300px;
+  flex-basis: 33%;
 `;
 
 const Container = styled.div`

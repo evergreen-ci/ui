@@ -44,7 +44,7 @@ export const BuildRow: React.FC<{
   let buildIndex = 0;
   return (
     <Row>
-      <BuildVariantTitle>
+      <BuildVariantTitle data-cy="build-variant-label">
         <StyledLink
           href={getVariantHistoryRoute(projectIdentifier, build.id)}
           onClick={handleVariantClick}
