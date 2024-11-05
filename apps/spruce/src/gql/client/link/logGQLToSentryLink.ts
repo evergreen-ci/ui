@@ -1,6 +1,6 @@
 import { Operation, FetchResult, ApolloLink } from "@apollo/client";
+import { deleteNestedKey } from "@evg-ui/lib/utils/object";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
-import { deleteNestedKey } from "utils/object";
 
 export const leaveBreadcrumbMapFn =
   (operation: Operation, secretFields: string[]) => (response: FetchResult) => {
