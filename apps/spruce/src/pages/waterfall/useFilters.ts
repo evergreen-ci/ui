@@ -6,20 +6,28 @@ import {
 } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
-import { WaterfallVersion } from "./types";
+import { groupInactiveVersions } from "./utils";
 
 type UseFiltersProps = {
   buildVariants: WaterfallBuildVariant[];
-  versions: WaterfallVersion[];
+  flattenedVersions: WaterfallVersionFragment[];
 };
 
-export const useFilters = ({ buildVariants, versions }: UseFiltersProps) => {
+export const useFilters = ({
+  buildVariants,
+  flattenedVersions,
+}: UseFiltersProps) => {
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
     [],
   );
 
   const hasFilters = useMemo(() => requesters.length, [requesters]);
+
+  const versions = useMemo(
+    () => groupInactiveVersions(flattenedVersions),
+    [flattenedVersions],
+  );
 
   const versionsResult = useMemo(() => {
     if (!hasFilters) {

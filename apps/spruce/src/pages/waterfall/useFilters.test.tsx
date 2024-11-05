@@ -1,5 +1,6 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
+import { WaterfallVersionFragment } from "gql/generated/types";
 import { useFilters } from "./useFilters";
 
 type WrapperProps = {
@@ -22,7 +23,7 @@ describe("useFilters", () => {
         () =>
           useFilters({
             buildVariants: waterfall.buildVariants,
-            versions: waterfall.versions,
+            flattenedVersions,
           }),
         {
           wrapper: createWrapper(),
@@ -36,7 +37,7 @@ describe("useFilters", () => {
         () =>
           useFilters({
             buildVariants: waterfall.buildVariants,
-            versions: waterfall.versions,
+            flattenedVersions,
           }),
         {
           wrapper: createWrapper({
@@ -114,3 +115,28 @@ const waterfall = {
     },
   ],
 };
+
+const flattenedVersions: WaterfallVersionFragment[] = [
+  {
+    id: "a",
+    author: "sophie.stadler",
+    activated: false,
+    createTime: new Date("2024-09-20T14:56:08Z"),
+    errors: [],
+    message: "bar",
+    requester: "gitter_request",
+    revision: "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8",
+    order: 2,
+  },
+  {
+    id: "b",
+    author: "sophie.stadler",
+    activated: true,
+    createTime: new Date("2024-09-19T14:56:08Z"),
+    errors: [],
+    message: "foo",
+    requester: "gitter_request",
+    revision: "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    order: 1,
+  },
+];

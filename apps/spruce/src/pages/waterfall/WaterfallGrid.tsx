@@ -22,7 +22,6 @@ import {
 } from "./styles";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
-import { groupInactiveVersions } from "./utils";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
@@ -64,13 +63,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     refEl as React.MutableRefObject<HTMLElement>,
   );
 
-  const groupedVersions = groupInactiveVersions(
-    data.waterfall.flattenedVersions,
-  );
-
   const { buildVariants, versions } = useFilters({
     buildVariants: data.waterfall.buildVariants,
-    versions: groupedVersions,
+    flattenedVersions: data.waterfall.flattenedVersions,
   });
 
   return (

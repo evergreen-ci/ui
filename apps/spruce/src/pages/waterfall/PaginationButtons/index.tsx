@@ -1,3 +1,4 @@
+import { useTransition } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useWaterfallAnalytics } from "analytics";
@@ -17,14 +18,18 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   const { hasNextPage, hasPrevPage, nextPageOrder, prevPageOrder } =
     pagination ?? {};
   const { sendEvent } = useWaterfallAnalytics();
+
+  const [, startTransition] = useTransition();
   const [queryParams, setQueryParams] = useQueryParams();
 
   const onNextClick = () => {
     sendEvent({ name: "Changed page", direction: "next" });
-    setQueryParams({
-      ...queryParams,
-      [WaterfallFilterOptions.MaxOrder]: nextPageOrder,
-      [WaterfallFilterOptions.MinOrder]: undefined,
+    startTransition(() => {
+      setQueryParams({
+        ...queryParams,
+        [WaterfallFilterOptions.MaxOrder]: nextPageOrder,
+        [WaterfallFilterOptions.MinOrder]: undefined,
+      });
     });
   };
 
@@ -33,10 +38,12 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
       name: "Changed page",
       direction: "previous",
     });
-    setQueryParams({
-      ...queryParams,
-      [WaterfallFilterOptions.MaxOrder]: undefined,
-      [WaterfallFilterOptions.MinOrder]: prevPageOrder,
+    startTransition(() => {
+      setQueryParams({
+        ...queryParams,
+        [WaterfallFilterOptions.MaxOrder]: undefined,
+        [WaterfallFilterOptions.MinOrder]: prevPageOrder,
+      });
     });
   };
 
