@@ -54,6 +54,40 @@ describe("waterfall page", () => {
     });
   });
 
+  describe("build variant filtering", () => {
+    beforeEach(() => {
+      cy.visit("/project/evergreen/waterfall");
+    });
+
+    it("submitting a build variant filter updates the url, creates a badge and filters the grid", () => {
+      cy.dataCy("build-variant-label").should("have.length", 2);
+      cy.get("[placeholder='Filter build variants'").type("P{enter}");
+      cy.dataCy("filter-badge").first().should("have.text", "buildVariants: P");
+      cy.location().should((loc) => {
+        expect(loc.search).to.include("buildVariants=P");
+      });
+      cy.dataCy("build-variant-label").should("have.length", 0);
+
+      cy.dataTestId("chip-dismiss-button").click();
+      cy.dataCy("build-variant-label").should("have.length", 2);
+
+      cy.get("[placeholder='Filter build variants'").type("Lint{enter}");
+      cy.location().should((loc) => {
+        expect(loc.search).to.include("buildVariants=Lint");
+      });
+      cy.dataCy("filter-badge")
+        .first()
+        .should("have.text", "buildVariants: Lint");
+
+      cy.dataCy("build-variant-label")
+        .should("have.length", 1)
+        .should("have.text", "Lint");
+      cy.get("[placeholder='Filter build variants'").type("P{enter}");
+      cy.location().should((loc) => {
+        expect(loc.search).to.include("buildVariants=Lint,P");
+      });
+    });
+  });
   describe("requester filtering", () => {
     it("filters on periodic builds and trigger", () => {
       cy.dataCy("inactive-versions-button").first().contains("1");

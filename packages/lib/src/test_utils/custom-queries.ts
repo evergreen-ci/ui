@@ -15,9 +15,9 @@ type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R
 const queryAllByDataCy: OmitFirstArg<AllByAttribute> = (...args) =>
   queryHelpers.queryAllByAttribute("data-cy", ...args);
 
-const getMultipleError: GetErrorFunction = (_, dataCyValue) =>
+const getMultipleErrorDataCy: GetErrorFunction = (_, dataCyValue) =>
   `Found multiple elements with the data-cy attribute of: ${dataCyValue}`;
-const getMissingError: GetErrorFunction = (_, dataCyValue) =>
+const getMissingErrorDataCy: GetErrorFunction = (_, dataCyValue) =>
   `Unable to find an element with the data-cy attribute of: ${dataCyValue}`;
 
 const [
@@ -26,7 +26,31 @@ const [
   getByDataCy,
   findAllByDataCy,
   findByDataCy,
-] = buildQueries(queryAllByDataCy, getMultipleError, getMissingError);
+] = buildQueries(
+  queryAllByDataCy,
+  getMultipleErrorDataCy,
+  getMissingErrorDataCy,
+);
+
+const queryAllByDataTestid: OmitFirstArg<AllByAttribute> = (...args) =>
+  queryHelpers.queryAllByAttribute("data-testid", ...args);
+
+const getMultipleErrorDataTestid: GetErrorFunction = (_, dataTestidValue) =>
+  `Found multiple elements with the data-testid attribute of: ${dataTestidValue}`;
+const getMissingErrorDataTestid: GetErrorFunction = (_, dataTestidValue) =>
+  `Unable to find an element with the data-testid attribute of: ${dataTestidValue}`;
+
+const [
+  queryByDataTestid,
+  getAllByDataTestid,
+  getByDataTestid,
+  findAllByDataTestid,
+  findByDataTestid,
+] = buildQueries(
+  queryAllByDataTestid,
+  getMultipleErrorDataTestid,
+  getMissingErrorDataTestid,
+);
 
 export {
   queryByDataCy,
@@ -35,4 +59,10 @@ export {
   getAllByDataCy,
   findAllByDataCy,
   findByDataCy,
+  queryByDataTestid,
+  queryAllByDataTestid,
+  getByDataTestid,
+  getAllByDataTestid,
+  findAllByDataTestid,
+  findByDataTestid,
 };

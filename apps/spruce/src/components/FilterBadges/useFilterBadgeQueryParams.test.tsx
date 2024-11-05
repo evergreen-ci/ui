@@ -71,7 +71,7 @@ describe("filterBadges - queryParams", () => {
 
     const badge = screen.queryByDataCy("filter-badge");
     expect(badge).toHaveTextContent("buildVariants: variant1");
-    const closeBadge = screen.queryByDataCy("close-badge");
+    const closeBadge = screen.queryByDataTestid("chip-dismiss-button");
     expect(closeBadge).toBeInTheDocument();
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(closeBadge);
@@ -90,7 +90,7 @@ describe("filterBadges - queryParams", () => {
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(2);
     expect(screen.getByText("buildVariants: variant1")).toBeInTheDocument();
-    const closeBadge = screen.queryAllByDataCy("close-badge");
+    const closeBadge = screen.queryAllByDataTestid("chip-dismiss-button");
     await user.click(closeBadge[0]);
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(1);
