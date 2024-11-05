@@ -93,7 +93,6 @@ const LabelContainer = styled.div`
 `;
 
 const GroupedSelect = styled(Select)`
-  width: 30%;
   /* overwrite lg borders https://jira.mongodb.org/browse/PD-1995 */
   button {
     margin-top: 0;
