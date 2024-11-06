@@ -24,6 +24,7 @@ describe("useFilters", () => {
           useFilters({
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
+            pins: [],
           }),
         {
           wrapper: createWrapper(),
@@ -38,6 +39,7 @@ describe("useFilters", () => {
           useFilters({
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
+            pins: [],
           }),
         {
           wrapper: createWrapper({
@@ -64,6 +66,35 @@ describe("useFilters", () => {
     });
   });
 
+  describe("pinned build variants", () => {
+    it("should push pins to the top of list of build variants and preserve their original order", () => {
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            buildVariants: waterfall.buildVariants,
+            flattenedVersions,
+            pins: ["3", "2"],
+          }),
+        {
+          wrapper: createWrapper({
+            initialEntry: "/project/spruce/waterfall",
+          }),
+        },
+      );
+
+      const pinnedWaterfall = {
+        ...waterfall,
+        buildVariants: [
+          waterfall.buildVariants[1],
+          waterfall.buildVariants[2],
+          waterfall.buildVariants[0],
+        ],
+      };
+
+      expect(result.current).toMatchObject(pinnedWaterfall);
+    });
+  });
+
   describe("build variant filters", () => {
     it("should filter build variant list when filter is applied", () => {
       const { result } = renderHook(
@@ -71,6 +102,7 @@ describe("useFilters", () => {
           useFilters({
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
+            pins: [],
           }),
         {
           wrapper: createWrapper({
@@ -93,6 +125,7 @@ describe("useFilters", () => {
           useFilters({
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
+            pins: [],
           }),
         {
           wrapper: createWrapper({
@@ -123,6 +156,34 @@ const waterfall = {
           id: "i",
           tasks: [],
           version: "a",
+        },
+      ],
+    },
+    {
+      id: "2",
+      displayName: "BV 2",
+      version: "b",
+      builds: [
+        {
+          activated: true,
+          displayName: "Build B",
+          id: "ii",
+          tasks: [],
+          version: "b",
+        },
+      ],
+    },
+    {
+      id: "3",
+      displayName: "BV 3",
+      version: "c",
+      builds: [
+        {
+          activated: true,
+          displayName: "Build C",
+          id: "iii",
+          tasks: [],
+          version: "c",
         },
       ],
     },

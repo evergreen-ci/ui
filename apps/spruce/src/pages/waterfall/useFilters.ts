@@ -12,11 +12,13 @@ import { groupInactiveVersions } from "./utils";
 type UseFiltersProps = {
   buildVariants: WaterfallBuildVariant[];
   flattenedVersions: WaterfallVersionFragment[];
+  pins: string[];
 };
 
 export const useFilters = ({
   buildVariants,
   flattenedVersions,
+  pins,
 }: UseFiltersProps) => {
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
@@ -101,11 +103,23 @@ export const useFilters = ({
   );
 
   const buildVariantsResult = useMemo(() => {
-    if (!hasFilters) {
+    if (!hasFilters && !pins.length) {
       return buildVariants;
     }
 
     const bvs: WaterfallBuildVariant[] = [];
+
+    let pinIndex = 0;
+    const pushVariant = (variant: WaterfallBuildVariant) => {
+      if (pins.includes(variant.id)) {
+        // If build variant is pinned, insert it at the end of the list of pinned variants
+        bvs.splice(pinIndex, 0, variant);
+        pinIndex += 1;
+      } else {
+        bvs.push(variant);
+      }
+    };
+
     buildVariants.forEach((bv) => {
       const passesBVFilter =
         !buildVariantFilterRegex.length ||
@@ -119,15 +133,21 @@ export const useFilters = ({
             }
           });
           if (activeBuilds.length) {
-            bvs.push({ ...bv, builds: activeBuilds });
+            pushVariant({ ...bv, builds: activeBuilds });
           }
         } else {
-          bvs.push(bv);
+          pushVariant(bv);
         }
       }
     });
     return bvs;
-  }, [activeVersionIds, hasFilters, buildVariants, buildVariantFilterRegex]);
+  }, [
+    activeVersionIds,
+    buildVariantFilterRegex,
+    buildVariants,
+    hasFilters,
+    pins,
+  ]);
 
   return { buildVariants: buildVariantsResult, versions: versionsResult };
 };

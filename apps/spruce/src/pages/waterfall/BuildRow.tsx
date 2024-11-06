@@ -1,10 +1,12 @@
 import { memo, useCallback } from "react";
 import styled from "@emotion/styled";
+import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
+import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -21,11 +23,21 @@ import { WaterfallVersion } from "./types";
 
 const { black, gray, white } = palette;
 
-export const BuildRow: React.FC<{
+type Props = {
   build: WaterfallBuildVariant;
+  handlePinClick: () => void;
+  pinned: boolean;
   projectIdentifier: string;
   versions: WaterfallVersion[];
-}> = ({ build, projectIdentifier, versions }) => {
+};
+
+export const BuildRow: React.FC<Props> = ({
+  build,
+  handlePinClick,
+  pinned,
+  projectIdentifier,
+  versions,
+}) => {
   const { sendEvent } = useWaterfallAnalytics();
   const handleVariantClick = useCallback(
     () => sendEvent({ name: "Clicked variant label" }),
@@ -45,7 +57,16 @@ export const BuildRow: React.FC<{
   return (
     <Row>
       <BuildVariantTitle data-cy="build-variant-label">
+        <StyledIconButton
+          active={pinned}
+          aria-label="Pin build variant"
+          data-cy="pin-button"
+          onClick={handlePinClick}
+        >
+          <Icon glyph="Pin" />
+        </StyledIconButton>
         <StyledLink
+          data-cy="build-variant-link"
           href={getVariantHistoryRoute(projectIdentifier, build.id)}
           onClick={handleVariantClick}
         >
@@ -120,6 +141,11 @@ const BuildGroup = styled.div`
 
 const Build = styled.div`
   ${columnBasis}
+`;
+
+const StyledIconButton = styled(IconButton)`
+  top: -${size.xxs};
+  ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
 
 const SQUARE_SIZE = 16;
