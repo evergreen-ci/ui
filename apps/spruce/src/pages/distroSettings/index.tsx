@@ -109,10 +109,7 @@ const DistroSettings: React.FC = () => {
                     link: "Image Build Information",
                   })
                 }
-                to={getImageRoute(
-                  data?.distro?.imageId ?? "",
-                  ImageTabRoutes.BuildInformation,
-                )}
+                to={getImageRoute(imageId, ImageTabRoutes.BuildInformation)}
               >
                 Image Build Information
               </SideNavItemLink>
@@ -126,10 +123,7 @@ const DistroSettings: React.FC = () => {
                     link: "Image Event Log",
                   })
                 }
-                to={getImageRoute(
-                  data?.distro?.imageId ?? "",
-                  ImageTabRoutes.EventLog,
-                )}
+                to={getImageRoute(imageId, ImageTabRoutes.EventLog)}
               >
                 Image Event Log
               </SideNavItemLink>
