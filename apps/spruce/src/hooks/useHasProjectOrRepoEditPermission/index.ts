@@ -20,6 +20,7 @@ export const useHasProjectOrRepoEditPermission = (id?: string) => {
   >(IS_REPO, {
     variables: { projectOrRepoId: id ?? "" },
     skip: id === "",
+    fetchPolicy: "cache-first",
   });
   const isRepoLoading = !isRepoData || loading;
   const isRepo = isRepoData?.isRepo ?? false;
@@ -30,6 +31,7 @@ export const useHasProjectOrRepoEditPermission = (id?: string) => {
   >(USER_PROJECT_SETTINGS_PERMISSIONS, {
     variables: { projectIdentifier: id ?? "" },
     skip: isRepoLoading || isRepo || id === "",
+    fetchPolicy: "cache-first",
   });
   const canEditProject =
     projectPermissionsData?.user?.permissions?.projectPermissions?.edit ??
@@ -41,6 +43,7 @@ export const useHasProjectOrRepoEditPermission = (id?: string) => {
   >(USER_REPO_SETTINGS_PERMISSIONS, {
     variables: { repoId: id ?? "" },
     skip: isRepoLoading || !isRepo || id === "",
+    fetchPolicy: "cache-first",
   });
   const canEditRepo =
     repoPermissionsData?.user?.permissions?.repoPermissions?.edit ?? false;

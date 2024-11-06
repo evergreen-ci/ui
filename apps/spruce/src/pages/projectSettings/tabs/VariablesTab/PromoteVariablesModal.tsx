@@ -1,5 +1,5 @@
 import { useReducer, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -12,11 +12,9 @@ import { useToastContext } from "context/toast";
 import {
   PromoteVarsToRepoMutation,
   PromoteVarsToRepoMutationVariables,
-  UserProjectSettingsPermissionsQuery,
-  UserProjectSettingsPermissionsQueryVariables,
 } from "gql/generated/types";
 import { PROMOTE_VARS_TO_REPO } from "gql/mutations";
-import { USER_PROJECT_SETTINGS_PERMISSIONS } from "gql/queries";
+import { useHasProjectOrRepoEditPermission } from "hooks";
 
 type Action =
   | { type: "checkCheckbox"; names: string[] }
@@ -172,15 +170,7 @@ export const PromoteVariablesModalButton: React.FC<
 > = ({ projectId, variables }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { data } = useQuery<
-    UserProjectSettingsPermissionsQuery,
-    UserProjectSettingsPermissionsQueryVariables
-  >(USER_PROJECT_SETTINGS_PERMISSIONS, {
-    variables: { projectIdentifier: projectId },
-    fetchPolicy: "cache-first",
-  });
-  const hasProjectPermission =
-    data?.user?.permissions?.projectPermissions?.edit ?? false;
+  const canEdit = useHasProjectOrRepoEditPermission(projectId);
 
   return (
     <>
@@ -194,7 +184,7 @@ export const PromoteVariablesModalButton: React.FC<
       )}
       <Button
         data-cy="promote-vars-button"
-        disabled={!hasProjectPermission}
+        disabled={!canEdit}
         onClick={() => setModalOpen(true)}
         size={Size.Small}
       >
