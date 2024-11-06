@@ -26,8 +26,10 @@ export const gridGroupCss = css`
 
 export const BuildVariantTitle = styled.div`
   ${wordBreakCss}
+  display: flex;
   flex-grow: 0;
   flex-shrink: 0;
+  gap: ${size.xxs};
   width: ${BUILD_VARIANT_WIDTH}px;
 `;
 

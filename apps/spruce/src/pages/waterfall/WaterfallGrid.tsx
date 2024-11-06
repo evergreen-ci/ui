@@ -1,10 +1,20 @@
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
+import {
+  DEFAULT_POLL_INTERVAL,
+  WATERFALL_PINNED_VARIANTS_KEY,
+} from "constants/index";
+import {
+  WaterfallPagination,
+  WaterfallQuery,
+  WaterfallQueryVariables,
+} from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
+import { useQueryParam } from "hooks/useQueryParam";
+import { WaterfallFilterOptions } from "types/waterfall";
+import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import {
@@ -20,12 +30,44 @@ import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
   projectIdentifier: string;
+  setPagination: (pagination: WaterfallPagination) => void;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
+  setPagination,
 }) => {
   useWaterfallTrace();
+
+  const [pins, setPins] = useState<string[]>(
+    getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
+  );
+
+  const handlePinBV = useCallback(
+    (buildVariant: string) => () => {
+      setPins((prev: string[]) => {
+        const bvIndex = prev.indexOf(buildVariant);
+        if (bvIndex > -1) {
+          const removed = [...prev];
+          removed.splice(bvIndex, 1);
+          return removed;
+        }
+        return [...prev, buildVariant];
+      });
+    },
+    [],
+  );
+
+  useEffect(() => {
+    const bvs = getObject(WATERFALL_PINNED_VARIANTS_KEY);
+    setObject(WATERFALL_PINNED_VARIANTS_KEY, {
+      ...bvs,
+      [projectIdentifier]: pins,
+    });
+  }, [pins, projectIdentifier]);
+
+  const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
+  const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
@@ -34,18 +76,29 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         options: {
           projectIdentifier,
           limit: VERSION_LIMIT,
+          maxOrder,
+          minOrder,
         },
       },
       // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
       pollInterval: DEFAULT_POLL_INTERVAL,
     },
   );
+
+  useEffect(() => {
+    setPagination(data.waterfall.pagination);
+  }, [setPagination, data.waterfall.pagination]);
+
   const refEl = useRef<HTMLDivElement>(null);
   const { height } = useDimensions(
     refEl as React.MutableRefObject<HTMLElement>,
   );
 
-  const { buildVariants, versions } = useFilters(data.waterfall);
+  const { buildVariants, versions } = useFilters({
+    buildVariants: data.waterfall.buildVariants,
+    flattenedVersions: data.waterfall.flattenedVersions,
+    pins,
+  });
 
   return (
     <Container ref={refEl}>
@@ -56,9 +109,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
             version ? (
               <VersionLabel view={VersionLabelView.Waterfall} {...version} />
             ) : (
-              <InactiveVersion>
+              <InactiveVersion key={inactiveVersions?.[0].id}>
                 <InactiveVersionsButton
-                  key={inactiveVersions?.[0].id}
                   containerHeight={height}
                   versions={inactiveVersions ?? []}
                 />
@@ -71,6 +123,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         <BuildRow
           key={b.id}
           build={b}
+          handlePinClick={handlePinBV(b.id)}
+          pinned={pins.includes(b.id)}
           projectIdentifier={projectIdentifier}
           versions={versions}
         />
