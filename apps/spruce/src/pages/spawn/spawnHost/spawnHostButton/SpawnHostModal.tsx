@@ -61,12 +61,12 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     SpawnHostMutation,
     SpawnHostMutationVariables
   >(SPAWN_HOST, {
-    onCompleted(hostMutation) {
+    onCompleted: (hostMutation) => {
       const { id } = hostMutation?.spawnHost ?? {};
       dispatchToast.success(`Successfully spawned host: ${id}`);
       setOpen(false);
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error while spawning your host: ${err.message}`,
       );
@@ -86,8 +86,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   );
 
   useVirtualWorkstationDefaultExpiration({
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    isVirtualWorkstation: selectedDistro?.isVirtualWorkStation,
+    isVirtualWorkstation: selectedDistro?.isVirtualWorkStation ?? false,
     setFormState,
     formState,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
@@ -95,16 +94,14 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const hostUptimeWarnings = useMemo(() => {
     const { enabledHoursCount, enabledWeekdaysCount } = getEnabledHoursCount(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       formState?.expirationDetails?.hostUptime,
     );
     const warnings = getHostUptimeWarnings({
       enabledHoursCount,
       enabledWeekdaysCount,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       runContinuously:
         formState?.expirationDetails?.hostUptime?.sleepSchedule?.timeSelection
-          ?.runContinuously,
+          ?.runContinuously ?? false,
     });
     return { enabledHoursCount, warnings };
   }, [formState?.expirationDetails?.hostUptime]);
@@ -129,13 +126,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const spawnHost = () => {
     const mutationInput = formToGql({
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      isVirtualWorkStation: selectedDistro?.isVirtualWorkStation,
+      isVirtualWorkStation: selectedDistro?.isVirtualWorkStation ?? false,
       formData: formState,
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      myPublicKeys: formSchemaInput.myPublicKeys,
+      myPublicKeys: formSchemaInput.myPublicKeys ?? [],
       spawnTaskData: spawnTaskData?.task,
-      timeZone,
     });
     spawnAnalytics.sendEvent({
       name: "Created a spawn host",
@@ -151,14 +145,16 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   return (
     <ConfirmationModal
-      buttonText={loadingSpawnHost ? "Spawning" : "Spawn a host"}
-      data-cy="spawn-host-modal"
-      onCancel={() => {
-        setOpen(false);
+      cancelButtonProps={{
+        onClick: () => setOpen(false),
       }}
-      onConfirm={spawnHost}
+      confirmButtonProps={{
+        children: loadingSpawnHost ? "Spawning" : "Spawn a host",
+        onClick: spawnHost,
+        disabled: hasError || loadingSpawnHost,
+      }}
+      data-cy="spawn-host-modal"
       open={open}
-      submitDisabled={hasError || loadingSpawnHost}
       title="Spawn New Host"
     >
       <SpruceForm

@@ -26,6 +26,10 @@ export const computeDiff = (
     );
   }
 
+  if (mutationParams.publicKey) {
+    mutationParams.publicKey = currEditState.publicKey;
+  }
+
   // Always overwrite the whole sleep schedule, no need to update on a per-field basis.
   if (mutationParams.sleepSchedule) {
     mutationParams.sleepSchedule = currEditState.sleepSchedule;
