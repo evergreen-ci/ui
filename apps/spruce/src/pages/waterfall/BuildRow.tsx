@@ -10,11 +10,7 @@ import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import {
-  WaterfallBuild,
-  WaterfallBuildVariant,
-  WaterfallQuery,
-} from "gql/generated/types";
+import { WaterfallBuild, WaterfallBuildVariant } from "gql/generated/types";
 import { statusColorMap, statusIconMap } from "./icons";
 import {
   BuildVariantTitle,
@@ -23,6 +19,7 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
+import { WaterfallVersion } from "./types";
 
 const { black, gray, white } = palette;
 
@@ -31,7 +28,7 @@ type Props = {
   handlePinClick: () => void;
   pinned: boolean;
   projectIdentifier: string;
-  versions: WaterfallQuery["waterfall"]["versions"];
+  versions: WaterfallVersion[];
 };
 
 export const BuildRow: React.FC<Props> = ({

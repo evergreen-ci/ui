@@ -5,9 +5,15 @@ import {
   DEFAULT_POLL_INTERVAL,
   WATERFALL_PINNED_VARIANTS_KEY,
 } from "constants/index";
-import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
+import {
+  WaterfallPagination,
+  WaterfallQuery,
+  WaterfallQueryVariables,
+} from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
+import { useQueryParam } from "hooks/useQueryParam";
+import { WaterfallFilterOptions } from "types/waterfall";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { InactiveVersionsButton } from "./InactiveVersions";
@@ -24,10 +30,12 @@ import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
   projectIdentifier: string;
+  setPagination: (pagination: WaterfallPagination) => void;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   projectIdentifier,
+  setPagination,
 }) => {
   useWaterfallTrace();
 
@@ -58,6 +66,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     });
   }, [pins, projectIdentifier]);
 
+  const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
+  const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
+
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {
@@ -65,18 +76,29 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         options: {
           projectIdentifier,
           limit: VERSION_LIMIT,
+          maxOrder,
+          minOrder,
         },
       },
       // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
       pollInterval: DEFAULT_POLL_INTERVAL,
     },
   );
+
+  useEffect(() => {
+    setPagination(data.waterfall.pagination);
+  }, [setPagination, data.waterfall.pagination]);
+
   const refEl = useRef<HTMLDivElement>(null);
   const { height } = useDimensions(
     refEl as React.MutableRefObject<HTMLElement>,
   );
 
-  const { buildVariants, versions } = useFilters(data.waterfall, pins);
+  const { buildVariants, versions } = useFilters({
+    buildVariants: data.waterfall.buildVariants,
+    flattenedVersions: data.waterfall.flattenedVersions,
+    pins,
+  });
 
   return (
     <Container ref={refEl}>
@@ -91,9 +113,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
                 {...version}
               />
             ) : (
-              <InactiveVersion>
+              <InactiveVersion key={inactiveVersions?.[0].id}>
                 <InactiveVersionsButton
-                  key={inactiveVersions?.[0].id}
                   containerHeight={height}
                   versions={inactiveVersions ?? []}
                 />

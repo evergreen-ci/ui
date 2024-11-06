@@ -1,6 +1,7 @@
 import { Requester } from "constants/requesters";
+import { WaterfallVersionFragment } from "gql/generated/types";
 
-export const version = {
+export const version: WaterfallVersionFragment = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T14:56:08Z"),
@@ -12,9 +13,10 @@ export const version = {
   requester: Requester.Gitter,
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
   upstreamProject: null,
+  order: 10,
 };
 
-export const versionWithGitTag = {
+export const versionWithGitTag: WaterfallVersionFragment = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T16:14:10Z"),
@@ -29,9 +31,10 @@ export const versionWithGitTag = {
   requester: Requester.GitTag,
   revision: "deb77a36604446272d610d267f1cd9f95e4fe8ff",
   upstreamProject: null,
+  order: 9,
 };
 
-export const versionWithUpstreamProject = {
+export const versionWithUpstreamProject: WaterfallVersionFragment = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T16:06:54Z"),
@@ -60,9 +63,10 @@ export const versionWithUpstreamProject = {
       id: "9876",
     },
   },
+  order: 8,
 };
 
-export const versionBroken = {
+export const versionBroken: WaterfallVersionFragment = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T14:56:08Z"),
@@ -74,9 +78,10 @@ export const versionBroken = {
   requester: Requester.Gitter,
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
   upstreamProject: null,
+  order: 7,
 };
 
-export const inactiveVersion = {
+export const inactiveVersion: WaterfallVersionFragment = {
   activated: false,
   author: "Sophie Stadler",
   createTime: new Date("2024-10-24T14:56:08Z"),
@@ -87,9 +92,10 @@ export const inactiveVersion = {
   requester: Requester.Gitter,
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
   upstreamProject: null,
+  order: 6,
 };
 
-export const inactiveBrokenVersion = {
+export const inactiveBrokenVersion: WaterfallVersionFragment = {
   activated: false,
   author: "Sophie Stadler",
   createTime: new Date("2024-10-25T14:56:08Z"),
@@ -100,4 +106,5 @@ export const inactiveBrokenVersion = {
   requester: Requester.Gitter,
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
   upstreamProject: null,
+  order: 5,
 };
