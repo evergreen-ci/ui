@@ -1,57 +1,68 @@
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import Tooltip from "@leafygreen-ui/tooltip";
+import Popover from "@leafygreen-ui/popover";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import Icon from "components/Icon";
 import { Divider } from "components/styles";
+import { PopoverContainer } from "components/styles/Popover";
 import { size } from "constants/tokens";
 import { WaterfallVersionFragment } from "gql/generated/types";
+import { useOnClickOutside } from "hooks";
 import { SQUARE_SIZE, taskStatusStyleMap } from "./styles";
 
 export const TaskStatsTooltip: React.FC<
   Pick<WaterfallVersionFragment, "taskStatusStats">
 > = ({ taskStatusStats }) => {
+  const [open, setOpen] = useState(false);
+
+  const buttonRef = useRef(null);
+  const popoverRef = useRef(null);
+
+  useOnClickOutside([buttonRef, popoverRef], () => setOpen(false));
+
   const totalTaskCount =
     taskStatusStats?.counts?.reduce((total, { count }) => total + count, 0) ??
     0;
 
   return (
-    <Tooltip
-      align="right"
-      trigger={
-        <BtnContainer>
-          <IconButton
-            aria-label="Show task stats"
-            data-cy="task-stats-tooltip-button"
-          >
-            <Icon glyph="Charts" />
-          </IconButton>
-        </BtnContainer>
-      }
-      triggerEvent="click"
-    >
-      <Table data-cy="task-stats-tooltip">
-        {taskStatusStats?.counts?.map(({ count, status }) => (
-          <Row>
-            <Count>{count}</Count>
-            <Cell>
-              <Square status={status as TaskStatus} />
-            </Cell>
-            <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
-          </Row>
-        ))}
-        <Row>
-          <Cell colSpan={3}>
-            <Divider />
-          </Cell>
-        </Row>
-        <Row>
-          <Count>{totalTaskCount}</Count>
-          <Cell colSpan={2}>Total tasks</Cell>
-        </Row>
-      </Table>
-    </Tooltip>
+    <>
+      <BtnContainer>
+        <IconButton
+          ref={buttonRef}
+          aria-label="Show task stats"
+          data-cy="task-stats-tooltip-button"
+          onClick={() => setOpen((o) => !o)}
+        >
+          <Icon glyph="Charts" />
+        </IconButton>
+      </BtnContainer>
+      <Popover ref={popoverRef} active={open} align="right">
+        <PopoverContainer data-cy="task-stats-tooltip">
+          <Table>
+            {taskStatusStats?.counts?.map(({ count, status }) => (
+              <Row>
+                <Count>{count}</Count>
+                <Cell>
+                  <Square status={status as TaskStatus} />
+                </Cell>
+                <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
+              </Row>
+            ))}
+            <Row>
+              <Cell colSpan={3}>
+                <Divider />
+              </Cell>
+            </Row>
+            <Row>
+              <Count>{totalTaskCount}</Count>
+              <Cell colSpan={2}>Total tasks</Cell>
+            </Row>
+          </Table>
+        </PopoverContainer>
+      </Popover>
+    </>
   );
 };
 
