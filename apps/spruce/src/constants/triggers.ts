@@ -66,7 +66,7 @@ export const requesterSubscriberConfig: ExtraField = {
   text: "Build Initiator",
   key: ExtraFieldKey.BUILD_INITIATOR,
   fieldType: "select",
-  default: "gitter_request",
+  default: Requester.Gitter,
   options: requesterSubscriberOptions,
 };
 
