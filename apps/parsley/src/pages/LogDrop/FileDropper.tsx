@@ -99,7 +99,7 @@ const FileDropper: React.FC = () => {
               case "text": {
                 if (state.text) {
                   const logLines = state.text.split("\n");
-                  setFileName("Pasted Log");
+                  setFileName("Pasted Text");
                   ingestLines(logLines, renderingType);
                 }
                 break;
@@ -145,7 +145,7 @@ const FileDropper: React.FC = () => {
     case "PROMPT_FOR_PARSING_METHOD":
       visibleUI = (
         <ParseLogSelect
-          fileName={state.file?.name || ""}
+          fileName={state.type === "file" ? state.file?.name : "Pasted Text"}
           onCancel={() => dispatch({ type: "CANCEL" })}
           onParse={onParse}
         />
