@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { InlineCode } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -380,7 +381,8 @@ export const getFormSchema = ({
               <>
                 Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b>{" "}
                 {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-                @ <b>{shortenGithash(revision)}</b> onto host at startup
+                @ <b>{shortenGithash(revision)}</b> onto host at startup (These
+                files will typically be in <InlineCode>/data/mci</InlineCode>)
               </>
             ),
             "ui:elementWrapperCSS": dropMarginBottomCSS,
