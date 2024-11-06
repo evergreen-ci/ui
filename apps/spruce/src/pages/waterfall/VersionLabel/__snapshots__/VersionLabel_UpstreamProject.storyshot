@@ -3,25 +3,28 @@
     class="css-1pp2qz6"
   >
     <div
-      class="css-bnbttx-VersionContainer-columnBasis-wordBreakCss e3zirl02"
+      class="css-bnbttx-VersionContainer-columnBasis-wordBreakCss e3zirl03"
       data-cy="version-label-active"
     >
-      <p
-        class="leafygreen-ui-1tb6tuo"
+      <div
+        class="css-1idzah1-HeaderLine e3zirl00"
       >
-        <a
-          class="lg-ui-0000 leafygreen-ui-hvznge"
-          href="/version/evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a/tasks"
+        <p
+          class="leafygreen-ui-1tb6tuo"
         >
-          <code
-            class="leafygreen-ui-i6ovbf"
+          <a
+            class="lg-ui-0000 leafygreen-ui-hvznge"
+            href="/version/evergreen_ui_130948895a46d4fd04292e7783069918e4e7cd5a/tasks"
           >
-            1309488
-          </code>
-        </a>
-         
-        09/19/2024, 12:06
-      </p>
+            <code
+              class="leafygreen-ui-i6ovbf"
+            >
+              1309488
+            </code>
+          </a>
+          09/19/2024, 12:06
+        </p>
+      </div>
       <p
         class="leafygreen-ui-1tb6tuo"
       >
@@ -37,7 +40,7 @@
         </a>
       </p>
       <p
-        class="css-9ip3is-CommitMessage e3zirl01 leafygreen-ui-1tb6tuo"
+        class="css-9ip3is-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
         view="modal"
       >
         <strong>

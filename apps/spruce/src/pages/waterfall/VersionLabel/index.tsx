@@ -12,6 +12,7 @@ import { WaterfallVersionFragment } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
+import { TaskStatsTooltip } from "../TaskStatsTooltip";
 
 export enum VersionLabelView {
   Modal = "modal",
@@ -35,6 +36,7 @@ export const VersionLabel: React.FC<Props> = ({
   message,
   revision,
   shouldDisableText = false,
+  taskStatusStats,
   upstreamProject,
   view,
 }) => {
@@ -56,28 +58,33 @@ export const VersionLabel: React.FC<Props> = ({
       shouldDisableText={shouldDisableText}
       view={view}
     >
-      <Body>
-        <InlineCode
-          as={Link}
-          onClick={() => {
-            sendEvent({
-              name: "Clicked commit label",
-              "commit.type": commitType,
-              link: "githash",
-            });
-          }}
-          to={getVersionRoute(id)}
-        >
-          {shortenGithash(revision)}
-        </InlineCode>{" "}
-        {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-        {commitType === "inactive" && (
-          <StyledBadge variant={Variant.LightGray}>Inactive</StyledBadge>
+      <HeaderLine>
+        <Body>
+          <InlineCode
+            as={Link}
+            onClick={() => {
+              sendEvent({
+                name: "Clicked commit label",
+                "commit.type": commitType,
+                link: "githash",
+              });
+            }}
+            to={getVersionRoute(id)}
+          >
+            {shortenGithash(revision)}
+          </InlineCode>
+          {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+          {commitType === "inactive" && (
+            <StyledBadge variant={Variant.LightGray}>Inactive</StyledBadge>
+          )}
+          {errors.length > 0 && (
+            <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
+          )}
+        </Body>
+        {view === VersionLabelView.Waterfall && !!taskStatusStats && (
+          <TaskStatsTooltip taskStatusStats={taskStatusStats} />
         )}
-        {errors.length > 0 && (
-          <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
-        )}
-      </Body>
+      </HeaderLine>
       {upstreamProject && (
         <Body>
           Triggered by:{" "}
@@ -126,11 +133,10 @@ const VersionContainer = styled.div<
     Pick<Props, "shouldDisableText" | "view">
 >`
   ${columnBasis}
-
   ${({ activated, shouldDisableText, view }) =>
     view === VersionLabelView.Waterfall
       ? `
-          > * {
+          div, p {
             font-size: 12px;
             line-height: 1.3;
           }
@@ -158,4 +164,12 @@ const CommitMessage = styled(Body)<Pick<Props, "view">>`
 
 const StyledBadge = styled(Badge)`
   margin-left: ${sizeToken.xs};
+`;
+
+const HeaderLine = styled.div`
+  align-items: center;
+  display: flex;
+  > p {
+    flex-grow: 1;
+  }
 `;
