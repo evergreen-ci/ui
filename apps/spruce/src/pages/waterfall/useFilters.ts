@@ -2,26 +2,48 @@ import { useMemo } from "react";
 import {
   WaterfallBuild,
   WaterfallBuildVariant,
-  WaterfallQuery,
   WaterfallVersionFragment,
 } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
+import { WaterfallVersion } from "./types";
+import { groupInactiveVersions } from "./utils";
 
-export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
+type UseFiltersProps = {
+  buildVariants: WaterfallBuildVariant[];
+  flattenedVersions: WaterfallVersionFragment[];
+};
+
+export const useFilters = ({
+  buildVariants,
+  flattenedVersions,
+}: UseFiltersProps) => {
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
     [],
   );
 
-  const hasFilters = useMemo(() => requesters.length, [requesters]);
+  const [buildVariantFilter] = useQueryParam<string[]>(
+    WaterfallFilterOptions.BuildVariant,
+    [],
+  );
 
-  const versions = useMemo(() => {
+  const hasFilters = useMemo(
+    () => requesters.length || buildVariantFilter.length,
+    [buildVariantFilter, requesters],
+  );
+
+  const versions = useMemo(
+    () => groupInactiveVersions(flattenedVersions),
+    [flattenedVersions],
+  );
+
+  const versionsResult = useMemo(() => {
     if (!hasFilters) {
-      return waterfall.versions;
+      return versions;
     }
 
-    const filteredVersions: typeof waterfall.versions = [];
+    const filteredVersions: WaterfallVersion[] = [];
 
     const pushInactive = (v: WaterfallVersionFragment) => {
       if (!filteredVersions?.[filteredVersions.length - 1]?.inactiveVersions) {
@@ -37,7 +59,7 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
       });
     };
 
-    waterfall.versions.forEach(({ inactiveVersions, version }) => {
+    versions.forEach(({ inactiveVersions, version }) => {
       if (version) {
         if (matchesRequesters(version, requesters)) {
           pushActive(version);
@@ -50,46 +72,64 @@ export const useFilters = (waterfall: WaterfallQuery["waterfall"]) => {
     });
 
     return filteredVersions;
-  }, [hasFilters, requesters, waterfall]);
+  }, [hasFilters, requesters, versions]);
 
   const activeVersionIds = useMemo(
     () =>
       new Set(
-        versions.reduce((ids: string[], { version }) => {
+        versionsResult.reduce((ids: string[], { version }) => {
           if (version) {
             ids.push(version.id);
           }
           return ids;
         }, []),
       ),
-    [versions],
+    [versionsResult],
+  );
+  const buildVariantFilterRegex: RegExp[] = useMemo(
+    () =>
+      buildVariantFilter.reduce<RegExp[]>((accum, curr) => {
+        let variantRegex;
+        try {
+          variantRegex = new RegExp(curr, "i");
+        } catch {
+          return accum;
+        }
+        return [...accum, variantRegex];
+      }, []),
+    [buildVariantFilter],
   );
 
-  const buildVariants = useMemo(() => {
+  const buildVariantsResult = useMemo(() => {
     if (!hasFilters) {
-      return waterfall.buildVariants;
+      return buildVariants;
     }
 
     const bvs: WaterfallBuildVariant[] = [];
-    waterfall.buildVariants.forEach((bv) => {
-      if (activeVersionIds.size !== bv.builds.length) {
-        const activeBuilds: WaterfallBuild[] = [];
-        bv.builds.forEach((b) => {
-          if (activeVersionIds.has(b.version)) {
-            activeBuilds.push(b);
+    buildVariants.forEach((bv) => {
+      const passesBVFilter =
+        !buildVariantFilterRegex.length ||
+        buildVariantFilterRegex.some((r) => bv.displayName.match(r));
+      if (passesBVFilter) {
+        if (activeVersionIds.size !== bv.builds.length) {
+          const activeBuilds: WaterfallBuild[] = [];
+          bv.builds.forEach((b) => {
+            if (activeVersionIds.has(b.version)) {
+              activeBuilds.push(b);
+            }
+          });
+          if (activeBuilds.length) {
+            bvs.push({ ...bv, builds: activeBuilds });
           }
-        });
-        if (activeBuilds.length) {
-          bvs.push({ ...bv, builds: activeBuilds });
+        } else {
+          bvs.push(bv);
         }
-      } else {
-        bvs.push(bv);
       }
     });
     return bvs;
-  }, [activeVersionIds, hasFilters, waterfall]);
+  }, [activeVersionIds, hasFilters, buildVariants, buildVariantFilterRegex]);
 
-  return { buildVariants, versions };
+  return { buildVariants: buildVariantsResult, versions: versionsResult };
 };
 
 /**

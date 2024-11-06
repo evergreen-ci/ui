@@ -8,11 +8,7 @@ import { useWaterfallAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import {
-  WaterfallBuild,
-  WaterfallBuildVariant,
-  WaterfallQuery,
-} from "gql/generated/types";
+import { WaterfallBuild, WaterfallBuildVariant } from "gql/generated/types";
 import { statusColorMap, statusIconMap } from "./icons";
 import {
   BuildVariantTitle,
@@ -21,13 +17,14 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
+import { WaterfallVersion } from "./types";
 
 const { black, gray, white } = palette;
 
 export const BuildRow: React.FC<{
   build: WaterfallBuildVariant;
   projectIdentifier: string;
-  versions: WaterfallQuery["waterfall"]["versions"];
+  versions: WaterfallVersion[];
 }> = ({ build, projectIdentifier, versions }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const handleVariantClick = useCallback(
@@ -47,7 +44,7 @@ export const BuildRow: React.FC<{
   let buildIndex = 0;
   return (
     <Row>
-      <BuildVariantTitle>
+      <BuildVariantTitle data-cy="build-variant-label">
         <StyledLink
           href={getVariantHistoryRoute(projectIdentifier, build.id)}
           onClick={handleVariantClick}

@@ -105,5 +105,8 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    WaterfallBuildVariant: {
+      keyFields: ["version", "id"],
+    },
   },
 });

@@ -3760,6 +3760,16 @@ export type ProjectFiltersQuery = {
   };
 };
 
+export type SecretFieldsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SecretFieldsQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    secretFields: Array<string>;
+  } | null;
+};
+
 export type TaskFilesQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;

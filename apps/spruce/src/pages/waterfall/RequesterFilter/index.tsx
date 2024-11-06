@@ -40,6 +40,7 @@ export const RequesterFilter = () => {
     >
       {commitRequesters.map((requester) => (
         <ComboboxOption
+          key={`${requester}-option`}
           data-cy={`${requester}-option`}
           displayName={requesterToTitle[requester]}
           value={requester}
