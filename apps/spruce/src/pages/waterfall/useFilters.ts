@@ -1,16 +1,12 @@
 import { useMemo } from "react";
-import {
-  WaterfallBuild,
-  WaterfallBuildVariant,
-  WaterfallVersionFragment,
-} from "gql/generated/types";
+import { WaterfallVersionFragment } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
-import { WaterfallVersion } from "./types";
+import { Build, BuildVariant, WaterfallVersion } from "./types";
 import { groupInactiveVersions } from "./utils";
 
 type UseFiltersProps = {
-  buildVariants: WaterfallBuildVariant[];
+  buildVariants: BuildVariant[];
   flattenedVersions: WaterfallVersionFragment[];
   pins: string[];
 };
@@ -107,10 +103,10 @@ export const useFilters = ({
       return buildVariants;
     }
 
-    const bvs: WaterfallBuildVariant[] = [];
+    const bvs: BuildVariant[] = [];
 
     let pinIndex = 0;
-    const pushVariant = (variant: WaterfallBuildVariant) => {
+    const pushVariant = (variant: BuildVariant) => {
       if (pins.includes(variant.id)) {
         // If build variant is pinned, insert it at the end of the list of pinned variants
         bvs.splice(pinIndex, 0, variant);
@@ -126,7 +122,7 @@ export const useFilters = ({
         buildVariantFilterRegex.some((r) => bv.displayName.match(r));
       if (passesBVFilter) {
         if (activeVersionIds.size !== bv.builds.length) {
-          const activeBuilds: WaterfallBuild[] = [];
+          const activeBuilds: Build[] = [];
           bv.builds.forEach((b) => {
             if (activeVersionIds.has(b.version)) {
               activeBuilds.push(b);

@@ -10,21 +10,21 @@ import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import { WaterfallBuild, WaterfallBuildVariant } from "gql/generated/types";
-import { statusColorMap, statusIconMap } from "./icons";
 import {
   BuildVariantTitle,
   columnBasis,
   gridGroupCss,
   InactiveVersion,
   Row,
+  SQUARE_SIZE,
+  taskStatusStyleMap,
 } from "./styles";
-import { WaterfallVersion } from "./types";
+import { Build, BuildVariant, WaterfallVersion } from "./types";
 
 const { black, gray, white } = palette;
 
 type Props = {
-  build: WaterfallBuildVariant;
+  build: BuildVariant;
   handlePinClick: () => void;
   pinned: boolean;
   projectIdentifier: string;
@@ -96,7 +96,7 @@ export const BuildRow: React.FC<Props> = ({
               />
             );
           }
-          return <Build key={version?.id} />;
+          return <BuildContainer key={version?.id} />;
         })}
       </BuildGroup>
     </Row>
@@ -104,10 +104,10 @@ export const BuildRow: React.FC<Props> = ({
 };
 
 const BuildGrid: React.FC<{
-  build: WaterfallBuild;
+  build: Build;
   handleTaskClick: (s: string) => () => void;
 }> = ({ build, handleTaskClick }) => (
-  <Build
+  <BuildContainer
     onClick={(event: React.MouseEvent) => {
       handleTaskClick(
         (event.target as HTMLDivElement)?.getAttribute("status") ?? "",
@@ -128,7 +128,7 @@ const BuildGrid: React.FC<{
         />
       );
     })}
-  </Build>
+  </BuildContainer>
 );
 
 const BuildGroup = styled.div`
@@ -139,7 +139,7 @@ const BuildGroup = styled.div`
   padding-top: ${size.xs};
 `;
 
-const Build = styled.div`
+const BuildContainer = styled.div`
   ${columnBasis}
 `;
 
@@ -147,8 +147,6 @@ const StyledIconButton = styled(IconButton)`
   top: -${size.xxs};
   ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
-
-const SQUARE_SIZE = 16;
 
 const Square = styled(Link)<{ status: TaskStatus }>`
   width: ${SQUARE_SIZE}px;
@@ -159,12 +157,7 @@ const Square = styled(Link)<{ status: TaskStatus }>`
   cursor: pointer;
   position: relative;
 
-  ${({ status }) => {
-    const icon = statusIconMap?.[status];
-    const iconStyle = icon ? `background-image: ${icon};` : "";
-    return `${iconStyle}
-background-color: ${statusColorMap[status]};`;
-  }}
+  ${({ status }) => taskStatusStyleMap[status]}
 
   /* Tooltip */
   :before {
