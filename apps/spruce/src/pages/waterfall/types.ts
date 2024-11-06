@@ -1,4 +1,5 @@
-import { WaterfallVersionFragment } from "gql/generated/types";
+import { Unpacked } from "@evg-ui/lib/types/utils";
+import { WaterfallVersionFragment, WaterfallQuery } from "gql/generated/types";
 
 // Although this is pretty much a duplicate of the GraphQL type, it is
 // necessary to resolve type errors.
@@ -8,3 +9,11 @@ export type WaterfallVersion = {
   inactiveVersions: WaterfallVersionFragment[] | null;
   version: WaterfallVersionFragment | null;
 };
+
+export type Build = Unpacked<
+  Unpacked<WaterfallQuery["waterfall"]["buildVariants"]>["builds"]
+>;
+
+export type BuildVariant = Unpacked<
+  WaterfallQuery["waterfall"]["buildVariants"]
+>;
