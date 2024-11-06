@@ -1,4 +1,4 @@
-import { Suspense, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
@@ -11,6 +11,7 @@ import FilterBadges, {
 import { navBarHeight } from "components/Header/Navbar";
 import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
+import { WaterfallPagination } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { WaterfallFilterOptions } from "types/waterfall";
 import { isBeta } from "utils/environmentVariables";
@@ -30,6 +31,8 @@ const Waterfall: React.FC = () => {
 
   const { sendEvent } = useWaterfallAnalytics();
 
+  const [pagination, setPagination] = useState<WaterfallPagination>();
+
   return (
     <>
       <Global styles={navbarStyles} />
@@ -44,6 +47,7 @@ const Waterfall: React.FC = () => {
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
           key={projectIdentifier}
+          pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
         />
         <BadgesContainer>
@@ -61,9 +65,18 @@ const Waterfall: React.FC = () => {
         </BadgesContainer>
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
-          fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
+          fallback={
+            <TableSkeleton
+              data-cy="waterfall-skeleton"
+              numCols={VERSION_LIMIT + 1}
+              numRows={15}
+            />
+          }
         >
-          <WaterfallGrid projectIdentifier={projectIdentifier ?? ""} />
+          <WaterfallGrid
+            projectIdentifier={projectIdentifier ?? ""}
+            setPagination={setPagination}
+          />
         </Suspense>
       </PageContainer>
     </>
