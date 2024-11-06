@@ -3507,6 +3507,7 @@ export type WaterfallPagination = {
 export type WaterfallTask = {
   __typename?: "WaterfallTask";
   displayName: Scalars["String"]["output"];
+  displayStatus: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
@@ -4950,6 +4951,14 @@ export type WaterfallVersionFragment = {
   requester: string;
   revision: string;
   gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+  taskStatusStats?: {
+    __typename?: "TaskStats";
+    counts?: Array<{
+      __typename?: "StatusCount";
+      count: number;
+      status: string;
+    }> | null;
+  } | null;
   upstreamProject?: {
     __typename?: "UpstreamProject";
     owner: string;
@@ -9642,6 +9651,14 @@ export type WaterfallQuery = {
       requester: string;
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      taskStatusStats?: {
+        __typename?: "TaskStats";
+        counts?: Array<{
+          __typename?: "StatusCount";
+          count: number;
+          status: string;
+        }> | null;
+      } | null;
       upstreamProject?: {
         __typename?: "UpstreamProject";
         owner: string;
