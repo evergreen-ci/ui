@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import Popover from "@leafygreen-ui/popover";
+import Popover, { Align } from "@leafygreen-ui/popover";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import Icon from "components/Icon";
@@ -17,8 +17,8 @@ export const TaskStatsTooltip: React.FC<
 > = ({ taskStatusStats }) => {
   const [open, setOpen] = useState(false);
 
-  const buttonRef = useRef(null);
-  const popoverRef = useRef(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutside([buttonRef, popoverRef], () => setOpen(false));
 
@@ -38,7 +38,7 @@ export const TaskStatsTooltip: React.FC<
           <Icon glyph="Charts" />
         </IconButton>
       </BtnContainer>
-      <Popover ref={popoverRef} active={open} align="right">
+      <Popover ref={popoverRef} active={open} align={Align.Right}>
         <PopoverContainer data-cy="task-stats-tooltip">
           <Table>
             {taskStatusStats?.counts?.map(({ count, status }) => (
