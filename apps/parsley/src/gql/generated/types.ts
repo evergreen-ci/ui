@@ -96,6 +96,15 @@ export enum BannerTheme {
   Warning = "WARNING",
 }
 
+export type BetaFeatures = {
+  __typename?: "BetaFeatures";
+  spruceWaterfallEnabled: Scalars["Boolean"]["output"];
+};
+
+export type BetaFeaturesInput = {
+  spruceWaterfallEnabled: Scalars["Boolean"]["input"];
+};
+
 export enum BootstrapMethod {
   LegacySsh = "LEGACY_SSH",
   Ssh = "SSH",
@@ -1269,6 +1278,7 @@ export type Mutation = {
   spawnVolume: Scalars["Boolean"]["output"];
   unscheduleTask: Task;
   unscheduleVersionTasks?: Maybe<Scalars["String"]["output"]>;
+  updateBetaFeatures?: Maybe<UpdateBetaFeaturesPayload>;
   updateHostStatus: Scalars["Int"]["output"];
   updateParsleySettings?: Maybe<UpdateParsleySettingsPayload>;
   updatePublicKey: Array<PublicKey>;
@@ -1518,6 +1528,10 @@ export type MutationUnscheduleTaskArgs = {
 export type MutationUnscheduleVersionTasksArgs = {
   abort: Scalars["Boolean"]["input"];
   versionId: Scalars["String"]["input"];
+};
+
+export type MutationUpdateBetaFeaturesArgs = {
+  opts: UpdateBetaFeaturesInput;
 };
 
 export type MutationUpdateHostStatusArgs = {
@@ -1818,6 +1832,7 @@ export type PlannerSettings = {
   generateTaskFactor: Scalars["Int"]["output"];
   groupVersions: Scalars["Boolean"]["output"];
   mainlineTimeInQueueFactor: Scalars["Int"]["output"];
+  numDependentsFactor?: Maybe<Scalars["Float"]["output"]>;
   patchFactor: Scalars["Int"]["output"];
   patchTimeInQueueFactor: Scalars["Int"]["output"];
   targetTime: Scalars["Duration"]["output"];
@@ -1830,6 +1845,7 @@ export type PlannerSettingsInput = {
   generateTaskFactor: Scalars["Int"]["input"];
   groupVersions: Scalars["Boolean"]["input"];
   mainlineTimeInQueueFactor: Scalars["Int"]["input"];
+  numDependentsFactor?: InputMaybe<Scalars["Float"]["input"]>;
   patchFactor: Scalars["Int"]["input"];
   patchTimeInQueueFactor: Scalars["Int"]["input"];
   targetTime: Scalars["Int"]["input"];
@@ -2416,6 +2432,8 @@ export type RepoRef = {
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]["output"]>>;
   gitTagVersionsEnabled: Scalars["Boolean"]["output"];
   githubChecksEnabled: Scalars["Boolean"]["output"];
+  githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
   githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
@@ -2459,6 +2477,10 @@ export type RepoRefInput = {
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]["input"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   githubChecksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  githubDynamicTokenPermissionGroups?: InputMaybe<
+    Array<GitHubDynamicTokenPermissionGroupInput>
+  >;
+  githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
   githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2490,6 +2512,7 @@ export type RepoRefInput = {
 export type RepoSettings = {
   __typename?: "RepoSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
+  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<RepoRef>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -2503,6 +2526,7 @@ export type RepoSettings = {
  */
 export type RepoSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
+  githubAppAuth?: InputMaybe<GithubAppAuthInput>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectRef?: InputMaybe<RepoRefInput>;
   repoId: Scalars["String"]["input"];
@@ -3186,6 +3210,15 @@ export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type UpdateBetaFeaturesInput = {
+  betaFeatures: BetaFeaturesInput;
+};
+
+export type UpdateBetaFeaturesPayload = {
+  __typename?: "UpdateBetaFeaturesPayload";
+  betaFeatures?: Maybe<BetaFeatures>;
+};
+
 export type UpdateParsleySettingsInput = {
   parsleySettings: ParsleySettingsInput;
 };
@@ -3244,6 +3277,7 @@ export type UseSpruceOptionsInput = {
  */
 export type User = {
   __typename?: "User";
+  betaFeatures: BetaFeatures;
   displayName: Scalars["String"]["output"];
   emailAddress: Scalars["String"]["output"];
   parsleyFilters: Array<ParsleyFilter>;
@@ -3458,6 +3492,7 @@ export type WaterfallBuildVariant = {
 };
 
 export type WaterfallOptions = {
+  date?: InputMaybe<Scalars["Time"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   /** Return versions with an order lower than maxOrder. Used for paginating forward. */
   maxOrder?: InputMaybe<Scalars["Int"]["input"]>;
@@ -3465,11 +3500,13 @@ export type WaterfallOptions = {
   minOrder?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  revision?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type WaterfallTask = {
   __typename?: "WaterfallTask";
   displayName: Scalars["String"]["output"];
+  execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
 };

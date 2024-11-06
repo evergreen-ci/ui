@@ -19,6 +19,11 @@ describe("project data", () => {
 });
 
 const projectForm: PermissionGroupsFormState = {
+  appCredentials: {
+    githubAppAuth: {
+      appId: 123,
+    },
+  },
   permissionGroups: [
     {
       displayTitle: "permission-group-1",

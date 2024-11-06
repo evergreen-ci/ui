@@ -13,25 +13,33 @@ import {
 } from "constants/routes";
 import { size } from "constants/tokens";
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
+import { form } from "../utils";
 import { GithubAppActions, RequesterTypeField } from "./Fields";
 import { ArrayFieldTemplate } from "./FieldTemplates";
 
-/** All permissions group is the default if no permission group is set. */
+const { placeholderIf } = form;
+
 const allPermissionsGroup = "";
 
 /** No permissions is hardcoded in the Evergreen codebase as the given string. */
 const noPermissionsGroup = "No Permissions";
 
 export const getFormSchema = ({
+  defaultsToRepo,
   githubPermissionGroups,
   identifier,
   isAppDefined,
   projectId,
+  repoData,
+  repoIdentifier,
 }: {
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
   identifier: string;
+  repoIdentifier: string;
   isAppDefined: boolean;
   projectId: string;
+  repoData?: any;
+  defaultsToRepo: boolean;
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -113,12 +121,14 @@ export const getFormSchema = ({
           "ui:data-cy": "github-app-id-input",
           "ui:disabled": isAppDefined,
           "ui:elementWrapperCSS": appFieldCss,
+          ...placeholderIf(repoData?.appCredentials?.githubAppAuth?.appId),
         },
         privateKey: {
           "ui:data-cy": "github-private-key-input",
           "ui:disabled": isAppDefined,
           "ui:elementWrapperCSS": appFieldCss,
           "ui:widget": "textarea",
+          ...placeholderIf(repoData?.appCredentials?.githubAppAuth?.privateKey),
         },
       },
       actions: {
@@ -150,28 +160,44 @@ export const getFormSchema = ({
           to define permission groups.
         </StyledDescription>
       ),
-      permissionsByRequester: {
-        "ui:ArrayFieldTemplate": ArrayFieldTemplate,
-        "ui:addable": false,
-        "ui:orderable": false,
-        "ui:removable": false,
-        "ui:showLabel": false,
-        items: {
-          "ui:ObjectFieldTemplate": FieldRow,
-          requesterType: {
-            "ui:field": RequesterTypeField,
-            "ui:elementWrapperCSS": tokenFieldCss,
+      permissionsByRequester: defaultsToRepo
+        ? {
+            "ui:field": () => (
+              <StyledDescription>
+                Token permission restrictions are being defaulted to the{" "}
+                <StyledRouterLink
+                  to={getProjectSettingsRoute(
+                    repoIdentifier,
+                    ProjectSettingsTabRoutes.GithubAppSettings,
+                  )}
+                >
+                  repository settings.
+                </StyledRouterLink>{" "}
+              </StyledDescription>
+            ),
+          }
+        : {
+            "ui:ArrayFieldTemplate": ArrayFieldTemplate,
+            "ui:addable": false,
+            "ui:orderable": false,
+            "ui:removable": false,
             "ui:showLabel": false,
+            items: {
+              "ui:ObjectFieldTemplate": FieldRow,
+              requesterType: {
+                "ui:field": RequesterTypeField,
+                "ui:elementWrapperCSS": tokenFieldCss,
+                "ui:showLabel": false,
+              },
+              permissionGroup: {
+                "ui:allowDeselect": false,
+                "ui:ariaLabelledBy": "Permission Group",
+                "ui:data-cy": "permission-group-input",
+                "ui:elementWrapperCSS": tokenFieldCss,
+                "ui:sizeVariant": "small",
+              },
+            },
           },
-          permissionGroup: {
-            "ui:allowDeselect": false,
-            "ui:ariaLabelledBy": "Permission Group",
-            "ui:data-cy": "permission-group-input",
-            "ui:elementWrapperCSS": tokenFieldCss,
-            "ui:sizeVariant": "small",
-          },
-        },
-      },
     },
   },
 });
@@ -184,7 +210,7 @@ const appFieldCss = css`
   max-width: unset;
 `;
 
-const StyledDescription = styled.span`
+const StyledDescription = styled.div`
   display: block;
   margin-bottom: ${size.xs};
 `;

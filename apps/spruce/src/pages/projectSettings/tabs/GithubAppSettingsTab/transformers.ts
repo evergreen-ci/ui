@@ -1,12 +1,11 @@
 import { StringMap } from "@evg-ui/lib/types/utils";
 import { Requester } from "constants/requesters";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 
 type Tab = ProjectSettingsTabRoutes.GithubAppSettings;
 
-export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
+export const gqlToForm = ((data) => {
   if (!data) return null;
 
   const { githubAppAuth, projectRef } = data;
@@ -20,10 +19,12 @@ export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
       },
     },
     tokenPermissionRestrictions: {
-      permissionsByRequester: Object.values(Requester).map((r) => ({
-        requesterType: r,
-        permissionGroup: githubPermissionGroupByRequester?.[r] ?? "",
-      })),
+      permissionsByRequester: Requester
+        ? Object.values(Requester).map((r) => ({
+            requesterType: r,
+            permissionGroup: githubPermissionGroupByRequester?.[r] ?? "",
+          }))
+        : [], // Fallback to an empty array if Requester is not defined
     },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.

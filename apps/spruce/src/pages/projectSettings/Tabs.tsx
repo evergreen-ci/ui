@@ -272,8 +272,11 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           element={
             <AppSettingsTab
               githubPermissionGroups={
-                projectData?.projectRef?.githubDynamicTokenPermissionGroups ??
-                []
+                projectType === ProjectType.Repo
+                  ? (repoData?.projectRef?.githubDynamicTokenPermissionGroups ??
+                    [])
+                  : (projectData?.projectRef
+                      ?.githubDynamicTokenPermissionGroups ?? [])
               }
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier}
@@ -282,6 +285,12 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               }
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               projectId={projectId}
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.GithubAppSettings].repoData
+              }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoId={repoId}
             />
           }
           path={ProjectSettingsTabRoutes.GithubAppSettings}
@@ -291,10 +300,19 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             <PermissionGroupsTab
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier}
+              more1={repoData?.projectRef}
+              more2={projectData?.projectRef}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
                   .projectData
               }
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
+                  .repoData
+              }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoId={repoId}
             />
           }
           path={ProjectSettingsTabRoutes.GithubPermissionGroups}

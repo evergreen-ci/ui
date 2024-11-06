@@ -2,31 +2,73 @@ import { useMemo } from "react";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { BaseTab } from "../BaseTab";
+import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { AppSettingsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.GithubAppSettings;
+
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"],
+): AppSettingsFormState => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  if (!projectData) return repoData;
+  if (repoData) return { ...projectData, repoData };
+  return projectData;
+};
 
 export const AppSettingsTab: React.FC<TabProps> = ({
   githubPermissionGroups,
   identifier,
   projectData,
   projectId,
+  projectType,
+  repoData,
+  repoId,
 }) => {
-  const initialFormState = projectData;
+  const initialFormState = useMemo(
+    () => getInitialFormState(projectData, repoData),
+    [projectData, repoData],
+  );
+
+  const isRepo = projectType === ProjectType.Repo;
+  const data = isRepo ? repoData : projectData;
+
   const isAppDefined =
-    projectData?.appCredentials?.githubAppAuth?.appId > 0 &&
-    projectData?.appCredentials?.githubAppAuth?.privateKey?.length > 0;
+    (data as AppSettingsFormState)?.appCredentials?.githubAppAuth?.appId > 0 &&
+    (data as AppSettingsFormState)?.appCredentials?.githubAppAuth?.privateKey
+      ?.length > 0;
+
+  const defaultsToRepo =
+    !isRepo &&
+    !(
+      (projectData as AppSettingsFormState)?.appCredentials?.githubAppAuth
+        ?.appId > 0
+    ) &&
+    (repoData as AppSettingsFormState)?.appCredentials?.githubAppAuth?.appId >
+      0;
 
   const formSchema = useMemo(
     () =>
       getFormSchema({
         githubPermissionGroups,
         identifier,
+        repoIdentifier: repoId,
         isAppDefined,
         projectId,
+        repoData,
+        defaultsToRepo,
       }),
-    [githubPermissionGroups, identifier, isAppDefined, projectId],
+    [
+      githubPermissionGroups,
+      identifier,
+      repoId,
+      isAppDefined,
+      projectId,
+      repoData,
+      defaultsToRepo,
+    ],
   );
 
   return (

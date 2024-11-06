@@ -20,6 +20,7 @@ fragment ProjectSettingsFields on ProjectSettings {
   }
   ...ProjectAppSettings
   ...ProjectGithubCommitQueue
+  ...ProjectPermissionGroupSettings
   projectRef {
     id
     identifier
@@ -29,7 +30,6 @@ fragment ProjectSettingsFields on ProjectSettings {
     ...ProjectNotificationSettings
     ...ProjectPatchAliasSettings
     ...ProjectPeriodicBuildsSettings
-    ...ProjectPermissionGroupSettings
     ...ProjectPluginsSettings
     ...ProjectTriggersSettings
     ...ProjectViewsAndFiltersSettings
@@ -62,7 +62,9 @@ fragment RepoSettingsFields on RepoSettings {
     ...RepoViewsAndFiltersSettings
     ...RepoVirtualWorkstationSettings
   }
+  ...RepoAppSettings
   ...RepoGithubCommitQueue
+  ...RepoPermissionGroupSettings
   subscriptions {
     ...Subscriptions
   }

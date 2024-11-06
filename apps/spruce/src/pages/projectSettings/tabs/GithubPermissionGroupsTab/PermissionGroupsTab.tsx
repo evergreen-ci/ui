@@ -2,19 +2,47 @@ import { useMemo } from "react";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { BaseTab } from "../BaseTab";
-import { findDuplicateIndices } from "../utils";
+import { findDuplicateIndices, ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { PermissionGroupsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.GithubPermissionGroups;
 
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"],
+): PermissionGroupsFormState => {
+  if (!projectData) return repoData;
+  if (repoData) return { ...projectData, repoData };
+  return projectData;
+};
+
 export const PermissionGroupsTab: React.FC<TabProps> = ({
   identifier,
   projectData,
+  projectType,
+  repoData,
+  repoId,
 }) => {
-  const initialFormState = projectData;
+  const initialFormState = useMemo(
+    () => getInitialFormState(projectData, repoData),
+    [projectData, repoData],
+  );
 
-  const formSchema = useMemo(() => getFormSchema({ identifier }), [identifier]);
+  const isRepo = projectType === ProjectType.Repo;
+  const defaultsToRepo =
+    !isRepo &&
+    !(
+      (projectData as PermissionGroupsFormState)?.appCredentials?.githubAppAuth
+        ?.appId > 0
+    ) &&
+    (repoData as PermissionGroupsFormState)?.appCredentials?.githubAppAuth
+      ?.appId > 0;
+
+  const formSchema = useMemo(
+    () => getFormSchema({ identifier, repoId, defaultsToRepo }),
+    [identifier, repoId, defaultsToRepo],
+  );
 
   return (
     <BaseTab

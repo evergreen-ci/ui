@@ -32,7 +32,6 @@ const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.Plugins,
   ProjectSettingsTabRoutes.Containers,
   ProjectSettingsTabRoutes.ViewsAndFilters,
-  ProjectSettingsTabRoutes.GithubAppSettings,
   ProjectSettingsTabRoutes.GithubPermissionGroups,
 ]);
 
