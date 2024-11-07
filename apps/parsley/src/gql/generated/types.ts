@@ -2432,6 +2432,8 @@ export type RepoRef = {
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]["output"]>>;
   gitTagVersionsEnabled: Scalars["Boolean"]["output"];
   githubChecksEnabled: Scalars["Boolean"]["output"];
+  githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
   githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
@@ -2475,6 +2477,10 @@ export type RepoRefInput = {
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]["input"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   githubChecksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  githubDynamicTokenPermissionGroups?: InputMaybe<
+    Array<GitHubDynamicTokenPermissionGroupInput>
+  >;
+  githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
   githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2506,6 +2512,7 @@ export type RepoRefInput = {
 export type RepoSettings = {
   __typename?: "RepoSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
+  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<RepoRef>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -2519,6 +2526,7 @@ export type RepoSettings = {
  */
 export type RepoSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
+  githubAppAuth?: InputMaybe<GithubAppAuthInput>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectRef?: InputMaybe<RepoRefInput>;
   repoId: Scalars["String"]["input"];
@@ -3507,6 +3515,7 @@ export type WaterfallPagination = {
 export type WaterfallTask = {
   __typename?: "WaterfallTask";
   displayName: Scalars["String"]["output"];
+  displayStatus: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
