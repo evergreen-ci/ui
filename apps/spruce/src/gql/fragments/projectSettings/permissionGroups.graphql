@@ -1,6 +1,37 @@
-fragment ProjectPermissionGroupSettings on Project {
-  githubDynamicTokenPermissionGroups {
-    name
-    permissions
+fragment ProjectPermissionGroupSettings on ProjectSettings {
+  githubAppAuth {
+    appId
+  }
+  projectRef {
+    githubDynamicTokenPermissionGroups {
+      name
+      permissions
+    }
+    githubPermissionGroupByRequester
+  }
+}
+fragment ProjectEventPermissionGroupSettings on ProjectEventSettings {
+  githubAppAuth {
+    appId
+  }
+  projectRef {
+    githubDynamicTokenPermissionGroups {
+      name
+      permissions
+    }
+    githubPermissionGroupByRequester
+  }
+}
+
+fragment RepoPermissionGroupSettings on RepoSettings {
+  githubAppAuth {
+    appId
+  }
+  projectRef {
+    githubDynamicTokenPermissionGroups {
+      name
+      permissions
+    }
+    githubPermissionGroupByRequester
   }
 }

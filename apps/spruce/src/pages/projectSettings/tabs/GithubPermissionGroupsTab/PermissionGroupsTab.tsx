@@ -2,19 +2,43 @@ import { useMemo } from "react";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { BaseTab } from "../BaseTab";
-import { findDuplicateIndices } from "../utils";
+import { findDuplicateIndices, ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { PermissionGroupsFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.GithubPermissionGroups;
 
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"],
+): PermissionGroupsFormState => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  if (!projectData) return repoData;
+  if (repoData) return { ...projectData, repoData };
+  return projectData;
+};
+
 export const PermissionGroupsTab: React.FC<TabProps> = ({
   identifier,
   projectData,
+  projectType,
+  repoData,
+  repoId,
 }) => {
-  const initialFormState = projectData;
+  const initialFormState = useMemo(
+    () => getInitialFormState(projectData, repoData),
+    [projectData, repoData],
+  );
 
-  const formSchema = useMemo(() => getFormSchema({ identifier }), [identifier]);
+  const isRepo = projectType === ProjectType.Repo;
+  const projectAppId = projectData?.appCredentials?.githubAppAuth?.appId ?? 0;
+  const repoAppId = repoData?.appCredentials?.githubAppAuth?.appId ?? 0;
+  const defaultsToRepo = !isRepo && !(projectAppId > 0) && repoAppId > 0;
+
+  const formSchema = useMemo(
+    () => getFormSchema({ identifier, repoId, defaultsToRepo }),
+    [identifier, repoId, defaultsToRepo],
+  );
 
   return (
     <BaseTab

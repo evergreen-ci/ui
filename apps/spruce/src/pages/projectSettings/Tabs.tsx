@@ -271,10 +271,12 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         <Route
           element={
             <AppSettingsTab
-              githubPermissionGroups={
-                projectData?.projectRef?.githubDynamicTokenPermissionGroups ??
-                []
-              }
+              githubPermissionGroups={[
+                ...(projectData?.projectRef
+                  ?.githubDynamicTokenPermissionGroups ?? []),
+                ...(repoData?.projectRef?.githubDynamicTokenPermissionGroups ??
+                  []),
+              ]}
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier}
               projectData={
@@ -282,6 +284,12 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
               }
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               projectId={projectId}
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.GithubAppSettings].repoData
+              }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoId={repoId}
             />
           }
           path={ProjectSettingsTabRoutes.GithubAppSettings}
@@ -295,6 +303,13 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
                 tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
                   .projectData
               }
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
+                  .repoData
+              }
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              repoId={repoId}
             />
           }
           path={ProjectSettingsTabRoutes.GithubPermissionGroups}

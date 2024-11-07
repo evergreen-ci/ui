@@ -17,3 +17,13 @@ fragment ProjectEventAppSettings on ProjectEventSettings {
     githubPermissionGroupByRequester
   }
 }
+
+fragment RepoAppSettings on RepoSettings {
+  githubAppAuth {
+    appId
+    privateKey
+  }
+  projectRef {
+    githubPermissionGroupByRequester
+  }
+}
