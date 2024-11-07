@@ -23,7 +23,6 @@ import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "constants/externalResources";
-import { showImageVisibilityPage } from "constants/featureFlags";
 import {
   getDistroSettingsRoute,
   getTaskQueueRoute,
@@ -401,7 +400,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               </StyledRouterLink>
             </MetadataItem>
           )}
-          {showImageVisibilityPage && !isContainerTask && imageId && (
+          {!isContainerTask && imageId && (
             <MetadataItem>
               <ImageVisibilityGuideCue
                 refEl={imageVisibilityGuideCueTriggerRef}

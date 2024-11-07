@@ -12,7 +12,6 @@ import {
   SideNavPageWrapper,
 } from "components/styles";
 import { SideNavItemLink } from "components/styles/SideNav";
-import { showImageVisibilityPage } from "constants/featureFlags";
 import {
   DistroSettingsTabRoutes,
   getDistroSettingsRoute,
@@ -65,6 +64,8 @@ const DistroSettings: React.FC = () => {
     );
   }
 
+  const imageId = data?.distro?.imageId ?? "";
+
   return (
     <DistroSettingsProvider>
       <SideNavPageWrapper>
@@ -99,7 +100,7 @@ const DistroSettings: React.FC = () => {
             >
               Task Queue
             </SideNavItemLink>
-            {showImageVisibilityPage && (
+            {imageId && (
               <SideNavItemLink
                 data-cy="navitem-image-build-information-link"
                 onClick={() =>
@@ -108,15 +109,12 @@ const DistroSettings: React.FC = () => {
                     link: "Image Build Information",
                   })
                 }
-                to={getImageRoute(
-                  data?.distro?.imageId ?? "",
-                  ImageTabRoutes.BuildInformation,
-                )}
+                to={getImageRoute(imageId, ImageTabRoutes.BuildInformation)}
               >
                 Image Build Information
               </SideNavItemLink>
             )}
-            {showImageVisibilityPage && (
+            {imageId && (
               <SideNavItemLink
                 data-cy="navitem-image-event-log-link"
                 onClick={() =>
@@ -125,10 +123,7 @@ const DistroSettings: React.FC = () => {
                     link: "Image Event Log",
                   })
                 }
-                to={getImageRoute(
-                  data?.distro?.imageId ?? "",
-                  ImageTabRoutes.EventLog,
-                )}
+                to={getImageRoute(imageId, ImageTabRoutes.EventLog)}
               >
                 Image Event Log
               </SideNavItemLink>

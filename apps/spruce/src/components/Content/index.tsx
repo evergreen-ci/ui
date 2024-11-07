@@ -6,10 +6,7 @@ import {
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
 } from "components/Redirects";
-import {
-  showImageVisibilityPage,
-  showWaterfallPage,
-} from "constants/featureFlags";
+import { showWaterfallPage } from "constants/featureFlags";
 import { redirectRoutes, routes, slugs } from "constants/routes";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
@@ -58,11 +55,9 @@ export const Content: React.FC = () => (
       />
       <Route element={<Host />} path={routes.host} />
       <Route element={<Hosts />} path={routes.hosts} />
-      {showImageVisibilityPage && (
-        <Route element={<Image />} path={`${routes.image}/*`}>
-          <Route element={null} path={`:${slugs.tab}`} />
-        </Route>
-      )}
+      <Route element={<Image />} path={`${routes.image}/*`}>
+        <Route element={null} path={`:${slugs.tab}`} />
+      </Route>
       <Route element={null} path={routes.jobLogs}>
         <Route element={<JobLogs isLogkeeper />} path={`:${slugs.buildId}`}>
           <Route element={null} path={`:${slugs.groupId}`} />
