@@ -40,7 +40,7 @@ const TupleSelectWithRegexConditional: React.FC<
       aria-label="tuple-select-with-regex"
       label={
         <>
-          Add New Filter
+          Add Filter
           <PaddedSegmentedControl
             aria-controls="tuple-select-with-regex"
             onChange={setType}

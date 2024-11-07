@@ -13,10 +13,10 @@ import { slugs } from "constants/routes";
 import { size } from "constants/tokens";
 import { WaterfallPagination } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
-import { WaterfallFilterOptions } from "types/waterfall";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { VERSION_LIMIT } from "./styles";
+import { WaterfallFilterOptions } from "./types";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
 
@@ -26,7 +26,7 @@ const Waterfall: React.FC = () => {
   const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
   const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
-    new Set([WaterfallFilterOptions.BuildVariant]),
+    new Set([WaterfallFilterOptions.BuildVariant, WaterfallFilterOptions.Task]),
   );
 
   const { sendEvent } = useWaterfallAnalytics();

@@ -3,7 +3,7 @@ import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useWaterfallAnalytics } from "analytics";
 import { Requester, requesterToTitle } from "constants/requesters";
 import { useQueryParam } from "hooks/useQueryParam";
-import { WaterfallFilterOptions } from "types/waterfall";
+import { WaterfallFilterOptions } from "../types";
 
 const commitRequesters = [
   Requester.AdHoc,

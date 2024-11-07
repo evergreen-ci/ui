@@ -1,8 +1,12 @@
 import { useMemo } from "react";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
-import { WaterfallFilterOptions } from "types/waterfall";
-import { Build, BuildVariant, WaterfallVersion } from "./types";
+import {
+  Build,
+  BuildVariant,
+  WaterfallFilterOptions,
+  WaterfallVersion,
+} from "./types";
 import { groupInactiveVersions } from "./utils";
 
 type UseFiltersProps = {
@@ -26,9 +30,11 @@ export const useFilters = ({
     [],
   );
 
+  const [taskFilter] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
+
   const hasFilters = useMemo(
-    () => requesters.length || buildVariantFilter.length,
-    [buildVariantFilter, requesters],
+    () => requesters.length || buildVariantFilter.length || taskFilter.length,
+    [buildVariantFilter, requesters, taskFilter],
   );
 
   const versions = useMemo(
@@ -84,18 +90,15 @@ export const useFilters = ({
       ),
     [versionsResult],
   );
+
   const buildVariantFilterRegex: RegExp[] = useMemo(
-    () =>
-      buildVariantFilter.reduce<RegExp[]>((accum, curr) => {
-        let variantRegex;
-        try {
-          variantRegex = new RegExp(curr, "i");
-        } catch {
-          return accum;
-        }
-        return [...accum, variantRegex];
-      }, []),
+    () => makeFilterRegex(buildVariantFilter),
     [buildVariantFilter],
+  );
+
+  const taskFilterRegex: RegExp[] = useMemo(
+    () => makeFilterRegex(taskFilter),
+    [taskFilter],
   );
 
   const buildVariantsResult = useMemo(() => {
@@ -121,14 +124,30 @@ export const useFilters = ({
         !buildVariantFilterRegex.length ||
         buildVariantFilterRegex.some((r) => bv.displayName.match(r));
       if (passesBVFilter) {
-        if (activeVersionIds.size !== bv.builds.length) {
+        if (
+          activeVersionIds.size !== bv.builds.length ||
+          taskFilterRegex.length
+        ) {
           const activeBuilds: Build[] = [];
           bv.builds.forEach((b) => {
             if (activeVersionIds.has(b.version)) {
-              activeBuilds.push(b);
+              if (taskFilterRegex.length) {
+                const activeTasks = b.tasks.filter((t) =>
+                  taskFilterRegex.some((r) => t.displayName.match(r)),
+                );
+                activeBuilds.push({
+                  ...b,
+                  tasks: activeTasks,
+                });
+              } else {
+                activeBuilds.push(b);
+              }
             }
           });
-          if (activeBuilds.length) {
+          if (
+            activeBuilds.length &&
+            activeBuilds.some((b) => !!b.tasks.length)
+          ) {
             pushVariant({ ...bv, builds: activeBuilds });
           }
         } else {
@@ -143,6 +162,7 @@ export const useFilters = ({
     buildVariants,
     hasFilters,
     pins,
+    taskFilterRegex,
   ]);
 
   return { buildVariants: buildVariantsResult, versions: versionsResult };
@@ -163,3 +183,14 @@ const matchesRequesters = (
   }
   return requesters.some((r) => r === version.requester);
 };
+
+const makeFilterRegex = (filters: string[]) =>
+  filters.reduce<RegExp[]>((accum, curr) => {
+    let regex;
+    try {
+      regex = new RegExp(curr, "i");
+    } catch {
+      return accum;
+    }
+    return [...accum, regex];
+  }, []);

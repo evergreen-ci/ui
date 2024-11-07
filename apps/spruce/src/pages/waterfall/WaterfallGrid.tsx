@@ -13,7 +13,6 @@ import {
 import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
-import { WaterfallFilterOptions } from "types/waterfall";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { InactiveVersionsButton } from "./InactiveVersions";
@@ -24,6 +23,7 @@ import {
   Row,
   VERSION_LIMIT,
 } from "./styles";
+import { WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";

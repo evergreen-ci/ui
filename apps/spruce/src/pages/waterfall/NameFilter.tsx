@@ -2,8 +2,8 @@ import { useCallback } from "react";
 import { useWaterfallAnalytics } from "analytics";
 import TupleSelectWithRegexConditional from "components/TupleSelectWithRegexConditional";
 import { useUpsertQueryParams } from "hooks";
-import { WaterfallFilterOptions } from "types/waterfall";
 import { validators } from "utils";
+import { WaterfallFilterOptions } from "./types";
 
 export const NameFilter = () => {
   const onSubmit = useUpsertQueryParams();
@@ -37,5 +37,10 @@ const options = [
     value: WaterfallFilterOptions.BuildVariant,
     displayName: "Build Variant",
     placeHolderText: "Filter build variants",
+  },
+  {
+    value: WaterfallFilterOptions.Task,
+    displayName: "Task",
+    placeHolderText: "Filter tasks",
   },
 ];

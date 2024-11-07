@@ -6,7 +6,7 @@ import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { WaterfallPagination } from "gql/generated/types";
 import { useQueryParams } from "hooks/useQueryParam";
-import { WaterfallFilterOptions } from "types/waterfall";
+import { WaterfallFilterOptions } from "../types";
 
 interface PaginationButtonsProps {
   pagination: WaterfallPagination | undefined;
