@@ -1,4 +1,5 @@
 import { ProjectType } from "../utils";
+
 type PermissionGroups = {
   displayTitle: string;
   name: string;
