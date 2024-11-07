@@ -210,7 +210,7 @@ const appFieldCss = css`
   max-width: unset;
 `;
 
-const StyledDescription = styled.div`
+const StyledDescription = styled.span`
   display: block;
   margin-bottom: ${size.xs};
 `;
