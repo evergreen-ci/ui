@@ -40,18 +40,16 @@ const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
         </StyledTooltip>
       )}
     >
-      <span>
-        <PaddedChip
-          data-cy="filter-badge"
-          label={
-            <ChipLabel>
-              {badge.key}: {trimmedBadgeName}
-            </ChipLabel>
-          }
-          onDismiss={onClose}
-          variant="gray"
-        />
-      </span>
+      <Chip
+        data-cy="filter-badge"
+        label={
+          <ChipLabel>
+            {badge.key}: {trimmedBadgeName}
+          </ChipLabel>
+        }
+        onDismiss={onClose}
+        variant="gray"
+      />
     </ConditionalWrapper>
   );
 };
@@ -60,11 +58,6 @@ const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
 const ChipLabel = styled.span`
   font-weight: 700;
   text-transform: uppercase;
-`;
-
-const PaddedChip = styled(Chip)`
-  margin-right: ${size.s};
-  margin-bottom: ${size.s};
 `;
 
 // @ts-expect-error

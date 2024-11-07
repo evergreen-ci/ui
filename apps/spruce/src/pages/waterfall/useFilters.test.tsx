@@ -297,12 +297,14 @@ const waterfall = {
           tasks: [
             {
               displayName: "Task 20",
+              displayStatus: "started",
               execution: 0,
               id: "task_20",
               status: "started",
             },
             {
               displayName: "Task 15",
+              displayStatus: "started",
               execution: 0,
               id: "task_15",
               status: "started",
@@ -324,6 +326,7 @@ const waterfall = {
           tasks: [
             {
               displayName: "Task 100",
+              displayStatus: "started",
               execution: 0,
               id: "task_100",
               status: "started",
@@ -345,12 +348,14 @@ const waterfall = {
           tasks: [
             {
               displayName: "Task 1",
+              displayStatus: "success",
               execution: 0,
               id: "task_1",
               status: "success",
             },
             {
               displayName: "Task 2",
+              displayStatus: "task-timed-out",
               execution: 0,
               id: "task_2",
               status: "failed",

@@ -50,19 +50,17 @@ const Waterfall: React.FC = () => {
           pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
         />
-        <BadgesContainer>
-          <FilterBadges
-            badges={badges}
-            onClearAll={() => {
-              sendEvent({ name: "Deleted all filter badges" });
-              startTransition(handleClearAll);
-            }}
-            onRemove={(b) => {
-              sendEvent({ name: "Deleted one filter badge" });
-              startTransition(() => handleOnRemove(b));
-            }}
-          />
-        </BadgesContainer>
+        <FilterBadges
+          badges={badges}
+          onClearAll={() => {
+            sendEvent({ name: "Deleted all filter badges" });
+            startTransition(handleClearAll);
+          }}
+          onRemove={(b) => {
+            sendEvent({ name: "Deleted one filter badge" });
+            startTransition(() => handleOnRemove(b));
+          }}
+        />
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
           fallback={
@@ -106,7 +104,5 @@ const navbarStyles = css`
     z-index: 1;
   }
 `;
-
-const BadgesContainer = styled.div``;
 
 export default Waterfall;
