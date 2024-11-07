@@ -15,7 +15,10 @@ describe("projectSettings/admin_actions", () => {
       cy.dataCy("project-name-input").type("copied-project");
 
       cy.contains("button", "Duplicate").click();
-      cy.validateToast("warning");
+      cy.validateToast(
+        "warning",
+        "Project cannot be enabled due to the global or repo-specific limits.",
+      );
 
       cy.url().should("include", "copied-project");
     });
@@ -38,7 +41,10 @@ describe("projectSettings/admin_actions", () => {
       cy.dataCy("new-repo-input").type("new-repo");
 
       cy.contains("button", "Create project").click();
-      cy.validateToast("success");
+      cy.validateToast(
+        "success",
+        "Successfully created the project: my-new-project",
+      );
 
       cy.url().should("include", "my-new-project");
 
@@ -59,10 +65,13 @@ describe("projectSettings/admin_actions", () => {
         .contains("Delete")
         .parent()
         .click();
-      cy.validateToast("success");
+      cy.validateToast("success", "The project “my-new-project” was deleted.");
 
       cy.reload();
-      cy.validateToast("error");
+      cy.validateToast(
+        "error",
+        "There was an error loading the project my-new-project",
+      );
     });
   });
 });

@@ -26,6 +26,9 @@ describe("Update Status Modal", () => {
       cy.contains("button", "Update").click({ force: true });
     });
     cy.dataCy("update-host-status-modal").should("not.exist");
-    cy.validateToast("success");
+    cy.validateToast(
+      "success",
+      `Status was changed to terminated for 13 hosts`,
+    );
   });
 });

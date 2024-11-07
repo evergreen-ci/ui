@@ -25,7 +25,7 @@ describe("Job logs page", () => {
       cy.visit(`job-logs/${invalidBuildId}`);
       cy.validateToast(
         "error",
-        "There was an error retrieving logs for this build: Logkeeper returned HTTP status 404",
+        "There was an error retrieving logs for this build",
       );
     });
   });

@@ -5,13 +5,13 @@ describe("Host page restart jasper, reprovision, and update host status buttons"
   it("Should show a toast when jasper restarted", () => {
     cy.dataCy("restart-jasper-button").click();
     cy.contains("button", "Yes").click();
-    cy.validateToast("success");
+    cy.validateToast("success", "Marked Jasper as restarting");
   });
 
   it("Should show a toast when host is reprovisioned", () => {
     cy.dataCy("reprovision-button").click();
     cy.contains("button", "Yes").click();
-    cy.validateToast("success");
+    cy.validateToast("success", "Marked host to reprovision");
   });
 
   it("Should show and hide the modal for update status", () => {
@@ -29,7 +29,7 @@ describe("Host page restart jasper, reprovision, and update host status buttons"
       cy.contains("button", "Update").click({ force: true });
     });
 
-    cy.validateToast("success");
+    cy.validateToast("success", `Status was changed to decommissioned`);
     cy.dataCy("update-host-status-modal").should("not.exist");
   });
 });
