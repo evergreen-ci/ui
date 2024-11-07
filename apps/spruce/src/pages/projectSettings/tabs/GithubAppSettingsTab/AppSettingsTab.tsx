@@ -39,7 +39,7 @@ export const AppSettingsTab: React.FC<TabProps> = ({
     (data?.appCredentials?.githubAppAuth?.appId ?? 0) > 0 &&
     (data?.appCredentials?.githubAppAuth?.privateKey?.length ?? 0) > 0;
 
-  const projectAppId = projectData?.appCredentials?.githubAppAuth?.appId;
+  const projectAppId = projectData?.appCredentials?.githubAppAuth?.appId ?? 0;
   const repoAppId = repoData?.appCredentials?.githubAppAuth?.appId ?? 0;
 
   const defaultsToRepo = !isRepo && !(projectAppId > 0) && repoAppId > 0;

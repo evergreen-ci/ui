@@ -12,6 +12,7 @@ const getInitialFormState = (
   projectData: TabProps["projectData"],
   repoData: TabProps["repoData"],
 ): PermissionGroupsFormState => {
+  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
   return projectData;
