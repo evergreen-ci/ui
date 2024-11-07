@@ -19,12 +19,10 @@ export const gqlToForm = ((data) => {
       },
     },
     tokenPermissionRestrictions: {
-      permissionsByRequester: Requester
-        ? Object.values(Requester).map((r) => ({
+      permissionsByRequester: Object.values(Requester).map((r) => ({
             requesterType: r,
             permissionGroup: githubPermissionGroupByRequester?.[r] ?? "",
           }))
-        : [], // Fallback to an empty array if Requester is not defined
     },
   };
   // @ts-expect-error: FIXME. This comment was added by an automated script.
