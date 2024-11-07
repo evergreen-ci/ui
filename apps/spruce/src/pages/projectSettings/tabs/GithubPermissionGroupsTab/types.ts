@@ -27,7 +27,7 @@ export interface PermissionGroupsFormState {
 export type TabProps = {
   identifier: string;
   repoId: string;
-  projectData: PermissionGroupsFormState;
+  projectData?: PermissionGroupsFormState;
   projectType: ProjectType;
-  repoData: PermissionGroupsFormState;
+  repoData?: PermissionGroupsFormState;
 };
