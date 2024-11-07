@@ -30,7 +30,7 @@ export const PermissionGroupsTab: React.FC<TabProps> = ({
   );
 
   const isRepo = projectType === ProjectType.Repo;
-  const projectAppId = projectData?.appCredentials?.githubAppAuth?.appId;
+  const projectAppId = projectData?.appCredentials?.githubAppAuth?.appId ?? 0;
   const repoAppId = repoData?.appCredentials?.githubAppAuth?.appId ?? 0;
   const defaultsToRepo = !isRepo && !(projectAppId > 0) && repoAppId > 0;
 
