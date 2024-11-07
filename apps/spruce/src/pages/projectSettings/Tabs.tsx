@@ -300,8 +300,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             <PermissionGroupsTab
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               identifier={identifier}
-              more1={repoData?.projectRef}
-              more2={projectData?.projectRef}
               projectData={
                 tabData[ProjectSettingsTabRoutes.GithubPermissionGroups]
                   .projectData

@@ -36,18 +36,13 @@ export const AppSettingsTab: React.FC<TabProps> = ({
   const data = isRepo ? repoData : projectData;
 
   const isAppDefined =
-    (data as AppSettingsFormState)?.appCredentials?.githubAppAuth?.appId > 0 &&
-    (data as AppSettingsFormState)?.appCredentials?.githubAppAuth?.privateKey
-      ?.length > 0;
+    (data?.appCredentials?.githubAppAuth?.appId ?? 0) > 0 &&
+    (data?.appCredentials?.githubAppAuth?.privateKey?.length ?? 0) > 0;
 
-  const defaultsToRepo =
-    !isRepo &&
-    !(
-      (projectData as AppSettingsFormState)?.appCredentials?.githubAppAuth
-        ?.appId > 0
-    ) &&
-    (repoData as AppSettingsFormState)?.appCredentials?.githubAppAuth?.appId >
-      0;
+  const projectAppId = projectData?.appCredentials?.githubAppAuth?.appId;
+  const repoAppId = repoData?.appCredentials?.githubAppAuth?.appId ?? 0;
+
+  const defaultsToRepo = !isRepo && !(projectAppId > 0) && repoAppId > 0;
 
   const formSchema = useMemo(
     () =>
