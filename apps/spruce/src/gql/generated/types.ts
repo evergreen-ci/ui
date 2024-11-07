@@ -9641,6 +9641,7 @@ export type WaterfallQuery = {
         tasks: Array<{
           __typename?: "WaterfallTask";
           displayName: string;
+          displayStatus: string;
           execution: number;
           id: string;
           status: string;

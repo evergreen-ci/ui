@@ -87,6 +87,7 @@ const Waterfall: React.FC = () => {
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: ${size.s};
   padding: ${size.m};
 `;
 
@@ -106,8 +107,6 @@ const navbarStyles = css`
   }
 `;
 
-const BadgesContainer = styled.div`
-  margin-top: ${size.s};
-`;
+const BadgesContainer = styled.div``;
 
 export default Waterfall;
