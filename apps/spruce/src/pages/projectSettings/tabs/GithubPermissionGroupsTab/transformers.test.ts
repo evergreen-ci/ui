@@ -21,7 +21,8 @@ describe("project data", () => {
 const projectForm: PermissionGroupsFormState = {
   appCredentials: {
     githubAppAuth: {
-      appId: 123,
+      appId: 12345,
+      privateKey: "{REDACTED}",
     },
   },
   permissionGroups: [
@@ -44,7 +45,14 @@ const projectForm: PermissionGroupsFormState = {
   ],
 };
 
-const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
+const projectResult: Pick<
+  ProjectSettingsInput,
+  "projectId" | "projectRef" | "githubAppAuth"
+> = {
+  githubAppAuth: {
+    appId: 12345,
+    privateKey: "",
+  },
   projectId: "project",
   projectRef: {
     githubDynamicTokenPermissionGroups: [
