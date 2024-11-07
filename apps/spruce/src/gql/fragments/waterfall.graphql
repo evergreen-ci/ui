@@ -1,0 +1,23 @@
+#import "../fragments/upstreamProject.graphql"
+
+fragment WaterfallVersion on Version {
+  activated
+  author
+  createTime
+  errors
+  gitTags {
+    tag
+  }
+  id
+  message
+  order
+  requester
+  revision
+  taskStatusStats(options: {}) {
+    counts {
+      count
+      status
+    }
+  }
+  ...UpstreamProject
+}

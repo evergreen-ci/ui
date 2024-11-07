@@ -7,8 +7,7 @@ describe("Execution task table", () => {
   });
 
   it("Should have a default sort order applied", () => {
-    cy.location("search").should("contain", "sortBy=STATUS");
-    cy.location("search").should("contain", "sortDir=ASC");
+    cy.location("search").should("contain", "sorts=STATUS%3AASC");
   });
 
   it("Updates the url when column headers are clicked", () => {

@@ -9,6 +9,7 @@ import {
   deleteTag,
   getLatestTag,
   pushTags,
+  getReleaseVersion,
 } from "../utils/git";
 
 /**
@@ -66,19 +67,7 @@ export const prepareProdDeploy = async () => {
 
   console.log(`Commit messages:\n${commitMessages}`);
 
-  const { value: version } = await prompts({
-    type: "select",
-    name: "value",
-    message: "How should this deploy be versioned?",
-    choices: [
-      { title: "Patch", value: "patch" },
-      { title: "Minor", value: "minor" },
-      { title: "Major", value: "major" },
-    ],
-    initial: 0,
-  });
-
-  if (version) {
-    createTagAndPush(version);
-  }
+  const version = getReleaseVersion(commitMessages);
+  console.log(`This deploy is a ${version} release.`);
+  createTagAndPush(version);
 };

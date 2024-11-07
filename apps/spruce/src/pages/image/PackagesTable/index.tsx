@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -6,7 +6,9 @@ import {
   ColumnFiltersState,
   PaginationState,
 } from "@leafygreen-ui/table";
+import { useImageAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
+import { onChangeHandler } from "components/Table/utils";
 import { DEFAULT_PAGE_SIZE } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
@@ -22,11 +24,13 @@ type PackagesTableProps = {
 
 export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useImageAnalytics();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: DEFAULT_PAGE_SIZE,
   });
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
   const { data: packagesData, loading } = useQuery<
     ImagePackagesQuery,
     ImagePackagesQueryVariables
@@ -40,27 +44,18 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
           ?.value as string,
       },
     },
-    onError(err) {
+    onError: (err) => {
       dispatchToast.error(
         `There was an error loading image packages: ${err.message}`,
       );
     },
   });
 
-  const packages = useMemo(
-    () => packagesData?.image?.packages.data ?? [],
-    [packagesData?.image?.packages.data],
-  );
+  const packages = packagesData?.image?.packages.data ?? [];
 
-  const numPackages = useMemo(
-    () =>
-      packagesData?.image?.packages.filteredCount ??
-      packagesData?.image?.packages.totalCount,
-    [
-      packagesData?.image?.packages.filteredCount,
-      packagesData?.image?.packages.totalCount,
-    ],
-  );
+  const numPackages =
+    packagesData?.image?.packages.filteredCount ??
+    packagesData?.image?.packages.totalCount;
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Package>({
@@ -77,8 +72,22 @@ export const PackagesTable: React.FC<PackagesTableProps> = ({ imageId }) => {
       pagination,
       columnFilters,
     },
-    onColumnFiltersChange: setColumnFilters,
-    onPaginationChange: setPagination,
+    onColumnFiltersChange: onChangeHandler<ColumnFiltersState>(
+      setColumnFilters,
+      (f) =>
+        sendEvent({
+          name: "Filtered table",
+          "table.name": "Packages",
+          "table.filters": f,
+        }),
+    ),
+    onPaginationChange: onChangeHandler<PaginationState>(setPagination, (p) =>
+      sendEvent({
+        name: "Changed table pagination",
+        "table.name": "Packages",
+        "table.pagination": p,
+      }),
+    ),
   });
 
   return (
@@ -99,7 +108,6 @@ const columns: LGColumnDef<Package>[] = [
     header: "Name",
     accessorKey: "name",
     enableColumnFilter: true,
-    filterFn: "includesString",
     meta: {
       search: {
         "data-cy": "package-name-filter",

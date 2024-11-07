@@ -5013,6 +5013,39 @@ export type UpstreamProjectFragment = {
   } | null;
 };
 
+export type WaterfallVersionFragment = {
+  __typename?: "Version";
+  activated?: boolean | null;
+  author: string;
+  createTime: Date;
+  errors: Array<string>;
+  id: string;
+  message: string;
+  order: number;
+  requester: string;
+  revision: string;
+  gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+  taskStatusStats?: {
+    __typename?: "TaskStats";
+    counts?: Array<{
+      __typename?: "StatusCount";
+      count: number;
+      status: string;
+    }> | null;
+  } | null;
+  upstreamProject?: {
+    __typename?: "UpstreamProject";
+    owner: string;
+    project: string;
+    repo: string;
+    revision: string;
+    triggerID: string;
+    triggerType: string;
+    task?: { __typename?: "Task"; execution: number; id: string } | null;
+    version?: { __typename?: "Version"; id: string } | null;
+  } | null;
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"]["input"];
 }>;
@@ -6272,45 +6305,48 @@ export type HasVersionQuery = { __typename?: "Query"; hasVersion: boolean };
 
 export type HostEventsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
-  tag: Scalars["String"]["input"];
-  limit?: InputMaybe<Scalars["Int"]["input"]>;
-  page?: InputMaybe<Scalars["Int"]["input"]>;
+  opts: HostEventsInput;
 }>;
 
 export type HostEventsQuery = {
   __typename?: "Query";
-  hostEvents: {
-    __typename?: "HostEvents";
-    count: number;
-    eventLogEntries: Array<{
-      __typename?: "HostEventLogEntry";
-      eventType?: HostEventType | null;
-      id: string;
-      processedAt: Date;
-      resourceId: string;
-      resourceType: string;
-      timestamp?: Date | null;
-      data: {
-        __typename?: "HostEventLogData";
-        agentBuild: string;
-        agentRevision: string;
-        duration: number;
-        execution: string;
-        hostname: string;
-        jasperRevision: string;
-        logs: string;
-        monitorOp: string;
-        newStatus: string;
-        oldStatus: string;
-        provisioningMethod: string;
-        successful: boolean;
-        taskId: string;
-        taskPid: string;
-        taskStatus: string;
-        user: string;
-      };
-    }>;
-  };
+  host?: {
+    __typename?: "Host";
+    eventTypes: Array<HostEventType>;
+    id: string;
+    events: {
+      __typename?: "HostEvents";
+      count: number;
+      eventLogEntries: Array<{
+        __typename?: "HostEventLogEntry";
+        eventType?: HostEventType | null;
+        id: string;
+        processedAt: Date;
+        resourceId: string;
+        resourceType: string;
+        timestamp?: Date | null;
+        data: {
+          __typename?: "HostEventLogData";
+          agentBuild: string;
+          agentRevision: string;
+          duration: number;
+          execution: string;
+          hostname: string;
+          jasperRevision: string;
+          logs: string;
+          monitorOp: string;
+          newStatus: string;
+          oldStatus: string;
+          provisioningMethod: string;
+          successful: boolean;
+          taskId: string;
+          taskPid: string;
+          taskStatus: string;
+          user: string;
+        };
+      }>;
+    };
+  } | null;
 };
 
 export type HostQueryVariables = Exact<{
@@ -6462,6 +6498,25 @@ export type ImageGeneralQuery = {
       finishTime?: Date | null;
       id: string;
     } | null;
+  } | null;
+};
+
+export type ImageOperatingSystemQueryVariables = Exact<{
+  imageId: Scalars["String"]["input"];
+  opts: OperatingSystemOpts;
+}>;
+
+export type ImageOperatingSystemQuery = {
+  __typename?: "Query";
+  image?: {
+    __typename?: "Image";
+    id: string;
+    operatingSystem: {
+      __typename?: "ImageOperatingSystemPayload";
+      filteredCount: number;
+      totalCount: number;
+      data: Array<{ __typename?: "OSInfo"; name: string; version: string }>;
+    };
   } | null;
 };
 
@@ -9167,6 +9222,44 @@ export type TaskQuery = {
   } | null;
 };
 
+export type TestAnalysisQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  options: TaskFilterOptions;
+  opts?: InputMaybe<TestFilterOptions>;
+}>;
+
+export type TestAnalysisQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    tasks: {
+      __typename?: "VersionTasks";
+      count: number;
+      data: Array<{
+        __typename?: "Task";
+        buildVariant: string;
+        buildVariantDisplayName?: string | null;
+        displayName: string;
+        execution: number;
+        id: string;
+        status: string;
+        tests: {
+          __typename?: "TaskTestResult";
+          filteredTestCount: number;
+          testResults: Array<{
+            __typename?: "TestResult";
+            id: string;
+            status: string;
+            testFile: string;
+            logs: { __typename?: "TestLog"; urlParsley?: string | null };
+          }>;
+        };
+      }>;
+    };
+  };
+};
+
 export type UndispatchedTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
 }>;
@@ -9611,29 +9704,64 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
-    versions: Array<{
-      __typename?: "WaterfallVersion";
-      version?: {
-        __typename?: "Version";
+    buildVariants: Array<{
+      __typename?: "WaterfallBuildVariant";
+      displayName: string;
+      id: string;
+      version: string;
+      builds: Array<{
+        __typename?: "WaterfallBuild";
         activated?: boolean | null;
-        author: string;
-        createTime: Date;
+        displayName: string;
         id: string;
-        message: string;
+        version: string;
+        tasks: Array<{
+          __typename?: "WaterfallTask";
+          displayName: string;
+          execution: number;
+          id: string;
+          status: string;
+        }>;
+      }>;
+    }>;
+    flattenedVersions: Array<{
+      __typename?: "Version";
+      activated?: boolean | null;
+      author: string;
+      createTime: Date;
+      errors: Array<string>;
+      id: string;
+      message: string;
+      order: number;
+      requester: string;
+      revision: string;
+      gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      taskStatusStats?: {
+        __typename?: "TaskStats";
+        counts?: Array<{
+          __typename?: "StatusCount";
+          count: number;
+          status: string;
+        }> | null;
+      } | null;
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        owner: string;
+        project: string;
+        repo: string;
         revision: string;
-        gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
+        triggerID: string;
+        triggerType: string;
+        task?: { __typename?: "Task"; execution: number; id: string } | null;
+        version?: { __typename?: "Version"; id: string } | null;
       } | null;
     }>;
+    pagination: {
+      __typename?: "WaterfallPagination";
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+      nextPageOrder: number;
+      prevPageOrder: number;
+    };
   };
 };

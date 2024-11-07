@@ -1,0 +1,31 @@
+query TestAnalysis(
+  $versionId: String!
+  $options: TaskFilterOptions!
+  $opts: TestFilterOptions
+) {
+  version(versionId: $versionId) {
+    id
+    tasks(options: $options) {
+      count
+      data {
+        buildVariant
+        buildVariantDisplayName
+        displayName
+        execution
+        id
+        status
+        tests(opts: $opts) {
+          filteredTestCount
+          testResults {
+            id
+            logs {
+              urlParsley
+            }
+            status
+            testFile
+          }
+        }
+      }
+    }
+  }
+}

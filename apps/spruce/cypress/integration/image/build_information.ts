@@ -26,6 +26,53 @@ describe("build information", () => {
     });
   });
 
+  describe("os", () => {
+    it("should show the corresponding OS info", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("os-table-row").should("have.length", 10);
+    });
+
+    it("should show different OS info on different pages", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("os-table-row").should("have.length", 10);
+
+      // First OS info name on first page.
+      cy.dataCy("os-table-row")
+        .first()
+        .find("td")
+        .first()
+        .invoke("text")
+        .as("firstOSName", { type: "static" });
+
+      cy.dataCy("os-card").within(() => {
+        cy.get("[data-testid=lg-pagination-next-button]").click();
+      });
+
+      // First OS info name on second page.
+      cy.dataCy("os-table-row")
+        .first()
+        .find("td")
+        .first()
+        .invoke("text")
+        .as("nextOSName", { type: "static" });
+
+      // OS info names should not be equal.
+      cy.get("@firstOSName").then((firstOSName) => {
+        cy.get("@nextOSName").then((nextOSName) => {
+          expect(nextOSName).not.to.equal(firstOSName);
+        });
+      });
+    });
+
+    it("should show no OS info when filtering for nonexistent item", () => {
+      cy.visit("/image/ubuntu2204");
+      cy.dataCy("os-table-row").should("have.length", 10);
+      cy.dataCy("os-name-filter").click();
+      cy.get('input[placeholder="Name regex"]').type("fakeOS{enter}");
+      cy.dataCy("os-table-row").should("have.length", 0);
+    });
+  });
+
   describe("packages", () => {
     it("should show the corresponding packages", () => {
       cy.visit("/image/ubuntu2204");
@@ -118,5 +165,31 @@ describe("build information", () => {
       cy.get('input[placeholder="Name regex"]').type("faketoolchain{enter}");
       cy.dataCy("toolchains-table-row").should("have.length", 0);
     });
+  });
+});
+
+describe("side nav", () => {
+  beforeEach(() => {
+    cy.visit("/image/ubuntu2204/build-information");
+    cy.contains("ubuntu2204").should("be.visible");
+    cy.dataCy("table-loader-loading-row").should("not.exist");
+  });
+
+  it("highlights different sections as the user scrolls", () => {
+    cy.dataCy("general-card").scrollIntoView();
+    cy.dataCy("navitem-general").should("have.attr", "data-active", "true");
+    cy.dataCy("navitem-distros").should("have.attr", "data-active", "false");
+
+    cy.dataCy("distros-card").scrollIntoView();
+    cy.dataCy("navitem-general").should("have.attr", "data-active", "false");
+    cy.dataCy("navitem-distros").should("have.attr", "data-active", "true");
+  });
+
+  it("can click to navigate to different sections", () => {
+    cy.dataCy("navitem-packages").should("have.attr", "data-active", "false");
+    cy.dataCy("packages-card").should("not.be.visible");
+    cy.dataCy("navitem-packages").click();
+    cy.dataCy("navitem-packages").should("have.attr", "data-active", "true");
+    cy.dataCy("packages-card").should("be.visible");
   });
 });

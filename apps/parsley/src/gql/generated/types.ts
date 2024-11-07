@@ -2432,8 +2432,6 @@ export type RepoRef = {
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]["output"]>>;
   gitTagVersionsEnabled: Scalars["Boolean"]["output"];
   githubChecksEnabled: Scalars["Boolean"]["output"];
-  githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
-  githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
   githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
@@ -2477,10 +2475,6 @@ export type RepoRefInput = {
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]["input"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   githubChecksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
-  githubDynamicTokenPermissionGroups?: InputMaybe<
-    Array<GitHubDynamicTokenPermissionGroupInput>
-  >;
-  githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
   githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2512,7 +2506,6 @@ export type RepoRefInput = {
 export type RepoSettings = {
   __typename?: "RepoSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
-  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<RepoRef>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -2526,7 +2519,6 @@ export type RepoSettings = {
  */
 export type RepoSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
-  githubAppAuth?: InputMaybe<GithubAppAuthInput>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectRef?: InputMaybe<RepoRefInput>;
   repoId: Scalars["String"]["input"];
@@ -3470,8 +3462,8 @@ export type VolumeHost = {
 export type Waterfall = {
   __typename?: "Waterfall";
   buildVariants: Array<WaterfallBuildVariant>;
-  nextPageOrder: Scalars["Int"]["output"];
-  prevPageOrder: Scalars["Int"]["output"];
+  flattenedVersions: Array<Version>;
+  pagination: WaterfallPagination;
   versions: Array<WaterfallVersion>;
 };
 
@@ -3489,6 +3481,7 @@ export type WaterfallBuildVariant = {
   builds: Array<WaterfallBuild>;
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
+  version: Scalars["String"]["output"];
 };
 
 export type WaterfallOptions = {
@@ -3503,9 +3496,18 @@ export type WaterfallOptions = {
   revision?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type WaterfallPagination = {
+  __typename?: "WaterfallPagination";
+  hasNextPage: Scalars["Boolean"]["output"];
+  hasPrevPage: Scalars["Boolean"]["output"];
+  nextPageOrder: Scalars["Int"]["output"];
+  prevPageOrder: Scalars["Int"]["output"];
+};
+
 export type WaterfallTask = {
   __typename?: "WaterfallTask";
   displayName: Scalars["String"]["output"];
+  displayStatus: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
   status: Scalars["String"]["output"];
@@ -3757,6 +3759,16 @@ export type ProjectFiltersQuery = {
       expression: string;
     }> | null;
   };
+};
+
+export type SecretFieldsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SecretFieldsQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    secretFields: Array<string>;
+  } | null;
 };
 
 export type TaskFilesQueryVariables = Exact<{

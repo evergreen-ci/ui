@@ -147,7 +147,7 @@ const modalFormDefinition = (githubOrgs: string[]) => ({
       projectName: projectName.schema,
       owner: {
         type: "string" as "string",
-        title: "Owner",
+        title: "GitHub Organization",
         oneOf: githubOrgs.map((org) => ({
           type: "string" as "string",
           title: org,

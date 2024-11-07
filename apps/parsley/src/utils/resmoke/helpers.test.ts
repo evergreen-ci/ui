@@ -53,6 +53,8 @@ describe("resmoke/helpers", () => {
       expect(getContext(line)).toBe("conn1");
       line = `{"t":{"$date":"2022-09-08T14:51:21.568+00:00"},"s":"I",  "c":"COMMAND",  "ctx":"ReplCoord-1" }`;
       expect(getContext(line)).toBe("ReplCoord-1");
+      line = `{"t":{"$date":"2022-09-08T14:51:21.568+00:00"},"s":"I",  "c":"COMMAND",  "ctx":"ReplCoord.local.log" }`;
+      expect(getContext(line)).toBe("ReplCoord.local.log");
       line = `{"t":{"$date":"2022-09-08T14:51:21.568+00:00"},"s":"I",  "c":"-",  "ctx":"-" }`;
       expect(getContext(line)).toBe("-");
     });

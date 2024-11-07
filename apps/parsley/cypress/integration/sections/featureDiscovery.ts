@@ -1,7 +1,6 @@
 describe("sections feature discovery", () => {
   beforeEach(() => {
-    cy.setCookie("has-seen-sections-beta-guide-cue", "false");
-    cy.setCookie("has-seen-sections-beta-feature-modal", "false");
+    cy.setCookie("has-seen-sections-prod-feature-modal", "false");
   });
   it("should only show the feature modal when viewing a task log", () => {
     cy.visit(
@@ -15,47 +14,16 @@ describe("sections feature discovery", () => {
     cy.visit(taskLog);
     cy.dataCy("sections-feature-modal").should("be.visible");
   });
-  it("should close the feature modal and open the details modal and display 2 guide cues when Enabled sections is clicked", () => {
+  it("should close the feature modal when 'Let's go' is clicked", () => {
     cy.visit(taskLog);
     cy.dataCy("sections-feature-modal").should("be.visible");
-    cy.dataCy("details-menu").should("not.exist");
-    cy.contains("Enable sectioning").click();
+    cy.contains("Let's go").click();
     cy.dataCy("sections-feature-modal").should("not.exist");
-    cy.dataCy("details-menu").should("be.visible");
-    cy.getCookie("has-seen-sections-beta-feature-modal").should(
+    cy.getCookie("has-seen-sections-prod-feature-modal").should(
       "have.property",
       "value",
       "true",
     );
-    cy.dataCy("sections-cue-1").should("be.visible");
-    // outside click should not close details menu when guide cue is visible
-    cy.get("body").click("topRight");
-    cy.dataCy("details-menu").should("be.visible");
-    cy.dataCy("sections-cue-2").should("not.exist");
-    cy.contains("Got it").click();
-    cy.dataCy("sections-cue-1").should("not.exist");
-    cy.dataCy("sections-cue-2").should("be.visible");
-    cy.getCookie("has-seen-sections-beta-guide-cue").should(
-      "have.property",
-      "value",
-      "false",
-    );
-    cy.contains("Got it").click();
-    cy.getCookie("has-seen-sections-beta-guide-cue").should(
-      "have.property",
-      "value",
-      "true",
-    );
-    cy.dataCy("sections-cue-2").should("not.exist");
-    // outside click should dismiss details menu when guide cue is not visible
-    cy.get("body").click("topRight");
-    cy.dataCy("details-menu").should("not.exist");
-    // Introductory modal and guide cue should not be visible after refresh
-    cy.reload();
-    cy.dataCy("sections-feature-modal").should("not.exist");
-    cy.dataCy("details-menu").should("not.exist");
-    cy.dataCy("sections-cue-1").should("not.exist");
-    cy.dataCy("sections-cue-2").should("not.exist");
   });
 });
 const taskLog =

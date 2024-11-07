@@ -4,3 +4,4 @@ export { useLogWindowAnalytics } from "./logWindow/useLogWindowAnalytics";
 export { usePreferencesAnalytics } from "./preferences/usePreferencesAnalytics";
 export { useLogDownloadAnalytics } from "./loadingPage/useLogDownloadAnalytics";
 export { useShortcutAnalytics } from "./shortcuts/useShortcutAnalytics";
+export { useSectionsFeatureDiscoveryAnalytics } from "./sectionsFeatureDiscovery/useSectionsFeatureDiscoveryAnalytics";

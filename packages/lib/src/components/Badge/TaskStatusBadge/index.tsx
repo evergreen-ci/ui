@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { taskStatusToCopy } from "../../../constants/task";
-import { TaskStatus } from "../../../types/task";
+import { TaskStatus, TaskStatusUmbrella } from "../../../types/task";
 
 const { purple, red, white } = palette;
 
@@ -26,15 +26,21 @@ const StyledBadge = styled(Badge)<BadgeColorProps>`
 `;
 
 interface TaskStatusBadgeProps {
-  status: string;
+  taskCount?: number;
+  status: TaskStatus | TaskStatusUmbrella;
 }
-const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
+const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
+  status,
+  taskCount,
+}) => {
   if (!status) {
     return null;
   }
 
   const statusText = taskStatusToCopy[status] ?? status;
 
+  const badgeCopy =
+    taskCount === undefined ? statusText : `${taskCount} ${statusText}`;
   return (
     <StyledBadge
       key={status}
@@ -42,7 +48,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
       variant={mapTaskStatusToBadgeVariant[status]}
       {...customBadgeColors(status)}
     >
-      {statusText}
+      {badgeCopy}
     </StyledBadge>
   );
 };

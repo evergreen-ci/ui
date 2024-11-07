@@ -25,6 +25,7 @@ import HOSTS from "./hosts.graphql";
 import IMAGE_DISTROS from "./image-distros.graphql";
 import IMAGE_EVENTS from "./image-events.graphql";
 import IMAGE_GENERAL from "./image-general.graphql";
+import IMAGE_OPERATING_SYSTEM from "./image-operating-system.graphql";
 import IMAGE_PACKAGES from "./image-packages.graphql";
 import IMAGE_TOOLCHAINS from "./image-toolchains.graphql";
 import IMAGES from "./images.graphql";
@@ -72,6 +73,7 @@ import TASK_TEST_SAMPLE from "./task-test-sample.graphql";
 import TASK_TESTS_FOR_JOB_LOGS from "./task-tests-for-job-logs.graphql";
 import TASK_TESTS from "./task-tests.graphql";
 import TASK from "./task.graphql";
+import TEST_ANALYSIS from "./test-analysis.graphql";
 import UNSCHEDULED_TASKS from "./undispatched-tasks.graphql";
 import USER_CONFIG from "./user-config.graphql";
 import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
@@ -114,6 +116,7 @@ export {
   IMAGE_DISTROS,
   IMAGE_EVENTS,
   IMAGE_GENERAL,
+  IMAGE_OPERATING_SYSTEM,
   IMAGE_PACKAGES,
   IMAGE_TOOLCHAINS,
   IMAGES,
@@ -161,6 +164,7 @@ export {
   TASK_TEST_SAMPLE,
   TASK_TESTS,
   TASK,
+  TEST_ANALYSIS,
   UNSCHEDULED_TASKS,
   USER_CONFIG,
   USER_PATCHES,
