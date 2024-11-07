@@ -31,11 +31,11 @@ export const getFormSchema = ({
   isAppDefined,
   projectId,
   repoData,
-  repoIdentifier,
+  repoId,
 }: {
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
   identifier: string;
-  repoIdentifier: string;
+  repoId: string;
   isAppDefined: boolean;
   projectId: string;
   repoData?: any;
@@ -167,7 +167,7 @@ export const getFormSchema = ({
                 Token permission restrictions are being defaulted to the{" "}
                 <StyledRouterLink
                   to={getProjectSettingsRoute(
-                    repoIdentifier,
+                    repoId,
                     ProjectSettingsTabRoutes.GithubAppSettings,
                   )}
                 >

@@ -49,7 +49,7 @@ export const AppSettingsTab: React.FC<TabProps> = ({
       getFormSchema({
         githubPermissionGroups,
         identifier,
-        repoIdentifier: repoId,
+        repoId,
         isAppDefined,
         projectId,
         repoData,
