@@ -111,7 +111,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-name-input").type("rsioeantarsn");
       cy.dataCy("key-value-input").type("ssh-rsa ", { delay: 0 });
       cy.contains("button", "Save").click();
-      cy.validateToast("error");
+      cy.validateToast("error", "There was an error creating the public key");
     });
   });
 });

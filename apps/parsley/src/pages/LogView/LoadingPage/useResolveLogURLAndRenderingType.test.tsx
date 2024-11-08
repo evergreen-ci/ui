@@ -403,12 +403,12 @@ describe("useResolveLogURLAndRenderingType", () => {
     await waitFor(() => {
       expect(result.current).toMatchObject({
         downloadURL:
-          "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
+          "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0%2F?execution=0",
         htmlLogURL: "",
         jobLogsURL: "http://test-spruce.com/job-logs/a-task-id/0/job0",
         loading: false,
         rawLogURL:
-          "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0?execution=0",
+          "http://test-evergreen.com/rest/v2/tasks/a-task-id/build/TestLogs/job0%2F?execution=0",
       });
     });
   });

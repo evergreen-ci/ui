@@ -55,9 +55,6 @@ describe("Access page", () => {
     cy.contains("Add Username").click();
     cy.getInputByLabel("Username").type("mongodb_user");
     clickSave();
-    cy.validateToast(
-      "error",
-      "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found",
-    );
+    cy.validateToast("error", "There was an error saving the project");
   });
 });

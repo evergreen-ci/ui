@@ -8,9 +8,15 @@ type Tab = ProjectSettingsTabRoutes.GithubPermissionGroups;
 export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
   if (!data) return null;
 
-  const { projectRef } = data;
+  const { githubAppAuth, projectRef } = data;
 
   return {
+    appCredentials: {
+      githubAppAuth: {
+        appId: githubAppAuth?.appId ?? null,
+        privateKey: githubAppAuth?.privateKey ?? "",
+      },
+    },
     permissionGroups:
       projectRef?.githubDynamicTokenPermissionGroups?.map((pg) => ({
         displayTitle: pg.name,
@@ -26,6 +32,10 @@ export const gqlToForm = ((data: ProjectSettingsQuery["projectSettings"]) => {
 
 export const formToGql = ((formState, isRepo, id) => ({
   ...(isRepo ? { repoId: id } : { projectId: id }),
+  githubAppAuth: {
+    appId: formState?.appCredentials?.githubAppAuth?.appId ?? 0,
+    privateKey: "",
+  },
   projectRef: {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     id,

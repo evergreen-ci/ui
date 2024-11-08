@@ -62,7 +62,7 @@ describe("Select hosts in hosts page table", () => {
     cy.dataCy("restart-jasper-button").should("be.visible").click();
     cy.dataCy("restart-jasper-button-popover").should("be.visible");
     cy.contains("button", "Yes").click();
-    cy.validateToast("success");
+    cy.validateToast("success", "Marked Jasper as restarting for 3 hosts");
   });
 
   it("Can reprovision for selected hosts", () => {

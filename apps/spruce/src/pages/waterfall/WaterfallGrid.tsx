@@ -1,7 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { DEFAULT_POLL_INTERVAL } from "constants/index";
+import {
+  DEFAULT_POLL_INTERVAL,
+  WATERFALL_PINNED_VARIANTS_KEY,
+} from "constants/index";
 import {
   WaterfallPagination,
   WaterfallQuery,
@@ -11,6 +14,7 @@ import { WATERFALL } from "gql/queries";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "types/waterfall";
+import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import {
@@ -34,6 +38,33 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   setPagination,
 }) => {
   useWaterfallTrace();
+
+  const [pins, setPins] = useState<string[]>(
+    getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
+  );
+
+  const handlePinBV = useCallback(
+    (buildVariant: string) => () => {
+      setPins((prev: string[]) => {
+        const bvIndex = prev.indexOf(buildVariant);
+        if (bvIndex > -1) {
+          const removed = [...prev];
+          removed.splice(bvIndex, 1);
+          return removed;
+        }
+        return [...prev, buildVariant];
+      });
+    },
+    [],
+  );
+
+  useEffect(() => {
+    const bvs = getObject(WATERFALL_PINNED_VARIANTS_KEY);
+    setObject(WATERFALL_PINNED_VARIANTS_KEY, {
+      ...bvs,
+      [projectIdentifier]: pins,
+    });
+  }, [pins, projectIdentifier]);
 
   const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
   const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
@@ -66,6 +97,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const { buildVariants, versions } = useFilters({
     buildVariants: data.waterfall.buildVariants,
     flattenedVersions: data.waterfall.flattenedVersions,
+    pins,
   });
 
   return (
@@ -75,11 +107,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }) =>
             version ? (
-              <VersionLabel
-                key={version.id}
-                view={VersionLabelView.Waterfall}
-                {...version}
-              />
+              <VersionLabel view={VersionLabelView.Waterfall} {...version} />
             ) : (
               <InactiveVersion key={inactiveVersions?.[0].id}>
                 <InactiveVersionsButton
@@ -95,6 +123,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         <BuildRow
           key={b.id}
           build={b}
+          handlePinClick={handlePinBV(b.id)}
+          pinned={pins.includes(b.id)}
           projectIdentifier={projectIdentifier}
           versions={versions}
         />

@@ -20,7 +20,7 @@ describe("project section", () => {
     cy.getInputByLabel("Project ID").type("spruce");
 
     save();
-    cy.validateToast("success");
+    cy.validateToast("success", "Updated distro.");
 
     // Changes should persist.
     cy.reload();
@@ -32,6 +32,6 @@ describe("project section", () => {
     cy.dataCy("delete-item-button").first().click();
     cy.dataCy("delete-item-button").first().click();
     save();
-    cy.validateToast("success");
+    cy.validateToast("success", "Updated distro.");
   });
 });

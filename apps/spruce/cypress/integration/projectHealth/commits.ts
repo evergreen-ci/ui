@@ -216,7 +216,7 @@ describe("commits page", () => {
 
     it("should show an error toast if the commit could not be found", () => {
       searchCommit(revision.slice(3, 12));
-      cy.validateToast("error");
+      cy.validateToast("error", "There was an error loading the page");
     });
 
     it("should jump to the given commit", () => {

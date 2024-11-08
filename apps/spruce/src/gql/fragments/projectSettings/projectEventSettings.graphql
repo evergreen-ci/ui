@@ -19,6 +19,7 @@ fragment ProjectEventSettings on ProjectEventSettings {
   }
   ...ProjectEventAppSettings
   ...ProjectEventGithubCommitQueue
+  ...ProjectEventPermissionGroupSettings
   projectRef {
     hidden
     identifier
@@ -27,7 +28,6 @@ fragment ProjectEventSettings on ProjectEventSettings {
     ...ProjectNotificationSettings
     ...ProjectPatchAliasSettings
     ...ProjectPeriodicBuildsSettings
-    ...ProjectPermissionGroupSettings
     ...ProjectPluginsSettings
     ...ProjectTriggersSettings
     ...ProjectViewsAndFiltersSettings

@@ -114,7 +114,7 @@ describe("host section", () => {
 
       cy.dataCy("save-settings-button").scrollIntoView();
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
   });
 });

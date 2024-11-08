@@ -39,13 +39,16 @@ describe("Action Buttons", () => {
         errorMessage: "There was an error unscheduling tasks",
       });
       cy.contains("button", "Yes").click({ force: true });
-      cy.validateToast("error");
+      cy.validateToast("error", "Error unscheduling tasks");
     });
 
     it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", () => {
       cy.dataCy("unschedule-patch").click();
       cy.contains("button", "Yes").click({ force: true });
-      cy.validateToast("success");
+      cy.validateToast(
+        "success",
+        "All tasks were unscheduled and tasks that already started were aborted",
+      );
     });
 
     it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
@@ -62,7 +65,7 @@ describe("Action Buttons", () => {
         errorMessage: "There was an error setting priority",
       });
       cy.dataCy("patch-priority-input").type("{enter}");
-      cy.validateToast("error");
+      cy.validateToast("error", "Error updating priority for patch");
     });
     it("Should be able to reconfigure the patch", () => {
       cy.dataCy("reconfigure-link").should("not.be.disabled");

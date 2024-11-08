@@ -28,7 +28,6 @@ export const getFormSchema = (
             type: "string" as "string",
             title: "Image",
             default: "",
-            minLength: 1,
           },
         },
       },

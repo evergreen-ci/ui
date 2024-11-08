@@ -96,11 +96,10 @@ declare global {
        * @example cy.validateToast("error", "This failed")
        * @example cy.validateToast("warning", "This is a warning")
        * @example cy.validateToast("info", "This is an info message")
-       * @example cy.validateToast("success")
        */
       validateToast(
         type: "success" | "warning" | "error" | "info",
-        message?: string,
+        message: string,
         shouldClose?: boolean,
       ): void;
     }

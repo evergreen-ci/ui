@@ -74,6 +74,7 @@ const Waterfall: React.FC = () => {
           }
         >
           <WaterfallGrid
+            key={projectIdentifier}
             projectIdentifier={projectIdentifier ?? ""}
             setPagination={setPagination}
           />
@@ -86,7 +87,8 @@ const Waterfall: React.FC = () => {
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${size.m} ${size.l};
+  gap: ${size.s};
+  padding: ${size.m};
 `;
 
 /* Safari performance of the waterfall chokes if using overflow-y: scroll, so we need the page to scroll instead.
@@ -105,8 +107,6 @@ const navbarStyles = css`
   }
 `;
 
-const BadgesContainer = styled.div`
-  margin-top: ${size.s};
-`;
+const BadgesContainer = styled.div``;
 
 export default Waterfall;

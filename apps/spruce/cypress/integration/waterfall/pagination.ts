@@ -6,12 +6,14 @@ describe("pagination", () => {
   it("url query params update as page changes", () => {
     cy.location("search").should("equal", "");
 
+    cy.dataCy("version-labels").should("contain.text", "2ab1c56");
+
     cy.dataCy("next-page-button").click();
-    cy.dataCy("waterfall-skeleton").should("not.exist");
+    cy.dataCy("version-labels").should("contain.text", "e391612");
     cy.location("search").should("contain", "maxOrder");
 
     cy.dataCy("prev-page-button").click();
-    cy.dataCy("waterfall-skeleton").should("not.exist");
+    cy.dataCy("version-labels").should("contain.text", "2ab1c56");
     cy.location("search").should("contain", "minOrder");
   });
 
