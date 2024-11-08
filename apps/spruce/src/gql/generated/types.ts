@@ -1814,7 +1814,6 @@ export type Permissions = {
   canEditAdminSettings: Scalars["Boolean"]["output"];
   distroPermissions: DistroPermissions;
   projectPermissions: ProjectPermissions;
-  repoPermissions: RepoPermissions;
   userId: Scalars["String"]["output"];
 };
 
@@ -1824,10 +1823,6 @@ export type PermissionsDistroPermissionsArgs = {
 
 export type PermissionsProjectPermissionsArgs = {
   options: ProjectPermissionsOptions;
-};
-
-export type PermissionsRepoPermissionsArgs = {
-  options: RepoPermissionsOptions;
 };
 
 export type PlannerSettings = {
@@ -2233,7 +2228,6 @@ export type Query = {
   image?: Maybe<Image>;
   images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
-  isRepo: Scalars["Boolean"]["output"];
   logkeeperBuildMetadata: LogkeeperBuild;
   mainlineCommits?: Maybe<MainlineCommits>;
   myHosts: Array<Host>;
@@ -2331,10 +2325,6 @@ export type QueryImageArgs = {
   imageId: Scalars["String"]["input"];
 };
 
-export type QueryIsRepoArgs = {
-  projectOrRepoId: Scalars["String"]["input"];
-};
-
 export type QueryLogkeeperBuildMetadataArgs = {
   buildId: Scalars["String"]["input"];
 };
@@ -2418,16 +2408,6 @@ export type RepoCommitQueueParams = {
   mergeMethod: Scalars["String"]["output"];
   mergeQueue: MergeQueue;
   message: Scalars["String"]["output"];
-};
-
-export type RepoPermissions = {
-  __typename?: "RepoPermissions";
-  edit: Scalars["Boolean"]["output"];
-  view: Scalars["Boolean"]["output"];
-};
-
-export type RepoPermissionsOptions = {
-  repoId: Scalars["String"]["input"];
 };
 
 /**
