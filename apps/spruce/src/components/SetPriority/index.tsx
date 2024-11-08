@@ -58,7 +58,9 @@ const SetPriority: React.FC<SetPriorityProps> = ({
         dispatchToast.success(`Priority was set to ${priority}`);
       },
       onError: (err) => {
-        dispatchToast.error(`Error setting priority: ${err.message}`);
+        dispatchToast.error(
+          `Error updating priority for patch: ${err.message}`,
+        );
       },
     });
 

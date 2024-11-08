@@ -33,7 +33,10 @@ describe("GitHub app settings", () => {
       .contains("Delete")
       .parent()
       .click();
-    cy.validateToast("success");
+    cy.validateToast(
+      "success",
+      "GitHub app credentials were successfully deleted.",
+    );
 
     cy.dataCy("github-app-credentials-banner").should("be.visible");
     cy.get("@appId").should("have.value", "");

@@ -14,7 +14,7 @@ describe("Creating a new distro", () => {
     cy.dataCy("create-distro-modal").should("be.visible");
     cy.dataCy("distro-id-input").type(newDistroId);
     cy.contains("button", "Create").click();
-    cy.validateToast("success");
+    cy.validateToast("success", `Created distro “${newDistroId}”`);
     cy.location("pathname").should(
       "eq",
       `/distro/${newDistroId}/settings/general`,
@@ -31,7 +31,7 @@ describe("Creating a new distro", () => {
       cy.get("input").type(newDistroId);
     });
     cy.contains("button", /^Delete$/).click();
-    cy.validateToast("success");
+    cy.validateToast("success", `The distro “${newDistroId}” was deleted.`);
   });
 });
 
@@ -49,7 +49,7 @@ describe("Copying a distro", () => {
     cy.dataCy("copy-distro-modal").should("be.visible");
     cy.dataCy("distro-id-input").type(copyDistroId);
     cy.contains("button", "Duplicate").click();
-    cy.validateToast("success");
+    cy.validateToast("success", `Created distro “${copyDistroId}”`);
     cy.location("pathname").should(
       "eq",
       `/distro/${copyDistroId}/settings/general`,
@@ -66,6 +66,6 @@ describe("Copying a distro", () => {
       cy.get("input").type(copyDistroId);
     });
     cy.contains("button", /^Delete$/).click();
-    cy.validateToast("success");
+    cy.validateToast("success", `The distro “${copyDistroId}” was deleted.`);
   });
 });

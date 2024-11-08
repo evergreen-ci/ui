@@ -191,7 +191,7 @@ Cypress.Commands.add("toggleDrawer", () => {
 
 Cypress.Commands.add(
   "validateToast",
-  (status: string, message?: string, shouldClose?: boolean) => {
+  (status: string, message: string, shouldClose?: boolean) => {
     cy.dataCy(toastDataCy).should("be.visible");
     cy.dataCy(toastDataCy).should("have.attr", "data-variant", status);
     if (message) {

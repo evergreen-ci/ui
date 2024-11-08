@@ -83,7 +83,7 @@ const testSharedSubscriptionModalFunctionality = (
         errorMessage: "error",
       });
       cy.contains("button", "Save").click();
-      cy.validateToast("error");
+      cy.validateToast("error", "Error adding your subscription");
     });
 
     it("Hides the modal after clicking the cancel button", () => {
@@ -186,7 +186,7 @@ describe("Waterfall subscription modal", () => {
       errorMessage: "error",
     });
     cy.contains("button", "Save").click();
-    cy.validateToast("error");
+    cy.validateToast("error", "Error adding your subscription");
   });
 
   it("Hides the modal after clicking the cancel button", () => {

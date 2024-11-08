@@ -109,7 +109,7 @@ describe("Spawn volume page", () => {
       "detach-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857",
     ).click();
     cy.contains("button", "Yes").click();
-    cy.validateToast("success");
+    cy.validateToast("success", "Successfully unmounted the volume.");
   });
 
   it("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
