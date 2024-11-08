@@ -14,15 +14,15 @@ export const size = {
 export const zIndex = {
   backdrop: -1,
 
-  // Set these values to 1 to utilize LeafyGreen's built-in stacking context.
-  drawer: 1,
+  // Set these values to 1 to utilize LeafyGreen's built-in stacking context
   modal: 1,
+  popover: 1,
+  sideNav: 1,
 
-  dropdown: 60,
-  max_do_not_use: 1000,
-  popover: 40,
-  toast: 50,
-  tooltip: 30, // should only be used for things like the welcome modal that need to overlay EVERYTHING
+  tooltip: 20,
+  toast: 40,
+  dropdown: 50,
+  max_do_not_use: 1000, // should only be used for things like the welcome modal that need to overlay EVERYTHING
 } as const;
 
 export const fontSize = {
