@@ -29,7 +29,7 @@ describe("Host page restart jasper, reprovision, and update host status buttons"
       cy.contains("button", "Update").click({ force: true });
     });
 
-    cy.validateToast("success", `Status was changed to decommissioned`);
+    cy.validateToast("success", "Status was changed to decommissioned");
     cy.dataCy("update-host-status-modal").should("not.exist");
   });
 });

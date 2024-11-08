@@ -76,7 +76,7 @@ export const CreateProjectModal: React.FC<Props> = ({
         );
       } else {
         dispatchToast.success(
-          `Successfully created the project: ${identifier}`,
+          `Successfully created the project “${identifier}”`,
         );
       }
       navigate(getProjectSettingsRoute(identifier), { replace: true });

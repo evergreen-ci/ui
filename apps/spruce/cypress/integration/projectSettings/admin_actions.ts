@@ -43,7 +43,7 @@ describe("projectSettings/admin_actions", () => {
       cy.contains("button", "Create project").click();
       cy.validateToast(
         "success",
-        "Successfully created the project: my-new-project",
+        "Successfully created the project “my-new-project”",
       );
 
       cy.url().should("include", "my-new-project");
