@@ -3,6 +3,7 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import pluralize from "pluralize";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { StyledRouterLink } from "components/styles";
 import {
@@ -13,7 +14,6 @@ import {
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { TreeSelectProps } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
-import { zIndex } from "constants/tokens";
 import {
   Task,
   SortDirection,

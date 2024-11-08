@@ -4,9 +4,9 @@ import styled from "@emotion/styled";
 import Button, { Size, Variant } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { useParams } from "react-router-dom";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
 import { slugs } from "constants/routes";
-import { zIndex } from "constants/tokens";
 import {
   UserDistroSettingsPermissionsQuery,
   UserDistroSettingsPermissionsQueryVariables,

@@ -5,8 +5,8 @@ import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import TextInput from "@leafygreen-ui/text-input";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { PopoverContainer } from "components/styles/Popover";
-import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
 const { blue, gray } = palette;

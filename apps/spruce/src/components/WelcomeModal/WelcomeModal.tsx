@@ -7,8 +7,8 @@ import Modal from "@leafygreen-ui/modal";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { StyledLink as Link } from "components/styles";
-import { size, zIndex } from "constants/tokens";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,

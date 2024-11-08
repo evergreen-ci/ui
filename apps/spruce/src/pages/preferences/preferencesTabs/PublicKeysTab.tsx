@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { PlusButton } from "components/Buttons";
-import { size } from "constants/tokens";
 import { EditModal, EditModalPropsState } from "./publicKeysTab/EditModal";
 import { PublicKeysTable } from "./publicKeysTab/PublicKeysTable";
 

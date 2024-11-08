@@ -2,11 +2,11 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import { add } from "date-fns";
+import { size } from "@evg-ui/lib/constants/tokens";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { hostUptimeDocumentationUrl } from "constants/externalResources";
 import { abbreviateTimeZone, timeZones } from "constants/fieldMaps";
-import { size } from "constants/tokens";
 import { MyPublicKeysQuery } from "gql/generated/types";
 import {
   defaultStartDate,

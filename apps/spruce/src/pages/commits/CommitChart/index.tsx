@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { Accordion } from "components/Accordion";
 import { COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION } from "constants/cookies";
-import { size } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ChartTypes, Commits, ChartToggleQueryParams } from "types/commits";
 import {

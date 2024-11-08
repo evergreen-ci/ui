@@ -3,13 +3,13 @@ import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Cookies from "js-cookie";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import {
   getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
 } from "constants/cookies";
-import { size } from "constants/tokens";
 import { regexDisplayName, regexBuildVariant } from "constants/triggers";
 import { useToastContext } from "context/toast";
 import {

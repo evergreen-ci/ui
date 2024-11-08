@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Chip } from "@leafygreen-ui/chip";
 import Tooltip from "@leafygreen-ui/tooltip";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
-import { size, zIndex } from "constants/tokens";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { string } from "utils";
 
 const { trimStringFromMiddle } = string;

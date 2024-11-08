@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Breadcrumbs from "components/Breadcrumbs";
 import Icon from "components/Icon";
-import { size, subheaderHeight } from "constants/tokens";
+import { subheaderHeight } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { EvergreenTaskSubHeader } from "./EvergreenTaskSubHeader";
 import { SectionControls } from "./SectionControls";

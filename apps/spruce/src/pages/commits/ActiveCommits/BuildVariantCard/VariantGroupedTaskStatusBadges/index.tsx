@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
-import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
 import {
   GROUPED_BADGE_PADDING,

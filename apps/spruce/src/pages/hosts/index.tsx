@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useHostsTableAnalytics } from "analytics";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
@@ -15,7 +16,6 @@ import {
   TableControlInnerRow,
   PageWrapper,
 } from "components/styles";
-import { size } from "constants/tokens";
 import { HostsQuery, HostsQueryVariables } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { usePageTitle } from "hooks";

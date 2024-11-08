@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Navigate } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useDistroSettingsAnalytics } from "analytics";
 import Icon from "components/Icon";
 import {
@@ -20,7 +21,6 @@ import {
   ImageTabRoutes,
   slugs,
 } from "constants/routes";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { DistroQuery, DistroQueryVariables } from "gql/generated/types";
 import { DISTRO } from "gql/queries";

@@ -4,13 +4,13 @@ import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
 import { navBarHeight } from "components/Header/Navbar";
 import { slugs } from "constants/routes";
-import { size } from "constants/tokens";
 import { WaterfallPagination } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { WaterfallFilterOptions } from "types/waterfall";

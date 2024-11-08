@@ -11,8 +11,8 @@ import {
   Variant,
   useToast,
 } from "@leafygreen-ui/toast";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { WordBreak } from "components/styles";
-import { zIndex } from "constants/tokens";
 import {
   TOAST_TIMEOUT,
   mapLeafyGreenVariantToTitle,

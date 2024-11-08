@@ -4,9 +4,9 @@ import styled from "@emotion/styled";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useDistroSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   DistroOnSaveOperation,

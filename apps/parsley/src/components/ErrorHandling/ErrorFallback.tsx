@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { H1, H1Props, H2, H2Props } from "@leafygreen-ui/typography";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import errorPage from "./errorPage.svg";
 
 const { white } = palette;

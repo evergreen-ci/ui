@@ -1,4 +1,4 @@
-import { spacing } from "@leafygreen-ui/tokens";
+import { spacing, transitionDuration } from "@leafygreen-ui/tokens";
 
 // Should be used for spacing such as margins and padding.
 export const size = {
@@ -11,4 +11,26 @@ export const size = {
   xxl: `${spacing[7]}px`, // 88px
 } as const;
 
+export const zIndex = {
+  backdrop: -1,
+
+  // Set these values to 1 to utilize LeafyGreen's built-in stacking context.
+  drawer: 1,
+  modal: 1,
+
+  dropdown: 60,
+  max_do_not_use: 1000,
+  popover: 40,
+  toast: 50,
+  tooltip: 30, // should only be used for things like the welcome modal that need to overlay EVERYTHING
+} as const;
+
+export const fontSize = {
+  l: "18px",
+  m: "14px",
+  s: "8px",
+} as const;
+
 export const textInputHeight = "36px";
+
+export { transitionDuration };
