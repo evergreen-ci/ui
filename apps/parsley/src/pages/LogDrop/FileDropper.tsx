@@ -17,6 +17,7 @@ import {
 } from "utils/errorReporting";
 import { fileToStream } from "utils/file";
 import { decodeStream } from "utils/streams";
+import { LogDropType } from "./constants";
 import FileSelector from "./FileSelector";
 import LoadingAnimation from "./LoadingAnimation";
 import ParseLogSelect from "./ParseLogSelect";
@@ -61,7 +62,7 @@ const FileDropper: React.FC = () => {
         startTransition(() => {
           (async () => {
             switch (state.type) {
-              case "file": {
+              case LogDropType.FILE: {
                 if (state.file) {
                   try {
                     const stream = await fileToStream(state.file, {
@@ -96,7 +97,7 @@ const FileDropper: React.FC = () => {
                 }
                 break;
               }
-              case "text": {
+              case LogDropType.TEXT: {
                 if (state.text) {
                   const logLines = state.text.split("\n");
                   setFileName("Pasted Text");
