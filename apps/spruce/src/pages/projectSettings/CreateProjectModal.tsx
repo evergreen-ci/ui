@@ -70,7 +70,7 @@ export const CreateProjectModal: React.FC<Props> = ({
     if (identifier) {
       if (error) {
         dispatchToast.warning(
-          `Project cannot be enabled due to the global or repo-specific limits.`,
+          "Project cannot be enabled due to the global or repo-specific limits.",
           true,
           { shouldTimeout: false },
         );

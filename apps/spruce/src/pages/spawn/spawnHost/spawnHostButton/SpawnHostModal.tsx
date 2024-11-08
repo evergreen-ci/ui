@@ -63,7 +63,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   >(SPAWN_HOST, {
     onCompleted(hostMutation) {
       const { id } = hostMutation?.spawnHost ?? {};
-      dispatchToast.success(`Successfully spawned host: ${id}`);
+      dispatchToast.success(`Successfully spawned host ${id}`);
       setOpen(false);
     },
     onError(err) {
