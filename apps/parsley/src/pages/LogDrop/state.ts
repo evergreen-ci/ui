@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { LogDropType } from "./constants";
 
 type CurrentState =
   | "WAITING_FOR_FILE"
@@ -9,15 +10,21 @@ type CurrentState =
 type State = {
   currentState: CurrentState;
   file: File | null;
+  text: string | null;
+  type: LogDropType | null;
 };
+
 type Action =
   | { type: "DROPPED_FILE"; file: File }
   | { type: "PARSE_FILE" }
+  | { type: "PASTED_TEXT"; text: string }
   | { type: "CANCEL" };
 
 const initialState = (): State => ({
   currentState: "WAITING_FOR_FILE",
   file: null,
+  text: null,
+  type: null,
 });
 
 const reducer = (state: State, action: Action): State => {
@@ -27,6 +34,14 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         currentState: "PROMPT_FOR_PARSING_METHOD",
         file: action.file,
+        type: LogDropType.FILE,
+      };
+    case "PASTED_TEXT":
+      return {
+        ...state,
+        currentState: "PROMPT_FOR_PARSING_METHOD",
+        text: action.text,
+        type: LogDropType.TEXT,
       };
     case "PARSE_FILE":
       return {
