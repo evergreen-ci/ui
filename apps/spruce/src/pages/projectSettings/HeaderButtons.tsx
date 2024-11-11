@@ -54,7 +54,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
 
-  const canEdit = useHasProjectOrRepoEditPermission(id);
+  const { canEdit } = useHasProjectOrRepoEditPermission(id);
 
   const [saveProjectSection] = useMutation<
     SaveProjectSettingsForSectionMutation,

@@ -170,7 +170,7 @@ export const PromoteVariablesModalButton: React.FC<
 > = ({ projectId, variables }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const canEdit = useHasProjectOrRepoEditPermission(projectId);
+  const { canEdit } = useHasProjectOrRepoEditPermission(projectId);
 
   return (
     <>
