@@ -94,11 +94,13 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     refEl as React.MutableRefObject<HTMLElement>,
   );
 
-  const { buildVariants, versions } = useFilters({
+  const { activeVersionIds, buildVariants, versions } = useFilters({
     buildVariants: data.waterfall.buildVariants,
     flattenedVersions: data.waterfall.flattenedVersions,
     pins,
   });
+
+  const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
   return (
     <Container ref={refEl}>
@@ -124,6 +126,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           key={b.id}
           build={b}
           handlePinClick={handlePinBV(b.id)}
+          lastActiveVersionId={lastActiveVersionId}
           pinned={pins.includes(b.id)}
           projectIdentifier={projectIdentifier}
           versions={versions}
