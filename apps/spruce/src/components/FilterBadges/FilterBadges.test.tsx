@@ -123,7 +123,7 @@ describe("filterBadges", () => {
         onRemove={vi.fn()}
       />,
     );
-    await user.click(screen.getByRole("button", { name: "Clear all filters" }));
+    await user.click(screen.getByRole("button", { name: "CLEAR ALL FILTERS" }));
     expect(onClearAll).toHaveBeenCalledTimes(1);
   });
 
