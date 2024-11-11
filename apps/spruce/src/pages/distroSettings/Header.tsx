@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { DistroSettingsTabRoutes } from "constants/routes";
-import { size } from "constants/tokens";
 import { DistroQuery } from "gql/generated/types";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";

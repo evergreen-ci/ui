@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
 import { QueryParams } from "constants/queryParams";
-import { size, zIndex } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 
 const { gray, green, red } = palette;

@@ -4,19 +4,19 @@ import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
 import { navBarHeight } from "components/Header/Navbar";
 import { slugs } from "constants/routes";
-import { size } from "constants/tokens";
 import { WaterfallPagination } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
-import { WaterfallFilterOptions } from "types/waterfall";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { VERSION_LIMIT } from "./styles";
+import { WaterfallFilterOptions } from "./types";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
 
@@ -26,7 +26,7 @@ const Waterfall: React.FC = () => {
   const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
   const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
-    new Set([WaterfallFilterOptions.BuildVariant]),
+    new Set([WaterfallFilterOptions.BuildVariant, WaterfallFilterOptions.Task]),
   );
 
   const { sendEvent } = useWaterfallAnalytics();
@@ -50,19 +50,17 @@ const Waterfall: React.FC = () => {
           pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
         />
-        <BadgesContainer>
-          <FilterBadges
-            badges={badges}
-            onClearAll={() => {
-              sendEvent({ name: "Deleted all filter badges" });
-              startTransition(handleClearAll);
-            }}
-            onRemove={(b) => {
-              sendEvent({ name: "Deleted one filter badge" });
-              startTransition(() => handleOnRemove(b));
-            }}
-          />
-        </BadgesContainer>
+        <FilterBadges
+          badges={badges}
+          onClearAll={() => {
+            sendEvent({ name: "Deleted all filter badges" });
+            startTransition(handleClearAll);
+          }}
+          onRemove={(b) => {
+            sendEvent({ name: "Deleted one filter badge" });
+            startTransition(() => handleOnRemove(b));
+          }}
+        />
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
           fallback={
@@ -106,7 +104,5 @@ const navbarStyles = css`
     z-index: 1;
   }
 `;
-
-const BadgesContainer = styled.div``;
 
 export default Waterfall;

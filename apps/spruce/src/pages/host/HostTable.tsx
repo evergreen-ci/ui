@@ -8,6 +8,7 @@ import {
   LeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
 import PageSizeSelector from "components/PageSizeSelector";
@@ -15,7 +16,6 @@ import Pagination from "components/Pagination";
 import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { ALL_VALUE } from "components/TreeSelect";
-import { size } from "constants/tokens";
 import { HostEventsQuery, HostEventType } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";

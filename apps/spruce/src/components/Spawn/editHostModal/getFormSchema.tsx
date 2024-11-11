@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import { Label } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm/types";
 import { StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
-import { size } from "constants/tokens";
 import { MyPublicKeysQuery, MyVolumesQuery } from "gql/generated/types";
 import {
   getExpirationDetailsSchema,

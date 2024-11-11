@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import {
   StyledLink,
   StyledRouterLink,
   ShortenedRouterLink,
 } from "components/styles";
 import { getHostRoute, getPodRoute, getTaskRoute } from "constants/routes";
-import { size } from "constants/tokens";
 import { TaskEventLogEntry } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskEventType } from "types/task";

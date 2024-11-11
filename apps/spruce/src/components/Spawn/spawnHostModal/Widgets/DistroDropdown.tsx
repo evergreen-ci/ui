@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Overline } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import SearchableDropdown from "components/SearchableDropdown";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { EnumSpruceWidgetProps } from "components/SpruceForm/Widgets/types";
@@ -8,7 +9,6 @@ import {
   hoverStyles,
   overlineStyles,
 } from "components/styles/SearchableDropdown";
-import { size } from "constants/tokens";
 
 interface DistroValue {
   adminOnly: boolean;

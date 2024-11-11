@@ -2,10 +2,10 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
 import { Description } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { size } from "constants/tokens";
 import { useQueryParams } from "hooks/useQueryParam";
 import { MainlineCommitQueryParams } from "types/commits";
 

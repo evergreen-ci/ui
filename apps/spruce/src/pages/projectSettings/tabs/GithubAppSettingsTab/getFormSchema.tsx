@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
 import {
   CardFieldTemplate,
@@ -11,7 +12,6 @@ import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
-import { size } from "constants/tokens";
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
 import { form } from "../utils";
 import { GithubAppActions, RequesterTypeField } from "./Fields";

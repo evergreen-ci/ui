@@ -7,7 +7,7 @@ import {
   Subtitle,
   SubtitleProps,
 } from "@leafygreen-ui/typography";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { CardType } from "./types";
 
 interface CarouselCardProps {

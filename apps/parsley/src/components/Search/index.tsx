@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import SearchBar from "components/Search/SearchBar";
 import SearchBarGuideCue from "components/Search/SearchBarGuideCue";
 import SearchResults from "components/Search/SearchResults";
 import { CaseSensitivity, MatchType, SearchBarActions } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
-import { size } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import {
   ProjectFiltersQuery,

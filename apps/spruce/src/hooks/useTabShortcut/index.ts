@@ -1,4 +1,4 @@
-import { CharKey } from "constants/keys";
+import { CharKey } from "@evg-ui/lib/constants/keys";
 import useKeyboardShortcut from "hooks/useKeyboardShortcut";
 
 interface Props {

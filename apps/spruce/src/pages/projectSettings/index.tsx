@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import throttle from "lodash.throttle";
 import { useParams, Link, Navigate } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
@@ -21,7 +22,6 @@ import {
   getProjectSettingsRoute,
   slugs,
 } from "constants/routes";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsQuery,

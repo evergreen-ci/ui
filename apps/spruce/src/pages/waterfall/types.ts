@@ -17,3 +17,11 @@ export type Build = Unpacked<
 export type BuildVariant = Unpacked<
   WaterfallQuery["waterfall"]["buildVariants"]
 >;
+
+export enum WaterfallFilterOptions {
+  BuildVariant = "buildVariants",
+  MaxOrder = "maxOrder",
+  MinOrder = "minOrder",
+  Requesters = "requesters",
+  Task = "tasks",
+}

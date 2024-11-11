@@ -4,10 +4,10 @@ import Toggle from "@leafygreen-ui/toggle";
 import { Label } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import Cookies from "js-cookie";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,

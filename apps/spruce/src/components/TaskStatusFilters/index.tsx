@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
 import { noFilterMessage } from "constants/strings";
-import { size } from "constants/tokens";
 import { useTaskStatuses } from "hooks";
 
 interface Props {

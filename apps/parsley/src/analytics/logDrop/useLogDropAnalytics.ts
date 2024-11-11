@@ -9,6 +9,9 @@ type Action =
       name: "System Event processed uploaded log file";
       "log.type": LogTypes;
       "file.size"?: number;
+    }
+  | {
+      name: "Used clipboard paste to upload log file";
     };
 
 export const useLogDropAnalytics = () =>

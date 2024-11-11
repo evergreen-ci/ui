@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Modal, { ModalProps } from "@leafygreen-ui/modal";
 import { Body, BodyProps, H3 } from "@leafygreen-ui/typography";
-import { size as tokenSize, zIndex } from "constants/tokens";
+import { size as tokenSize, zIndex } from "@evg-ui/lib/constants/tokens";
 
 type DisplayModalProps = Omit<ModalProps, "title"> & {
   title?: React.ReactNode | string;

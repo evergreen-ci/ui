@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { fontFamilies } from "@leafygreen-ui/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { STANDARD_FIELD_WIDTH } from "components/SpruceForm/utils";
-import { size } from "constants/tokens";
 
 const textAreaCSS = css`
   box-sizing: border-box;

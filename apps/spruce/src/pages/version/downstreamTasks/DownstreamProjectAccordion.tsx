@@ -3,10 +3,10 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { Accordion } from "components/Accordion";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { getVersionRoute } from "constants/routes";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   Parameter,

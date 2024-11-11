@@ -102,6 +102,24 @@ declare global {
         message: string,
         shouldClose?: boolean,
       ): void;
+      /**
+       * Simulates a paste event.
+       * Modified from https://gist.github.com/nickytonline/bcdef8ef00211b0faf7c7c0e7777aaf6
+       * @param subject A jQuery context representing a DOM element.
+       * @param pasteOptions Set of options for a simulated paste event.
+       * @param pasteOptions.pastePayload Simulated data that is on the clipboard.
+       * @param pasteOptions.pasteFormat The format of the simulated paste payload. Default value is 'text'.
+       * @returns The subject parameter.
+       * @example
+       * cy.get('body').paste({
+       *   pasteFormat: 'application/json',
+       *   pastePayload: {hello: 'yolo'},
+       * });
+       */
+      paste(pasteOptions: {
+        pastePayload: string;
+        pasteFormat?: string;
+      }): Chainable<Element>;
     }
   }
 }
