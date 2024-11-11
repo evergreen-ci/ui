@@ -2,10 +2,10 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
 import Cookies from "js-cookie";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useSectionsFeatureDiscoveryAnalytics } from "analytics";
 import { HAS_SEEN_SECTIONS_PROD_FEATURE_MODAL } from "constants/cookies";
 import { LogTypes } from "constants/enums";
-import { zIndex } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { graphic } from "./graphic";
 

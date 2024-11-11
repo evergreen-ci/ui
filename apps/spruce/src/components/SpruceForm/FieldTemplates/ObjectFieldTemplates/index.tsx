@@ -4,9 +4,9 @@ import Banner from "@leafygreen-ui/banner";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { Accordion } from "components/Accordion";
 import { getFields } from "components/SpruceForm/utils";
-import { fontSize, size } from "constants/tokens";
 import { SpruceFormContainer } from "../../Container";
 
 export const ObjectFieldTemplate = ({

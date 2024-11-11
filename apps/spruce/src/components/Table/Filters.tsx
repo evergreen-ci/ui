@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { FilterDropdownProps } from "antd/es/table/interface";
+import { fontSize } from "@evg-ui/lib/constants/tokens";
 import { CheckboxGroup } from "components/Checkbox";
 import Icon from "components/Icon";
 import { tableInputContainerCSS } from "components/styles/Table";
@@ -11,7 +12,6 @@ import {
   TreeSelect,
   TreeSelectProps,
 } from "components/TreeSelect";
-import { fontSize } from "constants/tokens";
 
 const { blue, gray } = palette;
 const defaultColor = gray.light1;

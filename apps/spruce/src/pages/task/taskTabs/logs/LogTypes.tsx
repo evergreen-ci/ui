@@ -4,9 +4,9 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { useParams, useLocation } from "react-router-dom";
+import { size, fontSize } from "@evg-ui/lib/constants/tokens";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";
-import { size, fontSize } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   TaskEventLogsQuery,

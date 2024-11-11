@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { size } from "constants/tokens";
 import Icon, { Size, glyphs } from ".";
 
 const { green } = palette;

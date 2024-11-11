@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import { Label } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import TextInput from "components/TextInputWithValidation";
-import { size } from "constants/tokens";
 
 type option = {
   value: string;
@@ -44,6 +44,7 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           allowDeselect={false}
           aria-labelledby="Tuple Select"
           data-cy="tuple-select-dropdown"
+          dropdownWidthBasis="option"
           onChange={(v) => setSelected(v)}
           value={selected}
         >
@@ -99,9 +100,7 @@ const GroupedSelect = styled(Select)`
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: 0;
-    > div > div {
-      overflow: visible;
-    }
+    width: max-content;
   }
 `;
 

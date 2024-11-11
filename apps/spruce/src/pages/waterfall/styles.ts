@@ -1,8 +1,8 @@
 import { css, SerializedStyles } from "@emotion/react";
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { wordBreakCss } from "components/styles";
-import { size } from "constants/tokens";
 import { statusColorMap, statusIconMap } from "./icons";
 
 const BUILD_VARIANT_WIDTH = 200;

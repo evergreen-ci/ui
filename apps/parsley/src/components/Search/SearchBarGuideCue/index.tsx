@@ -4,8 +4,8 @@ import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineKeyCode } from "@leafygreen-ui/typography";
 import Cookie from "js-cookie";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { HAS_SEEN_SEARCHBAR_GUIDE_CUE } from "constants/cookies";
-import { size, zIndex } from "constants/tokens";
 
 const { green } = palette;
 

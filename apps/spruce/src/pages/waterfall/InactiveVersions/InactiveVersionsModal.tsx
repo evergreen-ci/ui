@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import pluralize from "pluralize";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";
-import { size } from "constants/tokens";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
 

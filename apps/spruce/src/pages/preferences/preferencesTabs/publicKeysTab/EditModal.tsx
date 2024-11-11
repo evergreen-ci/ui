@@ -3,10 +3,10 @@ import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { ErrorMessage } from "components/styles";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   MyPublicKeysQuery,

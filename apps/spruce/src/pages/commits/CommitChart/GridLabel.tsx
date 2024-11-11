@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { zIndex, size } from "constants/tokens";
+import { zIndex, size } from "@evg-ui/lib/constants/tokens";
 import { gridHeight } from "pages/commits/constants";
 import { ChartTypes } from "types/commits";
 import { range } from "utils/array";

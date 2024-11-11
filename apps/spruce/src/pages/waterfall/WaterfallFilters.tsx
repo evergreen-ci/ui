@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
-import { size } from "constants/tokens";
 import { WaterfallPagination } from "gql/generated/types";
 import { NameFilter } from "./NameFilter";
 import { PaginationButtons } from "./PaginationButtons";

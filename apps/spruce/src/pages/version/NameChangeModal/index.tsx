@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import Icon from "components/Icon";
 import { SpruceForm } from "components/SpruceForm";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdatePatchDescriptionMutation,

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 export const TicketsTitle = styled(Subtitle)<
   SubtitleProps & { margin?: boolean }

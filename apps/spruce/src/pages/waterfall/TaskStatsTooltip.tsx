@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover, { Align } from "@leafygreen-ui/popover";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import Icon from "components/Icon";
 import { Divider } from "components/styles";
 import { PopoverContainer } from "components/styles/Popover";
-import { size } from "constants/tokens";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useOnClickOutside } from "hooks";
 import { SQUARE_SIZE, taskStatusStyleMap } from "./styles";
@@ -27,7 +27,7 @@ export const TaskStatsTooltip: React.FC<
     0;
 
   return (
-    <>
+    <div>
       <BtnContainer>
         <IconButton
           ref={buttonRef}
@@ -62,12 +62,12 @@ export const TaskStatsTooltip: React.FC<
           </Table>
         </PopoverContainer>
       </Popover>
-    </>
+    </div>
   );
 };
 
 const BtnContainer = styled.div`
-  display: inline-block;
+  align-self: flex-start;
 `;
 
 const Table = styled.table``;

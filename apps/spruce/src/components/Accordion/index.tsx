@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 interface AccordionProps {
   /** Where the caret icon should be aligned */

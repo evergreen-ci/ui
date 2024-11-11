@@ -4,10 +4,10 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { Accordion } from "components/Accordion";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UndispatchedTasksQuery,

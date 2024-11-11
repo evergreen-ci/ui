@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import { Body, BodyProps, H2 } from "@leafygreen-ui/typography";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import {
   PreferencesTabRoutes,
   getPreferencesRoute,
   slugs,
 } from "constants/routes";
-import { size } from "constants/tokens";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";

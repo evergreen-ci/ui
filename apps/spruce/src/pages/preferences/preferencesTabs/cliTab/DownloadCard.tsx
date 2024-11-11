@@ -10,12 +10,12 @@ import {
   Disclaimer,
 } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { size, fontSize } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { SettingsCard } from "components/SettingsCard";
 import { StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
-import { size, fontSize } from "constants/tokens";
 import {
   ClientConfigQuery,
   ClientConfigQueryVariables,

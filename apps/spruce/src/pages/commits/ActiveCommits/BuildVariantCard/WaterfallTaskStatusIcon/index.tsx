@@ -5,10 +5,10 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
-import { size, zIndex } from "constants/tokens";
 import {
   FailedTaskStatusIconTooltipQuery,
   FailedTaskStatusIconTooltipQueryVariables,
