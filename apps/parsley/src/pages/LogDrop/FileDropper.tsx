@@ -1,7 +1,7 @@
 import { useCallback, useTransition } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { useDropzone } from "react-dropzone";
+import { FileRejection, useDropzone } from "react-dropzone";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogDropAnalytics } from "analytics";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
@@ -32,13 +32,28 @@ const FileDropper: React.FC = () => {
   const [, startTransition] = useTransition();
   const { dispatch, state } = useLogDropState();
 
-  const onDrop = useCallback(
+  const onDropAccepted = useCallback(
     (acceptedFiles: File[]) => {
       leaveBreadcrumb("Dropped file", {}, SentryBreadcrumb.User);
       sendEvent({ name: "Used file dropper to upload file" });
       dispatch({ file: acceptedFiles[0], type: "DROPPED_FILE" });
     },
     [dispatch, sendEvent],
+  );
+
+  const onDropRejected = useCallback(
+    (fileRejections: FileRejection[]) => {
+      dispatch({ type: "CANCEL" });
+      const uploadErrors = new Set(
+        fileRejections.flatMap(({ errors }) =>
+          errors.map(({ message }) => message),
+        ),
+      );
+      dispatchToast.error(
+        `Log could not be uploaded: ${Array.from(uploadErrors).join(", ")}`,
+      );
+    },
+    [dispatch, dispatchToast],
   );
 
   const onClipboardPaste = useCallback((text: string) => {
@@ -134,7 +149,8 @@ const FileDropper: React.FC = () => {
     multiple: false,
     noClick: true,
     noKeyboard: true,
-    onDrop,
+    onDropAccepted,
+    onDropRejected,
   });
 
   let visibleUI = null;
@@ -185,6 +201,7 @@ const BorderBox = styled.div`
   justify-content: center;
   border: ${size.xxs} dashed ${green.base};
   border-radius: ${size.s};
+  padding: ${size.s};
 `;
 
 const Dropzone = styled.div`
@@ -194,6 +211,7 @@ const Dropzone = styled.div`
   padding: ${size.xl};
   width: 50vw;
   height: 30vh;
+  min-height: fit-content;
 `;
 
 export default FileDropper;
