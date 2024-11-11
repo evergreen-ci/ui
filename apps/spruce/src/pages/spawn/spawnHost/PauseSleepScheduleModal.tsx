@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { getNextHostStart } from "components/Spawn/utils";
-import { size } from "constants/tokens";
 import { SleepSchedule } from "gql/generated/types";
 
 export const PauseSleepScheduleModal: React.FC<{

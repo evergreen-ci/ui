@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Icon, { glyphs } from "components/Icon";
-import { size } from "constants/tokens";
 
 interface Props {
   message: string;

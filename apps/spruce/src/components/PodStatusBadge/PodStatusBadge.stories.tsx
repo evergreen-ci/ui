@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { size } from "constants/tokens";
 
 import { PodStatus } from "types/pod";
 import PodStatusBadge from ".";

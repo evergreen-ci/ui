@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
 import { CaseSensitivity, MatchType } from "constants/enums";
-import { size } from "constants/tokens";
 import { ParsleyFilter } from "gql/generated/types";
 import { Filter } from "types/logs";
 

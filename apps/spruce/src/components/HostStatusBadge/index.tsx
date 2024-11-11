@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import { size } from "@evg-ui/lib/constants/tokens";
 import IconTooltip from "components/IconTooltip";
-import { size } from "constants/tokens";
 import { HostStatus } from "types/host";
 
 const { red } = palette;

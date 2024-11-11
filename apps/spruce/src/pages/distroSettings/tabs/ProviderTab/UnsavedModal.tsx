@@ -4,7 +4,7 @@ import {
   unstable_BlockerFunction as BlockerFunction,
   unstable_useBlocker as useBlocker,
 } from "react-router-dom";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { DistroQuery } from "gql/generated/types";
 import { SaveModal } from "../../SaveModal";
 import { WritableDistroSettingsTabs } from "../types";

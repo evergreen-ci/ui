@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { palette } from "@leafygreen-ui/palette";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { FilterInputControls } from "components/FilterInputControls";
 import { tableInputContainerCSS } from "components/styles/Table";
-import { size } from "constants/tokens";
 
 const { gray } = palette;
 

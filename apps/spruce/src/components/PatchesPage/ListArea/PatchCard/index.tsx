@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useUserPatchesAnalytics, useProjectPatchesAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -14,7 +15,6 @@ import {
   getPatchRoute,
 } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
-import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { PatchStatus } from "types/patch";

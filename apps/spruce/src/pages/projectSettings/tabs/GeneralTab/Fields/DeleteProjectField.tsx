@@ -5,9 +5,9 @@ import Button from "@leafygreen-ui/button";
 import { Description } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { useParams } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { slugs } from "constants/routes";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   DeleteProjectMutation,

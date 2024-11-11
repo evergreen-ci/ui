@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { sideNavItemSidePadding } from "@leafygreen-ui/side-nav";
 import { Link, useParams, Navigate } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useImageAnalytics } from "analytics";
 import {
   SideNav,
@@ -9,7 +10,6 @@ import {
   SideNavPageWrapper,
 } from "components/styles";
 import { ImageTabRoutes, getImageRoute, slugs } from "constants/routes";
-import { size } from "constants/tokens";
 import { useFirstImage } from "hooks";
 import { ImageSelect } from "./ImageSelect";
 import { ImageTabs } from "./Tabs";

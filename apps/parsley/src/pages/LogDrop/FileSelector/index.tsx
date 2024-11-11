@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Body, InlineKeyCode } from "@leafygreen-ui/typography";
 import { DropzoneInputProps } from "react-dropzone";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
 
 interface FileSelectorProps {
   getInputProps: () => DropzoneInputProps;

@@ -3,8 +3,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
 import { Body } from "@leafygreen-ui/typography";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
-import { zIndex } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import {
   ProjectFiltersQuery,

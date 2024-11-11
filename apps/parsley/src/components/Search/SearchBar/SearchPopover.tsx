@@ -10,8 +10,8 @@ import {
   Overline,
   OverlineProps,
 } from "@leafygreen-ui/typography";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
-import { size, zIndex } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
 const { blue, gray } = palette;

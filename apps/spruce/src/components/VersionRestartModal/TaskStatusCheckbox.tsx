@@ -1,8 +1,8 @@
 import { memo } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { size } from "constants/tokens";
 
 interface TaskStatusCheckboxProps {
   baseStatus?: string;

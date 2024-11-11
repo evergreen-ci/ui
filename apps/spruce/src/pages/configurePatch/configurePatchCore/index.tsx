@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
+import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { LoadingButton } from "components/Buttons";
 import { CodeChanges } from "components/CodeChanges";
@@ -22,7 +23,6 @@ import {
 } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getProjectPatchesRoute, getVersionRoute } from "constants/routes";
-import { fontSize, size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,

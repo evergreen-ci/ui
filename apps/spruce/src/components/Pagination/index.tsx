@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
 import usePagination from "hooks/usePagination";
 
 interface Props {

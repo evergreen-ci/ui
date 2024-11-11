@@ -4,8 +4,8 @@ import {
   SegmentedControl,
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
+import { size } from "@evg-ui/lib/constants/tokens";
 import TupleSelect from "components/TupleSelect";
-import { size } from "constants/tokens";
 
 interface TupleSelectWithRegexConditionalProps
   extends React.ComponentProps<typeof TupleSelect> {}

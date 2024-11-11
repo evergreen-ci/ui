@@ -19,12 +19,13 @@ import {
   VirtualItem,
   LeafyGreenTableRow,
 } from "@leafygreen-ui/table";
+import { size } from "@evg-ui/lib/constants/tokens";
 import {
   TableFilterPopover,
   TableSearchPopover,
 } from "components/TablePopover";
 import { TreeDataEntry } from "components/TreeSelect";
-import { size, tableColumnOffset } from "constants/tokens";
+import { tableColumnOffset } from "constants/tokens";
 import TableLoader from "./TableLoader";
 
 // Define typing of columns' meta field

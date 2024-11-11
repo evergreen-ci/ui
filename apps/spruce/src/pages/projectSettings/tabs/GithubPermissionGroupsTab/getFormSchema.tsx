@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Description } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
 import {
   CardFieldTemplate,
@@ -12,7 +13,6 @@ import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
-import { size } from "constants/tokens";
 import { ArrayFieldTemplate } from "./FieldTemplates";
 
 export const getFormSchema = ({

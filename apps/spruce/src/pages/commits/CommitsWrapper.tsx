@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { Commits } from "types/commits";
 import { CommitChart } from "./CommitChart";
 import {

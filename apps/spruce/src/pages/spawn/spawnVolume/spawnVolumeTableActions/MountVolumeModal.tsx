@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { ModalContent, MountVolumeSelect } from "components/Spawn";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   AttachVolumeToHostMutation,

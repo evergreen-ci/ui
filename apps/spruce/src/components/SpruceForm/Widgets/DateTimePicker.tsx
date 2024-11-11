@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { toZonedTime, fromZonedTime } from "date-fns-tz";
+import { size } from "@evg-ui/lib/constants/tokens";
 import DatePicker from "components/DatePicker";
 import AntdTimePicker from "components/TimePicker";
-import { size } from "constants/tokens";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";

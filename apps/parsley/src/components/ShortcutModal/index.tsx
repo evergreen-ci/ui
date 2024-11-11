@@ -2,8 +2,8 @@ import { useRef } from "react";
 import styled from "@emotion/styled";
 import Modal from "@leafygreen-ui/modal";
 import { Body, H3, InlineKeyCode } from "@leafygreen-ui/typography";
-import { CharKey, ModifierKey } from "constants/keys";
-import { size, zIndex } from "constants/tokens";
+import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useKeyboardShortcut, useOnClickOutside } from "hooks";
 
 const shortcuts = [

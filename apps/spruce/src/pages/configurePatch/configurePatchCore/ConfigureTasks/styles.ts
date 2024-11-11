@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 const TaskLayoutGrid = styled.div`
   width: 100%;

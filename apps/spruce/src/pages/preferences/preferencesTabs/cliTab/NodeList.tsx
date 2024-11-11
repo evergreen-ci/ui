@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { zIndex } from "constants/tokens";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { formatZeroIndexForDisplay } from "utils/numbers";
 import { NodeType, Node } from "./nodeList/Node";
 

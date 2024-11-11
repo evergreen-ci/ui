@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { Accordion } from "components/Accordion";
 import CommitChartLabel from "components/CommitChartLabel";
 import { EmptyCell, LabelCellContainer } from "components/HistoryTable/Cell";
 import { FoldedCommitsRow } from "components/HistoryTable/types";
-import { size } from "constants/tokens";
 import { RowContainer } from "../styles";
 
 const { blue } = palette;

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { getFields } from "components/SpruceForm/utils";
-import { size } from "constants/tokens";
 
 export const RegexSelectorRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">

@@ -1,7 +1,7 @@
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { LoadingButton } from "components/Buttons";
-import { zIndex } from "constants/tokens";
 
 interface Props {
   disabled?: boolean;
