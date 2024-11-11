@@ -26,9 +26,9 @@ export const BaseTab = <T extends WritableProjectSettingsType>({
   const state = useProjectSettingsContext();
   usePopulateForm(initialFormState, tab);
 
-  const canEdit = useHasProjectOrRepoEditPermission(id);
+  const { canEdit, loading } = useHasProjectOrRepoEditPermission(id);
 
-  return (
+  return loading ? null : (
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     <Form<WritableProjectSettingsType, FormStateMap>
       {...rest}

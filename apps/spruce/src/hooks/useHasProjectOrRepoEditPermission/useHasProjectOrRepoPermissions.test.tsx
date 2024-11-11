@@ -38,7 +38,7 @@ describe("useHasProjectOrRepoEditPermission", () => {
         },
       );
       await waitFor(() => {
-        expect(result.current).toBe(true);
+        expect(result.current.canEdit).toBe(true);
       });
     });
 
@@ -54,7 +54,7 @@ describe("useHasProjectOrRepoEditPermission", () => {
         },
       );
       await waitFor(() => {
-        expect(result.current).toBe(false);
+        expect(result.current.canEdit).toBe(false);
       });
     });
   });
@@ -72,7 +72,7 @@ describe("useHasProjectOrRepoEditPermission", () => {
         },
       );
       await waitFor(() => {
-        expect(result.current).toBe(true);
+        expect(result.current.canEdit).toBe(true);
       });
     });
 
@@ -88,7 +88,7 @@ describe("useHasProjectOrRepoEditPermission", () => {
         },
       );
       await waitFor(() => {
-        expect(result.current).toBe(false);
+        expect(result.current.canEdit).toBe(false);
       });
     });
   });

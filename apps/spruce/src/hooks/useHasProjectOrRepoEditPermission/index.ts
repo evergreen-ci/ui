@@ -19,34 +19,37 @@ export const useHasProjectOrRepoEditPermission = (id?: string) => {
     IsRepoQueryVariables
   >(IS_REPO, {
     variables: { projectOrRepoId: id ?? "" },
-    skip: id === "",
+    skip: !id,
     fetchPolicy: "cache-first",
   });
   const isRepoLoading = !isRepoData || loading;
   const isRepo = isRepoData?.isRepo ?? false;
 
-  const { data: projectPermissionsData } = useQuery<
+  const { data: projectPermissionsData, loading: projectLoading } = useQuery<
     UserProjectSettingsPermissionsQuery,
     UserProjectSettingsPermissionsQueryVariables
   >(USER_PROJECT_SETTINGS_PERMISSIONS, {
     variables: { projectIdentifier: id ?? "" },
-    skip: isRepoLoading || isRepo || id === "",
+    skip: isRepoLoading || isRepo || !id,
     fetchPolicy: "cache-first",
   });
   const canEditProject =
     projectPermissionsData?.user?.permissions?.projectPermissions?.edit ??
     false;
 
-  const { data: repoPermissionsData } = useQuery<
+  const { data: repoPermissionsData, loading: repoLoading } = useQuery<
     UserRepoSettingsPermissionsQuery,
     UserRepoSettingsPermissionsQueryVariables
   >(USER_REPO_SETTINGS_PERMISSIONS, {
     variables: { repoId: id ?? "" },
-    skip: isRepoLoading || !isRepo || id === "",
+    skip: isRepoLoading || !isRepo || !id,
     fetchPolicy: "cache-first",
   });
   const canEditRepo =
     repoPermissionsData?.user?.permissions?.repoPermissions?.edit ?? false;
 
-  return isRepo ? canEditRepo : canEditProject;
+  return {
+    canEdit: isRepo ? canEditRepo : canEditProject,
+    loading: isRepoLoading || projectLoading || repoLoading,
+  };
 };
