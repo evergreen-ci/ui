@@ -27,7 +27,7 @@ export const TaskStatsTooltip: React.FC<
     0;
 
   return (
-    <>
+    <div>
       <BtnContainer>
         <IconButton
           ref={buttonRef}
@@ -62,12 +62,12 @@ export const TaskStatsTooltip: React.FC<
           </Table>
         </PopoverContainer>
       </Popover>
-    </>
+    </div>
   );
 };
 
 const BtnContainer = styled.div`
-  display: inline-block;
+  align-self: flex-start;
 `;
 
 const Table = styled.table``;

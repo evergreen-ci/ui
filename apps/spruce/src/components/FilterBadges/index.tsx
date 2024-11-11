@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
+import { size } from "constants/tokens";
 import FilterBadge, { FilterBadgeType } from "./FilterBadge";
 import { SeeMoreModal } from "./SeeMoreModal";
 import useFilterBadgeQueryParams from "./useFilterBadgeQueryParams";
@@ -57,7 +58,13 @@ const FilterBadges: React.FC<FilterBadgesProps> = ({
 };
 
 const Container = styled.div`
-  max-height: 72px; // height of 2 rows of @leafygreen-ui/badge elements
+  display: flex;
+  gap: ${size.xs};
+  flex-wrap: wrap;
+
+  /* height of 1 row of badges, to avoid layout shift (equal to height of XSmall button) */
+  min-height: 22px;
+
   overflow: hidden;
 `;
 

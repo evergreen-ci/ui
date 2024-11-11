@@ -44,6 +44,7 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
           allowDeselect={false}
           aria-labelledby="Tuple Select"
           data-cy="tuple-select-dropdown"
+          dropdownWidthBasis="option"
           onChange={(v) => setSelected(v)}
           value={selected}
         >
@@ -99,9 +100,7 @@ const GroupedSelect = styled(Select)`
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: 0;
-    > div > div {
-      overflow: visible;
-    }
+    width: max-content;
   }
 `;
 
