@@ -219,10 +219,7 @@ describe("Project Settings when defaulting to repo", () => {
         .contains("label", "Enabled")
         .click();
       clickSave();
-      cy.validateToast(
-        "error",
-        "There was an error saving the project: GitHub checks cannot be enabled without aliases",
-      );
+      cy.validateToast("error", "There was an error saving the project");
     });
 
     it("Defaults to repo and shows the repo's disabled patch definition", () => {

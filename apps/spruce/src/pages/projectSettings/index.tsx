@@ -260,18 +260,14 @@ const ProjectSettings: React.FC = () => {
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.Plugins}
             />
-            {projectType !== ProjectType.Repo && (
-              <ProjectSettingsNavItem
-                {...sharedProps}
-                tab={ProjectSettingsTabRoutes.GithubAppSettings}
-              />
-            )}
-            {projectType !== ProjectType.Repo && (
-              <ProjectSettingsNavItem
-                {...sharedProps}
-                tab={ProjectSettingsTabRoutes.GithubPermissionGroups}
-              />
-            )}
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.GithubAppSettings}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.GithubPermissionGroups}
+            />
             <ProjectSettingsNavItem
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.EventLog}

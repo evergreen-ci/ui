@@ -1814,6 +1814,7 @@ export type Permissions = {
   canEditAdminSettings: Scalars["Boolean"]["output"];
   distroPermissions: DistroPermissions;
   projectPermissions: ProjectPermissions;
+  repoPermissions: RepoPermissions;
   userId: Scalars["String"]["output"];
 };
 
@@ -1823,6 +1824,10 @@ export type PermissionsDistroPermissionsArgs = {
 
 export type PermissionsProjectPermissionsArgs = {
   options: ProjectPermissionsOptions;
+};
+
+export type PermissionsRepoPermissionsArgs = {
+  options: RepoPermissionsOptions;
 };
 
 export type PlannerSettings = {
@@ -2228,6 +2233,7 @@ export type Query = {
   image?: Maybe<Image>;
   images: Array<Scalars["String"]["output"]>;
   instanceTypes: Array<Scalars["String"]["output"]>;
+  isRepo: Scalars["Boolean"]["output"];
   logkeeperBuildMetadata: LogkeeperBuild;
   mainlineCommits?: Maybe<MainlineCommits>;
   myHosts: Array<Host>;
@@ -2325,6 +2331,10 @@ export type QueryImageArgs = {
   imageId: Scalars["String"]["input"];
 };
 
+export type QueryIsRepoArgs = {
+  projectOrRepoId: Scalars["String"]["input"];
+};
+
 export type QueryLogkeeperBuildMetadataArgs = {
   buildId: Scalars["String"]["input"];
 };
@@ -2410,6 +2420,16 @@ export type RepoCommitQueueParams = {
   message: Scalars["String"]["output"];
 };
 
+export type RepoPermissions = {
+  __typename?: "RepoPermissions";
+  edit: Scalars["Boolean"]["output"];
+  view: Scalars["Boolean"]["output"];
+};
+
+export type RepoPermissionsOptions = {
+  repoId: Scalars["String"]["input"];
+};
+
 /**
  * RepoRef is technically a special kind of Project.
  * Repo types have booleans defaulted, which is why it is necessary to redeclare the types despite them matching nearly
@@ -2432,6 +2452,8 @@ export type RepoRef = {
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]["output"]>>;
   gitTagVersionsEnabled: Scalars["Boolean"]["output"];
   githubChecksEnabled: Scalars["Boolean"]["output"];
+  githubDynamicTokenPermissionGroups: Array<GitHubDynamicTokenPermissionGroup>;
+  githubPermissionGroupByRequester?: Maybe<Scalars["StringMap"]["output"]>;
   githubTriggerAliases?: Maybe<Array<Scalars["String"]["output"]>>;
   id: Scalars["String"]["output"];
   manualPrTestingEnabled: Scalars["Boolean"]["output"];
@@ -2475,6 +2497,10 @@ export type RepoRefInput = {
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]["input"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   githubChecksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  githubDynamicTokenPermissionGroups?: InputMaybe<
+    Array<GitHubDynamicTokenPermissionGroupInput>
+  >;
+  githubPermissionGroupByRequester?: InputMaybe<Scalars["StringMap"]["input"]>;
   githubTriggerAliases?: InputMaybe<Array<Scalars["String"]["input"]>>;
   id: Scalars["String"]["input"];
   manualPrTestingEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2506,6 +2532,7 @@ export type RepoRefInput = {
 export type RepoSettings = {
   __typename?: "RepoSettings";
   aliases?: Maybe<Array<ProjectAlias>>;
+  githubAppAuth?: Maybe<GithubAppAuth>;
   githubWebhooksEnabled: Scalars["Boolean"]["output"];
   projectRef?: Maybe<RepoRef>;
   subscriptions?: Maybe<Array<GeneralSubscription>>;
@@ -2519,6 +2546,7 @@ export type RepoSettings = {
  */
 export type RepoSettingsInput = {
   aliases?: InputMaybe<Array<ProjectAliasInput>>;
+  githubAppAuth?: InputMaybe<GithubAppAuthInput>;
   githubWebhooksEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   projectRef?: InputMaybe<RepoRefInput>;
   repoId: Scalars["String"]["input"];

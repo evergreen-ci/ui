@@ -1,23 +1,35 @@
 import { GitHubDynamicTokenPermissionGroup } from "gql/generated/types";
+import { ProjectType } from "../utils";
+
+type AppCredentials = {
+  githubAppAuth: {
+    appId: number;
+    privateKey: string;
+  };
+};
+
+type TokenPermissionRestrictions = {
+  permissionsByRequester: {
+    requesterType: string;
+    permissionGroup: string;
+  }[];
+};
 
 export interface AppSettingsFormState {
-  appCredentials: {
-    githubAppAuth: {
-      appId: number;
-      privateKey: string;
-    };
-  };
-  tokenPermissionRestrictions: {
-    permissionsByRequester: {
-      requesterType: string;
-      permissionGroup: string;
-    }[];
+  appCredentials: AppCredentials;
+  tokenPermissionRestrictions: TokenPermissionRestrictions;
+  repoData?: {
+    appCredentials: AppCredentials;
+    tokenPermissionRestrictions: TokenPermissionRestrictions;
   };
 }
 
 export type TabProps = {
   identifier: string;
+  repoId: string;
   githubPermissionGroups: GitHubDynamicTokenPermissionGroup[];
-  projectData: AppSettingsFormState;
+  projectData?: AppSettingsFormState;
   projectId: string;
+  projectType: ProjectType;
+  repoData?: AppSettingsFormState;
 };
