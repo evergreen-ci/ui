@@ -15,6 +15,7 @@ export const zIndex = {
   backdrop: -1,
 
   // Set these values to 1 to utilize LeafyGreen's built-in stacking context
+  drawer: 1,
   modal: 1,
   popover: 1,
   sideNav: 1,
