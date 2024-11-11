@@ -15,6 +15,7 @@ type Action =
   | { name: "Filtered by requester"; requesters: string[] }
   | { name: "Changed page"; direction: "next" | "previous" }
   | { name: "Created build variant filter" }
+  | { name: "Created task filter" }
   | { name: "Deleted one filter badge" }
   | { name: "Deleted all filter badges" };
 

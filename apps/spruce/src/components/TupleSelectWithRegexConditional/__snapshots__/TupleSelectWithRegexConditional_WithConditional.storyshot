@@ -10,7 +10,7 @@
       <div
         class="css-1lh1bx9-LabelContainer e5gn9hl2"
       >
-        Add New Filter
+        Add Filter
         <div
           class="leafygreen-ui-ozfao7 css-1qa4isu-PaddedSegmentedControl egmqwjk0"
         >
@@ -94,7 +94,7 @@
       class="css-iyur2e-InputGroup e5gn9hl3"
     >
       <div
-        class="leafygreen-ui-1iyoj2o css-qwbq59-GroupedSelect e5gn9hl1"
+        class="leafygreen-ui-1iyoj2o css-1fn6r51-GroupedSelect e5gn9hl1"
         data-lgid="lg-select"
       >
         <button
