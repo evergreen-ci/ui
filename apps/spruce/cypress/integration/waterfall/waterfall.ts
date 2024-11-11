@@ -157,7 +157,7 @@ describe("task filtering", () => {
     cy.visit("/project/evergreen/waterfall");
   });
 
-  it("filters grid squares, removes inactive build variants, creates a badge, and updaes the url", () => {
+  it("filters grid squares, removes inactive build variants, creates a badge, and updates the url", () => {
     cy.dataCy("build-variant-label").should("have.length", 2);
     cy.dataCy("tuple-select-dropdown").click({ force: true });
     cy.get('[role="listbox"]').should("have.length", 1);

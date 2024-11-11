@@ -16,6 +16,9 @@ export const NameFilter = () => {
         case WaterfallFilterOptions.BuildVariant:
           sendEvent({ name: "Created build variant filter" });
           break;
+        case WaterfallFilterOptions.Task:
+          sendEvent({ name: "Created task filter" });
+          break;
         default:
       }
     },

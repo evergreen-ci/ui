@@ -146,7 +146,7 @@ export const useFilters = ({
           });
           if (
             activeBuilds.length &&
-            activeBuilds.some((b) => !!b.tasks.length)
+            activeBuilds.some((b) => b.tasks.length > 0)
           ) {
             pushVariant({ ...bv, builds: activeBuilds });
           }

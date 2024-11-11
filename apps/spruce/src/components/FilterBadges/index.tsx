@@ -59,7 +59,7 @@ const FilterBadges: React.FC<FilterBadgesProps> = ({
 
 const Container = styled.div`
   display: flex;
-  gap: ${size.s};
+  gap: ${size.xs};
   flex-wrap: wrap;
 
   /* height of 1 row of badges, to avoid layout shift (equal to height of XSmall button) */
