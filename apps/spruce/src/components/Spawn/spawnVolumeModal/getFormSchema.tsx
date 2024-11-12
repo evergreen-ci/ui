@@ -29,6 +29,7 @@ export const getFormSchema = ({
       requiredVolumeInformation: {
         type: "object" as "object",
         title: "Required Volume Information",
+        required: ["size"],
         properties: {
           size: {
             title: "Size (GiB)",
