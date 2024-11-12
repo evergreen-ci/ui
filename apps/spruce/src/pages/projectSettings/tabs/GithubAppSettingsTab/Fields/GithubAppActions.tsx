@@ -19,7 +19,8 @@ import { DELETE_GITHUB_APP_CREDENTIALS } from "gql/mutations";
 const DeleteAppCredentialsButton: React.FC<{
   ["data-cy"]: string;
   projectId: string;
-}> = ({ "data-cy": dataCy, projectId }) => {
+  disabled: boolean;
+}> = ({ "data-cy": dataCy, disabled, projectId }) => {
   const [open, setOpen] = useState(false);
   const dispatchToast = useToastContext();
 
@@ -62,6 +63,7 @@ const DeleteAppCredentialsButton: React.FC<{
       </ConfirmationModal>
       <Button
         data-cy={dataCy}
+        disabled={disabled}
         onClick={() => setOpen(true)}
         variant={ButtonVariant.Danger}
       >
@@ -71,7 +73,7 @@ const DeleteAppCredentialsButton: React.FC<{
   );
 };
 
-const GithubAppActions: Field = ({ uiSchema }) => {
+const GithubAppActions: Field = ({ disabled, uiSchema }) => {
   const {
     options: { isAppDefined, projectId },
   } = uiSchema;
@@ -79,6 +81,7 @@ const GithubAppActions: Field = ({ uiSchema }) => {
   return isAppDefined ? (
     <DeleteAppCredentialsButton
       data-cy="delete-app-credentials-button"
+      disabled={disabled}
       projectId={projectId}
     />
   ) : (

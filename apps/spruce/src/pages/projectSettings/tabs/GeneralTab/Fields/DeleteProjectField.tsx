@@ -63,7 +63,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
   );
 };
 
-export const DeleteProjectField: Field = ({ uiSchema }) => {
+export const DeleteProjectField: Field = ({ disabled, uiSchema }) => {
   const {
     options: { projectId },
   } = uiSchema;
@@ -83,6 +83,7 @@ export const DeleteProjectField: Field = ({ uiSchema }) => {
       </Description>
       <StyledButton
         data-cy="delete-project-button"
+        disabled={disabled}
         onClick={() => setOpen(true)}
         variant="danger"
       >

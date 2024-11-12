@@ -6599,6 +6599,12 @@ export type InstanceTypesQuery = {
   instanceTypes: Array<string>;
 };
 
+export type IsRepoQueryVariables = Exact<{
+  projectOrRepoId: Scalars["String"]["input"];
+}>;
+
+export type IsRepoQuery = { __typename?: "Query"; isRepo: boolean };
+
 export type CustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -9404,6 +9410,22 @@ export type UserProjectSettingsPermissionsQuery = {
       __typename?: "Permissions";
       canCreateProject: boolean;
       projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
+    };
+  };
+};
+
+export type UserRepoSettingsPermissionsQueryVariables = Exact<{
+  repoId: Scalars["String"]["input"];
+}>;
+
+export type UserRepoSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: {
+      __typename?: "Permissions";
+      repoPermissions: { __typename?: "RepoPermissions"; edit: boolean };
     };
   };
 };

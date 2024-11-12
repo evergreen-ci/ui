@@ -79,7 +79,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
   );
 };
 
-export const DeactivateStepbackTaskField: Field = ({ uiSchema }) => {
+export const DeactivateStepbackTaskField: Field = ({ disabled, uiSchema }) => {
   const {
     options: { projectId },
   } = uiSchema;
@@ -105,6 +105,7 @@ export const DeactivateStepbackTaskField: Field = ({ uiSchema }) => {
         <div>
           <Button
             data-cy={id}
+            disabled={disabled}
             id={id}
             onClick={() => setOpen(true)}
             size="small"

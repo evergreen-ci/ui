@@ -274,7 +274,6 @@ export const getFormSchema = (
       },
       repositoryInfo: {
         "ui:field": "repoConfigField",
-        "ui:disabled": projectType !== ProjectType.Project,
         options: {
           initialOwner,
           initialRepo,
