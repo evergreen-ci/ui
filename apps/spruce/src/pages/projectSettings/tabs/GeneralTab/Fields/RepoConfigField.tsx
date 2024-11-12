@@ -44,7 +44,7 @@ export const RepoConfigField: Field = ({
   return (
     <Container hasButtons={!isRepo}>
       <SpruceForm
-        disabled={disabled}
+        disabled={disabled || projectType !== ProjectType.Project}
         formData={formData}
         onChange={({ formData: formUpdate }) => onChange(formUpdate)}
         schema={schema}

@@ -236,6 +236,11 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated repo");
       cy.visit(origin);
       cy.dataCy("navitem-github-commitqueue").click();
+      cy.dataCy("default-to-repo-button").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
       cy.dataCy("default-to-repo-button").click();
       cy.dataCy("default-to-repo-modal").should("be.visible");
       cy.getInputByLabel('Type "confirm" to confirm your action').type(

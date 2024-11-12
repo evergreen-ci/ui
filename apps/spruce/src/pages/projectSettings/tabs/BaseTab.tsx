@@ -15,6 +15,7 @@ type BaseTabProps<T extends WritableProjectSettingsType> = {
 };
 
 export const BaseTab = <T extends WritableProjectSettingsType>({
+  disabled,
   initialFormState,
   tab,
   ...rest
@@ -32,7 +33,7 @@ export const BaseTab = <T extends WritableProjectSettingsType>({
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     <Form<WritableProjectSettingsType, FormStateMap>
       {...rest}
-      disabled={!canEdit}
+      disabled={disabled || !canEdit}
       state={state}
       tab={tab}
     />

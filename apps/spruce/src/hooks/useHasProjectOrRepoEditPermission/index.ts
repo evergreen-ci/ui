@@ -14,23 +14,25 @@ import {
 } from "gql/queries";
 
 export const useHasProjectOrRepoEditPermission = (id?: string) => {
-  const { data: isRepoData, loading } = useQuery<
+  const projectOrRepoId = id ?? "";
+
+  const { data: isRepoData, loading: isRepoLoading } = useQuery<
     IsRepoQuery,
     IsRepoQueryVariables
   >(IS_REPO, {
-    variables: { projectOrRepoId: id ?? "" },
-    skip: !id,
+    variables: { projectOrRepoId },
+    skip: !projectOrRepoId,
     fetchPolicy: "cache-first",
   });
-  const isRepoLoading = !isRepoData || loading;
   const isRepo = isRepoData?.isRepo ?? false;
 
   const { data: projectPermissionsData, loading: projectLoading } = useQuery<
     UserProjectSettingsPermissionsQuery,
     UserProjectSettingsPermissionsQueryVariables
   >(USER_PROJECT_SETTINGS_PERMISSIONS, {
-    variables: { projectIdentifier: id ?? "" },
-    skip: isRepoLoading || isRepo || !id,
+    variables: { projectIdentifier: projectOrRepoId },
+    skip:
+      isRepoLoading || isRepoData === undefined || isRepo || !projectOrRepoId,
     fetchPolicy: "cache-first",
   });
   const canEditProject =
@@ -41,8 +43,9 @@ export const useHasProjectOrRepoEditPermission = (id?: string) => {
     UserRepoSettingsPermissionsQuery,
     UserRepoSettingsPermissionsQueryVariables
   >(USER_REPO_SETTINGS_PERMISSIONS, {
-    variables: { repoId: id ?? "" },
-    skip: isRepoLoading || !isRepo || !id,
+    variables: { repoId: projectOrRepoId },
+    skip:
+      isRepoLoading || isRepoData === undefined || !isRepo || !projectOrRepoId,
     fetchPolicy: "cache-first",
   });
   const canEditRepo =
