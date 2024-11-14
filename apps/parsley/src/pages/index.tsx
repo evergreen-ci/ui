@@ -26,7 +26,7 @@ const Content: React.FC = () => {
   const { user } = useUser();
   localStorage.setItem("userId", user?.userId ?? "");
 
-  useAnalyticAttributes();
+  useAnalyticAttributes(user?.userId ?? "");
   const { isAuthenticated } = useAuthContext();
   return isAuthenticated ? (
     <Routes>
