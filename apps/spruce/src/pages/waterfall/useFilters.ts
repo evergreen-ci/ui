@@ -80,14 +80,12 @@ export const useFilters = ({
 
   const activeVersionIds = useMemo(
     () =>
-      new Set(
-        versionsResult.reduce((ids: string[], { version }) => {
-          if (version) {
-            ids.push(version.id);
-          }
-          return ids;
-        }, []),
-      ),
+      versionsResult.reduce((ids: string[], { version }) => {
+        if (version) {
+          ids.push(version.id);
+        }
+        return ids;
+      }, []),
     [versionsResult],
   );
 
@@ -125,12 +123,12 @@ export const useFilters = ({
         buildVariantFilterRegex.some((r) => bv.displayName.match(r));
       if (passesBVFilter) {
         if (
-          activeVersionIds.size !== bv.builds.length ||
+          activeVersionIds.length !== bv.builds.length ||
           taskFilterRegex.length
         ) {
           const activeBuilds: Build[] = [];
           bv.builds.forEach((b) => {
-            if (activeVersionIds.has(b.version)) {
+            if (activeVersionIds.includes(b.version)) {
               if (taskFilterRegex.length) {
                 const activeTasks = b.tasks.filter((t) =>
                   taskFilterRegex.some((r) => t.displayName.match(r)),
@@ -165,7 +163,11 @@ export const useFilters = ({
     taskFilterRegex,
   ]);
 
-  return { buildVariants: buildVariantsResult, versions: versionsResult };
+  return {
+    activeVersionIds,
+    buildVariants: buildVariantsResult,
+    versions: versionsResult,
+  };
 };
 
 /**

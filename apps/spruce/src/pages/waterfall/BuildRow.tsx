@@ -26,6 +26,7 @@ const { black, gray, white } = palette;
 type Props = {
   build: BuildVariant;
   handlePinClick: () => void;
+  lastActiveVersionId: string;
   pinned: boolean;
   projectIdentifier: string;
   versions: WaterfallVersion[];
@@ -34,6 +35,7 @@ type Props = {
 export const BuildRow: React.FC<Props> = ({
   build,
   handlePinClick,
+  lastActiveVersionId,
   pinned,
   projectIdentifier,
   versions,
@@ -93,6 +95,7 @@ export const BuildRow: React.FC<Props> = ({
                 key={b.id}
                 build={b}
                 handleTaskClick={handleTaskClick}
+                isRightmostBuild={b.version === lastActiveVersionId}
               />
             );
           }
@@ -106,7 +109,8 @@ export const BuildRow: React.FC<Props> = ({
 const BuildGrid: React.FC<{
   build: Build;
   handleTaskClick: (s: string) => () => void;
-}> = ({ build, handleTaskClick }) => (
+  isRightmostBuild: boolean;
+}> = ({ build, handleTaskClick, isRightmostBuild }) => (
   <BuildContainer
     onClick={(event: React.MouseEvent) => {
       handleTaskClick(
@@ -123,6 +127,7 @@ const BuildGrid: React.FC<{
         <SquareMemo
           key={id}
           data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
+          isRightmostBuild={isRightmostBuild}
           status={taskStatus}
           to={getTaskRoute(id, { execution })}
         />
@@ -148,7 +153,7 @@ const StyledIconButton = styled(IconButton)`
   ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
 
-const Square = styled(Link)<{ status: TaskStatus }>`
+const Square = styled(Link)<{ isRightmostBuild: boolean; status: TaskStatus }>`
   width: ${SQUARE_SIZE}px;
   height: ${SQUARE_SIZE}px;
   border: 1px solid ${white};
@@ -165,7 +170,8 @@ const Square = styled(Link)<{ status: TaskStatus }>`
     position: absolute;
     bottom: calc(100% + 5px);
     left: 50%;
-    transform: translate(-50%);
+    transform: ${({ isRightmostBuild }) =>
+      isRightmostBuild ? "translate(-90%)" : "translate(-50%)"};
     z-index: 1;
     width: max-content;
     max-width: 450px;
