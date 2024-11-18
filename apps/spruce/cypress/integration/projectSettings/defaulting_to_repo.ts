@@ -331,7 +331,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("navitem-virtual-workstation").click();
       cy.dataCy("command-row")
         .contains("textarea", "a repo command")
-        .should("be.disabled");
+        .should("have.attr", "aria-disabled", "true");
       // Override commands, add a command, default to repo then show override commands are cleared
       cy.contains("label", "Override Repo Commands")
         .as("overrideRepoCommandsButton")
@@ -343,13 +343,13 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("command-row")
         .contains("textarea", "a project command")
-        .should("be.enabled");
+        .should("have.attr", "aria-disabled", "false");
       cy.contains("label", "Default to Repo Commands").click();
       clickSave();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("command-row")
         .contains("textarea", "a repo command")
-        .should("be.disabled");
+        .should("have.attr", "aria-disabled", "true");
       cy.get("@overrideRepoCommandsButton").click();
       cy.dataCy("command-row").should("not.exist");
     });

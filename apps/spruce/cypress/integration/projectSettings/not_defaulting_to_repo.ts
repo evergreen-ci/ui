@@ -58,7 +58,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("var-value-input").should("have.value", "{REDACTED}");
       cy.dataCy("var-name-input").should("have.attr", "aria-disabled", "true");
-      cy.dataCy("var-value-input").should("be.disabled");
+      cy.dataCy("var-value-input").should("have.attr", "aria-disabled", "true");
       cy.dataCy("var-private-input").should(
         "have.attr",
         "aria-disabled",
