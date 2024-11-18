@@ -425,7 +425,6 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
         data-cy={dataCy}
         description={description}
         disabled={disabled || readonly}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         errorMessage={hasError ? errors.join(", ") : null}
         label={label}
         onChange={({ target }) =>

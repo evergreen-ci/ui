@@ -42,23 +42,23 @@
                     <label
                       class="leafygreen-ui-qj0u2k"
                       data-lgid="lg-label"
-                      for="select-235"
-                      id="select-234-label"
+                      for="select-259"
+                      id="select-258-label"
                     >
                       Project Cloning Method
                     </label>
                   </div>
                   <button
-                    aria-controls="select-234-menu"
-                    aria-describedby="select-234-description"
+                    aria-controls="select-258-menu"
+                    aria-describedby="select-258-description"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-invalid="false"
-                    aria-labelledby="select-234-label"
+                    aria-labelledby="select-258-label"
                     class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
                     data-lgid="lg-button"
                     data-testid="leafygreen-ui-select-menubutton"
-                    id="select-235"
+                    id="select-259"
                     type="button"
                     value="legacy-ssh"
                   >
@@ -185,14 +185,14 @@
                                 class="leafygreen-ui-6bdaia"
                                 data-lgid="lg-label"
                                 data-testid="lg-form_field-label"
-                                for="lg-form_field-input-239"
-                                id="lg-form_field-label-236"
+                                for="lg-form_field-input-263"
+                                id="lg-form_field-label-260"
                               >
                                 key
                               </label>
                             </div>
                             <div
-                              class="leafygreen-ui-109lyo9"
+                              class="leafygreen-ui-14vpn2b"
                             >
                               <div
                                 class="leafygreen-ui-1ago99h"
@@ -201,10 +201,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-236"
+                                  aria-labelledby="lg-form_field-label-260"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-239"
+                                  id="lg-form_field-input-263"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -217,7 +217,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-form_field-feedback"
                               data-testid="lg-form_field-feedback"
-                              id="lg-form_field-feedback-238"
+                              id="lg-form_field-feedback-262"
                             />
                           </div>
                         </div>
@@ -240,14 +240,14 @@
                                 class="leafygreen-ui-6bdaia"
                                 data-lgid="lg-label"
                                 data-testid="lg-form_field-label"
-                                for="lg-form_field-input-243"
-                                id="lg-form_field-label-240"
+                                for="lg-form_field-input-267"
+                                id="lg-form_field-label-264"
                               >
                                 value
                               </label>
                             </div>
                             <div
-                              class="leafygreen-ui-109lyo9"
+                              class="leafygreen-ui-14vpn2b"
                             >
                               <div
                                 class="leafygreen-ui-1ago99h"
@@ -256,10 +256,10 @@
                                   aria-describedby=""
                                   aria-disabled="false"
                                   aria-invalid="false"
-                                  aria-labelledby="lg-form_field-label-240"
+                                  aria-labelledby="lg-form_field-label-264"
                                   autocomplete="on"
                                   class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                                  id="lg-form_field-input-243"
+                                  id="lg-form_field-input-267"
                                   required=""
                                   type="text"
                                   value="Sample Input"
@@ -272,7 +272,7 @@
                               class="leafygreen-ui-11ydt2g"
                               data-lgid="lg-form_field-feedback"
                               data-testid="lg-form_field-feedback"
-                              id="lg-form_field-feedback-242"
+                              id="lg-form_field-feedback-266"
                             />
                           </div>
                         </div>
@@ -326,22 +326,47 @@
                 class="css-17q2u8g-ElementWrapper ee4bs9n0"
               >
                 <div
-                  class="leafygreen-ui-1iyoj2o"
+                  class="leafygreen-ui-1br9h7w"
                   data-lgid="lg-text_area"
                 >
-                  <label
-                    class="leafygreen-ui-1fi5x3a"
-                    data-lgid="lg-label"
-                    for="textarea-244"
+                  <div
+                    class="leafygreen-ui-au9iil"
                   >
-                    Valid Projects
-                  </label>
-                  <textarea
-                    aria-invalid="false"
-                    class="leafygreen-ui-18em0fn"
-                    id="textarea-244"
-                    rows="5"
-                    title="Valid Projects"
+                    <label
+                      class="leafygreen-ui-6bdaia"
+                      data-lgid="lg-label"
+                      data-testid="lg-form_field-label"
+                      for="textarea-272"
+                      id="lg-form_field-label-268"
+                    >
+                      Valid Projects
+                    </label>
+                  </div>
+                  <div
+                    class="leafygreen-ui-o0whc9"
+                  >
+                    <div
+                      class="leafygreen-ui-1ago99h"
+                    >
+                      <textarea
+                        aria-describedby=""
+                        aria-disabled="false"
+                        aria-invalid="false"
+                        aria-labelledby="lg-form_field-label-268"
+                        class="lg-ui-form-field-input-0000 leafygreen-ui-1hxdgot"
+                        id="textarea-272"
+                        rows="5"
+                        title="Valid Projects"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    aria-live="polite"
+                    aria-relevant="all"
+                    class="leafygreen-ui-11ydt2g"
+                    data-lgid="lg-form_field-feedback"
+                    data-testid="lg-form_field-feedback"
+                    id="lg-form_field-feedback-270"
                   />
                 </div>
               </div>
