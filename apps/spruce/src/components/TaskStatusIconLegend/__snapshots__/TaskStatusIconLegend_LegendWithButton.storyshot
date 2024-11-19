@@ -2,7 +2,7 @@
   <div>
     <button
       aria-disabled="false"
-      aria-label="Task Status Icon Legend"
+      aria-label="Task status icon legend"
       class="leafygreen-ui-tcjr3n"
       tabindex="0"
     >
@@ -11,7 +11,7 @@
       >
         <svg
           aria-label="Question Mark With Circle Icon"
-          class="css-1ivzsgc-StyledIcon e1yp16pl5"
+          class=""
           fill="none"
           height="16"
           role="img"

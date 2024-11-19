@@ -7,9 +7,13 @@ export default {
 } satisfies CustomMeta<typeof TaskStatusIconLegend>;
 
 export const LegendWithButton: CustomStoryObj<typeof TaskStatusIconLegend> = {
-  render: () => <TaskStatusIconLegend />,
+  render: () => <TaskStatusIconLegend useWaterfall />,
 };
 
-export const LegendOnly: CustomStoryObj<typeof LegendContent> = {
-  render: () => <LegendContent />,
+export const LegendOnlyMainlineCommits: CustomStoryObj<typeof LegendContent> = {
+  render: () => <LegendContent useWaterfall={false} />,
+};
+
+export const LegendOnlyWaterfall: CustomStoryObj<typeof LegendContent> = {
+  render: () => <LegendContent useWaterfall />,
 };
