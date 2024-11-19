@@ -17,3 +17,7 @@ export type EventDiffLine = {
   before: EventValue;
   after: EventValue;
 };
+
+export type CustomKeyRenderConfig = {
+  [prefixKey: string]: (key: string) => React.ReactNode;
+};

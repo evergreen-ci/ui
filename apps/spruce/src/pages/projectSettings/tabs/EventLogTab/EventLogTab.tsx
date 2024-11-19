@@ -1,4 +1,7 @@
+import styled from "@emotion/styled";
+import InlineDefinition from "@leafygreen-ui/inline-definition";
 import { useParams } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { EventLog } from "components/Settings/EventLog";
 import { slugs } from "constants/routes";
 import { ProjectType } from "../utils";
@@ -25,6 +28,13 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
   return (
     <EventLog
       allEventsFetched={allEventsFetched}
+      customKeyRenderConfig={{
+        "vars.vars": (key) => (
+          <StyledInlineDefinition definition="Evergreen does not display project variable values.">
+            {key}
+          </StyledInlineDefinition>
+        ),
+      }}
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       events={events}
       handleFetchMore={() => {
@@ -38,3 +48,7 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
     />
   );
 };
+
+const StyledInlineDefinition = styled(InlineDefinition)`
+  text-underline-offset: ${size.xxs};
+`;
