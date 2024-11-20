@@ -1,0 +1,8 @@
+<div>
+  <div
+    class="leafygreen-ui-1ciuhbt"
+    data-cy="test-status-badge"
+  >
+    Pass
+  </div>
+</div>
