@@ -317,9 +317,9 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           </OOMTrackerMessage>
         )}
         {resetWhenFinished && (
-          <MetadataItem data-cy="reset-when-finished">
-            This task will restart when all of the tasks in its task group have
-            finished running.
+          <MetadataItem>
+            This task will restart when all of the sibling execution tasks have
+            finished.
           </MetadataItem>
         )}
         {taskTrace && startTime && finishTime && (
