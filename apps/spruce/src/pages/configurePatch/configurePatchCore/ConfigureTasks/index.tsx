@@ -92,7 +92,7 @@ const ConfigureTasks: React.FC<Props> = ({
       tasks,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       previouslySelectedVariants,
-      new RegExp(search),
+      new RegExp(search, "i"),
     );
   }, [
     selectedBuildVariantTasks,
