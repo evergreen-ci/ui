@@ -2764,7 +2764,7 @@ export type SpruceConfig = {
   secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
-  ui?: Maybe<UiConfig>;
+  ui: UiConfig;
 };
 
 export type StatusCount = {
@@ -3231,6 +3231,7 @@ export type TriggerAliasInput = {
 
 export type UiConfig = {
   __typename?: "UIConfig";
+  betaFeatures: BetaFeatures;
   defaultProject: Scalars["String"]["output"];
   userVoice?: Maybe<Scalars["String"]["output"]>;
 };
