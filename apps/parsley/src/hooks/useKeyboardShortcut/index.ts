@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
+import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
 import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { useShortcutAnalytics } from "analytics";
-import { CharKey, ModifierKey } from "constants/keys";
 
 type ShortcutKeys = {
   modifierKeys?: ModifierKey[];

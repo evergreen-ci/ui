@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Field } from "@rjsf/core";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { SpruceForm } from "components/SpruceForm";
-import { size, zIndex } from "constants/tokens";
 import { GithubOrgsQuery } from "gql/generated/types";
 import { GITHUB_ORGS } from "gql/queries";
 import { ProjectType } from "../../utils";
@@ -13,6 +13,7 @@ import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";
 
 export const RepoConfigField: Field = ({
+  disabled,
   formData,
   onChange,
   schema,
@@ -43,6 +44,7 @@ export const RepoConfigField: Field = ({
   return (
     <Container hasButtons={!isRepo}>
       <SpruceForm
+        disabled={disabled || projectType !== ProjectType.Project}
         formData={formData}
         onChange={({ formData: formUpdate }) => onChange(formUpdate)}
         schema={schema}
@@ -56,6 +58,7 @@ export const RepoConfigField: Field = ({
               <>
                 <Button
                   data-cy="move-repo-button"
+                  disabled={disabled}
                   onClick={() => setMoveModalOpen(true)}
                   size="small"
                 >
@@ -80,7 +83,7 @@ export const RepoConfigField: Field = ({
               trigger={
                 <Button
                   data-cy="attach-repo-button"
-                  disabled={ownerOrRepoHasChanges}
+                  disabled={ownerOrRepoHasChanges || disabled}
                   onClick={() => setAttachModalOpen(true)}
                   size="small"
                 >

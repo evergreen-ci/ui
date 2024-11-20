@@ -221,6 +221,7 @@ describe("image event log page", async () => {
   });
 
   it("supports type field filter", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <EventLogTab imageId="ubuntu2204" />,
     );
@@ -229,32 +230,32 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
-    within(card0).getByDataCy("image-event-log-type-filter").click();
+    await user.click(within(card0).getByDataCy("image-event-log-type-filter"));
     const treeSelectOptions = await screen.findByDataCy("tree-select-options");
 
     // Set filter to Toolchain.
-    within(treeSelectOptions).getByText("Toolchain").click();
+    await user.click(within(treeSelectOptions).getByText("Toolchain"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(1);
     });
 
     // Clear filter.
-    within(treeSelectOptions).getByText("Toolchain").click();
+    await user.click(within(treeSelectOptions).getByText("Toolchain"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(3);
     });
 
     // Set filter to Package.
-    within(treeSelectOptions).getByText("Package").click();
+    await user.click(within(treeSelectOptions).getByText("Package"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(2);
     });
 
     // Clear filter.
-    within(treeSelectOptions).getByText("Package").click();
+    await user.click(within(treeSelectOptions).getByText("Package"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(3);
@@ -331,6 +332,7 @@ describe("image event log page", async () => {
   });
 
   it("supports filtering for action field", async () => {
+    const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(
       <EventLogTab imageId="ubuntu2204" />,
     );
@@ -339,46 +341,48 @@ describe("image event log page", async () => {
       expect(screen.queryAllByDataCy("image-event-log-card")).toHaveLength(5);
     });
     const card0 = screen.getAllByDataCy("image-event-log-card")[0];
-    within(card0).getByDataCy("image-event-log-action-filter").click();
+    await user.click(
+      within(card0).getByDataCy("image-event-log-action-filter"),
+    );
     const treeSelectOptions = await screen.findByDataCy("tree-select-options");
 
     // Filter for UPDATED field.
-    within(treeSelectOptions).getByText("UPDATED").click();
+    await user.click(within(treeSelectOptions).getByText("UPDATED"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(1);
     });
 
     // Clear filter.
-    within(treeSelectOptions).getByText("UPDATED").click();
+    await user.click(within(treeSelectOptions).getByText("UPDATED"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(3);
     });
 
     // Filter for ADDED field.
-    within(treeSelectOptions).getByText("ADDED").click();
+    await user.click(within(treeSelectOptions).getByText("ADDED"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(1);
     });
 
     // Clear filter.
-    within(treeSelectOptions).getByText("ADDED").click();
+    await user.click(within(treeSelectOptions).getByText("ADDED"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(3);
     });
 
     // Filter for DELETED field.
-    within(treeSelectOptions).getByText("DELETED").click();
+    await user.click(within(treeSelectOptions).getByText("DELETED"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(1);
     });
 
     // Clear filter.
-    within(treeSelectOptions).getByText("DELETED").click();
+    await user.click(within(treeSelectOptions).getByText("DELETED"));
     await waitFor(() => {
       const rows = within(card0).getAllByDataCy("image-event-log-table-row");
       expect(rows).toHaveLength(3);

@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { StyledRouterLink } from "components/styles";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getVariantHistoryRoute } from "constants/routes";
-import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
 import { VariantGroupedTaskStatusBadges } from "pages/commits/ActiveCommits/BuildVariantCard/VariantGroupedTaskStatusBadges";
 import {

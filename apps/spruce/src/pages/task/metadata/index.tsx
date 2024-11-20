@@ -9,6 +9,7 @@ import {
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import ExpandedText from "components/ExpandedText";
@@ -23,7 +24,6 @@ import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,
 } from "constants/externalResources";
-import { showImageVisibilityPage } from "constants/featureFlags";
 import {
   getDistroSettingsRoute,
   getTaskQueueRoute,
@@ -35,7 +35,6 @@ import {
   getPodRoute,
   getImageRoute,
 } from "constants/routes";
-import { size, zIndex } from "constants/tokens";
 import { TaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { string } from "utils";
@@ -401,7 +400,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
               </StyledRouterLink>
             </MetadataItem>
           )}
-          {showImageVisibilityPage && !isContainerTask && imageId && (
+          {!isContainerTask && imageId && (
             <MetadataItem>
               <ImageVisibilityGuideCue
                 refEl={imageVisibilityGuideCueTriggerRef}

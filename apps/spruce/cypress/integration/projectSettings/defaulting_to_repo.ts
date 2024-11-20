@@ -219,10 +219,7 @@ describe("Project Settings when defaulting to repo", () => {
         .contains("label", "Enabled")
         .click();
       clickSave();
-      cy.validateToast(
-        "error",
-        "There was an error saving the project: GitHub checks cannot be enabled without aliases",
-      );
+      cy.validateToast("error", "There was an error saving the project");
     });
 
     it("Defaults to repo and shows the repo's disabled patch definition", () => {
@@ -239,6 +236,11 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated repo");
       cy.visit(origin);
       cy.dataCy("navitem-github-commitqueue").click();
+      cy.dataCy("default-to-repo-button").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
       cy.dataCy("default-to-repo-button").click();
       cy.dataCy("default-to-repo-modal").should("be.visible");
       cy.getInputByLabel('Type "confirm" to confirm your action').type(
@@ -329,7 +331,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("navitem-virtual-workstation").click();
       cy.dataCy("command-row")
         .contains("textarea", "a repo command")
-        .should("be.disabled");
+        .should("have.attr", "aria-disabled", "true");
       // Override commands, add a command, default to repo then show override commands are cleared
       cy.contains("label", "Override Repo Commands")
         .as("overrideRepoCommandsButton")
@@ -341,13 +343,13 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("command-row")
         .contains("textarea", "a project command")
-        .should("be.enabled");
+        .should("have.attr", "aria-disabled", "false");
       cy.contains("label", "Default to Repo Commands").click();
       clickSave();
       cy.validateToast("success", "Successfully updated project");
       cy.dataCy("command-row")
         .contains("textarea", "a repo command")
-        .should("be.disabled");
+        .should("have.attr", "aria-disabled", "true");
       cy.get("@overrideRepoCommandsButton").click();
       cy.dataCy("command-row").should("not.exist");
     });

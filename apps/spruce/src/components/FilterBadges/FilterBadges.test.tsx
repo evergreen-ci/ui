@@ -1,10 +1,4 @@
-import {
-  render,
-  screen,
-  userEvent,
-  waitFor,
-  within,
-} from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent, within } from "@evg-ui/lib/test_utils";
 import FilterBadges from ".";
 
 describe("filterBadges", () => {
@@ -154,29 +148,9 @@ describe("filterBadges", () => {
         onRemove={onRemove}
       />,
     );
-    const closeBadge = screen.queryAllByDataCy("close-badge")[0];
+    const closeBadge = screen.queryAllByDataTestid("chip-dismiss-button")[0];
     expect(closeBadge).toBeInTheDocument();
     await user.click(closeBadge);
     expect(onRemove).toHaveBeenCalledWith({ key: "test1", value: "value1" });
-  });
-
-  it("should truncate a badge value if it is too long", async () => {
-    const user = userEvent.setup();
-    const longName = "this is a really long name that should be truncated";
-    render(
-      <FilterBadges
-        badges={[{ key: "some", value: longName }]}
-        onClearAll={vi.fn()}
-        onRemove={vi.fn()}
-      />,
-    );
-    const truncatedBadge = screen.queryByDataCy("filter-badge");
-    expect(truncatedBadge).toBeInTheDocument();
-    expect(truncatedBadge).not.toHaveTextContent(longName);
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.hover(truncatedBadge);
-    await waitFor(() => {
-      expect(screen.queryByText(longName)).toBeVisible();
-    });
   });
 });

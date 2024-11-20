@@ -90,10 +90,10 @@ describe("variant history", () => {
       cy.getInputByLabel("Filter by Failed Tests").should("exist");
       cy.getInputByLabel("Filter by Failed Tests")
         .focus()
-        .type("JustAFakeTestInALonelyWorld")
+        .type("JustA")
         .type("{enter}");
       cy.dataCy("filter-badge").should("exist");
-      cy.dataCy("filter-badge").should("contain.text", "JustAFake");
+      cy.dataCy("filter-badge").should("contain.text", "JustA");
     });
     it("should disable non matching tasks", () => {
       cy.dataCy("history-table-icon")

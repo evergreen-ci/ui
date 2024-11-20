@@ -1,34 +1,45 @@
 import { memo, useCallback } from "react";
 import styled from "@emotion/styled";
+import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
+import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
-import { size } from "constants/tokens";
-import {
-  WaterfallBuild,
-  WaterfallBuildVariant,
-  WaterfallQuery,
-} from "gql/generated/types";
-import { statusColorMap, statusIconMap } from "./icons";
 import {
   BuildVariantTitle,
   columnBasis,
   gridGroupCss,
   InactiveVersion,
   Row,
+  SQUARE_SIZE,
+  taskStatusStyleMap,
 } from "./styles";
+import { Build, BuildVariant, WaterfallVersion } from "./types";
 
 const { black, gray, white } = palette;
 
-export const BuildRow: React.FC<{
-  build: WaterfallBuildVariant;
+type Props = {
+  build: BuildVariant;
+  handlePinClick: () => void;
+  lastActiveVersionId: string;
+  pinned: boolean;
   projectIdentifier: string;
-  versions: WaterfallQuery["waterfall"]["versions"];
-}> = ({ build, projectIdentifier, versions }) => {
+  versions: WaterfallVersion[];
+};
+
+export const BuildRow: React.FC<Props> = ({
+  build,
+  handlePinClick,
+  lastActiveVersionId,
+  pinned,
+  projectIdentifier,
+  versions,
+}) => {
   const { sendEvent } = useWaterfallAnalytics();
   const handleVariantClick = useCallback(
     () => sendEvent({ name: "Clicked variant label" }),
@@ -47,8 +58,17 @@ export const BuildRow: React.FC<{
   let buildIndex = 0;
   return (
     <Row>
-      <BuildVariantTitle>
+      <BuildVariantTitle data-cy="build-variant-label">
+        <StyledIconButton
+          active={pinned}
+          aria-label="Pin build variant"
+          data-cy="pin-button"
+          onClick={handlePinClick}
+        >
+          <Icon glyph="Pin" />
+        </StyledIconButton>
         <StyledLink
+          data-cy="build-variant-link"
           href={getVariantHistoryRoute(projectIdentifier, build.id)}
           onClick={handleVariantClick}
         >
@@ -75,10 +95,11 @@ export const BuildRow: React.FC<{
                 key={b.id}
                 build={b}
                 handleTaskClick={handleTaskClick}
+                isRightmostBuild={b.version === lastActiveVersionId}
               />
             );
           }
-          return <Build key={version?.id} />;
+          return <BuildContainer key={version?.id} />;
         })}
       </BuildGroup>
     </Row>
@@ -86,31 +107,33 @@ export const BuildRow: React.FC<{
 };
 
 const BuildGrid: React.FC<{
-  build: WaterfallBuild;
+  build: Build;
   handleTaskClick: (s: string) => () => void;
-}> = ({ build, handleTaskClick }) => (
-  <Build
+  isRightmostBuild: boolean;
+}> = ({ build, handleTaskClick, isRightmostBuild }) => (
+  <BuildContainer
     onClick={(event: React.MouseEvent) => {
       handleTaskClick(
         (event.target as HTMLDivElement)?.getAttribute("status") ?? "",
       );
     }}
   >
-    {build.tasks.map(({ displayName, id, status }) => {
+    {build.tasks.map(({ displayName, displayStatus, execution, id }) => {
       // If the entire build is inactive, use inactive status for all tasks
       const taskStatus = build.activated
-        ? (status as TaskStatus)
+        ? (displayStatus as TaskStatus)
         : TaskStatus.Inactive;
       return (
         <SquareMemo
           key={id}
           data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
+          isRightmostBuild={isRightmostBuild}
           status={taskStatus}
-          to={getTaskRoute(id)} // TODO DEVPROD-11734: use execution in task route
+          to={getTaskRoute(id, { execution })}
         />
       );
     })}
-  </Build>
+  </BuildContainer>
 );
 
 const BuildGroup = styled.div`
@@ -121,13 +144,16 @@ const BuildGroup = styled.div`
   padding-top: ${size.xs};
 `;
 
-const Build = styled.div`
+const BuildContainer = styled.div`
   ${columnBasis}
 `;
 
-const SQUARE_SIZE = 16;
+const StyledIconButton = styled(IconButton)`
+  top: -${size.xxs};
+  ${({ active }) => active && "transform: rotate(-30deg);"}
+`;
 
-const Square = styled(Link)<{ status: TaskStatus }>`
+const Square = styled(Link)<{ isRightmostBuild: boolean; status: TaskStatus }>`
   width: ${SQUARE_SIZE}px;
   height: ${SQUARE_SIZE}px;
   border: 1px solid ${white};
@@ -136,12 +162,7 @@ const Square = styled(Link)<{ status: TaskStatus }>`
   cursor: pointer;
   position: relative;
 
-  ${({ status }) => {
-    const icon = statusIconMap?.[status];
-    const iconStyle = icon ? `background-image: ${icon};` : "";
-    return `${iconStyle}
-background-color: ${statusColorMap[status]};`;
-  }}
+  ${({ status }) => taskStatusStyleMap[status]}
 
   /* Tooltip */
   :before {
@@ -149,7 +170,8 @@ background-color: ${statusColorMap[status]};`;
     position: absolute;
     bottom: calc(100% + 5px);
     left: 50%;
-    transform: translate(-50%);
+    transform: ${({ isRightmostBuild }) =>
+      isRightmostBuild ? "translate(-90%)" : "translate(-50%)"};
     z-index: 1;
     width: max-content;
     max-width: 450px;

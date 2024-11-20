@@ -174,6 +174,11 @@ describe("Repo Settings", () => {
       cy.reload();
       cy.dataCy("expandable-card-title").contains("my alias name");
       cy.visit(getAccessRoute(projectUseRepoEnabled));
+      cy.dataCy("default-to-repo-button").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
       cy.dataCy("default-to-repo-button").click();
       cy.dataCy("default-to-repo-modal").should("be.visible");
       cy.getInputByLabel('Type "confirm" to confirm your action').type(

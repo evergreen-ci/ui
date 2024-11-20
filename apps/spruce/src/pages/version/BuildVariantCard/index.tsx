@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { navBarHeight } from "components/Header/Navbar";
 import { MetadataCard, MetadataTitle } from "components/MetadataCard";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { size } from "constants/tokens";
 import {
   BuildVariantStatsQuery,
   BuildVariantStatsQueryVariables,

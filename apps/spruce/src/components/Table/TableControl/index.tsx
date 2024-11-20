@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { size } from "@evg-ui/lib/constants/tokens";
 import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
-import { size } from "constants/tokens";
 import usePagination from "hooks/usePagination";
 
 interface Props {

@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner, RepotrackerBanner } from "components/Banners";
 import FilterBadges, {
@@ -19,7 +20,6 @@ import {
 } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getCommitsRoute, slugs } from "constants/routes";
-import { size } from "constants/tokens";
 import { newMainlineCommitsUser } from "constants/welcomeModalProps";
 import { useToastContext } from "context/toast";
 import {

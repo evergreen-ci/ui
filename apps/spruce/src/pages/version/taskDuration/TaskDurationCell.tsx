@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { Description } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import {
   mapTaskToBarchartColor,
   mapTaskStatusToUmbrellaStatus,
 } from "constants/task";
-import { size } from "constants/tokens";
 import { string } from "utils";
 
 const { msToDuration } = string;

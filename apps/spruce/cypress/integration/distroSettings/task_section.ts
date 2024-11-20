@@ -48,7 +48,7 @@ describe("task section", () => {
       cy.selectLGOption("Task Planner Version", "Tunable");
       cy.selectLGOption("Task Dispatcher Version", "Revised with dependencies");
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
 
       // Changes should persist.
       cy.reload();
@@ -70,7 +70,7 @@ describe("task section", () => {
       cy.selectLGOption("Task Planner Version", "Legacy");
       cy.selectLGOption("Task Dispatcher Version", "Revised with dependencies");
       save();
-      cy.validateToast("success");
+      cy.validateToast("success", "Updated distro.");
     });
   });
 });

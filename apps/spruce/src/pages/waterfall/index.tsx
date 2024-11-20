@@ -1,16 +1,22 @@
-import { Suspense } from "react";
+import { Suspense, useState, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
+import { useWaterfallAnalytics } from "analytics";
+import FilterBadges, {
+  useFilterBadgeQueryParams,
+} from "components/FilterBadges";
 import { navBarHeight } from "components/Header/Navbar";
 import { slugs } from "constants/routes";
-import { size } from "constants/tokens";
+import { WaterfallPagination } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { VERSION_LIMIT } from "./styles";
+import { WaterfallFilterOptions } from "./types";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
 
@@ -18,6 +24,14 @@ const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
+  const [, startTransition] = useTransition();
+  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+    new Set([WaterfallFilterOptions.BuildVariant, WaterfallFilterOptions.Task]),
+  );
+
+  const { sendEvent } = useWaterfallAnalytics();
+
+  const [pagination, setPagination] = useState<WaterfallPagination>();
 
   return (
     <>
@@ -30,12 +44,38 @@ const Waterfall: React.FC = () => {
             {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
           </Banner>
         )}
-        <WaterfallFilters projectIdentifier={projectIdentifier ?? ""} />
+        <WaterfallFilters
+          // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
+          key={projectIdentifier}
+          pagination={pagination}
+          projectIdentifier={projectIdentifier ?? ""}
+        />
+        <FilterBadges
+          badges={badges}
+          onClearAll={() => {
+            sendEvent({ name: "Deleted all filter badges" });
+            startTransition(handleClearAll);
+          }}
+          onRemove={(b) => {
+            sendEvent({ name: "Deleted one filter badge" });
+            startTransition(() => handleOnRemove(b));
+          }}
+        />
         {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
-          fallback={<TableSkeleton numCols={VERSION_LIMIT + 1} numRows={15} />}
+          fallback={
+            <TableSkeleton
+              data-cy="waterfall-skeleton"
+              numCols={VERSION_LIMIT + 1}
+              numRows={15}
+            />
+          }
         >
-          <WaterfallGrid projectIdentifier={projectIdentifier ?? ""} />
+          <WaterfallGrid
+            key={projectIdentifier}
+            projectIdentifier={projectIdentifier ?? ""}
+            setPagination={setPagination}
+          />
         </Suspense>
       </PageContainer>
     </>
@@ -46,7 +86,7 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.s};
-  padding: ${size.m} ${size.l};
+  padding: ${size.m};
 `;
 
 /* Safari performance of the waterfall chokes if using overflow-y: scroll, so we need the page to scroll instead.
@@ -56,7 +96,7 @@ const navbarStyles = css`
     position: unset !important;
   }
   #banner-container {
-    margin-top: ${navBarHeight};
+    padding-top: ${navBarHeight};
   }
   nav {
     position: fixed !important;

@@ -139,7 +139,7 @@ const getEvergreenCompleteLogsURL = (
   execution: string | number,
   groupID: string,
 ) =>
-  `${evergreenURL}/rest/v2/tasks/${taskID}/build/TestLogs/${groupID}?execution=${execution}`;
+  `${evergreenURL}/rest/v2/tasks/${taskID}/build/TestLogs/${groupID}%2F?execution=${execution}`;
 
 export {
   constructEvergreenTaskLogURL,

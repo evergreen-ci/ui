@@ -6,12 +6,12 @@ import {
   Overline,
   OverlineProps,
 } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
 import {
   hoverStyles,
   overlineStyles,
 } from "components/styles/SearchableDropdown";
-import { size } from "constants/tokens";
 import { FavoriteStar } from "./FavoriteStar";
 
 const { blue } = palette;

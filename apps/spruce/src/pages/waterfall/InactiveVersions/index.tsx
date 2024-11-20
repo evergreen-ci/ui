@@ -3,18 +3,18 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
-import pluralize from "pluralize";
-import { DisplayModal } from "components/DisplayModal";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
-import { WaterfallQuery } from "gql/generated/types";
-import { VersionLabel } from "../VersionLabel";
+import { WaterfallVersionFragment } from "gql/generated/types";
+import { InactiveVersionsModal } from "./InactiveVersionsModal";
 
 const { gray } = palette;
+
 interface Props {
-  versions: WaterfallQuery["waterfall"]["versions"][0]["inactiveVersions"];
+  versions: WaterfallVersionFragment[];
   containerHeight: number | undefined;
 }
+
 export const InactiveVersionsButton: React.FC<Props> = ({
   containerHeight,
   versions,
@@ -27,20 +27,11 @@ export const InactiveVersionsButton: React.FC<Props> = ({
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <>
-      <DisplayModal
-        data-cy="inactive-versions-modal"
+      <InactiveVersionsModal
         open={modalOpen}
         setOpen={setModalOpen}
-        title={`${versions?.length} Inactive ${pluralize("Version", versions?.length)}`}
-      >
-        {versions?.map((version) => (
-          <StyledVersionLabel
-            key={version.id}
-            trimMessage={false}
-            {...version}
-          />
-        ))}
-      </DisplayModal>
+        versions={versions}
+      />
       {brokenVersionsCount > 0 && (
         <StyledBadge data-cy="broken-versions-badge" variant={Variant.Red}>
           {brokenVersionsCount} broken
@@ -55,7 +46,7 @@ export const InactiveVersionsButton: React.FC<Props> = ({
         size="xsmall"
       >
         <Icon fill={gray.base} glyph="List" />
-        <span>{versions?.length}</span>
+        {versions?.length}
         <InactiveVersionLine containerHeight={containerHeight ?? 0} />
       </Button>
     </>
@@ -69,10 +60,6 @@ const InactiveVersionLine = styled.div<{ containerHeight: number }>`
   margin-left: 50%;
   top: 30px;
   z-index: 1;
-`;
-
-const StyledVersionLabel = styled(VersionLabel)`
-  padding-top: ${size.xs};
 `;
 
 const StyledBadge = styled(Badge)`

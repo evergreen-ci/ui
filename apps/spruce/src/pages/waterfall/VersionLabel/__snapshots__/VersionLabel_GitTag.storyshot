@@ -1,5 +1,47 @@
 <div>
-  <div>
-    Failed to render component.
+  <div
+    class="css-1pp2qz6"
+  >
+    <div
+      class="css-bnbttx-VersionContainer-columnBasis-wordBreakCss e3zirl03"
+      data-cy="version-label-active"
+    >
+      <div
+        class="css-1idzah1-HeaderLine e3zirl00"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          <a
+            class="lg-ui-0000 leafygreen-ui-hvznge"
+            href="/version/evergreen_ui_deb77a36604446272d610d267f1cd9f95e4fe8ff/tasks"
+          >
+            <code
+              class="leafygreen-ui-i6ovbf"
+            >
+              deb77a3
+            </code>
+          </a>
+          09/19/2024, 12:14
+        </p>
+      </div>
+      <p
+        class="css-9ip3is-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+        view="modal"
+      >
+        <strong>
+          Sophie Stadler
+        </strong>
+         •
+         
+        parsley/v2.1.64
+      </p>
+      <p
+        class="leafygreen-ui-1tb6tuo"
+      >
+        Git Tags: 
+        parsley/v2.1.64
+      </p>
+    </div>
   </div>
 </div>

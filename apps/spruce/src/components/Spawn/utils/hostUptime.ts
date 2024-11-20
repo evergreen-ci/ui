@@ -90,7 +90,7 @@ export const getHostUptimeWarnings = ({
  * @returns - object with enabledHoursCount indicating total hours per week and enabledWeekdaysCount indicating number of days per week
  */
 export const getEnabledHoursCount = (
-  hostUptime: HostUptime,
+  hostUptime?: HostUptime,
 ): { enabledHoursCount: number; enabledWeekdaysCount: number } => {
   if (!hostUptime) {
     return {

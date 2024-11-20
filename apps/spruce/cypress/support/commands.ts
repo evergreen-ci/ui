@@ -25,7 +25,7 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   "dataTestId",
   (value: string, options: cyGetOptions = {}) => {
-    cy.get(`[data-test-id=${value}]`, options);
+    cy.get(`[data-testid=${value}]`, options);
   },
 );
 
@@ -98,7 +98,7 @@ Cypress.Commands.add(
 /* validateToast */
 Cypress.Commands.add(
   "validateToast",
-  (status: string, message: string = "", shouldClose: boolean = true) => {
+  (status: string, message: string, shouldClose: boolean = true) => {
     cy.dataCy("toast").should("be.visible");
     cy.dataCy("toast").should("have.attr", "data-variant", status);
     if (message) {

@@ -48,7 +48,7 @@ export const getFormSchema = (
             properties: {
               owner: {
                 type: "string" as "string",
-                title: "Owner",
+                title: "GitHub Organization",
                 format: "noSpaces",
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
                 minLength: getMinLength(projectType, repoData, "owner"),
@@ -274,7 +274,6 @@ export const getFormSchema = (
       },
       repositoryInfo: {
         "ui:field": "repoConfigField",
-        "ui:disabled": projectType !== ProjectType.Project,
         options: {
           initialOwner,
           initialRepo,

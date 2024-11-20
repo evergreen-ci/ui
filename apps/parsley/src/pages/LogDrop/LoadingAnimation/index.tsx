@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import LoadingBar from "components/LoadingBar";
-import { fontSize, size } from "constants/tokens";
 
 interface LoadingAnimationProps {}
 const LoadingAnimation: React.FC<LoadingAnimationProps> = () => (

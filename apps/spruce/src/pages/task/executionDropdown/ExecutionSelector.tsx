@@ -2,8 +2,8 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Select } from "antd";
+import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { fontSize, size } from "constants/tokens";
 import {
   TaskAllExecutionsQuery,
   TaskAllExecutionsQueryVariables,

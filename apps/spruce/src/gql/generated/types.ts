@@ -3918,6 +3918,19 @@ export type ProjectEventAppSettingsFragment = {
   } | null;
 };
 
+export type RepoAppSettingsFragment = {
+  __typename?: "RepoSettings";
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+    privateKey?: string | null;
+  } | null;
+  projectRef?: {
+    __typename?: "RepoRef";
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
+  } | null;
+};
+
 export type ProjectContainerSettingsFragment = {
   __typename?: "Project";
   containerSizeDefinitions?: Array<{
@@ -4114,6 +4127,11 @@ export type ProjectSettingsFieldsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
     containerSizeDefinitions?: Array<{
       __typename?: "ContainerResources";
       cpu: number;
@@ -4154,11 +4172,6 @@ export type ProjectSettingsFieldsFragment = {
       message: string;
       nextRunTime: Date;
     }> | null;
-    githubDynamicTokenPermissionGroups: Array<{
-      __typename?: "GitHubDynamicTokenPermissionGroup";
-      name: string;
-      permissions: { [key: string]: any };
-    }>;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
       ticketCreateIssueType: string;
@@ -4296,6 +4309,7 @@ export type RepoSettingsFieldsFragment = {
     __typename?: "RepoRef";
     displayName: string;
     id: string;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     admins: Array<string>;
     restricted: boolean;
     batchTime: number;
@@ -4321,6 +4335,11 @@ export type RepoSettingsFieldsFragment = {
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
     containerSizeDefinitions?: Array<{
       __typename?: "ContainerResources";
       cpu: number;
@@ -4466,6 +4485,11 @@ export type RepoSettingsFieldsFragment = {
     privateVars: Array<string>;
     vars?: { [key: string]: any } | null;
   } | null;
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+    privateKey?: string | null;
+  } | null;
 };
 
 export type ProjectNotificationSettingsFragment = {
@@ -4606,12 +4630,54 @@ export type RepoPeriodicBuildsSettingsFragment = {
 };
 
 export type ProjectPermissionGroupSettingsFragment = {
-  __typename?: "Project";
-  githubDynamicTokenPermissionGroups: Array<{
-    __typename?: "GitHubDynamicTokenPermissionGroup";
-    name: string;
-    permissions: { [key: string]: any };
-  }>;
+  __typename?: "ProjectSettings";
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+  } | null;
+  projectRef?: {
+    __typename?: "Project";
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
+  } | null;
+};
+
+export type ProjectEventPermissionGroupSettingsFragment = {
+  __typename?: "ProjectEventSettings";
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+  } | null;
+  projectRef?: {
+    __typename?: "Project";
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
+  } | null;
+};
+
+export type RepoPermissionGroupSettingsFragment = {
+  __typename?: "RepoSettings";
+  githubAppAuth?: {
+    __typename?: "GithubAppAuth";
+    appId?: number | null;
+  } | null;
+  projectRef?: {
+    __typename?: "RepoRef";
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
+  } | null;
 };
 
 export type ProjectPluginsSettingsFragment = {
@@ -4716,6 +4782,11 @@ export type ProjectEventSettingsFragment = {
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
+    githubDynamicTokenPermissionGroups: Array<{
+      __typename?: "GitHubDynamicTokenPermissionGroup";
+      name: string;
+      permissions: { [key: string]: any };
+    }>;
     taskSync: {
       __typename?: "TaskSyncOptions";
       configEnabled?: boolean | null;
@@ -4750,11 +4821,6 @@ export type ProjectEventSettingsFragment = {
       message: string;
       nextRunTime: Date;
     }> | null;
-    githubDynamicTokenPermissionGroups: Array<{
-      __typename?: "GitHubDynamicTokenPermissionGroup";
-      name: string;
-      permissions: { [key: string]: any };
-    }>;
     buildBaronSettings: {
       __typename?: "BuildBaronSettings";
       ticketCreateIssueType: string;
@@ -4960,6 +5026,39 @@ export type RepoVirtualWorkstationSettingsFragment = {
 
 export type UpstreamProjectFragment = {
   __typename?: "Version";
+  upstreamProject?: {
+    __typename?: "UpstreamProject";
+    owner: string;
+    project: string;
+    repo: string;
+    revision: string;
+    triggerID: string;
+    triggerType: string;
+    task?: { __typename?: "Task"; execution: number; id: string } | null;
+    version?: { __typename?: "Version"; id: string } | null;
+  } | null;
+};
+
+export type WaterfallVersionFragment = {
+  __typename?: "Version";
+  activated?: boolean | null;
+  author: string;
+  createTime: Date;
+  errors: Array<string>;
+  id: string;
+  message: string;
+  order: number;
+  requester: string;
+  revision: string;
+  gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+  taskStatusStats?: {
+    __typename?: "TaskStats";
+    counts?: Array<{
+      __typename?: "StatusCount";
+      count: number;
+      status: string;
+    }> | null;
+  } | null;
   upstreamProject?: {
     __typename?: "UpstreamProject";
     owner: string;
@@ -6537,6 +6636,12 @@ export type InstanceTypesQuery = {
   instanceTypes: Array<string>;
 };
 
+export type IsRepoQueryVariables = Exact<{
+  projectOrRepoId: Scalars["String"]["input"];
+}>;
+
+export type IsRepoQuery = { __typename?: "Query"; isRepo: boolean };
+
 export type CustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -7238,6 +7343,11 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
           taskSync: {
             __typename?: "TaskSyncOptions";
             configEnabled?: boolean | null;
@@ -7272,11 +7382,6 @@ export type ProjectEventLogsQuery = {
             message: string;
             nextRunTime: Date;
           }> | null;
-          githubDynamicTokenPermissionGroups: Array<{
-            __typename?: "GitHubDynamicTokenPermissionGroup";
-            name: string;
-            permissions: { [key: string]: any };
-          }>;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
             ticketCreateIssueType: string;
@@ -7456,6 +7561,11 @@ export type ProjectEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
           taskSync: {
             __typename?: "TaskSyncOptions";
             configEnabled?: boolean | null;
@@ -7490,11 +7600,6 @@ export type ProjectEventLogsQuery = {
             message: string;
             nextRunTime: Date;
           }> | null;
-          githubDynamicTokenPermissionGroups: Array<{
-            __typename?: "GitHubDynamicTokenPermissionGroup";
-            name: string;
-            permissions: { [key: string]: any };
-          }>;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
             ticketCreateIssueType: string;
@@ -7746,6 +7851,11 @@ export type ProjectSettingsQuery = {
       manualPrTestingEnabled?: boolean | null;
       oldestAllowedMergeBase: string;
       prTestingEnabled?: boolean | null;
+      githubDynamicTokenPermissionGroups: Array<{
+        __typename?: "GitHubDynamicTokenPermissionGroup";
+        name: string;
+        permissions: { [key: string]: any };
+      }>;
       containerSizeDefinitions?: Array<{
         __typename?: "ContainerResources";
         cpu: number;
@@ -7786,11 +7896,6 @@ export type ProjectSettingsQuery = {
         message: string;
         nextRunTime: Date;
       }> | null;
-      githubDynamicTokenPermissionGroups: Array<{
-        __typename?: "GitHubDynamicTokenPermissionGroup";
-        name: string;
-        permissions: { [key: string]: any };
-      }>;
       buildBaronSettings: {
         __typename?: "BuildBaronSettings";
         ticketCreateIssueType: string;
@@ -8018,6 +8123,11 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
           taskSync: {
             __typename?: "TaskSyncOptions";
             configEnabled?: boolean | null;
@@ -8052,11 +8162,6 @@ export type RepoEventLogsQuery = {
             message: string;
             nextRunTime: Date;
           }> | null;
-          githubDynamicTokenPermissionGroups: Array<{
-            __typename?: "GitHubDynamicTokenPermissionGroup";
-            name: string;
-            permissions: { [key: string]: any };
-          }>;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
             ticketCreateIssueType: string;
@@ -8236,6 +8341,11 @@ export type RepoEventLogsQuery = {
           manualPrTestingEnabled?: boolean | null;
           oldestAllowedMergeBase: string;
           prTestingEnabled?: boolean | null;
+          githubDynamicTokenPermissionGroups: Array<{
+            __typename?: "GitHubDynamicTokenPermissionGroup";
+            name: string;
+            permissions: { [key: string]: any };
+          }>;
           taskSync: {
             __typename?: "TaskSyncOptions";
             configEnabled?: boolean | null;
@@ -8270,11 +8380,6 @@ export type RepoEventLogsQuery = {
             message: string;
             nextRunTime: Date;
           }> | null;
-          githubDynamicTokenPermissionGroups: Array<{
-            __typename?: "GitHubDynamicTokenPermissionGroup";
-            name: string;
-            permissions: { [key: string]: any };
-          }>;
           buildBaronSettings: {
             __typename?: "BuildBaronSettings";
             ticketCreateIssueType: string;
@@ -8432,6 +8537,7 @@ export type RepoSettingsQuery = {
       __typename?: "RepoRef";
       displayName: string;
       id: string;
+      githubPermissionGroupByRequester?: { [key: string]: any } | null;
       admins: Array<string>;
       restricted: boolean;
       batchTime: number;
@@ -8457,6 +8563,11 @@ export type RepoSettingsQuery = {
       manualPrTestingEnabled: boolean;
       oldestAllowedMergeBase: string;
       prTestingEnabled: boolean;
+      githubDynamicTokenPermissionGroups: Array<{
+        __typename?: "GitHubDynamicTokenPermissionGroup";
+        name: string;
+        permissions: { [key: string]: any };
+      }>;
       containerSizeDefinitions?: Array<{
         __typename?: "ContainerResources";
         cpu: number;
@@ -8601,6 +8712,11 @@ export type RepoSettingsQuery = {
       adminOnlyVars: Array<string>;
       privateVars: Array<string>;
       vars?: { [key: string]: any } | null;
+    } | null;
+    githubAppAuth?: {
+      __typename?: "GithubAppAuth";
+      appId?: number | null;
+      privateKey?: string | null;
     } | null;
   };
 };
@@ -9169,6 +9285,44 @@ export type TaskQuery = {
   } | null;
 };
 
+export type TestAnalysisQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+  options: TaskFilterOptions;
+  opts?: InputMaybe<TestFilterOptions>;
+}>;
+
+export type TestAnalysisQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    tasks: {
+      __typename?: "VersionTasks";
+      count: number;
+      data: Array<{
+        __typename?: "Task";
+        buildVariant: string;
+        buildVariantDisplayName?: string | null;
+        displayName: string;
+        execution: number;
+        id: string;
+        status: string;
+        tests: {
+          __typename?: "TaskTestResult";
+          filteredTestCount: number;
+          testResults: Array<{
+            __typename?: "TestResult";
+            id: string;
+            status: string;
+            testFile: string;
+            logs: { __typename?: "TestLog"; urlParsley?: string | null };
+          }>;
+        };
+      }>;
+    };
+  };
+};
+
 export type UndispatchedTasksQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
 }>;
@@ -9334,6 +9488,22 @@ export type UserProjectSettingsPermissionsQuery = {
       __typename?: "Permissions";
       canCreateProject: boolean;
       projectPermissions: { __typename?: "ProjectPermissions"; edit: boolean };
+    };
+  };
+};
+
+export type UserRepoSettingsPermissionsQueryVariables = Exact<{
+  repoId: Scalars["String"]["input"];
+}>;
+
+export type UserRepoSettingsPermissionsQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    permissions: {
+      __typename?: "Permissions";
+      repoPermissions: { __typename?: "RepoPermissions"; edit: boolean };
     };
   };
 };
@@ -9658,6 +9828,7 @@ export type WaterfallQuery = {
       __typename?: "WaterfallBuildVariant";
       displayName: string;
       id: string;
+      version: string;
       builds: Array<{
         __typename?: "WaterfallBuild";
         activated?: boolean | null;
@@ -9667,57 +9838,51 @@ export type WaterfallQuery = {
         tasks: Array<{
           __typename?: "WaterfallTask";
           displayName: string;
+          displayStatus: string;
+          execution: number;
           id: string;
           status: string;
         }>;
       }>;
     }>;
-    versions: Array<{
-      __typename?: "WaterfallVersion";
-      inactiveVersions?: Array<{
-        __typename?: "Version";
-        activated?: boolean | null;
-        author: string;
-        createTime: Date;
-        errors: Array<string>;
-        id: string;
-        message: string;
+    flattenedVersions: Array<{
+      __typename?: "Version";
+      activated?: boolean | null;
+      author: string;
+      createTime: Date;
+      errors: Array<string>;
+      id: string;
+      message: string;
+      order: number;
+      requester: string;
+      revision: string;
+      gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
+      taskStatusStats?: {
+        __typename?: "TaskStats";
+        counts?: Array<{
+          __typename?: "StatusCount";
+          count: number;
+          status: string;
+        }> | null;
+      } | null;
+      upstreamProject?: {
+        __typename?: "UpstreamProject";
+        owner: string;
+        project: string;
+        repo: string;
         revision: string;
-        gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
-      }> | null;
-      version?: {
-        __typename?: "Version";
-        activated?: boolean | null;
-        author: string;
-        createTime: Date;
-        errors: Array<string>;
-        id: string;
-        message: string;
-        revision: string;
-        gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
-        upstreamProject?: {
-          __typename?: "UpstreamProject";
-          owner: string;
-          project: string;
-          repo: string;
-          revision: string;
-          triggerID: string;
-          triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
-          version?: { __typename?: "Version"; id: string } | null;
-        } | null;
+        triggerID: string;
+        triggerType: string;
+        task?: { __typename?: "Task"; execution: number; id: string } | null;
+        version?: { __typename?: "Version"; id: string } | null;
       } | null;
     }>;
+    pagination: {
+      __typename?: "WaterfallPagination";
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+      nextPageOrder: number;
+      prevPageOrder: number;
+    };
   };
 };

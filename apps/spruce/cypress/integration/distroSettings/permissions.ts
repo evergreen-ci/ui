@@ -36,7 +36,7 @@ describe("distro permissions", () => {
         "aria-disabled",
         "true",
       );
-      cy.get("textarea").should("be.disabled");
+      cy.get("textarea").should("have.attr", "aria-disabled", "true");
     });
   });
 
@@ -49,7 +49,7 @@ describe("distro permissions", () => {
         "aria-disabled",
         "false",
       );
-      cy.get("textarea").should("not.be.disabled");
+      cy.get("textarea").should("have.attr", "aria-disabled", "false");
     });
   });
 });

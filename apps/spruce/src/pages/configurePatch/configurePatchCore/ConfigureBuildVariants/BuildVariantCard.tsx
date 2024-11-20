@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, Description } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
-import { size } from "constants/tokens";
 import type { MenuItemProps } from "./types";
 
 const { green } = palette;

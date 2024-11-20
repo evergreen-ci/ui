@@ -7,9 +7,9 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { getParsleyTaskLogLink } from "constants/externalResources";
-import { size } from "constants/tokens";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { LogTypes, QueryParams } from "types/task";

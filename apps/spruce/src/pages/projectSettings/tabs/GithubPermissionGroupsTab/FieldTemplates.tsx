@@ -4,11 +4,12 @@ import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { BaseTable } from "components/Table/BaseTable";
-import { size, tableColumnOffset } from "constants/tokens";
+import { tableColumnOffset } from "constants/tokens";
 
 type ArrayItem = Unpacked<ArrayFieldTemplateProps["items"]>;
 

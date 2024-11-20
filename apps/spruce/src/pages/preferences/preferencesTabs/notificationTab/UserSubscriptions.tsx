@@ -10,12 +10,12 @@ import {
   filterFns,
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { ShortenedRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { getSubscriberText } from "constants/subscription";
-import { size } from "constants/tokens";
 import {
   resourceTypeToCopy,
   resourceTypeTreeData,

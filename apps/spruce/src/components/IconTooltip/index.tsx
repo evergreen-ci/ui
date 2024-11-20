@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { IconProps } from "@leafygreen-ui/icon";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
-import { zIndex } from "constants/tokens";
 
 export type IconTooltipProps = IconProps & {
   ["data-cy"]?: string;

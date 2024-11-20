@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import { Row } from "components/LogRow/types";
 import { sectionHeaderWrapperStyle } from "components/styles";
 import { SectionStatus } from "constants/logs";
-import { size } from "constants/tokens";
 import { useLogContext } from "context/LogContext";
 import { CaretToggle } from "../CaretToggle";
 import { SectionStatusIcon } from "../SectionStatusIcon";

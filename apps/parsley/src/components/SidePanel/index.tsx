@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { SideNav } from "@leafygreen-ui/side-nav";
 import Cookie from "js-cookie";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { HAS_OPENED_DRAWER } from "constants/cookies";
-import { size, zIndex } from "constants/tokens";
 import { ExpandedLines } from "types/logs";
 import {
   ExpandedNavGroup,

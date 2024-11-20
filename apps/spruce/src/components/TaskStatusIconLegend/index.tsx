@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover from "@leafygreen-ui/popover";
 import { Disclaimer, Overline } from "@leafygreen-ui/typography";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { PopoverContainer } from "components/styles/Popover";
 import { groupedIconStatuses } from "components/TaskStatusIcon";
 import { taskStatusToCopy } from "constants/task";
-import { size, zIndex } from "constants/tokens";
 
 export const LegendContent = () => (
   <Container>

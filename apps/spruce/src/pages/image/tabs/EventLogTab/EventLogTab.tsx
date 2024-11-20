@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { StyledLink } from "components/styles";
 import {
   buildHostConfigurationRepoURL,
   buildHostPostConfigRepoURL,
 } from "constants/externalResources";
-import { size } from "constants/tokens";
 import { ImageEventLog } from "pages/image/ImageEventLog";
 import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
 import { useImageEvents } from "./useImageEvents";

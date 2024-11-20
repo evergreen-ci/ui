@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import TextInput from "@leafygreen-ui/text-input";
 import { InlineCode } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UserProjectSettingsPermissionsQuery,

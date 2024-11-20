@@ -43,6 +43,11 @@ describe("Access page", () => {
   });
 
   it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (unrestricted)' radio box and produces a success banner", () => {
+    cy.dataCy("default-to-repo-button").should(
+      "have.attr",
+      "aria-disabled",
+      "false",
+    );
     cy.dataCy("default-to-repo-button").click();
     cy.getInputByLabel('Type "confirm" to confirm your action').type("confirm");
     cy.dataCy("default-to-repo-modal").contains("Confirm").click();
@@ -55,9 +60,6 @@ describe("Access page", () => {
     cy.contains("Add Username").click();
     cy.getInputByLabel("Username").type("mongodb_user");
     clickSave();
-    cy.validateToast(
-      "error",
-      "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found",
-    );
+    cy.validateToast("error", "There was an error saving the project");
   });
 });

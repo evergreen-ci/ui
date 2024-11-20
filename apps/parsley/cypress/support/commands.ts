@@ -191,7 +191,7 @@ Cypress.Commands.add("toggleDrawer", () => {
 
 Cypress.Commands.add(
   "validateToast",
-  (status: string, message?: string, shouldClose?: boolean) => {
+  (status: string, message: string, shouldClose?: boolean) => {
     cy.dataCy(toastDataCy).should("be.visible");
     cy.dataCy(toastDataCy).should("have.attr", "data-variant", status);
     if (message) {
@@ -203,6 +203,43 @@ Cypress.Commands.add(
       });
       cy.dataCy(toastDataCy).should("not.exist");
     }
+  },
+);
+
+/**
+ * Simulates a paste event.
+ * Modified from https://gist.github.com/nickytonline/bcdef8ef00211b0faf7c7c0e7777aaf6
+ * @param subject A jQuery context representing a DOM element.
+ * @param pasteOptions Set of options for a simulated paste event.
+ * @param pasteOptions.pastePayload Simulated data that is on the clipboard.
+ * @param pasteOptions.pasteFormat The format of the simulated paste payload. Default value is 'text'.
+ * @returns The subject parameter.
+ * @example
+ * cy.get('body').paste({
+ *   pasteType: 'application/json',
+ *   pastePayload: {hello: 'yolo'},
+ * });
+ */
+Cypress.Commands.add(
+  "paste",
+  { prevSubject: true },
+  (subject, pasteOptions) => {
+    cy.log("Pasting data into the clipboard");
+    const { pastePayload, pasteFormat } = pasteOptions;
+    const data =
+      pasteFormat === "application/json"
+        ? JSON.stringify(pastePayload)
+        : pastePayload;
+    // https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer
+    const clipboardData = new DataTransfer();
+    clipboardData.setData(pasteFormat, data);
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event
+    const pasteEvent = new ClipboardEvent("paste", {
+      bubbles: true,
+      cancelable: true,
+      clipboardData,
+    });
+    subject[0].dispatchEvent(pasteEvent);
   },
 );
 

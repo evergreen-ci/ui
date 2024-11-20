@@ -1,4 +1,4 @@
-#import "../fragments/upstreamProject.graphql"
+#import "../fragments/waterfall.graphql"
 
 query Waterfall($options: WaterfallOptions!) {
   waterfall(options: $options) {
@@ -9,6 +9,8 @@ query Waterfall($options: WaterfallOptions!) {
         id
         tasks {
           displayName
+          displayStatus
+          execution
           id
           status
         }
@@ -16,34 +18,16 @@ query Waterfall($options: WaterfallOptions!) {
       }
       displayName
       id
+      version
     }
-    versions {
-      inactiveVersions {
-        activated
-        author
-        createTime
-        errors
-        gitTags {
-          tag
-        }
-        id
-        message
-        revision
-        ...UpstreamProject
-      }
-      version {
-        activated
-        author
-        createTime
-        errors
-        gitTags {
-          tag
-        }
-        id
-        message
-        revision
-        ...UpstreamProject
-      }
+    flattenedVersions {
+      ...WaterfallVersion
+    }
+    pagination {
+      hasNextPage
+      hasPrevPage
+      nextPageOrder
+      prevPageOrder
     }
   }
 }

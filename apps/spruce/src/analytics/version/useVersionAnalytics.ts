@@ -50,7 +50,8 @@ type Action =
       "sort.by": TaskSortCategory | TaskSortCategory[];
     }
   | { name: "Toggled display task expansion"; expanded: boolean }
-  | { name: "Clicked unschedule tasks button"; abort: boolean };
+  | { name: "Clicked unschedule tasks button"; abort: boolean }
+  | { name: "Filtered test analysis tab"; "filter.by": string | string[] };
 
 export const useVersionAnalytics = (id: string) => {
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
@@ -61,10 +62,12 @@ export const useVersionAnalytics = (id: string) => {
       fetchPolicy: "cache-first",
     },
   );
-  const { status } = eventData?.version || {};
+  const { isPatch, requester, status } = eventData?.version || {};
 
   return useAnalyticsRoot<Action, AnalyticsIdentifier>("Version", {
     "version.status": status || "",
     "version.id": id,
+    "version.is_patch": isPatch || false,
+    "version.requester": requester || "",
   });
 };

@@ -67,7 +67,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("version-restart-modal").within(() => {
       cy.contains("Restart").click();
     });
-    cy.validateToast("success");
+    cy.validateToast("success", "Successfully restarted tasks!");
   });
 
   it("'Restart' link is disabled for unfinalized patch", () => {

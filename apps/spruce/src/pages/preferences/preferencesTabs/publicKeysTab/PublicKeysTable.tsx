@@ -4,12 +4,12 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
 import Popconfirm from "components/Popconfirm";
 import { WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   MyPublicKeysQuery,

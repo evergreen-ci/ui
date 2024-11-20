@@ -18,9 +18,9 @@ import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { OneOf } from "@evg-ui/lib/types/utils";
 import Icon from "components/Icon";
-import { size, zIndex } from "constants/tokens";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 import { isNullish, processErrors } from "./utils";
@@ -443,7 +443,6 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
         data-cy={dataCy}
         description={description}
         disabled={disabled || readonly}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         errorMessage={hasError ? errors.join(", ") : null}
         label={label}
         onChange={({ target }) =>

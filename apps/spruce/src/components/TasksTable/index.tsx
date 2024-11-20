@@ -3,6 +3,7 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import pluralize from "pluralize";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { StyledRouterLink } from "components/styles";
 import {
@@ -13,7 +14,6 @@ import {
 import TaskStatusBadgeWithLink from "components/TaskStatusBadgeWithLink";
 import { TreeSelectProps } from "components/TreeSelect";
 import { getVariantHistoryRoute } from "constants/routes";
-import { zIndex } from "constants/tokens";
 import {
   Task,
   SortDirection,
@@ -191,7 +191,7 @@ const getColumnDefs = ({
           <TaskStatusBadgeWithLink
             execution={execution}
             id={id}
-            status={status}
+            status={status as TaskStatus}
           />
         )
       ),
@@ -223,7 +223,7 @@ const getColumnDefs = ({
           execution={baseTask.execution}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           id={baseTask.id}
-          status={status}
+          status={status as TaskStatus}
         />
       ),
     ...(baseStatusSelectorProps && {

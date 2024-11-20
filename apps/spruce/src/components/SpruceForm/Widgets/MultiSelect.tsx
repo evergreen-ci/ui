@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { Error, Label } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Dropdown from "components/Dropdown";
 import { TreeSelect, ALL_VALUE } from "components/TreeSelect";
-import { size } from "constants/tokens";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps } from "./types";
 

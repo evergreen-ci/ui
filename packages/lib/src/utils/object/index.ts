@@ -1,6 +1,5 @@
 /**
- *
- * Deletes a key from an object, including any nested objects.
+ * `deleteNestedKey` deletes a key from an object, including any nested objects.
  *
  * It modifies the original object by removing or updating any property that matches the
  * key name. If the key is found in nested objects, those are removed as well. The function

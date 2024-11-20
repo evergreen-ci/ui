@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import {
+  fetchWithRetry,
+  shouldLogoutAndRedirect,
+} from "@evg-ui/lib/utils/request";
 import { useAuthDispatchContext } from "context/Auth";
 import { cache } from "gql/client/cache";
 import {
@@ -13,11 +17,10 @@ import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
 import { environmentVariables } from "utils";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
-import { fetchWithRetry, shouldLogoutAndRedirect } from "utils/request";
 
 const { getGQLUrl } = environmentVariables;
 
-export const useCreateGQLCLient = (): ApolloClient<NormalizedCacheObject> => {
+export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthDispatchContext();
   const [secretFields, setSecretFields] = useState<string[]>();
   const [gqlClient, setGQLClient] = useState<any>();
@@ -40,7 +43,7 @@ export const useCreateGQLCLient = (): ApolloClient<NormalizedCacheObject> => {
           logoutAndRedirect();
         }
       });
-  }, []);
+  }, [dispatchAuthenticated, logoutAndRedirect]);
 
   useEffect(() => {
     if (secretFields && !gqlClient) {

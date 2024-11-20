@@ -11,9 +11,9 @@ import { css } from "@leafygreen-ui/emotion";
 import { palette } from "@leafygreen-ui/palette";
 import { SearchInput } from "@leafygreen-ui/search-input";
 import { Label } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
 import { toggleArray } from "utils/array";
 
 const { blue, gray } = palette;

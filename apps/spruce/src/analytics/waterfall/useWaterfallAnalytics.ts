@@ -11,7 +11,13 @@ type Action =
     }
   | { name: "Clicked variant label" }
   | { name: "Clicked task box"; "task.status": string }
-  | { name: "Changed project"; project: string };
+  | { name: "Changed project"; project: string }
+  | { name: "Filtered by requester"; requesters: string[] }
+  | { name: "Changed page"; direction: "next" | "previous" }
+  | { name: "Created build variant filter" }
+  | { name: "Created task filter" }
+  | { name: "Deleted one filter badge" }
+  | { name: "Deleted all filter badges" };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();

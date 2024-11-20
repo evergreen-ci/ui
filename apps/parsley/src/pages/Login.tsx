@@ -4,7 +4,7 @@ import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { Location, Navigate, useLocation } from "react-router-dom";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useAuthContext } from "context/auth";
 
 const { green } = palette;

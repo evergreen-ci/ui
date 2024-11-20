@@ -228,6 +228,22 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     gitTagVersionsEnabled: false,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
+    githubDynamicTokenPermissionGroups: [
+      {
+        name: "permission-group-1",
+        permissions: {
+          actions: "read",
+          organization_hooks: "read",
+        },
+      },
+      {
+        name: "permission-group-2",
+        permissions: {
+          pull_requests: "write",
+          contents: "admin",
+        },
+      },
+    ],
     commitQueue: {
       enabled: true,
     },
