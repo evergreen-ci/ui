@@ -7,6 +7,7 @@ import { WaterfallPagination } from "gql/generated/types";
 import { NameFilter } from "./NameFilter";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
+import { StatusFilter } from "./StatusFilter";
 
 type WaterfallFiltersProps = {
   projectIdentifier: string;
@@ -22,6 +23,9 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
     <Container>
       <FilterItem>
         <NameFilter />
+      </FilterItem>
+      <FilterItem>
+        <StatusFilter />
       </FilterItem>
       <FilterItem>
         <RequesterFilter />
@@ -45,7 +49,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
 // Temporary - update styles as more filters are added.
 const FilterItem = styled.div`
-  flex-basis: 33%;
+  flex-basis: 25%;
 `;
 
 const Container = styled.div`
