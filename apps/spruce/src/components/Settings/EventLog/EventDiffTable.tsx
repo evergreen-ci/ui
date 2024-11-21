@@ -58,8 +58,7 @@ const CellText = styled.span`
 
 const renderEventValue = (value: EventValue): string => {
   if (value === null || value === undefined) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return null;
+    return "";
   }
   if (typeof value === "boolean") {
     return String(value);
@@ -86,31 +85,37 @@ const columns = (
   {
     header: "Property",
     accessorKey: "key",
-    cell: ({ getValue }) => (
-      <CellText>
-        {applyCustomKeyValueRender(
-          getValue() as string,
-          customKeyValueRenderConfig,
-        )}
-      </CellText>
-    ),
+    cell: ({ getValue }) => <CellText>{getValue() as string}</CellText>,
     enableSorting: true,
   },
   {
     header: "Before",
     accessorKey: "before",
-    cell: ({ getValue }) => (
-      <CellText>{renderEventValue(getValue() as EventValue)}</CellText>
+    cell: ({ getValue, row }) => (
+      <CellText>
+        {applyCustomKeyValueRender(
+          row.original.key,
+          renderEventValue(getValue() as EventValue),
+          customKeyValueRenderConfig,
+        )}
+      </CellText>
     ),
   },
   {
     header: "After",
     accessorKey: "after",
-    cell: ({ getValue }) =>
+    cell: ({ getValue, row }) =>
       getValue() === null || getValue() === undefined ? (
         <Badge variant={Variant.Red}>Deleted</Badge>
       ) : (
-        <CellText>{renderEventValue(getValue() as EventValue)}</CellText>
+        <CellText>
+          {" "}
+          {applyCustomKeyValueRender(
+            row.original.key,
+            renderEventValue(getValue() as EventValue),
+            customKeyValueRenderConfig,
+          )}
+        </CellText>
       ),
   },
 ];
