@@ -12,8 +12,7 @@ export const Default: CustomStoryObj<typeof TestStatusBadge> = {
   argTypes: {
     status: {
       control: "select",
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      options: TestStatus,
+      options: Object.values(TestStatus),
     },
   },
   args: {
