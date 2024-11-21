@@ -12,7 +12,6 @@ import { SiteLayout } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import WelcomeModal from "components/WelcomeModal";
 import { CY_DISABLE_NEW_USER_WELCOME_MODAL } from "constants/cookies";
-import { showWaterfallPage } from "constants/featureFlags";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/Auth";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
@@ -56,8 +55,7 @@ export const Layout: React.FC = () => {
         />
       )}
       <FloatingContent>
-        {/* TODO: Use user's beta feature setting instead. */}
-        <TaskStatusIconLegend useWaterfall={showWaterfallPage} />
+        <TaskStatusIconLegend />
         <Feedback />
       </FloatingContent>
     </SiteLayout>

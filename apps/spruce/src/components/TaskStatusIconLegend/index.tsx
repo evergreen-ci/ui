@@ -18,17 +18,17 @@ import { taskStatusToCopy } from "constants/task";
 import { useOnClickOutside } from "hooks";
 
 type LegendContentProps = {
-  useWaterfall: boolean;
+  isWaterfallPage: boolean;
 };
 
 export const LegendContent: React.FC<LegendContentProps> = ({
-  useWaterfall,
+  isWaterfallPage,
 }) => {
-  const Container = useWaterfall
+  const Container = isWaterfallPage
     ? WaterfallContainer
     : MainlineCommitsContainer;
 
-  const groupedStatuses = useWaterfall
+  const groupedStatuses = isWaterfallPage
     ? waterfallGroupedStatuses
     : groupedIconStatuses;
 
@@ -76,19 +76,12 @@ const TaskStatusIcon = styled.div`
 
 const LabelContainer = styled.div``;
 
-type TaskStatusIconLegendProps = {
-  useWaterfall: boolean;
-};
+export const TaskStatusIconLegend: React.FC = () => {
+  const isWaterfallPage = !!useMatch(`${routes.waterfall}/*`);
 
-export const TaskStatusIconLegend: React.FC<TaskStatusIconLegendProps> = ({
-  useWaterfall,
-}) => {
   const { sendEvent } = (
-    useWaterfall ? useWaterfallAnalytics : useProjectHealthAnalytics
+    isWaterfallPage ? useWaterfallAnalytics : useProjectHealthAnalytics
   )({ page: "Commit chart" });
-
-  const isMainlineCommits = !!useMatch(`${routes.commits}/*`);
-  const isWaterfall = !!useMatch(`${routes.waterfall}/*`);
 
   const [open, setOpen] = useState(false);
 
@@ -136,9 +129,7 @@ export const TaskStatusIconLegend: React.FC<TaskStatusIconLegendProps> = ({
               <Icon glyph="X" />
             </IconButton>
           </TitleContainer>
-          <LegendContent
-            useWaterfall={isWaterfall || (useWaterfall && !isMainlineCommits)}
-          />
+          <LegendContent isWaterfallPage={isWaterfallPage} />
         </StyledPopoverContainer>
       </Popover>
     </div>
