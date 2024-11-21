@@ -230,29 +230,6 @@ export type CloudProviderConfig = {
   aws?: Maybe<AwsConfig>;
 };
 
-/**
- * CommitQueue is returned by the commitQueue query.
- * It contains information about the patches on the commit queue (e.g. author, code changes) for a given project.
- */
-export type CommitQueue = {
-  __typename?: "CommitQueue";
-  message?: Maybe<Scalars["String"]["output"]>;
-  owner?: Maybe<Scalars["String"]["output"]>;
-  projectId?: Maybe<Scalars["String"]["output"]>;
-  queue?: Maybe<Array<CommitQueueItem>>;
-  repo?: Maybe<Scalars["String"]["output"]>;
-};
-
-export type CommitQueueItem = {
-  __typename?: "CommitQueueItem";
-  enqueueTime?: Maybe<Scalars["Time"]["output"]>;
-  issue?: Maybe<Scalars["String"]["output"]>;
-  modules?: Maybe<Array<Module>>;
-  patch?: Maybe<Patch>;
-  source?: Maybe<Scalars["String"]["output"]>;
-  version?: Maybe<Scalars["String"]["output"]>;
-};
-
 export type CommitQueueParams = {
   __typename?: "CommitQueueParams";
   enabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -1202,12 +1179,6 @@ export type MetadataLinkInput = {
   url: Scalars["String"]["input"];
 };
 
-export type Module = {
-  __typename?: "Module";
-  issue?: Maybe<Scalars["String"]["output"]>;
-  module?: Maybe<Scalars["String"]["output"]>;
-};
-
 export type ModuleCodeChange = {
   __typename?: "ModuleCodeChange";
   branchName: Scalars["String"]["output"];
@@ -1251,7 +1222,6 @@ export type Mutation = {
   detachVolumeFromHost: Scalars["Boolean"]["output"];
   editAnnotationNote: Scalars["Boolean"]["output"];
   editSpawnHost: Host;
-  enqueuePatch: Patch;
   forceRepotrackerRun: Scalars["Boolean"]["output"];
   migrateVolume: Scalars["Boolean"]["output"];
   moveAnnotationIssue: Scalars["Boolean"]["output"];
@@ -1259,7 +1229,6 @@ export type Mutation = {
   promoteVarsToRepo: Scalars["Boolean"]["output"];
   removeAnnotationIssue: Scalars["Boolean"]["output"];
   removeFavoriteProject: Project;
-  removeItemFromCommitQueue?: Maybe<Scalars["String"]["output"]>;
   removePublicKey: Array<PublicKey>;
   removeVolume: Scalars["Boolean"]["output"];
   reprovisionToNew: Scalars["Int"]["output"];
@@ -1389,11 +1358,6 @@ export type MutationEditSpawnHostArgs = {
   spawnHost?: InputMaybe<EditSpawnHostInput>;
 };
 
-export type MutationEnqueuePatchArgs = {
-  commitMessage?: InputMaybe<Scalars["String"]["input"]>;
-  patchId: Scalars["String"]["input"];
-};
-
 export type MutationForceRepotrackerRunArgs = {
   projectId: Scalars["String"]["input"];
 };
@@ -1427,11 +1391,6 @@ export type MutationRemoveAnnotationIssueArgs = {
 
 export type MutationRemoveFavoriteProjectArgs = {
   opts: RemoveFavoriteProjectInput;
-};
-
-export type MutationRemoveItemFromCommitQueueArgs = {
-  commitQueueId: Scalars["String"]["input"];
-  issue: Scalars["String"]["input"];
 };
 
 export type MutationRemovePublicKeyArgs = {
@@ -1686,10 +1645,8 @@ export type Patch = {
   authorDisplayName: Scalars["String"]["output"];
   baseTaskStatuses: Array<Scalars["String"]["output"]>;
   builds: Array<Build>;
-  canEnqueueToCommitQueue: Scalars["Boolean"]["output"];
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   childPatches?: Maybe<Array<Patch>>;
-  commitQueuePosition?: Maybe<Scalars["Int"]["output"]>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
   description: Scalars["String"]["output"];
   duration?: Maybe<PatchDuration>;
@@ -2224,7 +2181,6 @@ export type Query = {
   buildBaron: BuildBaron;
   buildVariantsForTaskName?: Maybe<Array<BuildVariantTuple>>;
   clientConfig?: Maybe<ClientConfig>;
-  commitQueue: CommitQueue;
   distro?: Maybe<Distro>;
   distroEvents: DistroEventsPayload;
   distroTaskQueue: Array<TaskQueueItem>;
@@ -2279,10 +2235,6 @@ export type QueryBuildBaronArgs = {
 export type QueryBuildVariantsForTaskNameArgs = {
   projectIdentifier: Scalars["String"]["input"];
   taskName: Scalars["String"]["input"];
-};
-
-export type QueryCommitQueueArgs = {
-  projectIdentifier: Scalars["String"]["input"];
 };
 
 export type QueryDistroArgs = {
@@ -2764,7 +2716,7 @@ export type SpruceConfig = {
   secretFields: Array<Scalars["String"]["output"]>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
-  ui?: Maybe<UiConfig>;
+  ui: UiConfig;
 };
 
 export type StatusCount = {
@@ -3231,6 +3183,7 @@ export type TriggerAliasInput = {
 
 export type UiConfig = {
   __typename?: "UIConfig";
+  betaFeatures: BetaFeatures;
   defaultProject: Scalars["String"]["output"];
   userVoice?: Maybe<Scalars["String"]["output"]>;
 };
