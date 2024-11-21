@@ -318,7 +318,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
         )}
         {resetWhenFinished && (
           <MetadataItem>
-            This task will restart when all of the sibling execution tasks have
+            This task will restart when all of its sibling execution tasks have
             finished.
           </MetadataItem>
         )}
