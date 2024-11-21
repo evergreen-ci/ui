@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { TestStatus } from "@evg-ui/lib/types/test";
+import { size } from "constants/tokens";
+import { CustomMeta, CustomStoryObj } from "test_utils/types";
+import { TestStatus } from "types/test";
 import TestStatusBadge from ".";
 
 export default {
@@ -12,8 +12,7 @@ export const Default: CustomStoryObj<typeof TestStatusBadge> = {
   argTypes: {
     status: {
       control: "select",
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      options: TestStatus,
+      options: Object.values(TestStatus),
     },
   },
   args: {
