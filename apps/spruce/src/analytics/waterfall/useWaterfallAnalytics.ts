@@ -17,7 +17,8 @@ type Action =
   | { name: "Created build variant filter" }
   | { name: "Created task filter" }
   | { name: "Deleted one filter badge" }
-  | { name: "Deleted all filter badges" };
+  | { name: "Deleted all filter badges" }
+  | { name: "Toggled task icon legend"; open: boolean };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
