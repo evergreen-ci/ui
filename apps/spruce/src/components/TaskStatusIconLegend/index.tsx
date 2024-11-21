@@ -10,7 +10,7 @@ import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHea
 import Icon from "components/Icon";
 import { PopoverContainer } from "components/styles/Popover";
 import {
-  groupedIconStatuses,
+  mainlineCommitsGroupedStatuses,
   waterfallGroupedStatuses,
 } from "components/TaskStatusIcon";
 import { routes } from "constants/routes";
@@ -30,18 +30,18 @@ export const LegendContent: React.FC<LegendContentProps> = ({
 
   const groupedStatuses = isWaterfallPage
     ? waterfallGroupedStatuses
-    : groupedIconStatuses;
+    : mainlineCommitsGroupedStatuses;
 
   return (
     <Container>
       {groupedStatuses.map(({ icon, statuses }) => (
         <Row key={statuses.join()}>
-          <TaskStatusIcon>{icon}</TaskStatusIcon>
-          <LabelContainer>
+          <LegendIcon>{icon}</LegendIcon>
+          <LegendLabel>
             {statuses.map((status) => (
               <Body key={status}>{taskStatusToCopy[status]}</Body>
             ))}
-          </LabelContainer>
+          </LegendLabel>
         </Row>
       ))}
     </Container>
@@ -70,11 +70,11 @@ const Row = styled.div`
   gap: ${size.xxs};
 `;
 
-const TaskStatusIcon = styled.div`
+const LegendIcon = styled.div`
   flex-shrink: 0;
 `;
 
-const LabelContainer = styled.div``;
+const LegendLabel = styled.div``;
 
 export const TaskStatusIconLegend: React.FC = () => {
   const isWaterfallPage = !!useMatch(`${routes.waterfall}/*`);

@@ -66,7 +66,7 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
   }
 };
 
-export const groupedIconStatuses = [
+export const mainlineCommitsGroupedStatuses = [
   {
     icon: <TaskStatusIcon status={TaskStatus.Succeeded} />,
     statuses: [TaskStatus.Succeeded],
