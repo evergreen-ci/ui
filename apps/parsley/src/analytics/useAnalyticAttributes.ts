@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useLogContext } from "context/LogContext";
 
-export const useAnalyticAttributes = () => {
+export const useAnalyticAttributes = (userId: string) => {
   const { logMetadata } = useLogContext();
   const { logType, renderingType } = logMetadata || {};
   const { AttributeStore } = window;
-
-  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (!AttributeStore) {
