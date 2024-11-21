@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "4.1.120",
+  "version": "4.1.122",
   "private": true,
   "type": "module",
   "scripts": {
