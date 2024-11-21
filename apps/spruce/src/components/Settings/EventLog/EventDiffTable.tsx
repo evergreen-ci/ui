@@ -6,23 +6,23 @@ import { fontFamilies } from "@leafygreen-ui/tokens";
 import { BaseTable } from "components/Table/BaseTable";
 import { getEventDiffLines } from "./eventLogDiffs";
 import {
-  CustomKeyRenderConfig,
+  CustomKeyValueRenderConfig,
   Event,
   EventDiffLine,
   EventValue,
 } from "./types";
-import { applyCustomKeyRender } from "./utils";
+import { applyCustomKeyValueRender } from "./utils";
 
 type TableProps = {
   after: Event["after"];
   before: Event["before"];
-  customKeyRenderConfig?: CustomKeyRenderConfig;
+  customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
 export const EventDiffTable: React.FC<TableProps> = ({
   after,
   before,
-  customKeyRenderConfig,
+  customKeyValueRenderConfig,
 }) => {
   const eventLogEntries = useMemo(
     () => getEventDiffLines(before, after) ?? [],
@@ -31,7 +31,7 @@ export const EventDiffTable: React.FC<TableProps> = ({
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<EventDiffLine>({
-    columns: columns(customKeyRenderConfig),
+    columns: columns(customKeyValueRenderConfig),
     containerRef: tableContainerRef,
     data: eventLogEntries,
     defaultColumn: {
@@ -81,14 +81,17 @@ const renderEventValue = (value: EventValue): string => {
 };
 
 const columns = (
-  customKeyRenderConfig: CustomKeyRenderConfig = {},
+  customKeyValueRenderConfig: CustomKeyValueRenderConfig = {},
 ): LGColumnDef<EventDiffLine>[] => [
   {
     header: "Property",
     accessorKey: "key",
     cell: ({ getValue }) => (
       <CellText>
-        {applyCustomKeyRender(getValue() as string, customKeyRenderConfig)}
+        {applyCustomKeyValueRender(
+          getValue() as string,
+          customKeyValueRenderConfig,
+        )}
       </CellText>
     ),
     enableSorting: true,

@@ -5,7 +5,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { LoadingButton } from "components/Buttons";
 import { EventDiffTable } from "./EventDiffTable";
 import { Header } from "./Header";
-import { CustomKeyRenderConfig, Event } from "./types";
+import { CustomKeyValueRenderConfig, Event } from "./types";
 
 type EventLogProps = {
   allEventsFetched: boolean;
@@ -13,12 +13,12 @@ type EventLogProps = {
   events: Event[];
   handleFetchMore: () => void;
   loading?: boolean;
-  customKeyRenderConfig?: CustomKeyRenderConfig;
+  customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
 export const EventLog: React.FC<EventLogProps> = ({
   allEventsFetched,
-  customKeyRenderConfig,
+  customKeyValueRenderConfig,
   eventRenderer,
   events,
   handleFetchMore,
@@ -40,7 +40,7 @@ export const EventLog: React.FC<EventLogProps> = ({
               <EventDiffTable
                 after={after}
                 before={before}
-                customKeyRenderConfig={customKeyRenderConfig}
+                customKeyValueRenderConfig={customKeyValueRenderConfig}
               />
             )}
           </EventLogCard>

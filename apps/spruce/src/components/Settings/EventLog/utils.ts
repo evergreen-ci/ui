@@ -1,8 +1,8 @@
-import { CustomKeyRenderConfig } from "./types";
+import { CustomKeyValueRenderConfig } from "./types";
 
-export const applyCustomKeyRender = (
+export const applyCustomKeyValueRender = (
   key: string,
-  customRenderConfig: CustomKeyRenderConfig,
+  customRenderConfig: CustomKeyValueRenderConfig,
 ): string | React.ReactNode => {
   const prefixes = Object.keys(customRenderConfig);
   const prefix = prefixes.find((prefixKey) => key.startsWith(prefixKey));
