@@ -27,6 +27,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     startTransition(() => {
       setQueryParams({
         ...queryParams,
+        [WaterfallFilterOptions.Date]: undefined,
         [WaterfallFilterOptions.MaxOrder]: nextPageOrder,
         [WaterfallFilterOptions.MinOrder]: undefined,
       });
@@ -41,6 +42,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     startTransition(() => {
       setQueryParams({
         ...queryParams,
+        [WaterfallFilterOptions.Date]: undefined,
         [WaterfallFilterOptions.MaxOrder]: undefined,
         [WaterfallFilterOptions.MinOrder]: prevPageOrder,
       });

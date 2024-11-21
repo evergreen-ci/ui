@@ -1,4 +1,5 @@
 export const defaultTimeZone = "America/New_York";
+export const utcTimeZone = "UTC";
 
 export const timeZones = [
   {
