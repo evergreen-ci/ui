@@ -57,6 +57,7 @@ export const VersionLabel: React.FC<Props> = ({
       activated={activated}
       className={className}
       data-cy={`version-label-${commitType}`}
+      data-highlighted={highlighted}
       highlighted={highlighted}
       shouldDisableText={shouldDisableText}
       view={view}
