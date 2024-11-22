@@ -1,7 +1,7 @@
 import { useTransition } from "react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { TaskStatus } from "@evg-ui/lib/types/task";
+import { SortedTaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
@@ -32,7 +32,7 @@ export const StatusFilter = () => {
       overflow="scroll-x"
       placeholder="Displaying all statuses"
     >
-      {Object.values(TaskStatus).map((ts) => (
+      {SortedTaskStatus.map((ts) => (
         <ComboboxOption
           key={`${ts}-option`}
           data-cy={`${ts}-option`}
