@@ -13,6 +13,8 @@ type Action =
   | { name: "Clicked task box"; "task.status": string }
   | { name: "Changed project"; project: string }
   | { name: "Filtered by requester"; requesters: string[] }
+  | { name: "Filtered by git commit" }
+  | { name: "Viewed git commit modal" }
   | { name: "Changed page"; direction: "next" | "previous" }
   | { name: "Created build variant filter" }
   | { name: "Created task filter" }
