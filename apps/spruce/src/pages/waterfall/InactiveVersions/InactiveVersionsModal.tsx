@@ -3,6 +3,8 @@ import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";
 import { WaterfallVersionFragment } from "gql/generated/types";
+import { useQueryParam } from "hooks/useQueryParam";
+import { WaterfallFilterOptions } from "../types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
 
 type Props = {
@@ -18,7 +20,10 @@ export const InactiveVersionsModal: React.FC<Props> = ({
 }) => {
   const hasUnmatchingVersions =
     versions?.some(({ activated }) => activated) ?? false;
-
+  const [revision] = useQueryParam<string | null>(
+    WaterfallFilterOptions.Revision,
+    null,
+  );
   return (
     <DisplayModal
       data-cy="inactive-versions-modal"
@@ -29,6 +34,7 @@ export const InactiveVersionsModal: React.FC<Props> = ({
       {versions?.map((version) => (
         <StyledVersionLabel
           key={version.id}
+          highlighted={revision !== null && version.revision.includes(revision)}
           shouldDisableText={hasUnmatchingVersions}
           view={VersionLabelView.Modal}
           {...version}

@@ -29,6 +29,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         ...queryParams,
         [WaterfallFilterOptions.MaxOrder]: nextPageOrder,
         [WaterfallFilterOptions.MinOrder]: undefined,
+        [WaterfallFilterOptions.Revision]: undefined,
       });
     });
   };
@@ -43,6 +44,7 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         ...queryParams,
         [WaterfallFilterOptions.MaxOrder]: undefined,
         [WaterfallFilterOptions.MinOrder]: prevPageOrder,
+        [WaterfallFilterOptions.Revision]: undefined,
       });
     });
   };

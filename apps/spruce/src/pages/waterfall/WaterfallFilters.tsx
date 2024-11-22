@@ -7,6 +7,7 @@ import { WaterfallPagination } from "gql/generated/types";
 import { NameFilter } from "./NameFilter";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
+import { WaterfallMenu } from "./WaterfallMenu";
 
 type WaterfallFiltersProps = {
   projectIdentifier: string;
@@ -38,6 +39,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
           selectedProjectIdentifier={projectIdentifier}
         />
       </FilterItem>
+      <WaterfallMenu />
       <PaginationButtons pagination={pagination} />
     </Container>
   );
