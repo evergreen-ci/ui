@@ -10,6 +10,10 @@ export const LegendWithButton: CustomStoryObj<typeof TaskStatusIconLegend> = {
   render: () => <TaskStatusIconLegend />,
 };
 
-export const LegendOnly: CustomStoryObj<typeof LegendContent> = {
-  render: () => <LegendContent />,
+export const LegendOnlyMainlineCommits: CustomStoryObj<typeof LegendContent> = {
+  render: () => <LegendContent isWaterfallPage={false} />,
+};
+
+export const LegendOnlyWaterfall: CustomStoryObj<typeof LegendContent> = {
+  render: () => <LegendContent isWaterfallPage />,
 };
