@@ -42,7 +42,7 @@ export const TaskStatsTooltip: React.FC<
         <PopoverContainer data-cy="task-stats-tooltip">
           <Table>
             {taskStatusStats?.counts?.map(({ count, status }) => (
-              <Row>
+              <Row key={`task_stats_row_${status}`}>
                 <Count>{count}</Count>
                 <Cell>
                   <Square status={status as TaskStatus} />
