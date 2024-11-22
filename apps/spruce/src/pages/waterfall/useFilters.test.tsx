@@ -30,7 +30,10 @@ describe("useFilters", () => {
           wrapper: createWrapper(),
         },
       );
-      expect(result.current).toMatchObject(waterfall);
+      expect(result.current).toStrictEqual({
+        ...waterfall,
+        activeVersionIds: ["b", "c"],
+      });
     });
 
     it("should move version into inactive versions list and drop build variant when filter is applied", () => {
@@ -50,6 +53,7 @@ describe("useFilters", () => {
       );
 
       const filteredWaterfall = {
+        activeVersionIds: [],
         buildVariants: [],
         versions: [
           {
@@ -59,7 +63,7 @@ describe("useFilters", () => {
         ],
       };
 
-      expect(result.current).toMatchObject(filteredWaterfall);
+      expect(result.current).toStrictEqual(filteredWaterfall);
     });
   });
 
@@ -81,6 +85,7 @@ describe("useFilters", () => {
 
       const pinnedWaterfall = {
         ...waterfall,
+        activeVersionIds: ["b", "c"],
         buildVariants: [
           waterfall.buildVariants[1],
           waterfall.buildVariants[2],
@@ -88,7 +93,7 @@ describe("useFilters", () => {
         ],
       };
 
-      expect(result.current).toMatchObject(pinnedWaterfall);
+      expect(result.current).toStrictEqual(pinnedWaterfall);
     });
   });
 
@@ -109,11 +114,17 @@ describe("useFilters", () => {
       );
 
       const filteredWaterfall = {
-        ...waterfall,
+        activeVersionIds: [],
         buildVariants: [],
+        versions: [
+          {
+            inactiveVersions: flattenedVersions,
+            version: null,
+          },
+        ],
       };
 
-      expect(result.current).toMatchObject(filteredWaterfall);
+      expect(result.current).toStrictEqual(filteredWaterfall);
     });
 
     it("build variant filters are added together", () => {
@@ -133,9 +144,10 @@ describe("useFilters", () => {
 
       const filteredWaterfall = {
         ...waterfall,
+        activeVersionIds: ["b", "c"],
       };
 
-      expect(result.current).toMatchObject(filteredWaterfall);
+      expect(result.current).toStrictEqual(filteredWaterfall);
     });
   });
 
@@ -156,7 +168,7 @@ describe("useFilters", () => {
       );
 
       const filteredWaterfall = {
-        ...waterfall,
+        activeVersionIds: ["b"],
         buildVariants: [
           {
             ...waterfall.buildVariants[0],
@@ -166,6 +178,20 @@ describe("useFilters", () => {
                 tasks: [waterfall.buildVariants[0].builds[1].tasks[1]],
               },
             ],
+          },
+        ],
+        versions: [
+          {
+            inactiveVersions: [flattenedVersions[0]],
+            version: null,
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[1],
+          },
+          {
+            inactiveVersions: [flattenedVersions[2]],
+            version: null,
           },
         ],
       };
@@ -232,7 +258,12 @@ describe("useFilters", () => {
       );
 
       expect(result.current).toMatchObject({
-        ...waterfall,
+        versions: [
+          {
+            inactiveVersions: flattenedVersions,
+            version: null,
+          },
+        ],
         buildVariants: [],
       });
     });

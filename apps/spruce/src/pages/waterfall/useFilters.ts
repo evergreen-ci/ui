@@ -1,12 +1,7 @@
 import { useMemo } from "react";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
-import {
-  Build,
-  BuildVariant,
-  WaterfallFilterOptions,
-  WaterfallVersion,
-} from "./types";
+import { Build, BuildVariant, WaterfallFilterOptions } from "./types";
 import { groupInactiveVersions } from "./utils";
 
 type UseFiltersProps = {
@@ -37,58 +32,6 @@ export const useFilters = ({
     [buildVariantFilter, requesters, taskFilter],
   );
 
-  const versions = useMemo(
-    () => groupInactiveVersions(flattenedVersions),
-    [flattenedVersions],
-  );
-
-  const versionsResult = useMemo(() => {
-    if (!hasFilters) {
-      return versions;
-    }
-
-    const filteredVersions: WaterfallVersion[] = [];
-
-    const pushInactive = (v: WaterfallVersionFragment) => {
-      if (!filteredVersions?.[filteredVersions.length - 1]?.inactiveVersions) {
-        filteredVersions.push({ version: null, inactiveVersions: [] });
-      }
-      filteredVersions[filteredVersions.length - 1].inactiveVersions?.push(v);
-    };
-
-    const pushActive = (v: WaterfallVersionFragment) => {
-      filteredVersions.push({
-        inactiveVersions: null,
-        version: v,
-      });
-    };
-
-    versions.forEach(({ inactiveVersions, version }) => {
-      if (version) {
-        if (matchesRequesters(version, requesters)) {
-          pushActive(version);
-        } else {
-          pushInactive(version);
-        }
-      } else if (inactiveVersions) {
-        inactiveVersions.forEach(pushInactive);
-      }
-    });
-
-    return filteredVersions;
-  }, [hasFilters, requesters, versions]);
-
-  const activeVersionIds = useMemo(
-    () =>
-      versionsResult.reduce((ids: string[], { version }) => {
-        if (version) {
-          ids.push(version.id);
-        }
-        return ids;
-      }, []),
-    [versionsResult],
-  );
-
   const buildVariantFilterRegex: RegExp[] = useMemo(
     () => makeFilterRegex(buildVariantFilter),
     [buildVariantFilter],
@@ -99,7 +42,7 @@ export const useFilters = ({
     [taskFilter],
   );
 
-  const buildVariantsResult = useMemo(() => {
+  const filteredBuildVariants = useMemo(() => {
     if (!hasFilters && !pins.length) {
       return buildVariants;
     }
@@ -117,56 +60,77 @@ export const useFilters = ({
       }
     };
 
+    const activeVersions = flattenedVersions.filter(
+      (v) => v.activated && matchesRequesters(v, requesters),
+    );
+
     buildVariants.forEach((bv) => {
       const passesBVFilter =
         !buildVariantFilterRegex.length ||
         buildVariantFilterRegex.some((r) => bv.displayName.match(r));
-      if (passesBVFilter) {
-        if (
-          activeVersionIds.length !== bv.builds.length ||
-          taskFilterRegex.length
-        ) {
-          const activeBuilds: Build[] = [];
-          bv.builds.forEach((b) => {
-            if (activeVersionIds.includes(b.version)) {
-              if (taskFilterRegex.length) {
-                const activeTasks = b.tasks.filter((t) =>
-                  taskFilterRegex.some((r) => t.displayName.match(r)),
-                );
-                activeBuilds.push({
-                  ...b,
-                  tasks: activeTasks,
-                });
-              } else {
-                activeBuilds.push(b);
+
+      if (!passesBVFilter) {
+        return;
+      }
+
+      if (requesters.length || taskFilterRegex.length) {
+        const activeBuilds: Build[] = [];
+        bv.builds.forEach((b) => {
+          if (activeVersions.find(({ id }) => id === b.version)) {
+            if (taskFilterRegex.length) {
+              const activeTasks = b.tasks.filter((t) =>
+                taskFilterRegex.some((r) => t.displayName.match(r)),
+              );
+              if (activeTasks.length) {
+                activeBuilds.push({ ...b, tasks: activeTasks });
               }
+            } else {
+              activeBuilds.push(b);
             }
-          });
-          if (
-            activeBuilds.length &&
-            activeBuilds.some((b) => b.tasks.length > 0)
-          ) {
-            pushVariant({ ...bv, builds: activeBuilds });
           }
-        } else {
-          pushVariant(bv);
+        });
+        if (activeBuilds.length) {
+          pushVariant({ ...bv, builds: activeBuilds });
         }
+      } else {
+        pushVariant(bv);
       }
     });
     return bvs;
   }, [
-    activeVersionIds,
     buildVariantFilterRegex,
     buildVariants,
+    flattenedVersions,
     hasFilters,
     pins,
+    requesters,
     taskFilterRegex,
   ]);
 
+  const activeVersions = useMemo(() => {
+    const hasActiveBuild = (versionId: string) =>
+      filteredBuildVariants.some((bv) =>
+        bv.builds.some((build) => build.version === versionId),
+      );
+
+    return groupInactiveVersions(flattenedVersions, hasActiveBuild);
+  }, [filteredBuildVariants, flattenedVersions]);
+
+  const activeVersionIds = useMemo(
+    () =>
+      activeVersions.reduce((ids: string[], { version }) => {
+        if (version) {
+          ids.push(version.id);
+        }
+        return ids;
+      }, []),
+    [activeVersions],
+  );
+
   return {
     activeVersionIds,
-    buildVariants: buildVariantsResult,
-    versions: versionsResult,
+    buildVariants: filteredBuildVariants,
+    versions: activeVersions,
   };
 };
 

@@ -1,28 +1,37 @@
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { WaterfallVersion } from "./types";
 
-export const groupInactiveVersions = (versions: WaterfallVersionFragment[]) => {
-  const waterfallVersions: WaterfallVersion[] = [];
-  let i = 0;
+export const groupInactiveVersions = (
+  versions: WaterfallVersionFragment[],
+  versionHasActiveBuild: (versionId: string) => boolean,
+) => {
+  const filteredVersions: WaterfallVersion[] = [];
 
-  while (i < versions.length) {
-    if (versions[i].activated) {
-      waterfallVersions.push({
-        inactiveVersions: null,
-        version: versions[i],
-      });
-      i += 1;
-    } else {
-      const inactiveGroup: WaterfallVersionFragment[] = [];
-      while (i < versions.length && !versions[i].activated) {
-        inactiveGroup.push(versions[i]);
-        i += 1;
-      }
-      waterfallVersions.push({
-        inactiveVersions: inactiveGroup,
-        version: null,
-      });
+  const pushInactive = (v: WaterfallVersionFragment) => {
+    if (!filteredVersions?.[filteredVersions.length - 1]?.inactiveVersions) {
+      filteredVersions.push({ version: null, inactiveVersions: [] });
     }
-  }
-  return waterfallVersions;
+    filteredVersions[filteredVersions.length - 1].inactiveVersions?.push(v);
+  };
+
+  const pushActive = (v: WaterfallVersionFragment) => {
+    filteredVersions.push({
+      inactiveVersions: null,
+      version: v,
+    });
+  };
+
+  versions.forEach((version) => {
+    if (version.activated) {
+      if (versionHasActiveBuild(version.id)) {
+        pushActive(version);
+      } else {
+        pushInactive(version);
+      }
+    } else {
+      pushInactive(version);
+    }
+  });
+
+  return filteredVersions;
 };
