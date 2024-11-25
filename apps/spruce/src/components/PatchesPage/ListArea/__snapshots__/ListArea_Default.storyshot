@@ -1,13 +1,13 @@
 <div>
   <div
-    class="css-oxf11t-CardWrapper e1v2go1e6"
+    class="css-vfqztj-CardWrapper e1v2go1e6"
     data-cy="patch-card"
   >
     <div
-      class="css-17a1idw-Center-Left e1v2go1e4"
+      class="css-7z74ql-Center-Left e1v2go1e4"
     >
       <a
-        class="lg-ui-0001 e1v2go1e2 css-1rriyg1-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
+        class="lg-ui-0001 e1v2go1e2 css-jve37t-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
         data-cy="patch-card-patch-link"
         href="/version/667b2f7f7a878200076f23d1/tasks"
       >
@@ -16,7 +16,7 @@
         </span>
       </a>
       <div
-        class="css-l6wh1p-TimeAndProject e1v2go1e0"
+        class="css-1d3znbg-TimeAndProject e1v2go1e0"
       >
         Jun 25, 2024, 8:58:39 PM UTC
          
@@ -36,10 +36,10 @@
       </div>
     </div>
     <div
-      class="css-1f48wms-Center e1v2go1e5"
+      class="css-1tibm46-Center e1v2go1e5"
     >
       <div
-        class="css-12c8t6i-PatchBadgeContainer e1v2go1e1"
+        class="css-101gk2k-PatchBadgeContainer e1v2go1e1"
       >
         <div
           class="leafygreen-ui-dhdzha"
@@ -48,7 +48,7 @@
         </div>
       </div>
       <div
-        class="css-1ajiuot-TaskBadgeContainer e1v2go1e7"
+        class="css-figopz-TaskBadgeContainer e1v2go1e7"
       >
         <div
           class="leafygreen-ui-cssveg"
@@ -58,16 +58,16 @@
             href="/version/667b2f7f7a878200076f23d1/tasks?statuses=success"
           >
             <div
-              class="css-1d7t73j-BadgeContainer emc61an4"
+              class="css-37r643-BadgeContainer emc61an4"
               fill="#E3FCF7"
             >
               <span
-                class="css-1f81ztl-Number emc61an2"
+                class="css-1c06wkg-Number emc61an2"
               >
                 8
               </span>
               <span
-                class="css-oqj204-Status emc61an1"
+                class="css-sell4v-Status emc61an1"
               >
                 Succeeded
               </span>
@@ -82,16 +82,16 @@
             href="/version/667b2f7f7a878200076f23d1/tasks?statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue"
           >
             <div
-              class="css-1s2ykav-BadgeContainer emc61an4"
+              class="css-hhn5po-BadgeContainer emc61an4"
               fill="#FFEAE5"
             >
               <span
-                class="css-1f81ztl-Number emc61an2"
+                class="css-1c06wkg-Number emc61an2"
               >
                 1
               </span>
               <span
-                class="css-oqj204-Status emc61an1"
+                class="css-sell4v-Status emc61an1"
               >
                 Failed
               </span>
@@ -101,7 +101,7 @@
       </div>
     </div>
     <div
-      class="css-11r5mo2-Right e1v2go1e3"
+      class="css-ttrs0k-Right e1v2go1e3"
     >
       <button
         aria-disabled="false"
@@ -138,14 +138,14 @@
     </div>
   </div>
   <div
-    class="css-oxf11t-CardWrapper e1v2go1e6"
+    class="css-vfqztj-CardWrapper e1v2go1e6"
     data-cy="patch-card"
   >
     <div
-      class="css-17a1idw-Center-Left e1v2go1e4"
+      class="css-7z74ql-Center-Left e1v2go1e4"
     >
       <a
-        class="lg-ui-0001 e1v2go1e2 css-1rriyg1-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
+        class="lg-ui-0001 e1v2go1e2 css-jve37t-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
         data-cy="patch-card-patch-link"
         href="/version/667b2f7f7a878200076f23d1/tasks"
       >
@@ -154,7 +154,7 @@
         </span>
       </a>
       <div
-        class="css-l6wh1p-TimeAndProject e1v2go1e0"
+        class="css-1d3znbg-TimeAndProject e1v2go1e0"
       >
         Jun 25, 2024, 8:58:39 PM UTC
          
@@ -174,10 +174,10 @@
       </div>
     </div>
     <div
-      class="css-1f48wms-Center e1v2go1e5"
+      class="css-1tibm46-Center e1v2go1e5"
     >
       <div
-        class="css-12c8t6i-PatchBadgeContainer e1v2go1e1"
+        class="css-101gk2k-PatchBadgeContainer e1v2go1e1"
       >
         <div
           class="leafygreen-ui-dhdzha"
@@ -186,7 +186,7 @@
         </div>
       </div>
       <div
-        class="css-1ajiuot-TaskBadgeContainer e1v2go1e7"
+        class="css-figopz-TaskBadgeContainer e1v2go1e7"
       >
         <div
           class="leafygreen-ui-cssveg"
@@ -196,16 +196,16 @@
             href="/version/667b2f7f7a878200076f23d1/tasks?statuses=success"
           >
             <div
-              class="css-1d7t73j-BadgeContainer emc61an4"
+              class="css-37r643-BadgeContainer emc61an4"
               fill="#E3FCF7"
             >
               <span
-                class="css-1f81ztl-Number emc61an2"
+                class="css-1c06wkg-Number emc61an2"
               >
                 8
               </span>
               <span
-                class="css-oqj204-Status emc61an1"
+                class="css-sell4v-Status emc61an1"
               >
                 Succeeded
               </span>
@@ -220,16 +220,16 @@
             href="/version/667b2f7f7a878200076f23d1/tasks?statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue"
           >
             <div
-              class="css-1s2ykav-BadgeContainer emc61an4"
+              class="css-hhn5po-BadgeContainer emc61an4"
               fill="#FFEAE5"
             >
               <span
-                class="css-1f81ztl-Number emc61an2"
+                class="css-1c06wkg-Number emc61an2"
               >
                 1
               </span>
               <span
-                class="css-oqj204-Status emc61an1"
+                class="css-sell4v-Status emc61an1"
               >
                 Failed
               </span>
@@ -239,7 +239,7 @@
       </div>
     </div>
     <div
-      class="css-11r5mo2-Right e1v2go1e3"
+      class="css-ttrs0k-Right e1v2go1e3"
     >
       <button
         aria-disabled="false"
@@ -276,14 +276,14 @@
     </div>
   </div>
   <div
-    class="css-oxf11t-CardWrapper e1v2go1e6"
+    class="css-vfqztj-CardWrapper e1v2go1e6"
     data-cy="patch-card"
   >
     <div
-      class="css-17a1idw-Center-Left e1v2go1e4"
+      class="css-7z74ql-Center-Left e1v2go1e4"
     >
       <a
-        class="lg-ui-0001 e1v2go1e2 css-1rriyg1-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
+        class="lg-ui-0001 e1v2go1e2 css-jve37t-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
         data-cy="patch-card-patch-link"
         href="/version/667b2f7f7a878200076f23d1/tasks"
       >
@@ -292,7 +292,7 @@
         </span>
       </a>
       <div
-        class="css-l6wh1p-TimeAndProject e1v2go1e0"
+        class="css-1d3znbg-TimeAndProject e1v2go1e0"
       >
         Jun 25, 2024, 8:58:39 PM UTC
          
@@ -312,10 +312,10 @@
       </div>
     </div>
     <div
-      class="css-1f48wms-Center e1v2go1e5"
+      class="css-1tibm46-Center e1v2go1e5"
     >
       <div
-        class="css-12c8t6i-PatchBadgeContainer e1v2go1e1"
+        class="css-101gk2k-PatchBadgeContainer e1v2go1e1"
       >
         <div
           class="leafygreen-ui-dhdzha"
@@ -324,7 +324,7 @@
         </div>
       </div>
       <div
-        class="css-1ajiuot-TaskBadgeContainer e1v2go1e7"
+        class="css-figopz-TaskBadgeContainer e1v2go1e7"
       >
         <div
           class="leafygreen-ui-cssveg"
@@ -334,16 +334,16 @@
             href="/version/667b2f7f7a878200076f23d1/tasks?statuses=success"
           >
             <div
-              class="css-1d7t73j-BadgeContainer emc61an4"
+              class="css-37r643-BadgeContainer emc61an4"
               fill="#E3FCF7"
             >
               <span
-                class="css-1f81ztl-Number emc61an2"
+                class="css-1c06wkg-Number emc61an2"
               >
                 8
               </span>
               <span
-                class="css-oqj204-Status emc61an1"
+                class="css-sell4v-Status emc61an1"
               >
                 Succeeded
               </span>
@@ -358,16 +358,16 @@
             href="/version/667b2f7f7a878200076f23d1/tasks?statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue"
           >
             <div
-              class="css-1s2ykav-BadgeContainer emc61an4"
+              class="css-hhn5po-BadgeContainer emc61an4"
               fill="#FFEAE5"
             >
               <span
-                class="css-1f81ztl-Number emc61an2"
+                class="css-1c06wkg-Number emc61an2"
               >
                 1
               </span>
               <span
-                class="css-oqj204-Status emc61an1"
+                class="css-sell4v-Status emc61an1"
               >
                 Failed
               </span>
@@ -377,7 +377,7 @@
       </div>
     </div>
     <div
-      class="css-11r5mo2-Right e1v2go1e3"
+      class="css-ttrs0k-Right e1v2go1e3"
     >
       <button
         aria-disabled="false"
@@ -414,14 +414,14 @@
     </div>
   </div>
   <div
-    class="css-oxf11t-CardWrapper e1v2go1e6"
+    class="css-vfqztj-CardWrapper e1v2go1e6"
     data-cy="patch-card"
   >
     <div
-      class="css-17a1idw-Center-Left e1v2go1e4"
+      class="css-7z74ql-Center-Left e1v2go1e4"
     >
       <a
-        class="lg-ui-0001 e1v2go1e2 css-1rriyg1-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
+        class="lg-ui-0001 e1v2go1e2 css-jve37t-StyledLink-DescriptionLink leafygreen-ui-16e7rxl"
         data-cy="patch-card-patch-link"
         href="/version/667b2f7f7a878200076f23d1/tasks"
       >
@@ -430,7 +430,7 @@
         </span>
       </a>
       <div
-        class="css-l6wh1p-TimeAndProject e1v2go1e0"
+        class="css-1d3znbg-TimeAndProject e1v2go1e0"
       >
         Jun 25, 2024, 8:58:39 PM UTC
          
@@ -450,10 +450,10 @@
       </div>
     </div>
     <div
-      class="css-1f48wms-Center e1v2go1e5"
+      class="css-1tibm46-Center e1v2go1e5"
     >
       <div
-        class="css-12c8t6i-PatchBadgeContainer e1v2go1e1"
+        class="css-101gk2k-PatchBadgeContainer e1v2go1e1"
       >
         <div
           class="leafygreen-ui-dhdzha"
@@ -462,7 +462,7 @@
         </div>
       </div>
       <div
-        class="css-1ajiuot-TaskBadgeContainer e1v2go1e7"
+        class="css-figopz-TaskBadgeContainer e1v2go1e7"
       >
         <div
           class="leafygreen-ui-cssveg"
@@ -472,16 +472,16 @@
             href="/version/667b2f7f7a878200076f23d1/tasks?statuses=success"
           >
             <div
-              class="css-1d7t73j-BadgeContainer emc61an4"
+              class="css-37r643-BadgeContainer emc61an4"
               fill="#E3FCF7"
             >
               <span
-                class="css-1f81ztl-Number emc61an2"
+                class="css-1c06wkg-Number emc61an2"
               >
                 8
               </span>
               <span
-                class="css-oqj204-Status emc61an1"
+                class="css-sell4v-Status emc61an1"
               >
                 Succeeded
               </span>
@@ -496,16 +496,16 @@
             href="/version/667b2f7f7a878200076f23d1/tasks?statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue"
           >
             <div
-              class="css-1s2ykav-BadgeContainer emc61an4"
+              class="css-hhn5po-BadgeContainer emc61an4"
               fill="#FFEAE5"
             >
               <span
-                class="css-1f81ztl-Number emc61an2"
+                class="css-1c06wkg-Number emc61an2"
               >
                 1
               </span>
               <span
-                class="css-oqj204-Status emc61an1"
+                class="css-sell4v-Status emc61an1"
               >
                 Failed
               </span>
@@ -515,7 +515,7 @@
       </div>
     </div>
     <div
-      class="css-11r5mo2-Right e1v2go1e3"
+      class="css-ttrs0k-Right e1v2go1e3"
     >
       <button
         aria-disabled="false"

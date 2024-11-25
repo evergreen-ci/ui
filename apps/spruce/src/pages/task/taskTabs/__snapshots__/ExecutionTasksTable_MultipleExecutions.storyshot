@@ -1,6 +1,6 @@
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
+    class="leafygreen-ui-1xn4uvd css-10zkwi-StyledTable e1bwwd863"
     tabindex="0"
   >
     <table
@@ -195,7 +195,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-1785u1d-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     Some fancy execution task
                   </span>
@@ -222,7 +222,7 @@
                 href="/task/some_id_5?execution=14"
               >
                 <div
-                  class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                  class="css-ikfvz3-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                   data-cy="task-status-badge"
                 >
                   Succeeded
@@ -284,7 +284,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-1785u1d-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     Another execution task
                   </span>
@@ -311,7 +311,7 @@
                 href="/task/some_id_6?execution=12"
               >
                 <div
-                  class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                  class="css-ikfvz3-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                   data-cy="task-status-badge"
                 >
                   Succeeded

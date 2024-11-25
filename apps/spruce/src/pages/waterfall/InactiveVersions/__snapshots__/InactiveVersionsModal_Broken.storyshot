@@ -3,10 +3,10 @@
     class="css-ov1ktg"
   >
     <div
-      class="css-1wl27xf-InactiveVersion e1i0zkr30"
+      class="css-gvi6ub-InactiveVersion e1i0zkr30"
     >
       <div
-        class="css-104hg2i-StyledBadge e19pzgwa0 leafygreen-ui-dhdzha"
+        class="css-q2nprk-StyledBadge e19pzgwa0 leafygreen-ui-dhdzha"
         data-cy="broken-versions-badge"
       >
         1
@@ -43,7 +43,7 @@
           </svg>
           2
           <div
-            class="css-1twzd73-InactiveVersionLine e19pzgwa1"
+            class="css-bi7xop-InactiveVersionLine e19pzgwa1"
           />
         </div>
       </button>

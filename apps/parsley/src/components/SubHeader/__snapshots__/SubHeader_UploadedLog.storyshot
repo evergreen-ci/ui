@@ -1,10 +1,10 @@
 <div>
   <div
-    class="css-10b9k3f-Container e10jpr500"
+    class="css-1v9k567-Container e10jpr500"
     data-cy="log-header"
   >
     <div
-      class="css-1by3w5x-Header e10jpr501"
+      class="css-vvehl8-Header e10jpr501"
     >
       <svg
         aria-label="File Icon"
@@ -25,7 +25,7 @@
         />
       </svg>
       <nav
-        class="css-pf8nsc-Container e1gmm4v30"
+        class="css-1b1r4ah-Container e1gmm4v30"
         data-cy="breadcrumb-container"
       >
         <div

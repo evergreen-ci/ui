@@ -3,11 +3,11 @@
     class="css-1pp2qz6"
   >
     <div
-      class="css-bnbttx-VersionContainer-columnBasis-wordBreakCss e3zirl03"
+      class="css-1pumw2d-VersionContainer-columnBasis-wordBreakCss e3zirl03"
       data-cy="version-label-active"
     >
       <div
-        class="css-1idzah1-HeaderLine e3zirl00"
+        class="css-1whxjtv-HeaderLine e3zirl00"
       >
         <p
           class="leafygreen-ui-1tb6tuo"
@@ -25,14 +25,14 @@
            
           09/19/2024, 10:56
           <div
-            class="css-etc2w8-StyledBadge e3zirl01 leafygreen-ui-dhdzha"
+            class="css-ybjxzh-StyledBadge e3zirl01 leafygreen-ui-dhdzha"
           >
             Broken
           </div>
         </p>
       </div>
       <p
-        class="css-9ip3is-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+        class="css-1l1py4q-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
         view="modal"
       >
         <strong>
