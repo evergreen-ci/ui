@@ -21,7 +21,7 @@ describe("applyCustomKeyValueRender", () => {
     );
 
     // Render the result to test if it matches the expected ReactNode
-    render(result);
+    render(<div>{result}</div>);
     const renderedElement = screen.getByTestId("custom-render");
     expect(renderedElement).toBeInTheDocument();
     expect(renderedElement).toHaveTextContent("value1 - rendered by prefix1");
@@ -47,7 +47,7 @@ describe("applyCustomKeyValueRender", () => {
       mockCustomRenderConfig,
     );
 
-    render(result);
+    render(<div>{result}</div>);
     const renderedElement = screen.getByTestId("custom-render");
     expect(renderedElement).toBeInTheDocument();
     expect(renderedElement).toHaveTextContent("value3 - rendered by prefix2");
