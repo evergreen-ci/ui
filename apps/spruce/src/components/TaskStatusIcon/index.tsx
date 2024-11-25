@@ -166,11 +166,6 @@ export const waterfallGroupedStatuses = [
   },
   {
     icon: <Square status={TaskStatus.Undispatched} />,
-    statuses: [
-      TaskStatus.Undispatched,
-      TaskStatus.WillRun,
-      TaskStatus.Unstarted,
-      TaskStatus.Pending,
-    ],
+    statuses: [TaskStatus.Undispatched, TaskStatus.WillRun],
   },
 ];

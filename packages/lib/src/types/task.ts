@@ -63,10 +63,8 @@ export const SortedTaskStatus = [
   TaskStatus.Succeeded,
   TaskStatus.Undispatched,
   TaskStatus.WillRun,
-  TaskStatus.Pending,
   TaskStatus.Aborted,
   TaskStatus.Blocked,
-  TaskStatus.Unstarted,
   TaskStatus.Unscheduled,
   TaskStatus.Inactive,
 ];
