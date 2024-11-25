@@ -22,18 +22,18 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   return (
     <Container>
-      <FilterItem>
+      <NameFilterItem>
         <NameFilter />
-      </FilterItem>
+      </NameFilterItem>
       <ComboboxFilterItem>
         <StatusFilter />
       </ComboboxFilterItem>
       <ComboboxFilterItem>
         <RequesterFilter />
       </ComboboxFilterItem>
-      <FilterItem>
+      <DateFilterItem>
         <DateFilter />
-      </FilterItem>
+      </DateFilterItem>
       <FilterItem>
         <ProjectSelect
           getRoute={getWaterfallRoute}
@@ -51,14 +51,22 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
   );
 };
 
-// Temporary - update styles as more filters are added.
+const NameFilterItem = styled.div`
+  flex-basis: 30%;
+`;
+
 const FilterItem = styled.div`
-  flex: 1;
+  flex-basis: 20%;
 `;
 
 // Combobox's overflow handling requires a fixed width
 const ComboboxFilterItem = styled.div`
-  width: 250px;
+  width: 220px;
+  flex-shrink: 0;
+`;
+
+const DateFilterItem = styled.div`
+  flex-basis: content;
 `;
 
 const Container = styled.div`
