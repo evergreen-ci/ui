@@ -83,11 +83,14 @@ const reducer = (state: LogState, action: Action): LogState => {
           break;
       }
 
-      const failingLine = action.failingCommand
+      let failingLine = action.failingCommand
         ? processedLogs.findIndex((line) =>
             isFailingLine(line, action.failingCommand),
           )
         : undefined;
+      if (failingLine === -1) {
+        failingLine = undefined;
+      }
 
       return {
         ...state,
