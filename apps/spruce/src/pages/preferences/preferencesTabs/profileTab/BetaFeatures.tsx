@@ -117,7 +117,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
           }}
           uiSchema={{
             betaFeatures: {
-              "ui:data-cy": "beta-features-card",
+              "ui:data-cy": "beta-features-list",
               "ui:description":
                 "Enable beta features to get an early look at upcoming UI changes.",
               "ui:placeholder": "No beta experiments are active right now.",
