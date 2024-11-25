@@ -29,9 +29,9 @@ export const EventLogTab: React.FC<TabProps> = ({ limit, projectType }) => {
     <EventLog
       allEventsFetched={allEventsFetched}
       customKeyValueRenderConfig={{
-        "vars.vars": (key) => (
+        "vars.vars": (val) => (
           <StyledInlineDefinition definition="Evergreen does not display project variable values in the event log for security reasons.">
-            {key}
+            {val}
           </StyledInlineDefinition>
         ),
       }}
