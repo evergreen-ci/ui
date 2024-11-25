@@ -46,7 +46,7 @@ describe("user preferences pages", () => {
         "false",
       );
       cy.dataCy("save-beta-features-button").click();
-      cy.validateToast("success");
+      cy.validateToast("success", "Your changes have successfully been saved.");
       cy.reload();
 
       cy.dataCy("spruce-waterfall-enabled").within(() => {
