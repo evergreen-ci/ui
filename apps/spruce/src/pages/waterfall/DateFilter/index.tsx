@@ -34,9 +34,11 @@ export const DateFilter = () => {
   return (
     <DatePicker
       data-cy="date-picker"
+      // Use an uncontrolled component so that the transition does not DatePicker rendering.
+      initialValue={date.length ? new Date(date) : undefined}
       label="Go to Date"
+      max={new Date()}
       onDateChange={handleChange}
-      value={date.length ? new Date(date) : undefined}
     />
   );
 };
