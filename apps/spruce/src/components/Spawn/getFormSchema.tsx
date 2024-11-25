@@ -6,7 +6,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { hostUptimeDocumentationUrl } from "constants/externalResources";
-import { abbreviateTimeZone, timeZones } from "constants/fieldMaps";
+import { abbreviateTimeZone, timeZones } from "constants/time";
 import { MyPublicKeysQuery } from "gql/generated/types";
 import {
   defaultStartDate,

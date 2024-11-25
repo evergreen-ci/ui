@@ -25,4 +25,5 @@ export enum WaterfallFilterOptions {
   Requesters = "requesters",
   Statuses = "statuses",
   Task = "tasks",
+  Date = "date",
 }

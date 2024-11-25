@@ -16,6 +16,7 @@ type Action =
   | { name: "Filtered by requester"; requesters: string[] }
   | { name: "Filtered by task" }
   | { name: "Filtered by task status"; statuses: string[] }
+  | { name: "Filtered by date" }
   | { name: "Changed page"; direction: "next" | "previous" }
   | { name: "Deleted one filter badge" }
   | { name: "Deleted all filter badges" }

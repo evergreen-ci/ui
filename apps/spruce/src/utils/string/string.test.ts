@@ -1,4 +1,4 @@
-import { TimeFormat } from "constants/fieldMaps";
+import { TimeFormat } from "constants/time";
 import {
   msToDuration,
   sortFunctionDate,
