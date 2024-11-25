@@ -2,11 +2,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { fromZonedTime } from "date-fns-tz";
-import { utcTimeZone } from "constants/fieldMaps";
 import {
   DEFAULT_POLL_INTERVAL,
   WATERFALL_PINNED_VARIANTS_KEY,
 } from "constants/index";
+import { utcTimeZone } from "constants/time";
 import {
   WaterfallPagination,
   WaterfallQuery,

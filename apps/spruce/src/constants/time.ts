@@ -203,14 +203,6 @@ export enum TimeFormat {
   TwentyFourHour = "H:mm:ss",
 }
 
-export const notificationFields = {
-  patchFinish: "Patch finish",
-  patchFirstFailure: "Patch first task failure",
-  spawnHostOutcome: "Spawn host outcome",
-  spawnHostExpiration: "Spawn host expiration",
-  buildBreak: "Build break",
-};
-
 export const days = [
   "Sunday",
   "Monday",
