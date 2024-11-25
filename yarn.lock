@@ -2257,22 +2257,22 @@
     clipboard "^2.0.6"
     polished "^4.2.2"
 
-"@leafygreen-ui/date-picker@^1.1.3":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/date-picker/-/date-picker-1.2.1.tgz#464dbc92d9a782d217a93b96530789aad849ff96"
-  integrity sha512-DwxWRVmBgvUMUifdcmBpOrHDXpfg8eUVDnlvOXaULj1Ei8siMp5+LIXaxBGMbtb7GYaWQM+C3HAVET2eRsdqIQ==
+"@leafygreen-ui/date-picker@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/date-picker/-/date-picker-1.2.2.tgz#b89924db8fa9c6c91d4aeb186c93f5a6f8b4d58f"
+  integrity sha512-l9iMac0khYK3mSIUo7ZEzTprZEOmbcaCskCNld4R4xHm2jOYFsEP0ZxJbfo8LNPUSja4dNrkWl5Yg1G6Q9qtzg==
   dependencies:
     "@leafygreen-ui/a11y" "^1.4.13"
     "@leafygreen-ui/date-utils" "^0.1.2"
     "@leafygreen-ui/emotion" "^4.0.8"
-    "@leafygreen-ui/form-field" "^1.2.4"
-    "@leafygreen-ui/hooks" "^8.1.3"
+    "@leafygreen-ui/form-field" "^1.2.5"
+    "@leafygreen-ui/hooks" "^8.2.0"
     "@leafygreen-ui/icon" "^12.5.4"
     "@leafygreen-ui/icon-button" "^15.0.21"
     "@leafygreen-ui/lib" "^13.6.0"
     "@leafygreen-ui/palette" "^4.0.10"
     "@leafygreen-ui/popover" "^11.4.0"
-    "@leafygreen-ui/select" "^12.1.4"
+    "@leafygreen-ui/select" "^12.1.7"
     "@leafygreen-ui/tokens" "^2.9.0"
     "@leafygreen-ui/typography" "^19.2.0"
     date-fns "^2.30.0"
@@ -2377,7 +2377,7 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/hooks@^8.0.0", "@leafygreen-ui/hooks@^8.1.2", "@leafygreen-ui/hooks@^8.1.3", "@leafygreen-ui/hooks@^8.1.4", "@leafygreen-ui/hooks@^8.2.0":
+"@leafygreen-ui/hooks@^8.0.0", "@leafygreen-ui/hooks@^8.1.2", "@leafygreen-ui/hooks@^8.1.3", "@leafygreen-ui/hooks@^8.1.4", "@leafygreen-ui/hooks@^8.2.0", "@leafygreen-ui/hooks@^8.2.1":
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-8.2.1.tgz#746ca00f11bea47d34c03760e7734db95e7eb81e"
   integrity sha512-yozp+WfMo1aNzQJG4WOa4eoxEEMK3T7Q7D2AObRWEPR+jPeeocsBKSHoAkUsfJ/8AklQ+LIWM1SvtUm4iuLXtQ==
@@ -2794,6 +2794,28 @@
     "@leafygreen-ui/emotion" "^4.0.8"
     "@leafygreen-ui/form-field" "^1.2.4"
     "@leafygreen-ui/hooks" "^8.1.3"
+    "@leafygreen-ui/icon" "^12.5.4"
+    "@leafygreen-ui/input-option" "^2.0.1"
+    "@leafygreen-ui/lib" "^13.6.1"
+    "@leafygreen-ui/palette" "^4.0.10"
+    "@leafygreen-ui/popover" "^11.4.0"
+    "@leafygreen-ui/tokens" "^2.9.0"
+    "@leafygreen-ui/typography" "^19.2.1"
+    "@lg-tools/test-harnesses" "^0.1.2"
+    "@types/react-is" "^18.0.0"
+    lodash "^4.17.21"
+    polished "^4.1.3"
+    react-is "^18.0.1"
+
+"@leafygreen-ui/select@^12.1.7":
+  version "12.1.7"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/select/-/select-12.1.7.tgz#b7ef3dec1511d8adf1e4d5f04a30d215163773cb"
+  integrity sha512-k6sI2b5AvX4LMDWa4M9mYro5tJLrLPrgebQX9GQgIyVnWuXkxwjoYf5IUQE8k33/My+VeDuyh/5aZ5FS3IfQlw==
+  dependencies:
+    "@leafygreen-ui/button" "^21.2.0"
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/form-field" "^1.2.5"
+    "@leafygreen-ui/hooks" "^8.2.1"
     "@leafygreen-ui/icon" "^12.5.4"
     "@leafygreen-ui/input-option" "^2.0.1"
     "@leafygreen-ui/lib" "^13.6.1"

@@ -1,6 +1,6 @@
 import { GetFormSchema } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
-import { timeZones } from "constants/fieldMaps";
+import { timeZones } from "constants/time";
 import { form, ProjectType } from "../utils";
 import { IntervalSpecifier } from "./types";
 

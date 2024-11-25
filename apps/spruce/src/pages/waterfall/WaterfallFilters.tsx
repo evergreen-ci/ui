@@ -4,6 +4,7 @@ import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
+import { DateFilter } from "./DateFilter";
 import { NameFilter } from "./NameFilter";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
@@ -25,6 +26,9 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
       </FilterItem>
       <FilterItem>
         <RequesterFilter />
+      </FilterItem>
+      <FilterItem>
+        <DateFilter />
       </FilterItem>
       <FilterItem>
         <ProjectSelect

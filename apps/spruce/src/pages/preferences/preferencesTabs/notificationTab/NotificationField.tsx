@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import styled from "@emotion/styled";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
-import { notificationFields } from "constants/fieldMaps";
+import { notificationFields } from "constants/subscription";
 import { Notifications } from "gql/generated/types";
 
 interface NotificationFieldProps {

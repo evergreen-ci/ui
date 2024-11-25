@@ -1,4 +1,4 @@
-import { abbreviateTimeZone } from "./fieldMaps";
+import { abbreviateTimeZone } from "./time";
 
 describe("abbreviateTimeZone", () => {
   it("returns the shortened time zone", () => {

@@ -9,7 +9,6 @@ export const useDateFormat = () => {
 
   return (date: string | number | Date, options: DateCopyOptions = {}) =>
     getDateCopy(date, {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       tz: timezone,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       dateFormat,
