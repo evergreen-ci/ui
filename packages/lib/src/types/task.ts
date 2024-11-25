@@ -66,7 +66,6 @@ export const SortedTaskStatus = [
   TaskStatus.Aborted,
   TaskStatus.Blocked,
   TaskStatus.Unscheduled,
-  TaskStatus.Inactive,
 ];
 
 export enum TaskStatusUmbrella {

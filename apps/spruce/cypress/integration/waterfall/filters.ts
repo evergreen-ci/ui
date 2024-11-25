@@ -110,7 +110,7 @@ describe("task filtering", () => {
     cy.get("a[data-tooltip]").should(
       "have.attr",
       "data-tooltip",
-      "test-agent - Inactive",
+      "test-agent - Succeeded",
     );
 
     cy.get("[placeholder='Filter tasks'").type("lint{enter}");
