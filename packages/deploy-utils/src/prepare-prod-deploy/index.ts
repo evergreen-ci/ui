@@ -69,5 +69,17 @@ export const prepareProdDeploy = async () => {
 
   const version = getReleaseVersion(commitMessages);
   console.log(`This deploy is a ${version} release.`);
+
+  const { value: shouldDeploy } = await prompts({
+    type: "confirm",
+    name: "value",
+    message: "Do you want to deploy?",
+    initial: true,
+  });
+  if (!shouldDeploy) {
+    console.log("Deploy cancelled.");
+    return;
+  }
+
   createTagAndPush(version);
 };
