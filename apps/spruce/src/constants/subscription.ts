@@ -1,6 +1,14 @@
 import { SubscriberWrapper } from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
 
+export const notificationFields = {
+  patchFinish: "Patch finish",
+  patchFirstFailure: "Patch first task failure",
+  spawnHostOutcome: "Spawn host outcome",
+  spawnHostExpiration: "Spawn host expiration",
+  buildBreak: "Build break",
+};
+
 export const getSubscriberText = (subscriberWrapper: SubscriberWrapper) => {
   const { subscriber, type } = subscriberWrapper;
   switch (type) {

@@ -8,7 +8,7 @@ import {
 } from "date-fns";
 import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { ValidateProps } from "components/SpruceForm";
-import { days } from "constants/fieldMaps";
+import { days } from "constants/time";
 import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";
 import { FormState as EditFormState } from "../editHostModal";
 import { FormState as SpawnFormState } from "../spawnHostModal";
