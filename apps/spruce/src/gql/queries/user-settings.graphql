@@ -1,28 +1,25 @@
 query UserSettings {
-  user {
-    settings {
-      dateFormat
-      githubUser {
-        lastKnownAs
-      }
-      notifications {
-        buildBreak
-        patchFinish
-        patchFirstFailure
-        spawnHostExpiration
-        spawnHostOutcome
-      }
-      region
-      slackMemberId
-      slackUsername
-      timeFormat
-      timezone
-      useSpruceOptions {
-        hasUsedMainlineCommitsBefore
-        hasUsedSpruceBefore
-        spruceV1
-      }
+  userSettings {
+    dateFormat
+    githubUser {
+      lastKnownAs
     }
-    userId
+    notifications {
+      buildBreak
+      patchFinish
+      patchFirstFailure
+      spawnHostExpiration
+      spawnHostOutcome
+    }
+    region
+    slackMemberId
+    slackUsername
+    timeFormat
+    timezone
+    useSpruceOptions {
+      hasUsedMainlineCommitsBefore
+      hasUsedSpruceBefore
+      spruceV1
+    }
   }
 }
