@@ -87,7 +87,7 @@ describe("copyProjectField", () => {
     // Check S3 creds checkbox.
     const requestS3Creds = screen.getByDataCy("request-s3-creds");
     const requestS3CredLabel = screen.getByText(
-      "Open a JIRA ticket to request an S3 Bucket from the Build team",
+      "Open a JIRA ticket to request an S3 Bucket",
     );
     expect(requestS3Creds).not.toBeChecked();
     await user.click(requestS3CredLabel); // LeafyGreen checkbox has pointer-events: none so click on the label instead.
