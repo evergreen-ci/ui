@@ -83,7 +83,7 @@ export const useFilters = ({
         return;
       }
 
-      if (requesters.length || taskFilterRegex.length) {
+      if (requesters.length || taskFilterRegex.length || statuses.length) {
         const activeBuilds: Build[] = [];
         bv.builds.forEach((b) => {
           if (activeVersions.find(({ id }) => id === b.version)) {
@@ -121,9 +121,9 @@ export const useFilters = ({
   ]);
 
   const activeVersions = useMemo(() => {
-    const hasActiveBuild = (versionId: string) =>
+    const hasActiveBuild = (version: WaterfallVersionFragment) =>
       filteredBuildVariants.some((bv) =>
-        bv.builds.some((build) => build.version === versionId),
+        bv.builds.some((build) => build.version === version.id),
       );
 
     return groupInactiveVersions(flattenedVersions, hasActiveBuild);

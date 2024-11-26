@@ -196,7 +196,7 @@ describe("useFilters", () => {
         ],
       };
 
-      expect(result.current).toMatchObject(filteredWaterfall);
+      expect(result.current).toStrictEqual(filteredWaterfall);
     });
 
     it("should match on multiple tasks and build variants", () => {
@@ -216,6 +216,7 @@ describe("useFilters", () => {
 
       const filteredWaterfall = {
         ...waterfall,
+        activeVersionIds: ["b", "c"],
         buildVariants: [
           {
             ...waterfall.buildVariants[0],
@@ -239,7 +240,7 @@ describe("useFilters", () => {
         ],
       };
 
-      expect(result.current).toMatchObject(filteredWaterfall);
+      expect(result.current).toStrictEqual(filteredWaterfall);
     });
 
     it("applies task and build variant filters", () => {
@@ -257,7 +258,8 @@ describe("useFilters", () => {
         },
       );
 
-      expect(result.current).toMatchObject({
+      expect(result.current).toStrictEqual({
+        activeVersionIds: [],
         versions: [
           {
             inactiveVersions: flattenedVersions,
@@ -285,8 +287,22 @@ describe("useFilters", () => {
         },
       );
 
-      expect(result.current).toMatchObject({
-        ...waterfall,
+      expect(result.current).toStrictEqual({
+        activeVersionIds: ["b"],
+        versions: [
+          {
+            inactiveVersions: [flattenedVersions[0]],
+            version: null,
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[1],
+          },
+          {
+            inactiveVersions: [flattenedVersions[2]],
+            version: null,
+          },
+        ],
         buildVariants: [
           {
             ...waterfall.buildVariants[0],
@@ -312,8 +328,18 @@ describe("useFilters", () => {
         },
       );
 
-      expect(result.current).toMatchObject({
-        ...waterfall,
+      expect(result.current).toStrictEqual({
+        activeVersionIds: ["c"],
+        versions: [
+          {
+            inactiveVersions: [flattenedVersions[0], flattenedVersions[1]],
+            version: null,
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[2],
+          },
+        ],
         buildVariants: [
           {
             ...waterfall.buildVariants[2],
@@ -344,8 +370,14 @@ describe("useFilters", () => {
         },
       );
 
-      expect(result.current).toMatchObject({
-        ...waterfall,
+      expect(result.current).toStrictEqual({
+        activeVersionIds: [],
+        versions: [
+          {
+            inactiveVersions: flattenedVersions,
+            version: null,
+          },
+        ],
         buildVariants: [],
       });
     });

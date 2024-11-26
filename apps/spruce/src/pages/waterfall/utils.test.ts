@@ -92,7 +92,7 @@ describe("groupInactiveVersions", () => {
   });
 
   it("correctly groups inactive versions when some do not appear in builds", () => {
-    const res = groupInactiveVersions(versions, (id) => id !== "b");
+    const res = groupInactiveVersions(versions, (v) => v.id !== "b");
 
     expect(res).toStrictEqual([
       {

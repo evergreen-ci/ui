@@ -3,7 +3,7 @@ import { WaterfallVersion } from "./types";
 
 export const groupInactiveVersions = (
   versions: WaterfallVersionFragment[],
-  versionHasActiveBuild: (versionId: string) => boolean,
+  versionHasActiveBuild: (version: WaterfallVersionFragment) => boolean,
 ) => {
   const filteredVersions: WaterfallVersion[] = [];
 
@@ -22,12 +22,8 @@ export const groupInactiveVersions = (
   };
 
   versions.forEach((version) => {
-    if (version.activated) {
-      if (versionHasActiveBuild(version.id)) {
-        pushActive(version);
-      } else {
-        pushInactive(version);
-      }
+    if (version.activated && versionHasActiveBuild(version)) {
+      pushActive(version);
     } else {
       pushInactive(version);
     }
