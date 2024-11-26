@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client";
 import {
+  AdminBetaFeaturesQuery,
+  AdminBetaFeaturesQueryVariables,
   BetaFeatures,
-  BetaFeaturesQuery,
-  BetaFeaturesQueryVariables,
-  UserPreferencesQuery,
-  UserPreferencesQueryVariables,
+  UserBetaFeaturesQuery,
+  UserBetaFeaturesQueryVariables,
 } from "gql/generated/types";
-import { BETA_FEATURES, USER_PREFERENCES } from "gql/queries";
+import { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "gql/queries";
 
 /**
  * `useAdminBetaFeatures` returns the beta features defined at the admin level.
@@ -14,9 +14,9 @@ import { BETA_FEATURES, USER_PREFERENCES } from "gql/queries";
  */
 export const useAdminBetaFeatures = () => {
   const { data: adminSettingsData } = useQuery<
-    BetaFeaturesQuery,
-    BetaFeaturesQueryVariables
-  >(BETA_FEATURES);
+    AdminBetaFeaturesQuery,
+    AdminBetaFeaturesQueryVariables
+  >(ADMIN_BETA_FEATURES);
   const { spruceConfig } = adminSettingsData ?? {};
   const { ui } = spruceConfig ?? {};
   const { betaFeatures } = ui ?? {};
@@ -29,9 +29,9 @@ export const useAdminBetaFeatures = () => {
  */
 export const useUserBetaFeatures = () => {
   const { data: userData } = useQuery<
-    UserPreferencesQuery,
-    UserPreferencesQueryVariables
-  >(USER_PREFERENCES, {
+    UserBetaFeaturesQuery,
+    UserBetaFeaturesQueryVariables
+  >(USER_BETA_FEATURES, {
     variables: {},
   });
   const { user } = userData ?? {};

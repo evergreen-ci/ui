@@ -5789,6 +5789,22 @@ export type UpdateUserSettingsMutation = {
   updateUserSettings: boolean;
 };
 
+export type AdminBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AdminBetaFeaturesQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    ui: {
+      __typename?: "UIConfig";
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
+    };
+  } | null;
+};
+
 export type AgentLogsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -5871,22 +5887,6 @@ export type BaseVersionAndTaskQuery = {
         id: string;
         order: number;
       } | null;
-    };
-  } | null;
-};
-
-export type BetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
-
-export type BetaFeaturesQuery = {
-  __typename?: "Query";
-  spruceConfig?: {
-    __typename?: "SpruceConfig";
-    ui: {
-      __typename?: "UIConfig";
-      betaFeatures: {
-        __typename?: "BetaFeatures";
-        spruceWaterfallEnabled: boolean;
-      };
     };
   } | null;
 };
@@ -9303,6 +9303,20 @@ export type UndispatchedTasksQuery = {
   };
 };
 
+export type UserBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserBetaFeaturesQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    betaFeatures: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    };
+  };
+};
+
 export type UserConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserConfigQuery = {
@@ -9386,47 +9400,6 @@ export type UserPatchesQuery = {
   };
 };
 
-export type UserPreferencesQueryVariables = Exact<{ [key: string]: never }>;
-
-export type UserPreferencesQuery = {
-  __typename?: "Query";
-  user: {
-    __typename?: "User";
-    userId: string;
-    betaFeatures: {
-      __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
-    };
-    settings: {
-      __typename?: "UserSettings";
-      dateFormat?: string | null;
-      region?: string | null;
-      slackMemberId?: string | null;
-      slackUsername?: string | null;
-      timeFormat?: string | null;
-      timezone?: string | null;
-      githubUser?: {
-        __typename?: "GithubUser";
-        lastKnownAs?: string | null;
-      } | null;
-      notifications?: {
-        __typename?: "Notifications";
-        buildBreak?: string | null;
-        patchFinish?: string | null;
-        patchFirstFailure?: string | null;
-        spawnHostExpiration?: string | null;
-        spawnHostOutcome?: string | null;
-      } | null;
-      useSpruceOptions?: {
-        __typename?: "UseSpruceOptions";
-        hasUsedMainlineCommitsBefore?: boolean | null;
-        hasUsedSpruceBefore?: boolean | null;
-        spruceV1?: boolean | null;
-      } | null;
-    };
-  };
-};
-
 export type UserProjectSettingsPermissionsQueryVariables = Exact<{
   projectIdentifier: Scalars["String"]["input"];
 }>;
@@ -9464,33 +9437,36 @@ export type UserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserSettingsQuery = {
   __typename?: "Query";
-  userSettings?: {
-    __typename?: "UserSettings";
-    dateFormat?: string | null;
-    region?: string | null;
-    slackMemberId?: string | null;
-    slackUsername?: string | null;
-    timeFormat?: string | null;
-    timezone?: string | null;
-    githubUser?: {
-      __typename?: "GithubUser";
-      lastKnownAs?: string | null;
-    } | null;
-    notifications?: {
-      __typename?: "Notifications";
-      buildBreak?: string | null;
-      patchFinish?: string | null;
-      patchFirstFailure?: string | null;
-      spawnHostExpiration?: string | null;
-      spawnHostOutcome?: string | null;
-    } | null;
-    useSpruceOptions?: {
-      __typename?: "UseSpruceOptions";
-      hasUsedMainlineCommitsBefore?: boolean | null;
-      hasUsedSpruceBefore?: boolean | null;
-      spruceV1?: boolean | null;
-    } | null;
-  } | null;
+  user: {
+    __typename?: "User";
+    settings: {
+      __typename?: "UserSettings";
+      dateFormat?: string | null;
+      region?: string | null;
+      slackMemberId?: string | null;
+      slackUsername?: string | null;
+      timeFormat?: string | null;
+      timezone?: string | null;
+      githubUser?: {
+        __typename?: "GithubUser";
+        lastKnownAs?: string | null;
+      } | null;
+      notifications?: {
+        __typename?: "Notifications";
+        buildBreak?: string | null;
+        patchFinish?: string | null;
+        patchFirstFailure?: string | null;
+        spawnHostExpiration?: string | null;
+        spawnHostOutcome?: string | null;
+      } | null;
+      useSpruceOptions?: {
+        __typename?: "UseSpruceOptions";
+        hasUsedMainlineCommitsBefore?: boolean | null;
+        hasUsedSpruceBefore?: boolean | null;
+        spruceV1?: boolean | null;
+      } | null;
+    };
+  };
 };
 
 export type UserSubscriptionsQueryVariables = Exact<{ [key: string]: never }>;

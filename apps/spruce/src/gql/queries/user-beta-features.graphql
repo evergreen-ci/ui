@@ -1,0 +1,8 @@
+query UserBetaFeatures {
+  user {
+    betaFeatures {
+      spruceWaterfallEnabled
+    }
+    userId
+  }
+}

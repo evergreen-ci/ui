@@ -1,8 +1,8 @@
+import ADMIN_BETA_FEATURES from "./admin-beta-features.graphql";
 import AGENT_LOGS from "./agent-logs.graphql";
 import ALL_LOGS from "./all-logs.graphql";
 import AWS_REGIONS from "./aws-regions.graphql";
 import BASE_VERSION_AND_TASK from "./base-version-and-task.graphql";
-import BETA_FEATURES from "./beta-features.graphql";
 import BUILD_BARON_CONFIGURED from "./build-baron-configured.graphql";
 import BUILD_BARON from "./build-baron.graphql";
 import BUILD_VARIANTS_STATS from "./build-variant-stats.graphql";
@@ -77,10 +77,10 @@ import TASK_TESTS from "./task-tests.graphql";
 import TASK from "./task.graphql";
 import TEST_ANALYSIS from "./test-analysis.graphql";
 import UNSCHEDULED_TASKS from "./undispatched-tasks.graphql";
+import USER_BETA_FEATURES from "./user-beta-features.graphql";
 import USER_CONFIG from "./user-config.graphql";
 import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
 import USER_PATCHES from "./user-patches.graphql";
-import USER_PREFERENCES from "./user-preferences.graphql";
 import USER_PROJECT_SETTINGS_PERMISSIONS from "./user-project-settings-permissions.graphql";
 import USER_REPO_SETTINGS_PERMISSIONS from "./user-repo-settings-permissions.graphql";
 import USER_SETTINGS from "./user-settings.graphql";
@@ -93,11 +93,11 @@ import VIEWABLE_PROJECTS from "./viewable-projects.graphql";
 import WATERFALL from "./waterfall.graphql";
 
 export {
+  ADMIN_BETA_FEATURES,
   AGENT_LOGS,
   ALL_LOGS,
   AWS_REGIONS,
   BASE_VERSION_AND_TASK,
-  BETA_FEATURES,
   BUILD_BARON_CONFIGURED,
   BUILD_BARON,
   BUILD_VARIANTS_FOR_TASK_NAME,
@@ -172,9 +172,9 @@ export {
   TASK,
   TEST_ANALYSIS,
   UNSCHEDULED_TASKS,
+  USER_BETA_FEATURES,
   USER_CONFIG,
   USER_PATCHES,
-  USER_PREFERENCES,
   USER_DISTRO_SETTINGS_PERMISSIONS,
   USER_PROJECT_SETTINGS_PERMISSIONS,
   USER_REPO_SETTINGS_PERMISSIONS,
