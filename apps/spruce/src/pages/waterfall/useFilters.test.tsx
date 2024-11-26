@@ -237,6 +237,88 @@ describe("useFilters", () => {
       });
     });
   });
+
+  describe("status filter", () => {
+    it("matches on statuses", () => {
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            buildVariants: waterfall.buildVariants,
+            flattenedVersions,
+            pins: [],
+          }),
+        {
+          wrapper: createWrapper({
+            initialEntry: "/project/spruce/waterfall?statuses=started",
+          }),
+        },
+      );
+
+      expect(result.current).toMatchObject({
+        ...waterfall,
+        buildVariants: [
+          {
+            ...waterfall.buildVariants[0],
+            builds: [waterfall.buildVariants[0].builds[1]],
+          },
+          waterfall.buildVariants[1],
+        ],
+      });
+    });
+
+    it("matches on status when no display status is present", () => {
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            buildVariants: waterfall.buildVariants,
+            flattenedVersions,
+            pins: [],
+          }),
+        {
+          wrapper: createWrapper({
+            initialEntry: "/project/spruce/waterfall?statuses=success",
+          }),
+        },
+      );
+
+      expect(result.current).toMatchObject({
+        ...waterfall,
+        buildVariants: [
+          {
+            ...waterfall.buildVariants[2],
+            builds: [
+              {
+                ...waterfall.buildVariants[2].builds[0],
+                tasks: [waterfall.buildVariants[2].builds[0].tasks[0]],
+              },
+            ],
+          },
+        ],
+      });
+    });
+
+    it("applies task name and status filter", () => {
+      const { result } = renderHook(
+        () =>
+          useFilters({
+            buildVariants: waterfall.buildVariants,
+            flattenedVersions,
+            pins: [],
+          }),
+        {
+          wrapper: createWrapper({
+            initialEntry:
+              "/project/spruce/waterfall?statuses=success&tasks=foo",
+          }),
+        },
+      );
+
+      expect(result.current).toMatchObject({
+        ...waterfall,
+        buildVariants: [],
+      });
+    });
+  });
 });
 
 const flattenedVersions: WaterfallVersionFragment[] = [
@@ -348,7 +430,7 @@ const waterfall = {
           tasks: [
             {
               displayName: "Task 1",
-              displayStatus: "success",
+              displayStatus: "",
               execution: 0,
               id: "task_1",
               status: "success",

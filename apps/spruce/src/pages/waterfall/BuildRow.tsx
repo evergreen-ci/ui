@@ -119,10 +119,7 @@ const BuildGrid: React.FC<{
     }}
   >
     {build.tasks.map(({ displayName, displayStatus, execution, id }) => {
-      // If the entire build is inactive, use inactive status for all tasks
-      const taskStatus = build.activated
-        ? (displayStatus as TaskStatus)
-        : TaskStatus.Inactive;
+      const taskStatus = displayStatus as TaskStatus;
       return (
         <SquareMemo
           key={id}
