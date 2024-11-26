@@ -9439,6 +9439,7 @@ export type UserSettingsQuery = {
   __typename?: "Query";
   user: {
     __typename?: "User";
+    userId: string;
     settings: {
       __typename?: "UserSettings";
       dateFormat?: string | null;

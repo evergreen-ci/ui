@@ -6,7 +6,7 @@ type Action =
   | { name: "Clicked legacy UI link" }
   | { name: "Clicked logo link" }
   | { name: "Clicked waterfall link" }
-  | { name: "Clicked mainline commits link" }
+  | { name: "Clicked project health link" }
   | { name: "Clicked my patches link" }
   | { name: "Clicked my hosts link" }
   | { name: "Clicked all hosts link" }
