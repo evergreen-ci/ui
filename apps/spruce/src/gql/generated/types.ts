@@ -6207,6 +6207,7 @@ export type DistroQuery = {
       generateTaskFactor: number;
       groupVersions: boolean;
       mainlineTimeInQueueFactor: number;
+      numDependentsFactor?: number | null;
       patchFactor: number;
       patchTimeInQueueFactor: number;
       targetTime: number;

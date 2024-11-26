@@ -12,14 +12,15 @@ export interface TaskFormState {
   plannerSettings: {
     version: PlannerVersion;
     tunableOptions: {
-      targetTime: number;
       commitQueueFactor: number;
       expectedRuntimeFactor: number;
       generateTaskFactor: number;
+      groupVersions: boolean;
       mainlineTimeInQueueFactor: number;
+      numDependentsFactor: number;
       patchFactor: number;
       patchTimeInQueueFactor: number;
-      groupVersions: boolean;
+      targetTime: number;
     };
   };
   dispatcherSettings: {
