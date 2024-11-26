@@ -4,9 +4,11 @@ import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
+import { DateFilter } from "./DateFilter";
 import { NameFilter } from "./NameFilter";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
+import { StatusFilter } from "./StatusFilter";
 
 type WaterfallFiltersProps = {
   projectIdentifier: string;
@@ -20,12 +22,18 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   return (
     <Container>
-      <FilterItem>
+      <NameFilterItem>
         <NameFilter />
-      </FilterItem>
-      <FilterItem>
+      </NameFilterItem>
+      <ComboboxFilterItem>
+        <StatusFilter />
+      </ComboboxFilterItem>
+      <ComboboxFilterItem>
         <RequesterFilter />
-      </FilterItem>
+      </ComboboxFilterItem>
+      <DateFilterItem>
+        <DateFilter />
+      </DateFilterItem>
       <FilterItem>
         <ProjectSelect
           getRoute={getWaterfallRoute}
@@ -43,9 +51,22 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
   );
 };
 
-// Temporary - update styles as more filters are added.
+const NameFilterItem = styled.div`
+  flex-basis: 30%;
+`;
+
 const FilterItem = styled.div`
-  flex-basis: 33%;
+  flex-basis: 20%;
+`;
+
+// Combobox's overflow handling requires a fixed width
+const ComboboxFilterItem = styled.div`
+  width: 220px;
+  flex-shrink: 0;
+`;
+
+const DateFilterItem = styled.div`
+  flex-basis: content;
 `;
 
 const Container = styled.div`
