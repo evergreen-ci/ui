@@ -175,3 +175,28 @@ describe("date filter", () => {
     cy.dataCy("version-labels").children().eq(0).contains(commit20220303);
   });
 });
+
+describe("revision filtering", () => {
+  beforeEach(() => {
+    cy.visit("/project/spruce/waterfall");
+  });
+
+  it("filters by git commit", () => {
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("git-commit-search").click();
+    cy.dataCy("git-commit-search-modal").should("be.visible");
+    cy.getInputByLabel("Git Commit Hash").type("ab49443{enter}");
+    cy.dataCy("git-commit-search-modal").should("not.exist");
+    cy.dataCy("version-label-active").contains("ab49443").should("be.visible");
+    cy.dataCy("version-label-active")
+      .contains("ab49443")
+      .invoke("attr", "data-highlighted", "true");
+  });
+  it("should highlight a commit if it is passed into the url", () => {
+    cy.visit("/project/spruce/waterfall?revision=ab49443");
+    cy.dataCy("version-label-active").contains("ab49443").should("be.visible");
+    cy.dataCy("version-label-active")
+      .contains("ab49443")
+      .invoke("attr", "data-highlighted", "true");
+  });
+});
