@@ -55,7 +55,7 @@ export const performanceTooling = {
 export const requestS3Creds = {
   schema: {
     type: "boolean" as "boolean",
-    title: "Open a JIRA ticket to request an S3 Bucket from the Build team",
+    title: "Open a JIRA ticket to request an S3 Bucket",
     default: false,
   },
   uiSchema: {
