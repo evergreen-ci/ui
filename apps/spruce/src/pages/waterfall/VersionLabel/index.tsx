@@ -76,7 +76,7 @@ export const VersionLabel: React.FC<Props> = ({
             to={getVersionRoute(id)}
           >
             {shortenGithash(revision)}
-          </InlineCode>
+          </InlineCode>{" "}
           {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
           {commitType === "inactive" && (
             <StyledBadge variant={Variant.LightGray}>Inactive</StyledBadge>

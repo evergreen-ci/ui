@@ -1,16 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { fromZonedTime } from "date-fns-tz";
 import {
   DEFAULT_POLL_INTERVAL,
   WATERFALL_PINNED_VARIANTS_KEY,
 } from "constants/index";
+import { utcTimeZone } from "constants/time";
 import {
   WaterfallPagination,
   WaterfallQuery,
   WaterfallQueryVariables,
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
+import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
@@ -72,6 +75,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     WaterfallFilterOptions.Revision,
     null,
   );
+  const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
+
+  const timezone = useUserTimeZone() ?? utcTimeZone;
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
@@ -83,6 +89,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           maxOrder,
           minOrder,
           revision,
+          date: date ? fromZonedTime(date, timezone) : undefined,
         },
       },
       // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.

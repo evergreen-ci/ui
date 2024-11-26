@@ -6,11 +6,7 @@ import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import { SpruceForm } from "components/SpruceForm";
-import {
-  listOfDateFormatStrings,
-  timeZones,
-  TimeFormat,
-} from "constants/fieldMaps";
+import { listOfDateFormatStrings, timeZones, TimeFormat } from "constants/time";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,

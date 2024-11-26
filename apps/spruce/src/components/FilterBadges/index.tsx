@@ -50,7 +50,7 @@ const FilterBadges: React.FC<FilterBadgesProps> = ({
           size={Size.XSmall}
           variant={Variant.Default}
         >
-          CLEAR ALL FILTERS
+          Clear filters
         </Button>
       )}
     </Container>

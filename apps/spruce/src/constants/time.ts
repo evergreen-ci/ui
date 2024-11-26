@@ -1,4 +1,5 @@
 export const defaultTimeZone = "America/New_York";
+export const utcTimeZone = "UTC";
 
 export const timeZones = [
   {
@@ -201,14 +202,6 @@ export enum TimeFormat {
   TwelveHour = "h:mm:ss aa",
   TwentyFourHour = "H:mm:ss",
 }
-
-export const notificationFields = {
-  patchFinish: "Patch finish",
-  patchFirstFailure: "Patch first task failure",
-  spawnHostOutcome: "Spawn host outcome",
-  spawnHostExpiration: "Spawn host expiration",
-  buildBreak: "Build break",
-};
 
 export const days = [
   "Sunday",

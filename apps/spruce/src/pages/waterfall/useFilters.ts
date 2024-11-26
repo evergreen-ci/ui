@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import {
@@ -25,6 +26,11 @@ export const useFilters = ({
     [],
   );
 
+  const [statuses] = useQueryParam<string[]>(
+    WaterfallFilterOptions.Statuses,
+    [],
+  );
+
   const [buildVariantFilter] = useQueryParam<string[]>(
     WaterfallFilterOptions.BuildVariant,
     [],
@@ -33,8 +39,12 @@ export const useFilters = ({
   const [taskFilter] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
 
   const hasFilters = useMemo(
-    () => requesters.length || buildVariantFilter.length || taskFilter.length,
-    [buildVariantFilter, requesters, taskFilter],
+    () =>
+      requesters.length ||
+      statuses.length ||
+      buildVariantFilter.length ||
+      taskFilter.length,
+    [buildVariantFilter, requesters, statuses, taskFilter],
   );
 
   const versions = useMemo(
@@ -124,14 +134,17 @@ export const useFilters = ({
       if (passesBVFilter) {
         if (
           activeVersionIds.length !== bv.builds.length ||
-          taskFilterRegex.length
+          taskFilterRegex.length ||
+          statuses.length
         ) {
           const activeBuilds: Build[] = [];
           bv.builds.forEach((b) => {
             if (activeVersionIds.includes(b.version)) {
-              if (taskFilterRegex.length) {
-                const activeTasks = b.tasks.filter((t) =>
-                  taskFilterRegex.some((r) => t.displayName.match(r)),
+              if (taskFilterRegex.length || statuses.length) {
+                const activeTasks = b.tasks.filter(
+                  (t) =>
+                    matchesTasksFilter(t, taskFilterRegex) &&
+                    matchesStatuses(t, statuses),
                 );
                 activeBuilds.push({
                   ...b,
@@ -160,6 +173,7 @@ export const useFilters = ({
     buildVariants,
     hasFilters,
     pins,
+    statuses,
     taskFilterRegex,
   ]);
 
@@ -185,6 +199,36 @@ const matchesRequesters = (
   }
   return requesters.some((r) => r === version.requester);
 };
+
+/**
+ * matchesStatuses evaluates whether a task should be shown to the user given a set of status filters
+ * @param task - the task being validated against
+ * @param statuses - list of applied task status filters
+ * @returns - true if no filters are applied, or if the task matches applied filters
+ */
+const matchesStatuses = (
+  task: Unpacked<Unpacked<BuildVariant["builds"]>["tasks"]>,
+  statuses: string[],
+) =>
+  statuses.length
+    ? statuses.some((s) =>
+        task.displayStatus ? task.displayStatus === s : task.status === s,
+      )
+    : true;
+
+/**
+ * matchesTasksFilter evaluates whether a task should be shown to the user given a set of task name filter regexes
+ * @param task - the task being validated against
+ * @param taskFilterRegex - list of applied task name filters
+ * @returns - true if no filters are applied, or if the task matches applied filters
+ */
+const matchesTasksFilter = (
+  task: Unpacked<Unpacked<BuildVariant["builds"]>["tasks"]>,
+  taskFilterRegex: RegExp[],
+) =>
+  taskFilterRegex.length
+    ? taskFilterRegex.some((r) => task.displayName.match(r))
+    : true;
 
 const makeFilterRegex = (filters: string[]) =>
   filters.reduce<RegExp[]>((accum, curr) => {
