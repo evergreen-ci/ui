@@ -50,6 +50,7 @@ const distroData: DistroQuery["distro"] = {
   dispatcherSettings: {
     version: DispatcherVersion.RevisedWithDependencies,
   },
+  execUser: "execUser",
   expansions: [
     {
       key: "decompress",

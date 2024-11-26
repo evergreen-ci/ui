@@ -387,6 +387,7 @@ export type Distro = {
   disableShallowClone: Scalars["Boolean"]["output"];
   disabled: Scalars["Boolean"]["output"];
   dispatcherSettings: DispatcherSettings;
+  execUser: Scalars["String"]["output"];
   expansions: Array<Expansion>;
   finderSettings: FinderSettings;
   homeVolumeSettings: HomeVolumeSettings;
@@ -453,6 +454,7 @@ export type DistroInput = {
   disableShallowClone: Scalars["Boolean"]["input"];
   disabled: Scalars["Boolean"]["input"];
   dispatcherSettings: DispatcherSettingsInput;
+  execUser?: InputMaybe<Scalars["String"]["input"]>;
   expansions: Array<ExpansionInput>;
   finderSettings: FinderSettingsInput;
   homeVolumeSettings: HomeVolumeSettingsInput;
@@ -6133,6 +6135,7 @@ export type DistroQuery = {
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
+    execUser: string;
     imageId: string;
     isCluster: boolean;
     isVirtualWorkStation: boolean;

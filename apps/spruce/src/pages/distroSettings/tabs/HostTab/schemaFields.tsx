@@ -408,6 +408,17 @@ const user = {
   },
 };
 
+const execUser = {
+  schema: {
+    type: "string" as "string",
+    title: "Exec User",
+  },
+  uiSchema: {
+    "ui:description":
+      "User to run shell.exec and subprocess.exec processes as. If unset, processes are run by the SSH User.",
+  },
+};
+
 const authorizedKeysFile = {
   schema: {
     type: "string" as "string",
@@ -652,12 +663,14 @@ export const allocation = {
 export const sshConfig = {
   schema: {
     user: user.schema,
+    execUser: execUser.schema,
     authorizedKeysFile: authorizedKeysFile.schema,
     sshOptions: sshOptions.schema,
   },
   uiSchema: (hasStaticProvider: boolean) => ({
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     user: user.uiSchema,
+    execUser: execUser.uiSchema,
     authorizedKeysFile: authorizedKeysFile.uiSchema(hasStaticProvider),
     sshOptions: sshOptions.uiSchema,
   }),
