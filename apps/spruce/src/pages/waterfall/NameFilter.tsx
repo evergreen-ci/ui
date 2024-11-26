@@ -14,10 +14,10 @@ export const NameFilter = () => {
       onSubmit({ category, value });
       switch (category) {
         case WaterfallFilterOptions.BuildVariant:
-          sendEvent({ name: "Created build variant filter" });
+          sendEvent({ name: "Filtered by build variant" });
           break;
         case WaterfallFilterOptions.Task:
-          sendEvent({ name: "Created task filter" });
+          sendEvent({ name: "Filtered by task" });
           break;
         default:
       }
