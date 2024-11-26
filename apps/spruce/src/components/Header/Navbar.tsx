@@ -15,14 +15,13 @@ import { wikiUrl } from "constants/externalResources";
 import {
   getCommitsRoute,
   getUserPatchesRoute,
-  getWaterfallRoute,
   routes,
   slugs,
 } from "constants/routes";
 import { useAuthStateContext } from "context/Auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
 import { USER, SPRUCE_CONFIG } from "gql/queries";
-import { useLegacyUIURL, useMergedBetaFeatures } from "hooks";
+import { useLegacyUIURL } from "hooks";
 import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
@@ -39,8 +38,6 @@ export const Navbar: React.FC = () => {
   const { data: userData } = useQuery<UserQuery>(USER);
   const { user } = userData || {};
   const { userId } = user || {};
-
-  const { spruceWaterfallEnabled } = useMergedBetaFeatures() ?? {};
 
   const { [slugs.projectIdentifier]: projectFromUrl } = useParams();
   const currProject = Cookies.get(CURRENT_PROJECT);
@@ -77,15 +74,6 @@ export const Navbar: React.FC = () => {
         >
           <AnimatedIcon icon={FallTree} />
         </LogoLink>
-        {spruceWaterfallEnabled && (
-          <PrimaryLink
-            data-cy="waterfall-link"
-            onClick={() => sendEvent({ name: "Clicked waterfall link" })}
-            to={getWaterfallRoute(projectIdentifier)}
-          >
-            Waterfall
-          </PrimaryLink>
-        )}
         <PrimaryLink
           data-cy="project-health-link"
           onClick={() => sendEvent({ name: "Clicked mainline commits link" })}
