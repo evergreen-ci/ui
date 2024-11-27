@@ -1,4 +1,4 @@
-import { VersionPageTabs } from "types/patch";
+import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
 import { TaskTab } from "types/task";
 import {
   getTaskRoute,
@@ -108,11 +108,17 @@ describe("getPatchRoute", () => {
   });
   it("generates a link with a provided tab", () => {
     expect(
-      getPatchRoute("somePatchId", { configure: true, tab: "parameters" }),
+      getPatchRoute("somePatchId", {
+        configure: true,
+        tab: ConfigurePatchPageTabs.Parameters,
+      }),
     ).toBe("/patch/somePatchId/configure/parameters");
     expect(
-      getPatchRoute("somePatchId", { configure: true, tab: "someTab" }),
-    ).toBe("/patch/somePatchId/configure/someTab");
+      getPatchRoute("somePatchId", {
+        configure: true,
+        tab: ConfigurePatchPageTabs.Changes,
+      }),
+    ).toBe("/patch/somePatchId/configure/changes");
   });
 });
 
