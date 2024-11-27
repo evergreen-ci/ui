@@ -13,6 +13,8 @@ export enum PatchStatus {
   Created = "created",
   Failed = "failed",
   Started = "started",
+  // TODO EVG-20032: Remove legacy status
+  LegacySucceeded = "succeeded",
   Success = "success",
   Aborted = "aborted",
 }
