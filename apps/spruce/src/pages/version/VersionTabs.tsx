@@ -12,7 +12,7 @@ import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
-import { PatchStatus, PatchTab } from "types/patch";
+import { PatchStatus, VersionPageTabs } from "types/patch";
 import { queryString } from "utils";
 import TaskDuration from "./TaskDuration";
 import TestAnalysis from "./TestAnalysis";
@@ -79,13 +79,15 @@ const tabMap = ({
   numStartedChildPatches: number;
   numSuccessChildPatches: number;
   versionId: string;
-}) => ({
-  [PatchTab.Tasks]: (
+}): {
+  [key in VersionPageTabs]: JSX.Element;
+} => ({
+  [VersionPageTabs.Tasks]: (
     <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
       <Tasks taskCount={taskCount} />
     </Tab>
   ),
-  [PatchTab.TaskDuration]: (
+  [VersionPageTabs.TaskDuration]: (
     <Tab
       key="duration-tab"
       data-cy="duration-tab"
@@ -95,7 +97,7 @@ const tabMap = ({
       <TaskDuration taskCount={taskCount} />
     </Tab>
   ),
-  [PatchTab.Changes]: (
+  [VersionPageTabs.Changes]: (
     <Tab
       key="changes-tab"
       data-cy="changes-tab"
@@ -105,7 +107,7 @@ const tabMap = ({
       <CodeChanges patchId={versionId} />
     </Tab>
   ),
-  [PatchTab.Downstream]: (
+  [VersionPageTabs.Downstream]: (
     <Tab
       key="downstream-tab"
       data-cy="downstream-tab"
@@ -119,7 +121,7 @@ const tabMap = ({
       <DownstreamTasks childPatches={childPatches} />
     </Tab>
   ),
-  [PatchTab.TestAnalysis]: (
+  [VersionPageTabs.TestAnalysis]: (
     <Tab
       key="test-analysis-tab"
       data-cy="test-analysis-tab"
@@ -136,13 +138,11 @@ const tabMap = ({
 });
 
 export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
-  const { [slugs.versionId]: versionId, [slugs.tab]: tab } = useParams<{
-    [slugs.versionId]: string;
-    [slugs.tab]: PatchTab;
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: VersionPageTabs;
   }>();
   const { search } = useLocation();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { sendEvent } = useVersionAnalytics(versionId);
+  const { sendEvent } = useVersionAnalytics(version.id);
   const navigate = useNavigate();
 
   const { isPatch, patch, requester, status, taskCount } = version || {};
@@ -150,12 +150,13 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
 
   const tabIsActive = useMemo(
     () => ({
-      [PatchTab.Tasks]: true,
-      [PatchTab.TaskDuration]: true,
-      [PatchTab.Changes]: isPatch && requester !== Requester.GitHubMergeQueue,
-      [PatchTab.Downstream]:
+      [VersionPageTabs.Tasks]: true,
+      [VersionPageTabs.TaskDuration]: true,
+      [VersionPageTabs.Changes]:
+        isPatch && requester !== Requester.GitHubMergeQueue,
+      [VersionPageTabs.Downstream]:
         childPatches !== undefined && childPatches !== null,
-      [PatchTab.TestAnalysis]: status !== PatchStatus.Success,
+      [VersionPageTabs.TestAnalysis]: status !== PatchStatus.Success,
     }),
     [isPatch, requester, childPatches, status],
   );
@@ -176,32 +177,29 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       numFailedChildPatches,
       numStartedChildPatches,
       numSuccessChildPatches,
-      versionId: versionId ?? "",
+      versionId: version.id,
     });
-  }, [taskCount, childPatches, versionId]);
+  }, [taskCount, childPatches, version.id]);
 
   const activeTabs = useMemo(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
+    () =>
+      (Object.keys(allTabs) as VersionPageTabs[]).filter((t) => tabIsActive[t]),
     [allTabs, tabIsActive],
   );
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const isValidTab = tabIsActive[tab];
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const [selectedTab, setSelectedTab] = useState(activeTabs.indexOf(tab));
+  const isValidTab = tabIsActive[tab || VersionPageTabs.Tasks];
+  const [selectedTab, setSelectedTab] = useState(
+    activeTabs.indexOf(tab || VersionPageTabs.Tasks),
+  );
   const previousTab = usePrevious(selectedTab);
 
   useEffect(() => {
     // If tab is not valid, set to task tab.
     if (!isValidTab) {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      navigate(getVersionRoute(versionId), { replace: true });
+      navigate(getVersionRoute(version.id), { replace: true });
     }
     // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update state here.
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    else if (selectedTab !== activeTabs.indexOf(tab)) {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      setSelectedTab(activeTabs.indexOf(tab));
+    else if (selectedTab !== activeTabs.indexOf(tab || VersionPageTabs.Tasks)) {
+      setSelectedTab(activeTabs.indexOf(tab || VersionPageTabs.Tasks));
     }
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -209,9 +207,8 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   const selectNewTab = (newTabIndex: number) => {
     const queryParams = parseQueryString(search);
     const newTab = activeTabs[newTabIndex];
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const newRoute = getVersionRoute(versionId, {
-      tab: newTab as PatchTab,
+    const newRoute = getVersionRoute(version.id, {
+      tab: newTab as VersionPageTabs,
       ...queryParams,
     });
     navigate(newRoute, { replace: true });
@@ -219,7 +216,7 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     if (previousTab !== undefined && previousTab !== newTabIndex) {
       sendEvent({
         name: "Changed tab",
-        tab: newTab as PatchTab,
+        tab: newTab as VersionPageTabs,
       });
     }
     setSelectedTab(newTabIndex);
@@ -235,8 +232,7 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       selected={selectedTab}
       setSelected={selectNewTab}
     >
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {activeTabs.map((t: string) => allTabs[t])}
+      {activeTabs.map((t: VersionPageTabs) => allTabs[t])}
     </StyledTabs>
   );
 };
