@@ -1,4 +1,4 @@
-import { PatchTab } from "types/patch";
+import { VersionPageTabs } from "types/patch";
 import { TaskTab } from "types/task";
 import {
   getTaskRoute,
@@ -56,7 +56,7 @@ describe("getVersionRoute", () => {
     expect(getVersionRoute("SomeId")).toBe("/version/SomeId/tasks");
   });
   it("generates a version route with only an id and a tab", () => {
-    expect(getVersionRoute("SomeId", { tab: "tasks" as PatchTab })).toBe(
+    expect(getVersionRoute("SomeId", { tab: "tasks" as VersionPageTabs })).toBe(
       "/version/SomeId/tasks",
     );
   });
@@ -67,7 +67,10 @@ describe("getVersionRoute", () => {
   });
   it("generates a version route with only an id, tab and some params", () => {
     expect(
-      getVersionRoute("SomeId", { tab: "tasks" as PatchTab, variant: "b" }),
+      getVersionRoute("SomeId", {
+        tab: "tasks" as VersionPageTabs,
+        variant: "b",
+      }),
     ).toBe("/version/SomeId/tasks?variant=b");
   });
 });

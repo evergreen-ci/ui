@@ -1,7 +1,7 @@
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { getGithubCommitUrl } from "constants/externalResources";
 import { TestStatus, HistoryQueryParams } from "types/history";
-import { PatchTab } from "types/patch";
+import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { toArray } from "utils/array";
@@ -145,7 +145,7 @@ export const routes = {
   waterfall: `${paths.project}/:${slugs.projectIdentifier}/waterfall`,
 };
 
-export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
+export const DEFAULT_PATCH_TAB = VersionPageTabs.Tasks;
 
 export const getBuildStatusIconLink = (patchId: string, buildVariant: string) =>
   `${paths.version}/${patchId}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${buildVariant}`;
@@ -154,7 +154,7 @@ export const getUserPatchesRoute = (userId: string): string =>
   `${paths.user}/${userId}/${PageNames.Patches}`;
 
 export interface GetVersionRouteOptions {
-  tab?: PatchTab;
+  tab?: VersionPageTabs;
   variant?: string;
   page?: number;
   statuses?: string[];
@@ -174,7 +174,7 @@ export const getVersionRoute = (
 };
 
 interface GetPatchRouteOptions {
-  tab?: string;
+  tab?: ConfigurePatchPageTabs;
   configure: boolean;
 }
 
@@ -187,7 +187,7 @@ export const getPatchRoute = (
     ...rest,
   });
   if (!configure) return getVersionRoute(patchId);
-  return `${paths.patch}/${patchId}/${PatchTab.Configure}/${
+  return `${paths.patch}/${patchId}/${ConfigurePatchPageTabs.Configure}/${
     tab ?? DEFAULT_PATCH_TAB
   }${queryParams && `?${queryParams}`}`;
 };

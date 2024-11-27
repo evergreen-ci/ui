@@ -19,14 +19,18 @@ export enum PatchStatus {
   Aborted = "aborted",
 }
 
-export enum PatchTab {
+export enum VersionPageTabs {
   Tasks = "tasks",
   Changes = "changes",
-  Parameters = "parameters",
   Downstream = "downstream-projects",
   TaskDuration = "task-duration",
-  Configure = "configure",
   TestAnalysis = "test-analysis",
 }
 
+export enum ConfigurePatchPageTabs {
+  Tasks = "tasks",
+  Changes = "changes",
+  Configure = "configure",
+  Parameters = "parameters",
+}
 export const ALL_PATCH_STATUS = "all";
