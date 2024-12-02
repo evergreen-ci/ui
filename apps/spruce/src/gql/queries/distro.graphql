@@ -71,6 +71,7 @@ query Distro($distroId: String!) {
       generateTaskFactor
       groupVersions
       mainlineTimeInQueueFactor
+      numDependentsFactor
       patchFactor
       patchTimeInQueueFactor
       targetTime
