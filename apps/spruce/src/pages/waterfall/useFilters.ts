@@ -120,7 +120,7 @@ export const useFilters = ({
     taskFilterRegex,
   ]);
 
-  const activeVersions = useMemo(() => {
+  const groupedVersions = useMemo(() => {
     const hasActiveBuild = (version: WaterfallVersionFragment) =>
       filteredBuildVariants.some((bv) =>
         bv.builds.some((build) => build.version === version.id),
@@ -131,19 +131,19 @@ export const useFilters = ({
 
   const activeVersionIds = useMemo(
     () =>
-      activeVersions.reduce((ids: string[], { version }) => {
+      groupedVersions.reduce((ids: string[], { version }) => {
         if (version) {
           ids.push(version.id);
         }
         return ids;
       }, []),
-    [activeVersions],
+    [groupedVersions],
   );
 
   return {
     activeVersionIds,
     buildVariants: filteredBuildVariants,
-    versions: activeVersions,
+    versions: groupedVersions,
   };
 };
 
