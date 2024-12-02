@@ -15,7 +15,7 @@
     "@storybook/addon-essentials": "8.4.5",
     "@storybook/addon-interactions": "8.4.5",
     "@storybook/addon-links": "8.4.5",
-    "react-router-dom": "6.16.0",
+    "react-router-dom": "7.0.1",
     "storybook": "8.4.5",
     "storybook-addon-apollo-client": "7.3.0"
   },
