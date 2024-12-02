@@ -174,7 +174,7 @@ describe("My Patches Page", () => {
         checkboxDisplayName: "All",
         pathname: MY_PATCHES_ROUTE,
         paramName: "statuses",
-        search: "all,created,started,success,failed",
+        search: "all,success,created,started,failed",
       });
     });
   });
