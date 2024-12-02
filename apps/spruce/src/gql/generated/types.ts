@@ -387,6 +387,7 @@ export type Distro = {
   disableShallowClone: Scalars["Boolean"]["output"];
   disabled: Scalars["Boolean"]["output"];
   dispatcherSettings: DispatcherSettings;
+  execUser: Scalars["String"]["output"];
   expansions: Array<Expansion>;
   finderSettings: FinderSettings;
   homeVolumeSettings: HomeVolumeSettings;
@@ -395,7 +396,7 @@ export type Distro = {
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
-  mountpoints?: Maybe<Array<Scalars["String"]["output"]>>;
+  mountpoints: Array<Scalars["String"]["output"]>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
@@ -453,6 +454,7 @@ export type DistroInput = {
   disableShallowClone: Scalars["Boolean"]["input"];
   disabled: Scalars["Boolean"]["input"];
   dispatcherSettings: DispatcherSettingsInput;
+  execUser?: InputMaybe<Scalars["String"]["input"]>;
   expansions: Array<ExpansionInput>;
   finderSettings: FinderSettingsInput;
   homeVolumeSettings: HomeVolumeSettingsInput;
@@ -771,11 +773,6 @@ export type Host = {
 export type HostEventsArgs = {
   opts: HostEventsInput;
 };
-
-export enum HostAccessLevel {
-  Edit = "EDIT",
-  View = "VIEW",
-}
 
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
@@ -6136,7 +6133,7 @@ export type DistroQuery = {
     imageId: string;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
-    mountpoints?: Array<string> | null;
+    mountpoints: Array<string>;
     name: string;
     note: string;
     provider: Provider;
