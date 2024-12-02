@@ -61,8 +61,8 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
         title="Search by Git Commit Hash"
       >
         <StyledDescription>
-          Note: This is an experimental feature that works best without any
-          filters. Searching for a git hash will clear all applied filters.
+          Searching for a git hash will jump to the commit in the waterfall. If
+          the commit is not found, the waterfall will be reset.
         </StyledDescription>
         <TextInput
           label="Git Commit Hash"
