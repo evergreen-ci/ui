@@ -21,9 +21,9 @@ export enum VersionLabelView {
 
 type Props = WaterfallVersionFragment & {
   className?: string;
+  highlighted: boolean;
   shouldDisableText?: boolean;
   view: VersionLabelView;
-  highlighted: boolean;
 };
 
 export const VersionLabel: React.FC<Props> = ({
