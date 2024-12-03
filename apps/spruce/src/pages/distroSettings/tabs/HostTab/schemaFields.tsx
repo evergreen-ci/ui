@@ -404,7 +404,7 @@ const user = {
     minLength: 1,
   },
   uiSchema: {
-    "ui:description": "Username with which to SSH into host machine",
+    "ui:description": "Username with which to SSH into the host machine.",
   },
 };
 
@@ -414,8 +414,13 @@ const execUser = {
     title: "Exec User",
   },
   uiSchema: {
-    "ui:description":
-      "User to run shell.exec and subprocess.exec processes as. If unset, processes are run by the SSH User.",
+    "ui:description": (
+      <>
+        User that runs <InlineCode>shell.exec</InlineCode> and{" "}
+        <InlineCode>subprocess.exec</InlineCode> processes. If unset, processes
+        are run by the SSH User.
+      </>
+    ),
   },
 };
 
