@@ -41,7 +41,6 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
         data-cy="git-commit-search"
         onClick={() => {
           setModalOpen(true);
-          sendEvent({ name: "Viewed git commit modal" });
         }}
       >
         Search by Git Hash

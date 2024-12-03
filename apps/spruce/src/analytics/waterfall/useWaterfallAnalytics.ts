@@ -15,7 +15,6 @@ type Action =
   | { name: "Filtered by build variant" }
   | { name: "Filtered by requester"; requesters: string[] }
   | { name: "Filtered by git commit" }
-  | { name: "Viewed git commit modal" }
   | { name: "Filtered by task" }
   | { name: "Filtered by task status"; statuses: string[] }
   | { name: "Filtered by date" }
