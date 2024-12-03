@@ -11,7 +11,7 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
 import { InactiveVersionsModal } from "./InactiveVersionsModal";
 
-const { gray, green } = palette;
+const { blue, gray } = palette;
 
 interface Props {
   versions: WaterfallVersionFragment[];
@@ -74,10 +74,10 @@ const glowButtonStyle = css`
   animation: glow 1s ease-in-out infinite alternate;
   @keyframes glow {
     from {
-      box-shadow: 0 0 0px ${green.base};
+      box-shadow: 0 0 0px ${blue.light1};
     }
     to {
-      box-shadow: 0 0 20px ${green.base};
+      box-shadow: 0 0 20px ${blue.light1};
     }
   }
 `;
