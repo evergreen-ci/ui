@@ -69,6 +69,7 @@ const form: HostFormState = {
   },
   sshConfig: {
     user: "admin",
+    execUser: "execUser",
     authorizedKeysFile: "",
     sshOptions: ["BatchMode=yes", "ConnectTimeout=10"],
   },

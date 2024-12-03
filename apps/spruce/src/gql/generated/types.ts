@@ -6130,6 +6130,7 @@ export type DistroQuery = {
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
+    execUser: string;
     imageId: string;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
