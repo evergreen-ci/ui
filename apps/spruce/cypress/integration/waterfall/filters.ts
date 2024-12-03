@@ -8,7 +8,7 @@ describe("status filtering", () => {
     cy.dataCy("status-filter").click();
     cy.dataCy("failed-option").click();
     cy.get("a[data-tooltip]").should("have.length", 1);
-    cy.dataCy("version-label-active").should("have.length", 5);
+    cy.dataCy("version-label-active").should("have.length", 1);
   });
 });
 

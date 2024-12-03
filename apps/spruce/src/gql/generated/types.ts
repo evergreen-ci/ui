@@ -396,7 +396,7 @@ export type Distro = {
   imageId: Scalars["String"]["output"];
   isCluster: Scalars["Boolean"]["output"];
   isVirtualWorkStation: Scalars["Boolean"]["output"];
-  mountpoints?: Maybe<Array<Scalars["String"]["output"]>>;
+  mountpoints: Array<Scalars["String"]["output"]>;
   name: Scalars["String"]["output"];
   note: Scalars["String"]["output"];
   plannerSettings: PlannerSettings;
@@ -773,11 +773,6 @@ export type Host = {
 export type HostEventsArgs = {
   opts: HostEventsInput;
 };
-
-export enum HostAccessLevel {
-  Edit = "EDIT",
-  View = "VIEW",
-}
 
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
@@ -6139,7 +6134,7 @@ export type DistroQuery = {
     imageId: string;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
-    mountpoints?: Array<string> | null;
+    mountpoints: Array<string>;
     name: string;
     note: string;
     provider: Provider;
@@ -6210,6 +6205,7 @@ export type DistroQuery = {
       generateTaskFactor: number;
       groupVersions: boolean;
       mainlineTimeInQueueFactor: number;
+      numDependentsFactor?: number | null;
       patchFactor: number;
       patchTimeInQueueFactor: number;
       targetTime: number;
