@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
@@ -6,9 +7,11 @@ import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
 import { WaterfallVersionFragment } from "gql/generated/types";
+import { useQueryParam } from "hooks/useQueryParam";
+import { WaterfallFilterOptions } from "../types";
 import { InactiveVersionsModal } from "./InactiveVersionsModal";
 
-const { gray } = palette;
+const { gray, green } = palette;
 
 interface Props {
   versions: WaterfallVersionFragment[];
@@ -25,10 +28,19 @@ export const InactiveVersionsButton: React.FC<Props> = ({
       0,
     ) ?? 0;
   const [modalOpen, setModalOpen] = useState(false);
+  const [revisionFilter] = useQueryParam<string | null>(
+    WaterfallFilterOptions.Revision,
+    null,
+  );
+  const hasMatchingVersion =
+    revisionFilter &&
+    versions?.some(({ revision }) => revision.includes(revisionFilter ?? ""));
+
   return (
     <>
       <InactiveVersionsModal
         open={modalOpen}
+        revisionFilter={revisionFilter}
         setOpen={setModalOpen}
         versions={versions}
       />
@@ -37,21 +49,38 @@ export const InactiveVersionsButton: React.FC<Props> = ({
           {brokenVersionsCount} broken
         </StyledBadge>
       )}
-      <Button
+      <StyledButton
         aria-label="Open inactive versions modal"
         data-cy="inactive-versions-button"
+        leftGlyph={<Icon fill={gray.base} glyph="List" />}
         onClick={() => {
           setModalOpen(true);
         }}
         size="xsmall"
+        variant={hasMatchingVersion ? "primary" : "default"}
       >
-        <Icon fill={gray.base} glyph="List" />
         {versions?.length}
         <InactiveVersionLine containerHeight={containerHeight ?? 0} />
-      </Button>
+      </StyledButton>
     </>
   );
 };
+
+const StyledButton = styled(Button)`
+  ${({ variant }) => variant === "primary" && glowButtonStyle}
+`;
+
+const glowButtonStyle = css`
+  animation: glow 1s ease-in-out infinite alternate;
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 0px ${green.base};
+    }
+    to {
+      box-shadow: 0 0 20px ${green.base};
+    }
+  }
+`;
 
 const InactiveVersionLine = styled.div<{ containerHeight: number }>`
   border-left: 2px dashed ${gray.base};
