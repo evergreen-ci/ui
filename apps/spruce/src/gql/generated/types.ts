@@ -5563,7 +5563,11 @@ export type SchedulePatchMutation = {
     description: string;
     id: string;
     status: string;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    versionFull?: {
+      __typename?: "Version";
+      id: string;
+      childVersions?: Array<{ __typename?: "Version"; id: string }> | null;
+    } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<{
       __typename?: "VariantTask";
