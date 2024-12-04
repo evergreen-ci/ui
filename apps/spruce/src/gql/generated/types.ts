@@ -2826,6 +2826,7 @@ export type Task = {
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"]["output"];
   order: Scalars["Int"]["output"];
+  originalStatus: Scalars["String"]["output"];
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   pod?: Maybe<Pod>;
@@ -9049,6 +9050,7 @@ export type TaskQuery = {
     latestExecution: number;
     minQueuePosition: number;
     order: number;
+    originalStatus: string;
     patchNumber?: number | null;
     priority?: number | null;
     requester: string;

@@ -27,7 +27,7 @@ const StyledBadge = styled(Badge)<BadgeColorProps>`
 
 interface TaskStatusBadgeProps {
   taskCount?: number;
-  status: TaskStatus | TaskStatusUmbrella;
+  status: TaskStatus | TaskStatusUmbrella | undefined;
 }
 const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   status,
