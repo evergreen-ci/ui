@@ -35,6 +35,7 @@ query Distro($distroId: String!) {
     dispatcherSettings {
       version
     }
+    execUser
     expansions {
       key
       value
@@ -71,6 +72,7 @@ query Distro($distroId: String!) {
       generateTaskFactor
       groupVersions
       mainlineTimeInQueueFactor
+      numDependentsFactor
       patchFactor
       patchTimeInQueueFactor
       targetTime

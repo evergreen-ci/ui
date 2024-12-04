@@ -404,7 +404,23 @@ const user = {
     minLength: 1,
   },
   uiSchema: {
-    "ui:description": "Username with which to SSH into host machine",
+    "ui:description": "Username with which to SSH into the host machine.",
+  },
+};
+
+const execUser = {
+  schema: {
+    type: "string" as "string",
+    title: "Exec User",
+  },
+  uiSchema: {
+    "ui:description": (
+      <>
+        User that runs <InlineCode>shell.exec</InlineCode> and{" "}
+        <InlineCode>subprocess.exec</InlineCode> processes. If unset, processes
+        are run by the SSH User.
+      </>
+    ),
   },
 };
 
@@ -652,12 +668,14 @@ export const allocation = {
 export const sshConfig = {
   schema: {
     user: user.schema,
+    execUser: execUser.schema,
     authorizedKeysFile: authorizedKeysFile.schema,
     sshOptions: sshOptions.schema,
   },
   uiSchema: (hasStaticProvider: boolean) => ({
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     user: user.uiSchema,
+    execUser: execUser.uiSchema,
     authorizedKeysFile: authorizedKeysFile.uiSchema(hasStaticProvider),
     sshOptions: sshOptions.uiSchema,
   }),

@@ -24,8 +24,8 @@ const getDiffProperties = (eventObj: object): string[] => {
   return paths(eventObj);
 };
 
-const formatArrayElements = (eventKey: string): string =>
-  eventKey.replace(/.[0-9]./g, (x) => `[${x[1]}].`);
+export const formatArrayElements = (eventKey: string): string =>
+  eventKey.replace(/\.[0-9]/g, (x) => `[${x[1]}]`);
 
 const getNestedObject = (nestedObj: object, pathArr: string[]): EventValue =>
   // @ts-expect-error: FIXME. This comment was added by an automated script.

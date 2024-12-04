@@ -48,6 +48,26 @@ export enum TaskStatus {
   KnownIssue = "known-issue",
 }
 
+// Task status sorted in order of "relevance", with the most likely actionable at the top.
+export const SortedTaskStatus = [
+  TaskStatus.Failed,
+  TaskStatus.TestTimedOut,
+  TaskStatus.TaskTimedOut,
+  TaskStatus.KnownIssue,
+  TaskStatus.SetupFailed,
+  TaskStatus.SystemFailed,
+  TaskStatus.SystemTimedOut,
+  TaskStatus.SystemUnresponsive,
+  TaskStatus.Started,
+  TaskStatus.Dispatched,
+  TaskStatus.Succeeded,
+  TaskStatus.Undispatched,
+  TaskStatus.WillRun,
+  TaskStatus.Aborted,
+  TaskStatus.Blocked,
+  TaskStatus.Unscheduled,
+];
+
 export enum TaskStatusUmbrella {
   Failed = "failed-umbrella",
   SystemFailure = "system-failure-umbrella",

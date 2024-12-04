@@ -1,3 +1,17 @@
+describe("status filtering", () => {
+  beforeEach(() => {
+    cy.visit("/project/spruce/waterfall");
+  });
+
+  it("filters on failed tasks", () => {
+    cy.dataCy("inactive-versions-button").first().contains("1");
+    cy.dataCy("status-filter").click();
+    cy.dataCy("failed-option").click();
+    cy.get("a[data-tooltip]").should("have.length", 1);
+    cy.dataCy("version-label-active").should("have.length", 1);
+  });
+});
+
 describe("requester filtering", () => {
   beforeEach(() => {
     cy.visit("/project/spruce/waterfall");
@@ -96,7 +110,7 @@ describe("task filtering", () => {
     cy.get("a[data-tooltip]").should(
       "have.attr",
       "data-tooltip",
-      "test-agent - Inactive",
+      "test-agent - Succeeded",
     );
 
     cy.get("[placeholder='Filter tasks'").type("lint{enter}");
