@@ -8,7 +8,7 @@
       <button
         aria-disabled="false"
         aria-label="Open inactive versions modal"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw"
+        class="lg-ui-button-0000 leafygreen-ui-168frnw css-15z0v9f-StyledButton e19pzgwa2"
         data-cy="inactive-versions-button"
         data-lgid="lg-button"
         type="button"
@@ -20,11 +20,12 @@
           class="leafygreen-ui-b15bbd"
         >
           <svg
-            aria-label="List Icon"
-            class="leafygreen-ui-a4wnk0"
+            alt=""
+            aria-hidden="true"
+            class="leafygreen-ui-qbpne1"
             fill="none"
             height="16"
-            role="img"
+            role="presentation"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
