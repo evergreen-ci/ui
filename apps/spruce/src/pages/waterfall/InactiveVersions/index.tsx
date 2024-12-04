@@ -71,13 +71,14 @@ const StyledButton = styled(Button)`
 `;
 
 const glowButtonStyle = css`
-  animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out 5 alternate;
+  box-shadow: 0 0 10px ${blue.light1};
   @keyframes glow {
     from {
       box-shadow: 0 0 0px ${blue.light1};
     }
     to {
-      box-shadow: 0 0 20px ${blue.light1};
+      box-shadow: 0 0 10px ${blue.light1};
     }
   }
 `;
