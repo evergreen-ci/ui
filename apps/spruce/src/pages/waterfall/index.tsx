@@ -61,7 +61,6 @@ const Waterfall: React.FC = () => {
             startTransition(() => handleOnRemove(b));
           }}
         />
-        {/* TODO DEVPROD-11708: Use dynamic column limit in skeleton */}
         <Suspense
           fallback={
             <TableSkeleton
