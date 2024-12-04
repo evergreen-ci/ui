@@ -10,33 +10,37 @@ import { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "gql/queries";
 
 /**
  * `useAdminBetaFeatures` returns the beta features defined at the admin level.
- * @returns admin beta features
+ * @returns an object containing
+ * - betaFeatures: admin beta features
+ * - loading: boolean representing query loading state
  */
 export const useAdminBetaFeatures = () => {
-  const { data: adminSettingsData } = useQuery<
+  const { data, loading } = useQuery<
     AdminBetaFeaturesQuery,
     AdminBetaFeaturesQueryVariables
   >(ADMIN_BETA_FEATURES);
-  const { spruceConfig } = adminSettingsData ?? {};
+  const { spruceConfig } = data ?? {};
   const { ui } = spruceConfig ?? {};
   const { betaFeatures } = ui ?? {};
-  return betaFeatures;
+  return { betaFeatures, loading };
 };
 
 /**
  * `useUserBetaFeatures` returns the beta features defined at the user level.
- * @returns user's beta features
+ * @returns an object containing
+ * - betaFeatures: user beta features
+ * - loading: boolean representing query loading state
  */
 export const useUserBetaFeatures = () => {
-  const { data: userData } = useQuery<
+  const { data, loading } = useQuery<
     UserBetaFeaturesQuery,
     UserBetaFeaturesQueryVariables
   >(USER_BETA_FEATURES, {
     variables: {},
   });
-  const { user } = userData ?? {};
+  const { user } = data ?? {};
   const { betaFeatures } = user ?? {};
-  return betaFeatures;
+  return { betaFeatures, loading };
 };
 
 /**
