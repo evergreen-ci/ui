@@ -3,11 +3,11 @@
     class="css-1pp2qz6"
   >
     <div
-      class="css-v6lxe6-VersionContainer-columnBasis-wordBreakCss e3zirl03"
+      class="css-1jubcqh-VersionContainer-columnBasis-wordBreakCss e3zirl03"
       data-cy="version-label-active"
     >
       <div
-        class="css-1idzah1-HeaderLine e3zirl00"
+        class="css-1whxjtv-HeaderLine e3zirl00"
       >
         <p
           class="leafygreen-ui-1tb6tuo"
@@ -27,7 +27,7 @@
         </p>
         <div>
           <div
-            class="css-1heyewb-BtnContainer e16eoa8t5"
+            class="css-y3037p-BtnContainer e16eoa8t5"
           >
             <button
               aria-disabled="false"
@@ -60,7 +60,7 @@
         </div>
       </div>
       <p
-        class="css-69ll71-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+        class="css-rrpmze-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
         title="DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)"
         view="waterfall"
       >

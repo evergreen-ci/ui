@@ -1,9 +1,9 @@
 <div>
   <div
-    class="css-1p8q5g-TableControlInnerRow-TableControlOuterRow e1xf068s4"
+    class="css-1fm1j47-TableControlInnerRow-TableControlOuterRow e1xf068s4"
   >
     <div
-      class="css-1mx1jed-FlexContainer et5phr01"
+      class="css-1sutagl-FlexContainer et5phr01"
     >
       <p
         class="leafygreen-ui-1tb6tuo"
@@ -26,7 +26,7 @@
       </p>
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-vvan06-PaddedButton et5phr00"
+        class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-coxppw-PaddedButton et5phr00"
         data-cy="clear-all-filters"
         data-lgid="lg-button"
         type="button"
@@ -42,15 +42,15 @@
       </button>
     </div>
     <div
-      class="css-ltjmsx-TableControlInnerRow e1xf068s5"
+      class="css-1s8qcy0-TableControlInnerRow e1xf068s5"
     >
       <div
-        class="css-o7pwgi-Container e4w46hm0"
+        class="css-1vry8lp-Container e4w46hm0"
         data-cy="pagination"
       >
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-3gi6g6-StyledButton e4w46hm2"
           data-cy="prev-page-button"
           data-lgid="lg-button"
           type="button"
@@ -81,7 +81,7 @@
           </div>
         </button>
         <div
-          class="css-ob08n2-PageLabel e4w46hm1"
+          class="css-haoc91-PageLabel e4w46hm1"
         >
           <small
             class="leafygreen-ui-6flbwy"
@@ -93,7 +93,7 @@
         </div>
         <button
           aria-disabled="true"
-          class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-mze5ol-StyledButton e4w46hm2"
+          class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-3gi6g6-StyledButton e4w46hm2"
           data-cy="next-page-button"
           data-lgid="lg-button"
           type="button"
@@ -125,7 +125,7 @@
         </button>
       </div>
       <div
-        class="leafygreen-ui-1iyoj2o css-5krlfz-StyledSelect ekttol50"
+        class="leafygreen-ui-1iyoj2o css-1jp3mep-StyledSelect ekttol50"
         data-lgid="lg-select"
       >
         <button
