@@ -40,7 +40,7 @@ export const Settings: React.FC<SettingsProps> = ({
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
     onCompleted: () => {
-      dispatchToast.success("Your changes have successfully been saved.");
+      dispatchToast.success("Your changes have been saved.");
     },
     onError: (err) => {
       dispatchToast.error(`Error while saving settings: ${err.message}`);

@@ -36,7 +36,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
     UpdateBetaFeaturesMutationVariables
   >(UPDATE_BETA_FEATURES, {
     onCompleted: () => {
-      dispatchToast.success("Your changes have successfully been saved.");
+      dispatchToast.success("Your changes have been saved.");
     },
     onError: (err) => {
       dispatchToast.error(`Error while saving beta features: ${err.message}`);
