@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button, { Variant } from "@leafygreen-ui/button";
+import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { diff } from "deep-object-diff";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
@@ -170,7 +170,7 @@ export const Settings: React.FC<SettingsProps> = ({
         data-cy="save-profile-changes-button"
         disabled={!hasChanges}
         onClick={handleSubmit}
-        variant={Variant.Primary}
+        variant={ButtonVariant.Primary}
       >
         Save changes
       </Button>

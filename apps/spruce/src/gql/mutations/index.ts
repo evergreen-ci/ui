@@ -49,12 +49,12 @@ import SPAWN_HOST from "./spawn-host.graphql";
 import SPAWN_VOLUME from "./spawn-volume.graphql";
 import UNSCHEDULE_TASK from "./unschedule-task.graphql";
 import UNSCHEDULE_VERSION_TASKS from "./unschedule-version-tasks.graphql";
-import UPDATE_BETA_FEATURES from "./update-beta-features.graphql";
 import UPDATE_HOST_STATUS from "./update-host-status.graphql";
 import UPDATE_PATCH_DESCRIPTION from "./update-patch-description.graphql";
 import UPDATE_PUBLIC_KEY from "./update-public-key.graphql";
 import UPDATE_SPAWN_HOST_STATUS from "./update-spawn-host-status.graphql";
 import UPDATE_SPAWN_VOLUME from "./update-spawn-volume.graphql";
+import UPDATE_USER_BETA_FEATURES from "./update-user-beta-features.graphql";
 import UPDATE_USER_SETTINGS from "./update-user-settings.graphql";
 
 export {
@@ -109,11 +109,11 @@ export {
   SPAWN_VOLUME,
   UNSCHEDULE_VERSION_TASKS,
   UNSCHEDULE_TASK,
-  UPDATE_BETA_FEATURES,
   UPDATE_HOST_STATUS,
   UPDATE_PATCH_DESCRIPTION,
   UPDATE_PUBLIC_KEY,
   UPDATE_SPAWN_HOST_STATUS,
   UPDATE_SPAWN_VOLUME,
+  UPDATE_USER_BETA_FEATURES,
   UPDATE_USER_SETTINGS,
 };

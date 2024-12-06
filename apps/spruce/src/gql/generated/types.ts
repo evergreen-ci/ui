@@ -5699,21 +5699,6 @@ export type UnscheduleVersionTasksMutation = {
   unscheduleVersionTasks?: string | null;
 };
 
-export type UpdateBetaFeaturesMutationVariables = Exact<{
-  opts: UpdateBetaFeaturesInput;
-}>;
-
-export type UpdateBetaFeaturesMutation = {
-  __typename?: "Mutation";
-  updateBetaFeatures?: {
-    __typename?: "UpdateBetaFeaturesPayload";
-    betaFeatures?: {
-      __typename?: "BetaFeatures";
-      spruceWaterfallEnabled: boolean;
-    } | null;
-  } | null;
-};
-
 export type UpdateHostStatusMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]["input"]>;
   status: Scalars["String"]["input"];
@@ -5779,6 +5764,21 @@ export type UpdateVolumeMutationVariables = Exact<{
 export type UpdateVolumeMutation = {
   __typename?: "Mutation";
   updateVolume: boolean;
+};
+
+export type UpdateUserBetaFeaturesMutationVariables = Exact<{
+  opts: UpdateBetaFeaturesInput;
+}>;
+
+export type UpdateUserBetaFeaturesMutation = {
+  __typename?: "Mutation";
+  updateBetaFeatures?: {
+    __typename?: "UpdateBetaFeaturesPayload";
+    betaFeatures?: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    } | null;
+  } | null;
 };
 
 export type UpdateUserSettingsMutationVariables = Exact<{

@@ -10,10 +10,10 @@ import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
 import {
   BetaFeatures,
-  UpdateBetaFeaturesMutation,
-  UpdateBetaFeaturesMutationVariables,
+  UpdateUserBetaFeaturesMutation,
+  UpdateUserBetaFeaturesMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_BETA_FEATURES } from "gql/mutations";
+import { UPDATE_USER_BETA_FEATURES } from "gql/mutations";
 
 type FormState = {
   betaFeatures: BetaFeatures;
@@ -32,9 +32,9 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
   const dispatchToast = useToastContext();
 
   const [updateBetaFeatures] = useMutation<
-    UpdateBetaFeaturesMutation,
-    UpdateBetaFeaturesMutationVariables
-  >(UPDATE_BETA_FEATURES, {
+    UpdateUserBetaFeaturesMutation,
+    UpdateUserBetaFeaturesMutationVariables
+  >(UPDATE_USER_BETA_FEATURES, {
     onCompleted: () => {
       dispatchToast.success("Your changes have been saved.");
     },
@@ -94,7 +94,6 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
         }}
         uiSchema={{
           betaFeatures: {
-            "ui:data-cy": "beta-features-card",
             "ui:description": (
               <DescriptionWrapper>
                 <span>

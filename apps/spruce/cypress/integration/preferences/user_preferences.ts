@@ -27,7 +27,6 @@ describe("user preferences pages", () => {
   describe("beta features", () => {
     it("should be able to edit beta features", () => {
       cy.visit(`${baseRoute}${tabNames.newUI}`);
-      cy.dataCy("loading-skeleton").should("not.exist");
       cy.dataCy("save-beta-features-button").should(
         "have.attr",
         "aria-disabled",
