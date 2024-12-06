@@ -5766,6 +5766,21 @@ export type UpdateVolumeMutation = {
   updateVolume: boolean;
 };
 
+export type UpdateUserBetaFeaturesMutationVariables = Exact<{
+  opts: UpdateBetaFeaturesInput;
+}>;
+
+export type UpdateUserBetaFeaturesMutation = {
+  __typename?: "Mutation";
+  updateBetaFeatures?: {
+    __typename?: "UpdateBetaFeaturesPayload";
+    betaFeatures?: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    } | null;
+  } | null;
+};
+
 export type UpdateUserSettingsMutationVariables = Exact<{
   userSettings: UserSettingsInput;
 }>;
@@ -5773,6 +5788,22 @@ export type UpdateUserSettingsMutationVariables = Exact<{
 export type UpdateUserSettingsMutation = {
   __typename?: "Mutation";
   updateUserSettings: boolean;
+};
+
+export type AdminBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AdminBetaFeaturesQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    ui: {
+      __typename?: "UIConfig";
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
+    };
+  } | null;
 };
 
 export type AgentLogsQueryVariables = Exact<{
@@ -9271,6 +9302,20 @@ export type UndispatchedTasksQuery = {
         execution: number;
         id: string;
       }>;
+    };
+  };
+};
+
+export type UserBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserBetaFeaturesQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    betaFeatures: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
     };
   };
 };
