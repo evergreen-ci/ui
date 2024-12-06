@@ -97,6 +97,7 @@ query Task($taskId: String!, $execution: Int) {
     }
     minQueuePosition
     order
+    originalStatus
     patchNumber
     pod {
       id

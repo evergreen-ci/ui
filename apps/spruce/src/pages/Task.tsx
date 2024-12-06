@@ -63,6 +63,7 @@ export const Task = () => {
     displayTask,
     executionTasksFull,
     latestExecution,
+    originalStatus,
     patchNumber,
     priority,
     status,
@@ -93,8 +94,13 @@ export const Task = () => {
       <PageTitle
         badge={
           <StyledBadgeWrapper>
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-            <TaskStatusBadge status={status} />
+            <TaskStatusBadge
+              status={
+                (hasKnownIssueAnnotation
+                  ? originalStatus
+                  : status) as TaskStatus
+              }
+            />
             {hasKnownIssueAnnotation && (
               <TaskStatusBadge status={TaskStatus.KnownIssue} />
             )}
