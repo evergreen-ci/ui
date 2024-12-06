@@ -230,6 +230,7 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     <StyledTabs
       aria-label="Patch Tabs"
       selected={selectedTab}
+      // @ts-expect-error: FIXME
       setSelected={selectNewTab}
     >
       {activeTabs.map((t: VersionPageTabs) => allTabs[t])}
