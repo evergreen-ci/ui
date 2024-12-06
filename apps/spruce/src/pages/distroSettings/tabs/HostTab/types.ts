@@ -49,6 +49,7 @@ export interface HostFormState {
   };
   sshConfig: {
     user: string;
+    execUser: string;
     authorizedKeysFile: string;
     sshOptions: string[];
   };

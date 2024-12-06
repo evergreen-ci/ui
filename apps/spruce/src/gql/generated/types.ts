@@ -5563,7 +5563,11 @@ export type SchedulePatchMutation = {
     description: string;
     id: string;
     status: string;
-    versionFull?: { __typename?: "Version"; id: string } | null;
+    versionFull?: {
+      __typename?: "Version";
+      id: string;
+      childVersions?: Array<{ __typename?: "Version"; id: string }> | null;
+    } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<{
       __typename?: "VariantTask";
@@ -6130,6 +6134,7 @@ export type DistroQuery = {
     containerPool: string;
     disabled: boolean;
     disableShallowClone: boolean;
+    execUser: string;
     imageId: string;
     isCluster: boolean;
     isVirtualWorkStation: boolean;
@@ -6204,6 +6209,7 @@ export type DistroQuery = {
       generateTaskFactor: number;
       groupVersions: boolean;
       mainlineTimeInQueueFactor: number;
+      numDependentsFactor?: number | null;
       patchFactor: number;
       patchTimeInQueueFactor: number;
       targetTime: number;

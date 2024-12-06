@@ -50,6 +50,7 @@ const distroData: DistroQuery["distro"] = {
   dispatcherSettings: {
     version: DispatcherVersion.RevisedWithDependencies,
   },
+  execUser: "execUser",
   expansions: [
     {
       key: "decompress",
@@ -98,6 +99,7 @@ const distroData: DistroQuery["distro"] = {
     patchFactor: 0,
     patchTimeInQueueFactor: 0,
     targetTime: 0,
+    numDependentsFactor: 50,
     version: PlannerVersion.Tunable,
   },
   provider: Provider.Static,

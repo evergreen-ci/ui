@@ -22,6 +22,7 @@ export const gqlToForm = ((data) => {
       serviceUser,
       shellPath,
     },
+    execUser,
     homeVolumeSettings,
     hostAllocatorSettings,
     iceCreamSettings,
@@ -63,6 +64,7 @@ export const gqlToForm = ((data) => {
     },
     sshConfig: {
       user,
+      execUser,
       authorizedKeysFile,
       sshOptions,
     },
@@ -106,6 +108,7 @@ export const formToGql = ((
   mountpoints: setup.mountpoints,
   sshOptions: sshConfig.sshOptions,
   user: sshConfig.user,
+  execUser: sshConfig.execUser,
   userSpawnAllowed: setup.userSpawnAllowed,
   workDir: setup.workDir,
 })) satisfies FormToGqlFunction<Tab>;

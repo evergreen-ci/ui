@@ -35,9 +35,9 @@ export const StatusSelector: React.FC = () => {
 const statusValToCopy = {
   [ALL_PATCH_STATUS]: "All",
   [PatchStatus.Created]: "Created/Unconfigured",
+  [PatchStatus.Success]: "Succeeded",
   [PatchStatus.Failed]: "Failed",
   [PatchStatus.Started]: "Running",
-  [PatchStatus.LegacySucceeded]: "Succeeded",
 };
 
 const treeData = [
@@ -45,6 +45,11 @@ const treeData = [
     title: statusValToCopy[ALL_PATCH_STATUS],
     value: ALL_PATCH_STATUS,
     key: ALL_PATCH_STATUS,
+  },
+  {
+    title: statusValToCopy[PatchStatus.Success],
+    value: PatchStatus.Success,
+    key: PatchStatus.Success,
   },
   {
     title: statusValToCopy[PatchStatus.Created],
@@ -55,11 +60,6 @@ const treeData = [
     title: statusValToCopy[PatchStatus.Started],
     value: PatchStatus.Started,
     key: PatchStatus.Started,
-  },
-  {
-    title: statusValToCopy[PatchStatus.LegacySucceeded],
-    value: PatchStatus.LegacySucceeded,
-    key: PatchStatus.LegacySucceeded,
   },
   {
     title: statusValToCopy[PatchStatus.Failed],

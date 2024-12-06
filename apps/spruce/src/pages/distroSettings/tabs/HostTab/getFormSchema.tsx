@@ -142,7 +142,7 @@ const bootstrapSettings = {
 
 const sshConfig = {
   type: "object" as "object",
-  title: "SSH Configuration",
+  title: "User and SSH Configuration",
   properties: sshConfigProperties.schema,
 };
 

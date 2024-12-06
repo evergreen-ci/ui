@@ -1,5 +1,4 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { PatchStatus } from "types/patch";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { alias as aliasUtils, ProjectType } from "../utils";
 import { TaskSpecifier } from "./types";
@@ -7,15 +6,6 @@ import { TaskSpecifier } from "./types";
 const { sortAliases, transformAliases } = aliasUtils;
 
 type Tab = ProjectSettingsTabRoutes.PatchAliases;
-
-// Ensure that the front end can ingest patch trigger alias status filters that use either "success" or "succeeded" and convert them to "success".
-// TODO EVG-20032: Remove conversion.
-const migrateSuccessStatus = (status: string) => {
-  if (status === PatchStatus.LegacySucceeded) {
-    return PatchStatus.Success;
-  }
-  return status ?? "";
-};
 
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
@@ -55,7 +45,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = ((data, options) => {
                 ? TaskSpecifier.PatchAlias
                 : TaskSpecifier.VariantTask,
             })) ?? [],
-          status: migrateSuccessStatus(p.status),
+          status: p.status,
           parentAsModule: p.parentAsModule ?? "",
           downstreamRevision: p.downstreamRevision ?? "",
           isGithubTriggerAlias: githubTriggerAliases?.includes(p.alias),

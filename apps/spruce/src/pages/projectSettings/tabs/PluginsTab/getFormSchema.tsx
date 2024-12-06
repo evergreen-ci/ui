@@ -197,7 +197,9 @@ export const getFormSchema = (
       perfEnabled: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:disabled": isRepo,
-        "ui:description": `Enable the performance plugin (this requires the project to have matching ID and identifier). ${isRepo && "This setting is disabled at the repo level."}`,
+        "ui:description": isRepo
+          ? "This setting is disabled at the repo level."
+          : "Enable the performance plugin (this requires the project to have matching ID and identifier).",
       },
     },
     buildBaronSettings: {
