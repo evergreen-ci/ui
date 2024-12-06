@@ -14,6 +14,7 @@ type Action =
   | { name: "Changed project"; project: string }
   | { name: "Filtered by build variant" }
   | { name: "Filtered by requester"; requesters: string[] }
+  | { name: "Filtered by git commit" }
   | { name: "Filtered by task" }
   | { name: "Filtered by task status"; statuses: string[] }
   | { name: "Filtered by date" }
