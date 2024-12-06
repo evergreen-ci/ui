@@ -5,8 +5,8 @@ import { BetaFeatureSettings } from "./newUITab/BetaFeatures";
 import { PreferenceToggles } from "./newUITab/PreferenceToggles";
 
 export const NewUITab: React.FC = () => {
-  const { betaFeatures: userBetaFeatures } = useUserBetaFeatures();
-  const { betaFeatures: adminBetaFeatures } = useAdminBetaFeatures();
+  const { userBetaSettings } = useUserBetaFeatures();
+  const { adminBetaSettings } = useAdminBetaFeatures();
 
   return (
     <>
@@ -14,10 +14,10 @@ export const NewUITab: React.FC = () => {
         <PreferenceToggles />
       </SettingsCard>
       <SettingsCard>
-        {userBetaFeatures && adminBetaFeatures ? (
+        {userBetaSettings && adminBetaSettings ? (
           <BetaFeatureSettings
-            adminBetaFeatures={adminBetaFeatures}
-            userBetaFeatures={userBetaFeatures}
+            adminBetaSettings={adminBetaSettings}
+            userBetaSettings={userBetaSettings}
           />
         ) : (
           <ParagraphSkeleton />

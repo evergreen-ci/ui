@@ -20,13 +20,13 @@ type FormState = {
 };
 
 type BetaFeatureSettingsProps = {
-  userBetaFeatures: BetaFeatures;
-  adminBetaFeatures: BetaFeatures;
+  userBetaSettings: BetaFeatures;
+  adminBetaSettings: BetaFeatures;
 };
 
 export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
-  adminBetaFeatures,
-  userBetaFeatures,
+  adminBetaSettings,
+  userBetaSettings,
 }) => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
@@ -45,8 +45,8 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
   });
 
   const initialState = useMemo(
-    () => ({ betaFeatures: userBetaFeatures }),
-    [userBetaFeatures],
+    () => ({ betaFeatures: userBetaSettings }),
+    [userBetaSettings],
   );
   const [formState, setFormState] = useState<FormState>(initialState);
 
@@ -68,8 +68,8 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
     });
   };
 
-  const hasActiveBetaFeatures = adminBetaFeatures
-    ? Object.values(adminBetaFeatures).filter((v) => v === true).length > 0
+  const hasActiveBetaFeatures = adminBetaSettings
+    ? Object.values(adminBetaSettings).filter((v) => v === true).length > 0
     : false;
 
   return (
@@ -110,8 +110,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
             ),
             spruceWaterfallEnabled: radioUiSchema({
               dataCy: "spruce-waterfall-enabled",
-              isAdminEnabled:
-                adminBetaFeatures?.spruceWaterfallEnabled ?? false,
+              isAdminEnabled: adminBetaSettings.spruceWaterfallEnabled,
             }),
           },
         }}

@@ -11,7 +11,7 @@ import { ADMIN_BETA_FEATURES, USER_BETA_FEATURES } from "gql/queries";
 /**
  * `useAdminBetaFeatures` returns the beta features defined at the admin level.
  * @returns an object containing
- * - betaFeatures: admin beta features
+ * - adminBetaSettings: admin beta features settings
  * - loading: boolean representing query loading state
  */
 export const useAdminBetaFeatures = () => {
@@ -22,13 +22,13 @@ export const useAdminBetaFeatures = () => {
   const { spruceConfig } = data ?? {};
   const { ui } = spruceConfig ?? {};
   const { betaFeatures } = ui ?? {};
-  return { betaFeatures, loading };
+  return { adminBetaSettings: betaFeatures, loading };
 };
 
 /**
- * `useUserBetaFeatures` returns the beta features defined at the user level.
+ * `useUserBetaFeatures` returns the user's beta feature settings.
  * @returns an object containing
- * - betaFeatures: user beta features
+ * - userBetaSettings: user's beta features settings
  * - loading: boolean representing query loading state
  */
 export const useUserBetaFeatures = () => {
@@ -40,27 +40,27 @@ export const useUserBetaFeatures = () => {
   });
   const { user } = data ?? {};
   const { betaFeatures } = user ?? {};
-  return { betaFeatures, loading };
+  return { userBetaSettings: betaFeatures, loading };
 };
 
 /**
  * `useMergedBetaFeatures` returns the result of merging admin and user level beta features.
- * @returns merged beta features
+ * @returns an object containing
+ * - betaFeatures: merged beta features
+ * - loading: boolean representing query loading state
  */
 export const useMergedBetaFeatures = () => {
-  const { betaFeatures: adminBetaFeatures, loading: adminLoading } =
-    useAdminBetaFeatures();
-  const { betaFeatures: userBetaFeatures, loading: userLoading } =
-    useUserBetaFeatures();
+  const { adminBetaSettings, loading: adminLoading } = useAdminBetaFeatures();
+  const { loading: userLoading, userBetaSettings } = useUserBetaFeatures();
 
-  if (!adminBetaFeatures || !userBetaFeatures) {
+  if (!adminBetaSettings || !userBetaSettings) {
     return { mergedBetaFeatures: undefined, loading: false };
   }
 
   const mergedBetaFeatures: BetaFeatures = {
     spruceWaterfallEnabled:
-      adminBetaFeatures.spruceWaterfallEnabled &&
-      userBetaFeatures.spruceWaterfallEnabled,
+      adminBetaSettings.spruceWaterfallEnabled &&
+      userBetaSettings.spruceWaterfallEnabled,
   };
 
   return {
