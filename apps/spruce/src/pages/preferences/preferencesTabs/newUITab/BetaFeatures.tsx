@@ -1,17 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
-import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
-import { Body } from "@leafygreen-ui/typography";
-import { Field, ObjectFieldTemplateProps } from "@rjsf/core";
 import { diff } from "deep-object-diff";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { StringMap } from "@evg-ui/lib/types/utils";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
-import { getFields } from "components/SpruceForm/utils";
 import { useToastContext } from "context/toast";
 import {
   BetaFeatures,
@@ -19,23 +14,22 @@ import {
   UpdateBetaFeaturesMutationVariables,
 } from "gql/generated/types";
 import { UPDATE_BETA_FEATURES } from "gql/mutations";
-import { useAdminBetaFeatures, useUserBetaFeatures } from "hooks";
 
 type FormState = {
-  betaFeatures: {
-    feature: string;
-    enabled: boolean;
-  }[];
+  betaFeatures: BetaFeatures;
 };
 
-export const BetaFeatureSettings: React.FC = () => {
+type BetaFeatureSettingsProps = {
+  userBetaFeatures: BetaFeatures;
+  adminBetaFeatures: BetaFeatures;
+};
+
+export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
+  adminBetaFeatures,
+  userBetaFeatures,
+}) => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
-
-  const { betaFeatures: adminBetaFeatures, loading: adminLoading } =
-    useAdminBetaFeatures();
-  const { betaFeatures: userBetaFeatures, loading: userLoading } =
-    useUserBetaFeatures();
 
   const [updateBetaFeatures] = useMutation<
     UpdateBetaFeaturesMutation,
@@ -51,16 +45,10 @@ export const BetaFeatureSettings: React.FC = () => {
   });
 
   const initialState = useMemo(
-    () => gqlToForm(userBetaFeatures, adminBetaFeatures),
-    [userBetaFeatures, adminBetaFeatures],
+    () => ({ betaFeatures: userBetaFeatures }),
+    [userBetaFeatures],
   );
   const [formState, setFormState] = useState<FormState>(initialState);
-
-  // The initialState might update after completing the query, so we need
-  // to update the form state as well.
-  useEffect(() => {
-    setFormState(initialState);
-  }, [initialState]);
 
   const hasChanges = useMemo(() => {
     const changes = diff(initialState, formState);
@@ -71,7 +59,7 @@ export const BetaFeatureSettings: React.FC = () => {
     updateBetaFeatures({
       variables: {
         opts: {
-          betaFeatures: formToGql(formState),
+          betaFeatures: formState.betaFeatures,
         },
       },
     });
@@ -80,9 +68,11 @@ export const BetaFeatureSettings: React.FC = () => {
     });
   };
 
-  return adminLoading || userLoading ? (
-    <ParagraphSkeleton />
-  ) : (
+  const hasActiveBetaFeatures = adminBetaFeatures
+    ? Object.entries(adminBetaFeatures).filter(([, v]) => v !== true).length > 0
+    : false;
+
+  return (
     <ContentWrapper>
       <SpruceForm
         formData={formState}
@@ -93,61 +83,36 @@ export const BetaFeatureSettings: React.FC = () => {
           properties: {
             betaFeatures: {
               title: "Beta Features",
-              type: "array" as "array",
-              items: {
-                type: "object" as "object",
-                properties: {
-                  feature: {
-                    type: "string" as "string",
-                  },
-                  enabled: {
-                    type: "boolean" as "boolean",
-                    title: "",
-                    oneOf: [
-                      {
-                        type: "boolean" as "boolean",
-                        title: "Enabled",
-                        enum: [true],
-                      },
-                      {
-                        type: "boolean" as "boolean",
-                        title: "Disabled",
-                        enum: [false],
-                      },
-                    ],
-                  },
-                },
+              type: "object" as "object",
+              properties: {
+                spruceWaterfallEnabled: radioSchema({
+                  title: "Use new Spruce waterfall",
+                }),
               },
             },
           },
         }}
         uiSchema={{
           betaFeatures: {
-            "ui:data-cy": "beta-features-list",
-            "ui:description":
-              "Enable beta features to get an early look at upcoming UI changes.",
-            "ui:placeholder": "No beta experiments are active right now.",
-            "ui:orderable": false,
-            "ui:addable": false,
-            "ui:removable": false,
-            items: {
-              "ui:ObjectFieldTemplate": BetaFeatureRow,
-              feature: {
-                "ui:field": BetaFeatureDescriptionField,
-              },
-              enabled: {
-                "ui:widget": "radio",
-                "ui:options": {
-                  inline: true,
-                },
-                "ui:elementWrapperCSS": css`
-                  display: flex;
-                  justify-content: space-between;
-                  gap: ${size.m};
-                  margin-bottom: ${size.xs};
-                `,
-              },
-            },
+            "ui:data-cy": "beta-features-card",
+            "ui:description": (
+              <DescriptionWrapper>
+                <span>
+                  Enable beta features to get an early look at upcoming UI
+                  changes.
+                </span>
+                {hasActiveBetaFeatures ? (
+                  ""
+                ) : (
+                  <span>No beta experiments are active right now.</span>
+                )}
+              </DescriptionWrapper>
+            ),
+            spruceWaterfallEnabled: radioUiSchema({
+              dataCy: "spruce-waterfall-enabled",
+              isAdminEnabled:
+                adminBetaFeatures?.spruceWaterfallEnabled ?? false,
+            }),
           },
         }}
       />
@@ -163,59 +128,49 @@ export const BetaFeatureSettings: React.FC = () => {
   );
 };
 
-const featureToDescription: StringMap = {
-  spruceWaterfallEnabled: "Use new Spruce waterfall",
-};
+const radioSchema = ({ title }: { title: string }) => ({
+  type: "boolean" as "boolean",
+  title,
+  default: false,
+  oneOf: [
+    {
+      type: "boolean" as "boolean",
+      title: "Enabled",
+      enum: [true],
+    },
+    {
+      type: "boolean" as "boolean",
+      title: "Disabled",
+      enum: [false],
+    },
+  ],
+});
 
-const BetaFeatureDescriptionField: Field = ({
-  formData,
+const radioUiSchema = ({
+  dataCy,
+  isAdminEnabled,
 }: {
-  formData: string;
-}) => <Body>{featureToDescription[formData]}</Body>;
+  dataCy: string;
+  isAdminEnabled: boolean;
+}) => ({
+  "ui:data-cy": dataCy,
+  "ui:widget": isAdminEnabled ? "radio" : "hidden",
+  "ui:options": {
+    inline: true,
+  },
+  "ui:elementWrapperCSS": css`
+    display: flex;
+    justify-content: space-between;
+    gap: ${size.m};
+    margin-bottom: ${size.s};
+  `,
+});
 
-const BetaFeatureRow: React.FC<
-  Pick<ObjectFieldTemplateProps, "formData" | "properties">
-> = ({ formData, properties }) => {
-  const [feature, enabled] = getFields(properties, formData.isDisabled);
-  return (
-    <div
-      css={css`
-        display: flex;
-        align-items: center;
-        gap: ${size.l};
-      `}
-    >
-      {feature}
-      {enabled}
-    </div>
-  );
-};
-
-const gqlToForm = (
-  userBetaFeatures?: BetaFeatures,
-  adminBetaFeatures?: BetaFeatures,
-): FormState => {
-  const activeBetaFeatures =
-    userBetaFeatures && adminBetaFeatures
-      ? Object.entries(adminBetaFeatures)
-          .filter(([, v]) => v !== true)
-          .map(([k]) => ({
-            feature: k,
-            enabled: userBetaFeatures[k as keyof BetaFeatures] as boolean,
-          }))
-      : [];
-  return { betaFeatures: activeBetaFeatures };
-};
-
-const formToGql = (formState: FormState): BetaFeatures => {
-  const updatedBetaFeatures: { [key: string]: boolean } = {};
-  formState.betaFeatures.forEach((b) => {
-    updatedBetaFeatures[b.feature] = b.enabled ?? false;
-  });
-  return {
-    spruceWaterfallEnabled: updatedBetaFeatures.spruceWaterfallEnabled,
-  };
-};
+const DescriptionWrapper = styled.span`
+  display: flex;
+  flex-direction: column;
+  gap: ${size.s};
+`;
 
 const ContentWrapper = styled.div`
   width: 70%;

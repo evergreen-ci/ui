@@ -33,13 +33,7 @@ describe("user preferences pages", () => {
         "true",
       );
 
-      cy.dataCy("beta-features-list").children().should("have.length", 1);
-      cy.dataCy("beta-features-list")
-        .children()
-        .eq(0)
-        .as("spruceWaterfallEnabled");
-
-      cy.get("@spruceWaterfallEnabled").within(() => {
+      cy.dataCy("spruce-waterfall-enabled").within(() => {
         cy.get('[data-label="Disabled"]').should("be.checked");
         cy.get('[data-label="Enabled"]').click({ force: true });
         cy.get('[data-label="Disabled"]').should("not.be.checked");
@@ -55,7 +49,7 @@ describe("user preferences pages", () => {
       cy.validateToast("success", "Your changes have successfully been saved.");
       cy.reload();
 
-      cy.get("@spruceWaterfallEnabled").within(() => {
+      cy.dataCy("spruce-waterfall-enabled").within(() => {
         cy.get('[data-label="Disabled"]').should("not.be.checked");
         cy.get('[data-label="Enabled"]').should("be.checked");
       });

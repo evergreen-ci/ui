@@ -1,22 +1,18 @@
-import { useEffect, useMemo, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMemo, useState } from "react";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { diff } from "deep-object-diff";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
 import { listOfDateFormatStrings, timeZones, TimeFormat } from "constants/time";
 import { useToastContext } from "context/toast";
 import {
-  AwsRegionsQuery,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
+  UserSettings,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-
-import { AWS_REGIONS } from "gql/queries";
-import { useUserSettings } from "hooks";
 import { getDateCopy } from "utils/string";
 
 type FormState = {
@@ -27,14 +23,17 @@ type FormState = {
   timeFormat: string;
 };
 
-export const Settings: React.FC = () => {
+type SettingsProps = {
+  awsRegions: string[];
+  userSettings: UserSettings;
+};
+
+export const Settings: React.FC<SettingsProps> = ({
+  awsRegions,
+  userSettings,
+}) => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
-
-  const { loading, userSettings } = useUserSettings();
-  const { data: awsRegionData, loading: awsRegionLoading } =
-    useQuery<AwsRegionsQuery>(AWS_REGIONS);
-  const awsRegions = awsRegionData?.awsRegions || [];
 
   const [updateUserSettings] = useMutation<
     UpdateUserSettingsMutation,
@@ -61,12 +60,6 @@ export const Settings: React.FC = () => {
   );
   const [formState, setFormState] = useState<FormState>(initialState);
 
-  // The initialState might update after completing the query, so we need
-  // to update the form state as well.
-  useEffect(() => {
-    setFormState(initialState);
-  }, [initialState]);
-
   const hasChanges = useMemo(() => {
     const changes = diff(initialState, formState);
     return Object.entries(changes).length > 0;
@@ -83,9 +76,7 @@ export const Settings: React.FC = () => {
     });
   };
 
-  return loading || awsRegionLoading ? (
-    <ParagraphSkeleton />
-  ) : (
+  return (
     <ContentWrapper>
       <SpruceForm
         formData={formState}
