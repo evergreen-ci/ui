@@ -39,7 +39,9 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
       dispatchToast.success("Your changes have been saved.");
     },
     onError: (err) => {
-      dispatchToast.error(`Error while saving beta features: ${err.message}`);
+      dispatchToast.error(
+        `Error while saving beta feature settings: ${err.message}`,
+      );
     },
     refetchQueries: ["UserBetaFeatures"],
   });
@@ -64,7 +66,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
       },
     });
     sendEvent({
-      name: "Saved beta features",
+      name: "Saved beta feature settings",
     });
   };
 

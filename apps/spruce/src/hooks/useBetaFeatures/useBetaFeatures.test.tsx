@@ -23,7 +23,7 @@ const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
 );
 
 describe("useAdminBetaFeatures", () => {
-  it("correctly reads admin beta features", async () => {
+  it("correctly reads admin beta feature settings", async () => {
     const { result } = renderHook(() => useAdminBetaFeatures(), {
       wrapper: ({ children }) =>
         ProviderWrapper({
@@ -40,7 +40,7 @@ describe("useAdminBetaFeatures", () => {
 });
 
 describe("useUserBetaFeatures", () => {
-  it("correctly reads user beta features", async () => {
+  it("correctly reads user beta feature settings", async () => {
     const { result } = renderHook(() => useUserBetaFeatures(), {
       wrapper: ({ children }) =>
         ProviderWrapper({
