@@ -23,6 +23,7 @@ export enum WaterfallFilterOptions {
   MaxOrder = "maxOrder",
   MinOrder = "minOrder",
   Requesters = "requesters",
+  Revision = "revision",
   Statuses = "statuses",
   Task = "tasks",
   Date = "date",
