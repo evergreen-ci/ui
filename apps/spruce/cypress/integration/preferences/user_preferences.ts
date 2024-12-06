@@ -2,6 +2,7 @@ const baseRoute = "/preferences";
 const tabNames = {
   profile: "/profile",
   cli: "/cli",
+  newUI: "/newUI",
 };
 describe("user preferences pages", () => {
   it("visiting /preferences should redirect to the profile tab", () => {
@@ -25,7 +26,7 @@ describe("user preferences pages", () => {
 
   describe("beta features", () => {
     it("should be able to edit beta features", () => {
-      cy.visit(baseRoute);
+      cy.visit(`${baseRoute}${tabNames.newUI}`);
       cy.dataCy("loading-skeleton").should("not.exist");
       cy.dataCy("save-beta-features-button").should(
         "have.attr",
