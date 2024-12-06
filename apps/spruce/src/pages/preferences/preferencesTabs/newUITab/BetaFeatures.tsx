@@ -69,7 +69,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
   };
 
   const hasActiveBetaFeatures = adminBetaFeatures
-    ? Object.entries(adminBetaFeatures).filter(([, v]) => v !== true).length > 0
+    ? Object.values(adminBetaFeatures).filter((v) => v === true).length > 0
     : false;
 
   return (
@@ -170,6 +170,7 @@ const DescriptionWrapper = styled.span`
   display: flex;
   flex-direction: column;
   gap: ${size.s};
+  margin-bottom: ${size.s};
 `;
 
 const ContentWrapper = styled.div`
