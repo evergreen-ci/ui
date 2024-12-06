@@ -8,6 +8,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { Field, ObjectFieldTemplateProps } from "@rjsf/core";
 import { diff } from "deep-object-diff";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { StringMap } from "@evg-ui/lib/types/utils";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
 import { getFields } from "components/SpruceForm/utils";
@@ -31,10 +32,10 @@ export const BetaFeatureSettings: React.FC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
 
-  const { betaFeatures: userBetaFeatures, loading: userLoading } =
-    useUserBetaFeatures();
   const { betaFeatures: adminBetaFeatures, loading: adminLoading } =
     useAdminBetaFeatures();
+  const { betaFeatures: userBetaFeatures, loading: userLoading } =
+    useUserBetaFeatures();
 
   const [updateBetaFeatures] = useMutation<
     UpdateBetaFeaturesMutation,
@@ -55,6 +56,8 @@ export const BetaFeatureSettings: React.FC = () => {
   );
   const [formState, setFormState] = useState<FormState>(initialState);
 
+  // The initialState might update after completing the query, so we need
+  // to update the form state as well.
   useEffect(() => {
     setFormState(initialState);
   }, [initialState]);
@@ -77,7 +80,7 @@ export const BetaFeatureSettings: React.FC = () => {
     });
   };
 
-  return userLoading || adminLoading ? (
+  return adminLoading || userLoading ? (
     <ParagraphSkeleton />
   ) : (
     <ContentWrapper>
@@ -160,7 +163,7 @@ export const BetaFeatureSettings: React.FC = () => {
   );
 };
 
-const featureToDescription: { [key: string]: string } = {
+const featureToDescription: StringMap = {
   spruceWaterfallEnabled: "Use new Spruce waterfall",
 };
 
@@ -188,25 +191,20 @@ const BetaFeatureRow: React.FC<
   );
 };
 
-type BetaFeature = keyof BetaFeatures;
-
 const gqlToForm = (
   userBetaFeatures?: BetaFeatures,
   adminBetaFeatures?: BetaFeatures,
 ): FormState => {
-  const activeBetaFeatures = (
-    adminBetaFeatures
-      ? Object.keys(adminBetaFeatures).filter(
-          (key) => adminBetaFeatures[key as BetaFeature] === true,
-        )
-      : []
-  ) as BetaFeature[];
-  return {
-    betaFeatures: activeBetaFeatures.map((b) => ({
-      feature: b,
-      enabled: userBetaFeatures?.[b] as boolean,
-    })),
-  };
+  const activeBetaFeatures =
+    userBetaFeatures && adminBetaFeatures
+      ? Object.entries(adminBetaFeatures)
+          .filter(([, v]) => v !== true)
+          .map(([k]) => ({
+            feature: k,
+            enabled: userBetaFeatures[k as keyof BetaFeatures] as boolean,
+          }))
+      : [];
+  return { betaFeatures: activeBetaFeatures };
 };
 
 const formToGql = (formState: FormState): BetaFeatures => {

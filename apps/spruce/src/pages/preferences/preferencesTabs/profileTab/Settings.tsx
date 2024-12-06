@@ -61,6 +61,8 @@ export const Settings: React.FC = () => {
   );
   const [formState, setFormState] = useState<FormState>(initialState);
 
+  // The initialState might update after completing the query, so we need
+  // to update the form state as well.
   useEffect(() => {
     setFormState(initialState);
   }, [initialState]);

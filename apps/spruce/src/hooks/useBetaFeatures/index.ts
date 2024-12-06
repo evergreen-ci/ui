@@ -44,23 +44,27 @@ export const useUserBetaFeatures = () => {
 };
 
 /**
- * `useMergedBetaFeatures` returns the result of merging admin and user level beta features. If the beta feature
- * is disabled at the admin level, it should be returned as disabled in this function.
+ * `useMergedBetaFeatures` returns the result of merging admin and user level beta features.
  * @returns merged beta features
  */
 export const useMergedBetaFeatures = () => {
-  const adminBetaFeatures = useAdminBetaFeatures();
-  const userBetaFeatures = useUserBetaFeatures();
+  const { betaFeatures: adminBetaFeatures, loading: adminLoading } =
+    useAdminBetaFeatures();
+  const { betaFeatures: userBetaFeatures, loading: userLoading } =
+    useUserBetaFeatures();
 
   if (!adminBetaFeatures || !userBetaFeatures) {
-    return undefined;
+    return { mergedBetaFeatures: undefined, loading: false };
   }
 
   const mergedBetaFeatures: BetaFeatures = {
-    spruceWaterfallEnabled: adminBetaFeatures.spruceWaterfallEnabled
-      ? userBetaFeatures.spruceWaterfallEnabled
-      : false,
+    spruceWaterfallEnabled:
+      adminBetaFeatures.spruceWaterfallEnabled &&
+      userBetaFeatures.spruceWaterfallEnabled,
   };
 
-  return mergedBetaFeatures;
+  return {
+    betaFeatures: mergedBetaFeatures,
+    loading: adminLoading || userLoading,
+  };
 };
