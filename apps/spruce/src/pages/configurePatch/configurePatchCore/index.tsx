@@ -121,7 +121,10 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
   >(SCHEDULE_PATCH, {
     onCompleted(data) {
       const { schedulePatch: scheduledPatch } = data;
-      dispatchToast.success("Successfully scheduled the patch");
+      const hasChildPatch = scheduledPatch.versionFull?.childVersions?.length;
+      dispatchToast.success(
+        `Successfully scheduled the patch${hasChildPatch ? " and its child patches" : ""}`,
+      );
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       navigate(getVersionRoute(scheduledPatch.versionFull.id));
     },

@@ -63,6 +63,14 @@ const getDownstreamTabName = (
       />
     );
   }
+  return (
+    <TabLabelWithBadge
+      badgeText={0}
+      badgeVariant="lightgray"
+      dataCyBadge="downstream-tab-badge"
+      tabLabel="Downstream Projects"
+    />
+  );
 };
 
 const tabMap = ({
