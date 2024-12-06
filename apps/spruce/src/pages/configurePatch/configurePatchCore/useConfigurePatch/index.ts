@@ -7,7 +7,7 @@ import {
   VariantTask,
 } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
-import { PatchTab } from "types/patch";
+import { ConfigurePatchPageTabs } from "types/patch";
 import { convertArrayToObject, mapStringArrayToObject } from "utils/array";
 import { parseQueryString } from "utils/queryString";
 import { omitTypename } from "utils/string";
@@ -83,7 +83,7 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
         patchParams: omitTypename(action.params),
       };
     case "setSelectedTab": {
-      let tab = indexToTabMap.indexOf(PatchTab.Tasks);
+      let tab = indexToTabMap.indexOf(ConfigurePatchPageTabs.Tasks);
       if (action.tabIndex !== -1 && action.tabIndex < indexToTabMap.length) {
         tab = action.tabIndex;
       }
@@ -91,7 +91,7 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
         ...state,
         selectedTab: tab,
         disableBuildVariantSelect:
-          indexToTabMap[action.tabIndex] !== PatchTab.Tasks,
+          indexToTabMap[action.tabIndex] !== ConfigurePatchPageTabs.Tasks,
       };
     }
     case "updatePatchData":
@@ -109,12 +109,16 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
   }
 };
 
-const indexToTabMap = [PatchTab.Tasks, PatchTab.Changes, PatchTab.Parameters];
+const indexToTabMap = [
+  ConfigurePatchPageTabs.Tasks,
+  ConfigurePatchPageTabs.Changes,
+  ConfigurePatchPageTabs.Parameters,
+];
 
 const tabToIndexMap = {
-  [PatchTab.Tasks]: 0,
-  [PatchTab.Changes]: 1,
-  [PatchTab.Parameters]: 2,
+  [ConfigurePatchPageTabs.Tasks]: 0,
+  [ConfigurePatchPageTabs.Changes]: 1,
+  [ConfigurePatchPageTabs.Parameters]: 2,
 };
 
 interface HookResult extends ConfigurePatchState {
