@@ -1,5 +1,22 @@
 import { WaterfallVersionFragment } from "gql/generated/types";
-import { WaterfallVersion } from "./types";
+import { Build, BuildVariant, WaterfallVersion } from "./types";
+
+export const groupBuilds = (builds: Build[]): BuildVariant[] => {
+  const idToBuilds: { [index: string]: Build[] } = {};
+
+  builds.forEach((b) => {
+    if (!idToBuilds[b.buildVariant]) {
+      idToBuilds[b.buildVariant] = [];
+    }
+    idToBuilds[b.buildVariant].push(b);
+  });
+
+  return Object.entries(idToBuilds).map(([k, v]) => ({
+    id: k,
+    displayName: v[0].displayName,
+    builds: v,
+  }));
+};
 
 export const groupInactiveVersions = (
   versions: WaterfallVersionFragment[],

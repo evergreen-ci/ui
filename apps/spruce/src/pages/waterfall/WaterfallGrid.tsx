@@ -1,21 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { fromZonedTime } from "date-fns-tz";
-import {
-  DEFAULT_POLL_INTERVAL,
-  WATERFALL_PINNED_VARIANTS_KEY,
-} from "constants/index";
-import { utcTimeZone } from "constants/time";
-import {
-  WaterfallPagination,
-  WaterfallQuery,
-  WaterfallQueryVariables,
-} from "gql/generated/types";
-import { WATERFALL } from "gql/queries";
-import { useUserTimeZone } from "hooks";
+import { WATERFALL_PINNED_VARIANTS_KEY } from "constants/index";
+import { WaterfallQuery } from "gql/generated/types";
 import { useDimensions } from "hooks/useDimensions";
-import { useQueryParam } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { InactiveVersionsButton } from "./InactiveVersions";
@@ -24,21 +11,19 @@ import {
   gridGroupCss,
   InactiveVersion,
   Row,
-  VERSION_LIMIT,
 } from "./styles";
-import { WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
   projectIdentifier: string;
-  setPagination: (pagination: WaterfallPagination) => void;
+  data: WaterfallQuery;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
+  data,
   projectIdentifier,
-  setPagination,
 }) => {
   useWaterfallTrace();
 
@@ -69,40 +54,13 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     });
   }, [pins, projectIdentifier]);
 
-  const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
-  const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
-  const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
-
-  const timezone = useUserTimeZone() ?? utcTimeZone;
-
-  const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
-    WATERFALL,
-    {
-      variables: {
-        options: {
-          projectIdentifier,
-          limit: VERSION_LIMIT,
-          maxOrder,
-          minOrder,
-          date: date ? fromZonedTime(date, timezone) : undefined,
-        },
-      },
-      // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
-      pollInterval: DEFAULT_POLL_INTERVAL,
-    },
-  );
-
-  useEffect(() => {
-    setPagination(data.waterfall.pagination);
-  }, [setPagination, data.waterfall.pagination]);
-
   const refEl = useRef<HTMLDivElement>(null);
   const { height } = useDimensions(
     refEl as React.MutableRefObject<HTMLElement>,
   );
 
   const { activeVersionIds, buildVariants, versions } = useFilters({
-    buildVariants: data.waterfall.buildVariants,
+    flattenedBuilds: data.waterfall.flattenedBuilds,
     flattenedVersions: data.waterfall.flattenedVersions,
     pins,
   });

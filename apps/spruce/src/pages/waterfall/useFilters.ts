@@ -3,16 +3,16 @@ import { Unpacked } from "@evg-ui/lib/types/utils";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useQueryParam } from "hooks/useQueryParam";
 import { Build, BuildVariant, WaterfallFilterOptions } from "./types";
-import { groupInactiveVersions } from "./utils";
+import { groupBuilds, groupInactiveVersions } from "./utils";
 
 type UseFiltersProps = {
-  buildVariants: BuildVariant[];
+  flattenedBuilds: Build[];
   flattenedVersions: WaterfallVersionFragment[];
   pins: string[];
 };
 
 export const useFilters = ({
-  buildVariants,
+  flattenedBuilds,
   flattenedVersions,
   pins,
 }: UseFiltersProps) => {
@@ -50,6 +50,11 @@ export const useFilters = ({
   const taskFilterRegex: RegExp[] = useMemo(
     () => makeFilterRegex(taskFilter),
     [taskFilter],
+  );
+
+  const buildVariants = useMemo(
+    () => groupBuilds(flattenedBuilds),
+    [flattenedBuilds],
   );
 
   const filteredBuildVariants = useMemo(() => {

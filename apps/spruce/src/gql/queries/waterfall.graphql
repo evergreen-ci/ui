@@ -2,22 +2,19 @@
 
 query Waterfall($options: WaterfallOptions!) {
   waterfall(options: $options) {
-    buildVariants {
-      builds {
-        activated
-        displayName
-        id
-        tasks {
-          displayName
-          displayStatus
-          execution
-          id
-          status
-        }
-        version
-      }
+    flattenedBuilds {
+      activated
+      buildVariant
       displayName
       id
+      order
+      tasks {
+        displayName
+        displayStatus
+        execution
+        id
+        status
+      }
       version
     }
     flattenedVersions {

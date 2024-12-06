@@ -11,12 +11,14 @@ export type WaterfallVersion = {
 };
 
 export type Build = Unpacked<
-  Unpacked<WaterfallQuery["waterfall"]["buildVariants"]>["builds"]
+  Unpacked<WaterfallQuery["waterfall"]["flattenedBuilds"]>
 >;
 
-export type BuildVariant = Unpacked<
-  WaterfallQuery["waterfall"]["buildVariants"]
->;
+export type BuildVariant = {
+  displayName: string;
+  id: string;
+  builds: Build[];
+};
 
 export enum WaterfallFilterOptions {
   BuildVariant = "buildVariants",

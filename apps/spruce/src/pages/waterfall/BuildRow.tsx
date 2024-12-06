@@ -55,7 +55,7 @@ export const BuildRow: React.FC<Props> = ({
   );
 
   const { builds, displayName } = build;
-  let buildIndex = 0;
+
   return (
     <Row>
       <BuildVariantTitle data-cy="build-variant-label">
@@ -87,9 +87,9 @@ export const BuildRow: React.FC<Props> = ({
           }
           /* The list of builds returned does not include a placeholder for inactive builds, so we need to check whether the build matches the version in the current column.
         Builds are sorted in descending revision order and so match the versions' sort order. */
-          if (version && version.id === builds?.[buildIndex]?.version) {
-            const b = builds[buildIndex];
-            buildIndex += 1;
+          const matchingBuild = builds.find((b) => b.version === version?.id);
+          if (version && matchingBuild) {
+            const b = matchingBuild;
             return (
               <BuildGrid
                 key={b.id}

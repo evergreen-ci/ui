@@ -1,8 +1,10 @@
-import { Suspense, useState, useTransition } from "react";
+import { useTransition } from "react";
+import { useQuery } from "@apollo/client";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { fromZonedTime } from "date-fns-tz";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
@@ -10,9 +12,13 @@ import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
 import { navBarHeight } from "components/Header/Navbar";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";
-import { WaterfallPagination } from "gql/generated/types";
-import { useSpruceConfig } from "hooks";
+import { utcTimeZone } from "constants/time";
+import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
+import { WATERFALL } from "gql/queries";
+import { useSpruceConfig, useUserTimeZone } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { VERSION_LIMIT } from "./styles";
@@ -31,7 +37,28 @@ const Waterfall: React.FC = () => {
 
   const { sendEvent } = useWaterfallAnalytics();
 
-  const [pagination, setPagination] = useState<WaterfallPagination>();
+  const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
+  const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
+  const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
+
+  const timezone = useUserTimeZone() ?? utcTimeZone;
+
+  // Temporary useQuery for testing
+  const { data, loading } = useQuery<WaterfallQuery, WaterfallQueryVariables>(
+    WATERFALL,
+    {
+      variables: {
+        options: {
+          projectIdentifier: projectIdentifier!,
+          limit: VERSION_LIMIT,
+          maxOrder,
+          minOrder,
+          date: date ? fromZonedTime(date, timezone) : undefined,
+        },
+      },
+      pollInterval: DEFAULT_POLL_INTERVAL,
+    },
+  );
 
   return (
     <>
@@ -46,8 +73,7 @@ const Waterfall: React.FC = () => {
         )}
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
-          key={projectIdentifier}
-          pagination={pagination}
+          pagination={data?.waterfall.pagination}
           projectIdentifier={projectIdentifier ?? ""}
         />
         <FilterBadges
@@ -61,21 +87,19 @@ const Waterfall: React.FC = () => {
             startTransition(() => handleOnRemove(b));
           }}
         />
-        <Suspense
-          fallback={
-            <TableSkeleton
-              data-cy="waterfall-skeleton"
-              numCols={VERSION_LIMIT + 1}
-              numRows={15}
-            />
-          }
-        >
+        {!data || loading ? (
+          <TableSkeleton
+            data-cy="waterfall-skeleton"
+            numCols={VERSION_LIMIT + 1}
+            numRows={15}
+          />
+        ) : (
           <WaterfallGrid
             key={projectIdentifier}
+            data={data}
             projectIdentifier={projectIdentifier ?? ""}
-            setPagination={setPagination}
           />
-        </Suspense>
+        )}
       </PageContainer>
     </>
   );

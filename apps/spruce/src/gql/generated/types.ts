@@ -3445,6 +3445,7 @@ export type VolumeHost = {
 export type Waterfall = {
   __typename?: "Waterfall";
   buildVariants: Array<WaterfallBuildVariant>;
+  flattenedBuilds: Array<WaterfallBuild>;
   flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
   versions: Array<WaterfallVersion>;
@@ -3453,8 +3454,10 @@ export type Waterfall = {
 export type WaterfallBuild = {
   __typename?: "WaterfallBuild";
   activated?: Maybe<Scalars["Boolean"]["output"]>;
+  buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
+  order: Scalars["Int"]["output"];
   tasks: Array<WaterfallTask>;
   version: Scalars["String"]["output"];
 };
@@ -9707,25 +9710,21 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
-    buildVariants: Array<{
-      __typename?: "WaterfallBuildVariant";
+    flattenedBuilds: Array<{
+      __typename?: "WaterfallBuild";
+      activated?: boolean | null;
+      buildVariant: string;
       displayName: string;
       id: string;
+      order: number;
       version: string;
-      builds: Array<{
-        __typename?: "WaterfallBuild";
-        activated?: boolean | null;
+      tasks: Array<{
+        __typename?: "WaterfallTask";
         displayName: string;
+        displayStatus: string;
+        execution: number;
         id: string;
-        version: string;
-        tasks: Array<{
-          __typename?: "WaterfallTask";
-          displayName: string;
-          displayStatus: string;
-          execution: number;
-          id: string;
-          status: string;
-        }>;
+        status: string;
       }>;
     }>;
     flattenedVersions: Array<{
