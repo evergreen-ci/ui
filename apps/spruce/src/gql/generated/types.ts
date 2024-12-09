@@ -2826,6 +2826,8 @@ export type Task = {
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"]["output"];
   order: Scalars["Int"]["output"];
+  /** The originalStatus field represents the original status of the task without a display status applied. */
+  originalStatus: Scalars["String"]["output"];
   patch?: Maybe<Patch>;
   patchNumber?: Maybe<Scalars["Int"]["output"]>;
   pod?: Maybe<Pod>;
@@ -2839,6 +2841,7 @@ export type Task = {
   scheduledTime?: Maybe<Scalars["Time"]["output"]>;
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
   startTime?: Maybe<Scalars["Time"]["output"]>;
+  /** This is a tasks display status and is what is commonly used on the UI. */
   status: Scalars["String"]["output"];
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
@@ -9080,6 +9083,7 @@ export type TaskQuery = {
     latestExecution: number;
     minQueuePosition: number;
     order: number;
+    originalStatus: string;
     patchNumber?: number | null;
     priority?: number | null;
     requester: string;
