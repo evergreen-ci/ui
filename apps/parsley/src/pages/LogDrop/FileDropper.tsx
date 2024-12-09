@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useLogDropAnalytics } from "analytics";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { LOG_LINE_TOO_LARGE_WARNING } from "constants/errors";
 import { LOG_FILE_SIZE_LIMIT, LOG_LINE_SIZE_LIMIT } from "constants/logs";
 import { useLogContext } from "context/LogContext";
-import { useToastContext } from "context/toast";
 import useClipboardPaste from "hooks/useClipboardPaste";
 import {
   SentryBreadcrumb,

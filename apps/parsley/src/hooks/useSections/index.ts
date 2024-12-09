@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
-import { useToastContext } from "context/toast";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { reportError } from "utils/errorReporting";
 import {

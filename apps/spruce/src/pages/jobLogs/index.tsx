@@ -4,6 +4,7 @@ import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import PageTitle from "components/PageTitle";
 import {
   PageContent,
@@ -12,7 +13,6 @@ import {
   PageWrapper,
 } from "components/styles";
 import { getTaskRoute, slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import { JobLogsTable } from "./JobLogsTable";
 import { Metadata } from "./Metadata";
 import useJobLogsPageData from "./useJobLogs";

@@ -5,10 +5,10 @@ import { MenuItem } from "@leafygreen-ui/menu";
 import { NumberInput } from "@leafygreen-ui/number-input";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics, useTaskAnalytics } from "analytics";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
-import { useToastContext } from "context/toast";
 import {
   SetVersionPriorityMutation,
   SetVersionPriorityMutationVariables,

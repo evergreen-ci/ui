@@ -1,10 +1,10 @@
+import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch,
   screen,
   userEvent,
 } from "@evg-ui/lib/test_utils";
 import { logContextWrapper } from "context/LogContext/test_utils";
-import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import SkippedLinesRow from ".";
 
 describe("skippedLinesRow", () => {

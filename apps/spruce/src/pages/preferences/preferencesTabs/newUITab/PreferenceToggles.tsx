@@ -5,9 +5,9 @@ import Toggle, { Size as ToggleSize } from "@leafygreen-ui/toggle";
 import { Label } from "@leafygreen-ui/typography";
 import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
-import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
