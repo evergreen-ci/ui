@@ -1,16 +1,22 @@
-import { createContext, useCallback, useContext, useMemo } from "react";
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+} from "react";
 import { css } from "@leafygreen-ui/emotion";
 import {
   ToastProvider as LGToastProvider,
   Variant,
   useToast,
 } from "@leafygreen-ui/toast";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
-import { WordBreak } from "components/styles";
+import { WordBreak } from "../../components/Typography";
+import { zIndex } from "../../constants/tokens";
 import {
+  TOAST_TIMEOUT,
   mapLeafyGreenVariantToTitle,
   mapLeafyGreenVariantToToast,
-  TOAST_TIMEOUT,
 } from "./constants";
 import { DispatchToast, DispatchToastWithProgress, ToastParams } from "./types";
 
@@ -32,9 +38,7 @@ const useToastContext = (): ToastContextState => {
   return context;
 };
 
-const ToastProviderCore: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const ToastProviderCore: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { pushToast } = useToast();
   const dispatchToast = useCallback(
     ({
@@ -47,6 +51,9 @@ const ToastProviderCore: React.FC<{ children: React.ReactNode }> = ({
       variant,
     }: ToastParams) =>
       pushToast({
+        // @ts-ignore
+        "data-cy": "toast",
+        "data-variant": mapLeafyGreenVariantToToast[variant],
         description: <WordBreak>{message}</WordBreak>,
         dismissible: closable,
         onClose: closable ? onClose : undefined,
@@ -54,9 +61,6 @@ const ToastProviderCore: React.FC<{ children: React.ReactNode }> = ({
         timeout: shouldTimeout ? TOAST_TIMEOUT : null,
         title: title || mapLeafyGreenVariantToTitle[variant],
         variant,
-        // @ts-ignore
-        "data-variant": mapLeafyGreenVariantToToast[variant],
-        "data-cy": "toast",
       }),
     [pushToast],
   );
@@ -69,44 +73,44 @@ const ToastProviderCore: React.FC<{ children: React.ReactNode }> = ({
     };
 
     return {
-      success: (message = "", closable = true, options = {}) =>
-        dispatchToast({
-          variant: Variant.Success,
-          message,
-          closable,
-          ...defaultOptions,
-          ...options,
-        }),
-      warning: (message = "", closable = true, options = {}) =>
-        dispatchToast({
-          variant: Variant.Important,
-          message,
-          closable,
-          ...defaultOptions,
-          ...options,
-        }),
       error: (message = "", closable = true, options = {}) =>
         dispatchToast({
-          variant: Variant.Warning,
-          message,
           closable,
+          message,
+          variant: Variant.Warning,
           ...defaultOptions,
           ...options,
         }),
       info: (message = "", closable = true, options = {}) =>
         dispatchToast({
-          variant: Variant.Note,
-          message,
           closable,
+          message,
+          variant: Variant.Note,
           ...defaultOptions,
           ...options,
         }),
       progress: (message = "", progress = 0.5, closable = true, options = {}) =>
         dispatchToast({
-          variant: Variant.Progress,
+          closable,
           message,
           progress,
+          variant: Variant.Progress,
+          ...defaultOptions,
+          ...options,
+        }),
+      success: (message = "", closable = true, options = {}) =>
+        dispatchToast({
           closable,
+          message,
+          variant: Variant.Success,
+          ...defaultOptions,
+          ...options,
+        }),
+      warning: (message = "", closable = true, options = {}) =>
+        dispatchToast({
+          closable,
+          message,
+          variant: Variant.Important,
           ...defaultOptions,
           ...options,
         }),
@@ -120,9 +124,7 @@ const ToastProviderCore: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => (
+const ToastProvider: React.FC<{ children?: ReactNode }> = ({ children }) => (
   <LGToastProvider
     portalClassName={css`
       z-index: ${zIndex.toast};

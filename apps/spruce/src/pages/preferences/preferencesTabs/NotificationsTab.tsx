@@ -7,9 +7,9 @@ import { Skeleton } from "antd";
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
-import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,

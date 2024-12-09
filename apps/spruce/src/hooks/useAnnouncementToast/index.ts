@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import Cookies from "js-cookie";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { toastData } from "constants/announcementToast";
 import { ANNOUNCEMENT_TOAST } from "constants/cookies";
-import { useToastContext } from "context/toast";
 
 const setClosedCookie = (message: string, expires: number = 7) => {
   Cookies.set(ANNOUNCEMENT_TOAST, message, { expires });

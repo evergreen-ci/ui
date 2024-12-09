@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { useToastContext } from "context/toast";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   BuildBaron,
   Annotation,

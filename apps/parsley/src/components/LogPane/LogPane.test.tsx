@@ -2,6 +2,7 @@ import { createRef } from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import Cookie from "js-cookie";
 import { VirtuosoMockContext } from "react-virtuoso";
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -9,7 +10,6 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { parsleySettingsMock } from "test_data/parsleySettings";
 import LogPane from ".";
 

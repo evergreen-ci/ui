@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   act,
   renderWithRouterMatch as render,
@@ -11,7 +12,6 @@ import {
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
-import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import {
   ProjectFiltersQuery,
   ProjectFiltersQueryVariables,

@@ -11,7 +11,8 @@
   "include": [
     "src",
     "./config/vitest/setupTests.ts",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "./.storybook/preview.tsx"
   ],
   "exclude": [
     "node_modules",

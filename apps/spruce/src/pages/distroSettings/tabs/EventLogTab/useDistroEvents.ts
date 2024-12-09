@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useEvents } from "components/Settings/EventLog";
-import { useToastContext } from "context/toast";
 import {
   DistroEventsQuery,
   DistroEventsQueryVariables,

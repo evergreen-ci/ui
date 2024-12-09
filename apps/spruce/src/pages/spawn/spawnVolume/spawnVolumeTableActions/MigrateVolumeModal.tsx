@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import { Body } from "@leafygreen-ui/typography";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import {
@@ -10,7 +11,6 @@ import {
   useVirtualWorkstationDefaultExpiration,
 } from "components/Spawn/spawnHostModal";
 import { SpruceForm } from "components/SpruceForm";
-import { useToastContext } from "context/toast";
 import {
   MigrateVolumeMutation,
   MigrateVolumeMutationVariables,

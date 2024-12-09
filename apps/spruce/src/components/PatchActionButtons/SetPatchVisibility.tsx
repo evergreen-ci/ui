@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { MenuItem } from "@leafygreen-ui/menu";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePatchAnalytics } from "analytics";
-import { useToastContext } from "context/toast";
 import {
   SetPatchVisibilityMutation,
   SetPatchVisibilityMutationVariables,

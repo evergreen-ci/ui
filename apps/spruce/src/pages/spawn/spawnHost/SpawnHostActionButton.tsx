@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
 import Popconfirm from "components/Popconfirm";
 import { isSleepScheduleActive } from "components/Spawn";
-import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,
   UpdateSpawnHostStatusMutationVariables,

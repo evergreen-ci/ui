@@ -1,3 +1,4 @@
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { LogTypes } from "constants/enums";
 import {
@@ -5,7 +6,6 @@ import {
   LOG_LINE_TOO_LARGE_WARNING,
 } from "constants/errors";
 import { LOG_LINE_SIZE_LIMIT } from "constants/logs";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { useLogDownloader } from ".";
 
 const API_URL = "/some/endpoint";
