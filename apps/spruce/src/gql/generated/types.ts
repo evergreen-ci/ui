@@ -3802,6 +3802,7 @@ export type PatchesPagePatchesFragment = {
     versionFull?: {
       __typename?: "Version";
       id: string;
+      requester: string;
       status: string;
       taskStatusStats?: {
         __typename?: "TaskStats";
@@ -7730,6 +7731,7 @@ export type ProjectPatchesQuery = {
         versionFull?: {
           __typename?: "Version";
           id: string;
+          requester: string;
           status: string;
           taskStatusStats?: {
             __typename?: "TaskStats";
@@ -9388,6 +9390,7 @@ export type UserPatchesQuery = {
         versionFull?: {
           __typename?: "Version";
           id: string;
+          requester: string;
           status: string;
           taskStatusStats?: {
             __typename?: "TaskStats";
