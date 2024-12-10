@@ -11,6 +11,7 @@ query TestAnalysis(
         buildVariant
         buildVariantDisplayName
         displayName
+        displayStatus
         execution
         id
         status: displayStatus

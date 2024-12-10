@@ -1,12 +1,14 @@
 query BaseVersionAndTask($taskId: String!) {
   task(taskId: $taskId) {
     baseTask {
+      displayStatus
       execution
       id
       status: displayStatus
     }
     buildVariant
     displayName
+    displayStatus
     execution
     id
     projectIdentifier

@@ -29,6 +29,7 @@ query MainlineCommits(
           displayName
           tasks {
             displayName
+            displayStatus
             execution
             hasCedarResults
             id

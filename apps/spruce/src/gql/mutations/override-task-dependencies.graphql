@@ -1,5 +1,6 @@
 mutation OverrideTaskDependencies($taskId: String!) {
   overrideTaskDependencies(taskId: $taskId) {
+    displayStatus
     execution
     id
     status: displayStatus

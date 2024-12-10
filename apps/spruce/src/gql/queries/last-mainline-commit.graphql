@@ -16,6 +16,7 @@ query LastMainlineCommit(
       version {
         buildVariants(options: $buildVariantOptions) {
           tasks {
+            displayStatus
             execution
             id
             order
