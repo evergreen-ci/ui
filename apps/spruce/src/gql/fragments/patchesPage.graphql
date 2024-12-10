@@ -18,6 +18,7 @@ fragment PatchesPagePatches on Patches {
     status
     versionFull {
       id
+      requester
       status
       taskStatusStats(options: {}) {
         counts {
