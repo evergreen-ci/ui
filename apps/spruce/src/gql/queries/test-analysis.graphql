@@ -13,7 +13,7 @@ query TestAnalysis(
         displayName
         execution
         id
-        status
+        status: displayStatus
         tests(opts: $opts) {
           filteredTestCount
           testResults {

@@ -2,6 +2,6 @@ mutation ScheduleUndispatchedBaseTasks($versionId: String!) {
   scheduleUndispatchedBaseTasks(versionId: $versionId) {
     execution
     id
-    status
+    status: displayStatus
   }
 }

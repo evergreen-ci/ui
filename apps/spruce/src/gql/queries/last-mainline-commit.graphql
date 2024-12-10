@@ -19,7 +19,7 @@ query LastMainlineCommit(
             execution
             id
             order
-            status
+            status: displayStatus
           }
         }
         id

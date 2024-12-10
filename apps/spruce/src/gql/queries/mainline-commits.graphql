@@ -32,7 +32,7 @@ query MainlineCommits(
             execution
             hasCedarResults
             id
-            status
+            status: displayStatus
             timeTaken
           }
           variant
