@@ -12,14 +12,14 @@ query VersionTaskDurations(
         execution
         id
         startTime
-        status
+        status: displayStatus
         subRows: executionTasksFull {
           buildVariantDisplayName
           displayName
           execution
           id
           startTime
-          status
+          status: displayStatus
           timeTaken
         }
         timeTaken

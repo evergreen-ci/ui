@@ -73,7 +73,7 @@ query Task($taskId: String!, $execution: Int) {
       execution
       id
       projectIdentifier
-      status
+      status: displayStatus
     }
     expectedDuration
     failedTestCount
@@ -97,7 +97,6 @@ query Task($taskId: String!, $execution: Int) {
     }
     minQueuePosition
     order
-    originalStatus
     patchNumber
     pod {
       id
