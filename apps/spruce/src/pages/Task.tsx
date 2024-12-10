@@ -58,19 +58,21 @@ export const Task = () => {
 
   const { task } = data ?? {};
   const {
-    annotation,
     displayName,
+    displayStatus,
     displayTask,
     executionTasksFull,
     latestExecution,
-    originalStatus,
     patchNumber,
     priority,
     status,
     versionMetadata,
   } = task ?? {};
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const hasKnownIssueAnnotation = annotation?.issues?.length > 0;
+
+  /**
+   * Special handling for known issues and show the original status on the task page.
+   */
+  const shouldShowOriginalStatus = displayStatus === TaskStatus.KnownIssue;
   const isDisplayTask = executionTasksFull != null;
   if (error && !task) {
     return <PageDoesNotExist />;
@@ -96,12 +98,12 @@ export const Task = () => {
           <StyledBadgeWrapper>
             <TaskStatusBadge
               status={
-                (hasKnownIssueAnnotation
-                  ? originalStatus
-                  : status) as TaskStatus
+                (shouldShowOriginalStatus
+                  ? status
+                  : displayStatus) as TaskStatus
               }
             />
-            {hasKnownIssueAnnotation && (
+            {shouldShowOriginalStatus && (
               <TaskStatusBadge status={TaskStatus.KnownIssue} />
             )}
           </StyledBadgeWrapper>
