@@ -155,7 +155,7 @@ const getColumnDefs = ({
   },
   {
     title: "Task Status",
-    dataIndex: "status",
+    dataIndex: "displayStatus",
     key: TaskSortCategory.Status,
     onHeaderCell: () => ({
       onClick: () => {
@@ -167,8 +167,8 @@ const getColumnDefs = ({
       multiple: 4,
     },
     className: "cy-task-table-col-STATUS",
-    render: (status: string, { dependsOn, execution, id }) =>
-      dependsOn?.length && status === TaskStatus.Blocked ? (
+    render: (displayStatus: TaskStatus, { dependsOn, execution, id }) =>
+      dependsOn?.length && displayStatus === TaskStatus.Blocked ? (
         <Tooltip
           data-cy="depends-on-tooltip"
           justify="middle"
@@ -178,7 +178,7 @@ const getColumnDefs = ({
               <TaskStatusBadgeWithLink
                 execution={execution}
                 id={id}
-                status={status}
+                status={displayStatus}
               />
             </span>
           }
@@ -187,11 +187,11 @@ const getColumnDefs = ({
           {dependsOn.map(({ name }) => `“${name}”`).join(", ")}
         </Tooltip>
       ) : (
-        status && (
+        displayStatus && (
           <TaskStatusBadgeWithLink
             execution={execution}
             id={id}
-            status={status as TaskStatus}
+            status={displayStatus}
           />
         )
       ),
@@ -204,7 +204,7 @@ const getColumnDefs = ({
   },
   {
     title: `${isPatch ? "Base" : "Previous"} Status`,
-    dataIndex: ["baseTask", "status"],
+    dataIndex: ["baseTask", "displayStatus"],
     key: TaskSortCategory.BaseStatus,
     onHeaderCell: () => ({
       onClick: () => {
@@ -216,14 +216,14 @@ const getColumnDefs = ({
       multiple: 4,
     },
     className: "cy-task-table-col-BASE_STATUS",
-    render: (status: string, { baseTask }) =>
-      status && (
+    render: (displayStatus: TaskStatus, { baseTask }) =>
+      displayStatus && (
         <TaskStatusBadgeWithLink
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           execution={baseTask.execution}
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           id={baseTask.id}
-          status={status as TaskStatus}
+          status={displayStatus}
         />
       ),
     ...(baseStatusSelectorProps && {

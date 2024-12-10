@@ -2,7 +2,7 @@ export type TaskTableInfo = {
   baseTask?: {
     id: string;
     execution: number;
-    status: string;
+    displayStatus: string;
   };
   buildVariant?: string;
   buildVariantDisplayName?: string;
@@ -12,5 +12,5 @@ export type TaskTableInfo = {
   executionTasksFull?: TaskTableInfo[];
   id: string;
   projectIdentifier?: string;
-  status: string;
+  displayStatus: string;
 };
