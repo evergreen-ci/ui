@@ -1,3 +1,4 @@
+import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch,
   screen,
@@ -7,7 +8,6 @@ import * as analytics from "analytics";
 import { SectionStatus } from "constants/logs";
 import * as logContext from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
-import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import SectionHeader from ".";
 
 const wrapper = logContextWrapper();

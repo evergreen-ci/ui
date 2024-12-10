@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useLogDownloadAnalytics } from "analytics";
 import { LogTypes } from "constants/enums";
 import {
@@ -6,7 +7,6 @@ import {
   LOG_LINE_TOO_LARGE_WARNING,
 } from "constants/errors";
 import { LOG_FILE_SIZE_LIMIT } from "constants/logs";
-import { useToastContext } from "context/toast";
 import useStateRef from "hooks/useStateRef";
 import { isProduction } from "utils/environmentVariables";
 import {

@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, hooks } from "components/HistoryTable";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
 import { getTaskHistoryRoute } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   TaskNamesForBuildVariantQuery,
   TaskNamesForBuildVariantQueryVariables,

@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -8,7 +9,6 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { defaultSleepSchedule } from "components/Spawn/utils";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   InstanceTypesQuery,
   InstanceTypesQueryVariables,

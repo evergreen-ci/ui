@@ -1,4 +1,4 @@
-import { ToastVariant } from "context/toast/types";
+import { ToastVariant } from "@evg-ui/lib/context/toast/types";
 
 interface AnnouncementToast {
   closable: boolean;

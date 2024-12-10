@@ -11,6 +11,7 @@ import {
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import Icon from "components/Icon";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { ShortenedRouterLink } from "components/styles";
@@ -22,7 +23,6 @@ import {
   triggerToCopy,
   triggerTreeData,
 } from "constants/triggers";
-import { useToastContext } from "context/toast";
 import {
   DeleteSubscriptionsMutation,
   DeleteSubscriptionsMutationVariables,

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { useToastContext } from "context/toast";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   ParsleySettings,
   ParsleySettingsInput,

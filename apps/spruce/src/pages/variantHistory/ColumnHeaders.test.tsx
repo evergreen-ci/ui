@@ -1,3 +1,4 @@
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   screen,
@@ -7,7 +8,6 @@ import {
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   TaskNamesForBuildVariantQuery,
   TaskNamesForBuildVariantQueryVariables,
