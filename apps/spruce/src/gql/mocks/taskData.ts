@@ -69,6 +69,7 @@ export const taskQuery: TaskQueryType = {
     distroId: "ubuntu1604-small",
     estimatedStart: 1000,
     pod: null,
+    originalStatus: "failed",
     execution: 0,
     expectedDuration: 123,
     failedTestCount: 0,
