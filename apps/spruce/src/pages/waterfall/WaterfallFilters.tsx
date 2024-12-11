@@ -1,23 +1,40 @@
 import styled from "@emotion/styled";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
-import { size } from "constants/tokens";
+import { WaterfallPagination } from "gql/generated/types";
+import { DateFilter } from "./DateFilter";
+import { NameFilter } from "./NameFilter";
+import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
+import { StatusFilter } from "./StatusFilter";
+import { WaterfallMenu } from "./WaterfallMenu";
 
 type WaterfallFiltersProps = {
   projectIdentifier: string;
+  pagination: WaterfallPagination | undefined;
 };
 export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
+  pagination,
   projectIdentifier,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
 
   return (
     <Container>
-      <FilterItem>
+      <NameFilterItem>
+        <NameFilter />
+      </NameFilterItem>
+      <ComboboxFilterItem>
+        <StatusFilter />
+      </ComboboxFilterItem>
+      <ComboboxFilterItem>
         <RequesterFilter />
-      </FilterItem>
+      </ComboboxFilterItem>
+      <DateFilterItem>
+        <DateFilter />
+      </DateFilterItem>
       <FilterItem>
         <ProjectSelect
           getRoute={getWaterfallRoute}
@@ -30,18 +47,33 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
           selectedProjectIdentifier={projectIdentifier}
         />
       </FilterItem>
+      <WaterfallMenu />
+      <PaginationButtons pagination={pagination} />
     </Container>
   );
 };
 
-// Temporary - update styles as more filters are added.
+const NameFilterItem = styled.div`
+  flex-basis: 30%;
+`;
+
 const FilterItem = styled.div`
-  width: 300px;
+  flex-basis: 20%;
+`;
+
+// Combobox's overflow handling requires a fixed width
+const ComboboxFilterItem = styled.div`
+  width: 220px;
+  flex-shrink: 0;
+`;
+
+const DateFilterItem = styled.div`
+  flex-basis: content;
 `;
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   gap: ${size.s};
 `;

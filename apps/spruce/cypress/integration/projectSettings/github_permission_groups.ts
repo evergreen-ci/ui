@@ -29,7 +29,7 @@ describe("GitHub permission groups", () => {
     saveButtonEnabled(true);
     cy.dataCy("save-settings-button").scrollIntoView();
     clickSave();
-    cy.validateToast("error");
+    cy.validateToast("error", "There was an error saving the project");
   });
 
   it("should be able to save permission group, then delete it", () => {

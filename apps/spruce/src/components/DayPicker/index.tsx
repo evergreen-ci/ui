@@ -2,8 +2,8 @@ import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { transitionDuration } from "@leafygreen-ui/tokens";
-import { days } from "constants/fieldMaps";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
+import { days } from "constants/time";
 
 const { gray, white } = palette;
 

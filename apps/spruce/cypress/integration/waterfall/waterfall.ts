@@ -54,39 +54,33 @@ describe("waterfall page", () => {
     });
   });
 
-  describe("requester filtering", () => {
-    it("filters on periodic builds and trigger", () => {
-      cy.dataCy("inactive-versions-button").first().contains("1");
-      cy.dataCy("requester-filter").click();
-      cy.dataCy("ad_hoc-option").click();
-      cy.dataCy("inactive-versions-button").first().contains("6");
-      cy.dataCy("version-label-active").should("have.length", 0);
+  describe("task stats tooltip", () => {
+    it("shows task stats when clicked", () => {
+      cy.dataCy("task-stats-tooltip").should("not.exist");
+      cy.dataCy("task-stats-tooltip-button").eq(3).click();
+      cy.dataCy("task-stats-tooltip").should("be.visible");
+      cy.dataCy("task-stats-tooltip").should("contain.text", "Failed");
+      cy.dataCy("task-stats-tooltip").should("contain.text", "Succeeded");
+    });
+  });
 
-      cy.dataCy("requester-filter").click();
-      cy.dataCy("trigger_request-option").click();
-      cy.dataCy("inactive-versions-button").first().contains("5");
-      cy.dataCy("version-label-active").should("have.length", 1);
-      cy.dataCy("version-label-active").contains("Triggered by:");
+  describe("pinned build variants", () => {
+    beforeEach(() => {
+      cy.visit("/project/evergreen/waterfall");
     });
 
-    it("filters on git tags", () => {
-      cy.dataCy("requester-filter").click();
-      cy.dataCy("git_tag_request-option").click();
-      cy.dataCy("inactive-versions-button").should("have.length", 2);
-      cy.dataCy("inactive-versions-button").first().contains("3");
-      cy.dataCy("inactive-versions-button").eq(1).contains("2");
-      cy.dataCy("version-label-active").contains("Git Tag");
-    });
-
-    it("clears requester filters", () => {
-      cy.dataCy("requester-filter").click();
-      cy.dataCy("gitter_request-option").click();
-      cy.dataCy("version-label-active").should("have.length", 3);
-
-      cy.dataCy("requester-filter").within(() => {
-        cy.get("button[aria-label='Clear selection']").click();
-      });
-      cy.dataCy("version-label-active").should("have.length", 5);
+    it("clicking the pin button moves the build variant to the top, persist on reload, and unpin on click", () => {
+      cy.dataCy("build-variant-link").first().should("have.text", "Lint");
+      cy.dataCy("pin-button").eq(1).click();
+      cy.dataCy("build-variant-link")
+        .first()
+        .should("have.text", "Ubuntu 16.04");
+      cy.reload();
+      cy.dataCy("build-variant-link")
+        .first()
+        .should("have.text", "Ubuntu 16.04");
+      cy.dataCy("pin-button").eq(1).click();
+      cy.dataCy("build-variant-link").first().should("have.text", "Lint");
     });
   });
 });

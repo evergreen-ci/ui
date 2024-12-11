@@ -61,6 +61,7 @@ describe("prepareProdDeploy", () => {
 
     it("creates tag with patch", async () => {
       const consoleSpy = vi.spyOn(console, "log").mockImplementation(vi.fn());
+      vi.mocked(prompts).mockResolvedValueOnce({ value: true });
       await prepareProdDeploy();
       expect(vi.mocked(getCurrentlyDeployedCommit)).toHaveBeenCalledWith(
         "spruce",

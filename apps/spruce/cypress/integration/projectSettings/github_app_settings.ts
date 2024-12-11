@@ -33,13 +33,16 @@ describe("GitHub app settings", () => {
       .contains("Delete")
       .parent()
       .click();
-    cy.validateToast("success");
+    cy.validateToast(
+      "success",
+      "GitHub app credentials were successfully deleted.",
+    );
 
     cy.dataCy("github-app-credentials-banner").should("be.visible");
     cy.get("@appId").should("have.value", "");
     cy.get("@privateKey").should("have.value", "");
     cy.get("@appId").should("have.attr", "aria-disabled", "false");
-    cy.get("@privateKey").should("not.have.attr", "disabled");
+    cy.get("@privateKey").should("have.attr", "aria-disabled", "false");
 
     cy.reload();
     cy.dataCy("github-app-credentials-banner").should("be.visible");
@@ -58,7 +61,7 @@ describe("GitHub app settings", () => {
     cy.get("@appId").should("have.value", "12345");
     cy.get("@privateKey").should("have.value", "{REDACTED}");
     cy.get("@appId").should("have.attr", "aria-disabled", "true");
-    cy.get("@privateKey").should("have.attr", "disabled");
+    cy.get("@privateKey").should("have.attr", "aria-disabled", "true");
 
     cy.reload();
     cy.dataCy("github-app-credentials-banner").should("not.exist");

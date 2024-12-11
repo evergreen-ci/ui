@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { PAGE_SIZES } from "constants/index";
-import { zIndex } from "constants/tokens";
 
 interface Props {
   value: number;

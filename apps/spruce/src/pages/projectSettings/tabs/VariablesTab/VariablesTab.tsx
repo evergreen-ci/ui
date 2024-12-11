@@ -1,12 +1,11 @@
-import { useMemo, useState } from "react";
-import Button, { Size } from "@leafygreen-ui/button";
+import { useMemo } from "react";
 import { ValidateProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "pages/projectSettings/Context";
 import { BaseTab } from "../BaseTab";
 import { ProjectType, findDuplicateIndices } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { PromoteVariablesModal } from "./PromoteVariablesModal";
+import { PromoteVariablesModalButton } from "./PromoteVariablesModal";
 import { VariablesFormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Variables;
@@ -32,22 +31,18 @@ export const VariablesTab: React.FC<TabProps> = ({
   const { formData }: { formData: VariablesFormState } = getTab(
     ProjectSettingsTabRoutes.Variables,
   );
-  const [modalOpen, setModalOpen] = useState(false);
 
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData],
   );
 
-  const ModalButton: React.FC = () => (
-    <Button
-      data-cy="promote-vars-button"
-      onClick={() => setModalOpen(true)}
-      size={Size.Small}
-    >
-      Move variables to repo
-    </Button>
-  );
+  const variables = formData?.vars?.map(({ varName }) => ({
+    name: varName,
+    inRepo:
+      repoData?.vars?.some(({ varName: repoVar }) => varName === repoVar) ??
+      false,
+  }));
 
   const formSchema = useMemo(
     () =>
@@ -55,34 +50,23 @@ export const VariablesTab: React.FC<TabProps> = ({
         projectType,
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         projectType === ProjectType.AttachedProject ? repoData : null,
-        projectType === ProjectType.AttachedProject ? <ModalButton /> : null,
+        projectType === ProjectType.AttachedProject ? (
+          <PromoteVariablesModalButton
+            projectId={identifier}
+            variables={variables}
+          />
+        ) : null,
       ),
-    [projectType, repoData],
+    [projectType, repoData, identifier, variables],
   );
 
   return (
-    <>
-      {modalOpen && (
-        <PromoteVariablesModal
-          handleClose={() => setModalOpen(false)}
-          open={modalOpen}
-          projectId={identifier}
-          variables={formData.vars.map(({ varName }) => ({
-            name: varName,
-            inRepo:
-              repoData?.vars?.some(
-                ({ varName: repoVar }) => varName === repoVar,
-              ) ?? false,
-          }))}
-        />
-      )}
-      <BaseTab
-        formSchema={formSchema}
-        initialFormState={initialFormState}
-        tab={tab}
-        validate={validate}
-      />
-    </>
+    <BaseTab
+      formSchema={formSchema}
+      initialFormState={initialFormState}
+      tab={tab}
+      validate={validate}
+    />
   );
 };
 

@@ -2,9 +2,9 @@ import { useTransition } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
 import { ExpandedLines, Range } from "types/logs";
 import { Row } from "../types";
 

@@ -22,7 +22,7 @@ describe("general section", () => {
     });
     cy.getInputByLabel("Admin only").check({ force: true });
     save();
-    cy.validateToast("success");
+    cy.validateToast("success", "Updated distro.");
 
     // Changes should persist.
     cy.reload();
@@ -43,7 +43,7 @@ describe("general section", () => {
     });
     cy.getInputByLabel("Admin only").uncheck({ force: true });
     save();
-    cy.validateToast("success");
+    cy.validateToast("success", "Updated distro.");
   });
 
   describe("container pool distro", () => {

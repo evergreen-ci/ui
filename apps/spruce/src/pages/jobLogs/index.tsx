@@ -3,6 +3,7 @@ import Button from "@leafygreen-ui/button";
 import { H3 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import { size } from "@evg-ui/lib/constants/tokens";
 import PageTitle from "components/PageTitle";
 import {
   PageContent,
@@ -11,7 +12,6 @@ import {
   PageWrapper,
 } from "components/styles";
 import { getTaskRoute, slugs } from "constants/routes";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { JobLogsTable } from "./JobLogsTable";
 import { Metadata } from "./Metadata";

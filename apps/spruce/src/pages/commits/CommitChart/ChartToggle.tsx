@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { Accordion } from "components/Accordion";
-import { size } from "constants/tokens";
 import { ChartTypes } from "types/commits";
 
 const { gray, white } = palette;

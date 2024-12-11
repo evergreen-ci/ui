@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Body, BodyProps, Description } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
-import { size } from "constants/tokens";
 import {
   CodeChangesQuery,
   CodeChangesQueryVariables,

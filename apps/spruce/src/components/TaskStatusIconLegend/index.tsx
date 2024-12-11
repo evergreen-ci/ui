@@ -1,109 +1,149 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import Popover from "@leafygreen-ui/popover";
-import { Disclaimer, Overline } from "@leafygreen-ui/typography";
+import Popover, { Align, Justify } from "@leafygreen-ui/popover";
+import { Body, Overline } from "@leafygreen-ui/typography";
+import { useMatch } from "react-router-dom";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useWaterfallAnalytics } from "analytics";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { PopoverContainer } from "components/styles/Popover";
-import { groupedIconStatuses } from "components/TaskStatusIcon";
+import {
+  mainlineCommitsGroupedStatuses,
+  waterfallGroupedStatuses,
+} from "components/TaskStatusIcon";
+import { routes } from "constants/routes";
 import { taskStatusToCopy } from "constants/task";
-import { size, zIndex } from "constants/tokens";
+import { useOnClickOutside } from "hooks";
 
-export const LegendContent = () => (
-  <Container>
-    {groupedIconStatuses.map(({ icon, statuses }) => {
-      const label = statuses.map((status) => (
-        <Disclaimer key={status}>{taskStatusToCopy[status]}</Disclaimer>
-      ));
-      return (
+type LegendContentProps = {
+  isWaterfallPage: boolean;
+};
+
+export const LegendContent: React.FC<LegendContentProps> = ({
+  isWaterfallPage,
+}) => {
+  const Container = isWaterfallPage
+    ? WaterfallContainer
+    : MainlineCommitsContainer;
+
+  const groupedStatuses = isWaterfallPage
+    ? waterfallGroupedStatuses
+    : mainlineCommitsGroupedStatuses;
+
+  return (
+    <Container>
+      {groupedStatuses.map(({ icon, statuses }) => (
         <Row key={statuses.join()}>
-          {icon}
-          <LabelContainer>{label}</LabelContainer>
+          <LegendIcon>{icon}</LegendIcon>
+          <LegendLabel>
+            {statuses.map((status) => (
+              <Body key={status}>{taskStatusToCopy[status]}</Body>
+            ))}
+          </LegendLabel>
         </Row>
-      );
-    })}
-  </Container>
-);
+      ))}
+    </Container>
+  );
+};
+
+const MainlineCommitsContainer = styled.div`
+  width: 420px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: ${size.xs};
+`;
+
+const WaterfallContainer = styled.div`
+  width: 420px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: ${size.xs};
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: ${size.xxs};
+`;
+
+const LegendIcon = styled.div`
+  flex-shrink: 0;
+`;
+
+const LegendLabel = styled.div``;
 
 export const TaskStatusIconLegend: React.FC = () => {
-  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
-  const [isActive, setIsActive] = useState(false);
+  const isWaterfallPage = !!useMatch(`${routes.waterfall}/*`);
+
+  const { sendEvent } = (
+    isWaterfallPage ? useWaterfallAnalytics : useProjectHealthAnalytics
+  )({ page: "Commit chart" });
+
+  const [open, setOpen] = useState(false);
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside([buttonRef, popoverRef], () => setOpen(false));
 
   return (
     <div>
       <IconButton
-        aria-label="Task Status Icon Legend"
+        ref={buttonRef}
+        aria-label="Task status icon legend"
         onClick={() => {
-          setIsActive(!isActive);
           sendEvent({
             name: "Toggled task icon legend",
-            open: true,
+            open: !open,
           });
+          setOpen(!open);
         }}
       >
-        <StyledIcon glyph="QuestionMarkWithCircle" />
+        <Icon glyph="QuestionMarkWithCircle" />
       </IconButton>
       <Popover
-        active={isActive}
-        align="top"
-        justify="end"
-        // In some cases, the z-index of the popover needs to be higher than the rest
-        // of the app due to some components having a higher z-index.
-        popoverZIndex={zIndex.tooltip}
-        usePortal
+        ref={popoverRef}
+        active={open}
+        align={Align.Top}
+        justify={Justify.End}
+        popoverZIndex={zIndex.popover}
+        refEl={buttonRef}
       >
         <StyledPopoverContainer>
           <TitleContainer>
             <Overline>Icon Legend</Overline>
             <IconButton
-              aria-label="Close Task Status Icon Legend"
+              aria-label="Close task status icon legend"
               onClick={() => {
                 sendEvent({
                   name: "Toggled task icon legend",
                   open: false,
                 });
-                setIsActive(false);
+                setOpen(false);
               }}
             >
               <Icon glyph="X" />
             </IconButton>
           </TitleContainer>
-          <LegendContent />
+          <LegendContent isWaterfallPage={isWaterfallPage} />
         </StyledPopoverContainer>
       </Popover>
     </div>
   );
 };
 
-const StyledIcon = styled(Icon)`
-  cursor: pointer;
-`;
-
-const Row = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: ${size.xs};
-  margin-right: ${size.xs};
-`;
-
-const Container = styled.div`
-  width: 400px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-`;
-
-const LabelContainer = styled.div`
-  margin-left: ${size.xs};
-`;
-
 const TitleContainer = styled.div`
-  margin-bottom: ${size.m};
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: ${size.s};
 `;
 
 const StyledPopoverContainer = styled(PopoverContainer)`
-  border-radius: ${size.xs};
+  border-radius: ${size.m};
+  padding: ${size.m};
 `;

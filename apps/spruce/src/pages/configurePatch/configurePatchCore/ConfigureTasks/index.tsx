@@ -5,10 +5,10 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
+import { CharKey } from "@evg-ui/lib/constants/keys";
+import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
 import TextInput from "components/TextInputWithValidation";
-import { CharKey } from "constants/keys";
-import { size } from "constants/tokens";
 import { VariantTask } from "gql/generated/types";
 import useKeyboardShortcut from "hooks/useKeyboardShortcut";
 import { validateRegexp } from "utils/validators";
@@ -92,7 +92,7 @@ const ConfigureTasks: React.FC<Props> = ({
       tasks,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       previouslySelectedVariants,
-      new RegExp(search),
+      new RegExp(search, "i"),
     );
   }, [
     selectedBuildVariantTasks,

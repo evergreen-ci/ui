@@ -10,3 +10,4 @@ export const FASTER_POLL_INTERVAL = DEFAULT_POLL_INTERVAL / 3;
 export const PAGE_SIZES = [10, 20, 50, 100];
 export const RECENT_PAGE_SIZE_KEY = "recentPageSize";
 export const DEFAULT_PAGE_SIZE = 10;
+export const WATERFALL_PINNED_VARIANTS_KEY = "waterfall-pinned-variants";

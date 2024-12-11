@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 
 export const Title = H2;
 

@@ -19,7 +19,6 @@ export const LogMessageLine: React.FC<LogMessageFragment> = ({
   const time = timestamp
     ? // @ts-expect-error: FIXME. This comment was added by an automated script.
       `[${format(new Date(toZonedTime(timestamp, tz)), FORMAT_STR, {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         timeZone: tz,
       })}] `
     : "";

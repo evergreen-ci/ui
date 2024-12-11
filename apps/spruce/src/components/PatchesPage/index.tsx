@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectPatchesAnalytics, useUserPatchesAnalytics } from "analytics";
 import PageSizeSelector from "components/PageSizeSelector";
 import Pagination from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithValidation from "components/TextInputWithValidation";
 import { INCLUDE_HIDDEN_PATCHES } from "constants/cookies";
-import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
 import usePagination from "hooks/usePagination";

@@ -21,6 +21,7 @@ import {
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
+import { useHasProjectOrRepoEditPermission } from "hooks";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
 import { formToGqlMap } from "./tabs/transformers";
@@ -32,7 +33,6 @@ const defaultToRepoDisabled: Set<WritableProjectSettingsType> = new Set([
   ProjectSettingsTabRoutes.Plugins,
   ProjectSettingsTabRoutes.Containers,
   ProjectSettingsTabRoutes.ViewsAndFilters,
-  ProjectSettingsTabRoutes.GithubAppSettings,
   ProjectSettingsTabRoutes.GithubPermissionGroups,
 ]);
 
@@ -53,6 +53,8 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
   const { [slugs.projectIdentifier]: identifier } = useParams();
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
+
+  const { canEdit } = useHasProjectOrRepoEditPermission(id);
 
   const [saveProjectSection] = useMutation<
     SaveProjectSettingsForSectionMutation,
@@ -151,6 +153,7 @@ export const HeaderButtons: React.FC<Props> = ({ id, projectType, tab }) => {
         <>
           <Button
             data-cy="default-to-repo-button"
+            disabled={!canEdit}
             onClick={() => setDefaultModalOpen(true)}
             title="Clicking this button will open a confirmation modal with more information."
           >

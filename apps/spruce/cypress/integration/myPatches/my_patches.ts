@@ -154,7 +154,7 @@ describe("My Patches Page", () => {
     const statuses = [
       { display: "Created/Unconfigured", key: "created" },
       { display: "Running", key: "started" },
-      { display: "Succeeded", key: "succeeded" },
+      { display: "Succeeded", key: "success" },
       { display: "Failed", key: "failed" },
     ];
 
@@ -174,7 +174,7 @@ describe("My Patches Page", () => {
         checkboxDisplayName: "All",
         pathname: MY_PATCHES_ROUTE,
         paramName: "statuses",
-        search: "all,created,started,succeeded,failed",
+        search: "all,success,created,started,failed",
       });
     });
   });

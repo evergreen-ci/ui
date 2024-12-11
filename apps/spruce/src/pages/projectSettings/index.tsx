@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import throttle from "lodash.throttle";
 import { useParams, Link, Navigate } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
@@ -21,7 +22,6 @@ import {
   getProjectSettingsRoute,
   slugs,
 } from "constants/routes";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsQuery,
@@ -131,7 +131,9 @@ const ProjectSettings: React.FC = () => {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { repoId },
     onError: (e) => {
-      dispatchToast.error(`There was an error loading ${repoId}: ${e.message}`);
+      dispatchToast.error(
+        `There was an error loading the repo ${repoId}: ${e.message}`,
+      );
     },
   });
 
@@ -260,18 +262,14 @@ const ProjectSettings: React.FC = () => {
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.Plugins}
             />
-            {projectType !== ProjectType.Repo && (
-              <ProjectSettingsNavItem
-                {...sharedProps}
-                tab={ProjectSettingsTabRoutes.GithubAppSettings}
-              />
-            )}
-            {projectType !== ProjectType.Repo && (
-              <ProjectSettingsNavItem
-                {...sharedProps}
-                tab={ProjectSettingsTabRoutes.GithubPermissionGroups}
-              />
-            )}
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.GithubAppSettings}
+            />
+            <ProjectSettingsNavItem
+              {...sharedProps}
+              tab={ProjectSettingsTabRoutes.GithubPermissionGroups}
+            />
             <ProjectSettingsNavItem
               {...sharedProps}
               tab={ProjectSettingsTabRoutes.EventLog}

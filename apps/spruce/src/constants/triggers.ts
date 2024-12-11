@@ -11,6 +11,7 @@ import {
   VersionTriggers,
   ProjectTriggers,
 } from "types/triggers";
+import { Requester } from "./requesters";
 
 export const renotifyDefaultTime = "48";
 export const regexDisplayName = "display-name";
@@ -54,17 +55,18 @@ export const failureTypeSubscriberConfig: ExtraField = {
 };
 
 export const requesterSubscriberOptions = {
-  gitter_request: "Commit",
-  patch_request: "Patch",
-  github_pull_request: "Pull Request",
-  ad_hoc: "Periodic Build",
+  [Requester.Gitter]: "Commit",
+  [Requester.Patch]: "Patch",
+  [Requester.GitHubPR]: "Pull Request",
+  [Requester.AdHoc]: "Periodic Build",
+  [Requester.GitTag]: "Git Tag",
 };
 
 export const requesterSubscriberConfig: ExtraField = {
   text: "Build Initiator",
   key: ExtraFieldKey.BUILD_INITIATOR,
   fieldType: "select",
-  default: "gitter_request",
+  default: Requester.Gitter,
   options: requesterSubscriberOptions,
 };
 

@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import AnimatedIcon from "components/Icon/AnimatedIcon";
@@ -17,7 +18,6 @@ import {
   routes,
   slugs,
 } from "constants/routes";
-import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/Auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
 import { USER, SPRUCE_CONFIG } from "gql/queries";
@@ -76,7 +76,7 @@ export const Navbar: React.FC = () => {
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
-          onClick={() => sendEvent({ name: "Clicked waterfall link" })}
+          onClick={() => sendEvent({ name: "Clicked project health link" })}
           to={getCommitsRoute(projectIdentifier)}
         >
           Project Health

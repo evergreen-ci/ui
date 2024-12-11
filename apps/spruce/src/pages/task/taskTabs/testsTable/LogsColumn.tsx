@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { TestStatus } from "@evg-ui/lib/types/test";
 import { useTaskAnalytics } from "analytics";
 import { getTaskHistoryRoute } from "constants/routes";
-import { size } from "constants/tokens";
 import { TestResult, TaskQuery } from "gql/generated/types";
 import { string } from "utils";
 import { TaskHistoryTestsButton } from "./logsColumn/TaskHistoryTestsButton";

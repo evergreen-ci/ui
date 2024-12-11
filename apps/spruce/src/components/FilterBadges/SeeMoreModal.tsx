@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Link } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";
-import { size } from "constants/tokens";
 import FilterBadge, { FilterBadgeType } from "./FilterBadge";
 
 interface SeeMoreModalProps {
@@ -46,7 +46,7 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
           size={Size.XSmall}
           variant={Variant.Default}
         >
-          CLEAR ALL FILTERS
+          Clear all filters
         </Button>
       </DisplayModal>
     </>
@@ -54,5 +54,8 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
 };
 
 const BadgeContainer = styled.div`
-  padding-top: ${size.xs};
+  display: flex;
+  gap: ${size.xs};
+  flex-wrap: wrap;
+  margin: ${size.s} 0;
 `;

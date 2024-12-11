@@ -12,7 +12,16 @@ type Action =
   | { name: "Clicked variant label" }
   | { name: "Clicked task box"; "task.status": string }
   | { name: "Changed project"; project: string }
-  | { name: "Filtered by requester"; requesters: string[] };
+  | { name: "Filtered by build variant" }
+  | { name: "Filtered by requester"; requesters: string[] }
+  | { name: "Filtered by git commit" }
+  | { name: "Filtered by task" }
+  | { name: "Filtered by task status"; statuses: string[] }
+  | { name: "Filtered by date" }
+  | { name: "Changed page"; direction: "next" | "previous" }
+  | { name: "Deleted one filter badge" }
+  | { name: "Deleted all filter badges" }
+  | { name: "Toggled task icon legend"; open: boolean };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();

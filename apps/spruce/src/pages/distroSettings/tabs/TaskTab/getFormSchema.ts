@@ -140,6 +140,13 @@ export const getFormSchema = ({
                           minimum: 0,
                           maximum: 100,
                         },
+                        numDependentsFactor: {
+                          type: "number" as "number",
+                          title: "Number of Dependents Factor",
+                          default: 0,
+                          minimum: 0,
+                          maximum: 100,
+                        },
                         groupVersions: {
                           type: "boolean" as "boolean",
                           title: "Group versions",
@@ -208,6 +215,10 @@ export const getFormSchema = ({
               "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
           },
           generateTaskFactor: {
+            "ui:description":
+              "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
+          },
+          numDependentsFactor: {
             "ui:description":
               "Set 0 to use global default. Value should range from 0 to 100 inclusive.",
           },

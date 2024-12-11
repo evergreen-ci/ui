@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-export const useAnalyticsAttributes = () => {
-  const userId = localStorage.getItem("userId");
+export const useAnalyticsAttributes = (userId: string) => {
   const { AttributeStore } = window;
 
   useEffect(() => {

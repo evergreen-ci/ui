@@ -5,14 +5,25 @@ import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { BaseTable } from "components/Table/BaseTable";
 import { getEventDiffLines } from "./eventLogDiffs";
-import { Event, EventDiffLine, EventValue } from "./types";
+import {
+  CustomKeyValueRenderConfig,
+  Event,
+  EventDiffLine,
+  EventValue,
+} from "./types";
+import { applyCustomKeyValueRender } from "./utils";
 
 type TableProps = {
   after: Event["after"];
   before: Event["before"];
+  customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
-export const EventDiffTable: React.FC<TableProps> = ({ after, before }) => {
+export const EventDiffTable: React.FC<TableProps> = ({
+  after,
+  before,
+  customKeyValueRenderConfig,
+}) => {
   const eventLogEntries = useMemo(
     () => getEventDiffLines(before, after) ?? [],
     [after, before],
@@ -20,7 +31,7 @@ export const EventDiffTable: React.FC<TableProps> = ({ after, before }) => {
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<EventDiffLine>({
-    columns,
+    columns: columns(customKeyValueRenderConfig),
     containerRef: tableContainerRef,
     data: eventLogEntries,
     defaultColumn: {
@@ -47,8 +58,7 @@ const CellText = styled.span`
 
 const renderEventValue = (value: EventValue): string => {
   if (value === null || value === undefined) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return null;
+    return "";
   }
   if (typeof value === "boolean") {
     return String(value);
@@ -69,7 +79,9 @@ const renderEventValue = (value: EventValue): string => {
   return JSON.stringify(value);
 };
 
-const columns: LGColumnDef<EventDiffLine>[] = [
+const columns = (
+  customKeyValueRenderConfig: CustomKeyValueRenderConfig = {},
+): LGColumnDef<EventDiffLine>[] => [
   {
     header: "Property",
     accessorKey: "key",
@@ -79,18 +91,31 @@ const columns: LGColumnDef<EventDiffLine>[] = [
   {
     header: "Before",
     accessorKey: "before",
-    cell: ({ getValue }) => (
-      <CellText>{renderEventValue(getValue() as EventValue)}</CellText>
+    cell: ({ getValue, row }) => (
+      <CellText>
+        {applyCustomKeyValueRender(
+          row.original.key,
+          renderEventValue(getValue() as EventValue),
+          customKeyValueRenderConfig,
+        )}
+      </CellText>
     ),
   },
   {
     header: "After",
     accessorKey: "after",
-    cell: ({ getValue }) =>
+    cell: ({ getValue, row }) =>
       getValue() === null || getValue() === undefined ? (
         <Badge variant={Variant.Red}>Deleted</Badge>
       ) : (
-        <CellText>{renderEventValue(getValue() as EventValue)}</CellText>
+        <CellText>
+          {" "}
+          {applyCustomKeyValueRender(
+            row.original.key,
+            renderEventValue(getValue() as EventValue),
+            customKeyValueRenderConfig,
+          )}
+        </CellText>
       ),
   },
 ];

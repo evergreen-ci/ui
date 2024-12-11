@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
-import { size } from "constants/tokens";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { SortDirection } from "gql/generated/types";
 
 const { blue, gray } = palette;

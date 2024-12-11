@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { LoadingButton } from "components/Buttons";
-import { size } from "constants/tokens";
 import { EventDiffTable } from "./EventDiffTable";
 import { Header } from "./Header";
-import { Event } from "./types";
+import { CustomKeyValueRenderConfig, Event } from "./types";
 
 type EventLogProps = {
   allEventsFetched: boolean;
@@ -13,10 +13,12 @@ type EventLogProps = {
   events: Event[];
   handleFetchMore: () => void;
   loading?: boolean;
+  customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
 export const EventLog: React.FC<EventLogProps> = ({
   allEventsFetched,
+  customKeyValueRenderConfig,
   eventRenderer,
   events,
   handleFetchMore,
@@ -35,7 +37,11 @@ export const EventLog: React.FC<EventLogProps> = ({
             {eventRenderer ? (
               eventRenderer(event)
             ) : (
-              <EventDiffTable after={after} before={before} />
+              <EventDiffTable
+                after={after}
+                before={before}
+                customKeyValueRenderConfig={customKeyValueRenderConfig}
+              />
             )}
           </EventLogCard>
         );

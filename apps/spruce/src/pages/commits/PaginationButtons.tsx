@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { MainlineCommitQueryParams } from "types/commits";
 

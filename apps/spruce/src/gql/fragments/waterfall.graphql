@@ -10,7 +10,14 @@ fragment WaterfallVersion on Version {
   }
   id
   message
+  order
   requester
   revision
+  taskStatusStats(options: {}) {
+    counts {
+      count
+      status
+    }
+  }
   ...UpstreamProject
 }

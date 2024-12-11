@@ -117,11 +117,10 @@ declare global {
        * @example cy.validateToast("error", "This failed")
        * @example cy.validateToast("warning", "This is a warning")
        * @example cy.validateToast("info", "This is an info message")
-       * @example cy.validateToast("success")
        */
       validateToast(
         type: "success" | "warning" | "error" | "info",
-        message?: string,
+        message: string,
         shouldClose?: boolean,
       ): void;
       /**
@@ -129,17 +128,17 @@ declare global {
        * @param operationName - The operation name of the query
        * @param body - The replacement response body
        */
-      overwriteGQL(operationName: string, body: any);
+      overwriteGQL(operationName: string, body: any): void;
       /**
        * Command to open expandable card
        * @param cardTitle - The title of the card to expand
        */
-      openExpandableCard(cardTitle: string);
+      openExpandableCard(cardTitle: string): void;
       /**
        * Command to validate sort is applied to table
        * @param direction - The direction of the sort that should be applied
        */
-      validateTableSort(direction: "asc" | "desc" | "none");
+      validateTableSort(direction: "asc" | "desc" | "none"): void;
     }
   }
 }

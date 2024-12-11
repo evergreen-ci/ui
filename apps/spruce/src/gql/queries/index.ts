@@ -1,3 +1,4 @@
+import ADMIN_BETA_FEATURES from "./admin-beta-features.graphql";
 import AGENT_LOGS from "./agent-logs.graphql";
 import ALL_LOGS from "./all-logs.graphql";
 import AWS_REGIONS from "./aws-regions.graphql";
@@ -30,6 +31,7 @@ import IMAGE_PACKAGES from "./image-packages.graphql";
 import IMAGE_TOOLCHAINS from "./image-toolchains.graphql";
 import IMAGES from "./images.graphql";
 import INSTANCE_TYPES from "./instance-types.graphql";
+import IS_REPO from "./is-repo.graphql";
 import JIRA_CUSTOM_CREATED_ISSUES from "./jira-custom-created-issues.graphql";
 import JIRA_ISSUES from "./jira-issues.graphql";
 import JIRA_SUSPECTED_ISSUES from "./jira-suspected-issues.graphql";
@@ -75,10 +77,12 @@ import TASK_TESTS from "./task-tests.graphql";
 import TASK from "./task.graphql";
 import TEST_ANALYSIS from "./test-analysis.graphql";
 import UNSCHEDULED_TASKS from "./undispatched-tasks.graphql";
+import USER_BETA_FEATURES from "./user-beta-features.graphql";
 import USER_CONFIG from "./user-config.graphql";
 import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
 import USER_PATCHES from "./user-patches.graphql";
 import USER_PROJECT_SETTINGS_PERMISSIONS from "./user-project-settings-permissions.graphql";
+import USER_REPO_SETTINGS_PERMISSIONS from "./user-repo-settings-permissions.graphql";
 import USER_SETTINGS from "./user-settings.graphql";
 import USER_SUBSCRIPTIONS from "./user-subscriptions.graphql";
 import USER from "./user.graphql";
@@ -89,6 +93,7 @@ import VIEWABLE_PROJECTS from "./viewable-projects.graphql";
 import WATERFALL from "./waterfall.graphql";
 
 export {
+  ADMIN_BETA_FEATURES,
   AGENT_LOGS,
   ALL_LOGS,
   AWS_REGIONS,
@@ -121,6 +126,7 @@ export {
   IMAGE_TOOLCHAINS,
   IMAGES,
   INSTANCE_TYPES,
+  IS_REPO,
   JIRA_CUSTOM_CREATED_ISSUES,
   JIRA_ISSUES,
   JIRA_SUSPECTED_ISSUES,
@@ -166,10 +172,12 @@ export {
   TASK,
   TEST_ANALYSIS,
   UNSCHEDULED_TASKS,
+  USER_BETA_FEATURES,
   USER_CONFIG,
   USER_PATCHES,
   USER_DISTRO_SETTINGS_PERMISSIONS,
   USER_PROJECT_SETTINGS_PERMISSIONS,
+  USER_REPO_SETTINGS_PERMISSIONS,
   USER_SETTINGS,
   USER_SUBSCRIPTIONS,
   USER,

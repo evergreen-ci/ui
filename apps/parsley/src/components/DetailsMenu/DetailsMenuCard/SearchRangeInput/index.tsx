@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { QueryParams } from "constants/queryParams";
-import { size } from "constants/tokens";
 import { useQueryParam } from "hooks/useQueryParam";
 import { DetailRow, DetailsLabel } from "../styles";
 

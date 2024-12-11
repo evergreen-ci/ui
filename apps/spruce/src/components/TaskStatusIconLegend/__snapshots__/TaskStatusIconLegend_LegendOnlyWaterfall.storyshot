@@ -1,0 +1,221 @@
+<div>
+  <div
+    class="css-14whqcg-WaterfallContainer e1yp16pl5"
+  >
+    <div
+      class="css-mjozel-Row e1yp16pl4"
+    >
+      <div
+        class="css-1tfm3gn-LegendIcon e1yp16pl3"
+      >
+        <div
+          class="css-d8thwx-Square-taskStatusStyleMap e1p45hoy0"
+        />
+      </div>
+      <div
+        class="css-14zk0es-LegendLabel e1yp16pl2"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Succeeded
+        </p>
+      </div>
+    </div>
+    <div
+      class="css-mjozel-Row e1yp16pl4"
+    >
+      <div
+        class="css-1tfm3gn-LegendIcon e1yp16pl3"
+      >
+        <div
+          class="css-1tc9sev-Square-taskStatusStyleMap e1p45hoy0"
+        />
+      </div>
+      <div
+        class="css-14zk0es-LegendLabel e1yp16pl2"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Running
+        </p>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Dispatched
+        </p>
+      </div>
+    </div>
+    <div
+      class="css-mjozel-Row e1yp16pl4"
+    >
+      <div
+        class="css-1tfm3gn-LegendIcon e1yp16pl3"
+      >
+        <div
+          class="css-1j6awr7-Square-taskStatusStyleMap e1p45hoy0"
+        />
+      </div>
+      <div
+        class="css-14zk0es-LegendLabel e1yp16pl2"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          System Failed
+        </p>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          System Timed Out
+        </p>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          System Unresponsive
+        </p>
+      </div>
+    </div>
+    <div
+      class="css-mjozel-Row e1yp16pl4"
+    >
+      <div
+        class="css-1tfm3gn-LegendIcon e1yp16pl3"
+      >
+        <div
+          class="css-j73bjf-Square-taskStatusStyleMap e1p45hoy0"
+        />
+      </div>
+      <div
+        class="css-14zk0es-LegendLabel e1yp16pl2"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Failed
+        </p>
+      </div>
+    </div>
+    <div
+      class="css-mjozel-Row e1yp16pl4"
+    >
+      <div
+        class="css-1tfm3gn-LegendIcon e1yp16pl3"
+      >
+        <div
+          class="css-rm6rpy-Square-taskStatusStyleMap e1p45hoy0"
+        />
+      </div>
+      <div
+        class="css-14zk0es-LegendLabel e1yp16pl2"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Known Issue
+        </p>
+      </div>
+    </div>
+    <div
+      class="css-mjozel-Row e1yp16pl4"
+    >
+      <div
+        class="css-1tfm3gn-LegendIcon e1yp16pl3"
+      >
+        <div
+          class="css-o3y2mn-Square-taskStatusStyleMap e1p45hoy0"
+        />
+      </div>
+      <div
+        class="css-14zk0es-LegendLabel e1yp16pl2"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Task Timed Out
+        </p>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Test Timed Out
+        </p>
+      </div>
+    </div>
+    <div
+      class="css-mjozel-Row e1yp16pl4"
+    >
+      <div
+        class="css-1tfm3gn-LegendIcon e1yp16pl3"
+      >
+        <div
+          class="css-upywef-Square-taskStatusStyleMap e1p45hoy0"
+        />
+      </div>
+      <div
+        class="css-14zk0es-LegendLabel e1yp16pl2"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Setup Failed
+        </p>
+      </div>
+    </div>
+    <div
+      class="css-mjozel-Row e1yp16pl4"
+    >
+      <div
+        class="css-1tfm3gn-LegendIcon e1yp16pl3"
+      >
+        <div
+          class="css-y958a9-Square-taskStatusStyleMap e1p45hoy0"
+        />
+      </div>
+      <div
+        class="css-14zk0es-LegendLabel e1yp16pl2"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Unscheduled
+        </p>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Aborted
+        </p>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Blocked
+        </p>
+      </div>
+    </div>
+    <div
+      class="css-mjozel-Row e1yp16pl4"
+    >
+      <div
+        class="css-1tfm3gn-LegendIcon e1yp16pl3"
+      >
+        <div
+          class="css-14v1jrg-Square-taskStatusStyleMap e1p45hoy0"
+        />
+      </div>
+      <div
+        class="css-14zk0es-LegendLabel e1yp16pl2"
+      >
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Undispatched
+        </p>
+        <p
+          class="leafygreen-ui-1tb6tuo"
+        >
+          Will Run
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

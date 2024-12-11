@@ -61,7 +61,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
   );
 };
 
-export const RepotrackerField: Field = ({ uiSchema }) => {
+export const RepotrackerField: Field = ({ disabled, uiSchema }) => {
   const {
     options: { projectId },
   } = uiSchema;
@@ -80,6 +80,7 @@ export const RepotrackerField: Field = ({ uiSchema }) => {
       <ElementWrapper>
         <Button
           data-cy="force-repotracker-run-button"
+          disabled={disabled}
           onClick={() => setOpen(true)}
           size="small"
         >

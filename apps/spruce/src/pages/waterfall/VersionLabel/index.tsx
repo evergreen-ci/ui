@@ -4,14 +4,15 @@ import { Theme } from "@leafygreen-ui/lib";
 import { color } from "@leafygreen-ui/tokens";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import { size as sizeToken } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { StyledRouterLink, wordBreakCss } from "components/styles";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
-import { size as sizeToken } from "constants/tokens";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
+import { TaskStatsTooltip } from "../TaskStatsTooltip";
 
 export enum VersionLabelView {
   Modal = "modal",
@@ -20,6 +21,7 @@ export enum VersionLabelView {
 
 type Props = WaterfallVersionFragment & {
   className?: string;
+  highlighted: boolean;
   shouldDisableText?: boolean;
   view: VersionLabelView;
 };
@@ -31,10 +33,12 @@ export const VersionLabel: React.FC<Props> = ({
   createTime,
   errors,
   gitTags,
+  highlighted,
   id,
   message,
   revision,
   shouldDisableText = false,
+  taskStatusStats,
   upstreamProject,
   view,
 }) => {
@@ -53,31 +57,38 @@ export const VersionLabel: React.FC<Props> = ({
       activated={activated}
       className={className}
       data-cy={`version-label-${commitType}`}
+      data-highlighted={highlighted}
+      highlighted={highlighted}
       shouldDisableText={shouldDisableText}
       view={view}
     >
-      <Body>
-        <InlineCode
-          as={Link}
-          onClick={() => {
-            sendEvent({
-              name: "Clicked commit label",
-              "commit.type": commitType,
-              link: "githash",
-            });
-          }}
-          to={getVersionRoute(id)}
-        >
-          {shortenGithash(revision)}
-        </InlineCode>{" "}
-        {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
-        {commitType === "inactive" && (
-          <StyledBadge variant={Variant.LightGray}>Inactive</StyledBadge>
+      <HeaderLine>
+        <Body>
+          <InlineCode
+            as={Link}
+            onClick={() => {
+              sendEvent({
+                name: "Clicked commit label",
+                "commit.type": commitType,
+                link: "githash",
+              });
+            }}
+            to={getVersionRoute(id)}
+          >
+            {shortenGithash(revision)}
+          </InlineCode>{" "}
+          {getDateCopy(createDate, { omitSeconds: true, omitTimezone: true })}
+          {commitType === "inactive" && (
+            <StyledBadge variant={Variant.LightGray}>Inactive</StyledBadge>
+          )}
+          {errors.length > 0 && (
+            <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
+          )}
+        </Body>
+        {view === VersionLabelView.Waterfall && !!taskStatusStats && (
+          <TaskStatsTooltip taskStatusStats={taskStatusStats} />
         )}
-        {errors.length > 0 && (
-          <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
-        )}
-      </Body>
+      </HeaderLine>
       {upstreamProject && (
         <Body>
           Triggered by:{" "}
@@ -123,14 +134,13 @@ export const VersionLabel: React.FC<Props> = ({
 
 const VersionContainer = styled.div<
   Pick<WaterfallVersionFragment, "activated"> &
-    Pick<Props, "shouldDisableText" | "view">
+    Pick<Props, "shouldDisableText" | "view"> & { highlighted: boolean }
 >`
   ${columnBasis}
-
   ${({ activated, shouldDisableText, view }) =>
     view === VersionLabelView.Waterfall
       ? `
-          > * {
+          div, p {
             font-size: 12px;
             line-height: 1.3;
           }
@@ -143,6 +153,9 @@ const VersionContainer = styled.div<
   p {
     ${wordBreakCss}
   }
+  ${({ highlighted }) =>
+    highlighted &&
+    `background-color: ${color[Theme.Light].background.primary.focus};`}
 `;
 
 const CommitMessage = styled(Body)<Pick<Props, "view">>`
@@ -158,4 +171,12 @@ const CommitMessage = styled(Body)<Pick<Props, "view">>`
 
 const StyledBadge = styled(Badge)`
   margin-left: ${sizeToken.xs};
+`;
+
+const HeaderLine = styled.div`
+  align-items: center;
+  display: flex;
+  > p {
+    flex-grow: 1;
+  }
 `;

@@ -3,9 +3,9 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { useHostsTableAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateHostStatusMutation,

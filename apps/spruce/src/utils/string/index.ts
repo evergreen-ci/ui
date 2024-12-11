@@ -1,6 +1,6 @@
 import { format, toZonedTime } from "date-fns-tz";
 import get from "lodash/get";
-import { TimeFormat } from "constants/fieldMaps";
+import { TimeFormat } from "constants/time";
 
 export { githubPRLinkify, jiraLinkify } from "./Linkify";
 

@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import Tooltip, { Align, Justify } from "@leafygreen-ui/tooltip";
+import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import Icon from "components/Icon";
 import { StyledRouterLink, StyledLink } from "components/styles";
@@ -11,7 +12,6 @@ import { BaseTable } from "components/Table/BaseTable";
 import { amazonEC2InstanceTypeDocumentationUrl } from "constants/externalResources";
 import { defaultEC2Region, MCI_USER } from "constants/hosts";
 import { getAllHostsRoute, getDistroSettingsRoute } from "constants/routes";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ImageDistrosQuery,

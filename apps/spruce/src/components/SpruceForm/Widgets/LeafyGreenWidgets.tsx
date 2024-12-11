@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -17,9 +18,9 @@ import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { OneOf } from "@evg-ui/lib/types/utils";
 import Icon from "components/Icon";
-import { size, zIndex } from "constants/tokens";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 import { isNullish, processErrors } from "./utils";
@@ -270,30 +271,48 @@ export const LeafyGreenRadio: React.FC<EnumSpruceWidgetProps> = ({
     elementWrapperCSS,
     enumDisabled,
     enumOptions,
+    inline,
   } = options;
+
+  // RadioGroup components do not accept boolean props for value, so use the indices instead.
+  const valueMap = enumOptions.map(({ value: val }) => val);
+
   return (
     <ElementWrapper css={elementWrapperCSS}>
       {label && (
         <LabelContainer>
-          <Label htmlFor={id}>{label}</Label>
+          <Label disabled={disabled} htmlFor={id}>
+            {label}
+          </Label>
         </LabelContainer>
       )}
       <RadioGroup
+        bold={false}
+        css={
+          inline
+            ? css`
+                display: flex;
+                flex-direction: row;
+                gap: ${size.l};
+              `
+            : ""
+        }
         data-cy={dataCy}
         id={id}
         name={label}
-        onChange={(e) => onChange(e.target.value)}
-        value={value}
+        onChange={(e) => onChange(valueMap[Number(e.target.value)])}
+        value={valueMap.indexOf(value)}
       >
         {enumOptions.map((o) => {
           const optionDisabled = enumDisabled?.includes(o.value) ?? false;
           const { description } = o.schema ?? {};
           return (
             <Radio
-              key={o.value}
+              key={valueMap.indexOf(o.value)}
+              data-label={o.label}
               description={description}
               disabled={disabled || optionDisabled}
-              value={o.value}
+              value={valueMap.indexOf(o.value)}
             >
               {o.label}
             </Radio>
@@ -351,8 +370,7 @@ export const LeafyGreenRadioBox: React.FC<
         data-cy={dataCy}
         id={id}
         name={label}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        onChange={(e) => onChange(valueMap[e.target.value])}
+        onChange={(e) => onChange(valueMap[Number(e.target.value)])}
         value={valueMap.indexOf(value)}
       >
         {enumOptions.map((o) => {
@@ -425,7 +443,6 @@ export const LeafyGreenTextArea: React.FC<SpruceWidgetProps> = ({
         data-cy={dataCy}
         description={description}
         disabled={disabled || readonly}
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         errorMessage={hasError ? errors.join(", ") : null}
         label={label}
         onChange={({ target }) =>

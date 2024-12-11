@@ -8,7 +8,7 @@ import {
 } from "date-fns";
 import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
 import { ValidateProps } from "components/SpruceForm";
-import { days } from "constants/fieldMaps";
+import { days } from "constants/time";
 import { SleepSchedule, SleepScheduleInput } from "gql/generated/types";
 import { FormState as EditFormState } from "../editHostModal";
 import { FormState as SpawnFormState } from "../spawnHostModal";
@@ -90,7 +90,7 @@ export const getHostUptimeWarnings = ({
  * @returns - object with enabledHoursCount indicating total hours per week and enabledWeekdaysCount indicating number of days per week
  */
 export const getEnabledHoursCount = (
-  hostUptime: HostUptime,
+  hostUptime?: HostUptime,
 ): { enabledHoursCount: number; enabledWeekdaysCount: number } => {
   if (!hostUptime) {
     return {
