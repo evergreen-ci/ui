@@ -1,17 +1,19 @@
 import { useCallback, useMemo } from "react";
+import { ParseOptions } from "query-string";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import {
   parseQueryString,
   stringifyQuery,
 } from "@evg-ui/lib/utils/query-string";
-import { QueryParams, parseOptions } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 
 /**
  * `useQueryParams` returns all of the query params that exist in the url.
+ * @param parseOptions - options which define how to parse params from the url (optional)
  * @returns a tuple containing the parsed query params and a function to set the query params
  */
-const useQueryParams = () => {
+const useQueryParams = (parseOptions: ParseOptions = urlParseOptions) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const setQueryString = useCallback(
@@ -26,7 +28,7 @@ const useQueryParams = () => {
 
   const searchParamsObject = useMemo(
     () => parseQueryString(searchParams.toString(), parseOptions),
-    [searchParams],
+    [searchParams, parseOptions],
   );
   return [searchParamsObject, setQueryString] as const;
 };
@@ -37,13 +39,15 @@ const useQueryParams = () => {
  *  `useQueryParam` will default to the second argument if the query param is not present in the url.
  * @param param - the name of the query param
  * @param defaultParam - the default value of the query param
+ * @param parseOptions - options which define how to parse params from the url (optional)
  * @returns a tuple containing the parsed query param and a function to set the query param
  */
 const useQueryParam = <T>(
   param: QueryParams,
   defaultParam: T,
+  parseOptions: ParseOptions = urlParseOptions,
 ): readonly [T, (set: T) => void] => {
-  const [searchParams, setSearchParams] = useQueryParams();
+  const [searchParams, setSearchParams] = useQueryParams(parseOptions);
 
   const setQueryParam = useCallback(
     (value: T) => {

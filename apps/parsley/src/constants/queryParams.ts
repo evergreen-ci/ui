@@ -13,7 +13,7 @@ enum QueryParams {
   SelectedLineRange = "selectedLineRange",
 }
 
-const parseOptions: ParseOptions = {
+const urlParseOptions: ParseOptions = {
   arrayFormat: "comma",
   parseBooleans: true,
   parseNumbers: false,
@@ -30,4 +30,4 @@ const parseOptions: ParseOptions = {
 };
 
 export { QueryParams };
-export { parseOptions };
+export { urlParseOptions };
