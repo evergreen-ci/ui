@@ -79,6 +79,7 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         id: "task1_id",
         status: "failed",
+        displayStatus: "failed",
         execution: 0,
         tests: {
           filteredTestCount: 1,
@@ -116,6 +117,7 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         id: "task1_id",
         status: "failed",
+        displayStatus: "failed",
         execution: 0,
         tests: {
           filteredTestCount: 2,
@@ -140,6 +142,7 @@ describe("groupTestsByName", () => {
         buildVariant: "variant2",
         id: "task2_id",
         status: "failed",
+        displayStatus: "failed",
         execution: 0,
         tests: {
           filteredTestCount: 2,
@@ -221,6 +224,7 @@ describe("groupTestsByName", () => {
         id: "task1_id",
         execution: 0,
         status: "success",
+        displayStatus: "success",
         tests: {
           filteredTestCount: 0,
           testResults: [],
@@ -239,6 +243,7 @@ describe("groupTestsByName", () => {
         id: "task1_id",
         execution: 0,
         status: "success",
+        displayStatus: "success",
         tests: {
           filteredTestCount: 2,
           testResults: [
@@ -283,6 +288,7 @@ describe("groupTestsByName", () => {
         id: "task1_variant1_id",
         execution: 0,
         status: "success",
+        displayStatus: "success",
         tests: {
           filteredTestCount: 2,
           testResults: [
@@ -301,6 +307,7 @@ describe("groupTestsByName", () => {
         id: "task1_variant2_id",
         execution: 0,
         status: "success",
+        displayStatus: "success",
         tests: {
           filteredTestCount: 2,
           testResults: [

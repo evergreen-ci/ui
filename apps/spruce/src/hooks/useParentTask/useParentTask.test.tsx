@@ -60,6 +60,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         buildVariant: "lint",
         projectIdentifier: "evergreen",
         status: "failed",
+        displayStatus: "failed",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -74,6 +75,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
           id: "task",
           execution: 0,
           status: "failed",
+          displayStatus: "failed",
           __typename: "Task",
         },
         __typename: "Task",
