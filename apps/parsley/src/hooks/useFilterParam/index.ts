@@ -11,9 +11,7 @@ import { parseFilters, stringifyFilters } from "utils/query-string";
  * @returns a tuple containing the parsed filters and a function to set the filters
  */
 const useFilterParam = () => {
-  const [searchParams, setSearchParams] = useQueryParams({
-    parseNumbers: false,
-  });
+  const [searchParams, setSearchParams] = useQueryParams();
 
   const parsedFilters = parseFilters(
     conditionalToArray(searchParams.filters ?? [], true) as string[],

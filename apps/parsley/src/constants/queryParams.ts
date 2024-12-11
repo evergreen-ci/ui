@@ -1,5 +1,6 @@
+import { ParseOptions } from "query-string";
+
 enum QueryParams {
-  Search = "search",
   Highlights = "highlights",
   Bookmarks = "bookmarks",
   Filters = "filters",
@@ -12,4 +13,21 @@ enum QueryParams {
   SelectedLineRange = "selectedLineRange",
 }
 
+const parseOptions: ParseOptions = {
+  arrayFormat: "comma",
+  parseBooleans: true,
+  parseNumbers: false,
+  types: {
+    bookmarks: "number",
+    filterLogic: "string",
+    filters: "string[]",
+    highlights: "string[]",
+    lower: "number",
+    selectedLineRange: "string",
+    shareLine: "number",
+    upper: "number",
+  },
+};
+
 export { QueryParams };
+export { parseOptions };
