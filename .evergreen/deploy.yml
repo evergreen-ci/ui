@@ -25,6 +25,7 @@ functions:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+          REACT_APP_USER_KEY: ${user_key}
         script: |
           ${PREPARE_SHELL}
           yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
@@ -65,7 +66,7 @@ functions:
           if ! [ -z "${user_key}" ]; then
             echo "BUCKET: spruce-${user_key}" >> deploy-vars.yml
             echo "REACT_APP_SPRUCE_URL: https://spruce.${user_key}.evergreen-staging.devprod.mongodb.com" >> deploy-vars.yml
-            echo "REACT_APP_UI_URL: https://evergreen-${user_key}.devprod-evergreen.staging.corp.mongodb.com/" >> deploy-vars.yml
+            echo "REACT_APP_UI_URL: https://evergreen-multi.staging.corp.mongodb.com" >> deploy-vars.yml
             echo "USER_STAGING_ARN: ${user_staging_arn_prefix}${user_key}.ui_put" >> deploy-vars.yml
           fi
     - command: expansions.update
