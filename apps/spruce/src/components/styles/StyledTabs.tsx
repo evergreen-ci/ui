@@ -4,7 +4,7 @@ import { Tabs, TabsProps } from "@leafygreen-ui/tabs";
 import { size } from "@evg-ui/lib/constants/tokens";
 
 export const StyledTabs = styled(Tabs)<TabsProps>`
-  > div > [role="tablist"] {
-    margin-bottom: ${size.s};
+  [role="tabpanel"] {
+    margin-top: ${size.s};
   }
 ` as ComponentType<TabsProps>;

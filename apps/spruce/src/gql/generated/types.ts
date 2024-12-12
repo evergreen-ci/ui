@@ -404,6 +404,7 @@ export type Distro = {
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];
+  singleTaskDistro: Scalars["Boolean"]["output"];
   sshOptions: Array<Scalars["String"]["output"]>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
@@ -471,6 +472,7 @@ export type DistroInput = {
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
+  singleTaskDistro?: InputMaybe<Scalars["Boolean"]["input"]>;
   sshOptions: Array<Scalars["String"]["input"]>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
