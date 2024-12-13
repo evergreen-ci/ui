@@ -11,6 +11,7 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
+import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
@@ -65,6 +66,7 @@ export const VersionPage: React.FC = () => {
     order,
     patch,
     projectIdentifier,
+    requester,
     revision,
     status,
     warnings,
@@ -102,10 +104,10 @@ export const VersionPage: React.FC = () => {
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            canReconfigure={isPatch}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            isPatch={isPatch}
+            canReconfigure={
+              !!isPatch && requester !== Requester.GitHubMergeQueue
+            }
+            isPatch={!!isPatch}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionId={versionId}
           />
