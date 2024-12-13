@@ -11,7 +11,7 @@ import {
   Variant,
   useToast,
 } from "@leafygreen-ui/toast";
-import { WordBreak } from "../../components/styles/Typography";
+import { WordBreak } from "../../components/styles";
 import { zIndex } from "../../constants/tokens";
 import {
   TOAST_TIMEOUT,
