@@ -1,7 +1,6 @@
 import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { getCommitsRoute } from "constants/routes";
-
 import { ProjectSelect } from ".";
 import { mocks } from "./testData";
 
