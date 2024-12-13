@@ -4,6 +4,7 @@ import { ToastVariant } from "./types";
 type VariantMapping<P> = {
   [K in (typeof Variant)[keyof typeof Variant]]: P;
 };
+
 const mapLeafyGreenVariantToToast: VariantMapping<ToastVariant> = {
   [Variant.Important]: "warning",
   [Variant.Note]: "info",

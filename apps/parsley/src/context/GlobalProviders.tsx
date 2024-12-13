@@ -1,9 +1,9 @@
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
+import { ToastProvider } from "@evg-ui/lib/context/toast";
 import GQLProvider from "gql/GQLProvider";
 import { AuthProvider } from "./auth";
 import { LogContextProvider } from "./LogContext";
 import { MultiLineSelectContextProvider } from "./MultiLineSelectContext";
-import { ToastProvider } from "./toast";
 
 /**
  * GlobalProviders wrap our application with our global contexts

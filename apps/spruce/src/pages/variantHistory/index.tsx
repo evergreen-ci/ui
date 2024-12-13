@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner } from "components/Banners";
 import FilterBadges, {
@@ -19,7 +20,6 @@ import HistoryTable from "components/HistoryTable/HistoryTable";
 import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 import { PageWrapper } from "components/styles";
 import { slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,

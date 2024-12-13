@@ -1,5 +1,6 @@
 import Cookie from "js-cookie";
 import { MockInstance } from "vitest";
+import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   act,
   renderWithRouterMatch as render,
@@ -9,7 +10,6 @@ import {
 } from "@evg-ui/lib/test_utils";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
-import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import WordWrapFormatToggle from ".";
 
 vi.mock("js-cookie");
