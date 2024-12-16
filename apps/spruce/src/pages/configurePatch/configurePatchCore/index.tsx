@@ -39,6 +39,7 @@ import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
 import useConfigurePatch from "./useConfigurePatch";
+import { indexToTabMap, tabToIndexMap } from "./useConfigurePatch/constants";
 import {
   AliasState,
   ChildPatchAliased,
@@ -238,8 +239,9 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
         <PageContent>
           <StyledTabs
             aria-label="Configure Patch Tabs"
-            selected={selectedTab}
-            setSelected={setSelectedTab}
+            selected={tabToIndexMap[selectedTab]}
+            // @ts-expect-error
+            setSelected={(i: number) => setSelectedTab(indexToTabMap[i])}
           >
             <Tab data-cy="tasks-tab" name="Configure">
               <ConfigureTasks

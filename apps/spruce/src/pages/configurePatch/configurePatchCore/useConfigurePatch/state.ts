@@ -9,7 +9,7 @@ type ConfigurePatchState = {
   selectedBuildVariants: string[];
   selectedBuildVariantTasks: VariantTasksState;
   patchParams: ParameterInput[];
-  selectedTab: number;
+  selectedTab: ConfigurePatchPageTabs;
   selectedTabName?: ConfigurePatchPageTabs;
   disableBuildVariantSelect: boolean;
 };
@@ -19,7 +19,7 @@ type Action =
   | { type: "setSelectedBuildVariants"; buildVariants: string[] }
   | { type: "setPatchParams"; params: ParameterInput[] }
   | { type: "setSelectedBuildVariantTasks"; variantTasks: VariantTasksState }
-  | { type: "setSelectedTab"; tabIndex: number; tab?: ConfigurePatchPageTabs }
+  | { type: "setSelectedTab"; tab: ConfigurePatchPageTabs }
   | {
       type: "updatePatchData";
       description: string;
@@ -34,11 +34,9 @@ type Action =
     };
 
 const initialState = ({
-  selectedTab = 0,
-  selectedTabName = ConfigurePatchPageTabs.Tasks,
+  selectedTab = ConfigurePatchPageTabs.Tasks,
 }: {
-  selectedTab: number;
-  selectedTabName?: ConfigurePatchPageTabs;
+  selectedTab: ConfigurePatchPageTabs;
 }): ConfigurePatchState => ({
   description: "",
   selectedAliases: {},
@@ -46,9 +44,7 @@ const initialState = ({
   selectedBuildVariantTasks: {},
   patchParams: [],
   selectedTab,
-  selectedTabName,
-  disableBuildVariantSelect:
-    indexToTabMap[selectedTab] === ConfigurePatchPageTabs.Tasks,
+  disableBuildVariantSelect: selectedTab !== ConfigurePatchPageTabs.Tasks,
 });
 
 const reducer = (
@@ -84,16 +80,10 @@ const reducer = (
         patchParams: omitTypename(action.params),
       };
     case "setSelectedTab": {
-      let tab = indexToTabMap.indexOf(ConfigurePatchPageTabs.Tasks);
-      if (action.tabIndex !== -1 && action.tabIndex < indexToTabMap.length) {
-        tab = action.tabIndex;
-      }
       return {
         ...state,
-        selectedTab: tab,
-        selectedTabName: action.tab,
-        disableBuildVariantSelect:
-          indexToTabMap[action.tabIndex] !== ConfigurePatchPageTabs.Tasks,
+        selectedTab: action.tab,
+        disableBuildVariantSelect: action.tab !== ConfigurePatchPageTabs.Tasks,
       };
     }
     case "updatePatchData":
@@ -110,12 +100,6 @@ const reducer = (
       throw new Error("Unknown action type");
   }
 };
-
-const indexToTabMap = [
-  ConfigurePatchPageTabs.Tasks,
-  ConfigurePatchPageTabs.Changes,
-  ConfigurePatchPageTabs.Parameters,
-];
 
 export type { ConfigurePatchState };
 export { reducer, initialState };

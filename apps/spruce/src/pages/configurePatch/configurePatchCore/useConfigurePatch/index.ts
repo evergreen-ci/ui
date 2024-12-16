@@ -5,21 +5,10 @@ import { ConfigurePatchQuery, ParameterInput } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { ConfigurePatchPageTabs } from "types/patch";
 import { parseQueryString } from "utils/queryString";
+import { indexToTabMap, tabToIndexMap } from "./constants";
 import { ConfigurePatchState, initialState, reducer } from "./state";
 import { AliasState, VariantTasksState } from "./types";
 import { initializeAliasState, initializeTaskState } from "./utils";
-
-const indexToTabMap = [
-  ConfigurePatchPageTabs.Tasks,
-  ConfigurePatchPageTabs.Changes,
-  ConfigurePatchPageTabs.Parameters,
-];
-
-const tabToIndexMap = {
-  [ConfigurePatchPageTabs.Tasks]: 0,
-  [ConfigurePatchPageTabs.Changes]: 1,
-  [ConfigurePatchPageTabs.Parameters]: 2,
-};
 
 interface HookResult extends ConfigurePatchState {
   setDescription: (description: string) => void;
@@ -27,13 +16,14 @@ interface HookResult extends ConfigurePatchState {
   setSelectedBuildVariants: (variants: string[]) => void;
   setSelectedBuildVariantTasks: (variantTasks: VariantTasksState) => void;
   setSelectedAliases: (aliases: AliasState) => void;
-  setSelectedTab: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedTab: (tab: ConfigurePatchPageTabs) => void;
+  tabIndex: number;
 }
 
 const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { [slugs.tab]: tab } = useParams<{
+  const { [slugs.tab]: urlTab } = useParams<{
     [slugs.tab]: ConfigurePatchPageTabs;
   }>();
 
@@ -42,24 +32,22 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
-      selectedTab: tabToIndexMap[tab || ConfigurePatchPageTabs.Tasks],
-      selectedTabName: tab,
+      selectedTab: urlTab || ConfigurePatchPageTabs.Tasks,
     }),
   );
 
-  const { selectedTab } = state;
-
+  // TODO: This is weird fix it
   useEffect(() => {
     const query = parseQueryString(location.search);
     navigate(
       getPatchRoute(id, {
         configure: true,
-        tab: indexToTabMap[selectedTab],
+        tab: state.selectedTab,
         ...query,
       }),
       { replace: true },
     );
-  }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [state.selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (patch) {
@@ -90,25 +78,26 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
       type: "setSelectedAliases",
       aliases,
     });
-  const setSelectedTab = (i: number) =>
-    dispatch({ type: "setSelectedTab", tabIndex: i });
+  const setSelectedTab = (t: ConfigurePatchPageTabs) => {
+    dispatch({ type: "setSelectedTab", tab: t });
+  };
   const setPatchParams = (params: ParameterInput[]) =>
     dispatch({ type: "setPatchParams", params });
 
   useTabShortcut({
-    currentTab: selectedTab,
+    currentTab: tabToIndexMap[state.selectedTab],
     numTabs: indexToTabMap.length,
-    setSelectedTab,
+    setSelectedTab: (i: number) => setSelectedTab(indexToTabMap[i]),
   });
 
   return {
     ...state,
+    tabIndex: tabToIndexMap[state.selectedTab],
     setDescription,
     setPatchParams,
     setSelectedAliases,
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     setSelectedTab,
   };
 };

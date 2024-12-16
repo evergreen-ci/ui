@@ -1,10 +1,11 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook, act } from "@evg-ui/lib/test_utils";
+import { ConfigurePatchPageTabs } from "types/patch";
 import useConfigurePatch from ".";
 import { patchQuery } from "../testData";
 
 const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <MemoryRouter initialEntries={[`/version/123/tasks`]}>
+  <MemoryRouter initialEntries={[`/patch/123/configure/tasks`]}>
     {children}
   </MemoryRouter>
 );
@@ -74,26 +75,27 @@ describe("useConfigurePatch", () => {
       const { result } = renderHook(() => useConfigurePatch(basePatch), {
         wrapper,
       });
-      expect(result.current.selectedTab).toBe(0);
+      expect(result.current.selectedTab).toBe(ConfigurePatchPageTabs.Tasks);
     });
     it("should set the selected tab", async () => {
       const { result } = renderHook(() => useConfigurePatch(basePatch), {
         wrapper,
       });
       act(() => {
-        result.current.setSelectedTab(1);
+        result.current.setSelectedTab(ConfigurePatchPageTabs.Changes);
       });
-      expect(result.current.selectedTab).toBe(1);
+      expect(result.current.selectedTab).toBe(ConfigurePatchPageTabs.Changes);
     });
     it("should disable build variant selector if not on the tasks tab", async () => {
       const { result } = renderHook(() => useConfigurePatch(basePatch), {
         wrapper,
       });
+      expect(result.current.selectedTab).toBe(ConfigurePatchPageTabs.Tasks);
       expect(result.current.disableBuildVariantSelect).toBeFalsy();
       act(() => {
-        result.current.setSelectedTab(1);
+        result.current.setSelectedTab(ConfigurePatchPageTabs.Changes);
       });
-      expect(result.current.selectedTab).toBe(1);
+      expect(result.current.selectedTab).toBe(ConfigurePatchPageTabs.Changes);
       expect(result.current.disableBuildVariantSelect).toBeTruthy();
     });
   });
