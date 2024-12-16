@@ -17,8 +17,8 @@ import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
-import { PatchTasksTable } from "./tasks/PatchTasksTable";
 import { useQueryVariables } from "./useQueryVariables";
+import { PatchTasksTable } from "./VersionTabs/tasks/PatchTasksTable";
 
 const { parseQueryString } = queryString;
 const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";

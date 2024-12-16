@@ -1,10 +1,9 @@
 import { useEffect, useReducer } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getPatchRoute, slugs } from "constants/routes";
 import { ConfigurePatchQuery, ParameterInput } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { ConfigurePatchPageTabs } from "types/patch";
-import { parseQueryString } from "utils/queryString";
 import { indexToTabMap, tabToIndexMap } from "./constants";
 import { ConfigurePatchState, initialState, reducer } from "./state";
 import { AliasState, VariantTasksState } from "./types";
@@ -21,7 +20,6 @@ interface HookResult extends ConfigurePatchState {
 
 const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { [slugs.tab]: urlTab } = useParams<{
     [slugs.tab]: ConfigurePatchPageTabs;
   }>();
@@ -35,14 +33,12 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     }),
   );
 
-  // TODO: This is weird fix it
+  // Update the URL when the selected tab changes
   useEffect(() => {
-    const query = parseQueryString(location.search);
     navigate(
       getPatchRoute(id, {
         configure: true,
         tab: state.selectedTab,
-        ...query,
       }),
       { replace: true },
     );

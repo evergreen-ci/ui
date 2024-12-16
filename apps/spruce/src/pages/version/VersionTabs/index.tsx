@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
@@ -8,13 +8,12 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
-import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
-import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
+import { DownstreamTasks } from "pages/version/VersionTabs/downstreamTasks/DownstreamTasks";
 import { PatchStatus, VersionPageTabs } from "types/patch";
 import { queryString } from "utils";
-import TaskDuration from "./TaskDuration";
+import TaskDuration from "./taskDuration/TaskDuration";
 import TestAnalysis from "./TestAnalysis";
 import { TestAnalysisTabGuideCue } from "./TestAnalysis/TestAnalysisTabGuideCue";
 
@@ -194,52 +193,36 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       (Object.keys(allTabs) as VersionPageTabs[]).filter((t) => tabIsActive[t]),
     [allTabs, tabIsActive],
   );
-  const isValidTab = tabIsActive[tab || VersionPageTabs.Tasks];
-  const [selectedTab, setSelectedTab] = useState(
-    activeTabs.indexOf(tab || VersionPageTabs.Tasks),
-  );
-  const previousTab = usePrevious(selectedTab);
+  const [selectedTab, setSelectedTab] = useState(tab || VersionPageTabs.Tasks);
 
-  useEffect(() => {
-    // If tab is not valid, set to task tab.
-    if (!isValidTab) {
-      navigate(getVersionRoute(version.id), { replace: true });
+  const handleTabChange = (newTab: VersionPageTabs) => {
+    if (!tabIsActive[newTab]) {
+      return;
     }
-    // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update state here.
-    else if (selectedTab !== activeTabs.indexOf(tab || VersionPageTabs.Tasks)) {
-      setSelectedTab(activeTabs.indexOf(tab || VersionPageTabs.Tasks));
-    }
-  }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Update the URL and selectedTab state based on new tab selected.
-  const selectNewTab = (newTabIndex: number) => {
     const queryParams = parseQueryString(search);
-    const newTab = activeTabs[newTabIndex];
-    const newRoute = getVersionRoute(version.id, {
-      tab: newTab as VersionPageTabs,
-      ...queryParams,
-    });
-    navigate(newRoute, { replace: true });
 
-    if (previousTab !== undefined && previousTab !== newTabIndex) {
-      sendEvent({
-        name: "Changed tab",
-        tab: newTab as VersionPageTabs,
-      });
-    }
-    setSelectedTab(newTabIndex);
+    setSelectedTab(newTab);
+    sendEvent({ name: "Changed tab", tab: newTab });
+    navigate(getVersionRoute(version.id, { tab: newTab, ...queryParams }), {
+      replace: true,
+    });
   };
+
   useTabShortcut({
-    currentTab: selectedTab,
+    currentTab: activeTabs.indexOf(selectedTab),
     numTabs: activeTabs.length,
-    setSelectedTab: selectNewTab,
+    setSelectedTab: (tabIndex) =>
+      activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex]),
   });
+
   return (
     <StyledTabs
       aria-label="Patch Tabs"
-      selected={selectedTab}
-      // @ts-expect-error: FIXME
-      setSelected={selectNewTab}
+      selected={activeTabs.indexOf(selectedTab)}
+      // @ts-expect-error
+      setSelected={(tabIndex: number) =>
+        activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex])
+      }
     >
       {activeTabs.map((t: VersionPageTabs) => allTabs[t])}
     </StyledTabs>

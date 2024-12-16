@@ -20,8 +20,8 @@ import { usePolling } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
-import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
-import { useQueryVariables } from "./useQueryVariables";
+import { useQueryVariables } from "../../useQueryVariables";
+import { TaskDurationTable } from "./TaskDurationTable";
 
 const { parseQueryString } = queryString;
 
