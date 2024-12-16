@@ -1,4 +1,5 @@
 import { act, waitFor } from "@testing-library/react";
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   renderWithRouterMatch as render,
   renderComponentWithHook,
@@ -8,7 +9,6 @@ import {
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
 import { useQueryParam } from "hooks/useQueryParam";
 import DetailsMenu from ".";
 

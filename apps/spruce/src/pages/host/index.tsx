@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
@@ -18,7 +19,6 @@ import {
 } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import { slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   HostQuery,
   HostQueryVariables,

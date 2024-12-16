@@ -10,11 +10,13 @@ import {
 
 interface Props {
   hasVersion: boolean;
+  isMergeQueuePatch: boolean;
   isPatchHidden: boolean;
   patchId: string;
 }
 export const DropdownMenu: React.FC<Props> = ({
   hasVersion,
+  isMergeQueuePatch,
   isPatchHidden,
   patchId,
 }) => {
@@ -22,6 +24,7 @@ export const DropdownMenu: React.FC<Props> = ({
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
+      disabled={isMergeQueuePatch}
       hasVersion={hasVersion}
       patchId={patchId}
     />,

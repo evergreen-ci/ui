@@ -2,6 +2,7 @@ const baseRoute = "/preferences";
 const tabNames = {
   profile: "/profile",
   cli: "/cli",
+  newUI: "/newUI",
 };
 describe("user preferences pages", () => {
   it("visiting /preferences should redirect to the profile tab", () => {
@@ -21,5 +22,37 @@ describe("user preferences pages", () => {
     cy.contains(defaultApiKey).should("be.visible");
     cy.contains("button", "Reset key").click();
     cy.contains(defaultApiKey).should("not.exist");
+  });
+
+  describe("beta features", () => {
+    it("should be able to edit beta features", () => {
+      cy.visit(`${baseRoute}${tabNames.newUI}`);
+      cy.dataCy("save-beta-features-button").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
+
+      cy.dataCy("spruce-waterfall-enabled").within(() => {
+        cy.get('[data-label="Disabled"]').should("be.checked");
+        cy.get('[data-label="Enabled"]').click({ force: true });
+        cy.get('[data-label="Disabled"]').should("not.be.checked");
+        cy.get('[data-label="Enabled"]').should("be.checked");
+      });
+
+      cy.dataCy("save-beta-features-button").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+      cy.dataCy("save-beta-features-button").click();
+      cy.validateToast("success", "Your changes have been saved.");
+      cy.reload();
+
+      cy.dataCy("spruce-waterfall-enabled").within(() => {
+        cy.get('[data-label="Disabled"]').should("not.be.checked");
+        cy.get('[data-label="Enabled"]').should("be.checked");
+      });
+    });
   });
 });

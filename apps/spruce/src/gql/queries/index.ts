@@ -1,3 +1,4 @@
+import ADMIN_BETA_FEATURES from "./admin-beta-features.graphql";
 import AGENT_LOGS from "./agent-logs.graphql";
 import ALL_LOGS from "./all-logs.graphql";
 import AWS_REGIONS from "./aws-regions.graphql";
@@ -76,6 +77,7 @@ import TASK_TESTS from "./task-tests.graphql";
 import TASK from "./task.graphql";
 import TEST_ANALYSIS from "./test-analysis.graphql";
 import UNSCHEDULED_TASKS from "./undispatched-tasks.graphql";
+import USER_BETA_FEATURES from "./user-beta-features.graphql";
 import USER_CONFIG from "./user-config.graphql";
 import USER_DISTRO_SETTINGS_PERMISSIONS from "./user-distro-settings-permissions.graphql";
 import USER_PATCHES from "./user-patches.graphql";
@@ -91,6 +93,7 @@ import VIEWABLE_PROJECTS from "./viewable-projects.graphql";
 import WATERFALL from "./waterfall.graphql";
 
 export {
+  ADMIN_BETA_FEATURES,
   AGENT_LOGS,
   ALL_LOGS,
   AWS_REGIONS,
@@ -169,6 +172,7 @@ export {
   TASK,
   TEST_ANALYSIS,
   UNSCHEDULED_TASKS,
+  USER_BETA_FEATURES,
   USER_CONFIG,
   USER_PATCHES,
   USER_DISTRO_SETTINGS_PERMISSIONS,

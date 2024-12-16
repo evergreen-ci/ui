@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { useParams, Navigate } from "react-router-dom";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";
 import { mergeQueueAlias } from "constants/patch";
 import { getVersionRoute, slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   ConfigurePatchQuery,
   ConfigurePatchQueryVariables,

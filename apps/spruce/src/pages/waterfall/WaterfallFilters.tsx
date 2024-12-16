@@ -9,6 +9,7 @@ import { NameFilter } from "./NameFilter";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
 import { StatusFilter } from "./StatusFilter";
+import { WaterfallMenu } from "./WaterfallMenu";
 
 type WaterfallFiltersProps = {
   projectIdentifier: string;
@@ -46,6 +47,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
           selectedProjectIdentifier={projectIdentifier}
         />
       </FilterItem>
+      <WaterfallMenu />
       <PaginationButtons pagination={pagination} />
     </Container>
   );
