@@ -45,8 +45,8 @@ const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
   selectedBuildVariantTasks: {},
   patchParams: null,
   selectedTab,
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  disableBuildVariantSelect: tabToIndexMap[selectedTab] === PatchTab.Tasks,
+  disableBuildVariantSelect:
+    indexToTabMap[selectedTab] === ConfigurePatchPageTabs.Tasks,
 });
 
 const reducer = (state: ConfigurePatchState, action: Action) => {
@@ -129,17 +129,16 @@ interface HookResult extends ConfigurePatchState {
 const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   const navigate = useNavigate();
   const location = useLocation();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { [slugs.tab]: tab } = useParams<{ [slugs.tab]: PatchTab | null }>();
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: ConfigurePatchPageTabs;
+  }>();
 
   const { id, project } = patch;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { variants } = project;
+  const { variants } = project || {};
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      selectedTab: tabToIndexMap[tab || PatchTab.Configure],
+      selectedTab: tabToIndexMap[tab || ConfigurePatchPageTabs.Tasks],
     }),
   );
 
