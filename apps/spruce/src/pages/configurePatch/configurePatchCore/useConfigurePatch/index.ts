@@ -17,7 +17,6 @@ interface HookResult extends ConfigurePatchState {
   setSelectedBuildVariantTasks: (variantTasks: VariantTasksState) => void;
   setSelectedAliases: (aliases: AliasState) => void;
   setSelectedTab: (tab: ConfigurePatchPageTabs) => void;
-  tabIndex: number;
 }
 
 const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
@@ -92,7 +91,6 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
 
   return {
     ...state,
-    tabIndex: tabToIndexMap[state.selectedTab],
     setDescription,
     setPatchParams,
     setSelectedAliases,

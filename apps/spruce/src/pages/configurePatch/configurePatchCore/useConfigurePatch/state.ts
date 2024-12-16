@@ -10,7 +10,6 @@ type ConfigurePatchState = {
   selectedBuildVariantTasks: VariantTasksState;
   patchParams: ParameterInput[];
   selectedTab: ConfigurePatchPageTabs;
-  selectedTabName?: ConfigurePatchPageTabs;
   disableBuildVariantSelect: boolean;
 };
 
