@@ -1,17 +1,13 @@
 import { useEffect, useReducer } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { getPatchRoute, slugs } from "constants/routes";
-import {
-  ConfigurePatchQuery,
-  ParameterInput,
-  VariantTask,
-} from "gql/generated/types";
+import { ConfigurePatchQuery, ParameterInput } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { ConfigurePatchPageTabs } from "types/patch";
-import { convertArrayToObject, mapStringArrayToObject } from "utils/array";
 import { parseQueryString } from "utils/queryString";
 import { omitTypename } from "utils/string";
-import { AliasState, PatchTriggerAlias, VariantTasksState } from "./types";
+import { AliasState, VariantTasksState } from "./types";
+import { initializeAliasState, initializeTaskState } from "./utils";
 
 type ConfigurePatchState = {
   description: string;
@@ -210,37 +206,5 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     setSelectedTab,
   };
 };
-
-// Takes in variant tasks and default selected tasks and returns an object
-// With merged variant and default selected tasks auto selected.
-const initializeTaskState = (
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  variantTasks: ConfigurePatchQuery["patch"]["project"]["variants"],
-  defaultSelectedTasks: VariantTask[],
-) => {
-  const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
-  return variantTasks.reduce(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    (prev, { name: variant, tasks }) => ({
-      ...prev,
-      [variant]: {
-        ...mapStringArrayToObject(tasks, false),
-        ...(defaultTasks[variant]
-          ? mapStringArrayToObject(defaultTasks[variant].tasks, true)
-          : {}),
-      },
-    }),
-    {},
-  );
-};
-
-const initializeAliasState = (patchTriggerAliases: PatchTriggerAlias[]) =>
-  patchTriggerAliases.reduce(
-    (prev, { alias }) => ({
-      ...prev,
-      [alias]: false,
-    }),
-    {},
-  );
 
 export default useConfigurePatch;
