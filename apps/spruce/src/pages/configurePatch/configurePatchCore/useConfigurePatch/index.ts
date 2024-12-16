@@ -16,6 +16,7 @@ type ConfigurePatchState = {
   selectedBuildVariantTasks: VariantTasksState;
   patchParams: ParameterInput[];
   selectedTab: number;
+  selectedTabName: ConfigurePatchPageTabs;
   disableBuildVariantSelect: boolean;
 };
 
@@ -24,7 +25,7 @@ type Action =
   | { type: "setSelectedBuildVariants"; buildVariants: string[] }
   | { type: "setPatchParams"; params: ParameterInput[] }
   | { type: "setSelectedBuildVariantTasks"; variantTasks: VariantTasksState }
-  | { type: "setSelectedTab"; tabIndex: number }
+  | { type: "setSelectedTab"; tabIndex: number; tab?: ConfigurePatchPageTabs }
   | {
       type: "updatePatchData";
       description: string;
@@ -38,13 +39,20 @@ type Action =
       aliases: AliasState;
     };
 
-const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
+const initialState = ({
+  selectedTab = 0,
+  selectedTabName = ConfigurePatchPageTabs.Tasks,
+}: {
+  selectedTab: number;
+  selectedTabName?: ConfigurePatchPageTabs;
+}): ConfigurePatchState => ({
   description: "",
   selectedAliases: {},
   selectedBuildVariants: [],
   selectedBuildVariantTasks: {},
-  patchParams: null,
+  patchParams: [],
   selectedTab,
+  selectedTabName,
   disableBuildVariantSelect:
     indexToTabMap[selectedTab] === ConfigurePatchPageTabs.Tasks,
 });
@@ -86,6 +94,7 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
       return {
         ...state,
         selectedTab: tab,
+        selectedTabName: action.tab,
         disableBuildVariantSelect:
           indexToTabMap[action.tabIndex] !== ConfigurePatchPageTabs.Tasks,
       };
@@ -139,6 +148,7 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     reducer,
     initialState({
       selectedTab: tabToIndexMap[tab || ConfigurePatchPageTabs.Tasks],
+      selectedTabName: tab,
     }),
   );
 
