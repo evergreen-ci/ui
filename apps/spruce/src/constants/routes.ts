@@ -187,7 +187,7 @@ export const getPatchRoute = (
     ...rest,
   });
   if (!configure) return getVersionRoute(patchId);
-  return `${paths.patch}/${patchId}/${ConfigurePatchPageTabs.Configure}/${
+  return `${paths.patch}/${patchId}/configure/${
     tab ?? DEFAULT_PATCH_TAB
   }${queryParams && `?${queryParams}`}`;
 };

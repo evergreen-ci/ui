@@ -28,7 +28,6 @@ export enum VersionPageTabs {
 export enum ConfigurePatchPageTabs {
   Tasks = "tasks",
   Changes = "changes",
-  Configure = "configure",
   Parameters = "parameters",
 }
 export const ALL_PATCH_STATUS = "all";

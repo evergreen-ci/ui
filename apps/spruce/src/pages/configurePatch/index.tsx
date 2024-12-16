@@ -23,8 +23,7 @@ const ConfigurePatch: React.FC = () => {
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
   >(PATCH_CONFIGURE, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: patchId },
+    variables: { id: patchId || "" },
     onError(err) {
       dispatchToast.error(err.message);
     },
@@ -34,30 +33,23 @@ const ConfigurePatch: React.FC = () => {
   usePageTitle(`Configure Patch`);
 
   // Can't configure a mainline version so should redirect to the version page
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  if (!validateObjectId(patchId)) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return <Navigate to={getVersionRoute(patchId)} />;
+  if (!validateObjectId(patchId || "")) {
+    return <Navigate to={getVersionRoute(patchId || "")} />;
   }
-
   if (loading) {
     return <PatchAndTaskFullPageLoad />;
   }
-  if (error) {
+  if (error || !patch) {
     return <PageDoesNotExist />;
   }
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (patch.alias === mergeQueueAlias) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return <Navigate to={getVersionRoute(patchId)} />;
+    return <Navigate to={getVersionRoute(patch.id)} />;
   }
 
   return (
     <PageWrapper>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={patch?.projectIdentifier} />
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ConfigurePatchCore patch={patch} />
     </PageWrapper>
   );
