@@ -80,7 +80,6 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
-        status: "started",
         displayStatus: "started",
         versionMetadata: {
           baseVersion: {
@@ -95,7 +94,6 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
         baseTask: {
           id: baseTaskId,
           execution: 0,
-          status: "started",
           displayStatus: "started",
           __typename: "Task",
         },
@@ -145,7 +143,6 @@ const getLastExecutedVersion: ApolloMock<
                       id: "last_executed_task",
                       execution: 0,
                       order: 3676,
-                      status: "failed",
                       displayStatus: "failed",
                       __typename: "Task",
                     },

@@ -3,6 +3,5 @@ mutation ScheduleUndispatchedBaseTasks($versionId: String!) {
     displayStatus
     execution
     id
-    status: displayStatus
   }
 }

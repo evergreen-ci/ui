@@ -864,6 +864,7 @@ export enum HostEventType {
   HostTaskFinished = "HOST_TASK_FINISHED",
   HostTemporaryExemptionExpirationWarningSent = "HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT",
   HostTerminatedExternally = "HOST_TERMINATED_EXTERNALLY",
+  SpawnHostCreatedError = "SPAWN_HOST_CREATED_ERROR",
   VolumeExpirationWarningSent = "VOLUME_EXPIRATION_WARNING_SENT",
   VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
 }
@@ -2843,7 +2844,7 @@ export type Task = {
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
   startTime?: Maybe<Scalars["Time"]["output"]>;
   /**
-   * This is a tasks display status and is what is commonly used on the UI.
+   * This is a task's display status and is what is commonly used on the UI.
    * In future releases this will be migrated to represent the original status of the task
    * @deprecated use displayStatus instead. Status will be migrated to reflect the original status
    */
@@ -3753,7 +3754,6 @@ export type BaseTaskFragment = {
   execution: number;
   id: string;
   revision?: string | null;
-  status: string;
 };
 
 export type FileDiffsFragment = {
@@ -5047,7 +5047,6 @@ export type AbortTaskMutation = {
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
   };
 };
 
@@ -5375,7 +5374,6 @@ export type OverrideTaskDependenciesMutation = {
     displayStatus: string;
     execution: number;
     id: string;
-    status: string;
   };
 };
 
@@ -5476,7 +5474,6 @@ export type RestartTaskMutation = {
     displayStatus: string;
     id: string;
     revision?: string | null;
-    status: string;
   };
 };
 
@@ -5606,7 +5603,6 @@ export type ScheduleTasksMutation = {
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
   }>;
 };
 
@@ -5621,7 +5617,6 @@ export type ScheduleUndispatchedBaseTasksMutation = {
     displayStatus: string;
     execution: number;
     id: string;
-    status: string;
   }> | null;
 };
 
@@ -5888,13 +5883,11 @@ export type BaseVersionAndTaskQuery = {
     execution: number;
     id: string;
     projectIdentifier?: string | null;
-    status: string;
     baseTask?: {
       __typename?: "Task";
       displayStatus: string;
       execution: number;
       id: string;
-      status: string;
     } | null;
     versionMetadata: {
       __typename?: "Version";
@@ -6769,7 +6762,6 @@ export type LastMainlineCommitQuery = {
             execution: number;
             id: string;
             order: number;
-            status: string;
           }> | null;
         }> | null;
       } | null;
@@ -6839,7 +6831,6 @@ export type MainlineCommitsForHistoryQuery = {
             displayStatus: string;
             execution: number;
             id: string;
-            status: string;
           }> | null;
         }> | null;
         gitTags?: Array<{
@@ -6910,7 +6901,6 @@ export type MainlineCommitsQuery = {
             hasCedarResults: boolean;
             id: string;
             timeTaken?: number | null;
-            status: string;
           }> | null;
         }> | null;
         buildVariantStats?: Array<{
@@ -8753,7 +8743,6 @@ export type SpawnTaskQuery = {
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
     project?: {
       __typename?: "Project";
       id: string;
@@ -8856,7 +8845,6 @@ export type TaskAllExecutionsQuery = {
     execution: number;
     id: string;
     ingestTime?: Date | null;
-    status: string;
   }>;
 };
 
@@ -9015,7 +9003,6 @@ export type TaskTestsForJobLogsQuery = {
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
     tests: {
       __typename?: "TaskTestResult";
       testResults: Array<{
@@ -9110,6 +9097,7 @@ export type TaskQuery = {
     resetWhenFinished: boolean;
     spawnHostLink?: string | null;
     startTime?: Date | null;
+    status: string;
     tags: Array<string>;
     timeTaken?: number | null;
     totalTestCount: number;
@@ -9120,7 +9108,6 @@ export type TaskQuery = {
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
     abortInfo?: {
       __typename?: "AbortInfo";
       buildVariantDisplayName: string;
@@ -9232,7 +9219,6 @@ export type TaskQuery = {
       execution: number;
       id: string;
       projectIdentifier?: string | null;
-      status: string;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
     logs: {
@@ -9288,7 +9274,6 @@ export type TestAnalysisQuery = {
         displayStatus: string;
         execution: number;
         id: string;
-        status: string;
         tests: {
           __typename?: "TaskTestResult";
           filteredTestCount: number;
@@ -9577,7 +9562,6 @@ export type VersionTaskDurationsQuery = {
         id: string;
         startTime?: Date | null;
         timeTaken?: number | null;
-        status: string;
         subRows?: Array<{
           __typename?: "Task";
           buildVariantDisplayName?: string | null;
@@ -9587,7 +9571,6 @@ export type VersionTaskDurationsQuery = {
           id: string;
           startTime?: Date | null;
           timeTaken?: number | null;
-          status: string;
         }> | null;
       }>;
     };
@@ -9619,13 +9602,11 @@ export type VersionTasksQuery = {
         execution: number;
         id: string;
         projectIdentifier?: string | null;
-        status: string;
         baseTask?: {
           __typename?: "Task";
           displayStatus: string;
           execution: number;
           id: string;
-          status: string;
         } | null;
         dependsOn?: Array<{ __typename?: "Dependency"; name: string }> | null;
         executionTasksFull?: Array<{
@@ -9637,13 +9618,11 @@ export type VersionTasksQuery = {
           execution: number;
           id: string;
           projectIdentifier?: string | null;
-          status: string;
           baseTask?: {
             __typename?: "Task";
             displayStatus: string;
             execution: number;
             id: string;
-            status: string;
           } | null;
         }> | null;
       }>;

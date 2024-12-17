@@ -5,6 +5,5 @@ query TaskAllExecutions($taskId: String!) {
     execution
     id
     ingestTime
-    status: displayStatus
   }
 }

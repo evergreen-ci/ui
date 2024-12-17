@@ -6,5 +6,4 @@ fragment BaseTask on Task {
   execution
   id
   revision
-  status: displayStatus
 }

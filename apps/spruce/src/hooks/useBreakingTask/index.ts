@@ -21,7 +21,7 @@ export const useBreakingTask = (taskId: string) => {
     variables: { taskId },
   });
 
-  const { buildVariant, displayName, projectIdentifier, status } =
+  const { buildVariant, displayName, displayStatus, projectIdentifier } =
     taskData?.task ?? {};
 
   const bvOptionsBase = {
@@ -45,7 +45,7 @@ export const useBreakingTask = (taskId: string) => {
     LastMainlineCommitQueryVariables
   >(LAST_MAINLINE_COMMIT, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    skip: !parentTask || !lastPassingTask || !isFailedTaskStatus(status),
+    skip: !parentTask || !lastPassingTask || !isFailedTaskStatus(displayStatus),
     variables: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       projectIdentifier,

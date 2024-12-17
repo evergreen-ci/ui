@@ -32,7 +32,6 @@ query MainlineCommitsForHistory(
             displayStatus
             execution
             id
-            status: displayStatus
           }
           variant
         }

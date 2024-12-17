@@ -13,7 +13,6 @@ query VersionTasks(
           displayStatus
           execution
           id
-          status: displayStatus
         }
         blocked
         buildVariant
@@ -29,7 +28,6 @@ query VersionTasks(
             displayStatus
             execution
             id
-            status: displayStatus
           }
           buildVariant
           buildVariantDisplayName
@@ -38,11 +36,9 @@ query VersionTasks(
           execution
           id
           projectIdentifier
-          status: displayStatus
         }
         id
         projectIdentifier
-        status: displayStatus
       }
     }
   }
