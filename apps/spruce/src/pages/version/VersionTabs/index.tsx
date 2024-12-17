@@ -10,14 +10,12 @@ import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchStatus, VersionPageTabs } from "types/patch";
-import { queryString } from "utils";
+import { parseQueryString } from "utils/queryString";
 import DownstreamTasks from "./DownstreamTasks";
 import TaskDuration from "./TaskDuration";
 import Tasks from "./Tasks";
 import TestAnalysis from "./TestAnalysis";
 import { TestAnalysisTabGuideCue } from "./TestAnalysis/TestAnalysisTabGuideCue";
-
-const { parseQueryString } = queryString;
 
 type ChildPatches = NonNullable<
   VersionQuery["version"]["patch"]
@@ -144,7 +142,7 @@ const tabMap = ({
   ),
 });
 
-export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
+const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   const { [slugs.tab]: tab } = useParams<{
     [slugs.tab]: VersionPageTabs;
   }>();
@@ -228,3 +226,5 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     </StyledTabs>
   );
 };
+
+export default VersionTabs;

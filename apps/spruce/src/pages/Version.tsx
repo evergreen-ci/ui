@@ -18,11 +18,13 @@ import { VERSION } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
 import { shortenGithash, githubPRLinkify, jiraLinkify } from "utils/string";
+import { ActionButtons } from "./version/ActionButtons";
 import { WarningBanner, ErrorBanner, IgnoredBanner } from "./version/Banners";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
 import BuildVariantCard from "./version/BuildVariantCard";
-import { ActionButtons, Metadata, VersionTabs } from "./version/index";
+import { Metadata } from "./version/Metadata";
 import { NameChangeModal } from "./version/NameChangeModal";
+import VersionTabs from "./version/VersionTabs";
 
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
