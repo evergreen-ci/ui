@@ -26,7 +26,7 @@ const eventLogEntries = Object.values(HostEventType).map((eventType) => ({
   data,
   timestamp: "2021-09-01T00:00:00Z",
   id: "id",
-  processedAt: "2021-09-01T00:00:00Z",
+  processedAt: new Date("2021-09-01T00:00:00Z"),
   resourceType: "resourceType",
   resourceId: "resourceId",
 }));

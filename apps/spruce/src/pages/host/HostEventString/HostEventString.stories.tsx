@@ -10,15 +10,18 @@ export default {
 } satisfies CustomMeta<typeof HostEventString>;
 
 export const Default: CustomStoryObj<typeof HostEventString> = {
-  render: () =>
-    Object.values(HostEventType).map((eventType) => (
-      <div>
-        <Body>{eventType}</Body>
-        <EventContainer>
-          <HostEventString data={data} eventType={eventType} />
-        </EventContainer>
-      </div>
-    )),
+  render: () => (
+    <>
+      {Object.values(HostEventType).map((eventType) => (
+        <div>
+          <Body>{eventType}</Body>
+          <EventContainer>
+            <HostEventString data={data} eventType={eventType} />
+          </EventContainer>
+        </div>
+      ))}
+    </>
+  ),
   argTypes: {},
   args: {},
 };
