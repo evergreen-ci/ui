@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Cookies from "js-cookie";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import {
@@ -11,7 +12,6 @@ import {
   SUBSCRIPTION_METHOD,
 } from "constants/cookies";
 import { regexDisplayName, regexBuildVariant } from "constants/triggers";
-import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionForUserMutation,
   SaveSubscriptionForUserMutationVariables,

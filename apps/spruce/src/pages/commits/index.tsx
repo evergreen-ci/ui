@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner, RepotrackerBanner } from "components/Banners";
 import FilterBadges, {
@@ -21,7 +22,6 @@ import {
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getCommitsRoute, slugs } from "constants/routes";
 import { newMainlineCommitsUser } from "constants/welcomeModalProps";
-import { useToastContext } from "context/toast";
 import {
   SpruceConfigQuery,
   SpruceConfigQueryVariables,

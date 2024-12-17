@@ -76,7 +76,7 @@ export const Navbar: React.FC = () => {
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
-          onClick={() => sendEvent({ name: "Clicked waterfall link" })}
+          onClick={() => sendEvent({ name: "Clicked project health link" })}
           to={getCommitsRoute(projectIdentifier)}
         >
           Project Health

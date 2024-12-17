@@ -1,8 +1,8 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { render, screen, userEvent, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { RepotrackerBanner } from "components/Banners";
-import { RenderFakeToastContext } from "context/toast/__mocks__";
 import {
   UserProjectSettingsPermissionsQuery,
   UserProjectSettingsPermissionsQueryVariables,

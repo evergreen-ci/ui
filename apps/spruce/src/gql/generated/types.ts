@@ -404,6 +404,7 @@ export type Distro = {
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];
+  singleTaskDistro: Scalars["Boolean"]["output"];
   sshOptions: Array<Scalars["String"]["output"]>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
@@ -471,6 +472,7 @@ export type DistroInput = {
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
+  singleTaskDistro?: InputMaybe<Scalars["Boolean"]["input"]>;
   sshOptions: Array<Scalars["String"]["input"]>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
@@ -3809,6 +3811,7 @@ export type PatchesPagePatchesFragment = {
     versionFull?: {
       __typename?: "Version";
       id: string;
+      requester: string;
       status: string;
       taskStatusStats?: {
         __typename?: "TaskStats";
@@ -5778,6 +5781,21 @@ export type UpdateVolumeMutation = {
   updateVolume: boolean;
 };
 
+export type UpdateUserBetaFeaturesMutationVariables = Exact<{
+  opts: UpdateBetaFeaturesInput;
+}>;
+
+export type UpdateUserBetaFeaturesMutation = {
+  __typename?: "Mutation";
+  updateBetaFeatures?: {
+    __typename?: "UpdateBetaFeaturesPayload";
+    betaFeatures?: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    } | null;
+  } | null;
+};
+
 export type UpdateUserSettingsMutationVariables = Exact<{
   userSettings: UserSettingsInput;
 }>;
@@ -5785,6 +5803,22 @@ export type UpdateUserSettingsMutationVariables = Exact<{
 export type UpdateUserSettingsMutation = {
   __typename?: "Mutation";
   updateUserSettings: boolean;
+};
+
+export type AdminBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AdminBetaFeaturesQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    ui: {
+      __typename?: "UIConfig";
+      betaFeatures: {
+        __typename?: "BetaFeatures";
+        spruceWaterfallEnabled: boolean;
+      };
+    };
+  } | null;
 };
 
 export type AgentLogsQueryVariables = Exact<{
@@ -7716,6 +7750,7 @@ export type ProjectPatchesQuery = {
         versionFull?: {
           __typename?: "Version";
           id: string;
+          requester: string;
           status: string;
           taskStatusStats?: {
             __typename?: "TaskStats";
@@ -9298,6 +9333,20 @@ export type UndispatchedTasksQuery = {
   };
 };
 
+export type UserBetaFeaturesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserBetaFeaturesQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    userId: string;
+    betaFeatures: {
+      __typename?: "BetaFeatures";
+      spruceWaterfallEnabled: boolean;
+    };
+  };
+};
+
 export type UserConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserConfigQuery = {
@@ -9366,6 +9415,7 @@ export type UserPatchesQuery = {
         versionFull?: {
           __typename?: "Version";
           id: string;
+          requester: string;
           status: string;
           taskStatusStats?: {
             __typename?: "TaskStats";

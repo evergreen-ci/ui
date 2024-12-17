@@ -21,6 +21,7 @@ export enum VersionLabelView {
 
 type Props = WaterfallVersionFragment & {
   className?: string;
+  highlighted: boolean;
   shouldDisableText?: boolean;
   view: VersionLabelView;
 };
@@ -32,6 +33,7 @@ export const VersionLabel: React.FC<Props> = ({
   createTime,
   errors,
   gitTags,
+  highlighted,
   id,
   message,
   revision,
@@ -55,6 +57,8 @@ export const VersionLabel: React.FC<Props> = ({
       activated={activated}
       className={className}
       data-cy={`version-label-${commitType}`}
+      data-highlighted={highlighted}
+      highlighted={highlighted}
       shouldDisableText={shouldDisableText}
       view={view}
     >
@@ -130,7 +134,7 @@ export const VersionLabel: React.FC<Props> = ({
 
 const VersionContainer = styled.div<
   Pick<WaterfallVersionFragment, "activated"> &
-    Pick<Props, "shouldDisableText" | "view">
+    Pick<Props, "shouldDisableText" | "view"> & { highlighted: boolean }
 >`
   ${columnBasis}
   ${({ activated, shouldDisableText, view }) =>
@@ -149,6 +153,9 @@ const VersionContainer = styled.div<
   p {
     ${wordBreakCss}
   }
+  ${({ highlighted }) =>
+    highlighted &&
+    `background-color: ${color[Theme.Light].background.primary.focus};`}
 `;
 
 const CommitMessage = styled(Body)<Pick<Props, "view">>`

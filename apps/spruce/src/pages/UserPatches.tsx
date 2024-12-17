@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { PatchesPage } from "components/PatchesPage";
 import { RequesterSelector } from "components/PatchesPage/RequesterSelector";
 import { usePatchesQueryParams } from "components/PatchesPage/usePatchesQueryParams";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { githubMergeQueueUser } from "constants/patch";
 import { slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   UserPatchesQuery,
   UserPatchesQueryVariables,

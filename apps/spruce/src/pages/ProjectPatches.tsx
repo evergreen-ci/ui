@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import { ProjectBanner } from "components/Banners";
 import { PatchesPage } from "components/PatchesPage";
@@ -11,7 +12,6 @@ import { ProjectSelect } from "components/ProjectSelect";
 import { INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getProjectPatchesRoute, slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   ProjectPatchesQuery,
   ProjectPatchesQueryVariables,

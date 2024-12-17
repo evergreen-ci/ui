@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Select, Option } from "@leafygreen-ui/select";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ModalContent } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
-import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { MY_HOSTS } from "gql/queries";
 import { usePolling } from "hooks";

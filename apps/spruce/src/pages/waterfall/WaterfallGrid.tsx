@@ -71,6 +71,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   const [maxOrder] = useQueryParam<number>(WaterfallFilterOptions.MaxOrder, 0);
   const [minOrder] = useQueryParam<number>(WaterfallFilterOptions.MinOrder, 0);
+  const [revision] = useQueryParam<string | null>(
+    WaterfallFilterOptions.Revision,
+    null,
+  );
   const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
 
   const timezone = useUserTimeZone() ?? utcTimeZone;
@@ -84,6 +88,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           limit: VERSION_LIMIT,
           maxOrder,
           minOrder,
+          revision,
           date: date ? fromZonedTime(date, timezone) : undefined,
         },
       },
@@ -116,7 +121,14 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }) =>
             version ? (
-              <VersionLabel view={VersionLabelView.Waterfall} {...version} />
+              <VersionLabel
+                highlighted={
+                  revision !== null && version.revision.includes(revision)
+                }
+                view={VersionLabelView.Waterfall}
+                {...version}
+                key={version.id}
+              />
             ) : (
               <InactiveVersion key={inactiveVersions?.[0].id}>
                 <InactiveVersionsButton

@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
@@ -14,7 +15,6 @@ import {
 } from "components/styles";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import { TaskQuery, TaskQueryVariables } from "gql/generated/types";
 import { TASK } from "gql/queries";
 import { usePolling } from "hooks";

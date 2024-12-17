@@ -21,7 +21,7 @@ describe("preferences/notifications", () => {
       cy.dataCy("slack-username-field").clear();
       cy.dataCy("slack-username-field").type("slack.user");
       cy.dataCy("save-profile-changes-button").click();
-      cy.validateToast("success", "Your changes have successfully been saved.");
+      cy.validateToast("success", "Your changes have been saved.");
     });
   });
 

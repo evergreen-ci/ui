@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useMutation } from "@apollo/client";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useAnnotationAnalytics } from "analytics";
-import { useToastContext } from "context/toast";
 import {
   MoveAnnotationIssueMutation,
   MoveAnnotationIssueMutationVariables,
