@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
@@ -193,18 +193,31 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   );
   const [selectedTab, setSelectedTab] = useState(tab || VersionPageTabs.Tasks);
 
-  const handleTabChange = (newTab: VersionPageTabs) => {
+  const handleTabChange = (
+    newTab: VersionPageTabs,
+    sendAnalytics: boolean = false,
+  ) => {
     if (!tabIsActive[newTab]) {
       return;
     }
     const queryParams = parseQueryString(search);
 
     setSelectedTab(newTab);
-    sendEvent({ name: "Changed tab", tab: newTab });
+    // In cases where we're changing tabs due to a non user action (e.g. a redirect we want to avoid sending analytics)
+    if (sendAnalytics) {
+      sendEvent({ name: "Changed tab", tab: newTab });
+    }
     navigate(getVersionRoute(version.id, { tab: newTab, ...queryParams }), {
       replace: true,
     });
   };
+
+  // Handle redirecting to the correct tab if the tab is not active
+  useEffect(() => {
+    if (!tab || !tabIsActive[tab]) {
+      handleTabChange(VersionPageTabs.Tasks, false);
+    }
+  }, []);
 
   useTabShortcut({
     currentTab: activeTabs.indexOf(selectedTab),
