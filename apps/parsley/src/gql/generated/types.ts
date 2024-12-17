@@ -864,6 +864,7 @@ export enum HostEventType {
   HostTaskFinished = "HOST_TASK_FINISHED",
   HostTemporaryExemptionExpirationWarningSent = "HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT",
   HostTerminatedExternally = "HOST_TERMINATED_EXTERNALLY",
+  SpawnHostCreatedError = "SPAWN_HOST_CREATED_ERROR",
   VolumeExpirationWarningSent = "VOLUME_EXPIRATION_WARNING_SENT",
   VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
 }
