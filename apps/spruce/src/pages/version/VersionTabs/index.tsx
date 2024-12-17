@@ -9,11 +9,11 @@ import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
-import { Tasks } from "pages/version/Tasks";
-import { DownstreamTasks } from "pages/version/VersionTabs/downstreamTasks/DownstreamTasks";
 import { PatchStatus, VersionPageTabs } from "types/patch";
 import { queryString } from "utils";
-import TaskDuration from "./taskDuration/TaskDuration";
+import DownstreamTasks from "./DownstreamTasks";
+import TaskDuration from "./TaskDuration";
+import Tasks from "./Tasks";
 import TestAnalysis from "./TestAnalysis";
 import { TestAnalysisTabGuideCue } from "./TestAnalysis/TestAnalysisTabGuideCue";
 

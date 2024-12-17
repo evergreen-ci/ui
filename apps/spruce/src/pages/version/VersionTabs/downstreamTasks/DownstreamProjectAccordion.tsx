@@ -21,8 +21,8 @@ import { usePolling } from "hooks";
 import { ParametersModal } from "pages/version/ParametersModal";
 import { PatchStatus } from "types/patch";
 import { shortenGithash } from "utils/string";
-import { DownstreamTasksTable } from "./DownstreamTasksTable";
-import { reducer } from "./reducer";
+import DownstreamTasksTable from "./DownstreamTasksTable";
+import { reducer } from "./state";
 
 const defaultSorts: SortOrder[] = [
   {

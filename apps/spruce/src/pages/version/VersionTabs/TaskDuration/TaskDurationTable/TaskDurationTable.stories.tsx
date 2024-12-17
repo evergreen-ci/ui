@@ -1,5 +1,5 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import { TaskDurationTable } from "./TaskDurationTable";
+import TaskDurationTable from ".";
 
 export default {
   component: TaskDurationTable,

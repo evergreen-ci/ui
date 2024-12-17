@@ -6,9 +6,7 @@ interface DownstreamTasksProps {
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
-export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
-  childPatches,
-}) => (
+const DownstreamTasks: React.FC<DownstreamTasksProps> = ({ childPatches }) => (
   <>
     {childPatches.map(
       ({
@@ -41,3 +39,5 @@ export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
     )}
   </>
 );
+
+export default DownstreamTasks;

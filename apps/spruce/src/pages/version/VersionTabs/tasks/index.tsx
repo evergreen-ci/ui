@@ -17,8 +17,8 @@ import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
-import { useQueryVariables } from "./useQueryVariables";
-import { PatchTasksTable } from "./VersionTabs/tasks/PatchTasksTable";
+import { useQueryVariables } from "../../useQueryVariables";
+import { PatchTasksTable } from "./PatchTasksTable";
 
 const { parseQueryString } = queryString;
 const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
@@ -27,7 +27,7 @@ interface Props {
   taskCount: number;
 }
 
-export const Tasks: React.FC<Props> = ({ taskCount }) => {
+const Tasks: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { [slugs.versionId]: versionId } = useParams();
   const { search } = useLocation();
@@ -118,3 +118,5 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     </TableWrapper>
   );
 };
+
+export default Tasks;
