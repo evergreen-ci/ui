@@ -1,5 +1,9 @@
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { HostEventLogData, HostEventType } from "gql/generated/types";
+import {
+  HostEventLogData,
+  HostEventLogEntry,
+  HostEventType,
+} from "gql/generated/types";
 import HostTable from ".";
 
 const data: HostEventLogData = {
@@ -21,15 +25,17 @@ const data: HostEventLogData = {
   user: "user",
 };
 
-const eventLogEntries = Object.values(HostEventType).map((eventType) => ({
-  eventType,
-  data,
-  timestamp: "2021-09-01T00:00:00Z",
-  id: "id",
-  processedAt: new Date("2021-09-01T00:00:00Z"),
-  resourceType: "resourceType",
-  resourceId: "resourceId",
-}));
+const eventLogEntries: HostEventLogEntry[] = Object.values(HostEventType).map(
+  (eventType) => ({
+    eventType,
+    data,
+    timestamp: new Date("2021-09-01T00:00:00Z"),
+    id: "id",
+    processedAt: new Date("2021-09-01T00:00:00Z"),
+    resourceType: "resourceType",
+    resourceId: "resourceId",
+  }),
+);
 
 export default {
   component: HostTable,
