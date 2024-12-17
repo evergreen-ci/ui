@@ -26,12 +26,12 @@
             role="tablist"
           >
             <button
-              aria-controls="_r4sn90km1"
+              aria-controls="_umrpwype8"
               aria-selected="true"
               class="leafygreen-ui-bhx5eh"
               data-cy="search-and-filter-tab"
               data-text="Search & Filter"
-              id="_1qsla8b3k"
+              id="_liko63wd1"
               name="Search & Filter"
               role="tab"
               tabindex="0"
@@ -43,12 +43,12 @@
               </div>
             </button>
             <button
-              aria-controls="_9lr5htzof"
+              aria-controls="_p073u8zyw"
               aria-selected="false"
               class="leafygreen-ui-n0ot0l"
               data-cy="log-viewing-tab"
               data-text="Log Viewing"
-              id="_zvma1myc5"
+              id="_kok03xg7f"
               name="Log Viewing"
               role="tab"
               tabindex="-1"
@@ -67,10 +67,10 @@
         >
           <div>
             <div
-              aria-labelledby="_1qsla8b3k"
+              aria-labelledby="_liko63wd1"
               class=""
               data-testid=""
-              id="_r4sn90km1"
+              id="_umrpwype8"
               role="tabpanel"
             >
               <div
