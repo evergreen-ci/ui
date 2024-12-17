@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "4.1.132",
+  "version": "4.1.133",
   "private": true,
   "type": "module",
   "scripts": {
@@ -102,8 +102,8 @@
     "@leafygreen-ui/tooltip": "^11.1.0",
     "@leafygreen-ui/typography": "^19.0.0",
     "@rjsf/core": "4.2.3",
-    "@sentry/react": "8.42.0",
-    "@sentry/types": "8.42.0",
+    "@sentry/react": "8.45.1",
+    "@sentry/types": "8.45.1",
     "ansi_up": "6.0.2",
     "antd": "4.20.0",
     "date-fns": "3.6.0",
@@ -145,7 +145,7 @@
     "@storybook/react-vite": "8.4.7",
     "@styled/typescript-styled-plugin": "1.0.1",
     "@testing-library/jest-dom": "6.6.3",
-    "@testing-library/react": "16.0.1",
+    "@testing-library/react": "16.1.0",
     "@testing-library/user-event": "14.5.2",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash.debounce": "4.0.7",
