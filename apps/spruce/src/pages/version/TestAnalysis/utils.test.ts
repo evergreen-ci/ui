@@ -9,7 +9,7 @@ const groupedTests = new Map<string, TaskBuildVariantField[]>([
         taskName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -18,7 +18,7 @@ const groupedTests = new Map<string, TaskBuildVariantField[]>([
         taskName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
-        status: "success",
+        displayStatus: "success",
         logs: {
           urlParsley: "",
         },
@@ -32,7 +32,7 @@ const groupedTests = new Map<string, TaskBuildVariantField[]>([
         taskName: "task3",
         buildVariant: "variant1",
         id: "task3_id",
-        status: "success",
+        displayStatus: "success",
         logs: {
           urlParsley: "",
         },
@@ -46,7 +46,7 @@ const groupedTests = new Map<string, TaskBuildVariantField[]>([
         taskName: "task4",
         buildVariant: "variant3",
         id: "task4_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -78,7 +78,6 @@ describe("groupTestsByName", () => {
         displayName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
         displayStatus: "failed",
         execution: 0,
         tests: {
@@ -102,7 +101,7 @@ describe("groupTestsByName", () => {
         taskName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -116,7 +115,6 @@ describe("groupTestsByName", () => {
         displayName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
         displayStatus: "failed",
         execution: 0,
         tests: {
@@ -141,7 +139,6 @@ describe("groupTestsByName", () => {
         displayName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
-        status: "failed",
         displayStatus: "failed",
         execution: 0,
         tests: {
@@ -175,7 +172,7 @@ describe("groupTestsByName", () => {
         taskName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -187,7 +184,7 @@ describe("groupTestsByName", () => {
         taskName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -196,7 +193,7 @@ describe("groupTestsByName", () => {
         taskName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -208,7 +205,7 @@ describe("groupTestsByName", () => {
         taskName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -223,7 +220,6 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         id: "task1_id",
         execution: 0,
-        status: "success",
         displayStatus: "success",
         tests: {
           filteredTestCount: 0,
@@ -242,7 +238,6 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         id: "task1_id",
         execution: 0,
-        status: "success",
         displayStatus: "success",
         tests: {
           filteredTestCount: 2,
@@ -273,7 +268,7 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         buildVariantDisplayName: undefined,
         id: "task1_id",
-        status: "success",
+        displayStatus: "success",
         logs: {
           urlParsley: "",
         },
@@ -287,7 +282,6 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         id: "task1_variant1_id",
         execution: 0,
-        status: "success",
         displayStatus: "success",
         tests: {
           filteredTestCount: 2,
@@ -306,7 +300,6 @@ describe("groupTestsByName", () => {
         buildVariant: "variant2",
         id: "task1_variant2_id",
         execution: 0,
-        status: "success",
         displayStatus: "success",
         tests: {
           filteredTestCount: 2,
@@ -330,7 +323,7 @@ describe("groupTestsByName", () => {
         buildVariant: "variant1",
         buildVariantDisplayName: undefined,
         id: "task1_variant1_id",
-        status: "success",
+        displayStatus: "success",
         logs: {
           urlParsley: "",
         },
@@ -340,7 +333,7 @@ describe("groupTestsByName", () => {
         buildVariant: "variant2",
         buildVariantDisplayName: undefined,
         id: "task1_variant2_id",
-        status: "success",
+        displayStatus: "success",
         logs: {
           urlParsley: "",
         },
@@ -371,7 +364,7 @@ describe("filterGroupedTests", () => {
         taskName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -380,7 +373,7 @@ describe("filterGroupedTests", () => {
         taskName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
-        status: "success",
+        displayStatus: "success",
         logs: {
           urlParsley: "",
         },
@@ -392,7 +385,7 @@ describe("filterGroupedTests", () => {
         taskName: "task3",
         buildVariant: "variant1",
         id: "task3_id",
-        status: "success",
+        displayStatus: "success",
         logs: {
           urlParsley: "",
         },
@@ -420,7 +413,7 @@ describe("filterGroupedTests", () => {
         taskName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -476,7 +469,7 @@ describe("filterGroupedTests", () => {
         taskName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -485,7 +478,7 @@ describe("filterGroupedTests", () => {
         taskName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
-        status: "success",
+        displayStatus: "success",
         logs: {
           urlParsley: "",
         },
@@ -511,7 +504,7 @@ describe("filterGroupedTests", () => {
         taskName: "task1",
         buildVariant: "variant1",
         id: "task1_id",
-        status: "failed",
+        displayStatus: "failed",
         logs: {
           urlParsley: "",
         },
@@ -520,7 +513,7 @@ describe("filterGroupedTests", () => {
         taskName: "task2",
         buildVariant: "variant2",
         id: "task2_id",
-        status: "success",
+        displayStatus: "success",
         logs: {
           urlParsley: "",
         },
