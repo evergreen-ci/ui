@@ -19,7 +19,7 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant1",
             buildVariantDisplayName: "Variant 1",
             id: "id1",
-            status: "passed",
+            displayStatus: "passed",
             logs: {
               urlParsley: "",
             },
@@ -29,7 +29,7 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant2",
             buildVariantDisplayName: "Variant 2",
             id: "id2",
-            status: "failed",
+            displayStatus: "failed",
             logs: {
               urlParsley: "",
             },
@@ -44,7 +44,7 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant1",
             buildVariantDisplayName: "Variant 1",
             id: "id3",
-            status: "passed",
+            displayStatus: "passed",
             logs: {
               urlParsley: "",
             },
@@ -54,7 +54,7 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant3",
             buildVariantDisplayName: "Variant 3",
             id: "id4",
-            status: "failed",
+            displayStatus: "failed",
             logs: {
               urlParsley: "",
             },
@@ -81,7 +81,7 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant1",
             buildVariantDisplayName: "Variant 1",
             id: "id1",
-            status: "passed",
+            displayStatus: "passed",
             logs: {
               urlParsley: "",
             },
@@ -91,7 +91,7 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant1",
             buildVariantDisplayName: "Variant 1",
             id: "id2",
-            status: "failed",
+            displayStatus: "failed",
             logs: {
               urlParsley: "",
             },
@@ -106,7 +106,7 @@ describe("getAllBuildVariants", () => {
             buildVariant: "variant2",
             buildVariantDisplayName: "Variant 2",
             id: "id3",
-            status: "passed",
+            displayStatus: "passed",
             logs: {
               urlParsley: "",
             },
