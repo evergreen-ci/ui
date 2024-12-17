@@ -70,9 +70,9 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
   }
   const {
     displayName,
+    displayStatus,
     execution: taskExecution,
     patchNumber,
-    status,
     versionMetadata,
   } = taskData;
 
@@ -116,7 +116,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
       text: (
         <>
           {trimStringFromMiddle(displayName, 30)}{" "}
-          <TaskStatusBadge status={status as TaskStatus} />
+          <TaskStatusBadge status={displayStatus as TaskStatus} />
         </>
       ),
       tooltipText: displayName.length > 30 && displayName,

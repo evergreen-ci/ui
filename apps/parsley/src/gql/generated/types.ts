@@ -864,6 +864,7 @@ export enum HostEventType {
   HostTaskFinished = "HOST_TASK_FINISHED",
   HostTemporaryExemptionExpirationWarningSent = "HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT",
   HostTerminatedExternally = "HOST_TERMINATED_EXTERNALLY",
+  SpawnHostCreatedError = "SPAWN_HOST_CREATED_ERROR",
   VolumeExpirationWarningSent = "VOLUME_EXPIRATION_WARNING_SENT",
   VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
 }
@@ -2843,7 +2844,7 @@ export type Task = {
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
   startTime?: Maybe<Scalars["Time"]["output"]>;
   /**
-   * This is a tasks display status and is what is commonly used on the UI.
+   * This is a task's display status and is what is commonly used on the UI.
    * In future releases this will be migrated to represent the original status of the task
    * @deprecated use displayStatus instead. Status will be migrated to reflect the original status
    */
@@ -3576,10 +3577,10 @@ export type WorkstationSetupCommandInput = {
 export type BaseTaskFragment = {
   __typename?: "Task";
   displayName: string;
+  displayStatus: string;
   execution: number;
   id: string;
   patchNumber?: number | null;
-  status: string;
   versionMetadata: {
     __typename?: "Version";
     id: string;
@@ -3618,10 +3619,10 @@ export type LogkeeperTaskQuery = {
     task: {
       __typename?: "Task";
       displayName: string;
+      displayStatus: string;
       execution: number;
       id: string;
       patchNumber?: number | null;
-      status: string;
       tests: {
         __typename?: "TaskTestResult";
         testResults: Array<{
@@ -3654,10 +3655,10 @@ export type TaskQuery = {
   task?: {
     __typename?: "Task";
     displayName: string;
+    displayStatus: string;
     execution: number;
     id: string;
     patchNumber?: number | null;
-    status: string;
     details?: {
       __typename?: "TaskEndDetail";
       description?: string | null;
