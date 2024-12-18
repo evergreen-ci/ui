@@ -18,14 +18,14 @@ const urlParseOptions: ParseOptions = {
   parseBooleans: true,
   parseNumbers: false,
   types: {
-    bookmarks: "number",
-    filterLogic: "string",
-    filters: "string[]",
-    highlights: "string[]",
-    lower: "number",
-    selectedLineRange: "string",
-    shareLine: "number",
-    upper: "number",
+    [QueryParams.Highlights]: "string[]",
+    [QueryParams.Bookmarks]: "number",
+    [QueryParams.Filters]: "string[]",
+    [QueryParams.ShareLine]: "number",
+    [QueryParams.FilterLogic]: "string",
+    [QueryParams.LowerRange]: "number",
+    [QueryParams.UpperRange]: "number",
+    [QueryParams.SelectedLineRange]: "string",
   },
 };
 
