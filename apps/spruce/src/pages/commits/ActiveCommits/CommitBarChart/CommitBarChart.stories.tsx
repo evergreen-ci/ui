@@ -15,14 +15,17 @@ export default {
 export const Default: StoryObj<typeof CommitBarChart> = {
   render: ({ chartType }) => (
     <FlexRowContainer>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       {versions.map((item) => (
         <CommitBarChart
+          // @ts-expect-error this code will be deleted soon
           key={item.version.id}
           chartType={chartType}
+          // @ts-expect-error this code will be deleted soon
           eta={item.version?.taskStatusStats?.eta}
+          // @ts-expect-error this code will be deleted soon
           groupedTaskStats={groupedTaskData[item.version.id].stats}
           max={max}
+          // @ts-expect-error this code will be deleted soon
           total={groupedTaskData[item.version.id].total}
         />
       ))}

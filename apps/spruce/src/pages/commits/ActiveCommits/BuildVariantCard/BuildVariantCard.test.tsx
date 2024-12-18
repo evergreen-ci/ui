@@ -63,19 +63,19 @@ describe("buildVariantCard", () => {
 const tasks = [
   {
     id: "1",
-    status: "failed",
+    displayStatus: "failed",
     displayName: "One",
     hasCedarResults: true,
   },
   {
     id: "2",
-    status: "success",
+    displayStatus: "success",
     displayName: "Two",
     hasCedarResults: true,
   },
   {
     id: "3",
-    status: "success",
+    displayStatus: "success",
     displayName: "Three",
     hasCedarResults: true,
   },

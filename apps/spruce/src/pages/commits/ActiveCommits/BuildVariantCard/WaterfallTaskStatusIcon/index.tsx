@@ -26,7 +26,7 @@ interface WaterfallTaskStatusIconProps {
   taskId: string;
   status: string;
   displayName: string;
-  timeTaken?: number;
+  timeTaken?: number | null;
   identifier: string;
   hasCedarResults: boolean;
 }

@@ -14,7 +14,7 @@ const { gray } = palette;
 const MAX_CHAR = 40;
 interface Props {
   githash: string;
-  gitTags: GitTag[];
+  gitTags?: GitTag[] | null;
   createTime: Date;
   author: string;
   message: string;
