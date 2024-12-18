@@ -24,7 +24,7 @@ import VersionPageBreadcrumbs from "./version/Breadcrumbs";
 import BuildVariantCard from "./version/BuildVariantCard";
 import { Metadata } from "./version/Metadata";
 import { NameChangeModal } from "./version/NameChangeModal";
-import VersionTabs from "./version/VersionTabs";
+import VersionTabs from "./version/Tabs";
 
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
