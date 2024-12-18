@@ -317,7 +317,7 @@ const patchTaskWithFailingBaseTask = {
   displayName: "lint-agent",
   buildVariant: "lint",
   projectIdentifier: "evergreen",
-  status: "failed",
+  displayStatus: "failed",
   versionMetadata: {
     baseVersion: {
       id: "baseVersion",
@@ -338,7 +338,7 @@ const patchTaskWithFailingBaseTask = {
     ...taskQuery.task,
     id: baseTaskId,
     execution: 0,
-    status: "failed",
+    displayStatus: "failed",
     __typename: "Task" as const,
   },
   __typename: "Task" as const,
@@ -368,7 +368,7 @@ const patchTaskWithNoBaseVersion = {
   displayName: "lint-agent",
   buildVariant: "lint",
   projectIdentifier: "evergreen",
-  status: "success",
+  displayStatus: "success",
   versionMetadata: {
     baseVersion: null,
     id: "versionMetadataId",

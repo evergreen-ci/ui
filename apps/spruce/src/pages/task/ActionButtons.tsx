@@ -43,7 +43,7 @@ interface Props {
   initialPriority?: number;
   isDisplayTask: boolean;
   isExecutionTask: boolean;
-  task: TaskQuery["task"];
+  task: NonNullable<TaskQuery["task"]>;
 }
 
 export const ActionButtons: React.FC<Props> = ({

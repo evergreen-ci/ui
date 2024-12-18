@@ -39,7 +39,7 @@ describe("useLastExecutedTask", () => {
       expect(result.current.task).toBeDefined();
     });
 
-    expect(result.current.task.id).toBe("last_executed_task");
+    expect(result.current.task?.id).toBe("last_executed_task");
   });
   it("a last executed task is not found due to an error in the query", async () => {
     const { result } = renderHook(() => useLastExecutedTask("t1"), {

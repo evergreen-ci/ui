@@ -37,7 +37,7 @@ describe("useParentTask", () => {
       expect(result.current.task).toBeDefined();
     });
 
-    expect(result.current.task.id).toBe("task");
+    expect(result.current.task?.id).toBe("task");
   });
 });
 

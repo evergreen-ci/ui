@@ -43,7 +43,7 @@ describe("useBreakingTask", () => {
       expect(result.current.task).toBeDefined();
     });
 
-    expect(result.current.task.id).toBe("breaking_commit");
+    expect(result.current.task?.id).toBe("breaking_commit");
   });
   it("a breaking task is not found due to an error in the query", async () => {
     const { result } = renderHook(() => useBreakingTask("t1"), {

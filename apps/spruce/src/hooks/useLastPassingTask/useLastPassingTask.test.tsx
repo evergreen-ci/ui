@@ -39,7 +39,7 @@ describe("useLastPassingTask", () => {
       expect(result.current.task).toBeDefined();
     });
 
-    expect(result.current.task.id).toBe("last_passing_task");
+    expect(result.current.task?.id).toBe("last_passing_task");
   });
   it("a last passing task is not found due to an error in the query", async () => {
     const { result } = renderHook(() => useLastPassingTask("t1"), {

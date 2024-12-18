@@ -34,7 +34,7 @@ export const useBreakingTask = (taskId: string) => {
   const { task: parentTask } = useParentTask(taskId);
 
   const { task: lastPassingTask } = useLastPassingTask(taskId);
-  const passingOrderNumber = lastPassingTask?.order;
+  const passingOrderNumber = lastPassingTask?.order || 0;
 
   // The breaking commit is the first failing commit after the last passing commit.
   // The skip order number should be the last passing commit's order number + 1.

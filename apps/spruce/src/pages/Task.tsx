@@ -109,13 +109,15 @@ export const Task = () => {
           </StyledBadgeWrapper>
         }
         buttons={
-          <ActionButtons
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            initialPriority={priority}
-            isDisplayTask={isDisplayTask}
-            isExecutionTask={!!displayTask}
-            task={task}
-          />
+          task ? (
+            <ActionButtons
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              initialPriority={priority}
+              isDisplayTask={isDisplayTask}
+              isExecutionTask={!!displayTask}
+              task={task}
+            />
+          ) : undefined
         }
         loading={loading}
         pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
