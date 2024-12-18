@@ -217,7 +217,8 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     if (!tab || !tabIsActive[tab]) {
       handleTabChange(VersionPageTabs.Tasks, false);
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, tabIsActive]);
 
   useTabShortcut({
     currentTab: activeTabs.indexOf(selectedTab),
