@@ -23,6 +23,7 @@ const ConfigurePatch: React.FC = () => {
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
   >(PATCH_CONFIGURE, {
+    skip: !validateObjectId(patchId || ""),
     variables: { id: patchId || "" },
     onError(err) {
       dispatchToast.error(err.message);
