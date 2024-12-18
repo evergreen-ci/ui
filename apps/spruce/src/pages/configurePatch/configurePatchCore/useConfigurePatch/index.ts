@@ -83,6 +83,13 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     setSelectedTab: (i: number) => setSelectedTab(indexToTabMap[i]),
   });
 
+  // Handle redirecting to the correct tab if the tab is not active
+  useEffect(() => {
+    if (!urlTab || !tabToIndexMap[urlTab]) {
+      setSelectedTab(ConfigurePatchPageTabs.Tasks);
+    }
+  }, []);
+
   return {
     ...state,
     setDescription,
