@@ -228,7 +228,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
 
   return (
     <StyledTabs
-      aria-label="Patch Tabs"
+      aria-label="Version Tabs"
       selected={activeTabs.indexOf(selectedTab)}
       // @ts-expect-error
       setSelected={(tabIndex: number) =>

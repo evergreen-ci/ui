@@ -25,7 +25,7 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   }>();
 
   const { id, project } = patch || {};
-  const { variants } = project || {};
+  const { variants } = project || { variants: [] };
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
@@ -49,10 +49,8 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
       dispatch({
         type: "updatePatchData",
         description: patch.description,
-        // @ts-expect-error
-        buildVariants: [variants[0]?.name],
+        buildVariants: variants.length > 0 ? [variants[0].name] : [],
         params: patch.parameters,
-        // @ts-expect-error
         variantTasks: initializeTaskState(variants, patch.variantsTasks),
         aliases: initializeAliasState(patch.patchTriggerAliases),
       });

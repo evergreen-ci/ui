@@ -70,13 +70,11 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
   const { variants = [] } = project || {};
 
   const childPatchesWithAliases: ChildPatchAliased[] =
-    (childPatchAliases &&
-      childPatches?.map((cp) => {
-        const { alias = id } =
-          childPatchAliases.find(({ patchId }) => cp.id === patchId) || {};
-        return { ...cp, alias };
-      })) ??
-    [];
+    childPatches?.map((cp) => {
+      const { alias = id } =
+        childPatchAliases?.find(({ patchId }) => cp.id === patchId) || {};
+      return { ...cp, alias };
+    }) ?? [];
 
   const selectableAliases = useMemo(
     () => filterAliases(patchTriggerAliases, childPatchAliases || []),
