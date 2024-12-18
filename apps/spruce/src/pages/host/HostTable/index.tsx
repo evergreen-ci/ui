@@ -21,11 +21,10 @@ import { useDateFormat } from "hooks";
 import usePagination from "hooks/usePagination";
 import { useQueryParams } from "hooks/useQueryParam";
 import { HostCard } from "pages/host/HostCard";
-import {
-  HostEventString,
+import HostEventString, {
   formatHostFilterOption,
 } from "pages/host/HostEventString";
-import { HostQueryParams } from "./constants";
+import { HostQueryParams } from "../constants";
 
 type HostEvent = Unpacked<
   NonNullable<HostEventsQuery["host"]>["events"]["eventLogEntries"]
@@ -42,7 +41,7 @@ interface HostTableProps {
   page: number;
 }
 
-export const HostTable: React.FC<HostTableProps> = ({
+const HostTable: React.FC<HostTableProps> = ({
   error,
   eventCount,
   eventLogEntries,
@@ -192,3 +191,5 @@ const PaginationWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export default HostTable;

@@ -29,10 +29,10 @@ import {
 import { HOST, HOST_EVENTS } from "gql/queries/index";
 import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
-import { HostTable } from "pages/host/HostTable";
-import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
 import { HostQueryParams } from "./constants";
+import HostTable from "./HostTable";
+import { Metadata } from "./Metadata";
 
 const Host: React.FC = () => {
   const dispatchToast = useToastContext();
