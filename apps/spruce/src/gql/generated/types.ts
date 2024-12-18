@@ -404,6 +404,7 @@ export type Distro = {
   providerSettingsList: Array<Scalars["Map"]["output"]>;
   setup: Scalars["String"]["output"];
   setupAsSudo: Scalars["Boolean"]["output"];
+  singleTaskDistro: Scalars["Boolean"]["output"];
   sshOptions: Array<Scalars["String"]["output"]>;
   user: Scalars["String"]["output"];
   userSpawnAllowed: Scalars["Boolean"]["output"];
@@ -471,6 +472,7 @@ export type DistroInput = {
   providerSettingsList: Array<Scalars["Map"]["input"]>;
   setup: Scalars["String"]["input"];
   setupAsSudo: Scalars["Boolean"]["input"];
+  singleTaskDistro?: InputMaybe<Scalars["Boolean"]["input"]>;
   sshOptions: Array<Scalars["String"]["input"]>;
   user: Scalars["String"]["input"];
   userSpawnAllowed: Scalars["Boolean"]["input"];
@@ -862,6 +864,7 @@ export enum HostEventType {
   HostTaskFinished = "HOST_TASK_FINISHED",
   HostTemporaryExemptionExpirationWarningSent = "HOST_TEMPORARY_EXEMPTION_EXPIRATION_WARNING_SENT",
   HostTerminatedExternally = "HOST_TERMINATED_EXTERNALLY",
+  SpawnHostCreatedError = "SPAWN_HOST_CREATED_ERROR",
   VolumeExpirationWarningSent = "VOLUME_EXPIRATION_WARNING_SENT",
   VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
 }
@@ -3802,6 +3805,7 @@ export type PatchesPagePatchesFragment = {
     versionFull?: {
       __typename?: "Version";
       id: string;
+      requester: string;
       status: string;
       taskStatusStats?: {
         __typename?: "TaskStats";
@@ -7730,6 +7734,7 @@ export type ProjectPatchesQuery = {
         versionFull?: {
           __typename?: "Version";
           id: string;
+          requester: string;
           status: string;
           taskStatusStats?: {
             __typename?: "TaskStats";
@@ -9388,6 +9393,7 @@ export type UserPatchesQuery = {
         versionFull?: {
           __typename?: "Version";
           id: string;
+          requester: string;
           status: string;
           taskStatusStats?: {
             __typename?: "TaskStats";

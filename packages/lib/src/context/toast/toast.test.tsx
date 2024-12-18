@@ -6,7 +6,7 @@ import {
   screen,
   userEvent,
   waitFor,
-} from "@evg-ui/lib/test_utils";
+} from "test_utils";
 import { ToastProvider, useToastContext } from ".";
 import { RenderFakeToastContext } from "./__mocks__";
 import { TOAST_TIMEOUT } from "./constants";

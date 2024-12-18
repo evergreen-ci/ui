@@ -5,13 +5,13 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { finishedTaskStatuses } from "constants/task";
-import { useToastContext } from "context/toast";
 import {
   BuildVariantsWithChildrenQuery,
   BuildVariantsWithChildrenQueryVariables,

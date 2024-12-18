@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
@@ -18,7 +19,6 @@ import {
 } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import { slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   HostQuery,
   HostQueryVariables,
@@ -29,10 +29,10 @@ import {
 import { HOST, HOST_EVENTS } from "gql/queries/index";
 import usePagination from "hooks/usePagination";
 import { useQueryParam } from "hooks/useQueryParam";
-import { HostTable } from "pages/host/HostTable";
-import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
 import { HostQueryParams } from "./constants";
+import HostTable from "./HostTable";
+import { Metadata } from "./Metadata";
 
 const Host: React.FC = () => {
   const dispatchToast = useToastContext();

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import { useToastContext } from "context/toast";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   ImageEventsQuery,
   ImageEventsQueryVariables,
