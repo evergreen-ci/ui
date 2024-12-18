@@ -4,7 +4,7 @@
     style="max-width: 750px;"
   >
     <div
-      class="css-vnviqw-Container eb0fe5t2"
+      class="css-b632ds-Container eb0fe5t2"
     >
       <h3
         class="leafygreen-ui-feh85s"
@@ -77,19 +77,19 @@
             role="tabpanel"
           >
             <div
-              class="css-1pljvuj-Row eb0fe5t1"
+              class="css-8g0nm5-Row eb0fe5t1"
             >
               <div
-                class="css-1wy4ud6-Column eb0fe5t0"
+                class="css-vmdwqj-Column eb0fe5t0"
               >
                 <div
-                  class="css-vhomhu-DetailRow-StyledDetailRow egajxj64"
+                  class="css-b1wwht-DetailRow-StyledDetailRow egajxj64"
                 >
                   <div
-                    class="css-1m0k94u-LabelWrapper e1fnsar0"
+                    class="css-bxonlk-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
+                      class="css-1ycbqa0-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Range
                     </h6>
@@ -120,14 +120,14 @@
                     </span>
                   </div>
                   <div
-                    class="css-1bqh3hf-RangeInputContainer egajxj63"
+                    class="css-pajyei-RangeInputContainer egajxj63"
                   >
                     <div
-                      class="css-500t56-RangeInputWrapper egajxj62"
+                      class="css-1mh18ue-RangeInputWrapper egajxj62"
                     >
                       <div
                         aria-labelledby="Range Lower Bound"
-                        class="leafygreen-ui-1br9h7w css-1esou8m-RangeInput egajxj61"
+                        class="leafygreen-ui-1br9h7w css-1czlwpr-RangeInput egajxj61"
                         data-lgid="lg-text_input"
                       >
                         <div
@@ -167,7 +167,7 @@
                       </div>
                       <div
                         aria-labelledby="Range Upper Bound"
-                        class="leafygreen-ui-1br9h7w css-1esou8m-RangeInput egajxj61"
+                        class="leafygreen-ui-1br9h7w css-1czlwpr-RangeInput egajxj61"
                         data-lgid="lg-text_input"
                       >
                         <div
@@ -209,13 +209,13 @@
                   </div>
                 </div>
                 <div
-                  class="css-1lfkm0d-DetailRow e1fnsar2"
+                  class="css-um5b9y-DetailRow e1fnsar2"
                 >
                   <div
-                    class="css-1m0k94u-LabelWrapper e1fnsar0"
+                    class="css-bxonlk-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
+                      class="css-1ycbqa0-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Case Sensitive
                     </h6>
@@ -246,10 +246,10 @@
                     </span>
                   </div>
                   <div
-                    class="css-ar0usj-ToggleWrapper ebcb7uy0"
+                    class="css-15tcic4-ToggleWrapper ebcb7uy0"
                   >
                     <small
-                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
+                      class="css-19l0te-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       OFF
                     </small>
@@ -287,20 +287,20 @@
                       </button>
                     </div>
                     <small
-                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
+                      class="css-19l0te-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       ON
                     </small>
                   </div>
                 </div>
                 <div
-                  class="css-1lfkm0d-DetailRow e1fnsar2"
+                  class="css-um5b9y-DetailRow e1fnsar2"
                 >
                   <div
-                    class="css-1m0k94u-LabelWrapper e1fnsar0"
+                    class="css-bxonlk-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
+                      class="css-1ycbqa0-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Filter Logic
                     </h6>
@@ -331,10 +331,10 @@
                     </span>
                   </div>
                   <div
-                    class="css-ar0usj-ToggleWrapper ebcb7uy0"
+                    class="css-15tcic4-ToggleWrapper ebcb7uy0"
                   >
                     <small
-                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
+                      class="css-19l0te-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       AND
                     </small>
@@ -372,20 +372,20 @@
                       </button>
                     </div>
                     <small
-                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
+                      class="css-19l0te-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       OR
                     </small>
                   </div>
                 </div>
                 <div
-                  class="css-1lfkm0d-DetailRow e1fnsar2"
+                  class="css-um5b9y-DetailRow e1fnsar2"
                 >
                   <div
-                    class="css-1m0k94u-LabelWrapper e1fnsar0"
+                    class="css-bxonlk-LabelWrapper e1fnsar0"
                   >
                     <h6
-                      class="css-o518j-DetailName e1fnsar1 leafygreen-ui-19p3n10"
+                      class="css-1ycbqa0-DetailName e1fnsar1 leafygreen-ui-19p3n10"
                     >
                       Highlight Filters
                     </h6>
@@ -416,10 +416,10 @@
                     </span>
                   </div>
                   <div
-                    class="css-ar0usj-ToggleWrapper ebcb7uy0"
+                    class="css-15tcic4-ToggleWrapper ebcb7uy0"
                   >
                     <small
-                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
+                      class="css-19l0te-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       OFF
                     </small>
@@ -457,7 +457,7 @@
                       </button>
                     </div>
                     <small
-                      class="css-1btydve-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
+                      class="css-19l0te-ToggleLabel ebcb7uy1 leafygreen-ui-6flbwy"
                     >
                       ON
                     </small>
@@ -466,7 +466,7 @@
               </div>
             </div>
             <div
-              class="css-1lfkm0d-DetailRow e1fnsar2"
+              class="css-um5b9y-DetailRow e1fnsar2"
             >
               <button
                 aria-disabled="true"
