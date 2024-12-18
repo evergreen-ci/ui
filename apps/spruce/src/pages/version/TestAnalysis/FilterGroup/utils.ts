@@ -41,7 +41,7 @@ const getAllTaskStatuses = (taskMap: Map<string, TaskBuildVariantField[]>) => {
 
   taskMap.forEach((taskArray) => {
     taskArray.forEach((task) => {
-      statusSet.add(task.status as TaskStatus);
+      statusSet.add(task.displayStatus as TaskStatus);
     });
   });
 

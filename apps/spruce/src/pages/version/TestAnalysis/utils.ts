@@ -25,7 +25,7 @@ const groupTestsByName = (
           buildVariant: task.buildVariant,
           buildVariantDisplayName: task.buildVariantDisplayName,
           id: task.id,
-          status: task.status,
+          displayStatus: task.displayStatus,
           logs: {
             urlParsley: test.logs.urlParsley || "",
           },
@@ -69,7 +69,7 @@ const filterGroupedTests = (
     if (!testNamePattern.test(testName)) return;
 
     const filteredTasks = tasks.filter((task) => {
-      const statusMatch = !hasStatuses || statusSet.has(task.status);
+      const statusMatch = !hasStatuses || statusSet.has(task.displayStatus);
       const variantMatch = !hasVariants || variantSet.has(task.buildVariant);
       return statusMatch && variantMatch;
     });

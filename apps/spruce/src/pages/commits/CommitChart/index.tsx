@@ -80,7 +80,6 @@ export const CommitChart: React.FC<Props> = ({ hasTaskFilter, versions }) => {
       >
         <ChartWrapper>
           <FlexRowContainer>
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {versions.map((commit) => (
               <CommitWrapper
                 key={getCommitKey(commit)}

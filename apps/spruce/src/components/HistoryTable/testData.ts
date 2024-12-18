@@ -17,7 +17,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_lint_lint_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "Lint",
               },
             ],
@@ -29,7 +29,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_race_detector_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "test-model-distro",
               },
             ],
@@ -41,13 +41,13 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
                 execution: 0,
-                status: "failed",
+                displayStatus: "failed",
                 displayName: "dist",
               },
               {
                 id: "evergreen_ubuntu1604_test_model_distro_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "test-model-distro",
               },
             ],
@@ -72,7 +72,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_lint_lint_model_distro_f476f5f137d385858d633300521a744970540f54_21_09_02_14_07_07",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "Lint",
               },
             ],
@@ -84,7 +84,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_race_detector_test_model_distro_f476f5f137d385858d633300521a744970540f54_21_09_02_14_07_07",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "test-model-distro",
               },
             ],
@@ -96,13 +96,13 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_ubuntu1604_dist_f476f5f137d385858d633300521a744970540f54_21_09_02_14_07_07",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "dist",
               },
               {
                 id: "evergreen_ubuntu1604_test_model_distro_f476f5f137d385858d633300521a744970540f54_21_09_02_14_07_07",
                 execution: 0,
-                status: "unscheduled",
+                displayStatus: "unscheduled",
                 displayName: "test-model-distro",
               },
             ],
@@ -128,7 +128,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_lint_lint_model_distro_d74a055481b3c706f37098b0b1bd8c3ae73ef9ac_21_09_01_20_41_31",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "Lint",
               },
             ],
@@ -140,7 +140,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_race_detector_test_model_distro_d74a055481b3c706f37098b0b1bd8c3ae73ef9ac_21_09_01_20_41_31",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "test-model-distro",
               },
             ],
@@ -152,13 +152,13 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_ubuntu1604_dist_d74a055481b3c706f37098b0b1bd8c3ae73ef9ac_21_09_01_20_41_31",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "dist",
               },
               {
                 id: "evergreen_ubuntu1604_test_model_distro_d74a055481b3c706f37098b0b1bd8c3ae73ef9ac_21_09_01_20_41_31",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "test-model-distro",
               },
             ],
@@ -184,7 +184,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_lint_lint_model_distro_5c34535229dcda24f968b707b022c51245958aab_21_09_01_18_25_38",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "Lint",
               },
             ],
@@ -196,7 +196,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_race_detector_test_model_distro_5c34535229dcda24f968b707b022c51245958aab_21_09_01_18_25_38",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "test-model-distro",
               },
             ],
@@ -208,13 +208,13 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_ubuntu1604_dist_5c34535229dcda24f968b707b022c51245958aab_21_09_01_18_25_38",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "dist",
               },
               {
                 id: "evergreen_ubuntu1604_test_model_distro_5c34535229dcda24f968b707b022c51245958aab_21_09_01_18_25_38",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "test-model-distro",
               },
             ],
@@ -239,7 +239,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_lint_lint_model_distro_fc023273280db4689ee824983736401521e73d71_21_09_01_18_19_34",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "Lint",
               },
             ],
@@ -251,7 +251,7 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_race_detector_test_model_distro_fc023273280db4689ee824983736401521e73d71_21_09_01_18_19_34",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "test-model-distro",
               },
             ],
@@ -263,13 +263,13 @@ export const mainlineCommitData = {
               {
                 id: "evergreen_ubuntu1604_dist_fc023273280db4689ee824983736401521e73d71_21_09_01_18_19_34",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "dist",
               },
               {
                 id: "evergreen_ubuntu1604_test_model_distro_fc023273280db4689ee824983736401521e73d71_21_09_01_18_19_34",
                 execution: 0,
-                status: "success",
+                displayStatus: "success",
                 displayName: "test-model-distro",
               },
             ],

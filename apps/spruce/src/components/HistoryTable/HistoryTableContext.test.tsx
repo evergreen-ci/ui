@@ -70,6 +70,7 @@ describe("historyTableContext", () => {
       type: rowType.COMMIT,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       commit: splitMainlineCommitDataPart1.versions[0].version,
 
       selected: false,
@@ -117,6 +118,7 @@ describe("historyTableContext", () => {
       type: rowType.COMMIT,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: splitMainlineCommitDataPart2.versions[0].version.createTime,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       commit: splitMainlineCommitDataPart2.versions[0].version,
 
       selected: false,
@@ -177,6 +179,7 @@ describe("historyTableContext", () => {
       type: rowType.COMMIT,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: commitDate1.versions[0].version.createTime,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       commit: commitDate1.versions[0].version,
 
       selected: false,
@@ -202,6 +205,7 @@ describe("historyTableContext", () => {
       type: rowType.COMMIT,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: commitDate2.versions[0].version.createTime,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       commit: commitDate2.versions[0].version,
 
       selected: false,
@@ -225,6 +229,7 @@ describe("historyTableContext", () => {
       type: rowType.FOLDED_COMMITS,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: rolledUpVersions[0].createTime,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       rolledUpCommits: rolledUpVersions,
       selected: false,
       expanded: false,
@@ -238,6 +243,7 @@ describe("historyTableContext", () => {
       type: rowType.FOLDED_COMMITS,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       date: rolledUpVersions[0].createTime,
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
       rolledUpCommits: rolledUpVersions,
       selected: false,
       expanded: true,

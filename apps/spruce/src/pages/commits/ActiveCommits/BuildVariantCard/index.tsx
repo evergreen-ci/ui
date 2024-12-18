@@ -13,18 +13,18 @@ import {
 import { TASK_ICON_PADDING } from "pages/commits/constants";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
-type taskList = {
+type TaskList = {
   id: string;
-  status: string;
+  displayStatus: string;
   displayName: string;
-  timeTaken?: number;
+  timeTaken?: number | null;
   hasCedarResults: boolean;
 }[];
 interface Props {
   variant: string;
   height: number;
   buildVariantDisplayName: string;
-  tasks?: taskList;
+  tasks?: TaskList;
   versionId: string;
   projectIdentifier: string;
   groupedVariantStats?: {
@@ -85,7 +85,7 @@ export const BuildVariantCard: React.FC<Props> = ({
 };
 
 interface RenderTaskIconsProps {
-  tasks: taskList;
+  tasks: TaskList;
   variant: string;
 }
 
@@ -96,17 +96,19 @@ const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks, variant }) =>
       onMouseEnter={() => injectGlobalDimStyle()}
       onMouseLeave={() => removeGlobalDimStyle()}
     >
-      {tasks.map(({ displayName, hasCedarResults, id, status, timeTaken }) => (
-        <WaterfallTaskStatusIcon
-          key={id}
-          displayName={displayName}
-          hasCedarResults={hasCedarResults}
-          identifier={`${variant}-${displayName}`}
-          status={status}
-          taskId={id}
-          timeTaken={timeTaken}
-        />
-      ))}
+      {tasks.map(
+        ({ displayName, displayStatus, hasCedarResults, id, timeTaken }) => (
+          <WaterfallTaskStatusIcon
+            key={id}
+            displayName={displayName}
+            hasCedarResults={hasCedarResults}
+            identifier={`${variant}-${displayName}`}
+            status={displayStatus}
+            taskId={id}
+            timeTaken={timeTaken}
+          />
+        ),
+      )}
     </IconContainer>
   ) : null;
 

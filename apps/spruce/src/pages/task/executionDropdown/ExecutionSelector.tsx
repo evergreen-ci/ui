@@ -67,7 +67,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
             value={singleExecution.execution}
           >
             <ExecutionInfo>
-              <StyledTaskStatusIcon status={singleExecution.status} />
+              <StyledTaskStatusIcon status={singleExecution.displayStatus} />
               {/* @ts-expect-error */}
               <StyledBody title={optionText}>{optionText}</StyledBody>
             </ExecutionInfo>

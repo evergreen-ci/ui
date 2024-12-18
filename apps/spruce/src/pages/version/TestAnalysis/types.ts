@@ -6,7 +6,7 @@ type TaskBuildVariantField = {
   buildVariant: string;
   buildVariantDisplayName?: string | null;
   id: string;
-  status: string;
+  displayStatus: string;
   logs: {
     urlParsley: string;
   };
