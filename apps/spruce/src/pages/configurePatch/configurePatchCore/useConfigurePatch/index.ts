@@ -88,6 +88,7 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     if (!urlTab || !tabToIndexMap[urlTab]) {
       setSelectedTab(ConfigurePatchPageTabs.Tasks);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
