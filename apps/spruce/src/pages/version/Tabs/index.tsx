@@ -224,7 +224,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     currentTab: activeTabs.indexOf(selectedTab),
     numTabs: activeTabs.length,
     setSelectedTab: (tabIndex) =>
-      activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex]),
+      activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex], true),
   });
 
   return (
@@ -233,7 +233,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       selected={activeTabs.indexOf(selectedTab)}
       // @ts-expect-error
       setSelected={(tabIndex: number) =>
-        activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex])
+        activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex], true)
       }
     >
       {activeTabs.map((t: VersionPageTabs) => allTabs[t])}
