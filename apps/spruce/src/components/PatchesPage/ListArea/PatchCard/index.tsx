@@ -8,6 +8,7 @@ import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledRouterLink } from "components/styles";
 import { unlinkedPRUsers } from "constants/patch";
+import { Requester } from "constants/requesters";
 import {
   getProjectPatchesRoute,
   getVersionRoute,
@@ -50,10 +51,11 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
   } = patch;
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const createDate = new Date(createTime);
-  const { id: versionId, taskStatusStats } = versionFull || {};
+  const { id: versionId, requester, taskStatusStats } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? [],
   );
+  const isMergeQueuePatch = requester === Requester.GitHubMergeQueue;
 
   let patchProject = null;
   if (pageType === "project") {
@@ -127,6 +129,7 @@ const PatchCard: React.FC<PatchCardProps> = ({ pageType, patch }) => {
         {hidden && <Badge data-cy="hidden-badge">Hidden</Badge>}
         <DropdownMenu
           hasVersion={!!versionId}
+          isMergeQueuePatch={isMergeQueuePatch}
           isPatchHidden={hidden}
           patchId={id}
         />

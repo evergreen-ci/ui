@@ -5,6 +5,7 @@ describe("Filtering", () => {
   describe("Applying filters", () => {
     describe("Basic filtering", () => {
       beforeEach(() => {
+        cy.resetDrawerState();
         cy.visit(logLink);
         cy.dataCy("paginated-virtual-list").should("be.visible");
       });
@@ -19,6 +20,13 @@ describe("Filtering", () => {
             .should("have.attr", "data-cy")
             .and("match", /log-row-(0|5|6|130)/);
         });
+      });
+
+      it("does not corrupt filters that are large numbers", () => {
+        cy.addFilter("5553072873648668703");
+        cy.dataCy("log-row-0").should("be.visible").dblclick({ force: true });
+        cy.location("search").should("contain", "5553072873648668703");
+        cy.dataCy("filter-5553072873648668703").should("be.visible");
       });
     });
 
@@ -206,7 +214,8 @@ describe("Filtering", () => {
       cy.dataCy(`filter-${filter}`).within(() => {
         cy.get(`[aria-label="Edit filter"]`).click();
       });
-      cy.dataCy("edit-filter-name").clear().type("session");
+      cy.dataCy("edit-filter-name").clear();
+      cy.dataCy("edit-filter-name").type("session");
       cy.contains("button", "Apply").click();
       cy.location("search").should("contain", "filters=100session");
       cy.get("[data-cy^='log-row-']")

@@ -1,3 +1,4 @@
+import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import {
   act,
   renderWithRouterMatch as render,
@@ -8,7 +9,6 @@ import {
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
-import { RenderFakeToastContext as InitializeFakeToastContext } from "context/toast/__mocks__";
 import SectionsToggle from ".";
 
 const wrapper = logContextWrapper();

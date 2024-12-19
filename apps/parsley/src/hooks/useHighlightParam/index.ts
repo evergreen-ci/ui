@@ -9,9 +9,7 @@ import { useQueryParams } from "hooks/useQueryParam";
  * @returns a tuple containing the parsed highlights and a function to set the highlights
  */
 const useHighlightParam = () => {
-  const [searchParams, setSearchParams] = useQueryParams({
-    parseNumbers: false,
-  });
+  const [searchParams, setSearchParams] = useQueryParams();
 
   const parsedHighlights = useMemo(
     () =>

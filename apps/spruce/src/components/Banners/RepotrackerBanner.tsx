@@ -5,8 +5,8 @@ import Banner from "@leafygreen-ui/banner";
 import TextInput from "@leafygreen-ui/text-input";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { useToastContext } from "context/toast";
 import {
   UserProjectSettingsPermissionsQuery,
   UserProjectSettingsPermissionsQueryVariables,

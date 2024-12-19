@@ -24,7 +24,7 @@ interface HostEventStringProps {
   eventType: string;
   data: HostEventLogData;
 }
-export const HostEventString: React.FC<HostEventStringProps> = ({
+const HostEventString: React.FC<HostEventStringProps> = ({
   data,
   eventType,
 }) => {
@@ -253,6 +253,31 @@ export const HostEventString: React.FC<HostEventStringProps> = ({
           )}
         </span>
       );
+    case HostEventType.HostIdleNotification:
+      return (
+        <span data-cy="host-idle-notification">Idle notification sent</span>
+      );
+    case HostEventType.HostTerminatedExternally:
+      return (
+        <span data-cy="host-terminated-externally">
+          Host terminated externally by {data.user}
+        </span>
+      );
+    case HostEventType.VolumeExpirationWarningSent:
+      return (
+        <span data-cy="volume-expiration-warning-sent">
+          Volume expiration warning sent
+        </span>
+      );
+    case HostEventType.SpawnHostCreatedError:
+      return (
+        <span data-cy="spawn-host-creation-failed">
+          Spawn host creation failed.
+          {data.logs && (
+            <HostEventLog isCode logs={data.logs} title="Host creation logs" />
+          )}
+        </span>
+      );
     default:
       return <span>{eventType}</span>;
   }
@@ -287,3 +312,5 @@ export const formatHostFilterOption = (e: HostEventType): string => {
     .trimStart();
   return toSentenceCase(option).replace(/dns/i, "DNS");
 };
+
+export default HostEventString;
