@@ -64,6 +64,9 @@ export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
     version;
 
   const memoizedBuildVariantCards = useMemo(() => {
+    if (!buildVariants || !buildVariantStats) {
+      return null;
+    }
     const groupedBuildVariants = convertArrayToObject(buildVariants, "variant");
     const groupedBuildVariantStats = convertArrayToObject(
       buildVariantStats,
@@ -83,20 +86,17 @@ export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
 
       const buildVariant = groupedBuildVariants[v];
       const variantStats = groupedBuildVariantStats[v];
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
       const { displayName, variant } = buildVariant ?? variantStats;
 
       return (
         <BuildVariantCard
           key={`${id}_${variant}`}
           buildVariantDisplayName={displayName}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           groupedVariantStats={variantStats}
           height={height}
           order={order}
           projectIdentifier={projectIdentifier}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          tasks={buildVariant?.tasks}
+          tasks={buildVariant?.tasks || []}
           variant={variant}
           versionId={id}
         />

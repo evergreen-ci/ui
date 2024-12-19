@@ -32,11 +32,12 @@ export enum CommitRequesterTypes {
   AdHocRequester = "ad_hoc",
 }
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-export type Commits = MainlineCommitsQuery["mainlineCommits"]["versions"];
+export type Commits = NonNullable<
+  MainlineCommitsQuery["mainlineCommits"]
+>["versions"];
 export type Commit = Unpacked<Commits>;
-export type CommitVersion = Commit["version"];
-export type CommitRolledUpVersions = Commit["rolledUpVersions"];
+export type CommitVersion = NonNullable<Commit["version"]>;
+export type CommitRolledUpVersions = NonNullable<Commit["rolledUpVersions"]>;
 export type BuildVariantDict = {
   [buildVariant: string]: {
     priority: number;

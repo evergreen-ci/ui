@@ -27,7 +27,7 @@ const RenderCommitsChart: React.FC<RenderCommitsChartProps> = ({
     return (
       <CommitBarChart
         chartType={chartType}
-        eta={version.taskStatusStats?.eta}
+        eta={version.taskStatusStats?.eta || undefined}
         groupedTaskStats={groupedResult[version.id].stats}
         max={max}
         total={groupedResult[version.id].total}
@@ -119,7 +119,6 @@ const isCommitSelected = (commit: Commit, revision: string) => {
 
   if (
     rolledUpVersions &&
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     rolledUpVersions.some((v) => v.revision.startsWith(revision))
   ) {
     return true;

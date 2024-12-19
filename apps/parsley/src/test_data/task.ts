@@ -25,6 +25,7 @@ export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
           status: "success",
         },
         displayName: "check_codegen",
+        displayStatus: "failed",
         execution: 0,
         id: "spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35",
         logs: {
@@ -34,7 +35,6 @@ export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
           taskLogLink: "log-link.com?type=T",
         },
         patchNumber: 1236,
-        status: "failed",
         versionMetadata: {
           __typename: "Version",
           id: "spruce_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
@@ -66,10 +66,10 @@ export const logkeeperMetadataMock: ApolloMock<
         task: {
           __typename: "Task",
           displayName: "merge-patch",
+          displayStatus: "success",
           execution: 0,
           id: "mongodb_mongo_master_rhel80_debug_v4ubsan_all_feature_flags_experimental_concurrency_sharded_with_stepdowns_and_balancer_4_linux_enterprise_361789ed8a613a2dc0335a821ead0ab6205fbdaa_22_09_21_02_53_24",
           patchNumber: 973,
-          status: "success",
           tests: {
             __typename: "TaskTestResult",
             testResults: [

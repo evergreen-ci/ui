@@ -1,3 +1,4 @@
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import {
   BaseVersionAndTaskQuery,
   LastMainlineCommitQuery,
@@ -10,9 +11,19 @@ export enum CommitType {
   LastExecuted = "lastExecuted",
 }
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-export type BaseTask = BaseVersionAndTaskQuery["task"]["baseTask"];
+export type BaseTask = NonNullable<BaseVersionAndTaskQuery["task"]>["baseTask"];
 
-export type CommitTask =
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  LastMainlineCommitQuery["mainlineCommits"]["versions"][number]["version"]["buildVariants"][number]["tasks"][number];
+type LastMainlineCommitQueryVersions = NonNullable<
+  LastMainlineCommitQuery["mainlineCommits"]
+>["versions"];
+
+type LastMainlineCommitQueryVersion =
+  Unpacked<LastMainlineCommitQueryVersions>["version"];
+
+type LastMainlineCommitQueryVersionBuildVariant = Unpacked<
+  NonNullable<LastMainlineCommitQueryVersion>["buildVariants"]
+>;
+
+export type CommitTask = Unpacked<
+  NonNullable<LastMainlineCommitQueryVersionBuildVariant>
+>["tasks"];

@@ -3750,10 +3750,10 @@ export type BaseTaskFragment = {
   buildVariant: string;
   buildVariantDisplayName?: string | null;
   displayName: string;
+  displayStatus: string;
   execution: number;
   id: string;
   revision?: string | null;
-  status: string;
 };
 
 export type FileDiffsFragment = {
@@ -5043,10 +5043,10 @@ export type AbortTaskMutation = {
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
+    displayStatus: string;
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
   };
 };
 
@@ -5371,9 +5371,9 @@ export type OverrideTaskDependenciesMutation = {
   __typename?: "Mutation";
   overrideTaskDependencies: {
     __typename?: "Task";
+    displayStatus: string;
     execution: number;
     id: string;
-    status: string;
   };
 };
 
@@ -5471,9 +5471,9 @@ export type RestartTaskMutation = {
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
+    displayStatus: string;
     id: string;
     revision?: string | null;
-    status: string;
   };
 };
 
@@ -5599,10 +5599,10 @@ export type ScheduleTasksMutation = {
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
+    displayStatus: string;
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
   }>;
 };
 
@@ -5614,9 +5614,9 @@ export type ScheduleUndispatchedBaseTasksMutation = {
   __typename?: "Mutation";
   scheduleUndispatchedBaseTasks?: Array<{
     __typename?: "Task";
+    displayStatus: string;
     execution: number;
     id: string;
-    status: string;
   }> | null;
 };
 
@@ -5879,15 +5879,15 @@ export type BaseVersionAndTaskQuery = {
     __typename?: "Task";
     buildVariant: string;
     displayName: string;
+    displayStatus: string;
     execution: number;
     id: string;
     projectIdentifier?: string | null;
-    status: string;
     baseTask?: {
       __typename?: "Task";
+      displayStatus: string;
       execution: number;
       id: string;
-      status: string;
     } | null;
     versionMetadata: {
       __typename?: "Version";
@@ -6758,10 +6758,10 @@ export type LastMainlineCommitQuery = {
           __typename?: "GroupedBuildVariant";
           tasks?: Array<{
             __typename?: "Task";
+            displayStatus: string;
             execution: number;
             id: string;
             order: number;
-            status: string;
           }> | null;
         }> | null;
       } | null;
@@ -6828,9 +6828,9 @@ export type MainlineCommitsForHistoryQuery = {
           tasks?: Array<{
             __typename?: "Task";
             displayName: string;
+            displayStatus: string;
             execution: number;
             id: string;
-            status: string;
           }> | null;
         }> | null;
         gitTags?: Array<{
@@ -6896,10 +6896,10 @@ export type MainlineCommitsQuery = {
           tasks?: Array<{
             __typename?: "Task";
             displayName: string;
+            displayStatus: string;
             execution: number;
             hasCedarResults: boolean;
             id: string;
-            status: string;
             timeTaken?: number | null;
           }> | null;
         }> | null;
@@ -8739,10 +8739,10 @@ export type SpawnTaskQuery = {
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
+    displayStatus: string;
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
     project?: {
       __typename?: "Project";
       id: string;
@@ -8841,10 +8841,10 @@ export type TaskAllExecutionsQuery = {
   taskAllExecutions: Array<{
     __typename?: "Task";
     activatedTime?: Date | null;
+    displayStatus: string;
     execution: number;
     id: string;
     ingestTime?: Date | null;
-    status: string;
   }>;
 };
 
@@ -8999,10 +8999,10 @@ export type TaskTestsForJobLogsQuery = {
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
+    displayStatus: string;
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
     tests: {
       __typename?: "TaskTestResult";
       testResults: Array<{
@@ -9097,16 +9097,17 @@ export type TaskQuery = {
     resetWhenFinished: boolean;
     spawnHostLink?: string | null;
     startTime?: Date | null;
+    status: string;
     tags: Array<string>;
     timeTaken?: number | null;
     totalTestCount: number;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
+    displayStatus: string;
     execution: number;
     id: string;
     revision?: string | null;
-    status: string;
     abortInfo?: {
       __typename?: "AbortInfo";
       buildVariantDisplayName: string;
@@ -9214,10 +9215,10 @@ export type TaskQuery = {
       buildVariant: string;
       buildVariantDisplayName?: string | null;
       displayName: string;
+      displayStatus: string;
       execution: number;
       id: string;
       projectIdentifier?: string | null;
-      status: string;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
     logs: {
@@ -9270,9 +9271,9 @@ export type TestAnalysisQuery = {
         buildVariant: string;
         buildVariantDisplayName?: string | null;
         displayName: string;
+        displayStatus: string;
         execution: number;
         id: string;
-        status: string;
         tests: {
           __typename?: "TaskTestResult";
           filteredTestCount: number;
@@ -9556,19 +9557,19 @@ export type VersionTaskDurationsQuery = {
         __typename?: "Task";
         buildVariantDisplayName?: string | null;
         displayName: string;
+        displayStatus: string;
         execution: number;
         id: string;
         startTime?: Date | null;
-        status: string;
         timeTaken?: number | null;
         subRows?: Array<{
           __typename?: "Task";
           buildVariantDisplayName?: string | null;
           displayName: string;
+          displayStatus: string;
           execution: number;
           id: string;
           startTime?: Date | null;
-          status: string;
           timeTaken?: number | null;
         }> | null;
       }>;
@@ -9597,15 +9598,15 @@ export type VersionTasksQuery = {
         buildVariant: string;
         buildVariantDisplayName?: string | null;
         displayName: string;
+        displayStatus: string;
         execution: number;
         id: string;
         projectIdentifier?: string | null;
-        status: string;
         baseTask?: {
           __typename?: "Task";
+          displayStatus: string;
           execution: number;
           id: string;
-          status: string;
         } | null;
         dependsOn?: Array<{ __typename?: "Dependency"; name: string }> | null;
         executionTasksFull?: Array<{
@@ -9613,15 +9614,15 @@ export type VersionTasksQuery = {
           buildVariant: string;
           buildVariantDisplayName?: string | null;
           displayName: string;
+          displayStatus: string;
           execution: number;
           id: string;
           projectIdentifier?: string | null;
-          status: string;
           baseTask?: {
             __typename?: "Task";
+            displayStatus: string;
             execution: number;
             id: string;
-            status: string;
           } | null;
         }> | null;
       }>;
