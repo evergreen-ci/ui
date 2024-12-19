@@ -57,6 +57,20 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
     }
   }, [patch, variants]);
 
+  useTabShortcut({
+    currentTab: tabToIndexMap[state.selectedTab],
+    numTabs: indexToTabMap.length,
+    setSelectedTab: (i: number) => setSelectedTab(indexToTabMap[i]),
+  });
+
+  // Handle redirecting to the correct tab if the tab is not active
+  useEffect(() => {
+    if (!urlTab || !tabToIndexMap[urlTab]) {
+      setSelectedTab(ConfigurePatchPageTabs.Tasks);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const setDescription = (description: string) =>
     dispatch({ type: "setDescription", description });
   const setSelectedBuildVariants = (buildVariants: string[]) =>
@@ -76,20 +90,6 @@ const useConfigurePatch = (patch: ConfigurePatchQuery["patch"]): HookResult => {
   };
   const setPatchParams = (params: ParameterInput[]) =>
     dispatch({ type: "setPatchParams", params });
-
-  useTabShortcut({
-    currentTab: tabToIndexMap[state.selectedTab],
-    numTabs: indexToTabMap.length,
-    setSelectedTab: (i: number) => setSelectedTab(indexToTabMap[i]),
-  });
-
-  // Handle redirecting to the correct tab if the tab is not active
-  useEffect(() => {
-    if (!urlTab || !tabToIndexMap[urlTab]) {
-      setSelectedTab(ConfigurePatchPageTabs.Tasks);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return {
     ...state,
