@@ -260,12 +260,12 @@
             role="tablist"
           >
             <button
-              aria-controls="_j8qfmodwx"
+              aria-controls="_dngq4kfmm"
               aria-selected="true"
               class="leafygreen-ui-bhx5eh"
               data-cy="tasks-tab"
               data-text="Configure"
-              id="_or1qj7u1v"
+              id="_fmv4kjfj5"
               name="Configure"
               role="tab"
               tabindex="0"
@@ -277,12 +277,12 @@
               </div>
             </button>
             <button
-              aria-controls="_xj0im8mbi"
+              aria-controls="_glmnqc5xj"
               aria-selected="false"
               class="leafygreen-ui-n0ot0l"
               data-cy="changes-tab"
               data-text="Changes"
-              id="_oj41pg0fm"
+              id="_16nxu5lgx"
               name="Changes"
               role="tab"
               tabindex="-1"
@@ -294,12 +294,12 @@
               </div>
             </button>
             <button
-              aria-controls="_a6rmcmft5"
+              aria-controls="_00yxfphd3"
               aria-selected="false"
               class="leafygreen-ui-n0ot0l"
               data-cy="parameters-tab"
               data-text="Parameters"
-              id="_2zv8ok5ur"
+              id="_uv1adnycr"
               name="Parameters"
               role="tab"
               tabindex="-1"
@@ -318,10 +318,10 @@
         >
           <div>
             <div
-              aria-labelledby="_or1qj7u1v"
+              aria-labelledby="_fmv4kjfj5"
               class=""
               data-testid=""
-              id="_j8qfmodwx"
+              id="_dngq4kfmm"
               role="tabpanel"
             >
               <div
