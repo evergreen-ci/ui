@@ -2806,6 +2806,7 @@ export type Task = {
   dispatchTime?: Maybe<Scalars["Time"]["output"]>;
   displayName: Scalars["String"]["output"];
   displayOnly?: Maybe<Scalars["Boolean"]["output"]>;
+  displayStatus: Scalars["String"]["output"];
   displayTask?: Maybe<Task>;
   distroId: Scalars["String"]["output"];
   estimatedStart?: Maybe<Scalars["Duration"]["output"]>;
@@ -2842,6 +2843,11 @@ export type Task = {
   scheduledTime?: Maybe<Scalars["Time"]["output"]>;
   spawnHostLink?: Maybe<Scalars["String"]["output"]>;
   startTime?: Maybe<Scalars["Time"]["output"]>;
+  /**
+   * This is a task's display status and is what is commonly used on the UI.
+   * In future releases this will be migrated to represent the original status of the task
+   * @deprecated use displayStatus instead. Status will be migrated to reflect the original status
+   */
   status: Scalars["String"]["output"];
   stepbackInfo?: Maybe<StepbackInfo>;
   tags: Array<Scalars["String"]["output"]>;
