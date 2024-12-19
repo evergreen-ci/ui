@@ -72,7 +72,7 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
-          <AnimatedIcon icon={HolidayTree} />
+          <StyledAnimatedIcon icon={HolidayTree} />
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
@@ -184,4 +184,8 @@ const secondaryStyle = css`
 
 const SecondaryLink = styled.a`
   ${secondaryStyle}
+`;
+
+const StyledAnimatedIcon = styled(AnimatedIcon)`
+  margin-bottom: ${size.xxs};
 `;

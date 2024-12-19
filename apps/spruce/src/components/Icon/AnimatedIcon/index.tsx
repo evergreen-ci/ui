@@ -20,7 +20,7 @@ interface AnimatedIconProps {
  * @param param0.icon - The SVG icon to animate.
  * @returns - A React component that wraps an SVG icon and adds mouse enter and mouse leave events to pause and unpause animations.
  */
-const AnimatedIcon: React.FC<AnimatedIconProps> = ({ icon }) => {
+const AnimatedIcon: React.FC<AnimatedIconProps> = ({ icon, ...rest }) => {
   const iconRef = useRef<SVGSVGElement>(null);
   // Animations should be paused by default on page load.
   useEffect(() => {
@@ -50,6 +50,7 @@ const AnimatedIcon: React.FC<AnimatedIconProps> = ({ icon }) => {
       ref={iconRef}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      {...rest}
     />
   );
 };
