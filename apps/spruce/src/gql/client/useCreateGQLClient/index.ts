@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
 import {
   fetchWithRetry,
+  getUserStagingHeader,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
 import { useAuthDispatchContext } from "context/Auth";
@@ -19,15 +19,7 @@ import { SecretFieldsQuery } from "gql/generated/types";
 import { environmentVariables } from "utils";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 
-const { getGQLUrl, isStaging } = environmentVariables;
-
-const setStagingLink = setContext(() =>
-  isStaging() && process.env.REACT_APP_USER_KEY
-    ? {
-        headers: { "X-Evergreen-Environment": process.env.REACT_APP_USER_KEY },
-      }
-    : {},
-);
+const { getGQLUrl } = environmentVariables;
 
 export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthDispatchContext();
@@ -59,7 +51,6 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
       const client = new ApolloClient({
         cache,
         link: authenticateIfSuccessfulLink(dispatchAuthenticated)
-          .concat(setStagingLink)
           .concat(authLink(logoutAndRedirect))
           .concat(logGQLToSentryLink(secretFields))
           .concat(logGQLErrorsLink(secretFields))
@@ -68,6 +59,7 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
             new HttpLink({
               uri: getGQLUrl(),
               credentials: "include",
+              headers: getUserStagingHeader(),
             }),
           ),
       });
