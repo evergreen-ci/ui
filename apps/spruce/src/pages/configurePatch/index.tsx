@@ -19,11 +19,13 @@ import ConfigurePatchCore from "./configurePatchCore";
 const ConfigurePatch: React.FC = () => {
   const { [slugs.patchId]: patchId } = useParams();
   const dispatchToast = useToastContext();
+
+  const isValidPatchId = validateObjectId(patchId || "");
   const { data, error, loading } = useQuery<
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
   >(PATCH_CONFIGURE, {
-    skip: !validateObjectId(patchId || ""),
+    skip: !isValidPatchId,
     variables: { id: patchId || "" },
     onError(err) {
       dispatchToast.error(err.message);
@@ -33,8 +35,8 @@ const ConfigurePatch: React.FC = () => {
   const { patch } = data || {};
   usePageTitle(`Configure Patch`);
 
-  // Can't configure a mainline version so should redirect to the version page
-  if (!validateObjectId(patchId || "")) {
+  // Can't configure a non-patch so should redirect to the version page
+  if (!isValidPatchId) {
     return <Navigate to={getVersionRoute(patchId || "")} />;
   }
   if (loading) {
