@@ -9,7 +9,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import AnimatedIcon from "components/Icon/AnimatedIcon";
-import { FallTree } from "components/Icon/icons/FallTree";
+import { HolidayTree } from "components/Icon/icons/HolidayTree";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import {
@@ -72,7 +72,7 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
-          <AnimatedIcon icon={FallTree} />
+          <StyledAnimatedIcon icon={HolidayTree} />
         </LogoLink>
         <PrimaryLink
           data-cy="project-health-link"
@@ -184,4 +184,8 @@ const secondaryStyle = css`
 
 const SecondaryLink = styled.a`
   ${secondaryStyle}
+`;
+
+const StyledAnimatedIcon = styled(AnimatedIcon)`
+  margin-bottom: ${size.xxs};
 `;
