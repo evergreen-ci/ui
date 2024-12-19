@@ -1,14 +1,12 @@
 import { VersionQuery } from "gql/generated/types";
-import { DownstreamProjectAccordion } from "./downstreamTasks/DownstreamProjectAccordion";
+import { DownstreamProjectAccordion } from "./DownstreamProjectAccordion";
 
 interface DownstreamTasksProps {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
-export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
-  childPatches,
-}) => (
+const DownstreamTasks: React.FC<DownstreamTasksProps> = ({ childPatches }) => (
   <>
     {childPatches.map(
       ({
@@ -41,3 +39,5 @@ export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
     )}
   </>
 );
+
+export default DownstreamTasks;

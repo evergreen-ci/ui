@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
@@ -8,17 +8,14 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
-import { usePrevious } from "hooks";
 import { useTabShortcut } from "hooks/useTabShortcut";
-import { DownstreamTasks } from "pages/version/DownstreamTasks";
-import { Tasks } from "pages/version/Tasks";
-import { PatchStatus, PatchTab } from "types/patch";
-import { queryString } from "utils";
+import { PatchStatus, VersionPageTabs } from "types/patch";
+import { parseQueryString } from "utils/queryString";
+import DownstreamTasks from "./DownstreamTasks";
 import TaskDuration from "./TaskDuration";
+import Tasks from "./Tasks";
 import TestAnalysis from "./TestAnalysis";
 import { TestAnalysisTabGuideCue } from "./TestAnalysis/TestAnalysisTabGuideCue";
-
-const { parseQueryString } = queryString;
 
 type ChildPatches = NonNullable<
   VersionQuery["version"]["patch"]
@@ -87,13 +84,15 @@ const tabMap = ({
   numStartedChildPatches: number;
   numSuccessChildPatches: number;
   versionId: string;
-}) => ({
-  [PatchTab.Tasks]: (
+}): {
+  [key in VersionPageTabs]: JSX.Element;
+} => ({
+  [VersionPageTabs.Tasks]: (
     <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
       <Tasks taskCount={taskCount} />
     </Tab>
   ),
-  [PatchTab.TaskDuration]: (
+  [VersionPageTabs.TaskDuration]: (
     <Tab
       key="duration-tab"
       data-cy="duration-tab"
@@ -103,7 +102,7 @@ const tabMap = ({
       <TaskDuration taskCount={taskCount} />
     </Tab>
   ),
-  [PatchTab.Changes]: (
+  [VersionPageTabs.Changes]: (
     <Tab
       key="changes-tab"
       data-cy="changes-tab"
@@ -113,7 +112,7 @@ const tabMap = ({
       <CodeChanges patchId={versionId} />
     </Tab>
   ),
-  [PatchTab.Downstream]: (
+  [VersionPageTabs.Downstream]: (
     <Tab
       key="downstream-tab"
       data-cy="downstream-tab"
@@ -127,7 +126,7 @@ const tabMap = ({
       <DownstreamTasks childPatches={childPatches} />
     </Tab>
   ),
-  [PatchTab.TestAnalysis]: (
+  [VersionPageTabs.TestAnalysis]: (
     <Tab
       key="test-analysis-tab"
       data-cy="test-analysis-tab"
@@ -143,14 +142,12 @@ const tabMap = ({
   ),
 });
 
-export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
-  const { [slugs.versionId]: versionId, [slugs.tab]: tab } = useParams<{
-    [slugs.versionId]: string;
-    [slugs.tab]: PatchTab;
+const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
+  const { [slugs.tab]: tab } = useParams<{
+    [slugs.tab]: VersionPageTabs;
   }>();
   const { search } = useLocation();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { sendEvent } = useVersionAnalytics(versionId);
+  const { sendEvent } = useVersionAnalytics(version.id);
   const navigate = useNavigate();
 
   const { isPatch, patch, requester, status, taskCount } = version || {};
@@ -158,12 +155,13 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
 
   const tabIsActive = useMemo(
     () => ({
-      [PatchTab.Tasks]: true,
-      [PatchTab.TaskDuration]: true,
-      [PatchTab.Changes]: isPatch && requester !== Requester.GitHubMergeQueue,
-      [PatchTab.Downstream]:
+      [VersionPageTabs.Tasks]: true,
+      [VersionPageTabs.TaskDuration]: true,
+      [VersionPageTabs.Changes]:
+        isPatch && requester !== Requester.GitHubMergeQueue,
+      [VersionPageTabs.Downstream]:
         childPatches !== undefined && childPatches !== null,
-      [PatchTab.TestAnalysis]: status !== PatchStatus.Success,
+      [VersionPageTabs.TestAnalysis]: status !== PatchStatus.Success,
     }),
     [isPatch, requester, childPatches, status],
   );
@@ -184,67 +182,63 @@ export const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       numFailedChildPatches,
       numStartedChildPatches,
       numSuccessChildPatches,
-      versionId: versionId ?? "",
+      versionId: version.id,
     });
-  }, [taskCount, childPatches, versionId]);
+  }, [taskCount, childPatches, version.id]);
 
   const activeTabs = useMemo(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
+    () =>
+      (Object.keys(allTabs) as VersionPageTabs[]).filter((t) => tabIsActive[t]),
     [allTabs, tabIsActive],
   );
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const isValidTab = tabIsActive[tab];
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const [selectedTab, setSelectedTab] = useState(activeTabs.indexOf(tab));
-  const previousTab = usePrevious(selectedTab);
+  const [selectedTab, setSelectedTab] = useState(tab || VersionPageTabs.Tasks);
 
-  useEffect(() => {
-    // If tab is not valid, set to task tab.
-    if (!isValidTab) {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      navigate(getVersionRoute(versionId), { replace: true });
+  const handleTabChange = (
+    newTab: VersionPageTabs,
+    sendAnalytics: boolean = false,
+  ) => {
+    if (!tabIsActive[newTab]) {
+      return;
     }
-    // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update state here.
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    else if (selectedTab !== activeTabs.indexOf(tab)) {
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      setSelectedTab(activeTabs.indexOf(tab));
-    }
-  }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Update the URL and selectedTab state based on new tab selected.
-  const selectNewTab = (newTabIndex: number) => {
     const queryParams = parseQueryString(search);
-    const newTab = activeTabs[newTabIndex];
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const newRoute = getVersionRoute(versionId, {
-      tab: newTab as PatchTab,
-      ...queryParams,
-    });
-    navigate(newRoute, { replace: true });
 
-    if (previousTab !== undefined && previousTab !== newTabIndex) {
-      sendEvent({
-        name: "Changed tab",
-        tab: newTab as PatchTab,
-      });
+    setSelectedTab(newTab);
+    // In cases where we're changing tabs due to a non user action (e.g. a redirect we want to avoid sending analytics)
+    if (sendAnalytics) {
+      sendEvent({ name: "Changed tab", tab: newTab });
     }
-    setSelectedTab(newTabIndex);
+    navigate(getVersionRoute(version.id, { tab: newTab, ...queryParams }), {
+      replace: true,
+    });
   };
+
+  // Handle redirecting to the correct tab if the tab is not active
+  useEffect(() => {
+    if (!tab || !tabIsActive[tab]) {
+      handleTabChange(VersionPageTabs.Tasks, false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, tabIsActive]);
+
   useTabShortcut({
-    currentTab: selectedTab,
+    currentTab: activeTabs.indexOf(selectedTab),
     numTabs: activeTabs.length,
-    setSelectedTab: selectNewTab,
+    setSelectedTab: (tabIndex) =>
+      activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex]),
   });
+
   return (
     <StyledTabs
-      aria-label="Patch Tabs"
-      selected={selectedTab}
-      setSelected={selectNewTab}
+      aria-label="Version Tabs"
+      selected={activeTabs.indexOf(selectedTab)}
+      // @ts-expect-error
+      setSelected={(tabIndex: number) =>
+        activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex])
+      }
     >
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-      {activeTabs.map((t: string) => allTabs[t])}
+      {activeTabs.map((t: VersionPageTabs) => allTabs[t])}
     </StyledTabs>
   );
 };
+
+export default VersionTabs;
