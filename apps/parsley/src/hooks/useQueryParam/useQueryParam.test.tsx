@@ -1,3 +1,4 @@
+import { ParseOptions } from "query-string";
 import { MemoryRouter, useLocation } from "react-router-dom";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { QueryParams } from "constants/queryParams";
@@ -29,8 +30,18 @@ describe("useQueryParams", () => {
 });
 
 const useQueryJointHook = (param: string, def: any) => {
-  const [queryParam, setQueryParam] = useQueryParam(param as QueryParams, def);
-  const [allQueryParams] = useQueryParams();
+  const defaultParseOptions: ParseOptions = {
+    arrayFormat: "comma",
+    parseBooleans: true,
+    parseNumbers: true,
+  };
+
+  const [queryParam, setQueryParam] = useQueryParam(
+    param as QueryParams,
+    def,
+    defaultParseOptions,
+  );
+  const [allQueryParams] = useQueryParams(defaultParseOptions);
   return { allQueryParams, queryParam, setQueryParam };
 };
 
