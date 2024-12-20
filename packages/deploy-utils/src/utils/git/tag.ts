@@ -97,19 +97,6 @@ const pushTags = () => {
 };
 
 /**
- * getTagByCommit returns the tag associated with a given commit, or an empty string if it has no commit
- * @param sha - commit associated with tag
- * @returns - tag or empty string
- */
-const getTagByCommit = (sha: string) => {
-  try {
-    return execTrim(`git describe --exact-match ${sha}`);
-  } catch {
-    return "";
-  }
-};
-
-/**
  * tagIsValid asserts whether a given string matches a tag for a specified app
  * @param app - app with which tag is associated
  * @param matchString - string to test against
@@ -122,9 +109,8 @@ export {
   createTagAndPush,
   deleteTag,
   getLatestTag,
-  getTagByCommit,
+  getReleaseVersion,
   pushTags,
   tagIsValid,
-  getReleaseVersion,
   ReleaseVersion,
 };

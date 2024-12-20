@@ -1,4 +1,4 @@
-import { getLatestTag, getTagByCommit, tagIsValid, getReleaseVersion } from ".";
+import { getLatestTag, tagIsValid, getReleaseVersion } from ".";
 
 describe("tagIsValid", () => {
   it("should match on a known valid tag", () => {
@@ -21,21 +21,6 @@ describe("getLatestTag", () => {
     const app = "parsley";
     const latestTag = getLatestTag(app);
     expect(tagIsValid(app, latestTag)).toEqual(true);
-  });
-});
-
-describe("getTagByCommit", () => {
-  it("returns a tag when commit has a match", () => {
-    expect(
-      tagIsValid(
-        "spruce",
-        getTagByCommit("df25ba8b40036eca5f7e41b7f75a96ff82fbe3b6"),
-      ),
-    ).toBe(true);
-  });
-
-  it("returns an empty string when no matching tag is found", () => {
-    expect(getTagByCommit("b0319b54b52b6a467af6f428dcccae9956f2e60d")).toBe("");
   });
 });
 
