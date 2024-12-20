@@ -17,7 +17,7 @@ const statusIconSize = 20;
 interface TaskCellProps {
   task: {
     id: string;
-    status: string;
+    displayStatus: string;
   };
   inactive?: boolean;
   failingTests?: string[];
@@ -37,7 +37,7 @@ const TaskCell: React.FC<TaskCellProps> = ({
   <Cell aria-disabled={inactive} data-cy="task-cell" inactive={inactive}>
     <Link
       onClick={() => {
-        onClick({ taskStatus: task.status });
+        onClick({ taskStatus: task.displayStatus });
       }}
       to={getTaskRoute(task.id)}
     >
@@ -46,7 +46,7 @@ const TaskCell: React.FC<TaskCellProps> = ({
         inactive={inactive}
         label={label}
         loadingTestResults={loading}
-        status={task.status as TaskStatus}
+        status={task.displayStatus as TaskStatus}
       />
     </Link>
   </Cell>

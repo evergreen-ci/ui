@@ -11,9 +11,9 @@ query TestAnalysis(
         buildVariant
         buildVariantDisplayName
         displayName
+        displayStatus
         execution
         id
-        status
         tests(opts: $opts) {
           filteredTestCount
           testResults {

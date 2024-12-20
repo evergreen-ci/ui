@@ -16,7 +16,7 @@ interface Props {
 }
 const TaskHistoryRow: React.FC<Props> = ({ data, index }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
+  // @ts-expect-error: FIXME. This comment was added by an automated script
   const { visibleColumns } = useHistoryTable();
 
   const { getTaskMetadata } = useTestResults(index);
@@ -95,13 +95,18 @@ const generateColumns = (
   sendEvent: ReturnType<typeof useProjectHealthAnalytics>["sendEvent"],
 ) => {
   const { buildVariants } = data.commit;
+  if (!buildVariants) {
+    return [];
+  }
   const buildVariantMap = convertArrayToObject(buildVariants, "variant");
   return visibleColumns.map((c) => {
     if (buildVariants) {
       const foundVariant = buildVariantMap[c];
       if (foundVariant) {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         const { tasks } = foundVariant;
+        if (!tasks) {
+          return <EmptyCell key={`empty_variant_${c}`} />;
+        }
         // the tasks array should in theory only have one item in it so we should always use it.
         const t = tasks[0];
         const { failingTests, inactive, label, loading } = getTaskMetadata(

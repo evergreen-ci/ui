@@ -71,7 +71,7 @@ const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
   {
     id: "spruce_ubuntu1604_check_codegen_patch_345da020487255d1b9fb87bed4ceb98397a0c5a5_624af28fa4cf4714c7a6c19a_22_04_04_13_28_48",
     execution: 0,
-    status: "success",
+    displayStatus: "success",
     displayName: "check_codegen",
     buildVariantDisplayName: "Ubuntu 16.04",
     timeTaken: 6000,
@@ -79,7 +79,7 @@ const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
       {
         id: "spruce_ubuntu1604_check_codegen_patch_345da020487255d1b9fb87bed4ceb98397a0c5a5_624af28fa4cf4714c7a6c19a_22_04_04_13_28_48",
         execution: 0,
-        status: "success",
+        displayStatus: "success",
         displayName: "check_codegen_execution_task",
         buildVariantDisplayName: "Ubuntu 16.04",
         timeTaken: 4000,
@@ -90,7 +90,7 @@ const tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"] = [
   {
     id: "spruce_ubuntu1604_compile_patch_345da020487255d1b9fb87bed4ceb98397a0c5a5_624af28fa4cf4714c7a6c19a_22_04_04_13_28_48",
     execution: 0,
-    status: "success",
+    displayStatus: "success",
     displayName: "compile",
     buildVariantDisplayName: "Ubuntu 16.04",
     subRows: null,

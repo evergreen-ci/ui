@@ -54,25 +54,25 @@ export const deduplicatedAppend = <T>(value: T, array: T[]) => {
  * @param key - The key to use as the key of the object
  * @returns The object created from the array
  */
-export const convertArrayToObject = <T = { [key: string]: any }>(
+export const convertArrayToObject = <T extends Record<string, any>>(
   array: T[],
   key: keyof T,
-): { [key: string]: T } => {
-  const initialValue = {};
+): Record<string, T> => {
   if (!Array.isArray(array)) {
-    return initialValue;
+    return {};
   }
-  return array.reduce((obj, item) => {
-    if (item[key] === undefined) return { ...obj };
-    // if the object value is not a valid object key type throw an error
-    if (typeof item[key] !== "string") {
+  return array.reduce<Record<string, T>>((obj, item) => {
+    const keyValue = item[key];
+
+    if (typeof keyValue !== "string") {
       throw new TypeError("Object keys must be of type `string`");
     }
+
     return {
       ...obj,
-      [item[key] as any]: item,
+      [keyValue]: item,
     };
-  }, initialValue);
+  }, {});
 };
 
 /**

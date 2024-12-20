@@ -1,6 +1,10 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "./constants";
-import { mainlineCommits, CommitRowType, rowType } from "./types";
+import {
+  MainlineCommitsForHistoryMainlineCommitsVersions,
+  MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions,
+  CommitRowType,
+  rowType,
+} from "./types";
 
 // Processed commits are the order of commits in the table.
 // They are one of the following:
@@ -14,8 +18,7 @@ export const processCommits = ({
   newCommits,
   selectedCommitOrder,
 }: {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  newCommits: mainlineCommits["versions"];
+  newCommits: MainlineCommitsForHistoryMainlineCommitsVersions;
   existingCommits: CommitRowType[];
   selectedCommitOrder: number | null;
 }) => {
@@ -32,6 +35,9 @@ export const processCommits = ({
     switch (commitType) {
       case rowType.COMMIT: {
         const { version } = commit;
+        if (!version) {
+          break;
+        }
         const selected = version.order === selectedCommitOrder;
         if (priorCommit && isSameDay(version.createTime, priorCommit.date)) {
           processedCommits.push({
@@ -59,6 +65,9 @@ export const processCommits = ({
       }
       case rowType.FOLDED_COMMITS: {
         const { rolledUpVersions } = commit;
+        if (!rolledUpVersions) {
+          break;
+        }
         const firstRolledUpVersion = rolledUpVersions[0];
         const selected = hasSelectedCommit(
           rolledUpVersions,
@@ -124,15 +133,13 @@ const isSameDay = (date1: string | Date, date2: string | Date) => {
 };
 
 const hasSelectedCommit = (
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  rolledUpUpVersions: Unpacked<mainlineCommits["versions"]>["rolledUpVersions"],
+  rolledUpUpVersions: MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions,
   selectedCommitOrder: number | null,
 ) => {
   if (selectedCommitOrder === null) {
     return false;
   }
-  return rolledUpUpVersions.some(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
+  return (rolledUpUpVersions || []).some(
     (version) => version.order === selectedCommitOrder,
   );
 };

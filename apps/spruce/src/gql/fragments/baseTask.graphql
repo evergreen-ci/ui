@@ -2,8 +2,8 @@ fragment BaseTask on Task {
   buildVariant
   buildVariantDisplayName
   displayName
+  displayStatus
   execution
   id
   revision
-  status
 }

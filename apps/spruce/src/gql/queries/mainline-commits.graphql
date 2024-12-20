@@ -29,10 +29,10 @@ query MainlineCommits(
           displayName
           tasks {
             displayName
+            displayStatus
             execution
             hasCedarResults
             id
-            status
             timeTaken
           }
           variant

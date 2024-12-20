@@ -1,16 +1,16 @@
 query BaseVersionAndTask($taskId: String!) {
   task(taskId: $taskId) {
     baseTask {
+      displayStatus
       execution
       id
-      status
     }
     buildVariant
     displayName
+    displayStatus
     execution
     id
     projectIdentifier
-    status
     versionMetadata {
       baseVersion {
         id

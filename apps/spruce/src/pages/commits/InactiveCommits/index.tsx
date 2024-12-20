@@ -46,7 +46,6 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
     returnedCommits = [
       ...rolledUpVersions
         .slice(0, 1)
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         .map((v) => <CommitCopy key={v.id} isTooltip v={v} />),
       <HiddenCommitsWrapper
         key="hidden_commits"
@@ -63,11 +62,9 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       </HiddenCommitsWrapper>,
       ...rolledUpVersions
         .slice(-2)
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         .map((v) => <CommitCopy key={v.id} isTooltip v={v} />),
     ];
   } else {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     returnedCommits = rolledUpVersions.map((v) => (
       <CommitCopy key={v.id} isTooltip v={v} />
     ));
@@ -81,7 +78,6 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
         setOpen={setShowModal}
         title={`${versionCount} ${tooltipType} Commits`}
       >
-        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         {rolledUpVersions?.map((v) => (
           <CommitCopy key={v.id} isTooltip={false} v={v} />
         ))}
@@ -135,10 +131,14 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const getDateCopy = useDateFormat();
   const spruceConfig = useSpruceConfig();
+  if (!v) {
+    return null;
+  }
   const jiraHost = spruceConfig?.jira?.host;
   const message = isTooltip
     ? trimStringFromMiddle(v.message, maxCommitMessageLength)
     : v.message;
+
   return (
     <CommitText key={v.revision} data-cy="commit-text" tooltip={isTooltip}>
       <CommitTitleText>
