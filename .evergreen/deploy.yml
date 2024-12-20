@@ -76,11 +76,12 @@ functions:
 
   should-deploy:
     - command: shell.exec
+      type: setup
       params:
-        working_dir: ui/${app_dir}
+        working_dir: ui
         script: |
           ${PREPARE_SHELL}
-          USER_KEY=${user_key} yarn deploy-utils-should-deploy
+          USER_KEY=${user_key} MODULE_COMMIT=${ui-remote_rev} yarn deploy-utils-should-deploy
 
   write-previous-deploy:
     - command: shell.exec
@@ -160,8 +161,11 @@ tasks:
       - func: assume-staging-ec2-role
       - func: symlink
         vars:
-          app_dir: apps/spruce
+          app_dir: ui-remote/apps/spruce
+      - func: yarn-install
+        vars:
+          app_dir: ui-remote/apps/spruce
       - func: deploy
         vars:
-          app_dir: apps/spruce
+          app_dir: ui-remote/apps/spruce
           target: staging

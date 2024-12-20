@@ -15,6 +15,11 @@ modules:
     repo: logkeeper
     branch: main
     auto_update: true
+  - name: ui-remote
+    owner: evergreen-ci
+    repo: ui
+    branch: main
+    auto_update: true
 
 pre:
   - func: assume-ec2-role
@@ -143,6 +148,8 @@ buildvariants:
       node_version: 20.11.0
     run_on:
       - ubuntu2204-large
+    modules:
+      - ui-remote
     tasks:
       - name: deploy-parsley-beta
       - name: deploy-parsley-staging
