@@ -1,16 +1,14 @@
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { ConfigurePatchQuery } from "gql/generated/types";
 
+type PatchQuery = ConfigurePatchQuery["patch"];
 // Extract the type of a child patch and append alias field
 export interface ChildPatchAliased
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  extends Unpacked<ConfigurePatchQuery["patch"]["childPatches"]> {
+  extends Unpacked<NonNullable<PatchQuery["childPatches"]>> {
   alias: string;
 }
 
-export type PatchTriggerAlias = Unpacked<
-  ConfigurePatchQuery["patch"]["patchTriggerAliases"]
->;
+export type PatchTriggerAlias = Unpacked<PatchQuery["patchTriggerAliases"]>;
 
 export type AliasState = {
   [alias: string]: boolean;

@@ -19,11 +19,9 @@ import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
-import { queryString } from "utils";
-import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
-import { useQueryVariables } from "./useQueryVariables";
-
-const { parseQueryString } = queryString;
+import { parseQueryString } from "utils/queryString";
+import { useQueryVariables } from "../../useQueryVariables";
+import TaskDurationTable from "./TaskDurationTable";
 
 interface Props {
   taskCount: number;

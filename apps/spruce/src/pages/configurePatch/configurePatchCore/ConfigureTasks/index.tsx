@@ -295,7 +295,6 @@ const ConfigureTasks: React.FC<Props> = ({
         <DisabledVariantTasksList
           data-cy="child-patch-task-checkbox"
           status={CheckboxState.Checked}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           variantTasks={currentChildPatches[0].variantsTasks}
         />
       )}
