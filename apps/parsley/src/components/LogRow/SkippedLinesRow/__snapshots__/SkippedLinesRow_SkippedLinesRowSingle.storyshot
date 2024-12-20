@@ -3,16 +3,16 @@
     class="css-1mysoqc"
   >
     <div
-      class="css-7unvpx-LineWrapper e1f6enbf2"
+      class="css-6slybd-LineWrapper e1f6enbf2"
       data-cy="skipped-lines-row-1-100"
     >
       <p
-        class="css-1g17aaf-StyledBody e1f6enbf1 leafygreen-ui-1tb6tuo"
+        class="css-yo94t9-StyledBody e1f6enbf1 leafygreen-ui-1tb6tuo"
       >
         100 Lines Skipped
       </p>
       <div
-        class="css-1gi9ejr-ButtonContainer e1f6enbf0"
+        class="css-sma08l-ButtonContainer e1f6enbf0"
       >
         <button
           aria-disabled="false"
