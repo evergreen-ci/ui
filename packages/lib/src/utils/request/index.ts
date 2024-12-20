@@ -1,3 +1,16 @@
+import { getUserStagingKey } from "../environment";
+
+export const getUserStagingHeader = (): {
+  "X-Evergreen-Environment": string;
+} => {
+  const key = getUserStagingKey();
+
+  if (!key) {
+    console.error("Must configure REACT_APP_USER_KEY");
+  }
+  return { "X-Evergreen-Environment": key };
+};
+
 export const shouldLogoutAndRedirect = (statusCode: number) =>
   statusCode === 401;
 
