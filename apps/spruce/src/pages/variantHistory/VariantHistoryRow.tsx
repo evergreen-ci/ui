@@ -105,10 +105,12 @@ const generateColumns = (
   return visibleColumns.map((c) => {
     if (buildVariants && buildVariants.length > 0) {
       const { tasks } = buildVariants[0];
+      if (!tasks) {
+        return <EmptyCell key={`empty_task_${c}`} />;
+      }
       const taskMap = convertArrayToObject(tasks, "displayName");
       const t = taskMap[c];
       if (t) {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         const { failingTests, inactive, label } = getTaskMetadata(t.id);
         return (
           <TaskCell
@@ -122,7 +124,6 @@ const generateColumns = (
                 "task.status": taskStatus,
               });
             }}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
             task={t}
           />
         );

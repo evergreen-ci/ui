@@ -215,7 +215,7 @@ const patchTaskWithSuccessfulBaseTask = {
   displayName: "lint-agent",
   buildVariant: "lint",
   projectIdentifier: "evergreen",
-  status: "success",
+  displayStatus: "success",
   versionMetadata: {
     baseVersion: {
       id: "baseVersion",
@@ -236,7 +236,7 @@ const patchTaskWithSuccessfulBaseTask = {
     ...taskQuery.task,
     id: baseTaskId,
     execution: 0,
-    status: "success",
+    displayStatus: "success",
     __typename: "Task" as const,
   },
   __typename: "Task" as const,
@@ -266,7 +266,7 @@ const patchTaskWithRunningBaseTask = {
   displayName: "lint-agent",
   buildVariant: "lint",
   projectIdentifier: "evergreen",
-  status: "started",
+  displayStatus: "started",
   versionMetadata: {
     baseVersion: {
       id: "baseVersion",
@@ -287,7 +287,7 @@ const patchTaskWithRunningBaseTask = {
     ...taskQuery.task,
     id: baseTaskId,
     execution: 0,
-    status: "started",
+    displayStatus: "started",
     __typename: "Task" as const,
   },
   __typename: "Task" as const,
@@ -317,7 +317,7 @@ const patchTaskWithFailingBaseTask = {
   displayName: "lint-agent",
   buildVariant: "lint",
   projectIdentifier: "evergreen",
-  status: "failed",
+  displayStatus: "failed",
   versionMetadata: {
     baseVersion: {
       id: "baseVersion",
@@ -338,7 +338,7 @@ const patchTaskWithFailingBaseTask = {
     ...taskQuery.task,
     id: baseTaskId,
     execution: 0,
-    status: "failed",
+    displayStatus: "failed",
     __typename: "Task" as const,
   },
   __typename: "Task" as const,
@@ -368,7 +368,7 @@ const patchTaskWithNoBaseVersion = {
   displayName: "lint-agent",
   buildVariant: "lint",
   projectIdentifier: "evergreen",
-  status: "success",
+  displayStatus: "success",
   versionMetadata: {
     baseVersion: null,
     id: "versionMetadataId",
@@ -432,7 +432,7 @@ const getBreakingCommit: ApolloMock<
                       id: "breaking_commit",
                       execution: 0,
                       order: 3676,
-                      status: "failed",
+                      displayStatus: "failed",
                       __typename: "Task",
                     },
                   ],
@@ -480,7 +480,7 @@ const getLastPassingVersion: ApolloMock<
                       id: "last_passing_task",
                       execution: 0,
                       order: 3674,
-                      status: "success",
+                      displayStatus: "success",
                       __typename: "Task",
                     },
                   ],
@@ -538,7 +538,7 @@ const getLastExecutedVersion: ApolloMock<
                       id: "last_executed_task",
                       execution: 0,
                       order: 3676,
-                      status: "failed",
+                      displayStatus: "failed",
                       __typename: "Task",
                     },
                   ],
@@ -564,6 +564,7 @@ const patchTaskWithNoBaseTask = {
   buildVariant: "lint",
   projectIdentifier: "evergreen",
   status: "success",
+  displayStatus: "success",
   baseTask: null,
   __typename: "Task" as const,
 };
@@ -594,6 +595,7 @@ const mainlineTaskWithBaseVersion = {
   buildVariant: "lint",
   projectIdentifier: "evergreen",
   status: "success",
+  displayStatus: "success",
   versionMetadata: {
     baseVersion: {
       ...taskQuery.task.versionMetadata,

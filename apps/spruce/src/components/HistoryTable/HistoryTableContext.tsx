@@ -15,7 +15,10 @@ import {
   HistoryTableReducerState,
   reducer,
 } from "./historyTableContextReducer";
-import { mainlineCommits, CommitRowType } from "./types";
+import {
+  CommitRowType,
+  MainlineCommitsForHistoryMainlineCommits,
+} from "./types";
 
 interface HistoryTableState {
   columnLimit: number;
@@ -36,7 +39,7 @@ interface HistoryTableState {
   visibleColumns: string[];
   addColumns: (columns: string[]) => void;
   getItem: (index: number) => CommitRowType;
-  ingestNewCommits: (data: mainlineCommits) => void;
+  ingestNewCommits: (data: MainlineCommitsForHistoryMainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;
   markSelectedRowVisited: () => void;
   nextPage: () => void;

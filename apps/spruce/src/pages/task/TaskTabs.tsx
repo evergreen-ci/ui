@@ -32,6 +32,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
   const {
     annotation,
     canModifyAnnotation,
+    displayStatus,
     execution,
     executionTasksFull,
     failedTestCount,
@@ -39,7 +40,6 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     id,
     isPerfPluginEnabled,
     logs: logLinks,
-    status,
     totalTestCount,
     versionMetadata,
   } = task ?? {};
@@ -52,7 +52,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       execution,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
-      status,
+      status: displayStatus,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       canModifyAnnotation,
       hasAnnotation: !!annotation,

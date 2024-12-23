@@ -11,7 +11,7 @@ export const TaskCellStory: CustomStoryObj<typeof TaskCell> = {
   args: {
     task: {
       id: "task-1",
-      status: "success",
+      displayStatus: "success",
     },
   },
   parameters: {

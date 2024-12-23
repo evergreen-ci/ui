@@ -34,7 +34,8 @@ const props = {
       execution: 0,
       id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_display_sharding_multiversion_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
       startTime: new Date("2023-10-09T16:42:53.995Z"),
-      status: "known-issue",
+      status: "failed",
+      displayStatus: "known-issue",
       subRows: [
         {
           buildVariantDisplayName: `Shared Library Enterprise RHEL 8.0 Query (all feature flags and CQF enabled) ${"long ".repeat(
@@ -45,6 +46,7 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:43:20.938Z"),
           status: "success",
+          displayStatus: "success",
           timeTaken: 1248955,
         },
         {
@@ -55,6 +57,7 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:42:58.249Z"),
           status: "failed",
+          displayStatus: "failed",
           timeTaken: 1417378,
         },
         {
@@ -65,6 +68,7 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:42:59.444Z"),
           status: "success",
+          displayStatus: "success",
           timeTaken: 1367157,
         },
         {
@@ -75,6 +79,8 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_03_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:42:56.486Z"),
           status: "success",
+          displayStatus: "success",
+
           timeTaken: 1852371,
         },
         {
@@ -85,6 +91,8 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_04_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:43:15.02Z"),
           status: "success",
+          displayStatus: "success",
+
           timeTaken: 2012757,
         },
         {
@@ -95,6 +103,8 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_05_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:43:08.172Z"),
           status: "success",
+          displayStatus: "success",
+
           timeTaken: 245107,
         },
         {
@@ -105,6 +115,8 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_00_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:43:13.916Z"),
           status: "success",
+          displayStatus: "success",
+
           timeTaken: 1301814,
         },
         {
@@ -115,6 +127,8 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:43:10.714Z"),
           status: "success",
+          displayStatus: "success",
+
           timeTaken: 1615699,
         },
         {
@@ -125,6 +139,8 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:43:03.408Z"),
           status: "success",
+          displayStatus: "success",
+
           timeTaken: 1894981,
         },
         {
@@ -135,6 +151,8 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_03_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:43:04.137Z"),
           status: "success",
+          displayStatus: "success",
+
           timeTaken: 1280264,
         },
         {
@@ -145,6 +163,8 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_lts_04_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:42:53.995Z"),
           status: "success",
+          displayStatus: "success",
+
           timeTaken: 1464812,
         },
       ],
@@ -166,6 +186,8 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_01_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:42:58.249Z"),
           status: "failed",
+          displayStatus: "failed",
+
           timeTaken: 1417378,
         },
         {
@@ -176,11 +198,14 @@ const props = {
           id: "mongodb_mongo_master_enterprise_rhel_80_64_bit_dynamic_all_feature_flags_required_and_cqf_enabled_sharding_last_continuous_02_linux_enterprise_patch_5cab129eb5c35c3ad61ed9e5156539556d85dcd1_65241908850e61e75776c5c2_23_10_09_15_17_56",
           startTime: new Date("2023-10-09T16:42:59.444Z"),
           status: "success",
+          displayStatus: "success",
+
           timeTaken: 1367157,
         },
       ],
       startTime: new Date("2023-01-04T16:01:25.295Z"),
       status: "failed",
+      displayStatus: "failed",
       timeTaken: 4840547,
     },
     {
@@ -190,7 +215,8 @@ const props = {
       execution: 0,
       subRows: null,
       startTime: new Date("2023-01-04T16:01:25.242Z"),
-      status: "system-failed",
+      status: "failed",
+      displayStatus: "system-failed",
       timeTaken: 4840553,
     },
     {
@@ -200,7 +226,8 @@ const props = {
       execution: 0,
       subRows: null,
       startTime: new Date("2023-01-04T16:01:25.234Z"),
-      status: "system-failed",
+      status: "failed",
+      displayStatus: "system-failed",
       timeTaken: 4840526,
     },
     {
@@ -210,7 +237,8 @@ const props = {
       execution: 0,
       subRows: null,
       startTime: new Date("2023-01-04T16:01:25.258Z"),
-      status: "system-failed",
+      displayStatus: "system-failed",
+      status: "failed",
       timeTaken: 4840512,
     },
     {
@@ -220,7 +248,8 @@ const props = {
       execution: 0,
       subRows: null,
       startTime: new Date("2023-01-04T16:01:25.272Z"),
-      status: "system-failed",
+      displayStatus: "system-failed",
+      status: "failed",
       timeTaken: 4840399,
     },
     {
@@ -230,7 +259,8 @@ const props = {
       execution: 0,
       subRows: null,
       startTime: new Date("2023-01-04T16:01:25.259Z"),
-      status: "system-failed",
+      displayStatus: "system-failed",
+      status: "failed",
       timeTaken: 4840375,
     },
     {
@@ -240,7 +270,8 @@ const props = {
       execution: 0,
       subRows: null,
       startTime: new Date("2023-01-04T16:01:25.275Z"),
-      status: "system-failed",
+      displayStatus: "system-failed",
+      status: "failed",
       timeTaken: 4840347,
     },
     {
@@ -250,7 +281,8 @@ const props = {
       execution: 0,
       subRows: null,
       startTime: new Date("2023-01-04T16:01:25.291Z"),
-      status: "system-failed",
+      displayStatus: "system-failed",
+      status: "failed",
       timeTaken: 4840319,
     },
     {
@@ -260,7 +292,8 @@ const props = {
       execution: 0,
       subRows: null,
       startTime: new Date("2023-01-04T16:01:25.268Z"),
-      status: "system-failed",
+      displayStatus: "system-failed",
+      status: "failed",
       timeTaken: 4840303,
     },
     {
@@ -270,7 +303,8 @@ const props = {
       execution: 0,
       subRows: null,
       startTime: new Date("2023-01-04T16:01:25.281Z"),
-      status: "system-failed",
+      displayStatus: "system-failed",
+      status: "failed",
       timeTaken: 4840277,
     },
   ],
