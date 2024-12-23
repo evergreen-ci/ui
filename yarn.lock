@@ -2081,10 +2081,10 @@
     "@leafygreen-ui/palette" "^4.0.9"
     "@leafygreen-ui/tokens" "^2.5.2"
 
-"@leafygreen-ui/banner@^7.0.4":
-  version "7.0.20"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/banner/-/banner-7.0.20.tgz#9fc7fa938007d8fb9eb2b501d409f37a3df0e546"
-  integrity sha512-GCFHQTGXocgjkeSM7uMSLsrV51RAVpMuu5dFy4cK9pbwhd+YNulUkClheVFUKJV6P5xFB/7SNajaGrYbLmVHWA==
+"@leafygreen-ui/banner@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/banner/-/banner-8.0.1.tgz#64b7a6835815b17a16778d771ecff612ec9de017"
+  integrity sha512-zKrSG334UW/9nGt4P4QKNM8rnOzsG62cLxfysT4UrrOS8doRNvIlKleeQFSkNd4FmljiqdRI0DjDKO0uGhx8SA==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.8"
     "@leafygreen-ui/icon" "^12.0.1"
@@ -2092,7 +2092,7 @@
     "@leafygreen-ui/lib" "^13.3.0"
     "@leafygreen-ui/palette" "^4.0.9"
     "@leafygreen-ui/tokens" "^2.5.2"
-    "@leafygreen-ui/typography" "^18.3.0"
+    "@leafygreen-ui/typography" "^19.0.0"
 
 "@leafygreen-ui/box@^3.1.9":
   version "3.1.9"
