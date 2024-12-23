@@ -191,10 +191,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   );
   const [selectedTab, setSelectedTab] = useState(tab);
 
-  const handleTabChange = (
-    newTab: VersionPageTabs,
-    sendAnalytics: boolean = false,
-  ) => {
+  const handleTabChange = (newTab: VersionPageTabs, sendAnalytics: boolean) => {
     if (!tabIsActive[newTab]) {
       return;
     }
