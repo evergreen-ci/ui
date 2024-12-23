@@ -19,7 +19,7 @@ import { TaskTableInfo } from "components/TasksTable/types";
 import { slugs } from "constants/routes";
 import { SortDirection, TaskSortCategory } from "gql/generated/types";
 import { useTaskStatuses } from "hooks";
-import { Action } from "./reducer";
+import { Action } from "../state";
 
 const { getDefaultOptions: getDefaultFiltering } = ColumnFiltering;
 const { getDefaultOptions: getDefaultSorting } = RowSorting;
@@ -36,7 +36,7 @@ interface DownstreamTasksTableProps {
   tasks: TaskTableInfo[];
 }
 
-export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
+const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
   childPatchId,
   count,
   dispatch,
@@ -165,3 +165,5 @@ export const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
     </TableWrapper>
   );
 };
+
+export default DownstreamTasksTable;

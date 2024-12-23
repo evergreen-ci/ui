@@ -245,26 +245,27 @@
       class="css-7qhrew-PageContent e1xf068s7"
     >
       <div
-        class="css-1svlhkk-StyledTabs e1g8s93l0"
+        class="css-6mah74-StyledTabs e1g8s93l0"
         data-lgid="lg-tabs"
       >
         <div
-          class="leafygreen-ui-jp7pox"
+          class="leafygreen-ui-m8emcp"
+          id="tabs-353"
         >
           <div
             aria-label="Configure Patch Tabs"
             aria-orientation="horizontal"
-            class="leafygreen-ui-dy551c"
+            class="leafygreen-ui-1fdsd2j lg-ui-tab-list-0000"
             data-lgid="lg-tabs-tab_list"
             role="tablist"
           >
             <button
-              aria-controls="tab-panel-353"
+              aria-controls="_e65a0ccyu"
               aria-selected="true"
-              class="leafygreen-ui-oq6if2"
+              class="leafygreen-ui-bhx5eh"
               data-cy="tasks-tab"
               data-text="Configure"
-              id="tab-354"
+              id="_2yo7nwsm4"
               name="Configure"
               role="tab"
               tabindex="0"
@@ -276,12 +277,12 @@
               </div>
             </button>
             <button
-              aria-controls="tab-panel-355"
+              aria-controls="_kn56hyojo"
               aria-selected="false"
-              class="leafygreen-ui-1vvp6ij"
+              class="leafygreen-ui-n0ot0l"
               data-cy="changes-tab"
               data-text="Changes"
-              id="tab-356"
+              id="_3y6goeuwn"
               name="Changes"
               role="tab"
               tabindex="-1"
@@ -293,12 +294,12 @@
               </div>
             </button>
             <button
-              aria-controls="tab-panel-357"
+              aria-controls="_yh0yg2cte"
               aria-selected="false"
-              class="leafygreen-ui-1vvp6ij"
+              class="leafygreen-ui-n0ot0l"
               data-cy="parameters-tab"
               data-text="Parameters"
-              id="tab-358"
+              id="_wt0tpk4ye"
               name="Parameters"
               role="tab"
               tabindex="-1"
@@ -310,287 +311,274 @@
               </div>
             </button>
           </div>
-          <div
-            class="leafygreen-ui-ov1ktg"
-          >
-            <div
-              class="leafygreen-ui-1sg2lsz"
-            />
-          </div>
         </div>
         <div
+          class="lg-ui-tab-panels-0000"
           data-lgid="lg-tabs-tab_panels"
         >
-          <div
-            aria-labelledby="tab-354"
-            data-cy="tasks-tab"
-            id="tab-panel-353"
-            role="tabpanel"
-          >
+          <div>
             <div
-              class="css-17881ib-TabContentWrapper-cardSidePadding eoqkpw12"
+              aria-labelledby="_2yo7nwsm4"
+              class=""
+              data-testid=""
+              id="_e65a0ccyu"
+              role="tabpanel"
             >
               <div
-                class="css-1ln61zq-Actions eoqkpw16"
+                class="css-17881ib-TabContentWrapper-cardSidePadding eoqkpw12"
               >
                 <div
-                  class="eoqkpw13 css-1pn85ix-TextInputWrapper-StyledTextInput e17optw11"
+                  class="css-1ln61zq-Actions eoqkpw16"
                 >
                   <div
-                    aria-labelledby="search-tasks"
-                    class="leafygreen-ui-1br9h7w"
-                    data-lgid="lg-text_input"
+                    class="eoqkpw13 css-1pn85ix-TextInputWrapper-StyledTextInput e17optw11"
                   >
                     <div
-                      class="leafygreen-ui-1iyoj2o"
-                    />
-                    <div
-                      class="leafygreen-ui-14vpn2b"
+                      aria-labelledby="search-tasks"
+                      class="leafygreen-ui-1br9h7w"
+                      data-lgid="lg-text_input"
                     >
                       <div
-                        class="leafygreen-ui-1ago99h"
+                        class="leafygreen-ui-1iyoj2o"
+                      />
+                      <div
+                        class="leafygreen-ui-14vpn2b"
                       >
-                        <input
-                          aria-describedby=""
-                          aria-disabled="false"
-                          aria-invalid="false"
-                          aria-labelledby="search-tasks"
-                          autocomplete="on"
-                          class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
-                          data-cy="task-filter-input"
-                          id="lg-form_field-input-367"
-                          placeholder="Search tasks regex"
-                          required=""
-                          type="text"
-                          value=""
-                        />
+                        <div
+                          class="leafygreen-ui-1ago99h"
+                        >
+                          <input
+                            aria-describedby=""
+                            aria-disabled="false"
+                            aria-invalid="false"
+                            aria-labelledby="search-tasks"
+                            autocomplete="on"
+                            class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
+                            data-cy="task-filter-input"
+                            id="lg-form_field-input-357"
+                            placeholder="Search tasks regex"
+                            required=""
+                            type="text"
+                            value=""
+                          />
+                        </div>
                       </div>
+                      <div
+                        aria-live="polite"
+                        aria-relevant="all"
+                        class="leafygreen-ui-11ydt2g"
+                        data-lgid="lg-form_field-feedback"
+                        data-testid="lg-form_field-feedback"
+                        id="lg-form_field-feedback-356"
+                      />
                     </div>
                     <div
-                      aria-live="polite"
-                      aria-relevant="all"
-                      class="leafygreen-ui-11ydt2g"
-                      data-lgid="lg-form_field-feedback"
-                      data-testid="lg-form_field-feedback"
-                      id="lg-form_field-feedback-366"
-                    />
+                      class="css-4bamt4-IconWrapper e17optw10"
+                    >
+                      <button
+                        aria-disabled="false"
+                        aria-label="Select plus button"
+                        class="leafygreen-ui-tcjr3n"
+                        tabindex="0"
+                      >
+                        <div
+                          class="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Plus Icon"
+                            class=""
+                            fill="none"
+                            height="16"
+                            role="img"
+                            viewBox="0 0 16 16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
                   </div>
                   <div
-                    class="css-4bamt4-IconWrapper e17optw10"
+                    class="leafygreen-ui-55kazc css-1oxhyic-InlineCheckbox eoqkpw10"
+                    data-lgid="lg-checkbox"
                   >
-                    <button
-                      aria-disabled="false"
-                      aria-label="Select plus button"
-                      class="leafygreen-ui-tcjr3n"
-                      tabindex="0"
+                    <label
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
+                      for="checkbox-358"
+                      id="checkbox-358-label"
                     >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="checkbox"
+                        aria-labelledby="checkbox-358-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        data-cy="select-all-checkbox"
+                        id="checkbox-358"
+                        type="checkbox"
+                      />
                       <div
-                        class="leafygreen-ui-xhlipt"
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
                       >
                         <svg
-                          aria-label="Plus Icon"
-                          class=""
+                          class="leafygreen-ui-6caof5"
                           fill="none"
-                          height="16"
-                          role="img"
-                          viewBox="0 0 16 16"
-                          width="16"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            clip-rule="evenodd"
-                            d="M7.5 2a1 1 0 0 0-1 1v3.5H3a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h3.5V13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9.5H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9.5V3a1 1 0 0 0-1-1h-1Z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
                           />
                         </svg>
                       </div>
-                    </button>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                      <span
+                        class="leafygreen-ui-187di61"
+                      >
+                        <div
+                          class="css-118tpd3-LabelContainer eoqkpw15"
+                        >
+                          Select all tasks in this variant
+                        </div>
+                      </span>
+                    </label>
                   </div>
                 </div>
-                <div
-                  class="leafygreen-ui-55kazc css-1oxhyic-InlineCheckbox eoqkpw10"
-                  data-lgid="lg-checkbox"
+                <small
+                  class="css-xwgr3h-StyledDisclaimer eoqkpw14 leafygreen-ui-6flbwy"
+                  data-cy="selected-task-disclaimer"
                 >
-                  <label
-                    class="leafygreen-ui-1srek1y"
-                    data-lgid="lg-label"
-                    for="checkbox-368"
-                    id="checkbox-368-label"
+                  0 tasks across 0 build variants, 0 trigger aliases
+                </small>
+                <div
+                  class="css-1t9ftr3-TaskLayoutGrid ew7x3ml0"
+                  data-cy="configurePatch-tasks"
+                >
+                  <div
+                    class="leafygreen-ui-55kazc"
+                    data-lgid="lg-checkbox"
                   >
-                    <input
-                      aria-checked="false"
-                      aria-disabled="false"
-                      aria-label="checkbox"
-                      aria-labelledby="checkbox-368-label"
-                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      data-cy="select-all-checkbox"
-                      id="checkbox-368"
-                      type="checkbox"
-                    />
-                    <div
-                      class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                    <label
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
+                      for="checkbox-359"
+                      id="checkbox-359-label"
                     >
-                      <svg
-                        class="leafygreen-ui-6caof5"
-                        fill="none"
-                        height="10"
-                        stroke="#FFFFFF"
-                        viewBox="0 0 10 10"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-                          stroke="#FFFFFF"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
-                    />
-                    <span
-                      class="leafygreen-ui-187di61"
-                    >
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="checkbox"
+                        aria-labelledby="checkbox-359-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        data-cy="task-checkbox"
+                        id="checkbox-359"
+                        type="checkbox"
+                      />
                       <div
-                        class="css-118tpd3-LabelContainer eoqkpw15"
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
                       >
-                        Select all tasks in this variant
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
+                          stroke="#FFFFFF"
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
                       </div>
-                    </span>
-                  </label>
-                </div>
-              </div>
-              <small
-                class="css-xwgr3h-StyledDisclaimer eoqkpw14 leafygreen-ui-6flbwy"
-                data-cy="selected-task-disclaimer"
-              >
-                0 tasks across 0 build variants, 0 trigger aliases
-              </small>
-              <div
-                class="css-1t9ftr3-TaskLayoutGrid ew7x3ml0"
-                data-cy="configurePatch-tasks"
-              >
-                <div
-                  class="leafygreen-ui-55kazc"
-                  data-lgid="lg-checkbox"
-                >
-                  <label
-                    class="leafygreen-ui-1srek1y"
-                    data-lgid="lg-label"
-                    for="checkbox-369"
-                    id="checkbox-369-label"
-                  >
-                    <input
-                      aria-checked="false"
-                      aria-disabled="false"
-                      aria-label="checkbox"
-                      aria-labelledby="checkbox-369-label"
-                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      data-cy="task-checkbox"
-                      id="checkbox-369"
-                      type="checkbox"
-                    />
-                    <div
-                      class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
-                    >
-                      <svg
-                        class="leafygreen-ui-6caof5"
-                        fill="none"
-                        height="10"
-                        stroke="#FFFFFF"
-                        viewBox="0 0 10 10"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                      <span
+                        class="leafygreen-ui-187di61"
                       >
-                        <path
-                          d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-                          stroke="#FFFFFF"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
-                    />
-                    <span
-                      class="leafygreen-ui-187di61"
-                    >
-                      e2e_test
-                    </span>
-                  </label>
-                </div>
-                <div
-                  class="leafygreen-ui-55kazc"
-                  data-lgid="lg-checkbox"
-                >
-                  <label
-                    class="leafygreen-ui-1srek1y"
-                    data-lgid="lg-label"
-                    for="checkbox-370"
-                    id="checkbox-370-label"
+                        e2e_test
+                      </span>
+                    </label>
+                  </div>
+                  <div
+                    class="leafygreen-ui-55kazc"
+                    data-lgid="lg-checkbox"
                   >
-                    <input
-                      aria-checked="false"
-                      aria-disabled="false"
-                      aria-label="checkbox"
-                      aria-labelledby="checkbox-370-label"
-                      class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-                      data-cy="task-checkbox"
-                      id="checkbox-370"
-                      type="checkbox"
-                    />
-                    <div
-                      class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                    <label
+                      class="leafygreen-ui-1srek1y"
+                      data-lgid="lg-label"
+                      for="checkbox-360"
+                      id="checkbox-360-label"
                     >
-                      <svg
-                        class="leafygreen-ui-6caof5"
-                        fill="none"
-                        height="10"
-                        stroke="#FFFFFF"
-                        viewBox="0 0 10 10"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <input
+                        aria-checked="false"
+                        aria-disabled="false"
+                        aria-label="checkbox"
+                        aria-labelledby="checkbox-360-label"
+                        class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+                        data-cy="task-checkbox"
+                        id="checkbox-360"
+                        type="checkbox"
+                      />
+                      <div
+                        class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
                       >
-                        <path
-                          d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        <svg
+                          class="leafygreen-ui-6caof5"
+                          fill="none"
+                          height="10"
                           stroke="#FFFFFF"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
-                    />
-                    <span
-                      class="leafygreen-ui-187di61"
-                    >
-                      test
-                    </span>
-                  </label>
+                          viewBox="0 0 10 10"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                            stroke="#FFFFFF"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+                      />
+                      <span
+                        class="leafygreen-ui-187di61"
+                      >
+                        test
+                      </span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div
-            aria-labelledby="tab-356"
-            data-cy="changes-tab"
-            id="tab-panel-355"
-            role="tabpanel"
-          />
-          <div
-            aria-labelledby="tab-358"
-            data-cy="parameters-tab"
-            id="tab-panel-357"
-            role="tabpanel"
-          />
+          <div />
+          <div />
         </div>
       </div>
     </main>
