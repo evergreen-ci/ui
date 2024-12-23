@@ -20,7 +20,7 @@ import { usePolling } from "hooks";
 import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { parseQueryString } from "utils/queryString";
-import { useQueryVariables } from "../../useQueryVariables";
+import { useQueryVariables } from "../useQueryVariables";
 import TaskDurationTable from "./TaskDurationTable";
 
 interface Props {
