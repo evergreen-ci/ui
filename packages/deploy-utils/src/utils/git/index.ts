@@ -84,7 +84,10 @@ const assertWorkingDirectoryClean = () => {
   }
 };
 
-export { getCurrentlyDeployedCommit } from "./get-current-deployed-commit";
+export {
+  getCurrentlyDeployedCommit,
+  getRemotePreviousCommit,
+} from "./get-current-deployed-commit";
 export {
   assertMainBranch,
   assertWorkingDirectoryClean,

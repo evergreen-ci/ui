@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useReducer } from "react";
+import { getUserStagingHeader } from "@evg-ui/lib/utils/request";
 import { environmentVariables } from "utils";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 
@@ -60,6 +61,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           credentials: "include",
           method: "GET",
           redirect: "manual",
+          headers: getUserStagingHeader(),
         })
           .then(() => {
             dispatch({ type: "deauthenticated" });
