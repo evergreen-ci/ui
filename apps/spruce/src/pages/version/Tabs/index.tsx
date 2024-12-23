@@ -189,7 +189,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
       (Object.keys(allTabs) as VersionPageTabs[]).filter((t) => tabIsActive[t]),
     [allTabs, tabIsActive],
   );
-  const [selectedTab, setSelectedTab] = useState(tab || VersionPageTabs.Tasks);
+  const [selectedTab, setSelectedTab] = useState(tab);
 
   const handleTabChange = (
     newTab: VersionPageTabs,
@@ -218,13 +218,13 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   }, [tab, tabIsActive]);
 
   useTabShortcut({
-    currentTab: activeTabs.indexOf(selectedTab),
+    currentTab: selectedTab ? activeTabs.indexOf(selectedTab) : 0,
     numTabs: activeTabs.length,
     setSelectedTab: (tabIndex) =>
       activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex], true),
   });
 
-  return (
+  return selectedTab ? (
     <StyledTabs
       aria-label="Version Tabs"
       selected={activeTabs.indexOf(selectedTab)}
@@ -235,7 +235,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     >
       {activeTabs.map((t: VersionPageTabs) => allTabs[t])}
     </StyledTabs>
-  );
+  ) : null;
 };
 
 export default VersionTabs;
