@@ -17,7 +17,7 @@ import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
-import { useQueryVariables } from "../../useQueryVariables";
+import { useQueryVariables } from "../useQueryVariables";
 import { PatchTasksTable } from "./PatchTasksTable";
 
 const { parseQueryString } = queryString;
@@ -32,10 +32,8 @@ const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { [slugs.versionId]: versionId } = useParams();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const versionAnalytics = useVersionAnalytics(versionId);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const queryVariables = useQueryVariables(search, versionId);
+  const versionAnalytics = useVersionAnalytics(versionId || "");
+  const queryVariables = useQueryVariables(search, versionId || "");
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
