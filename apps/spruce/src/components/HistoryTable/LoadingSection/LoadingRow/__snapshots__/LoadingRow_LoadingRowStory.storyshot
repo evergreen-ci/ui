@@ -1,9 +1,9 @@
 <div>
   <div
-    class="css-4c6myl-Container eubivai0"
+    class="css-1pyg7x5-Container eubivai0"
   >
     <div
-      class="css-167wnfc-LabelCellContainer e1bcz5i60"
+      class="css-1hozx09-LabelCellContainer e1bcz5i60"
     >
       <div
         class="ant-skeleton ant-skeleton-active"
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div
-      class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+      class="css-1r7e2vg-BaseCell-Cell e1bcz5i62"
       data-cy="loading-cell"
     >
       <div
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div
-      class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+      class="css-1r7e2vg-BaseCell-Cell e1bcz5i62"
       data-cy="loading-cell"
     >
       <div
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div
-      class="css-azgjvx-BaseCell-Cell e1bcz5i62"
+      class="css-1r7e2vg-BaseCell-Cell e1bcz5i62"
       data-cy="loading-cell"
     >
       <div
