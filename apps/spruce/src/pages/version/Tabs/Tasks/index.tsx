@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { PaginationQueryParams } from "constants/queryParams";
-import { slugs } from "constants/routes";
 import {
   VersionTasksQuery,
   VersionTasksQueryVariables,
@@ -16,20 +15,19 @@ import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
-import { queryString } from "utils";
+import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";
 import { PatchTasksTable } from "./PatchTasksTable";
 
-const { parseQueryString } = queryString;
 const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
 interface Props {
   taskCount: number;
+  versionId: string;
 }
 
-const Tasks: React.FC<Props> = ({ taskCount }) => {
+const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
   const dispatchToast = useToastContext();
-  const { [slugs.versionId]: versionId } = useParams();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const versionAnalytics = useVersionAnalytics(versionId || "");

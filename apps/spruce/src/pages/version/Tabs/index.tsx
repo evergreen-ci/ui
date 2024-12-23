@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -10,7 +10,6 @@ import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchStatus, VersionPageTabs } from "types/patch";
-import { parseQueryString } from "utils/queryString";
 import DownstreamTasks from "./DownstreamTasks";
 import TaskDuration from "./TaskDuration";
 import Tasks from "./Tasks";
@@ -89,7 +88,7 @@ const tabMap = ({
 } => ({
   [VersionPageTabs.Tasks]: (
     <Tab key="tasks-tab" data-cy="task-tab" id="task-tab" name="Tasks">
-      <Tasks taskCount={taskCount} />
+      <Tasks taskCount={taskCount} versionId={versionId} />
     </Tab>
   ),
   [VersionPageTabs.TaskDuration]: (
@@ -99,7 +98,7 @@ const tabMap = ({
       id="duration-tab"
       name="Task Duration"
     >
-      <TaskDuration taskCount={taskCount} />
+      <TaskDuration taskCount={taskCount} versionId={versionId} />
     </Tab>
   ),
   [VersionPageTabs.Changes]: (
@@ -146,7 +145,6 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   const { [slugs.tab]: tab } = useParams<{
     [slugs.tab]: VersionPageTabs;
   }>();
-  const { search } = useLocation();
   const { sendEvent } = useVersionAnalytics(version.id);
   const navigate = useNavigate();
 
@@ -200,14 +198,13 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     if (!tabIsActive[newTab]) {
       return;
     }
-    const queryParams = parseQueryString(search);
 
     setSelectedTab(newTab);
     // In cases where we're changing tabs due to a non user action (e.g. a redirect we want to avoid sending analytics)
     if (sendAnalytics) {
       sendEvent({ name: "Changed tab", tab: newTab });
     }
-    navigate(getVersionRoute(version.id, { tab: newTab, ...queryParams }), {
+    navigate(getVersionRoute(version.id, { tab: newTab }), {
       replace: true,
     });
   };

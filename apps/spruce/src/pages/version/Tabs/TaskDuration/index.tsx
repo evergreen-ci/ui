@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { PaginationQueryParams, TableQueryParams } from "constants/queryParams";
-import { slugs } from "constants/routes";
 import {
   SortDirection,
   TaskSortCategory,
@@ -25,16 +24,14 @@ import TaskDurationTable from "./TaskDurationTable";
 
 interface Props {
   taskCount: number;
+  versionId: string;
 }
-const TaskDuration: React.FC<Props> = ({ taskCount }) => {
+const TaskDuration: React.FC<Props> = ({ taskCount, versionId }) => {
   const dispatchToast = useToastContext();
-  const { [slugs.versionId]: versionId } = useParams();
   const { search } = useLocation();
 
   const [queryParams, setQueryParams] = useQueryParams();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionAnalytics = useVersionAnalytics(versionId);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const queryVariables = useQueryVariables(search, versionId);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page } = queryVariables.taskFilterOptions;
