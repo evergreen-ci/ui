@@ -8,6 +8,7 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
+import { useQueryParams } from "hooks/useQueryParam";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchStatus, VersionPageTabs } from "types/patch";
 import DownstreamTasks from "./DownstreamTasks";
@@ -147,6 +148,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   }>();
   const { sendEvent } = useVersionAnalytics(version.id);
   const navigate = useNavigate();
+  const [queryParams] = useQueryParams();
 
   const { isPatch, patch, requester, status, taskCount } = version || {};
   const { childPatches } = patch || {};
@@ -201,7 +203,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     if (sendAnalytics) {
       sendEvent({ name: "Changed tab", tab: newTab });
     }
-    navigate(getVersionRoute(version.id, { tab: newTab }), {
+    navigate(getVersionRoute(version.id, { tab: newTab, ...queryParams }), {
       replace: true,
     });
   };
