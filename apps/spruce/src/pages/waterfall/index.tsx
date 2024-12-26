@@ -17,6 +17,7 @@ import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { VERSION_LIMIT } from "./styles";
 import { WaterfallFilterOptions } from "./types";
+import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
 
@@ -70,11 +71,13 @@ const Waterfall: React.FC = () => {
             />
           }
         >
-          <WaterfallGrid
-            key={projectIdentifier}
-            projectIdentifier={projectIdentifier ?? ""}
-            setPagination={setPagination}
-          />
+          <WaterfallErrorBoundary projectIdentifier={projectIdentifier ?? ""}>
+            <WaterfallGrid
+              key={projectIdentifier}
+              projectIdentifier={projectIdentifier ?? ""}
+              setPagination={setPagination}
+            />
+          </WaterfallErrorBoundary>
         </Suspense>
       </PageContainer>
     </>
