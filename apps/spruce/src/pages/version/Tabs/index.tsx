@@ -210,6 +210,8 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
   useEffect(() => {
     if (!tab || !tabIsActive[tab]) {
       handleTabChange(VersionPageTabs.Tasks, false);
+    } else {
+      setSelectedTab(tab);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab, tabIsActive]);
