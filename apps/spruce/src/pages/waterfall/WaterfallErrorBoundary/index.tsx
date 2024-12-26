@@ -1,8 +1,10 @@
 import React, { ErrorInfo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Body } from "@leafygreen-ui/typography";
+import { H1, InlineCode } from "@leafygreen-ui/typography";
+import { Navigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { getWaterfallRoute } from "constants/routes";
 import { reportError } from "utils/errorReporting";
 
 interface WaterfallErrorBoundaryProps {
@@ -13,6 +15,8 @@ interface WaterfallErrorBoundaryProps {
 interface WaterfallErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
+  redirect: boolean;
+  redirectPath?: string;
 }
 
 class WaterfallErrorBoundary extends React.Component<
@@ -24,8 +28,11 @@ class WaterfallErrorBoundary extends React.Component<
     this.state = {
       hasError: false,
       error: null,
+      redirect: false,
+      redirectPath: undefined,
     };
-    this.handleTryAgain = this.handleTryAgain.bind(this);
+    this.handleResetPage = this.handleResetPage.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
   static getDerivedStateFromError(
@@ -35,7 +42,6 @@ class WaterfallErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Optionally log error details to an error reporting service
     this.setState({ error });
     reportError(new Error("An error occurred in the Waterfall page.", error), {
       tags: { component: "Waterfall", project: this.props.projectIdentifier },
@@ -43,43 +49,49 @@ class WaterfallErrorBoundary extends React.Component<
     }).warning();
   }
 
-  /**
-   * Resets the error boundary so users can retry the failed action.
-   */
-  handleTryAgain = () => {
+  resetState = () => {
     this.setState({
       hasError: false,
       error: null,
+      redirect: false,
+      redirectPath: undefined,
     });
-    window.location.reload();
   };
 
-  static handleGoBack = () => {
-    window.history.back();
+  handleResetPage = () => {
+    this.setState({
+      redirect: true,
+      hasError: false,
+      error: null,
+      redirectPath: getWaterfallRoute(this.props.projectIdentifier),
+    });
   };
 
   render() {
-    const { error, hasError } = this.state;
+    const { error, hasError, redirect, redirectPath } = this.state;
+
     if (hasError) {
       return (
         <Container>
-          <HeadingContainer>Something went wrong.</HeadingContainer>
-          <Body>{error?.message ?? "An unexpected error has occurred."}</Body>
+          <H1>Oops! Something went wrong.</H1>
+          <InlineCode>
+            Error: {error?.message ?? "An unexpected error has occurred."}
+          </InlineCode>
           <ButtonsContainer>
-            <Button onClick={this.handleTryAgain}>Try Again</Button>
-            <Button onClick={WaterfallErrorBoundary.handleGoBack}>
-              Go back to previous page
+            <Button onClick={this.handleResetPage} variant="primary">
+              Reset Page
             </Button>
           </ButtonsContainer>
         </Container>
       );
     }
-
+    if (redirect && redirectPath) {
+      this.resetState();
+      return <Navigate to={redirectPath} />;
+    }
     return this.props.children;
   }
 }
-
-export default WaterfallErrorBoundary;
 
 const Container = styled.div`
   display: flex;
@@ -91,14 +103,10 @@ const Container = styled.div`
   box-sizing: border-box;
 `;
 
-const HeadingContainer = styled.div`
-  font-size: 1.75rem;
-  font-weight: 600;
-  margin-bottom: ${size.m};
-`;
-
 const ButtonsContainer = styled.div`
-  margin-top: ${size.xl};
+  margin-top: ${size.l};
   display: flex;
   gap: 1rem;
 `;
+
+export default WaterfallErrorBoundary;
