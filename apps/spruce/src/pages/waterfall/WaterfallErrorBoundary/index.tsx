@@ -1,11 +1,13 @@
 import React, { ErrorInfo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { H1, InlineCode } from "@leafygreen-ui/typography";
 import { Navigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getWaterfallRoute } from "constants/routes";
 import { reportError } from "utils/errorReporting";
+import { VERSION_LIMIT } from "../styles";
 
 interface WaterfallErrorBoundaryProps {
   children: React.ReactNode;
@@ -72,17 +74,26 @@ class WaterfallErrorBoundary extends React.Component<
 
     if (hasError) {
       return (
-        <Container>
-          <H1>Oops! Something went wrong.</H1>
-          <InlineCode>
-            Error: {error?.message ?? "An unexpected error has occurred."}
-          </InlineCode>
-          <ButtonsContainer>
-            <Button onClick={this.handleResetPage} variant="primary">
-              Reset Page
-            </Button>
-          </ButtonsContainer>
-        </Container>
+        <div>
+          <Container>
+            <InnerContainer>
+              <H1>Oops! Something went wrong.</H1>
+              <InlineCode>
+                Error: {error?.message ?? "An unexpected error has occurred."}
+              </InlineCode>
+              <ButtonsContainer>
+                <Button onClick={this.handleResetPage} variant="primary">
+                  Reset Page
+                </Button>
+              </ButtonsContainer>
+            </InnerContainer>
+          </Container>
+          <TableSkeleton
+            data-cy="waterfall-skeleton"
+            numCols={VERSION_LIMIT + 1}
+            numRows={15}
+          />
+        </div>
       );
     }
     if (redirect && redirectPath) {
@@ -98,9 +109,16 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 60vh;
+  min-height: 80vh;
   padding: 2rem;
   box-sizing: border-box;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 100%;
+`;
+
+const InnerContainer = styled.div`
+  opacity: 1;
 `;
 
 const ButtonsContainer = styled.div`
