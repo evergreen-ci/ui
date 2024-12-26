@@ -7,7 +7,7 @@ import { Navigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { getWaterfallRoute } from "constants/routes";
 import { reportError } from "utils/errorReporting";
-import { VERSION_LIMIT } from "../styles";
+import { VERSION_LIMIT } from "../constants";
 
 interface WaterfallErrorBoundaryProps {
   children: React.ReactNode;
