@@ -16,6 +16,7 @@ export default {
       path: "/patch/:patchId/configure/*",
       route: `/patch/${patchQuery.patch.id}/configure/tasks`,
     },
+    storyshots: { disable: true }, // FIXME: This story is disabled because the @leafygreen-ui/tabs@13.1.1 package is generating inconsistent snapshots
   },
 } satisfies CustomMeta<typeof ConfigurePatchCore>;
 

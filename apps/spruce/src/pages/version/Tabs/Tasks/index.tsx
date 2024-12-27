@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";
 import TableWrapper from "components/Table/TableWrapper";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { PaginationQueryParams } from "constants/queryParams";
-import { slugs } from "constants/routes";
 import {
   VersionTasksQuery,
   VersionTasksQueryVariables,
@@ -16,26 +15,23 @@ import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
-import { queryString } from "utils";
-import { PatchTasksTable } from "./tasks/PatchTasksTable";
-import { useQueryVariables } from "./useQueryVariables";
+import { parseQueryString } from "utils/queryString";
+import { useQueryVariables } from "../useQueryVariables";
+import { PatchTasksTable } from "./PatchTasksTable";
 
-const { parseQueryString } = queryString;
 const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
 interface Props {
   taskCount: number;
+  versionId: string;
 }
 
-export const Tasks: React.FC<Props> = ({ taskCount }) => {
+const Tasks: React.FC<Props> = ({ taskCount, versionId }) => {
   const dispatchToast = useToastContext();
-  const { [slugs.versionId]: versionId } = useParams();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const versionAnalytics = useVersionAnalytics(versionId);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const queryVariables = useQueryVariables(search, versionId);
+  const versionAnalytics = useVersionAnalytics(versionId || "");
+  const queryVariables = useQueryVariables(search, versionId || "");
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page, sorts } = queryVariables.taskFilterOptions;
 
@@ -118,3 +114,5 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     </TableWrapper>
   );
 };
+
+export default Tasks;
