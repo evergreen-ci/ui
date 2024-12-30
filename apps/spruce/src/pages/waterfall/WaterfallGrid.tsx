@@ -18,13 +18,13 @@ import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
+import { VERSION_LIMIT } from "./constants";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import {
   BuildVariantTitle,
   gridGroupCss,
   InactiveVersion,
   Row,
-  VERSION_LIMIT,
 } from "./styles";
 import { WaterfallFilterOptions } from "./types";
 import { useFilters } from "./useFilters";

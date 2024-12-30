@@ -3,13 +3,12 @@ import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { wordBreakCss } from "components/styles";
+import { VERSION_LIMIT } from "./constants";
 import { statusColorMap, statusIconMap } from "./icons";
 
 const BUILD_VARIANT_WIDTH = 200;
 const INACTIVE_WIDTH = 80;
 export const SQUARE_SIZE = 16;
-
-export const VERSION_LIMIT = 5;
 
 export const columnBasis = css`
   flex-basis: calc(100% / ${VERSION_LIMIT});

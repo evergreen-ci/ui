@@ -15,8 +15,9 @@ import { WaterfallPagination } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
-import { VERSION_LIMIT } from "./styles";
+import { VERSION_LIMIT } from "./constants";
 import { WaterfallFilterOptions } from "./types";
+import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
 
@@ -70,11 +71,13 @@ const Waterfall: React.FC = () => {
             />
           }
         >
-          <WaterfallGrid
-            key={projectIdentifier}
-            projectIdentifier={projectIdentifier ?? ""}
-            setPagination={setPagination}
-          />
+          <WaterfallErrorBoundary projectIdentifier={projectIdentifier ?? ""}>
+            <WaterfallGrid
+              key={projectIdentifier}
+              projectIdentifier={projectIdentifier ?? ""}
+              setPagination={setPagination}
+            />
+          </WaterfallErrorBoundary>
         </Suspense>
       </PageContainer>
     </>
