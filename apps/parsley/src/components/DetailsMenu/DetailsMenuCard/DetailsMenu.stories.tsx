@@ -16,6 +16,9 @@ export default {
       </MockedProvider>
     ),
   ],
+  parameters: {
+    storyshots: { disable: true }, // FIXME: This story is disabled because the @leafygreen-ui/tabs@13.1.1 package is generating inconsistent snapshots
+  },
 } satisfies CustomMeta<typeof DetailsMenu>;
 
 export const Default: CustomStoryObj<typeof DetailsMenu> = {
