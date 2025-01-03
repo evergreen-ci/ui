@@ -1,3 +1,24 @@
+import { getUserStagingKey, isStaging } from "../environment";
+
+/**
+ * getUserStagingHeader generates the correct headers for the Evergreen-Multi staging backend to correctly route requests.
+ * @returns - an object with a key-value pair if the headers should be applied, and an empty object if not.
+ */
+export const getUserStagingHeader = (): {
+  "X-Evergreen-Environment"?: string;
+} => {
+  if (!isStaging()) {
+    return {};
+  }
+
+  const key = getUserStagingKey();
+  if (!key) {
+    return {};
+  }
+
+  return { "X-Evergreen-Environment": key };
+};
+
 export const shouldLogoutAndRedirect = (statusCode: number) =>
   statusCode === 401;
 

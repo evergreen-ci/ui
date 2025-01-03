@@ -2,8 +2,7 @@
  * `getApiUrl()` - Get the API URL from the environment variables
  * @returns - The Evergreen API URL
  */
-export const getApiUrl: () => string = () =>
-  process.env.REACT_APP_API_URL || "";
+export const getApiUrl: () => string = () => `${getUiUrl()}/api`;
 
 /**
  * `getSentryDSN()` - Get the Sentry Data Source Name (SENTRY_DSN) from the environment variables
@@ -82,8 +81,7 @@ export const isTest = () => process.env.NODE_ENV === "test";
  * `getGQLUrl()` - Get the GQL URL from the environment variables
  * @returns - Returns the graphql endpoint for the current environment.
  */
-export const getGQLUrl: () => string = () =>
-  process.env.REACT_APP_GQL_URL || "";
+export const getGQLUrl: () => string = () => `${getUiUrl()}/graphql/query`;
 
 /**
  * `getParsleyUrl()` - Get the Parsley URL from the environment variables

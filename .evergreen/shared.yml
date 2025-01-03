@@ -4,6 +4,12 @@ functions:
     params:
       role_arn: ${ASSUME_ROLE_ARN}
 
+  # Assume role with access to each user's staging bucket.
+  assume-user-staging-ec2-role:
+    command: ec2.assume_role
+    params:
+      role_arn: ${USER_STAGING_ARN}
+
   check-codegen:
     command: shell.exec
     params:
