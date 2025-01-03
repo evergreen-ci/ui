@@ -5,7 +5,7 @@ functions:
       role_arn: ${ASSUME_ROLE_ARN}
 
   # Assume role with access to each user's staging bucket.
-  assume-staging-ec2-role:
+  assume-user-staging-ec2-role:
     command: ec2.assume_role
     params:
       role_arn: ${USER_STAGING_ARN}

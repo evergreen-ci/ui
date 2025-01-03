@@ -29,7 +29,6 @@ functions:
           - REACT_APP_UI_URL
           - REACT_APP_USER_KEY
           - SPRUCE_SENTRY_AUTH_TOKEN
-          - USER_STAGING_ARN
         env:
           AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
           AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
@@ -69,14 +68,18 @@ functions:
 
   prepare-user-deploy-vars:
     - command: shell.exec
+      type: setup
       params:
         script: |
-          if ! [ -z "${user_key}" ]; then
-            echo "BUCKET: spruce-${user_key}" >> deploy-vars.yml
-            echo "REACT_APP_USER_KEY: ${user_key}" >> deploy-vars.yml
-            echo "REACT_APP_SPRUCE_URL: https://spruce.${user_key}.evergreen-staging.devprod.mongodb.com" >> deploy-vars.yml
+          if ! [ -z "${staging_user_key}" ]; then
+            echo "BUCKET: spruce-${staging_user_key}" >> deploy-vars.yml
+            echo "REACT_APP_USER_KEY: ${staging_user_key}" >> deploy-vars.yml
+            echo "REACT_APP_SPRUCE_URL: https://spruce.${staging_user_key}.evergreen-staging.devprod.mongodb.com" >> deploy-vars.yml
             echo "REACT_APP_UI_URL: https://evergreen-multi.staging.corp.mongodb.com" >> deploy-vars.yml
-            echo "USER_STAGING_ARN: ${user_staging_arn_prefix}${user_key}.ui_put" >> deploy-vars.yml
+            echo "USER_STAGING_ARN: ${user_staging_arn_prefix}${staging_user_key}.ui_put" >> deploy-vars.yml
+          else
+            echo "Must include staging_user_key as a task parameter."
+            exit 1
           fi
     - command: expansions.update
       params:
@@ -153,9 +156,7 @@ tasks:
   - name: sync-spruce-staging
     commands:
       - func: prepare-user-deploy-vars
-        vars:
-          user_key: ${staging_user_key}
-      - func: assume-staging-ec2-role
+      - func: assume-user-staging-ec2-role
       - func: deploy
         vars:
           app_dir: apps/spruce

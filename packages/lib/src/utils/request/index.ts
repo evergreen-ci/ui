@@ -1,13 +1,21 @@
-import { getUserStagingKey } from "../environment";
+import { getUserStagingKey, isStaging } from "../environment";
 
+/**
+ * getUserStagingHeader generates the correct headers for the Evergreen-Multi staging backend to correctly route requests.
+ * @returns - an object with a key-value pair if the headers should be applied, and an empty object if not.
+ */
 export const getUserStagingHeader = (): {
-  "X-Evergreen-Environment": string;
+  "X-Evergreen-Environment"?: string;
 } => {
-  const key = getUserStagingKey();
-
-  if (!key) {
-    console.error("Must configure REACT_APP_USER_KEY");
+  if (!isStaging()) {
+    return {};
   }
+
+  const key = getUserStagingKey();
+  if (!key) {
+    return {};
+  }
+
   return { "X-Evergreen-Environment": key };
 };
 
