@@ -3,12 +3,14 @@ import { COMMIT_LENGTH, getLatestTag, tagIsValid } from ".";
 import { DeployableApp } from "../types";
 
 /**
- * getRemotePreviousCommit fetches the commit hash currently deployed to the given route
- * @param baseUrl - base URL on which commit.txt file is found
+ * getRemotePreviousCommit fetches the commit hash currently deployed to the given app
+ * @param app - name of app to query
  * @returns  - promise resolving to commit hash
  */
-export const getRemotePreviousCommit = (baseUrl: string): Promise<string> => {
-  const commitUrl = `${baseUrl}/commit.txt`;
+export const getRemotePreviousCommit = (
+  app: DeployableApp,
+): Promise<string> => {
+  const commitUrl = `https://${app}.mongodb.com/commit.txt`;
   return new Promise((resolve, reject) => {
     get(commitUrl, (resp) => {
       let data = "";
@@ -33,7 +35,7 @@ export const getRemotePreviousCommit = (baseUrl: string): Promise<string> => {
 export const getCurrentlyDeployedCommit = async (app: DeployableApp) => {
   let commit = "";
   try {
-    commit = await getRemotePreviousCommit(`https://${app}.mongodb.com`);
+    commit = await getRemotePreviousCommit(app);
     commit = commit?.trim();
   } catch (e) {
     console.error("Fetching commit failed");

@@ -1,4 +1,4 @@
-import { getLatestTag, tagIsValid, getReleaseVersion } from ".";
+import { getLatestTag, getReleaseVersion, tagIsValid } from ".";
 
 describe("tagIsValid", () => {
   it("should match on a known valid tag", () => {
