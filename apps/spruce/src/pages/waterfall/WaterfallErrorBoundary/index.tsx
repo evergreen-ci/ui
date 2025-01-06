@@ -1,13 +1,13 @@
 import React, { ErrorInfo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { H1, InlineCode } from "@leafygreen-ui/typography";
 import { Navigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import Icon from "components/Icon";
 import { getWaterfallRoute } from "constants/routes";
 import { reportError } from "utils/errorReporting";
-import { VERSION_LIMIT } from "../constants";
+import WaterfallSkeleton from "../WaterfallSkeleton";
 
 interface WaterfallErrorBoundaryProps {
   children: React.ReactNode;
@@ -82,17 +82,17 @@ class WaterfallErrorBoundary extends React.Component<
                 Error: {error?.message ?? "An unexpected error has occurred."}
               </InlineCode>
               <ButtonsContainer>
-                <Button onClick={this.handleResetPage} variant="primary">
-                  Reset Page
+                <Button
+                  onClick={this.handleResetPage}
+                  rightGlyph={<Icon glyph="ArrowRight" />}
+                  variant="primary"
+                >
+                  Return to waterfall
                 </Button>
               </ButtonsContainer>
             </InnerContainer>
           </Container>
-          <TableSkeleton
-            data-cy="waterfall-skeleton"
-            numCols={VERSION_LIMIT + 1}
-            numRows={15}
-          />
+          <WaterfallSkeleton enableAnimations={false} />
         </div>
       );
     }
