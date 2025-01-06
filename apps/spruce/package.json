@@ -150,7 +150,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/lodash.debounce": "4.0.7",
     "@types/lodash.throttle": "^4.1.9",
-    "@types/node": "^20.12.7",
+    "@types/node": "^22.10.5",
     "@types/pluralize": "0.0.33",
     "@types/prompts": "2.4.9",
     "@types/react": "18.3.12",
