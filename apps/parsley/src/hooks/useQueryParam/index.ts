@@ -6,14 +6,14 @@ import {
   parseQueryString,
   stringifyQuery,
 } from "@evg-ui/lib/utils/query-string";
-import { QueryParams } from "constants/queryParams";
+import { QueryParams, urlParseOptions } from "constants/queryParams";
 
 /**
  * `useQueryParams` returns all of the query params that exist in the url.
  * @param parseOptions - options which define how to parse params from the url (optional)
  * @returns a tuple containing the parsed query params and a function to set the query params
  */
-const useQueryParams = (parseOptions?: ParseOptions) => {
+const useQueryParams = (parseOptions: ParseOptions = urlParseOptions) => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const setQueryString = useCallback(
@@ -39,13 +39,15 @@ const useQueryParams = (parseOptions?: ParseOptions) => {
  *  `useQueryParam` will default to the second argument if the query param is not present in the url.
  * @param param - the name of the query param
  * @param defaultParam - the default value of the query param
+ * @param parseOptions - options which define how to parse params from the url (optional)
  * @returns a tuple containing the parsed query param and a function to set the query param
  */
 const useQueryParam = <T>(
   param: QueryParams,
   defaultParam: T,
+  parseOptions: ParseOptions = urlParseOptions,
 ): readonly [T, (set: T) => void] => {
-  const [searchParams, setSearchParams] = useQueryParams();
+  const [searchParams, setSearchParams] = useQueryParams(parseOptions);
 
   const setQueryParam = useCallback(
     (value: T) => {
@@ -58,7 +60,7 @@ const useQueryParam = <T>(
         }
         if (Array.isArray(paramValue)) {
           newParams[paramKey] = paramValue.map((v) =>
-            v != null ? encodeURIComponent(v) : null,
+            v !== null ? encodeURIComponent(v) : null,
           );
         }
       });

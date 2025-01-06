@@ -4,10 +4,10 @@ import Button from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   DeleteDistroMutation,
   DeleteDistroMutationVariables,

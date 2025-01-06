@@ -9,10 +9,12 @@ type Props = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   versions: WaterfallVersionFragment[];
+  revisionFilter: string | null;
 };
 
 export const InactiveVersionsModal: React.FC<Props> = ({
   open,
+  revisionFilter,
   setOpen,
   versions,
 }) => {
@@ -29,6 +31,9 @@ export const InactiveVersionsModal: React.FC<Props> = ({
       {versions?.map((version) => (
         <StyledVersionLabel
           key={version.id}
+          highlighted={
+            revisionFilter !== null && version.revision.includes(revisionFilter)
+          }
           shouldDisableText={hasUnmatchingVersions}
           view={VersionLabelView.Modal}
           {...version}

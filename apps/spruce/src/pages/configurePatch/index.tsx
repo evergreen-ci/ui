@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { useParams, Navigate } from "react-router-dom";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";
 import { mergeQueueAlias } from "constants/patch";
 import { getVersionRoute, slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   ConfigurePatchQuery,
   ConfigurePatchQueryVariables,
@@ -19,12 +19,14 @@ import ConfigurePatchCore from "./configurePatchCore";
 const ConfigurePatch: React.FC = () => {
   const { [slugs.patchId]: patchId } = useParams();
   const dispatchToast = useToastContext();
+
+  const isValidPatchId = validateObjectId(patchId || "");
   const { data, error, loading } = useQuery<
     ConfigurePatchQuery,
     ConfigurePatchQueryVariables
   >(PATCH_CONFIGURE, {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    variables: { id: patchId },
+    skip: !isValidPatchId,
+    variables: { id: patchId || "" },
     onError(err) {
       dispatchToast.error(err.message);
     },
@@ -33,31 +35,24 @@ const ConfigurePatch: React.FC = () => {
   const { patch } = data || {};
   usePageTitle(`Configure Patch`);
 
-  // Can't configure a mainline version so should redirect to the version page
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  if (!validateObjectId(patchId)) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return <Navigate to={getVersionRoute(patchId)} />;
+  // Can't configure a non-patch so should redirect to the version page
+  if (!isValidPatchId) {
+    return <Navigate to={getVersionRoute(patchId || "")} />;
   }
-
   if (loading) {
     return <PatchAndTaskFullPageLoad />;
   }
-  if (error) {
+  if (error || !patch) {
     return <PageDoesNotExist />;
   }
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   if (patch.alias === mergeQueueAlias) {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    return <Navigate to={getVersionRoute(patchId)} />;
+    return <Navigate to={getVersionRoute(patch.id)} />;
   }
 
   return (
     <PageWrapper>
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={patch?.projectIdentifier} />
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ConfigurePatchCore patch={patch} />
     </PageWrapper>
   );

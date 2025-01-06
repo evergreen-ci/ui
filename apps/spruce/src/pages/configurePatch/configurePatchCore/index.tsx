@@ -6,6 +6,7 @@ import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { LoadingButton } from "components/Buttons";
 import { CodeChanges } from "components/CodeChanges";
@@ -23,7 +24,6 @@ import {
 } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getProjectPatchesRoute, getVersionRoute } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,
   PatchConfigure,
@@ -39,6 +39,7 @@ import { ConfigureBuildVariants } from "./ConfigureBuildVariants";
 import ConfigureTasks from "./ConfigureTasks";
 import { ParametersContent } from "./ParametersContent";
 import useConfigurePatch from "./useConfigurePatch";
+import { indexToTabMap, tabToIndexMap } from "./useConfigurePatch/constants";
 import {
   AliasState,
   ChildPatchAliased,
@@ -66,14 +67,12 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     time,
     variantsTasks,
   } = patch;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { variants } = project;
+  const { variants = [] } = project || {};
 
   const childPatchesWithAliases: ChildPatchAliased[] =
     childPatches?.map((cp) => {
       const { alias = id } =
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        childPatchAliases.find(({ patchId }) => cp.id === patchId) || {};
+        childPatchAliases?.find(({ patchId }) => cp.id === patchId) || {};
       return { ...cp, alias };
     }) ?? [];
 
@@ -125,8 +124,9 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
       dispatchToast.success(
         `Successfully scheduled the patch${hasChildPatch ? " and its child patches" : ""}`,
       );
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      navigate(getVersionRoute(scheduledPatch.versionFull.id));
+      if (scheduledPatch.versionFull) {
+        navigate(getVersionRoute(scheduledPatch.versionFull.id));
+      }
     },
     onError(err) {
       dispatchToast.error(
@@ -238,8 +238,9 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
         <PageContent>
           <StyledTabs
             aria-label="Configure Patch Tabs"
-            selected={selectedTab}
-            setSelected={setSelectedTab}
+            selected={tabToIndexMap[selectedTab]}
+            // @ts-expect-error
+            setSelected={(i: number) => setSelectedTab(indexToTabMap[i])}
           >
             <Tab data-cy="tasks-tab" name="Configure">
               <ConfigureTasks
@@ -307,11 +308,9 @@ const getChildPatchEntries = (childPatches: ChildPatchAliased[]) => {
   if (!childPatches) {
     return [];
   }
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   return childPatches.map(({ alias, projectIdentifier, variantsTasks }) => ({
     displayName: `${alias} (${projectIdentifier})`,
     name: alias,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     taskCount: variantsTasks.reduce((c, v) => c + v.tasks.length, 0),
   }));
 };

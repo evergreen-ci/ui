@@ -49,7 +49,11 @@ const BookmarksBar: React.FC<BookmarksBarProps> = ({
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const lineNumbers = Array.from(
-    new Set([...bookmarks, shareLine ?? 0, failingLine ?? 0]),
+    new Set([
+      ...bookmarks,
+      ...(shareLine ? [shareLine] : []),
+      ...(failingLine ? [failingLine] : []),
+    ]),
   ).sort((a, b) => a - b);
 
   return (

@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import PageTitle from "components/PageTitle";
@@ -10,18 +11,20 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
+import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
-import { useToastContext } from "context/toast";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
 import { shortenGithash, githubPRLinkify, jiraLinkify } from "utils/string";
+import { ActionButtons } from "./version/ActionButtons";
 import { WarningBanner, ErrorBanner, IgnoredBanner } from "./version/Banners";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
 import BuildVariantCard from "./version/BuildVariantCard";
-import { ActionButtons, Metadata, VersionTabs } from "./version/index";
+import { Metadata } from "./version/Metadata";
 import { NameChangeModal } from "./version/NameChangeModal";
+import VersionTabs from "./version/Tabs";
 
 export const VersionPage: React.FC = () => {
   const spruceConfig = useSpruceConfig();
@@ -65,6 +68,7 @@ export const VersionPage: React.FC = () => {
     order,
     patch,
     projectIdentifier,
+    requester,
     revision,
     status,
     warnings,
@@ -102,10 +106,10 @@ export const VersionPage: React.FC = () => {
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            canReconfigure={isPatch}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            isPatch={isPatch}
+            canReconfigure={
+              !!isPatch && requester !== Requester.GitHubMergeQueue
+            }
+            isPatch={!!isPatch}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             versionId={versionId}
           />

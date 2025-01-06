@@ -28,9 +28,7 @@ const Search: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [filters, setFilters] = useFilterParam();
   const [highlights, setHighlights] = useHighlightParam();
-  const [searchParams, setSearchParams] = useQueryParams({
-    parseNumbers: false,
-  });
+  const [searchParams, setSearchParams] = useQueryParams();
   const {
     hasLogs,
     logMetadata,
