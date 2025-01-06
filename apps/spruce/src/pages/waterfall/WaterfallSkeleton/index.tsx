@@ -6,7 +6,7 @@ import { VERSION_LIMIT } from "../constants";
 
 const WaterfallSkeleton: React.FC<TableSkeletonProps> = ({
   numCols = VERSION_LIMIT + 1,
-  numRows = 5,
+  numRows = 15,
   ...rest
 }) => (
   <TableSkeleton

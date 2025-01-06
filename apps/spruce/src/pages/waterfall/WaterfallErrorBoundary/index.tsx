@@ -114,7 +114,7 @@ const Container = styled.div`
   box-sizing: border-box;
   position: absolute;
   background-color: rgba(255, 255, 255, 0.8);
-  width: 100%;
+  width: fill-available;
 `;
 
 const InnerContainer = styled.div`
