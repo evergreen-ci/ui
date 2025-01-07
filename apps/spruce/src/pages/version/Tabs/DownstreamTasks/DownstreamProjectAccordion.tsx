@@ -18,13 +18,11 @@ import {
 } from "gql/generated/types";
 import { VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
+import { ParametersModal } from "pages/version/ParametersModal";
 import { PatchStatus } from "types/patch";
-import { string } from "utils";
-import { ParametersModal } from "../ParametersModal";
-import { DownstreamTasksTable } from "./DownstreamTasksTable";
-import { reducer } from "./reducer";
-
-const { shortenGithash } = string;
+import { shortenGithash } from "utils/string";
+import DownstreamTasksTable from "./DownstreamTasksTable";
+import { reducer } from "./state";
 
 const defaultSorts: SortOrder[] = [
   {

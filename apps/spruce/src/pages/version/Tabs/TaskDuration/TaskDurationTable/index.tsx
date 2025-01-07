@@ -44,7 +44,7 @@ interface Props {
   numLoadingRows: number;
 }
 
-export const TaskDurationTable: React.FC<Props> = ({
+const TaskDurationTable: React.FC<Props> = ({
   loading,
   numLoadingRows,
   tasks,
@@ -291,3 +291,5 @@ export const getInitialParams = (queryParams: {
     initialSort,
   };
 };
+
+export default TaskDurationTable;

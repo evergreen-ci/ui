@@ -11,7 +11,7 @@ import {
   VersionTaskDurationsQuery,
 } from "gql/generated/types";
 import { PatchTasksQueryParams } from "types/task";
-import { getInitialParams, TaskDurationTable } from "./TaskDurationTable";
+import TaskDurationTable, { getInitialParams } from ".";
 
 describe("TaskDurationTable", () => {
   it("renders all rows", () => {
