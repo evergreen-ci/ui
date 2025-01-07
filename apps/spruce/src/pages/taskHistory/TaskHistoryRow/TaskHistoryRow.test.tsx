@@ -61,7 +61,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            // @ts-expect-error FIXME: This will be fixed when we update task history
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: [
               "lint",
@@ -89,7 +89,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            // @ts-expect-error FIXME: This will be fixed when we update task history
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["lint", "race-detector", "ubuntu1604"],
           },
@@ -108,7 +108,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            // @ts-expect-error FIXME: This will be fixed when we update task history
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["lint", "DNE"],
           },
@@ -129,7 +129,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            // @ts-expect-error FIXME: This will be fixed when we update task history
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["ubuntu1804"],
             historyTableFilters: [],
@@ -168,7 +168,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            // @ts-expect-error FIXME: This will be fixed when we update task history
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["ubuntu1804"],
             historyTableFilters: [
@@ -212,7 +212,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
-            // @ts-expect-error FIXME: This will be fixed when we update task history
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["ubuntu1804"],
             historyTableFilters: [

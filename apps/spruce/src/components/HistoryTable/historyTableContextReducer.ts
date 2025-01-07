@@ -83,7 +83,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           for (let i = 0; i < action.commits.versions.length; i++) {
             if (action.commits.versions[i].version) {
               // We set the commitCount to double the order number just so we have room for non commit rows (date separators) and (folded commits)
-              // @ts-expect-error FIXME: This will be fixed when we update task history
+              // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
               commitCount = action.commits.versions[i].version.order * 2;
               break;
             }

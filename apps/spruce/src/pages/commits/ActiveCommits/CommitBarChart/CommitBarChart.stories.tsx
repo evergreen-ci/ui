@@ -17,15 +17,15 @@ export const Default: StoryObj<typeof CommitBarChart> = {
     <FlexRowContainer>
       {versions.map((item) => (
         <CommitBarChart
-          // @ts-expect-error this code will be deleted soon
+          // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
           key={item.version.id}
           chartType={chartType}
-          // @ts-expect-error this code will be deleted soon
+          // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
           eta={item.version?.taskStatusStats?.eta}
-          // @ts-expect-error this code will be deleted soon
+          // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
           groupedTaskStats={groupedTaskData[item.version.id].stats}
           max={max}
-          // @ts-expect-error this code will be deleted soon
+          // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
           total={groupedTaskData[item.version.id].total}
         />
       ))}

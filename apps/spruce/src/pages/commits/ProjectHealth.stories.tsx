@@ -148,11 +148,11 @@ const populateVersion = (
     [] as { status: string; count: number }[],
   );
 
-  // @ts-expect-error This code will be deleted soon
+  // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
   newVersion.version.taskStatusStats = { eta: null, counts: taskStatusCounts };
 
   // Calculate the buildVariantStats
-  // @ts-expect-error This code will be deleted soon
+  // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
   newVersion.version.buildVariantStats = hasTaskFilter
     ? []
     : buildVariants.map((buildVariant) => ({
@@ -164,7 +164,7 @@ const populateVersion = (
       }));
 
   // filter out tasks that are not failed if there is no task filter
-  // @ts-expect-error This code will be deleted soon
+  // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
   newVersion.version.buildVariants = buildVariants.map((buildVariant) => {
     const newBuildVariant = { ...buildVariant };
     newBuildVariant.tasks = hasTaskFilter
