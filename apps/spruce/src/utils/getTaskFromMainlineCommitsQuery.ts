@@ -31,14 +31,14 @@ export const getTaskFromMainlineCommitsQuery = (
     reportError(new Error("buildVariant is undefined")).warning();
     return;
   }
-  if (buildVariant.tasks && buildVariant.tasks.length > 1) {
+  if (!buildVariant.tasks) {
+    reportError(new Error("buildVariant.tasks is undefined")).warning();
+    return;
+  }
+  if (buildVariant.tasks.length > 1) {
     reportError(
       new Error("Multiple tasks matched previous commit search."),
     ).warning();
-    return;
-  }
-  if (!buildVariant.tasks) {
-    reportError(new Error("buildVariant.tasks is undefined")).warning();
     return;
   }
   return buildVariant.tasks[0];

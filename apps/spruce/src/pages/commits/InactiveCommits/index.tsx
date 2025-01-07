@@ -131,9 +131,6 @@ const CommitCopy: React.FC<CommitCopyProps> = ({ isTooltip, v }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const getDateCopy = useDateFormat();
   const spruceConfig = useSpruceConfig();
-  if (!v) {
-    return null;
-  }
   const jiraHost = spruceConfig?.jira?.host;
   const message = isTooltip
     ? trimStringFromMiddle(v.message, maxCommitMessageLength)
