@@ -116,11 +116,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 80vh;
-  padding: 2rem;
+  padding: ${size.s};
   box-sizing: border-box;
   position: absolute;
   background-color: rgba(255, 255, 255, 0.8);
-  width: fill-available;
+  width: 98vw;
 `;
 
 const InnerContainer = styled.div`
@@ -130,7 +130,7 @@ const InnerContainer = styled.div`
 const ButtonsContainer = styled.div`
   margin-top: ${size.l};
   display: flex;
-  gap: 1rem;
+  gap: ${size.s};
 `;
 
 export default WaterfallErrorBoundary;
