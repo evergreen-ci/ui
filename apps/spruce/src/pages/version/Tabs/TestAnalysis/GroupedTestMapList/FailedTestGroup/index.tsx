@@ -65,11 +65,11 @@ const FailedTestGroup: React.FC<FailedTestGroupProps> = ({
 const countStatuses = (tasks: TaskBuildVariantField[]) => {
   const statuses = tasks.reduce(
     (acc, task) => {
-      const { status } = task;
-      if (acc[status]) {
-        acc[status] += 1;
+      const { displayStatus } = task;
+      if (acc[displayStatus]) {
+        acc[displayStatus] += 1;
       } else {
-        acc[status] = 1;
+        acc[displayStatus] = 1;
       }
       return acc;
     },

@@ -1,3 +1,4 @@
+import { Unpacked } from "@evg-ui/lib/types/utils";
 import { LastMainlineCommitQuery } from "gql/generated/types";
 import { reportError } from "utils/errorReporting";
 
@@ -5,26 +6,52 @@ import { reportError } from "utils/errorReporting";
 // not exist. The logic to extract the task from it is written in this function.
 export const getTaskFromMainlineCommitsQuery = (
   data: LastMainlineCommitQuery,
-): CommitTask => {
+): CommitTask | undefined => {
+  const { mainlineCommits } = data ?? {};
+  if (mainlineCommits === null || mainlineCommits === undefined) {
+    reportError(new Error("mainlineCommits is undefined")).warning();
+    return;
+  }
+  const mainlineCommitVersions = mainlineCommits.versions;
+  if (mainlineCommitVersions === null || mainlineCommitVersions === undefined) {
+    reportError(new Error("mainlineCommits.versions is undefined")).warning();
+    return;
+  }
   const buildVariants =
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    data?.mainlineCommits.versions.find(({ version }) => version)?.version
-      .buildVariants ?? [];
+    mainlineCommitVersions.find(({ version }) => version)?.version
+      ?.buildVariants ?? [];
   if (buildVariants.length > 1) {
     reportError(
       new Error("Multiple build variants matched previous commit search."),
     ).warning();
+    return;
   }
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  if (buildVariants[0]?.tasks.length > 1) {
+  const buildVariant = buildVariants[0];
+  if (buildVariant === null || buildVariant === undefined) {
+    reportError(new Error("buildVariant is undefined")).warning();
+    return;
+  }
+  if (!buildVariant.tasks) {
+    reportError(new Error("buildVariant.tasks is undefined")).warning();
+    return;
+  }
+  if (buildVariant.tasks.length > 1) {
     reportError(
       new Error("Multiple tasks matched previous commit search."),
     ).warning();
+    return;
   }
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  return buildVariants[0]?.tasks[0];
+  return buildVariant.tasks[0];
 };
 
-export type CommitTask =
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  LastMainlineCommitQuery["mainlineCommits"]["versions"][number]["version"]["buildVariants"][number]["tasks"][number];
+export type CommitTask = Unpacked<
+  NonNullable<LastMainlineCommitQueryVersionBuildVariants[number]["tasks"]>
+>;
+
+type LastMainlineCommitQueryVersion = Unpacked<
+  NonNullable<LastMainlineCommitQuery["mainlineCommits"]>["versions"]
+>["version"];
+
+type LastMainlineCommitQueryVersionBuildVariants = NonNullable<
+  NonNullable<LastMainlineCommitQueryVersion>["buildVariants"]
+>;

@@ -70,10 +70,10 @@ query Task($taskId: String!, $execution: Int) {
       buildVariant
       buildVariantDisplayName
       displayName
+      displayStatus
       execution
       id
       projectIdentifier
-      status
     }
     expectedDuration
     failedTestCount
@@ -110,6 +110,7 @@ query Task($taskId: String!, $execution: Int) {
     resetWhenFinished
     spawnHostLink
     startTime
+    status
     stepbackInfo {
       lastFailingStepbackTaskId
       lastPassingStepbackTaskId

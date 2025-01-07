@@ -62,7 +62,6 @@ const JobLogs: React.FC<JobLogsProps> = ({ isLogkeeper }) => {
         subtitle={
           <SubtitleContainer>
             <H3>{metadata.displayName}</H3>
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             <TaskStatusBadge status={metadata.taskStatus} />
           </SubtitleContainer>
         }

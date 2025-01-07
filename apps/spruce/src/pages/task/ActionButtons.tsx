@@ -43,7 +43,7 @@ interface Props {
   initialPriority?: number;
   isDisplayTask: boolean;
   isExecutionTask: boolean;
-  task: TaskQuery["task"];
+  task: NonNullable<TaskQuery["task"]>;
 }
 
 export const ActionButtons: React.FC<Props> = ({
@@ -70,8 +70,9 @@ export const ActionButtons: React.FC<Props> = ({
   const { id: versionId, isPatch, order } = versionMetadata || {};
   const { identifier: projectIdentifier } = project || {};
   const allExecutionTasksSucceeded =
-    executionTasksFull?.every((t) => t.status === TaskStatus.Succeeded) ??
-    false;
+    executionTasksFull?.every(
+      (t) => t.displayStatus === TaskStatus.Succeeded,
+    ) ?? false;
 
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
