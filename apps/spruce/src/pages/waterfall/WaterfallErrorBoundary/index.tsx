@@ -37,6 +37,12 @@ class WaterfallErrorBoundary extends React.Component<
     this.resetState = this.resetState.bind(this);
   }
 
+  componentDidUpdate(prevProps: WaterfallErrorBoundaryProps) {
+    if (prevProps.projectIdentifier !== this.props.projectIdentifier) {
+      this.resetState();
+    }
+  }
+
   static getDerivedStateFromError(
     error: Error,
   ): Partial<WaterfallErrorBoundaryState> {

@@ -57,4 +57,24 @@ describe("WaterfallErrorBoundary", () => {
       screen.queryByText("Oops! Something went wrong."),
     ).not.toBeInTheDocument();
   });
+
+  it("resets error boundary state when the project identifier changes", () => {
+    const ErrorComponent = () => {
+      throw new Error("Test error");
+    };
+
+    const { rerender } = render(
+      <WaterfallErrorBoundary projectIdentifier="project1">
+        <ErrorComponent />
+      </WaterfallErrorBoundary>,
+    );
+
+    rerender(
+      <WaterfallErrorBoundary projectIdentifier="project2">
+        <div>Child Component</div>
+      </WaterfallErrorBoundary>,
+    );
+
+    expect(screen.getByText("Child Component")).toBeInTheDocument();
+  });
 });
