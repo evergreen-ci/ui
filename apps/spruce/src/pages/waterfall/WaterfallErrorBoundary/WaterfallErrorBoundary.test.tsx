@@ -37,7 +37,7 @@ describe("WaterfallErrorBoundary", () => {
     expect(screen.getByText(/Error: Test error/i)).toBeInTheDocument();
   });
 
-  it("handles reset page button click", () => {
+  it("handles return to waterfall button click", () => {
     const ErrorComponent = () => {
       throw new Error("Test error");
     };
@@ -48,7 +48,9 @@ describe("WaterfallErrorBoundary", () => {
       </WaterfallErrorBoundary>,
     );
 
-    const resetButton = screen.getByRole("button", { name: /Reset Page/i });
+    const resetButton = screen.getByRole("button", {
+      name: /Return to waterfall/i,
+    });
     fireEvent.click(resetButton);
 
     expect(
