@@ -20,7 +20,7 @@
         data-cy="patch-build-variant"
       >
         <a
-          class="lg-ui-0001 css-1743udc-StyledLink-wordBreakCss leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-sxvo53-overrideStyles-wordBreakCss leafygreen-ui-16e7rxl"
           data-cy="build-variant-display-name"
           href="/version/version/tasks?page=0&variant=%5Elint%24"
         >
@@ -87,7 +87,7 @@
         data-cy="patch-build-variant"
       >
         <a
-          class="lg-ui-0001 css-1743udc-StyledLink-wordBreakCss leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-sxvo53-overrideStyles-wordBreakCss leafygreen-ui-16e7rxl"
           data-cy="build-variant-display-name"
           href="/version/version/tasks?page=0&variant=%5Eubuntu1604%24"
         >
@@ -179,7 +179,7 @@
         data-cy="patch-build-variant"
       >
         <a
-          class="lg-ui-0001 css-1743udc-StyledLink-wordBreakCss leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-sxvo53-overrideStyles-wordBreakCss leafygreen-ui-16e7rxl"
           data-cy="build-variant-display-name"
           href="/version/version/tasks?page=0&variant=%5Evariant%24"
         >

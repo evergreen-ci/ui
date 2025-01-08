@@ -10,7 +10,7 @@
         data-cy="annotation-ticket-row"
       >
         <a
-          class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 e1ch0kli2 css-rmpwsz-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
           data-cy="DEVPROD-123"
           href="https://example.com"
           target="_blank"
@@ -141,7 +141,7 @@
         data-cy="annotation-ticket-row"
       >
         <a
-          class="lg-ui-0001 e1ch0kli2 css-1a8dqbm-StyledLink-JiraSummaryLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 e1ch0kli2 css-rmpwsz-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
           data-cy="DEVPROD-456"
           href="https://example.com"
           target="_blank"
