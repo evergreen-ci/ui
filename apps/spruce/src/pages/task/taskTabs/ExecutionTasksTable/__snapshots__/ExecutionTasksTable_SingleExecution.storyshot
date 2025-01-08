@@ -191,7 +191,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
-                href="/task/some_id_5?execution=14"
+                href="/task/some_id_5?execution=5"
               >
                 <span>
                   <span
@@ -199,12 +199,6 @@
                   >
                     Some fancy execution task
                   </span>
-                  <p
-                    class="leafygreen-ui-1tb6tuo"
-                  >
-                    Execution 
-                    15
-                  </p>
                 </span>
               </a>
             </div>
@@ -219,7 +213,7 @@
               data-state="entered"
             >
               <a
-                href="/task/some_id_5?execution=14"
+                href="/task/some_id_5?execution=5"
               >
                 <div
                   class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
@@ -238,7 +232,18 @@
             <div
               class="leafygreen-ui-15rig1x"
               data-state="entered"
-            />
+            >
+              <a
+                href="/task/some_id_5_base?execution=5"
+              >
+                <div
+                  class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
+            </div>
           </td>
           <td
             class="leafygreen-ui-1by885u"
@@ -280,7 +285,7 @@
             >
               <a
                 class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
-                href="/task/some_id_6?execution=12"
+                href="/task/some_id_6?execution=5"
               >
                 <span>
                   <span
@@ -288,12 +293,6 @@
                   >
                     Another execution task
                   </span>
-                  <p
-                    class="leafygreen-ui-1tb6tuo"
-                  >
-                    Execution 
-                    13
-                  </p>
                 </span>
               </a>
             </div>
@@ -308,7 +307,7 @@
               data-state="entered"
             >
               <a
-                href="/task/some_id_6?execution=12"
+                href="/task/some_id_6?execution=5"
               >
                 <div
                   class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
@@ -327,7 +326,18 @@
             <div
               class="leafygreen-ui-15rig1x"
               data-state="entered"
-            />
+            >
+              <a
+                href="/task/some_id_6_base?execution=5"
+              >
+                <div
+                  class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
+            </div>
           </td>
           <td
             class="leafygreen-ui-1by885u"
