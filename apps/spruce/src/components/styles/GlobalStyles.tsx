@@ -1,6 +1,6 @@
 import { Global, css } from "@emotion/react";
 import { fontFamilies } from "@leafygreen-ui/tokens";
-import fontStyles from "components/styles/fonts";
+import { fontStyles } from "@evg-ui/lib/components/styles";
 
 export const resetStyles = css`
   html {

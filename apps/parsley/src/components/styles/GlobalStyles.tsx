@@ -1,5 +1,5 @@
 import { Global, css } from "@emotion/react";
-import fontStyles from "components/styles/fonts";
+import { fontStyles } from "@evg-ui/lib/components/styles";
 
 const resetStyles = css`
   /* Reset styles */
