@@ -1,8 +1,8 @@
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import Icon from "components/Icon";
-import { StyledLink } from "components/styles";
 import {
   getJiraBugUrl,
   getJiraImprovementUrl,

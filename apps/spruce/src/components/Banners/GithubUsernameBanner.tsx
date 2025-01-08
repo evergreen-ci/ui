@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import Banner from "@leafygreen-ui/banner";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { getPreferencesRoute, PreferencesTabRoutes } from "constants/routes";
 import { UserSettingsQuery } from "gql/generated/types";
 import { USER_SETTINGS } from "gql/queries";

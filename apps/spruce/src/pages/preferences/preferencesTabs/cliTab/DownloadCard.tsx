@@ -10,11 +10,11 @@ import {
   Disclaimer,
 } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size, fontSize } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { SettingsCard } from "components/SettingsCard";
-import { StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
 import {
   ClientConfigQuery,
@@ -121,7 +121,7 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
       {clientBinaries.map((binary) => (
         <StyledLink
           key={`link_${binary.url}`}
-          href={binary.url}
+          href={binary.url ?? ""}
           onClick={() => {
             sendEvent({
               name: "Clicked CLI download link",

@@ -16,7 +16,7 @@ import {
   TableControlInnerRow,
   TableControlOuterRow,
 } from "./Layout";
-import { ShortenedRouterLink, StyledLink, StyledRouterLink } from "./Link";
+import { ShortenedRouterLink } from "./Link";
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
 import { SiderCard } from "./SiderCard";
 
@@ -40,8 +40,6 @@ export {
   SideNavPageContent,
   SideNavPageWrapper,
   SiderCard,
-  StyledLink,
-  StyledRouterLink,
   TableControlInnerRow,
   TableControlOuterRow,
 };
