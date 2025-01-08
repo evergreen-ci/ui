@@ -5,12 +5,12 @@ export type TaskTableInfo = {
     displayStatus: string;
   };
   buildVariant?: string;
-  buildVariantDisplayName?: string;
+  buildVariantDisplayName?: string | null;
   dependsOn?: Array<{ name: string }>;
   displayName: string;
   execution: number;
   executionTasksFull?: TaskTableInfo[];
   id: string;
-  projectIdentifier?: string;
+  projectIdentifier?: string | null;
   displayStatus: string;
 };

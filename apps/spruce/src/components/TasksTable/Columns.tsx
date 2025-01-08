@@ -53,7 +53,7 @@ export const getColumnsTemplate = ({
     size: 300,
   },
   {
-    accessorKey: "status",
+    accessorKey: "displayStatus",
     id: TaskSortCategory.Status,
     header: "Task Status",
     cell: ({
@@ -103,7 +103,7 @@ export const getColumnsTemplate = ({
   },
   {
     id: TaskSortCategory.BaseStatus,
-    accessorKey: "baseTask.status",
+    accessorKey: "baseStatus",
     header: `${isPatch ? "Base" : "Previous"} Status`,
     cell: ({
       getValue,

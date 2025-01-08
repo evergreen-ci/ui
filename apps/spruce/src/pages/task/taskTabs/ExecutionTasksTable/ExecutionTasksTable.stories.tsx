@@ -1,6 +1,6 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
-import { ExecutionTasksTable } from "./ExecutionTasksTable";
+import { ExecutionTasksTable } from ".";
 
 export default {
   component: ExecutionTasksTable,
@@ -34,7 +34,7 @@ const singleExecution = [
     buildVariantDisplayName: "Windows 97",
     displayName: "Some fancy execution task",
     id: "some_id_5",
-    status: "success",
+    displayStatus: "success",
   },
   {
     execution: 5,
@@ -43,7 +43,7 @@ const singleExecution = [
     buildVariantDisplayName: "Windows 97",
     displayName: "Another execution task",
     id: "some_id_6",
-    status: "success",
+    displayStatus: "success",
   },
 ];
 
@@ -55,7 +55,7 @@ const multipleExecutions = [
     buildVariantDisplayName: "Windows 97",
     displayName: "Some fancy execution task",
     id: "some_id_5",
-    status: "success",
+    displayStatus: "success",
   },
   {
     execution: 12,
@@ -64,6 +64,6 @@ const multipleExecutions = [
     buildVariantDisplayName: "Windows 97",
     displayName: "Another execution task",
     id: "some_id_6",
-    status: "success",
+    displayStatus: "success",
   },
 ];
