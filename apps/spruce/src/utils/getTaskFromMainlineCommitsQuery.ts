@@ -7,6 +7,7 @@ import { reportError } from "utils/errorReporting";
 export const getTaskFromMainlineCommitsQuery = (
   data: LastMainlineCommitQuery,
 ): CommitTask | undefined => {
+  console.log({ data });
   const { mainlineCommits } = data ?? {};
   if (mainlineCommits === null || mainlineCommits === undefined) {
     reportError(new Error("mainlineCommits is undefined")).warning();
