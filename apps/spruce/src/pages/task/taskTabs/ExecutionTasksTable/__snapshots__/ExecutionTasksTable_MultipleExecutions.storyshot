@@ -239,12 +239,16 @@
               class="leafygreen-ui-15rig1x"
               data-state="entered"
             >
-              <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
-                data-cy="task-status-badge"
+              <a
+                href="/task/some_id_5_base?execution=1"
               >
-                Succeeded
-              </div>
+                <div
+                  class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                  data-cy="task-status-badge"
+                >
+                  Failed
+                </div>
+              </a>
             </div>
           </td>
           <td
@@ -335,12 +339,16 @@
               class="leafygreen-ui-15rig1x"
               data-state="entered"
             >
-              <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
-                data-cy="task-status-badge"
+              <a
+                href="/task/some_id_6_base?execution=1"
               >
-                Succeeded
-              </div>
+                <div
+                  class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                  data-cy="task-status-badge"
+                >
+                  Succeeded
+                </div>
+              </a>
             </div>
           </td>
           <td

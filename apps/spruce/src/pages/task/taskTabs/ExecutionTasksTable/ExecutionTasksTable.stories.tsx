@@ -29,7 +29,11 @@ export const MultipleExecutions: CustomStoryObj<typeof ExecutionTasksTable> = {
 const singleExecution = [
   {
     execution: 5,
-    baseStatus: "success",
+    baseTask: {
+      id: "some_id_5_base",
+      execution: 5,
+      displayStatus: "success",
+    },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Some fancy execution task",
@@ -39,6 +43,11 @@ const singleExecution = [
   {
     execution: 5,
     baseStatus: "success",
+    baseTask: {
+      id: "some_id_6_base",
+      execution: 5,
+      displayStatus: "success",
+    },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Another execution task",
@@ -50,7 +59,11 @@ const singleExecution = [
 const multipleExecutions = [
   {
     execution: 14,
-    baseStatus: "success",
+    baseTask: {
+      displayStatus: "failed",
+      id: "some_id_5_base",
+      execution: 1,
+    },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Some fancy execution task",
@@ -59,7 +72,11 @@ const multipleExecutions = [
   },
   {
     execution: 12,
-    baseStatus: "success",
+    baseTask: {
+      displayStatus: "success",
+      id: "some_id_6_base",
+      execution: 1,
+    },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Another execution task",
