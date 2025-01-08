@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { useLeafyGreenTable } from "@leafygreen-ui/table";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import { FileDiffText } from "components/CodeChangesBadge";
-import { StyledLink, WordBreak } from "components/styles";
+import { StyledLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { FileDiffsFragment } from "gql/generated/types";
 

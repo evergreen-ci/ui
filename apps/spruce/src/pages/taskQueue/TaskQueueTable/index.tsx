@@ -3,8 +3,9 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { Body } from "@leafygreen-ui/typography";
+import { WordBreak } from "@evg-ui/lib/components/styles";
 import { useTaskQueueAnalytics } from "analytics";
-import { StyledRouterLink, WordBreak } from "components/styles";
+import { StyledRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import {

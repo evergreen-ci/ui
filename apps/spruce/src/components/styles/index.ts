@@ -19,7 +19,6 @@ import {
 import { ShortenedRouterLink, StyledLink, StyledRouterLink } from "./Link";
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
 import { SiderCard } from "./SiderCard";
-import { WordBreak, wordBreakCss } from "./Typography";
 
 export {
   ShortenedRouterLink,
@@ -45,6 +44,4 @@ export {
   StyledRouterLink,
   TableControlInnerRow,
   TableControlOuterRow,
-  WordBreak,
-  wordBreakCss,
 };

@@ -1,3 +1,1 @@
-import { WordBreak, wordBreakCss } from "./Typography";
-
-export { WordBreak, wordBreakCss };
+export * from "./Typography";
