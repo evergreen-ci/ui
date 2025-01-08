@@ -245,7 +245,7 @@ describe("Navigating to Spawn Host page", () => {
     const label3 = "Also start any hosts this task started (if applicable)";
   });
 
-  it("Allows editing a modal with sleep schedule enabled", () => {
+  it("Allows editing a modal with sleep schedule enabled and validates dates", () => {
     cy.dataCy("edit-host-button").eq(2).click();
     cy.dataCy("edit-spawn-host-modal").should("be.visible");
 
@@ -261,12 +261,13 @@ describe("Navigating to Spawn Host page", () => {
       cy.wrap($currentDateCell)
         .siblings()
         .then(($siblings) => {
-          // Find the index of the current date cell among its siblings
-          const currentIndex = $siblings.index($currentDateCell);
+          const currentDay = Number($currentDateCell.text());
+          // Get the next date cell based on the next index
+          const nextIndex = $siblings
+            .toArray()
+            .findIndex((el) => Number(el.textContent) === currentDay + 1);
 
-          // Get the next date cell based on the current index
-          const $nextCell = $siblings.eq(currentIndex + 1);
-
+          const $nextCell = $siblings.eq(nextIndex);
           // If the next cell exists and is not disabled, click on it
           if ($nextCell && $nextCell.attr("aria-disabled") === "false") {
             cy.wrap($nextCell).click();
@@ -284,20 +285,20 @@ describe("Navigating to Spawn Host page", () => {
 
     // LG Date Picker does not respond well to .clear()
     cy.getInputByLabel("Temporary Sleep Schedule Exemption").type(
-      "{backspace}{backspace}{backspace}",
+      "{backspace}{backspace}{backspace}{backspace}{backspace}",
     );
 
-    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type("20240115");
+    // Select a date in the past
+    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type("20250101");
     cy.get("body").click();
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "true");
 
     cy.getInputByLabel("Temporary Sleep Schedule Exemption").type(
-      "{backspace}{backspace}{backspace}",
+      "{backspace}{backspace}{backspace}{backspace}{backspace}",
     );
 
-    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type(
-      "{backspace}{backspace}{backspace}20600115",
-    );
+    // Select a date too far in the future
+    cy.getInputByLabel("Temporary Sleep Schedule Exemption").type("20600115");
     cy.contains("button", "Save").should("have.attr", "aria-disabled", "true");
   });
 });
