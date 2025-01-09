@@ -48,8 +48,9 @@ export const useLastPassingTask = (taskId: string) => {
       },
     },
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const task = getTaskFromMainlineCommitsQuery(lastPassingTaskData);
+  const task = lastPassingTaskData
+    ? getTaskFromMainlineCommitsQuery(lastPassingTaskData)
+    : undefined;
 
   return {
     task,
