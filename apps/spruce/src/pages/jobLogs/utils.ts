@@ -25,7 +25,8 @@ const getMetadata = (
     buildId: string | undefined;
   },
 ): JobLogsMetadata => {
-  const { displayName, execution, id, status } = options.evergreenTask || {};
+  const { displayName, displayStatus, execution, id } =
+    options.evergreenTask || {};
 
   if (isLogkeeper) {
     const { buildNum, builder } = options.logkeeperBuildMetadata || {};
@@ -41,7 +42,7 @@ const getMetadata = (
       isLogkeeper,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       taskId: id,
-      taskStatus: status as TaskStatus,
+      taskStatus: displayStatus as TaskStatus,
     };
   }
   return {
@@ -54,7 +55,7 @@ const getMetadata = (
     isLogkeeper,
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     taskId: id,
-    taskStatus: status as TaskStatus,
+    taskStatus: displayStatus as TaskStatus,
   };
 };
 

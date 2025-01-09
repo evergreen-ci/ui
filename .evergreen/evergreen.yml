@@ -148,6 +148,7 @@ buildvariants:
       - name: deploy-parsley-staging
       - name: deploy-spruce-beta
       - name: deploy-spruce-staging
+      - name: sync-spruce-staging
 
 parameters:
   - key: cypress_spec

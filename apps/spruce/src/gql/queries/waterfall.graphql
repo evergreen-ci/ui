@@ -9,7 +9,7 @@ query Waterfall($options: WaterfallOptions!) {
         id
         tasks {
           displayName
-          displayStatus
+          displayStatusCache
           execution
           id
           status

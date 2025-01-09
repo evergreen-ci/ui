@@ -10,9 +10,9 @@ query VersionTasks(
       data {
         aborted
         baseTask {
+          displayStatus
           execution
           id
-          status
         }
         blocked
         buildVariant
@@ -21,24 +21,24 @@ query VersionTasks(
           name
         }
         displayName
+        displayStatus
         execution
         executionTasksFull {
           baseTask {
+            displayStatus
             execution
             id
-            status
           }
           buildVariant
           buildVariantDisplayName
           displayName
+          displayStatus
           execution
           id
           projectIdentifier
-          status
         }
         id
         projectIdentifier
-        status
       }
     }
   }

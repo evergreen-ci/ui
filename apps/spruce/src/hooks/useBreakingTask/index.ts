@@ -21,7 +21,7 @@ export const useBreakingTask = (taskId: string) => {
     variables: { taskId },
   });
 
-  const { buildVariant, displayName, projectIdentifier, status } =
+  const { buildVariant, displayName, displayStatus, projectIdentifier } =
     taskData?.task ?? {};
 
   const bvOptionsBase = {
@@ -34,7 +34,7 @@ export const useBreakingTask = (taskId: string) => {
   const { task: parentTask } = useParentTask(taskId);
 
   const { task: lastPassingTask } = useLastPassingTask(taskId);
-  const passingOrderNumber = lastPassingTask?.order;
+  const passingOrderNumber = lastPassingTask?.order || 0;
 
   // The breaking commit is the first failing commit after the last passing commit.
   // The skip order number should be the last passing commit's order number + 1.
@@ -45,7 +45,7 @@ export const useBreakingTask = (taskId: string) => {
     LastMainlineCommitQueryVariables
   >(LAST_MAINLINE_COMMIT, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    skip: !parentTask || !lastPassingTask || !isFailedTaskStatus(status),
+    skip: !parentTask || !lastPassingTask || !isFailedTaskStatus(displayStatus),
     variables: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       projectIdentifier,
@@ -56,8 +56,9 @@ export const useBreakingTask = (taskId: string) => {
       },
     },
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const task = getTaskFromMainlineCommitsQuery(breakingTaskData);
+  const task = breakingTaskData
+    ? getTaskFromMainlineCommitsQuery(breakingTaskData)
+    : undefined;
 
   return {
     task,

@@ -36,6 +36,7 @@ describe("historyTable utils", () => {
           type: rowType.DATE_SEPARATOR,
         },
         {
+          // @ts-expect-error: FIXME. This comment was added by an automated script.
           commit: firstCommit.version,
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           date: firstCommit.version.createTime,
@@ -62,6 +63,7 @@ describe("historyTable utils", () => {
             type: rowType.DATE_SEPARATOR,
           },
           {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             commit: firstCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
@@ -69,6 +71,7 @@ describe("historyTable utils", () => {
             selected: false,
           },
           {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             commit: secondCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: secondCommit.version.createTime,
@@ -90,6 +93,7 @@ describe("historyTable utils", () => {
             type: rowType.DATE_SEPARATOR,
           },
           {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             commit: firstCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
@@ -102,6 +106,7 @@ describe("historyTable utils", () => {
             type: rowType.DATE_SEPARATOR,
           },
           {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             commit: thirdCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: thirdCommit.version.createTime,
@@ -128,6 +133,7 @@ describe("historyTable utils", () => {
             type: rowType.DATE_SEPARATOR,
           },
           {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             rolledUpCommits: foldedUpCommits.rolledUpVersions,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: foldedUpCommits.rolledUpVersions[0].createTime,
@@ -147,6 +153,7 @@ describe("historyTable utils", () => {
               type: rowType.DATE_SEPARATOR,
             },
             {
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
               commit: firstCommit.version,
               // @ts-expect-error: FIXME. This comment was added by an automated script.
               date: firstCommit.version.createTime,
@@ -163,6 +170,7 @@ describe("historyTable utils", () => {
             type: rowType.DATE_SEPARATOR,
           },
           {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             commit: firstCommit.version,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: firstCommit.version.createTime,
@@ -175,6 +183,7 @@ describe("historyTable utils", () => {
             type: rowType.DATE_SEPARATOR,
           },
           {
+            // @ts-expect-error: FIXME. This comment was added by an automated script.
             rolledUpCommits: foldedUpCommits.rolledUpVersions,
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             date: foldedUpCommits.rolledUpVersions[0].createTime,

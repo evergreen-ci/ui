@@ -629,6 +629,7 @@ const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
       task: {
         __typename: "Task",
         displayName: "check_codegen",
+        displayStatus: "failed",
         execution: 0,
         id: "a-task-id",
         logs: {
@@ -638,7 +639,6 @@ const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
           taskLogLink: "task-log-link.com?type=T",
         },
         patchNumber: 1,
-        status: "failed",
         versionMetadata: {
           __typename: "Version",
           id: "spruce_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",

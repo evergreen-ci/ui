@@ -39,7 +39,7 @@ describe("useLastPassingTask", () => {
       expect(result.current.task).toBeDefined();
     });
 
-    expect(result.current.task.id).toBe("last_passing_task");
+    expect(result.current.task?.id).toBe("last_passing_task");
   });
   it("a last passing task is not found due to an error in the query", async () => {
     const { result } = renderHook(() => useLastPassingTask("t1"), {
@@ -80,7 +80,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
-        status: "failed",
+        displayStatus: "failed",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -94,7 +94,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         baseTask: {
           id: baseTaskId,
           execution: 0,
-          status: "failed",
+          displayStatus: "failed",
           __typename: "Task",
         },
         __typename: "Task",
@@ -133,7 +133,7 @@ const getLastPassingVersion: ApolloMock<
                       id: "last_passing_task",
                       execution: 0,
                       order: 3674,
-                      status: "success",
+                      displayStatus: "success",
                       __typename: "Task",
                     },
                   ],

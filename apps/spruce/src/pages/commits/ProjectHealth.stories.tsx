@@ -57,7 +57,6 @@ const RenderCommitsWrapper = ({
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   taskCount,
 }) => {
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const updatedVersions = versions.map((version) =>
     populateVersion(version, buildVariantCount, taskCount, hasTaskFilter),
   );
@@ -148,9 +147,12 @@ const populateVersion = (
     },
     [] as { status: string; count: number }[],
   );
+
+  // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
   newVersion.version.taskStatusStats = { eta: null, counts: taskStatusCounts };
 
   // Calculate the buildVariantStats
+  // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
   newVersion.version.buildVariantStats = hasTaskFilter
     ? []
     : buildVariants.map((buildVariant) => ({
@@ -162,6 +164,7 @@ const populateVersion = (
       }));
 
   // filter out tasks that are not failed if there is no task filter
+  // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
   newVersion.version.buildVariants = buildVariants.map((buildVariant) => {
     const newBuildVariant = { ...buildVariant };
     newBuildVariant.tasks = hasTaskFilter

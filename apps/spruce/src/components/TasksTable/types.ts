@@ -2,15 +2,15 @@ export type TaskTableInfo = {
   baseTask?: {
     id: string;
     execution: number;
-    status: string;
+    displayStatus: string;
   };
   buildVariant?: string;
-  buildVariantDisplayName?: string;
+  buildVariantDisplayName?: string | null;
   dependsOn?: Array<{ name: string }>;
   displayName: string;
   execution: number;
   executionTasksFull?: TaskTableInfo[];
   id: string;
-  projectIdentifier?: string;
-  status: string;
+  projectIdentifier?: string | null;
+  displayStatus: string;
 };

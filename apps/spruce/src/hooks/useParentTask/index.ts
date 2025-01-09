@@ -48,8 +48,9 @@ export const useParentTask = (taskId: string) => {
       },
     },
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const task = getTaskFromMainlineCommitsQuery(parentTaskData);
+  const task = parentTaskData
+    ? getTaskFromMainlineCommitsQuery(parentTaskData)
+    : undefined;
 
   return {
     task: task ?? baseTask,

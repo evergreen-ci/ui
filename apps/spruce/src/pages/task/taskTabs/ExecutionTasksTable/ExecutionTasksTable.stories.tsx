@@ -1,6 +1,6 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
-import { ExecutionTasksTable } from "./ExecutionTasksTable";
+import { ExecutionTasksTable } from ".";
 
 export default {
   component: ExecutionTasksTable,
@@ -29,41 +29,58 @@ export const MultipleExecutions: CustomStoryObj<typeof ExecutionTasksTable> = {
 const singleExecution = [
   {
     execution: 5,
-    baseStatus: "success",
+    baseTask: {
+      id: "some_id_5_base",
+      execution: 5,
+      displayStatus: "success",
+    },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Some fancy execution task",
     id: "some_id_5",
-    status: "success",
+    displayStatus: "success",
   },
   {
     execution: 5,
     baseStatus: "success",
+    baseTask: {
+      id: "some_id_6_base",
+      execution: 5,
+      displayStatus: "success",
+    },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Another execution task",
     id: "some_id_6",
-    status: "success",
+    displayStatus: "success",
   },
 ];
 
 const multipleExecutions = [
   {
     execution: 14,
-    baseStatus: "success",
+    baseTask: {
+      displayStatus: "failed",
+      id: "some_id_5_base",
+      execution: 1,
+    },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Some fancy execution task",
     id: "some_id_5",
-    status: "success",
+    displayStatus: "success",
   },
   {
     execution: 12,
-    baseStatus: "success",
+    baseTask: {
+      displayStatus: "success",
+      id: "some_id_6_base",
+      execution: 1,
+    },
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     displayName: "Another execution task",
     id: "some_id_6",
-    status: "success",
+    displayStatus: "success",
   },
 ];

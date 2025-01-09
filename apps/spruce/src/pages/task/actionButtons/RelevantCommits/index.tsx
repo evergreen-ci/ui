@@ -14,7 +14,7 @@ import { CommitType } from "./types";
 import { getLinks } from "./utils";
 
 interface RelevantCommitsProps {
-  task: TaskQuery["task"];
+  task: NonNullable<TaskQuery["task"]>;
 }
 
 export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
@@ -22,21 +22,17 @@ export const RelevantCommits: React.FC<RelevantCommitsProps> = ({ task }) => {
 
   const { baseTask, versionMetadata } = task ?? {};
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { loading: parentLoading, task: parentTask } = useParentTask(task.id);
 
   const { loading: passingLoading, task: lastPassingTask } = useLastPassingTask(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     task.id,
   );
 
   const { loading: breakingLoading, task: breakingTask } = useBreakingTask(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     task.id,
   );
 
   const { loading: executedLoading, task: lastExecutedTask } =
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     useLastExecutedTask(task.id);
 
   const linkObject = useMemo(

@@ -37,7 +37,7 @@ describe("useParentTask", () => {
       expect(result.current.task).toBeDefined();
     });
 
-    expect(result.current.task.id).toBe("task");
+    expect(result.current.task?.id).toBe("task");
   });
 });
 
@@ -59,7 +59,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
-        status: "failed",
+        displayStatus: "failed",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -73,7 +73,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         baseTask: {
           id: "task",
           execution: 0,
-          status: "failed",
+          displayStatus: "failed",
           __typename: "Task",
         },
         __typename: "Task",
