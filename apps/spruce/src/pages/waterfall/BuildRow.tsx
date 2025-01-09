@@ -118,18 +118,21 @@ const BuildGrid: React.FC<{
       );
     }}
   >
-    {build.tasks.map(({ displayName, displayStatus, execution, id }) => {
-      const taskStatus = displayStatus as TaskStatus;
-      return (
-        <SquareMemo
-          key={id}
-          data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
-          isRightmostBuild={isRightmostBuild}
-          status={taskStatus}
-          to={getTaskRoute(id, { execution })}
-        />
-      );
-    })}
+    {build.tasks.map(
+      ({ displayName, displayStatusCache, execution, id, status }) => {
+        // Use status as backup for tasks created before displayStatusCache was introduced
+        const taskStatus = (displayStatusCache || status) as TaskStatus;
+        return (
+          <SquareMemo
+            key={id}
+            data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
+            isRightmostBuild={isRightmostBuild}
+            status={taskStatus}
+            to={getTaskRoute(id, { execution })}
+          />
+        );
+      },
+    )}
   </BuildContainer>
 );
 
