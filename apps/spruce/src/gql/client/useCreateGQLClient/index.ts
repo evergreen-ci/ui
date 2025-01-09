@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import {
   fetchWithRetry,
+  getUserStagingHeader,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
 import { useAuthDispatchContext } from "context/Auth";
@@ -58,6 +59,7 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
             new HttpLink({
               uri: getGQLUrl(),
               credentials: "include",
+              headers: getUserStagingHeader(),
             }),
           ),
       });
