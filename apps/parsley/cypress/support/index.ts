@@ -105,7 +105,6 @@ declare global {
       /**
        * Simulates a paste event.
        * Modified from https://gist.github.com/nickytonline/bcdef8ef00211b0faf7c7c0e7777aaf6
-       * @param subject A jQuery context representing a DOM element.
        * @param pasteOptions Set of options for a simulated paste event.
        * @param pasteOptions.pastePayload Simulated data that is on the clipboard.
        * @param pasteOptions.pasteFormat The format of the simulated paste payload. Default value is 'text'.
