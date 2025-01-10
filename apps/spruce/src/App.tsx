@@ -5,9 +5,9 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import { SpruceGlobalStyles } from "@evg-ui/lib/components/styles";
 import { Content } from "components/Content";
 import { ErrorBoundary } from "components/ErrorHandling";
+import { GlobalStyles } from "components/styles";
 import { routes } from "constants/routes";
 import { ContextProviders } from "context/Providers";
 import GQLWrapper from "gql/GQLWrapper";
@@ -34,7 +34,7 @@ const browserRouter = createBrowserRouter(
 
 const App: React.FC = () => (
   <ErrorBoundary>
-    <SpruceGlobalStyles />
+    <GlobalStyles />
     <ContextProviders>
       <RouterProvider router={browserRouter} />
     </ContextProviders>

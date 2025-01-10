@@ -1,13 +1,11 @@
 import { Global, css } from "@emotion/react";
 import { Decorator } from "@storybook/react";
-import {
-  spruceGlobalStyles
-} from "@evg-ui/lib/components/styles";
+import { globalStyles } from "components/styles";
 
 export const decorators: Decorator[] = [
   (Story: () => JSX.Element) => (
     <>
-      <Global styles={spruceGlobalStyles} />
+      <Global styles={globalStyles} />
       <Story />
     </>
   ),

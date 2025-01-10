@@ -1,5 +1,6 @@
 import { Divider } from "./divider";
 import { FiltersWrapper } from "./filters";
+import { globalStyles, GlobalStyles } from "./GlobalStyles";
 import { inactiveElementStyle } from "./inactive";
 import {
   ErrorMessage,
@@ -42,4 +43,6 @@ export {
   SiderCard,
   TableControlInnerRow,
   TableControlOuterRow,
+  globalStyles,
+  GlobalStyles,
 };

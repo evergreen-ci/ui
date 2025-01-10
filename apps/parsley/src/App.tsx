@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { ParsleyGlobalStyles } from "@evg-ui/lib/components/styles";
 import { ErrorBoundary } from "components/ErrorHandling";
+import { GlobalStyles } from "components/styles";
 import routes from "constants/routes";
 import { GlobalProviders } from "context";
 import Content from "pages";
@@ -10,7 +10,7 @@ import { isDevelopmentBuild } from "utils/environmentVariables";
 
 const App = () => (
   <ErrorBoundary>
-    <ParsleyGlobalStyles />
+    <GlobalStyles />
     <Router>
       <GlobalProviders>
         <AppWrapper>
