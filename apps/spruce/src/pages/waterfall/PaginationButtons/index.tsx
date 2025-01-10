@@ -1,11 +1,10 @@
-import { useTransition } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { WaterfallPagination } from "gql/generated/types";
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
 
 interface PaginationButtonsProps {
@@ -16,7 +15,6 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   pagination,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
-  const [, startTransition] = useTransition();
   const [queryParams, setQueryParams] = useQueryParams();
 
   const { hasNextPage, hasPrevPage, nextPageOrder, prevPageOrder } =
@@ -24,14 +22,12 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
 
   const onNextClick = () => {
     sendEvent({ name: "Changed page", direction: "next" });
-    startTransition(() => {
-      setQueryParams({
-        ...queryParams,
-        [WaterfallFilterOptions.Date]: undefined,
-        [WaterfallFilterOptions.MaxOrder]: nextPageOrder,
-        [WaterfallFilterOptions.MinOrder]: undefined,
-        [WaterfallFilterOptions.Revision]: undefined,
-      });
+    setQueryParams({
+      ...queryParams,
+      [WaterfallFilterOptions.Date]: undefined,
+      [WaterfallFilterOptions.MaxOrder]: nextPageOrder,
+      [WaterfallFilterOptions.MinOrder]: undefined,
+      [WaterfallFilterOptions.Revision]: undefined,
     });
   };
 
@@ -40,28 +36,41 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
       name: "Changed page",
       direction: "previous",
     });
-    startTransition(() => {
-      setQueryParams({
-        ...queryParams,
-        [WaterfallFilterOptions.Date]: undefined,
-        [WaterfallFilterOptions.MaxOrder]: undefined,
-        [WaterfallFilterOptions.MinOrder]: prevPageOrder,
-        [WaterfallFilterOptions.Revision]: undefined,
-      });
+    setQueryParams({
+      ...queryParams,
+      [WaterfallFilterOptions.Date]: undefined,
+      [WaterfallFilterOptions.MaxOrder]: undefined,
+      [WaterfallFilterOptions.MinOrder]: prevPageOrder,
+      [WaterfallFilterOptions.Revision]: undefined,
     });
   };
+
+  // Use nullable types here so that we can accurately disable buttons during navigation
+  const [maxOrder] = useQueryParam<number | null>(
+    WaterfallFilterOptions.MaxOrder,
+    null,
+  );
+  const [minOrder] = useQueryParam<number | null>(
+    WaterfallFilterOptions.MinOrder,
+    null,
+  );
+
+  // If the query param is equivalent to the current pagination value, this means we are fetching and the new pagination data hasn't yet been returned.
+  // During this time, disable pagination buttons.
+  const navigatingToPage =
+    prevPageOrder === minOrder || nextPageOrder === maxOrder;
 
   return (
     <ButtonContainer>
       <Button
         data-cy="prev-page-button"
-        disabled={!hasPrevPage}
+        disabled={!hasPrevPage || navigatingToPage}
         leftGlyph={<Icon glyph="ChevronLeft" />}
         onClick={onPrevClick}
       />
       <Button
         data-cy="next-page-button"
-        disabled={!hasNextPage}
+        disabled={!hasNextPage || navigatingToPage}
         leftGlyph={<Icon glyph="ChevronRight" />}
         onClick={onNextClick}
       />

@@ -5,14 +5,9 @@ import { reportError } from "utils/errorReporting";
 // The return value from GetLastMainlineCommitQuery has a lot of nested fields that may or may
 // not exist. The logic to extract the task from it is written in this function.
 export const getTaskFromMainlineCommitsQuery = (
-  data: LastMainlineCommitQuery,
+  data: NonNullable<LastMainlineCommitQuery>,
 ): CommitTask | undefined => {
-  const { mainlineCommits } = data ?? {};
-  if (mainlineCommits === null || mainlineCommits === undefined) {
-    reportError(new Error("mainlineCommits is undefined")).warning();
-    return;
-  }
-  const mainlineCommitVersions = mainlineCommits.versions;
+  const mainlineCommitVersions = data.mainlineCommits?.versions;
   if (mainlineCommitVersions === null || mainlineCommitVersions === undefined) {
     reportError(new Error("mainlineCommits.versions is undefined")).warning();
     return;

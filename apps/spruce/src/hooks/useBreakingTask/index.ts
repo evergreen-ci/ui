@@ -56,8 +56,9 @@ export const useBreakingTask = (taskId: string) => {
       },
     },
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const task = getTaskFromMainlineCommitsQuery(breakingTaskData);
+  const task = breakingTaskData
+    ? getTaskFromMainlineCommitsQuery(breakingTaskData)
+    : undefined;
 
   return {
     task,

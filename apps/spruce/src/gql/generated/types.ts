@@ -9210,7 +9210,6 @@ export type TaskQuery = {
     } | null;
     executionTasksFull?: Array<{
       __typename?: "Task";
-      baseStatus?: string | null;
       buildVariant: string;
       buildVariantDisplayName?: string | null;
       displayName: string;
@@ -9218,6 +9217,7 @@ export type TaskQuery = {
       execution: number;
       id: string;
       projectIdentifier?: string | null;
+      revision?: string | null;
     }> | null;
     files: { __typename?: "TaskFiles"; fileCount: number };
     logs: {
@@ -9778,7 +9778,7 @@ export type WaterfallQuery = {
         tasks: Array<{
           __typename?: "WaterfallTask";
           displayName: string;
-          displayStatus: string;
+          displayStatusCache: string;
           execution: number;
           id: string;
           status: string;

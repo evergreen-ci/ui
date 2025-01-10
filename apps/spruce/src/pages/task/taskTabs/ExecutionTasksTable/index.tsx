@@ -25,8 +25,7 @@ const { getDefaultOptions: getDefaultSorting } = RowSorting;
 
 interface Props {
   execution: number;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  executionTasksFull: TaskQuery["task"]["executionTasksFull"];
+  executionTasksFull: NonNullable<TaskQuery["task"]>["executionTasksFull"];
   isPatch: boolean;
 }
 
