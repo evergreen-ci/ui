@@ -13,7 +13,7 @@ describe("taskCell", () => {
         loading={false}
         task={{
           id: "some-task-id",
-          status: TaskStatus.Succeeded,
+          displayStatus: TaskStatus.Succeeded,
         }}
       />,
     );
@@ -26,7 +26,7 @@ describe("taskCell", () => {
         loading={false}
         task={{
           id: "some-task-id",
-          status: TaskStatus.Failed,
+          displayStatus: TaskStatus.Failed,
         }}
       />,
     );
@@ -40,7 +40,7 @@ describe("taskCell", () => {
         loading={false}
         task={{
           id: "some-task-id",
-          status: TaskStatus.Succeeded,
+          displayStatus: TaskStatus.Succeeded,
         }}
       />,
     );
@@ -57,7 +57,7 @@ describe("taskCell", () => {
         loading={false}
         task={{
           id: "some-task-id",
-          status: TaskStatus.Succeeded,
+          displayStatus: TaskStatus.Succeeded,
         }}
       />,
     );
@@ -70,7 +70,7 @@ describe("taskCell", () => {
         label="some-label"
         task={{
           id: "some-task-id",
-          status: TaskStatus.Failed,
+          displayStatus: TaskStatus.Failed,
         }}
       />,
     );
@@ -85,7 +85,7 @@ describe("taskCell", () => {
         loading={false}
         task={{
           id: "some-task-id",
-          status: TaskStatus.Failed,
+          displayStatus: TaskStatus.Failed,
         }}
       />,
     );

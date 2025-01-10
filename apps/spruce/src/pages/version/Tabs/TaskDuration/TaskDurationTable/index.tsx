@@ -12,6 +12,7 @@ import {
 } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
@@ -125,13 +126,14 @@ const TaskDurationTable: React.FC<Props> = ({
       },
       {
         id: PatchTasksQueryParams.Statuses,
-        accessorKey: "status",
+        accessorKey: "displayStatus",
         header: "Status",
         size: 120,
         enableColumnFilter: true,
         enableSorting: true,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        cell: ({ getValue }) => <TaskStatusBadge status={getValue()} />,
+        cell: ({ getValue }) => (
+          <TaskStatusBadge status={getValue() as TaskStatus} />
+        ),
         meta: {
           treeSelect: {
             "data-cy": "status-filter-popover",
@@ -163,12 +165,12 @@ const TaskDurationTable: React.FC<Props> = ({
           column,
           getValue,
           row: {
-            original: { status },
+            original: { displayStatus },
           },
         }) => (
           <TaskDurationCell
             maxTimeTaken={column.getFacetedMinMaxValues()?.[1] ?? 0}
-            status={status}
+            status={displayStatus}
             timeTaken={getValue() as number}
           />
         ),

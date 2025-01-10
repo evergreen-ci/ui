@@ -43,7 +43,7 @@ describe("useBreakingTask", () => {
       expect(result.current.task).toBeDefined();
     });
 
-    expect(result.current.task.id).toBe("breaking_commit");
+    expect(result.current.task?.id).toBe("breaking_commit");
   });
   it("a breaking task is not found due to an error in the query", async () => {
     const { result } = renderHook(() => useBreakingTask("t1"), {
@@ -85,7 +85,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
-        status: "failed",
+        displayStatus: "failed",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -99,7 +99,7 @@ const getPatchTaskWithFailingBaseTask: ApolloMock<
         baseTask: {
           id: baseTaskId,
           execution: 0,
-          status: "failed",
+          displayStatus: "failed",
           __typename: "Task",
         },
         __typename: "Task",
@@ -138,7 +138,7 @@ const getLastPassingVersion: ApolloMock<
                       id: "last_passing_task",
                       execution: 0,
                       order: 3674,
-                      status: "success",
+                      displayStatus: "success",
                       __typename: "Task",
                     },
                   ],
@@ -186,7 +186,7 @@ const getBreakingCommit: ApolloMock<
                       id: "breaking_commit",
                       execution: 0,
                       order: 3676,
-                      status: "failed",
+                      displayStatus: "failed",
                       __typename: "Task",
                     },
                   ],

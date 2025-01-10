@@ -62,6 +62,7 @@ describe("variantHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: [
               "test-cmd-codegen-core",
@@ -89,6 +90,7 @@ describe("variantHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: [
               "test-cmd-codegen-core",
@@ -111,6 +113,7 @@ describe("variantHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["test-cmd-codegen-core", "DNE"],
           },
@@ -131,6 +134,7 @@ describe("variantHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["test-cmd-codegen-core"],
           },
@@ -167,6 +171,7 @@ describe("variantHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["test-cmd-codegen-core"],
             historyTableFilters: [
@@ -210,6 +215,7 @@ describe("variantHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["test-cmd-codegen-core"],
             historyTableFilters: [
@@ -245,7 +251,7 @@ const taskRow: CommitRowType = {
         tasks: [
           {
             displayName: "test-cmd-codegen-core",
-            status: "failed",
+            displayStatus: "failed",
             execution: 0,
             id: "some_id_1",
           },
@@ -253,37 +259,37 @@ const taskRow: CommitRowType = {
             displayName: "test-thirdparty",
             id: "some_id_2",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
           {
             displayName: "test-db-auth",
             id: "some_id_3",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
           {
             displayName: "test-evergreen",
             id: "some_id_4",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
           {
             displayName: "test-graphql",
             id: "some_id_5",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
           {
             displayName: "test-jira-integration",
             id: "some_id_6",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
           {
             displayName: "test-mci",
             id: "some_id_7",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
         ],
       },
