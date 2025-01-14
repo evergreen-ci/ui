@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import {
   AdminBanner,
   ConnectivityBanner,
@@ -23,6 +24,7 @@ const StyledHeader = styled.header`
   position: sticky;
   top: 0;
   width: 100%;
+  z-index: ${zIndex.header};
 `;
 
 const BannerContainer = styled.div`

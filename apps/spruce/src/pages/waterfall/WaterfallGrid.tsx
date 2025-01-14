@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { css } from "@leafygreen-ui/emotion";
 import { fromZonedTime } from "date-fns-tz";
+import { GroupedVirtuoso } from "react-virtuoso";
+import { size } from "@evg-ui/lib/constants/tokens";
 import {
   DEFAULT_POLL_INTERVAL,
   WATERFALL_PINNED_VARIANTS_KEY,
@@ -26,7 +29,7 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import { WaterfallFilterOptions } from "./types";
+import { WaterfallFilterOptions, WaterfallVersion } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
@@ -114,48 +117,91 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
+  const groupContent = () => (
+    <GroupHeader height={height} revision={revision} versions={versions} />
+  );
+
   return (
     <Container ref={refEl}>
-      <Row>
-        <BuildVariantTitle />
-        <Versions data-cy="version-labels">
-          {versions.map(({ inactiveVersions, version }) =>
-            version ? (
-              <VersionLabel
-                highlighted={
-                  revision !== null && version.revision.includes(revision)
-                }
-                view={VersionLabelView.Waterfall}
-                {...version}
-                key={version.id}
-              />
-            ) : (
-              <InactiveVersion key={inactiveVersions?.[0].id}>
-                <InactiveVersionsButton
-                  containerHeight={height}
-                  versions={inactiveVersions ?? []}
-                />
-              </InactiveVersion>
-            ),
-          )}
-        </Versions>
-      </Row>
-      {buildVariants.map((b) => (
-        <BuildRow
-          key={b.id}
-          build={b}
-          handlePinClick={handlePinBV(b.id)}
-          lastActiveVersionId={lastActiveVersionId}
-          pinned={pins.includes(b.id)}
-          projectIdentifier={projectIdentifier}
-          versions={versions}
-        />
-      ))}
+      <GroupedVirtuoso
+        className={stickyHeaderStyle}
+        components={{
+          Footer,
+        }}
+        groupContent={groupContent}
+        groupCounts={[buildVariants.length]}
+        itemContent={(idx) => {
+          const b = buildVariants[idx];
+          return (
+            <BuildRow
+              key={b.id}
+              build={b}
+              handlePinClick={handlePinBV(b.id)}
+              lastActiveVersionId={lastActiveVersionId}
+              pinned={pins.includes(b.id)}
+              projectIdentifier={projectIdentifier}
+              versions={versions}
+            />
+          );
+        }}
+        overscan={5}
+        useWindowScroll
+      />
     </Container>
   );
 };
 
+const GroupHeader = ({
+  height,
+  revision,
+  versions,
+}: {
+  height: number;
+  revision: string | null;
+  versions: WaterfallVersion[];
+}) => (
+  <GroupContainer>
+    <BuildVariantTitle />
+    <Versions data-cy="version-labels">
+      {versions.map(({ inactiveVersions, version }) =>
+        version ? (
+          <VersionLabel
+            highlighted={
+              revision !== null && version.revision.includes(revision)
+            }
+            view={VersionLabelView.Waterfall}
+            {...version}
+            key={version.id}
+          />
+        ) : (
+          <InactiveVersion key={inactiveVersions?.[0].id}>
+            <InactiveVersionsButton
+              containerHeight={height}
+              versions={inactiveVersions ?? []}
+            />
+          </InactiveVersion>
+        ),
+      )}
+    </Versions>
+  </GroupContainer>
+);
+
+const Footer = () => <div style={{ height: size.xs }} />;
+
 const Container = styled.div``;
+
+const stickyHeaderStyle = css`
+  > div:first-of-type {
+    top: ${size.xl} !important;
+  }
+`;
+
+const GroupContainer = styled(Row)`
+  width: 100%;
+  background: white;
+  padding-top: ${size.xxs};
+  padding-bottom: ${size.s};
+`;
 
 const Versions = styled.div`
   ${gridGroupCss}

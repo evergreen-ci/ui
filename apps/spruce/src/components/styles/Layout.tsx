@@ -9,7 +9,7 @@ const { gray, red } = palette;
 export const SiteLayout = styled.div`
   display: flex;
   flex-flow: column;
-  height: 100vh;
+  height: 100%;
 `;
 
 // Layout elements for pages with a LeafyGreen SideNav
