@@ -3497,7 +3497,6 @@ export type WaterfallPagination = {
 export type WaterfallTask = {
   __typename?: "WaterfallTask";
   displayName: Scalars["String"]["output"];
-  displayStatus: Scalars["String"]["output"];
   displayStatusCache: Scalars["String"]["output"];
   execution: Scalars["Int"]["output"];
   id: Scalars["String"]["output"];
