@@ -1931,6 +1931,7 @@ export type Project = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled?: Maybe<Scalars["Boolean"]["output"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
+  taskSync: TaskSyncOptions;
   tracksPushEvents?: Maybe<Scalars["Boolean"]["output"]>;
   triggers?: Maybe<Array<TriggerAlias>>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]["output"]>;
@@ -2066,6 +2067,7 @@ export type ProjectInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  taskSync?: InputMaybe<TaskSyncOptionsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2429,6 +2431,7 @@ export type RepoRef = {
   stepbackBisect?: Maybe<Scalars["Boolean"]["output"]>;
   stepbackDisabled: Scalars["Boolean"]["output"];
   taskAnnotationSettings: TaskAnnotationSettings;
+  taskSync: RepoTaskSyncOptions;
   tracksPushEvents: Scalars["Boolean"]["output"];
   triggers: Array<TriggerAlias>;
   versionControlEnabled: Scalars["Boolean"]["output"];
@@ -2475,6 +2478,7 @@ export type RepoRefInput = {
   stepbackBisect?: InputMaybe<Scalars["Boolean"]["input"]>;
   stepbackDisabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
+  taskSync?: InputMaybe<TaskSyncOptionsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]["input"]>;
   triggers?: InputMaybe<Array<TriggerAliasInput>>;
   versionControlEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -2505,6 +2509,12 @@ export type RepoSettingsInput = {
   repoId: Scalars["String"]["input"];
   subscriptions?: InputMaybe<Array<SubscriptionInput>>;
   vars?: InputMaybe<ProjectVarsInput>;
+};
+
+export type RepoTaskSyncOptions = {
+  __typename?: "RepoTaskSyncOptions";
+  configEnabled: Scalars["Boolean"]["output"];
+  patchEnabled: Scalars["Boolean"]["output"];
 };
 
 export type RepoWorkstationConfig = {
@@ -2665,6 +2675,7 @@ export type SpawnHostInput = {
   sleepSchedule?: InputMaybe<SleepScheduleInput>;
   spawnHostsStartedByTask?: InputMaybe<Scalars["Boolean"]["input"]>;
   taskId?: InputMaybe<Scalars["String"]["input"]>;
+  taskSync?: InputMaybe<Scalars["Boolean"]["input"]>;
   useProjectSetupScript?: InputMaybe<Scalars["Boolean"]["input"]>;
   useTaskConfig?: InputMaybe<Scalars["Boolean"]["input"]>;
   userDataScript?: InputMaybe<Scalars["String"]["input"]>;
@@ -2787,6 +2798,7 @@ export type Task = {
   canRestart: Scalars["Boolean"]["output"];
   canSchedule: Scalars["Boolean"]["output"];
   canSetPriority: Scalars["Boolean"]["output"];
+  canSync: Scalars["Boolean"]["output"];
   canUnschedule: Scalars["Boolean"]["output"];
   containerAllocatedTime?: Maybe<Scalars["Time"]["output"]>;
   createTime?: Maybe<Scalars["Time"]["output"]>;
@@ -3021,6 +3033,17 @@ export type TaskStats = {
   __typename?: "TaskStats";
   counts?: Maybe<Array<StatusCount>>;
   eta?: Maybe<Scalars["Time"]["output"]>;
+};
+
+export type TaskSyncOptions = {
+  __typename?: "TaskSyncOptions";
+  configEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+  patchEnabled?: Maybe<Scalars["Boolean"]["output"]>;
+};
+
+export type TaskSyncOptionsInput = {
+  configEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
+  patchEnabled?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /**
