@@ -2071,7 +2071,7 @@
     "@leafygreen-ui/hooks" "^8.1.3"
     "@leafygreen-ui/lib" "^13.6.1"
 
-"@leafygreen-ui/badge@^8.0.2", "@leafygreen-ui/badge@^8.1.3":
+"@leafygreen-ui/badge@^8.1.3":
   version "8.1.3"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-8.1.3.tgz#a1b5ea4780e1505ce7444ea7c39b3fe2c3719a45"
   integrity sha512-KsMi231G1dtF3XOzHgOpxp2TfpwqaUTZfJmrL38GaWh4G2svtzqejdeuxYKLCRBVo5udAjbrXvSjYyHhOYsw2Q==
@@ -2080,6 +2080,16 @@
     "@leafygreen-ui/lib" "^13.3.0"
     "@leafygreen-ui/palette" "^4.0.9"
     "@leafygreen-ui/tokens" "^2.5.2"
+
+"@leafygreen-ui/badge@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-9.0.0.tgz#1ece898dfb07a9e7ad9c2a4f1a78260599718e71"
+  integrity sha512-8QQnJaaFX7WcS82Xpbf4VCb64lG6oF99vX5iE4wnfqpw/Zk+E0GV0bD8RMxH4YjCj7LaqVfEKwHpifJsC5+LTg==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.8"
+    "@leafygreen-ui/lib" "^14.0.0"
+    "@leafygreen-ui/palette" "^4.0.9"
+    "@leafygreen-ui/tokens" "^2.11.1"
 
 "@leafygreen-ui/banner@^8.0.1":
   version "8.0.1"
@@ -2983,12 +2993,12 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.5"
 
-"@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.10.0", "@leafygreen-ui/tokens@^2.11.0", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.5.1", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.6.0", "@leafygreen-ui/tokens@^2.7.0", "@leafygreen-ui/tokens@^2.8.0", "@leafygreen-ui/tokens@^2.9.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.11.0.tgz#42646c571551428de1c5243ec456878761e27508"
-  integrity sha512-/0G+UaDpLBLLtEP1mjGjiDnqReHufUTUkteqNUsyTOz1bpfejoo1anu3f6dZDqNlxoKhHZEEngQ+HvP1l1RJVw==
+"@leafygreen-ui/tokens@^2.0.3", "@leafygreen-ui/tokens@^2.10.0", "@leafygreen-ui/tokens@^2.11.0", "@leafygreen-ui/tokens@^2.11.1", "@leafygreen-ui/tokens@^2.2.0", "@leafygreen-ui/tokens@^2.5.1", "@leafygreen-ui/tokens@^2.5.2", "@leafygreen-ui/tokens@^2.6.0", "@leafygreen-ui/tokens@^2.7.0", "@leafygreen-ui/tokens@^2.8.0", "@leafygreen-ui/tokens@^2.9.0":
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-2.11.1.tgz#115b09af18f16632df1eff63cd0cf1777852eae8"
+  integrity sha512-oiIeJAZ0vhzwkCULE1GnwwqBkhfKNpjpMTM1/szfV7G76DUDSqtSm4erMynFXL4MHNZ+zG2Mm483nnQKrmsYww==
   dependencies:
-    "@leafygreen-ui/lib" "^13.7.0"
+    "@leafygreen-ui/lib" "^14.0.0"
     "@leafygreen-ui/palette" "^4.0.9"
     polished "^4.2.2"
 
