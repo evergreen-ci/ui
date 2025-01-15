@@ -18,7 +18,7 @@ import { constructBuildVariantDict } from "./utils";
 const { white } = palette;
 
 interface CommitsWrapperProps {
-  versions: Commits;
+  versions?: Commits;
   isLoading: boolean;
   hasTaskFilter: boolean;
   hasFilters: boolean;
@@ -50,7 +50,6 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
         <CommitChart hasTaskFilter={hasTaskFilter} versions={versions} />
         <StickyContainer>
           <FlexRowContainer>
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {versions.map((commit) => (
               <CommitWrapper
                 key={getCommitKey(commit)}
@@ -66,7 +65,6 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
           </FlexRowContainer>
         </StickyContainer>
         <FlexRowContainer>
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           {versions.map((commit) => (
             <CommitWrapper
               key={getCommitKey(commit)}

@@ -36,7 +36,7 @@ export const useLastPassingTask = (taskId: string) => {
     LastMainlineCommitQuery,
     LastMainlineCommitQueryVariables
   >(LAST_MAINLINE_COMMIT, {
-    skip: !parentTask || parentTask.status === TaskStatus.Succeeded,
+    skip: !parentTask || parentTask.displayStatus === TaskStatus.Succeeded,
     variables: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       projectIdentifier,
@@ -48,8 +48,9 @@ export const useLastPassingTask = (taskId: string) => {
       },
     },
   });
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const task = getTaskFromMainlineCommitsQuery(lastPassingTaskData);
+  const task = lastPassingTaskData
+    ? getTaskFromMainlineCommitsQuery(lastPassingTaskData)
+    : undefined;
 
   return {
     task,

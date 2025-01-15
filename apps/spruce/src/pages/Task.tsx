@@ -58,8 +58,8 @@ export const Task = () => {
 
   const { task } = data ?? {};
   const {
-    annotation,
     displayName,
+    displayStatus,
     displayTask,
     executionTasksFull,
     latestExecution,
@@ -68,8 +68,11 @@ export const Task = () => {
     status,
     versionMetadata,
   } = task ?? {};
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const hasKnownIssueAnnotation = annotation?.issues?.length > 0;
+
+  /**
+   * Special handling for known issues and show the original status on the task page.
+   */
+  const shouldShowOriginalStatus = displayStatus === TaskStatus.KnownIssue;
   const isDisplayTask = executionTasksFull != null;
   if (error && !task) {
     return <PageDoesNotExist />;
@@ -93,21 +96,28 @@ export const Task = () => {
       <PageTitle
         badge={
           <StyledBadgeWrapper>
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-            <TaskStatusBadge status={status} />
-            {hasKnownIssueAnnotation && (
+            <TaskStatusBadge
+              status={
+                (shouldShowOriginalStatus
+                  ? status
+                  : displayStatus) as TaskStatus
+              }
+            />
+            {shouldShowOriginalStatus && (
               <TaskStatusBadge status={TaskStatus.KnownIssue} />
             )}
           </StyledBadgeWrapper>
         }
         buttons={
-          <ActionButtons
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            initialPriority={priority}
-            isDisplayTask={isDisplayTask}
-            isExecutionTask={!!displayTask}
-            task={task}
-          />
+          task ? (
+            <ActionButtons
+              // @ts-expect-error: FIXME. This comment was added by an automated script.
+              initialPriority={priority}
+              isDisplayTask={isDisplayTask}
+              isExecutionTask={!!displayTask}
+              task={task}
+            />
+          ) : undefined
         }
         loading={loading}
         pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}

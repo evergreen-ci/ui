@@ -2,7 +2,6 @@ import { Suspense, useState, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
-import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
@@ -15,10 +14,11 @@ import { WaterfallPagination } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
-import { VERSION_LIMIT } from "./styles";
 import { WaterfallFilterOptions } from "./types";
+import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
+import WaterfallSkeleton from "./WaterfallSkeleton";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
@@ -61,20 +61,14 @@ const Waterfall: React.FC = () => {
             startTransition(() => handleOnRemove(b));
           }}
         />
-        <Suspense
-          fallback={
-            <TableSkeleton
-              data-cy="waterfall-skeleton"
-              numCols={VERSION_LIMIT + 1}
-              numRows={15}
+        <Suspense fallback={<WaterfallSkeleton />}>
+          <WaterfallErrorBoundary projectIdentifier={projectIdentifier ?? ""}>
+            <WaterfallGrid
+              key={projectIdentifier}
+              projectIdentifier={projectIdentifier ?? ""}
+              setPagination={setPagination}
             />
-          }
-        >
-          <WaterfallGrid
-            key={projectIdentifier}
-            projectIdentifier={projectIdentifier ?? ""}
-            setPagination={setPagination}
-          />
+          </WaterfallErrorBoundary>
         </Suspense>
       </PageContainer>
     </>

@@ -61,6 +61,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: [
               "lint",
@@ -88,6 +89,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["lint", "race-detector", "ubuntu1604"],
           },
@@ -106,6 +108,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["lint", "DNE"],
           },
@@ -126,6 +129,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["ubuntu1804"],
             historyTableFilters: [],
@@ -164,6 +168,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["ubuntu1804"],
             historyTableFilters: [
@@ -207,6 +212,7 @@ describe("taskHistoryRow", () => {
           state: {
             processedCommitCount: 1,
             processedCommits: [taskRow],
+            // @ts-expect-error FIXME: This will be fixed when we update task history https://jira.mongodb.org/browse/DEVPROD-6584
             loadedCommits: [mainlineCommitData.versions[0].version],
             visibleColumns: ["ubuntu1804"],
             historyTableFilters: [
@@ -245,7 +251,7 @@ const taskRow: CommitRowType = {
             displayName: "test-thirdparty",
             id: "some_id_1",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
         ],
       },
@@ -257,7 +263,7 @@ const taskRow: CommitRowType = {
             displayName: "test-thirdparty",
             id: "some_id_2",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
         ],
       },
@@ -269,7 +275,7 @@ const taskRow: CommitRowType = {
             displayName: "test-thirdparty",
             id: "some_id_3",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
         ],
       },
@@ -281,7 +287,7 @@ const taskRow: CommitRowType = {
             displayName: "test-thirdparty",
             id: "some_id_4",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
         ],
       },
@@ -293,7 +299,7 @@ const taskRow: CommitRowType = {
             displayName: "test-thirdparty",
             id: "some_id_5",
             execution: 0,
-            status: "failed",
+            displayStatus: "failed",
           },
         ],
       },
@@ -305,7 +311,7 @@ const taskRow: CommitRowType = {
             displayName: "test-thirdparty",
             id: "some_id_6",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
         ],
       },
@@ -317,7 +323,7 @@ const taskRow: CommitRowType = {
             displayName: "test-thirdparty",
             id: "some_id_7",
             execution: 0,
-            status: "success",
+            displayStatus: "success",
           },
         ],
       },

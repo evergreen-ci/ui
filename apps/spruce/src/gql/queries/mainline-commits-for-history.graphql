@@ -29,9 +29,9 @@ query MainlineCommitsForHistory(
           displayName
           tasks {
             displayName
+            displayStatus
             execution
             id
-            status
           }
           variant
         }

@@ -39,7 +39,7 @@ describe("useLastExecutedTask", () => {
       expect(result.current.task).toBeDefined();
     });
 
-    expect(result.current.task.id).toBe("last_executed_task");
+    expect(result.current.task?.id).toBe("last_executed_task");
   });
   it("a last executed task is not found due to an error in the query", async () => {
     const { result } = renderHook(() => useLastExecutedTask("t1"), {
@@ -80,7 +80,7 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
         displayName: "lint-agent",
         buildVariant: "lint",
         projectIdentifier: "evergreen",
-        status: "started",
+        displayStatus: "started",
         versionMetadata: {
           baseVersion: {
             id: "baseVersion",
@@ -94,7 +94,7 @@ const getPatchTaskWithRunningBaseTask: ApolloMock<
         baseTask: {
           id: baseTaskId,
           execution: 0,
-          status: "started",
+          displayStatus: "started",
           __typename: "Task",
         },
         __typename: "Task",
@@ -143,7 +143,7 @@ const getLastExecutedVersion: ApolloMock<
                       id: "last_executed_task",
                       execution: 0,
                       order: 3676,
-                      status: "failed",
+                      displayStatus: "failed",
                       __typename: "Task",
                     },
                   ],

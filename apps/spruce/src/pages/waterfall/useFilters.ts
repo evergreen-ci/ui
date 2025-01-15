@@ -175,7 +175,9 @@ const matchesStatuses = (
 ) =>
   statuses.length
     ? statuses.some((s) =>
-        task.displayStatus ? task.displayStatus === s : task.status === s,
+        task.displayStatusCache
+          ? task.displayStatusCache === s
+          : task.status === s,
       )
     : true;
 

@@ -3,8 +3,7 @@ import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 
 export interface FoldedCommitsRow {
   type: rowType.FOLDED_COMMITS;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  rolledUpCommits: Unpacked<mainlineCommits["versions"]>["rolledUpVersions"];
+  rolledUpCommits: MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions;
   date: Date;
   selected: boolean;
   expanded: boolean;
@@ -18,15 +17,30 @@ export interface DateSeparatorRow {
 
 export interface CommitRow {
   type: rowType.COMMIT;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  commit: Unpacked<mainlineCommits["versions"]>["version"];
+  commit: MainlineCommitsForHistoryMainlineCommitsVersionsVersion;
   date: Date;
   selected: boolean;
 }
 
 export type CommitRowType = FoldedCommitsRow | DateSeparatorRow | CommitRow;
 
-export type mainlineCommits = MainlineCommitsForHistoryQuery["mainlineCommits"];
+export type MainlineCommitsForHistoryMainlineCommits = NonNullable<
+  MainlineCommitsForHistoryQuery["mainlineCommits"]
+>;
+
+export type MainlineCommitsForHistoryMainlineCommitsVersions = NonNullable<
+  MainlineCommitsForHistoryMainlineCommits["versions"]
+>;
+
+export type MainlineCommitsForHistoryMainlineCommitsVersionsVersion =
+  NonNullable<
+    Unpacked<MainlineCommitsForHistoryMainlineCommitsVersions>["version"]
+  >;
+
+export type MainlineCommitsForHistoryMainlineCommitsVersionsRolledUpVersions =
+  NonNullable<
+    Unpacked<MainlineCommitsForHistoryMainlineCommitsVersions>["rolledUpVersions"]
+  >;
 
 export enum rowType {
   FOLDED_COMMITS,

@@ -770,6 +770,7 @@ describe("getMainlineCommitsQueryVariables", () => {
 
 describe("getAllTaskStatsGroupedByColor", () => {
   it("grab the taskStatusStats.statusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
+    // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
     expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
       "12": {
         stats: [
@@ -964,6 +965,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
 
 describe("constructBuildVariantDict", () => {
   it("correctly determines priority, iconHeight, and badgeHeight", () => {
+    // @ts-expect-error this code will be deleted soon https://jira.mongodb.org/browse/DEVPROD-10208
     expect(constructBuildVariantDict(versions)).toStrictEqual({
       "enterprise-macos-cxx20": {
         iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
