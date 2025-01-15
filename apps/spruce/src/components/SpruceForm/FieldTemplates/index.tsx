@@ -4,6 +4,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { FieldTemplateProps } from "@rjsf/core";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TitleField as CustomTitleField } from "../CustomFields";
+import { SpruceWidgetProps } from "../Widgets/types";
 
 export * from "./ArrayFieldTemplates";
 export * from "./ObjectFieldTemplates";
@@ -30,7 +31,8 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   const fieldDataCy = uiSchema["ui:field-data-cy"];
   const descriptionNode = uiSchema["ui:descriptionNode"];
   const errors = uiSchema["ui:errors"] ?? (rawErrors?.length ? rawErrors : []);
-  const warnings = uiSchema["ui:warnings"] ?? [];
+  const warnings: NonNullable<SpruceWidgetProps["options"]["warnings"]> =
+    uiSchema["ui:warnings"] ?? [];
   return (
     !hidden && (
       <>
@@ -46,7 +48,9 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
         )}
         {isNullType && !!warnings.length && (
           <StyledBanner data-cy="warning-banner" variant="warning">
-            {warnings.join(", ")}
+            {warnings.map((w) =>
+              typeof w === "string" || w instanceof String ? <div>{w}</div> : w,
+            )}
           </StyledBanner>
         )}
         <DefaultFieldContainer

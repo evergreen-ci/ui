@@ -3,6 +3,8 @@ import { InlineCode } from "@leafygreen-ui/typography";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
+import { StyledRouterLink } from "components/styles";
+import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import {
   MyPublicKeysQuery,
   SpawnTaskQuery,
@@ -177,6 +179,9 @@ export const getFormSchema = ({
                   properties: {
                     defineSetupScriptCheckbox: {
                       enum: [true],
+                    },
+                    warning: {
+                      type: "null" as "null",
                     },
                     setupScript: {
                       title: "Setup Script",
@@ -364,6 +369,22 @@ export const getFormSchema = ({
         defineSetupScriptCheckbox: {
           "ui:disabled": useProjectSetupScript,
           "ui:data-cy": "setup-script-checkbox",
+        },
+        warning: {
+          "ui:showLabel": false,
+          "ui:warnings": [
+            <>
+              This script is not guaranteed to succeed upon host startup.
+              Consider opting into{" "}
+              <StyledRouterLink
+                to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
+              >
+                “Spawn host outcome” notifications
+              </StyledRouterLink>{" "}
+              to monitor the success of setup scripts. If further investigation
+              is required, details can be found in the host’s logs.
+            </>,
+          ],
         },
         setupScript: {
           "ui:widget": LeafyGreenTextArea,
