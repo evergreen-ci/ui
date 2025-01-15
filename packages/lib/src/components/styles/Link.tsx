@@ -5,7 +5,7 @@ import {
   LinkProps as RouterLinkProps,
 } from "react-router-dom";
 
-// Override LeafyGreen's font-weight declaration for Link
+// Override LeafyGreen's font-weight declaration for Link.
 const overrideStyles = css`
   font-weight: inherit;
   font-size: inherit;

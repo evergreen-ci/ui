@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { fontFamilies } from "@leafygreen-ui/tokens";
+import { fontFamilies, BaseFontSize } from "@leafygreen-ui/tokens";
 
 export const resetStyles = css`
   /* Reset styles, usage recommended by LeafyGreen. */
@@ -12,6 +12,6 @@ export const resetStyles = css`
 
 export const bodyStyles = css`
   font-family: ${fontFamilies.default};
-  font-size: 13px;
+  font-size: ${BaseFontSize.Body1}px;
   margin: 0;
 `;

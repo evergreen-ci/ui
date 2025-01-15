@@ -14,7 +14,7 @@ const resetStyles = css`
     text-decoration: none;
   }
 
-  /* Hide outlines on pages that use RJSF forms. */
+  /* Hide outlines on RJSF forms. */
   fieldset {
     border: 0;
     margin: 0;
@@ -32,6 +32,11 @@ export const globalStyles = css`
     font-family: ${fontFamilies.code};
     line-height: 1.5;
     margin: 0;
+  }
+
+  /* Used for styling InlineCode and Code. */
+  code {
+    line-height: inherit !important;
   }
 
   body {

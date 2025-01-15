@@ -14,7 +14,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
 }) => {
   const getDateCopy = useDateFormat();
   const {
-    blockedOn = "",
+    blockedOn,
     hostId,
     jiraIssue,
     jiraLink,
