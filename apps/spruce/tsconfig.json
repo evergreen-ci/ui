@@ -16,7 +16,8 @@
     "src",
     "scripts",
     "config/vitest/setupTests.ts",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "./.storybook/preview.tsx"
   ],
   "references": [
     {

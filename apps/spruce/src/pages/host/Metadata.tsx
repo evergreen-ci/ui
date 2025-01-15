@@ -2,13 +2,13 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { formatDistanceToNow } from "date-fns";
+import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
 import {
   MetadataCard,
   MetadataItem,
   MetadataLabel,
   MetadataTitle,
 } from "components/MetadataCard";
-import { StyledLink, WordBreak } from "components/styles";
 import { MCI_USER } from "constants/hosts";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";

@@ -5,11 +5,12 @@ import Badge from "@leafygreen-ui/badge";
 import { H2, H3 } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
 import { useParams, useNavigate } from "react-router-dom";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
-import { PageWrapper, StyledRouterLink } from "components/styles";
+import { PageWrapper } from "components/styles";
 import { MCI_USER } from "constants/hosts";
 import { getTaskQueueRoute, getAllHostsRoute, slugs } from "constants/routes";
 import {

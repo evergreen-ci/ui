@@ -3,12 +3,12 @@ import { useMutation } from "@apollo/client";
 import Banner, { Variant as BannerVariant } from "@leafygreen-ui/banner";
 import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { Field } from "@rjsf/core";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   ConfirmationModal,
   Variant as ModalVariant,
 } from "components/ConfirmationModal";
-import { StyledLink } from "components/styles";
 import { githubAppCredentialsDocumentationUrl } from "constants/externalResources";
 import {
   DeleteGithubAppCredentialsMutation,

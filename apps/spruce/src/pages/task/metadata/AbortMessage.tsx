@@ -1,5 +1,5 @@
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { MetadataItem, MetadataLabel } from "components/MetadataCard";
-import { StyledRouterLink } from "components/styles";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { AbortInfo } from "gql/generated/types";
 
