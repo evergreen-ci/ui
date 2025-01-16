@@ -3,7 +3,8 @@ import {
   getWebAutoInstrumentations,
   InstrumentationConfigMap,
 } from "@opentelemetry/auto-instrumentations-web";
-import { detectGraphqlQuery } from "./utils";
+import { RouteMatchConfig } from "./types";
+import { calculateRouteName, detectGraphqlQuery } from "./utils";
 
 /**
  * Configuration object for the Honeycomb SDK.
@@ -21,6 +22,8 @@ interface HoneycombConfig {
   ingestKey: string;
   /** The environment we are running in */
   environment: string;
+  /** A config representing all routes the app can have */
+  routeMatchConfig?: RouteMatchConfig;
 }
 
 /**
@@ -32,6 +35,7 @@ interface HoneycombConfig {
  * @param config.serviceName - The name of the service.
  * @param config.endpoint - The endpoint for the Honeycomb SDK to send traces to if we are not using the default.
  * @param config.environment - The environment we are running in.
+ * @param config.routeMatchConfig - A config representing all routes the app can have.
  */
 const initializeHoneycomb = ({
   backendURL,
@@ -39,6 +43,7 @@ const initializeHoneycomb = ({
   endpoint,
   environment,
   ingestKey,
+  routeMatchConfig,
   serviceName,
 }: HoneycombConfig) => {
   if (debug && (!ingestKey || !endpoint)) {
@@ -64,6 +69,15 @@ const initializeHoneycomb = ({
           // Add GraphQL operation name as an attribute to HTTP traces.
           applyCustomAttributesOnSpan: (span, request) => {
             if (span && request) {
+              const matchedRoute = calculateRouteName(
+                window.location.pathname,
+                routeMatchConfig?.routeConfig || {},
+              );
+
+              if (matchedRoute) {
+                span.setAttribute("url.path_name", matchedRoute.name);
+                span.setAttribute("url.path_base", matchedRoute.path);
+              }
               const { body } = request;
               if (!body || typeof body !== "string") {
                 return;
