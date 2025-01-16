@@ -374,15 +374,15 @@ export const getFormSchema = ({
           "ui:showLabel": false,
           "ui:warnings": [
             <>
-              This script is not guaranteed to succeed upon host startup.
+              This script is not guaranteed to run or succeed upon host startup.
               Consider opting into{" "}
               <StyledRouterLink
                 to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
               >
                 “Spawn host outcome” notifications
               </StyledRouterLink>{" "}
-              to monitor the success of setup scripts. If further investigation
-              is required, details can be found in the host’s logs.
+              to monitor the state of setup scripts. If further investigation is
+              required, details can be found in the host’s logs.
             </>,
           ],
         },
