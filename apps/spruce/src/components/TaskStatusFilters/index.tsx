@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
 import { noFilterMessage } from "constants/strings";
+import { finishedTaskStatuses } from "constants/task";
 import { useTaskStatuses } from "hooks";
 
 interface Props {
@@ -21,6 +23,11 @@ export const TaskStatusFilters: React.FC<Props> = ({
   versionId,
 }) => {
   const { baseStatuses, currentStatuses } = useTaskStatuses({ versionId });
+
+  const restartableStatuses = currentStatuses.filter((s) =>
+    finishedTaskStatuses.includes(s.value as TaskStatus),
+  );
+
   return (
     <Container>
       <SelectorWrapper>
@@ -36,7 +43,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
             hasStyling={false}
             onChange={onChangeStatusFilter}
             state={selectedStatuses}
-            tData={currentStatuses}
+            tData={restartableStatuses}
           />
         </Dropdown>
       </SelectorWrapper>
