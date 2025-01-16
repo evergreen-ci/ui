@@ -14,10 +14,6 @@ fragment ProjectGeneralSettings on Project {
   spawnHostScriptPath
   stepbackBisect
   stepbackDisabled
-  taskSync {
-    configEnabled
-    patchEnabled
-  }
   versionControlEnabled
 }
 
@@ -35,9 +31,5 @@ fragment RepoGeneralSettings on RepoRef {
   spawnHostScriptPath
   stepbackBisect
   stepbackDisabled
-  taskSync {
-    configEnabled
-    patchEnabled
-  }
   versionControlEnabled
 }
