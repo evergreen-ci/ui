@@ -5997,9 +5997,9 @@ export type BuildVariantsWithChildrenQuery = {
         __typename?: "Task";
         baseStatus?: string | null;
         displayName: string;
+        displayStatus: string;
         execution: number;
         id: string;
-        status: string;
       }> | null;
     }> | null;
     childVersions?: Array<{
@@ -6015,9 +6015,9 @@ export type BuildVariantsWithChildrenQuery = {
           __typename?: "Task";
           baseStatus?: string | null;
           displayName: string;
+          displayStatus: string;
           execution: number;
           id: string;
-          status: string;
         }> | null;
       }> | null;
       generatedTaskCounts: Array<{

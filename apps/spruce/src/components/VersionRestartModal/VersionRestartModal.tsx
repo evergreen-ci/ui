@@ -71,7 +71,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       id: versionId,
       statuses: [...finishedTaskStatuses, TaskStatus.Aborted],
     },
-    skip: !visible || !versionId,
+    skip: !visible,
   });
 
   const { version } = data || {};
@@ -102,8 +102,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     });
     restartVersions({
       variables: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        versionId: version?.id,
+        versionId,
         versionsToRestart: getTaskIds(selectedTasks),
         abort: shouldAbortInProgressTasks,
       },
@@ -117,14 +116,19 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     selectedTasks || {},
     generatedTaskCounts,
   );
+
   return (
     <ConfirmationModal
-      buttonText="Restart"
+      cancelButtonProps={{
+        onClick: onCancel,
+      }}
+      confirmButtonProps={{
+        children: "Restart",
+        disabled: selectedTotal === 0 || mutationLoading,
+        onClick: handlePatchRestart,
+      }}
       data-cy="version-restart-modal"
-      onCancel={onCancel}
-      onConfirm={handlePatchRestart}
       open={visible}
-      submitDisabled={selectedTotal === 0 || mutationLoading}
       title="Modify Version"
     >
       {loading ? (
@@ -132,18 +136,14 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       ) : (
         <>
           <VersionTasks
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            baseStatusFilterTerm={baseStatusFilterTerm[version?.id]}
+            baseStatusFilterTerm={baseStatusFilterTerm[versionId]}
             selectedTasks={selectedTasks}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            setBaseStatusFilterTerm={setVersionBaseStatus(version?.id)}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            setVersionStatusFilterTerm={setVersionStatus(version?.id)}
+            setBaseStatusFilterTerm={setVersionBaseStatus(versionId)}
+            setVersionStatusFilterTerm={setVersionStatus(versionId)}
             toggleSelectedTask={toggleSelectedTask}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             version={version}
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            versionStatusFilterTerm={versionStatusFilterTerm[version?.id]}
+            versionStatusFilterTerm={versionStatusFilterTerm[versionId]}
           />
           {childVersions && (
             <div data-cy="select-downstream">
