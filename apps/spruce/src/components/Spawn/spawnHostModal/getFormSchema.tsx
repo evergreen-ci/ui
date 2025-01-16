@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import { InlineCode } from "@leafygreen-ui/typography";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
-import { StyledRouterLink } from "components/styles";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import {
   MyPublicKeysQuery,
