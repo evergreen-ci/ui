@@ -1,43 +1,30 @@
 import { Global, css } from "@emotion/react";
-import fontStyles from "components/styles/fonts";
-
-const resetStyles = css`
-  /* Reset styles */
-  *,
-  *:before,
-  *:after {
-    box-sizing: border-box;
-  }
-`;
+import {
+  bodyStyles,
+  fontStyles,
+  resetStyles,
+} from "@evg-ui/lib/components/styles";
 
 export const globalStyles = css`
+  ${fontStyles}
   ${resetStyles}
   background-color: white;
+
   body {
-    font-family: "Euclid Circular A", "Helvetica Neue", Helvetica, Arial,
-      sans-serif;
-    font-size: 13px;
-    margin: 0;
+    ${bodyStyles}
+
+    /* Increase default tab size to make it easier to read logs. */
     tab-size: 4;
 
-    /* Prevent scroll bounce behavior */
+    /* Prevent scroll bounce behavior. */
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
 
-    /* Hides scroll bar on webkit browsers preventing it from using up page width */
+    /* Hide scroll bar on webkit browsers to prevent it from using up page width. */
     ::-webkit-scrollbar {
       display: none;
     }
   }
 `;
 
-const GlobalStyles = () => (
-  <Global
-    styles={css`
-      ${fontStyles}
-      ${globalStyles}
-    `}
-  />
-);
-
-export default GlobalStyles;
+export const GlobalStyles = () => <Global styles={globalStyles} />;

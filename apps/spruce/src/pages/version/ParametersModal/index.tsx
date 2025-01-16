@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { DisplayModal } from "components/DisplayModal";
 import { MetadataItem } from "components/MetadataCard";
-import { StyledLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { Parameter } from "gql/generated/types";
 
@@ -27,6 +27,7 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
     <>
       {parameters !== undefined && parameters.length > 0 && (
         <MetadataItem>
+          {/* @ts-expect-error: Links should have hrefs. */}
           <StyledLink
             data-cy="parameters-link"
             onClick={() => setShowModal(true)}

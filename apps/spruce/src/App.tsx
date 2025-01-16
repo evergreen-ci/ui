@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { Content } from "components/Content";
 import { ErrorBoundary } from "components/ErrorHandling";
-import { GlobalStyles } from "components/styles/GlobalStyles";
+import { GlobalStyles } from "components/styles";
 import { routes } from "constants/routes";
 import { ContextProviders } from "context/Providers";
 import GQLWrapper from "gql/GQLWrapper";

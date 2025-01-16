@@ -2,9 +2,9 @@ import { useCallback, useState } from "react";
 import { css } from "@emotion/react";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
 import { useLocation, useNavigate } from "react-router-dom";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useLogDropAnalytics } from "analytics";
-import { StyledRouterLink } from "components/styles";
 import routes from "constants/routes";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 

@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
+import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
-import { wordBreakCss } from "components/styles";
 import { useOnClickOutside } from "hooks";
 
 type PopconfirmProps = TooltipProps & {

@@ -1,5 +1,6 @@
 import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useVersionAnalytics } from "analytics";
 import {
   MetadataCard,
@@ -7,7 +8,6 @@ import {
   MetadataTitle,
   MetadataLabel,
 } from "components/MetadataCard";
-import { StyledLink, StyledRouterLink } from "components/styles";
 import {
   getGithubCommitUrl,
   getGithubMergeQueueUrl,

@@ -2,11 +2,11 @@ import { useQuery } from "@apollo/client";
 import { InlineCode } from "@leafygreen-ui/typography";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { usePreferencesAnalytics } from "analytics";
 import Breadcrumbs from "components/Breadcrumbs";
 import Icon from "components/Icon";
-import { StyledLink } from "components/styles";
 import { LogTypes } from "constants/enums";
 import { getEvergreenTaskURL } from "constants/externalURLTemplates";
 import {

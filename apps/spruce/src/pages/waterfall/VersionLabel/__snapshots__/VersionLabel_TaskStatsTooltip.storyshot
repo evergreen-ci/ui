@@ -70,7 +70,7 @@
          •
          
         <a
-          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
           data-cy="jira-link"
           href="https://jira.mongodb.org/browse/DEVPROD-11387"
           rel="noopener noreferrer"
