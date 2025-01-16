@@ -221,7 +221,8 @@ const reduceBuildVariants = (filterDetails: reduceInput) => {
     versionStatusFilterTerm?.length ? statuses.has(status) : true;
 
   const hasBaseStatus = (status?: string) =>
-    status && baseStatusFilterTerm?.length ? baseStatuses.has(status) : true;
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    baseStatusFilterTerm?.length ? baseStatuses.has(status) : true;
 
   const isSelected = (task: task) =>
     hasFilter &&
