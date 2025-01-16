@@ -1,12 +1,12 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { GetFormSchema } from "components/SpruceForm";
 import {
   CardFieldTemplate,
   FieldRow,
 } from "components/SpruceForm/FieldTemplates";
-import { StyledLink, StyledRouterLink } from "components/styles";
 import { githubTokenPermissionRestrictionsUrl } from "constants/externalResources";
 import {
   getProjectSettingsRoute,

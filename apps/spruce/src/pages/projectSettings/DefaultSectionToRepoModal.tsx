@@ -1,9 +1,9 @@
 import { useMutation } from "@apollo/client";
 import { Body } from "@leafygreen-ui/typography";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { StyledLink } from "components/styles";
 import { projectSettingsRepoSettingsDocumentationUrl } from "constants/externalResources";
 import {
   DefaultSectionToRepoMutation,

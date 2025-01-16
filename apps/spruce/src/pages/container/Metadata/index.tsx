@@ -1,12 +1,12 @@
 import { ApolloError } from "@apollo/client";
 import { InlineCode } from "@leafygreen-ui/typography";
+import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import {
   MetadataCard,
   MetadataItem,
   MetadataLabel,
   MetadataTitle,
 } from "components/MetadataCard";
-import { StyledRouterLink, WordBreak } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { PodQuery } from "gql/generated/types";
 

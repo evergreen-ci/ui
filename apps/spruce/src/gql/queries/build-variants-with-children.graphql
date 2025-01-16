@@ -5,9 +5,9 @@ query BuildVariantsWithChildren($id: String!, $statuses: [String!]!) {
       tasks {
         baseStatus
         displayName
+        displayStatus
         execution
         id
-        status
       }
       variant
     }
@@ -17,9 +17,9 @@ query BuildVariantsWithChildren($id: String!, $statuses: [String!]!) {
         tasks {
           baseStatus
           displayName
+          displayStatus
           execution
           id
-          status
         }
         variant
       }
