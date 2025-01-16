@@ -141,7 +141,7 @@ describe("Task table", () => {
 
   describe("blocked tasks", () => {
     beforeEach(() => {
-      cy.visit(pathTasks);
+      cy.visit(`${pathTasks}?limit=100`);
       waitForTaskTable();
     });
 
