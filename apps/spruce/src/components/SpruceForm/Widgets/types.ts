@@ -23,7 +23,7 @@ export interface SpruceWidgetProps extends WidgetProps {
     showLabel: boolean;
     sizeVariant: string;
     tooltipDescription: string;
-    warnings: string[];
+    warnings: string[] | React.ReactElement[];
   }>;
 }
 
