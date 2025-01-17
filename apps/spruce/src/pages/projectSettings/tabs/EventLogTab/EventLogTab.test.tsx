@@ -111,11 +111,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             stepbackDisabled: null,
             stepbackBisect: null,
             patchingDisabled: false,
-            taskSync: {
-              configEnabled: false,
-              patchEnabled: false,
-              __typename: "TaskSyncOptions",
-            },
             disabledStatsCache: false,
             restricted: false,
             admins: ["rsatsrt"],
@@ -196,11 +191,6 @@ const projectEventsQuery: ProjectEventLogsQuery = {
             stepbackDisabled: null,
             stepbackBisect: null,
             patchingDisabled: false,
-            taskSync: {
-              configEnabled: false,
-              patchEnabled: false,
-              __typename: "TaskSyncOptions",
-            },
             disabledStatsCache: false,
             restricted: false,
             admins: ["arstastr", "asrt", "ata", "oienrsat"],
