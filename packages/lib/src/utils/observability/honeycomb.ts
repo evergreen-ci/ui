@@ -3,9 +3,10 @@ import {
   getWebAutoInstrumentations,
   InstrumentationConfigMap,
 } from "@opentelemetry/auto-instrumentations-web";
+import { InstrumentationBase } from "@opentelemetry/instrumentation";
+import { ReactRouterAutoInstrumentation } from "./ReactRouterAutoInstrumentation";
 import { RouteMatchConfig } from "./types";
-import { calculateRouteName, detectGraphqlQuery } from "./utils";
-
+import { detectGraphqlQuery } from "./utils";
 /**
  * Configuration object for the Honeycomb SDK.
  */
@@ -69,15 +70,6 @@ const initializeHoneycomb = ({
           // Add GraphQL operation name as an attribute to HTTP traces.
           applyCustomAttributesOnSpan: (span, request) => {
             if (span && request) {
-              const matchedRoute = calculateRouteName(
-                window.location.pathname,
-                routeMatchConfig?.routeConfig || {},
-              );
-
-              if (matchedRoute) {
-                span.setAttribute("url.path_name", matchedRoute.name);
-                span.setAttribute("url.path_base", matchedRoute.path);
-              }
               const { body } = request;
               if (!body || typeof body !== "string") {
                 return;
@@ -96,11 +88,21 @@ const initializeHoneycomb = ({
           propagateTraceHeaderCorsUrls: [new RegExp(backendURL || "")],
         };
       }
+      let additionalInstrumentations: InstrumentationBase[] = [];
+      if (routeMatchConfig) {
+        additionalInstrumentations = [
+          new ReactRouterAutoInstrumentation({
+            routeConfig: routeMatchConfig.routeConfig,
+          }),
+        ];
+      }
+
       const honeycombSdk = new HoneycombWebSDK({
         debug,
         endpoint,
         instrumentations: [
           getWebAutoInstrumentations(webAutoInstrumentationConfig),
+          ...additionalInstrumentations,
         ],
         // Add user.id as an attribute to all traces.
         resourceAttributes: {
