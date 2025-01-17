@@ -179,7 +179,7 @@ export const getFormSchema = ({
                     defineSetupScriptCheckbox: {
                       enum: [true],
                     },
-                    warning: {
+                    warningBanner: {
                       type: "null" as "null",
                     },
                     setupScript: {
@@ -365,7 +365,7 @@ export const getFormSchema = ({
           "ui:disabled": useProjectSetupScript,
           "ui:data-cy": "setup-script-checkbox",
         },
-        warning: {
+        warningBanner: {
           "ui:showLabel": false,
           "ui:warnings": [
             <>
@@ -377,7 +377,7 @@ export const getFormSchema = ({
                 “Spawn host outcome” notifications
               </StyledRouterLink>{" "}
               to monitor the state of setup scripts. If further investigation is
-              required, details can be found in the host’s logs.
+              required, details can be found in the host&apos;s logs.
             </>,
           ],
         },
