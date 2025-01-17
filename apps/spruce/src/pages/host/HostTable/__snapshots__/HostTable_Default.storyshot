@@ -1502,7 +1502,7 @@
                   Current running task cleared (was:
                    
                   <a
-                    class="lg-ui-0001 e9hwzqp0 css-eh9brn-StyledLink-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
                     data-cy="host-running-task-cleared-link"
                     href="/task/taskId"
                     responsivebreakpoint="1200"
@@ -1552,7 +1552,7 @@
                   Assigned to run task
                    
                   <a
-                    class="lg-ui-0001 e9hwzqp0 css-eh9brn-StyledLink-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
                     data-cy="host-running-task-set-link"
                     href="/task/taskId"
                     responsivebreakpoint="1200"
@@ -2168,7 +2168,7 @@
                   Task
                    
                   <a
-                    class="lg-ui-0001 e9hwzqp0 css-eh9brn-StyledLink-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
                     data-cy="host-task-finished-link"
                     href="/task/taskId"
                     responsivebreakpoint="1200"

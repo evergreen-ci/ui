@@ -63,7 +63,6 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => {
   const {
     buildVariant,
-    canSync,
     displayName: taskDisplayName,
     project,
     revision,
@@ -218,10 +217,6 @@ export const getFormSchema = ({
                       runProjectSpecificSetupScript: {
                         type: "boolean" as "boolean",
                         title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
-                      },
-                      taskSync: {
-                        type: "boolean" as "boolean",
-                        title: "Load from task sync",
                       },
                       startHosts: {
                         type: "boolean" as "boolean",
@@ -395,11 +390,6 @@ export const getFormSchema = ({
                 : "hidden",
             "ui:disabled": useSetupScript,
             "ui:data-cy": "project-setup-script-checkbox",
-            "ui:elementWrapperCSS": childCheckboxCSS,
-          },
-          taskSync: {
-            "ui:widget":
-              hasValidTask && canSync ? widgets.CheckboxWidget : "hidden",
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
           startHosts: {

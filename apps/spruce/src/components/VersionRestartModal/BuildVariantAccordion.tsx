@@ -11,9 +11,9 @@ interface BuildVariantAccordionProps {
   selectedTasks: selectedStrings;
   tasks: {
     id: string;
-    status: string;
     baseStatus?: string;
     displayName: string;
+    displayStatus: string;
   }[];
   toggleSelectedTask: (
     taskIds:

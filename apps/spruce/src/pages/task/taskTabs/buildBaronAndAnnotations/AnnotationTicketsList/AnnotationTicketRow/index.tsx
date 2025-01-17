@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAnnotationAnalytics } from "analytics";
-import { StyledLink } from "components/styles";
 import { JiraTicket } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { numbers } from "utils";
@@ -41,7 +41,7 @@ const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   const jiraLink = (
     <JiraSummaryLink
       data-cy={issueKey}
-      href={url}
+      href={url ?? ""}
       onClick={() =>
         annotationAnalytics.sendEvent({
           name: "Clicked annotation link",

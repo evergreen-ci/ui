@@ -59,10 +59,6 @@ const repoForm: GeneralFormState = {
     patch: {
       patchingDisabled: false,
     },
-    taskSync: {
-      configEnabled: true,
-      patchEnabled: true,
-    },
   },
   historicalTaskDataCaching: {
     disabledStatsCache: false,
@@ -86,10 +82,6 @@ const repoResult: Pick<RepoSettingsInput, "repoId" | "projectRef"> = {
     patchingDisabled: false,
     stepbackDisabled: true,
     stepbackBisect: true,
-    taskSync: {
-      configEnabled: true,
-      patchEnabled: true,
-    },
     disabledStatsCache: false,
   },
 };
@@ -130,10 +122,6 @@ const projectForm: GeneralFormState = {
     patch: {
       patchingDisabled: null,
     },
-    taskSync: {
-      configEnabled: null,
-      patchEnabled: null,
-    },
   },
   historicalTaskDataCaching: {
     disabledStatsCache: null,
@@ -160,10 +148,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectId" | "projectRef"> = {
     patchingDisabled: null,
     stepbackDisabled: null,
     stepbackBisect: null,
-    taskSync: {
-      configEnabled: null,
-      patchEnabled: null,
-    },
     disabledStatsCache: null,
   },
 };

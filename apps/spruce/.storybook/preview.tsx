@@ -1,19 +1,11 @@
 import { Global, css } from "@emotion/react";
 import { Decorator } from "@storybook/react";
-import {
-  overrideStyles,
-  resetStyles,
-} from "../src/components/styles/GlobalStyles";
+import { globalStyles } from "components/styles";
 
 export const decorators: Decorator[] = [
   (Story: () => JSX.Element) => (
     <>
-      <Global
-        styles={css`
-          ${resetStyles}
-          ${overrideStyles}
-        `}
-      />
+      <Global styles={globalStyles} />
       <Story />
     </>
   ),

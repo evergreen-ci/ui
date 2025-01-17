@@ -144,7 +144,6 @@ describe("Navigating to Spawn Host page", () => {
         "Load data for dist on ubuntu1604",
       );
       cy.dataCy("spawn-host-modal").should("contain.text", label2);
-      cy.dataCy("spawn-host-modal").should("contain.text", label3);
     });
 
     it("Unchecking 'Load data for dist' hides nested checkbox selections and checking shows them.", () => {
@@ -155,13 +154,11 @@ describe("Navigating to Spawn Host page", () => {
       cy.dataCy("load-data-checkbox").should("be.checked");
       cy.contains(label1).should("be.visible");
       cy.contains(label2).should("be.visible");
-      cy.contains(label3).should("be.visible");
 
       cy.dataCy("load-data-checkbox").click({ force: true });
       cy.dataCy("load-data-checkbox").should("not.be.checked");
       cy.contains(label1).should("not.exist");
       cy.contains(label2).should("not.exist");
-      cy.contains(label3).should("not.exist");
     });
 
     it("Visiting the spawn host page with a task and distro supplied in the url should populate the distro input", () => {
@@ -241,8 +238,7 @@ describe("Navigating to Spawn Host page", () => {
       );
     });
     const label1 = "Use project-specific setup script defined at /path";
-    const label2 = "Load from task sync";
-    const label3 = "Also start any hosts this task started (if applicable)";
+    const label2 = "Also start any hosts this task started (if applicable)";
   });
 
   it("Allows editing a modal with sleep schedule enabled and validates dates", () => {

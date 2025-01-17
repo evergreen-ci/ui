@@ -1,7 +1,7 @@
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { StyledLink } from "components/styles";
 import { patchAliasesDocumentationUrl } from "constants/externalResources";
 import { PatchStatus } from "types/patch";
 import { alias, form, PatchTriggerAliasStatus, ProjectType } from "../utils";

@@ -7,8 +7,8 @@ import Modal from "@leafygreen-ui/modal";
 import { Subtitle, SubtitleProps } from "@leafygreen-ui/typography";
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
+import { StyledLink as Link } from "@evg-ui/lib/components/styles";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
-import { StyledLink as Link } from "components/styles";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
@@ -105,7 +105,7 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
             <div>
               {carouselCards[activeSlide].href && (
                 <StyledLink
-                  href={carouselCards[activeSlide].href}
+                  href={carouselCards[activeSlide].href ?? ""}
                   target="__blank"
                 >
                   Learn more

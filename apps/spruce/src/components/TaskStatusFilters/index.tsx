@@ -21,6 +21,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
   versionId,
 }) => {
   const { baseStatuses, currentStatuses } = useTaskStatuses({ versionId });
+
   return (
     <Container>
       <SelectorWrapper>

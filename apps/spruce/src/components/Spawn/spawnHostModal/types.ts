@@ -33,7 +33,6 @@ export type FormState = {
   loadData?: {
     loadDataOntoHostAtStartup: boolean;
     runProjectSpecificSetupScript?: boolean;
-    taskSync?: boolean;
     startHosts?: boolean;
   };
 };

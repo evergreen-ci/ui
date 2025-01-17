@@ -2,8 +2,8 @@ import { useRef } from "react";
 import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { StyledRouterLink } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { getTaskRoute } from "constants/routes";
 import { TaskBuildVariantField } from "pages/version/Tabs/TestAnalysis/types";
@@ -35,7 +35,7 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
       <StyledRouterLink
         to={getTaskRoute(row.original.id, { tab: TaskTab.Tests })}
       >
-        {getValue()}
+        {getValue() as string}
       </StyledRouterLink>
     ),
     enableSorting: true,

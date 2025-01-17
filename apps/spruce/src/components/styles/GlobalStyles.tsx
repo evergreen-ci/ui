@@ -1,58 +1,51 @@
 import { Global, css } from "@emotion/react";
 import { fontFamilies } from "@leafygreen-ui/tokens";
-import fontStyles from "components/styles/fonts";
+import {
+  resetStyles as sharedResetStyles,
+  fontStyles,
+  bodyStyles,
+} from "@evg-ui/lib/components/styles";
 
-export const resetStyles = css`
-  html {
-    box-sizing: border-box;
-  }
+const resetStyles = css`
+  ${sharedResetStyles}
 
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
-
+  /* Hide underlines on links. */
   a {
     text-decoration: none;
   }
 
+  /* Hide outlines on RJSF forms. */
   fieldset {
     border: 0;
     margin: 0;
     padding: 0;
   }
+`;
 
+export const globalStyles = css`
+  ${resetStyles}
+  ${fontStyles}
+  background-color: white;
+
+  /* Used for styling task logs. */
   pre {
     font-family: ${fontFamilies.code};
     line-height: 1.5;
     margin: 0;
   }
-`;
 
-export const overrideStyles = css`
-  background-color: white;
-
-  body {
-    font-family: ${fontFamilies.default};
-    font-size: 13px;
-    margin: 0;
-    -webkit-font-smoothing: antialiased; /* Chrome, Safari */
-    -moz-osx-font-smoothing: grayscale; /* Firefox */
-  }
-
-  // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18184
-  // Override LeafyGreen's 'display: inherit' rule.
+  /* Used for styling InlineCode and Code. */
   code {
-    display: inline !important;
     line-height: inherit !important;
   }
+
+  body {
+    ${bodyStyles}
+
+    /* Added in EVG-18710 to address complaints about newer MongoDB fonts. */
+    -webkit-font-smoothing: antialiased; // Chrome, Safari
+    -moz-osx-font-smoothing: grayscale; // Firefox
+  }
 `;
 
-const spruceGlobalStyles = css`
-  ${fontStyles}
-  ${resetStyles}
-  ${overrideStyles}
-`;
-
-export const GlobalStyles = () => <Global styles={spruceGlobalStyles} />;
+export const GlobalStyles = () => <Global styles={globalStyles} />;
