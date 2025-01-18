@@ -9,6 +9,7 @@ import {
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
@@ -19,7 +20,6 @@ import {
   MetadataTitle,
   MetadataLabel,
 } from "components/MetadataCard";
-import { StyledLink, StyledRouterLink } from "components/styles";
 import {
   getHoneycombTraceUrl,
   getHoneycombSystemMetricsUrl,

@@ -9,9 +9,9 @@ import {
   LeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
+import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
-import { StyledRouterLink, WordBreak } from "components/styles";
 import { BaseTable } from "components/Table/BaseTable";
 import { onChangeHandler } from "components/Table/utils";
 import { hostStatuses } from "constants/hosts";

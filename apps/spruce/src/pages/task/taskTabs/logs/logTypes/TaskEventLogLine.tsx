@@ -1,10 +1,7 @@
 import styled from "@emotion/styled";
+import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
-import {
-  StyledLink,
-  StyledRouterLink,
-  ShortenedRouterLink,
-} from "components/styles";
+import { ShortenedRouterLink } from "components/styles";
 import { getHostRoute, getPodRoute, getTaskRoute } from "constants/routes";
 import { TaskEventLogEntry } from "gql/generated/types";
 import { useDateFormat } from "hooks";
@@ -36,10 +33,10 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
         <>
           Task is blocked on{" "}
           <ShortenedRouterLink
-            title={blockedOn}
+            baseWidth={500}
+            title={blockedOn ?? ""}
             // @ts-expect-error: FIXME. This comment was added by an automated script.
             to={getTaskRoute(blockedOn)}
-            width={500}
           >
             {blockedOn}
           </ShortenedRouterLink>
@@ -86,7 +83,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
       message = (
         <>
           Created Jira Alert{" "}
-          <StyledLink href={jiraLink}>
+          <StyledLink href={jiraLink ?? ""}>
             <strong>{jiraIssue}</strong>
           </StyledLink>
         </>

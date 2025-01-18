@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
@@ -16,12 +17,7 @@ import {
   MetadataLabel,
   MetadataTitle,
 } from "components/MetadataCard";
-import {
-  StyledRouterLink,
-  PageContent,
-  PageLayout,
-  PageSider,
-} from "components/styles";
+import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getProjectPatchesRoute, getVersionRoute } from "constants/routes";
 import {

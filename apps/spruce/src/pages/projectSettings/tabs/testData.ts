@@ -60,10 +60,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     patchingDisabled: null,
     stepbackDisabled: null,
     stepbackBisect: null,
-    taskSync: {
-      configEnabled: null,
-      patchEnabled: null,
-    },
     disabledStatsCache: null,
     restricted: true,
     admins: [],
@@ -214,10 +210,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     patchingDisabled: false,
     stepbackDisabled: true,
     stepbackBisect: true,
-    taskSync: {
-      configEnabled: true,
-      patchEnabled: true,
-    },
     disabledStatsCache: false,
     restricted: true,
     admins: ["admin"],

@@ -1,5 +1,6 @@
 import { Divider } from "./divider";
 import { FiltersWrapper } from "./filters";
+import { globalStyles, GlobalStyles } from "./GlobalStyles";
 import { inactiveElementStyle } from "./inactive";
 import {
   ErrorMessage,
@@ -16,10 +17,9 @@ import {
   TableControlInnerRow,
   TableControlOuterRow,
 } from "./Layout";
-import { ShortenedRouterLink, StyledLink, StyledRouterLink } from "./Link";
+import { ShortenedRouterLink } from "./Link";
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
 import { SiderCard } from "./SiderCard";
-import { WordBreak, wordBreakCss } from "./Typography";
 
 export {
   ShortenedRouterLink,
@@ -41,10 +41,8 @@ export {
   SideNavPageContent,
   SideNavPageWrapper,
   SiderCard,
-  StyledLink,
-  StyledRouterLink,
   TableControlInnerRow,
   TableControlOuterRow,
-  WordBreak,
-  wordBreakCss,
+  globalStyles,
+  GlobalStyles,
 };
