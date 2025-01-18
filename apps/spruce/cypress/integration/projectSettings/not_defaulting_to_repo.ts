@@ -52,7 +52,6 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").type("sample_name");
       saveButtonEnabled(false);
       cy.dataCy("var-value-input").type("sample_value");
-      cy.contains("label", "Private").click();
       cy.dataCy("var-private-input").should("be.checked");
       clickSave();
       cy.validateToast("success", "Successfully updated project");
