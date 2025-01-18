@@ -11,7 +11,7 @@ export const navBarHeight = size.xl;
 export const SiteLayout = styled.div`
   display: flex;
   flex-flow: column;
-  height: 100%; // Necessary for sticky header.
+  height: 100vh;
 `;
 
 // Layout elements for pages with a LeafyGreen SideNav

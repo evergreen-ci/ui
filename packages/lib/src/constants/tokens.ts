@@ -19,7 +19,6 @@ export const zIndex = {
   modal: 1,
   popover: 1,
   sideNav: 1,
-  header: 1,
 
   tooltip: 20,
   toast: 40,

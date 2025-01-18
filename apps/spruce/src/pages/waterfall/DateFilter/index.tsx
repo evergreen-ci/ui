@@ -1,7 +1,6 @@
 import { useTransition } from "react";
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { DateType } from "@leafygreen-ui/date-utils";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
@@ -40,7 +39,6 @@ export const DateFilter = () => {
       label="Go to Date"
       max={new Date()}
       onDateChange={handleChange}
-      popoverZIndex={zIndex.popover}
     />
   );
 };

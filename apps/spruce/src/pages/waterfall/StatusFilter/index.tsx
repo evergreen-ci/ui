@@ -1,7 +1,6 @@
 import { useTransition } from "react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { SortedTaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam } from "hooks/useQueryParam";
@@ -32,7 +31,6 @@ export const StatusFilter = () => {
       onChange={handleChange}
       overflow="scroll-x"
       placeholder="Displaying all statuses"
-      popoverZIndex={zIndex.popover}
     >
       {SortedTaskStatus.map((ts) => (
         <ComboboxOption
