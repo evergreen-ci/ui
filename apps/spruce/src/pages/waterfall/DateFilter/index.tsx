@@ -1,4 +1,3 @@
-import { useTransition } from "react";
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { DateType } from "@leafygreen-ui/date-utils";
 import { useWaterfallAnalytics } from "analytics";
@@ -7,7 +6,6 @@ import { WaterfallFilterOptions } from "../types";
 
 export const DateFilter = () => {
   const { sendEvent } = useWaterfallAnalytics();
-  const [, startTransition] = useTransition();
 
   const [queryParams, setQueryParams] = useQueryParams();
   const [date] = useQueryParam<string>(WaterfallFilterOptions.Date, "");
@@ -19,13 +17,11 @@ export const DateFilter = () => {
       const month = value.getUTCMonth() + 1;
       const day = value.getUTCDate();
       const utcDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
-      startTransition(() => {
-        setQueryParams({
-          ...queryParams,
-          [WaterfallFilterOptions.MaxOrder]: undefined,
-          [WaterfallFilterOptions.MinOrder]: undefined,
-          [WaterfallFilterOptions.Date]: utcDate,
-        });
+      setQueryParams({
+        ...queryParams,
+        [WaterfallFilterOptions.MaxOrder]: undefined,
+        [WaterfallFilterOptions.MinOrder]: undefined,
+        [WaterfallFilterOptions.Date]: utcDate,
       });
       sendEvent({ name: "Filtered by date" });
     }

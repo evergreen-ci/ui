@@ -3,9 +3,9 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import pluralize from "pluralize";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { StyledRouterLink } from "components/styles";
 import {
   InputFilterProps,
   getColumnSearchFilterProps,

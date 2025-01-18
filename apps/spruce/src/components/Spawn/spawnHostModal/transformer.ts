@@ -95,6 +95,5 @@ export const formToGql = ({
     spawnHostsStartedByTask: !!(
       loadData?.loadDataOntoHostAtStartup && loadData?.startHosts
     ),
-    taskSync: !!(loadData?.loadDataOntoHostAtStartup && loadData?.taskSync),
   };
 };

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import { StyledRouterLink } from "components/styles";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getVariantHistoryRoute } from "constants/routes";
 import { StatusCount } from "gql/generated/types";

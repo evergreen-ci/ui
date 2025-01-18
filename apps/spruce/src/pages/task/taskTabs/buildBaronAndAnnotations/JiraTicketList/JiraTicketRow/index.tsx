@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useAnnotationAnalytics } from "analytics";
-import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { TicketFields } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";

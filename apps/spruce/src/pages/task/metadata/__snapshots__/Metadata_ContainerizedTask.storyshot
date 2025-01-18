@@ -26,7 +26,7 @@
         </b>
          
         <a
-          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
           data-cy="build-variant-link"
           href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=%5Eubuntu1604%24"
         >
@@ -46,7 +46,7 @@
         </b>
          
         <a
-          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
           data-cy="project-link"
           href="/project/spruce/patches"
         >
@@ -150,7 +150,7 @@
         </b>
          
         <a
-          class="lg-ui-0001 css-1gw3cuq-StyledLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
           data-cy="task-pod-link"
           href="/container/pod_id"
           target="_self"

@@ -6,9 +6,9 @@ interface TaskStatusCheckboxContainerProps {
   selectedTasks: selectedStrings;
   tasks: {
     id: string;
-    status: string;
     baseStatus?: string;
     displayName: string;
+    displayStatus: string;
   }[];
   toggleSelectedTask: (taskIds: { [patchId: string]: string }) => void;
   versionId: string;
@@ -24,7 +24,7 @@ export const TaskStatusCheckboxContainer: React.FC<
     <Virtuoso
       data={tasks}
       itemContent={(_idx, task) => {
-        const { baseStatus, displayName, id: taskId, status } = task;
+        const { baseStatus, displayName, displayStatus, id: taskId } = task;
         const checked = !!selectedTasks[taskId];
         return (
           <TaskStatusCheckbox
@@ -37,7 +37,7 @@ export const TaskStatusCheckboxContainer: React.FC<
                 toggleSelectedTask({ [versionId]: taskId });
               }
             }}
-            status={status}
+            status={displayStatus}
             taskId={taskId}
           />
         );

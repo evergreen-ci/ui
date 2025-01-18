@@ -70,8 +70,8 @@ type task = {
   id: string;
   baseStatus?: string;
   displayName: string;
+  displayStatus: string;
   execution: number;
-  status: string;
 };
 
 type ChildVersions = {
@@ -147,8 +147,7 @@ export const useVersionTaskStatusSelect = (
           reduceBuildVariants({
             parentTasksChanged:
               versionBuildVariants !== prevVersionBuildVariants,
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            buildVariants: cv.buildVariants,
+            buildVariants: cv.buildVariants ?? [],
             versionStatusFilterTerm: versionStatusFilterTerm[childId],
             baseStatusFilterTerm: baseStatusFilterTerm[childId],
             selectedTasks: selectedTasks[childId],
@@ -217,15 +216,18 @@ const reduceBuildVariants = (filterDetails: reduceInput) => {
   // if 1 of the 2 filters is empty, ignore the empty filter
   const hasFilter =
     !!versionStatusFilterTerm?.length || !!baseStatusFilterTerm?.length;
+
   const hasStatus = (status: string) =>
     versionStatusFilterTerm?.length ? statuses.has(status) : true;
 
-  const hasBaseStatus = (status: string) =>
+  const hasBaseStatus = (status?: string) =>
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
     baseStatusFilterTerm?.length ? baseStatuses.has(status) : true;
 
   const isSelected = (task: task) =>
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    hasFilter && hasStatus(task.status) && hasBaseStatus(task.baseStatus);
+    hasFilter &&
+    hasStatus(task.displayStatus) &&
+    hasBaseStatus(task.baseStatus);
 
   if (versionStatusFilterTerm || baseStatusFilterTerm || parentTasksChanged) {
     // @ts-expect-error: FIXME. This comment was added by an automated script.

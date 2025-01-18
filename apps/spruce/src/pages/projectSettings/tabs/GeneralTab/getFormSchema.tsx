@@ -1,7 +1,7 @@
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { StyledLink } from "components/styles";
 import { versionControlDocumentationUrl } from "constants/externalResources";
 import { form, ProjectType } from "../utils";
 import {
@@ -208,30 +208,6 @@ export const getFormSchema = (
               },
             },
           },
-          taskSync: {
-            type: "object" as "object",
-            title: "Task Sync",
-            properties: {
-              configEnabled: {
-                type: ["boolean", "null"],
-                title: "Project Config Commands",
-                oneOf: radioBoxOptions(
-                  ["Enabled", "Disabled"],
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  repoData?.projectFlags?.taskSync.configEnabled,
-                ),
-              },
-              patchEnabled: {
-                type: ["boolean", "null"],
-                title: "Task in Patches",
-                oneOf: radioBoxOptions(
-                  ["Enabled", "Disabled"],
-                  // @ts-expect-error: FIXME. This comment was added by an automated script.
-                  repoData?.projectFlags?.taskSync.patchEnabled,
-                ),
-              },
-            },
-          },
         },
       },
       historicalTaskDataCaching: {
@@ -390,18 +366,6 @@ export const getFormSchema = (
         patchingDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:showLabel": false,
-        },
-      },
-      taskSync: {
-        configEnabled: {
-          "ui:widget": widgets.RadioBoxWidget,
-          "ui:description":
-            "Enable commands (e.g. s3.push, s3.pull) to sync the task directory in S3 from the config file.",
-        },
-        patchEnabled: {
-          "ui:widget": widgets.RadioBoxWidget,
-          "ui:description":
-            "Users can create patches that sync the task directory to S3 at the end of any task.",
         },
       },
     },

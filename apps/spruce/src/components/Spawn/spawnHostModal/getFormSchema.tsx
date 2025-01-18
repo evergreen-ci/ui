@@ -1,8 +1,10 @@
 import { css } from "@emotion/react";
 import { InlineCode } from "@leafygreen-ui/typography";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
+import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import {
   MyPublicKeysQuery,
   SpawnTaskQuery,
@@ -63,7 +65,6 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => {
   const {
     buildVariant,
-    canSync,
     displayName: taskDisplayName,
     project,
     revision,
@@ -178,6 +179,9 @@ export const getFormSchema = ({
                     defineSetupScriptCheckbox: {
                       enum: [true],
                     },
+                    warningBanner: {
+                      type: "null" as "null",
+                    },
                     setupScript: {
                       title: "Setup Script",
                       type: "string" as "string",
@@ -218,10 +222,6 @@ export const getFormSchema = ({
                       runProjectSpecificSetupScript: {
                         type: "boolean" as "boolean",
                         title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
-                      },
-                      taskSync: {
-                        type: "boolean" as "boolean",
-                        title: "Load from task sync",
                       },
                       startHosts: {
                         type: "boolean" as "boolean",
@@ -365,6 +365,22 @@ export const getFormSchema = ({
           "ui:disabled": useProjectSetupScript,
           "ui:data-cy": "setup-script-checkbox",
         },
+        warningBanner: {
+          "ui:showLabel": false,
+          "ui:warnings": [
+            <>
+              This script is not guaranteed to run or succeed upon host startup.
+              Consider opting into{" "}
+              <StyledRouterLink
+                to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
+              >
+                “Spawn host outcome” notifications
+              </StyledRouterLink>{" "}
+              to monitor the state of setup scripts. If further investigation is
+              required, details can be found in the host&apos;s logs.
+            </>,
+          ],
+        },
         setupScript: {
           "ui:widget": LeafyGreenTextArea,
           "ui:elementWrapperCSS": textAreaWrapperClassName,
@@ -395,11 +411,6 @@ export const getFormSchema = ({
                 : "hidden",
             "ui:disabled": useSetupScript,
             "ui:data-cy": "project-setup-script-checkbox",
-            "ui:elementWrapperCSS": childCheckboxCSS,
-          },
-          taskSync: {
-            "ui:widget":
-              hasValidTask && canSync ? widgets.CheckboxWidget : "hidden",
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
           startHosts: {

@@ -69,12 +69,6 @@ export const gqlToForm = ((data, options = {}) => {
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         patchingDisabled: projectRef.patchingDisabled,
       },
-      taskSync: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        configEnabled: projectRef.taskSync.configEnabled,
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        patchEnabled: projectRef.taskSync.patchEnabled,
-      },
     },
     historicalTaskDataCaching: {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -118,10 +112,6 @@ export const formToGql = ((
     stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
     stepbackBisect: projectFlags.scheduling.stepbackBisection,
     patchingDisabled: projectFlags.patch.patchingDisabled,
-    taskSync: {
-      configEnabled: projectFlags.taskSync.configEnabled,
-      patchEnabled: projectFlags.taskSync.patchEnabled,
-    },
     disabledStatsCache,
   };
 

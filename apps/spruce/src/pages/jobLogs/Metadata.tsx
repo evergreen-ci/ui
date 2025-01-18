@@ -1,3 +1,4 @@
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useJobLogsAnalytics } from "analytics";
 import {
   MetadataCard,
@@ -5,7 +6,6 @@ import {
   MetadataLabel,
   MetadataTitle,
 } from "components/MetadataCard";
-import { StyledLink } from "components/styles";
 import { JobLogsMetadata } from "./types";
 
 export const Metadata: React.FC<{
