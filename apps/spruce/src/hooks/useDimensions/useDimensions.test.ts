@@ -45,9 +45,9 @@ describe("useDimensions", () => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       listener([
         {
-          contentRect: {
-            width: 200,
-            height: 200,
+          target: {
+            clientWidth: 200,
+            clientHeight: 200,
           },
         },
       ]);
@@ -68,9 +68,9 @@ describe("useDimensions", () => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       listener([
         {
-          contentRect: {
-            width: 200,
-            height: 200,
+          target: {
+            clientWidth: 200,
+            clientHeight: 200,
           },
         },
       ]);
@@ -85,9 +85,9 @@ describe("useDimensions", () => {
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       listener([
         {
-          contentRect: {
-            width: 100,
-            height: 100,
+          target: {
+            clientWidth: 100,
+            clientHeight: 100,
           },
         },
       ]);
