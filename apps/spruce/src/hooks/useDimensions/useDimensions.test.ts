@@ -23,7 +23,6 @@ describe("useDimensions", () => {
   });
 
   it("validate default value", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const { result } = renderHook(() => useDimensions({ current: null }));
     expect(result.current).toMatchObject({
       width: 0,
@@ -32,7 +31,6 @@ describe("useDimensions", () => {
   });
 
   it("synchronously sets up ResizeObserver listener", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     renderHook(() => useDimensions({ current: null }));
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     expect(typeof listener).toBe("function");

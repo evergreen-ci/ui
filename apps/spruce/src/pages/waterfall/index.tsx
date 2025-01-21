@@ -8,7 +8,7 @@ import { useWaterfallAnalytics } from "analytics";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
-import { navBarHeight } from "components/Header/Navbar";
+import { navBarHeight } from "components/styles/Layout";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { fromZonedTime } from "date-fns-tz";
+import { size } from "@evg-ui/lib/constants/tokens";
 import {
   DEFAULT_POLL_INTERVAL,
   WATERFALL_PINNED_VARIANTS_KEY,
@@ -18,6 +19,7 @@ import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
+import { BuildVariantProvider } from "./BuildVariantContext";
 import { VERSION_LIMIT } from "./constants";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import {
@@ -102,9 +104,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   }, [setPagination, data.waterfall.pagination]);
 
   const refEl = useRef<HTMLDivElement>(null);
-  const { height } = useDimensions(
-    refEl as React.MutableRefObject<HTMLElement>,
-  );
+  const { height } = useDimensions<HTMLDivElement>(refEl);
 
   const { activeVersionIds, buildVariants, versions } = useFilters({
     buildVariants: data.waterfall.buildVariants,
@@ -116,7 +116,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   return (
     <Container ref={refEl}>
-      <Row>
+      <StickyHeader>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }) =>
@@ -139,23 +139,34 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
             ),
           )}
         </Versions>
-      </Row>
-      {buildVariants.map((b) => (
-        <BuildRow
-          key={b.id}
-          build={b}
-          handlePinClick={handlePinBV(b.id)}
-          lastActiveVersionId={lastActiveVersionId}
-          pinned={pins.includes(b.id)}
-          projectIdentifier={projectIdentifier}
-          versions={versions}
-        />
-      ))}
+      </StickyHeader>
+      <BuildVariantProvider>
+        {buildVariants.map((b) => (
+          <BuildRow
+            key={b.id}
+            build={b}
+            handlePinClick={handlePinBV(b.id)}
+            lastActiveVersionId={lastActiveVersionId}
+            pinned={pins.includes(b.id)}
+            projectIdentifier={projectIdentifier}
+            versions={versions}
+          />
+        ))}
+      </BuildVariantProvider>
     </Container>
   );
 };
 
 const Container = styled.div``;
+
+const StickyHeader = styled(Row)`
+  position: sticky;
+  top: -${size.m};
+  z-index: 1;
+
+  background: white;
+  padding: ${size.xs} 0;
+`;
 
 const Versions = styled.div`
   ${gridGroupCss}
