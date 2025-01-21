@@ -6,15 +6,15 @@ import { WaterfallVersionFragment } from "gql/generated/types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
 
 type Props = {
+  highlightedIndex: number | undefined;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   versions: WaterfallVersionFragment[];
-  revisionFilter: string | null;
 };
 
 export const InactiveVersionsModal: React.FC<Props> = ({
+  highlightedIndex,
   open,
-  revisionFilter,
   setOpen,
   versions,
 }) => {
@@ -28,12 +28,10 @@ export const InactiveVersionsModal: React.FC<Props> = ({
       setOpen={setOpen}
       title={`${versions?.length} ${hasUnmatchingVersions ? "Unmatching" : "Inactive"} ${pluralize("Version", versions?.length)}`}
     >
-      {versions?.map((version) => (
+      {versions?.map((version, i) => (
         <StyledVersionLabel
           key={version.id}
-          highlighted={
-            revisionFilter !== null && version.revision.includes(revisionFilter)
-          }
+          highlighted={highlightedIndex === i}
           shouldDisableText={hasUnmatchingVersions}
           view={VersionLabelView.Modal}
           {...version}
