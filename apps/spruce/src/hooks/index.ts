@@ -31,3 +31,4 @@ export {
   useUserBetaFeatures,
   useMergedBetaFeatures,
 } from "./useBetaFeatures";
+export { useHeaderScroll } from "./useHeaderScroll";

@@ -1,17 +1,8 @@
-import { act, renderHook, render } from "@evg-ui/lib/test_utils";
+import { renderHook, render } from "@evg-ui/lib/test_utils";
+import { scrollPage } from "hooks/test-utils";
 import { useTopmostVisibleElement } from ".";
 
 describe("useTopmostVisibleElement", () => {
-  const scrollPage = (scrollContainerId: string, height: number) => {
-    act(() => {
-      const scrollElement = document.getElementById(
-        scrollContainerId,
-      ) as HTMLElement;
-      scrollElement.scrollTop = height;
-      scrollElement.dispatchEvent(new window.Event("scroll"));
-    });
-  };
-
   it("should correctly detect the topmost visible element", async () => {
     const scrollContainerId = "scroll-container-id";
 

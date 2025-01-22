@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { fromZonedTime } from "date-fns-tz";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import {
   DEFAULT_POLL_INTERVAL,
   WATERFALL_PINNED_VARIANTS_KEY,
@@ -34,11 +34,13 @@ import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
+  atTop: boolean;
   projectIdentifier: string;
   setPagination: (pagination: WaterfallPagination) => void;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
+  atTop,
   projectIdentifier,
   setPagination,
 }) => {
@@ -116,7 +118,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   return (
     <Container ref={refEl}>
-      <StickyHeader>
+      <StickyHeader atTop={atTop}>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
           {versions.map(({ inactiveVersions, version }) =>
@@ -159,13 +161,18 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
 const Container = styled.div``;
 
-const StickyHeader = styled(Row)`
+const StickyHeader = styled(Row)<{ atTop: boolean }>`
   position: sticky;
   top: -${size.m};
   z-index: 1;
 
   background: white;
   padding: ${size.xs} 0;
+  ${({ atTop }) =>
+    atTop
+      ? "box-shadow: unset"
+      : "box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.5); "}
+  transition: box-shadow ${transitionDuration.default}ms ease-in-out;
 `;
 
 const Versions = styled.div`
