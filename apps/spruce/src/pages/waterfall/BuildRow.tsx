@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
+import { spacing } from "@leafygreen-ui/tokens";
 import { Link } from "react-router-dom";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
@@ -175,9 +176,10 @@ const BuildGrid: React.FC<{
   );
 };
 
-const squareWithBorder = SQUARE_SIZE + 2;
-const containerPadding = 16 + 2;
-const containerBorder = 2;
+const padding = spacing[200];
+const border = 1;
+const squareWithBorder = SQUARE_SIZE + border * 2;
+const containerWithPaddingAndBorder = padding * 2 + border * 2;
 
 const calculateBuildVariantHeight = ({
   builds,
@@ -189,14 +191,14 @@ const calculateBuildVariantHeight = ({
   const numTasks = Math.max(...builds.map((b) => b.tasks.length));
   const numSquaresInRow = Math.floor(columnWidth / squareWithBorder);
   const numRows = Math.ceil(numTasks / numSquaresInRow);
-  return numRows * squareWithBorder + containerPadding + containerBorder;
+  return numRows * squareWithBorder + containerWithPaddingAndBorder;
 };
 
 const buildGroupCss = css`
   ${gridGroupCss}
-  border: 1px solid ${gray.light2};
+  border: ${border}px solid ${gray.light2};
   border-radius: ${size.xs};
-  padding: ${size.xs};
+  padding: ${padding}px;
 `;
 
 const BuildContainer = styled.div`
