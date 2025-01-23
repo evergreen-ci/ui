@@ -1,5 +1,6 @@
 import { useTransition } from "react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { Requester, requesterToTitle } from "constants/requesters";
 import { useQueryParam } from "hooks/useQueryParam";
@@ -37,6 +38,7 @@ export const RequesterFilter = () => {
       onChange={handleChange}
       overflow="scroll-x"
       placeholder="Displaying all requesters"
+      popoverZIndex={zIndex.popover}
     >
       {commitRequesters.map((requester) => (
         <ComboboxOption

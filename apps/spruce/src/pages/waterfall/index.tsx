@@ -1,4 +1,4 @@
-import { Suspense, useState, useTransition } from "react";
+import { Suspense, useRef, useState, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
@@ -8,10 +8,10 @@ import { useWaterfallAnalytics } from "analytics";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
-import { navBarHeight } from "components/Header/Navbar";
+import { navBarHeight } from "components/styles/Layout";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
-import { useSpruceConfig } from "hooks";
+import { useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { WaterfallFilterOptions } from "./types";
@@ -33,10 +33,13 @@ const Waterfall: React.FC = () => {
 
   const [pagination, setPagination] = useState<WaterfallPagination>();
 
+  const pageWrapperRef = useRef<HTMLDivElement>(null);
+  const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
+
   return (
     <>
       <Global styles={navbarStyles} />
-      <PageContainer data-cy="waterfall-page">
+      <PageContainer ref={pageWrapperRef} data-cy="waterfall-page">
         {isBeta() && (
           <Banner>
             <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
@@ -65,6 +68,7 @@ const Waterfall: React.FC = () => {
           <WaterfallErrorBoundary projectIdentifier={projectIdentifier ?? ""}>
             <WaterfallGrid
               key={projectIdentifier}
+              atTop={atTop}
               projectIdentifier={projectIdentifier ?? ""}
               setPagination={setPagination}
             />
