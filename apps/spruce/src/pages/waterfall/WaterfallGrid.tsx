@@ -180,11 +180,12 @@ const StickyHeader = styled(Row)<{ atTop: boolean }>`
   z-index: 1;
 
   background: white;
-  padding: ${size.xs} 0;
+  margin: 0 -${size.m};
+  padding: ${size.xs} ${size.m};
   ${({ atTop }) =>
     atTop
       ? "box-shadow: unset"
-      : "box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.5); "}
+      : "box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5); "}
   transition: box-shadow ${transitionDuration.default}ms ease-in-out;
 `;
 

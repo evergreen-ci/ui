@@ -49,6 +49,9 @@ const Container = styled.div<{ atTop: boolean }>`
   top: 0;
   z-index: 1;
 
-  ${({ atTop }) => !atTop && "box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.5); "}
+  ${({ atTop }) =>
+    atTop
+      ? "box-shadow: unset"
+      : "box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.5); "}
   transition: box-shadow ${transitionDuration.default}ms ease-in-out;
 `;

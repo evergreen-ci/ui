@@ -1,12 +1,11 @@
 import { useRef, useState } from "react";
-import { Theme } from "@emotion/react";
-import { Interpolation } from "@emotion/styled";
+import { SerializedStyles } from "@emotion/react";
 import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 interface VisibilityContainerProps {
   children: React.ReactNode;
   "data-cy"?: string;
-  containerCss?: Interpolation<Theme>;
+  containerCss?: SerializedStyles;
   offset?: number;
 }
 /**

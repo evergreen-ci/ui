@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useState } from "react";
 import throttle from "lodash.throttle";
 
-export const useHeaderScroll = (
+export const useIsScrollAtTop = (
   pageWrapperRef: RefObject<HTMLElement>,
   scrollOffset: number,
 ) => {

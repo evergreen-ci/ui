@@ -68,7 +68,7 @@ export const BuildRow: React.FC<Props> = ({
 
   useEffect(() => {
     if (columnWidth !== 0) {
-      const bvContainerHeight = calculateBuildVariantHeight({
+      const bvContainerHeight = calculateBVContainerHeight({
         builds,
         columnWidth,
       });
@@ -179,9 +179,9 @@ const BuildGrid: React.FC<{
 const padding = spacing[200];
 const border = 1;
 const squareWithBorder = SQUARE_SIZE + border * 2;
-const containerWithPaddingAndBorder = padding * 2 + border * 2;
+const containerPaddingAndBorder = padding * 2 + border * 2;
 
-const calculateBuildVariantHeight = ({
+const calculateBVContainerHeight = ({
   builds,
   columnWidth,
 }: {
@@ -191,7 +191,7 @@ const calculateBuildVariantHeight = ({
   const numTasks = Math.max(...builds.map((b) => b.tasks.length));
   const numSquaresInRow = Math.floor(columnWidth / squareWithBorder);
   const numRows = Math.ceil(numTasks / numSquaresInRow);
-  return numRows * squareWithBorder + containerWithPaddingAndBorder;
+  return numRows * squareWithBorder + containerPaddingAndBorder;
 };
 
 const buildGroupCss = css`

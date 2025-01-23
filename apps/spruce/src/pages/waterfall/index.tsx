@@ -11,7 +11,7 @@ import FilterBadges, {
 import { navBarHeight } from "components/styles/Layout";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
-import { useHeaderScroll, useSpruceConfig } from "hooks";
+import { useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { WaterfallFilterOptions } from "./types";
@@ -34,7 +34,7 @@ const Waterfall: React.FC = () => {
   const [pagination, setPagination] = useState<WaterfallPagination>();
 
   const pageWrapperRef = useRef<HTMLDivElement>(null);
-  const { atTop } = useHeaderScroll(pageWrapperRef, 200);
+  const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
 
   return (
     <>

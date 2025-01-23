@@ -29,7 +29,7 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
-import { useHeaderScroll, usePageTitle } from "hooks";
+import { useIsScrollAtTop, usePageTitle } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { validators } from "utils";
 import { ProjectSettingsProvider } from "./Context";
@@ -52,7 +52,7 @@ const ProjectSettings: React.FC = () => {
     }>();
 
   const pageWrapperRef = useRef<HTMLDivElement>(null);
-  const { atTop } = useHeaderScroll(pageWrapperRef, 40);
+  const { atTop } = useIsScrollAtTop(pageWrapperRef, 40);
 
   // If the path includes an Object ID, this page could either be a project or a repo if it is a project we should redirect the user so that they use the identifier.
   // @ts-expect-error: FIXME. This comment was added by an automated script.
