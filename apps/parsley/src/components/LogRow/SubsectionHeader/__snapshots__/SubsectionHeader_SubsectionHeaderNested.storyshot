@@ -4,7 +4,7 @@
   >
     <div
       aria-expanded="true"
-      class="css-17akayz-subsectionHeaderWrapperStyle"
+      class="css-yuarjm-subsectionHeaderWrapperStyle"
       data-cy="section-header"
     >
       <button
@@ -19,7 +19,7 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1oyg0iq0"
+            class="leafygreen-ui-jc2z8v css-1nnmq72-AnimatedIcon e1oyg0iq0"
             fill="none"
             height="16"
             open=""
@@ -49,7 +49,7 @@
     </div>
     <div
       aria-expanded="false"
-      class="css-17akayz-subsectionHeaderWrapperStyle"
+      class="css-yuarjm-subsectionHeaderWrapperStyle"
       data-cy="section-header"
     >
       <button
@@ -64,7 +64,7 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-1tcwy66-AnimatedIcon e1oyg0iq0"
+            class="leafygreen-ui-jc2z8v css-1p6uy3q-AnimatedIcon e1oyg0iq0"
             fill="none"
             height="16"
             role="img"
@@ -110,7 +110,7 @@
     </div>
     <div
       aria-expanded="true"
-      class="css-17akayz-subsectionHeaderWrapperStyle"
+      class="css-yuarjm-subsectionHeaderWrapperStyle"
       data-cy="section-header"
     >
       <button
@@ -125,7 +125,7 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1oyg0iq0"
+            class="leafygreen-ui-jc2z8v css-1nnmq72-AnimatedIcon e1oyg0iq0"
             fill="none"
             height="16"
             open=""

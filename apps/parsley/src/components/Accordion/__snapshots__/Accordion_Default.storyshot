@@ -1,14 +1,14 @@
 <div>
   <div>
     <div
-      class="css-vntv7t-AccordionToggle e1bamyem4"
+      class="css-uk0nx5-AccordionToggle e1bamyem4"
       data-cy="accordion-toggle"
       role="button"
     >
       <button
         aria-disabled="false"
         aria-labelledby="Expand or collapse filter"
-        class="css-lltsma-AccordionIcon e1bamyem3 leafygreen-ui-tcjr3n"
+        class="css-pu569a-AccordionIcon e1bamyem3 leafygreen-ui-tcjr3n"
         tabindex="0"
       >
         <div
@@ -38,18 +38,18 @@
       </span>
     </div>
     <div
-      class="css-6lu23-SubtitleContainer e1bamyem0"
+      class="css-199jjcz-SubtitleContainer e1bamyem0"
     >
       Subtitle
     </div>
     <div
       aria-expanded="false"
-      class="css-157mz43-AnimatedAccordion e1bamyem2"
+      class="css-1ot9x1q-AnimatedAccordion e1bamyem2"
       data-cy="accordion-collapse-container"
       height="0"
     >
       <div
-        class="css-1nylm8s-ContentsContainer e1bamyem1"
+        class="css-hknb35-ContentsContainer e1bamyem1"
       >
         Accordion content
       </div>
