@@ -13,7 +13,7 @@ const calculateRouteName = (pathName: string, routeConfig: RouteConfig) => {
   if (matchedRoute) {
     return {
       name: matchedRoute[0],
-      path: matchedRoute[1],
+      route: matchedRoute[1],
     };
   }
   return undefined;

@@ -7,10 +7,10 @@ describe("calculateRouteName", () => {
     contact: "/contact",
   };
 
-  it("should return the route name and path for a matching route", () => {
+  it("should return the route name and route for a matching route", () => {
     const pathName = "/about";
     const result = calculateRouteName(pathName, routeConfig);
-    expect(result).toEqual({ name: "about", path: "/about" });
+    expect(result).toEqual({ name: "about", route: "/about" });
   });
 
   it("should return undefined for a non-matching route", () => {
@@ -19,10 +19,10 @@ describe("calculateRouteName", () => {
     expect(result).toBeUndefined();
   });
 
-  it("should return the route name and path for the root route", () => {
+  it("should return the route name and route for the root route", () => {
     const pathName = "/";
     const result = calculateRouteName(pathName, routeConfig);
-    expect(result).toEqual({ name: "home", path: "/" });
+    expect(result).toEqual({ name: "home", route: "/" });
   });
 
   it("should return undefined for an empty path name", () => {

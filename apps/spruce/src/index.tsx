@@ -22,9 +22,7 @@ initializeHoneycomb({
   backendURL: toEscapedRegex(getUiUrl() || ""),
   serviceName: "spruce",
   environment: getReleaseStage(),
-  routeMatchConfig: {
-    routeConfig: routes,
-  },
+  routeConfig: routes,
 });
 injectOpenTelemetryAttributeStoreIntoWindow();
 
