@@ -59,7 +59,6 @@ const columns: LGColumnDef<TaskBuildVariantField>[] = [
         data-cy="failed-test-group-parsley-btn"
         href={row.original.logs.urlParsley}
         size="xsmall"
-        target="_blank"
       >
         Parsley
       </Button>

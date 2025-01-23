@@ -111,7 +111,6 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                     "log.viewer": "parsley",
                   })
                 }
-                target="_blank"
                 title="High-powered log viewer"
               >
                 Parsley
@@ -129,7 +128,6 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                     "log.viewer": "html",
                   })
                 }
-                target="_blank"
                 title="Plain, colorized log viewer"
               >
                 HTML
@@ -147,7 +145,6 @@ export const Logs: React.FC<Props> = ({ execution, logLinks, taskId }) => {
                     "log.viewer": "raw",
                   })
                 }
-                target="_blank"
                 title="Plain text log viewer"
               >
                 Raw

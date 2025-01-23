@@ -43,12 +43,7 @@ const columns = [
         original: { diffLink },
       },
     }) => (
-      <StyledLink
-        data-cy="fileLink"
-        href={diffLink}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
+      <StyledLink data-cy="fileLink" href={diffLink}>
         <WordBreak>{getValue()}</WordBreak>
       </StyledLink>
     ),

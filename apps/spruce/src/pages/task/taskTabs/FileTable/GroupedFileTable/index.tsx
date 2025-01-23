@@ -35,7 +35,6 @@ const columns = (
                 "file.name": fileName,
               });
             }}
-            target="_blank"
           >
             {fileName}
           </StyledLink>
@@ -55,7 +54,6 @@ const columns = (
                   });
                 }}
                 size="small"
-                target="_blank"
               >
                 Parsley
               </Button>
