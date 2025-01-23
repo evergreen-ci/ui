@@ -26,6 +26,7 @@ export const BuildVariantTitle = styled.div`
   flex-grow: 0;
   flex-shrink: 0;
   gap: ${size.xxs};
+  height: min-content;
   width: ${BUILD_VARIANT_WIDTH}px;
 `;
 
