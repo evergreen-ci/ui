@@ -20,5 +20,5 @@ For staging and beta environments, run the corresponding deploy task in an Everg
 ### How to Deploy a profiling build:
 For profiling builds, add the following expansion to the Evergreen patch during configuration:
 ```
-profile: true
+profiler: true
 ```
