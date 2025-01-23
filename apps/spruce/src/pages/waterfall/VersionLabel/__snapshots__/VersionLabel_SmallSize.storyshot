@@ -3,11 +3,11 @@
     class="css-1pp2qz6"
   >
     <div
-      class="css-18xyb07-VersionContainer-columnBasis-wordBreakCss e3zirl03"
+      class="css-osq7c1-VersionContainer-columnBasis-wordBreakCss e3zirl03"
       data-cy="version-label-active"
     >
       <div
-        class="css-1idzah1-HeaderLine e3zirl00"
+        class="css-1fv13mo-HeaderLine e3zirl00"
       >
         <p
           class="leafygreen-ui-1tb6tuo"
@@ -27,7 +27,7 @@
         </p>
       </div>
       <p
-        class="css-69ll71-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
+        class="css-hfvu0p-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"
         title="DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)"
         view="waterfall"
       >

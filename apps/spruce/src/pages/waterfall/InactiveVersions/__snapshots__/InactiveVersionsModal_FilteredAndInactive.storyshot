@@ -3,10 +3,10 @@
     class="css-ov1ktg"
   >
     <div
-      class="css-1wl27xf-InactiveVersion e1i0zkr30"
+      class="css-q6j0j4-InactiveVersion e1i0zkr30"
     >
       <div
-        class="css-104hg2i-StyledBadge e19pzgwa0 leafygreen-ui-dhdzha"
+        class="css-l8k0mo-StyledBadge e19pzgwa0 leafygreen-ui-dhdzha"
         data-cy="broken-versions-badge"
       >
         2
@@ -15,7 +15,7 @@
       <button
         aria-disabled="false"
         aria-label="Open inactive versions modal"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw css-15z0v9f-StyledButton e19pzgwa2"
+        class="lg-ui-button-0000 leafygreen-ui-168frnw css-1v5v6pi-StyledButton e19pzgwa2"
         data-cy="inactive-versions-button"
         data-lgid="lg-button"
         type="button"
@@ -44,7 +44,7 @@
           </svg>
           6
           <div
-            class="css-1twzd73-InactiveVersionLine e19pzgwa1"
+            class="css-hqv5at-InactiveVersionLine e19pzgwa1"
           />
         </div>
       </button>

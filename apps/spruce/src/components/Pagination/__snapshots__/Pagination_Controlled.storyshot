@@ -4,12 +4,12 @@
     2
   </p>
   <div
-    class="css-o7pwgi-Container e4w46hm0"
+    class="css-1vry8lp-Container e4w46hm0"
     data-cy="pagination"
   >
     <button
       aria-disabled="false"
-      class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-mze5ol-StyledButton e4w46hm2"
+      class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-3gi6g6-StyledButton e4w46hm2"
       data-cy="prev-page-button"
       data-lgid="lg-button"
       type="button"
@@ -40,7 +40,7 @@
       </div>
     </button>
     <div
-      class="css-ob08n2-PageLabel e4w46hm1"
+      class="css-haoc91-PageLabel e4w46hm1"
     >
       <small
         class="leafygreen-ui-6flbwy"
@@ -52,7 +52,7 @@
     </div>
     <button
       aria-disabled="false"
-      class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-mze5ol-StyledButton e4w46hm2"
+      class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-3gi6g6-StyledButton e4w46hm2"
       data-cy="next-page-button"
       data-lgid="lg-button"
       type="button"
