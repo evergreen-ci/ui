@@ -16,8 +16,8 @@ class ReactRouterSpanProcessor implements SpanProcessor {
       this.routeConfig,
     );
     if (matchedRoute) {
-      span.setAttribute("router.route_name", matchedRoute.name);
-      span.setAttribute("router.route", matchedRoute.route);
+      span.setAttribute("page.route_name", matchedRoute.name);
+      span.setAttribute("page.route", matchedRoute.route);
     }
   }
 
