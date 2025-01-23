@@ -1,5 +1,5 @@
 import { matchPath } from "react-router-dom";
-import { RouteConfig } from "../types";
+import { RouteConfig } from "./types";
 /**
  * `calculateRouteName` is a utility function that calculates the route name of a request based on the path name and the list of react router routes.
  * @param pathName - The path name of the request

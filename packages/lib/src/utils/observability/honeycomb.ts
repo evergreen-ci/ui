@@ -3,9 +3,8 @@ import {
   getWebAutoInstrumentations,
   InstrumentationConfigMap,
 } from "@opentelemetry/auto-instrumentations-web";
-import { InstrumentationBase } from "@opentelemetry/instrumentation";
-import { ReactRouterAutoInstrumentation } from "./ReactRouterAutoInstrumentation";
-import { RouteMatchConfig } from "./types";
+import ReactRouterSpanProcessor from "./ReactRouterSpanProcessor";
+import { RouteConfig } from "./ReactRouterSpanProcessor/types";
 import { detectGraphqlQuery } from "./utils";
 /**
  * Configuration object for the Honeycomb SDK.
@@ -24,7 +23,7 @@ interface HoneycombConfig {
   /** The environment we are running in */
   environment: string;
   /** A config representing all routes the app can have */
-  routeMatchConfig?: RouteMatchConfig;
+  routeConfig?: RouteConfig;
 }
 
 /**
@@ -36,7 +35,7 @@ interface HoneycombConfig {
  * @param config.serviceName - The name of the service.
  * @param config.endpoint - The endpoint for the Honeycomb SDK to send traces to if we are not using the default.
  * @param config.environment - The environment we are running in.
- * @param config.routeMatchConfig - A config representing all routes the app can have.
+ * @param config.routeConfig - A config representing all routes the app can have.
  */
 const initializeHoneycomb = ({
   backendURL,
@@ -44,7 +43,7 @@ const initializeHoneycomb = ({
   endpoint,
   environment,
   ingestKey,
-  routeMatchConfig,
+  routeConfig,
   serviceName,
 }: HoneycombConfig) => {
   if (debug && (!ingestKey || !endpoint)) {
@@ -88,21 +87,12 @@ const initializeHoneycomb = ({
           propagateTraceHeaderCorsUrls: [new RegExp(backendURL || "")],
         };
       }
-      let additionalInstrumentations: InstrumentationBase[] = [];
-      if (routeMatchConfig) {
-        additionalInstrumentations = [
-          new ReactRouterAutoInstrumentation({
-            routeConfig: routeMatchConfig.routeConfig,
-          }),
-        ];
-      }
 
       const honeycombSdk = new HoneycombWebSDK({
         debug,
         endpoint,
         instrumentations: [
           getWebAutoInstrumentations(webAutoInstrumentationConfig),
-          ...additionalInstrumentations,
         ],
         // Add user.id as an attribute to all traces.
         resourceAttributes: {
@@ -112,6 +102,9 @@ const initializeHoneycomb = ({
         localVisualizations: debug,
         serviceName,
         apiKey: ingestKey,
+        spanProcessor: routeConfig
+          ? new ReactRouterSpanProcessor(routeConfig)
+          : undefined,
       });
       honeycombSdk.start();
     } catch (e) {
