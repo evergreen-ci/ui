@@ -12,6 +12,7 @@ import {
   WaterfallPagination,
   WaterfallQuery,
   WaterfallQueryVariables,
+  WaterfallVersionFragment,
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
@@ -116,30 +117,42 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
+  const isHighlighted = (v: WaterfallVersionFragment, i: number) =>
+    (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
+
   return (
     <Container ref={refEl}>
       <StickyHeader atTop={atTop}>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
-          {versions.map(({ inactiveVersions, version }) =>
-            version ? (
-              <VersionLabel
-                highlighted={
-                  revision !== null && version.revision.includes(revision)
-                }
-                view={VersionLabelView.Waterfall}
-                {...version}
-                key={version.id}
-              />
-            ) : (
+          {versions.map(({ inactiveVersions, version }, versionIndex) => {
+            if (version) {
+              return (
+                <VersionLabel
+                  highlighted={isHighlighted(version, versionIndex)}
+                  view={VersionLabelView.Waterfall}
+                  {...version}
+                  key={version.id}
+                />
+              );
+            }
+            const highlightedIndex = inactiveVersions?.findIndex(
+              (inactiveVersion, i) => isHighlighted(inactiveVersion, i),
+            );
+            return (
               <InactiveVersion key={inactiveVersions?.[0].id}>
                 <InactiveVersionsButton
                   containerHeight={height}
+                  highlightedIndex={
+                    highlightedIndex !== undefined && highlightedIndex > -1
+                      ? highlightedIndex
+                      : undefined
+                  }
                   versions={inactiveVersions ?? []}
                 />
               </InactiveVersion>
-            ),
-          )}
+            );
+          })}
         </Versions>
       </StickyHeader>
       <BuildVariantProvider>

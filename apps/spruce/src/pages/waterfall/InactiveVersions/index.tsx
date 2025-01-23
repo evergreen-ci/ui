@@ -7,19 +7,19 @@ import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
 import { WaterfallVersionFragment } from "gql/generated/types";
-import { useQueryParam } from "hooks/useQueryParam";
-import { WaterfallFilterOptions } from "../types";
 import { InactiveVersionsModal } from "./InactiveVersionsModal";
 
 const { blue, gray } = palette;
 
 interface Props {
-  versions: WaterfallVersionFragment[];
   containerHeight: number | undefined;
+  highlightedIndex: number | undefined;
+  versions: WaterfallVersionFragment[];
 }
 
 export const InactiveVersionsButton: React.FC<Props> = ({
   containerHeight,
+  highlightedIndex,
   versions,
 }) => {
   const brokenVersionsCount =
@@ -28,19 +28,11 @@ export const InactiveVersionsButton: React.FC<Props> = ({
       0,
     ) ?? 0;
   const [modalOpen, setModalOpen] = useState(false);
-  const [revisionFilter] = useQueryParam<string | null>(
-    WaterfallFilterOptions.Revision,
-    null,
-  );
-  const hasMatchingVersion =
-    revisionFilter &&
-    versions?.some(({ revision }) => revision.includes(revisionFilter ?? ""));
-
   return (
     <>
       <InactiveVersionsModal
+        highlightedIndex={highlightedIndex}
         open={modalOpen}
-        revisionFilter={revisionFilter}
         setOpen={setModalOpen}
         versions={versions}
       />
@@ -57,7 +49,7 @@ export const InactiveVersionsButton: React.FC<Props> = ({
           setModalOpen(true);
         }}
         size="xsmall"
-        variant={hasMatchingVersion ? "primary" : "default"}
+        variant={highlightedIndex !== undefined ? "primary" : "default"}
       >
         {versions?.length}
         <InactiveVersionLine containerHeight={containerHeight ?? 0} />

@@ -135,6 +135,22 @@ declare global {
        */
       openExpandableCard(cardTitle: string): void;
       /**
+       * Command to validate date is correctly set in LeafyGreen DatePicker
+       * @param dataCy - element to target
+       * @param date - optional date to check, if omitted then validates the component is empty
+       * @param date.year - year of date, defaults to ""
+       * @param date.month - month of date, defaults to ""
+       * @param date.day - day of date, defaults to ""
+       */
+      validateDatePickerDate(
+        dataCy: string,
+        date?: {
+          year: string;
+          month: string;
+          day: string;
+        },
+      ): void;
+      /**
        * Command to validate sort is applied to table
        * @param direction - The direction of the sort that should be applied
        */

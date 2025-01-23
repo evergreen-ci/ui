@@ -35,6 +35,7 @@ export const getFormSchema = (
             isPrivate: {
               type: "boolean" as "boolean",
               title: "Private",
+              default: true,
             },
             isAdminOnly: {
               type: "boolean" as "boolean",
