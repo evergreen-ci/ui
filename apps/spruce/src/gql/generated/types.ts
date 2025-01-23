@@ -234,14 +234,12 @@ export type CommitQueueParams = {
   __typename?: "CommitQueueParams";
   enabled?: Maybe<Scalars["Boolean"]["output"]>;
   mergeMethod: Scalars["String"]["output"];
-  mergeQueue: MergeQueue;
   message: Scalars["String"]["output"];
 };
 
 export type CommitQueueParamsInput = {
   enabled?: InputMaybe<Scalars["Boolean"]["input"]>;
   mergeMethod?: InputMaybe<Scalars["String"]["input"]>;
-  mergeQueue?: InputMaybe<MergeQueue>;
   message?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -1154,11 +1152,6 @@ export type Manifest = {
   project: Scalars["String"]["output"];
   revision: Scalars["String"]["output"];
 };
-
-export enum MergeQueue {
-  Evergreen = "EVERGREEN",
-  Github = "GITHUB",
-}
 
 export enum MetStatus {
   Met = "MET",
@@ -2373,7 +2366,6 @@ export type RepoCommitQueueParams = {
   __typename?: "RepoCommitQueueParams";
   enabled: Scalars["Boolean"]["output"];
   mergeMethod: Scalars["String"]["output"];
-  mergeQueue: MergeQueue;
   message: Scalars["String"]["output"];
 };
 
@@ -3926,11 +3918,6 @@ export type ProjectGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled?: boolean | null;
   versionControlEnabled?: boolean | null;
-  taskSync: {
-    __typename?: "TaskSyncOptions";
-    configEnabled?: boolean | null;
-    patchEnabled?: boolean | null;
-  };
 };
 
 export type RepoGeneralSettingsFragment = {
@@ -3949,11 +3936,6 @@ export type RepoGeneralSettingsFragment = {
   stepbackBisect?: boolean | null;
   stepbackDisabled: boolean;
   versionControlEnabled: boolean;
-  taskSync: {
-    __typename?: "RepoTaskSyncOptions";
-    configEnabled: boolean;
-    patchEnabled: boolean;
-  };
 };
 
 export type ProjectGithubSettingsFragment = {
@@ -4095,11 +4077,6 @@ export type ProjectSettingsFieldsFragment = {
       memoryMb: number;
       name: string;
     }> | null;
-    taskSync: {
-      __typename?: "TaskSyncOptions";
-      configEnabled?: boolean | null;
-      patchEnabled?: boolean | null;
-    };
     banner?: {
       __typename?: "ProjectBanner";
       text: string;
@@ -4303,11 +4280,6 @@ export type RepoSettingsFieldsFragment = {
       memoryMb: number;
       name: string;
     }> | null;
-    taskSync: {
-      __typename?: "RepoTaskSyncOptions";
-      configEnabled: boolean;
-      patchEnabled: boolean;
-    };
     patchTriggerAliases?: Array<{
       __typename?: "PatchTriggerAlias";
       alias: string;
@@ -4744,11 +4716,6 @@ export type ProjectEventSettingsFragment = {
       name: string;
       permissions: { [key: string]: any };
     }>;
-    taskSync: {
-      __typename?: "TaskSyncOptions";
-      configEnabled?: boolean | null;
-      patchEnabled?: boolean | null;
-    };
     banner?: {
       __typename?: "ProjectBanner";
       text: string;
@@ -5997,9 +5964,9 @@ export type BuildVariantsWithChildrenQuery = {
         __typename?: "Task";
         baseStatus?: string | null;
         displayName: string;
+        displayStatus: string;
         execution: number;
         id: string;
-        status: string;
       }> | null;
     }> | null;
     childVersions?: Array<{
@@ -6015,9 +5982,9 @@ export type BuildVariantsWithChildrenQuery = {
           __typename?: "Task";
           baseStatus?: string | null;
           displayName: string;
+          displayStatus: string;
           execution: number;
           id: string;
-          status: string;
         }> | null;
       }> | null;
       generatedTaskCounts: Array<{
@@ -7311,11 +7278,6 @@ export type ProjectEventLogsQuery = {
             name: string;
             permissions: { [key: string]: any };
           }>;
-          taskSync: {
-            __typename?: "TaskSyncOptions";
-            configEnabled?: boolean | null;
-            patchEnabled?: boolean | null;
-          };
           banner?: {
             __typename?: "ProjectBanner";
             text: string;
@@ -7529,11 +7491,6 @@ export type ProjectEventLogsQuery = {
             name: string;
             permissions: { [key: string]: any };
           }>;
-          taskSync: {
-            __typename?: "TaskSyncOptions";
-            configEnabled?: boolean | null;
-            patchEnabled?: boolean | null;
-          };
           banner?: {
             __typename?: "ProjectBanner";
             text: string;
@@ -7826,11 +7783,6 @@ export type ProjectSettingsQuery = {
         memoryMb: number;
         name: string;
       }> | null;
-      taskSync: {
-        __typename?: "TaskSyncOptions";
-        configEnabled?: boolean | null;
-        patchEnabled?: boolean | null;
-      };
       banner?: {
         __typename?: "ProjectBanner";
         text: string;
@@ -8092,11 +8044,6 @@ export type RepoEventLogsQuery = {
             name: string;
             permissions: { [key: string]: any };
           }>;
-          taskSync: {
-            __typename?: "TaskSyncOptions";
-            configEnabled?: boolean | null;
-            patchEnabled?: boolean | null;
-          };
           banner?: {
             __typename?: "ProjectBanner";
             text: string;
@@ -8310,11 +8257,6 @@ export type RepoEventLogsQuery = {
             name: string;
             permissions: { [key: string]: any };
           }>;
-          taskSync: {
-            __typename?: "TaskSyncOptions";
-            configEnabled?: boolean | null;
-            patchEnabled?: boolean | null;
-          };
           banner?: {
             __typename?: "ProjectBanner";
             text: string;
@@ -8538,11 +8480,6 @@ export type RepoSettingsQuery = {
         memoryMb: number;
         name: string;
       }> | null;
-      taskSync: {
-        __typename?: "RepoTaskSyncOptions";
-        configEnabled: boolean;
-        patchEnabled: boolean;
-      };
       patchTriggerAliases?: Array<{
         __typename?: "PatchTriggerAlias";
         alias: string;
@@ -8733,7 +8670,6 @@ export type SpawnTaskQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    canSync: boolean;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;

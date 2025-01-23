@@ -1,4 +1,4 @@
-import { StyledLink } from "components/styles";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { getJiraSearchUrl } from "constants/externalResources";
 import { BuildBaron } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";

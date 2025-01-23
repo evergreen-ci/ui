@@ -9,6 +9,7 @@ export const wordBreakCss = css`
   overflow-wrap: anywhere;
 `;
 
-export const WordBreak = styled.span`
+export const WordBreak = styled.span<{ all?: boolean }>`
   ${wordBreakCss};
+  ${({ all }) => all && "overflow-wrap: anywhere; word-break: break-all;"}
 `;

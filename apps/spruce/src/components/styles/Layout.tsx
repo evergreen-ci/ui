@@ -5,6 +5,8 @@ import { size, fontSize } from "@evg-ui/lib/constants/tokens";
 
 const { gray, red } = palette;
 
+export const navBarHeight = size.xl;
+
 // Top-level layout for the entire site. Manages positioning of navbar.
 export const SiteLayout = styled.div`
   display: flex;
@@ -16,7 +18,7 @@ export const SiteLayout = styled.div`
 export const SideNavPageWrapper = styled.div`
   display: flex;
   overflow: hidden;
-  height: 100%;
+  height: calc(100vh - ${navBarHeight});
 `;
 export const SideNavPageContent = styled.div`
   overflow-x: hidden;

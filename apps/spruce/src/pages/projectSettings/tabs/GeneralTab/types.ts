@@ -32,10 +32,6 @@ export interface GeneralFormState {
     patch: {
       patchingDisabled: boolean | null;
     };
-    taskSync: {
-      configEnabled: boolean | null;
-      patchEnabled: boolean | null;
-    };
   };
   historicalTaskDataCaching: {
     disabledStatsCache: boolean | null;

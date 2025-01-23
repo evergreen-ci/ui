@@ -1,6 +1,6 @@
 import { Global } from "@emotion/react";
 import { Decorator } from "@storybook/react";
-import { globalStyles } from "../src/components/styles/GlobalStyles";
+import { globalStyles } from "components/styles";
 import { LogContextProvider } from "../src/context/LogContext";
 import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 

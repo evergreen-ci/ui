@@ -31,3 +31,4 @@ export {
   useUserBetaFeatures,
   useMergedBetaFeatures,
 } from "./useBetaFeatures";
+export { useIsScrollAtTop } from "./useIsScrollAtTop";

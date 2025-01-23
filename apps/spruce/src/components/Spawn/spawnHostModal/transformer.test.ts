@@ -88,7 +88,6 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
       useProjectSetupScript: false,
       setUpScript: "setup!!!",
       spawnHostsStartedByTask: false,
-      taskSync: false,
       sleepSchedule: null,
     },
   },
@@ -140,7 +139,6 @@ const data: Array<{ formData: FormState; mutationInput: SpawnHostInput }> = [
       useProjectSetupScript: false,
       setUpScript: null,
       spawnHostsStartedByTask: false,
-      taskSync: false,
       sleepSchedule: {
         dailyStartTime: "08:00",
         dailyStopTime: "20:00",

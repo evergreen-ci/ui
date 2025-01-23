@@ -39,10 +39,10 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     visibleColumns,
   } = useHistoryTable();
 
-  const ref = useRef<HTMLDivElement>(null);
   const listRef = useRef<VirtuosoHandle>(null);
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const size = useDimensions(ref);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const size = useDimensions<HTMLDivElement>(ref);
   const throttledOnChangeTableWidth = useMemo(
     () => throttle(onChangeTableWidth, 400),
     [onChangeTableWidth],

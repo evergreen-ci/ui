@@ -150,13 +150,29 @@ describe("date filter", () => {
     cy.get("[data-iso='2022-02-28']").click();
 
     cy.location("search").should("contain", "date=2022-02-28");
+    cy.validateDatePickerDate("date-picker", {
+      year: "2022",
+      month: "02",
+      day: "28",
+    });
+
+    cy.dataCy("version-label-active")
+      .contains("e391612")
+      .invoke("attr", "data-highlighted", "true");
   });
 
   it("date is cleared when paginating", () => {
     cy.visit("/project/spruce/waterfall?date=2022-02-28");
+    cy.validateDatePickerDate("date-picker", {
+      year: "2022",
+      month: "02",
+      day: "28",
+    });
     cy.dataCy("waterfall-skeleton").should("not.exist");
     cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "false");
     cy.dataCy("prev-page-button").click();
+    cy.dataCy("date-picker").should("not.have.text");
+    cy.validateDatePickerDate("date-picker");
     cy.location("search").should("not.contain", "date");
   });
 

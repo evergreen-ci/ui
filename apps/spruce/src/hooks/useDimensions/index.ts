@@ -11,14 +11,17 @@ interface DimensionState {
  * @param ref The ref of the element to track the dimensions of.
  * @returns An object containing the current height and width of the ref.
  */
-export const useDimensions = (ref: MutableRefObject<HTMLElement>) => {
+export const useDimensions = <T extends HTMLElement>(
+  ref: MutableRefObject<T> | React.RefObject<T>,
+) => {
   const [state, setState] = useState<DimensionState>({ width: 0, height: 0 });
 
   const observer = useMemo(
     () =>
       new ResizeObserver((entries) => {
         requestAnimationFrame(() => {
-          const { height, width } = entries[0]?.contentRect ?? {};
+          const width = entries[0]?.target.clientWidth ?? 0;
+          const height = entries[0]?.target.clientHeight ?? 0;
           setState({ width, height });
         });
       }),
@@ -31,7 +34,7 @@ export const useDimensions = (ref: MutableRefObject<HTMLElement>) => {
     return () => {
       observer.disconnect();
     };
-  }, [ref]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [observer, ref]);
 
   return state;
 };

@@ -1,8 +1,8 @@
 import { Description } from "@leafygreen-ui/typography";
+import { StyledRouterLink, StyledLink } from "@evg-ui/lib/components/styles";
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { StyledRouterLink, StyledLink } from "components/styles";
 import {
   mergeQueueAliasesDocumentationUrl,
   pullRequestAliasesDocumentationUrl,

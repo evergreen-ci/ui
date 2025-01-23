@@ -1,15 +1,21 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
+import { spacing } from "@leafygreen-ui/tokens";
 import { Link } from "react-router-dom";
+import { StyledLink } from "@evg-ui/lib/components/styles";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
 import Icon from "components/Icon";
-import { StyledLink } from "components/styles";
+import VisibilityContainer from "components/VisibilityContainer";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
+import { WaterfallBuild } from "gql/generated/types";
+import { useDimensions } from "hooks/useDimensions";
+import { useBuildVariantContext } from "./BuildVariantContext";
 import {
   BuildVariantTitle,
   columnBasis,
@@ -56,6 +62,20 @@ export const BuildRow: React.FC<Props> = ({
 
   const { builds, displayName } = build;
   let buildIndex = 0;
+
+  const [containerHeight, setContainerHeight] = useState(0);
+  const { columnWidth } = useBuildVariantContext();
+
+  useEffect(() => {
+    if (columnWidth !== 0) {
+      const bvContainerHeight = calculateBVContainerHeight({
+        builds,
+        columnWidth,
+      });
+      setContainerHeight(bvContainerHeight);
+    }
+  }, [builds, columnWidth]);
+
   return (
     <Row>
       <BuildVariantTitle data-cy="build-variant-label">
@@ -75,7 +95,14 @@ export const BuildRow: React.FC<Props> = ({
           {displayName}
         </StyledLink>
       </BuildVariantTitle>
-      <BuildGroup data-cy="build-group">
+      <VisibilityContainer
+        containerCss={css`
+          ${buildGroupCss};
+          height: ${containerHeight}px;
+        `}
+        data-cy="build-group"
+        offset={1000}
+      >
         {versions.map(({ inactiveVersions, version }) => {
           if (inactiveVersions?.length) {
             return (
@@ -101,7 +128,7 @@ export const BuildRow: React.FC<Props> = ({
           }
           return <BuildContainer key={version?.id} />;
         })}
-      </BuildGroup>
+      </VisibilityContainer>
     </Row>
   );
 };
@@ -110,38 +137,68 @@ const BuildGrid: React.FC<{
   build: Build;
   handleTaskClick: (s: string) => () => void;
   isRightmostBuild: boolean;
-}> = ({ build, handleTaskClick, isRightmostBuild }) => (
-  <BuildContainer
-    onClick={(event: React.MouseEvent) => {
-      handleTaskClick(
-        (event.target as HTMLDivElement)?.getAttribute("status") ?? "",
-      );
-    }}
-  >
-    {build.tasks.map(
-      ({ displayName, displayStatusCache, execution, id, status }) => {
-        // Use status as backup for tasks created before displayStatusCache was introduced
-        const taskStatus = (displayStatusCache || status) as TaskStatus;
-        return (
-          <SquareMemo
-            key={id}
-            data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
-            isRightmostBuild={isRightmostBuild}
-            status={taskStatus}
-            to={getTaskRoute(id, { execution })}
-          />
-        );
-      },
-    )}
-  </BuildContainer>
-);
+}> = ({ build, handleTaskClick, isRightmostBuild }) => {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const { width } = useDimensions<HTMLDivElement>(rowRef);
 
-const BuildGroup = styled.div`
+  const { columnWidth, setColumnWidth } = useBuildVariantContext();
+  useEffect(() => {
+    if (width !== 0 && columnWidth !== width) {
+      setColumnWidth(width);
+    }
+  }, [setColumnWidth, columnWidth, width]);
+
+  return (
+    <BuildContainer
+      ref={rowRef}
+      onClick={(event: React.MouseEvent) => {
+        handleTaskClick(
+          (event.target as HTMLDivElement)?.getAttribute("status") ?? "",
+        );
+      }}
+    >
+      {build.tasks.map(
+        ({ displayName, displayStatusCache, execution, id, status }) => {
+          // Use status as backup for tasks created before displayStatusCache was introduced
+          const taskStatus = (displayStatusCache || status) as TaskStatus;
+          return (
+            <SquareMemo
+              key={id}
+              data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
+              isRightmostBuild={isRightmostBuild}
+              status={taskStatus}
+              to={getTaskRoute(id, { execution })}
+            />
+          );
+        },
+      )}
+    </BuildContainer>
+  );
+};
+
+const padding = spacing[200];
+const border = 1;
+const squareWithBorder = SQUARE_SIZE + border * 2;
+const containerPaddingAndBorder = padding * 2 + border * 2;
+
+const calculateBVContainerHeight = ({
+  builds,
+  columnWidth,
+}: {
+  builds: WaterfallBuild[];
+  columnWidth: number;
+}) => {
+  const numTasks = Math.max(...builds.map((b) => b.tasks.length));
+  const numSquaresInRow = Math.floor(columnWidth / squareWithBorder);
+  const numRows = Math.ceil(numTasks / numSquaresInRow);
+  return numRows * squareWithBorder + containerPaddingAndBorder;
+};
+
+const buildGroupCss = css`
   ${gridGroupCss}
-  border: 1px solid ${gray.light2};
+  border: ${border}px solid ${gray.light2};
   border-radius: ${size.xs};
-  padding-bottom: ${size.xs};
-  padding-top: ${size.xs};
+  padding: ${padding}px;
 `;
 
 const BuildContainer = styled.div`

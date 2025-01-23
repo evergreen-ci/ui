@@ -1,24 +1,6 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Link as LGLink } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-export const StyledLink = (props) => (
-  <LGLink
-    css={css`
-      // Override LeafyGreen's font-weight declaration for Link
-      font-weight: inherit;
-      font-size: inherit;
-      line-height: inherit;
-    `}
-    hideExternalIcon
-    {...props}
-  />
-);
-
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-export const StyledRouterLink = (props) => <StyledLink as={Link} {...props} />;
 interface ShortenedRouterLinkProps {
   baseWidth?: number;
   responsiveBreakpoint?: number;
