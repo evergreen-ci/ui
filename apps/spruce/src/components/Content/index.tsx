@@ -53,9 +53,7 @@ export const Content: React.FC = () => (
       />
       <Route element={<Host />} path={routes.host} />
       <Route element={<Hosts />} path={routes.hosts} />
-      <Route element={<Image />} path={`${routes.image}/*`}>
-        <Route element={null} path={`:${slugs.tab}`} />
-      </Route>
+      <Route element={<Image />} path={routes.image} />
       <Route element={null} path={routes.jobLogs}>
         <Route element={<JobLogs isLogkeeper />} path={`:${slugs.buildId}`}>
           <Route element={null} path={`:${slugs.groupId}`} />
@@ -83,22 +81,19 @@ export const Content: React.FC = () => (
       <Route element={<Spawn />} path={`${routes.spawn}/*`}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<Task />} path={routes.task}>
-        <Route element={null} path={`:${slugs.tab}`} />
-      </Route>
+      <Route element={<Task />} path={routes.task} />
       <Route element={<TaskHistory />} path={routes.taskHistory} />
-      <Route element={<TaskQueue />} path={routes.taskQueue}>
-        <Route element={null} path={`:${slugs.distroId}`} />
-      </Route>
+      <Route
+        element={<TaskQueue />}
+        path={`${routes.taskQueue}/:${slugs.distroId}?`}
+      />
       <Route element={<UserPatches />} path={routes.userPatches} />
       <Route
         element={<UserPatchesRedirect />}
         path={redirectRoutes.userPatches}
       />
       <Route element={<VariantHistory />} path={routes.variantHistory} />
-      <Route element={<VersionPage />} path={routes.version}>
-        <Route element={null} path={`:${slugs.tab}`} />
-      </Route>
+      <Route element={<VersionPage />} path={routes.version} />
       {showWaterfallPage && (
         <Route element={<Waterfall />} path={routes.waterfall} />
       )}
