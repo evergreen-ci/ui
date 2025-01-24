@@ -22,6 +22,7 @@ export enum VersionLabelView {
 type Props = WaterfallVersionFragment & {
   className?: string;
   highlighted: boolean;
+  isFirstVersion: boolean;
   shouldDisableText?: boolean;
   view: VersionLabelView;
 };
@@ -35,6 +36,7 @@ export const VersionLabel: React.FC<Props> = ({
   gitTags,
   highlighted,
   id,
+  isFirstVersion,
   message,
   revision,
   shouldDisableText = false,
@@ -86,7 +88,10 @@ export const VersionLabel: React.FC<Props> = ({
           )}
         </Body>
         {view === VersionLabelView.Waterfall && !!taskStatusStats && (
-          <TaskStatsTooltip taskStatusStats={taskStatusStats} />
+          <TaskStatsTooltip
+            isFirstVersion={isFirstVersion}
+            taskStatusStats={taskStatusStats}
+          />
         )}
       </HeaderLine>
       {upstreamProject && (

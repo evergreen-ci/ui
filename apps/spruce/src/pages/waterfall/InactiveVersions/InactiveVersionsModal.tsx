@@ -32,6 +32,7 @@ export const InactiveVersionsModal: React.FC<Props> = ({
         <StyledVersionLabel
           key={version.id}
           highlighted={highlightedIndex === i}
+          isFirstVersion={false}
           shouldDisableText={hasUnmatchingVersions}
           view={VersionLabelView.Modal}
           {...version}

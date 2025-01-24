@@ -13,8 +13,10 @@ import { useOnClickOutside } from "hooks";
 import { SQUARE_SIZE, taskStatusStyleMap } from "./styles";
 
 export const TaskStatsTooltip: React.FC<
-  Pick<WaterfallVersionFragment, "taskStatusStats">
-> = ({ taskStatusStats }) => {
+  Pick<WaterfallVersionFragment, "taskStatusStats"> & {
+    isFirstVersion: boolean;
+  }
+> = ({ isFirstVersion, taskStatusStats }) => {
   const [open, setOpen] = useState(false);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -26,9 +28,13 @@ export const TaskStatsTooltip: React.FC<
     taskStatusStats?.counts?.reduce((total, { count }) => total + count, 0) ??
     0;
 
+  const conditionalProps = isFirstVersion
+    ? { "data-waterfall-guide-id": "summary-view" }
+    : {};
+
   return (
     <>
-      <BtnContainer>
+      <BtnContainer {...conditionalProps}>
         <IconButton
           ref={buttonRef}
           active={open}

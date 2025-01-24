@@ -31,7 +31,9 @@ const { black, gray, white } = palette;
 
 type Props = {
   build: BuildVariant;
+  firstActiveVersionId: string;
   handlePinClick: () => void;
+  isFirstBuild: boolean;
   lastActiveVersionId: string;
   pinned: boolean;
   projectIdentifier: string;
@@ -40,7 +42,9 @@ type Props = {
 
 export const BuildRow: React.FC<Props> = ({
   build,
+  firstActiveVersionId,
   handlePinClick,
+  isFirstBuild,
   lastActiveVersionId,
   pinned,
   projectIdentifier,
@@ -76,6 +80,10 @@ export const BuildRow: React.FC<Props> = ({
     }
   }, [builds, columnWidth]);
 
+  const conditionalProps = isFirstBuild
+    ? { "data-waterfall-guide-id": "build-variant-pin" }
+    : {};
+
   return (
     <Row>
       <BuildVariantTitle data-cy="build-variant-label">
@@ -84,6 +92,7 @@ export const BuildRow: React.FC<Props> = ({
           aria-label="Pin build variant"
           data-cy="pin-button"
           onClick={handlePinClick}
+          {...conditionalProps}
         >
           <Icon glyph="Pin" />
         </StyledIconButton>
@@ -122,6 +131,9 @@ export const BuildRow: React.FC<Props> = ({
                 key={b.id}
                 build={b}
                 handleTaskClick={handleTaskClick}
+                isFirstBuildAndVersion={
+                  isFirstBuild && b.version === firstActiveVersionId
+                }
                 isRightmostBuild={b.version === lastActiveVersionId}
               />
             );
@@ -137,7 +149,8 @@ const BuildGrid: React.FC<{
   build: Build;
   handleTaskClick: (s: string) => () => void;
   isRightmostBuild: boolean;
-}> = ({ build, handleTaskClick, isRightmostBuild }) => {
+  isFirstBuildAndVersion: boolean;
+}> = ({ build, handleTaskClick, isFirstBuildAndVersion, isRightmostBuild }) => {
   const rowRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions<HTMLDivElement>(rowRef);
 
@@ -158,7 +171,12 @@ const BuildGrid: React.FC<{
       }}
     >
       {build.tasks.map(
-        ({ displayName, displayStatusCache, execution, id, status }) => {
+        ({ displayName, displayStatusCache, execution, id, status }, idx) => {
+          const isFirstTask = isFirstBuildAndVersion && idx === 0;
+
+          const conditionalProps = isFirstTask
+            ? { "data-waterfall-guide-id": "task-box" }
+            : {};
           // Use status as backup for tasks created before displayStatusCache was introduced
           const taskStatus = (displayStatusCache || status) as TaskStatus;
           return (
@@ -168,6 +186,7 @@ const BuildGrid: React.FC<{
               isRightmostBuild={isRightmostBuild}
               status={taskStatus}
               to={getTaskRoute(id, { execution })}
+              {...conditionalProps}
             />
           );
         },

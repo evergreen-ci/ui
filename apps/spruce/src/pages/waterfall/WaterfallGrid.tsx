@@ -2,7 +2,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { fromZonedTime } from "date-fns-tz";
+import Cookies from "js-cookie";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { WalkthroughGuideCue } from "components/WalkthroughGuideCue";
+import { SEEN_WATERFALL_ONBOARDING_TUTORIAL } from "constants/cookies";
 import {
   DEFAULT_POLL_INTERVAL,
   WATERFALL_PINNED_VARIANTS_KEY,
@@ -21,7 +24,7 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
-import { VERSION_LIMIT } from "./constants";
+import { VERSION_LIMIT, walkthroughSteps } from "./constants";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import {
   BuildVariantTitle,
@@ -46,6 +49,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   setPagination,
 }) => {
   useWaterfallTrace();
+
+  const [guideCueOpen, setGuideCueOpen] = useState(
+    Cookies.get(SEEN_WATERFALL_ONBOARDING_TUTORIAL) !== "true",
+  );
 
   const [pins, setPins] = useState<string[]>(
     getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
@@ -115,6 +122,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     pins,
   });
 
+  const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
   const isHighlighted = (v: WaterfallVersionFragment, i: number) =>
@@ -130,6 +138,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
               return (
                 <VersionLabel
                   highlighted={isHighlighted(version, versionIndex)}
+                  isFirstVersion={version.id === firstActiveVersionId}
                   view={VersionLabelView.Waterfall}
                   {...version}
                   key={version.id}
@@ -156,11 +165,13 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         </Versions>
       </StickyHeader>
       <BuildVariantProvider>
-        {buildVariants.map((b) => (
+        {buildVariants.map((b, i) => (
           <BuildRow
             key={b.id}
             build={b}
+            firstActiveVersionId={firstActiveVersionId}
             handlePinClick={handlePinBV(b.id)}
+            isFirstBuild={i === 0}
             lastActiveVersionId={lastActiveVersionId}
             pinned={pins.includes(b.id)}
             projectIdentifier={projectIdentifier}
@@ -168,6 +179,17 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           />
         ))}
       </BuildVariantProvider>
+      <WalkthroughGuideCue
+        dataAttributeName="data-waterfall-guide-id"
+        onClose={() =>
+          Cookies.set(SEEN_WATERFALL_ONBOARDING_TUTORIAL, "true", {
+            expires: 365,
+          })
+        }
+        open={guideCueOpen}
+        setOpen={setGuideCueOpen}
+        walkthroughSteps={walkthroughSteps}
+      />
     </Container>
   );
 };

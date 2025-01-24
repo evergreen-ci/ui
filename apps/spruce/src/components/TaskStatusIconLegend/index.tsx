@@ -91,7 +91,7 @@ export const TaskStatusIconLegend: React.FC = () => {
   useOnClickOutside([buttonRef, popoverRef], () => setOpen(false));
 
   return (
-    <div>
+    <div data-waterfall-guide-id="task-legend">
       <IconButton
         ref={buttonRef}
         aria-label="Task status icon legend"

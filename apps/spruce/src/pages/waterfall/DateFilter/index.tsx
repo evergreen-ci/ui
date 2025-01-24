@@ -31,6 +31,7 @@ export const DateFilter = () => {
   return (
     <DatePicker
       data-cy="date-picker"
+      data-waterfall-guide-id="jump-to-date"
       label="Go to Date"
       max={new Date()}
       onDateChange={handleChange}
