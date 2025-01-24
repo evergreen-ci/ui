@@ -90,7 +90,6 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
                 data-cy="html-diff-btn"
                 href={htmlLink}
                 size="small"
-                target="_blank"
                 title="Open diff as html file"
               >
                 HTML
@@ -99,7 +98,6 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
                 data-cy="raw-diff-btn"
                 href={rawLink}
                 size="small"
-                target="_blank"
                 title="Open diff as raw file"
               >
                 Raw
