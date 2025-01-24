@@ -2,10 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { fromZonedTime } from "date-fns-tz";
-import Cookies from "js-cookie";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
-import { WalkthroughGuideCue } from "components/WalkthroughGuideCue";
-import { SEEN_WATERFALL_ONBOARDING_TUTORIAL } from "constants/cookies";
+import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import {
   DEFAULT_POLL_INTERVAL,
   WATERFALL_PINNED_VARIANTS_KEY,
@@ -24,8 +22,9 @@ import { useQueryParam } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
-import { VERSION_LIMIT, walkthroughSteps } from "./constants";
+import { VERSION_LIMIT } from "./constants";
 import { InactiveVersionsButton } from "./InactiveVersions";
+import { OnboardingTutorial } from "./OnboardingTutorial";
 import {
   BuildVariantTitle,
   gridGroupCss,
@@ -41,18 +40,16 @@ type WaterfallGridProps = {
   atTop: boolean;
   projectIdentifier: string;
   setPagination: (pagination: WaterfallPagination) => void;
+  guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   atTop,
+  guideCueRef,
   projectIdentifier,
   setPagination,
 }) => {
   useWaterfallTrace();
-
-  const [guideCueOpen, setGuideCueOpen] = useState(
-    Cookies.get(SEEN_WATERFALL_ONBOARDING_TUTORIAL) !== "true",
-  );
 
   const [pins, setPins] = useState<string[]>(
     getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
@@ -179,17 +176,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           />
         ))}
       </BuildVariantProvider>
-      <WalkthroughGuideCue
-        dataAttributeName="data-waterfall-guide-id"
-        onClose={() =>
-          Cookies.set(SEEN_WATERFALL_ONBOARDING_TUTORIAL, "true", {
-            expires: 365,
-          })
-        }
-        open={guideCueOpen}
-        setOpen={setGuideCueOpen}
-        walkthroughSteps={walkthroughSteps}
-      />
+      <OnboardingTutorial guideCueRef={guideCueRef} />
     </Container>
   );
 };

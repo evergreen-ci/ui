@@ -2,6 +2,7 @@ import { Suspense, useRef, useState, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
+import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
@@ -9,10 +10,10 @@ import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
 import { navBarHeight } from "components/styles/Layout";
+import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
 import { useIsScrollAtTop, useSpruceConfig } from "hooks";
-import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
 import { WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
@@ -36,17 +37,27 @@ const Waterfall: React.FC = () => {
   const pageWrapperRef = useRef<HTMLDivElement>(null);
   const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
 
+  const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
+
   return (
     <>
       <Global styles={navbarStyles} />
       <PageContainer ref={pageWrapperRef} data-cy="waterfall-page">
-        {isBeta() && (
-          <Banner>
-            <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
-            Open a ticket within the project epic{" "}
-            {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
-          </Banner>
-        )}
+        <Banner>
+          <BannerContent>
+            <div>
+              <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
+              Open a ticket within the project epic{" "}
+              {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
+            </div>
+            <Button
+              onClick={() => guideCueRef.current?.restart()}
+              size={ButtonSize.XSmall}
+            >
+              Restart walkthrough
+            </Button>
+          </BannerContent>
+        </Banner>
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
           key={projectIdentifier}
@@ -69,6 +80,7 @@ const Waterfall: React.FC = () => {
             <WaterfallGrid
               key={projectIdentifier}
               atTop={atTop}
+              guideCueRef={guideCueRef}
               projectIdentifier={projectIdentifier ?? ""}
               setPagination={setPagination}
             />
@@ -78,6 +90,11 @@ const Waterfall: React.FC = () => {
     </>
   );
 };
+
+const BannerContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const PageContainer = styled.div`
   display: flex;

@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
-import { GuideCue, GuideCueProps } from "@leafygreen-ui/guide-cue";
+import { useState, useRef, forwardRef, useImperativeHandle } from "react";
+import styled from "@emotion/styled";
+import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { reportError } from "utils/errorReporting";
 
@@ -9,11 +10,9 @@ export type WalkthroughStep = {
   dataTargetId: string;
 };
 
-type WalkthroughGuideCueProps = Pick<
-  GuideCueProps,
-  "enabled" | "open" | "setOpen"
-> & {
+export type WalkthroughGuideCueProps = {
   dataAttributeName: string;
+  defaultOpen: boolean;
   onClose: () => void;
   walkthroughSteps: WalkthroughStep[];
 };
@@ -27,19 +26,30 @@ const getTargetElement = ({
 }) =>
   document.querySelector(`[${dataAttributeName}="${targetId}"]`) as HTMLElement;
 
-export const WalkthroughGuideCue: React.FC<WalkthroughGuideCueProps> = ({
-  dataAttributeName,
-  enabled,
-  onClose,
-  open,
-  setOpen,
-  walkthroughSteps,
-}) => {
+export interface WalkthroughGuideCueRef {
+  restart: () => void;
+}
+
+export const WalkthroughGuideCue = forwardRef<
+  WalkthroughGuideCueRef,
+  WalkthroughGuideCueProps
+>(({ dataAttributeName, defaultOpen, onClose, walkthroughSteps }, ref) => {
+  const [open, setOpen] = useState(defaultOpen);
+  const [active, setActive] = useState(defaultOpen);
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const currentStepRef = useRef<HTMLElement | null>(null);
 
+  // Exposes a function via the ref to restart the walkthrough.
+  useImperativeHandle(ref, () => ({
+    restart: () => {
+      setActive(true);
+      goToNextStep(0);
+    },
+  }));
+
   const endWalkthrough = () => {
     onClose();
+    setActive(false);
     setOpen(false);
   };
 
@@ -79,22 +89,40 @@ export const WalkthroughGuideCue: React.FC<WalkthroughGuideCueProps> = ({
   });
 
   return (
-    <GuideCue
-      buttonText={
-        currentStepIdx + 1 === walkthroughSteps.length ? "Get started" : "Next"
-      }
-      currentStep={currentStepIdx + 1}
-      data-cy="walkthrough-guide-cue"
-      enabled={enabled}
-      numberOfSteps={walkthroughSteps.length}
-      onPrimaryButtonClick={onPrimaryButtonClick}
-      open={open}
-      popoverZIndex={zIndex.tooltip}
-      refEl={currentStepRef}
-      setOpen={setOpen}
-      title={currentStep.title}
-    >
-      {currentStep.description}
-    </GuideCue>
+    <>
+      <GuideCue
+        buttonText={
+          currentStepIdx + 1 === walkthroughSteps.length
+            ? "Get started"
+            : "Next"
+        }
+        currentStep={currentStepIdx + 1}
+        data-cy="walkthrough-guide-cue"
+        numberOfSteps={walkthroughSteps.length}
+        onDismiss={() => {
+          onClose();
+          setActive(false);
+        }}
+        onPrimaryButtonClick={onPrimaryButtonClick}
+        open={open}
+        popoverZIndex={zIndex.tooltip}
+        refEl={currentStepRef}
+        setOpen={setOpen}
+        title={currentStep.title}
+      >
+        {currentStep.description}
+      </GuideCue>
+      {active && <Backdrop />}
+    </>
   );
-};
+});
+
+const Backdrop = styled.div`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.15);
+`;
