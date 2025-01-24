@@ -23,7 +23,7 @@ interface HoneycombConfig {
   /** The environment we are running in */
   environment: string;
   /** A config representing all routes the app can have */
-  routeConfig?: RouteConfig;
+  routeConfig: RouteConfig;
 }
 
 /**
@@ -102,9 +102,7 @@ const initializeHoneycomb = ({
         localVisualizations: debug,
         serviceName,
         apiKey: ingestKey,
-        spanProcessor: routeConfig
-          ? new ReactRouterSpanProcessor(routeConfig)
-          : undefined,
+        spanProcessor: new ReactRouterSpanProcessor(routeConfig),
       });
       honeycombSdk.start();
     } catch (e) {

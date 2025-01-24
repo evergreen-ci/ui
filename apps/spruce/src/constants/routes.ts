@@ -119,7 +119,7 @@ export const redirectRoutes = {
 };
 
 export const routes = {
-  commits: `${paths.commits}:${slugs.projectIdentifier}`,
+  commits: `${paths.commits}/:${slugs.projectIdentifier}`,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,

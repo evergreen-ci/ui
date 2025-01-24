@@ -35,9 +35,7 @@ export const Content: React.FC = () => (
   <Routes>
     <Route element={<Layout />}>
       <Route element={<Navigate to={routes.myPatches} />} path="/" />
-      <Route element={<Commits />} path={`${routes.commits}/*`}>
-        <Route element={null} path={`:${slugs.projectIdentifier}`} />
-      </Route>
+      <Route element={<Commits />} path={routes.commits} />
       <Route element={<Container />} path={routes.container} />
       <Route
         element={<WaterfallCommitsRedirect />}
