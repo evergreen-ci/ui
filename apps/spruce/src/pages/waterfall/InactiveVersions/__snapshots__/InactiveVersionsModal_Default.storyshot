@@ -3,12 +3,12 @@
     class="css-ov1ktg"
   >
     <div
-      class="css-q6j0j4-InactiveVersion e1i0zkr30"
+      class="css-1v5nwpv-InactiveVersion e1i0zkr30"
     >
       <button
         aria-disabled="false"
         aria-label="Open inactive versions modal"
-        class="lg-ui-button-0000 leafygreen-ui-168frnw css-1v5v6pi-StyledButton e19pzgwa2"
+        class="lg-ui-button-0000 leafygreen-ui-168frnw css-1r0l2yl-StyledButton e19pzgwa2"
         data-cy="inactive-versions-button"
         data-lgid="lg-button"
         type="button"
@@ -37,7 +37,7 @@
           </svg>
           1
           <div
-            class="css-hqv5at-InactiveVersionLine e19pzgwa1"
+            class="css-r0t2zy-InactiveVersionLine e19pzgwa1"
           />
         </div>
       </button>
