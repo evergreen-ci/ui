@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover, { Align } from "@leafygreen-ui/popover";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import Icon from "components/Icon";
 import { Divider } from "components/styles";
@@ -27,10 +27,11 @@ export const TaskStatsTooltip: React.FC<
     0;
 
   return (
-    <div>
+    <>
       <BtnContainer>
         <IconButton
           ref={buttonRef}
+          active={open}
           aria-label="Show task stats"
           data-cy="task-stats-tooltip-button"
           onClick={() => setOpen((o) => !o)}
@@ -38,7 +39,13 @@ export const TaskStatsTooltip: React.FC<
           <Icon glyph="Charts" />
         </IconButton>
       </BtnContainer>
-      <Popover ref={popoverRef} active={open} align={Align.Right}>
+      <Popover
+        ref={popoverRef}
+        active={open}
+        align={Align.Right}
+        popoverZIndex={zIndex.popover}
+        refEl={buttonRef}
+      >
         <PopoverContainer data-cy="task-stats-tooltip">
           <Table>
             {taskStatusStats?.counts?.map(({ count, status }) => (
@@ -62,7 +69,7 @@ export const TaskStatsTooltip: React.FC<
           </Table>
         </PopoverContainer>
       </Popover>
-    </div>
+    </>
   );
 };
 

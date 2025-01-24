@@ -1,5 +1,6 @@
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { DateType } from "@leafygreen-ui/date-utils";
+import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
@@ -30,11 +31,11 @@ export const DateFilter = () => {
   return (
     <DatePicker
       data-cy="date-picker"
-      // Use an uncontrolled component so that the transition does not block DatePicker rendering.
-      initialValue={date.length ? new Date(date) : undefined}
       label="Go to Date"
       max={new Date()}
       onDateChange={handleChange}
+      popoverZIndex={zIndex.popover}
+      value={date.length ? new Date(date) : undefined}
     />
   );
 };

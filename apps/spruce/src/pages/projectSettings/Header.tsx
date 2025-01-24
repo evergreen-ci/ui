@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { getTabTitle } from "./getTabTitle";
 import { HeaderButtons } from "./HeaderButtons";
@@ -50,6 +50,8 @@ const Container = styled.div<{ atTop: boolean }>`
   z-index: 1;
 
   ${({ atTop }) =>
-    !atTop &&
-    "box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); clip-path: inset(0px 0px -5px 0px);"}
+    atTop
+      ? "box-shadow: unset"
+      : "box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.5); "}
+  transition: box-shadow ${transitionDuration.default}ms ease-in-out;
 `;

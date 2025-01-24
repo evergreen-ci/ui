@@ -10,6 +10,7 @@ import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import AnimatedIcon from "components/Icon/AnimatedIcon";
 import { HolidayTree } from "components/Icon/icons/HolidayTree";
+import { navBarHeight } from "components/styles/Layout";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import {
@@ -120,8 +121,6 @@ export const Navbar: React.FC = () => {
     </StyledNav>
   );
 };
-
-export const navBarHeight = size.xl;
 
 const StyledNav = styled.nav`
   display: flex;

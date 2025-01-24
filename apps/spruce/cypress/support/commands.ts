@@ -148,3 +148,12 @@ Cypress.Commands.add("openExpandableCard", (cardTitle: string) => {
     }
   });
 });
+
+Cypress.Commands.add(
+  "validateDatePickerDate",
+  (dataCy, { year, month, day } = { year: "", month: "", day: "" }) => {
+    cy.dataCy(dataCy).get("input[id='year']").should("have.value", year);
+    cy.dataCy(dataCy).get("input[id='month']").should("have.value", month);
+    cy.dataCy(dataCy).get("input[id='day']").should("have.value", day);
+  },
+);

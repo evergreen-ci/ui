@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { fromZonedTime } from "date-fns-tz";
+import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import {
   DEFAULT_POLL_INTERVAL,
   WATERFALL_PINNED_VARIANTS_KEY,
@@ -11,6 +12,7 @@ import {
   WaterfallPagination,
   WaterfallQuery,
   WaterfallQueryVariables,
+  WaterfallVersionFragment,
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
@@ -18,6 +20,7 @@ import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
+import { BuildVariantProvider } from "./BuildVariantContext";
 import { VERSION_LIMIT } from "./constants";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import {
@@ -32,11 +35,13 @@ import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
+  atTop: boolean;
   projectIdentifier: string;
   setPagination: (pagination: WaterfallPagination) => void;
 };
 
 export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
+  atTop,
   projectIdentifier,
   setPagination,
 }) => {
@@ -102,9 +107,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   }, [setPagination, data.waterfall.pagination]);
 
   const refEl = useRef<HTMLDivElement>(null);
-  const { height } = useDimensions(
-    refEl as React.MutableRefObject<HTMLElement>,
-  );
+  const { height } = useDimensions<HTMLDivElement>(refEl);
 
   const { activeVersionIds, buildVariants, versions } = useFilters({
     buildVariants: data.waterfall.buildVariants,
@@ -114,48 +117,77 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
+  const isHighlighted = (v: WaterfallVersionFragment, i: number) =>
+    (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
+
   return (
     <Container ref={refEl}>
-      <Row>
+      <StickyHeader atTop={atTop}>
         <BuildVariantTitle />
         <Versions data-cy="version-labels">
-          {versions.map(({ inactiveVersions, version }) =>
-            version ? (
-              <VersionLabel
-                highlighted={
-                  revision !== null && version.revision.includes(revision)
-                }
-                view={VersionLabelView.Waterfall}
-                {...version}
-                key={version.id}
-              />
-            ) : (
+          {versions.map(({ inactiveVersions, version }, versionIndex) => {
+            if (version) {
+              return (
+                <VersionLabel
+                  highlighted={isHighlighted(version, versionIndex)}
+                  view={VersionLabelView.Waterfall}
+                  {...version}
+                  key={version.id}
+                />
+              );
+            }
+            const highlightedIndex = inactiveVersions?.findIndex(
+              (inactiveVersion, i) => isHighlighted(inactiveVersion, i),
+            );
+            return (
               <InactiveVersion key={inactiveVersions?.[0].id}>
                 <InactiveVersionsButton
                   containerHeight={height}
+                  highlightedIndex={
+                    highlightedIndex !== undefined && highlightedIndex > -1
+                      ? highlightedIndex
+                      : undefined
+                  }
                   versions={inactiveVersions ?? []}
                 />
               </InactiveVersion>
-            ),
-          )}
+            );
+          })}
         </Versions>
-      </Row>
-      {buildVariants.map((b) => (
-        <BuildRow
-          key={b.id}
-          build={b}
-          handlePinClick={handlePinBV(b.id)}
-          lastActiveVersionId={lastActiveVersionId}
-          pinned={pins.includes(b.id)}
-          projectIdentifier={projectIdentifier}
-          versions={versions}
-        />
-      ))}
+      </StickyHeader>
+      <BuildVariantProvider>
+        {buildVariants.map((b) => (
+          <BuildRow
+            key={b.id}
+            build={b}
+            handlePinClick={handlePinBV(b.id)}
+            lastActiveVersionId={lastActiveVersionId}
+            pinned={pins.includes(b.id)}
+            projectIdentifier={projectIdentifier}
+            versions={versions}
+          />
+        ))}
+      </BuildVariantProvider>
     </Container>
   );
 };
 
 const Container = styled.div``;
+
+const StickyHeader = styled(Row)<{ atTop: boolean }>`
+  position: sticky;
+  top: -${size.m};
+  z-index: 1;
+
+  background: white;
+  margin: 0 -${size.m};
+  padding: ${size.xs} ${size.m};
+  ${({ atTop }) =>
+    atTop
+      ? "box-shadow: unset"
+      : "box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5); "}
+  transition: box-shadow ${transitionDuration.default}ms ease-in-out;
+`;
 
 const Versions = styled.div`
   ${gridGroupCss}
