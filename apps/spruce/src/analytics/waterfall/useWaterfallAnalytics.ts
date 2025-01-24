@@ -11,7 +11,7 @@ type Action =
     }
   | { name: "Clicked variant label" }
   | { name: "Clicked task box"; "task.status": string }
-  | { name: "Clicked 'Jump to most recent commit'" }
+  | { name: "Clicked jump to most recent commit button" }
   | { name: "Changed project"; project: string }
   | { name: "Filtered by build variant" }
   | { name: "Filtered by requester"; requesters: string[] }
