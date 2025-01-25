@@ -53,7 +53,9 @@ export const Content: React.FC = () => (
       />
       <Route element={<Host />} path={routes.host} />
       <Route element={<Hosts />} path={routes.hosts} />
-      <Route element={<Image />} path={routes.image} />
+      <Route element={<Image />} path={`${routes.image}/*`}>
+        <Route element={null} path={`:${slugs.tab}`} />
+      </Route>
       <Route element={null} path={routes.jobLogs}>
         <Route element={<JobLogs isLogkeeper />} path={`:${slugs.buildId}`}>
           <Route element={null} path={`:${slugs.groupId}`} />

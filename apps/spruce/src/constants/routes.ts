@@ -125,7 +125,7 @@ export const routes = {
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}/:${slugs.tab}?`,
   host: `${paths.host}/:${slugs.hostId}`,
   hosts: paths.hosts,
-  image: `${paths.image}/:${slugs.imageId}/:${slugs.tab}?`,
+  image: `${paths.image}/:${slugs.imageId}`,
   jobLogs: paths.jobLogs,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
