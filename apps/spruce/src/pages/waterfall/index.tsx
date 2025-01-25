@@ -51,6 +51,7 @@ const Waterfall: React.FC = () => {
               {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
             </div>
             <Button
+              data-cy="restart-walkthrough-button"
               onClick={() => guideCueRef.current?.restart()}
               size={ButtonSize.XSmall}
             >

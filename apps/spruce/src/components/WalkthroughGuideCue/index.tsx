@@ -112,7 +112,7 @@ export const WalkthroughGuideCue = forwardRef<
       >
         {currentStep.description}
       </GuideCue>
-      {active && <Backdrop />}
+      {active && <Backdrop data-cy="walkthrough-backdrop" />}
     </>
   );
 });
