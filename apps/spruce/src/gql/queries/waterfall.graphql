@@ -1,27 +1,38 @@
-#import "../fragments/waterfall.graphql"
+#import "../fragments/upstreamProject.graphql"
 
 query Waterfall($options: WaterfallOptions!) {
   waterfall(options: $options) {
-    buildVariants {
-      builds {
-        activated
+    flattenedVersions {
+      activated
+      author
+      buildVariants(options: {}) {
         displayName
-        id
         tasks {
           displayName
-          displayStatusCache
+          displayStatusCache: displayStatus
           execution
           id
           status
         }
-        version
+        variant
       }
-      displayName
+      createTime
+      errors
+      gitTags {
+        tag
+      }
       id
-      version
-    }
-    flattenedVersions {
-      ...WaterfallVersion
+      message
+      order
+      requester
+      revision
+      taskStatusStats(options: {}) {
+        counts {
+          count
+          status
+        }
+      }
+      ...UpstreamProject
     }
     pagination {
       hasNextPage
