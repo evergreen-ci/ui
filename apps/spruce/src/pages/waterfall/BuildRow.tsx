@@ -32,7 +32,6 @@ const { black, gray, white } = palette;
 
 type Props = {
   build: BuildVariant;
-  firstActiveTaskId: string;
   handlePinClick: () => void;
   isFirstBuild: boolean;
   lastActiveVersionId: string;
@@ -43,7 +42,6 @@ type Props = {
 
 export const BuildRow: React.FC<Props> = ({
   build,
-  firstActiveTaskId,
   handlePinClick,
   isFirstBuild,
   lastActiveVersionId,
@@ -84,6 +82,16 @@ export const BuildRow: React.FC<Props> = ({
   const iconButtonProps = isFirstBuild
     ? { [waterfallGuideId]: walkthroughSteps[2].targetId }
     : {};
+
+  let firstActiveTaskId = "";
+  if (isFirstBuild) {
+    for (let i = 0; i < builds.length; i++) {
+      if (builds[i].tasks.length > 0) {
+        firstActiveTaskId = builds[i].tasks[0].id;
+        break;
+      }
+    }
+  }
 
   return (
     <Row>
@@ -171,11 +179,10 @@ const BuildGrid: React.FC<{
     >
       {build.tasks.map(
         ({ displayName, displayStatusCache, execution, id, status }) => {
-          const isFirstTask = id === firstActiveTaskId;
-
-          const squareProps = isFirstTask
-            ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
-            : {};
+          const squareProps =
+            id === firstActiveTaskId
+              ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
+              : {};
           // Use status as backup for tasks created before displayStatusCache was introduced
           const taskStatus = (displayStatusCache || status) as TaskStatus;
           return (
