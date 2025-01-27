@@ -123,8 +123,8 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
   let firstActiveTaskId = "";
-  const { builds } = buildVariants[0];
-  for (let i = 0; i < builds.length; i++) {
+  for (let i = 0; i < buildVariants[0]?.builds?.length; i++) {
+    const { builds } = buildVariants[0];
     if (builds[i].tasks.length > 0) {
       firstActiveTaskId = builds[i].tasks[0].id;
       break;
