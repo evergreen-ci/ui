@@ -32,7 +32,7 @@ const { black, gray, white } = palette;
 
 type Props = {
   build: BuildVariant;
-  firstActiveVersionId: string;
+  firstActiveTaskId: string;
   handlePinClick: () => void;
   isFirstBuild: boolean;
   lastActiveVersionId: string;
@@ -43,7 +43,7 @@ type Props = {
 
 export const BuildRow: React.FC<Props> = ({
   build,
-  firstActiveVersionId,
+  firstActiveTaskId,
   handlePinClick,
   isFirstBuild,
   lastActiveVersionId,
@@ -131,10 +131,8 @@ export const BuildRow: React.FC<Props> = ({
               <BuildGrid
                 key={b.id}
                 build={b}
+                firstActiveTaskId={firstActiveTaskId}
                 handleTaskClick={handleTaskClick}
-                isFirstBuildAndVersion={
-                  isFirstBuild && b.version === firstActiveVersionId
-                }
                 isRightmostBuild={b.version === lastActiveVersionId}
               />
             );
@@ -148,10 +146,10 @@ export const BuildRow: React.FC<Props> = ({
 
 const BuildGrid: React.FC<{
   build: Build;
+  firstActiveTaskId: string;
   handleTaskClick: (s: string) => () => void;
   isRightmostBuild: boolean;
-  isFirstBuildAndVersion: boolean;
-}> = ({ build, handleTaskClick, isFirstBuildAndVersion, isRightmostBuild }) => {
+}> = ({ build, firstActiveTaskId, handleTaskClick, isRightmostBuild }) => {
   const rowRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions<HTMLDivElement>(rowRef);
 
@@ -172,8 +170,8 @@ const BuildGrid: React.FC<{
       }}
     >
       {build.tasks.map(
-        ({ displayName, displayStatusCache, execution, id, status }, idx) => {
-          const isFirstTask = isFirstBuildAndVersion && idx === 0;
+        ({ displayName, displayStatusCache, execution, id, status }) => {
+          const isFirstTask = id === firstActiveTaskId;
 
           const squareProps = isFirstTask
             ? { [waterfallGuideId]: walkthroughSteps[0].targetId }

@@ -122,6 +122,15 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
+  let firstActiveTaskId = "";
+  const { builds } = buildVariants[0];
+  for (let i = 0; i < builds.length; i++) {
+    if (builds[i].tasks.length > 0) {
+      firstActiveTaskId = builds[i].tasks[0].id;
+      break;
+    }
+  }
+
   const isHighlighted = (v: WaterfallVersionFragment, i: number) =>
     (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
 
@@ -166,7 +175,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           <BuildRow
             key={b.id}
             build={b}
-            firstActiveVersionId={firstActiveVersionId}
+            firstActiveTaskId={firstActiveTaskId}
             handlePinClick={handlePinBV(b.id)}
             isFirstBuild={i === 0}
             lastActiveVersionId={lastActiveVersionId}
