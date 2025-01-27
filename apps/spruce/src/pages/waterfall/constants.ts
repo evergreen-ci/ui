@@ -8,7 +8,7 @@ export const walkthroughSteps: WalkthroughStep[] = [
   {
     title: "New Layout",
     description:
-      "We've changed the Project Health page to a new layout for increased information density. Columns are commits, rows are build variants, and squares are tasks.",
+      "We've introduced a new layout for increased information density. Columns are commits, rows are build variants, and squares are tasks.",
     targetId: "task-box",
   },
   {
