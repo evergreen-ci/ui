@@ -5,6 +5,7 @@ describe("onboarding", () => {
     cy.clearCookie(SEEN_WATERFALL_ONBOARDING_TUTORIAL);
     cy.visit("/project/evergreen/waterfall");
     cy.dataCy("waterfall-skeleton").should("not.exist");
+    cy.dataCy("build-variant-label").should("be.visible");
 
     cy.dataCy("walkthrough-backdrop").should("be.visible");
     cy.dataCy("walkthrough-guide-cue").should("be.visible");
@@ -24,6 +25,10 @@ describe("onboarding", () => {
     cy.contains("button", "Next").click();
 
     cy.dataCy("walkthrough-guide-cue").should("be.visible");
+    cy.contains("Search by Git Hash").should("be.visible");
+    cy.contains("button", "Next").click();
+
+    cy.dataCy("walkthrough-guide-cue").should("be.visible");
     cy.contains("Summary View").should("be.visible");
     cy.contains("button", "Get started").click();
 
@@ -34,6 +39,7 @@ describe("onboarding", () => {
   it("can restart the walkthrough", () => {
     cy.visit("/project/evergreen/waterfall");
     cy.dataCy("waterfall-skeleton").should("not.exist");
+    cy.dataCy("build-variant-label").should("be.visible");
     cy.dataCy("walkthrough-backdrop").should("not.exist");
     cy.dataCy("walkthrough-guide-cue").should("not.exist");
 
@@ -48,6 +54,7 @@ describe("onboarding", () => {
     cy.clearCookie(SEEN_WATERFALL_ONBOARDING_TUTORIAL);
     cy.visit("/project/evergreen/waterfall");
     cy.dataCy("waterfall-skeleton").should("not.exist");
+    cy.dataCy("build-variant-label").should("be.visible");
 
     cy.dataCy("walkthrough-backdrop").should("be.visible");
     cy.dataCy("walkthrough-guide-cue").should("be.visible");
