@@ -8,7 +8,7 @@ export const walkthroughSteps: WalkthroughStep[] = [
   {
     title: "New Layout",
     description:
-      "We've changed the Project Health page to a new layout for increased information density. Columns are commits, rows are build variants, and tasks are box icons.",
+      "We've changed the Project Health page to a new layout for increased information density. Columns are commits, rows are build variants, and squares are tasks.",
     targetId: "task-box",
   },
   {
@@ -20,7 +20,7 @@ export const walkthroughSteps: WalkthroughStep[] = [
   {
     title: "Pin Build Variants",
     description:
-      "Pin your favorite build variants at the top to help with debugging and monitoring workflows.",
+      "Pin variants to the top of the page to help with debugging and monitoring common workflows.",
     targetId: "build-variant-pin",
   },
   {
@@ -32,7 +32,7 @@ export const walkthroughSteps: WalkthroughStep[] = [
   {
     title: "Summary View",
     description:
-      "Introducing an alternative to the charts — view a summary of the task statuses for any given run.",
+      "An alternative to Project Health charts — view a summary of task statuses for any given run.",
     targetId: "summary-view",
   },
 ];
