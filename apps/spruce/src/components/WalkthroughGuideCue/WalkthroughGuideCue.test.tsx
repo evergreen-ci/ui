@@ -20,12 +20,12 @@ describe("walkthrough guide cue", async () => {
     {
       title: "Step 1",
       description: "this is step 1",
-      dataTargetId: "step-1",
+      targetId: "step-1",
     },
     {
       title: "Step 2",
       description: "this is step 2",
-      dataTargetId: "step-2",
+      targetId: "step-2",
     },
   ];
 

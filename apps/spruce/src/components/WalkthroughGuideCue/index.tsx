@@ -7,7 +7,7 @@ import { reportError } from "utils/errorReporting";
 export type WalkthroughStep = {
   title: string;
   description: string | React.ReactElement;
-  dataTargetId: string;
+  targetId: string;
 };
 
 export type WalkthroughGuideCueProps = {
@@ -57,14 +57,14 @@ export const WalkthroughGuideCue = forwardRef<
     const nextStep = walkthroughSteps[nextStepIdx];
     const nextTargetElement = getTargetElement({
       dataAttributeName,
-      targetId: nextStep.dataTargetId,
+      targetId: nextStep.targetId,
     });
     if (!nextTargetElement) {
       // If we can't locate the next target element, abort the walkthrough. In theory this should
       // never happen.
       reportError(
         new Error(
-          `Cannot find element for the next step in walkthrough: ${nextStep.dataTargetId}`,
+          `Cannot find element for the next step in walkthrough: ${nextStep.targetId}`,
         ),
       ).severe();
       return;
@@ -85,7 +85,7 @@ export const WalkthroughGuideCue = forwardRef<
   const currentStep = walkthroughSteps[currentStepIdx];
   currentStepRef.current = getTargetElement({
     dataAttributeName,
-    targetId: currentStep.dataTargetId,
+    targetId: currentStep.targetId,
   });
 
   return (

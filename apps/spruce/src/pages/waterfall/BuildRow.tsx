@@ -16,7 +16,7 @@ import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { WaterfallBuild } from "gql/generated/types";
 import { useDimensions } from "hooks/useDimensions";
 import { useBuildVariantContext } from "./BuildVariantContext";
-import { waterfallGuideId } from "./constants";
+import { walkthroughSteps, waterfallGuideId } from "./constants";
 import {
   BuildVariantTitle,
   columnBasis,
@@ -82,7 +82,7 @@ export const BuildRow: React.FC<Props> = ({
   }, [builds, columnWidth]);
 
   const iconButtonProps = isFirstBuild
-    ? { [waterfallGuideId]: "build-variant-pin" }
+    ? { [waterfallGuideId]: walkthroughSteps[2].targetId }
     : {};
 
   return (
@@ -176,7 +176,7 @@ const BuildGrid: React.FC<{
           const isFirstTask = isFirstBuildAndVersion && idx === 0;
 
           const squareProps = isFirstTask
-            ? { [waterfallGuideId]: "task-box" }
+            ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
             : {};
           // Use status as backup for tasks created before displayStatusCache was introduced
           const taskStatus = (displayStatusCache || status) as TaskStatus;

@@ -3,10 +3,12 @@ import { DateType } from "@leafygreen-ui/date-utils";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
-import { waterfallGuideId } from "../constants";
+import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { WaterfallFilterOptions } from "../types";
 
-const datePickerProps = { [waterfallGuideId]: "jump-to-date" };
+const datePickerProps = {
+  [waterfallGuideId]: walkthroughSteps[3].targetId,
+};
 
 export const DateFilter = () => {
   const { sendEvent } = useWaterfallAnalytics();

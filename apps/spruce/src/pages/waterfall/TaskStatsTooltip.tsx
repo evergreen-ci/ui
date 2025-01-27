@@ -10,7 +10,7 @@ import { Divider } from "components/styles";
 import { PopoverContainer } from "components/styles/Popover";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useOnClickOutside } from "hooks";
-import { waterfallGuideId } from "./constants";
+import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { SQUARE_SIZE, taskStatusStyleMap } from "./styles";
 
 export const TaskStatsTooltip: React.FC<
@@ -30,7 +30,7 @@ export const TaskStatsTooltip: React.FC<
     0;
 
   const buttonContainerProps = isFirstVersion
-    ? { [waterfallGuideId]: "summary-view" }
+    ? { [waterfallGuideId]: walkthroughSteps[4].targetId }
     : {};
 
   return (

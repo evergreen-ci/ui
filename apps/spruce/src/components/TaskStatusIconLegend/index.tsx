@@ -16,7 +16,7 @@ import {
 import { routes } from "constants/routes";
 import { taskStatusToCopy } from "constants/task";
 import { useOnClickOutside } from "hooks";
-import { waterfallGuideId } from "pages/waterfall/constants";
+import { walkthroughSteps, waterfallGuideId } from "pages/waterfall/constants";
 
 type LegendContentProps = {
   isWaterfallPage: boolean;
@@ -77,7 +77,7 @@ const LegendIcon = styled.div`
 
 const LegendLabel = styled.div``;
 
-const legendProps = { [waterfallGuideId]: "task-legend" };
+const legendProps = { [waterfallGuideId]: walkthroughSteps[1].targetId };
 
 export const TaskStatusIconLegend: React.FC = () => {
   const isWaterfallPage = !!useMatch(`${routes.waterfall}/*`);
