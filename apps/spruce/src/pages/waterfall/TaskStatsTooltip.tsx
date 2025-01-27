@@ -10,6 +10,7 @@ import { Divider } from "components/styles";
 import { PopoverContainer } from "components/styles/Popover";
 import { WaterfallVersionFragment } from "gql/generated/types";
 import { useOnClickOutside } from "hooks";
+import { waterfallGuideId } from "./constants";
 import { SQUARE_SIZE, taskStatusStyleMap } from "./styles";
 
 export const TaskStatsTooltip: React.FC<
@@ -28,13 +29,13 @@ export const TaskStatsTooltip: React.FC<
     taskStatusStats?.counts?.reduce((total, { count }) => total + count, 0) ??
     0;
 
-  const conditionalProps = isFirstVersion
-    ? { "data-waterfall-guide-id": "summary-view" }
+  const buttonContainerProps = isFirstVersion
+    ? { [waterfallGuideId]: "summary-view" }
     : {};
 
   return (
     <>
-      <BtnContainer {...conditionalProps}>
+      <BtnContainer {...buttonContainerProps}>
         <IconButton
           ref={buttonRef}
           active={open}

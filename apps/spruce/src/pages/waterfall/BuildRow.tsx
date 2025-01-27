@@ -16,6 +16,7 @@ import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { WaterfallBuild } from "gql/generated/types";
 import { useDimensions } from "hooks/useDimensions";
 import { useBuildVariantContext } from "./BuildVariantContext";
+import { waterfallGuideId } from "./constants";
 import {
   BuildVariantTitle,
   columnBasis,
@@ -80,8 +81,8 @@ export const BuildRow: React.FC<Props> = ({
     }
   }, [builds, columnWidth]);
 
-  const conditionalProps = isFirstBuild
-    ? { "data-waterfall-guide-id": "build-variant-pin" }
+  const iconButtonProps = isFirstBuild
+    ? { [waterfallGuideId]: "build-variant-pin" }
     : {};
 
   return (
@@ -92,7 +93,7 @@ export const BuildRow: React.FC<Props> = ({
           aria-label="Pin build variant"
           data-cy="pin-button"
           onClick={handlePinClick}
-          {...conditionalProps}
+          {...iconButtonProps}
         >
           <Icon glyph="Pin" />
         </StyledIconButton>
@@ -174,8 +175,8 @@ const BuildGrid: React.FC<{
         ({ displayName, displayStatusCache, execution, id, status }, idx) => {
           const isFirstTask = isFirstBuildAndVersion && idx === 0;
 
-          const conditionalProps = isFirstTask
-            ? { "data-waterfall-guide-id": "task-box" }
+          const squareProps = isFirstTask
+            ? { [waterfallGuideId]: "task-box" }
             : {};
           // Use status as backup for tasks created before displayStatusCache was introduced
           const taskStatus = (displayStatusCache || status) as TaskStatus;
@@ -186,7 +187,7 @@ const BuildGrid: React.FC<{
               isRightmostBuild={isRightmostBuild}
               status={taskStatus}
               to={getTaskRoute(id, { execution })}
-              {...conditionalProps}
+              {...squareProps}
             />
           );
         },

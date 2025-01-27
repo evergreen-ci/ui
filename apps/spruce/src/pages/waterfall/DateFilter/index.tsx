@@ -3,7 +3,10 @@ import { DateType } from "@leafygreen-ui/date-utils";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
+import { waterfallGuideId } from "../constants";
 import { WaterfallFilterOptions } from "../types";
+
+const datePickerProps = { [waterfallGuideId]: "jump-to-date" };
 
 export const DateFilter = () => {
   const { sendEvent } = useWaterfallAnalytics();
@@ -31,12 +34,12 @@ export const DateFilter = () => {
   return (
     <DatePicker
       data-cy="date-picker"
-      data-waterfall-guide-id="jump-to-date"
       label="Go to Date"
       max={new Date()}
       onDateChange={handleChange}
       popoverZIndex={zIndex.popover}
       value={date.length ? new Date(date) : undefined}
+      {...datePickerProps}
     />
   );
 };

@@ -2,6 +2,8 @@ import { WalkthroughStep } from "components/WalkthroughGuideCue";
 
 export const VERSION_LIMIT = 5;
 
+export const waterfallGuideId = "data-waterfall-guide-id";
+
 export const walkthroughSteps: WalkthroughStep[] = [
   {
     title: "New Layout",
