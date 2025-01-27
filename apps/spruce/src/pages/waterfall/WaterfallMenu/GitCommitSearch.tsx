@@ -43,7 +43,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
           setModalOpen(true);
         }}
       >
-        Search by Git Hash
+        Search by git hash
       </DropdownItem>
       <ConfirmationModal
         cancelButtonProps={{
