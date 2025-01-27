@@ -30,18 +30,19 @@ export const TaskStatsTooltip: React.FC<
     0;
 
   const buttonContainerProps = isFirstVersion
-    ? { [waterfallGuideId]: walkthroughSteps[4].targetId }
+    ? { [waterfallGuideId]: walkthroughSteps[5].targetId }
     : {};
 
   return (
     <>
-      <BtnContainer {...buttonContainerProps}>
+      <BtnContainer>
         <IconButton
           ref={buttonRef}
           active={open}
           aria-label="Show task stats"
           data-cy="task-stats-tooltip-button"
           onClick={() => setOpen((o) => !o)}
+          {...buttonContainerProps}
         >
           <Icon glyph="Charts" />
         </IconButton>

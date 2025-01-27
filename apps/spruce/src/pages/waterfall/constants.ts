@@ -30,9 +30,17 @@ export const walkthroughSteps: WalkthroughStep[] = [
     targetId: "jump-to-date",
   },
   {
+    title: "Search by Git Hash",
+    description:
+      "Explore other filtering options in the menu, such as searching by git hash.",
+    targetId: "search-git-hash",
+    shouldClick: true,
+  },
+  {
     title: "Summary View",
     description:
       "An alternative to Project Health charts — view a summary of task statuses for any given run.",
     targetId: "summary-view",
+    shouldClick: true,
   },
 ];

@@ -8,6 +8,7 @@ export type WalkthroughStep = {
   title: string;
   description: string | React.ReactElement;
   targetId: string;
+  shouldClick?: boolean;
 };
 
 export type WalkthroughGuideCueProps = {
@@ -68,6 +69,9 @@ export const WalkthroughGuideCue = forwardRef<
         ),
       ).severe();
       return;
+    }
+    if (nextStep.shouldClick) {
+      nextTargetElement.click();
     }
     setCurrentStepIdx(nextStepIdx);
     setOpen(true);

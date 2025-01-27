@@ -21,6 +21,7 @@ export const ButtonDropdown: React.FC<Props> = ({
   open = undefined,
   setOpen = undefined,
   size = "small",
+  ...rest
 }) => (
   <Menu
     adjustOnMutation
@@ -35,6 +36,7 @@ export const ButtonDropdown: React.FC<Props> = ({
         disabled={disabled}
         loading={loading}
         size={size}
+        {...rest}
       >
         <Icon glyph="Ellipsis" />
       </LoadingButton>
