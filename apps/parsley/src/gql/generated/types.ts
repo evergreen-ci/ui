@@ -1731,7 +1731,6 @@ export type Patches = {
  * Based on the information in PatchesInput, we return a list of Patches for either an individual user or a project.
  */
 export type PatchesInput = {
-  includeCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
   onlyCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
