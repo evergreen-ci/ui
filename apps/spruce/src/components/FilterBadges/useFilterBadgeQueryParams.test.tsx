@@ -76,9 +76,8 @@ describe("filterBadges - queryParams", () => {
 
     const badge = screen.queryByDataCy("filter-badge");
     expect(badge).toHaveTextContent("Variant: variant1");
-    const closeBadge = screen.queryByDataTestid("chip-dismiss-button");
+    const closeBadge = screen.getByDataTestid("chip-dismiss-button");
     expect(closeBadge).toBeInTheDocument();
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.click(closeBadge);
 
     expect(screen.queryByDataCy("filter-badge")).toBeNull();
@@ -115,9 +114,7 @@ describe("filterBadges - queryParams", () => {
 
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(4);
-
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByDataCy("clear-all-filters"));
+    await user.click(screen.getByDataCy("clear-all-filters"));
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(0);
 
@@ -134,9 +131,7 @@ describe("filterBadges - queryParams", () => {
 
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(4);
-
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByDataCy("clear-all-filters"));
+    await user.click(screen.getByDataCy("clear-all-filters"));
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(0);
 

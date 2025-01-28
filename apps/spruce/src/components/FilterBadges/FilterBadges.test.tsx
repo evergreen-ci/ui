@@ -63,12 +63,10 @@ describe("filterBadges", () => {
     render(
       <FilterBadges badges={badges} onClearAll={vi.fn()} onRemove={vi.fn()} />,
     );
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByText("see 2 more"));
+    await user.click(screen.getByText("see 2 more"));
     expect(screen.getByDataCy("see-more-modal")).toBeInTheDocument();
     expect(
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      within(screen.queryByDataCy("see-more-modal")).queryAllByDataCy(
+      within(screen.getByDataCy("see-more-modal")).queryAllByDataCy(
         "filter-badge",
       ),
     ).toHaveLength(10);
