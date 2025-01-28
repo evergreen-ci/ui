@@ -24,7 +24,7 @@ import {
   SQUARE_SIZE,
   taskStatusStyleMap,
 } from "./styles";
-import { Build, BuildVariant, WaterfallVersion } from "./types";
+import { Build, BuildVariant, GroupedVersion } from "./types";
 
 const { black, gray, white } = palette;
 
@@ -34,7 +34,7 @@ type Props = {
   lastActiveVersionId: string;
   pinned: boolean;
   projectIdentifier: string;
-  versions: WaterfallVersion[];
+  versions: GroupedVersion[];
 };
 
 export const BuildRow: React.FC<Props> = ({

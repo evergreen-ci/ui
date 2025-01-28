@@ -1,20 +1,19 @@
-import { WaterfallVersionFragment } from "gql/generated/types";
-import { WaterfallVersion } from "./types";
+import { GroupedVersion, Version } from "./types";
 
 export const groupInactiveVersions = (
-  versions: WaterfallVersionFragment[],
-  versionHasActiveBuild: (version: WaterfallVersionFragment) => boolean,
+  versions: Version[],
+  versionHasActiveBuild: (version: Version) => boolean,
 ) => {
-  const filteredVersions: WaterfallVersion[] = [];
+  const filteredVersions: GroupedVersion[] = [];
 
-  const pushInactive = (v: WaterfallVersionFragment) => {
+  const pushInactive = (v: Version) => {
     if (!filteredVersions?.[filteredVersions.length - 1]?.inactiveVersions) {
       filteredVersions.push({ version: null, inactiveVersions: [] });
     }
     filteredVersions[filteredVersions.length - 1].inactiveVersions?.push(v);
   };
 
-  const pushActive = (v: WaterfallVersionFragment) => {
+  const pushActive = (v: Version) => {
     filteredVersions.push({
       inactiveVersions: null,
       version: v,

@@ -1,4 +1,4 @@
-import { WaterfallVersionFragment } from "gql/generated/types";
+import { Version } from "./types";
 import { groupInactiveVersions } from "./utils";
 
 describe("groupInactiveVersions", () => {
@@ -173,7 +173,7 @@ describe("groupInactiveVersions", () => {
   });
 });
 
-const versions: WaterfallVersionFragment[] = [
+const versions: Version[] = [
   {
     id: "a",
     author: "sophie.stadler",

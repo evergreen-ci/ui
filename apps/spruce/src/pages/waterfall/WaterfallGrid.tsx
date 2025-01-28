@@ -12,7 +12,6 @@ import {
   WaterfallPagination,
   WaterfallQuery,
   WaterfallQueryVariables,
-  WaterfallVersionFragment,
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
@@ -29,7 +28,7 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import { Build, BuildVariant, WaterfallFilterOptions } from "./types";
+import { Build, BuildVariant, WaterfallFilterOptions, Version } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
@@ -113,13 +112,15 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   const { activeVersionIds, buildVariants, versions } = useFilters({
     buildVariants: bvs,
-    flattenedVersions: data.waterfall.flattenedVersions,
+    flattenedVersions: data.waterfall.flattenedVersions.map(
+      ({ buildVariants: bvToOmit, ...rest }) => rest,
+    ),
     pins,
   });
 
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
-  const isHighlighted = (v: WaterfallVersionFragment, i: number) =>
+  const isHighlighted = (v: Version, i: number) =>
     (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
 
   return (
@@ -198,16 +199,17 @@ const Versions = styled.div`
 const groupBuildVariants = (
   versions: WaterfallQuery["waterfall"]["flattenedVersions"],
 ): BuildVariant[] => {
+  const bvMetadata: Map<string, string> = new Map();
   const bvs: Map<string, Array<Build>> = new Map();
   versions.forEach(({ buildVariants, id }) => {
     buildVariants?.forEach(({ displayName, tasks, variant }) => {
+      bvMetadata.set(variant, displayName);
       if (!bvs.has(variant)) {
         bvs.set(variant, []);
       }
 
       const buildArr = bvs.get(variant);
       buildArr?.push({
-        displayName,
         id: variant,
         version: id,
         tasks: tasks ?? [],
@@ -216,10 +218,9 @@ const groupBuildVariants = (
   });
 
   const arr: BuildVariant[] = Array.from(bvs)
-    .map(([, builds]) => ({
-      displayName: builds[0].displayName,
-      id: builds[0].id,
-      version: "foo",
+    .map(([variant, builds]) => ({
+      displayName: bvMetadata.get(variant) ?? "",
+      id: variant,
       builds,
     }))
     .sort((a, b) => a.displayName.localeCompare(b.displayName));

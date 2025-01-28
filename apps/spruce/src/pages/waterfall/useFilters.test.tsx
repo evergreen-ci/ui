@@ -1,7 +1,6 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
-import { WaterfallVersionFragment } from "gql/generated/types";
-import { BuildVariant } from "./types";
+import { BuildVariant, Version } from "./types";
 import { useFilters } from "./useFilters";
 
 type WrapperProps = {
@@ -441,7 +440,7 @@ describe("useFilters", () => {
   });
 });
 
-const flattenedVersions: WaterfallVersionFragment[] = [
+const flattenedVersions: Version[] = [
   {
     id: "a",
     author: "sophie.stadler",

@@ -8,18 +8,18 @@ import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size as sizeToken } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { getVersionRoute, getTriggerRoute } from "constants/routes";
-import { WaterfallVersionFragment } from "gql/generated/types";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
+import { Version } from "../types";
 
 export enum VersionLabelView {
   Modal = "modal",
   Waterfall = "waterfall",
 }
 
-type Props = WaterfallVersionFragment & {
+type Props = Version & {
   className?: string;
   highlighted: boolean;
   shouldDisableText?: boolean;
@@ -133,7 +133,7 @@ export const VersionLabel: React.FC<Props> = ({
 };
 
 const VersionContainer = styled.div<
-  Pick<WaterfallVersionFragment, "activated"> &
+  Pick<Version, "activated"> &
     Pick<Props, "shouldDisableText" | "view"> & { highlighted: boolean }
 >`
   ${columnBasis}

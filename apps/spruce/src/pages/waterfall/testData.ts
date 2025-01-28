@@ -1,7 +1,7 @@
 import { Requester } from "constants/requesters";
-import { WaterfallVersionFragment } from "gql/generated/types";
+import { Version } from "./types";
 
-export const version: WaterfallVersionFragment = {
+export const version: Version = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T14:56:08Z"),
@@ -16,7 +16,7 @@ export const version: WaterfallVersionFragment = {
   order: 10,
 };
 
-export const versionWithGitTag: WaterfallVersionFragment = {
+export const versionWithGitTag: Version = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T16:14:10Z"),
@@ -34,7 +34,7 @@ export const versionWithGitTag: WaterfallVersionFragment = {
   order: 9,
 };
 
-export const versionWithUpstreamProject: WaterfallVersionFragment = {
+export const versionWithUpstreamProject: Version = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T16:06:54Z"),
@@ -66,7 +66,7 @@ export const versionWithUpstreamProject: WaterfallVersionFragment = {
   order: 8,
 };
 
-export const versionBroken: WaterfallVersionFragment = {
+export const versionBroken: Version = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T14:56:08Z"),
@@ -81,7 +81,7 @@ export const versionBroken: WaterfallVersionFragment = {
   order: 7,
 };
 
-export const inactiveVersion: WaterfallVersionFragment = {
+export const inactiveVersion: Version = {
   activated: false,
   author: "Sophie Stadler",
   createTime: new Date("2024-10-24T14:56:08Z"),
@@ -95,7 +95,7 @@ export const inactiveVersion: WaterfallVersionFragment = {
   order: 6,
 };
 
-export const inactiveBrokenVersion: WaterfallVersionFragment = {
+export const inactiveBrokenVersion: Version = {
   activated: false,
   author: "Sophie Stadler",
   createTime: new Date("2024-10-25T14:56:08Z"),
