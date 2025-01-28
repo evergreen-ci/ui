@@ -1,23 +1,33 @@
 import { useCallback } from "react";
 import { useWaterfallAnalytics } from "analytics";
-import TupleSelectWithRegexConditional from "components/TupleSelectWithRegexConditional";
+import TupleSelectWithRegexConditional, {
+  FilterType,
+} from "components/TupleSelectWithRegexConditional";
 import { useUpsertQueryParams } from "hooks";
 import { validators } from "utils";
-import { WaterfallFilterOptions } from "./types";
+import { WaterfallFilterOptions } from "../types";
 
-export const NameFilter = () => {
+export const BuildVariantTaskFilter = () => {
   const onSubmit = useUpsertQueryParams();
   const { sendEvent } = useWaterfallAnalytics();
 
   const onSubmitTupleSelect = useCallback(
-    ({ category, value }: { category: string; value: string }) => {
+    ({
+      category,
+      type,
+      value,
+    }: {
+      category: string;
+      value: string;
+      type: FilterType;
+    }) => {
       onSubmit({ category, value });
       switch (category) {
         case WaterfallFilterOptions.BuildVariant:
-          sendEvent({ name: "Filtered by build variant" });
+          sendEvent({ name: "Filtered by build variant", type });
           break;
         case WaterfallFilterOptions.Task:
-          sendEvent({ name: "Filtered by task" });
+          sendEvent({ name: "Filtered by task", type });
           break;
         default:
       }
@@ -30,7 +40,7 @@ export const NameFilter = () => {
       onSubmit={onSubmitTupleSelect}
       options={options}
       validator={validators.validateRegexp}
-      validatorErrorMessage="Invalid Regular Expression"
+      validatorErrorMessage="Invalid regular expression"
     />
   );
 };

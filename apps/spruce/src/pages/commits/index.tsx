@@ -178,14 +178,14 @@ const Commits = () => {
   const onSubmit = useUpsertQueryParams();
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const onSubmitTupleSelect = ({ category, value }) => {
+  const onSubmitTupleSelect = ({ category, type, value }) => {
     onSubmit({ category, value });
     switch (category) {
       case ProjectFilterOptions.BuildVariant:
-        sendEvent({ name: "Filtered by build variant" });
+        sendEvent({ name: "Filtered by build variant", type });
         break;
       case ProjectFilterOptions.Task:
-        sendEvent({ name: "Filtered by task" });
+        sendEvent({ name: "Filtered by task", type });
         break;
       default:
     }
