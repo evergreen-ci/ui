@@ -1,4 +1,3 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { WaterfallVersionFragment } from "gql/generated/types";
 
 // Although this is pretty much a duplicate of the GraphQL type, it is
@@ -10,30 +9,23 @@ export type WaterfallVersion = {
   version: WaterfallVersionFragment | null;
 };
 
-type B = {
-  buildVariants: Array<{
+export type Build = {
+  id: string;
+  tasks: Array<{
     displayName: string;
+    displayStatusCache: string;
+    execution: number;
     id: string;
-    version: string;
-    builds: Array<{
-      activated?: boolean | null;
-      displayName: string;
-      id: string;
-      version: string;
-      tasks: Array<{
-        displayName: string;
-        displayStatusCache: string;
-        execution: number;
-        id: string;
-        status: string;
-      }>;
-    }>;
+    status: string;
   }>;
+  version: string;
 };
 
-export type Build = Unpacked<Unpacked<B["buildVariants"]>["builds"]>;
-
-export type BuildVariant = Unpacked<B["buildVariants"]>;
+export type BuildVariant = {
+  builds: Build[];
+  displayName: string;
+  id: string;
+};
 
 export enum WaterfallFilterOptions {
   BuildVariant = "buildVariants",
