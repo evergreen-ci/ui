@@ -13,7 +13,6 @@ import { useWaterfallAnalytics } from "analytics";
 import Icon from "components/Icon";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
-import { WaterfallBuild } from "gql/generated/types";
 import { useDimensions } from "hooks/useDimensions";
 import { useBuildVariantContext } from "./BuildVariantContext";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
@@ -210,7 +209,7 @@ const calculateBVContainerHeight = ({
   builds,
   columnWidth,
 }: {
-  builds: WaterfallBuild[];
+  builds: Build[];
   columnWidth: number;
 }) => {
   const numTasks = Math.max(...builds.map((b) => b.tasks.length));
