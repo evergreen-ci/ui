@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import {
   Chip,
   TruncationLocation,
@@ -11,30 +10,24 @@ const maxBadgeLength = 25;
 interface FilterBadgeType {
   key: string;
   value: string;
+  title: string;
 }
 interface FilterBadgeProps {
   badge: FilterBadgeType;
   onClose: () => void;
 }
+
 const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => (
-  <StyledChip
+  <Chip
     chipCharacterLimit={maxBadgeLength}
     chipTruncationLocation={TruncationLocation.Middle}
     data-cy="filter-badge"
-    label={`${badge.key}: ${badge.value}`}
+    label={`${badge.title}: ${badge.value}`}
     onDismiss={onClose}
     popoverZIndex={zIndex.tooltip}
     variant={ChipVariant.Gray}
   />
 );
-
-// TODO: DEVPROD-12590
-const StyledChip = styled(Chip)`
-  span {
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-`;
 
 export default FilterBadge;
 export type { FilterBadgeType };

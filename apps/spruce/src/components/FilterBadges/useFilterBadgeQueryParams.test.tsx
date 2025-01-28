@@ -14,6 +14,11 @@ const Content = () => {
       ProjectFilterOptions.Test,
       ProjectFilterOptions.Task,
     ]),
+    {
+      [ProjectFilterOptions.BuildVariant]: "Variant",
+      [ProjectFilterOptions.Test]: "Test",
+      [ProjectFilterOptions.Task]: "Task",
+    },
   );
   return (
     <FilterBadges
@@ -47,8 +52,8 @@ describe("filterBadges - queryParams", () => {
     });
     const badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(2);
-    expect(badges[0]).toHaveTextContent("buildVariants: variant1");
-    expect(badges[1]).toHaveTextContent("buildVariants: variant2");
+    expect(badges[0]).toHaveTextContent("Variant: variant1");
+    expect(badges[1]).toHaveTextContent("Variant: variant2");
   });
 
   it("should render multiple filter badges with the different keys and different values", () => {
@@ -58,8 +63,8 @@ describe("filterBadges - queryParams", () => {
     });
     const badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(2);
-    expect(badges[0]).toHaveTextContent("buildVariants: variant1");
-    expect(badges[1]).toHaveTextContent("tests: test1");
+    expect(badges[0]).toHaveTextContent("Variant: variant1");
+    expect(badges[1]).toHaveTextContent("Test: test1");
   });
 
   it("closing out a badge should remove it from the url", async () => {
@@ -70,7 +75,7 @@ describe("filterBadges - queryParams", () => {
     });
 
     const badge = screen.queryByDataCy("filter-badge");
-    expect(badge).toHaveTextContent("buildVariants: variant1");
+    expect(badge).toHaveTextContent("Variant: variant1");
     const closeBadge = screen.queryByDataTestid("chip-dismiss-button");
     expect(closeBadge).toBeInTheDocument();
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -89,12 +94,12 @@ describe("filterBadges - queryParams", () => {
 
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(2);
-    expect(screen.getByText("buildVariants: variant1")).toBeInTheDocument();
+    expect(screen.getByText("Variant: variant1")).toBeInTheDocument();
     const closeBadge = screen.queryAllByDataTestid("chip-dismiss-button");
     await user.click(closeBadge[0]);
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(1);
-    expect(screen.queryByText("buildVariants: variant1")).toBeNull();
+    expect(screen.queryByText("Variant: variant1")).toBeNull();
 
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(1);
     expect(router.state.location.search).toBe("?buildVariants=variant2");

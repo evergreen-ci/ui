@@ -168,13 +168,10 @@ const Commits = () => {
   const { nextPageOrderNumber, prevPageOrderNumber, versions } =
     mainlineCommits || {};
 
-  const queryParamsToDisplay = new Set([
-    ProjectFilterOptions.BuildVariant,
-    ProjectFilterOptions.Task,
-  ]);
-
-  const { badges, handleClearAll, handleOnRemove } =
-    useFilterBadgeQueryParams(queryParamsToDisplay);
+  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+    queryParamsToDisplay,
+    urlParamToTitleMap,
+  );
   const onSubmit = useUpsertQueryParams();
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -274,6 +271,16 @@ const Commits = () => {
       )}
     </PageWrapper>
   );
+};
+
+const queryParamsToDisplay = new Set([
+  ProjectFilterOptions.BuildVariant,
+  ProjectFilterOptions.Task,
+]);
+
+const urlParamToTitleMap = {
+  [ProjectFilterOptions.BuildVariant]: "Variant",
+  [ProjectFilterOptions.Task]: "Task",
 };
 
 const PageContainer = styled.div`

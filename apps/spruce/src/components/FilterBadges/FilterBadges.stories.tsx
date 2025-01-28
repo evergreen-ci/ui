@@ -5,6 +5,7 @@ import TextInput from "@leafygreen-ui/text-input";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
+import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import FilterBadges from ".";
 import { FilterBadgeType } from "./FilterBadge";
 
@@ -18,11 +19,11 @@ export const Default: CustomStoryObj<typeof FilterBadges> = {
 
 const BadgeContainer = () => {
   const [badges, setBadges] = useState<FilterBadgeType[]>([
-    { key: "test", value: "test" },
+    { key: "test", value: "test", title: "Test" },
   ]);
 
   const addBadge = (key: string, value: string) => {
-    setBadges([...badges, { key, value }]);
+    setBadges([...badges, { key, value, title: toSentenceCase(key) }]);
   };
   const removeBadge = (badge: FilterBadgeType) => {
     setBadges(
