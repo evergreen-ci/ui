@@ -229,7 +229,7 @@ Read more about deployment [here](../../packages/deploy-utils/README.md#deployme
 If debugging a feature requires you to inspect the application's state, tools like [React DevTools](https://react.dev/learn/react-developer-tools) can be very helpful. React DevTools is a browser extension available in Chrome, Firefox, and Edge that allows you to inspect the React component tree, view the state of components, and profile performance.
 
 #### Debugging in Safari
-Safari does not support React DevTools directly. To inspect the application state in Safari, you can follow these steps: (Steps 1-3 only need to be done your first time setting up React DevTools)
+Safari does not support React DevTools directly. To inspect the application state in Safari, you can follow the steps below: Steps 1-3 only need to be done your first time setting up React DevTools.
 
 1. **Install React DevTools CLI**:
    ```bash
@@ -237,9 +237,9 @@ Safari does not support React DevTools directly. To inspect the application stat
    ```
 
 2. **Create a Self-Signed Certificate**:
-   Generate a certificate to enable secure communication:
+   Generate a certificate to enable secure communication: (The certificate will be valid for 365 days)
    ```bash
-   openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt -subj "/CN=localhost"
+   openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt -subj "/CN=localhost"
    ```
 
 3. **Trust the Certificate**:
