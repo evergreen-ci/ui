@@ -19,4 +19,31 @@ const calculateRouteName = (pathName: string, routeConfig: RouteConfig) => {
   return undefined;
 };
 
-export { calculateRouteName };
+/**
+ * `getRouteParams` is a utility function that extracts the route params from a URL based on the route.
+ * @param route - The route to extract the params from
+ * @param url - The URL to extract the params from
+ * @returns - The route params of the URL
+ */
+const getRouteParams = (route: string, url: string) => {
+  if (!matchPath(route, url)) {
+    return {};
+  }
+  const routeParts = route.split("/");
+  const urlParts = url.split("/");
+
+  const params: { [key: string]: string } = {};
+
+  if (routeParts.length !== urlParts.length) {
+    // Set this to an error so we can see it in the traces
+    params.error = "Route and URL do not match";
+  }
+  routeParts.forEach((part, index) => {
+    if (part.startsWith(":")) {
+      const paramName = part.slice(1);
+      params[paramName] = urlParts[index];
+    }
+  });
+  return params;
+};
+export { calculateRouteName, getRouteParams };

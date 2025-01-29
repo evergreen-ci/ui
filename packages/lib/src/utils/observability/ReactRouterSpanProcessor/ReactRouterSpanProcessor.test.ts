@@ -37,28 +37,6 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
         "/upload",
       );
     });
-
-    it("should set attributes for partially matched dynamic routes", () => {
-      const mockSpan = {
-        setAttribute: vi.fn(),
-      } as unknown as Span;
-
-      Object.defineProperty(window, "location", {
-        value: { pathname: "/version/123" },
-        writable: true,
-      });
-
-      spanProcessor.onStart(mockSpan);
-
-      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
-        "page.route_name",
-        "versionPage",
-      );
-      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
-        "page.route",
-        "/version/:id/:tab?",
-      );
-    });
     it("should set attributes for long dynamic routes", () => {
       const mockSpan = {
         setAttribute: vi.fn(),
@@ -80,7 +58,49 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
         "/task-history/:projectId/:taskId",
       );
     });
+    it("should set attributes for matched dynamic routes with optional params", () => {
+      const mockSpan = {
+        setAttribute: vi.fn(),
+      } as unknown as Span;
 
+      Object.defineProperty(window, "location", {
+        value: { pathname: "/version/123" },
+        writable: true,
+      });
+
+      spanProcessor.onStart(mockSpan);
+
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_name",
+        "versionPage",
+      );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route",
+        "/version/:id/:tab?",
+      );
+    });
+
+    it("should set attributes for the longest matching dynamic route", () => {
+      const mockSpan = {
+        setAttribute: vi.fn(),
+      } as unknown as Span;
+
+      Object.defineProperty(window, "location", {
+        value: { pathname: "/version/123/tasks" },
+        writable: true,
+      });
+
+      spanProcessor.onStart(mockSpan);
+
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_name",
+        "versionPage",
+      );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route",
+        "/version/:id/:tab?",
+      );
+    });
     it("should not set attributes for unmatched routes", () => {
       const mockSpan = {
         setAttribute: vi.fn(),
@@ -109,28 +129,6 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
       spanProcessor.onStart(mockSpan);
 
       expect(mockSpan.setAttribute).not.toHaveBeenCalled();
-    });
-
-    it("should set attributes for the longest matching dynamic route", () => {
-      const mockSpan = {
-        setAttribute: vi.fn(),
-      } as unknown as Span;
-
-      Object.defineProperty(window, "location", {
-        value: { pathname: "/version/123/tasks" },
-        writable: true,
-      });
-
-      spanProcessor.onStart(mockSpan);
-
-      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
-        "page.route_name",
-        "versionPage",
-      );
-      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
-        "page.route",
-        "/version/:id/:tab?",
-      );
     });
   });
 });
