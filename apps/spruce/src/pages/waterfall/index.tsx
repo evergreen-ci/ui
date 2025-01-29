@@ -27,7 +27,8 @@ const Waterfall: React.FC = () => {
   const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
   const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
-    new Set([WaterfallFilterOptions.BuildVariant, WaterfallFilterOptions.Task]),
+    validQueryParams,
+    urlParamToTitleMap,
   );
 
   const { sendEvent } = useWaterfallAnalytics();
@@ -84,10 +85,20 @@ const Waterfall: React.FC = () => {
   );
 };
 
+const validQueryParams = new Set([
+  WaterfallFilterOptions.BuildVariant,
+  WaterfallFilterOptions.Task,
+]);
+
+const urlParamToTitleMap = {
+  [WaterfallFilterOptions.BuildVariant]: "Variant",
+  [WaterfallFilterOptions.Task]: "Task",
+};
+
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${size.s};
+  gap: ${size.xs};
   padding: ${size.m};
   // Setting overflow-x allows floating content to be correctly positioned on the page.
   overflow-x: hidden;

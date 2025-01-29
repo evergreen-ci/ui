@@ -44,7 +44,7 @@
                     <span
                       class="leafygreen-ui-plwatf"
                     >
-                      REGEX
+                      Regex
                     </span>
                   </div>
                 </button>
@@ -74,7 +74,7 @@
                     <span
                       class="leafygreen-ui-plwatf"
                     >
-                      EXACT
+                      Exact
                     </span>
                   </div>
                 </button>
