@@ -23,7 +23,6 @@ export const getTaskFromMainlineCommitsQuery = (
   }
   const buildVariant = buildVariants[0];
   if (buildVariant === null || buildVariant === undefined) {
-    reportError(new Error("buildVariant is undefined")).warning();
     return;
   }
   if (!buildVariant.tasks) {
