@@ -57,6 +57,14 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
         "page.route",
         "/task-history/:projectId/:taskId",
       );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_param.projectId",
+        "evg",
+      );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_param.taskId",
+        "test-cloud",
+      );
     });
     it("should set attributes for matched dynamic routes with optional params", () => {
       const mockSpan = {
@@ -77,6 +85,10 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
       expect(mockSpan.setAttribute).toHaveBeenCalledWith(
         "page.route",
         "/version/:id/:tab?",
+      );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_param.id",
+        "123",
       );
     });
 
@@ -99,6 +111,14 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
       expect(mockSpan.setAttribute).toHaveBeenCalledWith(
         "page.route",
         "/version/:id/:tab?",
+      );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_param.id",
+        "123",
+      );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_param.tab?",
+        "tasks",
       );
     });
     it("should not set attributes for unmatched routes", () => {
