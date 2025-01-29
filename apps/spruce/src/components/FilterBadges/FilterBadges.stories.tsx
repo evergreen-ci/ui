@@ -4,7 +4,6 @@ import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-
 import { toSentenceCase } from "@evg-ui/lib/utils/string";
 import FilterBadges from ".";
 import { FilterBadgeType } from "./FilterBadge";

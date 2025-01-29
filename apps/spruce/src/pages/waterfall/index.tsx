@@ -93,7 +93,7 @@ const urlParamToTitleMap = {
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${size.s};
+  gap: ${size.xs};
   padding: ${size.m};
   // Setting overflow-x allows floating content to be correctly positioned on the page.
   overflow-x: hidden;

@@ -29,7 +29,7 @@ type Action =
     } // "Commit chart"
   | { name: "Deleted a badge" } // "Variant history" | "Task history" | "Commit chart"
   | { name: "Deleted all badges" } // "Variant history" | "Task history" | "Commit chart"
-  | { name: "Filtered by build variant"; type?: FilterType } // "Variant history" | "Task history"
+  | { name: "Filtered by build variant"; type?: FilterType } // "Variant history" | "Task history" | "Commit chart"
   | { name: "Filtered by requester"; requesters: string[] } // "Commit chart"
   | { name: "Filtered by task"; type?: FilterType } // "Commit chart"
   | { name: "Filtered by task status"; statuses: string[] } // "Commit chart"

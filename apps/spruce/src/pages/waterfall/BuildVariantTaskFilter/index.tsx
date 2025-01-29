@@ -18,8 +18,8 @@ export const BuildVariantTaskFilter = () => {
       value,
     }: {
       category: string;
-      value: string;
       type: FilterType;
+      value: string;
     }) => {
       onSubmit({ category, value });
       switch (category) {
