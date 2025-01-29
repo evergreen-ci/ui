@@ -261,6 +261,7 @@ Safari does not support React DevTools directly. To inspect the application stat
    Deploy a build with profiling enabled to the environment of your choice. For more details, refer to [React's Profiling Documentation](https://react.dev/docs/profiler). See the commands labeled **Profiling Builds** in the [Deployment](../../packages/deploy-utils/README.md#how-to-deploy-a-profiling-build) section.
 
 6. **Connect via Safari**:
+
    Open the target domain in Safari and inspect the application state using React DevTools.
 
 #### Troubleshooting
