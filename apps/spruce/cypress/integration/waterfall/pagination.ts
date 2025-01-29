@@ -60,4 +60,31 @@ describe("pagination", () => {
     cy.get("@builds").eq(4).children().should("have.length", 8);
     cy.get("@builds").eq(5).children().should("have.length", 8);
   });
+
+  describe("'Jump to most recent commit' button", () => {
+    it("returns user to the first page", () => {
+      const firstPageFirstCommit = "2ab1c56";
+
+      cy.dataCy("version-labels").children().should("have.length", 6);
+      cy.dataCy("version-labels")
+        .children()
+        .eq(0)
+        .contains(firstPageFirstCommit);
+
+      cy.dataCy("next-page-button").click();
+      cy.dataCy("version-labels").children().should("have.length", 5);
+      cy.location("search").should("contain", "maxOrder");
+      cy.dataCy("next-page-button").click();
+      cy.location("search").should("contain", "maxOrder");
+
+      cy.dataCy("waterfall-menu").click();
+      cy.dataCy("jump-to-most-recent").click();
+      cy.dataCy("version-labels")
+        .children()
+        .eq(0)
+        .contains(firstPageFirstCommit);
+      cy.location("search").should("not.contain", "maxOrder");
+      cy.location("search").should("not.contain", "minOrder");
+    });
+  });
 });
