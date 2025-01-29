@@ -237,7 +237,7 @@ Safari does not support React DevTools directly. To inspect the application stat
    ```
 
 2. **Create a Self-Signed Certificate**:
-   Generate a certificate to enable secure communication: (The certificate will be valid for 365 days)
+   Generate a certificate to enable secure communication. The certificate will be valid for 365 days, after which you must generate a new certificate:
    ```bash
    openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt -subj "/CN=localhost"
    ```
