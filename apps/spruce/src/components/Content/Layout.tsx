@@ -56,9 +56,9 @@ export const Layout: React.FC = () => {
         />
       )}
       <FloatingContent>
+        <WaterfallScrollToTop />
         <TaskStatusIconLegend />
         <Feedback />
-        <WaterfallScrollToTop />
       </FloatingContent>
     </SiteLayout>
   );

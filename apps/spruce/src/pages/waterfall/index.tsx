@@ -14,6 +14,7 @@ import { WaterfallPagination } from "gql/generated/types";
 import { useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
+import { waterfallPageContainerId } from "./constants";
 import { WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
@@ -42,7 +43,7 @@ const Waterfall: React.FC = () => {
       <PageContainer
         ref={pageWrapperRef}
         data-cy="waterfall-page"
-        id="waterfall-page"
+        id={waterfallPageContainerId}
       >
         {isBeta() && (
           <Banner>
