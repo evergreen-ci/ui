@@ -21,8 +21,8 @@ type Action =
   | { name: "Filtered by task status"; statuses: string[] }
   | { name: "Filtered by date" }
   | { name: "Changed page"; direction: "next" | "previous" }
-  | { name: "Deleted one filter badge" }
-  | { name: "Deleted all filter badges" }
+  | { name: "Deleted one filter chip" }
+  | { name: "Deleted all filter chips" }
   | { name: "Toggled task icon legend"; open: boolean };
 
 export const useWaterfallAnalytics = () => {

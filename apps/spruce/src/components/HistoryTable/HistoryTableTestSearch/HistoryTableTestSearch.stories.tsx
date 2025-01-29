@@ -1,8 +1,6 @@
 import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import FilterBadges, {
-  useFilterBadgeQueryParams,
-} from "components/FilterBadges";
+import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { TestStatus } from "types/history";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
@@ -16,7 +14,7 @@ export const Default: CustomStoryObj<typeof HistoryTableTestSearch> = {
 };
 
 const TestSearch = () => {
-  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+  const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     new Set([TestStatus.Failed, TestStatus.Passed, TestStatus.All]),
   );
 
@@ -24,8 +22,8 @@ const TestSearch = () => {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <HistoryTableTestSearch />
       <div style={{ paddingTop: size.s }}>
-        <FilterBadges
-          badges={badges}
+        <FilterChips
+          chips={chips}
           onClearAll={handleClearAll}
           onRemove={handleOnRemove}
         />

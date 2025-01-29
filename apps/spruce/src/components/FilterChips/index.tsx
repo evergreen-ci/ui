@@ -1,49 +1,49 @@
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
-import FilterBadge, { FilterBadgeType } from "./FilterBadge";
+import FilterChip, { FilterChipType } from "./FilterChip";
 import { SeeMoreModal } from "./SeeMoreModal";
-import useFilterBadgeQueryParams from "./useFilterBadgeQueryParams";
+import useFilterChipQueryParams from "./useFilterChipQueryParams";
 
-interface FilterBadgesProps {
-  badges: FilterBadgeType[];
-  onRemove?: (badge: FilterBadgeType) => void;
+interface FilterChipsProps {
+  chips: FilterChipType[];
+  onRemove?: (chip: FilterChipType) => void;
   onClearAll?: () => void;
 }
-const FilterBadges: React.FC<FilterBadgesProps> = ({
-  badges,
+const FilterChips: React.FC<FilterChipsProps> = ({
+  chips,
   onClearAll = () => {},
   onRemove = () => {},
 }) => {
-  const handleOnRemove = (badge: FilterBadgeType) => {
-    onRemove(badge);
+  const handleOnRemove = (chip: FilterChipType) => {
+    onRemove(chip);
   };
 
   const handleClearAll = () => {
     onClearAll();
   };
-  const visibleBadges = badges.slice(0, 8);
-  const notVisibleCount = badges.slice(8, badges.length).length;
+  const visibleChips = chips.slice(0, 8);
+  const notVisibleCount = chips.slice(8, chips.length).length;
   return (
     <Container>
-      {visibleBadges.map((p) => (
-        <FilterBadge
-          key={`filter_badge_${p.key}_${p.value}`}
-          badge={p}
+      {visibleChips.map((c) => (
+        <FilterChip
+          key={`filter_chip_${c.key}_${c.value}`}
+          chip={c}
           onClose={() => {
-            handleOnRemove(p);
+            handleOnRemove(c);
           }}
         />
       ))}
-      {badges.length > 8 && (
+      {chips.length > 8 && (
         <SeeMoreModal
-          badges={badges}
+          chips={chips}
           notVisibleCount={notVisibleCount}
           onClearAll={handleClearAll}
-          onRemoveBadge={handleOnRemove}
+          onRemoveChip={handleOnRemove}
         />
       )}
-      {badges.length > 0 && (
+      {chips.length > 0 && (
         <Button
           data-cy="clear-all-filters"
           onClick={handleClearAll}
@@ -62,11 +62,11 @@ const Container = styled.div`
   gap: ${size.xs};
   flex-wrap: wrap;
 
-  /* height of 1 row of badges, to avoid layout shift (equal to height of XSmall button) */
+  /* height of 1 row of chips, to avoid layout shift (equal to height of XSmall button) */
   min-height: 22px;
 
   overflow: hidden;
 `;
 
-export default FilterBadges;
-export { useFilterBadgeQueryParams };
+export default FilterChips;
+export { useFilterChipQueryParams };

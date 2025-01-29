@@ -92,8 +92,8 @@ describe("variant history", () => {
         .focus()
         .type("JustA")
         .type("{enter}");
-      cy.dataCy("filter-badge").should("exist");
-      cy.dataCy("filter-badge").should("contain.text", "JustA");
+      cy.dataCy("filter-chip").should("exist");
+      cy.dataCy("filter-chip").should("contain.text", "JustA");
     });
     it("should disable non matching tasks", () => {
       cy.dataCy("history-table-icon")
