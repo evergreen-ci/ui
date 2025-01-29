@@ -76,9 +76,9 @@ describe("filterChips - queryParams", () => {
 
     const chip = screen.queryByDataCy("filter-chip");
     expect(chip).toHaveTextContent("Variant: variant1");
-    const closeButton = screen.getByDataTestid("chip-dismiss-button");
-    expect(closeButton).toBeInTheDocument();
-    await user.click(closeButton);
+    const closeChip = screen.getByDataTestid("chip-dismiss-button");
+    expect(closeChip).toBeInTheDocument();
+    await user.click(closeChip);
 
     expect(screen.queryByDataCy("filter-chip")).toBeNull();
     expect(router.state.location.search).toBe("");
@@ -94,8 +94,8 @@ describe("filterChips - queryParams", () => {
     let chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(2);
     expect(screen.getByText("Variant: variant1")).toBeInTheDocument();
-    const closeButton = screen.queryAllByDataTestid("chip-dismiss-button");
-    await user.click(closeButton[0]);
+    const closeChip = screen.getAllByDataTestid("chip-dismiss-button")[0];
+    await user.click(closeChip);
     chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(1);
     expect(screen.queryByText("Variant: variant1")).toBeNull();
@@ -133,8 +133,7 @@ describe("filterChips - queryParams", () => {
     let chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(4);
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.click(screen.queryByDataCy("clear-all-filters"));
+    await user.click(screen.getByDataCy("clear-all-filters"));
     chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(0);
 

@@ -95,7 +95,7 @@ describe("filterChips", () => {
     render(
       <FilterChips chips={chips} onClearAll={vi.fn()} onRemove={onRemove} />,
     );
-    const closeChip = screen.queryAllByDataTestid("chip-dismiss-button")[0];
+    const closeChip = screen.getAllByDataTestid("chip-dismiss-button")[0];
     expect(closeChip).toBeInTheDocument();
     await user.click(closeChip);
     expect(onRemove).toHaveBeenCalledWith({
