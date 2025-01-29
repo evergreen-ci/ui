@@ -3348,6 +3348,7 @@ export type Version = {
   upstreamProject?: Maybe<UpstreamProject>;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
+  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 /** Version models a commit within a project. */
@@ -3428,7 +3429,7 @@ export type Waterfall = {
 
 export type WaterfallBuild = {
   __typename?: "WaterfallBuild";
-  activated?: Maybe<Scalars["Boolean"]["output"]>;
+  buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   tasks: Array<WaterfallTask>;
@@ -9654,19 +9655,6 @@ export type WaterfallQuery = {
       order: number;
       requester: string;
       revision: string;
-      buildVariants?: Array<{
-        __typename?: "GroupedBuildVariant";
-        displayName: string;
-        variant: string;
-        tasks?: Array<{
-          __typename?: "Task";
-          displayName: string;
-          execution: number;
-          id: string;
-          status: string;
-          displayStatusCache: string;
-        }> | null;
-      }> | null;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
       taskStatusStats?: {
         __typename?: "TaskStats";
@@ -9676,6 +9664,20 @@ export type WaterfallQuery = {
           status: string;
         }> | null;
       } | null;
+      waterfallBuilds?: Array<{
+        __typename?: "WaterfallBuild";
+        buildVariant: string;
+        displayName: string;
+        id: string;
+        tasks: Array<{
+          __typename?: "WaterfallTask";
+          displayName: string;
+          displayStatusCache: string;
+          execution: number;
+          id: string;
+          status: string;
+        }>;
+      }> | null;
       upstreamProject?: {
         __typename?: "UpstreamProject";
         owner: string;

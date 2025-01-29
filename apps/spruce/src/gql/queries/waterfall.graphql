@@ -5,17 +5,6 @@ query Waterfall($options: WaterfallOptions!) {
     flattenedVersions {
       activated
       author
-      buildVariants(options: {}) {
-        displayName
-        tasks {
-          displayName
-          displayStatusCache: displayStatus
-          execution
-          id
-          status
-        }
-        variant
-      }
       createTime
       errors
       gitTags {
@@ -33,6 +22,18 @@ query Waterfall($options: WaterfallOptions!) {
         }
       }
       ...UpstreamProject
+      waterfallBuilds {
+        buildVariant
+        displayName
+        id
+        tasks {
+          displayName
+          displayStatusCache
+          execution
+          id
+          status
+        }
+      }
     }
     pagination {
       hasNextPage

@@ -28,7 +28,7 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import { Build, BuildVariant, WaterfallFilterOptions, Version } from "./types";
+import { BuildVariant, WaterfallFilterOptions, Version } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
@@ -108,13 +108,13 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const refEl = useRef<HTMLDivElement>(null);
   const { height } = useDimensions<HTMLDivElement>(refEl);
 
-  const bvs = groupBuildVariants(data.waterfall.flattenedVersions);
+  const groupedBuildVariants = groupBuildVariants(
+    data.waterfall.flattenedVersions,
+  );
 
   const { activeVersionIds, buildVariants, versions } = useFilters({
-    buildVariants: bvs,
-    flattenedVersions: data.waterfall.flattenedVersions.map(
-      ({ buildVariants: bvToOmit, ...rest }) => rest,
-    ),
+    buildVariants: groupedBuildVariants,
+    flattenedVersions: data.waterfall.flattenedVersions,
     pins,
   });
 
@@ -199,31 +199,34 @@ const Versions = styled.div`
 const groupBuildVariants = (
   versions: WaterfallQuery["waterfall"]["flattenedVersions"],
 ): BuildVariant[] => {
-  const bvMetadata: Map<string, string> = new Map();
-  const bvs: Map<string, Array<Build>> = new Map();
-  versions.forEach(({ buildVariants, id }) => {
-    buildVariants?.forEach(({ displayName, tasks, variant }) => {
-      bvMetadata.set(variant, displayName);
-      if (!bvs.has(variant)) {
-        bvs.set(variant, []);
-      }
+  const bvs: Map<string, BuildVariant> = new Map();
+  versions.forEach(({ activated, id, waterfallBuilds }) => {
+    if (!activated) {
+      return;
+    }
+    waterfallBuilds?.forEach(
+      ({ buildVariant, displayName, id: buildId, tasks }) => {
+        if (!bvs.has(buildVariant)) {
+          bvs.set(buildVariant, {
+            id: buildVariant,
+            displayName,
+            builds: [],
+          });
+        }
 
-      const buildArr = bvs.get(variant);
-      buildArr?.push({
-        id: variant,
-        version: id,
-        tasks: tasks ?? [],
-      });
-    });
+        const bv = bvs.get(buildVariant);
+        bv?.builds?.push({
+          id: buildId,
+          version: id,
+          tasks: tasks ?? [],
+        });
+      },
+    );
   });
 
-  const arr: BuildVariant[] = Array.from(bvs)
-    .map(([variant, builds]) => ({
-      displayName: bvMetadata.get(variant) ?? "",
-      id: variant,
-      builds,
-    }))
-    .sort((a, b) => a.displayName.localeCompare(b.displayName));
+  const arr: BuildVariant[] = Array.from(bvs.values()).sort((a, b) =>
+    a.displayName.localeCompare(b.displayName),
+  );
 
   return arr;
 };
