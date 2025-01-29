@@ -66,7 +66,7 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
         "test-cloud",
       );
     });
-    it.only("should set attributes for matched dynamic routes with optional params", () => {
+    it("should set attributes for matched dynamic routes with optional params", () => {
       const mockSpan = {
         setAttribute: vi.fn(),
       } as unknown as Span;
