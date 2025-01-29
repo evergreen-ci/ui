@@ -22,5 +22,4 @@ const detectGraphqlQuery = (
   }
   return undefined;
 };
-
 export { detectGraphqlQuery };
