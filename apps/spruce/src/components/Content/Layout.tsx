@@ -68,9 +68,6 @@ const FloatingContent = styled.div`
   display: flex;
   flex-direction: column;
 
-  background-color: ${gray.light3};
-  border-radius: ${size.m};
-
   position: fixed;
   bottom: 0;
   right: 0;
@@ -79,14 +76,18 @@ const FloatingContent = styled.div`
   margin-right: ${size.s};
   padding: ${size.xxs};
 
-  opacity: 0.5;
+  background-color: ${gray.light3};
+  border-radius: ${size.m};
   border: 1px solid transparent;
+  opacity: 0.5;
+
   transition: all ${transitionDuration.default}ms ease-in-out;
 
   :hover {
     background-color: ${white};
     border: 1px solid ${gray.light1};
     opacity: 1;
+
     transition: all ${transitionDuration.default}ms ease-in-out;
   }
 `;
