@@ -26,24 +26,40 @@ const calculateRouteName = (pathName: string, routeConfig: RouteConfig) => {
  * @returns - The route params of the URL
  */
 const getRouteParams = (route: string, url: string) => {
+  // If the route doesn't match the URL, return empty
   if (!matchPath(route, url)) {
     return {};
   }
+
   const routeParts = route.split("/");
   const urlParts = url.split("/");
-
   const params: { [key: string]: string } = {};
 
-  if (routeParts.length !== urlParts.length) {
-    // Set this to an error so we can see it in the traces
-    params.error = "Route and URL do not match";
-  }
   routeParts.forEach((part, index) => {
+    // Check if part is a route parameter (starts with ':')
     if (part.startsWith(":")) {
-      const paramName = part.slice(1);
-      params[paramName] = urlParts[index];
+      let paramName = part.slice(1); // remove ':'
+      const isOptional = isOptionalParam(paramName);
+
+      // If it's optional, remove the trailing '?'
+      if (isOptional) {
+        paramName = paramName.slice(0, -1);
+      }
+
+      const paramValue = urlParts[index];
+
+      // If param is optional and value is not provided, use empty string
+      if (isOptional && paramValue === undefined) {
+        params[paramName] = `""`;
+      } else {
+        params[paramName] = paramValue;
+      }
     }
   });
+
   return params;
 };
+
+const isOptionalParam = (param: string) => param.endsWith("?");
+
 export { calculateRouteName, getRouteParams };

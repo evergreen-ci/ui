@@ -55,6 +55,12 @@ describe("getRouteParams", () => {
     const result = getRouteParams(route, url);
     expect(result).toEqual({ taskId: "123", tab: "logs" });
   });
+  it("should remove the question mark from optional params", () => {
+    const route = "/task/:taskId/:tab?";
+    const url = "/task/123/logs";
+    const result = getRouteParams(route, url);
+    expect(result).toEqual({ taskId: "123", tab: "logs" });
+  });
   it("should handle no params in the route", () => {
     const route = "/task";
     const url = "/task";

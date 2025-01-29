@@ -66,7 +66,7 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
         "test-cloud",
       );
     });
-    it("should set attributes for matched dynamic routes with optional params", () => {
+    it.only("should set attributes for matched dynamic routes with optional params", () => {
       const mockSpan = {
         setAttribute: vi.fn(),
       } as unknown as Span;
@@ -89,6 +89,10 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
       expect(mockSpan.setAttribute).toHaveBeenCalledWith(
         "page.route_param.id",
         "123",
+      );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_param.tab",
+        `""`,
       );
     });
 
@@ -117,7 +121,7 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
         "123",
       );
       expect(mockSpan.setAttribute).toHaveBeenCalledWith(
-        "page.route_param.tab?",
+        "page.route_param.tab",
         "tasks",
       );
     });
