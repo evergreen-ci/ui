@@ -122,7 +122,7 @@ export const routes = {
   commits: `${paths.commits}/:${slugs.projectIdentifier}?`,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure`,
   container: `${paths.container}/:${slugs.podId}`,
-  distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}/:${slugs.tab}?`,
+  distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.hostId}`,
   hosts: paths.hosts,
   image: `${paths.image}/:${slugs.imageId}`,

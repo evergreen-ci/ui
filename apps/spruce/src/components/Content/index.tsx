@@ -44,7 +44,7 @@ export const Content: React.FC = () => (
       <Route element={<ConfigurePatch />} path={routes.configurePatch}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<Distro />} path={`${routes.distroSettings}/*`}>
+      <Route element={<Distro />} path={routes.distroSettings}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route
@@ -69,18 +69,18 @@ export const Content: React.FC = () => (
       <Route element={<PatchRedirect />} path={redirectRoutes.patch}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<Preferences />} path={`${routes.preferences}/*`}>
+      <Route element={<Preferences />} path={routes.preferences}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route element={<ProjectPatches />} path={routes.projectPatches} />
-      <Route element={<ProjectSettings />} path={`${routes.projectSettings}/*`}>
+      <Route element={<ProjectSettings />} path={routes.projectSettings}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route
         element={<ProjectSettingsRedirect />}
         path={redirectRoutes.projectSettings}
       />
-      <Route element={<Spawn />} path={`${routes.spawn}/*`}>
+      <Route element={<Spawn />} path={routes.spawn}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route element={<Task />} path={routes.task} />
