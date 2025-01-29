@@ -229,7 +229,7 @@ Read more about deployment [here](../../packages/deploy-utils/README.md#deployme
 If debugging a feature requires you to inspect the application's state, tools like [React DevTools](https://react.dev/learn/react-developer-tools) can be very helpful. React DevTools is a browser extension available in Chrome, Firefox, and Edge that allows you to inspect the React component tree, view the state of components, and profile performance.
 
 #### Debugging in Safari
-Safari does not support React DevTools directly. To inspect the application state in Safari, you can follow the steps below: Steps 1-3 only need to be done your first time setting up React DevTools.
+Safari does not support React DevTools directly. To inspect the application state in Safari, you can follow the steps below. Note: steps 1-3 only need to be done your first time setting up React DevTools.
 
 1. **Install React DevTools CLI**:
    ```bash
