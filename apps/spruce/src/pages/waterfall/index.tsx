@@ -39,7 +39,11 @@ const Waterfall: React.FC = () => {
   return (
     <>
       <Global styles={navbarStyles} />
-      <PageContainer ref={pageWrapperRef} data-cy="waterfall-page">
+      <PageContainer
+        ref={pageWrapperRef}
+        data-cy="waterfall-page"
+        id="waterfall-page"
+      >
         {isBeta() && (
           <Banner>
             <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
