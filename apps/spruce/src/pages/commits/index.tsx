@@ -7,9 +7,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner, RepotrackerBanner } from "components/Banners";
-import FilterBadges, {
-  useFilterBadgeQueryParams,
-} from "components/FilterBadges";
+import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
@@ -168,7 +166,7 @@ const Commits = () => {
   const { nextPageOrderNumber, prevPageOrderNumber, versions } =
     mainlineCommits || {};
 
-  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+  const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     queryParamsToDisplay,
     urlParamToTitleMap,
   );
@@ -226,8 +224,8 @@ const Commits = () => {
           <WaterfallMenu />
         </HeaderWrapper>
         <BadgeWrapper>
-          <FilterBadges
-            badges={badges}
+          <FilterChips
+            chips={chips}
             onClearAll={() => {
               sendEvent({ name: "Deleted all badges" });
               handleClearAll();

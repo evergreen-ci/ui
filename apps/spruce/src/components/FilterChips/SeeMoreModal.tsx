@@ -4,19 +4,19 @@ import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Link } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";
-import FilterBadge, { FilterBadgeType } from "./FilterBadge";
+import FilterChip, { FilterChipType } from "./FilterChip";
 
 interface SeeMoreModalProps {
-  badges: FilterBadgeType[];
+  chips: FilterChipType[];
   notVisibleCount: number;
-  onRemoveBadge: (badge: FilterBadgeType) => void;
+  onRemoveChip: (chip: FilterChipType) => void;
   onClearAll: () => void;
 }
 export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
-  badges,
+  chips,
   notVisibleCount,
   onClearAll,
-  onRemoveBadge,
+  onRemoveChip,
 }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -32,15 +32,15 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
         size="large"
         title="Applied Filters"
       >
-        <BadgeContainer>
-          {badges.map((b) => (
-            <FilterBadge
-              key={`filter_badge_${b.key}_${b.value}`}
-              badge={b}
-              onClose={() => onRemoveBadge(b)}
+        <ChipContainer>
+          {chips.map((c) => (
+            <FilterChip
+              key={`filter_chip_${c.key}_${c.value}`}
+              chip={c}
+              onClose={() => onRemoveChip(c)}
             />
           ))}
-        </BadgeContainer>
+        </ChipContainer>
         <Button
           onClick={onClearAll}
           size={Size.XSmall}
@@ -53,7 +53,7 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
   );
 };
 
-const BadgeContainer = styled.div`
+const ChipContainer = styled.div`
   display: flex;
   gap: ${size.xs};
   flex-wrap: wrap;

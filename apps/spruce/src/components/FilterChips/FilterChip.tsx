@@ -5,29 +5,29 @@ import {
 } from "@leafygreen-ui/chip";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 
-const maxBadgeLength = 25;
+const maxChipLength = 25;
 
-interface FilterBadgeType {
+interface FilterChipType {
   key: string;
   value: string;
   title: string;
 }
-interface FilterBadgeProps {
-  badge: FilterBadgeType;
+interface FilterChipProps {
+  chip: FilterChipType;
   onClose: () => void;
 }
 
-const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => (
+const FilterChip: React.FC<FilterChipProps> = ({ chip, onClose }) => (
   <Chip
-    chipCharacterLimit={maxBadgeLength}
+    chipCharacterLimit={maxChipLength}
     chipTruncationLocation={TruncationLocation.Middle}
-    data-cy="filter-badge"
-    label={`${badge.title}: ${badge.value}`}
+    data-cy="filter-chip"
+    label={`${chip.title}: ${chip.value}`}
     onDismiss={onClose}
     popoverZIndex={zIndex.tooltip}
     variant={ChipVariant.Gray}
   />
 );
 
-export default FilterBadge;
-export type { FilterBadgeType };
+export default FilterChip;
+export type { FilterChipType };
