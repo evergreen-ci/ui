@@ -252,6 +252,7 @@ Safari does not support React DevTools directly. To inspect the application stat
       - Double-click the certificate, expand **Trust**, and set **Always Trust** for SSL.
 
 4. **Run React DevTools**:
+
    Start the CLI with the certificate and key:
    ```bash
    CERT=/path_to_cert/localhost.crt KEY=/path_to_cert/localhost.key react-devtools
