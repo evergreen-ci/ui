@@ -35,9 +35,7 @@ export const Content: React.FC = () => (
   <Routes>
     <Route element={<Layout />}>
       <Route element={<Navigate to={routes.myPatches} />} path="/" />
-      <Route element={<Commits />} path={routes.commits}>
-        <Route element={null} path={`:${slugs.projectIdentifier}`} />
-      </Route>
+      <Route element={<Commits />} path={routes.commits} />
       <Route element={<Container />} path={routes.container} />
       <Route
         element={<WaterfallCommitsRedirect />}
@@ -46,7 +44,7 @@ export const Content: React.FC = () => (
       <Route element={<ConfigurePatch />} path={routes.configurePatch}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<Distro />} path={`${routes.distroSettings}/*`}>
+      <Route element={<Distro />} path={routes.distroSettings}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route
@@ -71,36 +69,33 @@ export const Content: React.FC = () => (
       <Route element={<PatchRedirect />} path={redirectRoutes.patch}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<Preferences />} path={`${routes.preferences}/*`}>
+      <Route element={<Preferences />} path={routes.preferences}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route element={<ProjectPatches />} path={routes.projectPatches} />
-      <Route element={<ProjectSettings />} path={`${routes.projectSettings}/*`}>
+      <Route element={<ProjectSettings />} path={routes.projectSettings}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
       <Route
         element={<ProjectSettingsRedirect />}
         path={redirectRoutes.projectSettings}
       />
-      <Route element={<Spawn />} path={`${routes.spawn}/*`}>
+      <Route element={<Spawn />} path={routes.spawn}>
         <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-      <Route element={<Task />} path={routes.task}>
-        <Route element={null} path={`:${slugs.tab}`} />
-      </Route>
+      <Route element={<Task />} path={routes.task} />
       <Route element={<TaskHistory />} path={routes.taskHistory} />
-      <Route element={<TaskQueue />} path={routes.taskQueue}>
-        <Route element={null} path={`:${slugs.distroId}`} />
-      </Route>
+      <Route
+        element={<TaskQueue />}
+        path={`${routes.taskQueue}/:${slugs.distroId}?`}
+      />
       <Route element={<UserPatches />} path={routes.userPatches} />
       <Route
         element={<UserPatchesRedirect />}
         path={redirectRoutes.userPatches}
       />
       <Route element={<VariantHistory />} path={routes.variantHistory} />
-      <Route element={<VersionPage />} path={routes.version}>
-        <Route element={null} path={`:${slugs.tab}`} />
-      </Route>
+      <Route element={<VersionPage />} path={routes.version} />
       {showWaterfallPage && (
         <Route element={<Waterfall />} path={routes.waterfall} />
       )}
