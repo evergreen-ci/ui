@@ -1,7 +1,7 @@
 <div>
   <div>
     <div
-      class="css-58nl5l-AccordionToggle ev0bopr3"
+      class="css-cmx205-AccordionToggle ev0bopr3"
       data-cy="accordion-toggle"
       role="button"
     >
@@ -23,16 +23,16 @@
       </svg>
       <span>
         <div
-          class="css-jp8k7a-TitleContainer eea2d852"
+          class="css-10ufta-TitleContainer eea2d852"
         >
           <div
-            class="css-wqsx5z-Title eea2d850"
+            class="css-1xdp43b-Title eea2d850"
             title="This_is_a_very_long_test_name_that_should_wrap_This_is_a_very_long_test_name_that_should_wrap_This_is_a_very_long_test_name_that_should_wrap"
           >
             This_is_a_very_long_test_name_that_should_wra…his_is_a_very_long_test_name_that_should_wrap
           </div>
           <div
-            class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+            class="css-u6yhyx-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
             data-cy="task-status-badge"
           >
             1 Failed
@@ -42,11 +42,11 @@
     </div>
     <div
       aria-expanded="false"
-      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+      class="css-1bd3bm2-AnimatedAccordion ev0bopr2"
       data-cy="accordion-collapse-container"
     >
       <div
-        class="css-1nylm8s-ContentsContainer ev0bopr1"
+        class="css-2fvfn0-ContentsContainer ev0bopr1"
       />
     </div>
   </div>

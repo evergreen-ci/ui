@@ -5,20 +5,20 @@
       id="distro-projects"
     >
       <h3
-        class="css-17gedve-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
+        class="css-ufadix-SettingsCardTitle e1h7idos1 leafygreen-ui-feh85s"
       >
         Distro Projects
       </h3>
     </a>
     <div
-      class="css-akg61l-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
+      class="css-1v71gs8-SettingsCard e1h7idos0 leafygreen-ui-1ecxdul"
     >
       <form
         class="rjsf"
         novalidate=""
       >
         <div
-          class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v1"
+          class="form-group field field-object css-1mortic-DefaultFieldContainer eny4k1v1"
           id=" root"
         >
           <fieldset
@@ -26,11 +26,11 @@
             id="root"
           >
             <div
-              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v1"
+              class="form-group field field-string css-1mortic-DefaultFieldContainer eny4k1v1"
               id=" root_cloneMethod"
             >
               <div
-                class="css-cjejq9-ElementWrapper ee4bs9n0"
+                class="css-8949us-ElementWrapper ee4bs9n0"
               >
                 <div
                   class="leafygreen-ui-1iyoj2o"
@@ -105,17 +105,17 @@
               </div>
             </div>
             <div
-              class="form-group field field-array css-mg3yql-DefaultFieldContainer eny4k1v1"
+              class="form-group field field-array css-1mortic-DefaultFieldContainer eny4k1v1"
               id=" root_expansions"
             >
               <h6
-                class="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-19p3n10"
+                class="css-1gx92ct-StyledSubtitle e63qz861 leafygreen-ui-19p3n10"
                 id="root_expansions__title"
               >
                 Expansions
               </h6>
               <div
-                class="css-1owtxr-ElementWrapper-AddButtonContainer e1jxkcec6"
+                class="css-1picsm3-ElementWrapper-AddButtonContainer e1jxkcec6"
               >
                 <button
                   aria-disabled="false"
@@ -153,14 +153,14 @@
                 </button>
               </div>
               <div
-                class="css-1mmfwj9-ArrayContainer e1jxkcec5"
+                class="css-1wvkqtq-ArrayContainer e1jxkcec5"
                 id="root_expansions"
               >
                 <div
-                  class="css-nbhfvd-ArrayItemRow e1jxkcec7"
+                  class="css-1ldt5rh-ArrayItemRow e1jxkcec7"
                 >
                   <div
-                    class="form-group field field-object css-mg3yql-DefaultFieldContainer eny4k1v1"
+                    class="form-group field field-object css-1mortic-DefaultFieldContainer eny4k1v1"
                     id=" root_expansions_0"
                   >
                     <fieldset
@@ -168,14 +168,14 @@
                       id="root_expansions_0"
                     >
                       <div
-                        class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v1"
+                        class="form-group field field-string css-1mortic-DefaultFieldContainer eny4k1v1"
                         id=" root_expansions_0_key"
                       >
                         <div
-                          class="css-cjejq9-ElementWrapper ee4bs9n0"
+                          class="css-8949us-ElementWrapper ee4bs9n0"
                         >
                           <div
-                            class="leafygreen-ui-1br9h7w css-1kbcljo-StyledTextInput eevpusu7"
+                            class="leafygreen-ui-1br9h7w css-1kghfps-StyledTextInput eevpusu7"
                             data-lgid="lg-text_input"
                           >
                             <div
@@ -223,14 +223,14 @@
                         </div>
                       </div>
                       <div
-                        class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v1"
+                        class="form-group field field-string css-1mortic-DefaultFieldContainer eny4k1v1"
                         id=" root_expansions_0_value"
                       >
                         <div
-                          class="css-cjejq9-ElementWrapper ee4bs9n0"
+                          class="css-8949us-ElementWrapper ee4bs9n0"
                         >
                           <div
-                            class="leafygreen-ui-1br9h7w css-1kbcljo-StyledTextInput eevpusu7"
+                            class="leafygreen-ui-1br9h7w css-1kghfps-StyledTextInput eevpusu7"
                             data-lgid="lg-text_input"
                           >
                             <div
@@ -280,7 +280,7 @@
                     </fieldset>
                   </div>
                   <div
-                    class="css-opjgra-ElementWrapper-DeleteButtonWrapper e1jxkcec4"
+                    class="css-1fob3c-ElementWrapper-DeleteButtonWrapper e1jxkcec4"
                   >
                     <button
                       aria-disabled="false"
@@ -319,11 +319,11 @@
               </div>
             </div>
             <div
-              class="form-group field field-string css-mg3yql-DefaultFieldContainer eny4k1v1"
+              class="form-group field field-string css-1mortic-DefaultFieldContainer eny4k1v1"
               id=" root_validProjects"
             >
               <div
-                class="css-17q2u8g-ElementWrapper ee4bs9n0"
+                class="css-yxx81n-ElementWrapper ee4bs9n0"
               >
                 <div
                   class="leafygreen-ui-1br9h7w"
