@@ -28,9 +28,10 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import { BuildVariant, WaterfallFilterOptions, Version } from "./types";
+import { WaterfallFilterOptions, Version } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
+import { groupBuildVariants } from "./utils";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
@@ -114,7 +115,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   const { activeVersionIds, buildVariants, versions } = useFilters({
     buildVariants: groupedBuildVariants,
-    flattenedVersions: data.waterfall.flattenedVersions,
+    flattenedVersions: data.waterfall.flattenedVersions.map(
+      ({ waterfallBuilds, ...restOfVersion }) => restOfVersion,
+    ),
     pins,
   });
 
@@ -195,38 +198,3 @@ const StickyHeader = styled(Row)<{ atTop: boolean }>`
 const Versions = styled.div`
   ${gridGroupCss}
 `;
-
-const groupBuildVariants = (
-  versions: WaterfallQuery["waterfall"]["flattenedVersions"],
-): BuildVariant[] => {
-  const bvs: Map<string, BuildVariant> = new Map();
-  versions.forEach(({ activated, id, waterfallBuilds }) => {
-    if (!activated) {
-      return;
-    }
-    waterfallBuilds?.forEach(
-      ({ buildVariant, displayName, id: buildId, tasks }) => {
-        if (!bvs.has(buildVariant)) {
-          bvs.set(buildVariant, {
-            id: buildVariant,
-            displayName,
-            builds: [],
-          });
-        }
-
-        const bv = bvs.get(buildVariant);
-        bv?.builds?.push({
-          id: buildId,
-          version: id,
-          tasks: tasks ?? [],
-        });
-      },
-    );
-  });
-
-  const arr: BuildVariant[] = Array.from(bvs.values()).sort((a, b) =>
-    a.displayName.localeCompare(b.displayName),
-  );
-
-  return arr;
-};

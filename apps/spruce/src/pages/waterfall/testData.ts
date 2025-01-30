@@ -108,3 +108,82 @@ export const inactiveBrokenVersion: Version = {
   upstreamProject: null,
   order: 5,
 };
+
+export const buildVariants = [
+  {
+    id: "1",
+    displayName: "BV 1",
+    builds: [
+      {
+        id: "ii",
+        tasks: [
+          {
+            displayName: "Task 20",
+            displayStatusCache: "started",
+            execution: 0,
+            id: "task_20",
+            status: "started",
+          },
+          {
+            displayName: "Task 15",
+            displayStatusCache: "started",
+            execution: 0,
+            id: "task_15",
+            status: "started",
+          },
+        ],
+        version: "b",
+      },
+      {
+        id: "i",
+        tasks: [],
+        version: "f",
+      },
+    ],
+  },
+  {
+    id: "2",
+    displayName: "BV 2",
+    builds: [
+      {
+        id: "ii2",
+        tasks: [
+          {
+            displayName: "Task 100",
+            displayStatusCache: "started",
+            execution: 0,
+            id: "task_100",
+            status: "started",
+          },
+        ],
+        version: "b",
+      },
+    ],
+  },
+  {
+    id: "3",
+    displayName: "BV 3",
+    builds: [
+      {
+        id: "iii",
+        tasks: [
+          {
+            displayName: "Task 1",
+            displayStatusCache: "",
+            execution: 0,
+            id: "task_1",
+            status: "success",
+          },
+          {
+            displayName: "Task 2",
+            displayStatusCache: "task-timed-out",
+            execution: 0,
+            id: "task_2",
+            status: "failed",
+          },
+        ],
+        version: "c",
+      },
+    ],
+  },
+];
