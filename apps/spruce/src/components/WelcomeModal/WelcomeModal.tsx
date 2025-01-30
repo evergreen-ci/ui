@@ -104,10 +104,7 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
             />
             <div>
               {carouselCards[activeSlide].href && (
-                <StyledLink
-                  href={carouselCards[activeSlide].href ?? ""}
-                  target="__blank"
-                >
+                <StyledLink href={carouselCards[activeSlide].href ?? ""}>
                   Learn more
                 </StyledLink>
               )}

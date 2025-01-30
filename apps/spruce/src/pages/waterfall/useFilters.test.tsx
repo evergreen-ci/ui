@@ -1,6 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import { WaterfallVersionFragment } from "gql/generated/types";
+import { BuildVariant } from "./types";
 import { useFilters } from "./useFilters";
 
 type WrapperProps = {
@@ -32,6 +33,20 @@ describe("useFilters", () => {
       );
       expect(result.current).toStrictEqual({
         ...waterfall,
+        versions: [
+          {
+            inactiveVersions: [flattenedVersions[0]],
+            version: null,
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[1],
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[2],
+          },
+        ],
         activeVersionIds: ["b", "c"],
       });
     });
@@ -85,6 +100,20 @@ describe("useFilters", () => {
 
       const pinnedWaterfall = {
         ...waterfall,
+        versions: [
+          {
+            inactiveVersions: [flattenedVersions[0]],
+            version: null,
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[1],
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[2],
+          },
+        ],
         activeVersionIds: ["b", "c"],
         buildVariants: [
           waterfall.buildVariants[1],
@@ -144,6 +173,20 @@ describe("useFilters", () => {
 
       const filteredWaterfall = {
         ...waterfall,
+        versions: [
+          {
+            inactiveVersions: [flattenedVersions[0]],
+            version: null,
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[1],
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[2],
+          },
+        ],
         activeVersionIds: ["b", "c"],
       };
 
@@ -216,6 +259,20 @@ describe("useFilters", () => {
 
       const filteredWaterfall = {
         ...waterfall,
+        versions: [
+          {
+            inactiveVersions: [flattenedVersions[0]],
+            version: null,
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[1],
+          },
+          {
+            inactiveVersions: null,
+            version: flattenedVersions[2],
+          },
+        ],
         activeVersionIds: ["b", "c"],
         buildVariants: [
           {
@@ -421,23 +478,20 @@ const flattenedVersions: WaterfallVersionFragment[] = [
   },
 ];
 
-const waterfall = {
+const waterfall: {
+  buildVariants: BuildVariant[];
+} = {
   buildVariants: [
     {
       id: "1",
-      version: "a",
       displayName: "BV 1",
       builds: [
         {
-          activated: false,
-          displayName: "Build A",
           id: "i",
           tasks: [],
           version: "a",
         },
         {
-          activated: true,
-          displayName: "Build 12345",
           id: "ii",
           tasks: [
             {
@@ -462,11 +516,8 @@ const waterfall = {
     {
       id: "2",
       displayName: "BV 2",
-      version: "b",
       builds: [
         {
-          activated: true,
-          displayName: "Build B",
           id: "ii",
           tasks: [
             {
@@ -484,11 +535,8 @@ const waterfall = {
     {
       id: "3",
       displayName: "BV 3",
-      version: "c",
       builds: [
         {
-          activated: true,
-          displayName: "Build C",
           id: "iii",
           tasks: [
             {
@@ -509,20 +557,6 @@ const waterfall = {
           version: "c",
         },
       ],
-    },
-  ],
-  versions: [
-    {
-      inactiveVersions: [flattenedVersions[0]],
-      version: null,
-    },
-    {
-      inactiveVersions: null,
-      version: flattenedVersions[1],
-    },
-    {
-      inactiveVersions: null,
-      version: flattenedVersions[2],
     },
   ],
 };

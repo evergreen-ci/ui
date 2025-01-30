@@ -41,7 +41,6 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
             })
           }
           size="xsmall"
-          target="_blank"
           title="High-powered log viewer"
         >
           Parsley
@@ -59,7 +58,6 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
             })
           }
           size="xsmall"
-          target="_blank"
           title="Plain, colorized log viewer"
         >
           HTML
@@ -77,7 +75,6 @@ export const LogsColumn: React.FC<Props> = ({ task, testResult }) => {
             })
           }
           size="xsmall"
-          target="_blank"
           title="Plain text log viewer"
         >
           Raw

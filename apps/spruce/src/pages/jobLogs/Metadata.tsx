@@ -45,7 +45,6 @@ export const Metadata: React.FC<{
               "group.id": metadata.groupID,
             });
           }}
-          target="_blank"
         >
           Complete logs for all tests
         </StyledLink>

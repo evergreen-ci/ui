@@ -5,10 +5,28 @@ import {
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import TupleSelect from "components/TupleSelect";
 
-interface TupleSelectWithRegexConditionalProps
-  extends React.ComponentProps<typeof TupleSelect> {}
+export enum FilterType {
+  Regex = "regex",
+  Exact = "exact",
+}
+
+type TupleSelectWithRegexConditionalProps = Omit<
+  React.ComponentProps<typeof TupleSelect>,
+  "onSubmit"
+> & {
+  onSubmit: ({
+    category,
+    type,
+    value,
+  }: {
+    category: string;
+    value: string;
+    type: FilterType;
+  }) => void;
+};
 
 /**
  * TupleSelectWithRegexConditional is a wrapper around TupleSelect that allows the user to toggle between regex and exact match
@@ -20,8 +38,8 @@ interface TupleSelectWithRegexConditionalProps
 const TupleSelectWithRegexConditional: React.FC<
   TupleSelectWithRegexConditionalProps
 > = ({ onSubmit, validator, ...rest }) => {
-  const [type, setType] = useState("regex");
-  const isRegex = type === "regex";
+  const [type, setType] = useState(FilterType.Regex);
+  const isRegex = type === FilterType.Regex;
 
   const handleOnSubmit = ({
     category,
@@ -30,8 +48,11 @@ const TupleSelectWithRegexConditional: React.FC<
     category: string;
     value: string;
   }) => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    onSubmit({ category, value: isRegex ? value : escapeRegex(value) });
+    onSubmit({
+      category,
+      value: isRegex ? value : toEscapedRegex(value),
+      type,
+    });
   };
 
   return (
@@ -43,15 +64,21 @@ const TupleSelectWithRegexConditional: React.FC<
           Add Filter
           <PaddedSegmentedControl
             aria-controls="tuple-select-with-regex"
-            onChange={setType}
+            onChange={(t) => setType(t as FilterType)}
             size="xsmall"
             value={type}
           >
-            <SegmentedControlOption data-cy="tuple-select-regex" value="regex">
-              REGEX
+            <SegmentedControlOption
+              data-cy="tuple-select-regex"
+              value={FilterType.Regex}
+            >
+              Regex
             </SegmentedControlOption>
-            <SegmentedControlOption data-cy="tuple-select-exact" value="exact">
-              EXACT
+            <SegmentedControlOption
+              data-cy="tuple-select-exact"
+              value={FilterType.Exact}
+            >
+              Exact
             </SegmentedControlOption>
           </PaddedSegmentedControl>
         </>
@@ -65,8 +92,5 @@ const TupleSelectWithRegexConditional: React.FC<
 const PaddedSegmentedControl = styled(SegmentedControl)`
   margin-left: ${size.xs};
 `;
-
-const escapeRegex = (str: string) =>
-  str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 
 export default TupleSelectWithRegexConditional;

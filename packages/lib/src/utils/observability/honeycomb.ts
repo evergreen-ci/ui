@@ -3,8 +3,9 @@ import {
   getWebAutoInstrumentations,
   InstrumentationConfigMap,
 } from "@opentelemetry/auto-instrumentations-web";
+import ReactRouterSpanProcessor from "./ReactRouterSpanProcessor";
+import { RouteConfig } from "./ReactRouterSpanProcessor/types";
 import { detectGraphqlQuery } from "./utils";
-
 /**
  * Configuration object for the Honeycomb SDK.
  */
@@ -21,6 +22,8 @@ interface HoneycombConfig {
   ingestKey: string;
   /** The environment we are running in */
   environment: string;
+  /** A config representing all routes the app can have */
+  routeConfig: RouteConfig;
 }
 
 /**
@@ -32,6 +35,7 @@ interface HoneycombConfig {
  * @param config.serviceName - The name of the service.
  * @param config.endpoint - The endpoint for the Honeycomb SDK to send traces to if we are not using the default.
  * @param config.environment - The environment we are running in.
+ * @param config.routeConfig - A config representing all routes the app can have.
  */
 const initializeHoneycomb = ({
   backendURL,
@@ -39,6 +43,7 @@ const initializeHoneycomb = ({
   endpoint,
   environment,
   ingestKey,
+  routeConfig,
   serviceName,
 }: HoneycombConfig) => {
   if (debug && (!ingestKey || !endpoint)) {
@@ -82,6 +87,7 @@ const initializeHoneycomb = ({
           propagateTraceHeaderCorsUrls: [new RegExp(backendURL || "")],
         };
       }
+
       const honeycombSdk = new HoneycombWebSDK({
         debug,
         endpoint,
@@ -96,6 +102,7 @@ const initializeHoneycomb = ({
         localVisualizations: debug,
         serviceName,
         apiKey: ingestKey,
+        spanProcessor: new ReactRouterSpanProcessor(routeConfig),
       });
       honeycombSdk.start();
     } catch (e) {

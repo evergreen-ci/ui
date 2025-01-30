@@ -38,7 +38,7 @@ describe("task history", () => {
       `/task-history/spruce/check_codegen`,
     );
     cy.dataCy("filter-badge").should("exist");
-    cy.dataCy("filter-badge").should("contain.text", "failed: Jus");
+    cy.dataCy("filter-badge").should("contain.text", "Failed: Jus");
   });
   it("hovering over a failing task should show test results", () => {
     cy.visit(

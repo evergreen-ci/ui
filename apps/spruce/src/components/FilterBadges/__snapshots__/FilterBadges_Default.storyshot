@@ -5,18 +5,18 @@
     >
       <span
         aria-disabled="false"
-        class="leafygreen-ui-1hdho16 css-1vvzitv-StyledChip e1vs77ku0"
+        class="leafygreen-ui-1hdho16"
         data-cy="filter-badge"
       >
         <span
           class="leafygreen-ui-1vw4uea lg-ui-chip-text-0000"
           data-testid="chip-text"
         >
-          test: test
+          Test: test
         </span>
         <button
           aria-disabled="false"
-          aria-label="Deselect test: test"
+          aria-label="Deselect Test: test"
           class="leafygreen-ui-1dtygb4"
           data-testid="chip-dismiss-button"
           type="button"
