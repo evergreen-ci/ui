@@ -38,7 +38,6 @@ export const VersionLabel: React.FC<Props> = ({
   message,
   revision,
   shouldDisableText = false,
-  taskStatusStats,
   upstreamProject,
   view,
 }) => {
@@ -85,9 +84,7 @@ export const VersionLabel: React.FC<Props> = ({
             <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
           )}
         </Body>
-        {view === VersionLabelView.Waterfall && !!taskStatusStats && (
-          <TaskStatsTooltip taskStatusStats={taskStatusStats} />
-        )}
+        {view === VersionLabelView.Waterfall && <TaskStatsTooltip id={id} />}
       </HeaderLine>
       {upstreamProject && (
         <Body>

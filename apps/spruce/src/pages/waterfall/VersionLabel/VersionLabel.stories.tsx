@@ -6,6 +6,7 @@ import {
 } from "gql/mocks/getSpruceConfig";
 import { VersionLabel, VersionLabelView } from ".";
 import {
+  getTaskStatsMock,
   version,
   versionWithGitTag,
   versionWithUpstreamProject,
@@ -22,6 +23,11 @@ export default {
     view: {
       options: Object.values(VersionLabelView),
       control: { type: "select" },
+    },
+  },
+  parameters: {
+    apolloClient: {
+      mocks: [getTaskStatsMock],
     },
   },
 };
@@ -64,38 +70,6 @@ export const TaskStatsTooltip: StoryObj<typeof VersionLabel> = {
   ...Default,
   args: {
     ...version,
-    taskStatusStats: {
-      counts: [
-        {
-          status: "blocked",
-          count: 4,
-        },
-        {
-          status: "failed",
-          count: 3,
-        },
-        {
-          status: "setup-failed",
-          count: 3,
-        },
-        {
-          status: "started",
-          count: 22,
-        },
-        {
-          status: "success",
-          count: 255,
-        },
-        {
-          status: "unscheduled",
-          count: 2313,
-        },
-        {
-          status: "will-run",
-          count: 100,
-        },
-      ],
-    },
     view: VersionLabelView.Waterfall,
   },
 };
