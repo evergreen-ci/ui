@@ -1,7 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
-import { WaterfallVersionFragment } from "gql/generated/types";
-import { BuildVariant } from "./types";
+import { buildVariants } from "./testData";
+import { BuildVariant, Version } from "./types";
 import { useFilters } from "./useFilters";
 
 type WrapperProps = {
@@ -217,8 +217,8 @@ describe("useFilters", () => {
             ...waterfall.buildVariants[0],
             builds: [
               {
-                ...waterfall.buildVariants[0].builds[1],
-                tasks: [waterfall.buildVariants[0].builds[1].tasks[1]],
+                ...waterfall.buildVariants[0].builds[0],
+                tasks: [waterfall.buildVariants[0].builds[0].tasks[1]],
               },
             ],
           },
@@ -279,8 +279,8 @@ describe("useFilters", () => {
             ...waterfall.buildVariants[0],
             builds: [
               {
-                ...waterfall.buildVariants[0].builds[1],
-                tasks: [waterfall.buildVariants[0].builds[1].tasks[1]],
+                ...waterfall.buildVariants[0].builds[0],
+                tasks: [waterfall.buildVariants[0].builds[0].tasks[1]],
               },
             ],
           },
@@ -363,7 +363,7 @@ describe("useFilters", () => {
         buildVariants: [
           {
             ...waterfall.buildVariants[0],
-            builds: [waterfall.buildVariants[0].builds[1]],
+            builds: [waterfall.buildVariants[0].builds[0]],
           },
           waterfall.buildVariants[1],
         ],
@@ -441,7 +441,7 @@ describe("useFilters", () => {
   });
 });
 
-const flattenedVersions: WaterfallVersionFragment[] = [
+const flattenedVersions: Version[] = [
   {
     id: "a",
     author: "sophie.stadler",
@@ -481,82 +481,5 @@ const flattenedVersions: WaterfallVersionFragment[] = [
 const waterfall: {
   buildVariants: BuildVariant[];
 } = {
-  buildVariants: [
-    {
-      id: "1",
-      displayName: "BV 1",
-      builds: [
-        {
-          id: "i",
-          tasks: [],
-          version: "a",
-        },
-        {
-          id: "ii",
-          tasks: [
-            {
-              displayName: "Task 20",
-              displayStatusCache: "started",
-              execution: 0,
-              id: "task_20",
-              status: "started",
-            },
-            {
-              displayName: "Task 15",
-              displayStatusCache: "started",
-              execution: 0,
-              id: "task_15",
-              status: "started",
-            },
-          ],
-          version: "b",
-        },
-      ],
-    },
-    {
-      id: "2",
-      displayName: "BV 2",
-      builds: [
-        {
-          id: "ii",
-          tasks: [
-            {
-              displayName: "Task 100",
-              displayStatusCache: "started",
-              execution: 0,
-              id: "task_100",
-              status: "started",
-            },
-          ],
-          version: "b",
-        },
-      ],
-    },
-    {
-      id: "3",
-      displayName: "BV 3",
-      builds: [
-        {
-          id: "iii",
-          tasks: [
-            {
-              displayName: "Task 1",
-              displayStatusCache: "",
-              execution: 0,
-              id: "task_1",
-              status: "success",
-            },
-            {
-              displayName: "Task 2",
-              displayStatusCache: "task-timed-out",
-              execution: 0,
-              id: "task_2",
-              status: "failed",
-            },
-          ],
-          version: "c",
-        },
-      ],
-    },
-  ],
+  buildVariants,
 };

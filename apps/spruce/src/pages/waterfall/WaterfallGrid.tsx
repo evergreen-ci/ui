@@ -12,7 +12,6 @@ import {
   WaterfallPagination,
   WaterfallQuery,
   WaterfallQueryVariables,
-  WaterfallVersionFragment,
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useUserTimeZone } from "hooks";
@@ -29,9 +28,10 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import { WaterfallFilterOptions } from "./types";
+import { WaterfallFilterOptions, Version } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
+import { groupBuildVariants } from "./utils";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 type WaterfallGridProps = {
@@ -109,15 +109,21 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const refEl = useRef<HTMLDivElement>(null);
   const { height } = useDimensions<HTMLDivElement>(refEl);
 
+  const groupedBuildVariants = groupBuildVariants(
+    data.waterfall.flattenedVersions,
+  );
+
   const { activeVersionIds, buildVariants, versions } = useFilters({
-    buildVariants: data.waterfall.buildVariants,
-    flattenedVersions: data.waterfall.flattenedVersions,
+    buildVariants: groupedBuildVariants,
+    flattenedVersions: data.waterfall.flattenedVersions.map(
+      ({ waterfallBuilds, ...restOfVersion }) => restOfVersion,
+    ),
     pins,
   });
 
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
 
-  const isHighlighted = (v: WaterfallVersionFragment, i: number) =>
+  const isHighlighted = (v: Version, i: number) =>
     (revision !== null && v.revision.includes(revision)) || (!!date && i === 0);
 
   return (
