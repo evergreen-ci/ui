@@ -54,6 +54,15 @@ export const PreferencesTabs: React.FC = () => {
         />
         <Route
           element={
+            <Navigate
+              replace
+              to={getPreferencesRoute(PreferencesTabRoutes.UISettings)}
+            />
+          }
+          path="/newUI"
+        />
+        <Route
+          element={
             <Container>
               <UISettingsTab />
             </Container>

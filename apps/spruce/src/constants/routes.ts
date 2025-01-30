@@ -20,7 +20,7 @@ export enum PreferencesTabRoutes {
   Profile = "profile",
   Notifications = "notifications",
   CLI = "cli",
-  UISettings = "uiSettings",
+  UISettings = "ui-settings",
   PublicKeys = "publickeys",
 }
 
