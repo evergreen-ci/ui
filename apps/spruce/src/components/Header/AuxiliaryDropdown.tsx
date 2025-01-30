@@ -1,12 +1,15 @@
 import { useNavbarAnalytics } from "analytics";
+import { showWaterfallPage } from "constants/featureFlags";
 import {
   routes,
   getDistroSettingsRoute,
   getProjectPatchesRoute,
   getProjectSettingsRoute,
   getTaskQueueRoute,
+  getCommitsRoute,
+  getWaterfallRoute,
 } from "constants/routes";
-import { useFirstDistro } from "hooks";
+import { useFirstDistro, useMergedBetaFeatures } from "hooks";
 import { NavDropdown } from "./NavDropdown";
 
 interface AuxiliaryDropdownProps {
@@ -18,6 +21,23 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
 }) => {
   const { sendEvent } = useNavbarAnalytics();
   const { distro } = useFirstDistro();
+
+  const { betaFeatures } = useMergedBetaFeatures();
+  const { spruceWaterfallEnabled } = betaFeatures ?? {};
+
+  const inverseLink = spruceWaterfallEnabled
+    ? {
+        "data-cy": "auxiliary-dropdown-project-health",
+        text: "Project Health",
+        to: getCommitsRoute(projectIdentifier),
+        onClick: () => sendEvent({ name: "Clicked project health link" }),
+      }
+    : {
+        "data-cy": "auxiliary-dropdown-waterfall",
+        text: "Waterfall",
+        to: getWaterfallRoute(projectIdentifier),
+        onClick: () => sendEvent({ name: "Clicked waterfall link" }),
+      };
 
   const menuItems = [
     {
@@ -36,7 +56,6 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       text: "Distro Settings",
       onClick: () => sendEvent({ name: "Clicked distro settings link" }),
     },
-
     {
       "data-cy": "auxiliary-dropdown-project-patches",
       to: getProjectPatchesRoute(projectIdentifier),
@@ -49,6 +68,8 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       to: getProjectSettingsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Clicked project settings link" }),
     },
+    // We shouldn't show any inverse links if the waterfall page hasn't been released.
+    ...(showWaterfallPage ? [inverseLink] : []),
   ];
 
   return (
