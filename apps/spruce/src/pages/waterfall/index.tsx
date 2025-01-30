@@ -5,15 +5,14 @@ import Banner from "@leafygreen-ui/banner";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
-import FilterBadges, {
-  useFilterBadgeQueryParams,
-} from "components/FilterBadges";
+import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
 import { useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { isBeta } from "utils/environmentVariables";
 import { jiraLinkify } from "utils/string";
+import { waterfallPageContainerId } from "./constants";
 import { WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
@@ -25,8 +24,9 @@ const Waterfall: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
-  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
-    new Set([WaterfallFilterOptions.BuildVariant, WaterfallFilterOptions.Task]),
+  const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
+    validQueryParams,
+    urlParamToTitleMap,
   );
 
   const { sendEvent } = useWaterfallAnalytics();
@@ -39,7 +39,11 @@ const Waterfall: React.FC = () => {
   return (
     <>
       <Global styles={navbarStyles} />
-      <PageContainer ref={pageWrapperRef} data-cy="waterfall-page">
+      <PageContainer
+        ref={pageWrapperRef}
+        data-cy="waterfall-page"
+        id={waterfallPageContainerId}
+      >
         {isBeta() && (
           <Banner>
             <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
@@ -53,14 +57,14 @@ const Waterfall: React.FC = () => {
           pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
         />
-        <FilterBadges
-          badges={badges}
+        <FilterChips
+          chips={chips}
           onClearAll={() => {
-            sendEvent({ name: "Deleted all filter badges" });
+            sendEvent({ name: "Deleted all filter chips" });
             startTransition(handleClearAll);
           }}
           onRemove={(b) => {
-            sendEvent({ name: "Deleted one filter badge" });
+            sendEvent({ name: "Deleted one filter chip" });
             startTransition(() => handleOnRemove(b));
           }}
         />
@@ -79,10 +83,20 @@ const Waterfall: React.FC = () => {
   );
 };
 
+const validQueryParams = new Set([
+  WaterfallFilterOptions.BuildVariant,
+  WaterfallFilterOptions.Task,
+]);
+
+const urlParamToTitleMap = {
+  [WaterfallFilterOptions.BuildVariant]: "Variant",
+  [WaterfallFilterOptions.Task]: "Task",
+};
+
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${size.s};
+  gap: ${size.xs};
   padding: ${size.m};
   // Setting overflow-x allows floating content to be correctly positioned on the page.
   overflow-x: hidden;

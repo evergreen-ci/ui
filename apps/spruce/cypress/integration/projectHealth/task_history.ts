@@ -37,8 +37,8 @@ describe("task history", () => {
       "contain",
       `/task-history/spruce/check_codegen`,
     );
-    cy.dataCy("filter-badge").should("exist");
-    cy.dataCy("filter-badge").should("contain.text", "failed: Jus");
+    cy.dataCy("filter-chip").should("exist");
+    cy.dataCy("filter-chip").should("contain.text", "Failed: Jus");
   });
   it("hovering over a failing task should show test results", () => {
     cy.visit(
@@ -67,11 +67,10 @@ describe("task history", () => {
     beforeEach(() => {
       cy.visit("/task-history/spruce/check_codegen");
       cy.getInputByLabel("Filter by Failed Tests").should("exist");
-      cy.getInputByLabel("Filter by Failed Tests")
-        .type("JustA")
-        .type("{enter}");
-      cy.dataCy("filter-badge").should("exist");
-      cy.dataCy("filter-badge").should("contain.text", "JustA");
+      cy.getInputByLabel("Filter by Failed Tests").type("JustA");
+      cy.getInputByLabel("Filter by Failed Tests").type("{enter}");
+      cy.dataCy("filter-chip").should("exist");
+      cy.dataCy("filter-chip").should("contain.text", "JustA");
     });
     it("should disable non matching tasks", () => {
       cy.dataCy("history-table-icon")

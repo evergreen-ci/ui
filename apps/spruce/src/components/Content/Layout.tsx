@@ -4,7 +4,7 @@ import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { Outlet } from "react-router-dom";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
-import { size } from "@evg-ui/lib/constants/tokens";
+import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
@@ -18,6 +18,7 @@ import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { USER } from "gql/queries";
 import { useUserSettings } from "hooks";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
+import { WaterfallScrollToTop } from "pages/waterfall/ScrollToTop";
 import { isProduction } from "utils/environmentVariables";
 
 const { gray, white } = palette;
@@ -55,6 +56,7 @@ export const Layout: React.FC = () => {
         />
       )}
       <FloatingContent>
+        <WaterfallScrollToTop />
         <TaskStatusIconLegend />
         <Feedback />
       </FloatingContent>
@@ -63,20 +65,29 @@ export const Layout: React.FC = () => {
 };
 
 const FloatingContent = styled.div`
-  background-color: ${white};
-  border-radius: ${size.s};
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
   bottom: 0;
+  right: 0;
+
   margin-bottom: ${size.s};
   margin-right: ${size.s};
-  opacity: 0.2;
-  padding: ${size.xs};
-  position: fixed;
-  right: 0;
-  transition: opacity 0.2s ease-in-out;
+  padding: ${size.xxs};
+
+  background-color: ${gray.light3};
+  border-radius: ${size.m};
+  border: 1px solid transparent;
+  opacity: 0.5;
+
+  transition: all ${transitionDuration.default}ms ease-in-out;
 
   :hover {
-    box-shadow: 0 3px 4px ${gray.base};
+    background-color: ${white};
+    border: 1px solid ${gray.light1};
     opacity: 1;
-    transition: all 0.2s ease-in-out;
+
+    transition: all ${transitionDuration.default}ms ease-in-out;
   }
 `;

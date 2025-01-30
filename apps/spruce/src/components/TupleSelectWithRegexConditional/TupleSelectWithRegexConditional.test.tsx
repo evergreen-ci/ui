@@ -34,6 +34,7 @@ describe("tupleSelectWithRegexConditional", () => {
     expect(dropdown).toHaveTextContent("Build Variant");
     expect(input).toHaveValue("");
   });
+
   it("should clear input when a value is submitted", async () => {
     const user = userEvent.setup();
     const onSubmit = vi.fn();
@@ -47,12 +48,10 @@ describe("tupleSelectWithRegexConditional", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.queryByDataCy("tuple-select-input");
+    const input = screen.getByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "some-filter");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(input).toHaveValue("");
   });
@@ -70,13 +69,11 @@ describe("tupleSelectWithRegexConditional", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.queryByDataCy("tuple-select-input");
+    const input = screen.getByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "bad");
     expect(input).toHaveValue("bad");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(input).toHaveValue("bad");
     expect(onSubmit).not.toHaveBeenCalled();
@@ -100,17 +97,16 @@ describe("tupleSelectWithRegexConditional", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    await user.click(screen.getByRole("tab", { name: "EXACT" }));
-    const input = screen.queryByDataCy("tuple-select-input");
+    await user.click(screen.getByRole("tab", { name: "Exact" }));
+    const input = screen.getByDataCy("tuple-select-input");
     expect(input).toHaveValue("");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "some-*");
     expect(input).toHaveValue("some-*");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(onSubmit).toHaveBeenCalledWith({
       category: "build_variant",
       value: "some\\-\\*",
+      type: "exact",
     });
     expect(input).toHaveValue("");
   });
@@ -127,10 +123,9 @@ describe("tupleSelectWithRegexConditional", () => {
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    await user.click(screen.getByRole("tab", { name: "EXACT" }));
-    const input = screen.queryByDataCy("tuple-select-input");
+    await user.click(screen.getByRole("tab", { name: "Exact" }));
+    const input = screen.getByDataCy("tuple-select-input");
     expect(input).toHaveValue("");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "*");
     expect(input).toHaveValue("*");
     expect(validator).toHaveBeenCalledWith("");

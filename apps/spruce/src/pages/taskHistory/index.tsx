@@ -6,9 +6,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner } from "components/Banners";
-import FilterBadges, {
-  useFilterBadgeQueryParams,
-} from "components/FilterBadges";
+import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import {
   context,
   ColumnPaginationButtons,
@@ -48,7 +46,7 @@ const TaskHistoryContents: React.FC = () => {
   useTestFilters();
   useJumpToCommit();
 
-  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+  const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     constants.queryParamsToDisplay,
   );
   const dispatchToast = useToastContext();
@@ -145,8 +143,8 @@ const TaskHistoryContents: React.FC = () => {
         </PageHeader>
         <PaginationFilterWrapper>
           <BadgeWrapper>
-            <FilterBadges
-              badges={badges}
+            <FilterChips
+              chips={chips}
               onClearAll={() => {
                 sendEvent({ name: "Deleted all badges" });
                 handleClearAll();
