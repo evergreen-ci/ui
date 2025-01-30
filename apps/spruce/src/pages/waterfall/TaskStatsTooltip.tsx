@@ -48,24 +48,26 @@ export const TaskStatsTooltip: React.FC<
       >
         <PopoverContainer data-cy="task-stats-tooltip">
           <Table>
-            {taskStatusStats?.counts?.map(({ count, status }) => (
-              <Row key={`task_stats_row_${status}`}>
-                <Count>{count}</Count>
-                <Cell>
-                  <Square status={status as TaskStatus} />
+            <Tbody>
+              {taskStatusStats?.counts?.map(({ count, status }) => (
+                <Row key={`task_stats_row_${status}`}>
+                  <Count>{count}</Count>
+                  <Cell>
+                    <Square status={status as TaskStatus} />
+                  </Cell>
+                  <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
+                </Row>
+              ))}
+              <Row>
+                <Cell colSpan={3}>
+                  <Divider />
                 </Cell>
-                <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
               </Row>
-            ))}
-            <Row>
-              <Cell colSpan={3}>
-                <Divider />
-              </Cell>
-            </Row>
-            <Row>
-              <Count>{totalTaskCount}</Count>
-              <Cell colSpan={2}>Total tasks</Cell>
-            </Row>
+              <Row>
+                <Count>{totalTaskCount}</Count>
+                <Cell colSpan={2}>Total tasks</Cell>
+              </Row>
+            </Tbody>
           </Table>
         </PopoverContainer>
       </Popover>
@@ -78,6 +80,8 @@ const BtnContainer = styled.div`
 `;
 
 const Table = styled.table``;
+
+const Tbody = styled.tbody``;
 
 const Row = styled.tr``;
 

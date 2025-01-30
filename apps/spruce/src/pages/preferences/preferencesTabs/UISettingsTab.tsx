@@ -4,7 +4,7 @@ import { useAdminBetaFeatures, useUserBetaFeatures } from "hooks";
 import { BetaFeatureSettings } from "./newUITab/BetaFeatures";
 import { PreferenceToggles } from "./newUITab/PreferenceToggles";
 
-export const NewUITab: React.FC = () => {
+export const UISettingsTab: React.FC = () => {
   const { userBetaSettings } = useUserBetaFeatures();
   const { adminBetaSettings } = useAdminBetaFeatures();
 
