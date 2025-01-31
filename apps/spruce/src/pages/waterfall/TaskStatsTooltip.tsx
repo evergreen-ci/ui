@@ -8,13 +8,13 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import Icon from "components/Icon";
 import { Divider } from "components/styles";
 import { PopoverContainer } from "components/styles/Popover";
-import { WaterfallVersionFragment } from "gql/generated/types";
 import { useOnClickOutside } from "hooks";
 import { SQUARE_SIZE, taskStatusStyleMap } from "./styles";
+import { Version } from "./types";
 
-export const TaskStatsTooltip: React.FC<
-  Pick<WaterfallVersionFragment, "taskStatusStats">
-> = ({ taskStatusStats }) => {
+export const TaskStatsTooltip: React.FC<Pick<Version, "taskStatusStats">> = ({
+  taskStatusStats,
+}) => {
   const [open, setOpen] = useState(false);
 
   const buttonRef = useRef<HTMLButtonElement>(null);

@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { css } from "@emotion/react";
 import { Link, LinkProps } from "@leafygreen-ui/typography";
 import {
@@ -17,14 +18,12 @@ const StyledLink = (props: LinkProps<"a">) => (
   <Link css={overrideStyles} hideExternalIcon {...props} />
 );
 
-const StyledRouterLink = (props: LinkProps<"span"> & RouterLinkProps) => (
+const StyledRouterLink = forwardRef<
+  HTMLSpanElement,
+  LinkProps<"span"> & RouterLinkProps
+>((props, ref) => (
   // @ts-ignore-error: An internal LeafyGreen type causes this error.
-  <Link
-    // @ts-expect-error
-    as={RouterLink}
-    css={overrideStyles}
-    {...props}
-  />
-);
+  <Link ref={ref} as={RouterLink} css={overrideStyles} {...props} />
+));
 
 export { StyledLink, StyledRouterLink };

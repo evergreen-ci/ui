@@ -58,6 +58,7 @@ export default defineConfig({
               "%GIT_SHA%",
               "%REACT_APP_RELEASE_STAGE%",
               "%NODE_ENV%",
+              "%PROFILE_HEAD%",
             ],
           }),
         ],
@@ -80,6 +81,16 @@ export default defineConfig({
         __dirname,
         "./config/leafygreen-ui/emotion",
       ),
+      ...(process.env.PROFILER === "true" && {
+        "react-dom/client": path.resolve(
+          __dirname,
+          "../../node_modules/react-dom/profiling",
+        ),
+        "scheduler/tracing": path.resolve(
+          __dirname,
+          "../../node_modules/scheduler/tracing-profiling",
+        ),
+      }),
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
