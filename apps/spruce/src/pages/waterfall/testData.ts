@@ -12,7 +12,6 @@ export const version: WaterfallVersionFragment = {
     "DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)",
   requester: Requester.Gitter,
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
-  upstreamProject: null,
   order: 10,
 };
 
@@ -30,7 +29,6 @@ export const versionWithGitTag: WaterfallVersionFragment = {
   message: "parsley/v2.1.64",
   requester: Requester.GitTag,
   revision: "deb77a36604446272d610d267f1cd9f95e4fe8ff",
-  upstreamProject: null,
   order: 9,
 };
 
@@ -48,21 +46,6 @@ export const versionWithUpstreamProject: WaterfallVersionFragment = {
   message: "spruce/v4.1.87",
   requester: Requester.GitTag,
   revision: "130948895a46d4fd04292e7783069918e4e7cd5a",
-  upstreamProject: {
-    owner: "evergreen-ci",
-    project: "evergreen",
-    repo: "evergreen",
-    revision: "abcdefg",
-    task: {
-      execution: 0,
-      id: "678",
-    },
-    triggerID: "12345",
-    triggerType: "task",
-    version: {
-      id: "9876",
-    },
-  },
   order: 8,
 };
 
@@ -77,7 +60,6 @@ export const versionBroken: WaterfallVersionFragment = {
     "DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)",
   requester: Requester.Gitter,
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
-  upstreamProject: null,
   order: 7,
 };
 
@@ -91,7 +73,6 @@ export const inactiveVersion: WaterfallVersionFragment = {
   message: "Inactive Version by Sophie Stadler",
   requester: Requester.Gitter,
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
-  upstreamProject: null,
   order: 6,
 };
 
@@ -105,6 +86,5 @@ export const inactiveBrokenVersion: WaterfallVersionFragment = {
   message: "Inactive Version by Sophie Stadler",
   requester: Requester.Gitter,
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
-  upstreamProject: null,
   order: 5,
 };

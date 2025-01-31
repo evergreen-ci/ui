@@ -3348,6 +3348,7 @@ export type Version = {
   upstreamProject?: Maybe<UpstreamProject>;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
+  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 /** Version models a commit within a project. */
@@ -3428,7 +3429,7 @@ export type Waterfall = {
 
 export type WaterfallBuild = {
   __typename?: "WaterfallBuild";
-  activated?: Maybe<Scalars["Boolean"]["output"]>;
+  buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   tasks: Array<WaterfallTask>;
@@ -4959,17 +4960,6 @@ export type WaterfallVersionFragment = {
       count: number;
       status: string;
     }> | null;
-  } | null;
-  upstreamProject?: {
-    __typename?: "UpstreamProject";
-    owner: string;
-    project: string;
-    repo: string;
-    revision: string;
-    triggerID: string;
-    triggerType: string;
-    task?: { __typename?: "Task"; execution: number; id: string } | null;
-    version?: { __typename?: "Version"; id: string } | null;
   } | null;
 };
 
@@ -9541,6 +9531,29 @@ export type VersionTasksQuery = {
   };
 };
 
+export type VersionUpstreamProjectQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type VersionUpstreamProjectQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    upstreamProject?: {
+      __typename?: "UpstreamProject";
+      owner: string;
+      project: string;
+      repo: string;
+      revision: string;
+      triggerID: string;
+      triggerType: string;
+      task?: { __typename?: "Task"; execution: number; id: string } | null;
+      version?: { __typename?: "Version"; id: string } | null;
+    } | null;
+  };
+};
+
 export type VersionQueryVariables = Exact<{
   id: Scalars["String"]["input"];
 }>;
@@ -9714,17 +9727,6 @@ export type WaterfallQuery = {
           count: number;
           status: string;
         }> | null;
-      } | null;
-      upstreamProject?: {
-        __typename?: "UpstreamProject";
-        owner: string;
-        project: string;
-        repo: string;
-        revision: string;
-        triggerID: string;
-        triggerType: string;
-        task?: { __typename?: "Task"; execution: number; id: string } | null;
-        version?: { __typename?: "Version"; id: string } | null;
       } | null;
     }>;
     pagination: {
