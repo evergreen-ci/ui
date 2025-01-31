@@ -52,7 +52,11 @@ export const UpstreamProject: StoryObj<typeof VersionLabel> = {
   args: versionWithUpstreamProject,
   parameters: {
     apolloClient: {
-      mocks: [getVersionUpstreamProjectMock],
+      mocks: [
+        getSpruceConfigMock,
+        getUserSettingsMock,
+        getVersionUpstreamProjectMock,
+      ],
     },
   },
 };
