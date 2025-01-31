@@ -1,18 +1,6 @@
-import {
-  CY_DISABLE_NEW_USER_WELCOME_MODAL,
-  CY_DISABLE_COMMITS_WELCOME_MODAL,
-} from "constants/cookies";
+import { CY_DISABLE_COMMITS_WELCOME_MODAL } from "constants/cookies";
 
 describe("Announcement overlays", () => {
-  it("Displays a welcome modal only when you first visit spruce", () => {
-    cy.clearCookie(CY_DISABLE_NEW_USER_WELCOME_MODAL);
-    cy.visit("/");
-    cy.dataCy("welcome-modal").should("exist");
-    cy.dataCy("close-welcome-modal").click();
-    cy.visit("/");
-    cy.dataCy("welcome-modal").should("not.exist");
-  });
-
   it("Should not show a Sitewide banner after it has been dismissed", () => {
     cy.clearCookie("This is an important notification");
     cy.visit("/");
@@ -36,12 +24,12 @@ describe("Announcement overlays", () => {
     });
   });
 
-  it("visiting the commits page for the first time should show a welcome modal", () => {
+  it("visiting the commits page for the first time should show the waterfall beta modal", () => {
     cy.clearCookie(CY_DISABLE_COMMITS_WELCOME_MODAL);
     cy.visit("/commits/spruce");
-    cy.dataCy("welcome-modal").should("be.visible");
-    cy.dataCy("close-welcome-modal").click();
+    cy.dataCy("waterfall-modal").should("be.visible");
+    cy.contains("Maybe later, continue to Project Health").click();
     cy.reload();
-    cy.dataCy("welcome-modal").should("not.exist");
+    cy.dataCy("waterfall-modal").should("not.exist");
   });
 });

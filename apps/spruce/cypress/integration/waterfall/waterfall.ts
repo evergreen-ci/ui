@@ -57,6 +57,11 @@ describe("waterfall page", () => {
   describe("task stats tooltip", () => {
     it("shows task stats when clicked", () => {
       cy.dataCy("task-stats-tooltip").should("not.exist");
+      cy.dataCy("task-stats-tooltip-button").should(
+        "not.have.attribute",
+        "aria-disabled",
+        "true",
+      );
       cy.dataCy("task-stats-tooltip-button").eq(3).click();
       cy.dataCy("task-stats-tooltip").should("be.visible");
       cy.dataCy("task-stats-tooltip").should("contain.text", "Failed");
