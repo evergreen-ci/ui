@@ -1,3 +1,4 @@
+import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { useNavbarAnalytics } from "analytics";
 import { showWaterfallPage } from "constants/featureFlags";
 import {
@@ -34,7 +35,14 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       }
     : {
         "data-cy": "auxiliary-dropdown-waterfall",
-        text: "Waterfall",
+        text: (
+          <span>
+            Waterfall{" "}
+            <Badge darkMode variant={BadgeVariant.Blue}>
+              Beta
+            </Badge>
+          </span>
+        ),
         to: getWaterfallRoute(projectIdentifier),
         onClick: () => sendEvent({ name: "Clicked waterfall link" }),
       };
