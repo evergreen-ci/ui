@@ -1,6 +1,5 @@
 import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { useNavbarAnalytics } from "analytics";
-import { showWaterfallPage } from "constants/featureFlags";
 import {
   routes,
   getDistroSettingsRoute,
@@ -10,7 +9,11 @@ import {
   getCommitsRoute,
   getWaterfallRoute,
 } from "constants/routes";
-import { useFirstDistro, useMergedBetaFeatures } from "hooks";
+import {
+  useAdminBetaFeatures,
+  useFirstDistro,
+  useMergedBetaFeatures,
+} from "hooks";
 import { NavDropdown } from "./NavDropdown";
 
 interface AuxiliaryDropdownProps {
@@ -22,6 +25,8 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
 }) => {
   const { sendEvent } = useNavbarAnalytics();
   const { distro } = useFirstDistro();
+
+  const { adminBetaSettings } = useAdminBetaFeatures();
 
   const { betaFeatures } = useMergedBetaFeatures();
   const { spruceWaterfallEnabled } = betaFeatures ?? {};
@@ -77,7 +82,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       onClick: () => sendEvent({ name: "Clicked project settings link" }),
     },
     // We shouldn't show any inverse links if the waterfall page hasn't been released.
-    ...(showWaterfallPage ? [inverseLink] : []),
+    ...(adminBetaSettings?.spruceWaterfallEnabled ? [inverseLink] : []),
   ];
 
   return (
