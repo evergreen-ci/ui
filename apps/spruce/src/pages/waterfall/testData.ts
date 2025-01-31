@@ -1,4 +1,10 @@
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { Requester } from "constants/requesters";
+import {
+  WaterfallTaskStatsQuery,
+  WaterfallTaskStatsQueryVariables,
+} from "gql/generated/types";
+import { WATERFALL_TASK_STATS } from "gql/queries";
 import { Version } from "./types";
 
 export const version: Version = {
@@ -187,3 +193,61 @@ export const buildVariants = [
     ],
   },
 ];
+
+export const getTaskStatsMock = (
+  versionId: string,
+): ApolloMock<WaterfallTaskStatsQuery, WaterfallTaskStatsQueryVariables> => ({
+  request: {
+    query: WATERFALL_TASK_STATS,
+    variables: { versionId },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: versionId,
+        taskStatusStats: {
+          __typename: "TaskStats",
+
+          counts: [
+            {
+              __typename: "StatusCount",
+              status: "blocked",
+              count: 4,
+            },
+            {
+              __typename: "StatusCount",
+              status: "failed",
+              count: 3,
+            },
+            {
+              __typename: "StatusCount",
+              status: "setup-failed",
+              count: 3,
+            },
+            {
+              __typename: "StatusCount",
+              status: "started",
+              count: 22,
+            },
+            {
+              __typename: "StatusCount",
+              status: "success",
+              count: 255,
+            },
+            {
+              __typename: "StatusCount",
+              status: "unscheduled",
+              count: 2313,
+            },
+            {
+              __typename: "StatusCount",
+              status: "will-run",
+              count: 100,
+            },
+          ],
+        },
+      },
+    },
+  },
+});

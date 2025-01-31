@@ -9636,6 +9636,26 @@ export type ViewableProjectRefsQuery = {
   }>;
 };
 
+export type WaterfallTaskStatsQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type WaterfallTaskStatsQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    taskStatusStats?: {
+      __typename?: "TaskStats";
+      counts?: Array<{
+        __typename?: "StatusCount";
+        count: number;
+        status: string;
+      }> | null;
+    } | null;
+  };
+};
+
 export type WaterfallQueryVariables = Exact<{
   options: WaterfallOptions;
 }>;
@@ -9656,14 +9676,6 @@ export type WaterfallQuery = {
       requester: string;
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
-      taskStatusStats?: {
-        __typename?: "TaskStats";
-        counts?: Array<{
-          __typename?: "StatusCount";
-          count: number;
-          status: string;
-        }> | null;
-      } | null;
       waterfallBuilds?: Array<{
         __typename?: "WaterfallBuild";
         buildVariant: string;
