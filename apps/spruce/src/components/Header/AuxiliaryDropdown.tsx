@@ -81,7 +81,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       to: getProjectSettingsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Clicked project settings link" }),
     },
-    // We shouldn't show any inverse links if the waterfall page hasn't been released.
+    // Don't show if waterfall beta test is not active.
     ...(adminBetaSettings?.spruceWaterfallEnabled ? [inverseLink] : []),
   ];
 
