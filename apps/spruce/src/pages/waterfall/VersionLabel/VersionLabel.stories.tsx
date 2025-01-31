@@ -25,11 +25,6 @@ export default {
       control: { type: "select" },
     },
   },
-  parameters: {
-    apolloClient: {
-      mocks: [getTaskStatsMock],
-    },
-  },
 };
 
 export const Default: StoryObj<typeof VersionLabel> = {
@@ -59,19 +54,20 @@ export const UpstreamProject: StoryObj<typeof VersionLabel> = {
 export const SmallSize: StoryObj<typeof VersionLabel> = {
   ...Default,
   args: { ...version, view: VersionLabelView.Waterfall },
+  parameters: {
+    apolloClient: {
+      mocks: [
+        getTaskStatsMock(version.id),
+        getSpruceConfigMock,
+        getUserSettingsMock,
+      ],
+    },
+  },
 };
 
 export const Broken: StoryObj<typeof VersionLabel> = {
   ...Default,
   args: versionBroken,
-};
-
-export const TaskStatsTooltip: StoryObj<typeof VersionLabel> = {
-  ...Default,
-  args: {
-    ...version,
-    view: VersionLabelView.Waterfall,
-  },
 };
 
 const Container = styled.div`
