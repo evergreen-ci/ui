@@ -91,6 +91,7 @@ import VERSION_TASKS from "./version-tasks.graphql";
 import VERSION_UPSTREAM_PROJECT from "./version-upstream-project.graphql";
 import VERSION from "./version.graphql";
 import VIEWABLE_PROJECTS from "./viewable-projects.graphql";
+import WATERFALL_TASK_STATS from "./waterfall-task-stats.graphql";
 import WATERFALL from "./waterfall.graphql";
 
 export {
@@ -188,4 +189,5 @@ export {
   VERSION,
   VIEWABLE_PROJECTS,
   WATERFALL,
+  WATERFALL_TASK_STATS,
 };

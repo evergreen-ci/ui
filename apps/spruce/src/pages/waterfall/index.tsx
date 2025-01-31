@@ -5,9 +5,7 @@ import Banner from "@leafygreen-ui/banner";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
-import FilterBadges, {
-  useFilterBadgeQueryParams,
-} from "components/FilterBadges";
+import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
@@ -26,7 +24,7 @@ const Waterfall: React.FC = () => {
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
-  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+  const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     validQueryParams,
     urlParamToTitleMap,
   );
@@ -59,14 +57,14 @@ const Waterfall: React.FC = () => {
           pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
         />
-        <FilterBadges
-          badges={badges}
+        <FilterChips
+          chips={chips}
           onClearAll={() => {
-            sendEvent({ name: "Deleted all filter badges" });
+            sendEvent({ name: "Deleted all filter chips" });
             startTransition(handleClearAll);
           }}
           onRemove={(b) => {
-            sendEvent({ name: "Deleted one filter badge" });
+            sendEvent({ name: "Deleted one filter chip" });
             startTransition(() => handleOnRemove(b));
           }}
         />

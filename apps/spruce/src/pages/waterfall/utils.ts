@@ -1,20 +1,20 @@
-import { WaterfallVersionFragment } from "gql/generated/types";
-import { WaterfallVersion } from "./types";
+import { WaterfallQuery } from "gql/generated/types";
+import { BuildVariant, GroupedVersion, Version } from "./types";
 
 export const groupInactiveVersions = (
-  versions: WaterfallVersionFragment[],
-  versionHasActiveBuild: (version: WaterfallVersionFragment) => boolean,
+  versions: Version[],
+  versionHasActiveBuild: (version: Version) => boolean,
 ) => {
-  const filteredVersions: WaterfallVersion[] = [];
+  const filteredVersions: GroupedVersion[] = [];
 
-  const pushInactive = (v: WaterfallVersionFragment) => {
+  const pushInactive = (v: Version) => {
     if (!filteredVersions?.[filteredVersions.length - 1]?.inactiveVersions) {
       filteredVersions.push({ version: null, inactiveVersions: [] });
     }
     filteredVersions[filteredVersions.length - 1].inactiveVersions?.push(v);
   };
 
-  const pushActive = (v: WaterfallVersionFragment) => {
+  const pushActive = (v: Version) => {
     filteredVersions.push({
       inactiveVersions: null,
       version: v,
@@ -30,4 +30,40 @@ export const groupInactiveVersions = (
   });
 
   return filteredVersions;
+};
+
+export const groupBuildVariants = (
+  versions: WaterfallQuery["waterfall"]["flattenedVersions"],
+): BuildVariant[] => {
+  const bvs: Map<string, BuildVariant> = new Map();
+  versions.forEach(({ activated, id, waterfallBuilds }) => {
+    if (!activated) {
+      return;
+    }
+    waterfallBuilds?.forEach(
+      ({ buildVariant, displayName, id: buildId, tasks }) => {
+        if (!bvs.has(buildVariant)) {
+          bvs.set(buildVariant, {
+            id: buildVariant,
+            displayName,
+            builds: [],
+          });
+        }
+
+        const bv = bvs.get(buildVariant);
+        bv?.builds?.push({
+          id: buildId,
+          version: id,
+          tasks: tasks ?? [],
+        });
+      },
+    );
+  });
+
+  // Although each version's build variants are sorted, we need to make sure the whole list is sorted once combined.
+  const arr: BuildVariant[] = Array.from(bvs.values()).sort((a, b) =>
+    a.displayName.localeCompare(b.displayName),
+  );
+
+  return arr;
 };

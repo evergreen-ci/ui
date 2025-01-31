@@ -1,0 +1,11 @@
+query WaterfallTaskStats($versionId: String!) {
+  version(versionId: $versionId) {
+    id
+    taskStatusStats(options: {}) {
+      counts {
+        count
+        status
+      }
+    }
+  }
+}
