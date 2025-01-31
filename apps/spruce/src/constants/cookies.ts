@@ -19,3 +19,4 @@ export const SEEN_IMAGE_VISIBILITY_GUIDE_CUE =
   "seen-image-visibility-guide-cue";
 export const SEEN_TEST_ANALYSIS_TAB_GUIDE_CUE =
   "seen-test-analysis-tab-guide-cue";
+export const SEEN_WATERFALL_BETA_MODAL = "seen-waterfall-beta-modal";

@@ -9,8 +9,7 @@ import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
-import { useIsScrollAtTop, useSpruceConfig } from "hooks";
-import { isBeta } from "utils/environmentVariables";
+import { useAdminBetaFeatures, useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 import { waterfallPageContainerId } from "./constants";
 import { WaterfallFilterOptions } from "./types";
@@ -21,6 +20,7 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+  const { adminBetaSettings } = useAdminBetaFeatures();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
@@ -44,10 +44,10 @@ const Waterfall: React.FC = () => {
         data-cy="waterfall-page"
         id={waterfallPageContainerId}
       >
-        {isBeta() && (
+        {adminBetaSettings?.spruceWaterfallEnabled && (
           <Banner>
-            <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
-            Open a ticket within the project epic{" "}
+            <strong>Thanks for using the Waterfall Beta!</strong> Feedback? Open
+            a ticket within the project epic{" "}
             {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
           </Banner>
         )}

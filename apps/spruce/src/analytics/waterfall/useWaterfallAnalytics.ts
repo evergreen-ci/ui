@@ -23,7 +23,8 @@ type Action =
   | { name: "Changed page"; direction: "next" | "previous" }
   | { name: "Deleted one filter chip" }
   | { name: "Deleted all filter chips" }
-  | { name: "Toggled task icon legend"; open: boolean };
+  | { name: "Toggled task icon legend"; open: boolean }
+  | { name: "Viewed waterfall beta modal"; enabledBeta: boolean };
 
 export const useWaterfallAnalytics = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
