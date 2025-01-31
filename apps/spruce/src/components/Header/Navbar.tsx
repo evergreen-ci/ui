@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
@@ -85,7 +86,10 @@ export const Navbar: React.FC = () => {
             onClick={() => sendEvent({ name: "Clicked waterfall link" })}
             to={getWaterfallRoute(projectIdentifier)}
           >
-            Waterfall
+            Waterfall{" "}
+            <Badge darkMode variant={BadgeVariant.Blue}>
+              Beta
+            </Badge>
           </PrimaryLink>
         ) : (
           <PrimaryLink
