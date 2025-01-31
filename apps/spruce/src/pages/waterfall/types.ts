@@ -6,10 +6,6 @@ export type Version = Omit<
   "buildVariants"
 >;
 
-// Although this is pretty much a duplicate of the GraphQL type, it is
-// necessary to resolve type errors.
-// We will need this anyway if we end up relying on the flattenedVersions
-// field instead.
 export type GroupedVersion = {
   inactiveVersions: Version[] | null;
   version: Version | null;
