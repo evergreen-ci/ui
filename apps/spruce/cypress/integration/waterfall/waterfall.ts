@@ -58,7 +58,7 @@ describe("waterfall page", () => {
     it("shows task stats when clicked", () => {
       cy.dataCy("task-stats-tooltip").should("not.exist");
       cy.dataCy("task-stats-tooltip-button").should(
-        "not.have.attribute",
+        "not.have.attr",
         "aria-disabled",
         "true",
       );
