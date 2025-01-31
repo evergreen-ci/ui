@@ -15,12 +15,6 @@ query Waterfall($options: WaterfallOptions!) {
       order
       requester
       revision
-      taskStatusStats(options: {}) {
-        counts {
-          count
-          status
-        }
-      }
       ...UpstreamProject
       waterfallBuilds {
         buildVariant
