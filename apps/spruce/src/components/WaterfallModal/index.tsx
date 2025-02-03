@@ -28,7 +28,10 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
 
   const handleClose = (enabledBeta: boolean) => () => {
     Cookies.set(SEEN_WATERFALL_BETA_MODAL, "true", { expires: 365 });
-    sendEvent({ name: "Viewed waterfall beta modal", enabledBeta });
+    sendEvent({
+      name: "Viewed waterfall beta modal",
+      "beta.enabled": enabledBeta,
+    });
     setOpen(false);
   };
 
@@ -64,7 +67,7 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
   };
 
   return (
-    <M
+    <StyledModal
       buttonText="Enable Beta"
       data-cy="waterfall-modal"
       graphic={<Image />}
@@ -87,7 +90,7 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
       Join the beta to begin using the waterfall on Spruce today. You can always
       opt out via your UI Settings. The Project Health page will continue to be
       accessible via &ldquo;More&rdquo; in the navigation bar.
-    </M>
+    </StyledModal>
   );
 };
 
@@ -98,7 +101,7 @@ const Title = styled.span`
   gap: ${size.xs};
 `;
 
-const M = styled(MarketingModal)`
+const StyledModal = styled(MarketingModal)`
   z-index: 2;
   div img {
     max-width: 80%;
