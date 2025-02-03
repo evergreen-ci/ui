@@ -1,5 +1,7 @@
 <div>
-  <div>
+  <div
+    data-waterfall-guide-id="task-legend"
+  >
     <button
       aria-disabled="false"
       aria-label="Task status icon legend"

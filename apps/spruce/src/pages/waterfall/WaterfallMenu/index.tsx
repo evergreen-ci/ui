@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
+import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { GitCommitSearch } from "./GitCommitSearch";
 import { JumpToMostRecent } from "./JumpToMostRecent";
+
+const menuProps = { [waterfallGuideId]: walkthroughSteps[4].targetId };
 
 export const WaterfallMenu: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,6 +21,7 @@ export const WaterfallMenu: React.FC = () => {
       open={menuOpen}
       setOpen={setMenuOpen}
       size="default"
+      {...menuProps}
     />
   );
 };
