@@ -9713,17 +9713,6 @@ export type WaterfallQuery = {
           status: string;
         }>;
       }> | null;
-      upstreamProject?: {
-        __typename?: "UpstreamProject";
-        owner: string;
-        project: string;
-        repo: string;
-        revision: string;
-        triggerID: string;
-        triggerType: string;
-        task?: { __typename?: "Task"; execution: number; id: string } | null;
-        version?: { __typename?: "Version"; id: string } | null;
-      } | null;
     }>;
     pagination: {
       __typename?: "WaterfallPagination";

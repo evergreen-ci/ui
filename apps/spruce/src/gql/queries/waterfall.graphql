@@ -15,7 +15,6 @@ query Waterfall($options: WaterfallOptions!) {
       order
       requester
       revision
-      ...UpstreamProject
       waterfallBuilds {
         buildVariant
         displayName
