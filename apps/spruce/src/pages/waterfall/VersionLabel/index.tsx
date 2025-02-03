@@ -23,6 +23,7 @@ export enum VersionLabelView {
 type Props = Version & {
   className?: string;
   highlighted: boolean;
+  isFirstVersion: boolean;
   shouldDisableText?: boolean;
   view: VersionLabelView;
 };
@@ -36,6 +37,7 @@ export const VersionLabel: React.FC<Props> = ({
   gitTags,
   highlighted,
   id,
+  isFirstVersion,
   message,
   revision,
   shouldDisableText = false,
@@ -84,7 +86,9 @@ export const VersionLabel: React.FC<Props> = ({
             <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
           )}
         </Body>
-        {view === VersionLabelView.Waterfall && <TaskStatsTooltip id={id} />}
+        {view === VersionLabelView.Waterfall && (
+          <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
+        )}
       </HeaderLine>
       <UpstreamProjectLink commitType={commitType} versionId={id} />
       {/* @ts-expect-error */}
