@@ -1,0 +1,8 @@
+#import "../fragments/upstreamProject.graphql"
+
+query VersionUpstreamProject($versionId: String!) {
+  version(versionId: $versionId) {
+    id
+    ...UpstreamProject
+  }
+}
