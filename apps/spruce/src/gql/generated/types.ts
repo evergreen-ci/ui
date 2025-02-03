@@ -9509,6 +9509,29 @@ export type VersionTasksQuery = {
   };
 };
 
+export type VersionUpstreamProjectQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type VersionUpstreamProjectQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    upstreamProject?: {
+      __typename?: "UpstreamProject";
+      owner: string;
+      project: string;
+      repo: string;
+      revision: string;
+      triggerID: string;
+      triggerType: string;
+      task?: { __typename?: "Task"; execution: number; id: string } | null;
+      version?: { __typename?: "Version"; id: string } | null;
+    } | null;
+  };
+};
+
 export type VersionQueryVariables = Exact<{
   id: Scalars["String"]["input"];
 }>;
@@ -9690,17 +9713,6 @@ export type WaterfallQuery = {
           status: string;
         }>;
       }> | null;
-      upstreamProject?: {
-        __typename?: "UpstreamProject";
-        owner: string;
-        project: string;
-        repo: string;
-        revision: string;
-        triggerID: string;
-        triggerType: string;
-        task?: { __typename?: "Task"; execution: number; id: string } | null;
-        version?: { __typename?: "Version"; id: string } | null;
-      } | null;
     }>;
     pagination: {
       __typename?: "WaterfallPagination";

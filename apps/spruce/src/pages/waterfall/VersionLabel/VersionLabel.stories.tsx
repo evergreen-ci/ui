@@ -12,6 +12,7 @@ import {
   versionWithUpstreamProject,
   versionBroken,
 } from "../testData";
+import { getVersionUpstreamProjectMock } from "./testData";
 
 export default {
   title: "Pages/Waterfall/VersionLabel",
@@ -49,6 +50,15 @@ export const GitTag: StoryObj<typeof VersionLabel> = {
 export const UpstreamProject: StoryObj<typeof VersionLabel> = {
   ...Default,
   args: versionWithUpstreamProject,
+  parameters: {
+    apolloClient: {
+      mocks: [
+        getSpruceConfigMock,
+        getUserSettingsMock,
+        getVersionUpstreamProjectMock,
+      ],
+    },
+  },
 };
 
 export const SmallSize: StoryObj<typeof VersionLabel> = {
