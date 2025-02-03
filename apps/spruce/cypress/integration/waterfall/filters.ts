@@ -60,7 +60,7 @@ describe("build variant filtering", () => {
   it("submitting a build variant filter updates the url, creates a badge and filters the grid", () => {
     cy.dataCy("build-variant-label").should("have.length", 2);
     cy.get("[placeholder='Filter build variants'").type("P{enter}");
-    cy.dataCy("filter-badge").first().should("have.text", "buildVariants: P");
+    cy.dataCy("filter-chip").first().should("have.text", "Variant: P");
     cy.location().should((loc) => {
       expect(loc.search).to.include("buildVariants=P");
     });
@@ -73,9 +73,7 @@ describe("build variant filtering", () => {
     cy.location().should((loc) => {
       expect(loc.search).to.include("buildVariants=Lint");
     });
-    cy.dataCy("filter-badge")
-      .first()
-      .should("have.text", "buildVariants: Lint");
+    cy.dataCy("filter-chip").first().should("have.text", "Variant: Lint");
 
     cy.dataCy("build-variant-label")
       .should("have.length", 1)
@@ -105,7 +103,7 @@ describe("task filtering", () => {
     cy.location().should((loc) => {
       expect(loc.search).to.include("tasks=agent");
     });
-    cy.dataCy("filter-badge").first().should("have.text", "tasks: agent");
+    cy.dataCy("filter-chip").first().should("have.text", "Task: agent");
     cy.get("a[data-tooltip]").should("have.length", 1);
     cy.get("a[data-tooltip]").should(
       "have.attr",
@@ -118,7 +116,7 @@ describe("task filtering", () => {
       expect(loc.search).to.include("tasks=agent,lint");
     });
     cy.dataCy("build-variant-label").should("have.length", 2);
-    cy.dataCy("filter-badge").eq(1).should("have.text", "tasks: lint");
+    cy.dataCy("filter-chip").eq(1).should("have.text", "Task: lint");
     cy.get("a[data-tooltip]").should("have.length", 2);
   });
 
@@ -132,7 +130,7 @@ describe("task filtering", () => {
     });
     cy.get("[placeholder='Filter tasks'").type("agent{enter}");
     cy.dataCy("build-variant-label").should("have.length", 0);
-    cy.dataCy("filter-badge").should("have.length", 2);
+    cy.dataCy("filter-chip").should("have.length", 2);
   });
 });
 

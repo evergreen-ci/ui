@@ -1,22 +1,22 @@
 <div>
   <div>
     <div
-      class="css-105gl7n-Container e3qndfh0"
+      class="css-105gl7n-Container e92ehni0"
     >
       <span
         aria-disabled="false"
-        class="leafygreen-ui-1hdho16 css-1vvzitv-StyledChip e1vs77ku0"
-        data-cy="filter-badge"
+        class="leafygreen-ui-1hdho16"
+        data-cy="filter-chip"
       >
         <span
           class="leafygreen-ui-1vw4uea lg-ui-chip-text-0000"
           data-testid="chip-text"
         >
-          test: test
+          Test: test
         </span>
         <button
           aria-disabled="false"
-          aria-label="Deselect test: test"
+          aria-label="Deselect Test: test"
           class="leafygreen-ui-1dtygb4"
           data-testid="chip-dismiss-button"
           type="button"

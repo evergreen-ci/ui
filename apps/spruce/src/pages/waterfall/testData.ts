@@ -1,7 +1,13 @@
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { Requester } from "constants/requesters";
-import { WaterfallVersionFragment } from "gql/generated/types";
+import {
+  WaterfallTaskStatsQuery,
+  WaterfallTaskStatsQueryVariables,
+} from "gql/generated/types";
+import { WATERFALL_TASK_STATS } from "gql/queries";
+import { Version } from "./types";
 
-export const version: WaterfallVersionFragment = {
+export const version: Version = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T14:56:08Z"),
@@ -12,11 +18,10 @@ export const version: WaterfallVersionFragment = {
     "DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)",
   requester: Requester.Gitter,
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
-  upstreamProject: null,
   order: 10,
 };
 
-export const versionWithGitTag: WaterfallVersionFragment = {
+export const versionWithGitTag: Version = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T16:14:10Z"),
@@ -30,11 +35,10 @@ export const versionWithGitTag: WaterfallVersionFragment = {
   message: "parsley/v2.1.64",
   requester: Requester.GitTag,
   revision: "deb77a36604446272d610d267f1cd9f95e4fe8ff",
-  upstreamProject: null,
   order: 9,
 };
 
-export const versionWithUpstreamProject: WaterfallVersionFragment = {
+export const versionWithUpstreamProject: Version = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T16:06:54Z"),
@@ -48,25 +52,10 @@ export const versionWithUpstreamProject: WaterfallVersionFragment = {
   message: "spruce/v4.1.87",
   requester: Requester.GitTag,
   revision: "130948895a46d4fd04292e7783069918e4e7cd5a",
-  upstreamProject: {
-    owner: "evergreen-ci",
-    project: "evergreen",
-    repo: "evergreen",
-    revision: "abcdefg",
-    task: {
-      execution: 0,
-      id: "678",
-    },
-    triggerID: "12345",
-    triggerType: "task",
-    version: {
-      id: "9876",
-    },
-  },
   order: 8,
 };
 
-export const versionBroken: WaterfallVersionFragment = {
+export const versionBroken: Version = {
   activated: true,
   author: "Sophie Stadler",
   createTime: new Date("2024-09-19T14:56:08Z"),
@@ -77,11 +66,10 @@ export const versionBroken: WaterfallVersionFragment = {
     "DEVPROD-11387: Remove CSS grid layout, plus some additional description to demonstrate the overflow capabilities of the component (#397)",
   requester: Requester.Gitter,
   revision: "aec8832bace91f0f3b6d8ad3bb3b27fb4263be83",
-  upstreamProject: null,
   order: 7,
 };
 
-export const inactiveVersion: WaterfallVersionFragment = {
+export const inactiveVersion: Version = {
   activated: false,
   author: "Sophie Stadler",
   createTime: new Date("2024-10-24T14:56:08Z"),
@@ -91,11 +79,10 @@ export const inactiveVersion: WaterfallVersionFragment = {
   message: "Inactive Version by Sophie Stadler",
   requester: Requester.Gitter,
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
-  upstreamProject: null,
   order: 6,
 };
 
-export const inactiveBrokenVersion: WaterfallVersionFragment = {
+export const inactiveBrokenVersion: Version = {
   activated: false,
   author: "Sophie Stadler",
   createTime: new Date("2024-10-25T14:56:08Z"),
@@ -105,6 +92,142 @@ export const inactiveBrokenVersion: WaterfallVersionFragment = {
   message: "Inactive Version by Sophie Stadler",
   requester: Requester.Gitter,
   revision: "a659b9908f6be84afd8142e9c2e403783e1385afefaa728792b3c23b9d6acf7a",
-  upstreamProject: null,
   order: 5,
 };
+
+export const buildVariants = [
+  {
+    id: "1",
+    displayName: "BV 1",
+    builds: [
+      {
+        id: "ii",
+        tasks: [
+          {
+            displayName: "Task 20",
+            displayStatusCache: "started",
+            execution: 0,
+            id: "task_20",
+            status: "started",
+          },
+          {
+            displayName: "Task 15",
+            displayStatusCache: "started",
+            execution: 0,
+            id: "task_15",
+            status: "started",
+          },
+        ],
+        version: "b",
+      },
+      {
+        id: "i",
+        tasks: [],
+        version: "f",
+      },
+    ],
+  },
+  {
+    id: "2",
+    displayName: "BV 2",
+    builds: [
+      {
+        id: "ii2",
+        tasks: [
+          {
+            displayName: "Task 100",
+            displayStatusCache: "started",
+            execution: 0,
+            id: "task_100",
+            status: "started",
+          },
+        ],
+        version: "b",
+      },
+    ],
+  },
+  {
+    id: "3",
+    displayName: "BV 3",
+    builds: [
+      {
+        id: "iii",
+        tasks: [
+          {
+            displayName: "Task 1",
+            displayStatusCache: "",
+            execution: 0,
+            id: "task_1",
+            status: "success",
+          },
+          {
+            displayName: "Task 2",
+            displayStatusCache: "task-timed-out",
+            execution: 0,
+            id: "task_2",
+            status: "failed",
+          },
+        ],
+        version: "c",
+      },
+    ],
+  },
+];
+
+export const getTaskStatsMock = (
+  versionId: string,
+): ApolloMock<WaterfallTaskStatsQuery, WaterfallTaskStatsQueryVariables> => ({
+  request: {
+    query: WATERFALL_TASK_STATS,
+    variables: { versionId },
+  },
+  result: {
+    data: {
+      version: {
+        __typename: "Version",
+        id: versionId,
+        taskStatusStats: {
+          __typename: "TaskStats",
+
+          counts: [
+            {
+              __typename: "StatusCount",
+              status: "blocked",
+              count: 4,
+            },
+            {
+              __typename: "StatusCount",
+              status: "failed",
+              count: 3,
+            },
+            {
+              __typename: "StatusCount",
+              status: "setup-failed",
+              count: 3,
+            },
+            {
+              __typename: "StatusCount",
+              status: "started",
+              count: 22,
+            },
+            {
+              __typename: "StatusCount",
+              status: "success",
+              count: 255,
+            },
+            {
+              __typename: "StatusCount",
+              status: "unscheduled",
+              count: 2313,
+            },
+            {
+              __typename: "StatusCount",
+              status: "will-run",
+              count: 100,
+            },
+          ],
+        },
+      },
+    },
+  },
+});

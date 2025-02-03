@@ -88,8 +88,10 @@ import USER_SUBSCRIPTIONS from "./user-subscriptions.graphql";
 import USER from "./user.graphql";
 import VERSION_TASK_DURATIONS from "./version-task-durations.graphql";
 import VERSION_TASKS from "./version-tasks.graphql";
+import VERSION_UPSTREAM_PROJECT from "./version-upstream-project.graphql";
 import VERSION from "./version.graphql";
 import VIEWABLE_PROJECTS from "./viewable-projects.graphql";
+import WATERFALL_TASK_STATS from "./waterfall-task-stats.graphql";
 import WATERFALL from "./waterfall.graphql";
 
 export {
@@ -110,6 +112,7 @@ export {
   DISTRO_EVENTS,
   DISTRO_TASK_QUEUE,
   DISTRO,
+  VERSION_UPSTREAM_PROJECT,
   DISTROS,
   FAILED_TASK_STATUS_ICON_TOOLTIP,
   GITHUB_ORGS,
@@ -186,4 +189,5 @@ export {
   VERSION,
   VIEWABLE_PROJECTS,
   WATERFALL,
+  WATERFALL_TASK_STATS,
 };

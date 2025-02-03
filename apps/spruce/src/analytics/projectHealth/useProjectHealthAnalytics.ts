@@ -1,5 +1,6 @@
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
+import { FilterType } from "components/TupleSelectWithRegexConditional";
 import { ProjectHealthView } from "gql/generated/types";
 
 // The comments below are used to indicate which pageType the action is relevant to (e.g. "Commit chart")
@@ -28,9 +29,9 @@ type Action =
     } // "Commit chart"
   | { name: "Deleted a badge" } // "Variant history" | "Task history" | "Commit chart"
   | { name: "Deleted all badges" } // "Variant history" | "Task history" | "Commit chart"
-  | { name: "Filtered by build variant" } // "Variant history" | "Task history"
+  | { name: "Filtered by build variant"; type?: FilterType } // "Variant history" | "Task history" | "Commit chart"
   | { name: "Filtered by requester"; requesters: string[] } // "Commit chart"
-  | { name: "Filtered by task" } // "Commit chart"
+  | { name: "Filtered by task"; type?: FilterType } // "Commit chart"
   | { name: "Filtered by task status"; statuses: string[] } // "Commit chart"
   | { name: "Filtered failed tests" } // "Variant history" | "Task history"
   | { name: "Filtered for git commit"; commit: string } // "Commit chart"

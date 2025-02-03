@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { matchPath, useLocation, Params } from "react-router-dom";
-import { idSlugs, routes, slugs } from "constants/routes";
+import { idSlugs, routes } from "constants/routes";
 import { environmentVariables } from "utils";
 
 const { getUiUrl } = environmentVariables;
@@ -23,7 +23,7 @@ export const useLegacyUIURL = (): string | null => {
       [`${routes.task}/*`]: `${uiURL}/task/${id}`,
       [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
-      [`${routes.commits}/:${slugs.projectIdentifier}`]: `${uiURL}/waterfall/${id}`,
+      [routes.commits]: `${uiURL}/waterfall/${id}`,
       [routes.hosts]: `${uiURL}/hosts`,
       [routes.host]: `${uiURL}/host/${id}`,
     };

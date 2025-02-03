@@ -54,8 +54,8 @@ describe("projectHealth/filtering", () => {
     });
     it("applying a build variant filter should show all task statuses by default", () => {
       cy.getInputByLabel("Add Filter").type("Ubuntu{enter}");
-      cy.dataCy("filter-badge").should("have.length", 1);
-      cy.dataCy("filter-badge").should("have.text", "buildVariants: Ubuntu");
+      cy.dataCy("filter-chip").should("have.length", 1);
+      cy.dataCy("filter-chip").should("have.text", "Variant: Ubuntu");
       cy.location("search").should("contain", "?buildVariants=Ubuntu");
       cy.dataCy("grouped-task-status-badge").should("have.length", 9);
       cy.dataCy("waterfall-task-status-icon").should("have.length", 2);

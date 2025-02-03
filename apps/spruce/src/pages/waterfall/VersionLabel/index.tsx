@@ -4,22 +4,23 @@ import { Theme } from "@leafygreen-ui/lib";
 import { color } from "@leafygreen-ui/tokens";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
-import { wordBreakCss, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size as sizeToken } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
-import { getVersionRoute, getTriggerRoute } from "constants/routes";
-import { WaterfallVersionFragment } from "gql/generated/types";
+import { getVersionRoute } from "constants/routes";
 import { useSpruceConfig, useDateFormat } from "hooks";
 import { shortenGithash, jiraLinkify } from "utils/string";
 import { columnBasis } from "../styles";
 import { TaskStatsTooltip } from "../TaskStatsTooltip";
+import { Version } from "../types";
+import UpstreamProjectLink from "./UpstreamProjectLink";
 
 export enum VersionLabelView {
   Modal = "modal",
   Waterfall = "waterfall",
 }
 
-type Props = WaterfallVersionFragment & {
+type Props = Version & {
   className?: string;
   highlighted: boolean;
   isFirstVersion: boolean;
@@ -40,8 +41,6 @@ export const VersionLabel: React.FC<Props> = ({
   message,
   revision,
   shouldDisableText = false,
-  taskStatusStats,
-  upstreamProject,
   view,
 }) => {
   const getDateCopy = useDateFormat();
@@ -87,37 +86,11 @@ export const VersionLabel: React.FC<Props> = ({
             <StyledBadge variant={Variant.Red}>Broken</StyledBadge>
           )}
         </Body>
-        {view === VersionLabelView.Waterfall && !!taskStatusStats && (
-          <TaskStatsTooltip
-            isFirstVersion={isFirstVersion}
-            taskStatusStats={taskStatusStats}
-          />
+        {view === VersionLabelView.Waterfall && (
+          <TaskStatsTooltip id={id} isFirstVersion={isFirstVersion} />
         )}
       </HeaderLine>
-      {upstreamProject && (
-        <Body>
-          Triggered by:{" "}
-          <StyledRouterLink
-            onClick={() => {
-              sendEvent({
-                name: "Clicked commit label",
-                "commit.type": commitType,
-                link: "upstream project",
-              });
-            }}
-            to={getTriggerRoute({
-              triggerType: upstreamProject.triggerType,
-              upstreamTask: upstreamProject.task,
-              upstreamVersion: upstreamProject.version,
-              upstreamRevision: upstreamProject.revision,
-              upstreamOwner: upstreamProject.owner,
-              upstreamRepo: upstreamProject.repo,
-            })}
-          >
-            {upstreamProject.project}
-          </StyledRouterLink>
-        </Body>
-      )}
+      <UpstreamProjectLink commitType={commitType} versionId={id} />
       {/* @ts-expect-error */}
       <CommitMessage
         title={view === VersionLabelView.Waterfall ? message : null}
@@ -138,7 +111,7 @@ export const VersionLabel: React.FC<Props> = ({
 };
 
 const VersionContainer = styled.div<
-  Pick<WaterfallVersionFragment, "activated"> &
+  Pick<Version, "activated"> &
     Pick<Props, "shouldDisableText" | "view"> & { highlighted: boolean }
 >`
   ${columnBasis}

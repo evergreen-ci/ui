@@ -1,4 +1,5 @@
 import pkg from "replace-in-file";
+
 const { sync } = pkg;
 
 type InjectVariablesInHTMLConfig = {
@@ -7,7 +8,9 @@ type InjectVariablesInHTMLConfig = {
 };
 export default (options: InjectVariablesInHTMLConfig) => {
   const from = options.variables.map((v) => new RegExp(v, "g"));
-  const to = options.variables.map((v) => process.env[v.replace(/%/g, "")]);
+  const to = options.variables.map(
+    (v) => process.env[v.replace(/%/g, "")] || "",
+  );
   return {
     name: "injectVariablesInHTML",
     writeBundle: async () => {
