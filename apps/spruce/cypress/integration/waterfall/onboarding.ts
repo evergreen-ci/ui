@@ -1,7 +1,7 @@
 import { SEEN_WATERFALL_ONBOARDING_TUTORIAL } from "constants/cookies";
 
 describe("onboarding", () => {
-  it("can view the waterfall page", () => {
+  it("can go through all steps of the walkthrough", () => {
     cy.clearCookie(SEEN_WATERFALL_ONBOARDING_TUTORIAL);
     cy.visit("/project/evergreen/waterfall");
     cy.dataCy("waterfall-skeleton").should("not.exist");
