@@ -11,7 +11,7 @@ import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
-import { useIsScrollAtTop, useSpruceConfig } from "hooks";
+import { useAdminBetaFeatures, useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 import { waterfallPageContainerId } from "./constants";
 import { WaterfallFilterOptions } from "./types";
@@ -32,6 +32,8 @@ const Waterfall: React.FC = () => {
 
   const { sendEvent } = useWaterfallAnalytics();
 
+  const { adminBetaSettings } = useAdminBetaFeatures();
+
   const [pagination, setPagination] = useState<WaterfallPagination>();
 
   const pageWrapperRef = useRef<HTMLDivElement>(null);
@@ -47,22 +49,24 @@ const Waterfall: React.FC = () => {
         data-cy="waterfall-page"
         id={waterfallPageContainerId}
       >
-        <Banner>
-          <BannerContent>
-            <div>
-              <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
-              Open a ticket within the project epic{" "}
-              {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
-            </div>
-            <Button
-              data-cy="restart-walkthrough-button"
-              onClick={() => guideCueRef.current?.restart()}
-              size={ButtonSize.XSmall}
-            >
-              Restart walkthrough
-            </Button>
-          </BannerContent>
-        </Banner>
+        {adminBetaSettings?.spruceWaterfallEnabled && (
+          <Banner>
+            <BannerContent>
+              <div>
+                <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
+                Open a ticket within the project epic{" "}
+                {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
+              </div>
+              <Button
+                data-cy="restart-walkthrough-button"
+                onClick={() => guideCueRef.current?.restart()}
+                size={ButtonSize.XSmall}
+              >
+                Restart walkthrough
+              </Button>
+            </BannerContent>
+          </Banner>
+        )}
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
           key={projectIdentifier}
