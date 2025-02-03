@@ -1,4 +1,3 @@
-// config/injectVariablesInHTML.ts
 import pkg from "replace-in-file";
 
 const { sync } = pkg;
