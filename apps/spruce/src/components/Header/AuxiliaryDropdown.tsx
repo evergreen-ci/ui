@@ -1,3 +1,4 @@
+import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import { useNavbarAnalytics } from "analytics";
 import {
   routes,
@@ -5,8 +6,14 @@ import {
   getProjectPatchesRoute,
   getProjectSettingsRoute,
   getTaskQueueRoute,
+  getCommitsRoute,
+  getWaterfallRoute,
 } from "constants/routes";
-import { useFirstDistro } from "hooks";
+import {
+  useAdminBetaFeatures,
+  useFirstDistro,
+  useMergedBetaFeatures,
+} from "hooks";
 import { NavDropdown } from "./NavDropdown";
 
 interface AuxiliaryDropdownProps {
@@ -18,6 +25,32 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
 }) => {
   const { sendEvent } = useNavbarAnalytics();
   const { distro } = useFirstDistro();
+
+  const { adminBetaSettings } = useAdminBetaFeatures();
+
+  const { betaFeatures } = useMergedBetaFeatures();
+  const { spruceWaterfallEnabled } = betaFeatures ?? {};
+
+  const inverseLink = spruceWaterfallEnabled
+    ? {
+        "data-cy": "auxiliary-dropdown-project-health",
+        text: "Project Health",
+        to: getCommitsRoute(projectIdentifier),
+        onClick: () => sendEvent({ name: "Clicked project health link" }),
+      }
+    : {
+        "data-cy": "auxiliary-dropdown-waterfall",
+        text: (
+          <span>
+            Waterfall{" "}
+            <Badge darkMode variant={BadgeVariant.Blue}>
+              Beta
+            </Badge>
+          </span>
+        ),
+        to: getWaterfallRoute(projectIdentifier),
+        onClick: () => sendEvent({ name: "Clicked waterfall link" }),
+      };
 
   const menuItems = [
     {
@@ -36,7 +69,6 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       text: "Distro Settings",
       onClick: () => sendEvent({ name: "Clicked distro settings link" }),
     },
-
     {
       "data-cy": "auxiliary-dropdown-project-patches",
       to: getProjectPatchesRoute(projectIdentifier),
@@ -49,6 +81,8 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       to: getProjectSettingsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Clicked project settings link" }),
     },
+    // Don't show inverse link if waterfall beta test is not active.
+    ...(adminBetaSettings?.spruceWaterfallEnabled ? [inverseLink] : []),
   ];
 
   return (

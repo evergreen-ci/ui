@@ -14,8 +14,9 @@ type Action =
   | { name: "Clicked project settings link" }
   | { name: "Clicked project patches link" }
   | { name: "Clicked EVG wiki link" }
-  | { name: "Clicked preferences link" }
+  | { name: "Clicked profile link" }
   | { name: "Clicked notifications link" }
+  | { name: "Clicked UI settings link" }
   | { name: "Clicked task queue link" };
 
 export const useNavbarAnalytics = () =>

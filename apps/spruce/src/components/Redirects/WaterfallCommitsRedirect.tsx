@@ -1,7 +1,20 @@
 import { useParams, Navigate } from "react-router-dom";
-import { getCommitsRoute, slugs } from "constants/routes";
+import { getCommitsRoute, getWaterfallRoute, slugs } from "constants/routes";
+import { useMergedBetaFeatures } from "hooks";
 
 export const WaterfallCommitsRedirect: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-  return <Navigate to={getCommitsRoute(projectIdentifier)} />;
+
+  const { betaFeatures } = useMergedBetaFeatures();
+  const { spruceWaterfallEnabled } = betaFeatures ?? {};
+
+  return (
+    <Navigate
+      to={
+        spruceWaterfallEnabled
+          ? getWaterfallRoute(projectIdentifier)
+          : getCommitsRoute(projectIdentifier)
+      }
+    />
+  );
 };

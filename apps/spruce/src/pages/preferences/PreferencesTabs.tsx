@@ -8,10 +8,10 @@ import {
   slugs,
 } from "constants/routes";
 import { CliTab } from "./preferencesTabs/CliTab";
-import { NewUITab } from "./preferencesTabs/NewUITab";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
 import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
+import { UISettingsTab } from "./preferencesTabs/UISettingsTab";
 
 export const PreferencesTabs: React.FC = () => {
   // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -52,13 +52,23 @@ export const PreferencesTabs: React.FC = () => {
           }
           path={PreferencesTabRoutes.CLI}
         />
+        {/* Delete this redirect in DEVPROD-14564. */}
+        <Route
+          element={
+            <Navigate
+              replace
+              to={getPreferencesRoute(PreferencesTabRoutes.UISettings)}
+            />
+          }
+          path="/newUI"
+        />
         <Route
           element={
             <Container>
-              <NewUITab />
+              <UISettingsTab />
             </Container>
           }
-          path={PreferencesTabRoutes.NewUI}
+          path={PreferencesTabRoutes.UISettings}
         />
         <Route
           element={
@@ -97,8 +107,8 @@ const getTitle = (
       [PreferencesTabRoutes.CLI]: {
         title: "CLI & API",
       },
-      [PreferencesTabRoutes.NewUI]: {
-        title: "New UI Settings",
+      [PreferencesTabRoutes.UISettings]: {
+        title: "UI Settings",
       },
       [PreferencesTabRoutes.PublicKeys]: {
         title: "Manage Public Keys",
