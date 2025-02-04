@@ -49,19 +49,6 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        plugins: [
-          // Replace the variables in our HTML files.
-          injectVariablesInHTML({
-            files: "dist/index.html",
-            variables: [
-              "%APP_VERSION%",
-              "%GIT_SHA%",
-              "%REACT_APP_RELEASE_STAGE%",
-              "%NODE_ENV%",
-              "%PROFILE_HEAD%",
-            ],
-          }),
-        ],
         manualChunks: {
           vendor: [
             "react",
@@ -108,6 +95,17 @@ export default defineConfig({
       },
       // exclude storybook stories
       exclude: [/\.stories\.tsx?$/],
+    }),
+    // Replace the variables in our HTML files.
+    injectVariablesInHTML({
+      files: "dist/index.html",
+      variables: [
+        "%APP_VERSION%",
+        "%GIT_SHA%",
+        "%REACT_APP_RELEASE_STAGE%",
+        "%NODE_ENV%",
+        "%PROFILE_HEAD%",
+      ],
     }),
     // Dynamic imports of antd styles
     vitePluginImp({

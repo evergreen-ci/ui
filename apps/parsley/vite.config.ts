@@ -17,18 +17,7 @@ dns.setDefaultResultOrder("ipv4first");
 export default defineConfig({
   build: {
     rollupOptions: {
-      plugins: [
-        injectVariablesInHTML({
-          files: "dist/index.html",
-          variables: [
-            "%APP_VERSION%",
-            "%GIT_SHA%",
-            "%REACT_APP_RELEASE_STAGE%",
-            "%NODE_ENV%",
-            "%PROFILE_HEAD%",
-          ],
-        }),
-      ],
+      plugins: [],
     },
     sourcemap: true,
   },
@@ -52,6 +41,16 @@ export default defineConfig({
     }),
     envCompatible({
       prefix: "REACT_APP_",
+    }),
+    injectVariablesInHTML({
+      files: "dist/index.html",
+      variables: [
+        "%APP_VERSION%",
+        "%GIT_SHA%",
+        "%REACT_APP_RELEASE_STAGE%",
+        "%NODE_ENV%",
+        "%PROFILE_HEAD%",
+      ],
     }),
     // Typescript checking
     checker({ typescript: true }),

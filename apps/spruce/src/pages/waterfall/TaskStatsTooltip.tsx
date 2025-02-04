@@ -15,10 +15,15 @@ import {
 } from "gql/generated/types";
 import { WATERFALL_TASK_STATS } from "gql/queries";
 import { useOnClickOutside } from "hooks";
+import { walkthroughSteps, waterfallGuideId } from "./constants";
 import { SQUARE_SIZE, taskStatusStyleMap } from "./styles";
 import { Version } from "./types";
 
-export const TaskStatsTooltip: React.FC<Pick<Version, "id">> = ({ id }) => {
+export const TaskStatsTooltip: React.FC<
+  Pick<Version, "id"> & {
+    isFirstVersion: boolean;
+  }
+> = ({ id, isFirstVersion }) => {
   const { data, loading } = useQuery<
     WaterfallTaskStatsQuery,
     WaterfallTaskStatsQueryVariables
@@ -39,6 +44,10 @@ export const TaskStatsTooltip: React.FC<Pick<Version, "id">> = ({ id }) => {
       0,
     ) ?? 0;
 
+  const buttonContainerProps = isFirstVersion
+    ? { [waterfallGuideId]: walkthroughSteps[5].targetId }
+    : {};
+
   return (
     <>
       <BtnContainer>
@@ -49,6 +58,7 @@ export const TaskStatsTooltip: React.FC<Pick<Version, "id">> = ({ id }) => {
           data-cy="task-stats-tooltip-button"
           disabled={!data || loading}
           onClick={() => setOpen((o) => !o)}
+          {...buttonContainerProps}
         >
           <Icon glyph="Charts" />
         </IconButton>
@@ -62,26 +72,28 @@ export const TaskStatsTooltip: React.FC<Pick<Version, "id">> = ({ id }) => {
       >
         <PopoverContainer data-cy="task-stats-tooltip">
           <Table>
-            {data?.version?.taskStatusStats?.counts?.map(
-              ({ count, status }) => (
-                <Row key={`task_stats_row_${status}`}>
-                  <Count>{count}</Count>
-                  <Cell>
-                    <Square status={status as TaskStatus} />
-                  </Cell>
-                  <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
-                </Row>
-              ),
-            )}
-            <Row>
-              <Cell colSpan={3}>
-                <Divider />
-              </Cell>
-            </Row>
-            <Row>
-              <Count>{totalTaskCount}</Count>
-              <Cell colSpan={2}>Total tasks</Cell>
-            </Row>
+            <Tbody>
+              {data?.version?.taskStatusStats?.counts?.map(
+                ({ count, status }) => (
+                  <Row key={`task_stats_row_${status}`}>
+                    <Count>{count}</Count>
+                    <Cell>
+                      <Square status={status as TaskStatus} />
+                    </Cell>
+                    <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
+                  </Row>
+                ),
+              )}
+              <Row>
+                <Cell colSpan={3}>
+                  <Divider />
+                </Cell>
+              </Row>
+              <Row>
+                <Count>{totalTaskCount}</Count>
+                <Cell colSpan={2}>Total tasks</Cell>
+              </Row>
+            </Tbody>
           </Table>
         </PopoverContainer>
       </Popover>
@@ -94,6 +106,8 @@ const BtnContainer = styled.div`
 `;
 
 const Table = styled.table``;
+
+const Tbody = styled.tbody``;
 
 const Row = styled.tr``;
 

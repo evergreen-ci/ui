@@ -14,7 +14,7 @@ const NavDropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
 
 export interface MenuItemType {
   "data-cy"?: string;
-  text: string;
+  text: string | React.ReactNode;
   href?: string;
   to?: string;
   onClick?: () => void;

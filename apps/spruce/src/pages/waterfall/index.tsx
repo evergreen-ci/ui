@@ -2,15 +2,16 @@ import { Suspense, useRef, useState, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
+import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
+import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
-import { useIsScrollAtTop, useSpruceConfig } from "hooks";
-import { isBeta } from "utils/environmentVariables";
+import { useAdminBetaFeatures, useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 import { waterfallPageContainerId } from "./constants";
 import { WaterfallFilterOptions } from "./types";
@@ -21,6 +22,7 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+  const { adminBetaSettings } = useAdminBetaFeatures();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
@@ -36,6 +38,8 @@ const Waterfall: React.FC = () => {
   const pageWrapperRef = useRef<HTMLDivElement>(null);
   const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
 
+  const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
+
   return (
     <>
       <Global styles={navbarStyles} />
@@ -44,11 +48,22 @@ const Waterfall: React.FC = () => {
         data-cy="waterfall-page"
         id={waterfallPageContainerId}
       >
-        {isBeta() && (
+        {adminBetaSettings?.spruceWaterfallEnabled && (
           <Banner>
-            <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
-            Open a ticket within the project epic{" "}
-            {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
+            <BannerContent>
+              <div>
+                <strong>Thanks for using the Waterfall Beta!</strong> Feedback?
+                Open a ticket within the project epic{" "}
+                {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
+              </div>
+              <Button
+                data-cy="restart-walkthrough-button"
+                onClick={() => guideCueRef.current?.restart()}
+                size={ButtonSize.XSmall}
+              >
+                Restart walkthrough
+              </Button>
+            </BannerContent>
           </Banner>
         )}
         <WaterfallFilters
@@ -73,6 +88,7 @@ const Waterfall: React.FC = () => {
             <WaterfallGrid
               key={projectIdentifier}
               atTop={atTop}
+              guideCueRef={guideCueRef}
               projectIdentifier={projectIdentifier ?? ""}
               setPagination={setPagination}
             />
@@ -92,6 +108,11 @@ const urlParamToTitleMap = {
   [WaterfallFilterOptions.BuildVariant]: "Variant",
   [WaterfallFilterOptions.Task]: "Task",
 };
+
+const BannerContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const PageContainer = styled.div`
   display: flex;
