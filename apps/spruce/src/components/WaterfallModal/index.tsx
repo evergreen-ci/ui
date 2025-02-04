@@ -54,6 +54,7 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
         "Failed to enable waterfall beta. Visit your UI Settings page to update.",
       );
     },
+    refetchQueries: ["UserBetaFeatures"],
   });
 
   const [open, setOpen] = useState(true);
