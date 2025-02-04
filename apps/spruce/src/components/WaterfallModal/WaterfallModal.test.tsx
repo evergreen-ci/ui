@@ -103,7 +103,7 @@ describe("waterfallModal", () => {
     expect(mockSendEvent).toHaveBeenCalledTimes(1);
     expect(mockSendEvent).toHaveBeenCalledWith({
       name: "Viewed waterfall beta modal",
-      "beta.enabled": true,
+      "beta_features.spruce_waterfall_enabled": true,
     });
     expect(mockedSet).toHaveBeenCalledTimes(1);
   });
@@ -147,7 +147,7 @@ describe("waterfallModal", () => {
     expect(mockSendEvent).toHaveBeenCalledTimes(1);
     expect(mockSendEvent).toHaveBeenCalledWith({
       name: "Viewed waterfall beta modal",
-      "beta.enabled": false,
+      "beta_features.spruce_waterfall_enabled": false,
     });
     expect(mockedSet).toHaveBeenCalledTimes(1);
   });
@@ -175,7 +175,7 @@ describe("waterfallModal", () => {
     expect(mockSendEvent).toHaveBeenCalledTimes(1);
     expect(mockSendEvent).toHaveBeenCalledWith({
       name: "Viewed waterfall beta modal",
-      "beta.enabled": false,
+      "beta_features.spruce_waterfall_enabled": false,
     });
     expect(mockedSet).toHaveBeenCalledTimes(1);
   });
