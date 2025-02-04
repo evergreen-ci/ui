@@ -67,6 +67,8 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
     });
     sendEvent({
       name: "Saved beta feature settings",
+      "beta_features.spruce_waterfall_enabled":
+        formState.betaFeatures.spruceWaterfallEnabled,
     });
   };
 

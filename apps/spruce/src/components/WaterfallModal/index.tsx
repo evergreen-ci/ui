@@ -5,11 +5,16 @@ import Badge, { Variant } from "@leafygreen-ui/badge";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useWaterfallAnalytics } from "analytics";
 import { SEEN_WATERFALL_BETA_MODAL } from "constants/cookies";
-import { getWaterfallRoute } from "constants/routes";
+import {
+  PreferencesTabRoutes,
+  getPreferencesRoute,
+  getWaterfallRoute,
+} from "constants/routes";
 import {
   UpdateUserBetaFeaturesMutation,
   UpdateUserBetaFeaturesMutationVariables,
@@ -30,7 +35,7 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
     Cookies.set(SEEN_WATERFALL_BETA_MODAL, "true", { expires: 365 });
     sendEvent({
       name: "Viewed waterfall beta modal",
-      "beta.enabled": enabledBeta,
+      "beta_features.spruce_waterfall_enabled": enabledBeta,
     });
     setOpen(false);
   };
@@ -46,7 +51,7 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
     onError: () => {
       handleClose(false)();
       dispatchToast.error(
-        `Failed to enable waterfall beta. Visit your UI Settings page to update.`,
+        "Failed to enable waterfall beta. Visit your UI Settings page to update.",
       );
     },
   });
@@ -86,10 +91,15 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
         </Title>
       }
     >
-      {/* TODO: Add link to UI settings once DEVPROD-10203 is merged */}
       Join the beta to begin using the waterfall on Spruce today. You can always
-      opt out via your UI Settings. The Project Health page will continue to be
-      accessible via &ldquo;More&rdquo; in the navigation bar.
+      opt out via your{" "}
+      <StyledRouterLink
+        to={getPreferencesRoute(PreferencesTabRoutes.UISettings)}
+      >
+        UI Settings
+      </StyledRouterLink>
+      . The Project Health page will continue to be accessible via
+      &ldquo;More&rdquo; in the navigation bar.
     </StyledModal>
   );
 };
