@@ -19,7 +19,7 @@ export const UserDropdown = () => {
     {
       text: "Profile",
       to: getPreferencesRoute(PreferencesTabRoutes.Profile),
-      onClick: () => sendEvent({ name: "Clicked preferences link" }),
+      onClick: () => sendEvent({ name: "Clicked profile link" }),
     },
     {
       text: "Notifications",
