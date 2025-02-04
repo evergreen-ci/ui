@@ -16,6 +16,7 @@ import {
 import { routes } from "constants/routes";
 import { taskStatusToCopy } from "constants/task";
 import { useOnClickOutside } from "hooks";
+import { walkthroughSteps, waterfallGuideId } from "pages/waterfall/constants";
 
 type LegendContentProps = {
   isWaterfallPage: boolean;
@@ -76,6 +77,8 @@ const LegendIcon = styled.div`
 
 const LegendLabel = styled.div``;
 
+const legendProps = { [waterfallGuideId]: walkthroughSteps[1].targetId };
+
 export const TaskStatusIconLegend: React.FC = () => {
   const isWaterfallPage = !!useMatch(`${routes.waterfall}/*`);
 
@@ -91,7 +94,7 @@ export const TaskStatusIconLegend: React.FC = () => {
   useOnClickOutside([buttonRef, popoverRef], () => setOpen(false));
 
   return (
-    <div>
+    <div {...legendProps}>
       <IconButton
         ref={buttonRef}
         aria-label="Task status icon legend"
