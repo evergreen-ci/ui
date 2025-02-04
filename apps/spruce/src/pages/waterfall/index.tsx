@@ -22,6 +22,7 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+  const { adminBetaSettings } = useAdminBetaFeatures();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
@@ -31,8 +32,6 @@ const Waterfall: React.FC = () => {
   );
 
   const { sendEvent } = useWaterfallAnalytics();
-
-  const { adminBetaSettings } = useAdminBetaFeatures();
 
   const [pagination, setPagination] = useState<WaterfallPagination>();
 
@@ -53,7 +52,7 @@ const Waterfall: React.FC = () => {
           <Banner>
             <BannerContent>
               <div>
-                <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
+                <strong>Thanks for using the Waterfall Beta!</strong> Feedback?
                 Open a ticket within the project epic{" "}
                 {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
               </div>
