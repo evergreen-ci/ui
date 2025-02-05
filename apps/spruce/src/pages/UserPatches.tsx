@@ -31,7 +31,7 @@ export const UserPatches = () => {
       patchesInput: {
         ...patchesInput,
         // Always show merge queue patches for the merge queue user.
-        onlyCommitQueue: isMergeQueueUser,
+        onlyMergeQueue: isMergeQueueUser,
       },
     },
     fetchPolicy: "cache-and-network",

@@ -59,7 +59,7 @@ export const ProjectPatches = () => {
       projectIdentifier,
       patchesInput: {
         ...patchesInput,
-        onlyCommitQueue: isGitHubMergeQueueCheckboxChecked,
+        onlyMergeQueue: isGitHubMergeQueueCheckboxChecked,
       },
     },
     pollInterval: DEFAULT_POLL_INTERVAL,
