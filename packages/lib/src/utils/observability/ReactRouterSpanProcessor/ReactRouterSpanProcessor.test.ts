@@ -9,7 +9,7 @@ describe("ReactRouterSpanProcessor", () => {
     spawnHost: "/spawn/host",
     versionPage: "/version/:id/:tab?",
     taskHistory: "/task-history/:projectId/:taskId",
-    configurePatch: `/patch/:patchId/configure`,
+    configurePatch: `/patch/:patchId/configure/:tab?`,
   };
 
   beforeEach(() => {
