@@ -113,6 +113,10 @@ export const getFormSchema = (
             githubChecksEnabledTitle: {
               type: "null",
               title: "GitHub Commit Checks",
+              ...(projectType === ProjectType.Repo && {
+                description:
+                  "If enabled, these settings can only apply to one branch project that also has this feature enabled. This does not apply to untracked branches.",
+              }),
             },
             githubChecksEnabled: {
               type: ["boolean", "null"],
@@ -133,8 +137,9 @@ export const getFormSchema = (
             gitTagVersionsTitle: {
               type: "null",
               title: "Trigger Versions With Git Tags",
-              description:
-                "If an authorized user pushes a tag that matches a specific regex, then a version will be created from this alias. Note that project admins are not authorized by default; they must explicitly be given this permission.",
+              description: `If an authorized user pushes a tag that matches a specific regex, then a version will be created from this alias. 
+                Note that project admins are not authorized by default; they must explicitly be given this permission. 
+                ${projectType === ProjectType.Repo ? "This does not apply to untracked branches." : ""}`,
             },
             gitTagVersionsEnabled: {
               type: ["boolean", "null"],
@@ -196,6 +201,10 @@ export const getFormSchema = (
         mergeQueue: {
           type: "object" as "object",
           title: "Merge Queue",
+          ...(projectType === ProjectType.Repo && {
+            description:
+              "If enabled, these settings can only apply to one branch project that also has this feature enabled. This does not apply to untracked branches.",
+          }),
           properties: {
             enabled: {
               type: ["boolean", "null"],
