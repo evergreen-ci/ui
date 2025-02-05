@@ -61,9 +61,15 @@ export const groupBuildVariants = (
   });
 
   // Although each version's build variants are sorted, we need to make sure the whole list is sorted once combined.
-  const arr: BuildVariant[] = Array.from(bvs.values()).sort((a, b) =>
-    a.displayName.localeCompare(b.displayName),
-  );
+  const arr: BuildVariant[] = Array.from(bvs.values()).sort((a, b) => {
+    if (a.displayName < b.displayName) {
+      return -1;
+    }
+    if (a.displayName > b.displayName) {
+      return 1;
+    }
+    return 0;
+  });
 
   return arr;
 };
