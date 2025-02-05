@@ -13,9 +13,9 @@ import { useWaterfallAnalytics } from "analytics";
 import Icon from "components/Icon";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
-import { WaterfallBuild } from "gql/generated/types";
 import { useDimensions } from "hooks/useDimensions";
 import { useBuildVariantContext } from "./BuildVariantContext";
+import { walkthroughSteps, waterfallGuideId } from "./constants";
 import {
   BuildVariantTitle,
   columnBasis,
@@ -25,22 +25,24 @@ import {
   SQUARE_SIZE,
   taskStatusStyleMap,
 } from "./styles";
-import { Build, BuildVariant, WaterfallVersion } from "./types";
+import { Build, BuildVariant, GroupedVersion } from "./types";
 
 const { black, gray, white } = palette;
 
 type Props = {
   build: BuildVariant;
   handlePinClick: () => void;
+  isFirstBuild: boolean;
   lastActiveVersionId: string;
   pinned: boolean;
   projectIdentifier: string;
-  versions: WaterfallVersion[];
+  versions: GroupedVersion[];
 };
 
 export const BuildRow: React.FC<Props> = ({
   build,
   handlePinClick,
+  isFirstBuild,
   lastActiveVersionId,
   pinned,
   projectIdentifier,
@@ -76,6 +78,20 @@ export const BuildRow: React.FC<Props> = ({
     }
   }, [builds, columnWidth]);
 
+  const iconButtonProps = isFirstBuild
+    ? { [waterfallGuideId]: walkthroughSteps[2].targetId }
+    : {};
+
+  let firstActiveTaskId = "";
+  if (isFirstBuild) {
+    for (let i = 0; i < builds.length; i++) {
+      if (builds[i].tasks.length > 0) {
+        firstActiveTaskId = builds[i].tasks[0].id;
+        break;
+      }
+    }
+  }
+
   return (
     <Row>
       <BuildVariantTitle data-cy="build-variant-label">
@@ -84,6 +100,7 @@ export const BuildRow: React.FC<Props> = ({
           aria-label="Pin build variant"
           data-cy="pin-button"
           onClick={handlePinClick}
+          {...iconButtonProps}
         >
           <Icon glyph="Pin" />
         </StyledIconButton>
@@ -121,6 +138,7 @@ export const BuildRow: React.FC<Props> = ({
               <BuildGrid
                 key={b.id}
                 build={b}
+                firstActiveTaskId={firstActiveTaskId}
                 handleTaskClick={handleTaskClick}
                 isRightmostBuild={b.version === lastActiveVersionId}
               />
@@ -135,9 +153,10 @@ export const BuildRow: React.FC<Props> = ({
 
 const BuildGrid: React.FC<{
   build: Build;
+  firstActiveTaskId: string;
   handleTaskClick: (s: string) => () => void;
   isRightmostBuild: boolean;
-}> = ({ build, handleTaskClick, isRightmostBuild }) => {
+}> = ({ build, firstActiveTaskId, handleTaskClick, isRightmostBuild }) => {
   const rowRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions<HTMLDivElement>(rowRef);
 
@@ -159,6 +178,10 @@ const BuildGrid: React.FC<{
     >
       {build.tasks.map(
         ({ displayName, displayStatusCache, execution, id, status }) => {
+          const squareProps =
+            id === firstActiveTaskId
+              ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
+              : {};
           // Use status as backup for tasks created before displayStatusCache was introduced
           const taskStatus = (displayStatusCache || status) as TaskStatus;
           return (
@@ -168,6 +191,7 @@ const BuildGrid: React.FC<{
               isRightmostBuild={isRightmostBuild}
               status={taskStatus}
               to={getTaskRoute(id, { execution })}
+              {...squareProps}
             />
           );
         },
@@ -185,7 +209,7 @@ const calculateBVContainerHeight = ({
   builds,
   columnWidth,
 }: {
-  builds: WaterfallBuild[];
+  builds: Build[];
   columnWidth: number;
 }) => {
   const numTasks = Math.max(...builds.map((b) => b.tasks.length));

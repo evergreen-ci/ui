@@ -1,8 +1,13 @@
 import { useState } from "react";
+import styled from "@emotion/styled";
 import Banner, { Variant } from "@leafygreen-ui/banner";
+import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
+import Icon from "components/Icon";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
+
+const { green } = palette;
 
 export interface SiteBannerProps {
   text: string;
@@ -27,6 +32,12 @@ export const SiteBanner: React.FC<SiteBannerProps> = ({ text, theme }) => {
     <Banner
       data-cy={`sitewide-banner-${variant}`}
       dismissible
+      image={
+        // We want the green banner to align more with legacy Evergreen's announcement banner
+        variant === Variant.Success ? (
+          <StyledIcon color={green.dark1} glyph="Megaphone" />
+        ) : undefined
+      }
       onClose={hideBanner}
       variant={variant}
     >
@@ -42,3 +53,9 @@ const mapThemeToVariant: Record<string, Variant> = {
   warning: Variant.Warning,
   important: Variant.Danger,
 };
+
+// It's unclear why using the size prop on the component doesn't work, but we can do this instead.
+const StyledIcon = styled(Icon)`
+  width: 16px;
+  height: 16px;
+`;

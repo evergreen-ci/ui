@@ -7,21 +7,19 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner, RepotrackerBanner } from "components/Banners";
-import FilterBadges, {
-  useFilterBadgeQueryParams,
-} from "components/FilterBadges";
+import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelectWithRegexConditional from "components/TupleSelectWithRegexConditional";
-import WelcomeModal from "components/WelcomeModal";
+import { WaterfallModal } from "components/WaterfallModal";
 import {
+  SEEN_WATERFALL_BETA_MODAL,
   CURRENT_PROJECT,
   CY_DISABLE_COMMITS_WELCOME_MODAL,
 } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getCommitsRoute, slugs } from "constants/routes";
-import { newMainlineCommitsUser } from "constants/welcomeModalProps";
 import {
   SpruceConfigQuery,
   SpruceConfigQueryVariables,
@@ -31,10 +29,10 @@ import {
 } from "gql/generated/types";
 import { MAINLINE_COMMITS, SPRUCE_CONFIG } from "gql/queries";
 import {
+  useAdminBetaFeatures,
   usePageTitle,
   usePolling,
   useUpsertQueryParams,
-  useUserSettings,
 } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { useQueryParam } from "hooks/useQueryParam";
@@ -62,13 +60,15 @@ const Commits = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
-  const { userSettings } = useUserSettings();
-  const { useSpruceOptions } = userSettings ?? {};
-  const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
   const [ref, limit, isResizing] = useCommitLimit<HTMLDivElement>();
   const parsed = parseQueryString(search);
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`Project Health | ${projectIdentifier}`);
+
+  const { adminBetaSettings } = useAdminBetaFeatures();
+  const showWaterfallBetaModal =
+    Cookies.get(SEEN_WATERFALL_BETA_MODAL) !== "true" &&
+    adminBetaSettings?.spruceWaterfallEnabled;
 
   const sendAnalyticsEvent = (id: string, identifier: string) => {
     sendEvent({
@@ -168,24 +168,21 @@ const Commits = () => {
   const { nextPageOrderNumber, prevPageOrderNumber, versions } =
     mainlineCommits || {};
 
-  const queryParamsToDisplay = new Set([
-    ProjectFilterOptions.BuildVariant,
-    ProjectFilterOptions.Task,
-  ]);
-
-  const { badges, handleClearAll, handleOnRemove } =
-    useFilterBadgeQueryParams(queryParamsToDisplay);
+  const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
+    queryParamsToDisplay,
+    urlParamToTitleMap,
+  );
   const onSubmit = useUpsertQueryParams();
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const onSubmitTupleSelect = ({ category, value }) => {
+  const onSubmitTupleSelect = ({ category, type, value }) => {
     onSubmit({ category, value });
     switch (category) {
       case ProjectFilterOptions.BuildVariant:
-        sendEvent({ name: "Filtered by build variant" });
+        sendEvent({ name: "Filtered by build variant", type });
         break;
       case ProjectFilterOptions.Task:
-        sendEvent({ name: "Filtered by task" });
+        sendEvent({ name: "Filtered by task", type });
         break;
       default:
     }
@@ -229,8 +226,8 @@ const Commits = () => {
           <WaterfallMenu />
         </HeaderWrapper>
         <BadgeWrapper>
-          <FilterBadges
-            badges={badges}
+          <FilterChips
+            chips={chips}
             onClearAll={() => {
               sendEvent({ name: "Deleted all badges" });
               handleClearAll();
@@ -266,14 +263,21 @@ const Commits = () => {
           />
         </div>
       </PageContainer>
-      {!shouldDisableForTest && !hasUsedMainlineCommitsBefore && (
-        <WelcomeModal
-          carouselCards={newMainlineCommitsUser}
-          param="hasUsedMainlineCommitsBefore"
-        />
+      {!shouldDisableForTest && showWaterfallBetaModal && projectIdentifier && (
+        <WaterfallModal projectIdentifier={projectIdentifier} />
       )}
     </PageWrapper>
   );
+};
+
+const queryParamsToDisplay = new Set([
+  ProjectFilterOptions.BuildVariant,
+  ProjectFilterOptions.Task,
+]);
+
+const urlParamToTitleMap = {
+  [ProjectFilterOptions.BuildVariant]: "Variant",
+  [ProjectFilterOptions.Task]: "Task",
 };
 
 const PageContainer = styled.div`

@@ -17,17 +17,7 @@ dns.setDefaultResultOrder("ipv4first");
 export default defineConfig({
   build: {
     rollupOptions: {
-      plugins: [
-        injectVariablesInHTML({
-          files: "dist/index.html",
-          variables: [
-            "%APP_VERSION%",
-            "%GIT_SHA%",
-            "%REACT_APP_RELEASE_STAGE%",
-            "%NODE_ENV%",
-          ],
-        }),
-      ],
+      plugins: [],
     },
     sourcemap: true,
   },
@@ -51,6 +41,16 @@ export default defineConfig({
     }),
     envCompatible({
       prefix: "REACT_APP_",
+    }),
+    injectVariablesInHTML({
+      files: "dist/index.html",
+      variables: [
+        "%APP_VERSION%",
+        "%GIT_SHA%",
+        "%REACT_APP_RELEASE_STAGE%",
+        "%NODE_ENV%",
+        "%PROFILE_HEAD%",
+      ],
     }),
     // Typescript checking
     checker({ typescript: true }),
@@ -87,6 +87,16 @@ export default defineConfig({
         __dirname,
         "./config/leafygreen-ui/emotion.ts",
       ),
+      ...(process.env.PROFILER === "true" && {
+        "react-dom/client": path.resolve(
+          __dirname,
+          "../../node_modules/react-dom/profiling",
+        ),
+        "scheduler/tracing": path.resolve(
+          __dirname,
+          "../../node_modules/scheduler/tracing-profiling",
+        ),
+      }),
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },

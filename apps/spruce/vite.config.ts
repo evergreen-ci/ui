@@ -49,18 +49,6 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        plugins: [
-          // Replace the variables in our HTML files.
-          injectVariablesInHTML({
-            files: "dist/index.html",
-            variables: [
-              "%APP_VERSION%",
-              "%GIT_SHA%",
-              "%REACT_APP_RELEASE_STAGE%",
-              "%NODE_ENV%",
-            ],
-          }),
-        ],
         manualChunks: {
           vendor: [
             "react",
@@ -80,6 +68,16 @@ export default defineConfig({
         __dirname,
         "./config/leafygreen-ui/emotion",
       ),
+      ...(process.env.PROFILER === "true" && {
+        "react-dom/client": path.resolve(
+          __dirname,
+          "../../node_modules/react-dom/profiling",
+        ),
+        "scheduler/tracing": path.resolve(
+          __dirname,
+          "../../node_modules/scheduler/tracing-profiling",
+        ),
+      }),
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
@@ -97,6 +95,17 @@ export default defineConfig({
       },
       // exclude storybook stories
       exclude: [/\.stories\.tsx?$/],
+    }),
+    // Replace the variables in our HTML files.
+    injectVariablesInHTML({
+      files: "dist/index.html",
+      variables: [
+        "%APP_VERSION%",
+        "%GIT_SHA%",
+        "%REACT_APP_RELEASE_STAGE%",
+        "%NODE_ENV%",
+        "%PROFILE_HEAD%",
+      ],
     }),
     // Dynamic imports of antd styles
     vitePluginImp({

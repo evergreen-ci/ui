@@ -35,8 +35,13 @@ functions:
           AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
         script: |
           ${PREPARE_SHELL}
-          yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
-
+          # Add PROFILER to env if profiler patch parameter is set to true.
+          if [ "${profiler}" = "true" ]; then
+              echo "PROFILER is set to true, adding profiler to the build"
+              PROFILER=true PROFILE_HEAD="<script src=\"https://localhost:8097\"></script>" yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
+          else
+              yarn env-cmd --no-override -e "${target}" yarn deploy-utils-build-and-push
+          fi
   email:
     - command: shell.exec
       params:
@@ -161,3 +166,8 @@ tasks:
         vars:
           app_dir: apps/spruce
           target: staging
+
+parameters:
+  - key: profiler
+    value: false
+    description: Specify whether to include the profiler in the build.

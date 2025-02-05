@@ -4,7 +4,10 @@ import { AnalyticsIdentifier } from "analytics/types";
 type Action =
   | { name: "Changed tab"; tab: string }
   | { name: "Saved profile info" }
-  | { name: "Saved beta feature settings" }
+  | {
+      name: "Saved beta feature settings";
+      "beta_features.spruce_waterfall_enabled": boolean;
+    }
   | { name: "Saved notification preferences" }
   | { name: "Deleted subscriptions" }
   | { name: "Clicked CLI download link"; "download.name": string }

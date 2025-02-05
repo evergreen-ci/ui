@@ -3,7 +3,12 @@ import { DateType } from "@leafygreen-ui/date-utils";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
+import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { WaterfallFilterOptions } from "../types";
+
+const datePickerProps = {
+  [waterfallGuideId]: walkthroughSteps[3].targetId,
+};
 
 export const DateFilter = () => {
   const { sendEvent } = useWaterfallAnalytics();
@@ -36,6 +41,7 @@ export const DateFilter = () => {
       onDateChange={handleChange}
       popoverZIndex={zIndex.popover}
       value={date.length ? new Date(date) : undefined}
+      {...datePickerProps}
     />
   );
 };

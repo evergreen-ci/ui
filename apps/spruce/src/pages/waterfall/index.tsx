@@ -2,18 +2,18 @@ import { Suspense, useRef, useState, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
+import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
-import FilterBadges, {
-  useFilterBadgeQueryParams,
-} from "components/FilterBadges";
+import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
+import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
-import { useIsScrollAtTop, useSpruceConfig } from "hooks";
-import { isBeta } from "utils/environmentVariables";
+import { useAdminBetaFeatures, useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
+import { waterfallPageContainerId } from "./constants";
 import { WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
@@ -22,11 +22,13 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+  const { adminBetaSettings } = useAdminBetaFeatures();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
-  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
-    new Set([WaterfallFilterOptions.BuildVariant, WaterfallFilterOptions.Task]),
+  const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
+    validQueryParams,
+    urlParamToTitleMap,
   );
 
   const { sendEvent } = useWaterfallAnalytics();
@@ -36,15 +38,32 @@ const Waterfall: React.FC = () => {
   const pageWrapperRef = useRef<HTMLDivElement>(null);
   const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
 
+  const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
+
   return (
     <>
       <Global styles={navbarStyles} />
-      <PageContainer ref={pageWrapperRef} data-cy="waterfall-page">
-        {isBeta() && (
+      <PageContainer
+        ref={pageWrapperRef}
+        data-cy="waterfall-page"
+        id={waterfallPageContainerId}
+      >
+        {adminBetaSettings?.spruceWaterfallEnabled && (
           <Banner>
-            <strong>Thanks for using the Waterfall Alpha!</strong> Feedback?
-            Open a ticket within the project epic{" "}
-            {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
+            <BannerContent>
+              <div>
+                <strong>Thanks for using the Waterfall Beta!</strong> Feedback?
+                Open a ticket within the project epic{" "}
+                {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
+              </div>
+              <Button
+                data-cy="restart-walkthrough-button"
+                onClick={() => guideCueRef.current?.restart()}
+                size={ButtonSize.XSmall}
+              >
+                Restart walkthrough
+              </Button>
+            </BannerContent>
           </Banner>
         )}
         <WaterfallFilters
@@ -53,14 +72,14 @@ const Waterfall: React.FC = () => {
           pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
         />
-        <FilterBadges
-          badges={badges}
+        <FilterChips
+          chips={chips}
           onClearAll={() => {
-            sendEvent({ name: "Deleted all filter badges" });
+            sendEvent({ name: "Deleted all filter chips" });
             startTransition(handleClearAll);
           }}
           onRemove={(b) => {
-            sendEvent({ name: "Deleted one filter badge" });
+            sendEvent({ name: "Deleted one filter chip" });
             startTransition(() => handleOnRemove(b));
           }}
         />
@@ -69,6 +88,7 @@ const Waterfall: React.FC = () => {
             <WaterfallGrid
               key={projectIdentifier}
               atTop={atTop}
+              guideCueRef={guideCueRef}
               projectIdentifier={projectIdentifier ?? ""}
               setPagination={setPagination}
             />
@@ -79,10 +99,25 @@ const Waterfall: React.FC = () => {
   );
 };
 
+const validQueryParams = new Set([
+  WaterfallFilterOptions.BuildVariant,
+  WaterfallFilterOptions.Task,
+]);
+
+const urlParamToTitleMap = {
+  [WaterfallFilterOptions.BuildVariant]: "Variant",
+  [WaterfallFilterOptions.Task]: "Task",
+};
+
+const BannerContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${size.s};
+  gap: ${size.xs};
   padding: ${size.m};
   // Setting overflow-x allows floating content to be correctly positioned on the page.
   overflow-x: hidden;

@@ -2,14 +2,14 @@ import styled from "@emotion/styled";
 import pluralize from "pluralize";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DisplayModal } from "components/DisplayModal";
-import { WaterfallVersionFragment } from "gql/generated/types";
+import { Version } from "../types";
 import { VersionLabel, VersionLabelView } from "../VersionLabel";
 
 type Props = {
   highlightedIndex: number | undefined;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  versions: WaterfallVersionFragment[];
+  versions: Version[];
 };
 
 export const InactiveVersionsModal: React.FC<Props> = ({
@@ -32,6 +32,7 @@ export const InactiveVersionsModal: React.FC<Props> = ({
         <StyledVersionLabel
           key={version.id}
           highlighted={highlightedIndex === i}
+          isFirstVersion={false}
           shouldDisableText={hasUnmatchingVersions}
           view={VersionLabelView.Modal}
           {...version}

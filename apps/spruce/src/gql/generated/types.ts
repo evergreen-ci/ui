@@ -3347,6 +3347,7 @@ export type Version = {
   upstreamProject?: Maybe<UpstreamProject>;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
+  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 /** Version models a commit within a project. */
@@ -3427,7 +3428,7 @@ export type Waterfall = {
 
 export type WaterfallBuild = {
   __typename?: "WaterfallBuild";
-  activated?: Maybe<Scalars["Boolean"]["output"]>;
+  buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   tasks: Array<WaterfallTask>;
@@ -4926,39 +4927,6 @@ export type RepoVirtualWorkstationSettingsFragment = {
 
 export type UpstreamProjectFragment = {
   __typename?: "Version";
-  upstreamProject?: {
-    __typename?: "UpstreamProject";
-    owner: string;
-    project: string;
-    repo: string;
-    revision: string;
-    triggerID: string;
-    triggerType: string;
-    task?: { __typename?: "Task"; execution: number; id: string } | null;
-    version?: { __typename?: "Version"; id: string } | null;
-  } | null;
-};
-
-export type WaterfallVersionFragment = {
-  __typename?: "Version";
-  activated?: boolean | null;
-  author: string;
-  createTime: Date;
-  errors: Array<string>;
-  id: string;
-  message: string;
-  order: number;
-  requester: string;
-  revision: string;
-  gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
-  taskStatusStats?: {
-    __typename?: "TaskStats";
-    counts?: Array<{
-      __typename?: "StatusCount";
-      count: number;
-      status: string;
-    }> | null;
-  } | null;
   upstreamProject?: {
     __typename?: "UpstreamProject";
     owner: string;
@@ -9540,6 +9508,29 @@ export type VersionTasksQuery = {
   };
 };
 
+export type VersionUpstreamProjectQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type VersionUpstreamProjectQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    upstreamProject?: {
+      __typename?: "UpstreamProject";
+      owner: string;
+      project: string;
+      repo: string;
+      revision: string;
+      triggerID: string;
+      triggerType: string;
+      task?: { __typename?: "Task"; execution: number; id: string } | null;
+      version?: { __typename?: "Version"; id: string } | null;
+    } | null;
+  };
+};
+
 export type VersionQueryVariables = Exact<{
   id: Scalars["String"]["input"];
 }>;
@@ -9667,6 +9658,26 @@ export type ViewableProjectRefsQuery = {
   }>;
 };
 
+export type WaterfallTaskStatsQueryVariables = Exact<{
+  versionId: Scalars["String"]["input"];
+}>;
+
+export type WaterfallTaskStatsQuery = {
+  __typename?: "Query";
+  version: {
+    __typename?: "Version";
+    id: string;
+    taskStatusStats?: {
+      __typename?: "TaskStats";
+      counts?: Array<{
+        __typename?: "StatusCount";
+        count: number;
+        status: string;
+      }> | null;
+    } | null;
+  };
+};
+
 export type WaterfallQueryVariables = Exact<{
   options: WaterfallOptions;
 }>;
@@ -9675,27 +9686,6 @@ export type WaterfallQuery = {
   __typename?: "Query";
   waterfall: {
     __typename?: "Waterfall";
-    buildVariants: Array<{
-      __typename?: "WaterfallBuildVariant";
-      displayName: string;
-      id: string;
-      version: string;
-      builds: Array<{
-        __typename?: "WaterfallBuild";
-        activated?: boolean | null;
-        displayName: string;
-        id: string;
-        version: string;
-        tasks: Array<{
-          __typename?: "WaterfallTask";
-          displayName: string;
-          displayStatusCache: string;
-          execution: number;
-          id: string;
-          status: string;
-        }>;
-      }>;
-    }>;
     flattenedVersions: Array<{
       __typename?: "Version";
       activated?: boolean | null;
@@ -9708,25 +9698,20 @@ export type WaterfallQuery = {
       requester: string;
       revision: string;
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
-      taskStatusStats?: {
-        __typename?: "TaskStats";
-        counts?: Array<{
-          __typename?: "StatusCount";
-          count: number;
+      waterfallBuilds?: Array<{
+        __typename?: "WaterfallBuild";
+        buildVariant: string;
+        displayName: string;
+        id: string;
+        tasks: Array<{
+          __typename?: "WaterfallTask";
+          displayName: string;
+          displayStatusCache: string;
+          execution: number;
+          id: string;
           status: string;
-        }> | null;
-      } | null;
-      upstreamProject?: {
-        __typename?: "UpstreamProject";
-        owner: string;
-        project: string;
-        repo: string;
-        revision: string;
-        triggerID: string;
-        triggerType: string;
-        task?: { __typename?: "Task"; execution: number; id: string } | null;
-        version?: { __typename?: "Version"; id: string } | null;
-      } | null;
+        }>;
+      }> | null;
     }>;
     pagination: {
       __typename?: "WaterfallPagination";

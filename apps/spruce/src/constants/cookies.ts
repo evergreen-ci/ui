@@ -4,8 +4,6 @@ export const COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION =
 export const CURRENT_PROJECT = "mci-project-cookie";
 export const CY_DISABLE_COMMITS_WELCOME_MODAL =
   "cy-disable-commits-welcome-modal";
-export const CY_DISABLE_NEW_USER_WELCOME_MODAL =
-  "cy-disable-new-user-welcome-modal";
 export const DISABLE_QUERY_POLLING = "disable-query-polling";
 export const getNotificationTriggerCookie = (type: string) =>
   `${type}-notification-trigger`;
@@ -19,3 +17,6 @@ export const SEEN_IMAGE_VISIBILITY_GUIDE_CUE =
   "seen-image-visibility-guide-cue";
 export const SEEN_TEST_ANALYSIS_TAB_GUIDE_CUE =
   "seen-test-analysis-tab-guide-cue";
+export const SEEN_WATERFALL_BETA_MODAL = "seen-waterfall-beta-modal";
+export const SEEN_WATERFALL_ONBOARDING_TUTORIAL =
+  "seen-waterfall-onboarding-tutorial";

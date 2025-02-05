@@ -2,7 +2,7 @@ const baseRoute = "/preferences";
 const tabNames = {
   profile: "/profile",
   cli: "/cli",
-  newUI: "/newUI",
+  uiSettings: "/ui-settings",
 };
 describe("user preferences pages", () => {
   it("visiting /preferences should redirect to the profile tab", () => {
@@ -26,7 +26,7 @@ describe("user preferences pages", () => {
 
   describe("beta features", () => {
     it("should be able to edit beta features", () => {
-      cy.visit(`${baseRoute}${tabNames.newUI}`);
+      cy.visit(`${baseRoute}${tabNames.uiSettings}`);
       cy.dataCy("save-beta-features-button").should(
         "have.attr",
         "aria-disabled",

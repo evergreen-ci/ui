@@ -84,18 +84,18 @@ const Preferences: React.FC = () => {
             Public Keys
           </SideNavItem>
           <SideNavItem
-            active={tab === PreferencesTabRoutes.NewUI}
+            active={tab === PreferencesTabRoutes.UISettings}
             as={Link}
-            data-cy="newui-nav-tab"
+            data-cy="ui-settings-nav-tab"
             onClick={() =>
               sendEvent({
                 name: "Changed tab",
-                tab: PreferencesTabRoutes.NewUI,
+                tab: PreferencesTabRoutes.UISettings,
               })
             }
-            to={getPreferencesRoute(PreferencesTabRoutes.NewUI)}
+            to={getPreferencesRoute(PreferencesTabRoutes.UISettings)}
           >
-            New UI
+            UI Settings
           </SideNavItem>
         </SideNavGroup>
       </SideNav>

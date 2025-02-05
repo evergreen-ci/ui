@@ -6,9 +6,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner } from "components/Banners";
-import FilterBadges, {
-  useFilterBadgeQueryParams,
-} from "components/FilterBadges";
+import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import {
   context,
   ColumnPaginationButtons,
@@ -48,7 +46,7 @@ const VariantHistoryContents: React.FC = () => {
   usePageTitle(`Variant History | ${projectIdentifier} | ${variantName}`);
   useJumpToCommit();
   useTestFilters();
-  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+  const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     constants.queryParamsToDisplay,
   );
   const { data, loading, refetch } = useQuery<
@@ -143,8 +141,8 @@ const VariantHistoryContents: React.FC = () => {
         </PageHeader>
         <PaginationFilterWrapper>
           <BadgeWrapper>
-            <FilterBadges
-              badges={badges}
+            <FilterChips
+              chips={chips}
               onClearAll={() => {
                 sendEvent({ name: "Deleted all badges" });
                 handleClearAll();

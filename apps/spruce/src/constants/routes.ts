@@ -20,7 +20,7 @@ export enum PreferencesTabRoutes {
   Profile = "profile",
   Notifications = "notifications",
   CLI = "cli",
-  NewUI = "newUI",
+  UISettings = "ui-settings",
   PublicKeys = "publickeys",
 }
 
@@ -119,7 +119,7 @@ export const redirectRoutes = {
 };
 
 export const routes = {
-  commits: paths.commits,
+  commits: `${paths.commits}/:${slugs.projectIdentifier}?`,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
@@ -135,13 +135,13 @@ export const routes = {
   spawn: paths.spawn,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
-  task: `${paths.task}/:${slugs.taskId}`,
+  task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
   taskHistory: `${paths.taskHistory}/:${slugs.projectIdentifier}/:${slugs.taskName}`,
   taskQueue: paths.taskQueue,
-  user: `${paths.user}/*`,
+  user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
   variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
-  version: `${paths.version}/:${slugs.versionId}`,
+  version: `${paths.version}/:${slugs.versionId}/:${slugs.tab}?`,
   waterfall: `${paths.project}/:${slugs.projectIdentifier}/waterfall`,
 };
 

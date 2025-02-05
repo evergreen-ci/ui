@@ -30,7 +30,7 @@ import {
   Selector,
 } from "gql/generated/types";
 import { DELETE_SUBSCRIPTIONS } from "gql/mutations";
-import { useSpruceConfig } from "hooks";
+import { useMergedBetaFeatures, useSpruceConfig } from "hooks";
 import {
   NotificationMethods,
   notificationMethodToCopy,
@@ -64,6 +64,9 @@ const SubscriptionsTable: React.FC<{
   const dispatchToast = useToastContext();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
+
+  const { betaFeatures } = useMergedBetaFeatures();
+  const { spruceWaterfallEnabled } = betaFeatures ?? {};
 
   const [deleteSubscriptions] = useMutation<
     DeleteSubscriptionsMutation,
@@ -126,7 +129,11 @@ const SubscriptionsTable: React.FC<{
             (s: Selector) => s.type !== "object" && s.type !== "requester",
           );
           const { data: selectorId } = resourceSelector ?? {};
-          const route = getResourceRoute(resourceType, resourceSelector);
+          const route = getResourceRoute(
+            resourceType,
+            resourceSelector,
+            spruceWaterfallEnabled,
+          );
 
           return route ? (
             <ShortenedRouterLink to={route}>{selectorId}</ShortenedRouterLink>
@@ -178,7 +185,7 @@ const SubscriptionsTable: React.FC<{
         },
       },
     ],
-    [jiraHost],
+    [jiraHost, spruceWaterfallEnabled],
   );
 
   const table = useLeafyGreenTable<GeneralSubscription>({

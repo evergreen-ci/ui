@@ -6,7 +6,7 @@ import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
-import { WaterfallVersionFragment } from "gql/generated/types";
+import { Version } from "../types";
 import { InactiveVersionsModal } from "./InactiveVersionsModal";
 
 const { blue, gray } = palette;
@@ -14,7 +14,7 @@ const { blue, gray } = palette;
 interface Props {
   containerHeight: number | undefined;
   highlightedIndex: number | undefined;
-  versions: WaterfallVersionFragment[];
+  versions: Version[];
 }
 
 export const InactiveVersionsButton: React.FC<Props> = ({

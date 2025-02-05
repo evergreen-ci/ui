@@ -4,8 +4,8 @@ import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
 import { WaterfallPagination } from "gql/generated/types";
+import { BuildVariantTaskFilter } from "./BuildVariantTaskFilter";
 import { DateFilter } from "./DateFilter";
-import { NameFilter } from "./NameFilter";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
 import { StatusFilter } from "./StatusFilter";
@@ -23,9 +23,9 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
 
   return (
     <Container>
-      <NameFilterItem>
-        <NameFilter />
-      </NameFilterItem>
+      <BVTaskFilterItem>
+        <BuildVariantTaskFilter />
+      </BVTaskFilterItem>
       <ComboboxFilterItem>
         <StatusFilter />
       </ComboboxFilterItem>
@@ -53,7 +53,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
   );
 };
 
-const NameFilterItem = styled.div`
+const BVTaskFilterItem = styled.div`
   flex-basis: 30%;
 `;
 

@@ -25,6 +25,37 @@
            
           09/19/2024, 10:56
         </p>
+        <div
+          class="css-1heyewb-BtnContainer e16eoa8t6"
+        >
+          <button
+            aria-disabled="false"
+            aria-label="Show task stats"
+            class="leafygreen-ui-tcjr3n"
+            data-cy="task-stats-tooltip-button"
+            tabindex="0"
+          >
+            <div
+              class="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="Charts Icon"
+                class=""
+                fill="none"
+                height="16"
+                role="img"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.5 13a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v10ZM7.5 14a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1ZM2.5 14a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-1Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
       </div>
       <p
         class="css-69ll71-CommitMessage e3zirl02 leafygreen-ui-1tb6tuo"

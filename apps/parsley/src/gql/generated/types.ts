@@ -3347,6 +3347,7 @@ export type Version = {
   upstreamProject?: Maybe<UpstreamProject>;
   versionTiming?: Maybe<VersionTiming>;
   warnings: Array<Scalars["String"]["output"]>;
+  waterfallBuilds?: Maybe<Array<WaterfallBuild>>;
 };
 
 /** Version models a commit within a project. */
@@ -3427,7 +3428,7 @@ export type Waterfall = {
 
 export type WaterfallBuild = {
   __typename?: "WaterfallBuild";
-  activated?: Maybe<Scalars["Boolean"]["output"]>;
+  buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
   tasks: Array<WaterfallTask>;
