@@ -44,9 +44,7 @@ export const Content: React.FC = () => {
           element={<WaterfallCommitsRedirect />}
           path={redirectRoutes.waterfall}
         />
-        <Route element={<ConfigurePatch />} path={routes.configurePatch}>
-          <Route element={null} path={`:${slugs.tab}`} />
-        </Route>
+        <Route element={<ConfigurePatch />} path={routes.configurePatch} />
         <Route element={<Distro />} path={routes.distroSettings}>
           <Route element={null} path={`:${slugs.tab}`} />
         </Route>
