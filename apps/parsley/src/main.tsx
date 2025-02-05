@@ -16,6 +16,7 @@ import routes from "./constants/routes";
 
 initializeErrorHandling();
 initializeHoneycomb({
+  appVersion: process.env.REACT_APP_VERSION || "",
   backendURL: toEscapedRegex(evergreenURL || ""),
   debug: isDevelopmentBuild(),
   endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
@@ -26,6 +27,7 @@ initializeHoneycomb({
 });
 injectOpenTelemetryAttributeStoreIntoWindow();
 
+console.log(process.env.REACT_APP_VERSION);
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <App />

@@ -24,6 +24,8 @@ interface HoneycombConfig {
   environment: string;
   /** A config representing all routes the app can have */
   routeConfig: RouteConfig;
+  /** A version number indicating which release this is */
+  appVersion: string;
 }
 
 /**
@@ -36,8 +38,10 @@ interface HoneycombConfig {
  * @param config.endpoint - The endpoint for the Honeycomb SDK to send traces to if we are not using the default.
  * @param config.environment - The environment we are running in.
  * @param config.routeConfig - A config representing all routes the app can have.
+ * @param config.appVersion - A version number indicating which release this is.
  */
 const initializeHoneycomb = ({
+  appVersion,
   backendURL,
   debug,
   endpoint,
@@ -94,10 +98,11 @@ const initializeHoneycomb = ({
         instrumentations: [
           getWebAutoInstrumentations(webAutoInstrumentationConfig),
         ],
-        // Add user.id as an attribute to all traces.
+        // Add attributes attribute to all traces.
         resourceAttributes: {
           "user.id": userId,
           environment,
+          app_version: appVersion,
         },
         localVisualizations: debug,
         serviceName,

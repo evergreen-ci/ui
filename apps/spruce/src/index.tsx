@@ -8,6 +8,7 @@ import { toEscapedRegex } from "@evg-ui/lib/utils/string";
 import { initializeErrorHandling } from "components/ErrorHandling";
 import { routes } from "constants/routes";
 import {
+  getAppVersion,
   getReleaseStage,
   getUiUrl,
   isDevelopmentBuild,
@@ -23,6 +24,7 @@ initializeHoneycomb({
   serviceName: "spruce",
   environment: getReleaseStage(),
   routeConfig: routes,
+  appVersion: getAppVersion(),
 });
 injectOpenTelemetryAttributeStoreIntoWindow();
 
