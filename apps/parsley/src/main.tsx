@@ -12,8 +12,12 @@ import {
   isDevelopmentBuild,
 } from "utils/environmentVariables";
 import App from "./App";
-import routes from "./constants/routes";
+import routes, { slugs } from "./constants/routes";
 
+const routeConfig = {
+  ...routes,
+  testLogs: `${routes.testLogs}/:${slugs.groupID}?`,
+};
 initializeErrorHandling();
 initializeHoneycomb({
   appVersion: process.env.REACT_APP_VERSION || "",
@@ -22,7 +26,7 @@ initializeHoneycomb({
   endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
   environment: getReleaseStage(),
   ingestKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
-  routeConfig: routes,
+  routeConfig,
   serviceName: "parsley",
 });
 injectOpenTelemetryAttributeStoreIntoWindow();
