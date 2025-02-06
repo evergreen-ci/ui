@@ -59,6 +59,9 @@ export const readVersions = ((existing, { args, readField }) => {
         }
       }
     }
+    if (numActivated < limit) {
+      return undefined;
+    }
   }
 
   // Count forwards for paginating forwards.
@@ -71,6 +74,9 @@ export const readVersions = ((existing, { args, readField }) => {
           break;
         }
       }
+    }
+    if (numActivated < limit) {
+      return undefined;
     }
   }
 

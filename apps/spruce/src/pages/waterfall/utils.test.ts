@@ -264,7 +264,7 @@ describe("caching functions", () => {
           // @ts-expect-error
           {
             args: {
-              options: { limit: 5, maxOrder: 6 },
+              options: { limit: 3, maxOrder: 6 },
             },
             // @ts-expect-error
             readField: (field, obj) => obj[field],
@@ -317,7 +317,7 @@ describe("caching functions", () => {
           {
             args: {
               options: {
-                limit: 5,
+                limit: 2,
                 maxOrder: 4,
               },
             },
@@ -346,7 +346,7 @@ describe("caching functions", () => {
           {
             args: {
               options: {
-                limit: 5,
+                limit: 2,
                 minOrder: 2,
               },
             },
@@ -385,6 +385,27 @@ describe("caching functions", () => {
         ),
       ).toBe(undefined);
     });
+  });
+
+  it("returns undefined when the number of activated versions found is less than the limit", () => {
+    expect(
+      readVersions(
+        {
+          flattenedVersions: versions,
+        },
+        // @ts-expect-error
+        {
+          args: {
+            options: {
+              limit: 3,
+              maxOrder: 4,
+            },
+          },
+          // @ts-expect-error
+          readField: (field, obj) => obj[field],
+        } as FieldFunctionOptions,
+      ),
+    ).toBe(undefined);
   });
 });
 
