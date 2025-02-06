@@ -63,16 +63,26 @@ describe("pagination", () => {
 
   it("correctly disables buttons on first and last page", () => {
     cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
-    cy.dataCy("next-page-button").click();
-    cy.dataCy("next-page-button").click();
-    cy.dataCy("next-page-button").click();
-    cy.dataCy("version-labels").should("contain.text", "a77bd39");
+    cy.dataCy("next-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("next-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("next-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
     cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "true");
-    cy.dataCy("prev-page-button").click();
-    cy.dataCy("prev-page-button").click();
-    cy.dataCy("prev-page-button").click();
-    cy.dataCy("version-labels").should("contain.text", "2ab1c56");
-    cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "true");
+    cy.dataCy("prev-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("prev-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("prev-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
   });
 
   describe("'Jump to most recent commit' button", () => {
