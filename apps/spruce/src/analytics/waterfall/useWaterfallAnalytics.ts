@@ -13,6 +13,11 @@ type Action =
   | { name: "Clicked variant label" }
   | { name: "Clicked task box"; "task.status": string }
   | { name: "Clicked jump to most recent commit button" }
+  | {
+      name: "Clicked pin build variant";
+      action: "pinned" | "unpinned";
+      variant: string;
+    }
   | { name: "Changed project"; project: string }
   | { name: "Filtered by build variant"; type: FilterType }
   | { name: "Filtered by requester"; requesters: string[] }
