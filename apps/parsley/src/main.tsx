@@ -16,6 +16,7 @@ import routes, { slugs } from "./constants/routes";
 
 const routeConfig = {
   ...routes,
+  // Override the testLogs route to include the groupID parameter so that we can easily identify routes with groupID slugs in Honeycomb.
   testLogs: `${routes.testLogs}/:${slugs.groupID}?`,
 };
 initializeErrorHandling();

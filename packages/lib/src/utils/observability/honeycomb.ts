@@ -98,7 +98,7 @@ const initializeHoneycomb = ({
         instrumentations: [
           getWebAutoInstrumentations(webAutoInstrumentationConfig),
         ],
-        // Add attributes attribute to all traces.
+        // Add attributes to all traces.
         resourceAttributes: {
           "user.id": userId,
           environment,
