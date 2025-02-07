@@ -608,6 +608,6 @@ const GitHubChecksAliasesDescription = (projectType: ProjectType) => (
     in this project&rsquo;s config YAML instead if Version Control is enabled
     and no aliases are defined on the project or repo page.
     {projectType === ProjectType.Repo &&
-      "If enabled, these settings can only apply to one branch project that also has this feature enabled (and does not apply to untracked branches)."}
+      "If enabled, these settings can only apply to one branch project that also has this feature enabled. They do not apply to untracked branches."}
   </>
 );
