@@ -48,6 +48,7 @@ export const ImageSelect: React.FC<ImageSelectProps> = ({ selectedImage }) => {
         placeholder="Select an image"
         popoverZIndex={zIndex.popover}
         portalClassName="images-select-options"
+        renderMode="portal"
         value={selectedImage}
       >
         {images?.map((image) => (
