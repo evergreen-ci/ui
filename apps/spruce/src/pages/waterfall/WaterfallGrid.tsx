@@ -177,12 +177,12 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       </StickyHeader>
       <BuildVariantProvider>
         {buildVariants.map((b, i) => {
-          const pinned = pins.includes(b.id);
+          const isPinned = pins.includes(b.id);
           return (
             <BuildRow
               key={b.id}
               build={b}
-              handlePinClick={handlePinBV(b.id, pinned)}
+              handlePinClick={handlePinBV(b.id, isPinned)}
               isFirstBuild={i === 0}
               lastActiveVersionId={lastActiveVersionId}
               pinned={pinned}
