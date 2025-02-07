@@ -44,9 +44,7 @@ export const Content: React.FC = () => {
           element={<WaterfallCommitsRedirect />}
           path={redirectRoutes.waterfall}
         />
-        <Route element={<ConfigurePatch />} path={routes.configurePatch}>
-          <Route element={null} path={`:${slugs.tab}`} />
-        </Route>
+        <Route element={<ConfigurePatch />} path={routes.configurePatch} />
         <Route element={<Distro />} path={routes.distroSettings}>
           <Route element={null} path={`:${slugs.tab}`} />
         </Route>
@@ -88,10 +86,7 @@ export const Content: React.FC = () => {
         </Route>
         <Route element={<Task />} path={routes.task} />
         <Route element={<TaskHistory />} path={routes.taskHistory} />
-        <Route
-          element={<TaskQueue />}
-          path={`${routes.taskQueue}/:${slugs.distroId}?`}
-        />
+        <Route element={<TaskQueue />} path={routes.taskQueue} />
         <Route element={<UserPatches />} path={routes.userPatches} />
         <Route
           element={<UserPatchesRedirect />}
