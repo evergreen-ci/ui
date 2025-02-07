@@ -199,7 +199,7 @@ export const getFormSchema = (
           title: "Merge Queue",
           ...(projectType === ProjectType.Repo && {
             description:
-              "If enabled, these settings can only apply to one branch project that also has this feature enabled (and does not apply to untracked branches).",
+              "If enabled, these settings can only apply to one branch project that also has this feature enabled. They do not apply to untracked branches.",
           }),
           properties: {
             enabled: {
