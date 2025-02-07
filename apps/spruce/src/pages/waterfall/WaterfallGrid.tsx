@@ -185,7 +185,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
               handlePinClick={handlePinBV(b.id, isPinned)}
               isFirstBuild={i === 0}
               lastActiveVersionId={lastActiveVersionId}
-              pinned={pinned}
+              pinned={isPinned}
               projectIdentifier={projectIdentifier}
               versions={versions}
             />
