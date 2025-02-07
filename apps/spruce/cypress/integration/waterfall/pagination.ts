@@ -61,6 +61,30 @@ describe("pagination", () => {
     cy.get("@builds").eq(5).children().should("have.length", 8);
   });
 
+  it("correctly disables buttons on first and last page", () => {
+    cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
+    cy.dataCy("next-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("next-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("next-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "true");
+    cy.dataCy("prev-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("prev-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("prev-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
+  });
+
   describe("'Jump to most recent commit' button", () => {
     it("returns user to the first page", () => {
       const firstPageFirstCommit = "2ab1c56";
