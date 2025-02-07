@@ -142,8 +142,8 @@ declare global {
 
   afterEach(() => {
     if (mutationDispatched) {
-      cy.log("A mutation was detected. Restoring EVG.");
-      cy.exec("yarn evg-db-ops --restore");
+      cy.log("A mutation was detected. Restoring Evergreen.");
+      cy.exec("yarn evg-db-ops --restore evergreen");
     }
   });
 })();

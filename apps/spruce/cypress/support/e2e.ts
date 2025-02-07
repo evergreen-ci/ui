@@ -22,7 +22,7 @@ import {
   SEEN_TEST_ANALYSIS_TAB_GUIDE_CUE,
   SEEN_WATERFALL_ONBOARDING_TUTORIAL,
 } from "constants/cookies";
-import { isMutation } from "../utils/graphql-test-utils";
+import { hasOperationName, isMutation } from "../utils/graphql-test-utils";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
@@ -159,17 +159,12 @@ declare global {
   }
 }
 
-before(() => {
-  cy.exec("yarn evg-db-ops --restore").then((result) => {
-    if (result.code !== 0) {
-      throw new Error("EVG DB restoration failed during setup.");
-    }
-  });
-});
+const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
 
 // Close over beforeEach and afterEach to encapsulate mutationDispatched
 (() => {
   let mutationDispatched: boolean;
+  let clearAmboyDB: boolean;
   beforeEach(() => {
     cy.login();
     cy.setCookie(bannerCookie, "true");
@@ -179,17 +174,29 @@ before(() => {
     cy.setCookie(SEEN_TEST_ANALYSIS_TAB_GUIDE_CUE, "true");
     cy.setCookie(SEEN_WATERFALL_ONBOARDING_TUTORIAL, "true");
     mutationDispatched = false;
+    clearAmboyDB = false;
     cy.intercept("POST", "/graphql/query", (req) => {
       if (isMutation(req)) {
         mutationDispatched = true;
       }
+      hostMutations.forEach((m) => {
+        if (hasOperationName(req, m)) {
+          clearAmboyDB = true;
+        }
+      });
     });
   });
 
   afterEach(() => {
     if (mutationDispatched) {
-      cy.log("A mutation was detected. Restoring EVG.");
-      cy.exec("yarn evg-db-ops --restore");
+      if (clearAmboyDB) {
+        cy.log(
+          "A mutation that creates an Amboy job was detected. Restoring Amboy.",
+        );
+        cy.exec("yarn evg-db-ops --restore amboy");
+      }
+      cy.log("A mutation was detected. Restoring Evergreen.");
+      cy.exec("yarn evg-db-ops --restore evergreen");
     }
   });
 })();
