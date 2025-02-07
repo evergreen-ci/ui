@@ -46,6 +46,7 @@ export const DistroSelect: React.FC<DistroSelectProps> = ({
       placeholder="Select distro"
       popoverZIndex={zIndex.popover}
       portalClassName="distro-select-options"
+      renderMode="portal"
       value={selectedDistro}
     >
       {nonAdminOnly.map(({ name }) => (
