@@ -3555,8 +3555,13 @@ export type BaseTaskFragment = {
     id: string;
     isPatch: boolean;
     message: string;
-    projectIdentifier: string;
     revision: string;
+    projectMetadata?: {
+      __typename?: "Project";
+      id: string;
+      identifier: string;
+      repoRefId: string;
+    } | null;
   };
 };
 
@@ -3607,8 +3612,13 @@ export type LogkeeperTaskQuery = {
         id: string;
         isPatch: boolean;
         message: string;
-        projectIdentifier: string;
         revision: string;
+        projectMetadata?: {
+          __typename?: "Project";
+          id: string;
+          identifier: string;
+          repoRefId: string;
+        } | null;
       };
     };
   };
@@ -3646,8 +3656,13 @@ export type TaskQuery = {
       id: string;
       isPatch: boolean;
       message: string;
-      projectIdentifier: string;
       revision: string;
+      projectMetadata?: {
+        __typename?: "Project";
+        id: string;
+        identifier: string;
+        repoRefId: string;
+      } | null;
     };
   } | null;
 };
@@ -3719,6 +3734,27 @@ export type ProjectFiltersQuery = {
       exactMatch: boolean;
       expression: string;
     }> | null;
+  };
+};
+
+export type RepoFiltersQueryVariables = Exact<{
+  repoRefId: Scalars["String"]["input"];
+}>;
+
+export type RepoFiltersQuery = {
+  __typename?: "Query";
+  repoSettings: {
+    __typename?: "RepoSettings";
+    projectRef?: {
+      __typename?: "RepoRef";
+      id: string;
+      parsleyFilters?: Array<{
+        __typename?: "ParsleyFilter";
+        caseSensitive: boolean;
+        exactMatch: boolean;
+        expression: string;
+      }> | null;
+    } | null;
   };
 };
 

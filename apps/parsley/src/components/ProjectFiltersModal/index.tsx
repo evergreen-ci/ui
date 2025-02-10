@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
@@ -6,12 +5,8 @@ import { Body } from "@leafygreen-ui/typography";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";
-import {
-  ProjectFiltersQuery,
-  ProjectFiltersQueryVariables,
-} from "gql/generated/types";
-import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
+import { useProjectFiltersQuery } from "hooks/useProjectFiltersQuery";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import ProjectFilter from "./ProjectFilter";
@@ -35,17 +30,13 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
 
   const { task } = useTaskQuery({ buildID, execution, logType, taskID });
   const { versionMetadata } = task ?? {};
-  const { projectIdentifier = "" } = versionMetadata ?? {};
+  const { identifier: projectIdentifier = "", repoRefId } =
+    versionMetadata?.projectMetadata ?? {};
 
-  const { data } = useQuery<ProjectFiltersQuery, ProjectFiltersQueryVariables>(
-    PROJECT_FILTERS,
-    {
-      skip: !projectIdentifier,
-      variables: { projectIdentifier },
-    },
-  );
-  const { project } = data || {};
-  const { parsleyFilters } = project || {};
+  const parsleyFilters = useProjectFiltersQuery({
+    projectIdentifier,
+    repoRefId,
+  });
 
   const onConfirm = () => {
     // Apply selected filters.
