@@ -4,7 +4,6 @@ export { useGetUserPatchesPageTitleAndLink } from "./useGetUserPatchesPageTitleA
 export { useOnClickOutside } from "./useOnClickOutside";
 export { useVersionTaskStatusSelect } from "./useVersionTaskStatusSelect";
 export { useLegacyUIURL } from "./useLegacyUIURL";
-export { usePageTitle } from "./usePageTitle";
 export { useNetworkStatus } from "./useNetworkStatus";
 export { usePageVisibility } from "./usePageVisibility";
 export { usePolling } from "./usePolling";
