@@ -1,6 +1,6 @@
 import { FieldMergeFunction, FieldReadFunction } from "@apollo/client";
 import { WaterfallQuery } from "gql/generated/types";
-import { VERSION_LIMIT } from "./constants";
+import { VERSION_LIMIT } from "../constants";
 
 export const readVersions = ((existing, { args, readField }) => {
   if (!existing) {
@@ -10,6 +10,11 @@ export const readVersions = ((existing, { args, readField }) => {
   const minOrder = args?.options?.minOrder ?? 0;
   const maxOrder = args?.options?.maxOrder ?? 0;
   const limit = args?.options?.limit ?? VERSION_LIMIT;
+  const { mostRecentVersionOrder } =
+    readField<WaterfallQuery["waterfall"]["pagination"]>(
+      "pagination",
+      existing,
+    ) ?? {};
 
   const existingVersions =
     readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
@@ -83,8 +88,9 @@ export const readVersions = ((existing, { args, readField }) => {
   // Add 1 because slice is [inclusive, exclusive).
   const flattenedVersions = existingVersions.slice(startIndex, endIndex + 1);
 
+  const zerothOrder = readField<number>("order", flattenedVersions[0]) ?? 0;
   const prevOrderNumber =
-    startIndex === 0
+    mostRecentVersionOrder === zerothOrder
       ? 0
       : (readField<number>("order", flattenedVersions[0]) ?? 0);
   const lastVersionOrder = readField<number>(
