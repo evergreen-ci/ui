@@ -1,7 +1,7 @@
 import WithToastContext from "@evg-ui/lib/test_utils/toast-decorator";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import PatchCard from ".";
 import { patchData } from "../testData";
+import PatchCard from ".";
 
 export default {
   component: PatchCard,

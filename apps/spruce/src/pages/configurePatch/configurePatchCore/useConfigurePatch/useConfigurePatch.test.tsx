@@ -1,8 +1,8 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook, act } from "@evg-ui/lib/test_utils";
 import { ConfigurePatchPageTabs } from "types/patch";
-import useConfigurePatch from ".";
 import { patchQuery } from "../testData";
+import useConfigurePatch from ".";
 
 const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <MemoryRouter initialEntries={[`/patch/123/configure/tasks`]}>
