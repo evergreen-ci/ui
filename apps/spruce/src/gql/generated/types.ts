@@ -9720,6 +9720,7 @@ export type WaterfallQuery = {
       __typename?: "WaterfallPagination";
       hasNextPage: boolean;
       hasPrevPage: boolean;
+      mostRecentVersionOrder: number;
       nextPageOrder: number;
       prevPageOrder: number;
     };
