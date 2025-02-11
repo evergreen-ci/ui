@@ -10,7 +10,7 @@ export const readVersions = ((existing, { args, readField }) => {
   const minOrder = args?.options?.minOrder ?? 0;
   const maxOrder = args?.options?.maxOrder ?? 0;
   const limit = args?.options?.limit ?? VERSION_LIMIT;
-  const { mostRecentVersionOrder } =
+  const { mostRecentVersionOrder = 0 } =
     readField<WaterfallQuery["waterfall"]["pagination"]>(
       "pagination",
       existing,
@@ -64,9 +64,6 @@ export const readVersions = ((existing, { args, readField }) => {
         }
       }
     }
-    if (numActivated < limit) {
-      return undefined;
-    }
   }
 
   // Count forwards for paginating forwards.
@@ -90,15 +87,13 @@ export const readVersions = ((existing, { args, readField }) => {
 
   const zerothOrder = readField<number>("order", flattenedVersions[0]) ?? 0;
   const prevOrderNumber =
-    mostRecentVersionOrder === zerothOrder
-      ? 0
-      : (readField<number>("order", flattenedVersions[0]) ?? 0);
-  const lastVersionOrder = readField<number>(
-    "order",
-    flattenedVersions[flattenedVersions.length - 1],
-  );
-  const nextOrderNumber =
-    !lastVersionOrder || lastVersionOrder === 1 ? 0 : lastVersionOrder;
+    mostRecentVersionOrder === zerothOrder ? 0 : zerothOrder;
+  const lastVersionOrder =
+    readField<number>(
+      "order",
+      flattenedVersions[flattenedVersions.length - 1],
+    ) ?? 0;
+  const nextOrderNumber = lastVersionOrder === 1 ? 0 : lastVersionOrder;
 
   return {
     flattenedVersions,
@@ -110,7 +105,7 @@ export const readVersions = ((existing, { args, readField }) => {
       hasPrevPage: prevOrderNumber > 0,
     },
   };
-}) satisfies FieldReadFunction;
+}) satisfies FieldReadFunction<WaterfallQuery["waterfall"]>;
 
 export const mergeVersions = ((existing, incoming, { readField }) => {
   const existingVersions =
@@ -138,9 +133,18 @@ export const mergeVersions = ((existing, incoming, { readField }) => {
     return bOrder - aOrder;
   });
 
-  const pagination = readField("pagination", incoming);
+  const pagination = readField<WaterfallQuery["waterfall"]["pagination"]>(
+    "pagination",
+    incoming,
+  ) ?? {
+    hasNextPage: true,
+    hasPrevPage: true,
+    mostRecentVersionOrder: 0,
+    nextPageOrder: 0,
+    prevPageOrder: 0,
+  };
   return {
     flattenedVersions: v,
     pagination,
   };
-}) satisfies FieldMergeFunction;
+}) satisfies FieldMergeFunction<WaterfallQuery["waterfall"]>;

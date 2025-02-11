@@ -1,6 +1,6 @@
 import { FieldFunctionOptions } from "@apollo/client";
-import { mergeVersions, readVersions } from ".";
 import { versions } from "../testData";
+import { mergeVersions, readVersions } from ".";
 
 // @ts-expect-error: we don't need to type the args for this mock
 const readField = (field, obj) => obj[field];
@@ -12,11 +12,13 @@ describe("mergeVersions", () => {
       prevPageOrder: 0,
       hasNextPage: true,
       hasPrevPage: true,
+      mostRecentVersionOrder: 5,
     };
     expect(
       mergeVersions(
         {
           flattenedVersions: versions.slice(0, 2),
+          pagination,
         },
         {
           flattenedVersions: versions.slice(2, -1),
@@ -35,11 +37,13 @@ describe("mergeVersions", () => {
       prevPageOrder: 0,
       hasNextPage: true,
       hasPrevPage: false,
+      mostRecentVersionOrder: 5,
     };
     expect(
       mergeVersions(
         {
           flattenedVersions: versions.slice(2, -1),
+          pagination,
         },
         {
           flattenedVersions: versions.slice(0, 2),
@@ -58,11 +62,13 @@ describe("mergeVersions", () => {
       prevPageOrder: 1,
       hasNextPage: false,
       hasPrevPage: true,
+      mostRecentVersionOrder: 5,
     };
     expect(
       mergeVersions(
         {
           flattenedVersions: versions.slice(0, 4),
+          pagination,
         },
         {
           flattenedVersions: versions.slice(2),
@@ -81,11 +87,13 @@ describe("mergeVersions", () => {
       prevPageOrder: 0,
       hasNextPage: false,
       hasPrevPage: false,
+      mostRecentVersionOrder: 5,
     };
     expect(
       mergeVersions(
         {
           flattenedVersions: versions,
+          pagination,
         },
         {
           flattenedVersions: versions,
@@ -120,6 +128,7 @@ describe("readVersions", () => {
       readVersions(
         {
           flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
             mostRecentVersionOrder: 5,
           },
@@ -149,6 +158,7 @@ describe("readVersions", () => {
       readVersions(
         {
           flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
             mostRecentVersionOrder: 5,
           },
@@ -178,6 +188,7 @@ describe("readVersions", () => {
       readVersions(
         {
           flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
             mostRecentVersionOrder: 5,
           },
@@ -210,6 +221,7 @@ describe("readVersions", () => {
       readVersions(
         {
           flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
             mostRecentVersionOrder: 5,
           },
@@ -242,6 +254,7 @@ describe("readVersions", () => {
       readVersions(
         {
           flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
             mostRecentVersionOrder: 5,
           },
@@ -274,6 +287,7 @@ describe("readVersions", () => {
       readVersions(
         {
           flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
             mostRecentVersionOrder: 5,
           },
@@ -297,6 +311,7 @@ describe("readVersions", () => {
       readVersions(
         {
           flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
             mostRecentVersionOrder: 5,
           },
