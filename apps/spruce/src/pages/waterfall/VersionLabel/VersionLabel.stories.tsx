@@ -4,7 +4,6 @@ import {
   getSpruceConfigMock,
   getUserSettingsMock,
 } from "gql/mocks/getSpruceConfig";
-import { VersionLabel, VersionLabelView } from ".";
 import {
   getTaskStatsMock,
   version,
@@ -13,6 +12,7 @@ import {
   versionBroken,
 } from "../testData";
 import { getVersionUpstreamProjectMock } from "./testData";
+import { VersionLabel, VersionLabelView } from ".";
 
 export default {
   title: "Pages/Waterfall/VersionLabel",

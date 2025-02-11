@@ -3461,6 +3461,7 @@ export type WaterfallPagination = {
   __typename?: "WaterfallPagination";
   hasNextPage: Scalars["Boolean"]["output"];
   hasPrevPage: Scalars["Boolean"]["output"];
+  mostRecentVersionOrder: Scalars["Int"]["output"];
   nextPageOrder: Scalars["Int"]["output"];
   prevPageOrder: Scalars["Int"]["output"];
 };
@@ -9719,6 +9720,7 @@ export type WaterfallQuery = {
       __typename?: "WaterfallPagination";
       hasNextPage: boolean;
       hasPrevPage: boolean;
+      mostRecentVersionOrder: number;
       nextPageOrder: number;
       prevPageOrder: number;
     };
