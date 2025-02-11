@@ -1,10 +1,10 @@
 import { readFileSync } from "fs";
-import { checkSchemaAndCodegenCore } from ".";
 import {
   checkIsAncestor,
   generateTypes,
   getLatestCommitFromRemote,
 } from "./utils";
+import { checkSchemaAndCodegenCore } from ".";
 
 vi.mock("fs");
 vi.mock("path", () => ({
