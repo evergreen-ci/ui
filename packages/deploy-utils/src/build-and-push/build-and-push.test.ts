@@ -1,7 +1,7 @@
 import { execSync } from "child_process";
 import { writeFileSync } from "fs";
-import { buildAndPush } from ".";
 import { pushToS3 } from "../utils/s3";
+import { buildAndPush } from ".";
 
 vi.mock("child_process", () => ({
   execSync: vi.fn(),

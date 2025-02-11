@@ -28,10 +28,10 @@ export const getFormSchema = (
   return {
     fields: {},
     schema: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         buildBreakSettings: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "",
           properties: {
             notifyOnBuildFailure: {
@@ -47,44 +47,44 @@ export const getFormSchema = (
         },
         ...(projectType !== ProjectType.Repo && {
           banner: {
-            type: "object" as "object",
+            type: "object" as const,
             title: "Project Banner",
             properties: {
               bannerData: {
-                type: "object" as "object",
+                type: "object" as const,
                 title: "",
                 description:
                   "Add a banner to pages that represent data from this project. JIRA tickets will be linked automatically.",
                 properties: {
                   theme: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "Theme",
                     default: BannerTheme.Announcement,
                     oneOf: [
                       {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Announcement",
                         enum: [BannerTheme.Announcement],
                       },
                       {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Information",
                         enum: [BannerTheme.Information],
                       },
                       {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Warning",
                         enum: [BannerTheme.Warning],
                       },
                       {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Important",
                         enum: [BannerTheme.Important],
                       },
                     ],
                   },
                   text: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "Banner Text",
                   },
                 },
@@ -93,13 +93,13 @@ export const getFormSchema = (
           },
         }),
         subscriptions: {
-          type: "array" as "array",
+          type: "array" as const,
           title: "Subscriptions",
           items: {
-            type: "object" as "object",
+            type: "object" as const,
             properties: {
               subscriptionData: {
-                type: "object" as "object",
+                type: "object" as const,
                 title: "",
                 properties: {
                   event: eventSchema,

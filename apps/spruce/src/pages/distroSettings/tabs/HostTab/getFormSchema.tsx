@@ -28,10 +28,10 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         setup: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "Host Setup",
           properties: setup.schema,
           dependencies: {
@@ -135,19 +135,19 @@ export const getFormSchema = ({
 };
 
 const bootstrapSettings = {
-  type: "object" as "object",
+  type: "object" as const,
   title: "Bootstrap Settings",
   properties: bootstrapProperties.schema,
 };
 
 const sshConfig = {
-  type: "object" as "object",
+  type: "object" as const,
   title: "User and SSH Configuration",
   properties: sshConfigProperties.schema,
 };
 
 const allocation = {
-  type: "object" as "object",
+  type: "object" as const,
   title: "Host Allocation",
   required: [
     "minimumHosts",

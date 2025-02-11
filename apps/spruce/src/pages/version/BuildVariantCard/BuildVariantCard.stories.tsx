@@ -1,6 +1,6 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
-import BuildVariantCard from ".";
 import { mocks } from "./testData";
+import BuildVariantCard from ".";
 
 export default {
   title: "Pages/Version/BuildVariantCard",

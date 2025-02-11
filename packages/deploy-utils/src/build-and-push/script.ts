@@ -1,7 +1,7 @@
 #!/usr/bin/env -S vite-node --script
 
-import { buildAndPush } from ".";
 import { isTargetEnvironment } from "../utils/types";
+import { buildAndPush } from ".";
 
 const target = process.env.REACT_APP_RELEASE_STAGE;
 if (!isTargetEnvironment(target)) {

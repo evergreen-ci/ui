@@ -11,10 +11,10 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       accessSettings: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Access Settings",
         properties: {
           restricted: {
@@ -28,13 +28,13 @@ export const getFormSchema = (
         },
       },
       admin: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Admin",
         properties: {
           admins: {
-            type: "array" as "array",
+            type: "array" as const,
             items: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Username",
               default: "",
               minLength: 1,

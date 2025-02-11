@@ -22,7 +22,7 @@ type ContainerEvent = Unpacked<
   PodEventsQuery["pod"]["events"]["eventLogEntries"]
 >;
 
-const EventsTable: React.FC<{}> = () => {
+const EventsTable: React.FC = () => {
   const getDateCopy = useDateFormat();
 
   const { limit, page, setLimit } = usePagination();

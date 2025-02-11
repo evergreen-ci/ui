@@ -29,25 +29,25 @@ export const getFormSchema = (
     repotrackerField: RepotrackerField,
   },
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       generalConfiguration: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "General Configuration",
         properties: {
           ...(projectType !== ProjectType.Repo && {
             enabled: {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
               oneOf: radioBoxOptions(["Enabled", "Disabled"]),
             },
           }),
           repositoryInfo: {
-            type: "object" as "object",
+            type: "object" as const,
             title: "Repository Info",
             required: ["owner", "repo"],
             properties: {
               owner: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "GitHub Organization",
                 format: "noSpaces",
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -55,7 +55,7 @@ export const getFormSchema = (
                 default: "",
               },
               repo: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Repository",
                 format: "noSpaces",
                 // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -66,23 +66,23 @@ export const getFormSchema = (
           },
           ...(projectType !== ProjectType.Repo && {
             branch: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Branch Name",
               format: "noStartingOrTrailingWhitespace",
             },
           }),
           other: {
-            type: "object" as "object",
+            type: "object" as const,
             title: "Other",
             properties: {
               displayName: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Display Name",
                 format: "noStartingOrTrailingWhitespace",
               },
               ...(projectType !== ProjectType.Repo && {
                 identifier: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Identifier",
                   default: "",
                   minLength: 1,
@@ -98,12 +98,12 @@ export const getFormSchema = (
                 minimum: 0,
               },
               remotePath: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Config File",
                 format: "noStartingOrTrailingWhitespace",
               },
               spawnHostScriptPath: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Spawn Host Script Path",
                 format: "noStartingOrTrailingWhitespace",
               },
@@ -121,7 +121,7 @@ export const getFormSchema = (
         },
       },
       projectFlags: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Project Flags",
         properties: {
           dispatchingDisabled: {
@@ -135,7 +135,7 @@ export const getFormSchema = (
             ),
           },
           repotracker: {
-            type: "object" as "object",
+            type: "object" as const,
             title: "Repotracker Settings",
             properties: {
               repotrackerDisabled: {
@@ -149,12 +149,12 @@ export const getFormSchema = (
                 ),
               },
               forceRun: {
-                type: "null" as "null",
+                type: "null" as const,
               },
             },
           },
           scheduling: {
-            type: "object" as "object",
+            type: "object" as const,
             title: "Scheduling Settings",
             properties: {
               deactivatePrevious: {
@@ -186,12 +186,12 @@ export const getFormSchema = (
                 ),
               },
               deactivateStepback: {
-                type: "null" as "null",
+                type: "null" as const,
               },
             },
           },
           patch: {
-            type: "object" as "object",
+            type: "object" as const,
             title: "Patch Settings",
             description:
               "Sets if users are allowed to create patches for this branch.",
@@ -211,7 +211,7 @@ export const getFormSchema = (
         },
       },
       historicalTaskDataCaching: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Historical Task Data Caching Info",
         properties: {
           disabledStatsCache: {
@@ -228,11 +228,11 @@ export const getFormSchema = (
       },
       ...(projectType !== ProjectType.Repo && {
         delete: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "Delete Project",
           properties: {
             deleteProject: {
-              type: "null" as "null",
+              type: "null" as const,
             },
           },
         },

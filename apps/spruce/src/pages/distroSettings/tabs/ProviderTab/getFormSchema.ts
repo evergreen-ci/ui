@@ -24,33 +24,33 @@ export const getFormSchema = ({
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       provider: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "",
         properties: {
           providerName: {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Provider",
             oneOf: [
               {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Static IP/VM",
                 enum: [Provider.Static],
               },
               {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Docker",
                 enum: [Provider.Docker],
               },
               {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "EC2 Fleet",
                 enum: [Provider.Ec2Fleet],
               },
               {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "EC2 On-Demand",
                 enum: [Provider.Ec2OnDemand],
               },
@@ -73,7 +73,7 @@ export const getFormSchema = ({
                 },
               },
               staticProviderSettings: {
-                type: "object" as "object",
+                type: "object" as const,
                 title: "",
                 properties: staticProviderSettings.schema,
               },
@@ -89,21 +89,21 @@ export const getFormSchema = ({
                 },
               },
               dockerProviderSettings: {
-                type: "object" as "object",
+                type: "object" as const,
                 title: "",
                 properties: {
                   containerPoolId: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "Container Pool ID",
                     default: "",
                     oneOf: pools.map((p) => ({
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: p.id,
                       enum: [p.id],
                     })),
                   },
                   poolMappingInfo: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "Pool Mapping Information",
                   },
                   ...dockerProviderSettings.schema,
@@ -121,18 +121,18 @@ export const getFormSchema = ({
                 },
               },
               ec2FleetProviderSettings: {
-                type: "array" as "array",
+                type: "array" as const,
                 minItems: 1,
                 title: "",
                 items: {
-                  type: "object" as "object",
+                  type: "object" as const,
                   properties: {
                     region: {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: "Region",
                       default: "",
                       oneOf: awsRegions.map((r) => ({
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: r,
                         enum: [r],
                       })),
@@ -153,18 +153,18 @@ export const getFormSchema = ({
                 },
               },
               ec2OnDemandProviderSettings: {
-                type: "array" as "array",
+                type: "array" as const,
                 minItems: 1,
                 title: "",
                 items: {
-                  type: "object" as "object",
+                  type: "object" as const,
                   properties: {
                     region: {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: "Region",
                       default: "",
                       oneOf: awsRegions.map((r) => ({
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: r,
                         enum: [r],
                       })),

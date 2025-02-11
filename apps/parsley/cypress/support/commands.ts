@@ -14,10 +14,9 @@ Cypress.Commands.add("addFilter", (filter: string) => {
   );
   cy.dataCy("searchbar-select").click();
   cy.dataCy("filter-option").click();
-  cy.dataCy("searchbar-input")
-    .type(`${filter}`)
-    .type("{ctrl}", { release: false })
-    .type("{enter}");
+  cy.dataCy("searchbar-input").type(`${filter}`);
+  cy.dataCy("searchbar-input").type("{ctrl}", { release: false });
+  cy.dataCy("searchbar-input").type("{enter}");
 });
 
 Cypress.Commands.add("addHighlight", (highlight: string) => {
@@ -28,10 +27,9 @@ Cypress.Commands.add("addHighlight", (highlight: string) => {
   );
   cy.dataCy("searchbar-select").click();
   cy.dataCy("highlight-option").click();
-  cy.dataCy("searchbar-input")
-    .type(`${highlight}`)
-    .type("{ctrl}", { release: false })
-    .type("{enter}");
+  cy.dataCy("searchbar-input").type(`${highlight}`);
+  cy.dataCy("searchbar-input").type("{ctrl}", { release: false });
+  cy.dataCy("searchbar-input").type("{enter}");
 });
 
 Cypress.Commands.add("addSearch", (search: string) => {
@@ -95,7 +93,7 @@ Cypress.Commands.add(
   "isContainedInViewport",
   { prevSubject: true },
   (subject) => {
-    // @ts-ignore - Cypress.state is not typed
+    // @ts-expect-error - Cypress.state is not typed
     const window = Cypress.$(cy.state("window"));
     const bottom = window.height();
     const right = window.width();
@@ -115,7 +113,7 @@ Cypress.Commands.add(
   "isNotContainedInViewport",
   { prevSubject: true },
   (subject) => {
-    // @ts-ignore - Cypress.state is not typed
+    // @ts-expect-error - Cypress.state is not typed
     const window = Cypress.$(cy.state("window"));
     const bottom = window.height();
     const right = window.width();
@@ -251,6 +249,6 @@ Cypress.Commands.overwrite("visit", (originalVisit, url, options = {}) => {
     },
     ...options,
   };
-  // @ts-ignore - TypeScript detects the wrong definition for the original function.
+  // @ts-expect-error - TypeScript detects the wrong definition for the original function.
   return originalVisit(url, opts);
 });

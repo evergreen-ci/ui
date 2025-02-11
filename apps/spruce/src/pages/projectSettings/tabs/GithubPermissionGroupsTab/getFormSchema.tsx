@@ -26,55 +26,55 @@ export const getFormSchema = ({
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       permissionGroups: {
-        type: "array" as "array",
+        type: "array" as const,
         title: "Token Permission Groups",
         items: {
-          type: "object" as "object",
+          type: "object" as const,
           properties: {
             name: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "",
               default: "",
               minLength: 1,
             },
             permissions: {
-              type: "array" as "array",
+              type: "array" as const,
               default: [],
               items: {
-                type: "object" as "object",
+                type: "object" as const,
                 properties: {
                   type: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "",
                     default: "",
                     minLength: 1,
                   },
                   value: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "",
                     default: "",
                     minLength: 1,
                     oneOf: [
                       {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Select...",
                         enum: [""],
                       },
                       {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Read",
                         enum: ["read"],
                       },
                       {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Write",
                         enum: ["write"],
                       },
                       {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Admin",
                         enum: ["admin"],
                       },

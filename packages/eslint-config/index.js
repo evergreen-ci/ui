@@ -12,6 +12,7 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "plugin:jsdoc/recommended-typescript-error",
     // Airbnb includes some helpful rules for ESLint and React that aren't covered by recommended.
@@ -149,6 +150,11 @@ module.exports = {
     "no-unused-vars": OFF,
     "no-use-before-define": OFF,
 
+    "@typescript-eslint/no-namespace": OFF,
+    "@typescript-eslint/ban-ts-comment": WARN, 
+    "@typescript-eslint/no-explicit-any": WARN,
+    "@typescript-eslint/no-empty-object-type": WARN,
+
     // Rules for typescript-eslint. Note that these rules extend the ESLint rules. This can cause conflicts, so the original
     // ESLint rules above must be disabled for the following rules to work.
     "@typescript-eslint/no-shadow": ERROR,
@@ -158,6 +164,7 @@ module.exports = {
         args: "after-used",
         ignoreRestSiblings: true,
         vars: "all",
+        caughtErrors: "none"
       },
     ],
     "@typescript-eslint/no-use-before-define": [
@@ -186,7 +193,7 @@ module.exports = {
           caseInsensitive: true,
           order: "asc",
         },
-        groups: ["external", "builtin", "internal"],
+        groups: ["external", "builtin", "internal", "parent", "sibling", "index"],
         pathGroups: [
           {
             group: "external",

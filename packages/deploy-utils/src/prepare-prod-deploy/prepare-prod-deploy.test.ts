@@ -1,5 +1,4 @@
 import prompts from "prompts";
-import { prepareProdDeploy } from ".";
 import { getAppToDeploy } from "../utils/environment";
 import {
   assertMainBranch,
@@ -13,6 +12,7 @@ import {
   getReleaseVersion,
   ReleaseVersion,
 } from "../utils/git";
+import { prepareProdDeploy } from ".";
 
 const mockCommit = "0000011111222223333344444555556666677777";
 
