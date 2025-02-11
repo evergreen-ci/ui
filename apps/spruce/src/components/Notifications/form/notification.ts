@@ -19,17 +19,17 @@ export const getNotificationSchema = (
   uiSchema: SpruceFormProps["uiSchema"];
 } => ({
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     title: "Choose How to be Notified",
     required: ["notificationSelect"],
     properties: {
       notificationSelect: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Notification Method",
         default: "",
         oneOf: [
           ...subscriptionMethods.map(({ label, value }) => ({
-            type: "string" as "string",
+            type: "string" as const,
             title: label,
             enum: [value],
           })),
@@ -46,7 +46,7 @@ export const getNotificationSchema = (
                 enum: [NotificationMethods.JIRA_COMMENT],
               },
               jiraCommentInput: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "JIRA Issue",
                 format: "validJiraTicket",
                 minLength: 1,
@@ -60,7 +60,7 @@ export const getNotificationSchema = (
                 enum: [NotificationMethods.SLACK],
               },
               slackInput: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Slack message",
                 format: "validSlack",
                 minLength: 1,
@@ -74,7 +74,7 @@ export const getNotificationSchema = (
                 enum: [NotificationMethods.EMAIL],
               },
               emailInput: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Email",
                 format: "validEmail",
                 minLength: 1,
@@ -87,51 +87,51 @@ export const getNotificationSchema = (
                 enum: [NotificationMethods.WEBHOOK],
               },
               webhookInput: {
-                type: "object" as "object",
+                type: "object" as const,
                 title: "",
                 required: ["urlInput"],
                 properties: {
                   urlInput: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "Webhook URL",
                     format: "validURL",
                     minLength: 1,
                   },
                   secretInput: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "Webhook Secret",
                   },
                   retryInput: {
-                    type: "number" as "number",
+                    type: "number" as const,
                     title: "Retry count",
                     minimum: 0,
                     maximum: 10,
                   },
                   minDelayInput: {
-                    type: "number" as "number",
+                    type: "number" as const,
                     title: "Minimum delay (ms)",
                     minimum: 0,
                     maximum: 10000,
                   },
                   timeoutInput: {
-                    type: "number" as "number",
+                    type: "number" as const,
                     title: "Max timeout (ms)",
                     minimum: 0,
                     maximum: 30000,
                   },
                   httpHeaders: {
-                    type: "array" as "array",
+                    type: "array" as const,
                     title: "HTTP Headers",
                     items: {
-                      type: "object" as "object",
+                      type: "object" as const,
                       required: ["keyInput", "valueInput"],
                       properties: {
                         keyInput: {
-                          type: "string" as "string",
+                          type: "string" as const,
                           title: "Key",
                         },
                         valueInput: {
-                          type: "string" as "string",
+                          type: "string" as const,
                           title: "Value",
                         },
                       },
@@ -147,17 +147,17 @@ export const getNotificationSchema = (
                 enum: [NotificationMethods.JIRA_ISSUE],
               },
               jiraIssueInput: {
-                type: "object" as "object",
+                type: "object" as const,
                 title: "",
                 required: ["projectInput", "issueInput"],
                 properties: {
                   projectInput: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "JIRA Project",
                     minLength: 1,
                   },
                   issueInput: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "Issue Type",
                     minLength: 1,
                   },

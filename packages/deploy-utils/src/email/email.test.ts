@@ -4,7 +4,7 @@ import * as shellUtils from "../utils/shell";
 import { findEvergreen, formatDate } from "./utils";
 
 vi.mock("../utils/environment", async (importOriginal) => ({
-  // @ts-expect-error
+  // @ts-expect-error: Not necessary to mock entire object for test.
   ...(await importOriginal()),
   getAppToDeploy: vi.fn().mockReturnValue("spruce"),
 }));

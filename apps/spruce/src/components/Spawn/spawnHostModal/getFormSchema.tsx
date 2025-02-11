@@ -88,14 +88,14 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         requiredSection: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "",
           properties: {
             distro: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Distro",
               default: distroIdQueryParam,
               // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -103,12 +103,12 @@ export const getFormSchema = ({
               minLength: 1,
             },
             region: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Region",
               default: userAwsRegion || (awsRegions?.length && awsRegions[0]),
               oneOf: [
                 ...(awsRegions?.map((r) => ({
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: r,
                   enum: [r],
                 })) || []),
@@ -126,7 +126,7 @@ export const getFormSchema = ({
           type: "null",
         },
         userdataScriptSection: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "",
           properties: {
             runUserdataScript: {
@@ -144,7 +144,7 @@ export const getFormSchema = ({
                     },
                     userdataScript: {
                       title: "Userdata Script",
-                      type: "string" as "string",
+                      type: "string" as const,
                       default: "",
                       minLength: 1,
                     },
@@ -162,7 +162,7 @@ export const getFormSchema = ({
           },
         },
         setupScriptSection: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "",
           properties: {
             defineSetupScriptCheckbox: {
@@ -180,11 +180,11 @@ export const getFormSchema = ({
                       enum: [true],
                     },
                     warningBanner: {
-                      type: "null" as "null",
+                      type: "null" as const,
                     },
                     setupScript: {
                       title: "Setup Script",
-                      type: "string" as "string",
+                      type: "string" as const,
                       default: "",
                       minLength: 1,
                     },
@@ -204,10 +204,10 @@ export const getFormSchema = ({
         ...(hasValidTask && {
           loadData: {
             title: "",
-            type: "object" as "object",
+            type: "object" as const,
             properties: {
               loadDataOntoHostAtStartup: {
-                type: "boolean" as "boolean",
+                type: "boolean" as const,
                 default: true,
               },
             },
@@ -220,11 +220,11 @@ export const getFormSchema = ({
                         enum: [true],
                       },
                       runProjectSpecificSetupScript: {
-                        type: "boolean" as "boolean",
+                        type: "boolean" as const,
                         title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
                       },
                       startHosts: {
-                        type: "boolean" as "boolean",
+                        type: "boolean" as const,
                         title:
                           "Also start any hosts this task started (if applicable)",
                       },
@@ -237,21 +237,21 @@ export const getFormSchema = ({
         }),
         ...(shouldRenderVolumeSelection && {
           homeVolumeDetails: {
-            type: "object" as "object",
+            type: "object" as const,
             title: "Virtual Workstation",
             properties: {
               selectExistingVolume: {
                 title: "Volume selection",
-                type: "boolean" as "boolean",
+                type: "boolean" as const,
                 default: true,
                 oneOf: [
                   {
-                    type: "boolean" as "boolean",
+                    type: "boolean" as const,
                     title: "Attach existing volume",
                     enum: [true],
                   },
                   {
-                    type: "boolean" as "boolean",
+                    type: "boolean" as const,
                     title: "Attach new volume",
                     enum: [false],
                   },
@@ -268,19 +268,19 @@ export const getFormSchema = ({
                       },
                       volumeSelect: {
                         title: "Volume",
-                        type: "string" as "string",
+                        type: "string" as const,
                         default: availableVolumes[0]?.id ?? "",
                         minLength: 1,
                         oneOf:
                           availableVolumes.length > 0
                             ? availableVolumes.map((v) => ({
-                                type: "string" as "string",
+                                type: "string" as const,
                                 title: `(${v.size}GB) ${v.displayName || v.id}`,
                                 enum: [v.id],
                               }))
                             : [
                                 {
-                                  type: "string" as "string",
+                                  type: "string" as const,
                                   title: "No volumes available.",
                                   enum: [""],
                                 },
@@ -296,7 +296,7 @@ export const getFormSchema = ({
                       },
                       volumeSize: {
                         title: "Volume size (GB)",
-                        type: "number" as "number",
+                        type: "number" as const,
                         default: DEFAULT_VOLUME_SIZE,
                         minimum: 1,
                       },
@@ -318,7 +318,7 @@ export const getFormSchema = ({
                 },
                 userdataScript: {
                   title: "Userdata Script",
-                  type: "string" as "string",
+                  type: "string" as const,
                 },
               },
             },

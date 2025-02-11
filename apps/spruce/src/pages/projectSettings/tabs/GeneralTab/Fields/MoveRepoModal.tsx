@@ -120,20 +120,20 @@ const moveRepoForm = (githubOrgs: string[]) => ({
     repo: "",
   },
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     required: ["owner", "repo"],
     properties: {
       owner: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "New Owner",
         oneOf: githubOrgs.map((org) => ({
-          type: "string" as "string",
+          type: "string" as const,
           title: org,
           enum: [org],
         })),
       },
       repo: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "New Repository Name",
         minLength: 1,
         format: "noSpaces",

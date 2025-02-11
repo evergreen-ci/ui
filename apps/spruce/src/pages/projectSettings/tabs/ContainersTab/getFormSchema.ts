@@ -11,33 +11,33 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       containerSizeDefinitions: {
         title: "Container Configurations",
-        type: "object" as "object",
+        type: "object" as const,
         properties: {
           variables: {
-            type: "array" as "array",
+            type: "array" as const,
             title: "",
             items: {
-              type: "object" as "object",
+              type: "object" as const,
               properties: {
                 name: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Name",
                   default: "",
                   minLength: 1,
                 },
                 memoryMb: {
-                  type: "number" as "number",
+                  type: "number" as const,
                   title: "Memory (MB)",
                   minimum: 1,
                   default: 100,
                   maximum: ecsConfig?.maxMemoryMb || 1024,
                 },
                 cpu: {
-                  type: "number" as "number",
+                  type: "number" as const,
                   title: "CPU",
                   minimum: 1,
                   default: 1,

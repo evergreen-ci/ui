@@ -17,6 +17,7 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
 import { string } from "utils";
+import { reportError } from "utils/errorReporting";
 import { NotificationField } from "./notificationTab/NotificationField";
 import { UserSubscriptions } from "./notificationTab/UserSubscriptions";
 
@@ -76,7 +77,9 @@ export const NotificationsTab: React.FC = () => {
         variables,
         refetchQueries: ["UserSettings"],
       });
-    } catch (err) {}
+    } catch (err) {
+      reportError(new Error(`Failed to save notification preferences: ${err}`));
+    }
   };
 
   const hasFieldUpdates =

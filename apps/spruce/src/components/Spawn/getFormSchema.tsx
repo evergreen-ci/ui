@@ -32,45 +32,45 @@ const getHostUptimeSchema = ({
   timeZone,
 }: HostUptimeProps) => ({
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     title: "",
     properties: {
       useDefaultUptimeSchedule: {
-        type: "boolean" as "boolean",
+        type: "boolean" as const,
         title: `Use default host uptime schedule (Mon–Fri, 8am–8pm ${abbreviateTimeZone(timeZone)})`,
         default: true,
       },
       sleepSchedule: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "",
         properties: {
           enabledWeekdays: {
-            type: "array" as "array",
+            type: "array" as const,
             title: "",
             default: [false, true, true, true, true, true, false],
             items: {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
             },
           },
           timeSelection: {
-            type: "object" as "object",
+            type: "object" as const,
             title: "",
             properties: {
               startTime: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Start Time",
                 default: defaultStartDate.toString(),
               },
               stopTime: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Stop Time",
                 default: defaultStopDate.toString(),
               },
               or: {
-                type: "null" as "null",
+                type: "null" as const,
               },
               runContinuously: {
-                type: "boolean" as "boolean",
+                type: "boolean" as const,
                 title: "Run continuously for enabled days",
               },
             },
@@ -96,7 +96,7 @@ const getHostUptimeSchema = ({
         },
       },
       details: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "",
         properties: {
           timeZone: {
@@ -104,20 +104,20 @@ const getHostUptimeSchema = ({
             title: "Time Zone",
             default: timeZone,
             oneOf: timeZones.map(({ str, value }) => ({
-              type: "string" as "string",
+              type: "string" as const,
               title: str,
               enum: [value],
             })),
           },
 
           uptimeHours: {
-            type: "null" as "null",
+            type: "null" as const,
           },
         },
       },
       ...(isEditModal && {
         temporarilyExemptUntil: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Temporary Sleep Schedule Exemption",
         },
       }),
@@ -274,20 +274,20 @@ export const getExpirationDetailsSchema = ({
   return {
     schema: {
       title: "Expiration Details",
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         noExpiration: {
           default: false,
-          type: "boolean" as "boolean",
+          type: "boolean" as const,
           title: "",
           oneOf: [
             {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
               title: "Expirable Host",
               enum: [false],
             },
             {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
               title: "Unexpirable Host",
               enum: [true],
             },
@@ -303,7 +303,7 @@ export const getExpirationDetailsSchema = ({
                   enum: [false],
                 },
                 expiration: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Expiration",
                   default: defaultExpiration,
                   minLength: 6,
@@ -357,21 +357,21 @@ export const getPublicKeySchema = ({
   required = true,
 }: PublicKeyProps) => ({
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     title: "SSH Key",
     properties: {
       useExisting: {
         default: true,
-        type: "boolean" as "boolean",
+        type: "boolean" as const,
         title: "",
         oneOf: [
           {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             title: "Use existing key",
             enum: [true],
           },
           {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             title: "Add new key",
             enum: [false],
           },
@@ -388,26 +388,26 @@ export const getPublicKeySchema = ({
               },
               publicKeyNameDropdown: {
                 title: "Choose key",
-                type: "string" as "string",
+                type: "string" as const,
                 default: myPublicKeys?.length ? myPublicKeys[0]?.name : "",
                 minLength: required ? 1 : 0,
                 oneOf:
                   myPublicKeys?.length > 0
                     ? [
                         {
-                          type: "string" as "string",
+                          type: "string" as const,
                           title: "Select public key…",
                           enum: [""],
                         },
                         ...myPublicKeys.map((d) => ({
-                          type: "string" as "string",
+                          type: "string" as const,
                           title: d.name,
                           enum: [d.name],
                         })),
                       ]
                     : [
                         {
-                          type: "string" as "string",
+                          type: "string" as const,
                           title: "No keys available.",
                           enum: [""],
                         },
@@ -422,13 +422,13 @@ export const getPublicKeySchema = ({
               },
               newPublicKey: {
                 title: "Public key",
-                type: "string" as "string",
+                type: "string" as const,
                 default: "",
                 minLength: 1,
               },
               savePublicKey: {
                 title: "Save Public Key",
-                type: "boolean" as "boolean",
+                type: "boolean" as const,
                 default: false,
               },
             },
@@ -449,7 +449,7 @@ export const getPublicKeySchema = ({
                       },
                       newPublicKeyName: {
                         title: "Key name",
-                        type: "string" as "string",
+                        type: "string" as const,
                         default: "",
                         minLength: 1,
                       },

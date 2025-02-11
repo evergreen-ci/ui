@@ -28,11 +28,11 @@ export const getFormSchema = ({
         type: "object",
         properties: {
           expiration: {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Expiration",
           },
           noExpiration: {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             title: "Never expire",
           },
         },
