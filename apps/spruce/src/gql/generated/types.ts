@@ -3461,6 +3461,7 @@ export type WaterfallPagination = {
   __typename?: "WaterfallPagination";
   hasNextPage: Scalars["Boolean"]["output"];
   hasPrevPage: Scalars["Boolean"]["output"];
+  mostRecentVersionOrder: Scalars["Int"]["output"];
   nextPageOrder: Scalars["Int"]["output"];
   prevPageOrder: Scalars["Int"]["output"];
 };
