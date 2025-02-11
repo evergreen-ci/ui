@@ -1,7 +1,7 @@
-import { makeEmail } from ".";
 import { getAppToDeploy } from "../utils/environment";
 import * as shellUtils from "../utils/shell";
 import { findEvergreen, formatDate } from "./utils";
+import { makeEmail } from ".";
 
 vi.mock("../utils/environment", async (importOriginal) => ({
   // @ts-expect-error: Not necessary to mock entire object for test.
