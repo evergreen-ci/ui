@@ -193,7 +193,7 @@ module.exports = {
           caseInsensitive: true,
           order: "asc",
         },
-        groups: ["external", "builtin", "internal"],
+        groups: ["external", "builtin", "internal", "parent", "sibling", "index"],
         pathGroups: [
           {
             group: "external",

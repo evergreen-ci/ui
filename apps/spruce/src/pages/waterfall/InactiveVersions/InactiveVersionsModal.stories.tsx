@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { StoryObj } from "@storybook/react";
-import { InactiveVersionsButton } from ".";
 import { InactiveVersion } from "../styles";
 import {
   inactiveVersion,
@@ -10,6 +9,7 @@ import {
   versionWithUpstreamProject,
   versionBroken,
 } from "../testData";
+import { InactiveVersionsButton } from ".";
 
 export default {
   title: "Pages/Waterfall/InactiveVersions",
