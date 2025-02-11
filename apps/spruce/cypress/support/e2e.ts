@@ -178,12 +178,12 @@ const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
     cy.intercept("POST", "/graphql/query", (req) => {
       if (isMutation(req)) {
         mutationDispatched = true;
+        hostMutations.forEach((m) => {
+          if (hasOperationName(req, m)) {
+            clearAmboyDB = true;
+          }
+        });
       }
-      hostMutations.forEach((m) => {
-        if (hasOperationName(req, m)) {
-          clearAmboyDB = true;
-        }
-      });
     });
   });
 

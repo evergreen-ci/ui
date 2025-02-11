@@ -44,7 +44,7 @@ reseed_databases() {
 }
 
 # Helper function for dumping DBs.
-# Pass the DB name as the first argument and the database URI as the second argument.
+# Pass the DB name as the first argument and the URI as the second argument.
 dump_db() {
     # Use 'mongodump' to create a database dump.
     if ! mongodump --quiet --uri="$2" -o "$DUMP_ROOT"; then
