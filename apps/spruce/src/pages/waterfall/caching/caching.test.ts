@@ -137,6 +137,7 @@ describe("readVersions", () => {
       pagination: {
         hasPrevPage: false,
         hasNextPage: false,
+        mostRecentVersionOrder: 5,
         prevPageOrder: 0,
         nextPageOrder: 0,
       },
@@ -165,6 +166,7 @@ describe("readVersions", () => {
       pagination: {
         hasPrevPage: true,
         hasNextPage: true,
+        mostRecentVersionOrder: 5,
         prevPageOrder: 4,
         nextPageOrder: 3,
       },
@@ -196,6 +198,7 @@ describe("readVersions", () => {
       pagination: {
         hasPrevPage: true,
         hasNextPage: false,
+        mostRecentVersionOrder: 5,
         prevPageOrder: 3,
         nextPageOrder: 0,
       },
@@ -227,6 +230,7 @@ describe("readVersions", () => {
       pagination: {
         hasPrevPage: false,
         hasNextPage: true,
+        mostRecentVersionOrder: 5,
         prevPageOrder: 0,
         nextPageOrder: 3,
       },
@@ -258,6 +262,7 @@ describe("readVersions", () => {
       pagination: {
         hasPrevPage: true,
         hasNextPage: true,
+        mostRecentVersionOrder: 5,
         prevPageOrder: 3,
         nextPageOrder: 3,
       },
