@@ -33,11 +33,11 @@ type CustomStorybookParams = {
   };
 };
 
-type CustomStoryObj<T extends any> = StoryObj<T> & {
+type CustomStoryObj<T> = StoryObj<T> & {
   parameters?: CustomStorybookParams;
 };
 
-type CustomMeta<T extends any> = Meta<T> & {
+type CustomMeta<T> = Meta<T> & {
   parameters?: CustomStorybookParams;
 };
 

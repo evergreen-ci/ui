@@ -126,7 +126,7 @@ export const CopyProjectModal: React.FC<Props> = ({
 
 const modalFormDefinition = {
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       projectName: projectName.schema,
       ...performanceTooling.schema,

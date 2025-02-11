@@ -237,7 +237,7 @@ export const transformAliases = (
 export const baseProps = {
   alias: {
     schema: {
-      type: "string" as "string",
+      type: "string" as const,
       title: "Alias Name",
       default: "",
       minLength: 1,
@@ -248,7 +248,7 @@ export const baseProps = {
   },
   description: {
     schema: {
-      type: "string" as "string",
+      type: "string" as const,
       title: "Description",
       default: "",
     },
@@ -259,7 +259,7 @@ export const baseProps = {
   },
   gitTag: {
     schema: {
-      type: "string" as "string",
+      type: "string" as const,
       title: "Git Tag Regex",
       default: "",
       minLength: 1,
@@ -270,7 +270,7 @@ export const baseProps = {
   },
   remotePath: {
     schema: {
-      type: "string" as "string",
+      type: "string" as const,
       title: "Config File",
       default: "",
       minLength: 1,
@@ -282,7 +282,7 @@ export const baseProps = {
   },
   task: {
     schema: {
-      type: "string" as "string",
+      type: "string" as const,
       title: "Task Regex",
       default: "",
       minLength: 1,
@@ -298,10 +298,10 @@ export const baseProps = {
   },
   taskTags: {
     schema: {
-      type: "array" as "array",
+      type: "array" as const,
       minItems: 1,
       items: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Task Tag",
         default: "",
         minLength: 1,
@@ -322,7 +322,7 @@ export const baseProps = {
   },
   variant: {
     schema: {
-      type: "string" as "string",
+      type: "string" as const,
       title: "Variant Regex",
       default: "",
       minLength: 1,
@@ -338,11 +338,11 @@ export const baseProps = {
   },
   variantTags: {
     schema: {
-      type: "array" as "array",
+      type: "array" as const,
       title: "Variant Tags",
       minItems: 1,
       items: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Variant Tag",
         default: "",
         minLength: 1,
@@ -376,21 +376,21 @@ const {
 
 const variants = {
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     title: "",
     properties: {
       specifier: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "",
         default: VariantTaskSpecifier.Tags,
         oneOf: [
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Variant Tags",
             enum: [VariantTaskSpecifier.Tags],
           },
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Variant Regex",
             enum: [VariantTaskSpecifier.Regex],
           },
@@ -434,21 +434,21 @@ const variants = {
 
 const tasks = {
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     title: "",
     properties: {
       specifier: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "",
         default: VariantTaskSpecifier.Tags,
         oneOf: [
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Task Tags",
             enum: [VariantTaskSpecifier.Tags],
           },
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Task Regex",
             enum: [VariantTaskSpecifier.Regex],
           },
@@ -491,18 +491,18 @@ const tasks = {
 
 const parameters = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     title: "Parameters",
     items: {
-      type: "object" as "object",
+      type: "object" as const,
       title: "Parameter",
       properties: {
         key: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Key",
         },
         value: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Value",
         },
       },
@@ -526,23 +526,23 @@ const parameters = {
 
 export const gitTagArray = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     items: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         gitTag: gitTag.schema,
         specifier: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Specify Via",
           default: GitTagSpecifier.ConfigFile,
           oneOf: [
             {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Config File",
               enum: [GitTagSpecifier.ConfigFile],
             },
             {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Variant/Task",
               enum: [GitTagSpecifier.VariantTask],
             },
@@ -596,9 +596,9 @@ export const gitTagArray = {
 
 export const aliasArray = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     items: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         variants: variants.schema,
         tasks: tasks.schema,
@@ -652,9 +652,9 @@ export const aliasRowUiSchema = ({
 
 export const patchAliasArray = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     items: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         alias: alias.schema,
         description: description.schema,

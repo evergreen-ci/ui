@@ -11,71 +11,71 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     description:
       "Configure upstream projects to cause tasks in this project to run.",
     ...overrideRadioBox(
       "triggers",
       ["Override Repo Triggers", "Default to Repo Triggers"],
       {
-        type: "array" as "array",
+        type: "array" as const,
         default: [],
         items: {
-          type: "object" as "object",
+          type: "object" as const,
           properties: {
             project: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Project",
               default: "",
               minLength: 1,
               format: "noStartingOrTrailingWhitespace",
             },
             configFile: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Config File",
               default: "",
               minLength: 1,
               format: "noStartingOrTrailingWhitespace",
             },
             level: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Level",
               default: ProjectTriggerLevel.TASK,
               oneOf: [
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Task",
                   enum: [ProjectTriggerLevel.TASK],
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Build",
                   enum: [ProjectTriggerLevel.BUILD],
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Push",
                   enum: [ProjectTriggerLevel.PUSH],
                 },
               ],
             },
             status: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Status",
               default: "",
               oneOf: [
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "All",
                   enum: [""],
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Success",
                   enum: [TaskStatus.Succeeded],
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Failure",
                   enum: [TaskStatus.Failed],
                 },
@@ -87,22 +87,22 @@ export const getFormSchema = (
               minimum: 0,
             },
             buildVariantRegex: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Variant Regex",
               default: "",
             },
             taskRegex: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Task Regex",
               default: "",
             },
             alias: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Alias",
               default: "",
             },
             unscheduleDownstreamVersions: {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
               title: "Unschedule Downstream Versions",
             },
           },

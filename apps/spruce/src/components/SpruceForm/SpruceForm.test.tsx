@@ -383,28 +383,28 @@ const basicForm = {
     users: ["initial-user"],
   },
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       cloneMethod: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
         enumNames: ["Legacy SSH", "Oath Token"],
       },
       validProjects: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Valid Projects",
         placeholder: "Sample input",
       },
       access: {
-        type: "null" as "null",
+        type: "null" as const,
         title: "Manage Access",
       },
       users: {
-        type: "array" as "array",
+        type: "array" as const,
         title: "Users",
         items: {
-          type: "string" as "string",
+          type: "string" as const,
         },
       },
     },
@@ -439,10 +439,10 @@ const basicForm = {
 const textInput = (emptyValue?: string) => ({
   formData: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       textInput: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Text Input",
         default: "",
         minLength: 1,
@@ -460,10 +460,10 @@ const textInput = (emptyValue?: string) => ({
 const textArea = (emptyValue?: string) => ({
   formData: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       textArea: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Text Area",
         default: "",
         minLength: 1,
@@ -482,25 +482,25 @@ const textArea = (emptyValue?: string) => ({
 const select = {
   formData: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       iceCream: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Ice Cream",
         default: "vanilla",
         oneOf: [
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Vanilla",
             enum: ["vanilla"],
           },
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Chocolate",
             enum: ["chocolate"],
           },
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Strawberry",
             enum: ["strawberry"],
           },
@@ -518,26 +518,26 @@ const select = {
 const radioGroup = {
   formData: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       states: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Tri-state Area",
         default: "ny",
         oneOf: [
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "New York",
             enum: ["ny"],
           },
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "New Jersey",
             description: "The Garden State",
             enum: ["nj"],
           },
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Connecticut",
             enum: ["ct"],
           },

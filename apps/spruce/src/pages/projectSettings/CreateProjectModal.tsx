@@ -141,21 +141,21 @@ export const CreateProjectModal: React.FC<Props> = ({
 
 const modalFormDefinition = (githubOrgs: string[]) => ({
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     required: ["owner", "repo"],
     properties: {
       projectName: projectName.schema,
       owner: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "GitHub Organization",
         oneOf: githubOrgs.map((org) => ({
-          type: "string" as "string",
+          type: "string" as const,
           title: org,
           enum: [org],
         })),
       },
       repo: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Repo",
         minLength: 1,
         format: "noSpaces",

@@ -42,7 +42,7 @@ import { getResourceRoute } from "./utils";
 
 const { gray } = palette;
 
-export const UserSubscriptions: React.FC<{}> = () => {
+export const UserSubscriptions: React.FC = () => {
   const subscriptions = useSubscriptionData();
   return (
     <>

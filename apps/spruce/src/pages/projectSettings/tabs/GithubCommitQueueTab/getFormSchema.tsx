@@ -47,10 +47,10 @@ export const getFormSchema = (
       githubTriggerAliasField: GithubTriggerAliasField,
     },
     schema: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         github: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "GitHub",
           properties: {
             githubWebhooksEnabled: {
@@ -87,11 +87,11 @@ export const getFormSchema = (
               ),
             },
             oldestAllowedMergeBase: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Oldest Allowed Merge Base",
             },
             prTesting: {
-              type: "object" as "object",
+              type: "object" as const,
               title: "GitHub Patch Definitions",
               ...overrideRadioBox(
                 "githubPrAliases",
@@ -104,10 +104,10 @@ export const getFormSchema = (
               ),
             },
             githubTriggerAliases: {
-              type: "array" as "array",
+              type: "array" as const,
               title: "GitHub Trigger Aliases",
               items: {
-                type: "object" as "object",
+                type: "object" as const,
               },
             },
             githubChecksEnabledTitle: {
@@ -153,9 +153,9 @@ export const getFormSchema = (
                 "gitTagAuthorizedUsers",
                 ["Override Repo Users", "Default to Repo Users"],
                 {
-                  type: "array" as "array",
+                  type: "array" as const,
                   items: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "Username",
                     default: "",
                     minLength: 1,
@@ -172,9 +172,9 @@ export const getFormSchema = (
                 "gitTagAuthorizedTeams",
                 ["Override Repo Teams", "Default to Repo Teams"],
                 {
-                  type: "array" as "array",
+                  type: "array" as const,
                   items: {
-                    type: "string" as "string",
+                    type: "string" as const,
                     title: "Team",
                     default: "",
                     minLength: 1,
@@ -195,7 +195,7 @@ export const getFormSchema = (
           },
         },
         mergeQueue: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "Merge Queue",
           ...(projectType === ProjectType.Repo && {
             description:
@@ -227,7 +227,7 @@ export const getFormSchema = (
                       enum: [true],
                     },
                     patchDefinitions: {
-                      type: "object" as "object",
+                      type: "object" as const,
                       title: "Merge Queue Patch Definitions",
                       ...overrideRadioBox(
                         "mergeQueueAliases",

@@ -15,45 +15,45 @@ export const getFormSchema = (
   schema: {
     definitions: {
       varsArray: {
-        type: "array" as "array",
+        type: "array" as const,
         items: {
-          type: "object" as "object",
+          type: "object" as const,
           properties: {
             varName: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Variable Name",
               default: "",
               minLength: 1,
               format: "noStartingOrTrailingWhitespace",
             },
             varValue: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Variable",
               default: "",
               minLength: 1,
             },
             isPrivate: {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
               title: "Private",
               default: true,
             },
             isAdminOnly: {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
               title: "Admin Only",
             },
             isDisabled: {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
             },
           },
         },
       },
     },
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       vars: { $ref: "#/definitions/varsArray" },
       ...(repoData && {
         repoData: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "Repo Variables",
           ...(repoData.vars.length === 0 && {
             description: "Repo has no variables defined.",

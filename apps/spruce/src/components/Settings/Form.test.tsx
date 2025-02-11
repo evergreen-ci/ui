@@ -90,11 +90,11 @@ const formSchema = {
   foo: {
     fields: {},
     schema: {
-      type: "object" as "object",
+      type: "object" as const,
       title: "Test Form",
       properties: {
         capsLockEnabled: {
-          type: "boolean" as "boolean",
+          type: "boolean" as const,
           title: "Caps Lock Enabled",
         },
       },
@@ -104,15 +104,15 @@ const formSchema = {
   bar: {
     fields: {},
     schema: {
-      type: "object" as "object",
+      type: "object" as const,
       title: "Add User",
       properties: {
         name: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Name",
         },
         age: {
-          type: "number" as "number",
+          type: "number" as const,
           title: "Age",
         },
       },

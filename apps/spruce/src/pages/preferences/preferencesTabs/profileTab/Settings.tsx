@@ -95,11 +95,11 @@ export const Settings: React.FC<SettingsProps> = ({
               },
             },
             timezone: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Timezone",
               oneOf: [
                 ...timeZones.map(({ str, value }) => ({
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: str,
                   enum: [value],
                 })),
@@ -111,11 +111,11 @@ export const Settings: React.FC<SettingsProps> = ({
               enum: awsRegions,
             },
             dateFormat: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Date Format",
               oneOf: [
                 ...dateFormats.map(({ str, value }) => ({
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: str,
                   enum: [value],
                 })),
@@ -126,13 +126,13 @@ export const Settings: React.FC<SettingsProps> = ({
               title: "Time Format",
               oneOf: [
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "12-hour clock",
                   description: "Display time with AM/PM, e.g. 12:34 PM",
                   enum: [TimeFormat.TwelveHour],
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "24-hour clock",
                   description: "Use 24-hour notation, e.g. 13:34",
                   enum: [TimeFormat.TwentyFourHour],

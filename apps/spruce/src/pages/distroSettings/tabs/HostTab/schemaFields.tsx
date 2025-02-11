@@ -26,14 +26,14 @@ const indentCSS = css`
 
 const enumSelect = (enumObject: Record<string, string>) =>
   Object.entries(enumObject).map(([key, title]) => ({
-    type: "string" as "string",
+    type: "string" as const,
     title,
     enum: [key],
   }));
 
 const bootstrapMethod = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Host Bootstrap Method",
     oneOf: enumSelect(bootstrapMethodToCopy),
   },
@@ -44,7 +44,7 @@ const bootstrapMethod = {
 
 const communicationMethod = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Host Communication Method",
     oneOf: enumSelect(communicationMethodToCopy),
   },
@@ -55,7 +55,7 @@ const communicationMethod = {
 
 const arch = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Agent Architecture",
     oneOf: enumSelect(architectureToCopy),
   },
@@ -66,7 +66,7 @@ const arch = {
 
 const workDir = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Working Directory",
     minLength: 1,
   },
@@ -78,7 +78,7 @@ const workDir = {
 
 const setupAsSudo = {
   schema: {
-    type: "boolean" as "boolean",
+    type: "boolean" as const,
     title: "Run script as sudo",
   },
   uiSchema: {
@@ -92,7 +92,7 @@ const setupAsSudo = {
 
 const setupScript = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Setup Script",
   },
   uiSchema: {
@@ -108,7 +108,7 @@ const setupScript = {
 
 const userSpawnAllowed = {
   schema: {
-    type: "boolean" as "boolean",
+    type: "boolean" as const,
     title: "Spawnable",
   },
   uiSchema: (hasStaticProvider: boolean) => ({
@@ -123,7 +123,7 @@ const userSpawnAllowed = {
 
 export const isVirtualWorkStation = {
   schema: {
-    type: "boolean" as "boolean",
+    type: "boolean" as const,
     title: "Virtual Workstations",
   },
   uiSchema: (architecture: Arch) => ({
@@ -141,7 +141,7 @@ export const isVirtualWorkStation = {
 
 export const icecreamSchedulerHost = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Icecream Scheduler Host",
   },
   uiSchema: {
@@ -152,7 +152,7 @@ export const icecreamSchedulerHost = {
 
 export const icecreamConfigPath = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Icecream Config File Path",
   },
   uiSchema: {
@@ -163,7 +163,7 @@ export const icecreamConfigPath = {
 
 export const rootDir = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Root Directory",
   },
   uiSchema: {},
@@ -171,10 +171,10 @@ export const rootDir = {
 
 export const mountpoints = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     title: "Mountpoints",
     items: {
-      type: "string" as "string",
+      type: "string" as const,
       title: "Mountpoint",
       default: "",
       minLength: 1,
@@ -192,7 +192,7 @@ export const mountpoints = {
 
 const serviceUser = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Service User",
   },
   uiSchema: (architecture: Arch) => ({
@@ -206,7 +206,7 @@ const serviceUser = {
 
 const jasperBinaryDir = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Jasper Binary Directory",
     minLength: 1,
   },
@@ -218,7 +218,7 @@ const jasperBinaryDir = {
 
 export const jasperCredentialsPath = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Jasper Credentials Path",
     minLength: 1,
   },
@@ -230,7 +230,7 @@ export const jasperCredentialsPath = {
 
 const clientDir = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Client Directory",
     minLength: 1,
   },
@@ -242,7 +242,7 @@ const clientDir = {
 
 const shellPath = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Shell Path",
     minLength: 1,
   },
@@ -253,7 +253,7 @@ const shellPath = {
 
 const homeVolumeFormatCommand = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Home Volume Format Command",
   },
   uiSchema: {},
@@ -261,7 +261,7 @@ const homeVolumeFormatCommand = {
 
 const numFiles = {
   schema: {
-    type: "number" as "number",
+    type: "number" as const,
     title: "Number of Files",
     minimum: -1,
   },
@@ -272,7 +272,7 @@ const numFiles = {
 
 const numTasks = {
   schema: {
-    type: "number" as "number",
+    type: "number" as const,
     title: "Number of CGroup Tasks",
     minimum: -1,
   },
@@ -284,7 +284,7 @@ const numTasks = {
 
 const numProcesses = {
   schema: {
-    type: "number" as "number",
+    type: "number" as const,
     title: "Number of Processes",
     minimum: -1,
   },
@@ -295,7 +295,7 @@ const numProcesses = {
 
 const lockedMemoryKb = {
   schema: {
-    type: "number" as "number",
+    type: "number" as const,
     title: "Locked Memory",
     minimum: -1,
   },
@@ -307,7 +307,7 @@ const lockedMemoryKb = {
 
 const virtualMemoryKb = {
   schema: {
-    type: "number" as "number",
+    type: "number" as const,
     title: "Virtual Memory",
     minimum: -1,
   },
@@ -319,19 +319,19 @@ const virtualMemoryKb = {
 
 const env = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     title: "Environment Variables",
     items: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         key: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Key",
           default: "",
           minLength: 1,
         },
         value: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Value",
           default: "",
           minLength: 1,
@@ -351,19 +351,19 @@ const env = {
 
 const preconditionScripts = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     title: "Precondition Scripts",
     items: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         path: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Path",
           default: "",
           minLength: 1,
         },
         script: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Script",
           default: "",
           minLength: 1,
@@ -399,7 +399,7 @@ const preconditionScripts = {
 
 const user = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "SSH User",
     minLength: 1,
   },
@@ -410,7 +410,7 @@ const user = {
 
 const execUser = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Exec User",
   },
   uiSchema: {
@@ -426,7 +426,7 @@ const execUser = {
 
 const authorizedKeysFile = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Authorized Keys File",
   },
   uiSchema: (hasStaticProvider: boolean) => ({
@@ -439,10 +439,10 @@ const authorizedKeysFile = {
 
 const sshOptions = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     title: "SSH Options",
     items: {
-      type: "string" as "string",
+      type: "string" as const,
       title: "SSH Option",
       default: "",
       minLength: 1,
@@ -465,7 +465,7 @@ const sshOptions = {
 
 const version = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Host Allocator Version",
     oneOf: enumSelect(hostAllocatorVersionToCopy),
   },
@@ -476,7 +476,7 @@ const version = {
 
 const roundingRule = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Host Allocator Rounding Rule",
     oneOf: enumSelect(roundingRuleToCopy),
   },
@@ -489,7 +489,7 @@ const roundingRule = {
 
 const feedbackRule = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Host Allocator Feedback Rule",
     oneOf: enumSelect(feedbackRuleToCopy),
   },
@@ -502,7 +502,7 @@ const feedbackRule = {
 
 const hostsOverallocatedRule = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Host Overallocation Rule",
     oneOf: enumSelect(overallocatedRuleToCopy),
   },
@@ -513,7 +513,7 @@ const hostsOverallocatedRule = {
 
 const minimumHosts = {
   schema: {
-    type: "number" as "number",
+    type: "number" as const,
     title: "Minimum Number of Hosts Allowed",
     minimum: 0,
   },
@@ -525,7 +525,7 @@ const minimumHosts = {
 
 const maximumHosts = {
   schema: {
-    type: "number" as "number",
+    type: "number" as const,
     title: "Maximum Number of Hosts Allowed",
     minimum: 0,
   },
@@ -537,7 +537,7 @@ const maximumHosts = {
 
 const acceptableHostIdleTime = {
   schema: {
-    type: "number" as "number",
+    type: "number" as const,
     title: "Acceptable Host Idle Time (ms)",
     minimum: 0,
   },
@@ -550,7 +550,7 @@ const acceptableHostIdleTime = {
 
 const futureHostFraction = {
   schema: {
-    type: "number" as "number",
+    type: "number" as const,
     title: "Future Host Fraction",
     minimum: 0,
     maximum: 1,
@@ -598,7 +598,7 @@ export const bootstrap = {
     homeVolumeFormatCommand: homeVolumeFormatCommand.schema,
     serviceUser: serviceUser.schema,
     resourceLimits: {
-      type: "object" as "object",
+      type: "object" as const,
       title: "Resource Limits",
       required: [
         "numFiles",
