@@ -2,13 +2,14 @@ import { Span } from "@opentelemetry/sdk-trace-base";
 import ReactRouterSpanProcessor from ".";
 import { RouteConfig } from "./types";
 
-describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => {
+describe("ReactRouterSpanProcessor", () => {
   let spanProcessor: ReactRouterSpanProcessor;
   const mockRouteConfig: RouteConfig = {
     upload: "/upload",
     spawnHost: "/spawn/host",
     versionPage: "/version/:id/:tab?",
     taskHistory: "/task-history/:projectId/:taskId",
+    configurePatch: `/patch/:patchId/configure/:tab?`,
   };
 
   beforeEach(() => {
@@ -153,6 +154,31 @@ describe("ReactRouterSpanProcessor (without mocking calculateRouteName)", () => 
       spanProcessor.onStart(mockSpan);
 
       expect(mockSpan.setAttribute).not.toHaveBeenCalled();
+    });
+    it("should properly match long trailing routes", () => {
+      const mockSpan = {
+        setAttribute: vi.fn(),
+      } as unknown as Span;
+
+      Object.defineProperty(window, "location", {
+        value: { pathname: "/patch/123/configure/tasks" },
+        writable: true,
+      });
+
+      spanProcessor.onStart(mockSpan);
+
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_name",
+        "configurePatch",
+      );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route",
+        "/patch/:patchId/configure/:tab?",
+      );
+      expect(mockSpan.setAttribute).toHaveBeenCalledWith(
+        "page.route_param.patchId",
+        "123",
+      );
     });
   });
 });

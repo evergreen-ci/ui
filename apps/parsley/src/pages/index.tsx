@@ -5,7 +5,7 @@ import { useAnalyticAttributes } from "analytics";
 import NavBar from "components/NavBar";
 import { PageLayout } from "components/styles";
 import { LogTypes } from "constants/enums";
-import routes from "constants/routes";
+import routes, { slugs } from "constants/routes";
 import { useAuthContext } from "context/auth";
 import { useUser } from "hooks";
 import NotFound from "./404";
@@ -52,7 +52,7 @@ const Content: React.FC = () => {
           element={<LogView logType={LogTypes.EVERGREEN_TEST_LOGS} />}
           path={routes.testLogs}
         >
-          <Route element={null} path=":groupId" />
+          <Route element={null} path={`:${slugs.groupID}`} />
         </Route>
         <Route
           element={<LogView logType={LogTypes.EVERGREEN_TEST_LOGS} />}

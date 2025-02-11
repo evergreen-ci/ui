@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { fromZonedTime } from "date-fns-tz";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { useWaterfallAnalytics } from "analytics";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import {
   DEFAULT_POLL_INTERVAL,
@@ -51,16 +52,22 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 }) => {
   useWaterfallTrace();
   const { adminBetaSettings } = useAdminBetaFeatures();
+  const { sendEvent } = useWaterfallAnalytics();
 
   const [pins, setPins] = useState<string[]>(
     getObject(WATERFALL_PINNED_VARIANTS_KEY)?.[projectIdentifier] ?? [],
   );
 
   const handlePinBV = useCallback(
-    (buildVariant: string) => () => {
+    (buildVariant: string, wasPinned: boolean) => () => {
+      sendEvent({
+        name: "Clicked pin build variant",
+        action: wasPinned ? "unpinned" : "pinned",
+        variant: buildVariant,
+      });
       setPins((prev: string[]) => {
-        const bvIndex = prev.indexOf(buildVariant);
-        if (bvIndex > -1) {
+        if (wasPinned) {
+          const bvIndex = prev.indexOf(buildVariant);
           const removed = [...prev];
           removed.splice(bvIndex, 1);
           return removed;
@@ -169,18 +176,21 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         </Versions>
       </StickyHeader>
       <BuildVariantProvider>
-        {buildVariants.map((b, i) => (
-          <BuildRow
-            key={b.id}
-            build={b}
-            handlePinClick={handlePinBV(b.id)}
-            isFirstBuild={i === 0}
-            lastActiveVersionId={lastActiveVersionId}
-            pinned={pins.includes(b.id)}
-            projectIdentifier={projectIdentifier}
-            versions={versions}
-          />
-        ))}
+        {buildVariants.map((b, i) => {
+          const isPinned = pins.includes(b.id);
+          return (
+            <BuildRow
+              key={b.id}
+              build={b}
+              handlePinClick={handlePinBV(b.id, isPinned)}
+              isFirstBuild={i === 0}
+              lastActiveVersionId={lastActiveVersionId}
+              pinned={isPinned}
+              projectIdentifier={projectIdentifier}
+              versions={versions}
+            />
+          );
+        })}
       </BuildVariantProvider>
       {adminBetaSettings?.spruceWaterfallEnabled && (
         <OnboardingTutorial guideCueRef={guideCueRef} />

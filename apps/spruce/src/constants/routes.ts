@@ -120,7 +120,7 @@ export const redirectRoutes = {
 
 export const routes = {
   commits: `${paths.commits}/:${slugs.projectIdentifier}?`,
-  configurePatch: `${paths.patch}/:${slugs.patchId}/configure`,
+  configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   container: `${paths.container}/:${slugs.podId}`,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.hostId}`,
@@ -137,7 +137,7 @@ export const routes = {
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:${slugs.taskId}/:${slugs.tab}?`,
   taskHistory: `${paths.taskHistory}/:${slugs.projectIdentifier}/:${slugs.taskName}`,
-  taskQueue: paths.taskQueue,
+  taskQueue: `${paths.taskQueue}/:${slugs.distroId}?`,
   user: paths.user,
   userPatches: `${paths.user}/:${slugs.userId}/${PageNames.Patches}`,
   variantHistory: `${paths.variantHistory}/:${slugs.projectIdentifier}/:${slugs.variantName}`,
@@ -148,16 +148,15 @@ export const routes = {
 export const getUserPatchesRoute = (userId: string): string =>
   `${paths.user}/${userId}/${PageNames.Patches}`;
 
-export interface GetVersionRouteOptions {
-  tab?: VersionPageTabs;
-  variant?: string;
-  page?: number;
-  statuses?: string[];
-  sorts?: string | string[];
-}
 export const getVersionRoute = (
   versionId: string,
-  options?: GetVersionRouteOptions,
+  options?: {
+    tab?: VersionPageTabs;
+    variant?: string;
+    page?: number;
+    statuses?: string[];
+    sorts?: string | string[];
+  },
 ) => {
   const { tab, ...rest } = options || {};
   const queryParams = stringifyQuery({
@@ -168,14 +167,12 @@ export const getVersionRoute = (
   }`;
 };
 
-interface GetPatchRouteOptions {
-  tab?: ConfigurePatchPageTabs;
-  configure: boolean;
-}
-
 export const getPatchRoute = (
   patchId: string,
-  options: GetPatchRouteOptions,
+  options: {
+    tab?: ConfigurePatchPageTabs;
+    configure: boolean;
+  },
 ) => {
   const { configure, tab, ...rest } = options || {};
   const queryParams = stringifyQuery({
@@ -191,15 +188,13 @@ export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
 export const getPodRoute = (podId: string) => `${paths.container}/${podId}`;
 
-interface GetAllHostsRouteOptions {
+export const getAllHostsRoute = (options?: {
   hostId?: string;
   distroId?: string;
   statuses?: string[];
   currentTaskId?: string;
   startedBy?: string;
-}
-
-export const getAllHostsRoute = (options?: GetAllHostsRouteOptions) => {
+}) => {
   const { ...rest } = options || {};
   const queryParams = stringifyQuery({
     ...rest,
@@ -207,11 +202,11 @@ export const getAllHostsRoute = (options?: GetAllHostsRouteOptions) => {
   return `${paths.hosts}?${queryParams}`;
 };
 
-export interface GetTaskRouteOptions {
+export type GetTaskRouteOptions = {
   tab?: TaskTab;
   execution?: number;
   [key: string]: any;
-}
+};
 export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
   const { tab, ...rest } = options || {};
   const queryParams = stringifyQuery({
@@ -230,18 +225,17 @@ export const getTaskQueueRoute = (distro: string, taskId?: string) => {
   });
   return `${paths.taskQueue}/${distro}${taskId ? `?${queryParams}` : ""}`;
 };
-interface GetSpawnHostRouteParam {
-  distroId?: string;
-  host?: string;
-  taskId?: string;
-  spawnHost?: boolean;
-}
 export const getSpawnHostRoute = ({
   distroId,
   host,
   spawnHost,
   taskId,
-}: GetSpawnHostRouteParam) => {
+}: {
+  distroId?: string;
+  host?: string;
+  taskId?: string;
+  spawnHost?: boolean;
+}) => {
   const queryParams = stringifyQuery({
     ...(spawnHost && { spawnHost: "True" }),
     distroId,
@@ -362,15 +356,6 @@ export const getTaskHistoryRoute = (
   );
 };
 
-interface GetTriggerRouteParams {
-  triggerType: string;
-  upstreamTask: any;
-  upstreamVersion: any;
-  upstreamRevision: string;
-  upstreamOwner: string;
-  upstreamRepo: string;
-}
-
 export const getTriggerRoute = ({
   triggerType,
   upstreamOwner,
@@ -378,7 +363,14 @@ export const getTriggerRoute = ({
   upstreamRevision,
   upstreamTask,
   upstreamVersion,
-}: GetTriggerRouteParams) => {
+}: {
+  triggerType: string;
+  upstreamTask: any;
+  upstreamVersion: any;
+  upstreamRevision: string;
+  upstreamOwner: string;
+  upstreamRepo: string;
+}) => {
   if (triggerType === ProjectTriggerLevel.TASK) {
     return getTaskRoute(upstreamTask.id);
   }
