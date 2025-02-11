@@ -2,7 +2,7 @@ import { FieldFunctionOptions } from "@apollo/client";
 import { mergeVersions, readVersions } from ".";
 import { versions } from "../testData";
 
-// @ts-expect-error
+// @ts-expect-error: we don't need to type the args for this mock
 const readField = (field, obj) => obj[field];
 
 describe("mergeVersions", () => {
@@ -104,7 +104,7 @@ describe("readVersions", () => {
     expect(
       readVersions(
         undefined,
-        // @ts-expect-error
+        // @ts-expect-error: for tests we can omit unused fields from the args
         {
           args: {
             options: { limit: 5 },
@@ -124,7 +124,7 @@ describe("readVersions", () => {
             mostRecentVersionOrder: 5,
           },
         },
-        // @ts-expect-error
+        // @ts-expect-error: for tests we can omit unused fields from the args
         {
           args: {
             options: { limit: 3, maxOrder: 6 },
@@ -152,7 +152,7 @@ describe("readVersions", () => {
             mostRecentVersionOrder: 5,
           },
         },
-        // @ts-expect-error
+        // @ts-expect-error: for tests we can omit unused fields from the args
         {
           args: {
             options: { limit: 2, maxOrder: 5 },
@@ -180,7 +180,7 @@ describe("readVersions", () => {
             mostRecentVersionOrder: 5,
           },
         },
-        // @ts-expect-error
+        // @ts-expect-error: for tests we can omit unused fields from the args
         {
           args: {
             options: {
@@ -211,7 +211,7 @@ describe("readVersions", () => {
             mostRecentVersionOrder: 5,
           },
         },
-        // @ts-expect-error
+        // @ts-expect-error: for tests we can omit unused fields from the args
         {
           args: {
             options: {
@@ -242,7 +242,7 @@ describe("readVersions", () => {
             mostRecentVersionOrder: 5,
           },
         },
-        // @ts-expect-error
+        // @ts-expect-error: for tests we can omit unused fields from the args
         {
           args: {
             options: {
@@ -273,7 +273,7 @@ describe("readVersions", () => {
             mostRecentVersionOrder: 5,
           },
         },
-        // @ts-expect-error
+        // @ts-expect-error: for tests we can omit unused fields from the args
         {
           args: {
             options: {
@@ -296,7 +296,7 @@ describe("readVersions", () => {
             mostRecentVersionOrder: 5,
           },
         },
-        // @ts-expect-error
+        // @ts-expect-error: for tests we can omit unused fields from the args
         {
           args: {
             options: {

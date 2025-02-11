@@ -103,6 +103,7 @@ export const readVersions = ((existing, { args, readField }) => {
   return {
     flattenedVersions,
     pagination: {
+      mostRecentVersionOrder,
       prevPageOrder: prevOrderNumber,
       nextPageOrder: nextOrderNumber,
       hasNextPage: nextOrderNumber > 0,
