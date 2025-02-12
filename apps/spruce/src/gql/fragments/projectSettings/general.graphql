@@ -6,6 +6,7 @@ fragment ProjectGeneralSettings on Project {
   dispatchingDisabled
   displayName
   enabled
+  id
   owner
   patchingDisabled
   remotePath
@@ -23,6 +24,7 @@ fragment RepoGeneralSettings on RepoRef {
   disabledStatsCache
   dispatchingDisabled
   displayName
+  id
   owner
   patchingDisabled
   remotePath
