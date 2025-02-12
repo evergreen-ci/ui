@@ -1733,8 +1733,6 @@ export type Patches = {
 export type PatchesInput = {
   includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
-  /** @deprecated onlyCommitQueue is deprecated. Use onlyMergeQueue instead. */
-  onlyCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   onlyMergeQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   page?: Scalars["Int"]["input"];
   patchName?: Scalars["String"]["input"];
