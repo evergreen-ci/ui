@@ -1,5 +1,5 @@
-import { usePageTitle } from ".";
 import { renderHook } from "../../test_utils";
+import { usePageTitle } from ".";
 
 describe("usePageTitle", () => {
   const originalTitle = "Original Title";
