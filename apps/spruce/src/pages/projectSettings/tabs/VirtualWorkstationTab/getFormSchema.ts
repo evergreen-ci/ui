@@ -14,7 +14,7 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       gitClone: {
         type: ["boolean", "null"],
@@ -29,19 +29,19 @@ export const getFormSchema = (
           "setupCommands",
           ["Override Repo Commands", "Default to Repo Commands"],
           {
-            type: "array" as "array",
+            type: "array" as const,
             default: [],
             items: {
-              type: "object" as "object",
+              type: "object" as const,
               properties: {
                 command: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Command",
                   minLength: 1,
                   default: "",
                 },
                 directory: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Directory",
                 },
               },

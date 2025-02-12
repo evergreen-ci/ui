@@ -18,7 +18,7 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       patchAliases: {
         title: "Patch Aliases",
@@ -38,75 +38,75 @@ export const getFormSchema = (
             "Default to Repo Patch Trigger Aliases",
           ],
           {
-            type: "array" as "array",
+            type: "array" as const,
             items: {
-              type: "object" as "object",
+              type: "object" as const,
               properties: {
                 alias: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Alias",
                   default: "",
                   minLength: 1,
                   format: "noStartingOrTrailingWhitespace",
                 },
                 childProjectIdentifier: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Project",
                   default: "",
                   minLength: 1,
                   format: "noStartingOrTrailingWhitespace",
                 },
                 parentAsModule: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Module",
                   format: "noStartingOrTrailingWhitespace",
                 },
                 status: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Wait on",
                   default: "",
                   oneOf: [
                     {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: "Select event…",
                       enum: [""],
                     },
                     {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: PatchTriggerAliasStatus["*"],
                       enum: ["*"],
                     },
                     {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: PatchTriggerAliasStatus[PatchStatus.Success],
                       enum: [PatchStatus.Success],
                     },
                     {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: PatchTriggerAliasStatus[PatchStatus.Failed],
                       enum: [PatchStatus.Failed],
                     },
                   ],
                 },
                 taskSpecifiers: {
-                  type: "array" as "array",
+                  type: "array" as const,
                   minItems: 1,
                   items: {
-                    type: "object" as "object",
+                    type: "object" as const,
                     title: "Variant/Task Pair",
                     properties: {
                       specifier: {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Specify Via",
                         default: TaskSpecifier.PatchAlias,
                         oneOf: [
                           {
-                            type: "string" as "string",
+                            type: "string" as const,
                             title: "Patch Alias",
                             enum: [TaskSpecifier.PatchAlias],
                           },
                           {
-                            type: "string" as "string",
+                            type: "string" as const,
                             title: "Variant/Task",
                             enum: [TaskSpecifier.VariantTask],
                           },
@@ -122,7 +122,7 @@ export const getFormSchema = (
                                 enum: [TaskSpecifier.PatchAlias],
                               },
                               patchAlias: {
-                                type: "string" as "string",
+                                type: "string" as const,
                                 title: "Patch Alias",
                                 default: "",
                                 minLength: 1,
@@ -144,7 +144,7 @@ export const getFormSchema = (
                   },
                 },
                 isGithubTriggerAlias: {
-                  type: "boolean" as "boolean",
+                  type: "boolean" as const,
                   title: "Add to GitHub Trigger Alias",
                 },
               },

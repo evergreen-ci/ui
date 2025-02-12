@@ -34,10 +34,10 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       performanceSettings: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Performance Plugins",
         properties: {
           perfEnabled: {
@@ -52,11 +52,11 @@ export const getFormSchema = (
         },
       },
       buildBaronSettings: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Ticket Creation",
         properties: {
           useBuildBaron: {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             oneOf: radioBoxOptions([
               "JIRA Ticket Search and Create",
               "Custom Ticket Creation",
@@ -76,13 +76,13 @@ export const getFormSchema = (
                     enum: [true],
                   },
                   ticketSearchProjects: {
-                    type: "array" as "array",
+                    type: "array" as const,
                     title: "Ticket Search Projects",
                     items: {
-                      type: "object" as "object",
+                      type: "object" as const,
                       properties: {
                         searchProject: {
-                          type: "string" as "string",
+                          type: "string" as const,
                           title: "Search Project",
                           minLength: 1,
                           default: "",
@@ -91,26 +91,26 @@ export const getFormSchema = (
                     },
                   },
                   ticketCreateProject: {
-                    type: "object" as "object",
+                    type: "object" as const,
                     title: "Ticket Create Project",
                     properties: {
                       createProject: {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "",
                         format: "noStartingOrTrailingWhitespace",
                       },
                     },
                   },
                   ticketCreateIssueType: {
-                    type: "object" as "object",
+                    type: "object" as const,
                     title: "Ticket Create Issue Type",
                     properties: {
                       issueType: {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "",
                         oneOf: Object.values(JiraTicketType).map(
                           (r: string) => ({
-                            type: "string" as "string",
+                            type: "string" as const,
                             title: r,
                             enum: [r],
                           }),
@@ -126,17 +126,17 @@ export const getFormSchema = (
                     enum: [false],
                   },
                   fileTicketWebhook: {
-                    type: "object" as "object",
+                    type: "object" as const,
                     title: "Custom Ticket Creation",
                     properties: {
                       endpoint: {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Webhook Endpoint",
                         minLength: 1,
                         default: "",
                       },
                       secret: {
-                        type: "string" as "string",
+                        type: "string" as const,
                         title: "Webhook Secret",
                         minLength: 1,
                         default: "",
@@ -150,20 +150,20 @@ export const getFormSchema = (
         },
       },
       externalLinks: {
-        type: "array" as "array",
+        type: "array" as const,
         title: "Metadata Links",
         maxItems: 5,
         items: {
-          type: "object" as "object",
+          type: "object" as const,
           properties: {
             requesters: {
-              type: "array" as "array",
+              type: "array" as const,
               title: "Requesters",
               uniqueItems: true,
               items: {
-                type: "string" as "string",
+                type: "string" as const,
                 anyOf: requesters.map((r) => ({
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: r.label,
                   enum: [r.value],
                 })),
@@ -171,7 +171,7 @@ export const getFormSchema = (
               default: [],
             },
             displayName: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Display name",
               default: "",
               minLength: 1,
@@ -179,7 +179,7 @@ export const getFormSchema = (
               format: "noStartingOrTrailingWhitespace",
             },
             urlTemplate: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "URL template",
               default: "",
               minLength: 1,

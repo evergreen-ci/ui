@@ -1,6 +1,6 @@
 import { Span } from "@opentelemetry/sdk-trace-base";
-import ReactRouterSpanProcessor from ".";
 import { RouteConfig } from "./types";
+import ReactRouterSpanProcessor from ".";
 
 describe("ReactRouterSpanProcessor", () => {
   let spanProcessor: ReactRouterSpanProcessor;

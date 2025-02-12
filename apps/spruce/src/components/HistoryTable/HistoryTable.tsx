@@ -3,10 +3,10 @@ import throttle from "lodash.throttle";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
 import { useDimensions } from "hooks/useDimensions";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
-import { types } from ".";
 import { useHistoryTable } from "./HistoryTableContext";
 import EndOfHistoryRow from "./HistoryTableRow/EndOfHistoryRow";
 import LoadingSection from "./LoadingSection";
+import { types } from ".";
 
 interface HistoryTableProps {
   loadMoreItems: () => void;

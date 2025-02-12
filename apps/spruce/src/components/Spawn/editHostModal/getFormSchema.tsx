@@ -57,7 +57,7 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         hostName: {
           title: "Edit Host Name",
@@ -66,26 +66,26 @@ export const getFormSchema = ({
         },
         instanceType: {
           title: "Change Instance Type",
-          type: "string" as "string",
+          type: "string" as const,
           default: "",
           oneOf: instanceTypes.map((it) => ({
-            type: "string" as "string",
+            type: "string" as const,
             title: it,
             enum: [it],
           })),
         },
         volume: {
           title: "Add Volume",
-          type: "string" as "string",
+          type: "string" as const,
           default: "",
           oneOf: [
             {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Select volume…",
               enum: [""],
             },
             ...volumes.map((v) => ({
-              type: "string" as "string",
+              type: "string" as const,
               title: `(${v.size}GB) ${v.displayName || v.id}`,
               enum: [v.id],
             })),
@@ -100,17 +100,17 @@ export const getFormSchema = ({
         }),
         userTags: {
           title: "",
-          type: "array" as "array",
+          type: "array" as const,
           items: {
-            type: "object" as "object",
+            type: "object" as const,
             properties: {
               key: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Key",
                 default: "",
               },
               value: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Value",
                 default: "",
               },

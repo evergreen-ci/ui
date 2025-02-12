@@ -7,11 +7,11 @@ export const getFormSchema = (
   uiSchema: SpruceFormProps["uiSchema"];
 } => ({
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       newPatchName: {
         title: "New Patch Name",
-        type: "string" as "string",
+        type: "string" as const,
         default: name,
         maxLength: 300,
         minLength: 1,

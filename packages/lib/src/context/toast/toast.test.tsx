@@ -7,9 +7,9 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
-import { ToastProvider, useToastContext } from ".";
 import { RenderFakeToastContext } from "./__mocks__";
 import { TOAST_TIMEOUT } from "./constants";
+import { ToastProvider, useToastContext } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <ToastProvider>
