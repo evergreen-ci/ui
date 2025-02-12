@@ -8,7 +8,11 @@ fragment BaseTask on Task {
     id
     isPatch
     message
-    projectIdentifier
+    projectMetadata {
+      id
+      identifier
+      repoRefId
+    }
     revision
   }
 }
