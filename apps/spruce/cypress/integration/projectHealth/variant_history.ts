@@ -88,10 +88,8 @@ describe("variant history", () => {
     beforeEach(() => {
       cy.visit("/variant-history/spruce/ubuntu1604");
       cy.getInputByLabel("Filter by Failed Tests").should("exist");
-      cy.getInputByLabel("Filter by Failed Tests")
-        .focus()
-        .type("JustA")
-        .type("{enter}");
+      cy.getInputByLabel("Filter by Failed Tests").focus();
+      cy.getInputByLabel("Filter by Failed Tests").type("JustA{enter}");
       cy.dataCy("filter-chip").should("exist");
       cy.dataCy("filter-chip").should("contain.text", "JustA");
     });

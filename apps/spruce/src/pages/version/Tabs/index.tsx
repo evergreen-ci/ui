@@ -229,7 +229,7 @@ const VersionTabs: React.FC<VersionTabProps> = ({ version }) => {
     <StyledTabs
       aria-label="Version Tabs"
       selected={activeTabs.indexOf(selectedTab)}
-      // @ts-expect-error
+      // @ts-expect-error: LeafyGreen typing for setSelected is too strict.
       setSelected={(tabIndex: number) =>
         activeTabs[tabIndex] && handleTabChange(activeTabs[tabIndex], true)
       }

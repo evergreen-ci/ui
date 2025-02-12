@@ -14,10 +14,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:jsdoc/recommended-typescript-error",
-    // Airbnb includes some helpful rules for ESLint and React that aren't covered by recommended.
-    // See https://github.com/airbnb/javascript/tree/master/packages for specific rules.
-    "airbnb",
     "plugin:prettier/recommended",
   ],
   ignorePatterns: [
@@ -57,26 +55,22 @@ module.exports = {
         "react/no-unknown-property": ["error", { ignore: ["css"] }],
         "react-hooks/rules-of-hooks": ERROR,
 
-        // Disable some Airbnb rules
-        "react/destructuring-assignment": OFF,
         "react/function-component-definition": [
           errorIfStrict,
           {
             namedComponents: "arrow-function",
           },
         ],
-        "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
-        "react/jsx-props-no-spreading": OFF,
-        "react/prop-types": OFF,
-        "react/react-in-jsx-scope": OFF,
-        "react/require-default-props": OFF,
-
         "sort-destructure-keys/sort-destructure-keys": [
           errorIfStrict,
           { caseSensitive: true },
         ],
 
-        "react/jsx-sort-props": ERROR, // Sort props alphabetically.
+        // Sort props alphabetically except for "key" and "ref", which should come first.
+        "react/jsx-sort-props": [ERROR, {
+          ignoreCase: true,
+          reservedFirst: ["key", "ref"],
+        }],
       },
     },
     // For test files
@@ -173,16 +167,6 @@ module.exports = {
     ],
 
     // Rules for eslint-plugin-import. These describe rules about file imports.
-    "import/extensions": [
-      ERROR, // Allow imports without file extensions (airbnb rule)
-      "ignorePackages",
-      {
-        js: "never",
-        jsx: "never",
-        ts: "never",
-        tsx: "never",
-      },
-    ],
     "import/newline-after-import": WARN,
     "import/no-extraneous-dependencies": OFF,
     "import/no-unresolved": OFF,
@@ -225,11 +209,10 @@ module.exports = {
   },
   settings: {
     "import/resolver": {
-      node: {
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
-        paths: ["src"],
-      },
+      typescript: true,
+      node: true,
     },
+    "import/ignore": ["node_modules"],
     react: {
       version: "detect",
     },

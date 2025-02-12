@@ -42,11 +42,12 @@ describe("Tasks filters", () => {
       cy.visit(defaultPath);
       waitForTaskTable();
       cy.toggleTableFilter(4);
-      cy.dataCy("variant-input-wrapper")
-        .find("input")
-        .focus()
-        .type(variantInputValue)
-        .type("{enter}", { scrollBehavior: false });
+
+      cy.dataCy("variant-input-wrapper").find("input").as("variant-input");
+
+      cy.get("@variant-input").focus();
+      cy.get("@variant-input").type(variantInputValue);
+      cy.get("@variant-input").type("{enter}", { scrollBehavior: false });
       cy.dataCy("variant-input-wrapper").should("not.be.visible");
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -57,11 +58,9 @@ describe("Tasks filters", () => {
       cy.dataCy("filtered-count").should("contain.text", 2);
 
       cy.toggleTableFilter(4);
-      cy.dataCy("variant-input-wrapper")
-        .find("input")
-        .focus()
-        .clear()
-        .type("{enter}", { scrollBehavior: false });
+      cy.get("@variant-input").focus();
+      cy.get("@variant-input").clear();
+      cy.get("@variant-input").type("{enter}", { scrollBehavior: false });
       cy.dataCy("variant-input-wrapper").should("not.be.visible");
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -80,11 +79,12 @@ describe("Tasks filters", () => {
       cy.visit(defaultPath);
       waitForTaskTable();
       cy.toggleTableFilter(1);
-      cy.dataCy("taskname-input-wrapper")
-        .find("input")
-        .focus()
-        .type(taskNameInputValue)
-        .type("{enter}", { scrollBehavior: false });
+
+      cy.dataCy("taskname-input-wrapper").find("input").as("taskname-input");
+
+      cy.get("@taskname-input").focus();
+      cy.get("@taskname-input").type(taskNameInputValue);
+      cy.get("@taskname-input").type("{enter}", { scrollBehavior: false });
       cy.dataCy("taskname-input-wrapper").should("not.be.visible");
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -95,11 +95,10 @@ describe("Tasks filters", () => {
       cy.dataCy("filtered-count").should("contain.text", 1);
 
       cy.toggleTableFilter(1);
-      cy.dataCy("taskname-input-wrapper")
-        .find("input")
-        .focus()
-        .clear()
-        .type("{enter}", { scrollBehavior: false });
+      cy.get("@taskname-input");
+      cy.get("@taskname-input").focus();
+      cy.get("@taskname-input").clear();
+      cy.get("@taskname-input").type("{enter}", { scrollBehavior: false });
       cy.dataCy("taskname-input-wrapper").should("not.be.visible");
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
