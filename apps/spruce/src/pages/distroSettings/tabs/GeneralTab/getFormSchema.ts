@@ -7,38 +7,38 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       distroName: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "",
         properties: {
           name: {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Identifier",
             readOnly: true,
           },
         },
       },
       distroImage: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "",
         properties: {
           image: {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Image",
             default: "",
           },
         },
       },
       distroAliases: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Aliases",
         properties: {
           aliases: {
-            type: "array" as "array",
+            type: "array" as const,
             items: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Alias",
               default: "",
               minLength: 1,
@@ -47,36 +47,36 @@ export const getFormSchema = (
         },
       },
       distroOptions: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Distro Options",
         properties: {
           adminOnly: {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             title: "Admin only",
             default: false,
           },
           isCluster: {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             title: "Mark distro as cluster",
             default: false,
           },
           disableShallowClone: {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             title: "Disable shallow clone for this distro",
             default: false,
           },
           disabled: {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             title: "Disable queueing for this distro",
             default: false,
           },
           note: {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Notes",
             default: "",
           },
           warningNote: {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Warnings",
             default: "",
           },

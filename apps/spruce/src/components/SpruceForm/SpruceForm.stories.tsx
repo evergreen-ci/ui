@@ -64,31 +64,31 @@ const BaseForm = ({ data, schema, title, uiSchema }) => {
 
 const example1Def = {
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       cloneMethod: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
         enumNames: ["Legacy SSH", "Oath Token"],
       },
       expansions: {
-        type: "array" as "array",
+        type: "array" as const,
         title: "Expansions",
         items: {
-          type: "object" as "object",
+          type: "object" as const,
           properties: {
             key: {
-              type: "string" as "string",
+              type: "string" as const,
             },
             value: {
-              type: "string" as "string",
+              type: "string" as const,
             },
           },
         },
       },
       validProjects: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Valid Projects",
         placeholder: "Sample input",
       },
@@ -121,29 +121,29 @@ const example1Def = {
 
 const example2Def = {
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       distroIsCluster: {
-        type: "boolean" as "boolean",
+        type: "boolean" as const,
         title:
           "Mark distro as a cluster (jobs are not run on this host, used for special purposes).",
       },
       disableShallowClone: {
-        type: "boolean" as "boolean",
+        type: "boolean" as const,
         title: "Disable shallow clone for this distro.",
       },
       disableQueue: {
-        type: "boolean" as "boolean",
+        type: "boolean" as const,
         title:
           "Disable queueing this distro. Tasks already in the task queue will be removed.",
       },
       decommissionHosts: {
-        type: "boolean" as "boolean",
+        type: "boolean" as const,
         title: "Decommission hosts of this distro for this update",
       },
       reprovisionMethod: {
         title: "",
-        type: "string" as "string",
+        type: "string" as const,
         enum: ["restartJasper", "reprovisionHosts"],
         enumNames: [
           "Restart Jasper service on running hosts of this distro for this update",
@@ -173,22 +173,22 @@ const example2Def = {
 
 const example3Def = {
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       invisible: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Invisible",
         description: "This field should be invisible",
         properties: {
           child: {
-            type: "string" as "string",
+            type: "string" as const,
             title: "And so should its children",
           },
         },
       },
       visible: {
         title: "This is the only visible page element",
-        type: "boolean" as "boolean",
+        type: "boolean" as const,
       },
     },
   },

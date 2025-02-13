@@ -17,7 +17,7 @@ describe("reportingFn", () => {
       extensions: {},
       getContext: vi.fn(),
       operationName: "exampleOperation",
-      // @ts-ignore-error: It's not necessary to run an actual query.
+      // @ts-expect-error: It's not necessary to run an actual query.
       query: null,
       setContext: vi.fn(),
       variables: {

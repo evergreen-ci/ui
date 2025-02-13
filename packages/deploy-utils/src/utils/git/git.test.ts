@@ -10,20 +10,20 @@ import {
 const validCommitString = "0000000000000000000011111111111111111111";
 
 // The return typing expected for these mocks does not align with the Node docs, so ignore these errors.
-// @ts-expect-error
+// @ts-expect-error - See comment above.
 const successMock: Mocked<typeof get> = (_, cb) => {
   const s = new Stream();
-  // @ts-expect-error
+  // @ts-expect-error - See comment above.
   cb(s);
   s.emit("data", new Array(21).join("0"));
   s.emit("data", new Array(21).join("1"));
   s.emit("end");
 };
 
-// @ts-expect-error
+// @ts-expect-error - See comment above.
 const errorMock: Mocked<typeof get> = (_, cb) => {
   const s = new Stream();
-  // @ts-expect-error
+  // @ts-expect-error - See comment above.
   cb(s);
   s.emit("error", new Error("invalid"));
 };

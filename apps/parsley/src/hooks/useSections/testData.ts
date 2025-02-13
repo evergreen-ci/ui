@@ -1,5 +1,5 @@
-import { SectionState } from ".";
 import { SectionData } from "./utils";
+import { SectionState } from ".";
 
 const step = "1 of 4";
 const sectionData: SectionData = {

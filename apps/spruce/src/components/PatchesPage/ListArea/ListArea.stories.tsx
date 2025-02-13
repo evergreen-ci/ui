@@ -1,6 +1,6 @@
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import ListArea from ".";
 import { patchData } from "./testData";
+import ListArea from ".";
 
 const patches = new Array(4).fill(patchData);
 export default {
