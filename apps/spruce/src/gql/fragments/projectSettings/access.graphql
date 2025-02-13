@@ -1,9 +1,11 @@
 fragment ProjectAccessSettings on Project {
   admins
+  id
   restricted
 }
 
 fragment RepoAccessSettings on RepoRef {
   admins
+  id
   restricted
 }

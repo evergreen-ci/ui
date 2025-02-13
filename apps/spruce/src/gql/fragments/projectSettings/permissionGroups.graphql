@@ -8,6 +8,7 @@ fragment ProjectPermissionGroupSettings on ProjectSettings {
       permissions
     }
     githubPermissionGroupByRequester
+    id
   }
 }
 fragment ProjectEventPermissionGroupSettings on ProjectEventSettings {
@@ -20,6 +21,7 @@ fragment ProjectEventPermissionGroupSettings on ProjectEventSettings {
       permissions
     }
     githubPermissionGroupByRequester
+    id
   }
 }
 
@@ -33,5 +35,6 @@ fragment RepoPermissionGroupSettings on RepoSettings {
       permissions
     }
     githubPermissionGroupByRequester
+    id
   }
 }

@@ -4,6 +4,7 @@ fragment ProjectContainerSettings on Project {
     memoryMb
     name
   }
+  id
 }
 
 fragment RepoContainerSettings on RepoRef {
@@ -12,4 +13,5 @@ fragment RepoContainerSettings on RepoRef {
     memoryMb
     name
   }
+  id
 }
