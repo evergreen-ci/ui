@@ -39,7 +39,7 @@ const renderHtml = (html: string = "", options: renderHtmlOptions = {}) => {
               : {};
 
           return (
-            // @ts-expect-error
+            // @ts-expect-error: Compiler has trouble interpreting SwapComponent as JSX element.
             <SwapComponent className={extraProps.class} {...extraProps}>
               {domToReact(domNode.children)}
             </SwapComponent>

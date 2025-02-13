@@ -31,7 +31,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("prioritize-task").click();
-      cy.dataCy("task-priority-input").type("99").type("{enter}");
+      cy.dataCy("task-priority-input").type("99{enter}");
       cy.validateToast("success", prioritySuccessBannerText);
     });
 

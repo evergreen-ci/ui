@@ -1,4 +1,4 @@
-import React, { ErrorInfo } from "react";
+import React, { Component, ErrorInfo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { H1, InlineCode } from "@leafygreen-ui/typography";
@@ -21,7 +21,7 @@ interface WaterfallErrorBoundaryState {
   redirectPath?: string;
 }
 
-class WaterfallErrorBoundary extends React.Component<
+class WaterfallErrorBoundary extends Component<
   WaterfallErrorBoundaryProps,
   WaterfallErrorBoundaryState
 > {
@@ -53,7 +53,7 @@ class WaterfallErrorBoundary extends React.Component<
     this.setState({ error });
     reportError(new Error("An error occurred in the Waterfall page.", error), {
       tags: { component: "Waterfall", project: this.props.projectIdentifier },
-      fingerprint: [errorInfo.componentStack],
+      fingerprint: errorInfo.componentStack ? [errorInfo.componentStack] : [],
     }).warning();
   }
 

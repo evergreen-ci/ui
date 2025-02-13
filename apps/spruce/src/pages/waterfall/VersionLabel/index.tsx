@@ -136,7 +136,7 @@ const VersionContainer = styled.div<
     `background-color: ${color[Theme.Light].background.primary.focus};`}
 `;
 
-const CommitMessage = styled(Body)<Pick<Props, "view">>`
+const CommitMessage = styled(Body)<{ view: VersionLabelView }>`
   ${({ view }) =>
     view === VersionLabelView.Waterfall &&
     `

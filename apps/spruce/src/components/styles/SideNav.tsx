@@ -40,7 +40,7 @@ export const SideNavItemLink: React.FC<SideNavItemProps> = ({
   </StyledSideNavItemLink>
 );
 
-// @ts-expect-error
+// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of LGSideNavItem.
 const StyledSideNavItemLink = styled(LGSideNavItem)<SideNavItemProps>`
   color: ${blue.base};
 `;

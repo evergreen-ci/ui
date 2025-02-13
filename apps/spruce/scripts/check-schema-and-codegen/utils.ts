@@ -1,4 +1,3 @@
-// @ts-nocheck - FIXME. There are TypeScript errors in this file that prevent it from compiling under strict mode.
 import { generate } from "@graphql-codegen/cli";
 import { execSync } from "child_process";
 import fs from "fs";
@@ -47,11 +46,14 @@ export const checkIsAncestor = async (commit: string): Promise<boolean> => {
     return true;
   } catch (error) {
     process.chdir(originalDir);
+
     // Error status 1 and 128 means that the commit is not an anecestor and the user must fetch.
     // Error code docs: https://www.git-scm.com/docs/api-error-handling/
+    // @ts-expect-error: error is unknown type.
     if (error.status === 1 || error.status === 128) {
       return false;
     }
+    // @ts-expect-error: error is unknown type.
     throw new Error(`Error checking ancestor: ${error.message}`);
   }
 };

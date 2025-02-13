@@ -6,7 +6,8 @@ describe("Shortcuts", () => {
 
   it("should be able to open the modal using keyboard shortcut", () => {
     cy.dataCy("shortcut-modal").should("not.exist");
-    cy.get("body").type("{shift}", { release: false }).type("{?}");
+    cy.get("body").type("{shift}", { release: false });
+    cy.get("body").type("{?}");
     cy.dataCy("shortcut-modal").should("be.visible");
   });
 

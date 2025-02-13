@@ -17,7 +17,8 @@ describe("projectSettings/containers", () => {
   it("should be able to add and save container configuration and then delete it", () => {
     // Add configuration
     cy.dataCy("add-button").should("be.visible");
-    cy.dataCy("add-button").trigger("mouseover").click();
+    cy.dataCy("add-button").trigger("mouseover");
+    cy.dataCy("add-button").click();
     cy.dataCy("container-size-row").should("exist");
 
     // Test validation for empty fields
@@ -37,7 +38,8 @@ describe("projectSettings/containers", () => {
     cy.dataCy("container-size-row").should("exist");
     cy.dataCy("delete-item-button").should("be.visible");
     cy.dataCy("delete-item-button").should("not.be.disabled");
-    cy.dataCy("delete-item-button").trigger("mouseover").click();
+    cy.dataCy("delete-item-button").trigger("mouseover");
+    cy.dataCy("delete-item-button").click();
 
     cy.dataCy("container-size-row").should("not.exist");
     cy.dataCy("save-settings-button").scrollIntoView();

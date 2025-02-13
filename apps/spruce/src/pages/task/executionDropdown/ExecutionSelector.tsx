@@ -68,7 +68,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
           >
             <ExecutionInfo>
               <StyledTaskStatusIcon status={singleExecution.displayStatus} />
-              {/* @ts-expect-error */}
+              {/* @ts-expect-error: title is not recognized as a prop but will be propagated correctly. */}
               <StyledBody title={optionText}>{optionText}</StyledBody>
             </ExecutionInfo>
           </Option>

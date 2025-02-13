@@ -2,7 +2,7 @@
 import "@testing-library/jest-dom";
 import "vitest-canvas-mock";
 
-// @ts-ignore
+// @ts-expect-error: Returning a basic string is acceptable for tests.
 window.crypto.randomUUID = (() => {
   let value = 0;
   return () => {
@@ -11,10 +11,9 @@ window.crypto.randomUUID = (() => {
   };
 })();
 
-// Workaround for a bug in @testing-library/react.
+// @ts-expect-error: Workaround for a bug in @testing-library/react.
 // It prevents Vitest's fake timers from functioning with user-event.
 // https://github.com/testing-library/react-testing-library/issues/1197
-// @ts-expect-error
 globalThis.jest = {
   ...globalThis.jest,
   advanceTimersByTime: vi.advanceTimersByTime.bind(vi),

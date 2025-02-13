@@ -29,21 +29,25 @@ const testSharedSubscriptionModalFunctionality = (
 
       it("has an invalid percentage", () => {
         cy.selectLGOption("Event", "changes by some percentage");
-        cy.dataCy("percent-change-input").clear().type("-100");
+        cy.dataCy("percent-change-input").clear();
+        cy.dataCy("percent-change-input").type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextPercent).should("exist");
         saveButtonEnabled(false);
-        cy.dataCy("percent-change-input").clear().type("100");
+        cy.dataCy("percent-change-input").clear();
+        cy.dataCy("percent-change-input").type("100");
         saveButtonEnabled();
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid duration value", () => {
         cy.selectLGOption("Event", "exceeds some duration");
-        cy.dataCy("duration-secs-input").clear().type("-100");
+        cy.dataCy("duration-secs-input").clear();
+        cy.dataCy("duration-secs-input").type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextDuration).should("exist");
         saveButtonEnabled(false);
-        cy.dataCy("duration-secs-input").clear().type("100");
+        cy.dataCy("duration-secs-input").clear();
+        cy.dataCy("duration-secs-input").type("100");
         saveButtonEnabled();
         cy.dataCy("jira-comment-input").clear();
       });
@@ -169,7 +173,8 @@ describe("Waterfall subscription modal", () => {
     cy.contains(errorTextRegex).should("exist");
     saveButtonEnabled(false);
 
-    cy.dataCy("regex-input").clear().type("validRegex");
+    cy.dataCy("regex-input").clear();
+    cy.dataCy("regex-input").type("validRegex");
     cy.contains("button", "Save").click();
     cy.validateToast("success", successText);
   });

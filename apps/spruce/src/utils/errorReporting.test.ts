@@ -8,7 +8,7 @@ import {
 vi.mock("@sentry/react", async (importOriginal) => {
   const actual = await importOriginal();
   return {
-    // @ts-expect-error
+    // @ts-expect-error: No need to mock the entire object for a test.
     ...actual,
     addBreadcrumb: vi.fn(),
     captureException: vi.fn(),
