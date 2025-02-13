@@ -3,10 +3,12 @@ fragment ProjectNotificationSettings on Project {
     text
     theme
   }
+  id
   notifyOnBuildFailure
 }
 
 fragment RepoNotificationSettings on RepoRef {
+  id
   notifyOnBuildFailure
 }
 

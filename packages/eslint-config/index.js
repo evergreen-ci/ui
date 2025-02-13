@@ -54,7 +54,7 @@ module.exports = {
           { some: ["nesting", "id"] },
         ],
         "react-hooks/exhaustive-deps": WARN,
-        "react/no-unknown-property": ["error", { ignore: ["css"] }],
+        "react/no-unknown-property": [ERROR, { ignore: ["css"] }],
         "react-hooks/rules-of-hooks": ERROR,
 
         // Disable some Airbnb rules
@@ -114,8 +114,12 @@ module.exports = {
         ],
         "@graphql-eslint/no-deprecated": WARN,
         "@graphql-eslint/selection-set-depth": [WARN, { maxDepth: 8 }],
-        // Following rule can possibly be removed after ESLint updates.
         "spaced-comment": OFF,
+
+        // The following two rules are disabled because Spruce and Parsley could have
+        // identical fragment and operation names.
+        "@graphql-eslint/unique-fragment-name": OFF,
+        "@graphql-eslint/unique-operation-name": OFF
       },
     },
   ],
