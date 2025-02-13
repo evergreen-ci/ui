@@ -95,7 +95,6 @@ describe("Tasks filters", () => {
       cy.dataCy("filtered-count").should("contain.text", 1);
 
       cy.toggleTableFilter(1);
-      cy.get("@taskname-input");
       cy.get("@taskname-input").focus();
       cy.get("@taskname-input").clear();
       cy.get("@taskname-input").type("{enter}", { scrollBehavior: false });

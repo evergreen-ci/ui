@@ -235,7 +235,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
           <StyledTabs
             aria-label="Configure Patch Tabs"
             selected={tabToIndexMap[selectedTab]}
-            // @ts-expect-error: LeafyGreen's typing of setSelected is too strict.
+            // @ts-expect-error: LeafyGreen typing of setSelected is too strict.
             setSelected={(i: number) => setSelectedTab(indexToTabMap[i])}
           >
             <Tab data-cy="tasks-tab" name="Configure">
