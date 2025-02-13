@@ -9,7 +9,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import AnimatedIcon from "components/Icon/AnimatedIcon";
-import { HolidayTree } from "components/Icon/icons/HolidayTree";
+import { ValentinesDayTree } from "components/Icon/icons/ValentinesDayTree";
 import { navBarHeight } from "components/styles/Layout";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Clicked logo link" })}
           to={routes.myPatches}
         >
-          <StyledAnimatedIcon icon={HolidayTree} />
+          <StyledAnimatedIcon icon={ValentinesDayTree} />
         </LogoLink>
         {spruceWaterfallEnabled ? (
           <PrimaryLink
