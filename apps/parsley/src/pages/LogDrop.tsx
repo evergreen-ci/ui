@@ -5,7 +5,7 @@ import FileDropper from "./LogDrop/FileDropper";
 
 const LogDrop = () => {
   const { hasLogs, logMetadata } = useLogContext();
-  usePageTitle(`Parsley | ${hasLogs ? logMetadata?.fileName : "Upload logs"}`);
+  usePageTitle(`${hasLogs ? logMetadata?.fileName : "Upload logs"} | Parsley`);
   return hasLogs ? <LogWindow /> : <FileDropper />;
 };
 

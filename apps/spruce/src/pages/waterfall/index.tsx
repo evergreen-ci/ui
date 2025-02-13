@@ -23,7 +23,7 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
-  usePageTitle(`Waterfall | ${projectIdentifier}`);
+  usePageTitle(`${projectIdentifier} | Waterfall`);
   const { adminBetaSettings } = useAdminBetaFeatures();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
