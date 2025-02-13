@@ -1,5 +1,6 @@
 import Icon from "@leafygreen-ui/icon";
 import { useParams, Link } from "react-router-dom";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { usePreferencesAnalytics } from "analytics";
 import {
   SideNav,
@@ -13,7 +14,6 @@ import {
   getPreferencesRoute,
   slugs,
 } from "constants/routes";
-import { usePageTitle } from "hooks";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
 const Preferences: React.FC = () => {

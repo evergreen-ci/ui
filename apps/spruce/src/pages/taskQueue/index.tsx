@@ -8,6 +8,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import { PageWrapper } from "components/styles";
@@ -21,7 +22,6 @@ import {
   TaskQueueDistrosQueryVariables,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE, TASK_QUEUE_DISTROS } from "gql/queries";
-import { usePageTitle } from "hooks";
 import { useQueryParam } from "hooks/useQueryParam";
 import { QueryParams } from "types/task";
 import { DistroOption } from "./DistroOption";
