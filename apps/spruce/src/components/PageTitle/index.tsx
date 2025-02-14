@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
 import { size as tokenSize } from "@evg-ui/lib/constants/tokens";
-import { usePageTitle } from "hooks";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 
 type Size = "large" | "medium";
 

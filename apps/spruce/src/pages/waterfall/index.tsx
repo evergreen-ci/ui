@@ -5,6 +5,7 @@ import Banner from "@leafygreen-ui/banner";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useWaterfallAnalytics } from "analytics";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
@@ -22,6 +23,7 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+  usePageTitle(`${projectIdentifier} | Waterfall`);
   const { adminBetaSettings } = useAdminBetaFeatures();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;

@@ -4,6 +4,7 @@ import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
@@ -23,7 +24,6 @@ import {
   MainlineCommitsForHistoryQueryVariables,
 } from "gql/generated/types";
 import { MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
-import { usePageTitle } from "hooks";
 import { string } from "utils";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 import ColumnHeaders from "./ColumnHeaders";

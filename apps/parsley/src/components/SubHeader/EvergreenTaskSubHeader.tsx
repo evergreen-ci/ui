@@ -3,6 +3,7 @@ import { InlineCode } from "@leafygreen-ui/typography";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
 import { StyledLink } from "@evg-ui/lib/components/styles";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { usePreferencesAnalytics } from "analytics";
 import Breadcrumbs from "components/Breadcrumbs";
@@ -43,7 +44,6 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     logType,
     taskID,
   });
-
   const { data: testData, loading: isLoadingTest } = useQuery<
     TestLogUrlAndRenderingTypeQuery,
     TestLogUrlAndRenderingTypeQueryVariables
@@ -55,6 +55,27 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
       testName: `^${testID}$`,
     },
   });
+
+  let currentTest: { testFile: string; status: string } | null = null;
+  switch (logType) {
+    case LogTypes.LOGKEEPER_LOGS:
+      currentTest =
+        taskData?.tests?.testResults?.find((test) =>
+          test?.logs?.urlRaw?.match(new RegExp(`${testID}`)),
+        ) ?? null;
+      break;
+    case LogTypes.EVERGREEN_TEST_LOGS:
+      currentTest = testData?.task?.tests?.testResults?.[0] ?? null;
+      break;
+    default:
+      currentTest = null;
+  }
+  let pageTitle = `Task logs for ${taskData?.displayName}`;
+  if (currentTest) {
+    pageTitle = `Test Logs for ${currentTest?.testFile}`;
+  }
+  usePageTitle(pageTitle);
+
   if (isLoadingTask || isLoadingTest || !taskData) {
     return (
       <>
@@ -77,21 +98,6 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
   } = taskData;
 
   const { isPatch, message, projectIdentifier, revision } = versionMetadata;
-
-  let currentTest: { testFile: string; status: string } | null = null;
-  switch (logType) {
-    case LogTypes.LOGKEEPER_LOGS:
-      currentTest =
-        taskData?.tests?.testResults?.find((test) =>
-          test?.logs?.urlRaw?.match(new RegExp(`${testID}`)),
-        ) ?? null;
-      break;
-    case LogTypes.EVERGREEN_TEST_LOGS:
-      currentTest = testData?.task?.tests?.testResults?.[0] ?? null;
-      break;
-    default:
-      currentTest = null;
-  }
 
   const breadcrumbs = [
     {
