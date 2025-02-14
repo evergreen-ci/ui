@@ -23,10 +23,9 @@ if (process.env.CI) {
   };
 }
 
-// Workaround for a bug in @testing-library/react.
+// @ts-expect-error: Workaround for a bug in @testing-library/react.
 // It prevents Vitest's fake timers from functioning with user-event.
 // https://github.com/testing-library/react-testing-library/issues/1197
-// @ts-expect-error
 globalThis.jest = {
   // @ts-expect-error
   ...globalThis.jest,

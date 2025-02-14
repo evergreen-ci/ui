@@ -61,7 +61,8 @@ describe("Version Subscription Modal", () => {
       cy.contains("Add Additional Criteria").click();
       cy.dataCy("regex-select").click();
       cy.contains("Build Variant Name").click();
-      cy.dataCy("regex-input").type("stuff").should("have.value", "stuff");
+      cy.dataCy("regex-input").type("stuff");
+      cy.dataCy("regex-input").should("have.value", "stuff");
       cy.selectLGOption("Event", "A build-variant in this version fails");
       cy.dataCy("regex-input").should("have.value", "");
     });
@@ -73,7 +74,8 @@ describe("Version Subscription Modal", () => {
       cy.contains("Add Additional Criteria").click();
       cy.selectLGOption("Field name", "Build Variant Name");
 
-      cy.dataCy("regex-input").type("stuff").should("have.value", "stuff");
+      cy.dataCy("regex-input").type("stuff");
+      cy.dataCy("regex-input").should("have.value", "stuff");
       cy.dataCy("regex-select").click();
       cy.contains("Build Variant ID").click();
       cy.dataCy("regex-input").should("have.value", "");

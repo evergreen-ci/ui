@@ -7,8 +7,9 @@ import {
   screen,
   waitFor,
   within,
+  type RenderOptions,
+  type RenderResult,
 } from "@testing-library/react";
-import type { RenderOptions, RenderResult } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import * as customQueries from "./custom-queries";

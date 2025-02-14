@@ -282,7 +282,7 @@ const StyledExpandedContent = styled(ExpandedContent)`
   }
 ` as typeof ExpandedContent;
 
-// @ts-expect-error
+// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of Pagination.
 const StyledPagination = styled(Pagination)`
   margin-top: ${size.xs};
 `;
