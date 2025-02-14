@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
@@ -9,13 +8,9 @@ import SearchResults from "components/Search/SearchResults";
 import { CaseSensitivity, MatchType, SearchBarActions } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
-import {
-  ProjectFiltersQuery,
-  ProjectFiltersQueryVariables,
-} from "gql/generated/types";
-import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useHighlightParam } from "hooks/useHighlightParam";
+import { useProjectFiltersQuery } from "hooks/useProjectFiltersQuery";
 import { useQueryParams } from "hooks/useQueryParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
@@ -43,17 +38,12 @@ const Search: React.FC = () => {
 
   const { task } = useTaskQuery({ buildID, execution, logType, taskID });
   const { versionMetadata } = task ?? {};
-  const { projectIdentifier = "" } = versionMetadata ?? {};
-
-  const { data } = useQuery<ProjectFiltersQuery, ProjectFiltersQueryVariables>(
-    PROJECT_FILTERS,
-    {
-      skip: !projectIdentifier,
-      variables: { projectIdentifier },
-    },
-  );
-  const { project } = data || {};
-  const { parsleyFilters } = project || {};
+  const { identifier: projectIdentifier = "", repoRefId } =
+    versionMetadata?.projectMetadata ?? {};
+  const parsleyFilters = useProjectFiltersQuery({
+    projectIdentifier,
+    repoRefId,
+  });
 
   const handleOnSubmit = (selected: string, value: string) => {
     switch (selected) {
