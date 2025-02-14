@@ -24,10 +24,8 @@ const initializeSentry = () => {
         if (breadcrumb?.category?.startsWith("ui")) {
           const { target } = hint?.event ?? {};
           if (target?.dataset?.cy) {
-            // eslint-disable-next-line no-param-reassign
             breadcrumb.message = `${target.tagName.toLowerCase()}[data-cy="${target.dataset.cy}"]`;
           }
-          // eslint-disable-next-line no-param-reassign
           breadcrumb.data = processHtmlAttributes(target);
         }
         return breadcrumb;

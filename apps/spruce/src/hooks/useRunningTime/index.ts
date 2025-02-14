@@ -24,7 +24,6 @@ export const useRunningTime = (startTime: Date) => {
 
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     return () => clearInterval(timerRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime]);
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.

@@ -20,10 +20,8 @@ export function deleteNestedKey<T extends object>(
     Object.keys(currentObject).forEach((key) => {
       if (key === keyToUpdate || keyToUpdate?.includes(key)) {
         if (redactedString) {
-          // eslint-disable-next-line no-param-reassign
           currentObject[key] = redactedString;
         } else {
-          // eslint-disable-next-line no-param-reassign
           delete currentObject[key];
         }
       } else if (

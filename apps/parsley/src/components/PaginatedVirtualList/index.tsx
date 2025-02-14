@@ -75,7 +75,6 @@ const PaginatedVirtualList = forwardRef<
     // Expose scrollToIndex as a ref
     useEffect(() => {
       if (ref) {
-        // eslint-disable-next-line no-param-reassign
         (ref as any).current = {
           scrollToIndex: scrollToLine,
         } satisfies PaginatedVirtualListRef;

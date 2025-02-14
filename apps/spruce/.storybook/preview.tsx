@@ -1,4 +1,4 @@
-import { Global, css } from "@emotion/react";
+import { Global } from "@emotion/react";
 import { Decorator } from "@storybook/react";
 import { globalStyles } from "components/styles";
 

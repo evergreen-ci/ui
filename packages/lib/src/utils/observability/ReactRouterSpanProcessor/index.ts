@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import { SpanProcessor, Span } from "@opentelemetry/sdk-trace-base";
 import { RouteConfig } from "./types";
 import { calculateRouteName, getRouteParams } from "./utils";

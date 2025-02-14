@@ -21,7 +21,6 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
   const [open, setOpen] = useState(false);
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link onClick={() => setOpen((curr) => !curr)}>
         see {notVisibleCount} more
       </Link>

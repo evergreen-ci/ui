@@ -286,7 +286,6 @@ const findNode = ({
   value: string;
   tData: TreeDataEntry[];
 }): FindNodeResult => {
-  // eslint-disable-next-line no-restricted-syntax
   for (const curr of tData) {
     if (curr.value === value) {
       return {
