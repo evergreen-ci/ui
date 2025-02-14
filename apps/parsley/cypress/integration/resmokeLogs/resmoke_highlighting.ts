@@ -67,7 +67,9 @@ describe("Highlighting", () => {
         colors.add($e.css("background-color"));
       });
     });
-    expect(colors.size).to.eq(2);
+    cy.then(() => {
+      expect(colors.size).to.eq(2);
+    });
   });
   it("should automatically add a highlight when a filter term is added if `Apply Highlights to Filters` is enabled", () => {
     cy.clickToggle("highlight-filters-toggle", true, "search-and-filter");

@@ -41,11 +41,12 @@ module.exports = {
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
-    ],
+      ],
       rules: {
         "@emotion/import-from-emotion": ERROR,
         "@emotion/no-vanilla": errorIfStrict,
         "@emotion/pkg-renaming": ERROR,
+        "@emotion/styled-import": ERROR,
         "@emotion/syntax-preference": [errorIfStrict, "string"],
 
         "jsx-a11y/anchor-is-valid": errorIfStrict,
@@ -192,10 +193,10 @@ module.exports = {
     radix: ERROR,
     yoda: ERROR,
 
-    "@typescript-eslint/no-namespace": OFF,
     "@typescript-eslint/ban-ts-comment": WARN, 
-    "@typescript-eslint/no-explicit-any": WARN,
     "@typescript-eslint/no-empty-object-type": WARN,
+    "@typescript-eslint/no-explicit-any": WARN,
+    "@typescript-eslint/no-namespace": OFF,
 
     // Rules for typescript-eslint. Note that these rules extend the ESLint rules. This can cause conflicts, so the original
     // ESLint rules above must be disabled for the following rules to work.

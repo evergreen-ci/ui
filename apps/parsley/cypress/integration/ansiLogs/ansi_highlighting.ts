@@ -52,7 +52,9 @@ describe("Highlighting", () => {
         colors.add($e.css("background-color"));
       });
     });
-    expect(colors.size).to.eq(2);
+    cy.then(() => {
+      expect(colors.size).to.eq(2);
+    });
   });
   it("highlights should not corrupt links", () => {
     cy.visit(`${logLink}?shareLine=200`);
