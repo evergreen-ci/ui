@@ -21,6 +21,6 @@
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "*",
-    "eslint": "^9.19.0"
+    "eslint": "9.19.0"
   }
 }
