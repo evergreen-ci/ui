@@ -50,7 +50,6 @@ const streamedFetch = async (url: string, options: StreamedFetchOptions) => {
   return new ReadableStream({
     async start(controller) {
       try {
-        // eslint-disable-next-line no-constant-condition -- while(true) is the only way to stream
         while (true) {
           if (options?.downloadSizeLimit) {
             // If we've hit the file size limit, stop streaming and close the stream
@@ -62,7 +61,6 @@ const streamedFetch = async (url: string, options: StreamedFetchOptions) => {
               break;
             }
           }
-          // eslint-disable-next-line no-await-in-loop
           const { done, value } = await reader.read();
           if (done) {
             controller.close();

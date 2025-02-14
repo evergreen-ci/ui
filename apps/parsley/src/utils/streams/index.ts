@@ -12,9 +12,7 @@ const decodeStream = async (stream: ReadableStream, lineSizeLimit?: number) => {
   const result: string[] = [];
   let trimmedLines = false;
 
-  // eslint-disable-next-line no-constant-condition -- while(true) is the only way to stream
   while (true) {
-    // eslint-disable-next-line no-await-in-loop
     const { done, value } = await reader.read();
     if (done) {
       return { result, trimmedLines };
