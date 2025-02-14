@@ -13,7 +13,7 @@ export const Default: CustomStoryObj<typeof HostEventString> = {
   render: () => (
     <>
       {Object.values(HostEventType).map((eventType) => (
-        <div>
+        <div key={eventType.toString()}>
           <Body>{eventType}</Body>
           <EventContainer>
             <HostEventString data={data} eventType={eventType} />

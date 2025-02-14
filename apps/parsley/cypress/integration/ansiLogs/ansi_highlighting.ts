@@ -47,15 +47,12 @@ describe("Highlighting", () => {
         .should("match", /@bugsnag\/plugin-react@|info/);
     });
     const colors = new Set();
-    cy.dataCy("highlight")
-      .each(($el) => {
-        cy.wrap($el).then(($e) => {
-          colors.add($e.css("background-color"));
-        });
-      })
-      .then(() => {
-        expect(colors.size).to.eq(2);
+    cy.dataCy("highlight").each(($el) => {
+      cy.wrap($el).then(($e) => {
+        colors.add($e.css("background-color"));
       });
+    });
+    expect(colors.size).to.eq(2);
   });
   it("highlights should not corrupt links", () => {
     cy.visit(`${logLink}?shareLine=200`);

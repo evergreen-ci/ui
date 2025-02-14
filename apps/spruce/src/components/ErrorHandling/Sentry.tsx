@@ -1,3 +1,4 @@
+import type { Context, Primitive } from "@sentry/core";
 import {
   captureException,
   ErrorBoundary as SentryErrorBoundary,
@@ -5,9 +6,9 @@ import {
   setTags,
   withScope,
   isInitialized,
+  type Scope,
+  type SeverityLevel,
 } from "@sentry/react";
-import type { Scope, SeverityLevel } from "@sentry/react";
-import type { Context, Primitive } from "@sentry/types";
 import {
   getReleaseStage,
   getSentryDSN,

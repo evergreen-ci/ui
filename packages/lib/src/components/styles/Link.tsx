@@ -26,4 +26,6 @@ const StyledRouterLink = forwardRef<
   <Link ref={ref} as={RouterLink} css={overrideStyles} {...props} />
 ));
 
+StyledRouterLink.displayName = "StyledRouterLink";
+
 export { StyledLink, StyledRouterLink };
