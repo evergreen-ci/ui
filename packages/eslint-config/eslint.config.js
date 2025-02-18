@@ -118,7 +118,7 @@ const eslintConfig = {
     "prefer-regex-literals": [ERROR, { disallowRedundantWrapping: true }],
     "prefer-template": ERROR,
     radix: ERROR,
-    "spaced-comment": [ERROR, "always", { markers: ["/"] }],
+    "spaced-comment": [ERROR, "always", { markers: ["/"] }], // TODO: This rule is deprecated - fix in DEVPROD-15014.
     yoda: ERROR,
   },
 };
