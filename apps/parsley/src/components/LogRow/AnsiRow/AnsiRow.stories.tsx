@@ -5,8 +5,8 @@ import LogPane from "components/LogPane";
 import { LogRenderingTypes, LogTypes, WordWrapFormat } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { MultiLineSelectContextProvider } from "context/MultiLineSelectContext";
-import AnsiRow from ".";
 import { ParsleyRow } from "../RowRenderer";
+import AnsiRow from ".";
 
 export default {
   component: AnsiRow,

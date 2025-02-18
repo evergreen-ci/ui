@@ -48,8 +48,12 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
         )}
         {isNullType && !!warnings.length && (
           <StyledBanner data-cy="warning-banner" variant="warning">
-            {warnings.map((w) =>
-              typeof w === "string" || w instanceof String ? <div>{w}</div> : w,
+            {warnings.map((w, i) =>
+              typeof w === "string" || w instanceof String ? (
+                <div key={`warning-${i}`}>{w}</div>
+              ) : (
+                w
+              ),
             )}
           </StyledBanner>
         )}

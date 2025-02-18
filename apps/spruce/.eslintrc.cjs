@@ -33,11 +33,7 @@ module.exports = {
         ignoreMiddleExtensions: true,
       },
     ],
-    "react/display-name": OFF,
+    "react/display-name": WARN,
     "react/no-unstable-nested-components": OFF, // This rule should be removed as part of EVG-17265.
-    "react/sort-comp": [
-      errorIfStrict,
-      { order: ["everything-else", "render"] },
-    ],
   },
 };

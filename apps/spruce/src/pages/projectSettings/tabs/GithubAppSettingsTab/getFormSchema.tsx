@@ -43,61 +43,61 @@ export const getFormSchema = ({
 }): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       appCredentials: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "App Credentials",
         properties: {
           githubAppAuth: {
-            type: "object" as "object",
+            type: "object" as const,
             properties: {
               appId: {
                 type: ["number", "null"],
                 title: "App ID",
               },
               privateKey: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "App Key",
               },
             },
           },
           actions: {
-            type: "null" as "null",
+            type: "null" as const,
             title: "",
           },
         },
       },
       tokenPermissionRestrictions: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Token Permission Restrictions",
         properties: {
           permissionsByRequester: {
-            type: "array" as "array",
+            type: "array" as const,
             items: {
-              type: "object" as "object",
+              type: "object" as const,
               properties: {
                 requesterType: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "",
                 },
                 permissionGroup: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "",
                   default: allPermissionsGroup,
                   oneOf: [
                     {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: "All app permissions",
                       enum: [allPermissionsGroup],
                     },
                     {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: "No permissions",
                       enum: [noPermissionsGroup],
                     },
                     ...githubPermissionGroups.map((pg) => ({
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: pg.name,
                       enum: [pg.name],
                     })),

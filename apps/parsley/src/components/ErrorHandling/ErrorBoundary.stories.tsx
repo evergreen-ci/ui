@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
-import { ErrorBoundary } from ".";
 import ErrorFallback from "./ErrorFallback";
+import { ErrorBoundary } from ".";
 
 export default {
   component: ErrorFallback,

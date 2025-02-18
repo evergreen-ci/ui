@@ -1,5 +1,6 @@
 import { InMemoryCache } from "@apollo/client";
 import { IMAGE_EVENT_LIMIT } from "pages/image/tabs/EventLogTab/useImageEvents";
+import { mergeVersions, readVersions } from "pages/waterfall/caching";
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -16,6 +17,15 @@ export const cache = new InMemoryCache({
         },
         hasVersion: {
           keyArgs: ["$patchId"],
+        },
+        waterfall: {
+          keyArgs: ["options", ["projectIdentifier"]],
+          read(...args) {
+            return readVersions(...args);
+          },
+          merge(...args) {
+            return mergeVersions(...args);
+          },
         },
       },
     },
@@ -105,8 +115,8 @@ export const cache = new InMemoryCache({
         },
       },
     },
-    WaterfallBuildVariant: {
-      keyFields: ["version", "id"],
+    WaterfallTask: {
+      keyFields: false,
     },
   },
 });

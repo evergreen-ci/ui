@@ -62,15 +62,14 @@ describe("Highlighting", () => {
         );
     });
     const colors = new Set();
-    cy.dataCy("highlight")
-      .each(($el) => {
-        cy.wrap($el).then(($e) => {
-          colors.add($e.css("background-color"));
-        });
-      })
-      .then(() => {
-        expect(colors.size).to.eq(2);
+    cy.dataCy("highlight").each(($el) => {
+      cy.wrap($el).then(($e) => {
+        colors.add($e.css("background-color"));
       });
+    });
+    cy.then(() => {
+      expect(colors.size).to.eq(2);
+    });
   });
   it("should automatically add a highlight when a filter term is added if `Apply Highlights to Filters` is enabled", () => {
     cy.clickToggle("highlight-filters-toggle", true, "search-and-filter");

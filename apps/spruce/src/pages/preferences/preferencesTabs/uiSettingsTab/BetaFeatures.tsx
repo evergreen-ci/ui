@@ -87,7 +87,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
           properties: {
             betaFeatures: {
               title: "Beta Features",
-              type: "object" as "object",
+              type: "object" as const,
               properties: {
                 spruceWaterfallEnabled: radioSchema({
                   title: "Use new Spruce waterfall",
@@ -131,17 +131,17 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
 };
 
 const radioSchema = ({ title }: { title: string }) => ({
-  type: "boolean" as "boolean",
+  type: "boolean" as const,
   title,
   default: false,
   oneOf: [
     {
-      type: "boolean" as "boolean",
+      type: "boolean" as const,
       title: "Enabled",
       enum: [true],
     },
     {
-      type: "boolean" as "boolean",
+      type: "boolean" as const,
       title: "Disabled",
       enum: [false],
     },

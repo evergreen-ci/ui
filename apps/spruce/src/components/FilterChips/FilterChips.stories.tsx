@@ -6,8 +6,8 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 
 import { toSentenceCase } from "@evg-ui/lib/utils/string";
-import FilterChips from ".";
 import { FilterChipType } from "./FilterChip";
+import FilterChips from ".";
 
 export default {
   component: FilterChips,

@@ -122,16 +122,16 @@ export const AddIssueModal: React.FC<Props> = ({
 
 const addIssueModalSchema: SpruceFormProps = {
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       url: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Ticket URL",
         minLength: 1,
         format: "validJiraURL",
       },
       advancedOptions: {
-        type: "object" as "object",
+        type: "object" as const,
         properties: {
           confidenceScore: {
             type: ["number", "null"],

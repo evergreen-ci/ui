@@ -18,33 +18,33 @@ export const getFormSchema = ({
   return {
     fields: {},
     schema: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         finderSettings: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "Task Finder",
           properties: {
             version: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Task Finder Version",
               oneOf: [
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Legacy",
                   enum: [FinderVersion.Legacy],
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Parallel",
                   enum: [FinderVersion.Parallel],
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Pipeline",
                   enum: [FinderVersion.Pipeline],
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Alternate",
                   enum: [FinderVersion.Alternate],
                 },
@@ -53,20 +53,20 @@ export const getFormSchema = ({
           },
         },
         plannerSettings: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "Task Planner",
           properties: {
             version: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Task Planner Version",
               oneOf: [
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Legacy",
                   enum: [PlannerVersion.Legacy],
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Tunable",
                   enum: [PlannerVersion.Tunable],
                 },
@@ -89,66 +89,66 @@ export const getFormSchema = ({
                       enum: [PlannerVersion.Tunable],
                     },
                     tunableOptions: {
-                      type: "object" as "object",
+                      type: "object" as const,
                       title: "",
                       properties: {
                         targetTime: {
-                          type: "number" as "number",
+                          type: "number" as const,
                           title: "Target Time (ms)",
                           default: 0,
                           minimum: 0,
                         },
                         patchFactor: {
-                          type: "number" as "number",
+                          type: "number" as const,
                           title: "Patch Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         patchTimeInQueueFactor: {
-                          type: "number" as "number",
+                          type: "number" as const,
                           title: "Patch Time in Queue Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         mainlineTimeInQueueFactor: {
-                          type: "number" as "number",
+                          type: "number" as const,
                           title: "Mainline Time in Queue Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         commitQueueFactor: {
-                          type: "number" as "number",
+                          type: "number" as const,
                           title: "Commit Queue Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         expectedRuntimeFactor: {
-                          type: "number" as "number",
+                          type: "number" as const,
                           title: "Expected Runtime Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         generateTaskFactor: {
-                          type: "number" as "number",
+                          type: "number" as const,
                           title: "Generate Task Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         numDependentsFactor: {
-                          type: "number" as "number",
+                          type: "number" as const,
                           title: "Number of Dependents Factor",
                           default: 0,
                           minimum: 0,
                           maximum: 100,
                         },
                         groupVersions: {
-                          type: "boolean" as "boolean",
+                          type: "boolean" as const,
                           title: "Group versions",
                           default: false,
                         },
@@ -161,15 +161,15 @@ export const getFormSchema = ({
           },
         },
         dispatcherSettings: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "Task Dispatcher",
           properties: {
             version: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Task Dispatcher Version",
               oneOf: [
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Revised with dependencies",
                   enum: [DispatcherVersion.RevisedWithDependencies],
                 },

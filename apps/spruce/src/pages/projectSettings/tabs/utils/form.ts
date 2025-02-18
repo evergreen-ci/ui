@@ -46,15 +46,15 @@ export const overrideRadioBox = (
   return {
     properties: {
       [propertyNameOverride]: {
-        type: "boolean" as "boolean",
+        type: "boolean" as const,
         oneOf: [
           {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             title: buttonText[0],
             enum: [true],
           },
           {
-            type: "boolean" as "boolean",
+            type: "boolean" as const,
             title: buttonText[1],
             enum: [false],
           },
@@ -70,7 +70,7 @@ export const overrideRadioBox = (
                 enum: [false],
               },
               repoData: {
-                type: "object" as "object",
+                type: "object" as const,
                 title: "",
                 properties: {
                   [propertyName]: overrideSchema,

@@ -1,8 +1,8 @@
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 
-import FoldedCommit from ".";
 import { foldedCommitData } from "./testData";
+import FoldedCommit from ".";
 
 export default {
   component: FoldedCommit,

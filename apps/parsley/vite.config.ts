@@ -2,10 +2,11 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig } from "vite";
-import checker from "vite-plugin-checker";
+import { defineConfig, mergeConfig } from "vite";
+import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
 import path from "path";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
@@ -14,7 +15,7 @@ import injectVariablesInHTML from "./config/injectVariablesInHTML";
 dns.setDefaultResultOrder("ipv4first");
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const viteConfig = defineConfig({
   build: {
     rollupOptions: {
       plugins: [],
@@ -100,6 +101,9 @@ export default defineConfig({
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
+});
+
+const vitestConfig = defineTestConfig({
   test: {
     environment: "jsdom",
     globals: true,
@@ -108,3 +112,5 @@ export default defineConfig({
     setupFiles: "./config/vitest/setupTests.ts",
   },
 });
+
+export default mergeConfig(viteConfig, vitestConfig);

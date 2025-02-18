@@ -5,8 +5,8 @@ import {
   screen,
 } from "@evg-ui/lib/test_utils";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import FoldedCommit from ".";
 import { foldedCommitData } from "./testData";
+import FoldedCommit from ".";
 
 describe("foldedCommit", () => {
   it("displays the number of inactive commits but not the individual commits on render", () => {
