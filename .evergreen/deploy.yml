@@ -3,7 +3,7 @@ functions:
     - command: shell.exec
       params:
         script: |
-          if [ "${target}" = "staging" ]; then
+          if [ "${target}" = "staging" ] || [ "${target}" = "corp-secure-staging" ]; then
             echo "REACT_APP_HONEYCOMB_ENDPOINT: ${HONEYCOMB_ENDPOINT_STAGING}" >> honeycomb.yml
             echo "REACT_APP_HONEYCOMB_INGEST_KEY: ${HONEYCOMB_INGEST_KEY_STAGING}" >> honeycomb.yml
             # If target is production or beta, set the honeycomb endpoint and ingest key to production
@@ -138,6 +138,16 @@ tasks:
         vars:
           app_dir: apps/spruce
           target: staging
+  
+  - name: deploy-corp-secure-spruce-staging
+    commands:
+      - func: symlink
+        vars:
+          app_dir: apps/spruce
+      - func: deploy
+        vars:
+          app_dir: apps/spruce
+          target: corp-secure-staging
 
   - name: deploy-spruce-beta
     commands:
