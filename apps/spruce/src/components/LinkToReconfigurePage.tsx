@@ -22,6 +22,11 @@ export const LinkToReconfigurePage: React.FC<{
           sendEvent({ name: "Clicked patch reconfigure link" });
         }
       }}
+      title={
+        disabled
+          ? "This is not a reconfigurable patch use the schedule button instead to schedule tasks"
+          : ""
+      }
       to={getPatchRoute(patchId, { configure: true })}
     >
       Reconfigure tasks/variants
