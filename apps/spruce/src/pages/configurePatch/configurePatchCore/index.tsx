@@ -147,8 +147,8 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     });
     sendEvent({
       name: "Clicked schedule patch button",
-      "tasks_scheduled.count": totalSelectedTaskCount,
-      "aliases_scheduled.count": aliasCount,
+      "task.scheduled_count": totalSelectedTaskCount,
+      "aliases.scheduled_count": aliasCount,
     });
   };
 
