@@ -9,6 +9,7 @@ fragment ProjectPluginsSettings on Project {
     requesters
     urlTemplate
   }
+  id
   perfEnabled
   taskAnnotationSettings {
     fileTicketWebhook {
@@ -29,6 +30,7 @@ fragment RepoPluginsSettings on RepoRef {
     requesters
     urlTemplate
   }
+  id
   perfEnabled
   taskAnnotationSettings {
     fileTicketWebhook {

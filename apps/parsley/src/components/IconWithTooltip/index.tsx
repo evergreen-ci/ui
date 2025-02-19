@@ -27,7 +27,7 @@ const IconWithTooltip: React.FC<IconWithTooltipProps> = ({
   </StyledTooltip>
 );
 
-// @ts-expect-error
+// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of Tooltip.
 const StyledTooltip = styled(Tooltip)`
   max-width: 300px;
 `;

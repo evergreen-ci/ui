@@ -64,7 +64,7 @@ const HostTable: React.FC<HostTableProps> = ({
       page: "0",
     };
     filterState.forEach(({ id, value }) => {
-      // @ts-ignore-error - value is an unknown type.
+      // @ts-expect-error: value is an unknown type.
       updatedParams[id] = value;
     });
     setQueryParams(updatedParams);
