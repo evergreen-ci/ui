@@ -34,7 +34,7 @@ type Action =
   | { name: "Viewed notification modal" }
   | { name: "Viewed schedule tasks modal" }
   | { name: "Clicked restart tasks button"; abort: boolean }
-  | { name: "Clicked schedule tasks button" }
+  | { name: "Clicked schedule tasks button"; "tasks_scheduled.count": number }
   | { name: "Clicked patch reconfigure link" }
   | { name: "Changed version priority"; "version.priority": number }
   | {
