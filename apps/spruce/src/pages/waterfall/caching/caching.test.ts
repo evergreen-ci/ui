@@ -329,4 +329,38 @@ describe("readVersions", () => {
       ),
     ).toBe(undefined);
   });
+
+  it("returns first page if it exists in cache, even if minOrder and maxOrder are undefined", () => {
+    expect(
+      readVersions(
+        {
+          flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
+          pagination: {
+            mostRecentVersionOrder: 5,
+          },
+        },
+        // @ts-expect-error: for tests we can omit unused fields from the args
+        {
+          args: {
+            options: {
+              maxOrder: undefined,
+              minOrder: undefined,
+              limit: 3,
+            },
+          },
+          readField,
+        } as FieldFunctionOptions,
+      ),
+    ).toStrictEqual({
+      flattenedVersions: versions,
+      pagination: {
+        hasPrevPage: false,
+        hasNextPage: false,
+        mostRecentVersionOrder: 5,
+        prevPageOrder: 0,
+        nextPageOrder: 0,
+      },
+    });
+  });
 });

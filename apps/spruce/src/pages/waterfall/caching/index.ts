@@ -8,13 +8,21 @@ export const readVersions = ((existing, { args, readField }) => {
   }
 
   const minOrder = args?.options?.minOrder ?? 0;
-  const maxOrder = args?.options?.maxOrder ?? 0;
+  let maxOrder = args?.options?.maxOrder ?? 0;
   const limit = args?.options?.limit ?? VERSION_LIMIT;
+  const date = args?.options?.date ?? "";
+  const revision = args?.options?.revision ?? "";
+
   const { mostRecentVersionOrder = 0 } =
     readField<WaterfallQuery["waterfall"]["pagination"]>(
       "pagination",
       existing,
     ) ?? {};
+
+  // Try to leverage cache if there are no input params.
+  if (minOrder === 0 && maxOrder === 0 && !date && !revision) {
+    maxOrder = mostRecentVersionOrder + 1;
+  }
 
   const existingVersions =
     readField<WaterfallQuery["waterfall"]["flattenedVersions"]>(
@@ -88,6 +96,7 @@ export const readVersions = ((existing, { args, readField }) => {
   const zerothOrder = readField<number>("order", flattenedVersions[0]) ?? 0;
   const prevOrderNumber =
     mostRecentVersionOrder === zerothOrder ? 0 : zerothOrder;
+
   const lastVersionOrder =
     readField<number>(
       "order",
