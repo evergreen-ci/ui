@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useParams, Navigate } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { ProjectBanner } from "components/Banners";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";
@@ -11,7 +12,6 @@ import {
   ConfigurePatchQueryVariables,
 } from "gql/generated/types";
 import { PATCH_CONFIGURE } from "gql/queries";
-import { usePageTitle } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
 import { validateObjectId } from "utils/validators";
 import ConfigurePatchCore from "./configurePatchCore";

@@ -7,6 +7,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ProjectBanner } from "components/Banners";
 import { ProjectSelect } from "components/ProjectSelect";
@@ -29,7 +30,7 @@ import {
   RepoSettingsQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_SETTINGS, REPO_SETTINGS } from "gql/queries";
-import { useIsScrollAtTop, usePageTitle } from "hooks";
+import { useIsScrollAtTop } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { validators } from "utils";
 import { ProjectSettingsProvider } from "./Context";

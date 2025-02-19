@@ -3,11 +3,12 @@ import Badge, { Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { Title, BadgeWrapper, TitleContainer } from "components/Spawn";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { MY_VOLUMES } from "gql/queries";
-import { usePolling, usePageTitle, useSpruceConfig } from "hooks";
+import { usePolling, useSpruceConfig } from "hooks";
 import { SpawnVolumeTable } from "pages/spawn/spawnVolume/SpawnVolumeTable";
 import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
 
