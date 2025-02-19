@@ -111,4 +111,15 @@ describe("pagination", () => {
       cy.location("search").should("not.contain", "minOrder");
     });
   });
+
+  it("clears minOrder and maxOrder params when reaching the first page", () => {
+    cy.dataCy("next-page-button").click();
+    cy.dataCy("version-labels").children().should("have.length", 5);
+    cy.location("search").should("contain", "maxOrder");
+
+    cy.dataCy("prev-page-button").click();
+    cy.dataCy("version-labels").children().should("have.length", 6);
+    cy.location("search").should("not.contain", "maxOrder");
+    cy.location("search").should("not.contain", "minOrder");
+  });
 });

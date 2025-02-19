@@ -18,7 +18,7 @@ import {
 import { WATERFALL } from "gql/queries";
 import { useAdminBetaFeatures, useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
-import { useQueryParam } from "hooks/useQueryParam";
+import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
@@ -51,6 +51,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   setPagination,
 }) => {
   useWaterfallTrace();
+  const [queryParams, setQueryParams] = useQueryParams();
   const { adminBetaSettings } = useAdminBetaFeatures();
   const { sendEvent } = useWaterfallAnalytics();
 
@@ -75,7 +76,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
         return [...prev, buildVariant];
       });
     },
-    [],
+    [sendEvent],
   );
 
   useEffect(() => {
@@ -113,6 +114,24 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       pollInterval: DEFAULT_POLL_INTERVAL,
     },
   );
+
+  // If we've gotten to the first page, we should erase any minOrder / maxOrder query params.
+  useEffect(() => {
+    const { flattenedVersions, pagination } = data.waterfall;
+    if (minOrder > 0 && flattenedVersions.length > 0) {
+      const activeVersions = flattenedVersions.filter((v) => v.activated);
+      const mostRecentCommitOnPage =
+        flattenedVersions[0].order === pagination.mostRecentVersionOrder;
+
+      if (activeVersions.length < VERSION_LIMIT || mostRecentCommitOnPage) {
+        setQueryParams({
+          ...queryParams,
+          [WaterfallFilterOptions.MaxOrder]: undefined,
+          [WaterfallFilterOptions.MinOrder]: undefined,
+        });
+      }
+    }
+  }, [data.waterfall, minOrder, queryParams, setQueryParams]);
 
   useEffect(() => {
     setPagination(data.waterfall.pagination);
