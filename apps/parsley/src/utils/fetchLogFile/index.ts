@@ -120,6 +120,7 @@ const streamedFetch = async (
                   controller.error(error);
                 }
                 streamedFetchSpan.recordException(error as Exception);
+                streamedFetchSpan.setAttribute("bytes_fetched", bytesFetched);
                 streamedFetchSpan.setStatus({
                   code: SpanStatusCode.ERROR,
                   message: (error as Error).message,
