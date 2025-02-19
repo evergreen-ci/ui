@@ -36,9 +36,9 @@ type Action =
   | {
       name: "Clicked restart tasks button";
       abort: boolean;
-      "tasks_modified.count": number;
+      "task.modified_count": number;
     }
-  | { name: "Clicked schedule tasks button"; "tasks_modified.count": number }
+  | { name: "Clicked schedule tasks button"; "task.scheduled_count": number }
   | { name: "Clicked patch reconfigure link" }
   | { name: "Changed version priority"; "version.priority": number }
   | {

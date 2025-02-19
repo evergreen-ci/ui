@@ -96,7 +96,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
         onClick: () => {
           sendEvent({
             name: "Clicked schedule tasks button",
-            "tasks_scheduled.count": selectedTasks.size,
+            "task.scheduled_count": selectedTasks.size,
           });
           scheduleTasks({
             variables: { taskIds: Array.from(selectedTasks), versionId },

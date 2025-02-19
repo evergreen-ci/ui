@@ -101,7 +101,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
     sendEvent({
       name: "Clicked restart tasks button",
       abort: shouldAbortInProgressTasks,
-      "tasks_modified.count": selectedTotal,
+      "task.modified_count": selectedTotal,
     });
     restartVersions({
       variables: {

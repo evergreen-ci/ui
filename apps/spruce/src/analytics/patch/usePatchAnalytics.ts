@@ -21,8 +21,8 @@ type Action =
   | { name: "Clicked patch reconfigure link" }
   | {
       name: "Clicked schedule patch button";
-      "tasks_scheduled.count": number;
-      "aliases_scheduled.count": number;
+      "task.scheduled_count": number;
+      "aliases.scheduled_count": number;
     };
 
 export const usePatchAnalytics = (id: string) => {
