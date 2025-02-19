@@ -1,12 +1,6 @@
 import checkFilePlugin from "eslint-plugin-check-file";
 import tseslint from "typescript-eslint";
-import baseConfig from "@evg-ui/eslint-config";
-
-const ERROR = "error";
-const WARN = "warn";
-const OFF = "off";
-
-const errorIfStrict = process.env.STRICT ? ERROR : WARN;
+import baseConfig, { WARN, OFF, errorIfStrict } from "@evg-ui/eslint-config";
 
 export default tseslint.config(
   ...baseConfig,

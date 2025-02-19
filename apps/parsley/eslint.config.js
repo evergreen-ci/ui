@@ -1,11 +1,7 @@
 import { fixupPluginRules } from "@eslint/compat";
 import * as sortKeysPlugin from "eslint-plugin-sort-keys-plus";
 import tseslint from "typescript-eslint";
-import baseConfig from "@evg-ui/eslint-config";
-
-const ERROR = "error";
-const WARN = "warn";
-const errorIfStrict = process.env.STRICT ? ERROR : WARN;
+import baseConfig, { ERROR, errorIfStrict } from "@evg-ui/eslint-config";
 
 export default tseslint.config(
   ...baseConfig,

@@ -436,3 +436,5 @@ export default tseslint.config(
   // Prettier should be the last plugin.
   prettierEsLintConfig,
 );
+
+export { ERROR, WARN, OFF, errorIfStrict };
