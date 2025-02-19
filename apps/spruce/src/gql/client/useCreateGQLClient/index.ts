@@ -46,7 +46,7 @@ export const useCreateGQLClient = ():
         );
         if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();
-        } else {
+        } else if (getCorpLoginURL() !== "") {
           // If we can't get a response from the server, we likely hit the corp secure redirect.
           // We should manually redirect to the corp login page.
           const encodedRedirect = encodeURIComponent(window.location.href);
