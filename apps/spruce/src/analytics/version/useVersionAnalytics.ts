@@ -33,8 +33,12 @@ type Action =
   | { name: "Sorted task duration table"; "sort.by": string | string[] }
   | { name: "Viewed notification modal" }
   | { name: "Viewed schedule tasks modal" }
-  | { name: "Clicked restart tasks button"; abort: boolean }
-  | { name: "Clicked schedule tasks button"; "tasks_scheduled.count": number }
+  | {
+      name: "Clicked restart tasks button";
+      abort: boolean;
+      "tasks_modified.count": number;
+    }
+  | { name: "Clicked schedule tasks button"; "tasks_modified.count": number }
   | { name: "Clicked patch reconfigure link" }
   | { name: "Changed version priority"; "version.priority": number }
   | {

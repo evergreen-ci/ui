@@ -95,10 +95,13 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
     };
 
+  const selectedTotal = selectTasksTotal(selectedTasks || {});
+
   const handlePatchRestart = () => {
     sendEvent({
       name: "Clicked restart tasks button",
       abort: shouldAbortInProgressTasks,
+      "tasks_modified.count": selectedTotal,
     });
     restartVersions({
       variables: {
@@ -108,8 +111,6 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       },
     });
   };
-
-  const selectedTotal = selectTasksTotal(selectedTasks || {});
 
   const { generatedTaskCounts = [] } = version ?? {};
   const estimatedActivatedTasksCount = sumActivatedTasksInSelectedTasks(
