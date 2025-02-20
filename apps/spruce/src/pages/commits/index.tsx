@@ -194,10 +194,14 @@ const Commits = () => {
         <HeaderWrapper>
           <ElementWrapper width="35">
             <TupleSelectWithRegexConditional
+              ariaLabel="Build Variant & Task Filter"
+              data-cy="build-variant-task-filter"
+              id="build-variant-task-filter"
+              label="Add Filter"
               onSubmit={onSubmitTupleSelect}
               options={tupleSelectOptions}
               validator={validateRegexp}
-              validatorErrorMessage="Invalid Regular Expression"
+              validatorErrorMessage="Invalid regular expression"
             />
           </ElementWrapper>
           <ElementWrapper width="20">
@@ -302,12 +306,12 @@ const tupleSelectOptions = [
   {
     value: ProjectFilterOptions.BuildVariant,
     displayName: "Build Variant",
-    placeHolderText: "Search build variants",
+    placeholderText: "Search build variants",
   },
   {
     value: ProjectFilterOptions.Task,
     displayName: "Task",
-    placeHolderText: "Search task names",
+    placeholderText: "Search task names",
   },
 ];
 

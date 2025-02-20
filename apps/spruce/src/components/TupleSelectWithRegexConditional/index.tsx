@@ -32,12 +32,12 @@ type TupleSelectWithRegexConditionalProps = Omit<
  * TupleSelectWithRegexConditional is a wrapper around TupleSelect that allows the user to toggle between regex and exact match
  * @param props - TupleSelectWithRegexConditionalProps
  * @param props.onSubmit - callback function that is called when the user submits a new input
- * @param props.validator - function that is called to validate the value of the input
+ * @param props.label - label for the input
  * @returns The TupleSelectWithRegexConditional component
  */
 const TupleSelectWithRegexConditional: React.FC<
   TupleSelectWithRegexConditionalProps
-> = ({ onSubmit, validator, ...rest }) => {
+> = ({ label, onSubmit, ...rest }) => {
   const [type, setType] = useState(FilterType.Regex);
   const isRegex = type === FilterType.Regex;
 
@@ -61,7 +61,7 @@ const TupleSelectWithRegexConditional: React.FC<
       aria-label="tuple-select-with-regex"
       label={
         <>
-          Add Filter
+          {label}
           <PaddedSegmentedControl
             aria-controls="tuple-select-with-regex"
             onChange={(t) => setType(t as FilterType)}
@@ -84,7 +84,6 @@ const TupleSelectWithRegexConditional: React.FC<
         </>
       }
       onSubmit={handleOnSubmit}
-      validator={isRegex ? validator : () => true}
     />
   );
 };

@@ -59,7 +59,7 @@ describe("build variant filtering", () => {
 
   it("submitting a build variant filter updates the url, creates a badge and filters the grid", () => {
     cy.dataCy("build-variant-label").should("have.length", 2);
-    cy.dataCy("build-variant-filter").type("P{enter}");
+    cy.dataCy("build-variant-filter-input").type("P{enter}");
     cy.dataCy("filter-chip").first().should("have.text", "Variant: P");
     cy.location().should((loc) => {
       expect(loc.search).to.include("buildVariants=P");
@@ -69,7 +69,7 @@ describe("build variant filtering", () => {
     cy.dataTestId("chip-dismiss-button").click();
     cy.dataCy("build-variant-label").should("have.length", 2);
 
-    cy.dataCy("build-variant-filter").type("Lint{enter}");
+    cy.dataCy("build-variant-filter-input").type("Lint{enter}");
     cy.location().should((loc) => {
       expect(loc.search).to.include("buildVariants=Lint");
     });
@@ -78,7 +78,7 @@ describe("build variant filtering", () => {
     cy.dataCy("build-variant-label")
       .should("have.length", 1)
       .should("have.text", "Lint");
-    cy.dataCy("build-variant-filter").type("P{enter}");
+    cy.dataCy("build-variant-filter-input").type("P{enter}");
     cy.location().should((loc) => {
       expect(loc.search).to.include("buildVariants=Lint,P");
     });
@@ -92,7 +92,7 @@ describe("task filtering", () => {
 
   it("filters grid squares, removes inactive build variants, creates a badge, and updates the url", () => {
     cy.dataCy("build-variant-label").should("have.length", 2);
-    cy.dataCy("task-filter").type("agent{enter}");
+    cy.dataCy("task-filter-input").type("agent{enter}");
 
     cy.dataCy("build-variant-label").should("have.length", 1);
     cy.location().should((loc) => {
@@ -106,7 +106,7 @@ describe("task filtering", () => {
       "test-agent - Succeeded",
     );
 
-    cy.dataCy("task-filter").type("lint{enter}");
+    cy.dataCy("task-filter-input").type("lint{enter}");
     cy.location().should((loc) => {
       expect(loc.search).to.include("tasks=agent,lint");
     });
@@ -116,9 +116,9 @@ describe("task filtering", () => {
   });
 
   it("correctly applies build variant and task filters", () => {
-    cy.dataCy("build-variant-filter").type("Lint{enter}");
+    cy.dataCy("build-variant-filter-input").type("Lint{enter}");
     cy.dataCy("build-variant-label").should("have.length", 1);
-    cy.dataCy("task-filter").type("agent{enter}");
+    cy.dataCy("task-filter-input").type("agent{enter}");
     cy.dataCy("build-variant-label").should("have.length", 0);
     cy.dataCy("filter-chip").should("have.length", 2);
   });
