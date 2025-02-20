@@ -23,12 +23,9 @@ describe("AnimatedIcon", () => {
       <svg
         ref={(el) => {
           if (el) {
-            // eslint-disable-next-line no-param-reassign
             el.pauseAnimations = pauseAnimationsMock;
-            // eslint-disable-next-line no-param-reassign
             el.unpauseAnimations = unpauseAnimationsMock;
             if (typeof ref === "function") ref(el);
-            // eslint-disable-next-line no-param-reassign
             else if (ref) ref.current = el;
           }
         }}
@@ -51,12 +48,9 @@ describe("AnimatedIcon", () => {
       <svg
         ref={(el) => {
           if (el) {
-            // eslint-disable-next-line no-param-reassign
             el.pauseAnimations = pauseAnimationsMock;
-            // eslint-disable-next-line no-param-reassign
             el.unpauseAnimations = unpauseAnimationsMock;
             if (typeof ref === "function") ref(el);
-            // eslint-disable-next-line no-param-reassign
             else if (ref) ref.current = el;
           }
         }}
