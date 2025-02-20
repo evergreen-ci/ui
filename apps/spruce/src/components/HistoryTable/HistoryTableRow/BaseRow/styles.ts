@@ -19,7 +19,8 @@ export const RowContainer = styled.div<{ selected?: boolean }>`
 export const DashedLine = styled.div`
   margin-top: 2px;
   height: 1px;
-  background: linear-gradient(to right, transparent 50%, white 50%),
+  background:
+    linear-gradient(to right, transparent 50%, white 50%),
     linear-gradient(to right, ${gray.light1}, ${gray.light1});
   background-size:
     ${size.s} 2px,
