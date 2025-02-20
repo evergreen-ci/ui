@@ -175,10 +175,10 @@ const Commits = () => {
     onSubmit({ category, value });
     switch (category) {
       case ProjectFilterOptions.BuildVariant:
-        sendEvent({ name: "Filtered by build variant", type });
+        sendEvent({ name: "Filtered by build variant", "filter.type": type });
         break;
       case ProjectFilterOptions.Task:
-        sendEvent({ name: "Filtered by task", type });
+        sendEvent({ name: "Filtered by task", "filter.type": type });
         break;
       default:
     }

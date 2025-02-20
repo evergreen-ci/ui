@@ -27,7 +27,7 @@ export const TaskFilter = () => {
         category: WaterfallFilterOptions.Task,
         value: isRegex ? value : toEscapedRegex(value),
       });
-      sendEvent({ name: "Filtered by task", type });
+      sendEvent({ name: "Filtered by task", "filter.type": type });
     },
     [onSubmit, sendEvent, isRegex, type],
   );

@@ -27,7 +27,7 @@ export const BuildVariantFilter = () => {
         category: WaterfallFilterOptions.BuildVariant,
         value: isRegex ? value : toEscapedRegex(value),
       });
-      sendEvent({ name: "Filtered by build variant", type });
+      sendEvent({ name: "Filtered by build variant", "filter.type": type });
     },
     [onSubmit, sendEvent, isRegex, type],
   );
