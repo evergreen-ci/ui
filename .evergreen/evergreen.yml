@@ -28,6 +28,7 @@ post:
   - func: attach-cypress-results
   - func: attach-email
   - func: attach-logkeeper-logs
+  - func: attach-mongod-logs
   - func: attach-source-map
   - func: attach-storybook
   - func: attach-test-results
