@@ -127,7 +127,7 @@ const streamedFetch = async (
                 });
               } finally {
                 streamedFetchSpan.addEvent("streamedFetchEnd", {
-                  "bytes_fetched": bytesFetched,
+                  bytes_fetched: bytesFetched,
                 });
                 streamedFetchSpan.setAttribute("bytes_fetched", bytesFetched);
                 streamedFetchSpan.end();
