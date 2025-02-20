@@ -99,7 +99,7 @@ functions:
         shell: bash
         script: | 
           mkdir -p bin
-          make start-mongod > bin/mongod-logs.txt
+          make start-mongod > bin/mongod-logs.txt 2>&1
     - command: subprocess.exec
       type: setup
       params:
