@@ -137,7 +137,7 @@ describe("Spawn volume page", () => {
 
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("spawn-volume-modal").should("be.visible");
-    cy.dataCy("type-select").contains("gp2");
+    cy.dataCy("type-select").contains("gp3");
   });
 
   describe("Edit volume modal", () => {

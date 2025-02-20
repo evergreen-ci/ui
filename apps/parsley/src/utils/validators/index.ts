@@ -5,7 +5,6 @@
  */
 const validateRegexp = (regexp: string): boolean => {
   try {
-    // eslint-disable-next-line no-new
     new RegExp(regexp);
     return true;
   } catch (e) {
@@ -20,7 +19,6 @@ const validateRegexp = (regexp: string): boolean => {
  */
 const getRegexpError = (regexp: string): string => {
   try {
-    // eslint-disable-next-line no-new
     new RegExp(regexp);
     return "";
   } catch (e) {

@@ -130,7 +130,6 @@ const renderComponentWithHook = <
  */
 const stubGetClientRects = () => {
   const { getClientRects } = HTMLElement.prototype;
-  // eslint-disable-next-line func-names
   HTMLElement.prototype.getClientRects = function () {
     return {
       ...getClientRects.apply(this),
