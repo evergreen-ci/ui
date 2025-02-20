@@ -61,6 +61,7 @@ const streamedFetch = async (url: string, options: StreamedFetchOptions) => {
               break;
             }
           }
+          // eslint-disable-next-line no-await-in-loop
           const { done, value } = await reader.read();
           if (done) {
             controller.close();

@@ -31,7 +31,7 @@ export const countdownTimer = async (
     process.stdout.clearLine(0);
     process.stdout.cursorTo(0);
     process.stdout.write(logger(i));
-    await sleep(1000);
+    await sleep(1000); // eslint-disable-line no-await-in-loop
     i -= 1;
   }
   process.stdout.write("\n");

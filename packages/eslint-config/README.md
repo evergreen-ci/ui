@@ -1,8 +1,8 @@
-### About ESLint
+# About ESLint
 
 Our ESLint configuration uses the flat config system. Currently, this is the recommended way to use ESLint.
 
-### Reviewing ESLint Changes
+## Reviewing ESLint Changes
 
 When making a change to the ESLint configuration, we recommend using the following command:
 

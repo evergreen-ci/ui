@@ -59,7 +59,6 @@ const languageOptions = {
 
 // ESLint (@eslint/js) settings.
 const eslintConfig = {
-  ...eslint.configs.recommended,
   name: "@eslint/js/rules",
   plugins: {
     "@eslint/js": eslint,
@@ -82,6 +81,7 @@ const eslintConfig = {
     "default-param-last": ERROR,
     "dot-notation": [ERROR, { allowKeywords: true }],
     eqeqeq: [errorIfStrict, "always", { null: "ignore" }],
+    "no-await-in-loop": ERROR,
     "no-console": OFF,
     "no-debugger": errorIfStrict,
     "no-else-return": ERROR,
@@ -241,7 +241,7 @@ const jsxA11yConfig = {
 };
 
 // Emotion ESLint (@emotion/eslint-plugin) settings.
-// Emotion doesn't actually support FlatConfig yet so we need to use a special conversion function.
+// Emotion doesn't actually support FlatConfig yet so we're using a conversion utility.
 const emotionConfig = {
   name: "@emotion/rules",
   files: ["src/**/*.ts?(x)"],
