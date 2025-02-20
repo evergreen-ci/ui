@@ -127,8 +127,9 @@ const streamedFetch = async (
                 });
               } finally {
                 streamedFetchSpan.addEvent("streamedFetchEnd", {
-                  bytesFetched,
+                  "bytes_fetched": bytesFetched,
                 });
+                streamedFetchSpan.setAttribute("bytes_fetched", bytesFetched);
                 streamedFetchSpan.end();
                 reader.releaseLock();
               }
