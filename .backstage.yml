@@ -11,6 +11,8 @@ spec:
   owner: evergreen-ui
   lifecycle: production
   system: evergreen
+  dependsOn:
+    - Sentry
 
 ---
 apiVersion: backstage.io/v1alpha1
