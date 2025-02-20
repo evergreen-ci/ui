@@ -18,7 +18,7 @@ describe("visibilityContainer", () => {
       };
     });
 
-    // @ts-expect-error
+    // @ts-expect-error: Not necessary to mock the entire object for tests.
     window.IntersectionObserver = mockIntersectionObserver;
     render(
       <VisibilityContainer>
@@ -42,7 +42,7 @@ describe("visibilityContainer", () => {
       };
     });
 
-    // @ts-expect-error
+    // @ts-expect-error: Not necessary to mock the entire object for tests.
     window.IntersectionObserver = mockIntersectionObserver;
     render(
       <VisibilityContainer>

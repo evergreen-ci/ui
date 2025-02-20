@@ -15,7 +15,7 @@ describe("useIntersectionObserver", () => {
       };
     });
 
-    // @ts-expect-error
+    // @ts-expect-error: Not necessary to mock the entire object for a test.
     window.IntersectionObserver = mockIntersectionObserver;
     const mockCallback = vi.fn();
     renderHook(() =>
@@ -41,7 +41,7 @@ describe("useIntersectionObserver", () => {
       };
     });
 
-    // @ts-expect-error
+    // @ts-expect-error: Not necessary to mock the entire object for a test.
     window.IntersectionObserver = mockIntersectionObserver;
     const mockCallback = vi.fn();
     renderHook(() =>

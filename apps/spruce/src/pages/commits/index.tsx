@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner, RepotrackerBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
@@ -28,12 +29,7 @@ import {
   ProjectHealthView,
 } from "gql/generated/types";
 import { MAINLINE_COMMITS, SPRUCE_CONFIG } from "gql/queries";
-import {
-  useAdminBetaFeatures,
-  usePageTitle,
-  usePolling,
-  useUpsertQueryParams,
-} from "hooks";
+import { useAdminBetaFeatures, usePolling, useUpsertQueryParams } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";

@@ -12,7 +12,7 @@ import { highlighter } from "./highlighter";
  * @param highlights - The active highlights as a regex expression
  * @returns - html string converted to an array of domnodes with highlighted text
  */
-export const highlightHtml = (
+const highlightHtml = (
   html: string = "",
   searchTerm: RegExp | undefined = undefined,
   highlights: RegExp | undefined = undefined,

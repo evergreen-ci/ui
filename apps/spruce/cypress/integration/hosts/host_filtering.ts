@@ -135,9 +135,9 @@ describe("Hosts page filtering from table filters", () => {
           cy.dataCy(`${filterIconDataCy}-input-filter`).should("be.visible");
           cy.dataCy(`${filterIconDataCy}-input-filter`)
             .should("be.focused")
-            .focus()
-            .clear()
-            .type("{enter}");
+            .focus();
+          cy.dataCy(`${filterIconDataCy}-input-filter`).clear();
+          cy.dataCy(`${filterIconDataCy}-input-filter`).type("{enter}");
         }
       });
     },

@@ -3,11 +3,12 @@ import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig } from "vite";
-import checker from "vite-plugin-checker";
+import { defineConfig, mergeConfig } from "vite";
+import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
 import vitePluginImp from "vite-plugin-imp";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
 import * as fs from "fs";
 import { createRequire } from "node:module";
@@ -24,7 +25,7 @@ fs.writeFileSync(require.resolve("antd/es/style/core/global.less"), "");
 fs.writeFileSync(require.resolve("antd/lib/style/core/global.less"), "");
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const viteConfig = defineConfig({
   server: {
     port: 3000,
     proxy: {
@@ -151,6 +152,9 @@ export default defineConfig({
       },
     },
   },
+});
+
+const vitestConfig = defineTestConfig({
   test: {
     environment: "jsdom",
     globals: true,
@@ -160,3 +164,5 @@ export default defineConfig({
     setupFiles: "./config/vitest/setupTests.ts",
   },
 });
+
+export default mergeConfig(viteConfig, vitestConfig);
