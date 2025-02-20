@@ -12,7 +12,7 @@ spec:
   lifecycle: production
   system: evergreen
   dependsOn:
-    - Sentry
+    - component:default/Sentry
 
 ---
 apiVersion: backstage.io/v1alpha1
