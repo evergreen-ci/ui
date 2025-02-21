@@ -67,9 +67,7 @@ const initializeHoneycomb = ({
         "@opentelemetry/instrumentation-document-load": {
           ignoreNetworkEvents: true,
         },
-      };
-      if (serviceName !== "parsley") {
-        webAutoInstrumentationConfig["@opentelemetry/instrumentation-fetch"] = {
+        "@opentelemetry/instrumentation-fetch": {
           // Add GraphQL operation name as an attribute to HTTP traces.
           applyCustomAttributesOnSpan: (span, request) => {
             if (span && request) {
@@ -89,8 +87,8 @@ const initializeHoneycomb = ({
           },
           // Allow connecting frontend & backend traces.
           propagateTraceHeaderCorsUrls: [new RegExp(backendURL || "")],
-        };
-      }
+        },
+      };
 
       const honeycombSdk = new HoneycombWebSDK({
         debug,

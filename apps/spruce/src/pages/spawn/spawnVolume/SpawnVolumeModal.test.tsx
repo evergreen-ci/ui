@@ -61,7 +61,7 @@ describe("spawnVolumeModal", () => {
     expect(screen.queryByDataCy("availability-zone-select")).toHaveTextContent(
       "us-east-1a",
     );
-    expect(screen.queryByDataCy("type-select")).toHaveTextContent("gp2");
+    expect(screen.queryByDataCy("type-select")).toHaveTextContent("gp3");
     expect(screen.queryByLabelText("Never expire")).not.toBeChecked();
     expect(screen.queryByDataCy("host-select")).toHaveAttribute(
       "aria-disabled",
@@ -82,7 +82,7 @@ describe("spawnVolumeModal", () => {
           spawnVolumeInput: {
             availabilityZone: "us-east-1a",
             size: 256,
-            type: "gp2",
+            type: "gp3",
             expiration: null,
             noExpiration: true,
             host: null,
