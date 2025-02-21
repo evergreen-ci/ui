@@ -13,6 +13,7 @@ spec:
   system: evergreen
   dependsOn:
     - component:default/Sentry
+    - component:default/evergreen-backend
 
 ---
 apiVersion: backstage.io/v1alpha1
