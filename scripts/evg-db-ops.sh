@@ -80,11 +80,11 @@ restore_db() {
 
     # Use 'mongorestore' to restore the database from the dump.
     for ((retry=0; retry<=MAX_RETRIES; retry++)); do
-        if mongorestore --quiet --drop --uri="$2" "$1"; then
-            echo "Successfully restored the database from $1."
+        if mongorestore --stopOnError --drop --uri="$2" "$1" >> restore-logs.txt 2>&1; then
+            echo "Successfully restored the database from $1." >> restore-logs.txt
             break
         else
-            echo "Error restoring the database from $1. Retry attempt: $retry"
+            echo "Error restoring the database from $1. Retry attempt: $retry" >> restore-logs.txt
             if [ $retry -eq $MAX_RETRIES ]; then
                 echo "Max retries reached. Exiting."
                 exit 1
