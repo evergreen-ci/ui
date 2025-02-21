@@ -13,6 +13,7 @@ spec:
   system: evergreen
   dependsOn:
     - component:default/Sentry
+    - component:default/Honeycomb
     - component:default/evergreen-backend
 
 ---
