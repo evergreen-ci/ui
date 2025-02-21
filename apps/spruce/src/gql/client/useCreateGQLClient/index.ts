@@ -50,7 +50,7 @@ export const useCreateGQLClient = ():
           // If we can't get a response from the server, we likely hit the corp secure redirect.
           // We should manually redirect to the corp login page.
           const encodedRedirect = encodeURIComponent(window.location.href);
-          window.location.href = `${getCorpLoginURL}?redirect=${encodedRedirect}`;
+          window.location.href = `${getCorpLoginURL()}?redirect=${encodedRedirect}`;
         }
       });
   }, [dispatchAuthenticated, logoutAndRedirect]);
