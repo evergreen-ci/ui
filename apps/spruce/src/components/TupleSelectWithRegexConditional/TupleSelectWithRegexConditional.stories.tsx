@@ -15,6 +15,10 @@ export const WithConditional: CustomStoryObj<
   render: () => (
     <>
       <TupleSelectWithRegexConditional
+        ariaLabel="Tuple Select"
+        data-cy="tuple-select"
+        id="tuple-select"
+        label="Tuple Select"
         onSubmit={action("submit")}
         options={options}
         validator={(v) => v !== "bad"}

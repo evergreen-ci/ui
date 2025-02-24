@@ -67,6 +67,20 @@ functions:
        bucket: evg-bucket-evergreen-ui
        content_type: text/plain
        permissions: public-read
+ 
+  attach-restore-logs:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${AWS_ACCESS_KEY_ID}
+      aws_secret: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
+      local_file: "ui/${app_dir}/restore-logs.txt"
+      remote_file: ${build_variant}/${task_id}/${execution}/restore-logs.txt
+      bucket: evg-bucket-evergreen-ui
+      content_type: text/plain
+      permissions: public-read
+      display_name: restore-logs
 
   attach-source-map:
     command: s3.put

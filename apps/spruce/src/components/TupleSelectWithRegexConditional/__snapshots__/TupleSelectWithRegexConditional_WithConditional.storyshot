@@ -5,12 +5,12 @@
     <label
       class="leafygreen-ui-ms04bw"
       data-lgid="lg-label"
-      for="filter-input"
+      for="tuple-select"
     >
       <div
         class="css-1lh1bx9-LabelContainer e5gn9hl2"
       >
-        Add Filter
+        Tuple Select
         <div
           class="leafygreen-ui-ozfao7 css-1qa4isu-PaddedSegmentedControl egmqwjk0"
         >
@@ -103,9 +103,9 @@
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
-          aria-labelledby="Tuple Select"
+          aria-labelledby="Tuple Select Select"
           class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
-          data-cy="tuple-select-dropdown"
+          data-cy="tuple-select-select"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
           id="select-303"
@@ -156,8 +156,8 @@
         class="e5gn9hl0 css-1opv5d5-TextInputWrapper-GroupedTextInput e17optw11"
       >
         <div
-          aria-label="Build Variant"
-          aria-labelledby="Build Variant"
+          aria-label="Tuple Select Input"
+          aria-labelledby="Tuple Select Input"
           class="leafygreen-ui-1br9h7w"
           data-lgid="lg-text_input"
         >
@@ -174,12 +174,11 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="Build Variant"
+                aria-labelledby="Tuple Select Input"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="tuple-select-input"
-                id="filter-input"
-                placeholder="Search Build Variant names"
+                id="tuple-select"
                 required=""
                 type="text"
                 value=""
