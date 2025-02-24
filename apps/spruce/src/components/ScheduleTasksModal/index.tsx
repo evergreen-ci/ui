@@ -6,6 +6,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { ConfirmationModal } from "components/ConfirmationModal";
@@ -37,6 +38,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     setOpen(false);
   };
   const dispatchToast = useToastContext();
+  const { sendEvent } = useVersionAnalytics(versionId);
   const [scheduleTasks, { loading: loadingScheduleTasksMutation }] =
     useMutation<ScheduleTasksMutation, ScheduleTasksMutationVariables>(
       SCHEDULE_TASKS,
@@ -81,18 +83,28 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Schedule"
-      data-cy="schedule-tasks-modal"
-      onCancel={closeModal}
-      onConfirm={() => {
-        scheduleTasks({
-          variables: { taskIds: Array.from(selectedTasks), versionId },
-        });
+      cancelButtonProps={{
+        children: "Cancel",
+        onClick: closeModal,
       }}
+      confirmButtonProps={{
+        children: "Schedule",
+        disabled:
+          loadingTaskData ||
+          loadingScheduleTasksMutation ||
+          !selectedTasks.size,
+        onClick: () => {
+          sendEvent({
+            name: "Clicked schedule tasks button",
+            "task.scheduled_count": selectedTasks.size,
+          });
+          scheduleTasks({
+            variables: { taskIds: Array.from(selectedTasks), versionId },
+          });
+        },
+      }}
+      data-cy="schedule-tasks-modal"
       open={open}
-      submitDisabled={
-        loadingTaskData || loadingScheduleTasksMutation || !selectedTasks.size
-      }
       title="Schedule Tasks"
     >
       <ContentWrapper>
