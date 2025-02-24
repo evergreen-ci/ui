@@ -23,6 +23,7 @@ interface TupleSelectProps {
   validator?: (value: string) => boolean;
   validatorErrorMessage?: string;
 }
+
 const TupleSelect: React.FC<TupleSelectProps> = ({
   ariaLabel,
   "data-cy": dataCy,

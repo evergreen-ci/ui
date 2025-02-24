@@ -35,7 +35,7 @@ export const BuildVariantFilter = () => {
       label="Build Variant"
       onSubmit={onSubmitTupleSelect}
       options={tupleSelectOptions}
-      placeholder="Search build variants"
+      placeholder="Search"
       validatorErrorMessage="Invalid regular expression"
     />
   );

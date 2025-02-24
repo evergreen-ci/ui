@@ -33,11 +33,12 @@ type TupleSelectWithRegexConditionalProps = Omit<
  * @param props - TupleSelectWithRegexConditionalProps
  * @param props.onSubmit - callback function that is called when the user submits a new input
  * @param props.label - label for the input
+ * @param props.validator - function that is called to validate the value of the input
  * @returns The TupleSelectWithRegexConditional component
  */
 const TupleSelectWithRegexConditional: React.FC<
   TupleSelectWithRegexConditionalProps
-> = ({ label, onSubmit, ...rest }) => {
+> = ({ label, onSubmit, validator, ...rest }) => {
   const [type, setType] = useState(FilterType.Regex);
   const isRegex = type === FilterType.Regex;
 
@@ -84,6 +85,7 @@ const TupleSelectWithRegexConditional: React.FC<
         </>
       }
       onSubmit={handleOnSubmit}
+      validator={isRegex ? validator : () => true}
     />
   );
 };

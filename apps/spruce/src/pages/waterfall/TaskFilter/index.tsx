@@ -35,7 +35,7 @@ export const TaskFilter = () => {
       label="Task"
       onSubmit={onSubmitTupleSelect}
       options={tupleSelectOptions}
-      placeholder="Search tasks"
+      placeholder="Search"
       validatorErrorMessage="Invalid regular expression"
     />
   );

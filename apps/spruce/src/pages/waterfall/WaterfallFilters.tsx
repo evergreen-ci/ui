@@ -64,13 +64,13 @@ const BVTaskFilterItem = styled.div`
 const StatusFilterItem = styled.div`
   min-width: 185px;
   flex-shrink: 0;
-  flex-basis: 15%;
+  flex-basis: 12%;
 `;
 
 const RequesterFilterItem = styled.div`
   min-width: 200px;
   flex-shrink: 0;
-  flex-basis: 15%;
+  flex-basis: 12%;
 `;
 
 const DateFilterItem = styled.div`
