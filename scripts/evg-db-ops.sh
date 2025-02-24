@@ -47,7 +47,7 @@ reseed_databases() {
 # Pass the DB name as the first argument and the URI as the second argument.
 dump_db() {
     # Use 'mongodump' to create a database dump.
-    if ! mongodump --uri="$2" -o "$DUMP_ROOT"; then
+    if ! mongodump --quiet --uri="$2" -o "$DUMP_ROOT"; then
         echo "Error creating dump from $1 db."
         exit 1
     fi
