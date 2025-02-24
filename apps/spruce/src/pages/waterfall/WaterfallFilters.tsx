@@ -47,7 +47,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
           selectedProjectIdentifier={projectIdentifier}
         />
       </FilterItem>
-      <WaterfallMenu />
+      <WaterfallMenu projectIdentifier={projectIdentifier} />
       <PaginationButtons pagination={pagination} />
     </Container>
   );
