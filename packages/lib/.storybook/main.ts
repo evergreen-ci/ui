@@ -1,5 +1,5 @@
-import { resolve } from "path";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { resolve } from "path";
 
 export default {
   addons: ["@evg-ui/storybook-addon"],
@@ -16,8 +16,8 @@ export default {
         {
           react: {
             jsxImportSource: "@emotion/react",
-          }
-        }
+          },
+        },
       ],
       resolve: {
         alias: {

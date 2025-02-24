@@ -18,7 +18,12 @@ type Action =
       "sort.by": TaskSortCategory | TaskSortCategory[];
     }
   | { name: "Toggled patch visibility"; "patch.hidden": boolean }
-  | { name: "Clicked patch reconfigure link" };
+  | { name: "Clicked patch reconfigure link" }
+  | {
+      name: "Clicked schedule patch button";
+      "task.scheduled_count": number;
+      "aliases.scheduled_count": number;
+    };
 
 export const usePatchAnalytics = (id: string) => {
   const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(PATCH, {
