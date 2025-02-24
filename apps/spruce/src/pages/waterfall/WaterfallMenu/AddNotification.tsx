@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import { useWaterfallAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { NotificationModal } from "components/Notifications";
-import { slugs } from "constants/routes";
 import { waterfallTriggers } from "constants/triggers";
 import { subscriptionMethods } from "types/subscription";
 

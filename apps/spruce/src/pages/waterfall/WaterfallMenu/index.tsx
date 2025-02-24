@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
+import { AddNotification } from "./AddNotification";
 import { GitCommitSearch } from "./GitCommitSearch";
 import { JumpToMostRecent } from "./JumpToMostRecent";
-import { AddNotification } from "./AddNotification";
 
 const menuProps = { [waterfallGuideId]: walkthroughSteps[4].targetId };
 

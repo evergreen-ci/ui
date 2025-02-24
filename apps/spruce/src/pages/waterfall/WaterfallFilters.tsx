@@ -3,17 +3,17 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
-import { WaterfallPagination } from "gql/generated/types";
 import { BuildVariantTaskFilter } from "./BuildVariantTaskFilter";
 import { DateFilter } from "./DateFilter";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
 import { StatusFilter } from "./StatusFilter";
+import { Pagination } from "./types";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 type WaterfallFiltersProps = {
   projectIdentifier: string;
-  pagination: WaterfallPagination | undefined;
+  pagination: Pagination | undefined;
 };
 export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
   pagination,
