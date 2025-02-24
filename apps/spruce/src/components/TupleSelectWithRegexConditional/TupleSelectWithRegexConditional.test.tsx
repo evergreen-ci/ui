@@ -14,6 +14,13 @@ const options = [
   },
 ];
 
+const sharedProps = {
+  ariaLabel: "Tuple Select",
+  id: "tuple-select",
+  "data-cy": "tuple-select",
+  label: "Tuple Select",
+};
+
 describe("tupleSelectWithRegexConditional", () => {
   it("renders normally", () => {
     const onSubmit = vi.fn();
@@ -21,6 +28,7 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
+        {...sharedProps}
         onSubmit={onSubmit}
         options={options}
         validator={validator}
@@ -42,6 +50,7 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
+        {...sharedProps}
         onSubmit={onSubmit}
         options={options}
         validator={validator}
@@ -63,6 +72,7 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
+        {...sharedProps}
         onSubmit={onSubmit}
         options={options}
         validator={validator}
@@ -91,6 +101,7 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
+        {...sharedProps}
         onSubmit={onSubmit}
         options={options}
         validator={validator}
@@ -117,6 +128,7 @@ describe("tupleSelectWithRegexConditional", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelectWithRegexConditionalStories
+        {...sharedProps}
         onSubmit={onSubmit}
         options={options}
         validator={validator}
