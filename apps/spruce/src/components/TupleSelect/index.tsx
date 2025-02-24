@@ -8,22 +8,32 @@ import TextInput from "components/TextInputWithValidation";
 type option = {
   value: string;
   displayName: string;
-  placeHolderText: string;
+  placeholderText?: string;
+  validator?: (value: string) => boolean;
 };
 
 interface TupleSelectProps {
+  ariaLabel: string;
+  "data-cy": string;
+  id: string;
+  label: React.ReactNode;
   options: option[];
+  placeholder?: string;
   onSubmit?: ({ category, value }: { category: string; value: string }) => void;
   validator?: (value: string) => boolean;
   validatorErrorMessage?: string;
-  label?: React.ReactNode;
 }
+
 const TupleSelect: React.FC<TupleSelectProps> = ({
+  ariaLabel,
+  "data-cy": dataCy,
+  id,
   label,
   onSubmit = () => {},
   options,
-  validator = () => true,
-  validatorErrorMessage = "Invalid Input",
+  placeholder,
+  validator,
+  validatorErrorMessage = "Invalid input",
 }) => {
   const [selected, setSelected] = useState(options[0].value);
 
@@ -36,40 +46,36 @@ const TupleSelect: React.FC<TupleSelectProps> = ({
 
   return (
     <Container>
-      <Label htmlFor="filter-input">
+      <Label htmlFor={id}>
         <LabelContainer>{label}</LabelContainer>
       </Label>
       <InputGroup>
         <GroupedSelect
           allowDeselect={false}
-          aria-labelledby="Tuple Select"
-          data-cy="tuple-select-dropdown"
+          aria-labelledby={`${ariaLabel} Select`}
+          data-cy={`${dataCy}-select`}
           dropdownWidthBasis="option"
           onChange={(v) => setSelected(v)}
           popoverZIndex={zIndex.popover}
           value={selected}
         >
           {options.map((o) => (
-            <Option
-              key={o.value}
-              data-cy={`tuple-select-option-${o.value}`}
-              value={o.value}
-            >
+            <Option key={o.value} value={o.value}>
               {o.displayName}
             </Option>
           ))}
         </GroupedSelect>
         <GroupedTextInput
-          aria-label={selectedOption.displayName}
-          aria-labelledby={selectedOption.displayName}
+          aria-label={`${ariaLabel} Input`}
+          aria-labelledby={`${ariaLabel} Input`}
           clearOnSubmit
-          data-cy="tuple-select-input"
-          id="filter-input"
+          data-cy={`${dataCy}-input`}
+          id={id}
           onSubmit={handleOnSubmit}
-          placeholder={selectedOption.placeHolderText}
+          placeholder={placeholder || selectedOption.placeholderText}
           // Chrome will overlay a clear "x" button on the input if type is not set to 'search'
           type="text"
-          validator={validator}
+          validator={validator || selectedOption.validator}
           validatorErrorMessage={validatorErrorMessage}
         />
       </InputGroup>
