@@ -27,10 +27,10 @@ type Action =
     } // "Commit chart"
   | { name: "Deleted all filter chips" }
   | { name: "Deleted one filter chip" }
-  | { name: "Filtered by build variant"; type: FilterType }
+  | { name: "Filtered by build variant"; "filter.type": FilterType }
   | { name: "Filtered by requester"; requesters: string[] }
   | { name: "Filtered by git commit" }
-  | { name: "Filtered by task"; type: FilterType }
+  | { name: "Filtered by task"; "filter.type": FilterType }
   | { name: "Filtered by task status"; statuses: string[] }
   | { name: "Filtered by date" }
   | { name: "Toggled task icon legend"; open: boolean }

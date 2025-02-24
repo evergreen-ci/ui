@@ -14,6 +14,13 @@ const options = [
   },
 ];
 
+const sharedProps = {
+  ariaLabel: "Tuple Select",
+  id: "tuple-select",
+  "data-cy": "tuple-select",
+  label: "Tuple Select",
+};
+
 describe("tupleSelect", () => {
   it("renders normally", () => {
     const onSubmit = vi.fn();
@@ -21,6 +28,7 @@ describe("tupleSelect", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
+        {...sharedProps}
         onSubmit={onSubmit}
         options={options}
         validator={validator}
@@ -42,18 +50,16 @@ describe("tupleSelect", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
+        {...sharedProps}
         onSubmit={onSubmit}
         options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.queryByDataCy("tuple-select-input");
-
+    const input = screen.getByDataCy("tuple-select-input");
     expect(input).toHaveValue("");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "some-filter");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(input).toHaveValue("");
   });
@@ -65,19 +71,18 @@ describe("tupleSelect", () => {
     const validatorErrorMessage = "Invalid Input";
     render(
       <TupleSelect
+        {...sharedProps}
         onSubmit={onSubmit}
         options={options}
         validator={validator}
         validatorErrorMessage={validatorErrorMessage}
       />,
     );
-    const input = screen.queryByDataCy("tuple-select-input");
+    const input = screen.getByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "bad");
     expect(input).toHaveValue("bad");
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     await user.type(input, "{enter}");
     expect(input).toHaveValue("bad");
     expect(onSubmit).not.toHaveBeenCalled();
