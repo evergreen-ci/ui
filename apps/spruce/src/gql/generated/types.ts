@@ -2196,7 +2196,6 @@ export type Query = {
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
   projects: Array<GroupedProjects>;
-  repo: RepoRef;
   repoEvents: ProjectEvents;
   repoSettings: RepoSettings;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -2312,10 +2311,6 @@ export type QueryProjectEventsArgs = {
 
 export type QueryProjectSettingsArgs = {
   projectIdentifier: Scalars["String"]["input"];
-};
-
-export type QueryRepoArgs = {
-  repoId: Scalars["String"]["input"];
 };
 
 export type QueryRepoEventsArgs = {
