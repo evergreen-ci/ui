@@ -47,7 +47,7 @@ reseed_databases() {
 # Pass the DB name as the first argument and the URI as the second argument.
 dump_db() {
     # Use 'mongodump' to create a database dump.
-    if ! mongodump --quiet --uri="$2" -o "$DUMP_ROOT"; then
+    if ! mongodump --uri="$2" -o "$DUMP_ROOT"; then
         echo "Error creating dump from $1 db."
         exit 1
     fi
@@ -77,16 +77,20 @@ restore_db() {
         echo "Error: $1 does not exist. Ensure you have a valid dump before restoring."
         exit 1
     fi
-
+    if [ "$CI" = 'true' ]; then
+        LOG_FILE="restore-logs.txt"
+    else
+        LOG_FILE="/dev/stdout"
+    fi
     # Use 'mongorestore' to restore the database from the dump.
     for ((retry=0; retry<=MAX_RETRIES; retry++)); do
-        if mongorestore --stopOnError --drop --uri="$2" "$1" >> restore-logs.txt 2>&1; then
-            echo "Successfully restored the database from $1." >> restore-logs.txt
+        if mongorestore --stopOnError --drop --uri="$2" "$1" >> "$LOG_FILE" 2>&1; then
+            echo "Successfully restored the database from $1." >> "$LOG_FILE"
             break
         else
-            echo "Error restoring the database from $1. Retry attempt: $retry" >> restore-logs.txt
+            echo "Error restoring the database from $1. Retry attempt: $retry" >> "$LOG_FILE" 
             if [ $retry -eq $MAX_RETRIES ]; then
-                echo "Max retries reached. Exiting."
+                echo "Max retries reached. Exiting." >> "$LOG_FILE"
                 exit 1
             fi
             sleep 3
