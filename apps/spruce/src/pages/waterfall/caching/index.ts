@@ -10,7 +10,7 @@ export const readVersions = ((existing, { args, readField }) => {
   const minOrder = args?.options?.minOrder ?? 0;
   const maxOrder = args?.options?.maxOrder ?? 0;
   const limit = args?.options?.limit ?? VERSION_LIMIT;
-  const { mostRecentVersionOrder = 0 } =
+  const { activeVersionIds = [], mostRecentVersionOrder = 0 } =
     readField<WaterfallQuery["waterfall"]["pagination"]>(
       "pagination",
       existing,
@@ -98,6 +98,7 @@ export const readVersions = ((existing, { args, readField }) => {
   return {
     flattenedVersions,
     pagination: {
+      activeVersionIds,
       mostRecentVersionOrder,
       prevPageOrder: prevOrderNumber,
       nextPageOrder: nextOrderNumber,
@@ -137,6 +138,7 @@ export const mergeVersions = ((existing, incoming, { readField }) => {
     "pagination",
     incoming,
   ) ?? {
+    activeVersionIds: [],
     hasNextPage: true,
     hasPrevPage: true,
     mostRecentVersionOrder: 0,

@@ -23,6 +23,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],
@@ -55,6 +56,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],
@@ -87,6 +89,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: ["3", "2"],
@@ -131,6 +134,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],
@@ -160,6 +164,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],
@@ -199,6 +204,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],
@@ -246,6 +252,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],
@@ -304,6 +311,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],
@@ -333,6 +341,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],
@@ -374,6 +383,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],
@@ -415,6 +425,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
+            activeVersionIds: ["b", "c"],
             buildVariants: waterfall.buildVariants,
             flattenedVersions,
             pins: [],

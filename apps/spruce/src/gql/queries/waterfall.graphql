@@ -29,6 +29,7 @@ query Waterfall($options: WaterfallOptions!) {
       }
     }
     pagination {
+      activeVersionIds
       hasNextPage
       hasPrevPage
       mostRecentVersionOrder

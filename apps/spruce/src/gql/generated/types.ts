@@ -3453,10 +3453,12 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+  variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type WaterfallPagination = {
   __typename?: "WaterfallPagination";
+  activeVersionIds: Array<Scalars["String"]["output"]>;
   hasNextPage: Scalars["Boolean"]["output"];
   hasPrevPage: Scalars["Boolean"]["output"];
   mostRecentVersionOrder: Scalars["Int"]["output"];
@@ -9753,6 +9755,7 @@ export type WaterfallQuery = {
     }>;
     pagination: {
       __typename?: "WaterfallPagination";
+      activeVersionIds: Array<string>;
       hasNextPage: boolean;
       hasPrevPage: boolean;
       mostRecentVersionOrder: number;
