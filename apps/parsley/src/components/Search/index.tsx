@@ -43,13 +43,13 @@ const Search: React.FC = () => {
 
   const { task } = useTaskQuery({ buildID, execution, logType, taskID });
   const { versionMetadata } = task ?? {};
-  const { projectIdentifier = "" } = versionMetadata ?? {};
+  const { projectMetadata } = versionMetadata ?? {};
 
   const { data } = useQuery<ProjectFiltersQuery, ProjectFiltersQueryVariables>(
     PROJECT_FILTERS,
     {
-      skip: !projectIdentifier,
-      variables: { projectIdentifier },
+      skip: !projectMetadata?.id,
+      variables: { projectIdentifier: projectMetadata?.id ?? "" },
     },
   );
   const { project } = data || {};

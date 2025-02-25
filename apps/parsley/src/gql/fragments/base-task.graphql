@@ -9,6 +9,9 @@ fragment BaseTask on Task {
     isPatch
     message
     projectIdentifier
+    projectMetadata {
+      id
+    }
     revision
   }
 }

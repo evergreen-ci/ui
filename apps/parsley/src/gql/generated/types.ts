@@ -3563,6 +3563,7 @@ export type BaseTaskFragment = {
     message: string;
     projectIdentifier: string;
     revision: string;
+    projectMetadata?: { __typename?: "Project"; id: string } | null;
   };
 };
 
@@ -3615,6 +3616,7 @@ export type LogkeeperTaskQuery = {
         message: string;
         projectIdentifier: string;
         revision: string;
+        projectMetadata?: { __typename?: "Project"; id: string } | null;
       };
     };
   };
@@ -3654,6 +3656,7 @@ export type TaskQuery = {
       message: string;
       projectIdentifier: string;
       revision: string;
+      projectMetadata?: { __typename?: "Project"; id: string } | null;
     };
   } | null;
 };
