@@ -231,7 +231,6 @@ const BuildContainer = styled.div`
 
 const StyledIconButton = styled(IconButton)`
   top: -${size.xxs};
-  z-index: 1;
   ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
 
