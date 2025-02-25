@@ -6,7 +6,6 @@ import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";
 import { useFilterParam } from "hooks/useFilterParam";
-import { useProjectFiltersQuery } from "hooks/useProjectFiltersQuery";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import ProjectFilter from "./ProjectFilter";
@@ -29,14 +28,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
   const { buildID, execution, logType, taskID } = logMetadata ?? {};
 
   const { task } = useTaskQuery({ buildID, execution, logType, taskID });
-  const { versionMetadata } = task ?? {};
-  const { identifier: projectIdentifier = "", repoRefId } =
-    versionMetadata?.projectMetadata ?? {};
-
-  const parsleyFilters = useProjectFiltersQuery({
-    projectIdentifier,
-    repoRefId,
-  });
+  const { parsleyFilters } = task?.versionMetadata?.projectMetadata ?? {};
 
   const onConfirm = () => {
     // Apply selected filters.

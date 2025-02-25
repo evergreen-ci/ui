@@ -11,6 +11,11 @@ fragment BaseTask on Task {
     projectMetadata {
       id
       identifier
+      parsleyFilters {
+        caseSensitive
+        exactMatch
+        expression
+      }
       repoRefId
     }
     revision

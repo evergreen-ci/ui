@@ -10,7 +10,6 @@ import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useHighlightParam } from "hooks/useHighlightParam";
-import { useProjectFiltersQuery } from "hooks/useProjectFiltersQuery";
 import { useQueryParams } from "hooks/useQueryParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
@@ -37,13 +36,7 @@ const Search: React.FC = () => {
   const { hasSearch } = searchState;
 
   const { task } = useTaskQuery({ buildID, execution, logType, taskID });
-  const { versionMetadata } = task ?? {};
-  const { identifier: projectIdentifier = "", repoRefId } =
-    versionMetadata?.projectMetadata ?? {};
-  const parsleyFilters = useProjectFiltersQuery({
-    projectIdentifier,
-    repoRefId,
-  });
+  const { parsleyFilters } = task?.versionMetadata?.projectMetadata ?? {};
 
   const handleOnSubmit = (selected: string, value: string) => {
     switch (selected) {

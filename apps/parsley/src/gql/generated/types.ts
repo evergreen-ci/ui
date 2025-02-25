@@ -1733,8 +1733,6 @@ export type Patches = {
 export type PatchesInput = {
   includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
-  /** @deprecated onlyCommitQueue is deprecated. Use onlyMergeQueue instead. */
-  onlyCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   onlyMergeQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   page?: Scalars["Int"]["input"];
   patchName?: Scalars["String"]["input"];
@@ -2198,6 +2196,7 @@ export type Query = {
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
   projects: Array<GroupedProjects>;
+  repo: RepoRef;
   repoEvents: ProjectEvents;
   repoSettings: RepoSettings;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -2313,6 +2312,10 @@ export type QueryProjectEventsArgs = {
 
 export type QueryProjectSettingsArgs = {
   projectIdentifier: Scalars["String"]["input"];
+};
+
+export type QueryRepoArgs = {
+  repoId: Scalars["String"]["input"];
 };
 
 export type QueryRepoEventsArgs = {
@@ -3455,12 +3458,15 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+  variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type WaterfallPagination = {
   __typename?: "WaterfallPagination";
+  activeVersionIds: Array<Scalars["String"]["output"]>;
   hasNextPage: Scalars["Boolean"]["output"];
   hasPrevPage: Scalars["Boolean"]["output"];
+  mostRecentVersionOrder: Scalars["Int"]["output"];
   nextPageOrder: Scalars["Int"]["output"];
   prevPageOrder: Scalars["Int"]["output"];
 };
@@ -3561,6 +3567,12 @@ export type BaseTaskFragment = {
       id: string;
       identifier: string;
       repoRefId: string;
+      parsleyFilters?: Array<{
+        __typename?: "ParsleyFilter";
+        caseSensitive: boolean;
+        exactMatch: boolean;
+        expression: string;
+      }> | null;
     } | null;
   };
 };
@@ -3618,6 +3630,12 @@ export type LogkeeperTaskQuery = {
           id: string;
           identifier: string;
           repoRefId: string;
+          parsleyFilters?: Array<{
+            __typename?: "ParsleyFilter";
+            caseSensitive: boolean;
+            exactMatch: boolean;
+            expression: string;
+          }> | null;
         } | null;
       };
     };
@@ -3662,6 +3680,12 @@ export type TaskQuery = {
         id: string;
         identifier: string;
         repoRefId: string;
+        parsleyFilters?: Array<{
+          __typename?: "ParsleyFilter";
+          caseSensitive: boolean;
+          exactMatch: boolean;
+          expression: string;
+        }> | null;
       } | null;
     };
   } | null;
