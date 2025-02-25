@@ -16,7 +16,6 @@ fragment BaseTask on Task {
         exactMatch
         expression
       }
-      repoRefId
     }
     revision
   }
