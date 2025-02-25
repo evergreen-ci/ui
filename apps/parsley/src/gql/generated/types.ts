@@ -3566,6 +3566,7 @@ export type BaseTaskFragment = {
     projectMetadata?: {
       __typename?: "Project";
       id: string;
+      repoRefId: string;
       parsleyFilters?: Array<{
         __typename?: "ParsleyFilter";
         caseSensitive: boolean;
@@ -3628,6 +3629,7 @@ export type LogkeeperTaskQuery = {
         projectMetadata?: {
           __typename?: "Project";
           id: string;
+          repoRefId: string;
           parsleyFilters?: Array<{
             __typename?: "ParsleyFilter";
             caseSensitive: boolean;
@@ -3677,6 +3679,7 @@ export type TaskQuery = {
       projectMetadata?: {
         __typename?: "Project";
         id: string;
+        repoRefId: string;
         parsleyFilters?: Array<{
           __typename?: "ParsleyFilter";
           caseSensitive: boolean;
