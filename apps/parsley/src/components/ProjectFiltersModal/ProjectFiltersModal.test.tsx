@@ -9,9 +9,16 @@ import {
   userEvent,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import { ApolloMock } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { LogContextProvider, useLogContext } from "context/LogContext";
+import {
+  ProjectFiltersQuery,
+  ProjectFiltersQueryVariables,
+} from "gql/generated/types";
+import { PROJECT_FILTERS } from "gql/queries";
 import { parsleySettingsMock } from "test_data/parsleySettings";
+import { noFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
 import ProjectFiltersModal from ".";
 
@@ -35,7 +42,7 @@ describe("projectFiltersModal", () => {
       <ProjectFiltersModal open setOpen={vi.fn()} />,
     );
     render(<Component />, {
-      wrapper: wrapper([evergreenTaskMock]),
+      wrapper: wrapper([noFiltersMock, evergreenTaskMock]),
     });
     act(() => {
       hook.current.setLogMetadata(logMetadata);
@@ -49,7 +56,7 @@ describe("projectFiltersModal", () => {
       <ProjectFiltersModal open setOpen={vi.fn()} />,
     );
     render(<Component />, {
-      wrapper: wrapper([evergreenTaskMock]),
+      wrapper: wrapper([projectFiltersMock, evergreenTaskMock]),
     });
     act(() => {
       hook.current.setLogMetadata(logMetadata);
@@ -68,7 +75,7 @@ describe("projectFiltersModal", () => {
     );
     render(<Component />, {
       route: "?filters=100my_filter_1",
-      wrapper: wrapper([evergreenTaskMock]),
+      wrapper: wrapper([projectFiltersMock, evergreenTaskMock]),
     });
     act(() => {
       hook.current.setLogMetadata(logMetadata);
@@ -89,7 +96,7 @@ describe("projectFiltersModal", () => {
       <ProjectFiltersModal open setOpen={vi.fn()} />,
     );
     render(<Component />, {
-      wrapper: wrapper([evergreenTaskMock]),
+      wrapper: wrapper([projectFiltersMock, evergreenTaskMock]),
     });
     act(() => {
       hook.current.setLogMetadata(logMetadata);
@@ -108,7 +115,7 @@ describe("projectFiltersModal", () => {
     );
     const { router } = render(<Component />, {
       route: "?filters=100original",
-      wrapper: wrapper([evergreenTaskMock]),
+      wrapper: wrapper([projectFiltersMock, evergreenTaskMock]),
     });
     act(() => {
       hook.current.setLogMetadata(logMetadata);
@@ -141,4 +148,44 @@ const logMetadata = {
   logType: LogTypes.EVERGREEN_TASK_LOGS,
   taskID:
     "spruce_ubuntu1604_check_codegen_d54e2c6ede60e004c48d3c4d996c59579c7bbd1f_22_03_02_15_41_35",
+};
+
+const projectFiltersMock: ApolloMock<
+  ProjectFiltersQuery,
+  ProjectFiltersQueryVariables
+> = {
+  request: {
+    query: PROJECT_FILTERS,
+    variables: {
+      projectIdentifier: "spruce",
+    },
+  },
+  result: {
+    data: {
+      project: {
+        __typename: "Project",
+        id: "spruce",
+        parsleyFilters: [
+          {
+            __typename: "ParsleyFilter",
+            caseSensitive: true,
+            exactMatch: true,
+            expression: "my_filter_1",
+          },
+          {
+            __typename: "ParsleyFilter",
+            caseSensitive: true,
+            exactMatch: false,
+            expression: "my_filter_2",
+          },
+          {
+            __typename: "ParsleyFilter",
+            caseSensitive: false,
+            exactMatch: false,
+            expression: "my_filter_3",
+          },
+        ],
+      },
+    },
+  },
 };

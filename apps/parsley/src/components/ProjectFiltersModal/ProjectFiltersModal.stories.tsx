@@ -3,6 +3,7 @@ import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";
 import { useQueryParams } from "hooks/useQueryParam";
+import { noFiltersMock, projectFiltersMock } from "test_data/projectFilters";
 import { evergreenTaskMock } from "test_data/task";
 import ProjectFiltersModal from ".";
 
@@ -39,7 +40,7 @@ const Component = ({ ...args }) => {
 export const Default: CustomStoryObj<typeof ProjectFiltersModal> = {
   parameters: {
     apolloClient: {
-      mocks: [evergreenTaskMock],
+      mocks: [projectFiltersMock, evergreenTaskMock],
     },
   },
   render: (args) => <Component {...args} />,
@@ -48,7 +49,7 @@ export const Default: CustomStoryObj<typeof ProjectFiltersModal> = {
 export const Empty: CustomStoryObj<typeof ProjectFiltersModal> = {
   parameters: {
     apolloClient: {
-      mocks: [evergreenTaskMock],
+      mocks: [noFiltersMock, evergreenTaskMock],
     },
   },
   render: (args) => <Component {...args} />,
