@@ -3740,24 +3740,6 @@ export type ParsleySettingsQuery = {
   };
 };
 
-export type ProjectFiltersQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
-}>;
-
-export type ProjectFiltersQuery = {
-  __typename?: "Query";
-  project: {
-    __typename?: "Project";
-    id: string;
-    parsleyFilters?: Array<{
-      __typename?: "ParsleyFilter";
-      caseSensitive: boolean;
-      exactMatch: boolean;
-      expression: string;
-    }> | null;
-  };
-};
-
 export type SecretFieldsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SecretFieldsQuery = {
