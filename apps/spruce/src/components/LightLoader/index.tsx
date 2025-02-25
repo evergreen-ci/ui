@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { transitionDuration } from "@leafygreen-ui/tokens";
 
 const { green } = palette;
 
@@ -20,22 +21,22 @@ const Loader = styled.div`
   div {
     display: block;
     position: absolute;
-    height: 32px;
-    width: 32px;
+    height: 28px;
+    width: 28px;
     margin: 6px;
-    border: 6px solid currentColor;
+    border: 3px solid currentColor;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: currentColor transparent transparent transparent;
   }
   .lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
+    animation-delay: -${transitionDuration.slowest}ms;
   }
   .lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
+    animation-delay: -${transitionDuration.slower}ms;
   }
   .lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
+    animation-delay: -${transitionDuration.default}ms;
   }
   @keyframes lds-ring {
     0% {
