@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
@@ -8,6 +9,11 @@ import SearchResults from "components/Search/SearchResults";
 import { CaseSensitivity, MatchType, SearchBarActions } from "constants/enums";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
+import {
+  ProjectFiltersQuery,
+  ProjectFiltersQueryVariables,
+} from "gql/generated/types";
+import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { useQueryParams } from "hooks/useQueryParam";
@@ -36,7 +42,18 @@ const Search: React.FC = () => {
   const { hasSearch } = searchState;
 
   const { task } = useTaskQuery({ buildID, execution, logType, taskID });
-  const { parsleyFilters } = task?.versionMetadata?.projectMetadata ?? {};
+  const { versionMetadata } = task ?? {};
+  const { projectIdentifier = "" } = versionMetadata ?? {};
+
+  const { data } = useQuery<ProjectFiltersQuery, ProjectFiltersQueryVariables>(
+    PROJECT_FILTERS,
+    {
+      skip: !projectIdentifier,
+      variables: { projectIdentifier },
+    },
+  );
+  const { project } = data || {};
+  const { parsleyFilters } = project || {};
 
   const handleOnSubmit = (selected: string, value: string) => {
     switch (selected) {

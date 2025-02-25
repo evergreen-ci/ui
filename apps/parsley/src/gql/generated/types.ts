@@ -3563,16 +3563,6 @@ export type BaseTaskFragment = {
     message: string;
     projectIdentifier: string;
     revision: string;
-    projectMetadata?: {
-      __typename?: "Project";
-      id: string;
-      parsleyFilters?: Array<{
-        __typename?: "ParsleyFilter";
-        caseSensitive: boolean;
-        exactMatch: boolean;
-        expression: string;
-      }> | null;
-    } | null;
   };
 };
 
@@ -3625,16 +3615,6 @@ export type LogkeeperTaskQuery = {
         message: string;
         projectIdentifier: string;
         revision: string;
-        projectMetadata?: {
-          __typename?: "Project";
-          id: string;
-          parsleyFilters?: Array<{
-            __typename?: "ParsleyFilter";
-            caseSensitive: boolean;
-            exactMatch: boolean;
-            expression: string;
-          }> | null;
-        } | null;
       };
     };
   };
@@ -3674,16 +3654,6 @@ export type TaskQuery = {
       message: string;
       projectIdentifier: string;
       revision: string;
-      projectMetadata?: {
-        __typename?: "Project";
-        id: string;
-        parsleyFilters?: Array<{
-          __typename?: "ParsleyFilter";
-          caseSensitive: boolean;
-          exactMatch: boolean;
-          expression: string;
-        }> | null;
-      } | null;
     };
   } | null;
 };

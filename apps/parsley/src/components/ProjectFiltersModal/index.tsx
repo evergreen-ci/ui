@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
@@ -5,6 +6,11 @@ import { Body } from "@leafygreen-ui/typography";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";
+import {
+  ProjectFiltersQuery,
+  ProjectFiltersQueryVariables,
+} from "gql/generated/types";
+import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
@@ -28,7 +34,18 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
   const { buildID, execution, logType, taskID } = logMetadata ?? {};
 
   const { task } = useTaskQuery({ buildID, execution, logType, taskID });
-  const { parsleyFilters } = task?.versionMetadata?.projectMetadata ?? {};
+  const { versionMetadata } = task ?? {};
+  const { projectIdentifier = "" } = versionMetadata ?? {};
+
+  const { data } = useQuery<ProjectFiltersQuery, ProjectFiltersQueryVariables>(
+    PROJECT_FILTERS,
+    {
+      skip: !projectIdentifier,
+      variables: { projectIdentifier },
+    },
+  );
+  const { project } = data || {};
+  const { parsleyFilters } = project || {};
 
   const onConfirm = () => {
     // Apply selected filters.

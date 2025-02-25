@@ -9,14 +9,6 @@ fragment BaseTask on Task {
     isPatch
     message
     projectIdentifier
-    projectMetadata {
-      id
-      parsleyFilters {
-        caseSensitive
-        exactMatch
-        expression
-      }
-    }
     revision
   }
 }

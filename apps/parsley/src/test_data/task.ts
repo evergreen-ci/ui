@@ -41,30 +41,6 @@ export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
           isPatch: false,
           message: "v2.28.5",
           projectIdentifier: "spruce",
-          projectMetadata: {
-            __typename: "Project",
-            id: "spruce",
-            parsleyFilters: [
-              {
-                __typename: "ParsleyFilter",
-                caseSensitive: true,
-                exactMatch: true,
-                expression: "my_filter_1",
-              },
-              {
-                __typename: "ParsleyFilter",
-                caseSensitive: true,
-                exactMatch: false,
-                expression: "my_filter_2",
-              },
-              {
-                __typename: "ParsleyFilter",
-                caseSensitive: false,
-                exactMatch: false,
-                expression: "my_filter_3",
-              },
-            ],
-          },
           revision: "d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
         },
       },
