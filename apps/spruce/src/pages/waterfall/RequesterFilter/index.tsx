@@ -16,6 +16,7 @@ const commitRequesters = [
 export const RequesterFilter = () => {
   const { sendEvent } = useWaterfallAnalytics();
   const [, startTransition] = useTransition();
+
   const [requesters, setRequesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
     [],
@@ -31,14 +32,13 @@ export const RequesterFilter = () => {
   return (
     <Combobox
       data-cy="requester-filter"
-      // Use an uncontrolled component so that the transition does not affect combobox rendering
-      initialValue={requesters}
       label="Requesters"
       multiselect
       onChange={handleChange}
       overflow="scroll-x"
       placeholder="Displaying all requesters"
       popoverZIndex={zIndex.popover}
+      value={requesters}
     >
       {commitRequesters.map((requester) => (
         <ComboboxOption
