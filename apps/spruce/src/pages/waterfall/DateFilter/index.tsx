@@ -1,5 +1,6 @@
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { DateType } from "@leafygreen-ui/date-utils";
+import { subDays, subYears } from "date-fns";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
@@ -38,6 +39,7 @@ export const DateFilter = () => {
       data-cy="date-picker"
       label="Go to Date"
       max={new Date()}
+      min={subDays(subYears(new Date(), 1), 1)}
       onDateChange={handleChange}
       popoverZIndex={zIndex.popover}
       value={date.length ? new Date(date) : undefined}
