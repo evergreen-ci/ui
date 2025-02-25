@@ -24,7 +24,7 @@ type Action =
       name: "Created notification";
       "subscription.type": string;
       "subscription.trigger": string;
-    } // "Commit chart"
+    }
   | { name: "Deleted all filter chips" }
   | { name: "Deleted one filter chip" }
   | { name: "Filtered by build variant"; "filter.type": FilterType }
