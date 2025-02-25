@@ -59,6 +59,8 @@ const hasMatchingBv = (
         waterfallBuilds[0],
       ) ?? "";
 
+    // I think we should check if the build is actually activated, but we don't have access to this field currently.
+
     if (
       bvRegex.length &&
       (bvRegex.some((r) => displayName.match(r)) ||
