@@ -19,7 +19,7 @@ export const readVersions = ((existing, { args, readField }) => {
       existing,
     ) ?? {};
 
-  // Try to leverage cache if there are no input params.
+  // Leverage cache if there are no other query params.
   if (minOrder === 0 && maxOrder === 0 && !date && !revision) {
     maxOrder = mostRecentVersionOrder + 1;
   }

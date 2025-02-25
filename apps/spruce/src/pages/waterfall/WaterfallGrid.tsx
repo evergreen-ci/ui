@@ -111,15 +111,15 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
     },
   );
 
-  // If we've gotten to the first page, we should erase any minOrder / maxOrder query params.
+  // Erase any order query params if we've reached the first page.
   useEffect(() => {
-    const { flattenedVersions, pagination } = data.waterfall;
-    if (minOrder > 0 && flattenedVersions.length > 0) {
+    if (minOrder > 0) {
+      const { flattenedVersions, pagination } = data.waterfall;
       const activeVersions = flattenedVersions.filter((v) => v.activated);
-      const mostRecentCommitOnPage =
+      const isMostRecentCommitOnPage =
         flattenedVersions[0].order === pagination.mostRecentVersionOrder;
 
-      if (activeVersions.length < VERSION_LIMIT || mostRecentCommitOnPage) {
+      if (activeVersions.length < VERSION_LIMIT || isMostRecentCommitOnPage) {
         setQueryParams({
           ...queryParams,
           [WaterfallFilterOptions.MaxOrder]: undefined,
