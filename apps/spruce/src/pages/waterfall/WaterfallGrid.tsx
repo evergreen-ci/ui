@@ -10,11 +10,7 @@ import {
   WATERFALL_PINNED_VARIANTS_KEY,
 } from "constants/index";
 import { utcTimeZone } from "constants/time";
-import {
-  WaterfallPagination,
-  WaterfallQuery,
-  WaterfallQueryVariables,
-} from "gql/generated/types";
+import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
 import { useAdminBetaFeatures, useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
@@ -31,7 +27,7 @@ import {
   InactiveVersion,
   Row,
 } from "./styles";
-import { WaterfallFilterOptions, Version } from "./types";
+import { Pagination, WaterfallFilterOptions, Version } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { groupBuildVariants } from "./utils";
@@ -40,7 +36,7 @@ import { VersionLabel, VersionLabelView } from "./VersionLabel";
 type WaterfallGridProps = {
   atTop: boolean;
   projectIdentifier: string;
-  setPagination: (pagination: WaterfallPagination) => void;
+  setPagination: (pagination: Pagination) => void;
   guideCueRef: React.RefObject<WalkthroughGuideCueRef>;
 };
 
