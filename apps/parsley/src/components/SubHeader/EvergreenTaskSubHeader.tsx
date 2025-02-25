@@ -76,8 +76,7 @@ export const EvergreenTaskSubHeader: React.FC<Props> = ({
     versionMetadata,
   } = taskData;
 
-  const { isPatch, message, projectMetadata, revision } = versionMetadata;
-  const { identifier: projectIdentifier } = projectMetadata || {};
+  const { isPatch, message, projectIdentifier, revision } = versionMetadata;
 
   let currentTest: { testFile: string; status: string } | null = null;
   switch (logType) {
