@@ -1,5 +1,5 @@
-query ProjectFilters($projectIdentifier: String!) {
-  project(projectIdentifier: $projectIdentifier) {
+query ProjectFilters($projectId: String!) {
+  project(projectIdentifier: $projectId) {
     id
     parsleyFilters {
       caseSensitive
