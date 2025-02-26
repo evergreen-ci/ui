@@ -16,7 +16,6 @@ const commitRequesters = [
 export const RequesterFilter = () => {
   const { sendEvent } = useWaterfallAnalytics();
   const [, startTransition] = useTransition();
-
   const [requesters, setRequesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
     [],

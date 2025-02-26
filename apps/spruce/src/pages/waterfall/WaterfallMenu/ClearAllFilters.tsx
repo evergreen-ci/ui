@@ -1,5 +1,6 @@
 import { useWaterfallAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
+import Icon from "components/Icon";
 import { useQueryParams } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
 
@@ -26,8 +27,13 @@ export const ClearAllFilters: React.FC<ClearAllFiltersProps> = ({
     });
     setMenuOpen(false);
   };
+
   return (
-    <DropdownItem data-cy="clear-all-filters" onClick={handleClick}>
+    <DropdownItem
+      data-cy="clear-all-filters"
+      glyph={<Icon glyph="NoFilter" />}
+      onClick={handleClick}
+    >
       Clear all filters
     </DropdownItem>
   );
