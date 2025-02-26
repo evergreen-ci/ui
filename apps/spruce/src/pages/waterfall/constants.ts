@@ -67,4 +67,6 @@ export const tupleSelectOptions = [
  * This timestamp should correspond to 2025/01/21 10:05AM EST.
  * TODO: Remove in DEVPROD-15269.
  */
-export const displayStatusCacheAddedDate = new Date("2025-01-21T15:05:00");
+export const displayStatusCacheAddedDate = new Date(
+  Date.UTC(2025, 0, 21, 15, 5),
+);

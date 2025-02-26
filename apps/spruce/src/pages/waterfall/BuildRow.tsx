@@ -138,7 +138,7 @@ export const BuildRow: React.FC<Props> = ({
           if (version && version.id === builds?.[buildIndex]?.version) {
             const b = builds[buildIndex];
             const useCachedStatus =
-              version.createTime > displayStatusCacheAddedDate;
+              new Date(version.createTime) > displayStatusCacheAddedDate;
             buildIndex += 1;
             return (
               <BuildGrid
