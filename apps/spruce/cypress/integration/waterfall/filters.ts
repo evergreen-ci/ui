@@ -223,3 +223,19 @@ describe("project selection", () => {
     });
   });
 });
+
+describe("clear all filters button", () => {
+  it("clicking the clear filters button clears all parameters except for minOrder & maxOrder", () => {
+    cy.visit(
+      "/project/spruce/waterfall?buildVariants=ubuntu&maxOrder=1235&requesters=gitter_request&statuses=success&tasks=test",
+    );
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("clear-all-filters").click();
+
+    cy.location("search").should("not.contain", "buildVariants");
+    cy.location("search").should("not.contain", "tasks");
+    cy.location("search").should("not.contain", "statuses");
+    cy.location("search").should("not.contain", "requesters");
+    cy.location("search").should("contain", "maxOrder=1235");
+  });
+});
