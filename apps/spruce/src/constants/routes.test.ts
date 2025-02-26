@@ -127,7 +127,7 @@ describe("getWaterfallRoute", () => {
   it("generates a link to the waterfall page", () => {
     expect(getWaterfallRoute("someProject")).toBe("/waterfall/someProject");
   });
-  it("generates a link with task filters", () => {
+  it("generates a waterfall page link with task filters", () => {
     expect(
       getWaterfallRoute("someProject", {
         taskFilters: ["someTaskFilter"],
