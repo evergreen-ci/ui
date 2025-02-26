@@ -11,11 +11,10 @@ import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
-import { WaterfallPagination } from "gql/generated/types";
 import { useAdminBetaFeatures, useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 import { waterfallPageContainerId } from "./constants";
-import { WaterfallFilterOptions } from "./types";
+import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
@@ -35,7 +34,7 @@ const Waterfall: React.FC = () => {
 
   const { sendEvent } = useWaterfallAnalytics();
 
-  const [pagination, setPagination] = useState<WaterfallPagination>();
+  const [pagination, setPagination] = useState<Pagination>();
 
   const pageWrapperRef = useRef<HTMLDivElement>(null);
   const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
