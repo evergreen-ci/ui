@@ -115,7 +115,7 @@ describe("filterChips - queryParams", () => {
     let chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(4);
 
-    await user.click(screen.getByDataCy("clear-all-filters"));
+    await user.click(screen.getByDataCy("clear-filters"));
     chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(0);
 
@@ -133,7 +133,7 @@ describe("filterChips - queryParams", () => {
     let chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(4);
 
-    await user.click(screen.getByDataCy("clear-all-filters"));
+    await user.click(screen.getByDataCy("clear-filters"));
     chips = screen.queryAllByDataCy("filter-chip");
     expect(chips).toHaveLength(0);
 

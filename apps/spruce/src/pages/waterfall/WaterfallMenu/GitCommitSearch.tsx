@@ -6,6 +6,7 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics/waterfall/useWaterfallAnalytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import Icon from "components/Icon";
 import { useQueryParams } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
 
@@ -39,6 +40,7 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
     <>
       <DropdownItem
         data-cy="git-commit-search"
+        glyph={<Icon glyph="Code" />}
         onClick={() => {
           setModalOpen(true);
         }}

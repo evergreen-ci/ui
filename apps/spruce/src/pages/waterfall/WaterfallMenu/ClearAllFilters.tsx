@@ -4,31 +4,37 @@ import Icon from "components/Icon";
 import { useQueryParams } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
 
-interface Props {
+interface ClearAllFiltersProps {
   setMenuOpen: (open: boolean) => void;
 }
 
-export const JumpToMostRecent: React.FC<Props> = ({ setMenuOpen }) => {
+export const ClearAllFilters: React.FC<ClearAllFiltersProps> = ({
+  setMenuOpen,
+}) => {
   const { sendEvent } = useWaterfallAnalytics();
   const [queryParams, setQueryParams] = useQueryParams();
 
   const handleClick = () => {
-    sendEvent({ name: "Clicked jump to most recent commit button" });
+    sendEvent({ name: "Clicked clear all filters button" });
     setQueryParams({
       ...queryParams,
-      [WaterfallFilterOptions.MaxOrder]: undefined,
-      [WaterfallFilterOptions.MinOrder]: undefined,
+      [WaterfallFilterOptions.BuildVariant]: undefined,
+      [WaterfallFilterOptions.Task]: undefined,
+      [WaterfallFilterOptions.Statuses]: undefined,
+      [WaterfallFilterOptions.Requesters]: undefined,
+      [WaterfallFilterOptions.Date]: undefined,
+      [WaterfallFilterOptions.Revision]: undefined,
     });
     setMenuOpen(false);
   };
 
   return (
     <DropdownItem
-      data-cy="jump-to-most-recent"
-      glyph={<Icon glyph="ClockWithArrow" />}
+      data-cy="clear-all-filters"
+      glyph={<Icon glyph="NoFilter" />}
       onClick={handleClick}
     >
-      Jump to most recent commit
+      Clear all filters
     </DropdownItem>
   );
 };

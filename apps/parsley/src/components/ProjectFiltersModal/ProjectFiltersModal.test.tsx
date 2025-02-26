@@ -157,7 +157,7 @@ const projectFiltersMock: ApolloMock<
   request: {
     query: PROJECT_FILTERS,
     variables: {
-      projectIdentifier: "spruce",
+      projectId: "spruce",
     },
   },
   result: {

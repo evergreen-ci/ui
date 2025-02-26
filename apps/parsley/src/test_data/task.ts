@@ -41,6 +41,9 @@ export const evergreenTaskMock: ApolloMock<TaskQuery, TaskQueryVariables> = {
           isPatch: false,
           message: "v2.28.5",
           projectIdentifier: "spruce",
+          projectMetadata: {
+            id: "spruce",
+          },
           revision: "d54e2c6ede60e004c48d3c4d996c59579c7bbd1f",
         },
       },

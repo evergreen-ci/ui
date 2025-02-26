@@ -3192,6 +3192,7 @@ export type UpdateVolumeInput = {
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
+  size?: InputMaybe<Scalars["Int"]["input"]>;
   volumeId: Scalars["String"]["input"];
 };
 
@@ -3453,10 +3454,12 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+  variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type WaterfallPagination = {
   __typename?: "WaterfallPagination";
+  activeVersionIds: Array<Scalars["String"]["output"]>;
   hasNextPage: Scalars["Boolean"]["output"];
   hasPrevPage: Scalars["Boolean"]["output"];
   mostRecentVersionOrder: Scalars["Int"]["output"];
@@ -3556,6 +3559,7 @@ export type BaseTaskFragment = {
     message: string;
     projectIdentifier: string;
     revision: string;
+    projectMetadata?: { __typename?: "Project"; id: string } | null;
   };
 };
 
@@ -3608,6 +3612,7 @@ export type LogkeeperTaskQuery = {
         message: string;
         projectIdentifier: string;
         revision: string;
+        projectMetadata?: { __typename?: "Project"; id: string } | null;
       };
     };
   };
@@ -3647,6 +3652,7 @@ export type TaskQuery = {
       message: string;
       projectIdentifier: string;
       revision: string;
+      projectMetadata?: { __typename?: "Project"; id: string } | null;
     };
   } | null;
 };
@@ -3704,7 +3710,7 @@ export type ParsleySettingsQuery = {
 };
 
 export type ProjectFiltersQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
+  projectId: Scalars["String"]["input"];
 }>;
 
 export type ProjectFiltersQuery = {
