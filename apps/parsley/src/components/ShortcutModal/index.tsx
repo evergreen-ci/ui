@@ -29,7 +29,7 @@ const shortcuts = [
       ["⌘", "ENTER"],
     ],
   },
-  { description: "Toggle the side panel", keys: [["]"]] },
+  { description: "Toggle the side panel", keys: [["["]] },
   {
     description: "Paginate forward to the next search result",
     keys: [["N"], ["ENTER"]],
