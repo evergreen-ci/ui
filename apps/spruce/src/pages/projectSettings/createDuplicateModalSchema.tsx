@@ -4,7 +4,7 @@ import { Field } from "@rjsf/core";
 
 export const projectName = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Project Name",
     minLength: 1,
     format: "noSpecialCharacters",
@@ -16,7 +16,7 @@ export const projectName = {
 
 const enablePerformanceTooling = {
   schema: {
-    type: "boolean" as "boolean",
+    type: "boolean" as const,
     title: "Enable performance tooling",
     default: false,
   },
@@ -40,7 +40,7 @@ export const performanceTooling = {
   schema: {
     enablePerformanceTooling: enablePerformanceTooling.schema,
     performanceToolingBanner: {
-      type: "null" as "null",
+      type: "null" as const,
     },
   },
   uiSchema: {
@@ -54,7 +54,7 @@ export const performanceTooling = {
 
 export const requestS3Creds = {
   schema: {
-    type: "boolean" as "boolean",
+    type: "boolean" as const,
     title: "Open a JIRA ticket to request an S3 Bucket",
     default: false,
   },

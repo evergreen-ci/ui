@@ -3,9 +3,9 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
-import { context } from ".";
 import HistoryTable from "./HistoryTable";
 import { mainlineCommitData } from "./testData";
+import { context } from ".";
 
 const { HistoryTableProvider, useHistoryTable } = context;
 

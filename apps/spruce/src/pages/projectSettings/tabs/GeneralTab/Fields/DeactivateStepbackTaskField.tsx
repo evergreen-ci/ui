@@ -124,17 +124,17 @@ const deactivateStepbackForm = {
     taskName: "",
   },
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     required: ["buildVariantName", "taskName"],
     properties: {
       buildVariantName: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Build Variant Name",
         minLength: 1,
         format: "noSpaces",
       },
       taskName: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Task Name",
         minLength: 1,
         format: "noSpaces",

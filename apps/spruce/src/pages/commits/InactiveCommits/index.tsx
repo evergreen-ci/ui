@@ -185,7 +185,7 @@ const InactiveCommitLine = styled.div`
   border: 1px dashed ${gray.light1};
 `;
 
-// @ts-expect-error
+// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of Tooltip.
 const StyledTooltip = styled(Tooltip)`
   width: 300px;
 `;

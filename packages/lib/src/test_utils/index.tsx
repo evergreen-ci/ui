@@ -7,8 +7,9 @@ import {
   screen,
   waitFor,
   within,
+  type RenderOptions,
+  type RenderResult,
 } from "@testing-library/react";
-import type { RenderOptions, RenderResult } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import * as customQueries from "./custom-queries";
@@ -129,7 +130,6 @@ const renderComponentWithHook = <
  */
 const stubGetClientRects = () => {
   const { getClientRects } = HTMLElement.prototype;
-  // eslint-disable-next-line func-names
   HTMLElement.prototype.getClientRects = function () {
     return {
       ...getClientRects.apply(this),

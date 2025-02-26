@@ -53,6 +53,8 @@ const BaseToggle = forwardRef<HTMLDivElement, BaseToggleProps>(
   ),
 );
 
+BaseToggle.displayName = "BaseToggle";
+
 const ToggleLabel = styled(Disclaimer)`
   color: ${gray.base};
   margin: 0 ${size.xxs};

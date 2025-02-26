@@ -9,7 +9,7 @@ import { BuildType, FleetInstanceType } from "./types";
 
 const userData = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "User Data",
   },
   uiSchema: {
@@ -21,7 +21,7 @@ const userData = {
 
 const mergeUserData = {
   schema: {
-    type: "boolean" as "boolean",
+    type: "boolean" as const,
     title: "Merge with existing user data",
   },
   uiSchema: {
@@ -31,10 +31,10 @@ const mergeUserData = {
 
 const securityGroups = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     title: "Security Groups",
     items: {
-      type: "string" as "string",
+      type: "string" as const,
       title: "Security Group ID",
       default: "",
       minLength: 1,
@@ -49,13 +49,13 @@ const securityGroups = {
 
 const hosts = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     title: "Hosts",
     items: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         name: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Name",
           minLength: 1,
         },
@@ -70,7 +70,7 @@ const hosts = {
 
 const imageUrl = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Docker Image URL",
     default: "",
     format: "validURL",
@@ -83,17 +83,17 @@ const imageUrl = {
 
 const buildType = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Image Build Method",
     default: BuildType.Import,
     oneOf: [
       {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Import",
         enum: [BuildType.Import],
       },
       {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Pull",
         enum: [BuildType.Pull],
       },
@@ -106,7 +106,7 @@ const buildType = {
 
 const registryUsername = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Username for Registries",
   },
   uiSchema: {
@@ -115,7 +115,7 @@ const registryUsername = {
 };
 
 const registryPassword = {
-  schema: { type: "string" as "string", title: "Password for Registries" },
+  schema: { type: "string" as const, title: "Password for Registries" },
   uiSchema: {
     "ui:optional": true,
     "ui:inputType": "password",
@@ -124,7 +124,7 @@ const registryPassword = {
 
 const amiId = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "EC2 AMI ID",
     default: "",
     minLength: 1,
@@ -136,7 +136,7 @@ const amiId = {
 
 const instanceType = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "Instance Type",
   },
   uiSchema: {
@@ -147,7 +147,7 @@ const instanceType = {
 
 const sshKeyName = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "SSH Key Name",
   },
   uiSchema: {
@@ -157,26 +157,26 @@ const sshKeyName = {
 
 const fleetOptions = {
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     title: "",
     properties: {
       fleetInstanceType: {
-        type: "string" as "string",
+        type: "string" as const,
         title: "Fleet Instance Type",
         default: FleetInstanceType.Spot,
         oneOf: [
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Spot",
             enum: [FleetInstanceType.Spot],
           },
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "Spot with on-demand fallback",
             enum: [FleetInstanceType.SpotWithOnDemandFallback],
           },
           {
-            type: "string" as "string",
+            type: "string" as const,
             title: "On-demand",
             enum: [FleetInstanceType.OnDemand],
           },
@@ -202,7 +202,7 @@ const fleetOptions = {
                 ],
               },
               useCapacityOptimization: {
-                type: "boolean" as "boolean",
+                type: "boolean" as const,
                 title: "Capacity optimization",
                 default: false,
               },
@@ -228,7 +228,7 @@ const fleetOptions = {
 
 const instanceProfileARN = {
   schema: {
-    type: "string" as "string",
+    type: "string" as const,
     title: "IAM Instance Profile ARN",
   },
   uiSchema: {
@@ -238,11 +238,11 @@ const instanceProfileARN = {
 
 const vpcOptions = {
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     title: "",
     properties: {
       useVpc: {
-        type: "boolean" as "boolean",
+        type: "boolean" as const,
         title: "Use security groups in an EC2 VPC",
         default: false,
       },
@@ -256,14 +256,14 @@ const vpcOptions = {
                 enum: [true],
               },
               subnetId: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Default VPC Subnet ID",
                 default: "",
                 minLength: 1,
                 pattern: "^subnet-.*",
               },
               subnetPrefix: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "VPC Subnet Prefix",
                 default: "",
                 minLength: 1,
@@ -299,35 +299,35 @@ const vpcOptions = {
 
 const mountPoints = {
   schema: {
-    type: "array" as "array",
+    type: "array" as const,
     title: "Mount Points",
     items: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         deviceName: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Device Name",
           default: "",
           minLength: 1,
         },
         virtualName: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Virtual Name",
         },
         volumeType: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Volume Type",
         },
         iops: {
-          type: "number" as "number",
+          type: "number" as const,
           title: "IOPS",
         },
         throughput: {
-          type: "number" as "number",
+          type: "number" as const,
           title: "Throughput (MiB/s)",
         },
         size: {
-          type: "number" as "number",
+          type: "number" as const,
           title: "Size (GB)",
         },
       },

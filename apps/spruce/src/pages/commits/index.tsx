@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner, RepotrackerBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
@@ -28,12 +29,7 @@ import {
   ProjectHealthView,
 } from "gql/generated/types";
 import { MAINLINE_COMMITS, SPRUCE_CONFIG } from "gql/queries";
-import {
-  useAdminBetaFeatures,
-  usePageTitle,
-  usePolling,
-  useUpsertQueryParams,
-} from "hooks";
+import { useAdminBetaFeatures, usePolling, useUpsertQueryParams } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
@@ -179,10 +175,10 @@ const Commits = () => {
     onSubmit({ category, value });
     switch (category) {
       case ProjectFilterOptions.BuildVariant:
-        sendEvent({ name: "Filtered by build variant", type });
+        sendEvent({ name: "Filtered by build variant", "filter.type": type });
         break;
       case ProjectFilterOptions.Task:
-        sendEvent({ name: "Filtered by task", type });
+        sendEvent({ name: "Filtered by task", "filter.type": type });
         break;
       default:
     }
@@ -198,10 +194,14 @@ const Commits = () => {
         <HeaderWrapper>
           <ElementWrapper width="35">
             <TupleSelectWithRegexConditional
+              ariaLabel="Build Variant & Task Filter"
+              data-cy="build-variant-task-filter"
+              id="build-variant-task-filter"
+              label="Add Filter"
               onSubmit={onSubmitTupleSelect}
               options={tupleSelectOptions}
               validator={validateRegexp}
-              validatorErrorMessage="Invalid Regular Expression"
+              validatorErrorMessage="Invalid regular expression"
             />
           </ElementWrapper>
           <ElementWrapper width="20">
@@ -306,12 +306,12 @@ const tupleSelectOptions = [
   {
     value: ProjectFilterOptions.BuildVariant,
     displayName: "Build Variant",
-    placeHolderText: "Search build variants",
+    placeholderText: "Search build variants",
   },
   {
     value: ProjectFilterOptions.Task,
     displayName: "Task",
-    placeHolderText: "Search task names",
+    placeholderText: "Search task names",
   },
 ];
 

@@ -1,0 +1,44 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: evergreen-ui
+  description: UI for Evergreen
+  annotations:
+    evergreen/project-id: ui
+spec:
+  type: website
+  owner: evergreen-ui
+  lifecycle: production
+  system: evergreen
+  dependsOn:
+    - component:default/Sentry
+    - component:default/Honeycomb
+    - component:default/evergreen-backend
+  consumesApis:
+    - evergreen-api-graphql
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: spruce
+spec:
+  type: website
+  owner: evergreen-ui
+  lifecycle: production
+  system: evergreen
+  subcomponentOf: evergreen-ui
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: parsley
+  description: Evergreen log viewer
+spec:
+  type: website
+  owner: evergreen-ui
+  lifecycle: production
+  system: evergreen
+  subcomponentOf: evergreen-ui

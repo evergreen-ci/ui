@@ -3,17 +3,17 @@ import { SpruceForm } from "components/SpruceForm";
 import { FieldRow, CardFieldTemplate, AccordionFieldTemplate } from ".";
 
 const ObjectSchema = {
-  type: "object" as "object",
+  type: "object" as const,
   properties: {
     person: {
-      type: "object" as "object",
+      type: "object" as const,
       properties: {
         name: {
-          type: "string" as "string",
+          type: "string" as const,
           title: "Name",
         },
         age: {
-          type: "integer" as "integer",
+          type: "integer" as const,
           title: "Age",
         },
       },

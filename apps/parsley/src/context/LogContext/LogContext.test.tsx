@@ -6,9 +6,9 @@ import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes } from "constants/enums";
 import { RowType } from "types/logs";
 import { isSectionHeaderRow, isSkippedLinesRow } from "utils/logRowTypes";
-import { useLogContext } from ".";
 import { logContextWrapper } from "./test_utils";
 import { DIRECTION } from "./types";
+import { useLogContext } from ".";
 
 vi.mock("js-cookie");
 const mockedGet = vi.spyOn(Cookie, "get") as MockInstance;
@@ -29,13 +29,12 @@ const Router = ({
 
 const wrapper = (loglines: string[] = [], route: string = "/") => {
   const LogContextWrapper = logContextWrapper(loglines);
-  return function ({ children }: { children: React.ReactNode }) {
-    return (
-      <Router route={route}>
-        <LogContextWrapper>{children}</LogContextWrapper>
-      </Router>
-    );
-  };
+  const renderContent = ({ children }: { children: React.ReactNode }) => (
+    <Router route={route}>
+      <LogContextWrapper>{children}</LogContextWrapper>
+    </Router>
+  );
+  return renderContent;
 };
 
 describe("useLogContext", () => {

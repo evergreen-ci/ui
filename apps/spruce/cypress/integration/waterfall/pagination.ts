@@ -14,7 +14,7 @@ describe("pagination", () => {
 
     cy.dataCy("prev-page-button").click();
     cy.dataCy("version-labels").should("contain.text", "2ab1c56");
-    cy.location("search").should("contain", "minOrder");
+    cy.location("search").should("not.contain", "maxOrder");
   });
 
   it("versions update correctly as page changes", () => {
@@ -61,6 +61,30 @@ describe("pagination", () => {
     cy.get("@builds").eq(5).children().should("have.length", 8);
   });
 
+  it("correctly disables buttons on first and last page", () => {
+    cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
+    cy.dataCy("next-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("next-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("next-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "true");
+    cy.dataCy("prev-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("prev-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("prev-page-button")
+      .should("have.attr", "aria-disabled", "false")
+      .click();
+    cy.dataCy("prev-page-button").should("have.attr", "aria-disabled", "true");
+  });
+
   describe("'Jump to most recent commit' button", () => {
     it("returns user to the first page", () => {
       const firstPageFirstCommit = "2ab1c56";
@@ -86,5 +110,20 @@ describe("pagination", () => {
       cy.location("search").should("not.contain", "maxOrder");
       cy.location("search").should("not.contain", "minOrder");
     });
+  });
+
+  it("clears minOrder and maxOrder params when reaching the first page", () => {
+    cy.dataCy("version-labels").children().should("have.length", 6);
+
+    cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "false");
+    cy.dataCy("next-page-button").click();
+    cy.dataCy("version-labels").children().should("have.length", 5);
+    cy.location("search").should("contain", "maxOrder");
+
+    cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "false");
+    cy.dataCy("prev-page-button").click();
+    cy.dataCy("version-labels").children().should("have.length", 6);
+    cy.location("search").should("not.contain", "maxOrder");
+    cy.location("search").should("not.contain", "minOrder");
   });
 });

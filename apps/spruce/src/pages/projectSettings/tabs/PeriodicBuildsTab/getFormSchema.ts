@@ -12,7 +12,7 @@ export const getFormSchema = (
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     description:
       "Configure tasks to run at a consistent interval within this project. " +
       "This will create a new version that can be seen on the Spruce commits page, " +
@@ -22,27 +22,27 @@ export const getFormSchema = (
       "periodicBuilds",
       ["Override Repo Commands", "Default to Repo Commands"],
       {
-        type: "array" as "array",
+        type: "array" as const,
         default: [],
         items: {
-          type: "object" as "object",
+          type: "object" as const,
           properties: {
             interval: {
-              type: "object" as "object",
+              type: "object" as const,
               title: "Interval Specifier",
               properties: {
                 specifier: {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "",
                   default: IntervalSpecifier.Hours,
                   oneOf: [
                     {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: "Hours",
                       enum: [IntervalSpecifier.Hours],
                     },
                     {
-                      type: "string" as "string",
+                      type: "string" as const,
                       title: "Cron",
                       enum: [IntervalSpecifier.Cron],
                     },
@@ -58,7 +58,7 @@ export const getFormSchema = (
                           enum: [IntervalSpecifier.Hours],
                         },
                         intervalHours: {
-                          type: "number" as "number",
+                          type: "number" as const,
                           title: "Interval",
                           minimum: 1,
                           default: 24,
@@ -71,7 +71,7 @@ export const getFormSchema = (
                           enum: [IntervalSpecifier.Cron],
                         },
                         cron: {
-                          type: "string" as "string",
+                          type: "string" as const,
                           title: "Cron Expression",
                         },
                       },
@@ -81,41 +81,41 @@ export const getFormSchema = (
               },
             },
             configFile: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Config File",
               minLength: 1,
               default: "",
               format: "noStartingOrTrailingWhitespace",
             },
             alias: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Alias",
               default: "",
             },
             message: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Message",
               default: "",
             },
             timezone: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Time Zone",
               default: timezone,
               oneOf: [
                 ...timeZones.map(({ str, value }) => ({
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: str,
                   enum: [value],
                 })),
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Local Time",
                   enum: [""],
                 },
               ],
             },
             nextRunTime: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Next Run Time",
               default: new Date().toString(),
             },

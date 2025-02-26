@@ -1,6 +1,6 @@
 import { get } from "https";
-import { COMMIT_LENGTH, getLatestTag, tagIsValid } from ".";
 import { DeployableApp } from "../types";
+import { COMMIT_LENGTH, getLatestTag, tagIsValid } from ".";
 
 /**
  * getRemotePreviousCommit fetches the commit hash currently deployed to the given app

@@ -24,16 +24,16 @@ export const getFormSchema = ({
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       requiredVolumeInformation: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Required Volume Information",
         required: ["size"],
         properties: {
           size: {
             title: "Size (GiB)",
-            type: "number" as "number",
+            type: "number" as const,
             default:
               maxSpawnableLimit > DEFAULT_VOLUME_SIZE
                 ? DEFAULT_VOLUME_SIZE
@@ -43,20 +43,20 @@ export const getFormSchema = ({
           },
           availabilityZone: {
             title: "Region",
-            type: "string" as "string",
+            type: "string" as const,
             default: availabilityZones?.[0] ?? "",
             oneOf: availabilityZones.map((r) => ({
-              type: "string" as "string",
+              type: "string" as const,
               title: r,
               enum: [r],
             })),
           },
           type: {
             title: "Type",
-            type: "string" as "string",
+            type: "string" as const,
             default: types?.[0] ?? "",
             oneOf: types.map((t) => ({
-              type: "string" as "string",
+              type: "string" as const,
               title: t,
               enum: [t],
             })),
@@ -64,20 +64,20 @@ export const getFormSchema = ({
         },
       },
       optionalVolumeInformation: {
-        type: "object" as "object",
+        type: "object" as const,
         title: "Optional Volume Information",
         properties: {
           expirationDetails: {
             title: "",
-            type: "object" as "object",
+            type: "object" as const,
             properties: {
               expiration: {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Expiration",
                 default: getDefaultExpiration(),
               },
               noExpiration: {
-                type: "boolean" as "boolean",
+                type: "boolean" as const,
                 title: "Never expire",
                 default: false,
               },
@@ -111,16 +111,16 @@ export const getFormSchema = ({
           },
           mountToHost: {
             title: "Mount to Host",
-            type: "string" as "string",
+            type: "string" as const,
             default: "",
             oneOf: [
               {
-                type: "string" as "string",
+                type: "string" as const,
                 title: "Select host…",
                 enum: [""],
               },
               ...hosts.map((h) => ({
-                type: "string" as "string",
+                type: "string" as const,
                 title: h.displayName,
                 enum: [h.id],
               })),

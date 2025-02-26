@@ -24,7 +24,7 @@
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/auto-instrumentations-web": "^0.40.0",
     "@opentelemetry/instrumentation-user-interaction": "^0.41.0",
-    "graphql": "16.8.1",
+    "graphql": "16.10.0",
     "query-string": "9.1.1"
   },
   "devDependencies": {
@@ -32,7 +32,7 @@
     "@evg-ui/lint-staged": "*",
     "@evg-ui/storybook-addon": "*",
     "@storybook/react-vite": "8.5.3",
-    "eslint": "8.56.0",
+    "eslint": "^9.20.1",
     "eslint-plugin-prettier": "5.2.1",
     "storybook": "8.5.3",
     "typescript": "5.1.3",

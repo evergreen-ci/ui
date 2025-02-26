@@ -1,4 +1,6 @@
+import { FilterType } from "components/TupleSelectWithRegexConditional";
 import { WalkthroughStep } from "components/WalkthroughGuideCue";
+import { validators } from "utils";
 
 export const VERSION_LIMIT = 5;
 
@@ -44,5 +46,18 @@ export const walkthroughSteps: WalkthroughStep[] = [
       "An alternative to Project Health charts — view a summary of task statuses for any given run.",
     targetId: "summary-view",
     shouldClick: true,
+  },
+];
+
+export const tupleSelectOptions = [
+  {
+    value: FilterType.Regex,
+    displayName: "Regex",
+    validator: validators.validateRegexp,
+  },
+  {
+    value: FilterType.Exact,
+    displayName: "Exact",
+    validator: () => true,
   },
 ];

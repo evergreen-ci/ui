@@ -1733,8 +1733,6 @@ export type Patches = {
 export type PatchesInput = {
   includeHidden?: InputMaybe<Scalars["Boolean"]["input"]>;
   limit?: Scalars["Int"]["input"];
-  /** @deprecated onlyCommitQueue is deprecated. Use onlyMergeQueue instead. */
-  onlyCommitQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   onlyMergeQueue?: InputMaybe<Scalars["Boolean"]["input"]>;
   page?: Scalars["Int"]["input"];
   patchName?: Scalars["String"]["input"];
@@ -3455,12 +3453,15 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+  variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type WaterfallPagination = {
   __typename?: "WaterfallPagination";
+  activeVersionIds: Array<Scalars["String"]["output"]>;
   hasNextPage: Scalars["Boolean"]["output"];
   hasPrevPage: Scalars["Boolean"]["output"];
+  mostRecentVersionOrder: Scalars["Int"]["output"];
   nextPageOrder: Scalars["Int"]["output"];
   prevPageOrder: Scalars["Int"]["output"];
 };
@@ -3797,12 +3798,14 @@ export type PatchesPagePatchesFragment = {
 export type ProjectAccessSettingsFragment = {
   __typename?: "Project";
   admins?: Array<string> | null;
+  id: string;
   restricted?: boolean | null;
 };
 
 export type RepoAccessSettingsFragment = {
   __typename?: "RepoRef";
   admins: Array<string>;
+  id: string;
   restricted: boolean;
 };
 
@@ -3830,6 +3833,7 @@ export type ProjectAppSettingsFragment = {
   projectRef?: {
     __typename?: "Project";
     githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    id: string;
   } | null;
 };
 
@@ -3843,6 +3847,7 @@ export type ProjectEventAppSettingsFragment = {
   projectRef?: {
     __typename?: "Project";
     githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    id: string;
   } | null;
 };
 
@@ -3856,11 +3861,13 @@ export type RepoAppSettingsFragment = {
   projectRef?: {
     __typename?: "RepoRef";
     githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    id: string;
   } | null;
 };
 
 export type ProjectContainerSettingsFragment = {
   __typename?: "Project";
+  id: string;
   containerSizeDefinitions?: Array<{
     __typename?: "ContainerResources";
     cpu: number;
@@ -3871,6 +3878,7 @@ export type ProjectContainerSettingsFragment = {
 
 export type RepoContainerSettingsFragment = {
   __typename?: "RepoRef";
+  id: string;
   containerSizeDefinitions?: Array<{
     __typename?: "ContainerResources";
     cpu: number;
@@ -3888,6 +3896,7 @@ export type ProjectGeneralSettingsFragment = {
   dispatchingDisabled?: boolean | null;
   displayName: string;
   enabled?: boolean | null;
+  id: string;
   owner: string;
   patchingDisabled?: boolean | null;
   remotePath: string;
@@ -3906,6 +3915,7 @@ export type RepoGeneralSettingsFragment = {
   disabledStatsCache: boolean;
   dispatchingDisabled: boolean;
   displayName: string;
+  id: string;
   owner: string;
   patchingDisabled: boolean;
   remotePath: string;
@@ -3924,6 +3934,7 @@ export type ProjectGithubSettingsFragment = {
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled?: boolean | null;
+  id: string;
   manualPrTestingEnabled?: boolean | null;
   oldestAllowedMergeBase: string;
   prTestingEnabled?: boolean | null;
@@ -3937,6 +3948,7 @@ export type RepoGithubSettingsFragment = {
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled: boolean;
+  id: string;
   manualPrTestingEnabled: boolean;
   oldestAllowedMergeBase: string;
   prTestingEnabled: boolean;
@@ -3953,6 +3965,7 @@ export type ProjectGithubCommitQueueFragment = {
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
+    id: string;
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
@@ -3970,6 +3983,7 @@ export type RepoGithubCommitQueueFragment = {
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled: boolean;
+    id: string;
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
@@ -3987,6 +4001,7 @@ export type ProjectEventGithubCommitQueueFragment = {
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
+    id: string;
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
@@ -4402,6 +4417,7 @@ export type RepoSettingsFieldsFragment = {
 
 export type ProjectNotificationSettingsFragment = {
   __typename?: "Project";
+  id: string;
   notifyOnBuildFailure?: boolean | null;
   banner?: {
     __typename?: "ProjectBanner";
@@ -4412,6 +4428,7 @@ export type ProjectNotificationSettingsFragment = {
 
 export type RepoNotificationSettingsFragment = {
   __typename?: "RepoRef";
+  id: string;
   notifyOnBuildFailure: boolean;
 };
 
@@ -4474,6 +4491,7 @@ export type SubscriptionsFragment = {
 export type ProjectPatchAliasSettingsFragment = {
   __typename?: "Project";
   githubTriggerAliases?: Array<string> | null;
+  id: string;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -4493,6 +4511,7 @@ export type ProjectPatchAliasSettingsFragment = {
 export type RepoPatchAliasSettingsFragment = {
   __typename?: "RepoRef";
   githubTriggerAliases?: Array<string> | null;
+  id: string;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -4511,6 +4530,7 @@ export type RepoPatchAliasSettingsFragment = {
 
 export type ProjectPeriodicBuildsSettingsFragment = {
   __typename?: "Project";
+  id: string;
   periodicBuilds?: Array<{
     __typename?: "PeriodicBuild";
     alias: string;
@@ -4525,6 +4545,7 @@ export type ProjectPeriodicBuildsSettingsFragment = {
 
 export type RepoPeriodicBuildsSettingsFragment = {
   __typename?: "RepoRef";
+  id: string;
   periodicBuilds?: Array<{
     __typename?: "PeriodicBuild";
     alias: string;
@@ -4546,6 +4567,7 @@ export type ProjectPermissionGroupSettingsFragment = {
   projectRef?: {
     __typename?: "Project";
     githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    id: string;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -4563,6 +4585,7 @@ export type ProjectEventPermissionGroupSettingsFragment = {
   projectRef?: {
     __typename?: "Project";
     githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    id: string;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -4580,6 +4603,7 @@ export type RepoPermissionGroupSettingsFragment = {
   projectRef?: {
     __typename?: "RepoRef";
     githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    id: string;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -4590,6 +4614,7 @@ export type RepoPermissionGroupSettingsFragment = {
 
 export type ProjectPluginsSettingsFragment = {
   __typename?: "Project";
+  id: string;
   perfEnabled?: boolean | null;
   buildBaronSettings: {
     __typename?: "BuildBaronSettings";
@@ -4615,6 +4640,7 @@ export type ProjectPluginsSettingsFragment = {
 
 export type RepoPluginsSettingsFragment = {
   __typename?: "RepoRef";
+  id: string;
   perfEnabled: boolean;
   buildBaronSettings: {
     __typename?: "BuildBaronSettings";
@@ -4662,6 +4688,7 @@ export type ProjectEventSettingsFragment = {
     tracksPushEvents?: boolean | null;
     versionControlEnabled?: boolean | null;
     githubPermissionGroupByRequester?: { [key: string]: any } | null;
+    id: string;
     admins?: Array<string> | null;
     restricted?: boolean | null;
     batchTime: number;
@@ -4843,6 +4870,7 @@ export type ProjectEventSettingsFragment = {
 
 export type ProjectTriggersSettingsFragment = {
   __typename?: "Project";
+  id: string;
   triggers?: Array<{
     __typename?: "TriggerAlias";
     alias: string;
@@ -4859,6 +4887,7 @@ export type ProjectTriggersSettingsFragment = {
 
 export type RepoTriggersSettingsFragment = {
   __typename?: "RepoRef";
+  id: string;
   triggers: Array<{
     __typename?: "TriggerAlias";
     alias: string;
@@ -4882,6 +4911,7 @@ export type VariablesFragment = {
 
 export type ProjectViewsAndFiltersSettingsFragment = {
   __typename?: "Project";
+  id: string;
   projectHealthView: ProjectHealthView;
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
@@ -4893,6 +4923,7 @@ export type ProjectViewsAndFiltersSettingsFragment = {
 
 export type RepoViewsAndFiltersSettingsFragment = {
   __typename?: "RepoRef";
+  id: string;
   parsleyFilters?: Array<{
     __typename?: "ParsleyFilter";
     caseSensitive: boolean;
@@ -4903,6 +4934,7 @@ export type RepoViewsAndFiltersSettingsFragment = {
 
 export type ProjectVirtualWorkstationSettingsFragment = {
   __typename?: "Project";
+  id: string;
   workstationConfig: {
     __typename?: "WorkstationConfig";
     gitClone?: boolean | null;
@@ -4916,6 +4948,7 @@ export type ProjectVirtualWorkstationSettingsFragment = {
 
 export type RepoVirtualWorkstationSettingsFragment = {
   __typename?: "RepoRef";
+  id: string;
   workstationConfig: {
     __typename?: "RepoWorkstationConfig";
     gitClone: boolean;
@@ -4929,6 +4962,7 @@ export type RepoVirtualWorkstationSettingsFragment = {
 
 export type UpstreamProjectFragment = {
   __typename?: "Version";
+  id: string;
   upstreamProject?: {
     __typename?: "UpstreamProject";
     owner: string;
@@ -7191,6 +7225,7 @@ export type ProjectEventLogsQuery = {
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
           githubPermissionGroupByRequester?: { [key: string]: any } | null;
+          id: string;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -7404,6 +7439,7 @@ export type ProjectEventLogsQuery = {
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
           githubPermissionGroupByRequester?: { [key: string]: any } | null;
+          id: string;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -7957,6 +7993,7 @@ export type RepoEventLogsQuery = {
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
           githubPermissionGroupByRequester?: { [key: string]: any } | null;
+          id: string;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -8170,6 +8207,7 @@ export type RepoEventLogsQuery = {
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
           githubPermissionGroupByRequester?: { [key: string]: any } | null;
+          id: string;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -9719,6 +9757,7 @@ export type WaterfallQuery = {
       __typename?: "WaterfallPagination";
       hasNextPage: boolean;
       hasPrevPage: boolean;
+      mostRecentVersionOrder: number;
       nextPageOrder: number;
       prevPageOrder: number;
     };

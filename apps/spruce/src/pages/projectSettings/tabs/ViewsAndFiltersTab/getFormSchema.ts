@@ -12,47 +12,47 @@ export const getFormSchema = (
     definitions: {
       filterArray: {
         title: "",
-        type: "array" as "array",
+        type: "array" as const,
         default: [],
         items: {
-          type: "object" as "object",
+          type: "object" as const,
           properties: {
             expression: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "Filter Expression",
               default: "",
               minLength: 1,
               format: "validRegex",
             },
             caseSensitive: {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
               title: "Case",
               default: false,
               oneOf: [
                 {
-                  type: "boolean" as "boolean",
+                  type: "boolean" as const,
                   title: "Insensitive",
                   enum: [false],
                 },
                 {
-                  type: "boolean" as "boolean",
+                  type: "boolean" as const,
                   title: "Sensitive",
                   enum: [true],
                 },
               ],
             },
             exactMatch: {
-              type: "boolean" as "boolean",
+              type: "boolean" as const,
               title: "Match",
               default: true,
               oneOf: [
                 {
-                  type: "boolean" as "boolean",
+                  type: "boolean" as const,
                   title: "Exact",
                   enum: [true],
                 },
                 {
-                  type: "boolean" as "boolean",
+                  type: "boolean" as const,
                   title: "Inverse",
                   enum: [false],
                 },
@@ -62,28 +62,28 @@ export const getFormSchema = (
         },
       },
     },
-    type: "object" as "object",
+    type: "object" as const,
     properties: {
       ...(projectType !== ProjectType.Repo && {
         view: {
           title: "Project Health View",
-          type: "object" as "object",
+          type: "object" as const,
           description:
             "This setting will define the default behavior of the Project Health page for all viewers of this project. Users can still toggle between views.",
           properties: {
             projectHealthView: {
-              type: "string" as "string",
+              type: "string" as const,
               title: "",
               oneOf: [
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "Default view",
                   enum: [ProjectHealthView.Failed],
                   description:
                     "Displays only task failures, making it easier to identify them, and groups tasks by status if they don't match any search criteria. Consider using it for troubleshooting specific issues.",
                 },
                 {
-                  type: "string" as "string",
+                  type: "string" as const,
                   title: "All tasks view",
                   enum: [ProjectHealthView.All],
                   description:
@@ -101,7 +101,7 @@ export const getFormSchema = (
       parsleyFilters: { $ref: "#/definitions/filterArray" },
       ...(projectType === ProjectType.AttachedProject && {
         repoData: {
-          type: "object" as "object",
+          type: "object" as const,
           title: "Repo Filters",
           properties: {
             parsleyFilters: { $ref: "#/definitions/filterArray" },

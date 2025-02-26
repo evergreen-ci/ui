@@ -7,9 +7,9 @@ import {
   parsleySettingsMockSectionsDisabled,
 } from "test_data/parsleySettings";
 import * as ErrorReporting from "utils/errorReporting";
-import { useSections } from ".";
 import { sectionData, sectionStateAllClosed } from "./testData";
 import * as sectionUtils from "./utils";
+import { useSections } from ".";
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={[parsleySettingsMock]}>{children}</MockedProvider>

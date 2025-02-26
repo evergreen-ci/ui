@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 import {
   composeStories,
   Meta,
@@ -38,7 +40,6 @@ const compose = (
 
 const getAllStoryFiles = () => {
   const storyFiles = Object.entries(
-    // @ts-expect-error
     import.meta.glob<StoryFile>("./**/*.stories.tsx", {
       eager: true,
     }),

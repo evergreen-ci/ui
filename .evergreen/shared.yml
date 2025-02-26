@@ -25,6 +25,17 @@ functions:
       directory: ui
       shallow_clone: true
 
+  generate-token:
+    - command: github.generate_token
+      type: setup
+      params:
+        expansion_name: github_token
+    - command: shell.exec
+      params:
+        script: |
+          # Set GitHub app dynamic token to ensure it can clone non-public repos for Go modules.
+          git config --global url."https://x-access-token:${github_token}@github.com/evergreen-ci/".insteadOf https://github.com/evergreen-ci/
+
   run-make-background:
     command: subprocess.exec
     params:
@@ -270,6 +281,7 @@ tasks:
   - name: e2e
     commands:
       - func: setup-mongodb
+      - func: generate-token
       - func: run-make-background
         vars:
           target: local-evergreen
