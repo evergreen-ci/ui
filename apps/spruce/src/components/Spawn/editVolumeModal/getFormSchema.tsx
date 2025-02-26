@@ -21,7 +21,6 @@ export const getFormSchema = ({
   fields: {},
   schema: {
     type: "object",
-    required: ["size"],
     properties: {
       name: {
         type: "string",
@@ -82,7 +81,7 @@ export const getFormSchema = ({
     },
     size: {
       "ui:data-cy": "volume-size-input",
-      "ui:description": `The max volume size is ${maxSpawnableLimit} GiB. Volume size cannot be decreased.`,
+      "ui:description": `The max volume size is ${maxSpawnableLimit} GiB. Volume size can only be updated once every 6 hours, and cannot be decreased.`,
     },
     expirationDetails: {
       "ui:ObjectFieldTemplate": ExpirationRow,

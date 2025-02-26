@@ -189,7 +189,7 @@ describe("Spawn volume page", () => {
       ).click();
       cy.dataCy("update-volume-modal").should("be.visible");
 
-      // Exceeding max volume size should disable 'Save' button.
+      // Exceeding max volume limit should disable 'Save' button.
       cy.dataCy("volume-size-input").clear();
       cy.dataCy("volume-size-input").type("10000");
       cy.contains("button", "Save").should(

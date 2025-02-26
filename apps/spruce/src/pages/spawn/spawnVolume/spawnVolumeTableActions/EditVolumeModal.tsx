@@ -101,9 +101,9 @@ export const EditVolumeModal: React.FC<Props> = ({
         onClick: onCancel,
       }}
       confirmButtonProps={{
+        children: loading ? "Saving" : "Save",
         disabled: loading || !hasChanges || !!formErrors.length,
         onClick: updateVolume,
-        children: loading ? "Saving" : "Save",
       }}
       data-cy="update-volume-modal"
       open={visible}
