@@ -49,7 +49,7 @@ const Search: React.FC = () => {
     PROJECT_FILTERS,
     {
       skip: !projectMetadata?.id,
-      variables: { projectIdentifier: projectMetadata?.id ?? "" },
+      variables: { projectId: projectMetadata?.id ?? "" },
     },
   );
   const { project } = data || {};

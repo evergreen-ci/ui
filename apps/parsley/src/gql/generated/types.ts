@@ -2196,7 +2196,6 @@ export type Query = {
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
   projects: Array<GroupedProjects>;
-  repo: RepoRef;
   repoEvents: ProjectEvents;
   repoSettings: RepoSettings;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -2312,10 +2311,6 @@ export type QueryProjectEventsArgs = {
 
 export type QueryProjectSettingsArgs = {
   projectIdentifier: Scalars["String"]["input"];
-};
-
-export type QueryRepoArgs = {
-  repoId: Scalars["String"]["input"];
 };
 
 export type QueryRepoEventsArgs = {
@@ -3197,6 +3192,7 @@ export type UpdateVolumeInput = {
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
+  size?: InputMaybe<Scalars["Int"]["input"]>;
   volumeId: Scalars["String"]["input"];
 };
 
@@ -3714,7 +3710,7 @@ export type ParsleySettingsQuery = {
 };
 
 export type ProjectFiltersQueryVariables = Exact<{
-  projectIdentifier: Scalars["String"]["input"];
+  projectId: Scalars["String"]["input"];
 }>;
 
 export type ProjectFiltersQuery = {

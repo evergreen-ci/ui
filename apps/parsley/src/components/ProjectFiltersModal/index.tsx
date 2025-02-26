@@ -41,7 +41,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     PROJECT_FILTERS,
     {
       skip: !projectMetadata?.id,
-      variables: { projectIdentifier: projectMetadata?.id ?? "" },
+      variables: { projectId: projectMetadata?.id ?? "" },
     },
   );
   const { project } = data || {};
