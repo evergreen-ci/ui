@@ -3192,6 +3192,7 @@ export type UpdateVolumeInput = {
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
+  size?: InputMaybe<Scalars["Int"]["input"]>;
   volumeId: Scalars["String"]["input"];
 };
 
