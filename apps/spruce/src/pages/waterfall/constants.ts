@@ -61,3 +61,8 @@ export const tupleSelectOptions = [
     validator: () => true,
   },
 ];
+
+/**
+ * Timestamp of the last deploy that made changes to `displayStatusCache`, in UTC.
+ */
+export const displayStatusCacheAddedDate = new Date("2025-01-21T03:05:00");
