@@ -10,7 +10,9 @@ export const formToGql = (
   const {
     expirationDetails = {} as FormState["expirationDetails"],
     name = "",
+    size,
   } = updatedFields;
+
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { expiration, noExpiration } = expirationDetails;
 
@@ -18,6 +20,7 @@ export const formToGql = (
     ...(noExpiration && { noExpiration }),
     ...(expiration && !noExpiration && { expiration: new Date(expiration) }),
     ...(name && { name }),
+    ...(size && { size }),
     volumeId,
   };
 };

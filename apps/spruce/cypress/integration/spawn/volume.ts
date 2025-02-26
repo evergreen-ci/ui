@@ -151,7 +151,7 @@ describe("Spawn volume page", () => {
       cy.dataCy("update-volume-modal").should("be.visible");
     });
 
-    it("Volume name & expiration inputs should be populated with the volume display name & expiration on initial render", () => {
+    it("name, size, expiration inputs should be populated on initial render", () => {
       cy.dataCy(
         "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
       ).click();
@@ -160,6 +160,7 @@ describe("Spawn volume page", () => {
         "have.value",
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
       );
+      cy.dataCy("volume-size-input").should("have.value", "100");
       cy.dataCy("date-picker").should("have.value", "2020-06-06");
       cy.dataCy("time-picker").should("have.value", "15:48:18"); // Defaults to UTC
     });
@@ -179,6 +180,30 @@ describe("Spawn volume page", () => {
       cy.dataCy("volume-name-input").should(
         "have.value",
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
+      );
+    });
+
+    it("size field is validated correctly", () => {
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858",
+      ).click();
+      cy.dataCy("update-volume-modal").should("be.visible");
+
+      // Exceeding max volume size should disable 'Save' button.
+      cy.dataCy("volume-size-input").clear();
+      cy.dataCy("volume-size-input").type("10000");
+      cy.contains("button", "Save").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
+      // Decreasing volume size should disable 'Save' button.
+      cy.dataCy("volume-size-input").clear();
+      cy.dataCy("volume-size-input").type("2");
+      cy.contains("button", "Save").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
       );
     });
 
