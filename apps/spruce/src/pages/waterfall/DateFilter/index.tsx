@@ -4,6 +4,7 @@ import { subDays, subYears } from "date-fns";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
+import { isProduction } from "utils/environmentVariables";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { WaterfallFilterOptions } from "../types";
 
@@ -39,7 +40,8 @@ export const DateFilter = () => {
       data-cy="date-picker"
       label="Go to Date"
       max={new Date()}
-      min={subDays(subYears(new Date(), 1), 1)}
+      // Testing environments should not have a minimum date restriction due to static test data.
+      {...(isProduction() && { min: subDays(subYears(new Date(), 1), 1) })}
       onDateChange={handleChange}
       popoverZIndex={zIndex.popover}
       value={date.length ? new Date(date) : undefined}
