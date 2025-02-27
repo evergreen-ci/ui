@@ -5,7 +5,6 @@ import { useVersionAnalytics } from "analytics";
 import {
   MetadataCard,
   MetadataItem,
-  MetadataTitle,
   MetadataLabel,
 } from "components/MetadataCard";
 import {
@@ -63,11 +62,10 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
 
   return (
-    <MetadataCard loading={loading}>
-      <MetadataTitle>
-        {isPatch ? "Patch Metadata" : "Version Metadata"}
-      </MetadataTitle>
-
+    <MetadataCard
+      loading={loading}
+      title={isPatch ? "Patch Metadata" : "Version Metadata"}
+    >
       <MetadataItem>
         <MetadataLabel>Project:</MetadataLabel>{" "}
         {projectIdentifier ? (

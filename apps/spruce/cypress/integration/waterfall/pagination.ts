@@ -14,7 +14,7 @@ describe("pagination", () => {
 
     cy.dataCy("prev-page-button").click();
     cy.dataCy("version-labels").should("contain.text", "2ab1c56");
-    cy.location("search").should("contain", "minOrder");
+    cy.location("search").should("not.contain", "maxOrder");
   });
 
   it("versions update correctly as page changes", () => {
@@ -110,5 +110,20 @@ describe("pagination", () => {
       cy.location("search").should("not.contain", "maxOrder");
       cy.location("search").should("not.contain", "minOrder");
     });
+  });
+
+  it("clears minOrder and maxOrder params when reaching the first page", () => {
+    cy.dataCy("version-labels").children().should("have.length", 6);
+
+    cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "false");
+    cy.dataCy("next-page-button").click();
+    cy.dataCy("version-labels").children().should("have.length", 5);
+    cy.location("search").should("contain", "maxOrder");
+
+    cy.dataCy("next-page-button").should("have.attr", "aria-disabled", "false");
+    cy.dataCy("prev-page-button").click();
+    cy.dataCy("version-labels").children().should("have.length", 6);
+    cy.location("search").should("not.contain", "maxOrder");
+    cy.location("search").should("not.contain", "minOrder");
   });
 });

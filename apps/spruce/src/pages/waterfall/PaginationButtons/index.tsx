@@ -3,12 +3,11 @@ import Button from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import Icon from "components/Icon";
-import { WaterfallPagination } from "gql/generated/types";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
-import { WaterfallFilterOptions } from "../types";
+import { Pagination, WaterfallFilterOptions } from "../types";
 
 interface PaginationButtonsProps {
-  pagination: WaterfallPagination | undefined;
+  pagination: Pagination | undefined;
 }
 
 export const PaginationButtons: React.FC<PaginationButtonsProps> = ({

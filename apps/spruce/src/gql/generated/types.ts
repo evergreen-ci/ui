@@ -3192,6 +3192,7 @@ export type UpdateVolumeInput = {
   expiration?: InputMaybe<Scalars["Time"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
   noExpiration?: InputMaybe<Scalars["Boolean"]["input"]>;
+  size?: InputMaybe<Scalars["Int"]["input"]>;
   volumeId: Scalars["String"]["input"];
 };
 
@@ -3428,6 +3429,7 @@ export type Waterfall = {
 
 export type WaterfallBuild = {
   __typename?: "WaterfallBuild";
+  activated: Scalars["Boolean"]["output"];
   buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
@@ -3453,10 +3455,12 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+  variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
 export type WaterfallPagination = {
   __typename?: "WaterfallPagination";
+  activeVersionIds: Array<Scalars["String"]["output"]>;
   hasNextPage: Scalars["Boolean"]["output"];
   hasPrevPage: Scalars["Boolean"]["output"];
   mostRecentVersionOrder: Scalars["Int"]["output"];

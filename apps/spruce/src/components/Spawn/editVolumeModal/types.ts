@@ -4,4 +4,5 @@ export type FormState = {
     expiration?: string;
     noExpiration: boolean;
   };
+  size?: number;
 };

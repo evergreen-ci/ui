@@ -7,17 +7,18 @@ export const formToGql = (
   volumeId: string,
 ) => {
   const updatedFields: Partial<FormState> = diff(initialState, formData);
+  const { expirationDetails, name = "", size } = updatedFields;
+
   const {
-    expirationDetails = {} as FormState["expirationDetails"],
-    name = "",
-  } = updatedFields;
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const { expiration, noExpiration } = expirationDetails;
+    expiration = formData.expirationDetails?.expiration,
+    noExpiration = formData.expirationDetails?.noExpiration,
+  } = expirationDetails ?? {};
 
   return {
     ...(noExpiration && { noExpiration }),
     ...(expiration && !noExpiration && { expiration: new Date(expiration) }),
     ...(name && { name }),
+    ...(size && { size }),
     volumeId,
   };
 };

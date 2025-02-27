@@ -4,10 +4,11 @@ import { TableVolume } from "types/spawn";
 import { EditVolumeModal } from "./EditVolumeModal";
 
 interface Props {
+  maxSpawnableLimit: number;
   volume: TableVolume;
 }
 
-export const EditButton: React.FC<Props> = ({ volume }) => {
+export const EditButton: React.FC<Props> = ({ maxSpawnableLimit, volume }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -25,6 +26,7 @@ export const EditButton: React.FC<Props> = ({ volume }) => {
       </Button>
       {openModal && (
         <EditVolumeModal
+          maxSpawnableLimit={maxSpawnableLimit}
           onCancel={() => setOpenModal(false)}
           visible={openModal}
           volume={volume}

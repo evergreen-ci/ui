@@ -6,12 +6,16 @@ import { ExpirationRow } from "../ExpirationRow";
 interface Props {
   disableExpirationCheckbox: boolean;
   hasName: boolean;
+  maxSpawnableLimit: number;
+  minVolumeSize: number;
   noExpirationCheckboxTooltip: string;
 }
 
 export const getFormSchema = ({
   disableExpirationCheckbox,
   hasName,
+  maxSpawnableLimit,
+  minVolumeSize,
   noExpirationCheckboxTooltip,
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
@@ -23,6 +27,12 @@ export const getFormSchema = ({
         title: "Volume Name",
         // The back end requires a name if one has previously been set, so prevent users from unsetting a name.
         ...(hasName && { minLength: 1 }),
+      },
+      size: {
+        type: "number",
+        title: "Volume Size (GiB)",
+        minimum: minVolumeSize,
+        maximum: maxSpawnableLimit,
       },
       expirationDetails: {
         type: "object",
@@ -69,6 +79,10 @@ export const getFormSchema = ({
     name: {
       "ui:data-cy": "volume-name-input",
     },
+    size: {
+      "ui:data-cy": "volume-size-input",
+      "ui:description": `The max volume size is ${maxSpawnableLimit} GiB. Volume size can only be updated once every 6 hours, and cannot be decreased.`,
+    },
     expirationDetails: {
       "ui:ObjectFieldTemplate": ExpirationRow,
       expiration: {
@@ -79,7 +93,7 @@ export const getFormSchema = ({
       },
       noExpiration: {
         "ui:disabled": disableExpirationCheckbox,
-        "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
+        "ui:tooltipDescription": noExpirationCheckboxTooltip,
         "ui:elementWrapperCSS": checkboxCSS,
       },
     },
