@@ -13,9 +13,8 @@ export const formToGql = (
     size,
   } = updatedFields;
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { expiration = formData.expirationDetails?.expiration, noExpiration } =
-    expirationDetails;
+    expirationDetails ?? {};
 
   return {
     ...(noExpiration && { noExpiration }),
