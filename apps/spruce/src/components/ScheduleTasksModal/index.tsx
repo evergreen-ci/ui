@@ -107,6 +107,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
       open={open}
       title="Schedule Tasks"
     >
+      <TaskSchedulingWarningBanner totalTasks={estimatedActivatedTasksCount} />
       <ContentWrapper>
         {loadingTaskData ? (
           <Skeleton data-cy="loading-skeleton" />
@@ -180,9 +181,6 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                 );
               },
             )}
-            <TaskSchedulingWarningBanner
-              totalTasks={estimatedActivatedTasksCount}
-            />
           </>
         )}
         {!loadingTaskData && !sortedBuildVariantGroups.length && (
