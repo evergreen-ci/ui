@@ -41,7 +41,7 @@ export const DateFilter = () => {
       label="Go to Date"
       max={new Date()}
       // Testing environments should not have a minimum date restriction due to static test data.
-      min={isProduction() ? sub(today, { years: 1 }) : undefined}
+      min={isProduction() ? subDays(subYears(today, 1), 1) : undefined}
       onDateChange={handleChange}
       popoverZIndex={zIndex.popover}
       value={date.length ? new Date(date) : undefined}
@@ -49,3 +49,5 @@ export const DateFilter = () => {
     />
   );
 };
+
+const today = new Date();
