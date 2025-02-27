@@ -23,5 +23,6 @@ query UserSettings {
         spruceV1
       }
     }
+    userId
   }
 }

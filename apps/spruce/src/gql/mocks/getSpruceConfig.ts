@@ -73,9 +73,16 @@ export const getUserSettingsMock: ApolloMock<
   result: {
     data: {
       user: {
+        __typename: "User",
+        userId: "user.id",
         settings: {
           __typename: "UserSettings",
           dateFormat: "MM/dd/yyyy",
+          region: "us-east-1",
+          slackMemberId: "1234",
+          slackUsername: "user",
+          timeFormat: "H:mm:ss",
+          timezone: "America/New_York",
           githubUser: {
             lastKnownAs: "user",
             __typename: "GithubUser",
@@ -88,11 +95,6 @@ export const getUserSettingsMock: ApolloMock<
             spawnHostExpiration: "",
             spawnHostOutcome: "",
           },
-          region: "us-east-1",
-          slackMemberId: "1234",
-          slackUsername: "user",
-          timeFormat: "H:mm:ss",
-          timezone: "America/New_York",
           useSpruceOptions: {
             __typename: "UseSpruceOptions",
             hasUsedMainlineCommitsBefore: true,
