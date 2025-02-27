@@ -13,9 +13,14 @@ import {
 } from "components/styles";
 import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
-import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
-import { VERSION } from "gql/queries";
-import { useSpruceConfig } from "hooks";
+import {
+  VersionQuery,
+  VersionQueryVariables,
+  VersionStatusQuery,
+  VersionStatusQueryVariables,
+} from "gql/generated/types";
+import { VERSION, VERSION_STATUS } from "gql/queries";
+import { usePolling, useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
 import { shortenGithash, githubPRLinkify, jiraLinkify } from "utils/string";
 import { ActionButtons } from "./version/ActionButtons";
@@ -32,11 +37,10 @@ export const VersionPage: React.FC = () => {
   const dispatchToast = useToastContext();
 
   // This query is used to fetch the version data.
-  const {
-    data: versionData,
-    error: versionError,
-    loading: versionLoading,
-  } = useQuery<VersionQuery, VersionQueryVariables>(VERSION, {
+  const { data: versionData, error: versionError } = useQuery<
+    VersionQuery,
+    VersionQueryVariables
+  >(VERSION, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: versionId },
     fetchPolicy: "cache-and-network",
@@ -47,16 +51,33 @@ export const VersionPage: React.FC = () => {
     },
   });
 
-  if (versionLoading) {
-    return <PatchAndTaskFullPageLoad />;
-  }
+  const {
+    data: versionStatusData,
+    error: versionStatusError,
+    refetch,
+    startPolling,
+    stopPolling,
+  } = useQuery<VersionStatusQuery, VersionStatusQueryVariables>(
+    VERSION_STATUS,
+    {
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      variables: { id: versionId },
+      fetchPolicy: "cache-and-network",
+    },
+  );
 
-  if (versionError) {
+  usePolling({ startPolling, stopPolling, refetch });
+
+  if (versionError || versionStatusError) {
     return (
       <PageWrapper data-cy="version-page">
         <PageDoesNotExist />
       </PageWrapper>
     );
+  }
+
+  if (!versionData || !versionStatusData) {
+    return <PatchAndTaskFullPageLoad />;
   }
 
   const { version } = versionData || {};
@@ -70,10 +91,10 @@ export const VersionPage: React.FC = () => {
     projectIdentifier,
     requester,
     revision,
-    status,
     warnings,
   } = version || {};
   const { patchNumber } = patch || {};
+  const { status } = versionStatusData.version || {};
 
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const versionText = shortenGithash(revision || versionId);
@@ -82,7 +103,6 @@ export const VersionPage: React.FC = () => {
     : `Version - ${versionText}`;
 
   const linkifiedMessage = jiraLinkify(
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     githubPRLinkify(message),
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     spruceConfig?.jira?.host,
@@ -90,7 +110,6 @@ export const VersionPage: React.FC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
-      {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <ProjectBanner projectIdentifier={projectIdentifier} />
       {errors && errors.length > 0 && <ErrorBanner errors={errors} />}
       {warnings && warnings.length > 0 && <WarningBanner warnings={warnings} />}
@@ -102,7 +121,6 @@ export const VersionPage: React.FC = () => {
         />
       )}
       <PageTitle
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
@@ -125,16 +143,12 @@ export const VersionPage: React.FC = () => {
       </PageTitle>
       <PageLayout hasSider>
         <PageSider>
-          {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <Metadata loading={false} version={version} />
           {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
           <BuildVariantCard versionId={versionId} />
         </PageSider>
         <PageContent>
-          <VersionTabs
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            version={version}
-          />
+          <VersionTabs version={version} />
         </PageContent>
       </PageLayout>
     </PageWrapper>
