@@ -86,7 +86,6 @@ import USER_REPO_SETTINGS_PERMISSIONS from "./user-repo-settings-permissions.gra
 import USER_SETTINGS from "./user-settings.graphql";
 import USER_SUBSCRIPTIONS from "./user-subscriptions.graphql";
 import USER from "./user.graphql";
-import VERSION_STATUS from "./version-status.graphql";
 import VERSION_TASK_DURATIONS from "./version-task-durations.graphql";
 import VERSION_TASKS from "./version-tasks.graphql";
 import VERSION_UPSTREAM_PROJECT from "./version-upstream-project.graphql";
@@ -185,7 +184,6 @@ export {
   USER_SETTINGS,
   USER_SUBSCRIPTIONS,
   USER,
-  VERSION_STATUS,
   VERSION_TASK_DURATIONS,
   VERSION_TASKS,
   VERSION,

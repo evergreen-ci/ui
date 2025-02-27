@@ -3429,7 +3429,6 @@ export type Waterfall = {
 
 export type WaterfallBuild = {
   __typename?: "WaterfallBuild";
-  activated: Scalars["Boolean"]["output"];
   buildVariant: Scalars["String"]["output"];
   displayName: Scalars["String"]["output"];
   id: Scalars["String"]["output"];
@@ -9460,15 +9459,6 @@ export type UserQuery = {
   };
 };
 
-export type VersionStatusQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
-}>;
-
-export type VersionStatusQuery = {
-  __typename?: "Query";
-  version: { __typename?: "Version"; id: string; status: string };
-};
-
 export type VersionTaskDurationsQueryVariables = Exact<{
   versionId: Scalars["String"]["input"];
   taskFilterOptions: TaskFilterOptions;
@@ -9607,6 +9597,7 @@ export type VersionQuery = {
     requester: string;
     revision: string;
     startTime?: Date | null;
+    status: string;
     taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;

@@ -1,6 +1,0 @@
-query VersionStatus($id: String!) {
-  version(versionId: $id) {
-    id
-    status
-  }
-}
