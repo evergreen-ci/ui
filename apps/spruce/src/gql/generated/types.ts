@@ -9607,6 +9607,7 @@ export type VersionQuery = {
     requester: string;
     revision: string;
     startTime?: Date | null;
+    status: string;
     taskCount?: number | null;
     warnings: Array<string>;
     baseVersion?: { __typename?: "Version"; id: string } | null;
