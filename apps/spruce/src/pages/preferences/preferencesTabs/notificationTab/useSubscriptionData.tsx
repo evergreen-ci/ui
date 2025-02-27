@@ -25,7 +25,7 @@ export const useSubscriptionData = () => {
       patchFirstFailureId,
       spawnHostExpirationId,
       spawnHostOutcomeId,
-    } = data?.userSettings?.notifications ?? {};
+    } = data?.user?.settings?.notifications ?? {};
     return new Set([
       buildBreakId,
       patchFinishId,

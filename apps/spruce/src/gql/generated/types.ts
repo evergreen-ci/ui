@@ -9448,18 +9448,18 @@ export type UserSubscriptionsQuery = {
         };
       } | null;
     }> | null;
+    settings: {
+      __typename?: "UserSettings";
+      notifications?: {
+        __typename?: "Notifications";
+        buildBreakId?: string | null;
+        patchFinishId?: string | null;
+        patchFirstFailureId?: string | null;
+        spawnHostExpirationId?: string | null;
+        spawnHostOutcomeId?: string | null;
+      } | null;
+    };
   };
-  userSettings?: {
-    __typename?: "UserSettings";
-    notifications?: {
-      __typename?: "Notifications";
-      buildBreakId?: string | null;
-      patchFinishId?: string | null;
-      patchFirstFailureId?: string | null;
-      spawnHostExpirationId?: string | null;
-      spawnHostOutcomeId?: string | null;
-    } | null;
-  } | null;
 };
 
 export type UserQueryVariables = Exact<{ [key: string]: never }>;
