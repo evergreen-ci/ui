@@ -5543,6 +5543,9 @@ export type ScheduleTasksMutation = {
   __typename?: "Mutation";
   scheduleTasks: Array<{
     __typename?: "Task";
+    status: string;
+    canSchedule: boolean;
+    canUnschedule: boolean;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
@@ -5643,7 +5646,15 @@ export type UnscheduleTaskMutationVariables = Exact<{
 
 export type UnscheduleTaskMutation = {
   __typename?: "Mutation";
-  unscheduleTask: { __typename?: "Task"; execution: number; id: string };
+  unscheduleTask: {
+    __typename?: "Task";
+    execution: number;
+    id: string;
+    status: string;
+    displayStatus: string;
+    canSchedule: boolean;
+    canUnschedule: boolean;
+  };
 };
 
 export type UnscheduleVersionTasksMutationVariables = Exact<{
