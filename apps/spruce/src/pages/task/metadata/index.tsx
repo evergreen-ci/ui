@@ -16,7 +16,6 @@ import ExpandedText from "components/ExpandedText";
 import {
   MetadataCard,
   MetadataItem,
-  MetadataTitle,
   MetadataLabel,
 } from "components/MetadataCard";
 import {
@@ -116,8 +115,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       <MetadataCard
         error={!task && error ? error : undefined}
         loading={loading}
+        title="Task Metadata"
       >
-        <MetadataTitle>Task Metadata</MetadataTitle>
         {versionID && buildVariant && (
           <MetadataItem data-cy="task-metadata-build-variant">
             <MetadataLabel>Build Variant:</MetadataLabel>{" "}
@@ -362,8 +361,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       </MetadataCard>
 
       {!isDisplayTask && (
-        <MetadataCard>
-          <MetadataTitle>Host Information</MetadataTitle>{" "}
+        <MetadataCard loading={loading} title="Host Information">
           {!isContainerTask && hostId && (
             <MetadataItem>
               <MetadataLabel>ID:</MetadataLabel>{" "}
@@ -461,8 +459,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       )}
 
       {dependsOn && dependsOn.length > 0 ? (
-        <MetadataCard>
-          <MetadataTitle>Depends On</MetadataTitle>
+        <MetadataCard title="Depends On">
           {dependsOn.map((dep) => (
             <DependsOn
               key={`dependOnPill_${dep.taskId}`}
@@ -477,8 +474,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       ) : null}
 
       {tags && tags.length > 0 ? (
-        <MetadataCard>
-          <MetadataTitle>Tags</MetadataTitle>
+        <MetadataCard title="Tags">
           <TagsContainer>
             {tags.map((t) => (
               <Chip
