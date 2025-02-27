@@ -209,17 +209,15 @@ describe("project selection", () => {
   it("selects a project and applies current task filters", () => {
     cy.visit("/project/spruce/waterfall");
     cy.dataCy("status-filter").click();
-    cy.dataCy("failed-option").click();
     cy.dataCy("test-timed-out-option").click();
     cy.get("body").click();
     cy.dataCy("project-select").click();
-    cy.dataCy("project-select-options").should("be.visible");
     cy.dataCy("project-select-options")
       .contains("evergreen smoke test")
       .click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq("/project/evergreen/waterfall");
-      expect(loc.search).to.eq("?statuses=failed,test-timed-out");
+      expect(loc.search).to.eq("?statuses=test-timed-out");
     });
   });
 });

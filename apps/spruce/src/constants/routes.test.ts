@@ -124,22 +124,22 @@ describe("getPatchRoute", () => {
 });
 
 describe("getWaterfallRoute", () => {
-  it("generates a link to the waterfall page", () => {
-    expect(getWaterfallRoute("someProject")).toBe("/waterfall/someProject");
+  it("generates a waterfall page link", () => {
+    expect(getWaterfallRoute("someProject")).toBe(
+      "/project/someProject/waterfall",
+    );
   });
   it("generates a waterfall page link with task filters", () => {
     expect(
       getWaterfallRoute("someProject", {
-        taskFilters: ["someTaskFilter"],
+        taskFilters: ["failed"],
       }),
-    ).toBe("/waterfall/someProject?statuses=someTaskFilter");
+    ).toBe("/project/someProject/waterfall?statuses=failed");
     expect(
       getWaterfallRoute("someProject", {
-        taskFilters: ["someTaskFilter", "someOtherTaskFilter"],
+        taskFilters: ["failed", "test-timed-out"],
       }),
-    ).toBe(
-      "/waterfall/someProject?statuses=someTaskFilter,someOtherTaskFilter",
-    );
+    ).toBe("/project/someProject/waterfall?statuses=failed,test-timed-out");
   });
 });
 describe("getTaskHistoryRoute", () => {
