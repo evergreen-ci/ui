@@ -41,7 +41,11 @@ export default defineConfig({
             test.attempts.some((attempt) => attempt.state === "failed"),
           );
           if (!failures) {
-            unlinkSync(results.video);
+            try {
+              unlinkSync(results.video);
+            } catch {
+              console.log("unlinkSync failed. Continuing...");
+            }
           }
         }
       });
