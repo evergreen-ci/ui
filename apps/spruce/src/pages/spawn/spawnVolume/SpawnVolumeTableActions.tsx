@@ -8,10 +8,14 @@ import { MountButton } from "./spawnVolumeTableActions/MountButton";
 import { UnmountButton } from "./spawnVolumeTableActions/UnmountButton";
 
 interface Props {
+  maxSpawnableLimit: number;
   volume: TableVolume;
 }
 
-export const SpawnVolumeTableActions: React.FC<Props> = ({ volume }) => {
+export const SpawnVolumeTableActions: React.FC<Props> = ({
+  maxSpawnableLimit,
+  volume,
+}) => {
   const { displayName, homeVolume, host, id } = volume;
   return (
     <FlexRow
@@ -33,7 +37,11 @@ export const SpawnVolumeTableActions: React.FC<Props> = ({ volume }) => {
       {!host && !homeVolume && (
         <MountButton data-cy={`mount-${displayName || id}`} volume={volume} />
       )}
-      <EditButton data-cy={`edit-${displayName || id}`} volume={volume} />
+      <EditButton
+        data-cy={`edit-${displayName || id}`}
+        maxSpawnableLimit={maxSpawnableLimit}
+        volume={volume}
+      />
     </FlexRow>
   );
 };

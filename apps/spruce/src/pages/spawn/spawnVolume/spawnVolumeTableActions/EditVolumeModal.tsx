@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
+import { AjvError } from "@rjsf/core";
 import { diff } from "deep-object-diff";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
@@ -19,12 +20,14 @@ import { UPDATE_SPAWN_VOLUME } from "gql/mutations";
 import { TableVolume } from "types/spawn";
 
 interface Props {
-  visible: boolean;
+  maxSpawnableLimit: number;
   onCancel: () => void;
+  visible: boolean;
   volume: TableVolume;
 }
 
 export const EditVolumeModal: React.FC<Props> = ({
+  maxSpawnableLimit,
   onCancel,
   visible,
   volume,
@@ -52,36 +55,39 @@ export const EditVolumeModal: React.FC<Props> = ({
   const initialState = useMemo(
     () => ({
       expirationDetails: {
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        expiration: new Date(volume?.expiration).toString(),
+        expiration: volume?.expiration
+          ? new Date(volume?.expiration).toString()
+          : undefined,
         noExpiration: volume.noExpiration,
       },
       name: volume.displayName,
+      size: volume.size,
     }),
     [volume],
   );
   const [formState, setFormState] = useState<FormState>(initialState);
-  const [formErrors, setFormErrors] = useState([]);
+  const [formErrors, setFormErrors] = useState<AjvError[]>([]);
 
   const updateVolume = () => {
     const mutationInput = formToGql(initialState, formState, volume.id);
     spawnAnalytics.sendEvent({
       name: "Changed spawn volume settings",
-      "volume.is_unexpirable": mutationInput.noExpiration,
+      "volume.is_unexpirable": mutationInput.noExpiration ?? false,
     });
     updateVolumeMutation({
       variables: { updateVolumeInput: mutationInput },
     });
   };
 
-  const { disableExpirationCheckbox, noExpirationCheckboxTooltip } =
+  const { disableExpirationCheckbox, noExpirationCheckboxTooltip = "" } =
     useLoadFormData(volume);
 
   const { schema, uiSchema } = getFormSchema({
+    maxSpawnableLimit,
+    minVolumeSize: volume.size,
     disableExpirationCheckbox,
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     noExpirationCheckboxTooltip,
-    hasName: !!initialState?.name?.length,
+    hasName: initialState?.name?.length > 0,
   });
 
   const hasChanges = useMemo(() => {
@@ -91,19 +97,22 @@ export const EditVolumeModal: React.FC<Props> = ({
 
   return (
     <ConfirmationModal
-      buttonText={loading ? "Saving" : "Save"}
+      cancelButtonProps={{
+        onClick: onCancel,
+      }}
+      confirmButtonProps={{
+        children: loading ? "Saving" : "Save",
+        disabled: loading || !hasChanges || !!formErrors.length,
+        onClick: updateVolume,
+      }}
       data-cy="update-volume-modal"
-      onCancel={onCancel}
-      onConfirm={updateVolume}
       open={visible}
-      submitDisabled={loading || !hasChanges || !!formErrors.length}
       title="Edit Volume"
     >
       <SpruceForm
         formData={formState}
         onChange={({ errors, formData }) => {
           setFormState(formData);
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           setFormErrors(errors);
         }}
         schema={schema}
