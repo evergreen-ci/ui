@@ -81,7 +81,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           `${owner}/${repo}`
         )}
       </MetadataItem>
-      <MetadataItem description="Makespan represents the wall clock time of this versions execution.">
+      <MetadataItem description="Makespan represents the wall clock time of this version's execution.">
         <MetadataLabel>Makespan:</MetadataLabel>{" "}
         {makespan && msToDuration(makespan)}{" "}
       </MetadataItem>
