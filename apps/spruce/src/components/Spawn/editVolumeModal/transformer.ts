@@ -7,14 +7,12 @@ export const formToGql = (
   volumeId: string,
 ) => {
   const updatedFields: Partial<FormState> = diff(initialState, formData);
-  const {
-    expirationDetails = {} as FormState["expirationDetails"],
-    name = "",
-    size,
-  } = updatedFields;
+  const { expirationDetails, name = "", size } = updatedFields;
 
-  const { expiration = formData.expirationDetails?.expiration, noExpiration } =
-    expirationDetails ?? {};
+  const {
+    expiration = formData.expirationDetails?.expiration,
+    noExpiration = formData.expirationDetails?.noExpiration,
+  } = expirationDetails ?? {};
 
   return {
     ...(noExpiration && { noExpiration }),
