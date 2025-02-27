@@ -9384,33 +9384,37 @@ export type UserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserSettingsQuery = {
   __typename?: "Query";
-  userSettings?: {
-    __typename?: "UserSettings";
-    dateFormat?: string | null;
-    region?: string | null;
-    slackMemberId?: string | null;
-    slackUsername?: string | null;
-    timeFormat?: string | null;
-    timezone?: string | null;
-    githubUser?: {
-      __typename?: "GithubUser";
-      lastKnownAs?: string | null;
-    } | null;
-    notifications?: {
-      __typename?: "Notifications";
-      buildBreak?: string | null;
-      patchFinish?: string | null;
-      patchFirstFailure?: string | null;
-      spawnHostExpiration?: string | null;
-      spawnHostOutcome?: string | null;
-    } | null;
-    useSpruceOptions?: {
-      __typename?: "UseSpruceOptions";
-      hasUsedMainlineCommitsBefore?: boolean | null;
-      hasUsedSpruceBefore?: boolean | null;
-      spruceV1?: boolean | null;
-    } | null;
-  } | null;
+  user: {
+    __typename?: "User";
+    userId: string;
+    settings: {
+      __typename?: "UserSettings";
+      dateFormat?: string | null;
+      region?: string | null;
+      slackMemberId?: string | null;
+      slackUsername?: string | null;
+      timeFormat?: string | null;
+      timezone?: string | null;
+      githubUser?: {
+        __typename?: "GithubUser";
+        lastKnownAs?: string | null;
+      } | null;
+      notifications?: {
+        __typename?: "Notifications";
+        buildBreak?: string | null;
+        patchFinish?: string | null;
+        patchFirstFailure?: string | null;
+        spawnHostExpiration?: string | null;
+        spawnHostOutcome?: string | null;
+      } | null;
+      useSpruceOptions?: {
+        __typename?: "UseSpruceOptions";
+        hasUsedMainlineCommitsBefore?: boolean | null;
+        hasUsedSpruceBefore?: boolean | null;
+        spruceV1?: boolean | null;
+      } | null;
+    };
+  };
 };
 
 export type UserSubscriptionsQueryVariables = Exact<{ [key: string]: never }>;
