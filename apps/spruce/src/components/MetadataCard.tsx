@@ -44,22 +44,24 @@ interface ItemProps {
   as?: PolymorphicAs;
   children: React.ReactNode;
   "data-cy"?: string;
-  description?: string;
+  tooltipDescription?: string;
 }
 
 export const MetadataItem: React.FC<ItemProps> = ({
   as = "p",
   children,
   "data-cy": dataCy,
-  description,
+  tooltipDescription,
 }) => (
   <MetadataItemWrapper>
     <Item as={as} data-cy={dataCy}>
       {children}
     </Item>
-    <span>
-      {description && <InfoSprinkle align="right">{description}</InfoSprinkle>}
-    </span>
+    {tooltipDescription && (
+      <span>
+        <InfoSprinkle align="right">{tooltipDescription}</InfoSprinkle>
+      </span>
+    )}
   </MetadataItemWrapper>
 );
 
