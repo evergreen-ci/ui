@@ -4,7 +4,6 @@ import {
   MetadataCard,
   MetadataItem,
   MetadataLabel,
-  MetadataTitle,
 } from "components/MetadataCard";
 import { JobLogsMetadata } from "./types";
 
@@ -15,8 +14,7 @@ export const Metadata: React.FC<{
   const { sendEvent } = useJobLogsAnalytics(metadata.isLogkeeper);
 
   return (
-    <MetadataCard loading={loading}>
-      <MetadataTitle>Job log details</MetadataTitle>
+    <MetadataCard loading={loading} title="Job log details">
       {metadata.groupID && (
         <MetadataItem>
           <MetadataLabel>Group:</MetadataLabel> {metadata.groupID}

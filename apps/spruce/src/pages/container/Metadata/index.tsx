@@ -5,7 +5,6 @@ import {
   MetadataCard,
   MetadataItem,
   MetadataLabel,
-  MetadataTitle,
 } from "components/MetadataCard";
 import { getTaskRoute } from "constants/routes";
 import { PodQuery } from "gql/generated/types";
@@ -30,8 +29,7 @@ const Metadata: React.FC<{
   });
 
   return (
-    <MetadataCard error={error} loading={loading}>
-      <MetadataTitle>Container Details</MetadataTitle>
+    <MetadataCard error={error} loading={loading} title="Container Details">
       {runningTaskId !== "" && (
         <MetadataItem>
           <MetadataLabel>Running Task:</MetadataLabel>{" "}

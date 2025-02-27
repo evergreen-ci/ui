@@ -12,6 +12,7 @@ import { Divider } from "components/styles/divider";
 interface Props {
   error?: ApolloError;
   loading?: boolean;
+  title?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -19,9 +20,16 @@ export const MetadataCard: React.FC<Props> = ({
   children,
   error,
   loading,
+  title,
   ...rest
 }) => (
   <SiderCard {...rest}>
+    {title && (
+      <div>
+        <Title weight="medium">{title}</Title>
+        <Divider />
+      </div>
+    )}
     {loading && !error && (
       <Skeleton active paragraph={{ rows: 4 }} title={false} />
     )}
@@ -30,15 +38,6 @@ export const MetadataCard: React.FC<Props> = ({
     )}
     {!loading && !error && children}
   </SiderCard>
-);
-
-export const MetadataTitle: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => (
-  <div>
-    <Title weight="medium">{children}</Title>
-    <Divider />
-  </div>
 );
 
 interface ItemProps {
