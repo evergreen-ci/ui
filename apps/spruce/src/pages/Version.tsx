@@ -15,7 +15,7 @@ import { Requester } from "constants/requesters";
 import { slugs } from "constants/routes";
 import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
 import { VERSION } from "gql/queries";
-import { useSpruceConfig } from "hooks";
+import { usePolling, useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/NotFound";
 import { shortenGithash, githubPRLinkify, jiraLinkify } from "utils/string";
 import { ActionButtons } from "./version/ActionButtons";
@@ -36,6 +36,9 @@ export const VersionPage: React.FC = () => {
     data: versionData,
     error: versionError,
     loading: versionLoading,
+    refetch,
+    startPolling,
+    stopPolling,
   } = useQuery<VersionQuery, VersionQueryVariables>(VERSION, {
     // @ts-expect-error: FIXME. This comment was added by an automated script.
     variables: { id: versionId },
@@ -46,6 +49,8 @@ export const VersionPage: React.FC = () => {
       );
     },
   });
+
+  usePolling({ startPolling, stopPolling, refetch });
 
   if (versionLoading) {
     return <PatchAndTaskFullPageLoad />;
