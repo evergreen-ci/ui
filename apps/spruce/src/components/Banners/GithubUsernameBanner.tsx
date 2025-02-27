@@ -1,14 +1,10 @@
-import { useQuery } from "@apollo/client";
 import Banner from "@leafygreen-ui/banner";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { getPreferencesRoute, PreferencesTabRoutes } from "constants/routes";
-import { UserSettingsQuery } from "gql/generated/types";
-import { USER_SETTINGS } from "gql/queries";
+import { useUserSettings } from "hooks";
 
 export const GithubUsernameBanner = () => {
-  // USER SETTINGS QUERY
-  const { data: userSettingsData } = useQuery<UserSettingsQuery>(USER_SETTINGS);
-  const { userSettings } = userSettingsData || {};
+  const { userSettings } = useUserSettings();
   const { githubUser } = userSettings || {};
   const { lastKnownAs } = githubUser || {};
   const hasNoGithubUser = lastKnownAs === "";

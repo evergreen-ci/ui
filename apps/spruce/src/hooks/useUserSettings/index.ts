@@ -18,6 +18,6 @@ export const useUserSettings = (options?: UseUserSettingsOptions) => {
       options?.onError?.(err);
     },
   });
-  const { userSettings } = data || {};
-  return { userSettings, loading };
+  const { user } = data || {};
+  return { userSettings: user?.settings ?? {}, loading };
 };
