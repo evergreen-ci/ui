@@ -1,5 +1,6 @@
 import { defineConfig } from "cypress";
 import { execSync } from "child_process";
+import { unlinkSync } from "fs";
 
 export default defineConfig({
   e2e: {
@@ -30,6 +31,18 @@ export default defineConfig({
           execSync("yarn evg-db-ops --clean-up");
         } catch (e) {
           console.error(e);
+        }
+      });
+      on("after:spec", (_, results) => {
+        // Delete videos for passing runs. From Cypress docs:
+        // https://docs.cypress.io/app/guides/screenshots-and-videos#Delete-videos-for-specs-without-failing-or-retried-tests
+        if (results && results.video) {
+          const failures = results.tests.some((test) =>
+            test.attempts.some((attempt) => attempt.state === "failed"),
+          );
+          if (!failures) {
+            unlinkSync(results.video);
+          }
         }
       });
     },
