@@ -33,7 +33,7 @@ export const useSubscriptionData = () => {
       spawnHostExpirationId,
       spawnHostOutcomeId,
     ]);
-  }, [data?.userSettings?.notifications]);
+  }, [data?.user?.settings?.notifications]);
 
   const subscriptions = useMemo(
     () =>
