@@ -128,7 +128,7 @@ declare global {
   let mutationDispatched: boolean;
   beforeEach(() => {
     cy.login();
-    cy.setCookie("has-opened-drawer", "true");
+    cy.setCookie("drawer-opened", "true");
     cy.setCookie("has-seen-searchbar-guide-cue", "true");
     cy.setCookie("has-seen-sections-prod-feature-modal", "true");
     mutationDispatched = false;
