@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { MetadataCard, MetadataTitle } from "components/MetadataCard";
+import { MetadataCard } from "components/MetadataCard";
 import { navBarHeight } from "components/styles/Layout";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
@@ -28,8 +28,7 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
   const { version } = data || {};
 
   return (
-    <StickyMetadataCard error={error} loading={loading}>
-      <MetadataTitle>Build Variants</MetadataTitle>
+    <StickyMetadataCard error={error} loading={loading} title="Build Variants">
       <ScrollableBuildVariantStatsContainer data-cy="build-variants">
         {version?.buildVariantStats?.map(
           ({ displayName, statusCounts, variant }) => (

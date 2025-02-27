@@ -16,7 +16,6 @@ import {
   MetadataCard,
   MetadataItem,
   MetadataLabel,
-  MetadataTitle,
 } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -210,8 +209,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
       </BannerContainer>
       <PageLayout hasSider>
         <PageSider>
-          <MetadataCard>
-            <MetadataTitle>Patch Metadata</MetadataTitle>
+          <MetadataCard title="Patch Metadata">
             <MetadataItem>
               <MetadataLabel>Submitted by:</MetadataLabel> {author}
             </MetadataItem>
