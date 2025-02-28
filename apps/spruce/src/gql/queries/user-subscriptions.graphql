@@ -24,14 +24,14 @@ query UserSubscriptions {
       triggerData
     }
     userId
-  }
-  userSettings {
-    notifications {
-      buildBreakId
-      patchFinishId
-      patchFirstFailureId
-      spawnHostExpirationId
-      spawnHostOutcomeId
+    settings {
+      notifications {
+        buildBreakId
+        patchFinishId
+        patchFirstFailureId
+        spawnHostExpirationId
+        spawnHostOutcomeId
+      }
     }
   }
 }
