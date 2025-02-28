@@ -41,7 +41,7 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
     refetchQueries: ["Version"],
   });
 
-  const { newPatchName } = formState;
+  const { newPatchName = "" } = formState;
 
   return (
     <>
@@ -62,7 +62,6 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
             newPatchName === originalPatchName || hasFormError || loading,
           onClick: () => {
             updateDescription({
-              // @ts-expect-error: FIXME. This comment was added by an automated script.
               variables: { patchId, description: newPatchName },
             });
           },
