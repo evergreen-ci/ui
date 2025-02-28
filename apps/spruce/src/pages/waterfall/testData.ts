@@ -5,7 +5,7 @@ import {
   WaterfallTaskStatsQueryVariables,
 } from "gql/generated/types";
 import { WATERFALL_TASK_STATS } from "gql/queries";
-import { Version } from "./types";
+import { BuildVariant, Version } from "./types";
 
 export const version: Version = {
   activated: true,
@@ -95,12 +95,13 @@ export const inactiveBrokenVersion: Version = {
   order: 5,
 };
 
-export const buildVariants = [
+export const buildVariants: BuildVariant[] = [
   {
     id: "1",
     displayName: "BV 1",
     builds: [
       {
+        activated: true,
         id: "ii",
         tasks: [
           {
@@ -121,6 +122,7 @@ export const buildVariants = [
         version: "b",
       },
       {
+        activated: true,
         id: "i",
         tasks: [],
         version: "f",
@@ -132,6 +134,7 @@ export const buildVariants = [
     displayName: "BV 2",
     builds: [
       {
+        activated: true,
         id: "ii2",
         tasks: [
           {
@@ -151,6 +154,7 @@ export const buildVariants = [
     displayName: "BV 3",
     builds: [
       {
+        activated: true,
         id: "iii",
         tasks: [
           {
@@ -257,6 +261,7 @@ export const versions: Version[] = [
     order: 4,
     waterfallBuilds: [
       {
+        activated: true,
         id: "ii",
         buildVariant: "1",
         displayName: "BV 1",
@@ -278,6 +283,7 @@ export const versions: Version[] = [
         ],
       },
       {
+        activated: true,
         id: "ii2",
         buildVariant: "2",
         displayName: "BV 2",
@@ -305,6 +311,7 @@ export const versions: Version[] = [
     order: 3,
     waterfallBuilds: [
       {
+        activated: true,
         id: "iii",
         buildVariant: "3",
         displayName: "BV 3",
@@ -361,6 +368,7 @@ export const versions: Version[] = [
     order: 0,
     waterfallBuilds: [
       {
+        activated: true,
         id: "i",
         buildVariant: "1",
         displayName: "BV 1",

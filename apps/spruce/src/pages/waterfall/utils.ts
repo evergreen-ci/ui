@@ -47,7 +47,13 @@ export const groupBuildVariants = (
       return;
     }
     waterfallBuilds?.forEach(
-      ({ buildVariant, displayName, id: buildId, tasks }) => {
+      ({
+        activated: buildActivated,
+        buildVariant,
+        displayName,
+        id: buildId,
+        tasks,
+      }) => {
         if (!bvs.has(buildVariant)) {
           bvs.set(buildVariant, {
             id: buildVariant,
@@ -58,6 +64,7 @@ export const groupBuildVariants = (
 
         const bv = bvs.get(buildVariant);
         bv?.builds?.push({
+          activated: buildActivated,
           id: buildId,
           version: id,
           tasks: tasks ?? [],

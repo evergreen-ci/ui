@@ -93,6 +93,8 @@ export const useFilters = ({
             if (activeTasks.length) {
               activeBuilds.push({ ...b, tasks: activeTasks });
             }
+          } else if (buildVariantFilterRegex.length && !b.activated) {
+            return;
           } else {
             activeBuilds.push(b);
           }
