@@ -9757,6 +9757,7 @@ export type WaterfallQuery = {
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
       waterfallBuilds?: Array<{
         __typename?: "WaterfallBuild";
+        activated: boolean;
         buildVariant: string;
         displayName: string;
         id: string;
@@ -9772,6 +9773,7 @@ export type WaterfallQuery = {
     }>;
     pagination: {
       __typename?: "WaterfallPagination";
+      activeVersionIds: Array<string>;
       hasNextPage: boolean;
       hasPrevPage: boolean;
       mostRecentVersionOrder: number;

@@ -8,6 +8,7 @@ const readField = (field, obj) => obj[field];
 describe("mergeVersions", () => {
   it("merges version arrays", () => {
     const pagination = {
+      activeVersionIds: [],
       nextPageOrder: 0,
       prevPageOrder: 0,
       hasNextPage: true,
@@ -33,6 +34,7 @@ describe("mergeVersions", () => {
 
   it("merges version when incoming is newer than existing", () => {
     const pagination = {
+      activeVersionIds: [],
       nextPageOrder: 3,
       prevPageOrder: 0,
       hasNextPage: true,
@@ -58,6 +60,7 @@ describe("mergeVersions", () => {
 
   it("deduplicates versions when merging", () => {
     const pagination = {
+      activeVersionIds: [],
       nextPageOrder: 0,
       prevPageOrder: 1,
       hasNextPage: false,
@@ -83,6 +86,7 @@ describe("mergeVersions", () => {
 
   it("returns an identical cache when duplicate data is incoming", () => {
     const pagination = {
+      activeVersionIds: [],
       nextPageOrder: 0,
       prevPageOrder: 0,
       hasNextPage: false,
@@ -144,6 +148,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions,
       pagination: {
+        activeVersionIds: [],
         hasPrevPage: false,
         hasNextPage: false,
         mostRecentVersionOrder: 5,
@@ -174,6 +179,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions.slice(1, 3),
       pagination: {
+        activeVersionIds: [],
         hasPrevPage: true,
         hasNextPage: true,
         mostRecentVersionOrder: 5,
@@ -207,6 +213,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions.slice(2),
       pagination: {
+        activeVersionIds: [],
         hasPrevPage: true,
         hasNextPage: false,
         mostRecentVersionOrder: 5,
@@ -240,6 +247,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions.slice(0, 3),
       pagination: {
+        activeVersionIds: [],
         hasPrevPage: false,
         hasNextPage: true,
         mostRecentVersionOrder: 5,
@@ -273,6 +281,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions.slice(2, 3),
       pagination: {
+        activeVersionIds: [],
         hasPrevPage: true,
         hasNextPage: true,
         mostRecentVersionOrder: 5,

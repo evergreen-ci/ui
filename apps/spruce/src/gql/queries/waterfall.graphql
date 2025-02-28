@@ -16,6 +16,7 @@ query Waterfall($options: WaterfallOptions!) {
       requester
       revision
       waterfallBuilds {
+        activated
         buildVariant
         displayName
         id
@@ -29,6 +30,7 @@ query Waterfall($options: WaterfallOptions!) {
       }
     }
     pagination {
+      activeVersionIds
       hasNextPage
       hasPrevPage
       mostRecentVersionOrder

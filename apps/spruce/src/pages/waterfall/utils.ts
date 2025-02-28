@@ -4,8 +4,10 @@ import { BuildVariant, GroupedVersion, Version } from "./types";
 export const groupInactiveVersions = (
   versions: Version[],
   versionHasActiveBuild: (version: Version) => boolean,
+  limit?: number,
 ) => {
   const filteredVersions: GroupedVersion[] = [];
+  let activeVersionsCount = 0;
 
   const pushInactive = (v: Version) => {
     if (!filteredVersions?.[filteredVersions.length - 1]?.inactiveVersions) {
@@ -15,6 +17,7 @@ export const groupInactiveVersions = (
   };
 
   const pushActive = (v: Version) => {
+    activeVersionsCount += 1;
     filteredVersions.push({
       inactiveVersions: null,
       version: v,
@@ -22,6 +25,9 @@ export const groupInactiveVersions = (
   };
 
   versions.forEach((version) => {
+    if (limit && activeVersionsCount >= limit) {
+      return;
+    }
     if (version.activated && versionHasActiveBuild(version)) {
       pushActive(version);
     } else {
@@ -41,7 +47,13 @@ export const groupBuildVariants = (
       return;
     }
     waterfallBuilds?.forEach(
-      ({ buildVariant, displayName, id: buildId, tasks }) => {
+      ({
+        activated: buildActivated,
+        buildVariant,
+        displayName,
+        id: buildId,
+        tasks,
+      }) => {
         if (!bvs.has(buildVariant)) {
           bvs.set(buildVariant, {
             id: buildVariant,
@@ -52,6 +64,7 @@ export const groupBuildVariants = (
 
         const bv = bvs.get(buildVariant);
         bv?.builds?.push({
+          activated: buildActivated,
           id: buildId,
           version: id,
           tasks: tasks ?? [],

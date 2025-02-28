@@ -14,6 +14,7 @@ export type GroupedVersion = {
 };
 
 export type Build = {
+  activated: boolean;
   id: string;
   tasks: Array<{
     displayName: string;
