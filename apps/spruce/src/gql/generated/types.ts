@@ -2207,7 +2207,6 @@ export type Query = {
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
-  userSettings?: Maybe<UserSettings>;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
   waterfall: Waterfall;
