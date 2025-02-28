@@ -16,6 +16,8 @@ export const JumpToMostRecent: React.FC<Props> = ({ setMenuOpen }) => {
     sendEvent({ name: "Clicked jump to most recent commit button" });
     setQueryParams({
       ...queryParams,
+      [WaterfallFilterOptions.Date]: undefined,
+      [WaterfallFilterOptions.Revision]: undefined,
       [WaterfallFilterOptions.MaxOrder]: undefined,
       [WaterfallFilterOptions.MinOrder]: undefined,
     });
