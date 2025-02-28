@@ -60,11 +60,10 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
           children: "Confirm",
           disabled:
             newPatchName === originalPatchName || hasFormError || loading,
-          onClick: () => {
+          onClick: () =>
             updateDescription({
               variables: { patchId, description: newPatchName },
-            });
-          },
+            }),
         }}
         open={isOpen}
         title="Update Patch Name"
