@@ -2207,7 +2207,6 @@ export type Query = {
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   user: User;
   userConfig?: Maybe<UserConfig>;
-  userSettings?: Maybe<UserSettings>;
   version: Version;
   viewableProjectRefs: Array<GroupedProjects>;
   waterfall: Waterfall;
@@ -9448,18 +9447,18 @@ export type UserSubscriptionsQuery = {
         };
       } | null;
     }> | null;
+    settings: {
+      __typename?: "UserSettings";
+      notifications?: {
+        __typename?: "Notifications";
+        buildBreakId?: string | null;
+        patchFinishId?: string | null;
+        patchFirstFailureId?: string | null;
+        spawnHostExpirationId?: string | null;
+        spawnHostOutcomeId?: string | null;
+      } | null;
+    };
   };
-  userSettings?: {
-    __typename?: "UserSettings";
-    notifications?: {
-      __typename?: "Notifications";
-      buildBreakId?: string | null;
-      patchFinishId?: string | null;
-      patchFirstFailureId?: string | null;
-      spawnHostExpirationId?: string | null;
-      spawnHostOutcomeId?: string | null;
-    } | null;
-  } | null;
 };
 
 export type UserQueryVariables = Exact<{ [key: string]: never }>;

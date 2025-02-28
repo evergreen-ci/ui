@@ -1,7 +1,6 @@
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { useJobLogsAnalytics } from "analytics";
-import {
-  MetadataCard,
+import MetadataCard, {
   MetadataItem,
   MetadataLabel,
 } from "components/MetadataCard";
