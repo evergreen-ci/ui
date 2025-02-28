@@ -40,29 +40,36 @@ export const MountVolumeModal: React.FC<Props> = ({
   });
   const targetAvailabilityZone = volume.availabilityZone;
   const [selectedHostId, setSelectedHostId] = useState("");
+
+  const onConfirm = () => {
+    spawnAnalytics.sendEvent({
+      name: "Changed mounted volume on host",
+      "volume.id": volume.id,
+      "host.id": selectedHostId,
+    });
+    attachVolume({
+      variables: {
+        volumeAndHost: {
+          volumeId: volume.id,
+          hostId: selectedHostId,
+        },
+      },
+    });
+    onCancel();
+  };
+
   return (
     <ConfirmationModal
-      buttonText="Mount"
-      data-cy="mount-volume-modal"
-      onCancel={onCancel}
-      onConfirm={() => {
-        spawnAnalytics.sendEvent({
-          name: "Changed mounted volume on host",
-          "volume.id": volume.id,
-          "host.id": selectedHostId,
-        });
-        attachVolume({
-          variables: {
-            volumeAndHost: {
-              volumeId: volume.id,
-              hostId: selectedHostId,
-            },
-          },
-        });
-        onCancel();
+      cancelButtonProps={{
+        onClick: onCancel,
       }}
+      confirmButtonProps={{
+        children: "Mount",
+        disabled: !selectedHostId || loadingAttachVolume,
+        onClick: onConfirm,
+      }}
+      data-cy="mount-volume-modal"
       open={visible}
-      submitDisabled={!selectedHostId || loadingAttachVolume}
       title="Attach Volume to Host"
     >
       <ModalContent>
