@@ -1,14 +1,16 @@
+import { useCallback } from "react";
 import styled from "@emotion/styled";
 import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
+import { useQueryParam } from "hooks/useQueryParam";
 import { BuildVariantFilter } from "./BuildVariantFilter";
 import { DateFilter } from "./DateFilter";
 import { PaginationButtons } from "./PaginationButtons";
 import { RequesterFilter } from "./RequesterFilter";
 import { StatusFilter } from "./StatusFilter";
 import { TaskFilter } from "./TaskFilter";
-import { Pagination } from "./types";
+import { Pagination, WaterfallFilterOptions } from "./types";
 import { WaterfallMenu } from "./WaterfallMenu";
 
 type WaterfallFiltersProps = {
@@ -20,6 +22,16 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
   projectIdentifier,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
+  const [statuses] = useQueryParam<string[]>(
+    WaterfallFilterOptions.Statuses,
+    [],
+  );
+
+  const projectSelectRoute = useCallback(
+    (identifier: string) =>
+      getWaterfallRoute(identifier, { taskFilters: statuses }),
+    [statuses],
+  );
 
   return (
     <Container>
@@ -40,7 +52,7 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
       </DateFilterItem>
       <ProjectFilterItem>
         <ProjectSelect
-          getRoute={getWaterfallRoute}
+          getRoute={projectSelectRoute}
           onSubmit={(project: string) => {
             sendEvent({
               name: "Changed project",
