@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { PolymorphicAs } from "@leafygreen-ui/polymorphic";
+import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
@@ -29,9 +29,7 @@ const MetadataCard: React.FC<Props> = ({
         <Divider />
       </div>
     )}
-    {loading && !error && (
-      <Skeleton active paragraph={{ rows: 4 }} title={false} />
-    )}
+    {loading && !error && <ListSkeleton />}
     {error && !loading && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
     )}
