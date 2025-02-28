@@ -16,6 +16,7 @@ query Waterfall($options: WaterfallOptions!) {
       requester
       revision
       waterfallBuilds {
+        activated
         buildVariant
         displayName
         id

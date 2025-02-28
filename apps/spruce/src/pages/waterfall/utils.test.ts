@@ -1,33 +1,11 @@
-import { buildVariants, versions } from "./testData";
+import { buildVariants, groupedVersions, versions } from "./testData";
 import { Version } from "./types";
 import { groupBuildVariants, groupInactiveVersions } from "./utils";
 
 describe("groupInactiveVersions", () => {
   it("correctly groups inactive versions", () => {
     const res = groupInactiveVersions(versions, () => true);
-
-    expect(res).toStrictEqual([
-      {
-        inactiveVersions: [versions[0]],
-        version: null,
-      },
-      {
-        inactiveVersions: null,
-        version: versions[1],
-      },
-      {
-        inactiveVersions: null,
-        version: versions[2],
-      },
-      {
-        inactiveVersions: [versions[3], versions[4]],
-        version: null,
-      },
-      {
-        inactiveVersions: null,
-        version: versions[5],
-      },
-    ]);
+    expect(res).toStrictEqual(groupedVersions);
   });
 
   it("correctly groups inactive versions when some do not appear in builds", () => {
@@ -66,21 +44,25 @@ describe("groupBuildVariants", () => {
         id: "version_1",
         waterfallBuilds: [
           {
+            activated: true,
             id: "id_a",
             buildVariant: "bv_a",
             displayName: "a",
           },
           {
+            activated: true,
             id: "id_b",
             buildVariant: "bv_b",
             displayName: "1",
           },
           {
+            activated: true,
             id: "id_c",
             buildVariant: "bv_c",
             displayName: "!",
           },
           {
+            activated: true,
             id: "id_d",
             buildVariant: "bv_d",
             displayName: "~",
@@ -94,6 +76,7 @@ describe("groupBuildVariants", () => {
         id: "bv_c",
         builds: [
           {
+            activated: true,
             id: "id_c",
             tasks: [],
             version: "version_1",
@@ -105,6 +88,7 @@ describe("groupBuildVariants", () => {
         id: "bv_b",
         builds: [
           {
+            activated: true,
             id: "id_b",
             tasks: [],
             version: "version_1",
@@ -116,6 +100,7 @@ describe("groupBuildVariants", () => {
         id: "bv_a",
         builds: [
           {
+            activated: true,
             id: "id_a",
             tasks: [],
             version: "version_1",
@@ -127,6 +112,7 @@ describe("groupBuildVariants", () => {
         id: "bv_d",
         builds: [
           {
+            activated: true,
             id: "id_d",
             tasks: [],
             version: "version_1",
