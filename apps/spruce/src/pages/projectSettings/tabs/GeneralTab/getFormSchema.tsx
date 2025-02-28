@@ -134,27 +134,27 @@ export const getFormSchema = (
               true,
             ),
           },
-          ...(projectType !== ProjectType.Repo && {
-            repotracker: {
-              type: "object" as const,
-              title: "Repotracker Settings",
-              properties: {
-                repotrackerDisabled: {
-                  type: ["boolean", "null"],
-                  title: "Repotracker",
-                  oneOf: radioBoxOptions(
-                    ["Enabled", "Disabled"],
-                    // @ts-expect-error: FIXME. This comment was added by an automated script.
-                    repoData?.projectFlags?.repotracker?.repotrackerDisabled,
-                    true,
-                  ),
-                },
+          repotracker: {
+            type: "object" as const,
+            title: "Repotracker Settings",
+            properties: {
+              repotrackerDisabled: {
+                type: ["boolean", "null"],
+                title: "Repotracker",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  // @ts-expect-error: FIXME. This comment was added by an automated script.
+                  repoData?.projectFlags?.repotracker?.repotrackerDisabled,
+                  true,
+                ),
+              },
+              ...(projectType !== ProjectType.Repo && {
                 forceRun: {
                   type: "null" as const,
                 },
-              },
+              }),
             },
-          }),
+          },
           scheduling: {
             type: "object" as const,
             title: "Scheduling Settings",
