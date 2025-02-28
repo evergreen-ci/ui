@@ -13,8 +13,7 @@ import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import ExpandedText from "components/ExpandedText";
-import {
-  MetadataCard,
+import MetadataCard, {
   MetadataItem,
   MetadataLabel,
 } from "components/MetadataCard";

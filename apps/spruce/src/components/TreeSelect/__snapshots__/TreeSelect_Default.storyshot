@@ -13,61 +13,6 @@
         <label
           class="leafygreen-ui-1srek1y"
           data-lgid="lg-label"
-          for="checkbox-286"
-          id="checkbox-286-label"
-        >
-          <input
-            aria-checked="false"
-            aria-disabled="false"
-            aria-label="checkbox"
-            aria-labelledby="checkbox-286-label"
-            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
-            data-cy="checkbox"
-            id="checkbox-286"
-            type="checkbox"
-          />
-          <div
-            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
-          >
-            <svg
-              class="leafygreen-ui-6caof5"
-              fill="none"
-              height="10"
-              stroke="#FFFFFF"
-              viewBox="0 0 10 10"
-              width="10"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-                stroke="#FFFFFF"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-              />
-            </svg>
-          </div>
-          <div
-            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
-          />
-          <span
-            class="leafygreen-ui-187di61"
-          >
-            All
-          </span>
-        </label>
-      </div>
-    </div>
-    <div
-      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
-    >
-      <div
-        class="leafygreen-ui-55kazc cy-checkbox"
-        data-lgid="lg-checkbox"
-      >
-        <label
-          class="leafygreen-ui-1srek1y"
-          data-lgid="lg-label"
           for="checkbox-287"
           id="checkbox-287-label"
         >
@@ -108,13 +53,13 @@
           <span
             class="leafygreen-ui-187di61"
           >
-            Shapes
+            All
           </span>
         </label>
       </div>
     </div>
     <div
-      class="css-154o89o-CheckboxWrapper e1mpj03z3"
+      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -163,7 +108,7 @@
           <span
             class="leafygreen-ui-187di61"
           >
-            rectangle
+            Shapes
           </span>
         </label>
       </div>
@@ -218,7 +163,7 @@
           <span
             class="leafygreen-ui-187di61"
           >
-            circle
+            rectangle
           </span>
         </label>
       </div>
@@ -273,13 +218,13 @@
           <span
             class="leafygreen-ui-187di61"
           >
-            rhombus
+            circle
           </span>
         </label>
       </div>
     </div>
     <div
-      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
+      class="css-154o89o-CheckboxWrapper e1mpj03z3"
     >
       <div
         class="leafygreen-ui-55kazc cy-checkbox"
@@ -328,7 +273,7 @@
           <span
             class="leafygreen-ui-187di61"
           >
-            Pass
+            rhombus
           </span>
         </label>
       </div>
@@ -383,7 +328,7 @@
           <span
             class="leafygreen-ui-187di61"
           >
-            REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!
+            Pass
           </span>
         </label>
       </div>
@@ -438,7 +383,7 @@
           <span
             class="leafygreen-ui-187di61"
           >
-            Skip
+            REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!
           </span>
         </label>
       </div>
@@ -464,6 +409,61 @@
             class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
             data-cy="checkbox"
             id="checkbox-294"
+            type="checkbox"
+          />
+          <div
+            class="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+          >
+            <svg
+              class="leafygreen-ui-6caof5"
+              fill="none"
+              height="10"
+              stroke="#FFFFFF"
+              viewBox="0 0 10 10"
+              width="10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div
+            class="lg-ui-ripple-0000 leafygreen-ui-6vh13p"
+          />
+          <span
+            class="leafygreen-ui-187di61"
+          >
+            Skip
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="css-6y9iv7-CheckboxWrapper e1mpj03z3"
+    >
+      <div
+        class="leafygreen-ui-55kazc cy-checkbox"
+        data-lgid="lg-checkbox"
+      >
+        <label
+          class="leafygreen-ui-1srek1y"
+          data-lgid="lg-label"
+          for="checkbox-295"
+          id="checkbox-295-label"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-label="checkbox"
+            aria-labelledby="checkbox-295-label"
+            class="lg-ui-input-0000 leafygreen-ui-1a1e5kp"
+            data-cy="checkbox"
+            id="checkbox-295"
             type="checkbox"
           />
           <div

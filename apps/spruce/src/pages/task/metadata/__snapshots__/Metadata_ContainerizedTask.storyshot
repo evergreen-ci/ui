@@ -7,7 +7,7 @@
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1ul56zb3 leafygreen-ui-1miy0xp"
+          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Task Metadata
         </p>
@@ -16,14 +16,14 @@
         />
       </div>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
+        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
           data-cy="task-metadata-build-variant"
         >
           <b
-            class="css-1xk67r-MetadataLabel e1ul56zb0"
+            class="css-1xk67r-MetadataLabel e1130wzj3"
           >
             Build Variant:
           </b>
@@ -40,14 +40,14 @@
         </p>
       </span>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
+        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
           data-cy="task-metadata-project"
         >
           <b
-            class="css-1xk67r-MetadataLabel e1ul56zb0"
+            class="css-1xk67r-MetadataLabel e1130wzj3"
           >
             Project:
           </b>
@@ -64,13 +64,13 @@
         </p>
       </span>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
+        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
         >
           <b
-            class="css-1xk67r-MetadataLabel e1ul56zb0"
+            class="css-1xk67r-MetadataLabel e1130wzj3"
           >
             Submitted by:
           </b>
@@ -79,13 +79,13 @@
         </p>
       </span>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
+        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
         >
           <b
-            class="css-1xk67r-MetadataLabel e1ul56zb0"
+            class="css-1xk67r-MetadataLabel e1130wzj3"
           >
             Estimated time to start:
           </b>
@@ -98,13 +98,13 @@
         </p>
       </span>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
+        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
         >
           <b
-            class="css-1xk67r-MetadataLabel e1ul56zb0"
+            class="css-1xk67r-MetadataLabel e1130wzj3"
           >
             Base commit:
           </b>
@@ -123,14 +123,14 @@
         </p>
       </span>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
+        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
           data-cy="task-metadata-description"
         >
           <b
-            class="css-1wckecy-MetadataLabel e1ul56zb0"
+            class="css-1wckecy-MetadataLabel e1130wzj3"
             color="#DB3030"
           >
             Failing Command: 
@@ -155,7 +155,7 @@
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1ul56zb3 leafygreen-ui-1miy0xp"
+          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Host Information
         </p>
@@ -164,13 +164,13 @@
         />
       </div>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
+        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
         >
           <b
-            class="css-1xk67r-MetadataLabel e1ul56zb0"
+            class="css-1xk67r-MetadataLabel e1130wzj3"
           >
             Container:
           </b>
@@ -193,7 +193,7 @@
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1ul56zb3 leafygreen-ui-1miy0xp"
+          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Tags
         </p>

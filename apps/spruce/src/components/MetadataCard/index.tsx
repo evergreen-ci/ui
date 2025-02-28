@@ -1,4 +1,3 @@
-import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { PolymorphicAs } from "@leafygreen-ui/polymorphic";
@@ -10,13 +9,13 @@ import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
 
 interface Props {
-  error?: ApolloError;
+  error?: Error;
   loading?: boolean;
   title?: React.ReactNode;
   children: React.ReactNode;
 }
 
-export const MetadataCard: React.FC<Props> = ({
+const MetadataCard: React.FC<Props> = ({
   children,
   error,
   loading,
@@ -58,11 +57,16 @@ export const MetadataItem: React.FC<ItemProps> = ({
       {children}
     </Item>
     {tooltipDescription && (
-      <InfoSprinkle align="right">{tooltipDescription}</InfoSprinkle>
+      <InfoSprinkle align="right" baseFontSize={13}>
+        {tooltipDescription}
+      </InfoSprinkle>
     )}
   </MetadataItemWrapper>
 );
 
+export const MetadataLabel = styled.b<{ color?: string }>`
+  ${({ color }) => color && `color: ${color};`}
+`;
 const Title = styled(Body)<BodyProps>`
   font-size: 15px;
 `;
@@ -91,6 +95,5 @@ const MetadataItemWrapper = styled.span`
     margin-bottom: 12px;
   }
 `;
-export const MetadataLabel = styled.b<{ color?: string }>`
-  ${({ color }) => color && `color: ${color};`}
-`;
+
+export default MetadataCard;
