@@ -15,11 +15,11 @@
           class="css-qqg5h5-Divider eb6szep0"
         />
       </div>
-      <div
-        class="css-1kc2q0u-MetadataItemWrapper e1ul56zb1"
+      <span
+        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
       >
         <p
-          class="css-1xovdqa-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
           data-cy="task-metadata-build-variant"
         >
           <b
@@ -38,12 +38,12 @@
             </span>
           </a>
         </p>
-      </div>
-      <div
-        class="css-1kc2q0u-MetadataItemWrapper e1ul56zb1"
+      </span>
+      <span
+        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
       >
         <p
-          class="css-1xovdqa-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
           data-cy="task-metadata-project"
         >
           <b
@@ -62,12 +62,12 @@
             </span>
           </a>
         </p>
-      </div>
-      <div
-        class="css-1kc2q0u-MetadataItemWrapper e1ul56zb1"
+      </span>
+      <span
+        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
       >
         <p
-          class="css-1xovdqa-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
         >
           <b
             class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -77,12 +77,12 @@
            
           mohamed.khelif
         </p>
-      </div>
-      <div
-        class="css-1kc2q0u-MetadataItemWrapper e1ul56zb1"
+      </span>
+      <span
+        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
       >
         <p
-          class="css-1xovdqa-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
         >
           <b
             class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -96,12 +96,12 @@
             1s
           </span>
         </p>
-      </div>
-      <div
-        class="css-1kc2q0u-MetadataItemWrapper e1ul56zb1"
+      </span>
+      <span
+        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
       >
         <p
-          class="css-1xovdqa-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
         >
           <b
             class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -121,12 +121,12 @@
             </code>
           </a>
         </p>
-      </div>
-      <div
-        class="css-1kc2q0u-MetadataItemWrapper e1ul56zb1"
+      </span>
+      <span
+        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
       >
         <p
-          class="css-1xovdqa-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
           data-cy="task-metadata-description"
         >
           <b
@@ -148,7 +148,7 @@
             </small>
           </span>
         </p>
-      </div>
+      </span>
     </div>
     <div
       class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
@@ -163,11 +163,11 @@
           class="css-qqg5h5-Divider eb6szep0"
         />
       </div>
-      <div
-        class="css-1kc2q0u-MetadataItemWrapper e1ul56zb1"
+      <span
+        class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
       >
         <p
-          class="css-1xovdqa-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+          class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
         >
           <b
             class="css-1xk67r-MetadataLabel e1ul56zb0"
@@ -186,7 +186,7 @@
             </span>
           </a>
         </p>
-      </div>
+      </span>
     </div>
     <div
       class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"

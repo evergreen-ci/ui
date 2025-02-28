@@ -1,9 +1,9 @@
 <div>
-  <div
-    class="css-1kc2q0u-MetadataItemWrapper e1ul56zb1"
+  <span
+    class="css-160t4ez-MetadataItemWrapper e1ul56zb1"
   >
     <p
-      class="css-1xovdqa-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
+      class="css-1xle18-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
     >
       <span
         class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
@@ -14,5 +14,5 @@
         </span>
       </span>
     </p>
-  </div>
+  </span>
 </div>

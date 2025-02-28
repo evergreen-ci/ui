@@ -58,9 +58,7 @@ export const MetadataItem: React.FC<ItemProps> = ({
       {children}
     </Item>
     {tooltipDescription && (
-      <span>
-        <InfoSprinkle align="right">{tooltipDescription}</InfoSprinkle>
-      </span>
+      <InfoSprinkle align="right">{tooltipDescription}</InfoSprinkle>
     )}
   </MetadataItemWrapper>
 );
@@ -80,16 +78,18 @@ const Item = styled(Body)<BodyProps>`
     line-height: 14px;
   }
 
-  :not(:last-child) {
-    margin-bottom: 12px;
-  }
   width: fit-content;
 `;
 
-const MetadataItemWrapper = styled.div`
+const MetadataItemWrapper = styled.span`
   display: flex;
   flex-direction: row;
   gap: 4px;
+  line-height: 14px;
+
+  :not(:last-child) {
+    margin-bottom: 12px;
+  }
 `;
 export const MetadataLabel = styled.b<{ color?: string }>`
   ${({ color }) => color && `color: ${color};`}
