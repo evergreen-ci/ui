@@ -289,14 +289,14 @@ export const getCommitsRoute = (projectIdentifier: string = "") =>
   `${paths.commits}/${encodeURIComponent(projectIdentifier)}`;
 
 export const getWaterfallRoute = (
-  projectIdentifier: string,
+  projectIdentifier?: string,
   options?: { taskFilters?: string[] },
 ) => {
   const { taskFilters } = options || {};
   const queryParams = stringifyQuery({
     [WaterfallFilterOptions.Statuses]: taskFilters,
   });
-  return `${paths.project}/${encodeURIComponent(projectIdentifier)}${paths.waterfall}${queryParams ? `?${queryParams}` : ""}`;
+  return `${paths.project}/${encodeURIComponent(projectIdentifier ?? "")}${paths.waterfall}${queryParams ? `?${queryParams}` : ""}`;
 };
 
 const getHistoryRoute = (
