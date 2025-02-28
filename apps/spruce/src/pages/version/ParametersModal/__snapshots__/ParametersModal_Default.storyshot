@@ -1,14 +1,18 @@
 <div>
-  <p
-    class="css-1xovdqa-Item-wordBreakCss e1ul56zb1 leafygreen-ui-1tb6tuo"
+  <div
+    class="css-1kc2q0u-MetadataItemWrapper e1ul56zb1"
   >
-    <span
-      class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
-      data-cy="parameters-link"
+    <p
+      class="css-1xovdqa-Item-wordBreakCss e1ul56zb2 leafygreen-ui-1tb6tuo"
     >
-      <span>
-        Patch Parameters
+      <span
+        class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"
+        data-cy="parameters-link"
+      >
+        <span>
+          Patch Parameters
+        </span>
       </span>
-    </span>
-  </p>
+    </p>
+  </div>
 </div>

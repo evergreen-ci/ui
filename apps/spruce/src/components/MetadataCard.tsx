@@ -1,5 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { PolymorphicAs } from "@leafygreen-ui/polymorphic";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
@@ -43,16 +44,25 @@ interface ItemProps {
   as?: PolymorphicAs;
   children: React.ReactNode;
   "data-cy"?: string;
+  tooltipDescription?: string;
 }
 
 export const MetadataItem: React.FC<ItemProps> = ({
   as = "p",
   children,
   "data-cy": dataCy,
+  tooltipDescription,
 }) => (
-  <Item as={as} data-cy={dataCy}>
-    {children}
-  </Item>
+  <MetadataItemWrapper>
+    <Item as={as} data-cy={dataCy}>
+      {children}
+    </Item>
+    {tooltipDescription && (
+      <span>
+        <InfoSprinkle align="right">{tooltipDescription}</InfoSprinkle>
+      </span>
+    )}
+  </MetadataItemWrapper>
 );
 
 const Title = styled(Body)<BodyProps>`
@@ -76,6 +86,11 @@ const Item = styled(Body)<BodyProps>`
   width: fit-content;
 `;
 
+const MetadataItemWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+`;
 export const MetadataLabel = styled.b<{ color?: string }>`
   ${({ color }) => color && `color: ${color};`}
 `;

@@ -5543,6 +5543,9 @@ export type ScheduleTasksMutation = {
   __typename?: "Mutation";
   scheduleTasks: Array<{
     __typename?: "Task";
+    status: string;
+    canSchedule: boolean;
+    canUnschedule: boolean;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
@@ -5643,7 +5646,15 @@ export type UnscheduleTaskMutationVariables = Exact<{
 
 export type UnscheduleTaskMutation = {
   __typename?: "Mutation";
-  unscheduleTask: { __typename?: "Task"; execution: number; id: string };
+  unscheduleTask: {
+    __typename?: "Task";
+    execution: number;
+    id: string;
+    status: string;
+    displayStatus: string;
+    canSchedule: boolean;
+    canUnschedule: boolean;
+  };
 };
 
 export type UnscheduleVersionTasksMutationVariables = Exact<{
@@ -9373,33 +9384,37 @@ export type UserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserSettingsQuery = {
   __typename?: "Query";
-  userSettings?: {
-    __typename?: "UserSettings";
-    dateFormat?: string | null;
-    region?: string | null;
-    slackMemberId?: string | null;
-    slackUsername?: string | null;
-    timeFormat?: string | null;
-    timezone?: string | null;
-    githubUser?: {
-      __typename?: "GithubUser";
-      lastKnownAs?: string | null;
-    } | null;
-    notifications?: {
-      __typename?: "Notifications";
-      buildBreak?: string | null;
-      patchFinish?: string | null;
-      patchFirstFailure?: string | null;
-      spawnHostExpiration?: string | null;
-      spawnHostOutcome?: string | null;
-    } | null;
-    useSpruceOptions?: {
-      __typename?: "UseSpruceOptions";
-      hasUsedMainlineCommitsBefore?: boolean | null;
-      hasUsedSpruceBefore?: boolean | null;
-      spruceV1?: boolean | null;
-    } | null;
-  } | null;
+  user: {
+    __typename?: "User";
+    userId: string;
+    settings: {
+      __typename?: "UserSettings";
+      dateFormat?: string | null;
+      region?: string | null;
+      slackMemberId?: string | null;
+      slackUsername?: string | null;
+      timeFormat?: string | null;
+      timezone?: string | null;
+      githubUser?: {
+        __typename?: "GithubUser";
+        lastKnownAs?: string | null;
+      } | null;
+      notifications?: {
+        __typename?: "Notifications";
+        buildBreak?: string | null;
+        patchFinish?: string | null;
+        patchFirstFailure?: string | null;
+        spawnHostExpiration?: string | null;
+        spawnHostOutcome?: string | null;
+      } | null;
+      useSpruceOptions?: {
+        __typename?: "UseSpruceOptions";
+        hasUsedMainlineCommitsBefore?: boolean | null;
+        hasUsedSpruceBefore?: boolean | null;
+        spruceV1?: boolean | null;
+      } | null;
+    };
+  };
 };
 
 export type UserSubscriptionsQueryVariables = Exact<{ [key: string]: never }>;
@@ -9433,18 +9448,18 @@ export type UserSubscriptionsQuery = {
         };
       } | null;
     }> | null;
+    settings: {
+      __typename?: "UserSettings";
+      notifications?: {
+        __typename?: "Notifications";
+        buildBreakId?: string | null;
+        patchFinishId?: string | null;
+        patchFirstFailureId?: string | null;
+        spawnHostExpirationId?: string | null;
+        spawnHostOutcomeId?: string | null;
+      } | null;
+    };
   };
-  userSettings?: {
-    __typename?: "UserSettings";
-    notifications?: {
-      __typename?: "Notifications";
-      buildBreakId?: string | null;
-      patchFinishId?: string | null;
-      patchFirstFailureId?: string | null;
-      spawnHostExpirationId?: string | null;
-      spawnHostOutcomeId?: string | null;
-    } | null;
-  } | null;
 };
 
 export type UserQueryVariables = Exact<{ [key: string]: never }>;

@@ -4,20 +4,17 @@ import {
   DistrosQueryVariables,
   AwsRegionsQuery,
   AwsRegionsQueryVariables,
-  UserSettingsQuery,
   MyPublicKeysQuery,
   MyPublicKeysQueryVariables,
   MyVolumesQuery,
   MyHostsQueryVariables,
 } from "gql/generated/types";
+import { AWS_REGIONS, DISTROS, MY_PUBLIC_KEYS, MY_VOLUMES } from "gql/queries";
 import {
-  AWS_REGIONS,
-  DISTROS,
-  MY_PUBLIC_KEYS,
-  MY_VOLUMES,
-  USER_SETTINGS,
-} from "gql/queries";
-import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
+  useDisableSpawnExpirationCheckbox,
+  useSpruceConfig,
+  useUserSettings,
+} from "hooks";
 import { getNoExpirationCheckboxTooltipCopy } from "../utils";
 
 interface Props {
@@ -45,8 +42,8 @@ export const useLoadFormSchemaData = (p?: Props) => {
 
   const spruceConfig = useSpruceConfig();
 
-  const { data: userSettingsData } = useQuery<UserSettingsQuery>(USER_SETTINGS);
-  const { region: userAwsRegion } = userSettingsData?.userSettings ?? {};
+  const { userSettings } = useUserSettings();
+  const { region: userAwsRegion } = userSettings ?? {};
 
   const { data: volumesData, loading: volumesLoading } = useQuery<
     MyVolumesQuery,

@@ -132,6 +132,8 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       open={visible}
       title="Modify Version"
     >
+      <TaskSchedulingWarningBanner totalTasks={estimatedActivatedTasksCount} />
+
       {loading ? (
         <Skeleton active />
       ) : (
@@ -175,9 +177,6 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
               <br />
             </div>
           )}
-          <TaskSchedulingWarningBanner
-            totalTasks={estimatedActivatedTasksCount}
-          />
           <ConfirmationMessage data-cy="confirmation-message" weight="medium">
             Are you sure you want to restart the {selectedTotal} selected tasks?
           </ConfirmationMessage>
