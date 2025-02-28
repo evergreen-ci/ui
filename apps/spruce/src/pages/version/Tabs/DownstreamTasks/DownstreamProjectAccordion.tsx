@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import { Accordion } from "components/Accordion";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { getVersionRoute } from "constants/routes";
@@ -56,8 +55,6 @@ export const DownstreamProjectAccordion: React.FC<
   status,
   taskCount,
 }) => {
-  const dispatchToast = useToastContext();
-
   const [state, dispatch] = useReducer(reducer, {
     baseStatuses: [],
     limit: 10,
@@ -88,9 +85,6 @@ export const DownstreamProjectAccordion: React.FC<
       },
     },
     fetchPolicy: "cache-and-network",
-    onError: (err) => {
-      dispatchToast.error(`Error fetching downstream tasks ${err}`);
-    },
   });
   usePolling({ startPolling, stopPolling, refetch });
 

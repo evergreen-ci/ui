@@ -15,7 +15,11 @@ import VisibilityContainer from "components/VisibilityContainer";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
 import { useBuildVariantContext } from "./BuildVariantContext";
-import { walkthroughSteps, waterfallGuideId } from "./constants";
+import {
+  walkthroughSteps,
+  waterfallGuideId,
+  displayStatusCacheAddedDate,
+} from "./constants";
 import {
   BuildVariantTitle,
   columnBasis,
@@ -133,6 +137,8 @@ export const BuildRow: React.FC<Props> = ({
         Builds are sorted in descending revision order and so match the versions' sort order. */
           if (version && version.id === builds?.[buildIndex]?.version) {
             const b = builds[buildIndex];
+            const useCachedStatus =
+              new Date(version.createTime) > displayStatusCacheAddedDate;
             buildIndex += 1;
             return (
               <BuildGrid
@@ -141,6 +147,7 @@ export const BuildRow: React.FC<Props> = ({
                 firstActiveTaskId={firstActiveTaskId}
                 handleTaskClick={handleTaskClick}
                 isRightmostBuild={b.version === lastActiveVersionId}
+                useCachedStatus={useCachedStatus}
               />
             );
           }
@@ -156,7 +163,14 @@ const BuildGrid: React.FC<{
   firstActiveTaskId: string;
   handleTaskClick: (s: string) => () => void;
   isRightmostBuild: boolean;
-}> = ({ build, firstActiveTaskId, handleTaskClick, isRightmostBuild }) => {
+  useCachedStatus: boolean;
+}> = ({
+  build,
+  firstActiveTaskId,
+  handleTaskClick,
+  isRightmostBuild,
+  useCachedStatus,
+}) => {
   const rowRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions<HTMLDivElement>(rowRef);
 
@@ -182,8 +196,9 @@ const BuildGrid: React.FC<{
             id === firstActiveTaskId
               ? { [waterfallGuideId]: walkthroughSteps[0].targetId }
               : {};
-          // Use status as backup for tasks created before displayStatusCache was introduced
-          const taskStatus = (displayStatusCache || status) as TaskStatus;
+          const taskStatus = (
+            useCachedStatus ? displayStatusCache : status
+          ) as TaskStatus;
           return (
             <SquareMemo
               key={id}
