@@ -9757,6 +9757,7 @@ export type WaterfallQuery = {
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
       waterfallBuilds?: Array<{
         __typename?: "WaterfallBuild";
+        activated: boolean;
         buildVariant: string;
         displayName: string;
         id: string;

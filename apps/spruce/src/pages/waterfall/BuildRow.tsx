@@ -68,6 +68,7 @@ export const BuildRow: React.FC<Props> = ({
 
   const { builds, displayName } = build;
   let buildIndex = 0;
+  console.log(build);
 
   const [containerHeight, setContainerHeight] = useState(0);
   const { columnWidth } = useBuildVariantContext();
