@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { PolymorphicAs } from "@leafygreen-ui/polymorphic";
 import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { ErrorWrapper } from "components/ErrorWrapper";
@@ -55,7 +56,7 @@ export const MetadataItem: React.FC<ItemProps> = ({
       {children}
     </Item>
     {tooltipDescription && (
-      <InfoSprinkle align="right" baseFontSize={13}>
+      <InfoSprinkle align="right" baseFontSize={BaseFontSize.Body1}>
         {tooltipDescription}
       </InfoSprinkle>
     )}
