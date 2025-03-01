@@ -41,17 +41,21 @@ const UploadLink: React.FC<UploadLinkProps> = ({ clearLogs, hasLogs }) => {
         Upload
       </StyledRouterLink>
       <ConfirmationModal
-        buttonText="Confirm"
+        cancelButtonProps={{
+          onClick: () => setOpen(false),
+        }}
+        confirmButtonProps={{
+          children: "Confirm",
+          onClick: () => {
+            clearLogs();
+            setOpen(false);
+            navigate(routes.upload);
+          },
+        }}
         css={css`
           z-index: ${zIndex.modal};
         `}
         data-cy="confirmation-modal"
-        onCancel={() => setOpen(false)}
-        onConfirm={() => {
-          clearLogs();
-          setOpen(false);
-          navigate(routes.upload);
-        }}
         open={open}
         title="Navigating away will clear your current logs."
         variant="danger"

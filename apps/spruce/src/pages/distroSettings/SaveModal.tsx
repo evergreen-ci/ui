@@ -87,15 +87,17 @@ export const SaveModal: React.FC<SaveModalProps> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Save"
+      cancelButtonProps={{
+        onClick: () => onCancel?.(),
+      }}
+      confirmButtonProps={{
+        children: "Save",
+        onClick: () => {
+          onConfirm?.();
+          handleSave();
+        },
+      }}
       data-cy="save-modal"
-      onCancel={() => {
-        onCancel?.();
-      }}
-      onConfirm={() => {
-        onConfirm?.();
-        handleSave();
-      }}
       open={open}
       title="Save page"
     >

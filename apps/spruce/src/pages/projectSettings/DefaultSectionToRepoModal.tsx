@@ -46,17 +46,21 @@ export const DefaultSectionToRepoModal = ({
 
   return (
     <ConfirmationModal
-      buttonText="Confirm"
-      data-cy="default-to-repo-modal"
-      onCancel={handleClose}
-      onConfirm={() => {
-        defaultSectionToRepo();
-        sendEvent({
-          name: "Clicked default section to repo button",
-          section,
-        });
-        handleClose();
+      cancelButtonProps={{
+        onClick: handleClose,
       }}
+      confirmButtonProps={{
+        children: "Confirm",
+        onClick: () => {
+          defaultSectionToRepo();
+          sendEvent({
+            name: "Clicked default section to repo button",
+            section,
+          });
+          handleClose();
+        },
+      }}
+      data-cy="default-to-repo-modal"
       open={open}
       requiredInputText="confirm"
       title="Are you sure you want to default all settings in this section to the repo settings?"

@@ -177,9 +177,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         },
       }}
       confirmButtonProps={{
-        onClick: onSubmit,
         children: loadingSpawnHost ? "Saving" : "Save",
         disabled: !hasChanges || hasError || loadingSpawnHost,
+        onClick: onSubmit,
       }}
       data-cy="edit-spawn-host-modal"
       open={visible}

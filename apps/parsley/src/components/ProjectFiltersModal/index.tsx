@@ -73,16 +73,20 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Apply filters"
+      cancelButtonProps={{
+        onClick: onCancel,
+      }}
+      confirmButtonProps={{
+        children: "Apply filters",
+        disabled: state.selectedFilters.length === 0,
+        onClick: onConfirm,
+      }}
       css={css`
         z-index: ${zIndex.modal};
       `}
       data-cy="project-filters-modal"
-      onCancel={onCancel}
-      onConfirm={onConfirm}
       open={open}
       setOpen={setOpen}
-      submitDisabled={state.selectedFilters.length === 0}
       title="Project Filters"
     >
       <Scrollable>
