@@ -89,7 +89,6 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
     versionMetadata,
   } = task || {};
 
-  const submittedTime = activatedTime ?? ingestTime;
   const isDisplayTask = executionTasksFull != null;
   const {
     id: baseTaskId,
@@ -156,11 +155,19 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
         <MetadataItem>
           <MetadataLabel>Submitted by:</MetadataLabel> {author}
         </MetadataItem>
-        {submittedTime && (
+        {ingestTime && (
           <MetadataItem data-cy="task-metadata-submitted-at">
             <MetadataLabel>Submitted at:</MetadataLabel>{" "}
-            <span title={getDateCopy(submittedTime)}>
-              {getDateCopy(submittedTime, { omitSeconds: true })}
+            <span title={getDateCopy(ingestTime)}>
+              {getDateCopy(ingestTime, { omitSeconds: true })}
+            </span>
+          </MetadataItem>
+        )}
+        {activatedTime && (
+          <MetadataItem data-cy="task-metadata-activated-at">
+            <MetadataLabel>Activated at:</MetadataLabel>{" "}
+            <span title={getDateCopy(activatedTime)}>
+              {getDateCopy(activatedTime, { omitSeconds: true })}
             </span>
           </MetadataItem>
         )}
