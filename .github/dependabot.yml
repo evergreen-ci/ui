@@ -34,6 +34,7 @@ updates:
         patterns:
           - "storybook"
           - "@storybook/*"
+          - "storybook-addon-*"
       testing-library:
         applies-to: version-updates
         patterns:
