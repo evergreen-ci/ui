@@ -44,15 +44,19 @@ const DeleteAppCredentialsButton: React.FC<{
   return (
     <>
       <ConfirmationModal
-        buttonText="Delete"
-        data-cy="delete-github-credentials-modal"
-        onCancel={() => setOpen(false)}
-        onConfirm={() => {
-          deleteGithubAppCredentials({ variables: { projectId } });
-          setOpen(false);
+        cancelButtonProps={{
+          onClick: () => setOpen(false),
         }}
+        confirmButtonProps={{
+          children: "Delete",
+          disabled: loading,
+          onClick: () => {
+            deleteGithubAppCredentials({ variables: { projectId } });
+            setOpen(false);
+          },
+        }}
+        data-cy="delete-github-credentials-modal"
         open={open}
-        submitDisabled={loading}
         title="Delete GitHub app credentials?"
         variant={ModalVariant.Danger}
       >

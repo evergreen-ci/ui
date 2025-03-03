@@ -61,12 +61,16 @@ export const CopyModal: React.FC<Props> = ({ handleClose, open }) => {
 
   return (
     <ConfirmationModal
-      buttonText="Duplicate"
+      cancelButtonProps={{
+        onClick: handleClose,
+      }}
+      confirmButtonProps={{
+        children: "Duplicate",
+        disabled: hasError,
+        onClick: onConfirm,
+      }}
       data-cy="copy-distro-modal"
-      onCancel={handleClose}
-      onConfirm={onConfirm}
       open={open}
-      submitDisabled={hasError}
       title={`Duplicate “${distroId}”`}
     >
       <SpruceForm

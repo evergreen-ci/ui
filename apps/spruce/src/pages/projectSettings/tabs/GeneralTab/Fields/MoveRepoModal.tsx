@@ -59,32 +59,38 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
     ],
   });
 
+  const onConfirm = () => {
+    const newOwner = formState.owner;
+    const newRepo = formState.repo;
+    attachProjectToNewRepo({
+      variables: {
+        project: {
+          projectId,
+          newOwner,
+          newRepo,
+        },
+      },
+    });
+    sendEvent({
+      name: "Clicked move project to new repo button",
+      "repo.owner": newOwner,
+      "repo.name": newRepo,
+    });
+    handleClose();
+  };
+
   return (
     <ConfirmationModal
-      buttonText="Move Project"
-      data-cy="move-repo-modal"
-      onCancel={handleClose}
-      onConfirm={() => {
-        const newOwner = formState.owner;
-        const newRepo = formState.repo;
-        attachProjectToNewRepo({
-          variables: {
-            project: {
-              projectId,
-              newOwner,
-              newRepo,
-            },
-          },
-        });
-        sendEvent({
-          name: "Clicked move project to new repo button",
-          "repo.owner": newOwner,
-          "repo.name": newRepo,
-        });
-        handleClose();
+      cancelButtonProps={{
+        onClick: handleClose,
       }}
+      confirmButtonProps={{
+        children: "Move project",
+        disabled: hasError,
+        onClick: onConfirm,
+      }}
+      data-cy="move-repo-modal"
       open={open}
-      submitDisabled={hasError}
       title="Move to New Repo"
       variant="danger"
     >

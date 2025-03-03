@@ -212,7 +212,7 @@ describe("repoConfigField", () => {
 
       expect(
         screen.getByRole("button", {
-          name: "Move Project",
+          name: "Move project",
         }),
       ).toHaveAttribute("aria-disabled", "true");
     });
@@ -226,7 +226,7 @@ describe("repoConfigField", () => {
       );
       expect(
         screen.getByRole("button", {
-          name: "Move Project",
+          name: "Move project",
         }),
       ).toHaveAttribute("aria-disabled", "true");
     });
@@ -244,7 +244,7 @@ describe("repoConfigField", () => {
       await user.type(screen.queryByDataCy("new-repo-input"), "new-repo-name");
       expect(
         screen.getByRole("button", {
-          name: "Move Project",
+          name: "Move project",
         }),
       ).not.toHaveAttribute("aria-disabled", "true");
     });

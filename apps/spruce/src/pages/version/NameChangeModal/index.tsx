@@ -41,7 +41,7 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
     refetchQueries: ["Version"],
   });
 
-  const { newPatchName } = formState;
+  const { newPatchName = "" } = formState;
 
   return (
     <>
@@ -53,18 +53,19 @@ export const NameChangeModal: React.FC<NameChangeModalProps> = ({
         <Icon glyph="Edit" />
       </StyledIconButton>
       <ConfirmationModal
-        buttonText="Confirm"
-        onCancel={() => setIsOpen(false)}
-        onConfirm={() => {
-          updateDescription({
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            variables: { patchId, description: newPatchName },
-          });
+        cancelButtonProps={{
+          onClick: () => setIsOpen(false),
+        }}
+        confirmButtonProps={{
+          children: "Confirm",
+          disabled:
+            newPatchName === originalPatchName || hasFormError || loading,
+          onClick: () =>
+            updateDescription({
+              variables: { patchId, description: newPatchName },
+            }),
         }}
         open={isOpen}
-        submitDisabled={
-          newPatchName === originalPatchName || hasFormError || loading
-        }
         title="Update Patch Name"
       >
         <SpruceForm

@@ -23,10 +23,14 @@ export const NavigationWarningModal: React.FC<NavigationModalProps> = ({
   return (
     blocker.state === "blocked" && (
       <ConfirmationModal
-        buttonText="Leave"
+        cancelButtonProps={{
+          onClick: () => blocker.reset?.(),
+        }}
+        confirmButtonProps={{
+          children: "Leave",
+          onClick: () => blocker.proceed?.(),
+        }}
         data-cy="navigation-warning-modal"
-        onCancel={() => blocker.reset?.()}
-        onConfirm={() => blocker.proceed?.()}
         open
         title="You have unsaved changes that will be discarded. Are you sure you want to leave?"
         variant="danger"

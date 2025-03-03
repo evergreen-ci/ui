@@ -122,7 +122,7 @@ export const buildVariants: BuildVariant[] = [
         version: "b",
       },
       {
-        activated: true,
+        activated: false,
         id: "i",
         tasks: [],
         version: "f",
@@ -368,12 +368,35 @@ export const versions: Version[] = [
     order: 0,
     waterfallBuilds: [
       {
-        activated: true,
+        activated: false,
         id: "i",
         buildVariant: "1",
         displayName: "BV 1",
         tasks: [],
       },
     ],
+  },
+];
+
+export const groupedVersions = [
+  {
+    inactiveVersions: [versions[0]],
+    version: null,
+  },
+  {
+    inactiveVersions: null,
+    version: versions[1],
+  },
+  {
+    inactiveVersions: null,
+    version: versions[2],
+  },
+  {
+    inactiveVersions: [versions[3], versions[4]],
+    version: null,
+  },
+  {
+    inactiveVersions: null,
+    version: versions[5],
   },
 ];

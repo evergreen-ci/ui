@@ -98,8 +98,8 @@
           data-lgid="lg-select"
         >
           <button
-            aria-controls="select-349-menu"
-            aria-describedby="select-349-description"
+            aria-controls="select-350-menu"
+            aria-describedby="select-350-description"
             aria-disabled="false"
             aria-expanded="false"
             aria-invalid="false"
@@ -108,7 +108,7 @@
             data-cy="host-event-table-page-size-selector"
             data-lgid="lg-button"
             data-testid="leafygreen-ui-select-menubutton"
-            id="select-350"
+            id="select-351"
             type="button"
             value="10"
           >

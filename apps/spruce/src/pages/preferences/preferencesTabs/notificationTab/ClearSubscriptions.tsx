@@ -48,16 +48,20 @@ export const ClearSubscriptions: React.FC = () => {
         Clear all previous subscriptions
       </Button>
       <ConfirmationModal
-        buttonText="Clear All"
-        onCancel={() => setShowModal(false)}
-        onConfirm={() => {
-          clearMySubscriptions();
-          sendEvent({
-            name: "Deleted subscriptions",
-          });
+        cancelButtonProps={{
+          onClick: () => setShowModal(false),
+        }}
+        confirmButtonProps={{
+          children: "Clear all",
+          disabled: loading,
+          onClick: () => {
+            clearMySubscriptions();
+            sendEvent({
+              name: "Deleted subscriptions",
+            });
+          },
         }}
         open={showModal}
-        submitDisabled={loading}
         title="Clear All Subscriptions"
         variant="danger"
       >
