@@ -11709,10 +11709,10 @@ std-env@^3.7.0:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.7.0.tgz#c9f7386ced6ecf13360b6c6c55b8aaa4ef7481d2"
   integrity sha512-JPbdCEQLj1w5GilpiHAx3qJvFndqybBysA3qUOnznweH4QbNYUsW/ea8QzSrnh0vNsezMMw5bcVool8lM0gwzg==
 
-storybook-addon-apollo-client@7.3.0:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-apollo-client/-/storybook-addon-apollo-client-7.3.0.tgz#d9a88def22ccbc087b4a03de145ac5956a30a3bf"
-  integrity sha512-Lqp9dn9sy6LdfS4e/Dx6M7cNXXLAiHBT2LKEWynxEkrMen/sgBPRUqQz0cJiLsSVbJLKov4KzWf5359UQaPxRA==
+storybook-addon-apollo-client@8.1.2:
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/storybook-addon-apollo-client/-/storybook-addon-apollo-client-8.1.2.tgz#2edae6d21e90150a936fcc09a2fd80ab34b2d74b"
+  integrity sha512-KZFyzep6Tzqfdlf/+06H0tFv2GIbj5LbB8CxBhEn1icwIo9N/frnsuwG+X6MKE3ELeJ/Km60t5EIIy2Zpydh6g==
 
 storybook@8.6.3:
   version "8.6.3"
