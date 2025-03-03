@@ -1,5 +1,6 @@
 import { stringifyQuery } from "@evg-ui/lib/src/utils/query-string";
 import { getGithubCommitUrl } from "constants/externalResources";
+import { WaterfallFilterOptions } from "pages/waterfall/types";
 import { TestStatus, HistoryQueryParams } from "types/history";
 import { ConfigurePatchPageTabs, VersionPageTabs } from "types/patch";
 import { TaskTab } from "types/task";
@@ -287,8 +288,16 @@ export const getDistroSettingsRoute = (
 export const getCommitsRoute = (projectIdentifier: string = "") =>
   `${paths.commits}/${encodeURIComponent(projectIdentifier)}`;
 
-export const getWaterfallRoute = (projectIdentifier: string = "") =>
-  `${paths.project}/${encodeURIComponent(projectIdentifier)}${paths.waterfall}`;
+export const getWaterfallRoute = (
+  projectIdentifier?: string,
+  options?: { taskFilters?: string[] },
+) => {
+  const { taskFilters } = options || {};
+  const queryParams = stringifyQuery({
+    [WaterfallFilterOptions.Statuses]: taskFilters,
+  });
+  return `${paths.project}/${encodeURIComponent(projectIdentifier ?? "")}${paths.waterfall}${queryParams ? `?${queryParams}` : ""}`;
+};
 
 const getHistoryRoute = (
   basePath: string,
