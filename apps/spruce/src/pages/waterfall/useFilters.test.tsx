@@ -124,7 +124,7 @@ describe("useFilters", () => {
       expect(result.current).toStrictEqual(filteredWaterfall);
     });
 
-    it("build variant filters are added together", () => {
+    it("build variant filters are added together with inactive builds omitted", () => {
       const { result } = renderHook(
         () =>
           useFilters({
