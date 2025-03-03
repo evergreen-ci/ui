@@ -122,12 +122,16 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Save"
+      cancelButtonProps={{
+        onClick: onCancel,
+      }}
+      confirmButtonProps={{
+        children: "Save",
+        disabled: hasError,
+        onClick: onClickSave,
+      }}
       data-cy={dataCy}
-      onCancel={onCancel}
-      onConfirm={onClickSave}
       open={visible}
-      submitDisabled={hasError}
       title="Add Subscription"
     >
       <SpruceForm

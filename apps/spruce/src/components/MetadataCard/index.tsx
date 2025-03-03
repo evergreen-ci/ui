@@ -1,22 +1,22 @@
-import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { PolymorphicAs } from "@leafygreen-ui/polymorphic";
+import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { BaseFontSize } from "@leafygreen-ui/tokens";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/divider";
 
 interface Props {
-  error?: ApolloError;
+  error?: Error;
   loading?: boolean;
   title?: React.ReactNode;
   children: React.ReactNode;
 }
 
-export const MetadataCard: React.FC<Props> = ({
+const MetadataCard: React.FC<Props> = ({
   children,
   error,
   loading,
@@ -30,9 +30,7 @@ export const MetadataCard: React.FC<Props> = ({
         <Divider />
       </div>
     )}
-    {loading && !error && (
-      <Skeleton active paragraph={{ rows: 4 }} title={false} />
-    )}
+    {loading && !error && <ListSkeleton />}
     {error && !loading && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
     )}
@@ -58,13 +56,16 @@ export const MetadataItem: React.FC<ItemProps> = ({
       {children}
     </Item>
     {tooltipDescription && (
-      <span>
-        <InfoSprinkle align="right">{tooltipDescription}</InfoSprinkle>
-      </span>
+      <InfoSprinkle align="right" baseFontSize={BaseFontSize.Body1}>
+        {tooltipDescription}
+      </InfoSprinkle>
     )}
   </MetadataItemWrapper>
 );
 
+export const MetadataLabel = styled.b<{ color?: string }>`
+  ${({ color }) => color && `color: ${color};`}
+`;
 const Title = styled(Body)<BodyProps>`
   font-size: 15px;
 `;
@@ -80,17 +81,18 @@ const Item = styled(Body)<BodyProps>`
     line-height: 14px;
   }
 
-  :not(:last-child) {
-    margin-bottom: 12px;
-  }
   width: fit-content;
 `;
 
-const MetadataItemWrapper = styled.div`
+const MetadataItemWrapper = styled.span`
   display: flex;
   flex-direction: row;
   gap: 4px;
+  line-height: 14px;
+
+  :not(:last-child) {
+    margin-bottom: 12px;
+  }
 `;
-export const MetadataLabel = styled.b<{ color?: string }>`
-  ${({ color }) => color && `color: ${color};`}
-`;
+
+export default MetadataCard;

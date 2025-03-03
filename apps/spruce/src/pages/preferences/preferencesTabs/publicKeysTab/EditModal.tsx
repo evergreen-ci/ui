@@ -123,12 +123,16 @@ export const EditModal: React.FC<EditModalProps> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Save"
+      cancelButtonProps={{
+        onClick: closeModal,
+      }}
+      confirmButtonProps={{
+        children: "Save",
+        disabled: errors.length > 0,
+        onClick: onClickSave,
+      }}
       data-cy="key-edit-modal"
-      onCancel={closeModal}
-      onConfirm={onClickSave}
       open={visible}
-      submitDisabled={errors.length > 0}
       title={replaceKeyName ? "Update Public Key" : "Add Public Key"}
     >
       <StyledInput

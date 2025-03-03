@@ -93,12 +93,16 @@ export const AddIssueModal: React.FC<Props> = ({
   return (
     <ConfirmationModal
       {...rest}
-      buttonText={`Add ${issueString}`}
+      cancelButtonProps={{
+        onClick: handleCancel,
+      }}
+      confirmButtonProps={{
+        children: `Add ${issueString}`,
+        disabled: !canSubmit,
+        onClick: handleSubmit,
+      }}
       data-cy="add-issue-modal"
-      onCancel={handleCancel}
-      onConfirm={handleSubmit}
       open={visible}
-      submitDisabled={!canSubmit}
       title={title}
     >
       {jiraHost && (

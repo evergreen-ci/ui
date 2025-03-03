@@ -49,11 +49,15 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
 
   return (
     <ConfirmationModal
-      buttonText="Confirm"
-      onCancel={closeModal}
-      onConfirm={onConfirm}
+      cancelButtonProps={{
+        onClick: closeModal,
+      }}
+      confirmButtonProps={{
+        children: "Confirm",
+        disabled: loading,
+        onClick: onConfirm,
+      }}
       open={open}
-      submitDisabled={loading}
       title="Force Repotracker Run"
     >
       Are you sure you would like to force a Repotracker run?

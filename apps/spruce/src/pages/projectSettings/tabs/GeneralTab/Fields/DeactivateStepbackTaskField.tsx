@@ -54,12 +54,16 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
 
   return (
     <ConfirmationModal
-      buttonText="Confirm"
+      cancelButtonProps={{
+        onClick: closeModal,
+      }}
+      confirmButtonProps={{
+        children: "Confirm",
+        disabled: hasError || loading,
+        onClick: onConfirm,
+      }}
       data-cy="deactivate-stepback-modal"
-      onCancel={closeModal}
-      onConfirm={onConfirm}
       open={open}
-      submitDisabled={hasError || loading}
       title="Deactivate Scheduled Stepback Task"
     >
       <p>

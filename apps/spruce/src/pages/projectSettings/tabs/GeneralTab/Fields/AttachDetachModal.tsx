@@ -70,29 +70,35 @@ export const AttachDetachModal: React.FC<ModalProps> = ({
     refetchQueries: ["ProjectSettings", "RepoSettings", "ViewableProjectRefs"],
   });
 
+  const onConfirm = () => {
+    if (shouldAttach) {
+      attachProjectToRepo();
+      sendEvent({
+        name: "Clicked attach project to repo button",
+        "repo.owner": repoOwner,
+        "repo.name": repoName,
+      });
+    } else {
+      detachProjectFromRepo();
+      sendEvent({
+        name: "Clicked detach project from repo button",
+        "repo.owner": repoOwner,
+        "repo.name": repoName,
+      });
+    }
+    handleClose();
+  };
+
   return (
     <ConfirmationModal
-      buttonText={shouldAttach ? "Attach" : "Detach"}
-      data-cy="attach-repo-modal"
-      onCancel={handleClose}
-      onConfirm={() => {
-        if (shouldAttach) {
-          attachProjectToRepo();
-          sendEvent({
-            name: "Clicked attach project to repo button",
-            "repo.owner": repoOwner,
-            "repo.name": repoName,
-          });
-        } else {
-          detachProjectFromRepo();
-          sendEvent({
-            name: "Clicked detach project from repo button",
-            "repo.owner": repoOwner,
-            "repo.name": repoName,
-          });
-        }
-        handleClose();
+      cancelButtonProps={{
+        onClick: handleClose,
       }}
+      confirmButtonProps={{
+        children: shouldAttach ? "Attach" : "Detach",
+        onClick: onConfirm,
+      }}
+      data-cy="attach-repo-modal"
       open={open}
       title={`Are you sure you want to ${
         shouldAttach ? "attach to" : "detach from"
