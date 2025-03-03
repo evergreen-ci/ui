@@ -5,18 +5,18 @@
     <label
       class="leafygreen-ui-ms04bw"
       data-lgid="lg-label"
-      for="filter-input"
+      for="tuple-select"
     >
       <div
         class="css-1lh1bx9-LabelContainer e5gn9hl2"
       >
-        Add Filter
+        Tuple Select
         <div
           class="leafygreen-ui-ozfao7 css-1qa4isu-PaddedSegmentedControl egmqwjk0"
         >
           <div
-            aria-label="segmented-control-301"
-            aria-owns="segmented-control-301-0 segmented-control-301-1"
+            aria-label="segmented-control-302"
+            aria-owns="segmented-control-302-0 segmented-control-302-1"
             class="leafygreen-ui-18en4yf"
             role="tablist"
           >
@@ -33,7 +33,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="true"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-301-0"
+                  id="segmented-control-302-0"
                   role="tab"
                   tabindex="0"
                   type="button"
@@ -63,7 +63,7 @@
                   aria-controls="tuple-select-with-regex"
                   aria-selected="false"
                   class="leafygreen-ui-ypz97o"
-                  id="segmented-control-301-1"
+                  id="segmented-control-302-1"
                   role="tab"
                   tabindex="-1"
                   type="button"
@@ -98,17 +98,17 @@
         data-lgid="lg-select"
       >
         <button
-          aria-controls="select-302-menu"
-          aria-describedby="select-302-description"
+          aria-controls="select-303-menu"
+          aria-describedby="select-303-description"
           aria-disabled="false"
           aria-expanded="false"
           aria-invalid="false"
-          aria-labelledby="Tuple Select"
+          aria-labelledby="Tuple Select Select"
           class="lg-ui-button-0000 leafygreen-ui-1p6i2zy"
-          data-cy="tuple-select-dropdown"
+          data-cy="tuple-select-select"
           data-lgid="lg-button"
           data-testid="leafygreen-ui-select-menubutton"
-          id="select-303"
+          id="select-304"
           type="button"
           value="build_variant"
         >
@@ -156,8 +156,8 @@
         class="e5gn9hl0 css-1opv5d5-TextInputWrapper-GroupedTextInput e17optw11"
       >
         <div
-          aria-label="Build Variant"
-          aria-labelledby="Build Variant"
+          aria-label="Tuple Select Input"
+          aria-labelledby="Tuple Select Input"
           class="leafygreen-ui-1br9h7w"
           data-lgid="lg-text_input"
         >
@@ -174,12 +174,11 @@
                 aria-describedby=""
                 aria-disabled="false"
                 aria-invalid="false"
-                aria-labelledby="Build Variant"
+                aria-labelledby="Tuple Select Input"
                 autocomplete="on"
                 class="lg-ui-form-field-input-0000 leafygreen-ui-1ago99h"
                 data-cy="tuple-select-input"
-                id="filter-input"
-                placeholder="Search Build Variant names"
+                id="tuple-select"
                 required=""
                 type="text"
                 value=""
@@ -192,7 +191,7 @@
             class="leafygreen-ui-11ydt2g"
             data-lgid="lg-form_field-feedback"
             data-testid="lg-form_field-feedback"
-            id="lg-form_field-feedback-306"
+            id="lg-form_field-feedback-307"
           />
         </div>
         <div

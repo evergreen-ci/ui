@@ -8,14 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { usePatchAnalytics } from "analytics";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { LoadingButton } from "components/Buttons";
 import { CodeChanges } from "components/CodeChanges";
-import {
-  MetadataCard,
+import MetadataCard, {
   MetadataItem,
   MetadataLabel,
-  MetadataTitle,
 } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -98,6 +97,8 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     setSelectedTab,
   } = useConfigurePatch(initialPatch);
 
+  const { sendEvent } = usePatchAnalytics(id);
+
   const totalSelectedTaskCount = Object.values(
     selectedBuildVariantTasks,
   ).reduce(
@@ -141,6 +142,11 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
     };
     schedulePatch({
       variables: { patchId: id, configure: configurePatchParam },
+    });
+    sendEvent({
+      name: "Clicked schedule patch button",
+      "task.scheduled_count": totalSelectedTaskCount,
+      "aliases.scheduled_count": aliasCount,
     });
   };
 
@@ -202,8 +208,7 @@ const ConfigurePatchCore: React.FC<ConfigurePatchCoreProps> = ({ patch }) => {
       </BannerContainer>
       <PageLayout hasSider>
         <PageSider>
-          <MetadataCard>
-            <MetadataTitle>Patch Metadata</MetadataTitle>
+          <MetadataCard title="Patch Metadata">
             <MetadataItem>
               <MetadataLabel>Submitted by:</MetadataLabel> {author}
             </MetadataItem>

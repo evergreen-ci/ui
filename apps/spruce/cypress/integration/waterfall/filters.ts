@@ -59,7 +59,7 @@ describe("build variant filtering", () => {
 
   it("submitting a build variant filter updates the url, creates a badge and filters the grid", () => {
     cy.dataCy("build-variant-label").should("have.length", 2);
-    cy.get("[placeholder='Filter build variants'").type("P{enter}");
+    cy.dataCy("build-variant-filter-input").type("P{enter}");
     cy.dataCy("filter-chip").first().should("have.text", "Variant: P");
     cy.location().should((loc) => {
       expect(loc.search).to.include("buildVariants=P");
@@ -69,7 +69,7 @@ describe("build variant filtering", () => {
     cy.dataTestId("chip-dismiss-button").click();
     cy.dataCy("build-variant-label").should("have.length", 2);
 
-    cy.get("[placeholder='Filter build variants'").type("Lint{enter}");
+    cy.dataCy("build-variant-filter-input").type("Lint{enter}");
     cy.location().should((loc) => {
       expect(loc.search).to.include("buildVariants=Lint");
     });
@@ -78,7 +78,7 @@ describe("build variant filtering", () => {
     cy.dataCy("build-variant-label")
       .should("have.length", 1)
       .should("have.text", "Lint");
-    cy.get("[placeholder='Filter build variants'").type("P{enter}");
+    cy.dataCy("build-variant-filter-input").type("P{enter}");
     cy.location().should((loc) => {
       expect(loc.search).to.include("buildVariants=Lint,P");
     });
@@ -92,12 +92,7 @@ describe("task filtering", () => {
 
   it("filters grid squares, removes inactive build variants, creates a badge, and updates the url", () => {
     cy.dataCy("build-variant-label").should("have.length", 2);
-    cy.dataCy("tuple-select-dropdown").click({ force: true });
-    cy.get('[role="listbox"]').should("have.length", 1);
-    cy.get('[role="listbox"]').within(() => {
-      cy.contains("Task").click();
-    });
-    cy.get("[placeholder='Filter tasks'").type("agent{enter}");
+    cy.dataCy("task-filter-input").type("agent{enter}");
 
     cy.dataCy("build-variant-label").should("have.length", 1);
     cy.location().should((loc) => {
@@ -111,7 +106,7 @@ describe("task filtering", () => {
       "test-agent - Succeeded",
     );
 
-    cy.get("[placeholder='Filter tasks'").type("lint{enter}");
+    cy.dataCy("task-filter-input").type("lint{enter}");
     cy.location().should((loc) => {
       expect(loc.search).to.include("tasks=agent,lint");
     });
@@ -121,14 +116,9 @@ describe("task filtering", () => {
   });
 
   it("correctly applies build variant and task filters", () => {
-    cy.get("[placeholder='Filter build variants'").type("Lint{enter}");
+    cy.dataCy("build-variant-filter-input").type("Lint{enter}");
     cy.dataCy("build-variant-label").should("have.length", 1);
-    cy.dataCy("tuple-select-dropdown").click({ force: true });
-    cy.get('[role="listbox"]').should("have.length", 1);
-    cy.get('[role="listbox"]').within(() => {
-      cy.contains("Task").click();
-    });
-    cy.get("[placeholder='Filter tasks'").type("agent{enter}");
+    cy.dataCy("task-filter-input").type("agent{enter}");
     cy.dataCy("build-variant-label").should("have.length", 0);
     cy.dataCy("filter-chip").should("have.length", 2);
   });
@@ -212,5 +202,21 @@ describe("revision filtering", () => {
     cy.dataCy("version-label-active")
       .contains("ab49443")
       .invoke("attr", "data-highlighted", "true");
+  });
+});
+
+describe("clear all filters button", () => {
+  it("clicking the clear filters button clears all parameters except for minOrder & maxOrder", () => {
+    cy.visit(
+      "/project/spruce/waterfall?buildVariants=ubuntu&maxOrder=1235&requesters=gitter_request&statuses=success&tasks=test",
+    );
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("clear-all-filters").click();
+
+    cy.location("search").should("not.contain", "buildVariants");
+    cy.location("search").should("not.contain", "tasks");
+    cy.location("search").should("not.contain", "statuses");
+    cy.location("search").should("not.contain", "requesters");
+    cy.location("search").should("contain", "maxOrder=1235");
   });
 });

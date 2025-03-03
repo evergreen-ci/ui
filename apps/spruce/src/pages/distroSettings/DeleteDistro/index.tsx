@@ -52,10 +52,14 @@ const Modal: React.FC<ModalProps> = ({ closeModal, distroId, open }) => {
 
   return (
     <ConfirmationModal
-      buttonText="Delete"
+      cancelButtonProps={{
+        onClick: closeModal,
+      }}
+      confirmButtonProps={{
+        children: "Delete",
+        onClick: onConfirm,
+      }}
       data-cy="delete-distro-modal"
-      onCancel={closeModal}
-      onConfirm={onConfirm}
       open={open}
       requiredInputText={distroId}
       title={`Delete “${distroId}”?`}

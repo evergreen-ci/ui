@@ -74,6 +74,14 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
     setBaseRevision("");
   };
 
+  const onConfirm = () => {
+    setLastRevision({
+      variables: { projectIdentifier, revision: baseRevision },
+      refetchQueries: ["RepotrackerError"],
+    });
+    resetModal();
+  };
+
   if (!hasRepotrackerError) {
     return null;
   }
@@ -101,19 +109,17 @@ export const RepotrackerBanner: React.FC<RepotrackerBannerProps> = ({
         }
       />
       <ConfirmationModal
-        buttonText="Confirm"
-        data-cy="repotracker-error-modal"
-        onCancel={resetModal}
-        onConfirm={() => {
-          setLastRevision({
-            variables: { projectIdentifier, revision: baseRevision },
-            refetchQueries: ["RepotrackerError"],
-          });
-          resetModal();
+        cancelButtonProps={{
+          onClick: resetModal,
         }}
+        confirmButtonProps={{
+          children: "Confirm",
+          disabled: baseRevision.length < 40,
+          onClick: onConfirm,
+        }}
+        data-cy="repotracker-error-modal"
         open={openModal}
         setOpen={setOpenModal}
-        submitDisabled={baseRevision.length < 40}
         title="Enter New Base Revision"
       >
         <ModalDescription>

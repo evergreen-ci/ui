@@ -25,14 +25,13 @@ export const StatusFilter = () => {
   return (
     <Combobox
       data-cy="status-filter"
-      // Use an uncontrolled component so that the transition does not affect combobox rendering
-      initialValue={statuses}
       label="Task Status"
       multiselect
       onChange={handleChange}
       overflow="scroll-x"
       placeholder="Displaying all statuses"
       popoverZIndex={zIndex.popover}
+      value={statuses}
     >
       {SortedTaskStatus.map((ts) => (
         <ComboboxOption

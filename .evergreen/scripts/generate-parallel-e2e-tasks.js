@@ -109,6 +109,7 @@ const generateParallelE2ETasks = (bv) => {
     name: `e2e_${bv}_${i}`,
     commands: [
       { func: "setup-mongodb" },
+      { func: "generate-token" },
       { func: "run-make-background", vars: { target: "local-evergreen" } },
       { func: "symlink" },
       { func: "seed-bucket-data" },

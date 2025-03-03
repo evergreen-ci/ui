@@ -5,16 +5,16 @@ import Banner from "@leafygreen-ui/banner";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useWaterfallAnalytics } from "analytics";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
-import { WaterfallPagination } from "gql/generated/types";
 import { useAdminBetaFeatures, useIsScrollAtTop, useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 import { waterfallPageContainerId } from "./constants";
-import { WaterfallFilterOptions } from "./types";
+import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
@@ -22,6 +22,7 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
+  usePageTitle(`${projectIdentifier} | Waterfall`);
   const { adminBetaSettings } = useAdminBetaFeatures();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
@@ -33,7 +34,7 @@ const Waterfall: React.FC = () => {
 
   const { sendEvent } = useWaterfallAnalytics();
 
-  const [pagination, setPagination] = useState<WaterfallPagination>();
+  const [pagination, setPagination] = useState<Pagination>();
 
   const pageWrapperRef = useRef<HTMLDivElement>(null);
   const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);

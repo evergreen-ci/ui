@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import {
@@ -14,10 +13,8 @@ import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useTaskAnalytics } from "analytics";
 import ExpandedText from "components/ExpandedText";
-import {
-  MetadataCard,
+import MetadataCard, {
   MetadataItem,
-  MetadataTitle,
   MetadataLabel,
 } from "components/MetadataCard";
 import {
@@ -42,7 +39,6 @@ import { isFailedTaskStatus } from "utils/statuses";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import ETATimer from "./ETATimer";
-import { ImageVisibilityGuideCue } from "./ImageVisibilityGuideCue";
 import RuntimeTimer from "./RuntimeTimer";
 import { Stepback, isInStepback } from "./Stepback";
 
@@ -113,15 +109,13 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
 
   const stepback = isInStepback(task);
 
-  const imageVisibilityGuideCueTriggerRef = useRef<HTMLAnchorElement>(null);
-
   return (
     <>
       <MetadataCard
         error={!task && error ? error : undefined}
         loading={loading}
+        title="Task Metadata"
       >
-        <MetadataTitle>Task Metadata</MetadataTitle>
         {versionID && buildVariant && (
           <MetadataItem data-cy="task-metadata-build-variant">
             <MetadataLabel>Build Variant:</MetadataLabel>{" "}
@@ -366,8 +360,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       </MetadataCard>
 
       {!isDisplayTask && (
-        <MetadataCard>
-          <MetadataTitle>Host Information</MetadataTitle>{" "}
+        <MetadataCard loading={loading} title="Host Information">
           {!isContainerTask && hostId && (
             <MetadataItem>
               <MetadataLabel>ID:</MetadataLabel>{" "}
@@ -404,12 +397,8 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
           )}
           {!isContainerTask && imageId && (
             <MetadataItem>
-              <ImageVisibilityGuideCue
-                refEl={imageVisibilityGuideCueTriggerRef}
-              />
               <MetadataLabel>Image:</MetadataLabel>{" "}
               <StyledRouterLink
-                ref={imageVisibilityGuideCueTriggerRef}
                 data-cy="task-image-link"
                 onClick={() =>
                   taskAnalytics.sendEvent({
@@ -469,8 +458,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       )}
 
       {dependsOn && dependsOn.length > 0 ? (
-        <MetadataCard>
-          <MetadataTitle>Depends On</MetadataTitle>
+        <MetadataCard title="Depends On">
           {dependsOn.map((dep) => (
             <DependsOn
               key={`dependOnPill_${dep.taskId}`}
@@ -485,8 +473,7 @@ export const Metadata: React.FC<Props> = ({ error, loading, task, taskId }) => {
       ) : null}
 
       {tags && tags.length > 0 ? (
-        <MetadataCard>
-          <MetadataTitle>Tags</MetadataTitle>
+        <MetadataCard title="Tags">
           <TagsContainer>
             {tags.map((t) => (
               <Chip

@@ -1,8 +1,10 @@
 import { DatePicker } from "@leafygreen-ui/date-picker";
 import { DateType } from "@leafygreen-ui/date-utils";
+import { subDays, subYears } from "date-fns";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
+import { isProduction } from "utils/environmentVariables";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { WaterfallFilterOptions } from "../types";
 
@@ -38,6 +40,8 @@ export const DateFilter = () => {
       data-cy="date-picker"
       label="Go to Date"
       max={new Date()}
+      // Testing environments should not have a minimum date restriction due to static test data.
+      min={isProduction() ? subDays(subYears(today, 1), 1) : undefined}
       onDateChange={handleChange}
       popoverZIndex={zIndex.popover}
       value={date.length ? new Date(date) : undefined}
@@ -45,3 +49,5 @@ export const DateFilter = () => {
     />
   );
 };
+
+const today = new Date();

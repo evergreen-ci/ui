@@ -159,12 +159,16 @@ export const MigrateVolumeModal: React.FC<MigrateVolumeModalProps> = ({
 
   return (
     <ConfirmationModal
-      buttonText={buttonText}
+      cancelButtonProps={{
+        onClick: onCancel,
+      }}
+      confirmButtonProps={{
+        children: buttonText,
+        disabled: hasError || loadingMigration || volume.migrating,
+        onClick: onConfirm,
+      }}
       data-cy="migrate-modal"
-      onCancel={onCancel}
-      onConfirm={onConfirm}
       open={open}
-      submitDisabled={hasError || loadingMigration || volume.migrating}
       title={title}
     >
       <Body>

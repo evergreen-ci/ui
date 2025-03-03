@@ -3,11 +3,9 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak, StyledLink } from "@evg-ui/lib/components/styles";
-import {
-  MetadataCard,
+import MetadataCard, {
   MetadataItem,
   MetadataLabel,
-  MetadataTitle,
 } from "components/MetadataCard";
 import { MCI_USER } from "constants/hosts";
 import { getDistroSettingsRoute, getTaskRoute } from "constants/routes";
@@ -41,8 +39,7 @@ export const Metadata: React.FC<{
   const distroLink = getDistroSettingsRoute(distroId);
 
   return (
-    <MetadataCard error={error} loading={loading}>
-      <MetadataTitle>Host Details</MetadataTitle>
+    <MetadataCard error={error} loading={loading} title="Host Details">
       <MetadataItem>
         <MetadataLabel>User:</MetadataLabel> {user}
       </MetadataItem>

@@ -95,10 +95,13 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
     };
 
+  const selectedTotal = selectTasksTotal(selectedTasks || {});
+
   const handlePatchRestart = () => {
     sendEvent({
       name: "Clicked restart tasks button",
       abort: shouldAbortInProgressTasks,
+      "task.modified_count": selectedTotal,
     });
     restartVersions({
       variables: {
@@ -108,8 +111,6 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       },
     });
   };
-
-  const selectedTotal = selectTasksTotal(selectedTasks || {});
 
   const { generatedTaskCounts = [] } = version ?? {};
   const estimatedActivatedTasksCount = sumActivatedTasksInSelectedTasks(
@@ -131,6 +132,8 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       open={visible}
       title="Modify Version"
     >
+      <TaskSchedulingWarningBanner totalTasks={estimatedActivatedTasksCount} />
+
       {loading ? (
         <Skeleton active />
       ) : (
@@ -174,9 +177,6 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
               <br />
             </div>
           )}
-          <TaskSchedulingWarningBanner
-            totalTasks={estimatedActivatedTasksCount}
-          />
           <ConfirmationMessage data-cy="confirmation-message" weight="medium">
             Are you sure you want to restart the {selectedTotal} selected tasks?
           </ConfirmationMessage>

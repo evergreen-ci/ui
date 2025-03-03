@@ -1,4 +1,6 @@
+import { FilterType } from "components/TupleSelectWithRegexConditional";
 import { WalkthroughStep } from "components/WalkthroughGuideCue";
+import { validators } from "utils";
 
 export const VERSION_LIMIT = 5;
 
@@ -46,3 +48,25 @@ export const walkthroughSteps: WalkthroughStep[] = [
     shouldClick: true,
   },
 ];
+
+export const tupleSelectOptions = [
+  {
+    value: FilterType.Regex,
+    displayName: "Regex",
+    validator: validators.validateRegexp,
+  },
+  {
+    value: FilterType.Exact,
+    displayName: "Exact",
+    validator: () => true,
+  },
+];
+
+/**
+ * Timestamp of the last deploy that made changes to `displayStatusCache`, in UTC.
+ * This timestamp should correspond to 2025/01/21 10:05AM EST.
+ * TODO: Remove in DEVPROD-15269.
+ */
+export const displayStatusCacheAddedDate = new Date(
+  Date.UTC(2025, 0, 21, 15, 5),
+);

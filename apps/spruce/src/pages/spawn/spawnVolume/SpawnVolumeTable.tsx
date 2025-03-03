@@ -15,10 +15,12 @@ import { SpawnVolumeTableActions } from "./SpawnVolumeTableActions";
 import { VolumeStatusBadge } from "./VolumeStatusBadge";
 
 interface SpawnVolumeTableProps {
+  maxSpawnableLimit: number;
   volumes: MyVolume[];
 }
 
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
+  maxSpawnableLimit,
   volumes,
 }) => {
   const [selectedVolume] = useQueryParam(QueryParams.Volume, "");
@@ -36,6 +38,11 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
 
   const initialExpanded = Object.fromEntries(
     dataSource.map(({ id }, i) => [i, id === selectedVolume]),
+  );
+
+  const columns = useMemo(
+    () => getColumns(maxSpawnableLimit),
+    [maxSpawnableLimit],
   );
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -65,7 +72,7 @@ const getHostDisplayName = (v: TableVolume) =>
 const sortByHost = (a: TableVolume, b: TableVolume) =>
   getHostDisplayName(a).localeCompare(getHostDisplayName(b));
 
-const columns = [
+const getColumns = (maxSpawnableLimit: number) => [
   {
     header: "Volume",
     // @ts-expect-error: FIXME. This comment was added by an automated script.
@@ -134,7 +141,12 @@ const columns = [
   {
     header: "Actions",
     // @ts-expect-error: FIXME. This comment was added by an automated script.
-    cell: ({ row }) => <SpawnVolumeTableActions volume={row.original} />,
+    cell: ({ row }) => (
+      <SpawnVolumeTableActions
+        maxSpawnableLimit={maxSpawnableLimit}
+        volume={row.original}
+      />
+    ),
   },
 ];
 

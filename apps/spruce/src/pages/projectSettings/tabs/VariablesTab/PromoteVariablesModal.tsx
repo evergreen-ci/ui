@@ -100,12 +100,16 @@ export const PromoteVariablesModal: React.FC<PromoteVariablesModalProps> = ({
 
   return (
     <ConfirmationModal
-      buttonText={getButtonText(selected.size)}
+      cancelButtonProps={{
+        onClick: handleClose,
+      }}
+      confirmButtonProps={{
+        children: getButtonText(selected.size),
+        disabled: selected.size === 0,
+        onClick: onConfirm,
+      }}
       data-cy="promote-vars-modal"
-      onCancel={handleClose}
-      onConfirm={onConfirm}
       open={open}
-      submitDisabled={selected.size === 0}
       title="Move Variables to Repo"
     >
       <Body>

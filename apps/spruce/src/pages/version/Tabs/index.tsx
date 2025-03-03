@@ -15,7 +15,6 @@ import DownstreamTasks from "./DownstreamTasks";
 import TaskDuration from "./TaskDuration";
 import Tasks from "./Tasks";
 import TestAnalysis from "./TestAnalysis";
-import { TestAnalysisTabGuideCue } from "./TestAnalysis/TestAnalysisTabGuideCue";
 
 type ChildPatches = NonNullable<
   VersionQuery["version"]["patch"]
@@ -131,11 +130,7 @@ const tabMap = ({
       key="test-analysis-tab"
       data-cy="test-analysis-tab"
       id="test-analysis-tab"
-      name={
-        <>
-          Test Analysis <TestAnalysisTabGuideCue />
-        </>
-      }
+      name="Test Analysis"
     >
       <TestAnalysis versionId={versionId} />
     </Tab>

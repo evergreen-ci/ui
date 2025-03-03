@@ -103,12 +103,16 @@ export const CopyProjectModal: React.FC<Props> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Duplicate"
+      cancelButtonProps={{
+        onClick: handleClose,
+      }}
+      confirmButtonProps={{
+        children: "Duplicate",
+        disabled: hasError,
+        onClick: onConfirm,
+      }}
       data-cy="copy-project-modal"
-      onCancel={handleClose}
-      onConfirm={onConfirm}
       open={open}
-      submitDisabled={hasError}
       title={`Duplicate “${label}”`}
     >
       <SpruceForm

@@ -25,6 +25,17 @@ functions:
       directory: ui
       shallow_clone: true
 
+  generate-token:
+    - command: github.generate_token
+      type: setup
+      params:
+        expansion_name: github_token
+    - command: shell.exec
+      params:
+        script: |
+          # Set GitHub app dynamic token to ensure it can clone non-public repos for Go modules.
+          git config --global url."https://x-access-token:${github_token}@github.com/evergreen-ci/".insteadOf https://github.com/evergreen-ci/
+
   run-make-background:
     command: subprocess.exec
     params:
@@ -78,14 +89,17 @@ functions:
           MONGOSH_DECOMPRESS: ${decompress}
         working_dir: ui/evergreen
         command: make get-mongosh
-    - command: subprocess.exec
+    - command: shell.exec
       type: setup
       params:
         background: true
         # Turn off silent to enable DB logging for debugging purposes
         silent: true
         working_dir: ui/evergreen
-        command: make start-mongod
+        shell: bash
+        script: | 
+          mkdir -p bin
+          make start-mongod > bin/mongod-logs.txt 2>&1
     - command: subprocess.exec
       type: setup
       params:
@@ -270,6 +284,7 @@ tasks:
   - name: e2e
     commands:
       - func: setup-mongodb
+      - func: generate-token
       - func: run-make-background
         vars:
           target: local-evergreen
