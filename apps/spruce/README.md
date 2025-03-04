@@ -37,15 +37,14 @@ mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem spruce-local.co
 ```
 
 3. Run the following command to start the local UI server with the remote
-   Evergreen server. The below command needs to run with sudo because it needs
-   to bind to port 443.
+   Evergreen server.
 
 ```sh
-sudo yarn <env_name>  # where env_name is the name of the environment you want to run staging or prod
+yarn <env_name>  # where env_name is the name of the environment you want to run staging or prod
 ```
 
-4. Navigate to `https://spruce-local.corp.mongodb.com` in your browser to view
-   the Spruce UI.
+4. Navigate to `https://spruce-local.corp.mongodb.com:8443` in your browser to
+   view the Spruce UI.
 
 ### Storybook
 
