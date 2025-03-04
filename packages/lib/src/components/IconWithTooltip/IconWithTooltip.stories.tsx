@@ -27,6 +27,9 @@ export const Default: CustomStoryObj<typeof IconWithTooltip> = {
       control: { type: "select" },
       options: Object.values(Sizes),
     },
+    children: {
+      control: { type: "text" },
+    },
   },
   args: {
     color: green.dark3,
