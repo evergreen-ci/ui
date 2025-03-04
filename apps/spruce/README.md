@@ -16,6 +16,37 @@ Spruce is the React UI for MongoDB's continuous integration software.
 5. Run `yarn run dev`. This will launch the app and point it at the local
    Evergreen server you just started.
 
+### Running against a remote Evergreen server
+
+If you want to run Spruce against a remote Evergreen server, you can do so by
+taking the following steps.
+
+1. Generate a self signed certificate and add it to your keychain. This will
+   allow you to run Spruce against a remote Evergreen server that uses HTTPS.
+
+```sh
+brew install mkcert
+mkcert -install
+mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem spruce-local.corp.mongodb.com
+```
+
+2. Update your `/etc/hosts` file and add the following entry
+
+```sh
+127.0.0.1  spruce-local.corp.mongodb.com
+```
+
+3. Run the following command to start the local UI server with the remote
+   Evergreen server. The below command needs to run with sudo because it needs
+   to bind to port 443.
+
+```sh
+sudo yarn <env_name>  # where env_name is the name of the environment you want to run staging or prod
+```
+
+4. Navigate to `https://spruce-local.corp.mongodb.com` in your browser to view
+   the Spruce UI.
+
 ### Storybook
 
 Run `yarn run storybook` to launch storybook and view our shared components.
@@ -42,8 +73,8 @@ results.
 
 ### Environment Variables
 
-Read more about environment variables [here](../../packages/deploy-utils/README.md#environment-variables).
-
+Read more about environment variables
+[here](../../packages/deploy-utils/README.md#environment-variables).
 
 ## GraphQL Type Generation
 
@@ -200,8 +231,8 @@ production environments.
 **Notes**
 
 When creating your queries you should be sure to limit the amount of documents
-so you don't accidentally export an entire collection. You can do this by passing
-a limit to the query.
+so you don't accidentally export an entire collection. You can do this by
+passing a limit to the query.
 
 ### Logkeeper
 
@@ -220,24 +251,33 @@ following:
 
 ## Deployment
 
-Read more about deployment [here](../../packages/deploy-utils/README.md#deployment).
-
+Read more about deployment
+[here](../../packages/deploy-utils/README.md#deployment).
 
 ## Advanced Debugging
 
 ### Inspecting the State of the Application
-If debugging a feature requires you to inspect the application's state, tools like [React DevTools](https://react.dev/learn/react-developer-tools) can be very helpful. React DevTools is a browser extension available in Chrome, Firefox, and Edge that allows you to inspect the React component tree, view the state of components, and profile performance.
+
+If debugging a feature requires you to inspect the application's state, tools
+like [React DevTools](https://react.dev/learn/react-developer-tools) can be very
+helpful. React DevTools is a browser extension available in Chrome, Firefox, and
+Edge that allows you to inspect the React component tree, view the state of
+components, and profile performance.
 
 #### Debugging in Safari
-Safari does not support React DevTools directly. To inspect the application state in Safari, you can follow the steps below. Note: steps 1-3 only need to be done your first time setting up React DevTools.
+
+Safari does not support React DevTools directly. To inspect the application
+state in Safari, you can follow the steps below. Note: steps 1-3 only need to be
+done your first time setting up React DevTools.
 
 1. **Install React DevTools CLI**:
    ```bash
    npm install -g react-devtools
    ```
 
-2. **Create a Self-Signed Certificate**:
-   Generate a certificate to enable secure communication. The certificate will be valid for 365 days, after which you must generate a new certificate:
+2. **Create a Self-Signed Certificate**: Generate a certificate to enable secure
+   communication. The certificate will be valid for 365 days, after which you
+   must generate a new certificate:
    ```bash
    openssl req -x509 -noenc -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt -subj "/CN=localhost"
    ```
@@ -249,7 +289,8 @@ Safari does not support React DevTools directly. To inspect the application stat
       ```
    2. Add it to your Keychain and mark it as trusted:
       - Drag the file into Keychain Access.
-      - Double-click the certificate, expand **Trust**, and set **Always Trust** for SSL.
+      - Double-click the certificate, expand **Trust**, and set **Always Trust**
+        for SSL.
 
 4. **Run React DevTools**:
 
@@ -260,12 +301,21 @@ Safari does not support React DevTools directly. To inspect the application stat
 
 5. **Prepare a Profiler-Ready Build**:
 
-   Deploy a build with profiling enabled to the environment of your choice. For more details, refer to [React's Profiling Documentation](https://react.dev/docs/profiler). See the commands labeled **Profiling Builds** in the [Deployment](../../packages/deploy-utils/README.md#how-to-deploy-a-profiling-build) section.
+   Deploy a build with profiling enabled to the environment of your choice. For
+   more details, refer to
+   [React's Profiling Documentation](https://react.dev/docs/profiler). See the
+   commands labeled **Profiling Builds** in the
+   [Deployment](../../packages/deploy-utils/README.md#how-to-deploy-a-profiling-build)
+   section.
 
 6. **Connect via Safari**:
 
-   Open the target domain in Safari and inspect the application state using React DevTools.
+   Open the target domain in Safari and inspect the application state using
+   React DevTools.
 
 #### Troubleshooting
-- If the certificate is not trusted, double-check the Keychain settings to ensure "Always Trust" is selected.
-- Verify that the `react-devtools` CLI is running. Look for logs or error messages in the terminal for further insights.
+
+- If the certificate is not trusted, double-check the Keychain settings to
+  ensure "Always Trust" is selected.
+- Verify that the `react-devtools` CLI is running. Look for logs or error
+  messages in the terminal for further insights.
