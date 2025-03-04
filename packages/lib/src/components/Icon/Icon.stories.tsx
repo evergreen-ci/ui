@@ -49,15 +49,19 @@ const Container = styled.div`
 `;
 
 const IconContainer = styled.div`
-  width: 150px;
-  height: 70px;
-  flex-shrink: 0;
-  text-align: center;
-  border: 1px solid #babdbe;
-  border-radius: ${size.xxs};
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-shrink: 0;
+  gap: ${size.xxs};
+
+  width: 150px;
+  height: 70px;
+
+  border: 1px solid #babdbe;
+  border-radius: ${size.xxs};
   margin: 0.5rem;
+
+  text-align: center;
 `;
