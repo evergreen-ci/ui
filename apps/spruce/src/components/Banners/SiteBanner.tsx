@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Banner, { Variant } from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
-import Icon from "components/Icon";
+import Icon from "@evg-ui/lib/components/Icon";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string";
 

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { IconProps } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
+import Icon from "@evg-ui/lib/components/Icon";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import Icon from "components/Icon";
 import { SQUARE_SIZE, taskStatusStyleMap } from "pages/waterfall/styles";
 import { reportError } from "utils/errorReporting";
 
