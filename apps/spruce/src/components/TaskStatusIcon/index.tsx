@@ -25,10 +25,10 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
         <Icon fill={green.dark1} glyph="Checkmark" size={size} {...rest} />
       );
     case TaskStatus.Failed:
-      return <Icon fill={red.base} glyph="FailureIcon" size={size} {...rest} />;
+      return <Icon fill={red.base} glyph="Failure" size={size} {...rest} />;
     case TaskStatus.KnownIssue:
       return (
-        <Icon fill={red.base} glyph="KnownFailureIcon" size={size} {...rest} />
+        <Icon fill={red.base} glyph="KnownFailure" size={size} {...rest} />
       );
     case TaskStatus.Dispatched:
     case TaskStatus.Started:
