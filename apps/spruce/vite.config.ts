@@ -3,7 +3,7 @@ import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig, mergeConfig } from "vite";
+import { defineConfig, mergeConfig, ServerOptions } from "vite";
 import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
 import vitePluginImp from "vite-plugin-imp";
@@ -24,18 +24,55 @@ dns.setDefaultResultOrder("ipv4first");
 fs.writeFileSync(require.resolve("antd/es/style/core/global.less"), "");
 fs.writeFileSync(require.resolve("antd/lib/style/core/global.less"), "");
 
+let serverConfig: ServerOptions = {
+  host: "localhost",
+  port: 3000,
+};
+
+if (process.env.REMOTE_ENV === "true") {
+  // Validate that spruce-local.corp.mongodb.com resolves to 127.0.0.1
+  dns.lookup("spruce-local.corp.mongodb.com", (err, address) => {
+    if (err || address !== "127.0.0.1") {
+      console.error(`
+    ***************************************************************
+    *                                                             *
+    *  ERROR: spruce-local.corp.mongodb.com must resolve to       *
+    *  127.0.0.1. Did you update your /etc/hosts file?            *
+    *                                                             *
+    ***************************************************************
+      `);
+      process.exit(1);
+    }
+  });
+
+  // Validate the SSL certificates exist
+  if (
+    !fs.existsSync(path.resolve(__dirname, "localhost-key.pem")) ||
+    !fs.existsSync(path.resolve(__dirname, "localhost-cert.pem"))
+  ) {
+    console.error(`
+    *******************************************************************************************************
+    *                                                                                                     *
+    *  ERROR: localhost-key.pem is missing. Did you run                                                   *
+    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem spruce-local.corp.mongodb.com'?  *
+    *                                                                                                     *
+    *******************************************************************************************************
+      `);
+    process.exit(1);
+  }
+
+  serverConfig = {
+    host: "spruce-local.corp.mongodb.com",
+    port: 443,
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
+      cert: fs.readFileSync(path.resolve(__dirname, "localhost-cert.pem")),
+    },
+  };
+}
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
-  server: {
-    port: 3000,
-    proxy: {
-      "/graphql": {
-        target: "http://localhost:9090/graphql/query",
-        changeOrigin: true,
-      },
-    },
-  },
-
+  server: serverConfig,
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis
