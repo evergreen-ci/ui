@@ -8,7 +8,7 @@ const readField = (field, obj) => obj[field];
 describe("mergeVersions", () => {
   it("merges version arrays", () => {
     const pagination = {
-      activeVersionIds: [],
+      activeVersionIds: ["b", "c", "f"],
       nextPageOrder: 0,
       prevPageOrder: 0,
       hasNextPage: true,
@@ -29,12 +29,16 @@ describe("mergeVersions", () => {
           readField,
         } as FieldFunctionOptions,
       ),
-    ).toStrictEqual({ flattenedVersions: versions.slice(0, -1), pagination });
+    ).toStrictEqual({
+      allActiveVersions: new Set(["b", "c", "f"]),
+      flattenedVersions: versions.slice(0, -1),
+      pagination,
+    });
   });
 
   it("merges version when incoming is newer than existing", () => {
     const pagination = {
-      activeVersionIds: [],
+      activeVersionIds: ["b", "c", "f"],
       nextPageOrder: 3,
       prevPageOrder: 0,
       hasNextPage: true,
@@ -55,12 +59,16 @@ describe("mergeVersions", () => {
           readField,
         } as FieldFunctionOptions,
       ),
-    ).toStrictEqual({ flattenedVersions: versions.slice(0, -1), pagination });
+    ).toStrictEqual({
+      allActiveVersions: new Set(["b", "c", "f"]),
+      flattenedVersions: versions.slice(0, -1),
+      pagination,
+    });
   });
 
   it("deduplicates versions when merging", () => {
     const pagination = {
-      activeVersionIds: [],
+      activeVersionIds: ["b", "c", "f"],
       nextPageOrder: 0,
       prevPageOrder: 1,
       hasNextPage: false,
@@ -81,12 +89,16 @@ describe("mergeVersions", () => {
           readField,
         } as FieldFunctionOptions,
       ),
-    ).toStrictEqual({ flattenedVersions: versions, pagination });
+    ).toStrictEqual({
+      allActiveVersions: new Set(["b", "c", "f"]),
+      flattenedVersions: versions,
+      pagination,
+    });
   });
 
   it("returns an identical cache when duplicate data is incoming", () => {
     const pagination = {
-      activeVersionIds: [],
+      activeVersionIds: ["b", "c", "f"],
       nextPageOrder: 0,
       prevPageOrder: 0,
       hasNextPage: false,
@@ -107,7 +119,11 @@ describe("mergeVersions", () => {
           readField,
         } as FieldFunctionOptions,
       ),
-    ).toStrictEqual({ flattenedVersions: versions, pagination });
+    ).toStrictEqual({
+      allActiveVersions: new Set(["b", "c", "f"]),
+      flattenedVersions: versions,
+      pagination,
+    });
   });
 });
 
@@ -131,6 +147,7 @@ describe("readVersions", () => {
     expect(
       readVersions(
         {
+          allActiveVersions: new Set(["b", "c", "f"]),
           flattenedVersions: versions,
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
@@ -148,7 +165,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions,
       pagination: {
-        activeVersionIds: [],
+        activeVersionIds: ["b", "c", "f"],
         hasPrevPage: false,
         hasNextPage: false,
         mostRecentVersionOrder: 5,
@@ -162,6 +179,7 @@ describe("readVersions", () => {
     expect(
       readVersions(
         {
+          allActiveVersions: new Set(["b", "c", "f"]),
           flattenedVersions: versions,
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
@@ -179,7 +197,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions.slice(1, 3),
       pagination: {
-        activeVersionIds: [],
+        activeVersionIds: ["b", "c"],
         hasPrevPage: true,
         hasNextPage: true,
         mostRecentVersionOrder: 5,
@@ -193,6 +211,7 @@ describe("readVersions", () => {
     expect(
       readVersions(
         {
+          allActiveVersions: new Set(["b", "c", "f"]),
           flattenedVersions: versions,
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
@@ -213,7 +232,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions.slice(2),
       pagination: {
-        activeVersionIds: [],
+        activeVersionIds: ["c", "f"],
         hasPrevPage: true,
         hasNextPage: false,
         mostRecentVersionOrder: 5,
@@ -227,6 +246,7 @@ describe("readVersions", () => {
     expect(
       readVersions(
         {
+          allActiveVersions: new Set(["b", "c", "f"]),
           flattenedVersions: versions,
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
@@ -247,7 +267,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions.slice(0, 3),
       pagination: {
-        activeVersionIds: [],
+        activeVersionIds: ["b", "c"],
         hasPrevPage: false,
         hasNextPage: true,
         mostRecentVersionOrder: 5,
@@ -261,6 +281,7 @@ describe("readVersions", () => {
     expect(
       readVersions(
         {
+          allActiveVersions: new Set(["b", "c", "f"]),
           flattenedVersions: versions,
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
@@ -281,7 +302,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions.slice(2, 3),
       pagination: {
-        activeVersionIds: [],
+        activeVersionIds: ["c"],
         hasPrevPage: true,
         hasNextPage: true,
         mostRecentVersionOrder: 5,
@@ -343,6 +364,7 @@ describe("readVersions", () => {
     expect(
       readVersions(
         {
+          allActiveVersions: new Set(["b", "c", "f"]),
           flattenedVersions: versions,
           // @ts-expect-error: only mostRecentVersionOrder affects reading versions
           pagination: {
@@ -364,6 +386,7 @@ describe("readVersions", () => {
     ).toStrictEqual({
       flattenedVersions: versions,
       pagination: {
+        activeVersionIds: ["b", "c", "f"],
         hasPrevPage: false,
         hasNextPage: false,
         mostRecentVersionOrder: 5,

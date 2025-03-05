@@ -132,7 +132,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   useEffect(() => {
     if (minOrder > 0) {
       const { flattenedVersions, pagination } = data.waterfall;
-      const activeVersions = flattenedVersions.filter((v) => v.activated);
+      const activeVersions = pagination.activeVersionIds;
       const isMostRecentCommitOnPage =
         flattenedVersions[0].order === pagination.mostRecentVersionOrder;
 

@@ -1,76 +1,6 @@
 import { FieldMergeFunction, FieldReadFunction } from "@apollo/client";
-import { ReadFieldFunction } from "@apollo/client/cache/core/types/common";
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { WaterfallQuery } from "gql/generated/types";
 import { VERSION_LIMIT } from "../constants";
-
-type Version = Unpacked<WaterfallQuery["waterfall"]["flattenedVersions"]>;
-type WaterfallBuild = NonNullable<Unpacked<Version["waterfallBuilds"]>>;
-
-const makeFilterRegex = (filters: string[]) =>
-  filters.reduce<RegExp[]>((accum, curr) => {
-    let regex;
-    try {
-      regex = new RegExp(curr, "i");
-    } catch {
-      return accum;
-    }
-    return [...accum, regex];
-  }, []);
-
-const hasMatchingRequester = (
-  argsRequester: string,
-  version: Version,
-  readField: ReadFieldFunction,
-) => {
-  if (argsRequester.length === 0 || argsRequester[0] === "") {
-    return true;
-  }
-  const requester = readField<Version["requester"]>("requester", version) ?? "";
-  if (argsRequester.includes(requester)) {
-    return true;
-  }
-};
-
-const hasMatchingBv = (
-  argsVariant: string[],
-  version: Version,
-  readField: ReadFieldFunction,
-) => {
-  if (argsVariant.length === 0 || argsVariant[0] === "") {
-    return true;
-  }
-
-  const bvRegex = makeFilterRegex(argsVariant);
-  const waterfallBuilds =
-    readField<Version["waterfallBuilds"]>("waterfallBuilds", version) ?? [];
-
-  let hasMatch = false;
-  for (let i = 0; i < waterfallBuilds.length; i++) {
-    const buildVariant =
-      readField<WaterfallBuild["buildVariant"]>(
-        "buildVariant",
-        waterfallBuilds[0],
-      ) ?? "";
-
-    const displayName =
-      readField<WaterfallBuild["displayName"]>(
-        "buildVariant",
-        waterfallBuilds[0],
-      ) ?? "";
-
-    // I think we should check if the build is actually activated, but we don't have access to this field currently.
-
-    if (
-      bvRegex.length &&
-      (bvRegex.some((r) => displayName.match(r)) ||
-        bvRegex.some((r) => buildVariant.match(r)))
-    ) {
-      hasMatch = true;
-    }
-  }
-  return hasMatch;
-};
 
 export const readVersions = ((existing, { args, readField }) => {
   if (!existing) {
@@ -80,13 +10,10 @@ export const readVersions = ((existing, { args, readField }) => {
   const minOrder = args?.options?.minOrder ?? 0;
   let maxOrder = args?.options?.maxOrder ?? 0;
   const limit = args?.options?.limit ?? VERSION_LIMIT;
-  const requesters = (args?.options?.requesters ?? "").split(",") ?? [];
-  const buildVariants = (args?.options?.variants ?? "").split(",") ?? [];
-
-  console.log({ requesters, buildVariants });
   const date = args?.options?.date ?? "";
   const revision = args?.options?.revision ?? "";
 
+  const activeVersionIds = [];
   const { mostRecentVersionOrder = 0 } =
     readField<WaterfallQuery["waterfall"]["pagination"]>(
       "pagination",
@@ -123,29 +50,28 @@ export const readVersions = ((existing, { args, readField }) => {
   let endIndex = maxOrder ? existingVersions.length : idx;
   let numActivated = 0;
 
+  const allActiveVersions =
+    readField<Set<string>>("allActiveVersions", existing) ?? new Set();
+
   // Count backwards for paginating backwards.
   if (minOrder) {
     for (let i = endIndex; i >= 0; i--) {
-      const currVersion = existingVersions[i];
-      if (
-        readField<boolean>("activated", currVersion) &&
-        hasMatchingBv(buildVariants, currVersion, readField) &&
-        hasMatchingRequester(requesters, currVersion, readField)
-      ) {
+      const id = readField<string>("id", existingVersions[i]) ?? "";
+      if (allActiveVersions.has(id)) {
         numActivated += 1;
+        activeVersionIds.push(id);
         if (numActivated === limit) {
           startIndex = i;
-          if (i > 0) {
-            // Check for leading inactive versions
-            if (
-              [...Array(i).keys()].every(
-                (index) =>
-                  readField<boolean>("activated", existingVersions[index]) ===
-                  false,
-              )
-            ) {
-              startIndex = 0;
-            }
+          // Handle unmatching leading versions
+          i -= 1;
+          while (
+            i >= 0 &&
+            !allActiveVersions.has(
+              readField<string>("id", existingVersions[i]) ?? "",
+            )
+          ) {
+            startIndex = i;
+            i -= 1;
           }
           break;
         }
@@ -156,13 +82,10 @@ export const readVersions = ((existing, { args, readField }) => {
   // Count forwards for paginating forwards.
   if (maxOrder) {
     for (let i = startIndex; i < existingVersions.length; i++) {
-      const currVersion = existingVersions[i];
-      if (
-        readField<boolean>("activated", currVersion) &&
-        hasMatchingBv(buildVariants, currVersion, readField) &&
-        hasMatchingRequester(requesters, currVersion, readField)
-      ) {
+      const id = readField<string>("id", existingVersions[i]) ?? "";
+      if (allActiveVersions.has(id)) {
         numActivated += 1;
+        activeVersionIds.push(id);
         if (numActivated === limit) {
           endIndex = i;
           break;
@@ -176,11 +99,6 @@ export const readVersions = ((existing, { args, readField }) => {
 
   // Add 1 because slice is [inclusive, exclusive).
   const flattenedVersions = existingVersions.slice(startIndex, endIndex + 1);
-
-  const activeVersionIds = flattenedVersions.map(
-    (v) => readField<string>("id", v) ?? "",
-  );
-
   const zerothOrder = readField<number>("order", flattenedVersions[0]) ?? 0;
   const prevOrderNumber =
     mostRecentVersionOrder === zerothOrder ? 0 : zerothOrder;
@@ -195,7 +113,7 @@ export const readVersions = ((existing, { args, readField }) => {
   return {
     flattenedVersions,
     pagination: {
-      activeVersionIds,
+      activeVersionIds: activeVersionIds.sort(),
       mostRecentVersionOrder,
       prevPageOrder: prevOrderNumber,
       nextPageOrder: nextOrderNumber,
@@ -242,8 +160,17 @@ export const mergeVersions = ((existing, incoming, { readField }) => {
     nextPageOrder: 0,
     prevPageOrder: 0,
   };
+
+  const existingActiveVersions =
+    readField<Set<string>>("allActiveVersions", existing) ?? new Set();
+  const incomingActiveVersions =
+    readField<string[]>("activeVersionIds", pagination) ?? [];
+  incomingActiveVersions.forEach((vId) => existingActiveVersions.add(vId));
   return {
     flattenedVersions: v,
     pagination,
+    allActiveVersions: existingActiveVersions,
   };
-}) satisfies FieldMergeFunction<WaterfallQuery["waterfall"]>;
+}) satisfies FieldMergeFunction<
+  WaterfallQuery["waterfall"] & { allActiveVersions?: Set<string> }
+>;

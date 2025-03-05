@@ -19,7 +19,7 @@ export const cache = new InMemoryCache({
           keyArgs: ["$patchId"],
         },
         waterfall: {
-          keyArgs: ["options", ["projectIdentifier"]],
+          keyArgs: ["options", ["projectIdentifier", "variants", "requesters"]],
           read(...args) {
             return readVersions(...args);
           },
