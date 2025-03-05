@@ -48,7 +48,6 @@ export const readVersions = ((existing, { args, readField }) => {
 
   let startIndex = maxOrder ? idx : 0;
   let endIndex = maxOrder ? existingVersions.length : idx;
-  let numActivated = 0;
 
   const allActiveVersions =
     readField<Set<string>>("allActiveVersions", existing) ?? new Set();
@@ -58,9 +57,8 @@ export const readVersions = ((existing, { args, readField }) => {
     for (let i = endIndex; i >= 0; i--) {
       const id = readField<string>("id", existingVersions[i]) ?? "";
       if (allActiveVersions.has(id)) {
-        numActivated += 1;
         activeVersionIds.push(id);
-        if (numActivated === limit) {
+        if (activeVersionIds.length === limit) {
           startIndex = i;
           // Handle unmatching leading versions
           i -= 1;
@@ -84,15 +82,14 @@ export const readVersions = ((existing, { args, readField }) => {
     for (let i = startIndex; i < existingVersions.length; i++) {
       const id = readField<string>("id", existingVersions[i]) ?? "";
       if (allActiveVersions.has(id)) {
-        numActivated += 1;
         activeVersionIds.push(id);
-        if (numActivated === limit) {
+        if (activeVersionIds.length === limit) {
           endIndex = i;
           break;
         }
       }
     }
-    if (numActivated < limit) {
+    if (activeVersionIds.length < limit) {
       return undefined;
     }
   }

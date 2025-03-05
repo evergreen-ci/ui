@@ -185,27 +185,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       startTransition(() => {
         setServerFilters(filters);
       });
-      /* refetch({
-        options: {
-          projectIdentifier,
-          ...filters,
-        },
-      }); */
     } else if (serverQueryParamsEmpty) {
       startTransition(() => {
         setServerFilters(resetFilterState);
       });
-      /* refetch({
-        options: {
-          projectIdentifier,
-          ...resetFilterState,
-          limit: VERSION_LIMIT,
-          maxOrder,
-          minOrder,
-          revision,
-          date: date ? fromZonedTime(date, timezone) : undefined,
-        },
-      }); */
     }
   }, [allQueryParams]);
 

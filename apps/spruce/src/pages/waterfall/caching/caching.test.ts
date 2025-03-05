@@ -125,6 +125,37 @@ describe("mergeVersions", () => {
       pagination,
     });
   });
+
+  it("combines lists of active versions", () => {
+    const pagination = {
+      activeVersionIds: ["b", "c", "f"],
+      nextPageOrder: 0,
+      prevPageOrder: 1,
+      hasNextPage: false,
+      hasPrevPage: true,
+      mostRecentVersionOrder: 5,
+    };
+    expect(
+      mergeVersions(
+        {
+          allActiveVersions: new Set(["x", "y", "b"]),
+          flattenedVersions: versions.slice(0, 4),
+          pagination,
+        },
+        {
+          flattenedVersions: versions.slice(2),
+          pagination,
+        },
+        {
+          readField,
+        } as FieldFunctionOptions,
+      ),
+    ).toStrictEqual({
+      allActiveVersions: new Set(["b", "c", "f", "x", "y"]),
+      flattenedVersions: versions,
+      pagination,
+    });
+  });
 });
 
 describe("readVersions", () => {
@@ -392,6 +423,38 @@ describe("readVersions", () => {
         mostRecentVersionOrder: 5,
         prevPageOrder: 0,
         nextPageOrder: 0,
+      },
+    });
+  });
+
+  it("only applies active versions against the version limit", () => {
+    expect(
+      readVersions(
+        {
+          allActiveVersions: new Set(["b", "c", "f"]),
+          flattenedVersions: versions,
+          // @ts-expect-error: only mostRecentVersionOrder affects reading versions
+          pagination: {
+            mostRecentVersionOrder: 5,
+          },
+        },
+        // @ts-expect-error: for tests we can omit unused fields from the args
+        {
+          args: {
+            options: { limit: 2 },
+          },
+          readField,
+        } as FieldFunctionOptions,
+      ),
+    ).toStrictEqual({
+      flattenedVersions: versions.slice(0, 3),
+      pagination: {
+        activeVersionIds: ["b", "c"],
+        hasPrevPage: false,
+        hasNextPage: true,
+        mostRecentVersionOrder: 5,
+        prevPageOrder: 0,
+        nextPageOrder: 3,
       },
     });
   });
