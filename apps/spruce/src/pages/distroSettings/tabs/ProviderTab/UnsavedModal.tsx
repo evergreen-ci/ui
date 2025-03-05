@@ -1,9 +1,6 @@
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
-import {
-  unstable_BlockerFunction as BlockerFunction,
-  unstable_useBlocker as useBlocker,
-} from "react-router-dom";
+import { BlockerFunction, useBlocker } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { DistroQuery } from "gql/generated/types";
 import { SaveModal } from "../../SaveModal";

@@ -1,8 +1,5 @@
 import { Body } from "@leafygreen-ui/typography";
-import {
-  unstable_BlockerFunction as BlockerFunction,
-  unstable_useBlocker as useBlocker,
-} from "react-router-dom";
+import { BlockerFunction, useBlocker } from "react-router-dom";
 import { ConfirmationModal } from "components/ConfirmationModal";
 
 export type NavigationModalProps = {
