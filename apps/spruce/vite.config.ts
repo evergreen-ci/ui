@@ -24,19 +24,24 @@ dns.setDefaultResultOrder("ipv4first");
 fs.writeFileSync(require.resolve("antd/es/style/core/global.less"), "");
 fs.writeFileSync(require.resolve("antd/lib/style/core/global.less"), "");
 
+// Default server config
 let serverConfig: ServerOptions = {
   host: "localhost",
   port: 3000,
 };
 
-if (process.env.REMOTE_ENV === "true") {
-  // Validate that spruce-local.corp.mongodb.com resolves to 127.0.0.1
-  dns.lookup("spruce-local.corp.mongodb.com", (err, address) => {
+// If we are running in a remote environment, we need to validate that we have the correct setup
+
+if (process.env.REACT_APP_REMOTE_ENV === "true") {
+  const appURL = process.env.REACT_APP_SPRUCE_URL;
+  const strippedURL = appURL.replace(/https?:\/\//, "");
+  // Validate that the app url resolves to 127.0.0.1
+  dns.lookup(strippedURL, (err, address) => {
     if (err || address !== "127.0.0.1") {
       console.error(`
     ***************************************************************
     *                                                             *
-    *  ERROR: spruce-local.corp.mongodb.com must resolve to       *
+    *  ERROR: ${strippedURL} must resolve to       *
     *  127.0.0.1. Did you update your /etc/hosts file?            *
     *                                                             *
     ***************************************************************
@@ -54,7 +59,7 @@ if (process.env.REMOTE_ENV === "true") {
     *******************************************************************************************************
     *                                                                                                     *
     *  ERROR: localhost-key.pem is missing. Did you run                                                   *
-    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem spruce-local.corp.mongodb.com'?  *
+    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem ${strippedURL}'?                 *
     *                                                                                                     *
     *******************************************************************************************************
       `);
@@ -70,6 +75,7 @@ if (process.env.REMOTE_ENV === "true") {
     },
   };
 }
+
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
   server: serverConfig,
