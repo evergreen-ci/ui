@@ -62,11 +62,6 @@ export const getFormSchema = ({
               oneOf: [
                 {
                   type: "string" as const,
-                  title: "Legacy",
-                  enum: [PlannerVersion.Legacy],
-                },
-                {
-                  type: "string" as const,
                   title: "Tunable",
                   enum: [PlannerVersion.Tunable],
                 },
@@ -76,13 +71,6 @@ export const getFormSchema = ({
           dependencies: {
             version: {
               oneOf: [
-                {
-                  properties: {
-                    version: {
-                      enum: [PlannerVersion.Legacy],
-                    },
-                  },
-                },
                 {
                   properties: {
                     version: {
