@@ -223,7 +223,7 @@ const StickyHeader = styled(Row)<{ atTop: boolean }>`
 
   background: white;
   margin: ${size.xxs} -${size.m};
-  padding: ${size.xxs} ${size.m};
+  padding: ${size.xs} ${size.m};
   ${({ atTop }) =>
     atTop
       ? "box-shadow: unset"
