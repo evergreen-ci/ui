@@ -51,14 +51,7 @@ const viteConfig = defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: [
-            "react",
-            "react-router-dom",
-            "react-dom",
-            "react-router",
-            "lodash",
-            "antd",
-          ],
+          vendor: ["react", "react-dom", "react-router", "lodash", "antd"],
         },
       },
     },
