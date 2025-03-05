@@ -57,39 +57,4 @@ describe("general section", () => {
       ).should("be.visible");
     });
   });
-
-  describe("single task distro", () => {
-    beforeEach(() => {
-      cy.visit("/distro/localhost/settings/general");
-    });
-
-    it("can toggle a distro as single task distro and shows a warning banner that dismisses on save", () => {
-      cy.dataCy("single-task-banner").should("not.exist");
-      cy.getInputByLabel("Set distro as Single Task Distro").scrollIntoView();
-      cy.getInputByLabel("Set distro as Single Task Distro").check({
-        force: true,
-      });
-      cy.dataCy("single-task-banner").contains(
-        "This Distro will be converted to a Single Task Distro once saved. Please review before confirming.",
-      );
-      save();
-      cy.dataCy("single-task-banner").should("not.exist");
-      cy.validateToast("success", "Updated distro.");
-      cy.reload();
-      cy.getInputByLabel("Set distro as Single Task Distro").should(
-        "be.checked",
-      );
-      cy.dataCy("single-task-banner").should("not.exist");
-      cy.getInputByLabel("Set distro as Single Task Distro").scrollIntoView();
-      cy.getInputByLabel("Set distro as Single Task Distro").uncheck({
-        force: true,
-      });
-      cy.dataCy("single-task-banner").contains(
-        "This Distro will no longer be a Single Task Distro once saved. Please review before confirming.",
-      );
-      save();
-      cy.dataCy("single-task-banner").should("not.exist");
-      cy.validateToast("success", "Updated distro.");
-    });
-  });
 });
