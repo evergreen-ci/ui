@@ -17,7 +17,7 @@ import {
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
 import { environmentVariables } from "utils";
-import { getCorpLoginURL } from "utils/environmentVariables";
+import { getCorpLoginURL, isRemoteEnv } from "utils/environmentVariables";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 
 const { getGQLUrl } = environmentVariables;
@@ -30,6 +30,7 @@ export const useCreateGQLClient = ():
   const [gqlClient, setGQLClient] =
     useState<ApolloClient<NormalizedCacheObject>>();
 
+  console.log(window.location.href);
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(getGQLUrl(), secretFieldsReq)
       .then(({ data }) => {
@@ -44,7 +45,8 @@ export const useCreateGQLClient = ():
           },
           SentryBreadcrumb.HTTP,
         );
-        if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
+
+        if (!isRemoteEnv() && shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();
         } else if (getCorpLoginURL() !== "") {
           // If we can't get a response from the server, we likely hit the corp secure redirect.
