@@ -3,10 +3,10 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover, { Align } from "@leafygreen-ui/popover";
+import Icon from "@evg-ui/lib/components/Icon";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import Icon from "components/Icon";
 import { Divider } from "components/styles";
 import { PopoverContainer } from "components/styles/Popover";
 import {

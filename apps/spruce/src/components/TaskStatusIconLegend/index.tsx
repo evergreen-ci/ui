@@ -4,10 +4,10 @@ import IconButton from "@leafygreen-ui/icon-button";
 import Popover, { Align, Justify } from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
 import { useMatch } from "react-router-dom";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import Icon from "components/Icon";
 import { PopoverContainer } from "components/styles/Popover";
 import {
   mainlineCommitsGroupedStatuses,

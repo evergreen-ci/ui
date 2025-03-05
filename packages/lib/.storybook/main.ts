@@ -11,14 +11,7 @@ export default {
     const { mergeConfig } = await import("vite");
 
     return mergeConfig(config, {
-      plugins: [
-        tsconfigPaths(),
-        {
-          react: {
-            jsxImportSource: "@emotion/react",
-          },
-        },
-      ],
+      plugins: [tsconfigPaths()],
       resolve: {
         alias: {
           "@leafygreen-ui/emotion": resolve(

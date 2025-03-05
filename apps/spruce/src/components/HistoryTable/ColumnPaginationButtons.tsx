@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import Icon from "components/Icon";
 import { useHistoryTable } from "./HistoryTableContext";
 
 interface ColumnPaginationButtonProps {

@@ -8,9 +8,9 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Overline, OverlineProps } from "@leafygreen-ui/typography";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import Icon from "components/Icon";
 import {
   ProjectHealthView,
   ProjectHealthViewQuery,

@@ -1,7 +1,7 @@
 import { useState } from "react";
+import Icon from "@evg-ui/lib/components/Icon";
 import { useWaterfallAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
-import Icon from "components/Icon";
 import { NotificationModal } from "components/Notifications";
 import { waterfallTriggers } from "constants/triggers";
 import { subscriptionMethods } from "types/subscription";

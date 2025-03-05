@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { FilterDropdownProps } from "antd/es/table/interface";
+import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize } from "@evg-ui/lib/constants/tokens";
 import { CheckboxGroup } from "components/Checkbox";
-import Icon from "components/Icon";
 import { tableInputContainerCSS } from "components/styles/Table";
 import {
   TreeDataEntry,

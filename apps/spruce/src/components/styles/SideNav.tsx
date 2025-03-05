@@ -7,8 +7,8 @@ import {
 } from "@leafygreen-ui/side-nav";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
+import Icon from "@evg-ui/lib/components/Icon";
 import { zIndex, size } from "@evg-ui/lib/constants/tokens";
-import Icon from "components/Icon";
 
 const { blue } = palette;
 

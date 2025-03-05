@@ -2,7 +2,7 @@ import { RefObject, useCallback, useRef } from "react";
 import Button, { ButtonProps } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import Popover from "@leafygreen-ui/popover";
-import Icon from "components/Icon";
+import Icon from "@evg-ui/lib/components/Icon";
 import { useOnClickOutside } from "hooks";
 
 interface PopoverButtonProps extends Omit<ButtonProps, "children"> {

@@ -1,12 +1,12 @@
 import { useState, forwardRef, useEffect } from "react";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
+import Icon from "@evg-ui/lib/components/Icon";
+import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import {
   TextInputWithGlyph,
   TextInputWithGlyphProps,
 } from "@evg-ui/lib/components/TextInputWithGlyph";
-import Icon from "components/Icon";
-import IconTooltip from "components/IconTooltip";
 
 const { yellow } = palette;
 type TextInputWithValidationProps = {
@@ -88,13 +88,13 @@ const TextInputWithValidation: React.FC<TextInputWithValidationProps> =
               <Icon glyph="Plus" />
             </IconButton>
           ) : (
-            <IconTooltip
+            <IconWithTooltip
               aria-label="validation error"
               fill={yellow.base}
               glyph="Warning"
             >
               {validatorErrorMessage}
-            </IconTooltip>
+            </IconWithTooltip>
           )
         }
         label={label}

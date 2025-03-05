@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { palette } from "@leafygreen-ui/palette";
+import IconWithTooltip from "@evg-ui/lib/components/IconWithTooltip";
 import { size } from "@evg-ui/lib/constants/tokens";
-import IconTooltip from "components/IconTooltip";
 import { HostStatus } from "types/host";
 
 const { red } = palette;
@@ -18,10 +18,10 @@ const HostStatusBadge: React.FC<Props> = ({ status }) => (
       {hostStatusToCopy[status]}
     </Badge>
     {status === HostStatus.Terminated && (
-      <IconTooltip css={iconMargin} fill={red.base} glyph="InfoWithCircle">
+      <IconWithTooltip css={iconMargin} fill={red.base} glyph="InfoWithCircle">
         Terminated hosts will disappear in 5 minutes. See Event Log for more
         details.
-      </IconTooltip>
+      </IconWithTooltip>
     )}
   </HostStatusWrapper>
 );
