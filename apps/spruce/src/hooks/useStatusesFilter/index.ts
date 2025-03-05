@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
 

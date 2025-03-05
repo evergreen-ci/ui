@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import debounce from "lodash.debounce";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { FilterHookParams, FilterHookResult } from "hooks/useStatusesFilter";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";

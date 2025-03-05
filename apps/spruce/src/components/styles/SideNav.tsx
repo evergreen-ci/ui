@@ -6,7 +6,7 @@ import {
   SideNavGroup as LGSideNavGroup,
 } from "@leafygreen-ui/side-nav";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { zIndex, size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
 

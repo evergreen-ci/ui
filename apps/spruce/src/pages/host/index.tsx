@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { UpdateStatusModal } from "components/Hosts";

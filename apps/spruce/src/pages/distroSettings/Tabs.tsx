@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
-import { useParams, Routes, Route, Navigate } from "react-router-dom";
+import { useParams, Routes, Route, Navigate } from "react-router";
 import { DistroSettingsTabRoutes, slugs } from "constants/routes";
 import { DistroQuery } from "gql/generated/types";
 import useScrollToAnchor from "hooks/useScrollToAnchor";

@@ -6,7 +6,7 @@ import {
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
 import queryString from "query-string";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useTaskAnalytics } from "analytics";
 import { getParsleyTaskLogLink } from "constants/externalResources";

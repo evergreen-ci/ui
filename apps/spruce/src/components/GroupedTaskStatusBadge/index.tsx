@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { fontSize, size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";

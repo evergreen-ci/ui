@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Skeleton } from "antd";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";

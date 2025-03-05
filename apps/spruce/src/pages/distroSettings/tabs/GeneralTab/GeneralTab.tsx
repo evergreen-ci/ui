@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { SettingsCard, SettingsCardTitle } from "components/SettingsCard";
 import { useSpruceConfig } from "hooks";
 import { DeleteDistro } from "pages/distroSettings/DeleteDistro";

@@ -1,5 +1,5 @@
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useVersionAnalytics, usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";

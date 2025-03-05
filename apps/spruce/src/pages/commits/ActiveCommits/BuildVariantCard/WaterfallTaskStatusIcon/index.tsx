@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { TaskStatusIcon } from "components/TaskStatusIcon";

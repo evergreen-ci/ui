@@ -7,7 +7,7 @@ import {
   LeafyGreenTable,
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";

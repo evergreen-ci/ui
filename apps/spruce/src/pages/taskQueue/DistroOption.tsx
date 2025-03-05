@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { hoverStyles } from "components/styles/SearchableDropdown";
 import { getTaskQueueRoute } from "constants/routes";

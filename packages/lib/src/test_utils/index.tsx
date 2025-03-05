@@ -11,7 +11,7 @@ import {
   type RenderResult,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { RouterProvider, createMemoryRouter } from "react-router";
 import * as customQueries from "./custom-queries";
 
 type QueriesType = typeof queries;

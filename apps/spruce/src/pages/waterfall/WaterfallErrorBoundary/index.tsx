@@ -2,7 +2,7 @@ import React, { Component, ErrorInfo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { H1, InlineCode } from "@leafygreen-ui/typography";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import Icon from "components/Icon";
 import { getWaterfallRoute } from "constants/routes";

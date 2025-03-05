@@ -3,7 +3,7 @@ import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router";
 import { size, fontSize } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";

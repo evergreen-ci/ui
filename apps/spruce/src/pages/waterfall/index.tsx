@@ -3,7 +3,7 @@ import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useWaterfallAnalytics } from "analytics";

@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { Decorator, Parameters } from "@storybook/react";
-import { createMemoryRouter, RouterProvider } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router";
 
 const parameters: Parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

@@ -10,7 +10,7 @@ import {
   LeafyGreenTable,
   OnChangeFn,
 } from "@leafygreen-ui/table";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Unpacked } from "@evg-ui/lib/types/utils";

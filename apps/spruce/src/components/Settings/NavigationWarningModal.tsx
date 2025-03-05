@@ -1,5 +1,5 @@
 import { Body } from "@leafygreen-ui/typography";
-import { BlockerFunction, useBlocker } from "react-router-dom";
+import { BlockerFunction, useBlocker } from "react-router";
 import { ConfirmationModal } from "components/ConfirmationModal";
 
 export type NavigationModalProps = {

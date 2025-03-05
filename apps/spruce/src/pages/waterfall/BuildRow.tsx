@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";

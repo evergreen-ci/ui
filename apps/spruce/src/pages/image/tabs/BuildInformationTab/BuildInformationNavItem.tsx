@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useImageAnalytics } from "analytics";
 import { SideNavItem } from "components/styles";
 import { ImageTabRoutes, getImageRoute } from "constants/routes";

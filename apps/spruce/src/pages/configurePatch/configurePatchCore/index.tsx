@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";

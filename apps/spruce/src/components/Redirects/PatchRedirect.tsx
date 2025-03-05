@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { getPatchRoute, getVersionRoute, slugs } from "constants/routes";
 import { HasVersionQuery, HasVersionQueryVariables } from "gql/generated/types";

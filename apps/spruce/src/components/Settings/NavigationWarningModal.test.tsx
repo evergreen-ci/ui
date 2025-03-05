@@ -1,9 +1,4 @@
-import {
-  createMemoryRouter,
-  Link,
-  Outlet,
-  RouterProvider,
-} from "react-router-dom";
+import { createMemoryRouter, Link, Outlet, RouterProvider } from "react-router";
 import {
   render,
   screen,

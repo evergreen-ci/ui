@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { matchPath, useLocation, Params } from "react-router-dom";
+import { matchPath, useLocation, Params } from "react-router";
 import { idSlugs, routes } from "constants/routes";
 import { environmentVariables } from "utils";
 

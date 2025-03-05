@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Link, LinkProps } from "react-router-dom";
+import { Link, LinkProps } from "react-router";
 
 export const useLGButtonRouterLink = (to: string) =>
   memo(({ children, ...rest }: LinkProps) => (
