@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router";
 import { ImageTabRoutes } from "constants/routes";
 import useScrollToAnchor from "hooks/useScrollToAnchor";
 import { Header } from "./Header";

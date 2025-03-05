@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
-} from "react-router-dom";
+} from "react-router";
 import { Content } from "components/Content";
 import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";

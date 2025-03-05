@@ -1,4 +1,4 @@
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { useQueryParam, useQueryParams } from ".";
 

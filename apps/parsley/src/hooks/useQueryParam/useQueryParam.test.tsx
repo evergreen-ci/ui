@@ -1,5 +1,5 @@
 import { ParseOptions } from "query-string";
-import { MemoryRouter, useLocation } from "react-router-dom";
+import { MemoryRouter, useLocation } from "react-router";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParam, useQueryParams } from ".";

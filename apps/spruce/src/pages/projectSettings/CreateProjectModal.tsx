@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";

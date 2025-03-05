@@ -3,7 +3,7 @@ import Badge, { Variant } from "@leafygreen-ui/badge";
 import { Theme } from "@leafygreen-ui/lib";
 import { color } from "@leafygreen-ui/tokens";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { wordBreakCss } from "@evg-ui/lib/components/styles";
 import { size as sizeToken } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";

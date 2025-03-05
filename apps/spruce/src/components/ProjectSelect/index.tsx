@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import SearchableDropdown from "components/SearchableDropdown";
 import {

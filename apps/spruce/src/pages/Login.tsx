@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router";
 import { fetchWithRetry } from "@evg-ui/lib/utils/request";
 import { useAuthDispatchContext, useAuthStateContext } from "context/Auth";
 import { secretFieldsReq } from "gql/fetch";

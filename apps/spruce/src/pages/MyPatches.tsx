@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { getUserPatchesRoute } from "constants/routes";
 import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";

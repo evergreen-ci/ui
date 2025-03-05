@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description } from "@leafygreen-ui/typography";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";

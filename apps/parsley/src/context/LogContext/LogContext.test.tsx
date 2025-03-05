@@ -1,5 +1,5 @@
 import Cookie from "js-cookie";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 import { MockInstance } from "vitest";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";

@@ -1,4 +1,4 @@
-import { useParams, Link, Route, Routes, Navigate } from "react-router-dom";
+import { useParams, Link, Route, Routes, Navigate } from "react-router";
 import { useSpawnAnalytics } from "analytics";
 import {
   SideNav,

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics } from "analytics";
 import TableControl from "components/Table/TableControl";

@@ -1,8 +1,17 @@
 import * as router from "react-router";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router";
 import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { evergreenURL, graphqlURL } from "utils/environmentVariables";
 import { AuthProvider, useAuthContext } from ".";
+
+vi.mock("react-router", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    // @ts-expect-error: Not necessary to mock the entire object for the test.
+    ...actual,
+    useNavigate: () => vi.fn(),
+  };
+});
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MemoryRouter initialEntries={["/"]}>

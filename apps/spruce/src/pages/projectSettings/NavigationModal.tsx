@@ -1,4 +1,4 @@
-import { matchPath, useParams } from "react-router-dom";
+import { matchPath, useParams } from "react-router";
 import { NavigationWarningModal } from "components/Settings";
 import { getProjectSettingsRoute, routes } from "constants/routes";
 import { useHasUnsavedTab } from "./Context";

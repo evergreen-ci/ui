@@ -5,7 +5,7 @@ import {
   ComboboxGroup,
   ComboboxOption,
 } from "@leafygreen-ui/combobox";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { getDistroSettingsRoute } from "constants/routes";
 import { DistrosQuery, DistrosQueryVariables } from "gql/generated/types";
