@@ -4,6 +4,15 @@ import { act, renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { evergreenURL, graphqlURL } from "utils/environmentVariables";
 import { AuthProvider, useAuthContext } from ".";
 
+vi.mock("react-router", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    // @ts-expect-error: Not necessary to mock the entire object for the test.
+    ...actual,
+    useNavigate: () => vi.fn(),
+  };
+});
+
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MemoryRouter initialEntries={["/"]}>
     <AuthProvider>
