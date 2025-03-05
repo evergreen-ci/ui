@@ -29,13 +29,17 @@ export const PauseSleepScheduleModal: React.FC<{
 
   return (
     <ConfirmationModal
-      buttonText={pauseButtonText}
-      data-cy="pause-sleep-schedule-modal"
-      onCancel={() => setOpen(false)}
-      onConfirm={() => {
-        handleConfirm(shouldKeepOff);
-        setOpen(false);
+      cancelButtonProps={{
+        onClick: () => setOpen(false),
       }}
+      confirmButtonProps={{
+        children: pauseButtonText,
+        onClick: () => {
+          handleConfirm(shouldKeepOff);
+          setOpen(false);
+        },
+      }}
+      data-cy="pause-sleep-schedule-modal"
       open={open}
       setOpen={setOpen}
       title="Configure Host Pause"

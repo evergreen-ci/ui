@@ -2,10 +2,8 @@ import { InlineCode, Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { StyledLink, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { useVersionAnalytics } from "analytics";
-import {
-  MetadataCard,
+import MetadataCard, {
   MetadataItem,
-  MetadataTitle,
   MetadataLabel,
 } from "components/MetadataCard";
 import {
@@ -63,11 +61,10 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
 
   return (
-    <MetadataCard loading={loading}>
-      <MetadataTitle>
-        {isPatch ? "Patch Metadata" : "Version Metadata"}
-      </MetadataTitle>
-
+    <MetadataCard
+      loading={loading}
+      title={isPatch ? "Patch Metadata" : "Version Metadata"}
+    >
       <MetadataItem>
         <MetadataLabel>Project:</MetadataLabel>{" "}
         {projectIdentifier ? (
@@ -83,11 +80,11 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           `${owner}/${repo}`
         )}
       </MetadataItem>
-      <MetadataItem>
+      <MetadataItem tooltipDescription="Makespan represents the wall clock time of this version's execution.">
         <MetadataLabel>Makespan:</MetadataLabel>{" "}
         {makespan && msToDuration(makespan)}
       </MetadataItem>
-      <MetadataItem>
+      <MetadataItem tooltipDescription="Time taken represents the total time spent executing tasks for this version.">
         <MetadataLabel>Time taken:</MetadataLabel>{" "}
         {timeTaken && msToDuration(timeTaken)}
       </MetadataItem>

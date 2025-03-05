@@ -75,7 +75,10 @@ export const SpawnVolume = () => {
         volumeLimit={volumeLimit}
       />
       {volumes.length ? (
-        <SpawnVolumeTable volumes={volumes} />
+        <SpawnVolumeTable
+          maxSpawnableLimit={maxSpawnableLimit}
+          volumes={volumes}
+        />
       ) : (
         <Subtitle>No volumes available, spawn one to get started.</Subtitle>
       )}

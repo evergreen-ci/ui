@@ -49,12 +49,16 @@ const Modal: React.FC<ModalProps> = ({ closeModal, open, projectId }) => {
 
   return (
     <ConfirmationModal
-      buttonText="Delete"
+      cancelButtonProps={{
+        onClick: closeModal,
+      }}
+      confirmButtonProps={{
+        children: "Delete",
+        disabled: loading,
+        onClick: onConfirm,
+      }}
       data-cy="delete-project-modal"
-      onCancel={closeModal}
-      onConfirm={onConfirm}
       open={open}
-      submitDisabled={loading}
       title={`Delete “${identifier}”?`}
       variant="danger"
     >

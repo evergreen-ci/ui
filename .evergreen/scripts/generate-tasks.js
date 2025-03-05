@@ -1,7 +1,11 @@
 import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 import { join, parse } from "path";
-import { APPS_DIR, TASK_MAPPING } from "./constants.js"
+import {
+  APPS_DIR,
+  IGNORED_FILE_EXTENSIONS,
+  TASK_MAPPING,
+} from "./constants.js";
 
 // This file is written in plain JS because it makes the generator super fast. No need to install TypeScript.
 
@@ -25,9 +29,7 @@ const getMergeBase = () => {
 const whatChanged = () => {
   const mergeBase = getMergeBase();
   try {
-    const diffFiles = execSync(
-      `git diff ${mergeBase} --name-only`,
-    )
+    const diffFiles = execSync(`git diff ${mergeBase} --name-only`)
       .toString()
       .trim();
 
@@ -51,8 +53,12 @@ const targetsFromChangedFiles = (files) => {
   const targets = new Set();
 
   files.forEach((file) => {
-    const { dir } = parse(file);
+    const { dir, ext } = parse(file);
     const [packageDir, packageName] = dir.split("/");
+
+    if (IGNORED_FILE_EXTENSIONS.has(ext.toLowerCase())) {
+      return;
+    }
 
     // If a change is made to a shared directory, test both apps.
     if (packageDir !== APPS_DIR) {
@@ -86,7 +92,11 @@ const generateTasks = () => {
 };
 
 const main = () => {
-  const fileDestPath = join(process.cwd(), "/.evergreen", "generate-tasks.json");
+  const fileDestPath = join(
+    process.cwd(),
+    "/.evergreen",
+    "generate-tasks.json",
+  );
   const evgObj = generateTasks();
   const evgJson = JSON.stringify(evgObj);
 

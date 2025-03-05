@@ -148,9 +148,11 @@ export const getFormSchema = (
                   true,
                 ),
               },
-              forceRun: {
-                type: "null" as const,
-              },
+              ...(projectType !== ProjectType.Repo && {
+                forceRun: {
+                  type: "null" as const,
+                },
+              }),
             },
           },
           scheduling: {

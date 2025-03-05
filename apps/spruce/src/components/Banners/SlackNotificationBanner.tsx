@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { palette } from "@leafygreen-ui/palette";
@@ -12,10 +12,9 @@ import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
-  UserSettingsQuery,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { USER_SETTINGS } from "gql/queries";
+import { useUserSettings } from "hooks";
 
 const { blue } = palette;
 
@@ -40,9 +39,7 @@ export const SlackNotificationBanner = () => {
       refetchQueries: ["UserSettings"],
     });
 
-  // USER SETTINGS QUERY
-  const { data: userSettingsData } = useQuery<UserSettingsQuery>(USER_SETTINGS);
-  const { userSettings } = userSettingsData || {};
+  const { userSettings } = useUserSettings();
   const { notifications, slackUsername: defaultSlackUsername } =
     userSettings || {};
   const { patchFinish, patchFirstFailure } = notifications || {};

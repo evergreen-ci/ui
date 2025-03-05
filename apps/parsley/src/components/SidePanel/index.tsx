@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { SideNav } from "@leafygreen-ui/side-nav";
 import Cookie from "js-cookie";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
-import { HAS_OPENED_DRAWER } from "constants/cookies";
+import { DRAWER_OPENED } from "constants/cookies";
 import { ExpandedLines } from "types/logs";
 import {
   ExpandedNavGroup,
@@ -24,8 +24,8 @@ const SidePanel: React.FC<SidePanelProps> = ({
   "data-cy": dataCy,
   expandedLines,
 }) => {
-  const [collapsed, setCollapsed] = useState(
-    Cookie.get(HAS_OPENED_DRAWER) === "true",
+  const [collapsed, setCollapsed] = useState<boolean>(
+    Cookie.get(DRAWER_OPENED) === "true",
   );
 
   return (
@@ -34,8 +34,11 @@ const SidePanel: React.FC<SidePanelProps> = ({
       collapsed={collapsed}
       data-cy={dataCy}
       setCollapsed={(collapse) => {
+        // collapsed represents the initial state of the sidenav
+        Cookie.set(DRAWER_OPENED, collapsed ? "false" : "true", {
+          expires: 365,
+        });
         setCollapsed(collapse);
-        Cookie.set(HAS_OPENED_DRAWER, "true", { expires: 365 });
       }}
       widthOverride={290}
     >

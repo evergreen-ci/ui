@@ -167,7 +167,7 @@ Cypress.Commands.add("logout", () => {
 });
 
 Cypress.Commands.add("resetDrawerState", () => {
-  cy.clearCookie("has-opened-drawer");
+  cy.setCookie("drawer-opened", "false");
 });
 
 Cypress.Commands.add("toggleDetailsPanel", (open: boolean) => {

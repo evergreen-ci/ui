@@ -1,7 +1,6 @@
 import { MemoryRouter } from "react-router-dom";
 import { renderHook } from "@evg-ui/lib/test_utils";
-import { buildVariants } from "./testData";
-import { BuildVariant, Version } from "./types";
+import { buildVariants, groupedVersions, versions } from "./testData";
 import { useFilters } from "./useFilters";
 
 type WrapperProps = {
@@ -23,8 +22,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -32,22 +31,9 @@ describe("useFilters", () => {
         },
       );
       expect(result.current).toStrictEqual({
-        ...waterfall,
-        versions: [
-          {
-            inactiveVersions: [flattenedVersions[0]],
-            version: null,
-          },
-          {
-            inactiveVersions: null,
-            version: flattenedVersions[1],
-          },
-          {
-            inactiveVersions: null,
-            version: flattenedVersions[2],
-          },
-        ],
-        activeVersionIds: ["b", "c"],
+        buildVariants,
+        versions: groupedVersions,
+        activeVersionIds: ["b", "c", "f"],
       });
     });
 
@@ -55,8 +41,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -73,7 +59,7 @@ describe("useFilters", () => {
         versions: [
           {
             version: null,
-            inactiveVersions: flattenedVersions,
+            inactiveVersions: versions,
           },
         ],
       };
@@ -87,8 +73,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: ["3", "2"],
           }),
         {
@@ -99,27 +85,9 @@ describe("useFilters", () => {
       );
 
       const pinnedWaterfall = {
-        ...waterfall,
-        versions: [
-          {
-            inactiveVersions: [flattenedVersions[0]],
-            version: null,
-          },
-          {
-            inactiveVersions: null,
-            version: flattenedVersions[1],
-          },
-          {
-            inactiveVersions: null,
-            version: flattenedVersions[2],
-          },
-        ],
-        activeVersionIds: ["b", "c"],
-        buildVariants: [
-          waterfall.buildVariants[1],
-          waterfall.buildVariants[2],
-          waterfall.buildVariants[0],
-        ],
+        versions: groupedVersions,
+        activeVersionIds: ["b", "c", "f"],
+        buildVariants: [buildVariants[1], buildVariants[2], buildVariants[0]],
       };
 
       expect(result.current).toStrictEqual(pinnedWaterfall);
@@ -131,8 +99,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -147,7 +115,7 @@ describe("useFilters", () => {
         buildVariants: [],
         versions: [
           {
-            inactiveVersions: flattenedVersions,
+            inactiveVersions: versions,
             version: null,
           },
         ],
@@ -156,12 +124,12 @@ describe("useFilters", () => {
       expect(result.current).toStrictEqual(filteredWaterfall);
     });
 
-    it("build variant filters are added together", () => {
+    it("build variant filters are added together with inactive builds omitted", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -172,19 +140,21 @@ describe("useFilters", () => {
       );
 
       const filteredWaterfall = {
-        ...waterfall,
+        buildVariants: [
+          {
+            ...buildVariants[0],
+            builds: [buildVariants[0].builds[0]],
+          },
+          buildVariants[1],
+          buildVariants[2],
+        ],
         versions: [
+          groupedVersions[0],
+          groupedVersions[1],
+          groupedVersions[2],
           {
-            inactiveVersions: [flattenedVersions[0]],
+            inactiveVersions: [versions[3], versions[4], versions[5]],
             version: null,
-          },
-          {
-            inactiveVersions: null,
-            version: flattenedVersions[1],
-          },
-          {
-            inactiveVersions: null,
-            version: flattenedVersions[2],
           },
         ],
         activeVersionIds: ["b", "c"],
@@ -199,8 +169,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -214,26 +184,25 @@ describe("useFilters", () => {
         activeVersionIds: ["b"],
         buildVariants: [
           {
-            ...waterfall.buildVariants[0],
+            ...buildVariants[0],
             builds: [
               {
-                ...waterfall.buildVariants[0].builds[0],
-                tasks: [waterfall.buildVariants[0].builds[0].tasks[1]],
+                ...buildVariants[0].builds[0],
+                tasks: [buildVariants[0].builds[0].tasks[1]],
               },
             ],
           },
         ],
         versions: [
+          groupedVersions[0],
+          groupedVersions[1],
           {
-            inactiveVersions: [flattenedVersions[0]],
-            version: null,
-          },
-          {
-            inactiveVersions: null,
-            version: flattenedVersions[1],
-          },
-          {
-            inactiveVersions: [flattenedVersions[2]],
+            inactiveVersions: [
+              versions[2],
+              versions[3],
+              versions[4],
+              versions[5],
+            ],
             version: null,
           },
         ],
@@ -246,8 +215,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -258,39 +227,33 @@ describe("useFilters", () => {
       );
 
       const filteredWaterfall = {
-        ...waterfall,
         versions: [
+          groupedVersions[0],
+          groupedVersions[1],
+          { inactiveVersions: null, version: versions[2] },
           {
-            inactiveVersions: [flattenedVersions[0]],
+            inactiveVersions: [versions[3], versions[4], versions[5]],
             version: null,
-          },
-          {
-            inactiveVersions: null,
-            version: flattenedVersions[1],
-          },
-          {
-            inactiveVersions: null,
-            version: flattenedVersions[2],
           },
         ],
         activeVersionIds: ["b", "c"],
         buildVariants: [
           {
-            ...waterfall.buildVariants[0],
+            ...buildVariants[0],
             builds: [
               {
-                ...waterfall.buildVariants[0].builds[0],
-                tasks: [waterfall.buildVariants[0].builds[0].tasks[1]],
+                ...buildVariants[0].builds[0],
+                tasks: [buildVariants[0].builds[0].tasks[1]],
               },
             ],
           },
-          waterfall.buildVariants[1],
+          buildVariants[1],
           {
-            ...waterfall.buildVariants[2],
+            ...buildVariants[2],
             builds: [
               {
-                ...waterfall.buildVariants[2].builds[0],
-                tasks: [waterfall.buildVariants[2].builds[0].tasks[0]],
+                ...buildVariants[2].builds[0],
+                tasks: [buildVariants[2].builds[0].tasks[0]],
               },
             ],
           },
@@ -304,8 +267,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants: buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -319,7 +282,7 @@ describe("useFilters", () => {
         activeVersionIds: [],
         versions: [
           {
-            inactiveVersions: flattenedVersions,
+            inactiveVersions: versions,
             version: null,
           },
         ],
@@ -333,8 +296,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -348,24 +311,29 @@ describe("useFilters", () => {
         activeVersionIds: ["b"],
         versions: [
           {
-            inactiveVersions: [flattenedVersions[0]],
+            inactiveVersions: [versions[0]],
             version: null,
           },
           {
             inactiveVersions: null,
-            version: flattenedVersions[1],
+            version: versions[1],
           },
           {
-            inactiveVersions: [flattenedVersions[2]],
+            inactiveVersions: [
+              versions[2],
+              versions[3],
+              versions[4],
+              versions[5],
+            ],
             version: null,
           },
         ],
         buildVariants: [
           {
-            ...waterfall.buildVariants[0],
-            builds: [waterfall.buildVariants[0].builds[0]],
+            ...buildVariants[0],
+            builds: [buildVariants[0].builds[0]],
           },
-          waterfall.buildVariants[1],
+          buildVariants[1],
         ],
       });
     });
@@ -374,8 +342,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -389,21 +357,25 @@ describe("useFilters", () => {
         activeVersionIds: ["c"],
         versions: [
           {
-            inactiveVersions: [flattenedVersions[0], flattenedVersions[1]],
+            inactiveVersions: [versions[0], versions[1]],
             version: null,
           },
           {
             inactiveVersions: null,
-            version: flattenedVersions[2],
+            version: versions[2],
+          },
+          {
+            inactiveVersions: [versions[3], versions[4], versions[5]],
+            version: null,
           },
         ],
         buildVariants: [
           {
-            ...waterfall.buildVariants[2],
+            ...buildVariants[2],
             builds: [
               {
-                ...waterfall.buildVariants[2].builds[0],
-                tasks: [waterfall.buildVariants[2].builds[0].tasks[0]],
+                ...buildVariants[2].builds[0],
+                tasks: [buildVariants[2].builds[0].tasks[0]],
               },
             ],
           },
@@ -415,8 +387,8 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: waterfall.buildVariants,
-            flattenedVersions,
+            buildVariants,
+            flattenedVersions: versions,
             pins: [],
           }),
         {
@@ -431,7 +403,7 @@ describe("useFilters", () => {
         activeVersionIds: [],
         versions: [
           {
-            inactiveVersions: flattenedVersions,
+            inactiveVersions: versions,
             version: null,
           },
         ],
@@ -440,46 +412,3 @@ describe("useFilters", () => {
     });
   });
 });
-
-const flattenedVersions: Version[] = [
-  {
-    id: "a",
-    author: "sophie.stadler",
-    activated: false,
-    createTime: new Date("2024-09-20T14:56:08Z"),
-    errors: [],
-    message: "bar",
-    requester: "gitter_request",
-    revision: "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8",
-    order: 2,
-  },
-  {
-    id: "b",
-    author: "sophie.stadler",
-    activated: true,
-    createTime: new Date("2024-09-19T14:56:08Z"),
-    errors: [],
-    message: "foo",
-    requester: "gitter_request",
-    revision: "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-    order: 1,
-  },
-  {
-    id: "c",
-    author: "sophie.stadler",
-    activated: true,
-    createTime: new Date("2024-11-07T14:56:08Z"),
-    errors: [],
-    message: "baz",
-    requester: "trigger_request",
-    revision:
-      "9b0eb8edb5878371ca459839d0dfdbc9d175d2de0a4fcfb8f55f516687a1e920",
-    order: 1,
-  },
-];
-
-const waterfall: {
-  buildVariants: BuildVariant[];
-} = {
-  buildVariants,
-};
