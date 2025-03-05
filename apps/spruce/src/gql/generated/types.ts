@@ -1812,6 +1812,7 @@ export type PlannerSettingsInput = {
 };
 
 export enum PlannerVersion {
+  Legacy = "LEGACY",
   Tunable = "TUNABLE",
 }
 
