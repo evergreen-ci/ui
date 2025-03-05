@@ -297,6 +297,7 @@ export type CopyProjectInput = {
 /** CreateDistroInput is the input to the createDistro mutation. */
 export type CreateDistroInput = {
   newDistroId: Scalars["String"]["input"];
+  singleTaskDistro?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /**
