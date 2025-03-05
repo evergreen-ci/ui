@@ -16,12 +16,12 @@ export const GeneralTab: React.FC<TabProps> = ({
   const containerPoolDistros =
     spruceConfig?.containerPools?.pools?.map(({ distro }) => distro) ?? [];
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  const isContainerDistro = containerPoolDistros.includes(distroId);
+  const isContainerDistro = containerPoolDistros.includes(distroId as string);
+  const { singleTaskDistro } = distroData.distroOptions;
 
   const formSchema = useMemo(
-    () => getFormSchema(isContainerDistro, minimumHosts),
-    [isContainerDistro, minimumHosts],
+    () => getFormSchema(isContainerDistro, minimumHosts, singleTaskDistro),
+    [isContainerDistro, minimumHosts, singleTaskDistro],
   );
 
   return (
