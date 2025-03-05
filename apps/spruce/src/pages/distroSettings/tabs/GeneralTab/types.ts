@@ -10,11 +10,10 @@ export interface GeneralFormState {
   };
   distroOptions: {
     adminOnly: boolean;
-    disabled: boolean;
-    disableShallowClone: boolean;
     isCluster: boolean;
+    disableShallowClone: boolean;
+    disabled: boolean;
     note: string;
-    singleTaskDistro: boolean;
     warningNote: string;
   };
 }

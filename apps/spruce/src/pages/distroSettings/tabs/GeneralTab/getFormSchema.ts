@@ -1,11 +1,9 @@
 import { GetFormSchema } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
-import widgets from "components/SpruceForm/Widgets";
 
 export const getFormSchema = (
   isContainerDistro: boolean,
   minimumHosts: number,
-  singleTaskDistro: boolean,
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -72,11 +70,6 @@ export const getFormSchema = (
             title: "Disable queueing for this distro",
             default: false,
           },
-          singleTaskDistro: {
-            type: "boolean" as const,
-            title: "Set distro as Single Task Distro",
-            default: false,
-          },
           note: {
             type: "string" as const,
             title: "Notes",
@@ -135,17 +128,6 @@ export const getFormSchema = (
         ...(minimumHosts > 0 && {
           "ui:tooltipDescription": `This will still allow the minimum number of hosts (${minimumHosts}) to start`,
         }),
-      },
-      singleTaskDistro: {
-        "ui:description":
-          "Hosts will run only one task or task group before terminating.",
-        "ui:widget": widgets.CheckboxWithConditionalBannerWidget,
-        "ui:originalValue": singleTaskDistro,
-        "ui:enableCopy":
-          "This Distro will be converted to a Single Task Distro once saved. Please review before confirming.",
-        "ui:disableCopy":
-          "This Distro will no longer be a Single Task Distro once saved. Please review before confirming.",
-        "ui:data-cy-banner": "single-task-banner",
       },
       note: {
         "ui:rows": 7,

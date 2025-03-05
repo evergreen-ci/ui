@@ -26,7 +26,6 @@ const generalForm: GeneralFormState = {
   distroOptions: {
     adminOnly: false,
     isCluster: false,
-    singleTaskDistro: false,
     disableShallowClone: true,
     disabled: false,
     note: "distro note",
@@ -45,5 +44,4 @@ const generalGql: DistroInput = {
   disableShallowClone: true,
   disabled: false,
   note: "distro note",
-  singleTaskDistro: false,
 };

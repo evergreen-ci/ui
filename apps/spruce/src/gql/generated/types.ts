@@ -6143,7 +6143,6 @@ export type DistroQuery = {
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
-    singleTaskDistro: boolean;
     sshOptions: Array<string>;
     user: string;
     userSpawnAllowed: boolean;
