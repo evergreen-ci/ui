@@ -47,13 +47,17 @@ export const GitCommitSearch: React.FC<GitCommitSearchProps> = ({
         Search by Git Hash
       </DropdownItem>
       <ConfirmationModal
-        buttonText="Submit"
+        cancelButtonProps={{
+          onClick: onCancel,
+        }}
+        confirmButtonProps={{
+          children: "Submit",
+          // Force user to input at least 7 characters of the hash.
+          disabled: commitHash.trim().length < 7,
+          onClick: onConfirm,
+        }}
         data-cy="git-commit-search-modal"
-        onCancel={onCancel}
-        onConfirm={onConfirm}
         open={modalOpen}
-        // Force user to input at least 7 characters of the hash.
-        submitDisabled={commitHash.trim().length < 7}
         title="Search by Git Commit Hash"
       >
         <StyledDescription>

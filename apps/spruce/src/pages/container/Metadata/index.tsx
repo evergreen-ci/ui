@@ -1,8 +1,7 @@
 import { ApolloError } from "@apollo/client";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
-import {
-  MetadataCard,
+import MetadataCard, {
   MetadataItem,
   MetadataLabel,
 } from "components/MetadataCard";

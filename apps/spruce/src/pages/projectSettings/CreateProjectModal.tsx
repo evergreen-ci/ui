@@ -114,12 +114,16 @@ export const CreateProjectModal: React.FC<Props> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Create project"
+      cancelButtonProps={{
+        onClick: handleClose,
+      }}
+      confirmButtonProps={{
+        children: "Create project",
+        disabled: hasError,
+        onClick: onConfirm,
+      }}
       data-cy="create-project-modal"
-      onCancel={handleClose}
-      onConfirm={onConfirm}
       open={open}
-      submitDisabled={hasError}
       title="Create New Project"
     >
       {githubOrgs.length ? (

@@ -101,12 +101,16 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
 
   return (
     <ConfirmationModal
-      buttonText={loadingSpawnVolume ? "Spawning volume" : "Spawn"}
+      cancelButtonProps={{
+        onClick: onCancel,
+      }}
+      confirmButtonProps={{
+        children: loadingSpawnVolume ? "Spawning volume" : "Spawn",
+        disabled: loadingSpawnVolume || !canSubmit,
+        onClick: spawnVolume,
+      }}
       data-cy="spawn-volume-modal"
-      onCancel={onCancel}
-      onConfirm={spawnVolume}
       open={visible}
-      submitDisabled={loadingSpawnVolume || !canSubmit}
       title="Spawn New Volume"
     >
       <SpruceForm

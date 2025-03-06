@@ -57,7 +57,7 @@ describe("build variant filtering", () => {
     cy.visit("/project/evergreen/waterfall");
   });
 
-  it("submitting a build variant filter updates the url, creates a badge and filters the grid", () => {
+  it("submitting a build variant filter updates the url, creates a badge and filters the grid to only show active builds", () => {
     cy.dataCy("build-variant-label").should("have.length", 2);
     cy.dataCy("build-variant-filter-input").type("P{enter}");
     cy.dataCy("filter-chip").first().should("have.text", "Variant: P");
@@ -69,18 +69,18 @@ describe("build variant filtering", () => {
     cy.dataTestId("chip-dismiss-button").click();
     cy.dataCy("build-variant-label").should("have.length", 2);
 
-    cy.dataCy("build-variant-filter-input").type("Lint{enter}");
+    cy.dataCy("build-variant-filter-input").type("Ubuntu{enter}");
     cy.location().should((loc) => {
-      expect(loc.search).to.include("buildVariants=Lint");
+      expect(loc.search).to.include("buildVariants=Ubuntu");
     });
-    cy.dataCy("filter-chip").first().should("have.text", "Variant: Lint");
+    cy.dataCy("filter-chip").first().should("have.text", "Variant: Ubuntu");
 
     cy.dataCy("build-variant-label")
       .should("have.length", 1)
-      .should("have.text", "Lint");
+      .should("have.text", "Ubuntu 16.04");
     cy.dataCy("build-variant-filter-input").type("P{enter}");
     cy.location().should((loc) => {
-      expect(loc.search).to.include("buildVariants=Lint,P");
+      expect(loc.search).to.include("buildVariants=Ubuntu,P");
     });
   });
 });
@@ -116,7 +116,7 @@ describe("task filtering", () => {
   });
 
   it("correctly applies build variant and task filters", () => {
-    cy.dataCy("build-variant-filter-input").type("Lint{enter}");
+    cy.dataCy("build-variant-filter-input").type("Ubuntu{enter}");
     cy.dataCy("build-variant-label").should("have.length", 1);
     cy.dataCy("task-filter-input").type("agent{enter}");
     cy.dataCy("build-variant-label").should("have.length", 0);
@@ -202,6 +202,23 @@ describe("revision filtering", () => {
     cy.dataCy("version-label-active")
       .contains("ab49443")
       .invoke("attr", "data-highlighted", "true");
+  });
+});
+
+describe("project selection", () => {
+  it("selects a project and applies current task filters", () => {
+    cy.visit("/project/spruce/waterfall");
+    cy.dataCy("status-filter").click();
+    cy.dataCy("test-timed-out-option").click();
+    cy.get("body").click();
+    cy.dataCy("project-select").click();
+    cy.dataCy("project-select-options")
+      .contains("evergreen smoke test")
+      .click();
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq("/project/evergreen/waterfall");
+      expect(loc.search).to.eq("?statuses=test-timed-out");
+    });
   });
 });
 

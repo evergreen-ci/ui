@@ -85,12 +85,16 @@ export const UpdateStatusModal: React.FC<Props> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Update"
+      cancelButtonProps={{
+        onClick: onClickCancel,
+      }}
+      confirmButtonProps={{
+        children: "Update",
+        disabled: !status || loadingUpdateHostStatus,
+        onClick: onClickUpdate,
+      }}
       data-cy={dataCy}
-      onCancel={onClickCancel}
-      onConfirm={onClickUpdate}
       open={visible}
-      submitDisabled={!status || loadingUpdateHostStatus}
       title="Update Host Status"
     >
       <StyledSelect

@@ -58,12 +58,16 @@ export const CreateModal: React.FC<Props> = ({ handleClose, open }) => {
 
   return (
     <ConfirmationModal
-      buttonText="Create"
+      cancelButtonProps={{
+        onClick: handleClose,
+      }}
+      confirmButtonProps={{
+        children: "Create",
+        disabled: hasError,
+        onClick: onConfirm,
+      }}
       data-cy="create-distro-modal"
-      onCancel={handleClose}
-      onConfirm={onConfirm}
       open={open}
-      submitDisabled={hasError}
       title="Create New Distro"
     >
       <SpruceForm

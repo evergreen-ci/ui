@@ -12,8 +12,7 @@ import { usePatchAnalytics } from "analytics";
 import { TaskSchedulingWarningBanner } from "components/Banners/TaskSchedulingWarningBanner";
 import { LoadingButton } from "components/Buttons";
 import { CodeChanges } from "components/CodeChanges";
-import {
-  MetadataCard,
+import MetadataCard, {
   MetadataItem,
   MetadataLabel,
 } from "components/MetadataCard";
