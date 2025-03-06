@@ -267,7 +267,7 @@ const StickyHeader = styled(Row)<{ atTop: boolean }>`
   z-index: 1;
 
   background: white;
-  margin: 0 -${size.m};
+  margin: ${size.xxs} -${size.m};
   padding: ${size.xs} ${size.m};
   ${({ atTop }) =>
     atTop
