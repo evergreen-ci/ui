@@ -21,13 +21,15 @@ let serverConfig: ServerOptions = {
 };
 
 if (process.env.REMOTE_ENV === "true") {
+  const appURL = process.env.REACT_APP_SPRUCE_URL;
+  const hostURL = appURL.replace(/https?:\/\//, "");
   // Validate that parsley-local.corp.mongodb.com resolves to 127.0.0.1
-  dns.lookup("parsley-local.corp.mongodb.com", (err, address) => {
+  dns.lookup(hostURL, (err, address) => {
     if (err || address !== "127.0.0.1") {
       console.error(`
     ***************************************************************
     *                                                             *
-    *  ERROR: parsley-local.corp.mongodb.com must resolve to       *
+    *  ERROR: ${hostURL} must resolve to       *
     *  127.0.0.1. Did you update your /etc/hosts file?            *
     *                                                             *
     ***************************************************************
@@ -53,7 +55,7 @@ if (process.env.REMOTE_ENV === "true") {
   }
 
   serverConfig = {
-    host: "parsley-local.corp.mongodb.com",
+    host: hostURL,
     port: 8444,
     https: {
       key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),

@@ -34,14 +34,14 @@ let serverConfig: ServerOptions = {
 
 if (process.env.REACT_APP_REMOTE_ENV === "true") {
   const appURL = process.env.REACT_APP_SPRUCE_URL;
-  const strippedURL = appURL.replace(/https?:\/\//, "");
+  const hostURL = appURL.replace(/https?:\/\//, "");
   // Validate that the app url resolves to 127.0.0.1
-  dns.lookup(strippedURL, (err, address) => {
+  dns.lookup(hostURL, (err, address) => {
     if (err || address !== "127.0.0.1") {
       console.error(`
     ***************************************************************
     *                                                             *
-    *  ERROR: ${strippedURL} must resolve to       *
+    *  ERROR: ${hostURL} must resolve to       *
     *  127.0.0.1. Did you update your /etc/hosts file?            *
     *                                                             *
     ***************************************************************
@@ -67,7 +67,7 @@ if (process.env.REACT_APP_REMOTE_ENV === "true") {
   }
 
   serverConfig = {
-    host: "spruce-local.corp.mongodb.com",
+    host: hostURL,
     port: 8443,
     https: {
       key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
