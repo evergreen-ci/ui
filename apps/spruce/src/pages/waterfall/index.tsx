@@ -1,8 +1,7 @@
-import { Suspense, useRef, useState, useTransition } from "react";
+import { Suspense, useCallback, useRef, useState, useTransition } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
+import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -10,9 +9,14 @@ import { useWaterfallAnalytics } from "analytics";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
+import { WaterfallModal } from "components/WaterfallModal";
+import {
+  SEEN_WATERFALL_BETA_MODAL,
+  CY_DISABLE_COMMITS_WELCOME_MODAL,
+} from "constants/cookies";
 import { slugs } from "constants/routes";
-import { useAdminBetaFeatures, useIsScrollAtTop, useSpruceConfig } from "hooks";
-import { jiraLinkify } from "utils/string";
+import { useIsScrollAtTop } from "hooks";
+import { isProduction } from "utils/environmentVariables";
 import { waterfallPageContainerId } from "./constants";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
@@ -20,12 +24,12 @@ import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
 import WaterfallSkeleton from "./WaterfallSkeleton";
 
+const shouldDisableForTest =
+  !isProduction() && Cookies.get(CY_DISABLE_COMMITS_WELCOME_MODAL) === "true";
+
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`${projectIdentifier} | Waterfall`);
-  const { adminBetaSettings } = useAdminBetaFeatures();
-  const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host;
   const [, startTransition] = useTransition();
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     validQueryParams,
@@ -40,6 +44,13 @@ const Waterfall: React.FC = () => {
   const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
 
   const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
+  const restartWalkthrough = useCallback(
+    () => guideCueRef.current?.restart(),
+    [guideCueRef.current],
+  );
+
+  const showWaterfallBetaModal =
+    Cookies.get(SEEN_WATERFALL_BETA_MODAL) !== "true";
 
   return (
     <>
@@ -49,29 +60,12 @@ const Waterfall: React.FC = () => {
         data-cy="waterfall-page"
         id={waterfallPageContainerId}
       >
-        {adminBetaSettings?.spruceWaterfallEnabled && (
-          <Banner>
-            <BannerContent>
-              <div>
-                <strong>Thanks for using the Waterfall Beta!</strong> Feedback?
-                Open a ticket within the project epic{" "}
-                {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
-              </div>
-              <Button
-                data-cy="restart-walkthrough-button"
-                onClick={() => guideCueRef.current?.restart()}
-                size={ButtonSize.XSmall}
-              >
-                Restart walkthrough
-              </Button>
-            </BannerContent>
-          </Banner>
-        )}
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
           key={projectIdentifier}
           pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
+          restartWalkthrough={restartWalkthrough}
         />
         <FilterChips
           chips={chips}
@@ -95,6 +89,12 @@ const Waterfall: React.FC = () => {
             />
           </WaterfallErrorBoundary>
         </Suspense>
+
+        {!shouldDisableForTest &&
+          showWaterfallBetaModal &&
+          projectIdentifier && (
+            <WaterfallModal projectIdentifier={projectIdentifier} />
+          )}
       </PageContainer>
     </>
   );
@@ -109,11 +109,6 @@ const urlParamToTitleMap = {
   [WaterfallFilterOptions.BuildVariant]: "Variant",
   [WaterfallFilterOptions.Task]: "Task",
 };
-
-const BannerContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 const PageContainer = styled.div`
   display: flex;
