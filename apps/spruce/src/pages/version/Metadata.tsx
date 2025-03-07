@@ -26,11 +26,10 @@ import { ParametersModal } from "./ParametersModal";
 const { msToDuration, shortenGithash } = string;
 
 interface Props {
-  loading: boolean;
   version: VersionQuery["version"];
 }
 
-export const Metadata: React.FC<Props> = ({ loading, version }) => {
+export const Metadata: React.FC<Props> = ({ version }) => {
   const getDateCopy = useDateFormat();
   const {
     author,
@@ -61,10 +60,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
   const isGithubMergePatch = requester === Requester.GitHubMergeQueue;
 
   return (
-    <MetadataCard
-      loading={loading}
-      title={isPatch ? "Patch Metadata" : "Version Metadata"}
-    >
+    <MetadataCard title={isPatch ? "Patch Metadata" : "Version Metadata"}>
       <MetadataItem>
         <MetadataLabel>Project:</MetadataLabel>{" "}
         {projectIdentifier ? (

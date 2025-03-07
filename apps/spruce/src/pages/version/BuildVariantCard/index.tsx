@@ -21,6 +21,7 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
     BuildVariantStatsQueryVariables
   >(BUILD_VARIANTS_STATS, {
     fetchPolicy: "cache-and-network",
+
     variables: { id: versionId },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
@@ -28,7 +29,11 @@ const BuildVariantCard: React.FC<BuildVariantCardProps> = ({ versionId }) => {
   const { version } = data || {};
 
   return (
-    <StickyMetadataCard error={error} loading={loading} title="Build Variants">
+    <StickyMetadataCard
+      error={error}
+      loading={loading && !data}
+      title="Build Variants"
+    >
       <ScrollableBuildVariantStatsContainer data-cy="build-variants">
         {version?.buildVariantStats?.map(
           ({ displayName, statusCounts, variant }) => (
