@@ -185,7 +185,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       startTransition(() => {
         setServerFilters(filters);
       });
-    } else if (serverQueryParamsEmpty) {
+    } else if (serverQueryParamsEmpty && serverFilters !== resetFilterState) {
       startTransition(() => {
         setServerFilters(resetFilterState);
       });
