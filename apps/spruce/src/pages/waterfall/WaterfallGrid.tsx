@@ -170,14 +170,10 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const [allQueryParams] = useQueryParams();
 
   useEffect(() => {
-    const serverQueryParamsEmpty =
-      !Object.keys(allQueryParams).includes(
-        WaterfallFilterOptions.Requesters,
-      ) &&
-      !Object.keys(allQueryParams).includes(
-        WaterfallFilterOptions.BuildVariant,
-      );
-    if (activeVersionIds.length < VERSION_LIMIT && !serverQueryParamsEmpty) {
+    const hasServerParams =
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Requesters) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
+    if (activeVersionIds.length < VERSION_LIMIT && hasServerParams) {
       const filters = {
         variants: allQueryParams.buildVariants as string[],
         requesters: allQueryParams.requesters as string[],
@@ -185,12 +181,12 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       startTransition(() => {
         setServerFilters(filters);
       });
-    } else if (serverQueryParamsEmpty && serverFilters !== resetFilterState) {
+    } else if (!hasServerParams && serverFilters !== resetFilterState) {
       startTransition(() => {
         setServerFilters(resetFilterState);
       });
     }
-  }, [allQueryParams]);
+  }, [allQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];

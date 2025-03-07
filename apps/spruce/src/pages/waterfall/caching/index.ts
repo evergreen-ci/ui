@@ -13,7 +13,6 @@ export const readVersions = ((existing, { args, readField }) => {
   const date = args?.options?.date ?? "";
   const revision = args?.options?.revision ?? "";
 
-  const activeVersionIds = [];
   const { mostRecentVersionOrder = 0 } =
     readField<WaterfallQuery["waterfall"]["pagination"]>(
       "pagination",
@@ -49,6 +48,7 @@ export const readVersions = ((existing, { args, readField }) => {
   let startIndex = maxOrder ? idx : 0;
   let endIndex = maxOrder ? existingVersions.length : idx;
 
+  const activeVersionIds = [];
   const allActiveVersions =
     readField<Set<string>>("allActiveVersions", existing) ?? new Set();
 
@@ -110,6 +110,7 @@ export const readVersions = ((existing, { args, readField }) => {
   return {
     flattenedVersions,
     pagination: {
+      // Sort is only necessary for consistency in testing
       activeVersionIds: activeVersionIds.sort(),
       mostRecentVersionOrder,
       prevPageOrder: prevOrderNumber,
