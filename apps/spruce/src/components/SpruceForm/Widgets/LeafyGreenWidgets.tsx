@@ -110,9 +110,11 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
     bold,
     customLabel,
     "data-cy": dataCy,
+    "data-cy-banner": dataCyBanner,
     description,
     elementWrapperCSS,
     tooltipDescription,
+    warnings,
   } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
@@ -143,6 +145,14 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
         }
         onChange={(e) => onChange(e.target.checked)}
       />
+      {warnings?.length && (
+        <StyledBanner
+          data-cy={dataCyBanner || "warning-banner"}
+          variant="warning"
+        >
+          {warnings.join(", ")}
+        </StyledBanner>
+      )}
     </ElementWrapper>
   );
 };

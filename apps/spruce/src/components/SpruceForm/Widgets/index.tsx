@@ -1,4 +1,3 @@
-import { CheckboxWithConditionalBannerWidget } from "./CheckboxWithConditionalBannerWidget";
 import { DateTimePicker, TimePicker } from "./DateTimePicker";
 import { DayPickerWidget } from "./DayPicker";
 import {
@@ -16,7 +15,6 @@ import { MultiSelect } from "./MultiSelect";
 
 const widgets = {
   CheckboxWidget: LeafyGreenCheckBox,
-  CheckboxWithConditionalBannerWidget,
   DateWidget: LeafyGreenDatePicker,
   DateTimeWidget: DateTimePicker,
   DayPickerWidget,
