@@ -12,12 +12,12 @@
   },
   "dependencies": {
     "@apollo/client": "3.8.4",
-    "@storybook/addon-essentials": "8.5.3",
-    "@storybook/addon-interactions": "8.5.3",
-    "@storybook/addon-links": "8.5.3",
+    "@storybook/addon-essentials": "8.6.3",
+    "@storybook/addon-interactions": "8.6.3",
+    "@storybook/addon-links": "8.6.3",
     "react-router-dom": "6.18.0",
-    "storybook": "8.5.3",
-    "storybook-addon-apollo-client": "7.3.0"
+    "storybook": "8.6.3",
+    "storybook-addon-apollo-client": "8.1.2"
   },
   "devDependencies": {
     "@evg-ui/eslint-config": "*",

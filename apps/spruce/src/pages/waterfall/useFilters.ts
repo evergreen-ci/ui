@@ -82,29 +82,29 @@ export const useFilters = ({
         return;
       }
 
-      if (requesters.length || taskFilterRegex.length || statuses.length) {
-        const activeBuilds: Build[] = [];
-        bv.builds.forEach((b) => {
-          if (activeVersions.find(({ id }) => id === b.version)) {
-            if (taskFilterRegex.length || statuses.length) {
-              const activeTasks = b.tasks.filter(
-                (t) =>
-                  matchesTasksFilter(t, taskFilterRegex) &&
-                  matchesStatuses(t, statuses),
-              );
-              if (activeTasks.length) {
-                activeBuilds.push({ ...b, tasks: activeTasks });
-              }
-            } else {
-              activeBuilds.push(b);
-            }
+      const activeBuilds: Build[] = [];
+      bv.builds.forEach((b) => {
+        if (activeVersions.find(({ id }) => id === b.version)) {
+          // Omit inactive builds when filtering on build variants
+          if (buildVariantFilterRegex.length && !b.activated) {
+            return;
           }
-        });
-        if (activeBuilds.length) {
-          pushVariant({ ...bv, builds: activeBuilds });
+          if (taskFilterRegex.length || statuses.length) {
+            const activeTasks = b.tasks.filter(
+              (t) =>
+                matchesTasksFilter(t, taskFilterRegex) &&
+                matchesStatuses(t, statuses),
+            );
+            if (activeTasks.length) {
+              activeBuilds.push({ ...b, tasks: activeTasks });
+            }
+          } else {
+            activeBuilds.push(b);
+          }
         }
-      } else {
-        pushVariant(bv);
+      });
+      if (activeBuilds.length) {
+        pushVariant({ ...bv, builds: activeBuilds });
       }
     });
     return bvs;

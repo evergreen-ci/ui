@@ -9,6 +9,7 @@ import {
   getVariantHistoryRoute,
   getProjectPatchesRoute,
   getCommitsRoute,
+  getWaterfallRoute,
 } from "./routes";
 
 const identifierWithSpecialCharacters = "!?identifier@";
@@ -122,6 +123,25 @@ describe("getPatchRoute", () => {
   });
 });
 
+describe("getWaterfallRoute", () => {
+  it("generates a waterfall page link", () => {
+    expect(getWaterfallRoute("someProject")).toBe(
+      "/project/someProject/waterfall",
+    );
+  });
+  it("generates a waterfall page link with task filters", () => {
+    expect(
+      getWaterfallRoute("someProject", {
+        taskFilters: ["failed"],
+      }),
+    ).toBe("/project/someProject/waterfall?statuses=failed");
+    expect(
+      getWaterfallRoute("someProject", {
+        taskFilters: ["failed", "test-timed-out"],
+      }),
+    ).toBe("/project/someProject/waterfall?statuses=failed,test-timed-out");
+  });
+});
 describe("getTaskHistoryRoute", () => {
   it("generates a link to the task history page", () => {
     expect(getTaskHistoryRoute("someProject", "someTaskId")).toBe(

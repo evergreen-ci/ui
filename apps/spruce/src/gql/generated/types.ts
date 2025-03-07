@@ -297,6 +297,7 @@ export type CopyProjectInput = {
 /** CreateDistroInput is the input to the createDistro mutation. */
 export type CreateDistroInput = {
   newDistroId: Scalars["String"]["input"];
+  singleTaskDistro?: InputMaybe<Scalars["Boolean"]["input"]>;
 };
 
 /**
@@ -1812,7 +1813,6 @@ export type PlannerSettingsInput = {
 };
 
 export enum PlannerVersion {
-  Legacy = "LEGACY",
   Tunable = "TUNABLE",
 }
 
@@ -9756,6 +9756,7 @@ export type WaterfallQuery = {
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
       waterfallBuilds?: Array<{
         __typename?: "WaterfallBuild";
+        activated: boolean;
         buildVariant: string;
         displayName: string;
         id: string;
