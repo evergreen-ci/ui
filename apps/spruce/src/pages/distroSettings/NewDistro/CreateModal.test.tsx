@@ -71,6 +71,25 @@ describe("create distro modal", () => {
     );
   });
 
+  it("allows creating a single task distro", async () => {
+    const user = userEvent.setup();
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <Modal createMock={createSingleTaskDistroMock} />,
+    );
+    const { router } = render(<Component />);
+
+    // @ts-expect-error: FIXME. This comment was added by an automated script.
+    await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+    await user.click(screen.getByText("Single Task Distro"));
+    await user.click(screen.getByRole("button", { name: "Create" }));
+    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
+    expect(router.state.location.pathname).toBe(
+      `/distro/${newDistroId}/settings/general`,
+    );
+  });
+
   it("disables the create button when project name contains a space", async () => {
     const user = userEvent.setup();
     const { Component } = RenderFakeToastContext(<Modal />);
@@ -136,6 +155,30 @@ const createDistroMock: ApolloMock<
     variables: {
       opts: {
         newDistroId,
+        singleTaskDistro: false,
+      },
+    },
+  },
+  result: {
+    data: {
+      createDistro: {
+        __typename: "NewDistroPayload",
+        newDistroId,
+      },
+    },
+  },
+};
+
+const createSingleTaskDistroMock: ApolloMock<
+  CreateDistroMutation,
+  CreateDistroMutationVariables
+> = {
+  request: {
+    query: CREATE_DISTRO,
+    variables: {
+      opts: {
+        newDistroId,
+        singleTaskDistro: true,
       },
     },
   },
