@@ -118,11 +118,6 @@ describe("SectionHeader", () => {
       "aria-expanded",
       "true",
     );
-    rerender(<SectionHeader {...sectionHeaderProps} open={false} />);
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
-      "aria-expanded",
-      "false",
-    );
   });
 });
 

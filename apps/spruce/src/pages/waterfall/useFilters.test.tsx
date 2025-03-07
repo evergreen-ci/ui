@@ -1,4 +1,4 @@
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import { buildVariants, groupedVersions, versions } from "./testData";
 import { useFilters } from "./useFilters";

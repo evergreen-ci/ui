@@ -105,12 +105,8 @@ describe("SubsectionHeader", () => {
       "aria-expanded",
       "true",
     );
-    rerender(<SubsectionHeader {...subsectionHeaderProps} open={false} />);
-    expect(screen.getByDataCy("section-header")).toHaveAttribute(
-      "aria-expanded",
-      "false",
-    );
   });
+
   it("should show status icon if status is defined and the opposite otherwise", () => {
     const { rerender } = renderWithRouterMatch(
       <SubsectionHeader

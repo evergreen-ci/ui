@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useTaskAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { TaskQuery } from "gql/generated/types";

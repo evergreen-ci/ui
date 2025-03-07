@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router";
 import {
   DistroSettingsRedirect,
   PatchRedirect,
@@ -54,7 +54,7 @@ export const Content: React.FC = () => {
         />
         <Route element={<Host />} path={routes.host} />
         <Route element={<Hosts />} path={routes.hosts} />
-        <Route element={<Image />} path={`${routes.image}/*`}>
+        <Route element={<Image />} path={`${routes.image}`}>
           <Route element={null} path={`:${slugs.tab}`} />
         </Route>
         <Route element={null} path={routes.jobLogs}>

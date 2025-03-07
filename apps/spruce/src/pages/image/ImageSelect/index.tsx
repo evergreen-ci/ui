@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Skeleton } from "@leafygreen-ui/skeleton-loader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useImageAnalytics } from "analytics";

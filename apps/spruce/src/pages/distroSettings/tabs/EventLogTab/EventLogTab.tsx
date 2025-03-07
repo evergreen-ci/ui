@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { EventDiffTable, EventLog } from "components/Settings/EventLog";
 import { slugs } from "constants/routes";
 import { LegacyEventEntry } from "./LegacyEventEntry";

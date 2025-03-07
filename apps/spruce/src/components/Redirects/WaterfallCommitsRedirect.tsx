@@ -1,4 +1,4 @@
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router";
 import { getCommitsRoute, getWaterfallRoute, slugs } from "constants/routes";
 import { useMergedBetaFeatures } from "hooks";
 

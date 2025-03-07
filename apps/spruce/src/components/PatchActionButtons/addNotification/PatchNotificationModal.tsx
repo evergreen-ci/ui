@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useVersionAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
 import { slugs } from "constants/routes";

@@ -1,4 +1,4 @@
-import { MemoryRouter, useNavigate } from "react-router-dom";
+import { MemoryRouter, useNavigate } from "react-router";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { useLegacyUIURL } from ".";
 

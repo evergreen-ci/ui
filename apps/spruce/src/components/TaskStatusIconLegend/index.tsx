@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover, { Align, Justify } from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
-import { useMatch } from "react-router-dom";
+import { useMatch } from "react-router";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";

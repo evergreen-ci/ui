@@ -8,7 +8,7 @@ import {
   SortingState,
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import TableControl from "components/Table/TableControl";

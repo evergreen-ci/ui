@@ -1,4 +1,4 @@
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { renderHook } from "@evg-ui/lib/test_utils";
 import { TaskSortCategory, SortDirection } from "gql/generated/types";
 import { useQueryVariables } from ".";

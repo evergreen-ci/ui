@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";

@@ -11,7 +11,7 @@ import {
   type RenderResult,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { RouterProvider, createMemoryRouter } from "react-router";
 import * as customQueries from "./custom-queries";
 
 type QueriesType = typeof queries;
@@ -78,7 +78,7 @@ const renderWithRouterMatch = (
 
   const memoryRouter = getMemoryRouter(ui);
 
-  const { rerender, ...renderRest } = customRender(
+  const { rerender, unmount, ...renderRest } = customRender(
     <RouterProvider router={memoryRouter} />,
     {
       ...rest,
@@ -86,7 +86,8 @@ const renderWithRouterMatch = (
   );
 
   const customRerender = (element: React.ReactElement) => {
-    rerender(<RouterProvider router={getMemoryRouter(element)} />);
+    unmount();
+    customRender(<RouterProvider router={getMemoryRouter(element)} />);
   };
 
   return {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router";
 import { slugs } from "constants/routes";
 import { ProjectQuery, ProjectQueryVariables } from "gql/generated/types";
 import { PROJECT } from "gql/queries";

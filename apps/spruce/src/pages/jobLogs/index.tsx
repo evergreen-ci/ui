@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { H3 } from "@leafygreen-ui/typography";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";

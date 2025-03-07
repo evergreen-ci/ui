@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { InlineCode } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Accordion } from "components/Accordion";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
