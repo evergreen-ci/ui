@@ -21,7 +21,7 @@ let serverConfig: ServerOptions = {
 };
 
 if (process.env.REMOTE_ENV === "true") {
-  const appURL = process.env.REACT_APP_SPRUCE_URL;
+  const appURL = process.env.REACT_APP_PARSLEY_URL;
   const hostURL = appURL.replace(/https?:\/\//, "");
   // Validate that parsley-local.corp.mongodb.com resolves to 127.0.0.1
   dns.lookup(hostURL, (err, address) => {
@@ -46,8 +46,8 @@ if (process.env.REMOTE_ENV === "true") {
     console.error(`
     *******************************************************************************************************
     *                                                                                                     *
-    *  ERROR: localhost-key.pem is missing. Did you run                                                   *
-    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem parsley-local.corp.mongodb.com'?  *
+    *  ERROR: localhost-[key|cert].pem is missing. Did you run                                            *
+    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem ${hostURL}'? *
     *                                                                                                     *
     *******************************************************************************************************
       `);
