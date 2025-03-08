@@ -15,6 +15,7 @@ export const gqlToForm = ((data) => {
     isCluster,
     name,
     note,
+    singleTaskDistro,
     warningNote,
   } = data;
 
@@ -30,10 +31,11 @@ export const gqlToForm = ((data) => {
     },
     distroOptions: {
       adminOnly,
-      isCluster,
-      disableShallowClone,
       disabled,
+      disableShallowClone,
+      isCluster,
       note,
+      singleTaskDistro,
       warningNote,
     },
   };
@@ -46,13 +48,14 @@ export const formToGql = ((
   // @ts-expect-error: FIXME. This comment was added by an automated script.
 ) => ({
   ...distro,
-  name: distroName.name,
-  imageId: distroImage.image,
   adminOnly: distroOptions.adminOnly,
   aliases: distroAliases.aliases,
-  note: distroOptions.note,
-  warningNote: distroOptions.warningNote,
-  isCluster: distroOptions.isCluster,
-  disableShallowClone: distroOptions.disableShallowClone,
   disabled: distroOptions.disabled,
+  disableShallowClone: distroOptions.disableShallowClone,
+  imageId: distroImage.image,
+  isCluster: distroOptions.isCluster,
+  name: distroName.name,
+  note: distroOptions.note,
+  singleTaskDistro: distroOptions.singleTaskDistro,
+  warningNote: distroOptions.warningNote,
 })) satisfies FormToGqlFunction<Tab>;
