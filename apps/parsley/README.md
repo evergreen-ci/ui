@@ -17,6 +17,36 @@ Parsley is the UI for Evergreen's log viewer. It is the replacement for
 3. Run `yarn`.
 4. Run `yarn run dev`. This will launch the app.
 
+### Running against a remote Evergreen server
+
+If you want to run Parsley against a remote Evergreen server, you can do so by
+taking the following steps.
+
+1. Generate a self signed certificate and add it to your keychain. This will
+   allow you to run Parsley against a remote Evergreen server that uses HTTPS.
+
+```sh
+brew install mkcert
+mkcert -install
+mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem parsley-local.corp.mongodb.com
+```
+
+2. Update your `/etc/hosts` file and add the following entry
+
+```sh
+127.0.0.1  parsley-local.corp.mongodb.com
+```
+
+3. Run the following command to start the local UI server with the remote
+   Evergreen server.
+
+```sh
+yarn <env_name>  # where env_name is the name of the environment you want to run staging or prod
+```
+
+4. Navigate to `https://parsley-local.corp.mongodb.com:8443` in your browser to
+   view the Spruce UI.
+
 ### Starting supporting services
 
 Parsley is capable of fetching logs from both
@@ -55,7 +85,8 @@ ln -s <path_to_evergreen_repo>/graphql/schema sdlschema
 
 ### Environment Variables
 
-Read more about environment variables [here](../../packages/deploy-utils/README.md#environment-variables).
+Read more about environment variables
+[here](../../packages/deploy-utils/README.md#environment-variables).
 
 ### Common errors
 
@@ -67,4 +98,5 @@ Read more about environment variables [here](../../packages/deploy-utils/README.
 
 ## Deployment
 
-Read more about deployment [here](../../packages/deploy-utils/README.md#deployment).
+Read more about deployment
+[here](../../packages/deploy-utils/README.md#deployment).

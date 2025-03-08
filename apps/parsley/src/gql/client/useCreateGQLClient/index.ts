@@ -14,7 +14,11 @@ import { useAuthContext } from "context/auth";
 import { logGQLErrorsLink, retryLink } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
-import { graphqlURL, isDevelopmentBuild } from "utils/environmentVariables";
+import {
+  getCorpLoginURL,
+  graphqlURL,
+  isDevelopmentBuild,
+} from "utils/environmentVariables";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 
 export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
@@ -41,6 +45,11 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
         );
         if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();
+        } else if (getCorpLoginURL() !== "") {
+          // If we can't get a response from the server, we likely hit the corp secure redirect.
+          // We should manually redirect to the corp login page.
+          const encodedRedirect = encodeURIComponent(window.location.href);
+          window.location.href = `${getCorpLoginURL()}?redirect=${encodedRedirect}`;
         }
       });
   }, [logoutAndRedirect]);

@@ -17,15 +17,20 @@ import {
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
 import { environmentVariables } from "utils";
+import { getCorpLoginURL, isRemoteEnv } from "utils/environmentVariables";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 
 const { getGQLUrl } = environmentVariables;
 
-export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
+export const useCreateGQLClient = ():
+  | ApolloClient<NormalizedCacheObject>
+  | undefined => {
   const { dispatchAuthenticated, logoutAndRedirect } = useAuthDispatchContext();
   const [secretFields, setSecretFields] = useState<string[]>();
-  const [gqlClient, setGQLClient] = useState<any>();
+  const [gqlClient, setGQLClient] =
+    useState<ApolloClient<NormalizedCacheObject>>();
 
+  console.log(window.location.href);
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(getGQLUrl(), secretFieldsReq)
       .then(({ data }) => {
@@ -40,8 +45,14 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
           },
           SentryBreadcrumb.HTTP,
         );
-        if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
+
+        if (!isRemoteEnv() && shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();
+        } else if (getCorpLoginURL() !== "") {
+          // If we can't get a response from the server, we likely hit the corp secure redirect.
+          // We should manually redirect to the corp login page.
+          const encodedRedirect = encodeURIComponent(window.location.href);
+          window.location.href = `${getCorpLoginURL()}?redirect=${encodedRedirect}`;
         }
       });
   }, [dispatchAuthenticated, logoutAndRedirect]);
