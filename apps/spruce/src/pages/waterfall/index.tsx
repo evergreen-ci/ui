@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState, useTransition } from "react";
+import { Suspense, useRef, useState } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
@@ -26,7 +26,6 @@ const Waterfall: React.FC = () => {
   const { adminBetaSettings } = useAdminBetaFeatures();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
-  const [, startTransition] = useTransition();
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     validQueryParams,
     urlParamToTitleMap,
@@ -77,11 +76,11 @@ const Waterfall: React.FC = () => {
           chips={chips}
           onClearAll={() => {
             sendEvent({ name: "Deleted all filter chips" });
-            startTransition(handleClearAll);
+            handleClearAll();
           }}
           onRemove={(b) => {
             sendEvent({ name: "Deleted one filter chip" });
-            startTransition(() => handleOnRemove(b));
+            handleOnRemove(b);
           }}
         />
         <Suspense fallback={<WaterfallSkeleton />}>

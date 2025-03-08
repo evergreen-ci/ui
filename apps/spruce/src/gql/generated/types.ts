@@ -9772,6 +9772,7 @@ export type WaterfallQuery = {
     }>;
     pagination: {
       __typename?: "WaterfallPagination";
+      activeVersionIds: Array<string>;
       hasNextPage: boolean;
       hasPrevPage: boolean;
       mostRecentVersionOrder: number;
