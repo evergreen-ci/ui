@@ -36,7 +36,6 @@ export const Default: CustomStoryObj<TaskStatusIconProps> = {
     );
   },
   args: {
-    color: "#000000",
     size: Sizes[Size.Default],
   },
   argTypes: {

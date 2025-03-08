@@ -20,7 +20,7 @@ export default {
 
 export const Default: CustomStoryObj<typeof IconWithTooltip> = {
   argTypes: {
-    color: {
+    fill: {
       control: "color",
     },
     size: {
@@ -32,7 +32,7 @@ export const Default: CustomStoryObj<typeof IconWithTooltip> = {
     },
   },
   args: {
-    color: green.dark3,
+    fill: green.dark3,
     size: Sizes[Size.Default],
     children: "Tooltip Text",
   },

@@ -19,7 +19,7 @@ export default {
 
 export const Default: CustomStoryObj<typeof Icon> = {
   argTypes: {
-    color: {
+    fill: {
       control: "color",
     },
     size: {
@@ -28,7 +28,7 @@ export const Default: CustomStoryObj<typeof Icon> = {
     },
   },
   args: {
-    color: green.dark3,
+    fill: green.dark3,
     size: Sizes[Size.Default],
   },
   render: (args) => (
