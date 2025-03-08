@@ -11,7 +11,7 @@ import {
   CopyDistroMutationVariables,
 } from "gql/generated/types";
 import { COPY_DISTRO } from "gql/mutations";
-import { modalFormDefinition } from "./newDistroSchema";
+import { modalFormDefinition } from "./copyDistroSchema";
 
 const { initialFormData, schema, uiSchema } = modalFormDefinition;
 

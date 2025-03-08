@@ -11,7 +11,7 @@ import {
   CreateDistroMutationVariables,
 } from "gql/generated/types";
 import { CREATE_DISTRO } from "gql/mutations";
-import { modalFormDefinition } from "./newDistroSchema";
+import { modalFormDefinition } from "./createDistroSchema";
 
 const { initialFormData, schema, uiSchema } = modalFormDefinition;
 
@@ -46,6 +46,7 @@ export const CreateModal: React.FC<Props> = ({ handleClose, open }) => {
       variables: {
         opts: {
           newDistroId: formState.newDistroId,
+          singleTaskDistro: formState.singleTaskDistro,
         },
       },
     });
