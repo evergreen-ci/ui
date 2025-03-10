@@ -5,10 +5,10 @@ import Button, { Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import Icon from "components/Icon";
 import {
   PromoteVarsToRepoMutation,
   PromoteVarsToRepoMutationVariables,

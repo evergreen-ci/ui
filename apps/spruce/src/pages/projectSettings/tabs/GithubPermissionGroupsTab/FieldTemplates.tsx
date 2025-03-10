@@ -4,10 +4,10 @@ import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { Body } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { PlusButton } from "components/Buttons";
-import Icon from "components/Icon";
 import { BaseTable } from "components/Table/BaseTable";
 import { tableColumnOffset } from "constants/tokens";
 

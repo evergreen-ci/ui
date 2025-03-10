@@ -2,11 +2,11 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
 import { Description } from "@leafygreen-ui/typography";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics/waterfall/useWaterfallAnalytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import Icon from "components/Icon";
 import { useQueryParams } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
 
