@@ -20,7 +20,7 @@
     "eslint": "^9.20.1",
     "eslint-plugin-prettier": "5.2.1",
     "typescript": "5.1.3",
-    "vitest": "2.0.5"
+    "vitest": "3.0.8"
   },
   "bin": {
     "deploy-utils-build-and-push": "src/build-and-push/script.ts",
