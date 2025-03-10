@@ -31,13 +31,14 @@ describe("requester filtering", () => {
     cy.dataCy("version-label-active").contains("Triggered by:");
   });
 
-  it("filters on git tags", () => {
+  it("filters on git tags and fetches more from the server", () => {
     cy.dataCy("requester-filter").click();
     cy.dataCy("git_tag_request-option").click();
     cy.dataCy("inactive-versions-button").should("have.length", 2);
     cy.dataCy("inactive-versions-button").first().contains("3");
     cy.dataCy("inactive-versions-button").eq(1).contains("2");
     cy.dataCy("version-label-active").contains("Git Tag");
+    cy.dataCy("version-label-active").should("have.length", 4);
   });
 
   it("clears requester filters", () => {
@@ -82,6 +83,12 @@ describe("build variant filtering", () => {
     cy.location().should((loc) => {
       expect(loc.search).to.include("buildVariants=Ubuntu,P");
     });
+  });
+
+  it("shows the fetch more icon while attempting to find more versions", () => {
+    cy.dataCy("build-variant-filter-input").type("foo{enter}");
+    cy.dataCy("fetch-more-loader").should("be.visible");
+    cy.dataCy("inactive-versions-button").eq(0).contains("5");
   });
 });
 
