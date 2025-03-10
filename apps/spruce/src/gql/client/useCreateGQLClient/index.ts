@@ -30,7 +30,6 @@ export const useCreateGQLClient = ():
   const [gqlClient, setGQLClient] =
     useState<ApolloClient<NormalizedCacheObject>>();
 
-  console.log(window.location.href);
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(getGQLUrl(), secretFieldsReq)
       .then(({ data }) => {

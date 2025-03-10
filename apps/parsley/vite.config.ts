@@ -20,7 +20,7 @@ let serverConfig: ServerOptions = {
   port: 3000,
 };
 
-if (process.env.REMOTE_ENV === "true") {
+if (process.env.REACT_APP_REMOTE_ENV === "true") {
   const appURL = process.env.REACT_APP_PARSLEY_URL;
   const hostURL = appURL.replace(/https?:\/\//, "");
   // Validate that parsley-local.corp.mongodb.com resolves to 127.0.0.1

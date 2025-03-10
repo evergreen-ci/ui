@@ -18,6 +18,7 @@ import {
   getCorpLoginURL,
   graphqlURL,
   isDevelopmentBuild,
+  isRemoteEnv,
 } from "utils/environmentVariables";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 
@@ -43,7 +44,7 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
           },
           SentryBreadcrumb.HTTP,
         );
-        if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
+        if (!isRemoteEnv() && shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();
         } else if (getCorpLoginURL() !== "") {
           // If we can't get a response from the server, we likely hit the corp secure redirect.
