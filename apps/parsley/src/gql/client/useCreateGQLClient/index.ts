@@ -17,19 +17,18 @@ import { SecretFieldsQuery } from "gql/generated/types";
 import {
   getCorpLoginURL,
   graphqlURL,
-  isDevelopmentBuild,
   isRemoteEnv,
 } from "utils/environmentVariables";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 
-export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
+export const useCreateGQLClient = ():
+  | ApolloClient<NormalizedCacheObject>
+  | undefined => {
   const { logoutAndRedirect } = useAuthContext();
-  const [gqlClient, setGQLClient] = useState<any>();
+  const [gqlClient, setGQLClient] =
+    useState<ApolloClient<NormalizedCacheObject>>();
 
-  // SecretFields are not necessary for development builds because nothing is logged.
-  const [secretFields, setSecretFields] = useState<string[] | undefined>(
-    isDevelopmentBuild() ? [] : undefined,
-  );
+  const [secretFields, setSecretFields] = useState<string[]>();
 
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(graphqlURL ?? "", secretFieldsReq)
