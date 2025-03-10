@@ -44,7 +44,7 @@ mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem parsley-local.c
 yarn <env_name>  # where env_name is the name of the environment you want to run staging or prod
 ```
 
-4. Navigate to `https://parsley-local.corp.mongodb.com:8443` in your browser to
+4. Navigate to `https://parsley-local.corp.mongodb.com:8444` in your browser to
    view the Spruce UI.
 
 ### Starting supporting services
