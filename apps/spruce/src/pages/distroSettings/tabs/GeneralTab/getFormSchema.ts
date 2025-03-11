@@ -4,7 +4,7 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 export const getFormSchema = (
   isContainerDistro: boolean,
   minimumHosts: number,
-  warningCopy: string,
+  singleTaskDistroWarnings: string[],
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -138,7 +138,7 @@ export const getFormSchema = (
       singleTaskDistro: {
         "ui:description":
           "Hosts will run only one task or task group before terminating.",
-        "ui:warnings": warningCopy ? [warningCopy] : null,
+        "ui:warnings": singleTaskDistroWarnings,
         "ui:data-cy-banner": "single-task-banner",
       },
       note: {
