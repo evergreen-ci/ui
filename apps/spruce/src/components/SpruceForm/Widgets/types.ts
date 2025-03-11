@@ -11,6 +11,7 @@ export interface SpruceWidgetProps extends WidgetProps {
     ariaLabelledBy: string;
     bold: boolean;
     customLabel: string;
+    "data-cy-banner": string;
     description: string;
     descriptionNode: React.ReactElement;
     elementWrapperCSS: SerializedStyles;
