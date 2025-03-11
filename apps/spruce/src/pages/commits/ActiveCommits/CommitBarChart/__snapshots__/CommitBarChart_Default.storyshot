@@ -3,162 +3,162 @@
     class="css-xncujl"
   >
     <div
-      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+      class="leafygreen-ui-cssveg css-1qwkc5l-ChartContainer e12jd04i1"
       data-cy="commit-chart-container"
       data-type="absolute"
     >
       <div
-        class="css-po9rgx-Bar e12jd04i0"
+        class="css-1lw6p0k-Bar e12jd04i0"
         color="#00A35C"
         data-cy="commit-chart-bar"
         height="30%"
       />
       <div
-        class="css-1gm3hw0-Bar e12jd04i0"
+        class="css-13qswc1-Bar e12jd04i0"
         color="#DB3030"
         data-cy="commit-chart-bar"
         height="10%"
       />
       <div
-        class="css-f22ma1-Bar e12jd04i0"
+        class="css-1m8w85y-Bar e12jd04i0"
         color="#FFC010"
         data-cy="commit-chart-bar"
         height="45%"
       />
       <div
-        class="css-92mrym-Bar e12jd04i0"
+        class="css-1d9hqsj-Bar e12jd04i0"
         color="#889397"
         data-cy="commit-chart-bar"
         height="10%"
       />
     </div>
     <div
-      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+      class="leafygreen-ui-cssveg css-1qwkc5l-ChartContainer e12jd04i1"
       data-cy="commit-chart-container"
       data-type="absolute"
     >
       <div
-        class="css-1gm3hw0-Bar e12jd04i0"
+        class="css-13qswc1-Bar e12jd04i0"
         color="#DB3030"
         data-cy="commit-chart-bar"
         height="10%"
       />
       <div
-        class="css-io4c7i-Bar e12jd04i0"
+        class="css-f9uj44-Bar e12jd04i0"
         color="#5C6C75"
         data-cy="commit-chart-bar"
         height="35%"
       />
     </div>
     <div
-      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+      class="leafygreen-ui-cssveg css-1qwkc5l-ChartContainer e12jd04i1"
       data-cy="commit-chart-container"
       data-type="absolute"
     >
       <div
-        class="css-11vky5j-Bar e12jd04i0"
+        class="css-nozsbi-Bar e12jd04i0"
         color="#00A35C"
         data-cy="commit-chart-bar"
         height="20%"
       />
       <div
-        class="css-1d5hu4b-Bar e12jd04i0"
+        class="css-rxx0nn-Bar e12jd04i0"
         color="#889397"
         data-cy="commit-chart-bar"
         height="25%"
       />
       <div
-        class="css-8a7mm5-Bar e12jd04i0"
+        class="css-19u5y37-Bar e12jd04i0"
         color="#5C6C75"
         data-cy="commit-chart-bar"
         height="10%"
       />
     </div>
     <div
-      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+      class="leafygreen-ui-cssveg css-1qwkc5l-ChartContainer e12jd04i1"
       data-cy="commit-chart-container"
       data-type="absolute"
     >
       <div
-        class="css-1gm3hw0-Bar e12jd04i0"
+        class="css-13qswc1-Bar e12jd04i0"
         color="#DB3030"
         data-cy="commit-chart-bar"
         height="10%"
       />
       <div
-        class="css-io4c7i-Bar e12jd04i0"
+        class="css-f9uj44-Bar e12jd04i0"
         color="#5C6C75"
         data-cy="commit-chart-bar"
         height="35%"
       />
     </div>
     <div
-      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+      class="leafygreen-ui-cssveg css-1qwkc5l-ChartContainer e12jd04i1"
       data-cy="commit-chart-container"
       data-type="absolute"
     >
       <div
-        class="css-ljh5ef-Bar e12jd04i0"
+        class="css-1wkxyxx-Bar e12jd04i0"
         color="#F1D4FD"
         data-cy="commit-chart-bar"
         height="20%"
       />
       <div
-        class="css-7g4ljd-Bar e12jd04i0"
+        class="css-b0o8a5-Bar e12jd04i0"
         color="#889397"
         data-cy="commit-chart-bar"
         height="35%"
       />
     </div>
     <div
-      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+      class="leafygreen-ui-cssveg css-1qwkc5l-ChartContainer e12jd04i1"
       data-cy="commit-chart-container"
       data-type="absolute"
     >
       <div
-        class="css-y6r5at-Bar e12jd04i0"
+        class="css-fa3q3l-Bar e12jd04i0"
         color="#DB3030"
         data-cy="commit-chart-bar"
         height="30%"
       />
       <div
-        class="css-18b4a7j-Bar e12jd04i0"
+        class="css-130gt9d-Bar e12jd04i0"
         color="#5E0C9E"
         data-cy="commit-chart-bar"
         height="30%"
       />
       <div
-        class="css-92mrym-Bar e12jd04i0"
+        class="css-1d9hqsj-Bar e12jd04i0"
         color="#889397"
         data-cy="commit-chart-bar"
         height="10%"
       />
       <div
-        class="css-1nk3h8z-Bar e12jd04i0"
+        class="css-1o6s7eq-Bar e12jd04i0"
         color="#5C6C75"
         data-cy="commit-chart-bar"
         height="60%"
       />
     </div>
     <div
-      class="leafygreen-ui-cssveg css-tdhexo-ChartContainer e12jd04i1"
+      class="leafygreen-ui-cssveg css-1qwkc5l-ChartContainer e12jd04i1"
       data-cy="commit-chart-container"
       data-type="absolute"
     >
       <div
-        class="css-16uzpp1-Bar e12jd04i0"
+        class="css-1vutqgh-Bar e12jd04i0"
         color="#5E0C9E"
         data-cy="commit-chart-bar"
         height="35%"
       />
       <div
-        class="css-xw3892-Bar e12jd04i0"
+        class="css-181fy1h-Bar e12jd04i0"
         color="#F1D4FD"
         data-cy="commit-chart-bar"
         height="25%"
       />
       <div
-        class="css-8a7mm5-Bar e12jd04i0"
+        class="css-19u5y37-Bar e12jd04i0"
         color="#5C6C75"
         data-cy="commit-chart-bar"
         height="10%"

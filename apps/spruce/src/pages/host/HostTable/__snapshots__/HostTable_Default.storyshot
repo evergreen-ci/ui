@@ -1,9 +1,9 @@
 <div>
   <div
-    class="css-fjns6y-SiderCard ehoeyp90 leafygreen-ui-1ecxdul"
+    class="css-n5p1pq-SiderCard ehoeyp90 leafygreen-ui-1ecxdul"
   >
     <div
-      class="css-petfxd-TableTitle e1p1q3sw1"
+      class="css-1wlecs-TableTitle e1p1q3sw1"
     >
       <h6
         class="leafygreen-ui-19p3n10"
@@ -11,15 +11,15 @@
         Recent Events
       </h6>
       <div
-        class="css-1x3ka24-PaginationWrapper e1p1q3sw0"
+        class="css-gbydzg-PaginationWrapper e1p1q3sw0"
       >
         <div
-          class="css-o7pwgi-Container e4w46hm0"
+          class="css-uyt8mu-Container e4w46hm0"
           data-cy="pagination"
         >
           <button
             aria-disabled="false"
-            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-mze5ol-StyledButton e4w46hm2"
+            class="lg-ui-button-0000 leafygreen-ui-1m0zu1d css-66vbuu-StyledButton e4w46hm2"
             data-cy="prev-page-button"
             data-lgid="lg-button"
             type="button"
@@ -50,7 +50,7 @@
             </div>
           </button>
           <div
-            class="css-ob08n2-PageLabel e4w46hm1"
+            class="css-2zg0vp-PageLabel e4w46hm1"
           >
             <small
               class="leafygreen-ui-6flbwy"
@@ -62,7 +62,7 @@
           </div>
           <button
             aria-disabled="true"
-            class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-mze5ol-StyledButton e4w46hm2"
+            class="lg-ui-button-0000 leafygreen-ui-zzkmfy css-66vbuu-StyledButton e4w46hm2"
             data-cy="next-page-button"
             data-lgid="lg-button"
             type="button"
@@ -94,7 +94,7 @@
           </button>
         </div>
         <div
-          class="leafygreen-ui-1iyoj2o css-5krlfz-StyledSelect ekttol50"
+          class="leafygreen-ui-1iyoj2o css-silsew-StyledSelect ekttol50"
           data-lgid="lg-select"
         >
           <button
@@ -155,7 +155,7 @@
       </div>
     </div>
     <div
-      class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
+      class="leafygreen-ui-1xn4uvd css-zi8mbn-StyledTable e1bwwd863"
       tabindex="0"
     >
       <table
@@ -190,7 +190,7 @@
               >
                 Event
                 <div
-                  class="css-12wdkyj-FilterWrapper e4jpuf00"
+                  class="css-1xdpjdr-FilterWrapper e4jpuf00"
                 >
                   <button
                     aria-disabled="false"
@@ -519,7 +519,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -545,11 +545,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -637,7 +637,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -663,11 +663,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -754,7 +754,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -780,11 +780,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -1072,7 +1072,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -1098,11 +1098,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -1190,7 +1190,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -1216,11 +1216,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -1387,7 +1387,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -1413,11 +1413,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -1502,7 +1502,7 @@
                   Current running task cleared (was:
                    
                   <a
-                    class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 e9hwzqp0 css-1vvi2kz-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
                     data-cy="host-running-task-cleared-link"
                     href="/task/taskId"
                     responsivebreakpoint="1200"
@@ -1552,7 +1552,7 @@
                   Assigned to run task
                    
                   <a
-                    class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 e9hwzqp0 css-1vvi2kz-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
                     data-cy="host-running-task-set-link"
                     href="/task/taskId"
                     responsivebreakpoint="1200"
@@ -1604,7 +1604,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -1630,11 +1630,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -1721,7 +1721,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -1747,11 +1747,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -1839,7 +1839,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -1865,11 +1865,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -1970,7 +1970,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -1996,11 +1996,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -2053,7 +2053,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -2079,11 +2079,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -2168,7 +2168,7 @@
                   Task
                    
                   <a
-                    class="lg-ui-0001 e9hwzqp0 css-1hvkyrf-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
+                    class="lg-ui-0001 e9hwzqp0 css-1vvi2kz-overrideStyles-ShortenedRouterLink leafygreen-ui-16e7rxl"
                     data-cy="host-task-finished-link"
                     href="/task/taskId"
                     responsivebreakpoint="1200"
@@ -2301,7 +2301,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -2327,11 +2327,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"
@@ -2456,7 +2456,7 @@
                     data-cy="host-event-log"
                   >
                     <div
-                      class="css-58nl5l-AccordionToggle ev0bopr3"
+                      class="css-14kuja7-AccordionToggle ev0bopr3"
                       data-cy="accordion-toggle"
                       role="button"
                     >
@@ -2482,11 +2482,11 @@
                     </div>
                     <div
                       aria-expanded="false"
-                      class="css-dpq6jj-AnimatedAccordion ev0bopr2"
+                      class="css-1hu7amh-AnimatedAccordion ev0bopr2"
                       data-cy="accordion-collapse-container"
                     >
                       <div
-                        class="css-1nylm8s-ContentsContainer ev0bopr1"
+                        class="css-11sqzuu-ContentsContainer ev0bopr1"
                       >
                         <span
                           data-cy="host-event-log-content"

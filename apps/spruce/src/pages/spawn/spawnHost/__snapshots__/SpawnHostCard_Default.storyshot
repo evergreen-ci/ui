@@ -1,13 +1,13 @@
 <div>
   <div
-    class="css-161hi4o-CardContainer e9wutqn0 leafygreen-ui-1ecxdul"
+    class="css-ql0xek-CardContainer e9wutqn0 leafygreen-ui-1ecxdul"
     data-cy="spawn-host-card"
   >
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         ID
       </div>
@@ -28,10 +28,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Created at
       </div>
@@ -42,10 +42,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Started at
       </div>
@@ -56,10 +56,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Expires at
       </div>
@@ -70,10 +70,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         SSH User
       </div>
@@ -84,10 +84,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Host Name
       </div>
@@ -98,10 +98,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Persistent DNS Name
       </div>
@@ -112,10 +112,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Working Directory
       </div>
@@ -126,10 +126,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Availability Zone
       </div>
@@ -138,10 +138,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         User Tags
       </div>
@@ -150,10 +150,10 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Instance Type
       </div>
@@ -164,20 +164,20 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Mounted Volumes
       </div>
       <div />
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         Home Volume
       </div>
@@ -195,16 +195,16 @@
       </div>
     </div>
     <div
-      class="css-7hzhkt-FieldContainer e9wutqn2"
+      class="css-edhitv-FieldContainer e9wutqn2"
     >
       <div
-        class="css-o728yg-FieldName e9wutqn1"
+        class="css-15bekh0-FieldName e9wutqn1"
       >
         IDE
       </div>
       <div>
         <div
-          class="css-1m51o3m-IDEContainer e1lzwbb81"
+          class="css-1i20p3-IDEContainer e1lzwbb81"
         >
           <a
             class="lg-ui-0001 css-r79zk7-overrideStyles leafygreen-ui-16e7rxl"

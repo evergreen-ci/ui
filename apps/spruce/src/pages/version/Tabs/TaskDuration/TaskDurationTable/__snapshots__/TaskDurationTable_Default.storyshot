@@ -1,6 +1,6 @@
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
+    class="leafygreen-ui-1xn4uvd css-zi8mbn-StyledTable e1bwwd863"
     tabindex="0"
   >
     <table
@@ -22,7 +22,7 @@
             >
               Task Name
               <div
-                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+                class="css-1fiktrr-SearchWrapper e1umzslw0"
               >
                 <button
                   aria-disabled="false"
@@ -96,7 +96,7 @@
             >
               Status
               <div
-                class="css-12wdkyj-FilterWrapper e4jpuf00"
+                class="css-1xdpjdr-FilterWrapper e4jpuf00"
               >
                 <button
                   aria-disabled="false"
@@ -171,7 +171,7 @@
             >
               Build Variant
               <div
-                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+                class="css-1fiktrr-SearchWrapper e1umzslw0"
               >
                 <button
                   aria-disabled="false"
@@ -335,7 +335,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-model-distro
                   </span>
@@ -353,7 +353,7 @@
               data-state="entered"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Failed
@@ -382,15 +382,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-o8iy53-DurationBar evliklb1"
+                  class="css-1t6ktly-DurationBar evliklb1"
                   color="#DB3030"
                   width="99.99987604722023%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m
@@ -421,7 +421,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_continuous_01-linux-enterprise
                   </span>
@@ -438,7 +438,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Failed
@@ -465,15 +465,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1uvez83-DurationBar evliklb1"
+                  class="css-nlaxks-DurationBar evliklb1"
                   color="#DB3030"
                   width="29.281323848742076%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   23m 37s
@@ -504,7 +504,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_continuous_02-linux-enterprise
                   </span>
@@ -521,7 +521,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -548,15 +548,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-558lmq-DurationBar evliklb1"
+                  class="css-rjaudp-DurationBar evliklb1"
                   color="#00A35C"
                   width="28.24381842322561%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   22m 47s
@@ -594,7 +594,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-rest-data
                   </span>
@@ -613,7 +613,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-2pirqj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -644,15 +644,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-15tcxdg-DurationBar evliklb1"
+                  class="css-s17jbb-DurationBar evliklb1"
                   color="#5E0C9E"
                   width="100%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m
@@ -690,7 +690,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-agent-internal
                   </span>
@@ -709,7 +709,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-2pirqj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -740,15 +740,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-7rdz2i-DurationBar evliklb1"
+                  class="css-xlef2u-DurationBar evliklb1"
                   color="#5E0C9E"
                   width="99.999442212491%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m
@@ -786,7 +786,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-evergreen
                   </span>
@@ -805,7 +805,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-2pirqj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -836,15 +836,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-iwuugb-DurationBar evliklb1"
+                  class="css-1q8cq0j-DurationBar evliklb1"
                   color="#5E0C9E"
                   width="99.9991529893382%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m
@@ -882,7 +882,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-model-artifact
                   </span>
@@ -901,7 +901,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-2pirqj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -932,15 +932,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-g6r0kc-DurationBar evliklb1"
+                  class="css-75g5rr-DurationBar evliklb1"
                   color="#5E0C9E"
                   width="99.9968185453191%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m
@@ -978,7 +978,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-thirdparty
                   </span>
@@ -997,7 +997,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-2pirqj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1028,15 +1028,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1tv334j-DurationBar evliklb1"
+                  class="css-14xzyj7-DurationBar evliklb1"
                   color="#5E0C9E"
                   width="99.99632273419999%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m
@@ -1074,7 +1074,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-model-event
                   </span>
@@ -1093,7 +1093,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-2pirqj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1124,15 +1124,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-wqwatx-DurationBar evliklb1"
+                  class="css-12zng0d-DurationBar evliklb1"
                   color="#5E0C9E"
                   width="99.99574428789438%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m
@@ -1170,7 +1170,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-model-testresult
                   </span>
@@ -1189,7 +1189,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-2pirqj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1220,15 +1220,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1ty7hg-DurationBar evliklb1"
+                  class="css-nelwqv-DurationBar evliklb1"
                   color="#5E0C9E"
                   width="99.99516584158876%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m
@@ -1266,7 +1266,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-model-alertrecord
                   </span>
@@ -1285,7 +1285,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-2pirqj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1316,15 +1316,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1c515v7-DurationBar evliklb1"
+                  class="css-gko47v-DurationBar evliklb1"
                   color="#5E0C9E"
                   width="99.9948353008427%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m
@@ -1362,7 +1362,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     test-model-patch
                   </span>
@@ -1381,7 +1381,7 @@
             >
               <div
                 border="#2D0B59"
-                class="css-10apn1t-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-2pirqj-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#5E0C9E"
                 text="#F9EBFF"
@@ -1412,15 +1412,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-3z5fpm-DurationBar evliklb1"
+                  class="css-1kwx4bo-DurationBar evliklb1"
                   color="#5E0C9E"
                   width="99.99429817213034%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   1h 20m

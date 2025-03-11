@@ -3,11 +3,11 @@
     class="css-3ieiu4"
   >
     <div
-      class="css-n58n20-Container erobc1r0"
+      class="css-x67o8-Container erobc1r0"
     >
       <button
         aria-disabled="false"
-        class="lg-ui-button-0000 css-11bdqpq-StyledButton erobc1r4 leafygreen-ui-pnpvk5"
+        class="lg-ui-button-0000 css-15xs3fe-StyledButton erobc1r4 leafygreen-ui-pnpvk5"
         data-cy="clear-bookmarks"
         data-lgid="lg-button"
         type="button"
@@ -22,11 +22,11 @@
         </div>
       </button>
       <div
-        class="css-1tqv73o-LogLineContainer erobc1r3"
+        class="css-pgfo8h-LogLineContainer erobc1r3"
         data-cy="bookmark-list"
       >
         <div
-          class="css-14lurc2-LogLineNumber erobc1r2"
+          class="css-1xynbz0-LogLineNumber erobc1r2"
           data-cy="bookmark-4"
         >
           <span
@@ -36,7 +36,7 @@
           </span>
         </div>
         <div
-          class="css-14lurc2-LogLineNumber erobc1r2"
+          class="css-1xynbz0-LogLineNumber erobc1r2"
           data-cy="bookmark-5"
         >
           <span
@@ -46,7 +46,7 @@
           </span>
         </div>
         <div
-          class="css-14lurc2-LogLineNumber erobc1r2"
+          class="css-1xynbz0-LogLineNumber erobc1r2"
           data-cy="bookmark-6"
         >
           <span
@@ -56,7 +56,7 @@
           </span>
         </div>
         <div
-          class="css-14lurc2-LogLineNumber erobc1r2"
+          class="css-1xynbz0-LogLineNumber erobc1r2"
           data-cy="bookmark-7"
         >
           <span
@@ -66,7 +66,7 @@
           </span>
         </div>
         <div
-          class="css-stm8r5-LogLineNumber erobc1r2"
+          class="css-1ooofkc-LogLineNumber erobc1r2"
           data-cy="bookmark-10"
         >
           <span
@@ -76,7 +76,7 @@
           </span>
         </div>
         <div
-          class="css-14lurc2-LogLineNumber erobc1r2"
+          class="css-1xynbz0-LogLineNumber erobc1r2"
           data-cy="bookmark-21"
         >
           <span
@@ -86,7 +86,7 @@
           </span>
           <svg
             aria-label="Link Icon"
-            class="css-sx6z03-StyledIcon erobc1r1"
+            class="css-wziq8a-StyledIcon erobc1r1"
             fill="none"
             height="14"
             role="img"
@@ -105,7 +105,7 @@
           </svg>
         </div>
         <div
-          class="css-14lurc2-LogLineNumber erobc1r2"
+          class="css-1xynbz0-LogLineNumber erobc1r2"
           data-cy="bookmark-24"
         >
           <span
@@ -115,7 +115,7 @@
           </span>
         </div>
         <div
-          class="css-14lurc2-LogLineNumber erobc1r2"
+          class="css-1xynbz0-LogLineNumber erobc1r2"
           data-cy="bookmark-30"
         >
           <span
@@ -125,7 +125,7 @@
           </span>
         </div>
         <div
-          class="css-14lurc2-LogLineNumber erobc1r2"
+          class="css-1xynbz0-LogLineNumber erobc1r2"
           data-cy="bookmark-85"
         >
           <span

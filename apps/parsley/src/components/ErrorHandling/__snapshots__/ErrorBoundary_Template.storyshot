@@ -1,22 +1,22 @@
 <div>
   <div>
     <div
-      class="css-1ow8p7h-Text e1o4p11d0"
+      class="css-1o1zhy3-Text e1o4p11d0"
     >
       <h1
-        class="css-15usbh5-StyledHeader e1o4p11d3 leafygreen-ui-r0ky5x"
+        class="css-a2qlvq-StyledHeader e1o4p11d3 leafygreen-ui-r0ky5x"
       >
         Error
       </h1>
       <h2
-        class="css-15lzim1-StyledSubtitle e1o4p11d2 leafygreen-ui-oaqrgz"
+        class="css-yoaa2f-StyledSubtitle e1o4p11d2 leafygreen-ui-oaqrgz"
       >
         Ouch! That's gotta hurt,
         <br />
          sorry about that!
       </h2>
       <a
-        class="css-137t5xh-StyledLink e1o4p11d1"
+        class="css-dxwagr-StyledLink e1o4p11d1"
         href="/"
       >
         Back To Home

@@ -4,7 +4,7 @@
   >
     <div
       aria-expanded="true"
-      class="css-1466mqi-sectionHeaderWrapperStyle"
+      class="css-135rrpn-sectionHeaderWrapperStyle"
       data-cy="section-header"
     >
       <button
@@ -19,7 +19,7 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1oyg0iq0"
+            class="leafygreen-ui-jc2z8v css-1euf0t5-AnimatedIcon e1oyg0iq0"
             fill="none"
             height="16"
             open=""
@@ -61,12 +61,12 @@
         populate_expansions
       </p>
       <div
-        class="css-1vdykhn-ButtonWrapper e1lqywm10"
+        class="css-17ev7sm-ButtonWrapper e1lqywm10"
       />
     </div>
     <div
       aria-expanded="true"
-      class="css-1466mqi-sectionHeaderWrapperStyle"
+      class="css-135rrpn-sectionHeaderWrapperStyle"
       data-cy="section-header"
     >
       <button
@@ -81,7 +81,7 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1oyg0iq0"
+            class="leafygreen-ui-jc2z8v css-1euf0t5-AnimatedIcon e1oyg0iq0"
             fill="none"
             height="16"
             open=""
@@ -123,12 +123,12 @@
         setup_mongodb_database_and_seed_with_data
       </p>
       <div
-        class="css-1vdykhn-ButtonWrapper e1lqywm10"
+        class="css-17ev7sm-ButtonWrapper e1lqywm10"
       />
     </div>
     <div
       aria-expanded="true"
-      class="css-1466mqi-sectionHeaderWrapperStyle"
+      class="css-135rrpn-sectionHeaderWrapperStyle"
       data-cy="section-header"
     >
       <button
@@ -143,7 +143,7 @@
         >
           <svg
             aria-label="Chevron Right Icon"
-            class="leafygreen-ui-jc2z8v css-vm43yx-AnimatedIcon e1oyg0iq0"
+            class="leafygreen-ui-jc2z8v css-1euf0t5-AnimatedIcon e1oyg0iq0"
             fill="none"
             height="16"
             open=""
@@ -185,7 +185,7 @@
         build_frontend
       </p>
       <div
-        class="css-1vdykhn-ButtonWrapper e1lqywm10"
+        class="css-17ev7sm-ButtonWrapper e1lqywm10"
       />
     </div>
   </div>

@@ -3,26 +3,26 @@
     style="width: 300px;"
   >
     <div
-      class="css-1l8tpk-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
+      class="css-1bp835v-SiderCard e1am38ss0 leafygreen-ui-1ecxdul"
     >
       <div>
         <p
-          class="css-1k03zl5-Title e1130wzj2 leafygreen-ui-1miy0xp"
+          class="css-19dph2m-Title e1130wzj2 leafygreen-ui-1miy0xp"
         >
           Example Metadata Card
         </p>
         <hr
-          class="css-qqg5h5-Divider eb6szep0"
+          class="css-162h9qs-Divider eb6szep0"
         />
       </div>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
+        class="css-mvz2or-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="css-1447rge-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
         >
           <b
-            class="css-1xk67r-MetadataLabel e1130wzj3"
+            class="css-sj71gi-MetadataLabel e1130wzj3"
           >
             Metadata Label 1:
           </b>
@@ -30,13 +30,13 @@
         </p>
       </span>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
+        class="css-mvz2or-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="css-1447rge-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
         >
           <b
-            class="css-1xk67r-MetadataLabel e1130wzj3"
+            class="css-sj71gi-MetadataLabel e1130wzj3"
           >
             Metadata Label 2:
           </b>
@@ -69,13 +69,13 @@
         </span>
       </span>
       <span
-        class="css-160t4ez-MetadataItemWrapper e1130wzj0"
+        class="css-mvz2or-MetadataItemWrapper e1130wzj0"
       >
         <p
-          class="css-1xle18-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
+          class="css-1447rge-Item-wordBreakCss e1130wzj1 leafygreen-ui-1tb6tuo"
         >
           <b
-            class="css-fern9f-MetadataLabel e1130wzj3"
+            class="css-1irtqvq-MetadataLabel e1130wzj3"
             color="red"
           >
             Metadata Label 3:

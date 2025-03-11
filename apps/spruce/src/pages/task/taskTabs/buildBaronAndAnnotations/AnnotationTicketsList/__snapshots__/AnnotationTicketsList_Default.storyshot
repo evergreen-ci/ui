@@ -3,14 +3,14 @@
     data-cy="issues-list"
   >
     <div
-      class="css-2j47yq-Container emxicn40"
+      class="css-618rxr-Container emxicn40"
     >
       <div
-        class="css-1bcnev1-Container e1ch0kli3"
+        class="css-qhzo6-Container e1ch0kli3"
         data-cy="annotation-ticket-row"
       >
         <a
-          class="lg-ui-0001 e1ch0kli2 css-rmpwsz-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 e1ch0kli2 css-kcqhp0-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
           data-cy="DEVPROD-123"
           href="https://example.com"
           target="_blank"
@@ -21,20 +21,20 @@
           </span>
         </a>
         <div
-          class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
+          class="css-1ad72rt-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
           data-cy="DEVPROD-123-badge"
         >
           status
         </div>
         <div
-          class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
+          class="css-1ad72rt-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
           data-cy="DEVPROD-123-confidence-badge"
         >
           50
           % Confident in suggestion
         </div>
         <div
-          class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
+          class="css-di5mcx-BottomMetaDataWrapper e1ch0kli0"
           data-cy="DEVPROD-123-metadata"
         >
           <small
@@ -63,7 +63,7 @@
         </div>
       </div>
       <div
-        class="css-1t2qz3u-ButtonContainer emxicn41"
+        class="css-1sfx5ls-ButtonContainer emxicn41"
       >
         <button
           aria-disabled="false"
@@ -134,14 +134,14 @@
       </div>
     </div>
     <div
-      class="css-2j47yq-Container emxicn40"
+      class="css-618rxr-Container emxicn40"
     >
       <div
-        class="css-1bcnev1-Container e1ch0kli3"
+        class="css-qhzo6-Container e1ch0kli3"
         data-cy="annotation-ticket-row"
       >
         <a
-          class="lg-ui-0001 e1ch0kli2 css-rmpwsz-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
+          class="lg-ui-0001 e1ch0kli2 css-kcqhp0-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
           data-cy="DEVPROD-456"
           href="https://example.com"
           target="_blank"
@@ -152,20 +152,20 @@
           </span>
         </a>
         <div
-          class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
+          class="css-1ad72rt-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
           data-cy="DEVPROD-456-badge"
         >
           failed
         </div>
         <div
-          class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
+          class="css-1ad72rt-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
           data-cy="DEVPROD-456-confidence-badge"
         >
           99
           % Confident in suggestion
         </div>
         <div
-          class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
+          class="css-di5mcx-BottomMetaDataWrapper e1ch0kli0"
           data-cy="DEVPROD-456-metadata"
         >
           <small
@@ -194,7 +194,7 @@
         </div>
       </div>
       <div
-        class="css-1t2qz3u-ButtonContainer emxicn41"
+        class="css-1sfx5ls-ButtonContainer emxicn41"
       >
         <button
           aria-disabled="false"

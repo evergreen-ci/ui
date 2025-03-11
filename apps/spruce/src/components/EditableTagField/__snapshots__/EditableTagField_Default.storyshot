@@ -1,13 +1,13 @@
 <div>
   <div
-    class="css-19h29oo-FlexColumnContainer e1zn6k0"
+    class="css-2qaxd2-FlexColumnContainer e1zn6k0"
   >
     <div
-      class="css-w1f0xx-FlexContainer e161fbrp1"
+      class="css-x8p457-FlexContainer e161fbrp1"
       data-cy="user-tag-row"
     >
       <div
-        class="css-kqpb1n-FlexColumnContainer e161fbrp0"
+        class="css-1cbcpx6-FlexColumnContainer e161fbrp0"
       >
         <div
           class="leafygreen-ui-1br9h7w"
@@ -57,7 +57,7 @@
         </div>
       </div>
       <div
-        class="css-kqpb1n-FlexColumnContainer e161fbrp0"
+        class="css-1cbcpx6-FlexColumnContainer e161fbrp0"
       >
         <div
           class="leafygreen-ui-1br9h7w"
@@ -137,11 +137,11 @@
       </button>
     </div>
     <div
-      class="css-w1f0xx-FlexContainer e161fbrp1"
+      class="css-x8p457-FlexContainer e161fbrp1"
       data-cy="user-tag-row"
     >
       <div
-        class="css-kqpb1n-FlexColumnContainer e161fbrp0"
+        class="css-1cbcpx6-FlexColumnContainer e161fbrp0"
       >
         <div
           class="leafygreen-ui-1br9h7w"
@@ -191,7 +191,7 @@
         </div>
       </div>
       <div
-        class="css-kqpb1n-FlexColumnContainer e161fbrp0"
+        class="css-1cbcpx6-FlexColumnContainer e161fbrp0"
       >
         <div
           class="leafygreen-ui-1br9h7w"
@@ -271,11 +271,11 @@
       </button>
     </div>
     <div
-      class="css-w1f0xx-FlexContainer e161fbrp1"
+      class="css-x8p457-FlexContainer e161fbrp1"
       data-cy="user-tag-row"
     >
       <div
-        class="css-kqpb1n-FlexColumnContainer e161fbrp0"
+        class="css-1cbcpx6-FlexColumnContainer e161fbrp0"
       >
         <div
           class="leafygreen-ui-1br9h7w"
@@ -325,7 +325,7 @@
         </div>
       </div>
       <div
-        class="css-kqpb1n-FlexColumnContainer e161fbrp0"
+        class="css-1cbcpx6-FlexColumnContainer e161fbrp0"
       >
         <div
           class="leafygreen-ui-1br9h7w"
@@ -405,7 +405,7 @@
       </button>
     </div>
     <div
-      class="css-pylksp-ButtonContainer e161fbrp2"
+      class="css-1gsq46i-ButtonContainer e161fbrp2"
     >
       <button
         aria-disabled="false"

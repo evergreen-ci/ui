@@ -1,10 +1,10 @@
 <div>
   <div
-    class="css-1bcnev1-Container e1ch0kli3"
+    class="css-qhzo6-Container e1ch0kli3"
     data-cy="annotation-ticket-row"
   >
     <a
-      class="lg-ui-0001 e1ch0kli2 css-rmpwsz-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
+      class="lg-ui-0001 e1ch0kli2 css-kcqhp0-overrideStyles-JiraSummaryLink leafygreen-ui-16e7rxl"
       data-cy="EVG-123"
       href="https://www.google.com"
       target="_blank"
@@ -15,20 +15,20 @@
       </span>
     </a>
     <div
-      class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
+      class="css-1ad72rt-StyledBadge e1ch0kli1 leafygreen-ui-c62i3c"
       data-cy="EVG-123-badge"
     >
       status
     </div>
     <div
-      class="css-39fn8m-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
+      class="css-1ad72rt-StyledBadge e1ch0kli1 leafygreen-ui-h5xdir"
       data-cy="EVG-123-confidence-badge"
     >
       50
       % Confident in suggestion
     </div>
     <div
-      class="css-vrtzhq-BottomMetaDataWrapper e1ch0kli0"
+      class="css-di5mcx-BottomMetaDataWrapper e1ch0kli0"
       data-cy="EVG-123-metadata"
     >
       <small

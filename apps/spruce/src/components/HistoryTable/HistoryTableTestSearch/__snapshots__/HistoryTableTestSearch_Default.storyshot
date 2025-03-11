@@ -3,10 +3,10 @@
     style="display: flex; flex-direction: column;"
   >
     <div
-      class="css-1o8n2af-ContentWrapper e8i7li40"
+      class="css-8y80p9-ContentWrapper e8i7li40"
     >
       <div
-        class="css-mk4qpy-TextInputWrapper e17optw11"
+        class="css-1f4badk-TextInputWrapper e17optw11"
       >
         <div
           aria-label="history-table-test-search-input"
@@ -57,7 +57,7 @@
           />
         </div>
         <div
-          class="css-4bamt4-IconWrapper e17optw10"
+          class="css-k1rx8v-IconWrapper e17optw10"
         >
           <button
             aria-disabled="false"
@@ -94,7 +94,7 @@
       style="padding-top: 16px;"
     >
       <div
-        class="css-105gl7n-Container e92ehni0"
+        class="css-ntjajw-Container e92ehni0"
       />
     </div>
   </div>

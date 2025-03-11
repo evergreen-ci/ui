@@ -1,10 +1,10 @@
 <div>
   <div
-    class="css-1ry038z-Container e1yw4j304"
+    class="css-1m7puh1-Container e1yw4j304"
   >
     <button
       aria-disabled="false"
-      class="lg-ui-button-0000 leafygreen-ui-5xsnod css-1dntq6k-StyledButton-menuButtonStyleOverrides e1yw4j302"
+      class="lg-ui-button-0000 leafygreen-ui-5xsnod css-meqm2l-StyledButton-menuButtonStyleOverrides e1yw4j302"
       data-cy="dropdown-button"
       data-lgid="lg-button"
       type="button"
@@ -16,10 +16,10 @@
         class="leafygreen-ui-16tr4y"
       >
         <div
-          class="css-19l4y8w-ButtonContent e1yw4j301"
+          class="css-130ievw-ButtonContent e1yw4j301"
         >
           <div
-            class="css-soeq2u-LabelWrapper e1yw4j303"
+            class="css-1pxs8yj-LabelWrapper e1yw4j303"
           >
             <b>
               Some Magic Button

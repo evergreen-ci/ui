@@ -1,6 +1,6 @@
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
+    class="leafygreen-ui-1xn4uvd css-zi8mbn-StyledTable e1bwwd863"
     tabindex="0"
   >
     <table
@@ -22,7 +22,7 @@
             >
               Task Name
               <div
-                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+                class="css-1fiktrr-SearchWrapper e1umzslw0"
               >
                 <button
                   aria-disabled="false"
@@ -96,7 +96,7 @@
             >
               Status
               <div
-                class="css-12wdkyj-FilterWrapper e4jpuf00"
+                class="css-1xdpjdr-FilterWrapper e4jpuf00"
               >
                 <button
                   aria-disabled="false"
@@ -171,7 +171,7 @@
             >
               Build Variant
               <div
-                class="css-1ewdmxn-SearchWrapper e1umzslw0"
+                class="css-1fiktrr-SearchWrapper e1umzslw0"
               >
                 <button
                   aria-disabled="false"
@@ -335,7 +335,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion sharding_multiversion 
                   </span>
@@ -354,7 +354,7 @@
             >
               <div
                 border="#FFCDC7"
-                class="css-148ze2g-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
+                class="css-ape6qk-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-c62i3c"
                 data-cy="task-status-badge"
                 fill="#FFFFFF"
                 text="#970606"
@@ -385,15 +385,15 @@
               data-state="entered"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1exoomp-DurationBar evliklb1"
+                  class="css-19pf0e2-DurationBar evliklb1"
                   color="#DB3030"
                   width="100%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   4h 21m
@@ -424,7 +424,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_continuous_00-linux-enterprise
                   </span>
@@ -441,7 +441,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -468,15 +468,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1jmosh4-DurationBar evliklb1"
+                  class="css-1ed00q8-DurationBar evliklb1"
                   color="#00A35C"
                   width="7.954467725033249%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   20m 48s
@@ -507,7 +507,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_continuous_01-linux-enterprise
                   </span>
@@ -524,7 +524,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-dhdzha"
                 data-cy="task-status-badge"
               >
                 Failed
@@ -551,15 +551,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1iobil4-DurationBar evliklb1"
+                  class="css-ozy7wp-DurationBar evliklb1"
                   color="#DB3030"
                   width="9.027136730444392%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   23m 37s
@@ -590,7 +590,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_continuous_02-linux-enterprise
                   </span>
@@ -607,7 +607,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -634,15 +634,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-nuckf9-DurationBar evliklb1"
+                  class="css-4pn7ih-DurationBar evliklb1"
                   color="#00A35C"
                   width="8.70728427489644%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   22m 47s
@@ -673,7 +673,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_continuous_03-linux-enterprise
                   </span>
@@ -690,7 +690,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -717,15 +717,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1gp4uuk-DurationBar evliklb1"
+                  class="css-1quw2cq-DurationBar evliklb1"
                   color="#00A35C"
                   width="11.797563030123234%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   30m 52s
@@ -756,7 +756,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_continuous_04-linux-enterprise
                   </span>
@@ -773,7 +773,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -800,15 +800,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-14e7mrw-DurationBar evliklb1"
+                  class="css-1c7oabh-DurationBar evliklb1"
                   color="#00A35C"
                   width="12.819045197653036%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   33m 32s
@@ -839,7 +839,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_continuous_05-linux-enterprise
                   </span>
@@ -856,7 +856,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -883,15 +883,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-7j6s6t-DurationBar evliklb1"
+                  class="css-1gntokh-DurationBar evliklb1"
                   color="#00A35C"
                   width="1.561061624061495%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   4m 5s
@@ -922,7 +922,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_lts_00-linux-enterprise
                   </span>
@@ -939,7 +939,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -966,15 +966,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1jwb5g-DurationBar evliklb1"
+                  class="css-1yxicqt-DurationBar evliklb1"
                   color="#00A35C"
                   width="8.291121335033234%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   21m 41s
@@ -1005,7 +1005,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_lts_01-linux-enterprise
                   </span>
@@ -1022,7 +1022,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -1049,15 +1049,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-o9i56f-DurationBar evliklb1"
+                  class="css-tz2zcv-DurationBar evliklb1"
                   color="#00A35C"
                   width="10.290223065577619%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   26m 55s
@@ -1088,7 +1088,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_lts_02-linux-enterprise
                   </span>
@@ -1105,7 +1105,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -1132,15 +1132,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-e7end9-DurationBar evliklb1"
+                  class="css-fkgtjp-DurationBar evliklb1"
                   color="#00A35C"
                   width="12.068941798584602%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   31m 34s
@@ -1171,7 +1171,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_lts_03-linux-enterprise
                   </span>
@@ -1188,7 +1188,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -1215,15 +1215,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-7fl6r2-DurationBar evliklb1"
+                  class="css-1p2s48z-DurationBar evliklb1"
                   color="#00A35C"
                   width="8.153871570650638%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   21m 20s
@@ -1254,7 +1254,7 @@
               >
                 <span>
                   <span
-                    class="css-3p4h24-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
+                    class="css-3j17mv-WordBreak-wordBreakCss-WordBreakAll e1up3kz80"
                   >
                     sharding_last_lts_04-linux-enterprise
                   </span>
@@ -1271,7 +1271,7 @@
               data-state="exited"
             >
               <div
-                class="css-o6pfbz-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
+                class="css-cf0p9p-StyledBadge-badgeWidthMaxContent ehwsjr70 leafygreen-ui-1ciuhbt"
                 data-cy="task-status-badge"
               >
                 Succeeded
@@ -1298,15 +1298,15 @@
               data-state="exited"
             >
               <div
-                class="css-18tifp5-Duration evliklb2"
+                class="css-13ai0vm-Duration evliklb2"
               >
                 <div
-                  class="css-1tiv3zn-DurationBar evliklb1"
+                  class="css-1wjrpo2-DurationBar evliklb1"
                   color="#00A35C"
                   width="9.329239065652008%"
                 />
                 <p
-                  class="css-9v5y9r-DurationLabel evliklb0 leafygreen-ui-ogtczq"
+                  class="css-bgetgb-DurationLabel evliklb0 leafygreen-ui-ogtczq"
                   data-lgid="lg-description"
                 >
                   24m 24s
