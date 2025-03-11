@@ -82,6 +82,7 @@ query Distro($distroId: String!) {
     providerSettingsList
     setup
     setupAsSudo
+    singleTaskDistro
     sshOptions
     user
     userSpawnAllowed
