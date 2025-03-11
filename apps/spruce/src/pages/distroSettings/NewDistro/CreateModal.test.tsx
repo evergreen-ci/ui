@@ -78,8 +78,10 @@ describe("create distro modal", () => {
     );
     const { router } = render(<Component />);
 
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    await user.type(screen.queryByDataCy("distro-id-input"), newDistroId);
+    await user.type(
+      screen.queryByDataCy("distro-id-input") as HTMLElement,
+      newDistroId,
+    );
     await user.click(screen.getByText("Single Task Distro"));
     await user.click(screen.getByRole("button", { name: "Create" }));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
