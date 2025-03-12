@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
-import { LightLoader } from "components/LightLoader";
+import { Spinner } from "@leafygreen-ui/loading-indicator";
 
 export const FetchMoreLoader: React.FC = () => (
   <Container data-cy="fetch-more-loader">
-    <div>Fetching...</div>
-    <LightLoader />
+    <Spinner description="Fetching..." displayOption="large-vertical" />
   </Container>
 );
 

@@ -38,8 +38,8 @@ import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 const resetFilterState: Pick<WaterfallOptions, "requesters" | "variants"> = {
-  requesters: null,
-  variants: null,
+  requesters: undefined,
+  variants: undefined,
 };
 
 type WaterfallGridProps = {
@@ -173,10 +173,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
       startTransition(() => {
         setServerFilters(filters);
       });
-    } else if (!hasServerParams && serverFilters !== resetFilterState) {
-      startTransition(() => {
-        setServerFilters(resetFilterState);
-      });
+    } else if (!hasServerParams) {
+      // Because this data is already loaded and no animation is necessary, omitting startTransition for snappiness
+      setServerFilters(resetFilterState);
     }
   }, [allQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
