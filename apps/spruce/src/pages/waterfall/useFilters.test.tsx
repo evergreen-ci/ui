@@ -22,7 +22,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
@@ -41,7 +41,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
@@ -73,7 +73,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: ["3", "2"],
           }),
@@ -99,7 +99,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
@@ -128,7 +128,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
@@ -169,7 +169,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
@@ -215,7 +215,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
@@ -267,7 +267,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants: buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
@@ -296,7 +296,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
@@ -342,7 +342,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
@@ -387,7 +387,7 @@ describe("useFilters", () => {
       const { result } = renderHook(
         () =>
           useFilters({
-            buildVariants,
+            activeVersionIds: ["b", "c", "f"],
             flattenedVersions: versions,
             pins: [],
           }),
