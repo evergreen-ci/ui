@@ -35,7 +35,6 @@ import {
 import { Pagination, WaterfallFilterOptions, Version } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
-import { groupBuildVariants } from "./utils";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
 const resetFilterState: Pick<WaterfallOptions, "requesters" | "variants"> = {
@@ -153,16 +152,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const refEl = useRef<HTMLDivElement>(null);
   const { height } = useDimensions<HTMLDivElement>(refEl);
 
-  const groupedBuildVariants = groupBuildVariants(
-    data.waterfall.flattenedVersions,
-  );
-
   const { activeVersionIds, buildVariants, versions } = useFilters({
     activeVersionIds: data.waterfall.pagination.activeVersionIds,
-    buildVariants: groupedBuildVariants,
-    flattenedVersions: data.waterfall.flattenedVersions.map(
-      ({ waterfallBuilds, ...restOfVersion }) => restOfVersion,
-    ),
+    flattenedVersions: data.waterfall.flattenedVersions,
     pins,
   });
 

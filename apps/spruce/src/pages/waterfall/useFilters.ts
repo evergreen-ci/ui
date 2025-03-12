@@ -9,21 +9,21 @@ import {
   Version,
   WaterfallFilterOptions,
 } from "./types";
-import { groupInactiveVersions } from "./utils";
+import { groupBuildVariants, groupInactiveVersions } from "./utils";
 
 type UseFiltersProps = {
   activeVersionIds: Pagination["activeVersionIds"];
-  buildVariants: BuildVariant[];
   flattenedVersions: Version[];
   pins: string[];
 };
 
 export const useFilters = ({
   activeVersionIds,
-  buildVariants,
   flattenedVersions,
   pins,
 }: UseFiltersProps) => {
+  const buildVariants = groupBuildVariants(flattenedVersions);
+
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
     [],
@@ -108,6 +108,7 @@ export const useFilters = ({
     });
     return bvs;
   }, [
+    activeVersionIds,
     buildVariantFilterRegex,
     buildVariants,
     flattenedVersions,

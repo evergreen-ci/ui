@@ -119,5 +119,16 @@ export const cache = new InMemoryCache({
     WaterfallTask: {
       keyFields: false,
     },
+    Version: {
+      fields: {
+        waterfallBuilds: {
+          merge(existing, incoming) {
+            // Applying a server-side filter causes non-matching versions to return with waterfallBuilds = null.
+            // We don't want to overwrite existing build data for versions that previously matched, so check to see if the new waterfallBuilds is defined before merging it with the cache.
+            return incoming ?? existing;
+          },
+        },
+      },
+    },
   },
 });
