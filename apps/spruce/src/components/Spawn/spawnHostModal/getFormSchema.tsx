@@ -222,6 +222,7 @@ export const getFormSchema = ({
                       runProjectSpecificSetupScript: {
                         type: "boolean" as const,
                         title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
+                        default: true,
                       },
                       startHosts: {
                         type: "boolean" as const,
