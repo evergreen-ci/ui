@@ -55,6 +55,7 @@ export enum DistroSettingsTabRoutes {
   Host = "host",
   Project = "project",
   EventLog = "event-log",
+  SingleTaskDistros = "single-task-distros",
 }
 
 const paths = {
