@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import Icon, { AnimatedIcon, HolidayTree } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
 import { navBarHeight } from "components/styles/Layout";
 import { CURRENT_PROJECT } from "constants/cookies";

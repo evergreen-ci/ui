@@ -5,7 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { Location, Navigate, useLocation } from "react-router-dom";
 import { size } from "../../constants/tokens";
-import { useAuthProviderContext } from "../../context/Auth";
+import { useAuthProviderContext } from "../../context/AuthProvider";
 
 const { green } = palette;
 

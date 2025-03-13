@@ -1,10 +1,10 @@
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Mock } from "vitest";
-import { useAuthProviderContext } from "../../context/Auth";
+import { useAuthProviderContext } from "../../context/AuthProvider";
 import { render, screen, fireEvent } from "../../test_utils";
 import LoginPage from ".";
 
-vi.mock("../../context/Auth", () => ({
+vi.mock("../../context/AuthProvider", () => ({
   useAuthProviderContext: vi.fn(),
 }));
 

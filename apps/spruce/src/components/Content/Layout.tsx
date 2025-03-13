@@ -4,7 +4,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Outlet } from "react-router-dom";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
-import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";

@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
-import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useAnalyticAttributes } from "analytics";
 import NavBar from "components/NavBar";
 import { PageLayout } from "components/styles";

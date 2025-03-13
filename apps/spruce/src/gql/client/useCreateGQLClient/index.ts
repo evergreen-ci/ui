@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
-import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
   fetchWithRetry,
   getUserStagingHeader,

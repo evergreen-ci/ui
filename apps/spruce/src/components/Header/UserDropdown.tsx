@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
 import { adminSettingsURL } from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";

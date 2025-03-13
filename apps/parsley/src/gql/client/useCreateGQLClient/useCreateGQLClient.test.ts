@@ -1,6 +1,6 @@
 import { ApolloClient } from "@apollo/client";
 import { Mock, MockedFunction } from "vitest";
-import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import {
   fetchWithRetry,
@@ -22,7 +22,7 @@ vi.mock("@evg-ui/lib/utils/request", () => ({
     typeof shouldLogoutAndRedirect
   >,
 }));
-vi.mock("@evg-ui/lib/context/Auth", () => ({
+vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
   useAuthProviderContext: vi.fn(() => ({
     logoutAndRedirect: vi.fn(),
   })),

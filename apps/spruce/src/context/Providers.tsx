@@ -1,5 +1,5 @@
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
-import { AuthProvider } from "@evg-ui/lib/context/Auth";
+import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
 import { ToastProvider } from "@evg-ui/lib/context/toast";
 import {
   isRemoteEnv,

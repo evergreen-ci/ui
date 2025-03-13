@@ -1,4 +1,4 @@
-import { AuthProvider } from "context/Auth";
+import { AuthProvider } from "context/AuthProvider";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
 import LoginPage from ".";
 

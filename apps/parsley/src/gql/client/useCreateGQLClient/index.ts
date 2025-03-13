@@ -6,7 +6,7 @@ import {
   NormalizedCacheObject,
   from,
 } from "@apollo/client";
-import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
   fetchWithRetry,
   shouldLogoutAndRedirect,
