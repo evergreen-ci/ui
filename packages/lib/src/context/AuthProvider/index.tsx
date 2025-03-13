@@ -79,8 +79,7 @@ const AuthProvider: React.FC<{
       .then(() => {
         setIsAuthenticated(true);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setIsAuthenticated(false);
       });
   }, [localAppURL]);
