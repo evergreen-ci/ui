@@ -775,6 +775,11 @@ export type HostEventsArgs = {
   opts: HostEventsInput;
 };
 
+export enum HostAccessLevel {
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
@@ -2125,6 +2130,12 @@ export enum ProjectSettingsSection {
   Workstation = "WORKSTATION",
 }
 
+export type ProjectTasksPair = {
+  __typename?: "ProjectTasksPair";
+  allowedTasks: Array<Scalars["String"]["output"]>;
+  projectId: Scalars["String"]["output"];
+};
+
 export type ProjectVars = {
   __typename?: "ProjectVars";
   adminOnlyVars: Array<Scalars["String"]["output"]>;
@@ -2585,6 +2596,11 @@ export type SetLastRevisionPayload = {
   mergeBaseRevision: Scalars["String"]["output"];
 };
 
+export type SingleTaskDistroConfig = {
+  __typename?: "SingleTaskDistroConfig";
+  projectTasksPairs: Array<ProjectTasksPair>;
+};
+
 export type SlackConfig = {
   __typename?: "SlackConfig";
   name?: Maybe<Scalars["String"]["output"]>;
@@ -2693,6 +2709,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
+  singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
   ui: UiConfig;
@@ -8643,6 +8660,23 @@ export type SecretFieldsQuery = {
   spruceConfig?: {
     __typename?: "SpruceConfig";
     secretFields: Array<string>;
+  } | null;
+};
+
+export type SingleTaskDistroQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SingleTaskDistroQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    singleTaskDistro?: {
+      __typename?: "SingleTaskDistroConfig";
+      projectTasksPairs: Array<{
+        __typename?: "ProjectTasksPair";
+        projectId: string;
+        allowedTasks: Array<string>;
+      }>;
+    } | null;
   } | null;
 };
 
