@@ -40,7 +40,6 @@ vi.mock("utils/environmentVariables", () => ({
 describe("useCreateGQLClient", () => {
   let mockDispatchAuthenticated: Mock;
   let mockLogoutAndRedirect: Mock;
-  let originalLocation: Location;
 
   beforeEach(() => {
     mockDispatchAuthenticated = vi.fn();
@@ -51,25 +50,6 @@ describe("useCreateGQLClient", () => {
     });
 
     vi.clearAllMocks();
-    // Store original location to restore later
-    originalLocation = window.location;
-
-    // Mock window.location.assign
-    Object.defineProperty(window, "location", {
-      configurable: true,
-      value: {
-        ...window.location,
-        href: "",
-      },
-    });
-  });
-
-  afterEach(() => {
-    // Restore original window.location after tests
-    Object.defineProperty(window, "location", {
-      configurable: true,
-      value: originalLocation,
-    });
   });
 
   it("should create gqlClient when data is returned", async () => {

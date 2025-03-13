@@ -29,41 +29,24 @@ vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
 }));
 vi.mock("utils/environmentVariables", () => ({
   getCorpLoginURL: vi.fn() as MockedFunction<typeof getCorpLoginURL>,
-  graphqlURL: "https://graphql-url.com",
+  graphqlURL: "https://graphql-url.com/graphql/query",
   isProductionBuild: vi.fn() as MockedFunction<typeof isProductionBuild>,
   isRemoteEnv: vi.fn() as MockedFunction<typeof isRemoteEnv>,
 }));
 
 describe("useCreateGQLClient", () => {
+  let mockDispatchAuthenticated: Mock;
   let mockLogoutAndRedirect: Mock;
-  let originalLocation: Location;
 
   beforeEach(() => {
+    mockDispatchAuthenticated = vi.fn();
     mockLogoutAndRedirect = vi.fn();
     (useAuthProviderContext as Mock).mockReturnValue({
+      dispatchAuthenticated: mockDispatchAuthenticated,
       logoutAndRedirect: mockLogoutAndRedirect,
     });
 
     vi.clearAllMocks();
-    // Store original location to restore later
-    originalLocation = window.location;
-
-    // Mock window.location.assign
-    Object.defineProperty(window, "location", {
-      configurable: true,
-      value: {
-        ...window.location,
-        href: "",
-      },
-    });
-  });
-
-  afterEach(() => {
-    // Restore original window.location after tests
-    Object.defineProperty(window, "location", {
-      configurable: true,
-      value: originalLocation,
-    });
   });
 
   it("should create gqlClient when data is returned", async () => {
@@ -75,8 +58,8 @@ describe("useCreateGQLClient", () => {
     await waitFor(() => {
       expect(result.current).toBeInstanceOf(ApolloClient);
     });
+    expect(mockDispatchAuthenticated).toHaveBeenCalled();
   });
-
   it("should call logoutAndRedirect when error occurs and the error satisfies the logout condition", async () => {
     const mockError = { cause: { statusCode: 401 } };
     (fetchWithRetry as Mock).mockRejectedValue(mockError);
