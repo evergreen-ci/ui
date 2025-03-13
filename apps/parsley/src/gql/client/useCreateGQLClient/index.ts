@@ -6,25 +6,21 @@ import {
   NormalizedCacheObject,
   from,
 } from "@apollo/client";
+import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
 import {
   fetchWithRetry,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
-import { useAuthContext } from "context/auth";
 import { logGQLErrorsLink, retryLink } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
-import {
-  getCorpLoginURL,
-  graphqlURL,
-  isRemoteEnv,
-} from "utils/environmentVariables";
+import { graphqlURL } from "utils/environmentVariables";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 
 export const useCreateGQLClient = ():
   | ApolloClient<NormalizedCacheObject>
   | undefined => {
-  const { logoutAndRedirect } = useAuthContext();
+  const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
   const [gqlClient, setGQLClient] =
     useState<ApolloClient<NormalizedCacheObject>>();
 
@@ -33,6 +29,7 @@ export const useCreateGQLClient = ():
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(graphqlURL ?? "", secretFieldsReq)
       .then(({ data }) => {
+        dispatchAuthenticated();
         setSecretFields(data?.spruceConfig?.secretFields);
       })
       .catch((err) => {
@@ -43,16 +40,11 @@ export const useCreateGQLClient = ():
           },
           SentryBreadcrumb.HTTP,
         );
-        if (!isRemoteEnv() && shouldLogoutAndRedirect(err?.cause?.statusCode)) {
+        if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();
-        } else if (getCorpLoginURL() !== "") {
-          // If we can't get a response from the server, we likely hit the corp secure redirect.
-          // We should manually redirect to the corp login page.
-          const encodedRedirect = encodeURIComponent(window.location.href);
-          window.location.href = `${getCorpLoginURL()}?redirect=${encodedRedirect}`;
         }
       });
-  }, [logoutAndRedirect]);
+  }, [logoutAndRedirect, dispatchAuthenticated]);
 
   useEffect(() => {
     if (secretFields && !gqlClient) {

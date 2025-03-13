@@ -5,7 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { Location, Navigate, useLocation } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
-import { useAuthContext } from "context/auth";
+import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
 
 const { green } = palette;
 
@@ -16,7 +16,7 @@ const getReferrer = (location: Location): string => {
 
 export const Login: React.FC = () => {
   const location = useLocation();
-  const { devLogin, isAuthenticated } = useAuthContext();
+  const { isAuthenticated, localLogin } = useAuthProviderContext();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +42,7 @@ export const Login: React.FC = () => {
         />
         <StyledButton
           data-cy="login-submit"
-          onClick={() => devLogin({ password, username })}
+          onClick={() => localLogin({ password, username })}
           type="submit"
           variant="baseGreen"
         >

@@ -1,12 +1,12 @@
 import { ApolloClient } from "@apollo/client";
 import { Mock, MockedFunction } from "vitest";
+import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import {
   fetchWithRetry,
   getUserStagingHeader,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
-import { useAuthContext } from "context/auth";
 import {
   getCorpLoginURL,
   isProductionBuild,
@@ -22,8 +22,10 @@ vi.mock("@evg-ui/lib/utils/request", () => ({
     typeof shouldLogoutAndRedirect
   >,
 }));
-vi.mock("context/auth", () => ({
-  useAuthContext: vi.fn(),
+vi.mock("@evg-ui/lib/context/Auth", () => ({
+  useAuthProviderContext: vi.fn(() => ({
+    logoutAndRedirect: vi.fn(),
+  })),
 }));
 vi.mock("utils/environmentVariables", () => ({
   getCorpLoginURL: vi.fn() as MockedFunction<typeof getCorpLoginURL>,
@@ -38,7 +40,7 @@ describe("useCreateGQLClient", () => {
 
   beforeEach(() => {
     mockLogoutAndRedirect = vi.fn();
-    (useAuthContext as Mock).mockReturnValue({
+    (useAuthProviderContext as Mock).mockReturnValue({
       logoutAndRedirect: mockLogoutAndRedirect,
     });
 
@@ -75,22 +77,7 @@ describe("useCreateGQLClient", () => {
     });
   });
 
-  it("should redirect to corp login when error occurs and isRemoteEnv is true", async () => {
-    const mockError = new Error("Network error");
-    (fetchWithRetry as Mock).mockRejectedValue(mockError);
-    (isRemoteEnv as Mock).mockReturnValue(true);
-    (getCorpLoginURL as Mock).mockReturnValue("https://corp-login.com");
-
-    renderHook(() => useCreateGQLClient());
-
-    await waitFor(() => {
-      expect(window.location.href).toMatch(
-        /^https:\/\/corp-login\.com\?redirect=/,
-      );
-    });
-  });
-
-  it("should call logoutAndRedirect when error occurs and shouldLogoutAndRedirect is true", async () => {
+  it("should call logoutAndRedirect when error occurs and the error satisfies the logout condition", async () => {
     const mockError = { cause: { statusCode: 401 } };
     (fetchWithRetry as Mock).mockRejectedValue(mockError);
     (isRemoteEnv as Mock).mockReturnValue(false);

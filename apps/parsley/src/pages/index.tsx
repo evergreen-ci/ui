@@ -1,12 +1,12 @@
 import { Suspense, lazy } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
+import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
 import { useAnalyticAttributes } from "analytics";
 import NavBar from "components/NavBar";
 import { PageLayout } from "components/styles";
 import { LogTypes } from "constants/enums";
 import routes, { slugs } from "constants/routes";
-import { useAuthContext } from "context/auth";
 import { useUser } from "hooks";
 import NotFound from "./404";
 import LogView from "./LogView";
@@ -27,7 +27,7 @@ const Content: React.FC = () => {
   localStorage.setItem("userId", user?.userId ?? "");
 
   useAnalyticAttributes(user?.userId ?? "");
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated } = useAuthProviderContext();
   return isAuthenticated ? (
     <Routes>
       <Route element={<Layout />}>
