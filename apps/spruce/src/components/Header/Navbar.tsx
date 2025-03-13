@@ -6,6 +6,7 @@ import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import AnimatedIcon from "components/Icon/AnimatedIcon";
@@ -20,7 +21,6 @@ import {
   routes,
   slugs,
 } from "constants/routes";
-import { useAuthStateContext } from "context/Auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
 import { USER, SPRUCE_CONFIG } from "gql/queries";
 import { useLegacyUIURL, useMergedBetaFeatures } from "hooks";
@@ -33,7 +33,7 @@ const { validateObjectId } = validators;
 const { blue, gray, white } = palette;
 
 export const Navbar: React.FC = () => {
-  const { isAuthenticated } = useAuthStateContext();
+  const { isAuthenticated } = useAuthProviderContext();
   const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();
 

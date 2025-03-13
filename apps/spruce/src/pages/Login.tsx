@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Navigate, useLocation } from "react-router-dom";
+import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
 import { fetchWithRetry } from "@evg-ui/lib/utils/request";
-import { useAuthDispatchContext, useAuthStateContext } from "context/Auth";
 import { secretFieldsReq } from "gql/fetch";
 import { getGQLUrl } from "utils/environmentVariables";
 
@@ -20,9 +20,8 @@ export const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { devLogin } = useAuthDispatchContext();
-  const { isAuthenticated } = useAuthStateContext();
-  const { dispatchAuthenticated } = useAuthDispatchContext();
+  const { dispatchAuthenticated, isAuthenticated, localLogin } =
+    useAuthProviderContext();
 
   // Check if the user is already authenticated
   useEffect(() => {
@@ -31,7 +30,7 @@ export const Login: React.FC = () => {
     });
   }, []);
   const loginHandler = (): void => {
-    devLogin({ username, password });
+    localLogin({ username, password });
   };
 
   const inputChangeHandler =

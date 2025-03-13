@@ -4,12 +4,12 @@ import { palette } from "@leafygreen-ui/palette";
 import { Outlet } from "react-router-dom";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
 import { size, transitionDuration } from "@evg-ui/lib/constants/tokens";
+import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
 import { SiteLayout } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
-import { useAuthStateContext } from "context/Auth";
 import { UserQuery, UserQueryVariables } from "gql/generated/types";
 import { USER } from "gql/queries";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
@@ -18,7 +18,7 @@ import { WaterfallScrollToTop } from "pages/waterfall/ScrollToTop";
 const { gray, white } = palette;
 
 export const Layout: React.FC = () => {
-  const { isAuthenticated } = useAuthStateContext();
+  const { isAuthenticated } = useAuthProviderContext();
   useAnnouncementToast();
 
   // this top-level query is required for authentication to work
