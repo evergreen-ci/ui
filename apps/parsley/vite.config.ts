@@ -17,7 +17,7 @@ dns.setDefaultResultOrder("ipv4first");
 
 let serverConfig: ServerOptions = {
   host: "localhost",
-  port: 3000,
+  port: 5173,
 };
 
 if (process.env.REACT_APP_REMOTE_ENV === "true") {
