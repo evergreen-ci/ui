@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
 import {
   fetchWithRetry,
   getUserStagingHeader,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
-import { useAuthDispatchContext } from "context/Auth";
 import { cache } from "gql/client/cache";
 import {
   authenticateIfSuccessfulLink,
@@ -16,16 +16,13 @@ import {
 } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
-import { environmentVariables } from "utils";
-import { getCorpLoginURL, isRemoteEnv } from "utils/environmentVariables";
+import { getGQLUrl } from "utils/environmentVariables";
 import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
-
-const { getGQLUrl } = environmentVariables;
 
 export const useCreateGQLClient = ():
   | ApolloClient<NormalizedCacheObject>
   | undefined => {
-  const { dispatchAuthenticated, logoutAndRedirect } = useAuthDispatchContext();
+  const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
   const [secretFields, setSecretFields] = useState<string[]>();
   const [gqlClient, setGQLClient] =
     useState<ApolloClient<NormalizedCacheObject>>();
@@ -45,13 +42,8 @@ export const useCreateGQLClient = ():
           SentryBreadcrumb.HTTP,
         );
 
-        if (!isRemoteEnv() && shouldLogoutAndRedirect(err?.cause?.statusCode)) {
+        if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();
-        } else if (getCorpLoginURL() !== "") {
-          // If we can't get a response from the server, we likely hit the corp secure redirect.
-          // We should manually redirect to the corp login page.
-          const encodedRedirect = encodeURIComponent(window.location.href);
-          window.location.href = `${getCorpLoginURL()}?redirect=${encodedRedirect}`;
         }
       });
   }, [dispatchAuthenticated, logoutAndRedirect]);
