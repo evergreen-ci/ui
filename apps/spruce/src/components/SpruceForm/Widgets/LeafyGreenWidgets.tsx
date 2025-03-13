@@ -18,9 +18,9 @@ import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Toggle from "@leafygreen-ui/toggle";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { OneOf } from "@evg-ui/lib/types/utils";
-import Icon from "components/Icon";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 import { isNullish, processErrors } from "./utils";
@@ -110,9 +110,11 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
     bold,
     customLabel,
     "data-cy": dataCy,
+    "data-cy-banner": dataCyBanner,
     description,
     elementWrapperCSS,
     tooltipDescription,
+    warnings,
   } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
@@ -143,6 +145,14 @@ export const LeafyGreenCheckBox: React.FC<SpruceWidgetProps> = ({
         }
         onChange={(e) => onChange(e.target.checked)}
       />
+      {warnings?.length && (
+        <StyledBanner
+          data-cy={dataCyBanner || "warning-banner"}
+          variant="warning"
+        >
+          {warnings.join(", ")}
+        </StyledBanner>
+      )}
     </ElementWrapper>
   );
 };

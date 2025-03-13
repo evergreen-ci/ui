@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useRef, useState, useTransition } from "react";
+import { Suspense, useCallback, useRef, useState } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
@@ -30,7 +30,6 @@ const shouldDisableForTest =
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`${projectIdentifier} | Waterfall`);
-  const [, startTransition] = useTransition();
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     validQueryParams,
     urlParamToTitleMap,
@@ -71,11 +70,11 @@ const Waterfall: React.FC = () => {
           chips={chips}
           onClearAll={() => {
             sendEvent({ name: "Deleted all filter chips" });
-            startTransition(handleClearAll);
+            handleClearAll();
           }}
           onRemove={(b) => {
             sendEvent({ name: "Deleted one filter chip" });
-            startTransition(() => handleOnRemove(b));
+            handleOnRemove(b);
           }}
         />
         <Suspense fallback={<WaterfallSkeleton />}>

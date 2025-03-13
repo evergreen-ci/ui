@@ -89,6 +89,7 @@ const distroData: DistroQuery["distro"] = {
   isVirtualWorkStation: false,
   name: "rhel71-power8-large",
   note: "distro note",
+  singleTaskDistro: false,
   warningNote: "distro warnings",
   plannerSettings: {
     commitQueueFactor: 0,

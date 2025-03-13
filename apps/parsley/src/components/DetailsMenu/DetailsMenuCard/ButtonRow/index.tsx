@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Button from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
+import Icon from "@evg-ui/lib/components/Icon";
 import { usePreferencesAnalytics } from "analytics";
-import Icon from "components/Icon";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useQueryParam } from "hooks/useQueryParam";

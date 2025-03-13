@@ -171,13 +171,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -191,7 +194,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -200,10 +203,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -267,13 +266,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -287,7 +289,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -296,10 +298,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -362,13 +360,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -382,7 +383,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -391,10 +392,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -548,13 +545,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -568,7 +568,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -577,10 +577,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -644,13 +640,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -664,7 +663,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -673,10 +672,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -775,13 +770,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -795,7 +793,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -804,10 +802,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -926,13 +920,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -946,7 +943,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -955,10 +952,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -1021,13 +1014,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -1041,7 +1037,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -1050,10 +1046,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -1117,13 +1109,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -1137,7 +1132,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -1146,10 +1141,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -1287,13 +1278,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -1307,7 +1301,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -1316,10 +1310,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -1447,13 +1437,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -1467,7 +1460,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -1476,10 +1469,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>
@@ -1558,13 +1547,16 @@
                 data-cy="host-event-log-content"
               >
                 <div
-                  class="leafygreen-ui-196mwvg"
+                  class="leafygreen-ui-7g63w3"
+                  data-language="shell"
+                  data-lgid="lg-code"
                 >
                   <div
-                    class="leafygreen-ui-yzcs8i"
+                    class="leafygreen-ui-q093uc"
                   >
                     <pre
-                      class="leafygreen-ui-57uk1p"
+                      class="leafygreen-ui-1csi9re"
+                      data-testid="lg-code-pre"
                       tabindex="-1"
                     >
                       <code
@@ -1578,7 +1570,7 @@
                               class=""
                             >
                               <td
-                                class="leafygreen-ui-7razhx"
+                                class="leafygreen-ui-c8xnd"
                               >
                                 This is a log message
                               </td>
@@ -1587,10 +1579,6 @@
                         </table>
                       </code>
                     </pre>
-                    <div
-                      class="leafygreen-ui-1bqcprk"
-                      data-testid="leafygreen-code-panel"
-                    />
                   </div>
                 </div>
               </span>

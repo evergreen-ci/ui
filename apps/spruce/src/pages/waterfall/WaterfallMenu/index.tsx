@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import Icon from "components/Icon";
+import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { AddNotification } from "./AddNotification";
 import { ClearAllFilters } from "./ClearAllFilters";
