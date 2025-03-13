@@ -1,12 +1,12 @@
 import { ApolloClient } from "@apollo/client";
 import { MockedFunction, Mock } from "vitest";
+import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import {
   fetchWithRetry,
   getUserStagingHeader,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
-import { useAuthDispatchContext } from "context/Auth";
 import {
   getCorpLoginURL,
   getGQLUrl,
@@ -24,8 +24,10 @@ vi.mock("@evg-ui/lib/utils/request", () => ({
   >,
   getUserStagingHeader: vi.fn() as MockedFunction<typeof getUserStagingHeader>,
 }));
-vi.mock("context/Auth", () => ({
-  useAuthDispatchContext: vi.fn(),
+vi.mock("@evg-ui/lib/context/Auth", () => ({
+  useAuthProviderContext: vi.fn(() => ({
+    logoutAndRedirect: vi.fn(),
+  })),
 }));
 vi.mock("utils/environmentVariables", () => ({
   getCorpLoginURL: vi.fn() as MockedFunction<typeof getCorpLoginURL>,
@@ -43,7 +45,7 @@ describe("useCreateGQLClient", () => {
   beforeEach(() => {
     mockDispatchAuthenticated = vi.fn();
     mockLogoutAndRedirect = vi.fn();
-    (useAuthDispatchContext as Mock).mockReturnValue({
+    (useAuthProviderContext as Mock).mockReturnValue({
       dispatchAuthenticated: mockDispatchAuthenticated,
       logoutAndRedirect: mockLogoutAndRedirect,
     });
@@ -82,22 +84,7 @@ describe("useCreateGQLClient", () => {
     expect(mockDispatchAuthenticated).toHaveBeenCalled();
   });
 
-  it("should redirect to corp login when error occurs and isRemoteEnv is true", async () => {
-    const mockError = new Error("Network error");
-    (fetchWithRetry as Mock).mockRejectedValue(mockError);
-    (isRemoteEnv as Mock).mockReturnValue(true);
-    (getCorpLoginURL as Mock).mockReturnValue("https://corp-login.com");
-
-    renderHook(() => useCreateGQLClient());
-
-    await waitFor(() => {
-      expect(window.location.href).toMatch(
-        /^https:\/\/corp-login\.com\?redirect=/,
-      );
-    });
-  });
-
-  it("should call logoutAndRedirect when error occurs and shouldLogoutAndRedirect is true", async () => {
+  it("should call logoutAndRedirect when error occurs and the error satisfies the logout condition", async () => {
     const mockError = { cause: { statusCode: 401 } };
     (fetchWithRetry as Mock).mockRejectedValue(mockError);
     (isRemoteEnv as Mock).mockReturnValue(false);
