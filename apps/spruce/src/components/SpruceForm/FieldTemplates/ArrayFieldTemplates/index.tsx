@@ -5,10 +5,10 @@ import ExpandableCard from "@leafygreen-ui/expandable-card";
 import { palette } from "@leafygreen-ui/palette";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { ArrayFieldTemplateProps } from "@rjsf/core";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { PlusButton } from "components/Buttons";
-import Icon from "components/Icon";
 import ElementWrapper from "../../ElementWrapper";
 import { STANDARD_FIELD_WIDTH } from "../../utils";
 

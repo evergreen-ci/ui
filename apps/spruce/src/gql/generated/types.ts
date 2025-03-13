@@ -6160,6 +6160,7 @@ export type DistroQuery = {
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
+    singleTaskDistro: boolean;
     sshOptions: Array<string>;
     user: string;
     userSpawnAllowed: boolean;
@@ -9789,6 +9790,7 @@ export type WaterfallQuery = {
     }>;
     pagination: {
       __typename?: "WaterfallPagination";
+      activeVersionIds: Array<string>;
       hasNextPage: boolean;
       hasPrevPage: boolean;
       mostRecentVersionOrder: number;

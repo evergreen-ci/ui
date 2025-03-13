@@ -6,8 +6,8 @@ import {
   Overline,
   OverlineProps,
 } from "@leafygreen-ui/typography";
+import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
-import Icon from "components/Icon";
 import {
   hoverStyles,
   overlineStyles,

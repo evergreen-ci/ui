@@ -70,6 +70,7 @@ export const getFormSchema = ({
     revision,
   } = spawnTaskData || {};
   const hasValidTask = validateTask(spawnTaskData);
+  const hasProjectSetupScript = !!project?.spawnHostScriptPath;
   const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;
   const availableVolumes = volumes
     ? volumes.filter((v) => v.homeVolume && !v.hostID)
@@ -222,6 +223,7 @@ export const getFormSchema = ({
                       runProjectSpecificSetupScript: {
                         type: "boolean" as const,
                         title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
+                        default: hasProjectSetupScript,
                       },
                       startHosts: {
                         type: "boolean" as const,
@@ -406,7 +408,7 @@ export const getFormSchema = ({
           },
           runProjectSpecificSetupScript: {
             "ui:widget":
-              hasValidTask && project?.spawnHostScriptPath
+              hasValidTask && hasProjectSetupScript
                 ? widgets.CheckboxWidget
                 : "hidden",
             "ui:disabled": useSetupScript,
