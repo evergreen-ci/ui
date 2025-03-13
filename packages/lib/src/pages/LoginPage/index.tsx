@@ -25,7 +25,12 @@ const LoginPage: React.FC = () => {
     <Navigate to={getReferrer(location)} />
   ) : (
     <PageWrapper>
-      <LoginForm>
+      <LoginForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          localLogin({ password, username });
+        }}
+      >
         <TextInput
           data-cy="login-username"
           label="Username"

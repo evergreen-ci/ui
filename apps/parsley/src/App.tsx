@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { AuthProvider } from "@evg-ui/lib/context/Auth";
-import LoginPage from "@evg-ui/lib/pages/Login";
+import LoginPage from "@evg-ui/lib/pages/LoginPage";
 import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";
 import routes from "constants/routes";

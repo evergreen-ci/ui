@@ -5,7 +5,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import LoginPage from "@evg-ui/lib/pages/Login";
+import LoginPage from "@evg-ui/lib/pages/LoginPage";
 import { Content } from "components/Content";
 import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";
