@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { AuthProvider } from "@evg-ui/lib/context/Auth";
+import LoginPage from "@evg-ui/lib/pages/Login";
 import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";
 import routes from "constants/routes";
 import { GlobalProviders } from "context";
 import Content from "pages";
-import { Login } from "pages/Login";
 import {
   evergreenURL,
   getCorpLoginURL,
@@ -28,7 +28,7 @@ const App = () => (
         <AppWrapper>
           <Routes>
             {isDevelopmentBuild() && (
-              <Route element={<Login />} path={routes.login} />
+              <Route element={<LoginPage />} path={routes.login} />
             )}
             <Route
               element={

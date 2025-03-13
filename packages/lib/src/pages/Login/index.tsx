@@ -4,8 +4,8 @@ import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { Location, Navigate, useLocation } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useAuthProviderContext } from "@evg-ui/lib/context/Auth";
+import { size } from "../../constants/tokens";
+import { useAuthProviderContext } from "../../context/Auth";
 
 const { green } = palette;
 
@@ -14,7 +14,7 @@ const getReferrer = (location: Location): string => {
   return state?.referrer ?? "/";
 };
 
-export const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   const location = useLocation();
   const { isAuthenticated, localLogin } = useAuthProviderContext();
 
@@ -61,7 +61,7 @@ const PageWrapper = styled.div`
   justify-content: center;
 `;
 
-const LoginForm = styled.div`
+const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,3 +76,5 @@ const LoginForm = styled.div`
 const StyledButton = styled(Button)`
   align-self: flex-end;
 `;
+
+export default LoginPage;
