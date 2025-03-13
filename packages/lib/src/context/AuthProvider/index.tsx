@@ -1,5 +1,5 @@
-import { createContext, useContext, useMemo, useState } from "react";
-import { getUserStagingHeader } from "../../utils/request";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { fetchWithRetry, getUserStagingHeader } from "../../utils/request";
 
 type AuthProviderDispatchMethods = {
   /**
@@ -60,15 +60,31 @@ const AuthProvider: React.FC<{
   remoteAuthURL,
   shouldUseLocalAuth,
 }) => {
-  console.log("initializing AuthProvider");
-  console.table({
-    localAppURL,
-    localAuthURL,
-    remoteAuthURL,
-    shouldUseLocalAuth,
-  });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  console.log("isAuthenticated", isAuthenticated);
+
+  useEffect(() => {
+    fetchWithRetry(`${localAppURL}/graphql/query`, {
+      credentials: "include",
+      headers: {
+        ...getUserStagingHeader(),
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        query: "{\n  user {\n    userId\n  }\n}",
+        variables: {},
+      }),
+      method: "POST",
+      mode: "cors",
+    })
+      .then(() => {
+        setIsAuthenticated(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsAuthenticated(false);
+      });
+  }, [localAppURL]);
+
   const authMethods: AuthProviderDispatchMethods = useMemo(
     () => ({
       // This function is only used in local development.
