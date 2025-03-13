@@ -2,12 +2,28 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { getUserStagingHeader } from "../../utils/request";
 
 type AuthProviderDispatchMethods = {
+  /**
+   * `localLogin` is a function that logs the user in using a local authentication strategy.
+   * @param credentials - credentials to login with
+   * @param credentials.username - username to login with
+   * @param credentials.password - password to login with
+   * @returns
+   */
   localLogin: (credentials: { username: string; password: string }) => void;
+  /**
+   * `logoutAndRedirect` is a function that logs the user out and redirects them to the login page.
+   */
   logoutAndRedirect: () => void;
+  /**
+   * `dispatchAuthenticated` is a function that dispatches the authenticated state.
+   */
   dispatchAuthenticated: () => void;
 };
 
 type AuthState = {
+  /**
+   * `isAuthenticated` is a boolean that determines whether the user is currently authenticated.
+   */
   isAuthenticated: boolean;
 };
 
@@ -44,8 +60,15 @@ const AuthProvider: React.FC<{
   remoteAuthURL,
   shouldUseLocalAuth,
 }) => {
+  console.log("initializing AuthProvider");
+  console.table({
+    localAppURL,
+    localAuthURL,
+    remoteAuthURL,
+    shouldUseLocalAuth,
+  });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  console.log("isAuthenticated", isAuthenticated);
   const authMethods: AuthProviderDispatchMethods = useMemo(
     () => ({
       // This function is only used in local development.
