@@ -70,8 +70,7 @@ export const getFormSchema = ({
     revision,
   } = spawnTaskData || {};
   const hasValidTask = validateTask(spawnTaskData);
-  const hasProjectSetupScript =
-    project?.spawnHostScriptPath && project?.spawnHostScriptPath.length > 0;
+  const hasProjectSetupScript = !!project?.spawnHostScriptPath;
   const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;
   const availableVolumes = volumes
     ? volumes.filter((v) => v.homeVolume && !v.hostID)
