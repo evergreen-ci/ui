@@ -16,7 +16,7 @@ import {
   WaterfallQueryVariables,
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
-import { useAdminBetaFeatures, useUserTimeZone } from "hooks";
+import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
@@ -57,7 +57,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 }) => {
   useWaterfallTrace();
   const [queryParams, setQueryParams] = useQueryParams();
-  const { adminBetaSettings } = useAdminBetaFeatures();
   const { sendEvent } = useWaterfallAnalytics();
 
   const [pins, setPins] = useState<string[]>(
@@ -239,9 +238,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           );
         })}
       </BuildVariantProvider>
-      {adminBetaSettings?.spruceWaterfallEnabled && (
-        <OnboardingTutorial guideCueRef={guideCueRef} />
-      )}
+      <OnboardingTutorial guideCueRef={guideCueRef} />
     </Container>
   );
 };
