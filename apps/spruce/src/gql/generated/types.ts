@@ -775,6 +775,11 @@ export type HostEventsArgs = {
   opts: HostEventsInput;
 };
 
+export enum HostAccessLevel {
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
