@@ -775,6 +775,11 @@ export type HostEventsArgs = {
   opts: HostEventsInput;
 };
 
+export enum HostAccessLevel {
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
@@ -8656,6 +8661,23 @@ export type SecretFieldsQuery = {
   spruceConfig?: {
     __typename?: "SpruceConfig";
     secretFields: Array<string>;
+  } | null;
+};
+
+export type SingleTaskDistroQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SingleTaskDistroQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    singleTaskDistro?: {
+      __typename?: "SingleTaskDistroConfig";
+      projectTasksPairs: Array<{
+        __typename?: "ProjectTasksPair";
+        projectId: string;
+        allowedTasks: Array<string>;
+      }>;
+    } | null;
   } | null;
 };
 
