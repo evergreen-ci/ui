@@ -4,7 +4,7 @@ import { ToastProvider } from "@evg-ui/lib/context/toast";
 import {
   isRemoteEnv,
   getCorpLoginURL,
-  getUiUrl,
+  getEvergreenUrl,
   getSpruceURL,
 } from "utils/environmentVariables";
 
@@ -12,7 +12,7 @@ export const ContextProviders: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
   <AuthProvider
-    localAppURL={getUiUrl()}
+    localAppURL={getEvergreenUrl()}
     localAuthURL={`${getSpruceURL()}/login`}
     remoteAuthURL={getCorpLoginURL()}
     shouldUseLocalAuth={!isRemoteEnv()}

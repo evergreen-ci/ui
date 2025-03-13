@@ -10,7 +10,7 @@ import {
 import {
   getCorpLoginURL,
   getGQLUrl,
-  getUiUrl,
+  getEvergreenUrl,
   isProductionBuild,
   isRemoteEnv,
 } from "utils/environmentVariables";
@@ -32,7 +32,7 @@ vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
 vi.mock("utils/environmentVariables", () => ({
   getCorpLoginURL: vi.fn() as MockedFunction<typeof getCorpLoginURL>,
   isRemoteEnv: vi.fn() as MockedFunction<typeof isRemoteEnv>,
-  getUiUrl: vi.fn() as MockedFunction<typeof getUiUrl>,
+  getEvergreenUrl: vi.fn() as MockedFunction<typeof getEvergreenUrl>,
   getGQLUrl: vi.fn() as MockedFunction<typeof getGQLUrl>,
   isProductionBuild: vi.fn() as MockedFunction<typeof isProductionBuild>,
 }));
