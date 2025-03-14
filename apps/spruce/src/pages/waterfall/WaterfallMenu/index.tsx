@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ButtonDropdown } from "components/ButtonDropdown";
+import Icon from "@evg-ui/lib/components/Icon";
+import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { walkthroughSteps, waterfallGuideId } from "../constants";
 import { AddNotification } from "./AddNotification";
 import { ClearAllFilters } from "./ClearAllFilters";
@@ -10,9 +11,13 @@ const menuProps = { [waterfallGuideId]: walkthroughSteps[4].targetId };
 
 type Props = {
   projectIdentifier: string;
+  restartWalkthrough: () => void;
 };
 
-export const WaterfallMenu: React.FC<Props> = ({ projectIdentifier }) => {
+export const WaterfallMenu: React.FC<Props> = ({
+  projectIdentifier,
+  restartWalkthrough,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const dropdownItems = [
@@ -24,6 +29,17 @@ export const WaterfallMenu: React.FC<Props> = ({ projectIdentifier }) => {
       projectIdentifier={projectIdentifier}
       setMenuOpen={setMenuOpen}
     />,
+    <DropdownItem
+      key="restart-walkthrough"
+      data-cy="restart-walkthrough"
+      glyph={<Icon glyph="Bulb" />}
+      onClick={() => {
+        setMenuOpen(false);
+        restartWalkthrough();
+      }}
+    >
+      Restart walkthrough
+    </DropdownItem>,
   ];
 
   return (

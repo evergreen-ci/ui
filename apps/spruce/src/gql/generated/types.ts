@@ -775,6 +775,11 @@ export type HostEventsArgs = {
   opts: HostEventsInput;
 };
 
+export enum HostAccessLevel {
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
@@ -3466,6 +3471,8 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 

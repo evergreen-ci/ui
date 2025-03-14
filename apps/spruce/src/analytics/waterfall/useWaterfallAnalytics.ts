@@ -36,8 +36,8 @@ type Action =
   | { name: "Filtered by date" }
   | { name: "Toggled task icon legend"; open: boolean }
   | {
-      name: "Viewed waterfall beta modal";
-      "beta_features.spruce_waterfall_enabled": boolean;
+      name: "Viewed waterfall modal";
+      navigated_to_waterfall: boolean;
     };
 
 export const useWaterfallAnalytics = () => {

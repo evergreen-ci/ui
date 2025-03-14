@@ -6,7 +6,6 @@ import Button, { Variant as ButtonVariant } from "@leafygreen-ui/button";
 import { diff } from "deep-object-diff";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
 import {
   BetaFeatures,
@@ -28,7 +27,6 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
   adminBetaSettings,
   userBetaSettings,
 }) => {
-  const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
 
   const [updateBetaFeatures] = useMutation<
@@ -65,11 +63,6 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
         },
       },
     });
-    sendEvent({
-      name: "Saved beta feature settings",
-      "beta_features.spruce_waterfall_enabled":
-        formState.betaFeatures.spruceWaterfallEnabled,
-    });
   };
 
   const hasActiveBetaFeatures = adminBetaSettings
@@ -88,11 +81,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
             betaFeatures: {
               title: "Beta Features",
               type: "object" as const,
-              properties: {
-                spruceWaterfallEnabled: radioSchema({
-                  title: "Use new Spruce waterfall",
-                }),
-              },
+              properties: {},
             },
           },
         }}
@@ -111,10 +100,6 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
                 )}
               </DescriptionWrapper>
             ),
-            spruceWaterfallEnabled: radioUiSchema({
-              dataCy: "spruce-waterfall-enabled",
-              isAdminEnabled: adminBetaSettings.spruceWaterfallEnabled,
-            }),
           },
         }}
       />
@@ -130,6 +115,7 @@ export const BetaFeatureSettings: React.FC<BetaFeatureSettingsProps> = ({
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioSchema = ({ title }: { title: string }) => ({
   type: "boolean" as const,
   title,
@@ -148,6 +134,7 @@ const radioSchema = ({ title }: { title: string }) => ({
   ],
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const radioUiSchema = ({
   dataCy,
   isAdminEnabled,

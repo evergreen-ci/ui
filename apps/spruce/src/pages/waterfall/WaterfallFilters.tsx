@@ -16,10 +16,13 @@ import { WaterfallMenu } from "./WaterfallMenu";
 type WaterfallFiltersProps = {
   projectIdentifier: string;
   pagination: Pagination | undefined;
+  restartWalkthrough: () => void;
 };
+
 export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
   pagination,
   projectIdentifier,
+  restartWalkthrough,
 }) => {
   const { sendEvent } = useWaterfallAnalytics();
   const [statuses] = useQueryParam<string[]>(
@@ -62,7 +65,10 @@ export const WaterfallFilters: React.FC<WaterfallFiltersProps> = ({
           selectedProjectIdentifier={projectIdentifier}
         />
       </ProjectFilterItem>
-      <WaterfallMenu projectIdentifier={projectIdentifier} />
+      <WaterfallMenu
+        projectIdentifier={projectIdentifier}
+        restartWalkthrough={restartWalkthrough}
+      />
       <PaginationButtons pagination={pagination} />
     </Container>
   );

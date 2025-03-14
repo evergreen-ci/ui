@@ -43,7 +43,8 @@ describe("onboarding", () => {
     cy.dataCy("walkthrough-backdrop").should("not.exist");
     cy.dataCy("walkthrough-guide-cue").should("not.exist");
 
-    cy.dataCy("restart-walkthrough-button").click();
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("restart-walkthrough").click();
     cy.dataCy("walkthrough-backdrop").should("be.visible");
     cy.dataCy("walkthrough-guide-cue").should("be.visible");
     cy.contains("New Layout").should("be.visible");

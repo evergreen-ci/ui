@@ -29,7 +29,7 @@ import {
   ProjectHealthView,
 } from "gql/generated/types";
 import { MAINLINE_COMMITS, SPRUCE_CONFIG } from "gql/queries";
-import { useAdminBetaFeatures, usePolling, useUpsertQueryParams } from "hooks";
+import { usePolling, useUpsertQueryParams } from "hooks";
 import { useProjectRedirect } from "hooks/useProjectRedirect";
 import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
@@ -61,10 +61,8 @@ const Commits = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`Project Health | ${projectIdentifier}`);
 
-  const { adminBetaSettings } = useAdminBetaFeatures();
   const showWaterfallBetaModal =
-    Cookies.get(SEEN_WATERFALL_BETA_MODAL) !== "true" &&
-    adminBetaSettings?.spruceWaterfallEnabled;
+    Cookies.get(SEEN_WATERFALL_BETA_MODAL) !== "true";
 
   const sendAnalyticsEvent = (id: string, identifier: string) => {
     sendEvent({

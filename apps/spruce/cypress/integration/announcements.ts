@@ -24,11 +24,11 @@ describe("Announcement overlays", () => {
     });
   });
 
-  it("visiting the commits page for the first time should show the waterfall beta modal", () => {
+  it("visiting the commits page for the first time should show the waterfall modal", () => {
     cy.clearCookie(CY_DISABLE_COMMITS_WELCOME_MODAL);
     cy.visit("/commits/spruce");
     cy.dataCy("waterfall-modal").should("be.visible");
-    cy.contains("Maybe later, continue to Project Health").click();
+    cy.contains("Continue to Project Health").click();
     cy.reload();
     cy.dataCy("waterfall-modal").should("not.exist");
   });

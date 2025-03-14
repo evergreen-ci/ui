@@ -1,5 +1,4 @@
 import {
-  getCommitsRoute,
   getPatchRoute,
   getTaskRoute,
   getVersionRoute,
@@ -11,7 +10,6 @@ import { ResourceType } from "types/triggers";
 export const getResourceRoute = (
   resourceType: ResourceType,
   selector: Selector,
-  spruceWaterfallEnabled: boolean = false,
 ) => {
   const { data: id, type } = selector;
 
@@ -23,9 +21,7 @@ export const getResourceRoute = (
     case ResourceType.Build:
     case ResourceType.Version: {
       if (type === "project") {
-        return spruceWaterfallEnabled
-          ? getWaterfallRoute(id)
-          : getCommitsRoute(id);
+        return getWaterfallRoute(id);
       }
       return getVersionRoute(id);
     }
