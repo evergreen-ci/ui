@@ -75,10 +75,10 @@ describe("Nav Bar", () => {
     cy.visit("/project/evergreen/patches");
     cy.dataCy("patch-card").should("exist");
 
-    cy.dataCy("project-health-link").should(
+    cy.dataCy("waterfall-link").should(
       "have.attr",
       "href",
-      "/commits/evergreen",
+      "/project/evergreen/waterfall",
     );
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("auxiliary-dropdown-project-settings").should(
@@ -93,10 +93,10 @@ describe("Nav Bar", () => {
     cy.visit("/project/spruce/settings");
     cy.dataCy("project-settings-tab-title").should("be.visible");
 
-    cy.dataCy("project-health-link").should(
+    cy.dataCy("waterfall-link").should(
       "have.attr",
       "href",
-      "/commits/spruce",
+      "/project/spruce/waterfall",
     );
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("auxiliary-dropdown-project-patches").should(
