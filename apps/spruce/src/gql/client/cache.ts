@@ -20,7 +20,16 @@ export const cache = new InMemoryCache({
         },
         waterfall: {
           // All server-side filter params should be used as cache keyArgs to maintain separate caches when they are applied.
-          keyArgs: ["options", ["projectIdentifier", "variants", "requesters"]],
+          keyArgs: [
+            "options",
+            [
+              "projectIdentifier",
+              "requesters",
+              "statuses",
+              "tasks",
+              "variants",
+            ],
+          ],
           read(...args) {
             return readVersions(...args);
           },
