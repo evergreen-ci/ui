@@ -1,7 +1,6 @@
 import { Suspense, useCallback, useRef, useState } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -9,23 +8,14 @@ import { useWaterfallAnalytics } from "analytics";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
-import { WaterfallModal } from "components/WaterfallModal";
-import {
-  SEEN_WATERFALL_BETA_MODAL,
-  CY_DISABLE_COMMITS_WELCOME_MODAL,
-} from "constants/cookies";
 import { slugs } from "constants/routes";
 import { useIsScrollAtTop } from "hooks";
-import { isProduction } from "utils/environmentVariables";
 import { waterfallPageContainerId } from "./constants";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
 import { WaterfallFilters } from "./WaterfallFilters";
 import { WaterfallGrid } from "./WaterfallGrid";
 import WaterfallSkeleton from "./WaterfallSkeleton";
-
-const shouldDisableForTest =
-  !isProduction() && Cookies.get(CY_DISABLE_COMMITS_WELCOME_MODAL) === "true";
 
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
@@ -47,9 +37,6 @@ const Waterfall: React.FC = () => {
     () => guideCueRef.current?.restart(),
     [guideCueRef.current],
   );
-
-  const showWaterfallBetaModal =
-    Cookies.get(SEEN_WATERFALL_BETA_MODAL) !== "true";
 
   return (
     <>
@@ -88,12 +75,6 @@ const Waterfall: React.FC = () => {
             />
           </WaterfallErrorBoundary>
         </Suspense>
-
-        {!shouldDisableForTest &&
-          showWaterfallBetaModal &&
-          projectIdentifier && (
-            <WaterfallModal projectIdentifier={projectIdentifier} />
-          )}
       </PageContainer>
     </>
   );

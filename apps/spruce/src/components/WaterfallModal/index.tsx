@@ -21,10 +21,9 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
       name: "Viewed waterfall modal",
       navigated_to_waterfall: goToWaterfall,
     });
+    setOpen(false);
     if (goToWaterfall) {
       navigate(getWaterfallRoute(projectIdentifier));
-    } else {
-      setOpen(false);
     }
   };
 
@@ -32,12 +31,13 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
 
   return (
     <StyledModal
-      buttonText="Enable Beta"
+      buttonText="Visit Waterfall"
       data-cy="waterfall-modal"
       graphic={<Image />}
-      linkText=""
+      linkText="Continue to Project Health"
       onButtonClick={handleClose(true)}
       onClose={handleClose(false)}
+      onLinkClick={handleClose(false)}
       open={open}
       showBlob
       title={

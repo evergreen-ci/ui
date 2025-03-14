@@ -3471,6 +3471,8 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
