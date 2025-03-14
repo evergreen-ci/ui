@@ -11,21 +11,20 @@ import {
   evergreenURL,
   getCorpLoginURL,
   isDevelopmentBuild,
-  isRemoteEnv,
-  parsleyURL,
+  isLocal,
 } from "utils/environmentVariables";
 
 const App = () => (
   <ErrorBoundary>
     <GlobalStyles />
-    <AuthProvider
-      localAppURL={evergreenURL || ""}
-      localAuthURL={`${parsleyURL}/login`}
-      remoteAuthURL={getCorpLoginURL()}
-      shouldUseLocalAuth={!isRemoteEnv()}
-    >
-      <Router>
-        <AppWrapper>
+    <Router>
+      <AppWrapper>
+        <AuthProvider
+          evergreenAppURL={evergreenURL || ""}
+          localAuthRoute={routes.login}
+          remoteAuthURL={getCorpLoginURL()}
+          shouldUseLocalAuth={isLocal()}
+        >
           <Routes>
             {isDevelopmentBuild() && (
               <Route element={<LoginPage />} path={routes.login} />
@@ -39,9 +38,9 @@ const App = () => (
               path="/*"
             />
           </Routes>
-        </AppWrapper>
-      </Router>
-    </AuthProvider>
+        </AuthProvider>
+      </AppWrapper>
+    </Router>
   </ErrorBoundary>
 );
 
