@@ -4,8 +4,8 @@ import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { Location, Navigate, useLocation } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useAuthContext } from "context/auth";
+import { size } from "../../constants/tokens";
+import { useAuthProviderContext } from "../../context/AuthProvider";
 
 const { green } = palette;
 
@@ -14,9 +14,9 @@ const getReferrer = (location: Location): string => {
   return state?.referrer ?? "/";
 };
 
-export const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   const location = useLocation();
-  const { devLogin, isAuthenticated } = useAuthContext();
+  const { isAuthenticated, localLogin } = useAuthProviderContext();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +25,12 @@ export const Login: React.FC = () => {
     <Navigate to={getReferrer(location)} />
   ) : (
     <PageWrapper>
-      <LoginForm>
+      <LoginForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          localLogin({ password, username });
+        }}
+      >
         <TextInput
           data-cy="login-username"
           label="Username"
@@ -42,7 +47,7 @@ export const Login: React.FC = () => {
         />
         <StyledButton
           data-cy="login-submit"
-          onClick={() => devLogin({ password, username })}
+          onClick={() => localLogin({ password, username })}
           type="submit"
           variant="baseGreen"
         >
@@ -61,7 +66,7 @@ const PageWrapper = styled.div`
   justify-content: center;
 `;
 
-const LoginForm = styled.div`
+const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,3 +81,5 @@ const LoginForm = styled.div`
 const StyledButton = styled(Button)`
   align-self: flex-end;
 `;
+
+export default LoginPage;

@@ -1,27 +1,44 @@
 import styled from "@emotion/styled";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
+import LoginPage from "@evg-ui/lib/pages/LoginPage";
 import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";
 import routes from "constants/routes";
 import { GlobalProviders } from "context";
 import Content from "pages";
-import { Login } from "pages/Login";
-import { isDevelopmentBuild } from "utils/environmentVariables";
+import {
+  evergreenURL,
+  isDevelopmentBuild,
+  isLocal,
+} from "utils/environmentVariables";
 
 const App = () => (
   <ErrorBoundary>
     <GlobalStyles />
     <Router>
-      <GlobalProviders>
-        <AppWrapper>
+      <AppWrapper>
+        <AuthProvider
+          evergreenAppURL={evergreenURL || ""}
+          localAuthRoute={routes.login}
+          remoteAuthURL={`${evergreenURL}/login`}
+          shouldUseLocalAuth={isLocal()}
+        >
           <Routes>
             {isDevelopmentBuild() && (
-              <Route element={<Login />} path={routes.login} />
+              <Route element={<LoginPage />} path={routes.login} />
             )}
-            <Route element={<Content />} path="/*" />
+            <Route
+              element={
+                <GlobalProviders>
+                  <Content />
+                </GlobalProviders>
+              }
+              path="/*"
+            />
           </Routes>
-        </AppWrapper>
-      </GlobalProviders>
+        </AuthProvider>
+      </AppWrapper>
     </Router>
   </ErrorBoundary>
 );

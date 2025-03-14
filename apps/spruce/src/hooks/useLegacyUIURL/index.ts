@@ -3,14 +3,14 @@ import { matchPath, useLocation, Params } from "react-router-dom";
 import { idSlugs, routes } from "constants/routes";
 import { environmentVariables } from "utils";
 
-const { getUiUrl } = environmentVariables;
+const { getEvergreenUrl } = environmentVariables;
 
 export const useLegacyUIURL = (): string | null => {
   const [id, setId] = useState("");
   const [legacyUIUrl, setLegacyUIUrl] = useState(null);
   const { pathname } = useLocation();
 
-  const uiURL = getUiUrl();
+  const uiURL = getEvergreenUrl();
 
   useEffect(() => {
     setId("");

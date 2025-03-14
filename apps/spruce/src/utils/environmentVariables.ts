@@ -2,7 +2,7 @@
  * `getApiUrl()` - Get the API URL from the environment variables
  * @returns - The Evergreen API URL
  */
-export const getApiUrl: () => string = () => `${getUiUrl()}/api`;
+export const getApiUrl: () => string = () => `${getEvergreenUrl()}/api`;
 
 /**
  * `getSentryDSN()` - Get the Sentry Data Source Name (SENTRY_DSN) from the environment variables
@@ -13,10 +13,11 @@ export const getSentryDSN: () => string = () =>
   process.env.REACT_APP_SPRUCE_SENTRY_DSN;
 
 /**
- * `getUiUrl()` - Get the backing evergreen URL from the environment variables
+ * `getEvergreenUrl()` - Get the backing evergreen URL from the environment variables
  * @returns - Returns the backing evergreen url
  */
-export const getUiUrl: () => string = () => process.env.REACT_APP_UI_URL || "";
+export const getEvergreenUrl: () => string = () =>
+  process.env.REACT_APP_EVERGREEN_URL || "";
 
 /**
  * `getSignalProcessingUrl()` - Get the TIPS Signal Processing URL from the environment variables
@@ -32,6 +33,13 @@ export const getSignalProcessingUrl: () => string = () =>
 export const getSpruceURL: () => string = () =>
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   process.env.REACT_APP_SPRUCE_URL;
+
+/**
+ * `isRemoteEnv()` - Check if the current backend environment is a remote environment
+ * @returns - Returns a boolean indicating if the current environment is a remote environment
+ */
+export const isRemoteEnv = (): boolean =>
+  process.env.REACT_APP_REMOTE_ENV === "true";
 
 /**
  * `isDevelopmentBuild()` indicates if the current environment is a local development environment.
@@ -81,7 +89,8 @@ export const isTest = () => process.env.NODE_ENV === "test";
  * `getGQLUrl()` - Get the GQL URL from the environment variables
  * @returns - Returns the graphql endpoint for the current environment.
  */
-export const getGQLUrl: () => string = () => `${getUiUrl()}/graphql/query`;
+export const getGQLUrl: () => string = () =>
+  `${getEvergreenUrl()}/graphql/query`;
 
 /**
  * `getParsleyUrl()` - Get the Parsley URL from the environment variables
@@ -120,4 +129,4 @@ export const getLoginDomain = (): string =>
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   isDevelopmentBuild() || getReleaseStage() === "local"
     ? process.env.REACT_APP_SPRUCE_URL
-    : process.env.REACT_APP_UI_URL;
+    : process.env.REACT_APP_EVERGREEN_URL;

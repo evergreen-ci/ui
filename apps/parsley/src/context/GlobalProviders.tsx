@@ -1,10 +1,8 @@
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { ToastProvider } from "@evg-ui/lib/context/toast";
 import GQLProvider from "gql/GQLProvider";
-import { AuthProvider } from "./auth";
 import { LogContextProvider } from "./LogContext";
 import { MultiLineSelectContextProvider } from "./MultiLineSelectContext";
-
 /**
  * GlobalProviders wrap our application with our global contexts
  * @param props - React props
@@ -14,19 +12,17 @@ import { MultiLineSelectContextProvider } from "./MultiLineSelectContext";
 const GlobalProviders: React.FC<{ children: React.ReactElement }> = ({
   children,
 }) => (
-  <AuthProvider>
-    <LeafyGreenProvider>
-      <ToastProvider>
-        <GQLProvider>
-          <LogContextProvider>
-            <MultiLineSelectContextProvider>
-              {children}
-            </MultiLineSelectContextProvider>
-          </LogContextProvider>
-        </GQLProvider>
-      </ToastProvider>
-    </LeafyGreenProvider>
-  </AuthProvider>
+  <LeafyGreenProvider>
+    <ToastProvider>
+      <GQLProvider>
+        <LogContextProvider>
+          <MultiLineSelectContextProvider>
+            {children}
+          </MultiLineSelectContextProvider>
+        </LogContextProvider>
+      </GQLProvider>
+    </ToastProvider>
+  </LeafyGreenProvider>
 );
 
 export default GlobalProviders;
