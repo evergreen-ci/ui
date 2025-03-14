@@ -7,11 +7,7 @@ import {
   getUserStagingHeader,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
-import {
-  getCorpLoginURL,
-  isProductionBuild,
-  isRemoteEnv,
-} from "utils/environmentVariables";
+import { isProductionBuild, isRemoteEnv } from "utils/environmentVariables";
 import { useCreateGQLClient } from ".";
 
 // Mocks
@@ -28,7 +24,6 @@ vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
   })),
 }));
 vi.mock("utils/environmentVariables", () => ({
-  getCorpLoginURL: vi.fn() as MockedFunction<typeof getCorpLoginURL>,
   graphqlURL: "https://graphql-url.com/graphql/query",
   isProductionBuild: vi.fn() as MockedFunction<typeof isProductionBuild>,
   isRemoteEnv: vi.fn() as MockedFunction<typeof isRemoteEnv>,

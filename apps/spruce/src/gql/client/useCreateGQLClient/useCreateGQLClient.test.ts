@@ -8,7 +8,6 @@ import {
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
 import {
-  getCorpLoginURL,
   getGQLUrl,
   getEvergreenUrl,
   isProductionBuild,
@@ -30,7 +29,6 @@ vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
   })),
 }));
 vi.mock("utils/environmentVariables", () => ({
-  getCorpLoginURL: vi.fn() as MockedFunction<typeof getCorpLoginURL>,
   isRemoteEnv: vi.fn() as MockedFunction<typeof isRemoteEnv>,
   getEvergreenUrl: vi.fn() as MockedFunction<typeof getEvergreenUrl>,
   getGQLUrl: vi.fn() as MockedFunction<typeof getGQLUrl>,

@@ -9,7 +9,6 @@ import { GlobalProviders } from "context";
 import Content from "pages";
 import {
   evergreenURL,
-  getCorpLoginURL,
   isDevelopmentBuild,
   isLocal,
 } from "utils/environmentVariables";
@@ -22,7 +21,7 @@ const App = () => (
         <AuthProvider
           evergreenAppURL={evergreenURL || ""}
           localAuthRoute={routes.login}
-          remoteAuthURL={getCorpLoginURL()}
+          remoteAuthURL={`${evergreenURL}/login`}
           shouldUseLocalAuth={isLocal()}
         >
           <Routes>

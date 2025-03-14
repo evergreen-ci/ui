@@ -9,11 +9,7 @@ import { GlobalStyles } from "components/styles";
 import { routes } from "constants/routes";
 import { ContextProviders } from "context/Providers";
 import GQLWrapper from "gql/GQLWrapper";
-import {
-  getCorpLoginURL,
-  getEvergreenUrl,
-  isLocal,
-} from "utils/environmentVariables";
+import { getEvergreenUrl, isLocal } from "utils/environmentVariables";
 
 const App: React.FC = () => (
   <ErrorBoundary>
@@ -23,7 +19,7 @@ const App: React.FC = () => (
         <AuthProvider
           evergreenAppURL={getEvergreenUrl()}
           localAuthRoute={routes.login}
-          remoteAuthURL={getCorpLoginURL()}
+          remoteAuthURL={`${getEvergreenUrl()}/login`}
           shouldUseLocalAuth={isLocal()}
         >
           <Routes>

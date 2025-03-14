@@ -16,12 +16,6 @@ const getSentryDSN = () => process.env.REACT_APP_PARSLEY_SENTRY_DSN || "";
 const isLocal = () => getReleaseStage() === ReleaseStage.Local;
 const isStaging = () => getReleaseStage() === ReleaseStage.Staging;
 const isProduction = () => getReleaseStage() === ReleaseStage.Production;
-/**
- * `getCorpLoginURL()` - Get the corp secure login URL from the environment variables
- * @returns - Returns the corp secure login URL
- */
-const getCorpLoginURL: () => string = () =>
-  process.env.REACT_APP_CORP_LOGIN_URL || "";
 
 /**
  * `isRemoteEnv()` - Check if the current backend environment is a remote environment
@@ -52,6 +46,5 @@ export {
   spruceURL,
   getReleaseStage,
   getSentryDSN,
-  getCorpLoginURL,
   parsleyURL,
 };

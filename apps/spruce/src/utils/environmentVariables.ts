@@ -35,13 +35,6 @@ export const getSpruceURL: () => string = () =>
   process.env.REACT_APP_SPRUCE_URL;
 
 /**
- * `getCorpLoginURL()` - Get the corp secure login URL from the environment variables
- * @returns - Returns the corp secure login URL
- */
-export const getCorpLoginURL: () => string = () =>
-  process.env.REACT_APP_CORP_LOGIN_URL || "";
-
-/**
  * `isRemoteEnv()` - Check if the current backend environment is a remote environment
  * @returns - Returns a boolean indicating if the current environment is a remote environment
  */

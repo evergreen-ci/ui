@@ -9,8 +9,8 @@ export default {
 export const Default: CustomStoryObj<typeof LoginPage> = {
   render: () => (
     <AuthProvider
-      localAppURL=""
-      localAuthURL=""
+      evergreenAppURL=""
+      localAuthRoute=""
       remoteAuthURL=""
       shouldUseLocalAuth
     >
