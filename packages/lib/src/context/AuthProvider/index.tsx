@@ -4,19 +4,20 @@ import { fetchWithRetry, getUserStagingHeader } from "../../utils/request";
 
 type AuthProviderDispatchMethods = {
   /**
-   * `localLogin` is a function that logs the user in using a local authentication strategy.
+   * localLogin - used only if `shouldUseLocalAuth` is true.
    * @param credentials - credentials to login with
-   * @param credentials.username - username to login with
-   * @param credentials.password - password to login with
-   * @returns
+   * @param credentials.username - username
+   * @param credentials.password - password
    */
   localLogin: (credentials: { username: string; password: string }) => void;
   /**
-   * `logoutAndRedirect` is a function that logs the user out and redirects them to the login page.
+   * logoutAndRedirect - calls the logout endpoint for localAuth
+   * or redirects to the remoteAuthURL for remoteAuth.
    */
   logoutAndRedirect: () => void;
   /**
-   * `dispatchAuthenticated` is a function that dispatches the authenticated state.
+   * A helper to mark the user as authenticated in local state
+   * (useful if you get a successful check from somewhere else).
    */
   dispatchAuthenticated: () => void;
 };
