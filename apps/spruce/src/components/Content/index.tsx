@@ -1,4 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
+import LoginPage from "@evg-ui/lib/pages/LoginPage";
 import {
   DistroSettingsRedirect,
   PatchRedirect,
@@ -30,6 +31,7 @@ import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
 import { Waterfall } from "pages/Waterfall";
+import { isLocal } from "utils/environmentVariables";
 import { Layout } from "./Layout";
 
 export const Content: React.FC = () => {
@@ -37,6 +39,7 @@ export const Content: React.FC = () => {
   return (
     <Routes>
       <Route element={<Layout />}>
+        {isLocal() && <Route element={<LoginPage />} path={routes.login} />}
         <Route element={<Navigate to={routes.myPatches} />} path="/" />
         <Route element={<Commits />} path={routes.commits} />
         <Route element={<Container />} path={routes.container} />
