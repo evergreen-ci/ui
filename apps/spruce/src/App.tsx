@@ -7,6 +7,7 @@ import { Content } from "components/Content";
 import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";
 import { routes } from "constants/routes";
+import ContextProviders from "context/Providers";
 import { getEvergreenUrl, isLocal } from "utils/environmentVariables";
 
 const router = createBrowserRouter([
@@ -30,7 +31,9 @@ const router = createBrowserRouter([
         path: "/*",
         element: (
           <ProtectedRoute loginPageRoute={routes.login}>
-            <Content />
+            <ContextProviders>
+              <Content />
+            </ContextProviders>
           </ProtectedRoute>
         ),
       },
