@@ -1,18 +1,40 @@
 import * as React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
+import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
+import LoginPage from "@evg-ui/lib/pages/LoginPage";
 import { Content } from "components/Content";
 import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";
-import { ContextProviders } from "context/Providers";
+import { routes } from "constants/routes";
+import { getEvergreenUrl, isLocal } from "utils/environmentVariables";
 
 const router = createBrowserRouter([
   {
-    path: "/*",
     element: (
-      <ContextProviders>
-        <Content />
-      </ContextProviders>
+      <AuthProvider
+        evergreenAppURL={getEvergreenUrl()}
+        localAuthRoute={routes.login}
+        remoteAuthURL={`${getEvergreenUrl()}/login`}
+        shouldUseLocalAuth={isLocal()}
+      >
+        <Outlet />
+      </AuthProvider>
     ),
+    children: [
+      {
+        path: routes.login,
+        element: <LoginPage />,
+      },
+      {
+        path: "/*",
+        element: (
+          <ProtectedRoute loginPageRoute={routes.login}>
+            <Content />
+          </ProtectedRoute>
+        ),
+      },
+    ],
   },
 ]);
 

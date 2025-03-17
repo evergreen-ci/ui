@@ -1,7 +1,6 @@
 import { Suspense, lazy } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { FullPageLoad } from "@evg-ui/lib/components/FullPageLoad";
-import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useAnalyticAttributes } from "analytics";
 import NavBar from "components/NavBar";
 import { PageLayout } from "components/styles";
@@ -27,8 +26,7 @@ const Content: React.FC = () => {
   localStorage.setItem("userId", user?.userId ?? "");
 
   useAnalyticAttributes(user?.userId ?? "");
-  const { isAuthenticated } = useAuthProviderContext();
-  return isAuthenticated ? (
+  return (
     <Routes>
       <Route element={<Layout />}>
         <Route element={<Navigate to={routes.upload} />} path={routes.root} />
@@ -73,8 +71,6 @@ const Content: React.FC = () => {
         <Route element={<NotFound />} path="*" />
       </Route>
     </Routes>
-  ) : (
-    <FullPageLoad />
   );
 };
 
