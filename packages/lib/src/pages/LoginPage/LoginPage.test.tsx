@@ -40,24 +40,25 @@ describe("LoginPage", () => {
     (useAuthProviderContext as Mock).mockReturnValue({
       isAuthenticated: true,
       localLogin: vi.fn(),
+      hasCheckedAuth: true,
     });
 
     render(
       <MemoryRouter
         initialEntries={[
-          { pathname: "/login", state: { referrer: "/dashboard" } },
+          { pathname: "/login", state: { referrer: "/waterfall" } },
         ]}
       >
         <Routes>
           <Route element={<LoginPage />} path="/login" />
           <Route
-            element={<div data-testid="waterfall">Waterfall</div>}
+            element={<div data-cy="waterfall">Waterfall</div>}
             path="/waterfall"
           />
         </Routes>
       </MemoryRouter>,
     );
 
-    expect(screen.getByTestId("dashboard")).toBeInTheDocument();
+    expect(screen.getByDataCy("waterfall")).toBeInTheDocument();
   });
 });
