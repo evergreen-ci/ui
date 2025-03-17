@@ -11,7 +11,6 @@ import {
   getGQLUrl,
   getEvergreenUrl,
   isProductionBuild,
-  isRemoteEnv,
 } from "utils/environmentVariables";
 import { useCreateGQLClient } from ".";
 
@@ -29,7 +28,6 @@ vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
   })),
 }));
 vi.mock("utils/environmentVariables", () => ({
-  isRemoteEnv: vi.fn() as MockedFunction<typeof isRemoteEnv>,
   getEvergreenUrl: vi.fn() as MockedFunction<typeof getEvergreenUrl>,
   getGQLUrl: vi.fn() as MockedFunction<typeof getGQLUrl>,
   isProductionBuild: vi.fn() as MockedFunction<typeof isProductionBuild>,
@@ -65,7 +63,6 @@ describe("useCreateGQLClient", () => {
   it("should call logoutAndRedirect when error occurs and the error satisfies the logout condition", async () => {
     const mockError = { cause: { statusCode: 401 } };
     (fetchWithRetry as Mock).mockRejectedValue(mockError);
-    (isRemoteEnv as Mock).mockReturnValue(false);
     (shouldLogoutAndRedirect as unknown as Mock).mockImplementation(
       (statusCode: number) => statusCode === 401,
     );

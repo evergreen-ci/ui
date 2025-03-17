@@ -7,7 +7,7 @@ import {
   getUserStagingHeader,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
-import { isProductionBuild, isRemoteEnv } from "utils/environmentVariables";
+import { isProductionBuild } from "utils/environmentVariables";
 import { useCreateGQLClient } from ".";
 
 // Mocks
@@ -26,7 +26,6 @@ vi.mock("@evg-ui/lib/context/AuthProvider", () => ({
 vi.mock("utils/environmentVariables", () => ({
   graphqlURL: "https://graphql-url.com/graphql/query",
   isProductionBuild: vi.fn() as MockedFunction<typeof isProductionBuild>,
-  isRemoteEnv: vi.fn() as MockedFunction<typeof isRemoteEnv>,
 }));
 
 describe("useCreateGQLClient", () => {
@@ -58,7 +57,6 @@ describe("useCreateGQLClient", () => {
   it("should call logoutAndRedirect when error occurs and the error satisfies the logout condition", async () => {
     const mockError = { cause: { statusCode: 401 } };
     (fetchWithRetry as Mock).mockRejectedValue(mockError);
-    (isRemoteEnv as Mock).mockReturnValue(false);
     (shouldLogoutAndRedirect as unknown as Mock).mockImplementation(
       (statusCode: number) => statusCode === 401,
     );

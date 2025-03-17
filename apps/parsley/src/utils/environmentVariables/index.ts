@@ -17,13 +17,6 @@ const isLocal = () => getReleaseStage() === ReleaseStage.Local;
 const isStaging = () => getReleaseStage() === ReleaseStage.Staging;
 const isProduction = () => getReleaseStage() === ReleaseStage.Production;
 
-/**
- * `isRemoteEnv()` - Check if the current backend environment is a remote environment
- * @returns - Returns a boolean indicating if the current environment is a remote environment
- */
-export const isRemoteEnv = (): boolean =>
-  process.env.REACT_APP_REMOTE_ENV === "true";
-
 const isProductionBuild = () => process.env.NODE_ENV === Environment.Production;
 const isDevelopmentBuild = () =>
   isLocal() || process.env.NODE_ENV === Environment.Development;
