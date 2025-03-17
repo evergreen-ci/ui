@@ -18,7 +18,7 @@ describe("LoginPage", () => {
 
     render(
       <MemoryRouter>
-        <LoginPage />
+        <LoginPage ignoreAuthCheck />
       </MemoryRouter>,
     );
 
@@ -51,8 +51,8 @@ describe("LoginPage", () => {
         <Routes>
           <Route element={<LoginPage />} path="/login" />
           <Route
-            element={<div data-testid="dashboard">Dashboard</div>}
-            path="/dashboard"
+            element={<div data-testid="waterfall">Waterfall</div>}
+            path="/waterfall"
           />
         </Routes>
       </MemoryRouter>,

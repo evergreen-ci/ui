@@ -3,6 +3,7 @@ import {
   renderWithRouterMatch as render,
   renderComponentWithHook,
   screen,
+  waitFor,
 } from "test_utils";
 import {
   fetchWithRetry,
@@ -43,7 +44,8 @@ describe("AuthProvider", () => {
     window.location = originalLocation;
     vi.clearAllMocks();
   });
-  it("should render children", () => {
+
+  it("should render children", async () => {
     const { Component } = renderComponentWithHook(
       useAuthProviderContext,
       <div data-testid="child" />,
@@ -60,7 +62,12 @@ describe("AuthProvider", () => {
           },
         }),
     });
-    expect(screen.getByTestId("child")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(fetchWithRetry).toHaveBeenCalled();
+    });
+    await waitFor(() => {
+      expect(screen.getByTestId("child")).toBeInTheDocument();
+    });
   });
   it("should attempt to make a request to validate the user is properly authenticated", async () => {
     const { Component, hook } = renderComponentWithHook(
@@ -79,17 +86,21 @@ describe("AuthProvider", () => {
           },
         }),
     });
-    await vi.waitFor(() => {
+    expect(hook.current.hasCheckedAuth).toBe(false);
+    await waitFor(() => {
       expect(fetchWithRetry).toHaveBeenCalled();
     });
-    await vi.waitFor(() => {
+    await waitFor(() => {
+      expect(hook.current.hasCheckedAuth).toBe(true);
+    });
+    await waitFor(() => {
       expect(hook.current.isAuthenticated).toBe(true);
     });
   });
   it("should redirect to the local auth route if the user is not authenticated", async () => {
     const mockError = { cause: { statusCode: 401 } };
     (fetchWithRetry as Mock).mockRejectedValue(mockError);
-    const { Component, hook } = renderComponentWithHook(
+    const { Component } = renderComponentWithHook(
       useAuthProviderContext,
       <div data-testid="child" />,
     );
@@ -105,13 +116,10 @@ describe("AuthProvider", () => {
           },
         }),
     });
-    await vi.waitFor(() => {
+    await waitFor(() => {
       expect(fetchWithRetry).toHaveBeenCalled();
     });
-    await vi.waitFor(() => {
-      expect(hook.current.isAuthenticated).toBe(false);
-    });
-    await vi.waitFor(() => {
+    await waitFor(() => {
       expect(router.state.location.pathname).toBe("/login");
     });
   });
@@ -134,10 +142,10 @@ describe("AuthProvider", () => {
           },
         }),
     });
-    await vi.waitFor(() => {
+    await waitFor(() => {
       expect(fetchWithRetry).toHaveBeenCalled();
     });
-    await vi.waitFor(() => {
+    await waitFor(() => {
       expect(hook.current.isAuthenticated).toBe(false);
     });
 

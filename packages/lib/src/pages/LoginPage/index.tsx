@@ -4,6 +4,7 @@ import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { Location, Navigate, useLocation } from "react-router-dom";
+import { FullPageLoad } from "../../components/FullPageLoad";
 import { size } from "../../constants/tokens";
 import { useAuthProviderContext } from "../../context/AuthProvider";
 
@@ -13,14 +14,24 @@ const getReferrer = (location: Location): string => {
   const state = location.state as { referrer?: string };
   return state?.referrer ?? "/";
 };
-
-const LoginPage: React.FC = () => {
+interface LoginPageProps {
+  /**
+   * If `ignoreAuthCheck` is true, the component will render without checking the user's authentication status.
+   * This is useful for test environments where the user's authentication status is not relevant.
+   */
+  ignoreAuthCheck?: boolean;
+}
+const LoginPage: React.FC<LoginPageProps> = ({ ignoreAuthCheck }) => {
   const location = useLocation();
-  const { isAuthenticated, localLogin } = useAuthProviderContext();
+  const { hasCheckedAuth, isAuthenticated, localLogin } =
+    useAuthProviderContext();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  if (!hasCheckedAuth && !ignoreAuthCheck) {
+    return <FullPageLoad />;
+  }
   return isAuthenticated ? (
     <Navigate to={getReferrer(location)} />
   ) : (
