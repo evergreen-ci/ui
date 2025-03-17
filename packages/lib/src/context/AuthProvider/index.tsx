@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FullPageLoad } from "../../components/FullPageLoad";
 import { fetchWithRetry, getUserStagingHeader } from "../../utils/request";
 
 type AuthProviderDispatchMethods = {
@@ -27,6 +28,11 @@ type AuthState = {
    * `isAuthenticated` is a boolean that determines whether the user is currently authenticated.
    */
   isAuthenticated: boolean;
+  /**
+   * `hasCheckedAuth` is a boolean that determines whether the user's authentication status has been checked.
+   * This is useful for determining whether to show a loading spinner or not.
+   */
+  hasCheckedAuth: boolean;
 };
 
 const AuthStateContext = createContext<
@@ -63,6 +69,8 @@ const AuthProvider: React.FC<{
   shouldUseLocalAuth,
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [hasCheckedAuth, setHasCheckedAuth] = useState(false);
+
   const navigate = useNavigate();
 
   const authMethods: AuthProviderDispatchMethods = useMemo(
@@ -160,20 +168,23 @@ const AuthProvider: React.FC<{
     })
       .then(() => {
         setIsAuthenticated(true);
-        console.log("User is authenticated (local)");
+        setHasCheckedAuth(true);
       })
       .catch(() => {
-        console.log("User is not authenticated");
         setIsAuthenticated(false);
+        setHasCheckedAuth(true);
         authMethods.logoutAndRedirect();
       });
   }, []);
 
   const authProviderValue = useMemo(
-    () => ({ isAuthenticated, ...authMethods }),
-    [isAuthenticated, authMethods],
+    () => ({ isAuthenticated, hasCheckedAuth, ...authMethods }),
+    [isAuthenticated, authMethods, hasCheckedAuth],
   );
 
+  if (!hasCheckedAuth) {
+    return <FullPageLoad />;
+  }
   return (
     <AuthStateContext.Provider value={authProviderValue}>
       {children}

@@ -14,6 +14,7 @@ describe("ProtectedRoute", () => {
       localLogin: vi.fn(),
       logoutAndRedirect: vi.fn(),
       dispatchAuthenticated: vi.fn(),
+      hasCheckedAuth: true,
     });
 
     render(
@@ -41,6 +42,7 @@ describe("ProtectedRoute", () => {
       localLogin: vi.fn(),
       logoutAndRedirect: vi.fn(),
       dispatchAuthenticated: vi.fn(),
+      hasCheckedAuth: true,
     });
 
     render(
