@@ -59,7 +59,7 @@ if (process.env.REACT_APP_REMOTE_ENV === "true") {
     *******************************************************************************************************
     *                                                                                                     *
     *  ERROR: localhost-key.pem is missing. Did you run                                                   *
-    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem ${strippedURL}'?                 *
+    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem ${hostURL}'?                 *
     *                                                                                                     *
     *******************************************************************************************************
       `);
