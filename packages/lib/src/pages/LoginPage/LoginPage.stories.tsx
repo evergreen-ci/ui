@@ -14,7 +14,7 @@ export const Default: CustomStoryObj<typeof LoginPage> = {
       remoteAuthURL=""
       shouldUseLocalAuth
     >
-      <LoginPage />
+      <LoginPage ignoreAuthCheck />
     </AuthProvider>
   ),
 };
