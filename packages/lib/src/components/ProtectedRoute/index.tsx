@@ -11,10 +11,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   loginPageRoute,
 }) => {
-  const { isAuthenticated } = useAuthProviderContext();
+  const { hasCheckedAuth, isAuthenticated } = useAuthProviderContext();
   const location = useLocation();
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && hasCheckedAuth) {
     // Redirect to login and preserve the location state to come back after logging in.
     return (
       <Navigate

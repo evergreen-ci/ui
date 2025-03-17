@@ -35,8 +35,35 @@ describe("ProtectedRoute", () => {
 
     expect(screen.getByText("Protected Content")).toBeInTheDocument();
   });
+  it("does not redirect when we have not checked auth yet", () => {
+    vi.spyOn(AuthProviderContext, "useAuthProviderContext").mockReturnValue({
+      isAuthenticated: false,
+      localLogin: vi.fn(),
+      logoutAndRedirect: vi.fn(),
+      dispatchAuthenticated: vi.fn(),
+      hasCheckedAuth: false,
+    });
 
-  it("redirects to login when not authenticated", () => {
+    render(
+      <MemoryRouter initialEntries={["/protected"]}>
+        <Routes>
+          <Route
+            element={
+              <ProtectedRoute loginPageRoute="/login">
+                <div>Protected Content</div>
+              </ProtectedRoute>
+            }
+            path="/protected"
+          />
+          <Route element={<div>Login Page</div>} path="/login" />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("Protected Content")).toBeInTheDocument();
+  });
+
+  it("redirects to login when not authenticated and has checked auth is true", () => {
     vi.spyOn(AuthProviderContext, "useAuthProviderContext").mockReturnValue({
       isAuthenticated: false,
       localLogin: vi.fn(),
