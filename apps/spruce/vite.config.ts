@@ -30,9 +30,11 @@ let serverConfig: ServerOptions = {
   port: 3000,
 };
 
-// If we are running in a remote environment, we need to validate that we have the correct setup
+const isViteInDevMode = process.env.NODE_ENV === "development";
+const isRemoteEnvironment = process.env.REMOTE_ENV === "true";
 
-if (process.env.REMOTE_ENV === "true") {
+// If we are running in a remote environment, we need to validate that we have the correct setup
+if (isViteInDevMode && isRemoteEnvironment) {
   const appURL = process.env.REACT_APP_SPRUCE_URL;
   const hostURL = appURL.replace(/https?:\/\//, "");
   // Validate that the app url resolves to 127.0.0.1

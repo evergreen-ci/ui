@@ -19,8 +19,10 @@ let serverConfig: ServerOptions = {
   host: "localhost",
   port: 5173,
 };
+const isViteInDevMode = process.env.NODE_ENV === "development";
+const isRemoteEnvironment = process.env.REMOTE_ENV === "true";
 
-if (process.env.REMOTE_ENV === "true") {
+if (isViteInDevMode && isRemoteEnvironment) {
   const appURL = process.env.REACT_APP_PARSLEY_URL;
   const hostURL = appURL.replace(/https?:\/\//, "");
   // Validate that parsley-local.corp.mongodb.com resolves to 127.0.0.1
