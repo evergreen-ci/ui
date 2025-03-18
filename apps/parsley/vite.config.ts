@@ -2,69 +2,24 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig, mergeConfig, ServerOptions } from "vite";
+import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
-import * as fs from "fs";
 import path from "path";
+import { generateBaseHTTPSViteServerConfig } from "@evg-ui/vite-utils";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
 dns.setDefaultResultOrder("ipv4first");
 
-let serverConfig: ServerOptions = {
-  host: "localhost",
+const serverConfig = generateBaseHTTPSViteServerConfig({
   port: 5173,
-};
-const isViteInDevMode = process.env.NODE_ENV === "development";
-const isRemoteEnvironment = process.env.REMOTE_ENV === "true";
-
-if (isViteInDevMode && isRemoteEnvironment) {
-  const appURL = process.env.REACT_APP_PARSLEY_URL;
-  const hostURL = appURL.replace(/https?:\/\//, "");
-  // Validate that parsley-local.corp.mongodb.com resolves to 127.0.0.1
-  dns.lookup(hostURL, (err, address) => {
-    if (err || address !== "127.0.0.1") {
-      console.error(`
-    ***************************************************************
-    *                                                             *
-    *  ERROR: ${hostURL} must resolve to       *
-    *  127.0.0.1. Did you update your /etc/hosts file?            *
-    *                                                             *
-    ***************************************************************
-      `);
-      process.exit(1);
-    }
-  });
-
-  // Validate the SSL certificates exist
-  if (
-    !fs.existsSync(path.resolve(__dirname, "localhost-key.pem")) ||
-    !fs.existsSync(path.resolve(__dirname, "localhost-cert.pem"))
-  ) {
-    console.error(`
-    *******************************************************************************************************
-    *                                                                                                     *
-    *  ERROR: localhost-[key|cert].pem is missing. Did you run                                            *
-    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem ${hostURL}'? *
-    *                                                                                                     *
-    *******************************************************************************************************
-      `);
-    process.exit(1);
-  }
-
-  serverConfig = {
-    host: hostURL,
-    port: 8444,
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
-      cert: fs.readFileSync(path.resolve(__dirname, "localhost-cert.pem")),
-    },
-  };
-}
+  appURL: process.env.REACT_APP_PARSLEY_URL,
+  httpsPort: 8444,
+});
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({

@@ -3,7 +3,7 @@ import { esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig, mergeConfig, ServerOptions } from "vite";
+import { defineConfig, mergeConfig } from "vite";
 import { checker } from "vite-plugin-checker";
 import envCompatible from "vite-plugin-env-compatible";
 import vitePluginImp from "vite-plugin-imp";
@@ -13,6 +13,7 @@ import dns from "dns";
 import * as fs from "fs";
 import { createRequire } from "node:module";
 import path from "path";
+import { generateBaseHTTPSViteServerConfig } from "@evg-ui/vite-utils";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 const require = createRequire(import.meta.url);
@@ -24,59 +25,11 @@ dns.setDefaultResultOrder("ipv4first");
 fs.writeFileSync(require.resolve("antd/es/style/core/global.less"), "");
 fs.writeFileSync(require.resolve("antd/lib/style/core/global.less"), "");
 
-// Default server config
-let serverConfig: ServerOptions = {
-  host: "localhost",
+const serverConfig = generateBaseHTTPSViteServerConfig({
   port: 3000,
-};
-
-const isViteInDevMode = process.env.NODE_ENV === "development";
-const isRemoteEnvironment = process.env.REMOTE_ENV === "true";
-
-// If we are running in a remote environment, we need to validate that we have the correct setup
-if (isViteInDevMode && isRemoteEnvironment) {
-  const appURL = process.env.REACT_APP_SPRUCE_URL;
-  const hostURL = appURL.replace(/https?:\/\//, "");
-  // Validate that the app url resolves to 127.0.0.1
-  dns.lookup(hostURL, (err, address) => {
-    if (err || address !== "127.0.0.1") {
-      console.error(`
-    ***************************************************************
-    *                                                             *
-    *  ERROR: ${hostURL} must resolve to       *
-    *  127.0.0.1. Did you update your /etc/hosts file?            *
-    *                                                             *
-    ***************************************************************
-      `);
-      process.exit(1);
-    }
-  });
-
-  // Validate the SSL certificates exist
-  if (
-    !fs.existsSync(path.resolve(__dirname, "localhost-key.pem")) ||
-    !fs.existsSync(path.resolve(__dirname, "localhost-cert.pem"))
-  ) {
-    console.error(`
-    *******************************************************************************************************
-    *                                                                                                     *
-    *  ERROR: localhost-key.pem is missing. Did you run                                                   *
-    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem ${hostURL}'?                 *
-    *                                                                                                     *
-    *******************************************************************************************************
-      `);
-    process.exit(1);
-  }
-
-  serverConfig = {
-    host: hostURL,
-    port: 8443,
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
-      cert: fs.readFileSync(path.resolve(__dirname, "localhost-cert.pem")),
-    },
-  };
-}
+  appURL: process.env.REACT_APP_SPRUCE_URL,
+  httpsPort: 8443,
+});
 
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
