@@ -19,6 +19,7 @@ const serverConfig = generateBaseHTTPSViteServerConfig({
   port: 5173,
   appURL: process.env.REACT_APP_PARSLEY_URL,
   httpsPort: 8444,
+  useHTTPS: process.env.REACT_APP_RELEASE_STAGE !== "local",
 });
 
 // https://vitejs.dev/config/

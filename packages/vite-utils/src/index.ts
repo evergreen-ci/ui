@@ -1,4 +1,3 @@
-/// <reference types="vitest" />
 import parentModule from "parent-module";
 import { ServerOptions } from "vite";
 import dns from "dns";
@@ -9,6 +8,7 @@ type BaseHTTPSViteServerConfigOptions = {
   appURL: string;
   port: number;
   httpsPort: number;
+  useHTTPS: boolean;
 };
 /**
  * `generateBaseHTTPSViteServerConfig` is a utility function that generates a base Vite server configuration.
@@ -19,12 +19,14 @@ type BaseHTTPSViteServerConfigOptions = {
  * @param options.appURL - The URL the app is running on.
  * @param options.port - The port the app should run on.
  * @param options.httpsPort - The port the app should run on when using HTTPS.
+ * @param options.useHTTPS - Whether or not to use HTTPS.
  * @returns - The server configuration.
  */
 const generateBaseHTTPSViteServerConfig = ({
-  appURL,
-  httpsPort,
-  port,
+  appURL = "",
+  httpsPort = 8443,
+  port = 3000,
+  useHTTPS = false,
 }: BaseHTTPSViteServerConfigOptions): ServerOptions => {
   let serverConfig: ServerOptions = {
     host: "localhost",
@@ -32,10 +34,9 @@ const generateBaseHTTPSViteServerConfig = ({
   };
 
   const isViteInDevMode = process.env.NODE_ENV === "development";
-  const isRemoteEnvironment = process.env.REMOTE_ENV === "true";
 
   // If we are running in a remote environment, we need to validate that we have the correct setup
-  if (isViteInDevMode && isRemoteEnvironment) {
+  if (isViteInDevMode && useHTTPS) {
     const hostURL = appURL.replace(/https?:\/\//, "");
     // Validate that the app url resolves to 127.0.0.1
     dns.lookup(hostURL, (err, address) => {

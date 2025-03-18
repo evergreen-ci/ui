@@ -29,6 +29,7 @@ const serverConfig = generateBaseHTTPSViteServerConfig({
   port: 3000,
   appURL: process.env.REACT_APP_SPRUCE_URL,
   httpsPort: 8443,
+  useHTTPS: process.env.REACT_APP_RELEASE_STAGE !== "local",
 });
 
 // https://vitejs.dev/config/
