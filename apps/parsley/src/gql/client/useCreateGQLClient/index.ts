@@ -29,7 +29,6 @@ export const useCreateGQLClient = ():
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(graphqlURL ?? "", secretFieldsReq)
       .then(({ data }) => {
-        dispatchAuthenticated();
         setSecretFields(data?.spruceConfig?.secretFields);
       })
       .catch((err) => {
