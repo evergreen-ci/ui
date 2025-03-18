@@ -3,12 +3,13 @@ describe("status filtering", () => {
     cy.visit("/project/spruce/waterfall");
   });
 
-  it("filters on failed tasks", () => {
+  it("filters on failed tasks and fetches additional from the server", () => {
     cy.dataCy("inactive-versions-button").first().contains("1");
     cy.dataCy("status-filter").click();
     cy.dataCy("failed-option").click();
-    cy.get("a[data-tooltip]").should("have.length", 1);
-    cy.dataCy("version-label-active").should("have.length", 1);
+    cy.get("a[data-tooltip]").should("have.length", 4);
+    cy.dataCy("version-label-active").should("have.length", 4);
+    cy.dataCy("inactive-versions-button").should("have.length", 3);
   });
 });
 
@@ -125,8 +126,10 @@ describe("task filtering", () => {
   it("correctly applies build variant and task filters", () => {
     cy.dataCy("build-variant-filter-input").type("Ubuntu{enter}");
     cy.dataCy("build-variant-label").should("have.length", 1);
+    cy.get("a[data-tooltip]").should("have.length", 41);
     cy.dataCy("task-filter-input").type("agent{enter}");
-    cy.dataCy("build-variant-label").should("have.length", 0);
+    cy.dataCy("build-variant-label").should("have.length", 1);
+    cy.get("a[data-tooltip]").should("have.length", 1);
     cy.dataCy("filter-chip").should("have.length", 2);
   });
 });
