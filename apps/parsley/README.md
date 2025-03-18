@@ -24,6 +24,7 @@ taking the following steps.
 
 1. Generate a self signed certificate and add it to your keychain. This will
    allow you to run Parsley against a remote Evergreen server that uses HTTPS.
+   Run the below command in the root of the Parsley repository.
 
 ```sh
 brew install mkcert
