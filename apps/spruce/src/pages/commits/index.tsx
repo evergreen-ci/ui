@@ -15,9 +15,9 @@ import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelectWithRegexConditional from "components/TupleSelectWithRegexConditional";
 import { WaterfallModal } from "components/WaterfallModal";
 import {
-  SEEN_WATERFALL_BETA_MODAL,
   CURRENT_PROJECT,
   CY_DISABLE_COMMITS_WELCOME_MODAL,
+  SEEN_WATERFALL_LAUNCH_MODAL,
 } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getCommitsRoute, slugs } from "constants/routes";
@@ -61,8 +61,8 @@ const Commits = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`Project Health | ${projectIdentifier}`);
 
-  const showWaterfallBetaModal =
-    Cookies.get(SEEN_WATERFALL_BETA_MODAL) !== "true";
+  const showWaterfallLaunchModal =
+    Cookies.get(SEEN_WATERFALL_LAUNCH_MODAL) !== "true";
 
   const sendAnalyticsEvent = (id: string, identifier: string) => {
     sendEvent({
@@ -261,9 +261,11 @@ const Commits = () => {
           />
         </div>
       </PageContainer>
-      {!shouldDisableForTest && showWaterfallBetaModal && projectIdentifier && (
-        <WaterfallModal projectIdentifier={projectIdentifier} />
-      )}
+      {!shouldDisableForTest &&
+        showWaterfallLaunchModal &&
+        projectIdentifier && (
+          <WaterfallModal projectIdentifier={projectIdentifier} />
+        )}
     </PageWrapper>
   );
 };

@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
-import { SEEN_WATERFALL_BETA_MODAL } from "constants/cookies";
+import { SEEN_WATERFALL_LAUNCH_MODAL } from "constants/cookies";
 import { getWaterfallRoute } from "constants/routes";
 import screenshot from "./screenshot.png";
 
@@ -16,7 +16,7 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
   const navigate = useNavigate();
 
   const handleClose = (goToWaterfall: boolean) => () => {
-    Cookies.set(SEEN_WATERFALL_BETA_MODAL, "true", { expires: 365 });
+    Cookies.set(SEEN_WATERFALL_LAUNCH_MODAL, "true", { expires: 365 });
     sendEvent({
       name: "Viewed waterfall modal",
       navigated_to_waterfall: goToWaterfall,
@@ -48,7 +48,7 @@ export const WaterfallModal: React.FC<{ projectIdentifier: string }> = ({
         </Title>
       }
     >
-      The new Spruce Waterfall replaces Project Health page for increased
+      The new Spruce Waterfall replaces the Project Health page for increased
       information density and performance. The Project Health page will continue
       to be accessible for a limited time via &ldquo;More&rdquo; in the
       navigation bar.
