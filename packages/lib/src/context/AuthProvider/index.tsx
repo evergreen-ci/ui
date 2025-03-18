@@ -62,14 +62,14 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
  * @param props -
  * @param props.children - The children of the AuthProvider component.
  * @param props.localAuthRoute - The route of the local authentication provider UI. (Only used in local development)
- * @param props.remoteAuthURL - The URL of the remote authentication provider.
- * @param props.shouldUseLocalAuth - A boolean that determines whether to use local or remote authentication.
- * @param props.evergreenAppURL - The URL of the backend service we will authenticate against.
+ * @param props.remoteAuthURL - The URL that we should redirect the user to if they are not currently authenticated when `shouldUseLocalAuth` is false.
+ * @param props.shouldUseLocalAuth - A boolean that determines which authentication strategy we should use.
+ * @param props.evergreenAppURL - The URL of the evergreen instance we will authenticate against.
  * @returns - The AuthProvider component.
  */
 const AuthProvider: React.FC<{
   children: React.ReactNode;
-  /** `evergreenAppURL` is the URL of the backend service we will authenticate against */
+  /** `evergreenAppURL` is the URL of the evergreen instance we will authenticate against */
   evergreenAppURL: string;
   /** `remoteAuthURL` is the URL that we should redirect the user to if they are not currently authenticated when `shouldUseLocalAuth` is false */
   remoteAuthURL: string;
