@@ -47,26 +47,29 @@ export const readVersions = ((existing, { args, readField }) => {
 
   let startIndex = maxOrder ? idx : 0;
   let endIndex = maxOrder ? existingVersions.length : idx;
-  let numActivated = 0;
+
+  const activeVersionIds = [];
+  const allActiveVersions =
+    readField<Set<string>>("allActiveVersions", existing) ?? new Set();
 
   // Count backwards for paginating backwards.
   if (minOrder) {
     for (let i = endIndex; i >= 0; i--) {
-      if (readField<boolean>("activated", existingVersions[i])) {
-        numActivated += 1;
-        if (numActivated === limit) {
+      const id = readField<string>("id", existingVersions[i]) ?? "";
+      if (allActiveVersions.has(id)) {
+        activeVersionIds.push(id);
+        if (activeVersionIds.length === limit) {
           startIndex = i;
-          if (i > 0) {
-            // Check for leading inactive versions
-            if (
-              [...Array(i).keys()].every(
-                (index) =>
-                  readField<boolean>("activated", existingVersions[index]) ===
-                  false,
-              )
-            ) {
-              startIndex = 0;
-            }
+          // Handle unmatching leading versions
+          i -= 1;
+          while (
+            i >= 0 &&
+            !allActiveVersions.has(
+              readField<string>("id", existingVersions[i]) ?? "",
+            )
+          ) {
+            startIndex = i;
+            i -= 1;
           }
           break;
         }
@@ -77,22 +80,22 @@ export const readVersions = ((existing, { args, readField }) => {
   // Count forwards for paginating forwards.
   if (maxOrder) {
     for (let i = startIndex; i < existingVersions.length; i++) {
-      if (readField<boolean>("activated", existingVersions[i])) {
-        numActivated += 1;
-        if (numActivated === limit) {
+      const id = readField<string>("id", existingVersions[i]) ?? "";
+      if (allActiveVersions.has(id)) {
+        activeVersionIds.push(id);
+        if (activeVersionIds.length === limit) {
           endIndex = i;
           break;
         }
       }
     }
-    if (numActivated < limit) {
+    if (activeVersionIds.length < limit) {
       return undefined;
     }
   }
 
   // Add 1 because slice is [inclusive, exclusive).
   const flattenedVersions = existingVersions.slice(startIndex, endIndex + 1);
-
   const zerothOrder = readField<number>("order", flattenedVersions[0]) ?? 0;
   const prevOrderNumber =
     mostRecentVersionOrder === zerothOrder ? 0 : zerothOrder;
@@ -107,6 +110,8 @@ export const readVersions = ((existing, { args, readField }) => {
   return {
     flattenedVersions,
     pagination: {
+      // Sort is only necessary for consistency in testing
+      activeVersionIds: activeVersionIds.sort(),
       mostRecentVersionOrder,
       prevPageOrder: prevOrderNumber,
       nextPageOrder: nextOrderNumber,
@@ -146,14 +151,24 @@ export const mergeVersions = ((existing, incoming, { readField }) => {
     "pagination",
     incoming,
   ) ?? {
+    activeVersionIds: [],
     hasNextPage: true,
     hasPrevPage: true,
     mostRecentVersionOrder: 0,
     nextPageOrder: 0,
     prevPageOrder: 0,
   };
+
+  const existingActiveVersions =
+    readField<Set<string>>("allActiveVersions", existing) ?? new Set();
+  const incomingActiveVersions =
+    readField<string[]>("activeVersionIds", pagination) ?? [];
+  incomingActiveVersions.forEach((vId) => existingActiveVersions.add(vId));
   return {
     flattenedVersions: v,
     pagination,
+    allActiveVersions: existingActiveVersions,
   };
-}) satisfies FieldMergeFunction<WaterfallQuery["waterfall"]>;
+}) satisfies FieldMergeFunction<
+  WaterfallQuery["waterfall"] & { allActiveVersions?: Set<string> }
+>;
