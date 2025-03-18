@@ -23,10 +23,14 @@ const router = createBrowserRouter([
       </AuthProvider>
     ),
     children: [
-      {
-        path: routes.login,
-        element: <LoginPage />,
-      },
+      ...(isLocal()
+        ? [
+            {
+              path: routes.login,
+              element: <LoginPage />,
+            },
+          ]
+        : []),
       {
         path: "/*",
         element: (

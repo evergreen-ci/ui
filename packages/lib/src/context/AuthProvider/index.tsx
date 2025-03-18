@@ -137,8 +137,8 @@ const AuthProvider: React.FC<{
           }
         }
         // Reset auth state.
-        dispatch({ type: "SET_AUTH", payload: false });
         if (shouldUseLocalAuth) {
+          dispatch({ type: "SET_AUTH", payload: false });
           navigate(localAuthRoute);
         } else {
           const encodedOrigin = encodeURIComponent(window.location.href);

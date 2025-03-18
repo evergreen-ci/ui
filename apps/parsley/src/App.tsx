@@ -13,10 +13,14 @@ import { evergreenURL, isLocal } from "utils/environmentVariables";
 const router = createBrowserRouter([
   {
     children: [
-      {
-        element: <LoginPage />,
-        path: routes.login,
-      },
+      ...(isLocal()
+        ? [
+            {
+              element: <LoginPage />,
+              path: routes.login,
+            },
+          ]
+        : []),
       {
         element: (
           <ProtectedRoute loginPageRoute={routes.login}>
