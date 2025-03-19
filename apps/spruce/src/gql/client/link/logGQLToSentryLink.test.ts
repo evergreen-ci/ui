@@ -1,5 +1,5 @@
 import { Operation } from "@apollo/client";
-import * as ErrorReporting from "utils/errorReporting";
+import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { leaveBreadcrumbMapFn } from "./logGQLToSentryLink";
 
 describe("leaveBreadcrumbLinkMapFn", () => {
@@ -42,7 +42,7 @@ describe("leaveBreadcrumbLinkMapFn", () => {
           status: "OK",
           errors: null,
         },
-        ErrorReporting.SentryBreadcrumb.HTTP,
+        ErrorReporting.SentryBreadcrumbTypes.HTTP,
       );
     };
 

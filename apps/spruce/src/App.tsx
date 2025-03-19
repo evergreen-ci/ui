@@ -5,14 +5,18 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
 import { Content } from "components/Content";
-import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";
 import { routes } from "constants/routes";
 import { ContextProviders } from "context/Providers";
 import GQLWrapper from "gql/GQLWrapper";
 import { Login } from "pages/Login";
-import { isDevelopmentBuild, isLocal } from "utils/environmentVariables";
+import {
+  getSpruceURL,
+  isDevelopmentBuild,
+  isLocal,
+} from "utils/environmentVariables";
 
 const browserRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -33,7 +37,7 @@ const browserRouter = createBrowserRouter(
 );
 
 const App: React.FC = () => (
-  <ErrorBoundary>
+  <ErrorBoundary homeURL={getSpruceURL() || ""}>
     <GlobalStyles />
     <ContextProviders>
       <RouterProvider router={browserRouter} />

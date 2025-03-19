@@ -5,6 +5,10 @@ import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
+import {
+  leaveBreadcrumb,
+  SentryBreadcrumbTypes,
+} from "@evg-ui/lib/utils/errorReporting";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ProjectBanner } from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
@@ -25,7 +29,6 @@ import {
 } from "gql/generated/types";
 import { MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { string } from "utils";
-import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 import BuildVariantSelector from "./BuildVariantSelector";
 import ColumnHeaders from "./ColumnHeaders";
 import TaskHistoryRow from "./TaskHistoryRow";
@@ -79,7 +82,7 @@ const TaskHistoryContents: React.FC = () => {
           // @ts-expect-error: FIXME. This comment was added by an automated script.
           numCommits: mainlineCommits.versions.length,
         },
-        SentryBreadcrumb.UI,
+        SentryBreadcrumbTypes.UI,
       );
       ingestNewCommits(mainlineCommits);
     },
@@ -99,7 +102,7 @@ const TaskHistoryContents: React.FC = () => {
           taskName,
           skipOrderNumber: data.mainlineCommits?.nextPageOrderNumber,
         },
-        SentryBreadcrumb.UI,
+        SentryBreadcrumbTypes.UI,
       );
       refetch({
         mainlineCommitsOptions: {

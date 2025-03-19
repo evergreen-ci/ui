@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useRef } from "react";
 import throttle from "lodash.throttle";
 import { Virtuoso, VirtuosoHandle } from "react-virtuoso";
+import {
+  leaveBreadcrumb,
+  SentryBreadcrumbTypes,
+} from "@evg-ui/lib/utils/errorReporting";
 import { useDimensions } from "hooks/useDimensions";
-import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 import { useHistoryTable } from "./HistoryTableContext";
 import EndOfHistoryRow from "./HistoryTableRow/EndOfHistoryRow";
 import LoadingSection from "./LoadingSection";
@@ -61,7 +64,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
         {
           selectedCommit,
         },
-        SentryBreadcrumb.UI,
+        SentryBreadcrumbTypes.UI,
       );
       listRef.current.scrollToIndex(selectedCommit.rowIndex);
     }
@@ -77,7 +80,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
           selectedCommit,
           processedCommitCount,
         },
-        SentryBreadcrumb.UI,
+        SentryBreadcrumbTypes.UI,
       );
       loadMoreItems();
     }

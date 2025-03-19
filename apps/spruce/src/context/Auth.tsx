@@ -1,7 +1,10 @@
 import { createContext, useContext, useMemo, useReducer } from "react";
+import {
+  leaveBreadcrumb,
+  SentryBreadcrumbTypes,
+} from "@evg-ui/lib/utils/errorReporting";
 import { getUserStagingHeader } from "@evg-ui/lib/utils/request";
 import { environmentVariables } from "utils";
-import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 
 const { getLoginDomain, getUiUrl } = environmentVariables;
 
@@ -68,13 +71,17 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             window.location.href = `${getLoginDomain()}/login`;
           })
           .catch((error) => {
-            leaveBreadcrumb("Logout failed", { error }, SentryBreadcrumb.User);
+            leaveBreadcrumb(
+              "Logout failed",
+              { error },
+              SentryBreadcrumbTypes.User,
+            );
           });
       },
       dispatchAuthenticated: () => {
         if (!state.isAuthenticated) {
           dispatch({ type: "authenticated" });
-          leaveBreadcrumb("Authenticated", {}, SentryBreadcrumb.User);
+          leaveBreadcrumb("Authenticated", {}, SentryBreadcrumbTypes.User);
         }
       },
     }),

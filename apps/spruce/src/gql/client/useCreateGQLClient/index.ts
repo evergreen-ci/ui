@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import {
+  leaveBreadcrumb,
+  SentryBreadcrumbTypes,
+} from "@evg-ui/lib/utils/errorReporting";
+import {
   fetchWithRetry,
   getUserStagingHeader,
   shouldLogoutAndRedirect,
@@ -17,7 +21,6 @@ import {
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
 import { environmentVariables } from "utils";
-import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 
 const { getGQLUrl } = environmentVariables;
 
@@ -38,7 +41,7 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
           {
             err,
           },
-          SentryBreadcrumb.HTTP,
+          SentryBreadcrumbTypes.HTTP,
         );
         if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();
