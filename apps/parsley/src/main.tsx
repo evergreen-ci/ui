@@ -22,7 +22,7 @@ const routeConfig = {
 initializeErrorHandling({
   environment: getReleaseStage(),
   isProductionBuild: !isDevelopmentBuild(),
-  sentryDSN: process.env.REACT_APP_SENTRY_DSN || "",
+  sentryDSN: process.env.REACT_APP_PARSLEY_SENTRY_DSN || "",
 });
 initializeHoneycomb({
   appVersion: process.env.REACT_APP_VERSION || "",
