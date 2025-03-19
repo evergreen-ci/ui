@@ -7,16 +7,13 @@ import {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import { leaveBreadcrumb, reportError } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import {
   evergreenURL,
   graphqlURL,
   isDevelopmentBuild,
 } from "utils/environmentVariables";
-import {
-  SentryBreadcrumb,
-  leaveBreadcrumb,
-  reportError,
-} from "utils/errorReporting";
 
 type LoginCreds = { username: string; password: string };
 
@@ -54,19 +51,19 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       })
         .then((response) => {
           if (response.ok) {
-            leaveBreadcrumb("Authenticated", {}, SentryBreadcrumb.User);
+            leaveBreadcrumb("Authenticated", {}, SentryBreadcrumbTypes.User);
             setIsAuthenticated(true);
           } else {
             leaveBreadcrumb(
               "Not Authenticated",
               { status_code: response.status },
-              SentryBreadcrumb.User,
+              SentryBreadcrumbTypes.User,
             );
             logoutAndRedirect();
           }
         })
         .catch((err: Error) => {
-          leaveBreadcrumb("checkLogin", { err }, SentryBreadcrumb.Error);
+          leaveBreadcrumb("checkLogin", { err }, SentryBreadcrumbTypes.Error);
           reportError(err).severe();
         });
     };
@@ -104,7 +101,11 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         }
       })
       .catch((err: Error) => {
-        leaveBreadcrumb("logoutAndRedirect", { err }, SentryBreadcrumb.Error);
+        leaveBreadcrumb(
+          "logoutAndRedirect",
+          { err },
+          SentryBreadcrumbTypes.Error,
+        );
         reportError(err).severe();
       });
   }, [navigate]);

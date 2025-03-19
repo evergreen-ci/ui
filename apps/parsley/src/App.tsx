@@ -1,15 +1,15 @@
 import styled from "@emotion/styled";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { ErrorBoundary } from "components/ErrorHandling";
+import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
 import { GlobalStyles } from "components/styles";
 import routes from "constants/routes";
 import { GlobalProviders } from "context";
 import Content from "pages";
 import { Login } from "pages/Login";
-import { isDevelopmentBuild } from "utils/environmentVariables";
+import { isDevelopmentBuild, parsleyURL } from "utils/environmentVariables";
 
 const App = () => (
-  <ErrorBoundary>
+  <ErrorBoundary homeURL={parsleyURL || ""}>
     <GlobalStyles />
     <Router>
       <GlobalProviders>

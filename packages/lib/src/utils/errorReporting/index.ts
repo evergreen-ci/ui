@@ -4,7 +4,9 @@ import { SentryBreadcrumbTypes, ErrorInput } from "../sentry/types";
 import { validateMetadata } from "../sentry/utils";
 
 interface reportErrorResult {
+  /** Report error as severe. This will cause an alert on our alerting infrastructure. Use this for critical errors. */
   severe: () => void;
+  /** Report error as a warning. This will log the error to our infrastructure and will only alert if there is a spike. Use this for most errors. */
   warning: () => void;
 }
 
@@ -14,6 +16,16 @@ type ErrorMetadata = {
   context?: ErrorInput["context"];
 };
 
+/**
+ * `reportError` is a utility function that reports an error to Sentry if Sentry is initialized.
+ * If Sentry is not initialized, it logs the error to the console.
+ * @param err - The error to report.
+ * @param param1 - The metadata for the error.
+ * @param param1.context - The context for the error.
+ * @param param1.fingerprint - The fingerprint for the error. This is used to group errors together.
+ * @param param1.tags - Any tags to attach to the error.
+ * @returns - An object with two functions: `severe` and `warning`. These functions report the error with different severities.
+ */
 const reportError = (
   err: Error,
   { context, fingerprint, tags }: ErrorMetadata = {},
@@ -51,6 +63,12 @@ const reportError = (
   };
 };
 
+/**
+ * `leaveBreadcrumb` logs messages that are useful for debugging and will appear in the sentry timeline.
+ * @param message - The message to log.
+ * @param metadata - Any metadata to attach to the breadcrumb.
+ * @param type - The type of breadcrumb to log. This determines the icon that appears in the timeline.
+ */
 const leaveBreadcrumb = (
   message: string,
   metadata: Breadcrumb["data"],
