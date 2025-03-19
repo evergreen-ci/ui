@@ -10,6 +10,12 @@ enum Requester {
   Trigger = "trigger_request",
 }
 
+export const isMainlineRequester = (requester: Requester) =>
+  requester === Requester.AdHoc ||
+  requester === Requester.GitTag ||
+  requester === Requester.Gitter ||
+  requester === Requester.Trigger;
+
 const requesterToTitle: PartialRecord<Requester, string> = {
   [Requester.AdHoc]: "Periodic build",
   [Requester.GitHubMergeQueue]: "GitHub merge request",

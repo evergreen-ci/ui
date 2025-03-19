@@ -5,6 +5,8 @@ import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { showTaskHistoryTab } from "constants/featureFlags";
+import { isMainlineRequester, Requester } from "constants/requesters";
 import { getTaskRoute, GetTaskRouteOptions, slugs } from "constants/routes";
 import { TaskQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
@@ -16,6 +18,7 @@ import { useBuildBaronVariables } from "./taskTabs/buildBaronAndAnnotations";
 import { ExecutionTasksTable } from "./taskTabs/ExecutionTasksTable";
 import FileTable from "./taskTabs/FileTable";
 import { Logs } from "./taskTabs/Logs";
+import TaskHistory from "./taskTabs/TaskHistory";
 import { TestsTable } from "./taskTabs/TestsTable";
 
 const { parseQueryString } = queryString;
@@ -40,6 +43,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     id,
     isPerfPluginEnabled,
     logs: logLinks,
+    requester,
     totalTestCount,
     versionMetadata,
   } = task ?? {};
@@ -154,6 +158,16 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
         <TrendChartsPlugin taskId={id} />
       </Tab>
     ),
+    [TaskTab.History]: (
+      <Tab
+        key="task-history-tab"
+        data-cy="task-history-tab"
+        name="Task History"
+      >
+        {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
+        <TaskHistory execution={execution} taskId={id} />
+      </Tab>
+    ),
   };
 
   const tabIsActive = {
@@ -163,6 +177,8 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
     [TaskTab.Files]: true,
     [TaskTab.Annotations]: showBuildBaron,
     [TaskTab.TrendCharts]: isPerfPluginEnabled,
+    [TaskTab.History]:
+      showTaskHistoryTab && isMainlineRequester(requester as Requester),
   };
 
   const activeTabs = Object.keys(tabMap).filter(
