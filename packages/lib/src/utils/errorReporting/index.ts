@@ -1,6 +1,6 @@
 import { addBreadcrumb, Breadcrumb, isInitialized } from "@sentry/react";
 import { initializeSentry, sendError as sentrySendError } from "../sentry";
-import { SentryBreadcrumb, ErrorInput } from "../sentry/types";
+import { SentryBreadcrumbTypes, ErrorInput } from "../sentry/types";
 import { validateMetadata } from "../sentry/utils";
 
 interface reportErrorResult {
@@ -54,7 +54,7 @@ const reportError = (
 const leaveBreadcrumb = (
   message: string,
   metadata: Breadcrumb["data"],
-  type: SentryBreadcrumb,
+  type: SentryBreadcrumbTypes,
 ) => {
   if (!isInitialized()) {
     console.debug({ message, metadata, type });
@@ -105,5 +105,5 @@ export {
   initializeErrorHandling,
   leaveBreadcrumb,
   reportError,
-  SentryBreadcrumb,
+  SentryBreadcrumbTypes,
 };

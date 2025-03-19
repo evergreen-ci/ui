@@ -5,7 +5,7 @@ import ErrorBoundary from ".";
 vi.mock("@sentry/react", async (importOriginal) => {
   const actual = await importOriginal();
   return {
-    // @ts-expect-error
+    // @ts-expect-error Not necessary to mock the entire object for the test.
     ...actual,
     captureException: vi.fn(),
   };

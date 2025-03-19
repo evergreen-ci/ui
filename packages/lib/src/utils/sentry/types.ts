@@ -10,7 +10,7 @@ export type ErrorInput = {
 
 // The "type" field for Sentry breadcrumbs is just "string", but we can approximate the types listed here:
 // https://develop.sentry.dev/sdk/event-payloads/breadcrumbs/#breadcrumb-types
-export enum SentryBreadcrumb {
+export enum SentryBreadcrumbTypes {
   Default = "default",
   Debug = "debug",
   Error = "error",

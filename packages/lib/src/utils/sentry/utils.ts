@@ -1,5 +1,5 @@
 import { Breadcrumb } from "@sentry/react";
-import { SentryBreadcrumb } from "./types";
+import { SentryBreadcrumbTypes } from "./types";
 
 /**
  * `processHtmlAttributes` extracts useful attributes to attach as
@@ -28,13 +28,13 @@ const processHtmlAttributes = (htmlElement: HTMLElement) => {
  */
 const validateMetadata = (
   metadata: Breadcrumb["data"],
-  breadcrumbType: SentryBreadcrumb,
+  breadcrumbType: SentryBreadcrumbTypes,
 ): Breadcrumb["data"] => {
   if (!metadata) {
     console.warn("Breadcrumb metadata is missing.");
     return;
   }
-  if (breadcrumbType === SentryBreadcrumb.Navigation) {
+  if (breadcrumbType === SentryBreadcrumbTypes.Navigation) {
     if (!metadata.from) {
       console.warn(
         "Navigation breadcrumbs should include a 'from' metadata field.",
