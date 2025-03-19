@@ -1,9 +1,7 @@
-import { addBreadcrumb, Breadcrumb } from "@sentry/react";
-import {
-  ErrorInput,
-  sendError as sentrySendError,
-  isInitialized,
-} from "components/ErrorHandling/Sentry";
+import { addBreadcrumb, Breadcrumb, isInitialized } from "@sentry/react";
+import { initializeSentry, sendError as sentrySendError } from "../sentry";
+import { SentryBreadcrumb, ErrorInput } from "../sentry/types";
+import { validateMetadata } from "../sentry/utils";
 
 interface reportErrorResult {
   severe: () => void;
@@ -53,21 +51,6 @@ const reportError = (
   };
 };
 
-// The "type" field for Sentry breadcrumbs is just "string", but we can approximate the types listed here:
-// https://develop.sentry.dev/sdk/event-payloads/breadcrumbs/#breadcrumb-types
-enum SentryBreadcrumb {
-  Default = "default",
-  Debug = "debug",
-  Error = "error",
-  Navigation = "navigation",
-  HTTP = "http",
-  Info = "info",
-  Query = "query",
-  Transaction = "transaction",
-  UI = "ui",
-  User = "user",
-}
-
 const leaveBreadcrumb = (
   message: string,
   metadata: Breadcrumb["data"],
@@ -88,34 +71,39 @@ const leaveBreadcrumb = (
 };
 
 /**
- * Ensure metadata follows Sentry's breadcrumb guidelines.
- * https://develop.sentry.dev/sdk/event-payloads/breadcrumbs/#breadcrumb-types
- * @param metadata - Metadata object
- * @param breadcrumbType - Sentry breadcrumb type
- * @returns an object adhering to Sentry's metadata rules.
+ * `initializeErrorHandling` initializes error handling for the application.
+ * This function should be called once in the application's lifecycle.
+ * It initializes Sentry for production builds.
+ * @param options - The options for initializing error handling.
+ * @param options.isProductionBuild - Whether the application is a production build.
+ * @param options.sentryDSN - The Sentry DSN.
+ * @param options.environment - The environment the application is running in.
  */
-const validateMetadata = (
-  metadata: Breadcrumb["data"],
-  breadcrumbType: SentryBreadcrumb,
-): Breadcrumb["data"] => {
-  if (!metadata) {
-    console.warn("Breadcrumb metadata is missing.");
+const initializeErrorHandling = ({
+  environment,
+  isProductionBuild,
+  sentryDSN,
+}: {
+  isProductionBuild: boolean;
+  sentryDSN: string;
+  environment: string;
+}) => {
+  if (!isProductionBuild) {
     return;
   }
-  if (breadcrumbType === SentryBreadcrumb.Navigation) {
-    if (!metadata.from) {
-      console.warn(
-        "Navigation breadcrumbs should include a 'from' metadata field.",
-      );
-    }
-    if (!metadata.to) {
-      console.warn(
-        "Navigation breadcrumbs should include a 'to' metadata field.",
-      );
-    }
-  }
 
-  return metadata;
+  if (!isInitialized()) {
+    initializeSentry({
+      debug: !isProductionBuild,
+      sentryDSN: sentryDSN,
+      environment: environment,
+    });
+  }
 };
 
-export { leaveBreadcrumb, reportError, SentryBreadcrumb };
+export {
+  initializeErrorHandling,
+  leaveBreadcrumb,
+  reportError,
+  SentryBreadcrumb,
+};

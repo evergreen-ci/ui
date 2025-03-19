@@ -1,14 +1,20 @@
 import { Component } from "react";
 import ErrorFallback from "./ErrorFallback/ErrorFallback";
-import { ErrorBoundary as SentryErrorBoundary, isInitialized } from "./Sentry";
 
 type DefaultErrorBoundaryProps = {
   children: React.ReactNode;
   homeURL: string;
 };
 
-// This error boundary is ONLY used during local development. Any changes to this component will not be
-// reflected in production.
+/**
+ * DO NOT USE THIS COMPONENT DIRECTLY INSTEAD USE `ErrorBoundary`.
+ *
+ * `DefaultErrorBoundary` is a generic Error Boundary component. This component is used in development builds.
+ * @param param0 - The props
+ * @param param0.children - The children
+ * @param param0.homeURL - The home URL of the application.
+ * @returns - The wrapped component.
+ */
 class DefaultErrorBoundary extends Component<
   DefaultErrorBoundaryProps,
   { hasError: boolean }
@@ -37,16 +43,4 @@ class DefaultErrorBoundary extends Component<
   }
 }
 
-export const ErrorBoundary: React.FC<{
-  children: React.ReactNode;
-  homeURL: string;
-}> = ({ children, homeURL }) => {
-  const useSentry = isInitialized();
-
-  if (useSentry) {
-    return <SentryErrorBoundary>{children}</SentryErrorBoundary>;
-  }
-  return (
-    <DefaultErrorBoundary homeURL={homeURL}>{children}</DefaultErrorBoundary>
-  );
-};
+export default DefaultErrorBoundary;

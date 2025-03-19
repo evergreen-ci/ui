@@ -1,23 +1,32 @@
-import type { Context, Primitive } from "@sentry/core";
+import type { Context } from "@sentry/core";
 import {
   captureException,
-  ErrorBoundary as SentryErrorBoundary,
   init,
   setTags,
   withScope,
-  isInitialized,
   type Scope,
   type SeverityLevel,
 } from "@sentry/react";
-import {
-  getReleaseStage,
-  getSentryDSN,
-  isProduction,
-} from "utils/environmentVariables";
-import ErrorFallback from "./ErrorFallback/ErrorFallback";
+import { ErrorInput } from "./types";
 import { processHtmlAttributes } from "./utils";
 
-const initializeSentry = () => {
+/**
+ * `initializeSentry` initializes Sentry with the provided configuration. DO NOT call this function directly.
+ * This function should be called once in the application's lifecycle.
+ * @param param0 - The properties of the Sentry initialization object
+ * @param param0.debug - Whether to enable debug mode
+ * @param param0.environment - The environment the application is running in
+ * @param param0.sentryDSN - The Sentry DSN
+ */
+const initializeSentry = ({
+  debug,
+  environment,
+  sentryDSN,
+}: {
+  sentryDSN?: string;
+  environment?: string;
+  debug?: boolean;
+}) => {
   try {
     init({
       beforeBreadcrumb: (breadcrumb, hint) => {
@@ -32,9 +41,9 @@ const initializeSentry = () => {
       },
       // Don't send errors from unauthenticated users
       beforeSend: (event) => (event.user?.id ? event : null),
-      debug: !isProduction(),
-      dsn: getSentryDSN(),
-      environment: getReleaseStage() || "development",
+      debug: debug,
+      dsn: sentryDSN,
+      environment: environment || "development",
       maxValueLength: 500,
       normalizeDepth: 5,
     });
@@ -43,14 +52,15 @@ const initializeSentry = () => {
   }
 };
 
-export type ErrorInput = {
-  err: Error;
-  fingerprint?: string[];
-  context?: Context;
-  severity: SeverityLevel;
-  tags?: { [key: string]: Primitive };
-};
-
+/**
+ * `sendError` sends an error to Sentry. Do not call this function directly.
+ * @param param0 - The error input object's properties
+ * @param param0.context - The context object to attach to the error
+ * @param param0.err - The error object to send
+ * @param param0.fingerprint - The fingerprint to group errors by
+ * @param param0.severity - The severity level of the error
+ * @param param0.tags - The tags to attach to the error
+ */
 const sendError = ({
   context,
   err,
@@ -60,7 +70,6 @@ const sendError = ({
 }: ErrorInput) => {
   withScope((scope) => {
     setScope(scope, { level: severity, context });
-
     if (fingerprint) {
       // A custom fingerprint allows for more intelligent grouping
       scope.setFingerprint(fingerprint);
@@ -88,17 +97,4 @@ const setScope = (scope: Scope, { context, level }: ScopeOptions = {}) => {
   if (context) scope.setContext("metadata", context);
 };
 
-const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => (
-  <SentryErrorBoundary
-    beforeCapture={(scope) => {
-      setScope(scope);
-    }}
-    fallback={<ErrorFallback />}
-  >
-    {children}
-  </SentryErrorBoundary>
-);
-
-export { ErrorBoundary, initializeSentry, isInitialized, sendError };
+export { initializeSentry, setScope, sendError };

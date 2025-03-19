@@ -1,6 +1,6 @@
 import { captureException } from "@sentry/react";
 import { render, screen } from "test_utils";
-import { ErrorBoundary } from "./ErrorBoundary";
+import ErrorBoundary from ".";
 
 vi.mock("@sentry/react", async (importOriginal) => {
   const actual = await importOriginal();

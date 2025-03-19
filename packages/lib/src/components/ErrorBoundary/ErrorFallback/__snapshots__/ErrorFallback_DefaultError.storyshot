@@ -3,32 +3,33 @@
     style="height: 100%; width: 100%;"
   >
     <div
-      class="css-73tbsm-Center e1rdiix0"
+      class="css-157odwz"
     >
       <div
-        class="css-1ow8p7h-Text e1rdiix1"
+        class="css-1xl0rym"
       >
         <h1
-          class="css-15usbh5-StyledHeader e1rdiix4 leafygreen-ui-r0ky5x"
+          class="css-1t9xarj leafygreen-ui-r0ky5x"
         >
           Error
         </h1>
         <h2
-          class="css-15lzim1-StyledSubtitle e1rdiix3 leafygreen-ui-oaqrgz"
+          class="css-1t9xarj leafygreen-ui-oaqrgz"
         >
           Ouch! That's gotta hurt,
           <br />
            sorry about that!
         </h2>
         <a
-          class="css-137t5xh-StyledLink e1rdiix2"
+          class="css-fp08na"
+          href="/"
         >
           Back To Home
         </a>
       </div>
       <img
         alt="Error Background"
-        src="/src/components/ErrorHandling/errorPage.svg"
+        src="/src/components/ErrorBoundary/ErrorFallback/errorPage.svg"
       />
     </div>
   </div>
