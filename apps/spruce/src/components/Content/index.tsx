@@ -6,9 +6,7 @@ import {
   UserPatchesRedirect,
   WaterfallCommitsRedirect,
 } from "components/Redirects";
-import { showWaterfallPage } from "constants/featureFlags";
 import { redirectRoutes, routes, slugs } from "constants/routes";
-import { useAdminBetaFeatures } from "hooks";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Container } from "pages/Container";
@@ -32,73 +30,68 @@ import { VersionPage } from "pages/Version";
 import { Waterfall } from "pages/Waterfall";
 import { Layout } from "./Layout";
 
-export const Content: React.FC = () => {
-  const { adminBetaSettings } = useAdminBetaFeatures();
-  return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route element={<Navigate to={routes.myPatches} />} path="/" />
-        <Route element={<Commits />} path={routes.commits} />
-        <Route element={<Container />} path={routes.container} />
-        <Route
-          element={<WaterfallCommitsRedirect />}
-          path={redirectRoutes.waterfall}
-        />
-        <Route element={<ConfigurePatch />} path={routes.configurePatch} />
-        <Route element={<Distro />} path={routes.distroSettings}>
-          <Route element={null} path={`:${slugs.tab}`} />
-        </Route>
-        <Route
-          element={<DistroSettingsRedirect />}
-          path={redirectRoutes.distroSettings}
-        />
-        <Route element={<Host />} path={routes.host} />
-        <Route element={<Hosts />} path={routes.hosts} />
-        <Route element={<Image />} path={`${routes.image}/*`}>
-          <Route element={null} path={`:${slugs.tab}`} />
-        </Route>
-        <Route element={null} path={routes.jobLogs}>
-          <Route element={<JobLogs isLogkeeper />} path={`:${slugs.buildId}`}>
-            <Route element={null} path={`:${slugs.groupId}`} />
-          </Route>
-          <Route
-            element={<JobLogs isLogkeeper={false} />}
-            path={`:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`}
-          />
-        </Route>
-        <Route element={<MyPatches />} path={routes.myPatches} />
-        <Route element={<PatchRedirect />} path={redirectRoutes.patch}>
-          <Route element={null} path={`:${slugs.tab}`} />
-        </Route>
-        <Route element={<Preferences />} path={routes.preferences}>
-          <Route element={null} path={`:${slugs.tab}`} />
-        </Route>
-        <Route element={<ProjectPatches />} path={routes.projectPatches} />
-        <Route element={<ProjectSettings />} path={routes.projectSettings}>
-          <Route element={null} path={`:${slugs.tab}`} />
-        </Route>
-        <Route
-          element={<ProjectSettingsRedirect />}
-          path={redirectRoutes.projectSettings}
-        />
-        <Route element={<Spawn />} path={routes.spawn}>
-          <Route element={null} path={`:${slugs.tab}`} />
-        </Route>
-        <Route element={<Task />} path={routes.task} />
-        <Route element={<TaskHistory />} path={routes.taskHistory} />
-        <Route element={<TaskQueue />} path={routes.taskQueue} />
-        <Route element={<UserPatches />} path={routes.userPatches} />
-        <Route
-          element={<UserPatchesRedirect />}
-          path={redirectRoutes.userPatches}
-        />
-        <Route element={<VariantHistory />} path={routes.variantHistory} />
-        <Route element={<VersionPage />} path={routes.version} />
-        {(showWaterfallPage || adminBetaSettings?.spruceWaterfallEnabled) && (
-          <Route element={<Waterfall />} path={routes.waterfall} />
-        )}
-        <Route element={<PageDoesNotExist />} path="*" />
+export const Content: React.FC = () => (
+  <Routes>
+    <Route element={<Layout />}>
+      <Route element={<Navigate to={routes.myPatches} />} path="/" />
+      <Route element={<Commits />} path={routes.commits} />
+      <Route element={<Container />} path={routes.container} />
+      <Route
+        element={<WaterfallCommitsRedirect />}
+        path={redirectRoutes.waterfall}
+      />
+      <Route element={<ConfigurePatch />} path={routes.configurePatch} />
+      <Route element={<Distro />} path={routes.distroSettings}>
+        <Route element={null} path={`:${slugs.tab}`} />
       </Route>
-    </Routes>
-  );
-};
+      <Route
+        element={<DistroSettingsRedirect />}
+        path={redirectRoutes.distroSettings}
+      />
+      <Route element={<Host />} path={routes.host} />
+      <Route element={<Hosts />} path={routes.hosts} />
+      <Route element={<Image />} path={`${routes.image}/*`}>
+        <Route element={null} path={`:${slugs.tab}`} />
+      </Route>
+      <Route element={null} path={routes.jobLogs}>
+        <Route element={<JobLogs isLogkeeper />} path={`:${slugs.buildId}`}>
+          <Route element={null} path={`:${slugs.groupId}`} />
+        </Route>
+        <Route
+          element={<JobLogs isLogkeeper={false} />}
+          path={`:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`}
+        />
+      </Route>
+      <Route element={<MyPatches />} path={routes.myPatches} />
+      <Route element={<PatchRedirect />} path={redirectRoutes.patch}>
+        <Route element={null} path={`:${slugs.tab}`} />
+      </Route>
+      <Route element={<Preferences />} path={routes.preferences}>
+        <Route element={null} path={`:${slugs.tab}`} />
+      </Route>
+      <Route element={<ProjectPatches />} path={routes.projectPatches} />
+      <Route element={<ProjectSettings />} path={routes.projectSettings}>
+        <Route element={null} path={`:${slugs.tab}`} />
+      </Route>
+      <Route
+        element={<ProjectSettingsRedirect />}
+        path={redirectRoutes.projectSettings}
+      />
+      <Route element={<Spawn />} path={routes.spawn}>
+        <Route element={null} path={`:${slugs.tab}`} />
+      </Route>
+      <Route element={<Task />} path={routes.task} />
+      <Route element={<TaskHistory />} path={routes.taskHistory} />
+      <Route element={<TaskQueue />} path={routes.taskQueue} />
+      <Route element={<UserPatches />} path={routes.userPatches} />
+      <Route
+        element={<UserPatchesRedirect />}
+        path={redirectRoutes.userPatches}
+      />
+      <Route element={<VariantHistory />} path={routes.variantHistory} />
+      <Route element={<VersionPage />} path={routes.version} />
+      <Route element={<Waterfall />} path={routes.waterfall} />
+      <Route element={<PageDoesNotExist />} path="*" />
+    </Route>
+  </Routes>
+);

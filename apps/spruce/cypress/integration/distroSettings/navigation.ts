@@ -47,7 +47,7 @@ describe("distroSettings/navigation", () => {
           "aria-disabled",
           "true",
         );
-        cy.dataCy("project-health-link").click();
+        cy.dataCy("waterfall-link").click();
         cy.dataCy("navigation-warning-modal").should("be.visible");
         cy.contains("button", "Cancel").click();
         cy.dataCy("navigation-warning-modal").should("not.exist");
@@ -81,7 +81,7 @@ describe("distroSettings/navigation", () => {
             "aria-disabled",
             "true",
           );
-          cy.dataCy("project-health-link").click();
+          cy.dataCy("waterfall-link").click();
           cy.dataCy("navigation-warning-modal").should("be.visible");
           cy.dataCy("provider-warning-banner").should("not.exist");
         });
