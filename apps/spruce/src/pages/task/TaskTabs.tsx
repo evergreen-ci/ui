@@ -162,7 +162,13 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
       <Tab
         key="task-history-tab"
         data-cy="task-history-tab"
-        name="Task History"
+        name={
+          <TabLabelWithBadge
+            badgeText="Beta"
+            badgeVariant="blue"
+            tabLabel="Task History"
+          />
+        }
       >
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
         <TaskHistory execution={execution} taskId={id} />
