@@ -1,9 +1,6 @@
 import { useBreadcrumbAnalytics } from "analytics";
-import { getCommitsRoute, getWaterfallRoute } from "constants/routes";
-import {
-  useGetUserPatchesPageTitleAndLink,
-  useMergedBetaFeatures,
-} from "hooks";
+import { getWaterfallRoute } from "constants/routes";
+import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 export const useBreadcrumbRoot = (
   isPatch: boolean,
@@ -11,9 +8,6 @@ export const useBreadcrumbRoot = (
   projectIdentifier: string,
 ) => {
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
-
-  const { betaFeatures } = useMergedBetaFeatures();
-  const { spruceWaterfallEnabled } = betaFeatures ?? {};
 
   const { link: userPatchesPageLink, title: userPatchesPageTitle } =
     useGetUserPatchesPageTitleAndLink(author, !isPatch) ?? {};
@@ -31,9 +25,7 @@ export const useBreadcrumbRoot = (
         "data-cy": "bc-my-patches",
       }
     : {
-        to: spruceWaterfallEnabled
-          ? getWaterfallRoute(projectIdentifier)
-          : getCommitsRoute(projectIdentifier),
+        to: getWaterfallRoute(projectIdentifier),
         text: projectIdentifier,
         onClick: () => {
           breadcrumbAnalytics.sendEvent({
