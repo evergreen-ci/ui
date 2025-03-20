@@ -1,8 +1,10 @@
-import parentModule from "parent-module";
 import { ServerOptions } from "vite";
 import dns from "dns";
 import * as fs from "fs";
 import path from "path";
+
+const sslKeyName = "localhost-key.pem";
+const sslCertName = "localhost-cert.pem";
 
 type BaseHTTPSViteServerConfigOptions = {
   appURL: string;
@@ -53,21 +55,16 @@ const generateBaseHTTPSViteServerConfig = ({
       }
     });
 
-    const dirNameOfParentModule = path.dirname(parentModule() || "");
-
     // Validate the SSL certificates exist
     if (
-      !fs.existsSync(path.resolve("localhost-key.pem")) ||
-      !fs.existsSync(path.resolve("localhost-cert.pem"))
+      !fs.existsSync(path.resolve(sslKeyName)) ||
+      !fs.existsSync(path.resolve(sslCertName))
     ) {
-      console.log(path.resolve("localhost-cert.pem"));
-      console.log(path.resolve(dirNameOfParentModule, "localhost-key.pem"));
-      console.log(path.resolve(dirNameOfParentModule, "localhost-cert.pem"));
       console.error(`
     *******************************************************************************************************
     *                                                                                                     *
-    *  ERROR: localhost-key.pem is missing. Did you run                                                   *
-    *  'mkcert -key-file localhost-key.pem -cert-file localhost-cert.pem ${hostURL}'?                 *
+    *  ERROR: ${sslKeyName} or ${sslCertName} is missing. Did you run                             *
+    *  'mkcert -key-file ${sslKeyName} -cert-file ${sslCertName} ${hostURL}'?  *
     *                                                                                                     *
     *******************************************************************************************************
       `);
@@ -78,8 +75,8 @@ const generateBaseHTTPSViteServerConfig = ({
       host: hostURL,
       port: httpsPort,
       https: {
-        key: fs.readFileSync(path.resolve("localhost-key.pem")),
-        cert: fs.readFileSync(path.resolve("localhost-cert.pem")),
+        key: fs.readFileSync(path.resolve(sslKeyName)),
+        cert: fs.readFileSync(path.resolve(sslCertName)),
       },
     };
   }

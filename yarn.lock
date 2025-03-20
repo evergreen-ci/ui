@@ -5515,11 +5515,6 @@ callsites@^3.0.0:
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
-callsites@^4.1.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/callsites/-/callsites-4.2.0.tgz#98761d5be3ce092e4b9c92f7fb8c8eb9b83cadc8"
-  integrity sha512-kfzR4zzQtAE9PC7CzZsjl3aBNbXWuXiSeOCdLcPpBfGW8YuCqQHcRPFDbr/BPVmd3EEPVpuFzLyuT/cUhPr4OQ==
-
 camel-case@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/camel-case/-/camel-case-4.1.2.tgz#9728072a954f805228225a6deea6b38461e1bd5a"
@@ -10104,13 +10099,6 @@ parent-module@^1.0.0:
   integrity sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==
   dependencies:
     callsites "^3.0.0"
-
-parent-module@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/parent-module/-/parent-module-3.1.0.tgz#bcba90b465fa3ba029fad2a933f4c683668a2148"
-  integrity sha512-FX4TpKXX6CesSm1D9y5IcF0/KdDjP/w0c1AKqreGZne2QyWiPWHfoApMaJl8zvH3DTh+xtVmlLIUqSSoPYjqLQ==
-  dependencies:
-    callsites "^4.1.0"
 
 parse-filepath@^1.0.2:
   version "1.0.2"
