@@ -10,7 +10,7 @@ enum Requester {
   Trigger = "trigger_request",
 }
 
-const commitRequesters = [
+const mainlineRequesters = [
   Requester.AdHoc,
   Requester.GitTag,
   Requester.Gitter,
@@ -18,7 +18,7 @@ const commitRequesters = [
 ];
 
 export const isMainlineRequester = (requester: Requester) =>
-  commitRequesters.includes(requester);
+  mainlineRequesters.includes(requester);
 
 const requesterToTitle: PartialRecord<Requester, string> = {
   [Requester.AdHoc]: "Periodic build",
@@ -39,5 +39,5 @@ export {
   Requester,
   requesterToTitle,
   requesterToDescription,
-  commitRequesters,
+  mainlineRequesters,
 };
