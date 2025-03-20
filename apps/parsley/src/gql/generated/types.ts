@@ -775,6 +775,11 @@ export type HostEventsArgs = {
   opts: HostEventsInput;
 };
 
+export enum HostAccessLevel {
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 export type HostAllocatorSettings = {
   __typename?: "HostAllocatorSettings";
   acceptableHostIdleTime: Scalars["Duration"]["output"];
@@ -1535,8 +1540,6 @@ export type Notifications = {
   __typename?: "Notifications";
   buildBreak?: Maybe<Scalars["String"]["output"]>;
   buildBreakId?: Maybe<Scalars["String"]["output"]>;
-  commitQueue?: Maybe<Scalars["String"]["output"]>;
-  commitQueueId?: Maybe<Scalars["String"]["output"]>;
   patchFinish?: Maybe<Scalars["String"]["output"]>;
   patchFinishId?: Maybe<Scalars["String"]["output"]>;
   patchFirstFailure?: Maybe<Scalars["String"]["output"]>;
@@ -1549,7 +1552,6 @@ export type Notifications = {
 
 export type NotificationsInput = {
   buildBreak?: InputMaybe<Scalars["String"]["input"]>;
-  commitQueue?: InputMaybe<Scalars["String"]["input"]>;
   patchFinish?: InputMaybe<Scalars["String"]["input"]>;
   patchFirstFailure?: InputMaybe<Scalars["String"]["input"]>;
   spawnHostExpiration?: InputMaybe<Scalars["String"]["input"]>;
@@ -2125,6 +2127,12 @@ export enum ProjectSettingsSection {
   Workstation = "WORKSTATION",
 }
 
+export type ProjectTasksPair = {
+  __typename?: "ProjectTasksPair";
+  allowedTasks: Array<Scalars["String"]["output"]>;
+  projectId: Scalars["String"]["output"];
+};
+
 export type ProjectVars = {
   __typename?: "ProjectVars";
   adminOnlyVars: Array<Scalars["String"]["output"]>;
@@ -2585,6 +2593,11 @@ export type SetLastRevisionPayload = {
   mergeBaseRevision: Scalars["String"]["output"];
 };
 
+export type SingleTaskDistroConfig = {
+  __typename?: "SingleTaskDistroConfig";
+  projectTasksPairs: Array<ProjectTasksPair>;
+};
+
 export type SlackConfig = {
   __typename?: "SlackConfig";
   name?: Maybe<Scalars["String"]["output"]>;
@@ -2693,6 +2706,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   providers?: Maybe<CloudProviderConfig>;
   secretFields: Array<Scalars["String"]["output"]>;
+  singleTaskDistro?: Maybe<SingleTaskDistroConfig>;
   slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
   ui: UiConfig;
@@ -3454,6 +3468,8 @@ export type WaterfallOptions = {
   projectIdentifier: Scalars["String"]["input"];
   requesters?: InputMaybe<Array<Scalars["String"]["input"]>>;
   revision?: InputMaybe<Scalars["String"]["input"]>;
+  statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  tasks?: InputMaybe<Array<Scalars["String"]["input"]>>;
   variants?: InputMaybe<Array<Scalars["String"]["input"]>>;
 };
 
