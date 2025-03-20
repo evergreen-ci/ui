@@ -6,12 +6,12 @@ import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import DetailsMenu from "components/DetailsMenu";
 import Search from "components/Search";
 import ShortcutModal from "components/ShortcutModal";
 import { docsURL } from "constants/externalLinks";
 import { navbarHeight } from "constants/tokens";
-import { useAuthContext } from "context/auth";
 import { useLogContext } from "context/LogContext";
 import { isDevelopmentBuild } from "utils/environmentVariables";
 import UploadLink from "./UploadLink";
@@ -21,7 +21,7 @@ const { gray, white } = palette;
 const NavBar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { clearLogs, hasLogs } = useLogContext();
-  const { logoutAndRedirect } = useAuthContext();
+  const { logoutAndRedirect } = useAuthProviderContext();
 
   return (
     <Container>

@@ -13,6 +13,7 @@ import dns from "dns";
 import * as fs from "fs";
 import { createRequire } from "node:module";
 import path from "path";
+import { generateBaseHTTPSViteServerConfig } from "@evg-ui/vite-utils";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 const require = createRequire(import.meta.url);
@@ -24,18 +25,16 @@ dns.setDefaultResultOrder("ipv4first");
 fs.writeFileSync(require.resolve("antd/es/style/core/global.less"), "");
 fs.writeFileSync(require.resolve("antd/lib/style/core/global.less"), "");
 
+const serverConfig = generateBaseHTTPSViteServerConfig({
+  port: 3000,
+  appURL: process.env.REACT_APP_SPRUCE_URL,
+  httpsPort: 8443,
+  useHTTPS: process.env.REACT_APP_RELEASE_STAGE !== "local",
+});
+
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
-  server: {
-    port: 3000,
-    proxy: {
-      "/graphql": {
-        target: "http://localhost:9090/graphql/query",
-        changeOrigin: true,
-      },
-    },
-  },
-
+  server: serverConfig,
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis

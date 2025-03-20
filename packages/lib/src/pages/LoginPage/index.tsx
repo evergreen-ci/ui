@@ -4,8 +4,9 @@ import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { Location, Navigate, useLocation } from "react-router-dom";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { useAuthContext } from "context/auth";
+import { FullPageLoad } from "../../components/FullPageLoad";
+import { size } from "../../constants/tokens";
+import { useAuthProviderContext } from "../../context/AuthProvider";
 
 const { green } = palette;
 
@@ -13,19 +14,34 @@ const getReferrer = (location: Location): string => {
   const state = location.state as { referrer?: string };
   return state?.referrer ?? "/";
 };
-
-export const Login: React.FC = () => {
+interface LoginPageProps {
+  /**
+   * If `ignoreAuthCheck` is true, the component will render without checking the user's authentication status.
+   * This is useful for test environments where the user's authentication status is not relevant.
+   */
+  ignoreAuthCheck?: boolean;
+}
+const LoginPage: React.FC<LoginPageProps> = ({ ignoreAuthCheck }) => {
   const location = useLocation();
-  const { devLogin, isAuthenticated } = useAuthContext();
+  const { hasCheckedAuth, isAuthenticated, localLogin } =
+    useAuthProviderContext();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  if (!hasCheckedAuth && !ignoreAuthCheck) {
+    return <FullPageLoad />;
+  }
   return isAuthenticated ? (
     <Navigate to={getReferrer(location)} />
   ) : (
     <PageWrapper>
-      <LoginForm>
+      <LoginForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          localLogin({ password, username });
+        }}
+      >
         <TextInput
           data-cy="login-username"
           label="Username"
@@ -42,7 +58,7 @@ export const Login: React.FC = () => {
         />
         <StyledButton
           data-cy="login-submit"
-          onClick={() => devLogin({ password, username })}
+          onClick={() => localLogin({ password, username })}
           type="submit"
           variant="baseGreen"
         >
@@ -61,7 +77,7 @@ const PageWrapper = styled.div`
   justify-content: center;
 `;
 
-const LoginForm = styled.div`
+const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,3 +92,5 @@ const LoginForm = styled.div`
 const StyledButton = styled(Button)`
   align-self: flex-end;
 `;
+
+export default LoginPage;

@@ -1,28 +1,56 @@
 import styled from "@emotion/styled";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
+import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
+import LoginPage from "@evg-ui/lib/pages/LoginPage";
 import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";
 import routes from "constants/routes";
 import { GlobalProviders } from "context";
 import Content from "pages";
-import { Login } from "pages/Login";
-import { isDevelopmentBuild } from "utils/environmentVariables";
+import { evergreenURL, isLocal } from "utils/environmentVariables";
+
+const router = createBrowserRouter([
+  {
+    children: [
+      ...(isLocal()
+        ? [
+            {
+              element: <LoginPage />,
+              path: routes.login,
+            },
+          ]
+        : []),
+      {
+        element: (
+          <ProtectedRoute loginPageRoute={routes.login}>
+            <GlobalProviders>
+              <Content />
+            </GlobalProviders>
+          </ProtectedRoute>
+        ),
+        path: "/*",
+      },
+    ],
+    element: (
+      <AuthProvider
+        evergreenAppURL={evergreenURL || ""}
+        localAuthRoute={routes.login}
+        remoteAuthURL={`${evergreenURL}/login`}
+        shouldUseLocalAuth={isLocal()}
+      >
+        <Outlet />
+      </AuthProvider>
+    ),
+  },
+]);
 
 const App = () => (
   <ErrorBoundary>
     <GlobalStyles />
-    <Router>
-      <GlobalProviders>
-        <AppWrapper>
-          <Routes>
-            {isDevelopmentBuild() && (
-              <Route element={<Login />} path={routes.login} />
-            )}
-            <Route element={<Content />} path="/*" />
-          </Routes>
-        </AppWrapper>
-      </GlobalProviders>
-    </Router>
+    <AppWrapper>
+      <RouterProvider router={router} />
+    </AppWrapper>
   </ErrorBoundary>
 );
 

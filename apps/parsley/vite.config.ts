@@ -9,13 +9,22 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
 import path from "path";
+import { generateBaseHTTPSViteServerConfig } from "@evg-ui/vite-utils";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
 dns.setDefaultResultOrder("ipv4first");
 
+const serverConfig = generateBaseHTTPSViteServerConfig({
+  port: 5173,
+  appURL: process.env.REACT_APP_PARSLEY_URL,
+  httpsPort: 8444,
+  useHTTPS: process.env.REACT_APP_RELEASE_STAGE !== "local",
+});
+
 // https://vitejs.dev/config/
 const viteConfig = defineConfig({
+  server: serverConfig,
   build: {
     rollupOptions: {
       plugins: [],
