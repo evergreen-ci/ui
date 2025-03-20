@@ -1540,8 +1540,6 @@ export type Notifications = {
   __typename?: "Notifications";
   buildBreak?: Maybe<Scalars["String"]["output"]>;
   buildBreakId?: Maybe<Scalars["String"]["output"]>;
-  commitQueue?: Maybe<Scalars["String"]["output"]>;
-  commitQueueId?: Maybe<Scalars["String"]["output"]>;
   patchFinish?: Maybe<Scalars["String"]["output"]>;
   patchFinishId?: Maybe<Scalars["String"]["output"]>;
   patchFirstFailure?: Maybe<Scalars["String"]["output"]>;
@@ -1554,7 +1552,6 @@ export type Notifications = {
 
 export type NotificationsInput = {
   buildBreak?: InputMaybe<Scalars["String"]["input"]>;
-  commitQueue?: InputMaybe<Scalars["String"]["input"]>;
   patchFinish?: InputMaybe<Scalars["String"]["input"]>;
   patchFirstFailure?: InputMaybe<Scalars["String"]["input"]>;
   spawnHostExpiration?: InputMaybe<Scalars["String"]["input"]>;
