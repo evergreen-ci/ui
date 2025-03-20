@@ -29,14 +29,11 @@ vi.mock("utils/environmentVariables", () => ({
 }));
 
 describe("useCreateGQLClient", () => {
-  let mockDispatchAuthenticated: Mock;
   let mockLogoutAndRedirect: Mock;
 
   beforeEach(() => {
-    mockDispatchAuthenticated = vi.fn();
     mockLogoutAndRedirect = vi.fn();
     (useAuthProviderContext as Mock).mockReturnValue({
-      dispatchAuthenticated: mockDispatchAuthenticated,
       logoutAndRedirect: mockLogoutAndRedirect,
     });
 
@@ -52,7 +49,6 @@ describe("useCreateGQLClient", () => {
     await waitFor(() => {
       expect(result.current).toBeInstanceOf(ApolloClient);
     });
-    expect(mockDispatchAuthenticated).toHaveBeenCalled();
   });
   it("should call logoutAndRedirect when error occurs and the error satisfies the logout condition", async () => {
     const mockError = { cause: { statusCode: 401 } };
