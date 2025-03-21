@@ -58,7 +58,7 @@ describe("useBreadcrumbRoot", () => {
       { wrapper: SameUserProvider },
     );
 
-    expect(result.current.to).toBe("/commits/spruce");
+    expect(result.current.to).toBe("/project/spruce/waterfall");
     expect(result.current.text).toBe("spruce");
   });
 });
