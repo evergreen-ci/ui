@@ -2,6 +2,7 @@
   <div
     class="css-azgjvx-BaseCell-Cell e1bcz5i62"
     data-cy="task-cell"
+    title="Succeeded"
   >
     <a
       href="/task/task-1"

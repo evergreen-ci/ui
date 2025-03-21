@@ -1,35 +1,9 @@
 import { palette } from "@leafygreen-ui/palette";
+import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 
 const { gray, green, purple, red, yellow } = palette;
-
-export const taskStatusToCopy: Record<string, string> = {
-  [TaskStatusUmbrella.Scheduled]: "Scheduled",
-  [TaskStatusUmbrella.Failed]: "Failed",
-  [TaskStatusUmbrella.Running]: "Running",
-  [TaskStatusUmbrella.SystemFailure]: "System Failed",
-  [TaskStatusUmbrella.Undispatched]: "Undispatched",
-  [TaskStatus.Aborted]: "Aborted",
-  [TaskStatus.Blocked]: "Blocked",
-  [TaskStatus.Dispatched]: "Dispatched",
-  [TaskStatus.Failed]: "Failed",
-  [TaskStatus.KnownIssue]: "Known Issue",
-  [TaskStatus.Pending]: "Pending",
-  [TaskStatus.Started]: "Running",
-  [TaskStatus.SystemFailed]: "System Failed",
-  [TaskStatus.SystemTimedOut]: "System Timed Out",
-  [TaskStatus.SystemUnresponsive]: "System Unresponsive",
-  [TaskStatus.SetupFailed]: "Setup Failed",
-  [TaskStatus.Succeeded]: "Succeeded",
-  [TaskStatus.TaskTimedOut]: "Task Timed Out",
-  [TaskStatus.TestTimedOut]: "Test Timed Out",
-  [TaskStatus.Unstarted]: "Unstarted",
-  [TaskStatus.Unscheduled]: "Unscheduled",
-  [TaskStatus.WillRun]: "Will Run",
-  [TaskStatus.Inactive]: "Inactive",
-  [TaskStatus.Undispatched]: "Undispatched",
-};
 
 const taskStatuses: TreeDataEntry[] = [
   {

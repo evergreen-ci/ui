@@ -1,6 +1,6 @@
 import { palette } from "@leafygreen-ui/palette";
+import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
-import { taskStatusToCopy } from "constants/task";
 import { ProjectHealthView } from "gql/generated/types";
 import {
   ALL_NON_FAILING_STATUSES,

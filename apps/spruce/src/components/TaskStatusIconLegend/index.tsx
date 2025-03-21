@@ -5,7 +5,9 @@ import Popover, { Align, Justify } from "@leafygreen-ui/popover";
 import { Body, Overline } from "@leafygreen-ui/typography";
 import { useMatch } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
+import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { PopoverContainer } from "components/styles/Popover";
@@ -14,7 +16,6 @@ import {
   waterfallGroupedStatuses,
 } from "components/TaskStatusIcon";
 import { routes } from "constants/routes";
-import { taskStatusToCopy } from "constants/task";
 import { useOnClickOutside } from "hooks";
 import { walkthroughSteps, waterfallGuideId } from "pages/waterfall/constants";
 
@@ -40,7 +41,7 @@ export const LegendContent: React.FC<LegendContentProps> = ({
           <LegendIcon>{icon}</LegendIcon>
           <LegendLabel>
             {statuses.map((status) => (
-              <Body key={status}>{taskStatusToCopy[status]}</Body>
+              <Body key={status}>{taskStatusToCopy[status as TaskStatus]}</Body>
             ))}
           </LegendLabel>
         </Row>

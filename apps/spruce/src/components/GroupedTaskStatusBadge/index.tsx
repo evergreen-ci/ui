@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
+import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { fontSize, size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
+import { mapUmbrellaStatusColors } from "constants/task";
 
 interface GroupedTaskStatusBadgeProps {
   count: number;
@@ -46,7 +48,7 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
               text={text}
             >
               <Number>{count}</Number>
-              <Status>{taskStatusToCopy[status]}</Status>
+              <Status>{taskStatusToCopy[status as TaskStatus]}</Status>
             </BadgeContainer>
           </Link>
         </div>
@@ -60,7 +62,7 @@ export const GroupedTaskStatusBadge: React.FC<GroupedTaskStatusBadgeProps> = ({
               <TaskStatusIcon size={16} status={taskStatus} />
               <span>
                 <Count>{taskCount}</Count>{" "}
-                {taskStatusToCopy[taskStatus] ?? taskStatus}
+                {taskStatusToCopy[taskStatus as TaskStatus] ?? taskStatus}
               </span>
             </Row>
           ))}
