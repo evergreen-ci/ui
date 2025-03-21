@@ -15,6 +15,7 @@ import {
   ProviderTab,
   TaskTab,
 } from "./tabs/index";
+import { SingleTaskDistroTab } from "./tabs/SingleTaskDistroTab/SingleTaskDistroTab";
 import { gqlToFormMap } from "./tabs/transformers";
 import { FormStateMap } from "./tabs/types";
 
@@ -93,6 +94,10 @@ export const DistroSettingsTabs: React.FC<Props> = ({ distro }) => {
         <Route
           element={<EventLogTab />}
           path={DistroSettingsTabRoutes.EventLog}
+        />
+        <Route
+          element={<SingleTaskDistroTab />}
+          path={DistroSettingsTabRoutes.SingleTaskDistros}
         />
       </Routes>
     </Container>

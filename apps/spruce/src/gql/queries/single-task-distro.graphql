@@ -1,0 +1,10 @@
+query SingleTaskDistro {
+  spruceConfig {
+    singleTaskDistro {
+      projectTasksPairs {
+        projectId
+        allowedTasks
+      }
+    }
+  }
+}
