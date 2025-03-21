@@ -25,11 +25,17 @@ const AnsiRow: React.FC<AnsiRowProps> = ({ getLine, lineNumber, ...rest }) => {
     lineContent = trimSeverity(lineContent);
   }
 
-  const linkifiedLine = linkifyHtml(ansiUp.ansi_to_html(lineContent ?? ""), {
+  let linkifiedLine = lineContent
+  try {
+  linkifiedLine = linkifyHtml(ansiUp.ansi_to_html(lineContent ?? ""), {
     validate: {
       url: (value: string) => /^(http)s?:\/\//.test(value),
     },
   });
+} catch (error) {
+    console.error("Error processing line content:", error);
+    console.log(lineContent)
+  }
 
   return (
     <BaseRow
