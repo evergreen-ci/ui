@@ -31,6 +31,21 @@ describe("project filters", () => {
     cy.get("[data-cy^='skipped-lines-row-']").should("exist");
   });
 
+  it("properly processes filters with commas", () => {
+    cy.visit(resmokeLogLink);
+    cy.contains("View project filters").click();
+    cy.dataCy("project-filters-modal").should("be.visible");
+    cy.getInputByLabel('"Connection accepted","attr"').check({
+      force: true,
+    });
+    cy.contains("button", "Apply filters").click();
+    cy.location("search").should(
+      "contain",
+      "110%2522Connection%2520accepted%2522%252C%2522attr%2522",
+    );
+    cy.get("[data-cy^='skipped-lines-row-']").should("exist");
+  });
+
   it("should disable checkbox if filter is already applied", () => {
     cy.visit(`${resmokeLogLink}?filters=100D%255Cd`);
     cy.contains("View project filters").click();
