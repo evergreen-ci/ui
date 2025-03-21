@@ -6,7 +6,6 @@ import NavBar from "components/NavBar";
 import { PageLayout } from "components/styles";
 import { LogTypes } from "constants/enums";
 import routes, { slugs } from "constants/routes";
-import { useAuthContext } from "context/auth";
 import { useUser } from "hooks";
 import NotFound from "./404";
 import LogView from "./LogView";
@@ -27,8 +26,7 @@ const Content: React.FC = () => {
   localStorage.setItem("userId", user?.userId ?? "");
 
   useAnalyticAttributes(user?.userId ?? "");
-  const { isAuthenticated } = useAuthContext();
-  return isAuthenticated ? (
+  return (
     <Routes>
       <Route element={<Layout />}>
         <Route element={<Navigate to={routes.upload} />} path={routes.root} />
@@ -73,8 +71,6 @@ const Content: React.FC = () => {
         <Route element={<NotFound />} path="*" />
       </Route>
     </Routes>
-  ) : (
-    <FullPageLoad />
   );
 };
 

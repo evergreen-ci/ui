@@ -51,6 +51,7 @@ export enum TaskTab {
   ExecutionTasks = "execution-tasks",
   Annotations = "annotations",
   TrendCharts = "trend-charts",
+  History = "history",
 }
 
 export enum LogTypes {

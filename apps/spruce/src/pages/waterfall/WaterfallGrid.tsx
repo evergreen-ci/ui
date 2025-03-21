@@ -16,7 +16,7 @@ import {
   WaterfallQueryVariables,
 } from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
-import { useAdminBetaFeatures, useUserTimeZone } from "hooks";
+import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
@@ -37,8 +37,15 @@ import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
 
-const resetFilterState: Pick<WaterfallOptions, "requesters" | "variants"> = {
+type ServerFilters = Pick<
+  WaterfallOptions,
+  "requesters" | "statuses" | "tasks" | "variants"
+>;
+
+const resetFilterState: ServerFilters = {
   requesters: undefined,
+  statuses: undefined,
+  tasks: undefined,
   variants: undefined,
 };
 
@@ -57,7 +64,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 }) => {
   useWaterfallTrace();
   const [queryParams, setQueryParams] = useQueryParams();
-  const { adminBetaSettings } = useAdminBetaFeatures();
   const { sendEvent } = useWaterfallAnalytics();
 
   const [pins, setPins] = useState<string[]>(
@@ -103,9 +109,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const timezone = useUserTimeZone() ?? utcTimeZone;
 
   const [serverFilters, setServerFilters] =
-    useState<Pick<WaterfallOptions, "requesters" | "variants">>(
-      resetFilterState,
-    );
+    useState<ServerFilters>(resetFilterState);
 
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
@@ -164,11 +168,19 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   useEffect(() => {
     const hasServerParams =
       Object.keys(allQueryParams).includes(WaterfallFilterOptions.Requesters) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Statuses) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Task) ||
       Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
     if (activeVersionIds.length < VERSION_LIMIT && hasServerParams) {
       const filters = {
-        variants: allQueryParams.buildVariants as string[],
-        requesters: allQueryParams.requesters as string[],
+        requesters: allQueryParams[
+          WaterfallFilterOptions.Requesters
+        ] as string[],
+        statuses: allQueryParams[WaterfallFilterOptions.Statuses] as string[],
+        tasks: allQueryParams[WaterfallFilterOptions.Task] as string[],
+        variants: allQueryParams[
+          WaterfallFilterOptions.BuildVariant
+        ] as string[],
       };
       startTransition(() => {
         setServerFilters(filters);
@@ -239,9 +251,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           );
         })}
       </BuildVariantProvider>
-      {adminBetaSettings?.spruceWaterfallEnabled && (
-        <OnboardingTutorial guideCueRef={guideCueRef} />
-      )}
+      <OnboardingTutorial guideCueRef={guideCueRef} />
     </Container>
   );
 };

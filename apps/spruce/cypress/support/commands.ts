@@ -33,9 +33,9 @@ Cypress.Commands.add(
  * `enterLoginCredentials` is a custom command to enter login credentials
  */
 Cypress.Commands.add("enterLoginCredentials", () => {
-  cy.get("input[name=username]").type(users.admin.username);
-  cy.get("input[name=password]").type(users.admin.password);
-  cy.get("button[id=login-submit]").click();
+  cy.dataCy("login-username").type(users.admin.username);
+  cy.dataCy("login-password").type(users.admin.password);
+  cy.dataCy("login-submit").click();
 });
 
 /* getInputByLabel */

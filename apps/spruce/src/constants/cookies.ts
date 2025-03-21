@@ -13,6 +13,6 @@ export const INCLUDE_COMMIT_QUEUE_PROJECT_PATCHES =
 export const INCLUDE_HIDDEN_PATCHES = "include-hidden-patches";
 export const SLACK_NOTIFICATION_BANNER = "has-closed-slack-banner";
 export const SUBSCRIPTION_METHOD = "subscription-method";
-export const SEEN_WATERFALL_BETA_MODAL = "seen-waterfall-beta-modal";
+export const SEEN_WATERFALL_LAUNCH_MODAL = "seen-waterfall-launch-modal";
 export const SEEN_WATERFALL_ONBOARDING_TUTORIAL =
   "seen-waterfall-onboarding-tutorial";

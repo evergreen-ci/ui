@@ -54,6 +54,6 @@ describe("Viewing a mainline commit", () => {
   it("Clicking on the commits link should take you to that versions waterfall", () => {
     cy.dataCy("bc-waterfall").should("include.text", "evergreen");
     cy.dataCy("bc-waterfall").click();
-    cy.url().should("include", "/commits/evergreen");
+    cy.url().should("include", "/project/evergreen/waterfall");
   });
 });

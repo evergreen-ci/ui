@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
 import { adminSettingsURL } from "constants/externalResources";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
-import { useAuthDispatchContext } from "context/Auth";
 import { UserQuery } from "gql/generated/types";
 import { USER } from "gql/queries";
 import { MenuItemType, NavDropdown } from "./NavDropdown";
@@ -12,7 +12,7 @@ export const UserDropdown = () => {
   const { user } = data || {};
   const { displayName, permissions } = user || {};
 
-  const { logoutAndRedirect } = useAuthDispatchContext();
+  const { logoutAndRedirect } = useAuthProviderContext();
   const { sendEvent } = useNavbarAnalytics();
 
   const menuItems: MenuItemType[] = [
