@@ -6,25 +6,25 @@ import {
   NormalizedCacheObject,
   from,
 } from "@apollo/client";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
   fetchWithRetry,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
-import { useAuthContext } from "context/auth";
 import { logGQLErrorsLink, retryLink } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
-import { graphqlURL, isDevelopmentBuild } from "utils/environmentVariables";
+import { graphqlURL } from "utils/environmentVariables";
 import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 
-export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
-  const { logoutAndRedirect } = useAuthContext();
-  const [gqlClient, setGQLClient] = useState<any>();
+export const useCreateGQLClient = ():
+  | ApolloClient<NormalizedCacheObject>
+  | undefined => {
+  const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
+  const [gqlClient, setGQLClient] =
+    useState<ApolloClient<NormalizedCacheObject>>();
 
-  // SecretFields are not necessary for development builds because nothing is logged.
-  const [secretFields, setSecretFields] = useState<string[] | undefined>(
-    isDevelopmentBuild() ? [] : undefined,
-  );
+  const [secretFields, setSecretFields] = useState<string[]>();
 
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(graphqlURL ?? "", secretFieldsReq)
@@ -43,7 +43,7 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
           logoutAndRedirect();
         }
       });
-  }, [logoutAndRedirect]);
+  }, [logoutAndRedirect, dispatchAuthenticated]);
 
   useEffect(() => {
     if (secretFields && !gqlClient) {

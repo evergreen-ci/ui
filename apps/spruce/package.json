@@ -13,7 +13,7 @@
     "build:profiler:beta": "PROFILER=true PROFILE_HEAD=\"<script src=\"https://localhost:8097\"></script>\" yarn build:beta",
     "build:profiler:local": "PROFILER=true PROFILE_HEAD=\"<script src=\"https://localhost:8097\"></script>\" yarn build:local",
     "build:profiler:staging": "PROFILER=true PROFILE_HEAD=\"<script src=\"https://localhost:8097\"></script>\" yarn build:staging",
-    "check-schema-and-codegen": "vite-node scripts/check-schema-and-codegen/script.ts",
+    "check-schema-and-codegen": "env-cmd -e local vite-node scripts/check-schema-and-codegen/script.ts",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf node_modules && rm -rf dist && yarn install",
     "codegen": "graphql-codegen-esm --config codegen.ts",
@@ -28,6 +28,7 @@
     "eslint:staged": "STRICT=1 eslint",
     "eslint:strict": "STRICT=1 eslint .",
     "evg-db-ops": "../../scripts/evg-db-ops.sh",
+    "postinstall": "yarn workspace @evg-ui/vite-utils run compile",
     "postversion": "yarn deploy-utils-postversion",
     "prepare": "yarn --cwd='../..' prepare",
     "preview": "serve -s dist -p 3000",
@@ -138,6 +139,7 @@
     "@emotion/babel-plugin": "11.12.0",
     "@evg-ui/eslint-config": "*",
     "@evg-ui/lint-staged": "*",
+    "@evg-ui/vite-utils": "*",
     "@evg-ui/storybook-addon": "*",
     "@graphql-codegen/cli": "5.0.5",
     "@graphql-codegen/typescript": "4.1.5",
@@ -188,6 +190,6 @@
     "has-symbols": "^1.0.2"
   },
   "engines": {
-    "node": ">=20.11.0"
+    "node": ">=22.14.0"
   }
 }

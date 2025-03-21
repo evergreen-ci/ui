@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import Icon, { AnimatedIcon, HolidayTree } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
 import { navBarHeight } from "components/styles/Layout";
 import { CURRENT_PROJECT } from "constants/cookies";
@@ -17,7 +18,6 @@ import {
   routes,
   slugs,
 } from "constants/routes";
-import { useAuthStateContext } from "context/Auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
 import { USER, SPRUCE_CONFIG } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
@@ -30,7 +30,7 @@ const { validateObjectId } = validators;
 const { blue, gray, white } = palette;
 
 export const Navbar: React.FC = () => {
-  const { isAuthenticated } = useAuthStateContext();
+  const { isAuthenticated } = useAuthProviderContext();
   const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();
 

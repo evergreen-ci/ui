@@ -12,6 +12,9 @@ export default {
 
     return mergeConfig(config, {
       plugins: [tsconfigPaths()],
+      define: {
+        "process.env": {},
+      },
       resolve: {
         alias: {
           "@leafygreen-ui/emotion": resolve(
