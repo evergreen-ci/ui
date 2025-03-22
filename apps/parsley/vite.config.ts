@@ -12,10 +12,9 @@ import path from "path";
 import { generateBaseHTTPSViteServerConfig } from "@evg-ui/vite-utils";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
-let finalConfig: Record<string, any> = {};
+const useProjectConfig = process.env.VITE_SCRIPT_MODE !== "1";
 
-// Only run this configuration if we are not in script mode
-if (process.env.VITE_SCRIPT_MODE !== "1") {
+const getProjectConfig = () => {
   // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
   dns.setDefaultResultOrder("ipv4first");
 
@@ -125,6 +124,8 @@ if (process.env.VITE_SCRIPT_MODE !== "1") {
       setupFiles: "./config/vitest/setupTests.ts",
     },
   });
-  finalConfig = mergeConfig(viteConfig, vitestConfig);
-}
-export default finalConfig;
+  return mergeConfig(viteConfig, vitestConfig);
+};
+
+// Only run this configuration if we are not in script mode
+export default useProjectConfig ? getProjectConfig() : {};

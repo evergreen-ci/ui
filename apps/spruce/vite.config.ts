@@ -16,10 +16,9 @@ import path from "path";
 import { generateBaseHTTPSViteServerConfig } from "@evg-ui/vite-utils";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
-let finalConfig: Record<string, any> = {};
+const useProjectConfig = process.env.VITE_SCRIPT_MODE !== "1";
 
-// Only run this configuration if we are not in script mode
-if (process.env.VITE_SCRIPT_MODE !== "1") {
+const getProjectConfig = () => {
   const require = createRequire(import.meta.url);
 
   // Remove when https://github.com/cypress-io/cypress/issues/25397 is resolved.
@@ -168,7 +167,8 @@ if (process.env.VITE_SCRIPT_MODE !== "1") {
     },
   });
 
-  finalConfig = mergeConfig(viteConfig, vitestConfig);
-}
+  return mergeConfig(viteConfig, vitestConfig);
+};
 
-export default finalConfig;
+// Only run this configuration if we are not in script mode
+export default useProjectConfig ? getProjectConfig() : {};
