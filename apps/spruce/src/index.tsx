@@ -10,7 +10,7 @@ import { redirectRoutes, routes, slugs } from "constants/routes";
 import {
   getAppVersion,
   getReleaseStage,
-  getUiUrl,
+  getEvergreenUrl,
   isDevelopmentBuild,
 } from "utils/environmentVariables";
 import App from "./App";
@@ -35,7 +35,7 @@ initializeHoneycomb({
   debug: isDevelopmentBuild(),
   endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
   ingestKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
-  backendURL: toEscapedRegex(getUiUrl() || ""),
+  backendURL: toEscapedRegex(getEvergreenUrl() || ""),
   serviceName: "spruce",
   environment: getReleaseStage(),
   appVersion: getAppVersion(),
