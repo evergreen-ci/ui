@@ -5,10 +5,11 @@ import {
   useMemo,
   useState,
 } from "react";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { QueryParams } from "constants/queryParams";
 import useLineRangeSelection from "hooks/useLineRangeSelection";
 import { useQueryParam } from "hooks/useQueryParam";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 
 type MultiLineSelectContextState = {
   handleSelectLine: (selectedLine: number, shiftClick: boolean) => void;
@@ -60,7 +61,7 @@ const MultiLineSelectContextProvider: React.FC<{
   const clearSelection = useCallback(() => {
     setSelectedLines({ endingLine: undefined, startingLine: undefined });
     setMenuPosition(undefined);
-    leaveBreadcrumb("Clear line range", {}, SentryBreadcrumb.UI);
+    leaveBreadcrumb("Clear line range", {}, SentryBreadcrumbTypes.UI);
   }, [setSelectedLines]);
 
   const handleSelectLine = useCallback(
@@ -77,14 +78,14 @@ const MultiLineSelectContextProvider: React.FC<{
             endingLine: selectedLine,
             startingLine: selectedLines.startingLine,
           },
-          SentryBreadcrumb.UI,
+          SentryBreadcrumbTypes.UI,
         );
       } else {
         setSelectedLines({ endingLine: undefined, startingLine: selectedLine });
         leaveBreadcrumb(
           "Set initial line range",
           { endingLine: undefined, startingLine: selectedLine },
-          SentryBreadcrumb.UI,
+          SentryBreadcrumbTypes.UI,
         );
       }
 

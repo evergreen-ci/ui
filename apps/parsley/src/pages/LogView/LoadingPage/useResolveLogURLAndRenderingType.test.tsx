@@ -1,6 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook, waitFor } from "@evg-ui/lib/test_utils";
 import { ApolloMock } from "@evg-ui/lib/test_utils/types";
+import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogTypes } from "constants/enums";
 import {
   TaskFilesQuery,
@@ -15,7 +16,6 @@ import {
   GET_TEST_LOG_URL_AND_RENDERING_TYPE,
   TASK_FILES,
 } from "gql/queries";
-import * as ErrorReporting from "utils/errorReporting";
 import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRenderingType";
 
 describe("useResolveLogURLAndRenderingType", () => {

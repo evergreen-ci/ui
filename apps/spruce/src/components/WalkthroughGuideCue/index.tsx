@@ -2,7 +2,7 @@ import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import styled from "@emotion/styled";
 import { GuideCue } from "@leafygreen-ui/guide-cue";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
-import { reportError } from "utils/errorReporting";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 
 export type WalkthroughStep = {
   title: string;

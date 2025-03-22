@@ -1,5 +1,5 @@
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getEvergreenUrl } from "./environmentVariables";
-import { reportError } from "./errorReporting";
 
 export const post = async (url: string, body: unknown) => {
   try {

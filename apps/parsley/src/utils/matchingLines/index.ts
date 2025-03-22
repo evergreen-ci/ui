@@ -1,6 +1,6 @@
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { CaseSensitivity, FilterLogic, MatchType } from "constants/enums";
 import { Filters } from "types/logs";
-import { reportError } from "utils/errorReporting";
 /**
  * `constructRegexToMatch` constructs an array of regex expressions that represents the current filters
  * being applied.

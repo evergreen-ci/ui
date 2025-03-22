@@ -1,9 +1,9 @@
 import { Unpacked } from "@evg-ui/lib/types/utils";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { ShortenedRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { PodEventsQuery } from "gql/generated/types";
 import { PodEvent } from "types/pod";
-import { reportError } from "utils/errorReporting";
 
 interface EventCopyProps {
   "data-cy": string;

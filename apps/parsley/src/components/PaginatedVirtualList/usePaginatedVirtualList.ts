@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { VirtuosoHandle } from "react-virtuoso";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import usePrevious from "hooks/usePrevious";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import { calculatePageSize, calculateStartingIndex } from "./utils";
 
 interface UsePaginatedVirtualListProps {
@@ -78,7 +79,7 @@ const usePaginatedVirtualList = ({
           paginationThreshold,
           totalPageCount,
         },
-        SentryBreadcrumb.UI,
+        SentryBreadcrumbTypes.UI,
       );
     } else {
       // This setTimeout is necessary because the first scroll doesn't always work
@@ -99,7 +100,7 @@ const usePaginatedVirtualList = ({
           paginationThreshold,
           totalPageCount,
         },
-        SentryBreadcrumb.UI,
+        SentryBreadcrumbTypes.UI,
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -135,7 +136,7 @@ const usePaginatedVirtualList = ({
           paginationThreshold,
           startingIndex,
         },
-        SentryBreadcrumb.UI,
+        SentryBreadcrumbTypes.UI,
       );
       // This setTimeout is necessary to avoid a race condition where the list hasn't finished rendering the next page
       setTimeout(() => {

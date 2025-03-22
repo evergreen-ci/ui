@@ -8,6 +8,10 @@ import {
 } from "@apollo/client";
 import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import {
+  SentryBreadcrumbTypes,
+  leaveBreadcrumb,
+} from "@evg-ui/lib/utils/errorReporting";
+import {
   fetchWithRetry,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
@@ -15,7 +19,6 @@ import { logGQLErrorsLink, retryLink } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
 import { graphqlURL } from "utils/environmentVariables";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 
 export const useCreateGQLClient = ():
   | ApolloClient<NormalizedCacheObject>
@@ -37,7 +40,7 @@ export const useCreateGQLClient = ():
           {
             err,
           },
-          SentryBreadcrumb.HTTP,
+          SentryBreadcrumbTypes.HTTP,
         );
         if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();

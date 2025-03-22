@@ -2,8 +2,8 @@ import { Operation } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { ApolloServerErrorCode } from "@apollo/server/errors";
 import { GraphQLError } from "graphql";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { deleteNestedKey } from "@evg-ui/lib/utils/object";
-import { reportError } from "utils/errorReporting";
 
 export const reportingFn =
   (secretFields: string[], operation: Operation) => (gqlErr: GraphQLError) => {

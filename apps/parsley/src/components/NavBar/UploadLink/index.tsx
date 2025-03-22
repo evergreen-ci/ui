@@ -4,9 +4,10 @@ import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
 import { useLocation, useNavigate } from "react-router-dom";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogDropAnalytics } from "analytics";
 import routes from "constants/routes";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 
 interface UploadLinkProps {
   hasLogs: boolean | null;
@@ -25,7 +26,7 @@ const UploadLink: React.FC<UploadLinkProps> = ({ clearLogs, hasLogs }) => {
       leaveBreadcrumb(
         "upload-link",
         { from: pathname, hasLogs: false, to: "/upload" },
-        SentryBreadcrumb.Navigation,
+        SentryBreadcrumbTypes.Navigation,
       );
       sendEvent({ "has.logs": false, name: "Clicked file upload link" });
       navigate(routes.upload);

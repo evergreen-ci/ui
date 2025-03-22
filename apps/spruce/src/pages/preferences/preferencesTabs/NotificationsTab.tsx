@@ -8,6 +8,7 @@ import { Skeleton } from "antd";
 import isEqual from "lodash.isequal";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import {
@@ -17,7 +18,6 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
 import { string } from "utils";
-import { reportError } from "utils/errorReporting";
 import { NotificationField } from "./notificationTab/NotificationField";
 import { UserSubscriptions } from "./notificationTab/UserSubscriptions";
 

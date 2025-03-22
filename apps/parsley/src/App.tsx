@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import ErrorBoundary from "@evg-ui/lib/components/ErrorBoundary";
 import ProtectedRoute from "@evg-ui/lib/components/ProtectedRoute";
 import { AuthProvider } from "@evg-ui/lib/context/AuthProvider";
 import LoginPage from "@evg-ui/lib/pages/LoginPage";
-import { ErrorBoundary } from "components/ErrorHandling";
 import { GlobalStyles } from "components/styles";
 import routes from "constants/routes";
 import { GlobalProviders } from "context";
 import Content from "pages";
-import { evergreenURL, isLocal } from "utils/environmentVariables";
+import { evergreenURL, isLocal, parsleyURL } from "utils/environmentVariables";
 
 const router = createBrowserRouter([
   {
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => (
-  <ErrorBoundary>
+  <ErrorBoundary homeURL={parsleyURL || ""}>
     <GlobalStyles />
     <AppWrapper>
       <RouterProvider router={router} />

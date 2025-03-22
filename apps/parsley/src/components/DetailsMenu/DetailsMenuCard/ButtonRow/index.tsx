@@ -2,11 +2,12 @@ import { useState } from "react";
 import Button from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { usePreferencesAnalytics } from "analytics";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useQueryParam } from "hooks/useQueryParam";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import { copyToClipboard, getJiraFormat } from "utils/string";
 import { DetailRow } from "../styles";
 
@@ -36,7 +37,7 @@ const ButtonRow: React.FC = () => {
               leaveBreadcrumb(
                 "copy-jira",
                 { bookmarks },
-                SentryBreadcrumb.User,
+                SentryBreadcrumbTypes.User,
               );
               await copyToClipboard(getJiraFormat(bookmarks, getLine));
               setHasCopied(!hasCopied);

@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import Cookies from "js-cookie";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import PaginatedVirtualList from "components/PaginatedVirtualList";
 import { PRETTY_PRINT_BOOKMARKS, WRAP } from "constants/cookies";
@@ -8,7 +10,6 @@ import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useParsleySettings } from "hooks/useParsleySettings";
 import { useQueryParam } from "hooks/useQueryParam";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import { findLineIndex } from "utils/findLineIndex";
 
 interface LogPaneProps {
@@ -40,14 +41,14 @@ const LogPane: React.FC<LogPaneProps> = ({ rowCount, rowRenderer }) => {
           leaveBreadcrumb(
             "Triggered initial scroll",
             { failingLine, initialScrollIndex, shareLine },
-            SentryBreadcrumb.User,
+            SentryBreadcrumbTypes.User,
           );
           scrollToLine(initialScrollIndex);
         } else {
           leaveBreadcrumb(
             "shareLine or failingLine not provided or found in processedLogLines",
             { failingLine, shareLine },
-            SentryBreadcrumb.UI,
+            SentryBreadcrumbTypes.UI,
           );
         }
         // Wrap and pretty print can be enabled after the log pane has initially loaded.

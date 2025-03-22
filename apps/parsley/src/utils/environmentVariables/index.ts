@@ -37,6 +37,7 @@ export {
   graphqlURL,
   logkeeperURL,
   spruceURL,
+  parsleyURL,
   getReleaseStage,
   getSentryDSN,
   parsleyURL,

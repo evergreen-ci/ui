@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { fontSize, size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import LoadingBar from "components/LoadingBar";
 import { LogTypes } from "constants/enums";
 import { getResmokeLogURL } from "constants/logURLTemplates";
@@ -14,7 +16,6 @@ import { useLogDownloader } from "hooks";
 import { useFetch } from "hooks/useFetch";
 import NotFound from "pages/404";
 import { LogkeeperMetadata } from "types/api";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import { getBytesAsString } from "utils/string";
 import { useResolveLogURLAndRenderingType } from "./useResolveLogURLAndRenderingType";
 
@@ -72,7 +73,11 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ logType }) => {
 
   useEffect(() => {
     if (data && !isLoadingLogkeeperMetadata) {
-      leaveBreadcrumb("ingest-log-lines", { logType }, SentryBreadcrumb.UI);
+      leaveBreadcrumb(
+        "ingest-log-lines",
+        { logType },
+        SentryBreadcrumbTypes.UI,
+      );
       setLogMetadata({
         buildID,
         execution: execution || String(logkeeperMetadata?.execution || 0),

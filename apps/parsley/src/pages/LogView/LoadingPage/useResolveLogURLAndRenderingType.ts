@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
   getEvergreenJobLogsURL,
@@ -20,7 +21,6 @@ import {
 } from "gql/generated/types";
 import { GET_TEST_LOG_URL_AND_RENDERING_TYPE, TASK_FILES } from "gql/queries";
 import { useTaskQuery } from "hooks/useTaskQuery";
-import { reportError } from "utils/errorReporting";
 
 interface UseResolveLogURLAndRenderingTypeProps {
   buildID?: string;

@@ -1,6 +1,6 @@
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getTaskRoute } from "constants/routes";
 import { LastMainlineCommitQuery } from "gql/generated/types";
-import { reportError } from "utils/errorReporting";
 import { BaseTask, CommitTask, CommitType } from "./types";
 
 // a link cannot be null, so it's common to use # as a substitute.
