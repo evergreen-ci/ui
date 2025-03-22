@@ -6,6 +6,10 @@ import {
   useReducer,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  SentryBreadcrumbTypes,
+  leaveBreadcrumb,
+} from "../../utils/errorReporting";
 import { fetchWithRetry, getUserStagingHeader } from "../../utils/request";
 
 type AuthProviderDispatchMethods = {
@@ -133,7 +137,11 @@ const AuthProvider: React.FC<{
               headers: getUserStagingHeader(),
             });
           } catch (error) {
-            console.error("Error logging out", error);
+            leaveBreadcrumb(
+              "logoutAndRedirect",
+              { error },
+              SentryBreadcrumbTypes.Error,
+            );
           }
         }
         // Reset auth state.
@@ -150,6 +158,7 @@ const AuthProvider: React.FC<{
        * A helper to mark the user as authenticated in local state.
        */
       dispatchAuthenticated: () => {
+        leaveBreadcrumb("User authenticated", {}, SentryBreadcrumbTypes.User);
         dispatch({ type: "SET_AUTH", payload: true });
       },
     }),
