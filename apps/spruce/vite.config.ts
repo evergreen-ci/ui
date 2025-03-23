@@ -32,7 +32,9 @@ const getProjectConfig = () => {
     port: 3000,
     appURL: process.env.REACT_APP_SPRUCE_URL,
     httpsPort: 8443,
-    useHTTPS: process.env.REACT_APP_RELEASE_STAGE !== "local",
+    useHTTPS:
+      process.env.REACT_APP_RELEASE_STAGE !== "local" &&
+      process.env.NO_HTTPS !== "true",
   });
 
   // https://vitejs.dev/config/

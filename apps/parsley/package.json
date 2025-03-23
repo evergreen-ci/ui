@@ -34,7 +34,7 @@
     "snapshot": "vitest run snapshot.test.ts",
     "staging": "env-cmd -e devStaging vite",
     "start": "vite",
-    "storybook": "storybook dev -p 6007",
+    "storybook": "NO_HTTPS=true storybook dev -p 6007",
     "storybook:build": "env-cmd -e local storybook build",
     "test": "vitest --typecheck=false --exclude=src/snapshot.test.ts"
   },
