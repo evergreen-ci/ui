@@ -92,7 +92,6 @@ const generateBaseHTTPSViteServerConfig = ({
         \x1b[31m*                                                             *\x1b[0m
         \x1b[31m***************************************************************\x1b[0m
       `);
-      // console.error("Error: ", error);
     }
   }
   return serverConfig;
