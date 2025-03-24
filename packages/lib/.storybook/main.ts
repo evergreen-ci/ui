@@ -1,3 +1,4 @@
+import { mergeConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { resolve } from "path";
 
@@ -8,8 +9,6 @@ export default {
   },
   // Specify some Vite config since @evg-ui/lib has no vite.config.ts
   async viteFinal(config) {
-    const { mergeConfig } = await import("vite");
-
     return mergeConfig(config, {
       plugins: [tsconfigPaths()],
       define: {
