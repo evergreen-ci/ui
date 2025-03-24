@@ -90,6 +90,13 @@ export const stringifyNanoseconds = (
   return ">= 1 day";
 };
 
+type WithoutTypename<T> = T extends object
+  ? {
+      [K in keyof T as K extends "__typename" ? never : K]: WithoutTypename<
+        T[K]
+      >;
+    }
+  : T;
 /**
  * `omitTypename` removes the __typename property from an object
  * @param object - the object to remove the __typename property from
@@ -97,8 +104,7 @@ export const stringifyNanoseconds = (
  * @example
  * omitTypename({ __typename: "Task", id: "123" }) // { id: "123" }
  */
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-export const omitTypename = (object) =>
+export const omitTypename = <T>(object: T): WithoutTypename<T> =>
   JSON.parse(JSON.stringify(object), (key, value) =>
     key === "__typename" ? undefined : value,
   );
