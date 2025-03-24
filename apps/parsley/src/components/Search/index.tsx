@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import SearchBar from "components/Search/SearchBar";
 import SearchBarGuideCue from "components/Search/SearchBarGuideCue";
@@ -18,7 +20,6 @@ import { useFilterParam } from "hooks/useFilterParam";
 import { useHighlightParam } from "hooks/useHighlightParam";
 import { useQueryParams } from "hooks/useQueryParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import { stringifyFilters } from "utils/query-string";
 import { validateRegexp } from "utils/validators";
 
@@ -90,7 +91,7 @@ const Search: React.FC = () => {
           leaveBreadcrumb(
             "Added filter",
             { filterExpression: value },
-            SentryBreadcrumb.User,
+            SentryBreadcrumbTypes.User,
           );
         }
         break;
@@ -105,7 +106,7 @@ const Search: React.FC = () => {
           leaveBreadcrumb(
             "Added highlight",
             { highlightExpression: value },
-            SentryBreadcrumb.User,
+            SentryBreadcrumbTypes.User,
           );
         }
         break;
@@ -120,7 +121,7 @@ const Search: React.FC = () => {
     leaveBreadcrumb(
       "Applied search",
       { searchExpression: value },
-      SentryBreadcrumb.User,
+      SentryBreadcrumbTypes.User,
     );
   };
 

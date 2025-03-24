@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { useParsleySettings } from "hooks/useParsleySettings";
-import { reportError } from "utils/errorReporting";
 import {
   SectionData,
   getOpenSectionStateBasedOnLineNumbers,

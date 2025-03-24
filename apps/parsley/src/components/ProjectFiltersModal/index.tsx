@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 import ConfirmationModal from "@leafygreen-ui/confirmation-modal";
 import { Body } from "@leafygreen-ui/typography";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import { useLogContext } from "context/LogContext";
 import {
@@ -13,7 +15,6 @@ import {
 import { PROJECT_FILTERS } from "gql/queries";
 import { useFilterParam } from "hooks/useFilterParam";
 import { useTaskQuery } from "hooks/useTaskQuery";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import ProjectFilter from "./ProjectFilter";
 import useSelectedFiltersState from "./state";
 
@@ -56,7 +57,7 @@ const ProjectFiltersModal: React.FC<ProjectFiltersModalProps> = ({
     leaveBreadcrumb(
       "applied-project-filters",
       { filters: state.selectedFilters },
-      SentryBreadcrumb.User,
+      SentryBreadcrumbTypes.User,
     );
     sendEvent({
       "filter.expressions": state.selectedFilters.map((f) => f.expression),

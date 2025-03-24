@@ -6,8 +6,10 @@ import TextInput from "@leafygreen-ui/text-input";
 import { Skeleton } from "antd";
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
+import { reportError } from "utils/errorReporting";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { usePreferencesAnalytics } from "analytics";
 import { SettingsCard } from "components/SettingsCard";
 import {
@@ -16,7 +18,6 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
-import { reportError } from "utils/errorReporting";
 import { omitTypename } from "utils/object";
 import { NotificationField } from "./notificationTab/NotificationField";
 import { UserSubscriptions } from "./notificationTab/UserSubscriptions";

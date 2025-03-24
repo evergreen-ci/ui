@@ -1,4 +1,5 @@
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 
 type StreamedFileOptions = {
   fileSizeLimit?: number;
@@ -37,7 +38,7 @@ const fileToStream = async (
               leaveBreadcrumb(
                 "File size limit exceeded",
                 { bytesRead },
-                SentryBreadcrumb.UI,
+                SentryBreadcrumbTypes.UI,
               );
               break;
             }

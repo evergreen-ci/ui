@@ -1,13 +1,16 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { H1, H1Props, H2, H2Props } from "@leafygreen-ui/typography";
-import { size } from "@evg-ui/lib/constants/tokens";
-import { getSpruceURL } from "utils/environmentVariables";
+import { size } from "../../../constants/tokens";
 import errorPage from "./errorPage.svg";
 
 const { white } = palette;
 
-const ErrorFallback = () => (
+interface ErrorFallbackProps {
+  /** The URL to direct the user to if they encounter the error fallback */
+  homeURL: string;
+}
+const ErrorFallback: React.FC<ErrorFallbackProps> = ({ homeURL }) => (
   <Center>
     <Text>
       <StyledHeader>Error</StyledHeader>
@@ -15,7 +18,7 @@ const ErrorFallback = () => (
         Ouch! That&apos;s gotta hurt,
         <br /> sorry about that!
       </StyledSubtitle>
-      <StyledLink href={getSpruceURL()}>Back To Home</StyledLink>
+      <StyledLink href={homeURL}>Back To Home</StyledLink>
     </Text>
     <img alt="Error Background" src={errorPage} />
   </Center>

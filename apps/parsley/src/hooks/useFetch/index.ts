@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
+import { leaveBreadcrumb, reportError } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { isProduction } from "utils/environmentVariables";
-import {
-  SentryBreadcrumb,
-  leaveBreadcrumb,
-  reportError,
-} from "utils/errorReporting";
 /**
  * `useFetch` is a custom hook that downloads json from a given URL.
  * @param url - the url to fetch
@@ -28,7 +25,7 @@ const useFetch = <T extends object>(
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    leaveBreadcrumb("useFetch", { url }, SentryBreadcrumb.HTTP);
+    leaveBreadcrumb("useFetch", { url }, SentryBreadcrumbTypes.HTTP);
     const req = new Request(url, { method: "GET" });
     const abortController = new AbortController();
 
@@ -50,7 +47,11 @@ const useFetch = <T extends object>(
           setData(json);
         })
         .catch((err: Error) => {
-          leaveBreadcrumb("useFetch", { err, url }, SentryBreadcrumb.Error);
+          leaveBreadcrumb(
+            "useFetch",
+            { err, url },
+            SentryBreadcrumbTypes.Error,
+          );
           reportError(err).severe();
           setError(err.message);
         })

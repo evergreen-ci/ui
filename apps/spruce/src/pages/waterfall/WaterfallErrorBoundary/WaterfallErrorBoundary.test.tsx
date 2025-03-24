@@ -7,7 +7,7 @@ import "@testing-library/jest-dom";
 import WaterfallErrorBoundary from ".";
 
 // Mock the utility function
-vi.mock("utils/errorReporting", () => ({
+vi.mock("@evg-ui/lib/utils/errorReporting", () => ({
   reportError: vi.fn(() => ({ warning: vi.fn() })),
 }));
 

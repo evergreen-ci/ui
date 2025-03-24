@@ -1,11 +1,11 @@
 import { captureException } from "@sentry/react";
-import { render, screen } from "@evg-ui/lib/test_utils";
-import { ErrorBoundary } from "./ErrorBoundary";
+import { render, screen } from "test_utils";
+import ErrorBoundary from ".";
 
 vi.mock("@sentry/react", async (importOriginal) => {
   const actual = await importOriginal();
   return {
-    // @ts-expect-error
+    // @ts-expect-error Not necessary to mock the entire object for the test.
     ...actual,
     captureException: vi.fn(),
   };
@@ -23,7 +23,7 @@ describe("default error boundary", () => {
   it("should render the passed in component", () => {
     const TestComponent = () => <div>Hello</div>;
     const TestErrorBoundary = () => (
-      <ErrorBoundary>
+      <ErrorBoundary homeURL="/">
         <TestComponent />
       </ErrorBoundary>
     );
@@ -38,7 +38,7 @@ describe("default error boundary", () => {
       throw err;
     };
     const TestErrorBoundary = () => (
-      <ErrorBoundary>
+      <ErrorBoundary homeURL="/">
         <TestComponent />
       </ErrorBoundary>
     );
