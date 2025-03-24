@@ -8,8 +8,12 @@ import { pushToS3 } from "../utils/s3";
  * @param bucket - bucket to push to
  */
 export const buildAndPush = (bucket: string) => {
-  // Disable script mode to let vite build the project
-  execSync("VITE_SCRIPT_MODE=0 yarn build", { stdio: "inherit" });
+  try {
+    // Disable script mode to let vite build the project
+    execSync("VITE_SCRIPT_MODE=0 yarn build", { stdio: "inherit" });
+  } catch (e) {
+    throw new Error("Deployment to S3 failed", { cause: e });
+  }
 
   const currentCommit = getCurrentCommit();
   writeFileSync("dist/commit.txt", currentCommit);
