@@ -14,7 +14,8 @@
     "codegen": "for app in spruce parsley; do yarn workspace $app run codegen; done",
     "prepare": "husky",
     "storybook": "concurrently \"yarn workspace spruce run storybook --no-open\" \"yarn workspace parsley run storybook --no-open\" \"yarn workspace @evg-ui/lib run storybook --no-open\" \"sleep 5 && storybook dev\"",
-    "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts"
+    "test": "vitest --typecheck=false --exclude=./**/snapshot.test.ts",
+    "postinstall": "yarn workspace @evg-ui/vite-utils run compile"
   },
   "resolutions": {
     "@testing-library/dom": "10.1.0",
@@ -24,11 +25,12 @@
   },
   "devDependencies": {
     "@evg-ui/storybook-addon": "*",
-    "@storybook/react-vite": "8.6.4",
+    "@storybook/react-vite": "8.6.7",
     "concurrently": "8.2.2",
     "husky": "9.1.7",
     "lint-staged": "15.2.2",
-    "storybook": "8.6.4",
+    "storybook": "8.6.7",
     "vitest": "2.0.5"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

@@ -2,16 +2,9 @@ import { useTransition } from "react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics";
-import { Requester, requesterToTitle } from "constants/requesters";
+import { requesterToTitle, mainlineRequesters } from "constants/requesters";
 import { useQueryParam } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
-
-const commitRequesters = [
-  Requester.AdHoc,
-  Requester.GitTag,
-  Requester.Gitter,
-  Requester.Trigger,
-];
 
 export const RequesterFilter = () => {
   const { sendEvent } = useWaterfallAnalytics();
@@ -39,7 +32,7 @@ export const RequesterFilter = () => {
       popoverZIndex={zIndex.popover}
       value={requesters}
     >
-      {commitRequesters.map((requester) => (
+      {mainlineRequesters.map((requester) => (
         <ComboboxOption
           key={`${requester}-option`}
           data-cy={`${requester}-option`}
