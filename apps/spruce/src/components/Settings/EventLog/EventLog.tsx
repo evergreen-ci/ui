@@ -5,7 +5,8 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { LoadingButton } from "components/Buttons";
 import { EventDiffTable } from "./EventDiffTable";
 import { Header } from "./Header";
-import { CustomKeyValueRenderConfig, Event } from "./types";
+import { CustomKeyValueRenderConfig } from "./KeyRendererUtils";
+import { Event } from "./types";
 
 type EventLogProps = {
   allEventsFetched: boolean;

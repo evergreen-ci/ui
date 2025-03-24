@@ -6,12 +6,10 @@ import { fontFamilies } from "@leafygreen-ui/tokens";
 import { BaseTable } from "components/Table/BaseTable";
 import { getEventDiffLines } from "./eventLogDiffs";
 import {
+  applyCustomKeyValueRender,
   CustomKeyValueRenderConfig,
-  Event,
-  EventDiffLine,
-  EventValue,
-} from "./types";
-import { applyCustomKeyValueRender } from "./utils";
+} from "./KeyRendererUtils";
+import { Event, EventDiffLine, EventValue } from "./types";
 
 type TableProps = {
   after: Event["after"];
