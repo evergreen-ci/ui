@@ -16,8 +16,6 @@ import path from "path";
 import { generateBaseHTTPSViteServerConfig } from "@evg-ui/vite-utils";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
-const useProjectConfig = process.env.VITE_SCRIPT_MODE !== "1";
-
 const getProjectConfig = () => {
   const require = createRequire(import.meta.url);
 
@@ -172,5 +170,6 @@ const getProjectConfig = () => {
   return mergeConfig(viteConfig, vitestConfig);
 };
 
-// Only run this configuration if we are not in script mode
-export default useProjectConfig ? getProjectConfig() : {};
+/** `useProjectConfig` determines if we are running vite as part of a script using vite-node. If so we should return a bare bones config. */
+const useProjectConfig = process.env.VITE_SCRIPT_MODE !== "1";
+export default useProjectConfig ? getProjectConfig() : defineConfig({});
