@@ -87,7 +87,7 @@ const generateBaseHTTPSViteServerConfig = ({
 
 /**
  * `bareBonesViteConfig` is a utility function that generates a base Vite configuration.
- * It enables the `envCompatible` and `tsconfigPaths` plugins. It is useful for generating a vite config that can be used for vite-node scripts
+ * It enables the`tsconfigPaths` plugin. It is useful for generating a vite config that can be used for vite-node scripts
  */
 const bareBonesViteConfig = defineConfig({
   plugins: [
