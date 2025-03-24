@@ -5,8 +5,8 @@ import { H1, InlineCode } from "@leafygreen-ui/typography";
 import { Navigate } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { getWaterfallRoute } from "constants/routes";
-import { reportError } from "utils/errorReporting";
 import WaterfallSkeleton from "../WaterfallSkeleton";
 
 interface WaterfallErrorBoundaryProps {
