@@ -14,20 +14,17 @@ export const pausePollingLink = new ApolloLink((operation, forward) => {
     return new Observable((observer) => {
       const handleResume = () => {
         if (!document.hidden && navigator.onLine) {
-          document.removeEventListener(VISIBILITY_LISTENER, handleResume);
-          window.removeEventListener(ONLINE_LISTENER, handleResume);
+          document.removeEventListener("visibilitychange", handleResume);
+          window.removeEventListener("online", handleResume);
           forward(operation).subscribe(observer);
         }
       };
-
-      document.addEventListener(VISIBILITY_LISTENER, handleResume);
-      window.addEventListener(ONLINE_LISTENER, handleResume);
+      document.addEventListener("visibilitychange", handleResume);
+      window.addEventListener("online", handleResume);
     });
   }
 
   return forward(operation);
 });
-export const VISIBILITY_LISTENER = "visibilityChangePausePollingLink";
-export const ONLINE_LISTENER = "onlinePausePollingLink";
 
 const pauseableQueries = ["Waterfall"];

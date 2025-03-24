@@ -2,7 +2,6 @@ import { ApolloLink, execute, gql } from "@apollo/client";
 import { Observable } from "@apollo/client/utilities";
 import { waitFor } from "@testing-library/react";
 import { describe, it, beforeEach, afterEach, vi, expect } from "vitest";
-import { VISIBILITY_LISTENER, ONLINE_LISTENER } from "./pausePollingLink";
 import { pausePollingLink } from ".";
 
 const GET_WATERFALL = gql`
@@ -105,7 +104,7 @@ describe("pausePollingLink", () => {
     expect(mockForward).not.toHaveBeenCalled();
 
     documentHiddenSpy.mockReturnValue(false);
-    document.dispatchEvent(new Event(VISIBILITY_LISTENER));
+    document.dispatchEvent(new Event("visibilitychange"));
 
     expect(mockForward).toHaveBeenCalled();
     await waitFor(() => {
@@ -127,7 +126,7 @@ describe("pausePollingLink", () => {
     expect(mockForward).not.toHaveBeenCalled();
 
     navigatorOnlineSpy.mockReturnValue(true);
-    window.dispatchEvent(new Event(ONLINE_LISTENER));
+    window.dispatchEvent(new Event("online"));
 
     expect(mockForward).toHaveBeenCalled();
     await waitFor(() => {
