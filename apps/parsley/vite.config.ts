@@ -9,7 +9,10 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig as defineTestConfig } from "vitest/config";
 import dns from "dns";
 import path from "path";
-import { generateBaseHTTPSViteServerConfig } from "@evg-ui/vite-utils";
+import {
+  generateBaseHTTPSViteServerConfig,
+  bareBonesViteConfig,
+} from "@evg-ui/vite-utils";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 const getProjectConfig = () => {
@@ -129,4 +132,4 @@ const getProjectConfig = () => {
 
 /** `useProjectConfig` determines if we are running vite as part of a script using vite-node. If so we should return a bare bones config. */
 const useProjectConfig = process.env.VITE_SCRIPT_MODE !== "1";
-export default useProjectConfig ? getProjectConfig() : defineConfig({});
+export default useProjectConfig ? getProjectConfig() : bareBonesViteConfig;
