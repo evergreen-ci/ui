@@ -40,5 +40,4 @@ export {
   parsleyURL,
   getReleaseStage,
   getSentryDSN,
-  parsleyURL,
 };
