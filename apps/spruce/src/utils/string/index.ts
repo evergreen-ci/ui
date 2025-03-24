@@ -90,25 +90,6 @@ export const stringifyNanoseconds = (
   return ">= 1 day";
 };
 
-type WithoutTypename<T> = T extends object
-  ? {
-      [K in keyof T as K extends "__typename" ? never : K]: WithoutTypename<
-        T[K]
-      >;
-    }
-  : T;
-/**
- * `omitTypename` removes the __typename property from an object
- * @param object - the object to remove the __typename property from
- * @returns - the object without the __typename property
- * @example
- * omitTypename({ __typename: "Task", id: "123" }) // { id: "123" }
- */
-export const omitTypename = <T>(object: T): WithoutTypename<T> =>
-  JSON.parse(JSON.stringify(object), (key, value) =>
-    key === "__typename" ? undefined : value,
-  );
-
 export type DateCopyOptions = {
   tz?: string;
   dateOnly?: boolean;

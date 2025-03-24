@@ -1,6 +1,6 @@
 import { ParameterInput } from "gql/generated/types";
 import { ConfigurePatchPageTabs } from "types/patch";
-import { omitTypename } from "utils/string";
+import { omitTypename } from "utils/object";
 import { AliasState, VariantTasksState } from "./types";
 
 type ConfigurePatchState = {
