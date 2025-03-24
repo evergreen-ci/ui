@@ -6,6 +6,7 @@ import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 
 export { logGQLToSentryLink } from "./logGQLToSentryLink";
 export { logGQLErrorsLink } from "./logGQLErrorsLink";
+export { pausePollingLink } from "./pausePollingLink";
 
 export const authLink = (logoutAndRedirect: () => void): ApolloLink =>
   onError(({ networkError }) => {

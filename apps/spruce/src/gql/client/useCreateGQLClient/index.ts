@@ -13,6 +13,7 @@ import {
   logGQLToSentryLink,
   logGQLErrorsLink,
   retryLink,
+  pausePollingLink,
 } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
@@ -56,6 +57,7 @@ export const useCreateGQLClient = ():
           .concat(logGQLToSentryLink(secretFields))
           .concat(logGQLErrorsLink(secretFields))
           .concat(retryLink)
+          .concat(pausePollingLink)
           .concat(
             new HttpLink({
               uri: getGQLUrl(),
