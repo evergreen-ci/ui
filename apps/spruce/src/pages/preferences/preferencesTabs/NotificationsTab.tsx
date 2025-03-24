@@ -6,7 +6,6 @@ import TextInput from "@leafygreen-ui/text-input";
 import { Skeleton } from "antd";
 // @ts-expect-error: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
-import { reportError } from "utils/errorReporting";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
