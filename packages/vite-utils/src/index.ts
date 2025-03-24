@@ -46,7 +46,7 @@ const generateBaseHTTPSViteServerConfig = ({
     // Validate that the app url resolves to 127.0.0.1
     dns.lookup(hostURL, (err, address) => {
       if (err || address !== "127.0.0.1") {
-        console.error(`
+        throw new Error(`
     ***************************************************************
     *                                                             *
     *  ERROR: "${hostURL}" must resolve to       *
@@ -54,7 +54,6 @@ const generateBaseHTTPSViteServerConfig = ({
     *                                                             *
     ***************************************************************
       `);
-        throw new Error("Configuration error");
       }
     });
 
@@ -63,7 +62,7 @@ const generateBaseHTTPSViteServerConfig = ({
       !fs.existsSync(path.resolve(sslKeyName)) ||
       !fs.existsSync(path.resolve(sslCertName))
     ) {
-      console.error(`
+      throw new Error(`
     *******************************************************************************************************
     *                                                                                                     *
     *  ERROR: ${sslKeyName} or ${sslCertName} is missing. Did you run                             *
@@ -71,7 +70,6 @@ const generateBaseHTTPSViteServerConfig = ({
     *                                                                                                     *
     *******************************************************************************************************
       `);
-      throw new Error("Configuration error");
     }
 
     serverConfig = {
