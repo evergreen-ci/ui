@@ -38,16 +38,15 @@ const generateBaseHTTPSViteServerConfig = ({
   const isViteInDevMode = process.env.NODE_ENV === "development";
   // If we are running in a remote environment, we need to validate that we have the correct setup
   if (isViteInDevMode && useHTTPS) {
-    try {
-      if (!appURL) {
-        console.error("appURL is required when useHTTPS is true.");
-        throw new Error("Configuration error");
-      }
-      const hostURL = appURL.replace(/https?:\/\//, "");
-      // Validate that the app url resolves to 127.0.0.1
-      dns.lookup(hostURL, (err, address) => {
-        if (err || address !== "127.0.0.1") {
-          console.error(`
+    if (!appURL) {
+      console.error("appURL is required when useHTTPS is true.");
+      throw new Error("Configuration error");
+    }
+    const hostURL = appURL.replace(/https?:\/\//, "");
+    // Validate that the app url resolves to 127.0.0.1
+    dns.lookup(hostURL, (err, address) => {
+      if (err || address !== "127.0.0.1") {
+        console.error(`
     ***************************************************************
     *                                                             *
     *  ERROR: "${hostURL}" must resolve to       *
@@ -55,16 +54,16 @@ const generateBaseHTTPSViteServerConfig = ({
     *                                                             *
     ***************************************************************
       `);
-          throw new Error("Configuration error");
-        }
-      });
+        throw new Error("Configuration error");
+      }
+    });
 
-      // Validate the SSL certificates exist
-      if (
-        !fs.existsSync(path.resolve(sslKeyName)) ||
-        !fs.existsSync(path.resolve(sslCertName))
-      ) {
-        console.error(`
+    // Validate the SSL certificates exist
+    if (
+      !fs.existsSync(path.resolve(sslKeyName)) ||
+      !fs.existsSync(path.resolve(sslCertName))
+    ) {
+      console.error(`
     *******************************************************************************************************
     *                                                                                                     *
     *  ERROR: ${sslKeyName} or ${sslCertName} is missing. Did you run                             *
@@ -72,27 +71,17 @@ const generateBaseHTTPSViteServerConfig = ({
     *                                                                                                     *
     *******************************************************************************************************
       `);
-        throw new Error("Configuration error");
-      }
-
-      serverConfig = {
-        host: hostURL,
-        port: httpsPort,
-        https: {
-          key: fs.readFileSync(path.resolve(sslKeyName)),
-          cert: fs.readFileSync(path.resolve(sslCertName)),
-        },
-      };
-    } catch (error) {
-      console.error(`
-        \x1b[31m***************************************************************\x1b[0m
-        \x1b[31m*                                                             *\x1b[0m
-        \x1b[31m*  ERROR: Remote environment setup failed.                    *\x1b[0m
-        \x1b[31m*  Defaulting to local environment setup.                     *\x1b[0m
-        \x1b[31m*                                                             *\x1b[0m
-        \x1b[31m***************************************************************\x1b[0m
-      `);
+      throw new Error("Configuration error");
     }
+
+    serverConfig = {
+      host: hostURL,
+      port: httpsPort,
+      https: {
+        key: fs.readFileSync(path.resolve(sslKeyName)),
+        cert: fs.readFileSync(path.resolve(sslCertName)),
+      },
+    };
   }
   return serverConfig;
 };
