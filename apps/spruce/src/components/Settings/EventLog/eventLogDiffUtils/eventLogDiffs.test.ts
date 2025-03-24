@@ -1,6 +1,6 @@
-import { Subset } from "@evg-ui/lib/types/utils";
 import { ProjectEventSettings } from "gql/generated/types";
-import { formatArrayElements, getEventDiffLines } from "./eventLogDiffs";
+import { Subset } from "@evg-ui/lib/types/utils";
+import { getEventDiffLines } from ".";
 
 const beforeAddition: Subset<ProjectEventSettings> = {
   __typename: "ProjectEventSettings",
@@ -147,19 +147,5 @@ describe("should transform event diffs to key, before and after", () => {
         after: undefined,
       },
     ]);
-  });
-});
-
-describe("formatArrayElements", () => {
-  it("matches on numbers indicating array position", () => {
-    expect(formatArrayElements("foo.1.bar")).toEqual("foo[1].bar");
-  });
-
-  it("matches on array elements that end the string", () => {
-    expect(formatArrayElements("admins.1")).toEqual("admins[1]");
-  });
-
-  it("does not match on numbers in variable names", () => {
-    expect(formatArrayElements("foo.test123")).toEqual("foo.test123");
   });
 });

@@ -4,16 +4,17 @@ import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { BaseTable } from "components/Table/BaseTable";
-import { getEventDiffLines } from "./eventLogDiffs";
+import { JSONObject, JSONValue } from "utils/object/types";
+import { getEventDiffLines } from "./eventLogDiffUtils";
 import {
   applyCustomKeyValueRender,
   CustomKeyValueRenderConfig,
 } from "./KeyRendererUtils";
-import { Event, EventDiffLine, EventValue } from "./types";
+import { EventDiffLine } from "./types";
 
 type TableProps = {
-  after: Event["after"];
-  before: Event["before"];
+  after?: JSONObject;
+  before?: JSONObject;
   customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
@@ -54,7 +55,7 @@ const CellText = styled.span`
   word-break: break-all;
 `;
 
-const renderEventValue = (value: EventValue): string => {
+const renderEventValue = (value: JSONValue): string => {
   if (value === null || value === undefined) {
     return "";
   }
@@ -67,7 +68,7 @@ const renderEventValue = (value: EventValue): string => {
   }
 
   if (typeof value === "number") {
-    return value;
+    return value.toString();
   }
 
   if (Array.isArray(value)) {
@@ -93,7 +94,7 @@ const columns = (
       <CellText>
         {applyCustomKeyValueRender(
           row.original.key,
-          renderEventValue(getValue() as EventValue),
+          renderEventValue(getValue() as JSONValue),
           customKeyValueRenderConfig,
         )}
       </CellText>
@@ -110,7 +111,7 @@ const columns = (
           {" "}
           {applyCustomKeyValueRender(
             row.original.key,
-            renderEventValue(getValue() as EventValue),
+            renderEventValue(getValue() as JSONValue),
             customKeyValueRenderConfig,
           )}
         </CellText>

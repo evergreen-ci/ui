@@ -1,3 +1,5 @@
+import { JSONValue } from "./types";
+
 /**
  * `omit` is a utility function that removes the supplied key(s) from an object.
  * @param obj - The object to process.
@@ -13,11 +15,6 @@ export const omit = <T extends object, K extends [...(keyof T)[]]>(
   params.forEach((param) => delete newObj[param]);
   return newObj as Omit<T, K[number]>;
 };
-
-type Primitive = string | number | boolean | null | undefined;
-type JSONObject = { [key: string]: JSONValue };
-type JSONArray = JSONValue[];
-export type JSONValue = Primitive | JSONArray | JSONObject;
 
 /** Convert a dot-separated path string into a tuple type */
 type StringToPath<S extends string> = S extends `${infer Head}.${infer Rest}`
@@ -39,7 +36,7 @@ type PathValue<T, P extends readonly string[]> = P extends [
           ? PathValue<T[number], Tail>
           : T[number]
         : undefined
-      : undefined
+      : JSONValue
   : T;
 
 /**
