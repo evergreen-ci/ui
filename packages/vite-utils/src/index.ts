@@ -1,4 +1,5 @@
-import { ServerOptions } from "vite";
+import { ServerOptions, defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 import dns from "dns";
 import * as fs from "fs";
 import path from "path";
@@ -84,4 +85,14 @@ const generateBaseHTTPSViteServerConfig = ({
   return serverConfig;
 };
 
-export { generateBaseHTTPSViteServerConfig };
+/**
+ * `bareBonesViteConfig` is a utility function that generates a base Vite configuration.
+ * It enables the`tsconfigPaths` plugin. It is useful for generating a vite config that can be used for vite-node scripts
+ */
+const bareBonesViteConfig = defineConfig({
+  plugins: [
+    // This plugin allows you to use paths from your tsconfig.json in your Vite project
+    tsconfigPaths(),
+  ],
+});
+export { generateBaseHTTPSViteServerConfig, bareBonesViteConfig };
