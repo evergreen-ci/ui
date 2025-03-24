@@ -36,22 +36,24 @@ const generateBaseHTTPSViteServerConfig = ({
   };
 
   const isViteInDevMode = process.env.NODE_ENV === "development";
-
   // If we are running in a remote environment, we need to validate that we have the correct setup
   if (isViteInDevMode && useHTTPS) {
+    if (!appURL) {
+      console.error("appURL is required when useHTTPS is true.");
+      throw new Error("Configuration error");
+    }
     const hostURL = appURL.replace(/https?:\/\//, "");
     // Validate that the app url resolves to 127.0.0.1
     dns.lookup(hostURL, (err, address) => {
       if (err || address !== "127.0.0.1") {
-        console.error(`
+        throw new Error(`
     ***************************************************************
     *                                                             *
-    *  ERROR: ${hostURL} must resolve to       *
+    *  ERROR: "${hostURL}" must resolve to       *
     *  127.0.0.1. Did you update your /etc/hosts file?            *
     *                                                             *
     ***************************************************************
       `);
-        process.exit(1);
       }
     });
 
@@ -60,7 +62,7 @@ const generateBaseHTTPSViteServerConfig = ({
       !fs.existsSync(path.resolve(sslKeyName)) ||
       !fs.existsSync(path.resolve(sslCertName))
     ) {
-      console.error(`
+      throw new Error(`
     *******************************************************************************************************
     *                                                                                                     *
     *  ERROR: ${sslKeyName} or ${sslCertName} is missing. Did you run                             *
@@ -68,7 +70,6 @@ const generateBaseHTTPSViteServerConfig = ({
     *                                                                                                     *
     *******************************************************************************************************
       `);
-      process.exit(1);
     }
 
     serverConfig = {

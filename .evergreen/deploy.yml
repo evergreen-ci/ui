@@ -26,7 +26,7 @@ functions:
           - REACT_APP_PARSLEY_SENTRY_DSN
           - REACT_APP_SPRUCE_SENTRY_DSN
           - REACT_APP_SPRUCE_URL
-          - REACT_APP_UI_URL
+          - REACT_APP_EVERGREEN_URL
           - REACT_APP_USER_KEY
           - SPRUCE_SENTRY_AUTH_TOKEN
         env:
