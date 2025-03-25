@@ -5,12 +5,12 @@ import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { BaseTable } from "components/Table/BaseTable";
 import { JSONObject, JSONValue } from "utils/object/types";
-import { getEventDiffLines } from "./eventLogDiffUtils";
+import { getEventDiffLines } from "../eventLogDiffUtils";
 import {
   applyCustomKeyValueRender,
   CustomKeyValueRenderConfig,
-} from "./KeyRendererUtils";
-import { EventDiffLine } from "./types";
+} from "../KeyRendererUtils";
+import { EventDiffLine } from "../types";
 
 type TableProps = {
   after?: JSONObject;
@@ -18,7 +18,7 @@ type TableProps = {
   customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
-export const EventDiffTable: React.FC<TableProps> = ({
+const EventDiffTable: React.FC<TableProps> = ({
   after,
   before,
   customKeyValueRenderConfig,
@@ -118,3 +118,5 @@ const columns = (
       ),
   },
 ];
+
+export default EventDiffTable;
