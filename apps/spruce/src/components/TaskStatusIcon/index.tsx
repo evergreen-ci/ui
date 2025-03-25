@@ -3,7 +3,7 @@ import { IconProps } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { SQUARE_SIZE, taskStatusStyleMap } from "pages/waterfall/styles";
+import { SQUARE_SIZE, taskStatusStyleMap } from "components/TaskBox";
 import { reportError } from "utils/errorReporting";
 
 const { gray, green, purple, red, white, yellow } = palette;

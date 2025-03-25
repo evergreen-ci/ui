@@ -312,6 +312,12 @@ export type CreateProjectInput = {
   repoRefId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type CursorParams = {
+  after?: InputMaybe<Scalars["String"]["input"]>;
+  before?: InputMaybe<Scalars["String"]["input"]>;
+  includeCursor: Scalars["Boolean"]["input"];
+};
+
 /** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
 export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
@@ -2210,6 +2216,7 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]["output"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
+  taskHistory: TaskHistory;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]["output"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
@@ -2337,6 +2344,10 @@ export type QueryTaskArgs = {
 
 export type QueryTaskAllExecutionsArgs = {
   taskId: Scalars["String"]["input"];
+};
+
+export type QueryTaskHistoryArgs = {
+  options: TaskHistoryOpts;
 };
 
 export type QueryTaskNamesForBuildVariantArgs = {
@@ -2932,6 +2943,27 @@ export type TaskFilterOptions = {
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   taskName?: InputMaybe<Scalars["String"]["input"]>;
   variant?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type TaskHistory = {
+  __typename?: "TaskHistory";
+  pagination: TaskHistoryPagination;
+  tasks: Array<Task>;
+};
+
+export type TaskHistoryOpts = {
+  buildVariant: Scalars["String"]["input"];
+  cursorParams?: InputMaybe<CursorParams>;
+  date?: InputMaybe<Scalars["Time"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  projectIdentifier: Scalars["String"]["input"];
+  taskName: Scalars["String"]["input"];
+};
+
+export type TaskHistoryPagination = {
+  __typename?: "TaskHistoryPagination";
+  mostRecentTaskOrder: Scalars["Int"]["output"];
+  oldestTaskOrder: Scalars["Int"]["output"];
 };
 
 export type TaskInfo = {
@@ -8856,6 +8888,25 @@ export type TaskFilesQuery = {
       }>;
     };
   } | null;
+};
+
+export type TaskHistoryQueryVariables = Exact<{
+  options: TaskHistoryOpts;
+}>;
+
+export type TaskHistoryQuery = {
+  __typename?: "Query";
+  taskHistory: {
+    __typename?: "TaskHistory";
+    tasks: Array<{
+      __typename?: "Task";
+      id: string;
+      order: number;
+      displayStatus: string;
+      execution: number;
+      activated: boolean;
+    }>;
+  };
 };
 
 export type TaskLogsQueryVariables = Exact<{

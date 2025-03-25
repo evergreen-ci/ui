@@ -171,7 +171,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ isDisplayTask, task }) => {
         }
       >
         {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
-        <TaskHistory execution={execution} taskId={id} />
+        <TaskHistory task={task} />
       </Tab>
     ),
   };

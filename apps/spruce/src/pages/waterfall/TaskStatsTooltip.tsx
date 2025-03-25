@@ -9,6 +9,7 @@ import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Divider } from "components/styles";
 import { PopoverContainer } from "components/styles/Popover";
+import { SQUARE_SIZE, taskStatusStyleMap } from "components/TaskBox";
 import {
   WaterfallTaskStatsQuery,
   WaterfallTaskStatsQueryVariables,
@@ -16,7 +17,6 @@ import {
 import { WATERFALL_TASK_STATS } from "gql/queries";
 import { useOnClickOutside } from "hooks";
 import { walkthroughSteps, waterfallGuideId } from "./constants";
-import { SQUARE_SIZE, taskStatusStyleMap } from "./styles";
 import { Version } from "./types";
 
 export const TaskStatsTooltip: React.FC<

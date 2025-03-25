@@ -4,13 +4,13 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
-import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
+import { SQUARE_SIZE, SQUARE_BORDER, TaskBox } from "components/TaskBox";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
@@ -26,8 +26,6 @@ import {
   gridGroupCss,
   InactiveVersion,
   Row,
-  SQUARE_SIZE,
-  taskStatusStyleMap,
 } from "./styles";
 import { Build, BuildVariant, GroupedVersion } from "./types";
 
@@ -217,7 +215,7 @@ const BuildGrid: React.FC<{
 
 const padding = spacing[200];
 const border = 1;
-const squareWithBorder = SQUARE_SIZE + border * 2;
+const squareWithBorder = SQUARE_SIZE + SQUARE_BORDER * 2;
 const containerPaddingAndBorder = padding * 2 + border * 2;
 
 const calculateBVContainerHeight = ({
@@ -249,17 +247,9 @@ const StyledIconButton = styled(IconButton)`
   ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
 
-const Square = styled(Link)<{ isRightmostBuild: boolean; status: TaskStatus }>`
-  width: ${SQUARE_SIZE}px;
-  height: ${SQUARE_SIZE}px;
-  border: 1px solid ${white};
-  box-sizing: content-box;
-  float: left;
-  cursor: pointer;
-  position: relative;
-
-  ${({ status }) => taskStatusStyleMap[status]}
-
+const Square = styled(TaskBox)<{
+  isRightmostBuild: boolean;
+}>`
   /* Tooltip */
   :before {
     content: attr(data-tooltip);

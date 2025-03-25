@@ -67,6 +67,7 @@ import SYSTEM_LOGS from "./system-logs.graphql";
 import TASK_ALL_EXECUTIONS from "./task-all-executions.graphql";
 import TASK_EVENT_LOGS from "./task-event-logs.graphql";
 import TASK_FILES from "./task-files.graphql";
+import TASK_HISTORY from "./task-history.graphql";
 import TASK_LOGS from "./task-logs.graphql";
 import TASK_NAMES_FOR_BUILD_VARIANT from "./task-names-for-build-variant.graphql";
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
@@ -162,9 +163,11 @@ export {
   SPRUCE_CONFIG,
   SUBNET_AVAILABILITY_ZONES,
   SYSTEM_LOGS,
+  TASK,
   TASK_ALL_EXECUTIONS,
   TASK_EVENT_LOGS,
   TASK_FILES,
+  TASK_HISTORY,
   TASK_LOGS,
   TASK_NAMES_FOR_BUILD_VARIANT,
   TASK_QUEUE_DISTROS,
@@ -172,7 +175,6 @@ export {
   TASK_TESTS_FOR_JOB_LOGS,
   TASK_TEST_SAMPLE,
   TASK_TESTS,
-  TASK,
   TEST_ANALYSIS,
   UNSCHEDULED_TASKS,
   USER_BETA_FEATURES,
