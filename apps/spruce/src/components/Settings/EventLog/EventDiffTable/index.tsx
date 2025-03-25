@@ -5,11 +5,11 @@ import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { BaseTable } from "components/Table/BaseTable";
 import { JSONObject, JSONValue } from "utils/object/types";
+import { EventDiffLine } from "../types";
 import {
   applyCustomKeyValueRender,
   CustomKeyValueRenderConfig,
-} from "../KeyRendererUtils";
-import { EventDiffLine } from "../types";
+} from "./KeyRendererUtils";
 import { getEventDiffLines } from "./utils";
 
 type TableProps = {
