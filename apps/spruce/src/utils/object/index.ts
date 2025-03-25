@@ -86,3 +86,14 @@ export const omitTypename = <T>(object: T): WithoutTypename<T> =>
   JSON.parse(JSON.stringify(object), (key, value) =>
     key === "__typename" ? undefined : value,
   );
+
+/**
+ * `isObject` is a type guard that checks if a value is an object and not an array.
+ * @param val - The value to check.
+ * @returns - A boolean indicating if the value is an object.
+ * @example isObject({}) => true
+ * @example isObject([]) => false
+ * @example isObject(null) => false
+ */
+export const isObject = (val: unknown): val is Record<string, unknown> =>
+  val !== null && typeof val === "object" && !Array.isArray(val);

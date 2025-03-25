@@ -1,4 +1,4 @@
-import { omit, getObjectValueByPath, omitTypename } from "utils/object";
+import { omit, getObjectValueByPath, omitTypename, isObject } from ".";
 
 describe("omit", () => {
   it("returns an object without the supplied key(s)", () => {
@@ -160,5 +160,17 @@ describe("omitTypename", () => {
         ],
       },
     });
+  });
+});
+
+describe("isObject", () => {
+  it("returns true for objects", () => {
+    expect(isObject({})).toBe(true);
+    expect(isObject({ a: 1 })).toBe(true);
+  });
+  it("returns false for non objects", () => {
+    expect(isObject([])).toBe(false);
+    expect(isObject(null)).toBe(false);
+    expect(isObject(undefined)).toBe(false);
   });
 });
