@@ -32,13 +32,6 @@ const EventLog: React.FC<EventLogProps> = ({
     <Container data-cy="event-log">
       {events.map((event) => {
         const { after, before, timestamp, user } = event;
-        console.log("EventLog");
-        console.log("before", before as any);
-        console.log("after", after as any);
-        console.log(
-          "match",
-          JSON.stringify(before, null, 2) === JSON.stringify(after, null, 2),
-        );
         return (
           <EventLogCard key={`event_log_${timestamp}`} data-cy="event-log-card">
             <Header timestamp={timestamp} user={user} />
