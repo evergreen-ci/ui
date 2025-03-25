@@ -2,12 +2,13 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import ProjectFiltersModal from "components/ProjectFiltersModal";
 import { CaseSensitivity, MatchType } from "constants/enums";
 import { useFilterParam } from "hooks/useFilterParam";
 import { Filter } from "types/logs";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import BaseNavGroup from "../BaseNavGroup";
 import FilterGroup from "./FilterGroup";
 
@@ -34,7 +35,7 @@ const FilterNavGroup: React.FC<FilterNavGroupProps> = ({
     leaveBreadcrumb(
       "delete-filter",
       { filterExpression },
-      SentryBreadcrumb.User,
+      SentryBreadcrumbTypes.User,
     );
     sendEvent({
       "filter.expression": filterExpression,
@@ -66,7 +67,7 @@ const FilterNavGroup: React.FC<FilterNavGroupProps> = ({
     leaveBreadcrumb(
       "edit-filter",
       { fieldName, fieldValue, filterExpression: filter.expression },
-      SentryBreadcrumb.User,
+      SentryBreadcrumbTypes.User,
     );
     sendEvent({
       after: newFilters[idxToReplace],

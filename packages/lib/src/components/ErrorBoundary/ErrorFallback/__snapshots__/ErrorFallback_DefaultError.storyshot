@@ -1,0 +1,36 @@
+<div>
+  <div
+    style="height: 100%; width: 100%;"
+  >
+    <div
+      class="css-157odwz"
+    >
+      <div
+        class="css-1xl0rym"
+      >
+        <h1
+          class="css-1t9xarj leafygreen-ui-r0ky5x"
+        >
+          Error
+        </h1>
+        <h2
+          class="css-1t9xarj leafygreen-ui-oaqrgz"
+        >
+          Ouch! That's gotta hurt,
+          <br />
+           sorry about that!
+        </h2>
+        <a
+          class="css-fp08na"
+          href="/"
+        >
+          Back To Home
+        </a>
+      </div>
+      <img
+        alt="Error Background"
+        src="/src/components/ErrorBoundary/ErrorFallback/errorPage.svg"
+      />
+    </div>
+  </div>
+</div>

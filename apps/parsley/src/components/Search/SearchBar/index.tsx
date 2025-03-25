@@ -9,11 +9,12 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { TextInputWithGlyph } from "@evg-ui/lib/components/TextInputWithGlyph";
 import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
 import { size, textInputHeight, zIndex } from "@evg-ui/lib/constants/tokens";
+import { leaveBreadcrumb } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogWindowAnalytics } from "analytics";
 import { SearchBarActions } from "constants/enums";
 import { DIRECTION } from "context/LogContext/types";
 import { useKeyboardShortcut } from "hooks";
-import { SentryBreadcrumb, leaveBreadcrumb } from "utils/errorReporting";
 import SearchPopover from "./SearchPopover";
 
 const { red } = palette;
@@ -77,7 +78,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   const handleChangeSelect = (value: string) => {
     setSelected(value as SearchBarActions);
-    leaveBreadcrumb("search-bar-select", { value }, SentryBreadcrumb.User);
+    leaveBreadcrumb("search-bar-select", { value }, SentryBreadcrumbTypes.User);
   };
 
   const handleOnSubmit = () => {
@@ -87,7 +88,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     leaveBreadcrumb(
       "search-bar-submit",
       { input, selected },
-      SentryBreadcrumb.User,
+      SentryBreadcrumbTypes.User,
     );
     onSubmit(selected, input);
   };
@@ -155,7 +156,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               leaveBreadcrumb(
                 "applied-search-suggestion",
                 { suggestion },
-                SentryBreadcrumb.User,
+                SentryBreadcrumbTypes.User,
               );
             }}
             searchSuggestions={searchSuggestions}

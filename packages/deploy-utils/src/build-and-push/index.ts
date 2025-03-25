@@ -8,7 +8,8 @@ import { pushToS3 } from "../utils/s3";
  * @param bucket - bucket to push to
  */
 export const buildAndPush = (bucket: string) => {
-  execSync("yarn build", { stdio: "inherit" });
+  // Disable script mode to let vite build the project
+  execSync("VITE_SCRIPT_MODE=0 yarn build", { stdio: "inherit" });
 
   const currentCommit = getCurrentCommit();
   writeFileSync("dist/commit.txt", currentCommit);

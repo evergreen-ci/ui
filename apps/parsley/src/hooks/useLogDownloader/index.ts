@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { leaveBreadcrumb, reportError } from "@evg-ui/lib/utils/errorReporting";
+import { SentryBreadcrumbTypes } from "@evg-ui/lib/utils/sentry/types";
 import { useLogDownloadAnalytics } from "analytics";
 import { LogTypes } from "constants/enums";
 import {
@@ -9,11 +11,6 @@ import {
 import { LOG_FILE_SIZE_LIMIT } from "constants/logs";
 import useStateRef from "hooks/useStateRef";
 import { isProduction } from "utils/environmentVariables";
-import {
-  SentryBreadcrumb,
-  leaveBreadcrumb,
-  reportError,
-} from "utils/errorReporting";
 import { fetchLogFile } from "utils/fetchLogFile";
 import { getBytesAsString } from "utils/string";
 
@@ -50,7 +47,7 @@ const useLogDownloader = ({
   const dispatchToast = useToastContext();
 
   useEffect(() => {
-    leaveBreadcrumb("useLogDownloader", { url }, SentryBreadcrumb.HTTP);
+    leaveBreadcrumb("useLogDownloader", { url }, SentryBreadcrumbTypes.HTTP);
     const abortController = new AbortController();
     const timeStart = Date.now();
 
@@ -119,7 +116,7 @@ const useLogDownloader = ({
               fileSize: getFileSize(),
               url,
             },
-            SentryBreadcrumb.Error,
+            SentryBreadcrumbTypes.Error,
           );
           reportError(err).warning();
           setError(err.message);
@@ -138,7 +135,7 @@ const useLogDownloader = ({
               time: Date.now() - timeStart,
               url,
             },
-            SentryBreadcrumb.HTTP,
+            SentryBreadcrumbTypes.HTTP,
           );
           sendEvent({
             duration: Date.now() - timeStart,

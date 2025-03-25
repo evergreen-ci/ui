@@ -4,17 +4,17 @@ import { palette } from "@leafygreen-ui/palette";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import {
+  SentryBreadcrumbTypes,
+  leaveBreadcrumb,
+  reportError,
+} from "@evg-ui/lib/utils/errorReporting";
 import { useLogDropAnalytics } from "analytics";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import { LOG_LINE_TOO_LARGE_WARNING } from "constants/errors";
 import { LOG_FILE_SIZE_LIMIT, LOG_LINE_SIZE_LIMIT } from "constants/logs";
 import { useLogContext } from "context/LogContext";
 import useClipboardPaste from "hooks/useClipboardPaste";
-import {
-  SentryBreadcrumb,
-  leaveBreadcrumb,
-  reportError,
-} from "utils/errorReporting";
 import { fileToStream } from "utils/file";
 import { decodeStream } from "utils/streams";
 import { LogDropType } from "./constants";
@@ -34,7 +34,7 @@ const FileDropper: React.FC = () => {
 
   const onDropAccepted = useCallback(
     (acceptedFiles: File[]) => {
-      leaveBreadcrumb("Dropped file", {}, SentryBreadcrumb.User);
+      leaveBreadcrumb("Dropped file", {}, SentryBreadcrumbTypes.User);
       sendEvent({ name: "Used file dropper to upload file" });
       dispatch({ file: acceptedFiles[0], type: "DROPPED_FILE" });
     },
@@ -57,7 +57,7 @@ const FileDropper: React.FC = () => {
   );
 
   const onClipboardPaste = useCallback((text: string) => {
-    leaveBreadcrumb("Pasted text", {}, SentryBreadcrumb.User);
+    leaveBreadcrumb("Pasted text", {}, SentryBreadcrumbTypes.User);
     sendEvent({ name: "Used clipboard paste to upload log file" });
     dispatch({ text, type: "PASTED_TEXT" });
   }, []);
@@ -72,7 +72,7 @@ const FileDropper: React.FC = () => {
           logType,
           renderingType,
         });
-        leaveBreadcrumb("Parsing file", { logType }, SentryBreadcrumb.UI);
+        leaveBreadcrumb("Parsing file", { logType }, SentryBreadcrumbTypes.UI);
         dispatch({ type: "PARSE_FILE" });
         startTransition(() => {
           (async () => {
@@ -88,7 +88,7 @@ const FileDropper: React.FC = () => {
                     leaveBreadcrumb(
                       "Decoded file",
                       { fileSize: logLines.length },
-                      SentryBreadcrumb.UI,
+                      SentryBreadcrumbTypes.UI,
                     );
                     sendEvent({
                       "file.size": logLines?.length,
