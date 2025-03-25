@@ -1,6 +1,6 @@
 import { Unpacked } from "@evg-ui/lib/types/utils";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { LastMainlineCommitQuery } from "gql/generated/types";
-import { reportError } from "utils/errorReporting";
 
 // The return value from GetLastMainlineCommitQuery has a lot of nested fields that may or may
 // not exist. The logic to extract the task from it is written in this function.
