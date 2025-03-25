@@ -7,6 +7,7 @@ describe("formatArrayElements", () => {
 
   it("matches on array elements that end the string", () => {
     expect(formatArrayElements("admins.1")).toEqual("admins[1]");
+    expect(formatArrayElements("admins.12")).toEqual("admins[12]");
   });
 
   it("does not match on numbers in variable names", () => {

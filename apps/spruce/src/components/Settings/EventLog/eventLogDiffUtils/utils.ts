@@ -41,6 +41,6 @@ const getDiffProperties = (eventObj: unknown): string[] => {
  * @example formatArrayElements("a.b.1.c") => "a.b[1].c"
  */
 const formatArrayElements = (eventKey: string): string =>
-  eventKey.replace(/\.[0-9]/g, (x) => `[${x[1]}]`);
+  eventKey.replace(/\.(\d+)/g, (_, digits) => `[${digits}]`);
 
 export { getDiffProperties, formatArrayElements };
