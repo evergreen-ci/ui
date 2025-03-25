@@ -1,10 +1,4 @@
-/**
- * `isObject` is a type guard that checks if a value is an object.
- * @param val - The value to check.
- * @returns - A boolean indicating if the value is an object.
- */
-const isObject = (val: unknown): val is Record<string, unknown> =>
-  val !== null && typeof val === "object" && !Array.isArray(val);
+import { isObject } from "utils/object";
 
 /**
  * `addDelimiter` is a helper function that adds a delimiter between two strings. If the first string is empty, it returns the second string.
@@ -15,11 +9,11 @@ const isObject = (val: unknown): val is Record<string, unknown> =>
 const addDelimiter = (a: string, b: string): string => (a ? `${a}.${b}` : b);
 
 /**
- * `getDiffProperties` walks the object returned by `deep-object-diff` and returns an array of strings representing the paths to the changed properties.
+ * `getChangedPaths` walks the object returned by `deep-object-diff` and returns an array of strings representing the paths to the changed properties.
  * @param eventObj - The object returned by `deep-object-diff`.
  * @returns - An array of strings representing the paths to the changed properties.
  */
-const getDiffProperties = (eventObj: unknown): string[] => {
+const getChangedPaths = (eventObj: unknown): string[] => {
   if (!isObject(eventObj)) {
     return [];
   }
@@ -43,4 +37,4 @@ const getDiffProperties = (eventObj: unknown): string[] => {
 const formatArrayElements = (eventKey: string): string =>
   eventKey.replace(/\.(\d+)/g, (_, digits) => `[${digits}]`);
 
-export { getDiffProperties, formatArrayElements };
+export { getChangedPaths, formatArrayElements };

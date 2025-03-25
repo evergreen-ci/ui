@@ -2,7 +2,7 @@ import { diff } from "deep-object-diff";
 import { omitTypename, getObjectValueByPath } from "utils/object";
 import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../types";
-import { formatArrayElements, getDiffProperties } from "./utils";
+import { formatArrayElements, getChangedPaths } from "./utils";
 
 /**
  * `getEventDiffLines` is a utility function that returns an array of objects representing the differences between two objects.
@@ -18,7 +18,7 @@ export const getEventDiffLines = (
   const afterNoTypename = omitTypename(after);
 
   const eventDiff = diff(beforeNoTypename || {}, afterNoTypename || {});
-  const pathKeys: string[] = getDiffProperties(eventDiff);
+  const pathKeys: string[] = getChangedPaths(eventDiff);
   const eventDiffLines = pathKeys.map((key) => {
     let previousValue = beforeNoTypename;
     if (beforeNoTypename !== null && beforeNoTypename !== undefined) {
