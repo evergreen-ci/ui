@@ -1,5 +1,5 @@
-import { ProjectEventSettings } from "gql/generated/types";
 import { Subset } from "@evg-ui/lib/types/utils";
+import { ProjectEventSettings } from "gql/generated/types";
 import { getEventDiffLines } from ".";
 
 const beforeAddition: Subset<ProjectEventSettings> = {
@@ -111,7 +111,6 @@ const afterDeletion: Subset<ProjectEventSettings> = {
 
 describe("should transform event diffs to key, before and after", () => {
   it("should transform updates", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const diffLines = getEventDiffLines(beforeUpdate, afterUpdate);
     expect(diffLines).toStrictEqual([
       {
@@ -122,7 +121,6 @@ describe("should transform event diffs to key, before and after", () => {
     ]);
   });
   it("should transform additions", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const diffLines = getEventDiffLines(beforeAddition, afterAddition);
     expect(diffLines).toStrictEqual([
       {
@@ -138,7 +136,6 @@ describe("should transform event diffs to key, before and after", () => {
     ]);
   });
   it("should transform deletions", () => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const diffLines = getEventDiffLines(beforeDeletion, afterDeletion);
     expect(diffLines).toStrictEqual([
       {

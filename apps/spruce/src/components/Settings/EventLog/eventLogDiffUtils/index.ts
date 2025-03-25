@@ -11,8 +11,8 @@ import { formatArrayElements, getDiffProperties } from "./utils";
  * @returns - An array of objects representing the differences between two objects.
  */
 export const getEventDiffLines = (
-  before: JSONObject | undefined,
-  after: JSONObject | undefined,
+  before: JSONObject | undefined | null,
+  after: JSONObject | undefined | null,
 ): EventDiffLine[] => {
   const beforeNoTypename = omitTypename(before);
   const afterNoTypename = omitTypename(after);

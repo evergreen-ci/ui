@@ -1,9 +1,9 @@
 import { JSONObject, JSONValue } from "utils/object/types";
 
 export type Event = {
-  after?: JSONObject;
-  before?: JSONObject;
-  data?: JSONObject;
+  after?: JSONObject | null;
+  before?: JSONObject | null;
+  data?: JSONObject | null;
   timestamp: Date;
   user: string;
 };

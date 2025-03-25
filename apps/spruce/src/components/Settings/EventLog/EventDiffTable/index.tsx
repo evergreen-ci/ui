@@ -13,8 +13,8 @@ import {
 import { EventDiffLine } from "../types";
 
 type TableProps = {
-  after?: JSONObject;
-  before?: JSONObject;
+  after?: JSONObject | null;
+  before?: JSONObject | null;
   customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
