@@ -4,7 +4,7 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { LoadingButton } from "components/Buttons";
 import EventDiffTable from "./EventDiffTable";
-import { CustomKeyValueRenderConfig } from "./EventDiffTable/KeyRendererUtils";
+import { CustomKeyValueRenderConfig } from "./EventDiffTable/utils/keyRenderer";
 import { Header } from "./Header";
 import { Event } from "./types";
 

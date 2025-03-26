@@ -6,11 +6,11 @@ import { fontFamilies } from "@leafygreen-ui/tokens";
 import { BaseTable } from "components/Table/BaseTable";
 import { JSONObject, JSONValue } from "utils/object/types";
 import { EventDiffLine } from "../types";
+import { getEventDiffLines } from "./utils";
 import {
   applyCustomKeyValueRender,
   CustomKeyValueRenderConfig,
-} from "./KeyRendererUtils";
-import { getEventDiffLines } from "./utils";
+} from "./utils/keyRenderer";
 
 type TableProps = {
   after?: JSONObject | null;

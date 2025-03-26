@@ -1,8 +1,7 @@
 import { diff } from "deep-object-diff";
 import { isObject, omitTypename, getObjectValueByPath } from "utils/object";
-
 import { JSONObject, JSONValue } from "utils/object/types";
-import { EventDiffLine } from "../types";
+import { EventDiffLine } from "../../types";
 
 /**
  * `getEventDiffLines` is a utility function that returns an array of objects representing the differences between two objects.

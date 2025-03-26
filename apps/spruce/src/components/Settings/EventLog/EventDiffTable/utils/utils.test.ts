@@ -1,9 +1,5 @@
 import { diff } from "deep-object-diff";
-import {
-  formatArrayElements,
-  getChangedPaths,
-  getEventDiffLines,
-} from "./utils";
+import { formatArrayElements, getChangedPaths, getEventDiffLines } from ".";
 
 describe("formatArrayElements", () => {
   it("matches on numbers indicating array position", () => {
