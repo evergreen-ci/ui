@@ -4,22 +4,21 @@ import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import { fontFamilies } from "@leafygreen-ui/tokens";
 import { BaseTable } from "components/Table/BaseTable";
-import { getEventDiffLines } from "./eventLogDiffs";
+import { JSONObject, JSONValue } from "utils/object/types";
+import { EventDiffLine } from "../types";
+import { getEventDiffLines } from "./utils";
 import {
+  applyCustomKeyValueRender,
   CustomKeyValueRenderConfig,
-  Event,
-  EventDiffLine,
-  EventValue,
-} from "./types";
-import { applyCustomKeyValueRender } from "./utils";
+} from "./utils/keyRenderer";
 
 type TableProps = {
-  after: Event["after"];
-  before: Event["before"];
+  after?: JSONObject | null;
+  before?: JSONObject | null;
   customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
-export const EventDiffTable: React.FC<TableProps> = ({
+const EventDiffTable: React.FC<TableProps> = ({
   after,
   before,
   customKeyValueRenderConfig,
@@ -56,7 +55,7 @@ const CellText = styled.span`
   word-break: break-all;
 `;
 
-const renderEventValue = (value: EventValue): string => {
+const renderEventValue = (value: JSONValue): string => {
   if (value === null || value === undefined) {
     return "";
   }
@@ -69,7 +68,7 @@ const renderEventValue = (value: EventValue): string => {
   }
 
   if (typeof value === "number") {
-    return value;
+    return value.toString();
   }
 
   if (Array.isArray(value)) {
@@ -95,7 +94,7 @@ const columns = (
       <CellText>
         {applyCustomKeyValueRender(
           row.original.key,
-          renderEventValue(getValue() as EventValue),
+          renderEventValue(getValue() as JSONValue),
           customKeyValueRenderConfig,
         )}
       </CellText>
@@ -112,10 +111,12 @@ const columns = (
           {" "}
           {applyCustomKeyValueRender(
             row.original.key,
-            renderEventValue(getValue() as EventValue),
+            renderEventValue(getValue() as JSONValue),
             customKeyValueRenderConfig,
           )}
         </CellText>
       ),
   },
 ];
+
+export default EventDiffTable;

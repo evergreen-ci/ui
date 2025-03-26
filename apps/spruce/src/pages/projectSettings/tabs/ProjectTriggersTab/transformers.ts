@@ -2,11 +2,9 @@ import { Unpacked } from "@evg-ui/lib/types/utils";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectTriggersSettingsFragment } from "gql/generated/types";
 import { ProjectTriggerLevel } from "types/triggers";
-import { string } from "utils";
+import { omitTypename } from "utils/object";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
-
-const { omitTypename } = string;
 
 type Tab = ProjectSettingsTabRoutes.ProjectTriggers;
 

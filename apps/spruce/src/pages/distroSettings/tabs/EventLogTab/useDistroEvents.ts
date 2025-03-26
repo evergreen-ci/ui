@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { useEvents } from "components/Settings/EventLog";
 import {
   DistroEventsQuery,
   DistroEventsQueryVariables,
 } from "gql/generated/types";
 import { DISTRO_EVENTS } from "gql/queries";
+import { useEvents } from "hooks/useEvents";
 
 const DISTRO_EVENT_LIMIT = 15;
 

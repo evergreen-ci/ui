@@ -1,0 +1,677 @@
+<div>
+  <div
+    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
+    tabindex="0"
+  >
+    <table
+      class="leafygreen-ui-1soynca"
+      data-cy="event-diff-table"
+      data-lgid="lg-table"
+    >
+      <thead
+        class="leafygreen-ui-bebmcm"
+      >
+        <tr>
+          <th
+            class="leafygreen-ui-1vbvlh9"
+            data-lgid="lg-table-header"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-ui0te9"
+            >
+              Property
+              <button
+                aria-disabled="false"
+                aria-label="Sort by Property"
+                class="leafygreen-ui-tcjr3n"
+                data-lgid="lg-table-sort_button"
+                data-testid="lg-table-sort-icon-button"
+                tabindex="0"
+              >
+                <div
+                  class="leafygreen-ui-xhlipt"
+                >
+                  <svg
+                    aria-label="Unsorted Icon"
+                    class="leafygreen-ui-jc2z8v"
+                    fill="none"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 0 1-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 0 1-.765 0l-2.482-2.15a.584.584 0 0 1 .383-1.026h1.312V4.318H1.586a.584.584 0 0 1-.383-1.026l2.482-2.15ZM8 8a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1ZM9 4a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2H9ZM8 11a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-fjoumq"
+            data-lgid="lg-table-header"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-ui0te9"
+            >
+              Before
+            </div>
+          </th>
+          <th
+            class="leafygreen-ui-fjoumq"
+            data-lgid="lg-table-header"
+            scope="col"
+          >
+            <div
+              class="leafygreen-ui-ui0te9"
+            >
+              After
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-0"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                deletedField
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                "deleted value"
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <div
+                class="leafygreen-ui-dhdzha"
+              >
+                Deleted
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-1"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                stringField
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                "original value"
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                 
+                "updated value"
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-2"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                numberField
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                96
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                 
+                1
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-3"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                booleanField
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                false
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                 
+                true
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-4"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                addedField
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              />
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                 
+                "added value"
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-5"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                nested.array[0]
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                4
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                 
+                1
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-6"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                nested.array[1]
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                5
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                 
+                2
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-7"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                nested.array[2]
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                6
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                 
+                3
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-8"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                nested.object.key
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                "modified value"
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                 
+                "value"
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr
+          aria-hidden="false"
+          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          data-cy="event-log-table-row"
+          data-expanded="false"
+          data-lgid="lg-table-row"
+          data-selected="false"
+          id="lg-table-row-9"
+        >
+          <td
+            class="leafygreen-ui-3nxf8o"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                customKey
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                <b
+                  style="color: red;"
+                >
+                  "custom value"
+                </b>
+              </span>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1by885u"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-15rig1x"
+              data-state="entered"
+            >
+              <span
+                class="css-dbrfx0-CellText e1uhqo6x0"
+              >
+                 
+                <b
+                  style="color: red;"
+                >
+                  "modified value"
+                </b>
+              </span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

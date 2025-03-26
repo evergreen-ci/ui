@@ -81,6 +81,9 @@ export const cache = new InMemoryCache({
         },
       },
     },
+    Project: {
+      keyFields: false,
+    },
     ProjectEvents: {
       fields: {
         count: {

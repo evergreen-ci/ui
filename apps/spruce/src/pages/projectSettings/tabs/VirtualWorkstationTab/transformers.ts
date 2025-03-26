@@ -1,9 +1,7 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { string } from "utils";
+import { omitTypename } from "utils/object";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
-
-const { omitTypename } = string;
 
 type Tab = ProjectSettingsTabRoutes.VirtualWorkstation;
 
