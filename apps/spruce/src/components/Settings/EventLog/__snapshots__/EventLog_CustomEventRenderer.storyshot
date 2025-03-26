@@ -1,0 +1,76 @@
+<div>
+  <div
+    class="css-1jzq22x-Container er8squx1"
+    data-cy="event-log"
+  >
+    <div
+      class="css-jrloig-EventLogCard er8squx0 leafygreen-ui-1ecxdul"
+      data-cy="event-log-card"
+    >
+      <div
+        class="css-1urg914-StyledHeader ez6cbmt0"
+      >
+        <h6
+          class="leafygreen-ui-19p3n10"
+        >
+          Aug 31, 2024, 12:00:00 AM UTC
+        </h6>
+        <div>
+          Mohamed Khelif
+        </div>
+      </div>
+      <div>
+        <p>
+          Custom event renderer
+        </p>
+        <pre>
+          {
+  "after": {
+    "stringField": "updated value",
+    "numberField": 1,
+    "booleanField": true,
+    "addedField": "added value",
+    "nested": {
+      "array": [
+        1,
+        2,
+        3
+      ],
+      "object": {
+        "key": "value",
+        "value": "value"
+      }
+    },
+    "customKey": "modified value"
+  },
+  "before": {
+    "stringField": "original value",
+    "numberField": 96,
+    "booleanField": false,
+    "deletedField": "deleted value",
+    "nested": {
+      "array": [
+        4,
+        5,
+        6
+      ],
+      "object": {
+        "key": "modified value",
+        "value": "value"
+      }
+    },
+    "customKey": "custom value"
+  },
+  "timestamp": "2024-08-31T00:00:00.000Z",
+  "user": "Mohamed Khelif"
+}
+        </pre>
+      </div>
+    </div>
+    <h6
+      class="leafygreen-ui-19p3n10"
+    >
+      No more events to show.
+    </h6>
+  </div>
+</div>
