@@ -13,18 +13,13 @@ const getEventDiffLines = (
   before: JSONObject | undefined | null,
   after: JSONObject | undefined | null,
 ): EventDiffLine[] => {
-  const beforeNoTypename = omitTypename(before);
-  const afterNoTypename = omitTypename(after);
-
-  const eventDiff = diff(beforeNoTypename || {}, afterNoTypename || {});
+  const beforeNoTypename = omitTypename(before) || {};
+  const afterNoTypename = omitTypename(after) || {};
+  const eventDiff = diff(beforeNoTypename, afterNoTypename) as JSONValue;
   const pathKeys: string[] = getChangedPaths(eventDiff);
   const eventDiffLines = pathKeys.map((key) => {
-    let previousValue = beforeNoTypename;
-    if (beforeNoTypename !== null && beforeNoTypename !== undefined) {
-      previousValue = getObjectValueByPath(beforeNoTypename, key) as JSONObject;
-    }
-    const changedValue = getObjectValueByPath(eventDiff as JSONValue, key);
-
+    const previousValue = getObjectValueByPath(beforeNoTypename, key);
+    const changedValue = getObjectValueByPath(eventDiff, key);
     const formattedKey = formatArrayElements(key);
 
     const line = {
