@@ -4,7 +4,7 @@ import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
-import { SQUARE_SIZE, taskStatusStyleMap } from "components/TaskBox";
+import { getTaskStatusStyle, SQUARE_SIZE } from "components/TaskBox";
 
 const { gray, green, purple, red, white, yellow } = palette;
 
@@ -124,7 +124,7 @@ export const Square = styled.div<{
   height: ${SQUARE_SIZE}px;
   border: 1px solid ${white};
   box-sizing: content-box;
-  ${({ status }) => taskStatusStyleMap[status]}
+  ${({ status }) => getTaskStatusStyle(status)}
 `;
 
 export const waterfallGroupedStatuses = [

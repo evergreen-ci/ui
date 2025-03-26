@@ -18,5 +18,7 @@ export enum ViewOptions {
 export enum TaskHistoryOptions {
   After = "after",
   Before = "before",
-  IncludeCursor = "includeCursor",
+  CursorID = "cursor_id",
+  IncludeCursor = "include_cursor",
+  Direction = "direction",
 }

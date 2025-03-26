@@ -1,4 +1,4 @@
-import { css, SerializedStyles } from "@emotion/react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
@@ -10,20 +10,14 @@ const { white } = palette;
 export const SQUARE_SIZE = 16;
 export const SQUARE_BORDER = 1;
 
-export const taskStatusStyleMap = Object.values(TaskStatus).reduce(
-  (obj, status) => {
-    const icon = statusIconMap?.[status];
-    const iconStyle = icon ? `background-image: ${icon};` : "";
-    return {
-      ...obj,
-      [status]: css`
-        ${iconStyle}
-        background-color: ${statusColorMap[status]};
-      `,
-    };
-  },
-  {} as Record<TaskStatus, SerializedStyles>,
-);
+export const getTaskStatusStyle = (status: TaskStatus) => {
+  const icon = statusIconMap?.[status];
+  const iconStyle = icon ? `background-image: ${icon};` : "";
+  return css`
+    ${iconStyle}
+    background-color: ${statusColorMap[status]};
+  `;
+};
 
 export const TaskBox = styled(Link)<{ status: TaskStatus }>`
   width: ${SQUARE_SIZE}px;
@@ -33,5 +27,5 @@ export const TaskBox = styled(Link)<{ status: TaskStatus }>`
   float: left;
   cursor: pointer;
   position: relative;
-  ${({ status }) => taskStatusStyleMap[status]}
+  ${({ status }) => getTaskStatusStyle(status)}
 `;

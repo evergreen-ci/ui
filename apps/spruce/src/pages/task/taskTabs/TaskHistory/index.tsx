@@ -9,6 +9,7 @@ import { H3 } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
+  TaskHistoryDirection,
   TaskHistoryQuery,
   TaskHistoryQueryVariables,
   TaskQuery,
@@ -33,13 +34,13 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { buildVariant, displayName: taskName, project } = task;
   const { identifier: projectIdentifier = "" } = project ?? {};
 
-  const [after] = useQueryParam<string | undefined>(
-    TaskHistoryOptions.After,
-    undefined,
-  );
-  const [before] = useQueryParam<string | undefined>(
-    TaskHistoryOptions.Before,
+  const [cursorId] = useQueryParam<string>(
+    TaskHistoryOptions.CursorID,
     task.id,
+  );
+  const [direction] = useQueryParam<TaskHistoryDirection>(
+    TaskHistoryOptions.Direction,
+    TaskHistoryDirection.Before,
   );
   const [includeCursor] = useQueryParam<boolean>(
     TaskHistoryOptions.IncludeCursor,
@@ -56,8 +57,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         buildVariant,
         projectIdentifier,
         cursorParams: {
-          after,
-          before,
+          cursorId,
+          direction,
           includeCursor,
         },
         limit: ACTIVATED_TASKS_LIMIT,

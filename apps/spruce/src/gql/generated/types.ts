@@ -313,8 +313,8 @@ export type CreateProjectInput = {
 };
 
 export type CursorParams = {
-  after?: InputMaybe<Scalars["String"]["input"]>;
-  before?: InputMaybe<Scalars["String"]["input"]>;
+  cursorId: Scalars["String"]["input"];
+  direction: TaskHistoryDirection;
   includeCursor: Scalars["Boolean"]["input"];
 };
 
@@ -2951,9 +2951,14 @@ export type TaskHistory = {
   tasks: Array<Task>;
 };
 
+export enum TaskHistoryDirection {
+  After = "AFTER",
+  Before = "BEFORE",
+}
+
 export type TaskHistoryOpts = {
   buildVariant: Scalars["String"]["input"];
-  cursorParams?: InputMaybe<CursorParams>;
+  cursorParams: CursorParams;
   date?: InputMaybe<Scalars["Time"]["input"]>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
   projectIdentifier: Scalars["String"]["input"];

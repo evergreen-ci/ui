@@ -9,6 +9,7 @@ import { TaskStatus } from "@evg-ui/lib/types/task";
 import { SQUARE_SIZE, SQUARE_BORDER, TaskBox } from "components/TaskBox";
 import { getTaskRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
+import { TaskTab } from "types/task";
 import { GroupedTask } from "../types";
 
 const { gray, white } = palette;
@@ -50,6 +51,7 @@ const TaskTimeline: React.FC<TimelineProps> = ({ groupedTasks, loading }) => {
                     status={currTask.displayStatus as TaskStatus}
                     to={getTaskRoute(currTask.id, {
                       execution: currTask.execution,
+                      tab: TaskTab.History,
                     })}
                   />
                 );

@@ -9,7 +9,7 @@ import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Divider } from "components/styles";
 import { PopoverContainer } from "components/styles/Popover";
-import { SQUARE_SIZE, taskStatusStyleMap } from "components/TaskBox";
+import { SQUARE_SIZE, getTaskStatusStyle } from "components/TaskBox";
 import {
   WaterfallTaskStatsQuery,
   WaterfallTaskStatsQueryVariables,
@@ -121,7 +121,7 @@ const Count = styled(Cell)`
 `;
 
 const Square = styled.div<{ status: TaskStatus }>`
-  ${({ status }) => taskStatusStyleMap[status]}
+  ${({ status }) => getTaskStatusStyle(status)}
   height: ${SQUARE_SIZE}px;
   width: ${SQUARE_SIZE}px;
 `;
