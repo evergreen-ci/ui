@@ -186,7 +186,7 @@ const exampleDeletion = {
   },
 };
 
-describe("should transform event diffs to key, before and after", () => {
+describe("getEventDiffLines", () => {
   it("should transform updates", () => {
     const diffLines = getEventDiffLines(
       exampleUpdate.before,

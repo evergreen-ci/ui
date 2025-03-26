@@ -75,6 +75,7 @@ type WithoutTypename<T> =
         >;
       }
     : T;
+
 /**
  * `omitTypename` removes the __typename property from an object
  * @param object - the object to remove the __typename property from

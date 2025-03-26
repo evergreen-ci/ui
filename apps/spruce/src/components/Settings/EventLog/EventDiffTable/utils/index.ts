@@ -45,7 +45,8 @@ const getEventDiffLines = (
  * @param b - string
  * @returns - The concatenated string.
  */
-const addDelimiter = (a: string, b: string): string => (a ? `${a}.${b}` : b);
+const addDelimiter = (a: string, b: string): string =>
+  a.length > 0 ? `${a}.${b}` : b;
 
 /**
  * `getChangedPaths` walks the object returned by `deep-object-diff` and returns an array of strings representing the paths to the changed properties.
