@@ -17,11 +17,9 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
-import { string } from "utils";
+import { omitTypename } from "utils/object";
 import { NotificationField } from "./notificationTab/NotificationField";
 import { UserSubscriptions } from "./notificationTab/UserSubscriptions";
-
-const { omitTypename } = string;
 
 export const NotificationsTab: React.FC = () => {
   const dispatchToast = useToastContext();

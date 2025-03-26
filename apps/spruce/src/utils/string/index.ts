@@ -90,19 +90,6 @@ export const stringifyNanoseconds = (
   return ">= 1 day";
 };
 
-/**
- * `omitTypename` removes the __typename property from an object
- * @param object - the object to remove the __typename property from
- * @returns - the object without the __typename property
- * @example
- * omitTypename({ __typename: "Task", id: "123" }) // { id: "123" }
- */
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-export const omitTypename = (object) =>
-  JSON.parse(JSON.stringify(object), (key, value) =>
-    key === "__typename" ? undefined : value,
-  );
-
 export type DateCopyOptions = {
   tz?: string;
   dateOnly?: boolean;

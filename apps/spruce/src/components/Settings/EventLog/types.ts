@@ -1,23 +1,15 @@
-export type EventValue =
-  | boolean
-  | string
-  | object
-  | Array<string | boolean | object>;
+import { JSONObject, JSONValue } from "utils/object/types";
 
 export type Event = {
-  after?: Record<string, EventValue>;
-  before?: Record<string, EventValue>;
-  data?: Record<string, EventValue>;
+  after?: JSONObject | null;
+  before?: JSONObject | null;
+  data?: JSONObject | null;
   timestamp: Date;
   user: string;
 };
 
 export type EventDiffLine = {
   key: string;
-  before: EventValue;
-  after: EventValue;
-};
-
-export type CustomKeyValueRenderConfig = {
-  [prefixKey: string]: (value: string) => React.ReactElement;
+  before: JSONValue;
+  after: JSONValue;
 };

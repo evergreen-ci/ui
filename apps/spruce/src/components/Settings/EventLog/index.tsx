@@ -3,9 +3,10 @@ import Card from "@leafygreen-ui/card";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { LoadingButton } from "components/Buttons";
-import { EventDiffTable } from "./EventDiffTable";
+import EventDiffTable from "./EventDiffTable";
+import { CustomKeyValueRenderConfig } from "./EventDiffTable/utils/keyRenderer";
 import { Header } from "./Header";
-import { CustomKeyValueRenderConfig, Event } from "./types";
+import { Event } from "./types";
 
 type EventLogProps = {
   allEventsFetched: boolean;
@@ -16,7 +17,7 @@ type EventLogProps = {
   customKeyValueRenderConfig?: CustomKeyValueRenderConfig;
 };
 
-export const EventLog: React.FC<EventLogProps> = ({
+const EventLog: React.FC<EventLogProps> = ({
   allEventsFetched,
   customKeyValueRenderConfig,
   eventRenderer,
@@ -73,3 +74,5 @@ const EventLogCard = styled(Card)`
   margin-bottom: ${size.l};
   padding: ${size.m};
 `;
+
+export default EventLog;
