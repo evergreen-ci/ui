@@ -10,7 +10,7 @@ import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
-import { SQUARE_SIZE, SQUARE_BORDER, TaskBox } from "components/TaskBox";
+import { SQUARE_SIZE, SQUARE_BORDER, TaskBoxLink } from "components/TaskBox";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
@@ -29,7 +29,7 @@ import {
 } from "./styles";
 import { Build, BuildVariant, GroupedVersion } from "./types";
 
-const { black, gray, white } = palette;
+const { gray } = palette;
 
 type Props = {
   build: BuildVariant;
@@ -201,9 +201,10 @@ const BuildGrid: React.FC<{
             <SquareMemo
               key={id}
               data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
-              isRightmostBuild={isRightmostBuild}
+              rightmost={isRightmostBuild}
               status={taskStatus}
               to={getTaskRoute(id, { execution })}
+              tooltip
               {...squareProps}
             />
           );
@@ -247,43 +248,4 @@ const StyledIconButton = styled(IconButton)`
   ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
 
-const Square = styled(TaskBox)<{
-  isRightmostBuild: boolean;
-}>`
-  /* Tooltip */
-  :before {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 5px);
-    left: 50%;
-    transform: ${({ isRightmostBuild }) =>
-      isRightmostBuild ? "translate(-90%)" : "translate(-50%)"};
-    z-index: 1;
-    width: max-content;
-    max-width: 450px;
-    overflow-wrap: break-word;
-    padding: ${size.xs};
-    border-radius: 6px;
-    background: ${black};
-    color: ${white};
-    text-align: center;
-    display: none;
-  }
-  :hover:before {
-    display: block;
-  }
-
-  /* Tooltip caret */
-  :hover:after {
-    content: "";
-    position: absolute;
-    bottom: calc(100% - 5px);
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: ${black} transparent transparent transparent;
-  }
-`;
-
-const SquareMemo = memo(Square);
+const SquareMemo = memo(TaskBoxLink);

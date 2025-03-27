@@ -1,12 +1,11 @@
-import styled from "@emotion/styled";
 import { IconProps } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
-import { getTaskStatusStyle, SQUARE_SIZE } from "components/TaskBox";
+import { TaskBoxDiv } from "components/TaskBox";
 
-const { gray, green, purple, red, white, yellow } = palette;
+const { gray, green, purple, red, yellow } = palette;
 
 export interface TaskStatusIconProps
   extends Omit<IconProps, "glyph" | "fill" | "size"> {
@@ -117,27 +116,17 @@ export const mainlineCommitsGroupedStatuses = [
   },
 ];
 
-export const Square = styled.div<{
-  status: TaskStatus;
-}>`
-  width: ${SQUARE_SIZE}px;
-  height: ${SQUARE_SIZE}px;
-  border: 1px solid ${white};
-  box-sizing: content-box;
-  ${({ status }) => getTaskStatusStyle(status)}
-`;
-
 export const waterfallGroupedStatuses = [
   {
-    icon: <Square status={TaskStatus.Succeeded} />,
+    icon: <TaskBoxDiv status={TaskStatus.Succeeded} />,
     statuses: [TaskStatus.Succeeded],
   },
   {
-    icon: <Square status={TaskStatus.Started} />,
+    icon: <TaskBoxDiv status={TaskStatus.Started} />,
     statuses: [TaskStatus.Started, TaskStatus.Dispatched],
   },
   {
-    icon: <Square status={TaskStatus.SystemFailed} />,
+    icon: <TaskBoxDiv status={TaskStatus.SystemFailed} />,
     statuses: [
       TaskStatus.SystemFailed,
       TaskStatus.SystemTimedOut,
@@ -145,27 +134,27 @@ export const waterfallGroupedStatuses = [
     ],
   },
   {
-    icon: <Square status={TaskStatus.Failed} />,
+    icon: <TaskBoxDiv status={TaskStatus.Failed} />,
     statuses: [TaskStatus.Failed],
   },
   {
-    icon: <Square status={TaskStatus.KnownIssue} />,
+    icon: <TaskBoxDiv status={TaskStatus.KnownIssue} />,
     statuses: [TaskStatus.KnownIssue],
   },
   {
-    icon: <Square status={TaskStatus.TaskTimedOut} />,
+    icon: <TaskBoxDiv status={TaskStatus.TaskTimedOut} />,
     statuses: [TaskStatus.TaskTimedOut, TaskStatus.TestTimedOut],
   },
   {
-    icon: <Square status={TaskStatus.SetupFailed} />,
+    icon: <TaskBoxDiv status={TaskStatus.SetupFailed} />,
     statuses: [TaskStatus.SetupFailed],
   },
   {
-    icon: <Square status={TaskStatus.Unscheduled} />,
+    icon: <TaskBoxDiv status={TaskStatus.Unscheduled} />,
     statuses: [TaskStatus.Unscheduled, TaskStatus.Aborted, TaskStatus.Blocked],
   },
   {
-    icon: <Square status={TaskStatus.Undispatched} />,
+    icon: <TaskBoxDiv status={TaskStatus.Undispatched} />,
     statuses: [TaskStatus.Undispatched, TaskStatus.WillRun],
   },
 ];

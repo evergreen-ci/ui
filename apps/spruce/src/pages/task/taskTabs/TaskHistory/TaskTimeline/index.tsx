@@ -6,13 +6,18 @@ import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import { SQUARE_SIZE, SQUARE_BORDER, TaskBox } from "components/TaskBox";
+import {
+  SQUARE_BORDER,
+  SQUARE_SIZE,
+  TaskBoxDiv,
+  TaskBoxLink,
+} from "components/TaskBox";
 import { getTaskRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
 import { TaskTab } from "types/task";
 import { GroupedTask } from "../types";
 
-const { gray, white } = palette;
+const { blue, gray } = palette;
 
 interface TimelineProps {
   groupedTasks: GroupedTask[];
@@ -48,11 +53,13 @@ const TaskTimeline: React.FC<TimelineProps> = ({ groupedTasks, loading }) => {
                 return (
                   <TaskBox
                     key={currTask.id}
+                    rightmost={false}
                     status={currTask.displayStatus as TaskStatus}
                     to={getTaskRoute(currTask.id, {
                       execution: currTask.execution,
                       tab: TaskTab.History,
                     })}
+                    tooltip={false}
                   />
                 );
               } else if (vt.inactiveTasks) {
@@ -93,15 +100,14 @@ const Timeline = styled.div`
   width: 100%;
 `;
 
-const CollapsedBox = styled.div`
-  height: ${SQUARE_SIZE}px;
-  width: ${SQUARE_SIZE}px;
+const TaskBox = styled(TaskBoxLink)`
+  :hover {
+    border: ${SQUARE_BORDER}px solid ${blue.base};
+  }
+`;
 
+const CollapsedBox = styled(TaskBoxDiv)`
   background-color: ${gray.light2};
-  border: 1px solid ${white};
   border-radius: ${size.xxs};
-  box-sizing: content-box;
-  float: left;
-  position: relative;
   text-align: center;
 `;

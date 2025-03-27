@@ -9,7 +9,7 @@ import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { Divider } from "components/styles";
 import { PopoverContainer } from "components/styles/Popover";
-import { SQUARE_SIZE, getTaskStatusStyle } from "components/TaskBox";
+import { TaskBoxDiv } from "components/TaskBox";
 import {
   WaterfallTaskStatsQuery,
   WaterfallTaskStatsQueryVariables,
@@ -78,7 +78,7 @@ export const TaskStatsTooltip: React.FC<
                   <Row key={`task_stats_row_${status}`}>
                     <Count>{count}</Count>
                     <Cell>
-                      <Square status={status as TaskStatus} />
+                      <TaskBoxDiv status={status as TaskStatus} />
                     </Cell>
                     <Cell>{taskStatusToCopy[status as TaskStatus]}</Cell>
                   </Row>
@@ -118,10 +118,4 @@ const Cell = styled.td`
 const Count = styled(Cell)`
   font-feature-settings: "tnum";
   text-align: right;
-`;
-
-const Square = styled.div<{ status: TaskStatus }>`
-  ${({ status }) => getTaskStatusStyle(status)}
-  height: ${SQUARE_SIZE}px;
-  width: ${SQUARE_SIZE}px;
 `;
