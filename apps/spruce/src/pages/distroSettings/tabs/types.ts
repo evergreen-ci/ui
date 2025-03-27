@@ -4,6 +4,7 @@ import { GeneralFormState } from "./GeneralTab/types";
 import { HostFormState } from "./HostTab/types";
 import { ProjectFormState } from "./ProjectTab/types";
 import { ProviderFormState } from "./ProviderTab/types";
+import { SingleTaskDistroFormState } from "./SingleTaskDistroTab/types";
 import { TaskFormState } from "./TaskTab/types";
 
 const { EventLog, ...WritableDistroSettingsTabs } = DistroSettingsTabRoutes;
@@ -19,6 +20,7 @@ export type FormStateMap = {
     [DistroSettingsTabRoutes.Task]: TaskFormState;
     [DistroSettingsTabRoutes.Host]: HostFormState;
     [DistroSettingsTabRoutes.Project]: ProjectFormState;
+    [DistroSettingsTabRoutes.SingleTaskDistros]: SingleTaskDistroFormState;
   }[T];
 };
 

@@ -90,10 +90,12 @@ const reducer =
           ...state,
           [action.tab]: {
             ...state[action.tab],
-            hasChanges: !isEqual(
-              state[action.tab].initialData,
-              formToGql(action.formData),
-            ),
+            hasChanges:
+              formToGql &&
+              !isEqual(
+                state[action.tab].initialData,
+                formToGql(action.formData),
+              ),
           },
         };
       }

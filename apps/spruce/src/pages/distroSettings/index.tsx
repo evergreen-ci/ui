@@ -76,20 +76,33 @@ const DistroSettings: React.FC = () => {
             <NewDistroButton />
           </ButtonsContainer>
           <SideNavGroup>
-            {Object.values(DistroSettingsTabRoutes).map((tab) => (
-              <SideNavItem
-                key={tab}
-                active={tab === currentTab}
-                as={Link}
-                data-cy={`navitem-${tab}`}
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
-                to={getDistroSettingsRoute(distroId, tab)}
-              >
-                {getTabTitle(tab).title}
-              </SideNavItem>
-            ))}
+            {Object.values(DistroSettingsTabRoutes)
+              .filter((v) => v !== DistroSettingsTabRoutes.SingleTaskDistros)
+              .map((tab) => (
+                <SideNavItem
+                  key={tab}
+                  active={tab === currentTab}
+                  as={Link}
+                  data-cy={`navitem-${tab}`}
+                  to={getDistroSettingsRoute(distroId ?? "", tab)}
+                >
+                  {getTabTitle(tab).title}
+                </SideNavItem>
+              ))}
           </SideNavGroup>
-          <SideNavGroup glyph={<Icon glyph="Link" />} header="Links">
+          <SideNavGroup glyph={<Icon glyph="Link" />} header="Resources">
+            <SideNavItem
+              key={DistroSettingsTabRoutes.SingleTaskDistros}
+              active={DistroSettingsTabRoutes.SingleTaskDistros === currentTab}
+              as={Link}
+              data-cy={`navitem-${DistroSettingsTabRoutes.SingleTaskDistros}`}
+              to={getDistroSettingsRoute(
+                distroId ?? "",
+                DistroSettingsTabRoutes.SingleTaskDistros,
+              )}
+            >
+              {getTabTitle(DistroSettingsTabRoutes.SingleTaskDistros).title}
+            </SideNavItem>
             <SideNavItemLink
               data-cy="navitem-task-queue-link"
               onClick={() =>
