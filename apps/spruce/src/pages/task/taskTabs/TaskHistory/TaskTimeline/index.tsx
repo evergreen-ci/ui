@@ -17,7 +17,7 @@ import { useDimensions } from "hooks/useDimensions";
 import { TaskTab } from "types/task";
 import { GroupedTask } from "../types";
 
-const { blue, gray } = palette;
+const { gray } = palette;
 
 interface TimelineProps {
   groupedTasks: GroupedTask[];
@@ -101,8 +101,9 @@ const Timeline = styled.div`
 `;
 
 const TaskBox = styled(TaskBoxLink)`
+  opacity: 0.5;
   :hover {
-    border: ${SQUARE_BORDER}px solid ${blue.base};
+    opacity: 1;
   }
 `;
 
