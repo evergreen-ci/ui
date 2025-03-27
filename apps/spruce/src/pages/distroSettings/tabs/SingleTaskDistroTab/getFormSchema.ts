@@ -17,9 +17,17 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
             },
             allowedTasks: {
               type: "array" as const,
-              title: "",
+              title: "Tasks",
               items: {
                 title: "Task Regex",
+                type: "string" as const,
+              },
+            },
+            allowedBVs: {
+              type: "array" as const,
+              title: "Build Variants",
+              items: {
+                title: "Build Variant",
                 type: "string" as const,
               },
             },
@@ -37,6 +45,9 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
         "This list will be shared between all single task distros. Only Evergreen admins can add/edit/delete allowed tasks. Please file a DEVPROD ticket to request any changes to this list.",
       items: {
         allowedTasks: {
+          "ui:orderable": false,
+        },
+        allowedBVs: {
           "ui:orderable": false,
         },
       },
