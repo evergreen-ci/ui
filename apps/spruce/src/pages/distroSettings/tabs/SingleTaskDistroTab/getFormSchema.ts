@@ -17,7 +17,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
             },
             allowedTasks: {
               type: "array" as const,
-              title: "",
+              title: "Tasks",
               items: {
                 title: "Task Regex",
                 type: "string" as const,
@@ -25,7 +25,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
             },
             allowedBVs: {
               type: "array" as const,
-              title: "",
+              title: "Build Variants",
               items: {
                 title: "Build Variant",
                 type: "string" as const,
