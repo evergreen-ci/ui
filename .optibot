@@ -1,7 +1,7 @@
 {
    "autoSummary": false,
    "reviews": {
-      "auto": true,
+      "auto": false,
       "code-generation": true,
       "autoApprove": false,
       "include": [
