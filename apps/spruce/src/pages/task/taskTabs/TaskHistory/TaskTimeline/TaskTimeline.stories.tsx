@@ -2,7 +2,7 @@ import { StoryObj } from "@storybook/react";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskHistoryTask } from "../types";
 import { groupTasks } from "../utils";
-import TaskTimeline, { TimelineProps } from ".";
+import TaskTimeline from ".";
 
 export default {
   component: TaskTimeline,
@@ -16,11 +16,17 @@ export default {
   },
 };
 
-export const Default: StoryObj<TimelineProps & { shouldCollapse: boolean }> = {
-  render: (args) => {
-    const groupedTasks = groupTasks(tasks, args.shouldCollapse);
-    return <TaskTimeline groupedTasks={groupedTasks} loading={false} />;
-  },
+export const Default: StoryObj<typeof Template> = {
+  render: (args) => <Template shouldCollapse={args.shouldCollapse} />,
+};
+
+type TemplateProps = {
+  shouldCollapse: boolean;
+};
+
+const Template = (args: TemplateProps) => {
+  const groupedTasks = groupTasks(tasks, args.shouldCollapse);
+  return <TaskTimeline groupedTasks={groupedTasks} loading={false} />;
 };
 
 const tasks: TaskHistoryTask[] = [

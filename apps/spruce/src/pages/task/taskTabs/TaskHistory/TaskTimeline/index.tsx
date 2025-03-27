@@ -14,7 +14,7 @@ import { GroupedTask } from "../types";
 
 const { gray, white } = palette;
 
-export interface TimelineProps {
+interface TimelineProps {
   groupedTasks: GroupedTask[];
   loading: boolean;
 }
