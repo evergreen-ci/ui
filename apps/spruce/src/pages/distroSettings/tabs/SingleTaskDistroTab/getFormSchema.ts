@@ -46,9 +46,11 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       items: {
         allowedTasks: {
           "ui:orderable": false,
+          "ui:placeholder": "No tasks.",
         },
         allowedBVs: {
           "ui:orderable": false,
+          "ui:placeholder": "No build variants.",
         },
       },
     },
