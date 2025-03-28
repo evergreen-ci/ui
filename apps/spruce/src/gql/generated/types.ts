@@ -2129,6 +2129,7 @@ export enum ProjectSettingsSection {
 
 export type ProjectTasksPair = {
   __typename?: "ProjectTasksPair";
+  allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
   projectId: Scalars["String"]["output"];
 };
@@ -8675,6 +8676,7 @@ export type SingleTaskDistroQuery = {
         __typename?: "ProjectTasksPair";
         projectId: string;
         allowedTasks: Array<string>;
+        allowedBVs: Array<string>;
       }>;
     } | null;
   } | null;

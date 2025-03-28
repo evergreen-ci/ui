@@ -4,6 +4,7 @@ query SingleTaskDistro {
       projectTasksPairs {
         projectId
         allowedTasks
+        allowedBVs
       }
     }
   }
