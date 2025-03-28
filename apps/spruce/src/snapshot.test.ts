@@ -74,8 +74,14 @@ describe(`${options.suite}`, () => {
         unobserve: vi.fn(),
       };
     });
-
     vi.stubGlobal("IntersectionObserver", mockIntersectionObserver);
+
+    const mockResizeObserver = vi.fn(() => ({
+      observe: vi.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
+    }));
+    vi.stubGlobal("ResizeObserver", mockResizeObserver);
   });
 
   afterAll(() => {
