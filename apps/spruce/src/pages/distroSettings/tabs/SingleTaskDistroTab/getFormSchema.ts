@@ -42,7 +42,7 @@ export const getFormSchema = (): ReturnType<GetFormSchema> => ({
       "ui:orderable": false,
       "ui:useExpandableCard": true,
       "ui:description":
-        "This list will be shared between all single task distros. Only Evergreen admins can add/edit/delete allowed tasks and build variants. Please file a DEVPROD ticket to request any changes to this list.",
+        "This list is shared between all single task distros. Only Evergreen admins can add/edit/delete allowed tasks and build variants. Please file a DEVPROD ticket to request any changes to this list.",
       items: {
         allowedTasks: {
           "ui:orderable": false,
