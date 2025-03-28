@@ -5,62 +5,84 @@
     <div
       class="css-167wnfc-LabelCellContainer e1bcz5i60"
     >
-      <div
-        class="ant-skeleton ant-skeleton-active"
+      <ul
+        aria-busy="true"
+        class="leafygreen-ui-1aligyd"
+        data-testid="lg-skeleton-list"
       >
-        <div
-          class="ant-skeleton-content"
+        <li
+          class="leafygreen-ui-198akf2"
+          data-testid="lg-skeleton-list_item"
         >
-          <ul
-            class="ant-skeleton-paragraph"
-          >
-            <li />
-            <li />
-            <li
-              style="width: 61%;"
-            />
-          </ul>
-        </div>
-      </div>
+          <div
+            aria-hidden="true"
+            class="leafygreen-ui-161vd4l"
+          />
+        </li>
+        <li
+          class="leafygreen-ui-1yhy0n"
+          data-testid="lg-skeleton-list_item"
+        >
+          <div
+            aria-hidden="true"
+            class="leafygreen-ui-161vd4l"
+          />
+        </li>
+        <li
+          class="leafygreen-ui-1xaw9mv"
+          data-testid="lg-skeleton-list_item"
+        >
+          <div
+            aria-hidden="true"
+            class="leafygreen-ui-161vd4l"
+          />
+        </li>
+        <li
+          class="leafygreen-ui-198akf2"
+          data-testid="lg-skeleton-list_item"
+        >
+          <div
+            aria-hidden="true"
+            class="leafygreen-ui-161vd4l"
+          />
+        </li>
+        <li
+          class="leafygreen-ui-1yhy0n"
+          data-testid="lg-skeleton-list_item"
+        >
+          <div
+            aria-hidden="true"
+            class="leafygreen-ui-161vd4l"
+          />
+        </li>
+      </ul>
     </div>
     <div
       class="css-azgjvx-BaseCell-Cell e1bcz5i62"
       data-cy="loading-cell"
     >
       <div
-        class="ant-skeleton ant-skeleton-element ant-skeleton-active"
-      >
-        <span
-          class="ant-skeleton-avatar ant-skeleton-avatar-circle"
-          style="width: 20px; height: 20px; line-height: 20px;"
-        />
-      </div>
+        aria-hidden="true"
+        class="leafygreen-ui-527cte"
+      />
     </div>
     <div
       class="css-azgjvx-BaseCell-Cell e1bcz5i62"
       data-cy="loading-cell"
     >
       <div
-        class="ant-skeleton ant-skeleton-element ant-skeleton-active"
-      >
-        <span
-          class="ant-skeleton-avatar ant-skeleton-avatar-circle"
-          style="width: 20px; height: 20px; line-height: 20px;"
-        />
-      </div>
+        aria-hidden="true"
+        class="leafygreen-ui-527cte"
+      />
     </div>
     <div
       class="css-azgjvx-BaseCell-Cell e1bcz5i62"
       data-cy="loading-cell"
     >
       <div
-        class="ant-skeleton ant-skeleton-element ant-skeleton-active"
-      >
-        <span
-          class="ant-skeleton-avatar ant-skeleton-avatar-circle"
-          style="width: 20px; height: 20px; line-height: 20px;"
-        />
-      </div>
+        aria-hidden="true"
+        class="leafygreen-ui-527cte"
+      />
     </div>
   </div>
 </div>

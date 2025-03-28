@@ -1,4 +1,11 @@
-import { Skeleton } from "antd";
+import styled from "@emotion/styled";
+import {
+  Skeleton,
+  ListSkeleton,
+  TableSkeleton,
+  Size,
+} from "@leafygreen-ui/skeleton-loader";
+import { size } from "@evg-ui/lib/constants/tokens";
 import {
   PageContent,
   PageLayout,
@@ -9,19 +16,29 @@ import {
 
 export const PatchAndTaskFullPageLoad: React.FC = () => (
   <PageWrapper>
-    <Skeleton active paragraph />
-    <PageLayout hasSider>
+    <BreadCrumbSkeleton size={Size.Small} />
+    <Skeleton />
+    <StyledPageLayout hasSider>
       <PageSider>
         <SiderCard>
-          <Skeleton active paragraph={{ rows: 4 }} title={false} />
+          <ListSkeleton />
         </SiderCard>
         <SiderCard>
-          <Skeleton active paragraph={{ rows: 4 }} title={false} />
+          <ListSkeleton />
         </SiderCard>
       </PageSider>
       <PageContent>
-        <Skeleton active paragraph={{ rows: 8 }} title />
+        <TableSkeleton numRows={10} />
       </PageContent>
-    </PageLayout>
+    </StyledPageLayout>
   </PageWrapper>
 );
+
+const StyledPageLayout = styled(PageLayout)`
+  margin-top: ${size.s};
+`;
+
+const BreadCrumbSkeleton = styled(Skeleton)`
+  width: 300px;
+  margin-bottom: ${size.s};
+`;

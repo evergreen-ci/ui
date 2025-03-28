@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Skeleton } from "antd";
+import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Commits } from "types/commits";
 import { CommitChart } from "./CommitChart";
@@ -39,7 +39,7 @@ export const CommitsWrapper: React.FC<CommitsWrapperProps> = ({
   }, [versions]);
 
   if (isLoading) {
-    return <StyledSkeleton active paragraph={{ rows: 6 }} title={false} />;
+    return <ParagraphSkeleton />;
   }
   if (!versions) {
     return <CommitChart />;
@@ -96,10 +96,6 @@ const StickyContainer = styled.div`
   z-index: 1;
   background-color: ${white};
   margin-top: ${size.xxs};
-`;
-
-const StyledSkeleton = styled(Skeleton)`
-  margin-top: 12px;
 `;
 
 const NoResults = styled.div`

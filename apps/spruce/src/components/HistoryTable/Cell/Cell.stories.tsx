@@ -29,7 +29,9 @@ export const EmptyCellStory: CustomStoryObj<typeof EmptyCell> = {
 
 export const LoadingCellStory: CustomStoryObj<typeof LoadingCell> = {
   render: (args) => <LoadingCell {...args} />,
-  args: {},
+  args: {
+    isHeader: false,
+  },
 };
 
 export const ColumnHeaderCellStory: CustomStoryObj<typeof ColumnHeaderCell> = {

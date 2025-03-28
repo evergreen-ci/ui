@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { Skeleton } from "antd";
+import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useNavigate } from "react-router-dom";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useProjectSettingsAnalytics } from "analytics";
@@ -137,7 +137,7 @@ export const CreateProjectModal: React.FC<Props> = ({
           uiSchema={form.uiSchema}
         />
       ) : (
-        <Skeleton data-cy="loading-skeleton" paragraph={{ rows: 11 }} />
+        <FormSkeleton data-cy="loading-skeleton" />
       )}
     </ConfirmationModal>
   );

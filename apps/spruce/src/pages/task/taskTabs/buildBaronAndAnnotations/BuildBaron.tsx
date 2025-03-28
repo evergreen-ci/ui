@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Skeleton } from "antd";
+import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import {
   Annotation,
   BuildBaronQuery,
@@ -29,7 +29,7 @@ const BuildBaron: React.FC<Props> = ({
   );
   return (
     <>
-      {loading && <Skeleton active paragraph={{ rows: 4 }} title={false} />}
+      {loading && <ParagraphSkeleton />}
       {(data || annotation) && (
         <BuildBaronContent
           annotation={annotation}
