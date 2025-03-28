@@ -4,12 +4,8 @@
     data-cy="loading-cell"
   >
     <div
-      class="ant-skeleton ant-skeleton-element ant-skeleton-active"
-    >
-      <span
-        class="ant-skeleton-avatar ant-skeleton-avatar-circle"
-        style="width: 20px; height: 20px; line-height: 20px;"
-      />
-    </div>
+      aria-hidden="true"
+      class="leafygreen-ui-527cte"
+    />
   </div>
 </div>

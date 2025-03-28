@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { IconSkeleton, Skeleton, Size } from "@leafygreen-ui/skeleton-loader";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
@@ -71,11 +71,11 @@ interface LoadingCellProps {
 const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) =>
   isHeader ? (
     <HeaderCell data-cy="loading-header-cell">
-      <Skeleton active paragraph={false} title />
+      <Skeleton size={Size.Small} />
     </HeaderCell>
   ) : (
     <Cell data-cy="loading-cell">
-      <Skeleton.Avatar active shape="circle" size={statusIconSize} />
+      <IconSkeleton />
     </Cell>
   );
 
