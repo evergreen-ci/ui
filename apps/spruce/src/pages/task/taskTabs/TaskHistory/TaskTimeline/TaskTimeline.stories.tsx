@@ -1,4 +1,4 @@
-import { StoryObj } from "@storybook/react";
+import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskHistoryTask } from "../types";
 import { groupTasks } from "../utils";
@@ -14,9 +14,9 @@ export default {
       control: { type: "boolean" },
     },
   },
-};
+} satisfies CustomMeta<TemplateProps>;
 
-export const Default: StoryObj<typeof Template> = {
+export const Default: CustomStoryObj<TemplateProps> = {
   render: (args) => <Template shouldCollapse={args.shouldCollapse} />,
 };
 
