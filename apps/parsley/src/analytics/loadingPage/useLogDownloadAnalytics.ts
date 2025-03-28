@@ -14,6 +14,7 @@ type Action =
       duration: number;
       "log.type": LogTypes;
       "log.size": number;
+      reason: string;
     }
   | {
       name: "System Event log download incomplete";
