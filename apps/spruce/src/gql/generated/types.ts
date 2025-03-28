@@ -8701,6 +8701,23 @@ export type SecretFieldsQuery = {
   } | null;
 };
 
+export type SingleTaskDistroQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SingleTaskDistroQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    singleTaskDistro?: {
+      __typename?: "SingleTaskDistroConfig";
+      projectTasksPairs: Array<{
+        __typename?: "ProjectTasksPair";
+        projectId: string;
+        allowedTasks: Array<string>;
+      }>;
+    } | null;
+  } | null;
+};
+
 export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SpawnExpirationInfoQuery = {

@@ -5,6 +5,7 @@ import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { StyledRouterLink } from "@evg-ui/lib/components/styles";
+import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { inactiveElementStyle } from "components/styles";
@@ -35,7 +36,12 @@ const TaskCell: React.FC<TaskCellProps> = ({
   onClick = () => {},
   task,
 }) => (
-  <Cell aria-disabled={inactive} data-cy="task-cell" inactive={inactive}>
+  <Cell
+    aria-disabled={inactive}
+    data-cy="task-cell"
+    inactive={inactive}
+    title={taskStatusToCopy[task.displayStatus as TaskStatus]}
+  >
     <Link
       onClick={() => {
         onClick({ taskStatus: task.displayStatus });

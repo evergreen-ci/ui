@@ -1,6 +1,6 @@
-import { TaskStatusUmbrella } from "@evg-ui/lib/types/task";
+import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
+import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import {
-  taskStatusToCopy,
   mapTaskStatusToUmbrellaStatus,
   mapTaskToBarchartColor,
   sortedUmbrellaStatus,
@@ -28,13 +28,13 @@ export const groupStatusesByUmbrellaStatus = (
     if (counts[umbrellaStatus]) {
       counts[umbrellaStatus].count += stat.count;
       counts[umbrellaStatus].statuses = deduplicatedAppend(
-        taskStatusToCopy[stat.status],
+        taskStatusToCopy[stat.status as TaskStatus],
         counts[umbrellaStatus].statuses,
       );
     } else {
       counts[umbrellaStatus] = {
         count: stat.count,
-        statuses: toArray(taskStatusToCopy[stat.status]),
+        statuses: toArray(taskStatusToCopy[stat.status as TaskStatus]),
         // @ts-expect-error: FIXME. This comment was added by an automated script.
         color: mapTaskToBarchartColor[umbrellaStatus],
         umbrellaStatus: umbrellaStatus as TaskStatusUmbrella,

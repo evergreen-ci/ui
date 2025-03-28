@@ -4,10 +4,11 @@ import Button from "@leafygreen-ui/button";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import pluralize from "pluralize";
+import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useVersionAnalytics } from "analytics";
 import TextInputWithValidation from "components/TextInputWithValidation";
-import { taskStatusToCopy } from "constants/task";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { TestAnalysisQueryParams } from "types/task";
 import { validateRegexp } from "utils/validators";
@@ -98,7 +99,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
             <ComboboxOption
               key={status}
               data-cy={`task-status-${status}-option`}
-              displayName={taskStatusToCopy[status]}
+              displayName={taskStatusToCopy[status as TaskStatus]}
               value={status}
             />
           ))}
