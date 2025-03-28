@@ -125,6 +125,7 @@ const useLogDownloader = ({
             "log.size": getFileSize(),
             "log.type": logType,
             name: "System Event log download failed",
+            reason: err.message,
           });
         })
         .finally(() => {
