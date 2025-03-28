@@ -3,10 +3,11 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus, TaskStatusUmbrella } from "@evg-ui/lib/types/task";
 import { inactiveElementStyle } from "components/styles";
-import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
+import { mapTaskToBarchartColor } from "constants/task";
 import { getStatusesWithZeroCount } from "pages/commits/ActiveCommits/utils";
 import { ColorCount } from "pages/commits/types";
 import { msToDuration } from "utils/string";
@@ -87,7 +88,7 @@ export const TotalCount: React.FC<TotalCountProps> = ({
   <TotalCountContainer active={active}>
     <Circle color={color} />
     <StatusText css={sharedCss}>
-      <div>{`Total ${taskStatusToCopy[status]}`}</div>
+      <div>{`Total ${taskStatusToCopy[status as TaskStatus]}`}</div>
       {eta &&
         `(${msToDuration(new Date(eta).valueOf() - Date.now())} remaining)`}
     </StatusText>
