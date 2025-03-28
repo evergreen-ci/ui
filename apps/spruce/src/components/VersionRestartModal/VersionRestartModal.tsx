@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body, BodyProps } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -135,7 +135,7 @@ const VersionRestartModal: React.FC<VersionRestartModalProps> = ({
       <TaskSchedulingWarningBanner totalTasks={estimatedActivatedTasksCount} />
 
       {loading ? (
-        <ParagraphSkeleton />
+        <FormSkeleton />
       ) : (
         <>
           <VersionTasks

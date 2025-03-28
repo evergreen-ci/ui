@@ -2,7 +2,7 @@ import { useReducer, useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -110,7 +110,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
       <TaskSchedulingWarningBanner totalTasks={estimatedActivatedTasksCount} />
       <ContentWrapper>
         {loadingTaskData ? (
-          <ParagraphSkeleton data-cy="loading-skeleton" />
+          <FormSkeleton data-cy="loading-skeleton" />
         ) : (
           <>
             {sortedBuildVariantGroups.length ? (
