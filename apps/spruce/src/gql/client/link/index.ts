@@ -9,6 +9,7 @@ import { shouldLogoutAndRedirect } from "@evg-ui/lib/utils/request";
 
 export { logGQLToSentryLink } from "./logGQLToSentryLink";
 export { logGQLErrorsLink } from "./logGQLErrorsLink";
+export { pausePollingLink } from "./pausePollingLink";
 
 export const authLink = (logoutAndRedirect: () => void): ApolloLink =>
   onError(({ networkError }) => {
