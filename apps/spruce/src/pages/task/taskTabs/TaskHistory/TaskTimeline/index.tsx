@@ -62,7 +62,7 @@ const TaskTimeline: React.FC<TimelineProps> = ({ groupedTasks, loading }) => {
                 );
               } else if (vt.inactiveTasks) {
                 return (
-                  <CollapsedBox key={vt.inactiveTasks[0].id}>
+                  <CollapsedBox key={vt.inactiveTasks[0].id} data-collapsed>
                     {vt.inactiveTasks.length}
                   </CollapsedBox>
                 );

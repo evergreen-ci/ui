@@ -83,10 +83,16 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           size="xsmall"
           value={viewOption}
         >
-          <SegmentedControlOption value={ViewOptions.Collapsed}>
+          <SegmentedControlOption
+            data-cy="collapsed-option"
+            value={ViewOptions.Collapsed}
+          >
             Collapsed
           </SegmentedControlOption>
-          <SegmentedControlOption value={ViewOptions.Expanded}>
+          <SegmentedControlOption
+            data-cy="expanded-option"
+            value={ViewOptions.Expanded}
+          >
             Expanded
           </SegmentedControlOption>
         </SegmentedControl>
