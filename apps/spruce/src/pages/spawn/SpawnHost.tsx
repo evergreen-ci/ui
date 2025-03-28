@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { TitleContainer, Title, BadgeWrapper } from "components/Spawn";
@@ -11,6 +10,7 @@ import { MY_HOSTS } from "gql/queries";
 import { usePolling } from "hooks";
 import { SpawnHostButton, SpawnHostTable } from "pages/spawn/spawnHost/index";
 import { HostStatus } from "types/host";
+import SpawnPageSkeleton from "./SpawnPageSkeleton";
 
 export const SpawnHost = () => {
   const dispatchToast = useToastContext();
@@ -39,7 +39,7 @@ export const SpawnHost = () => {
   usePageTitle("My Hosts");
 
   if (loading) {
-    return <Skeleton />;
+    return <SpawnPageSkeleton />;
   }
   const hosts = data?.myHosts || [];
   const runningHosts = hosts.filter(
