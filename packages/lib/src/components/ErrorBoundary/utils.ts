@@ -1,4 +1,7 @@
-import { leaveBreadcrumb, SentryBreadcrumbTypes } from "utils/errorReporting";
+import {
+  leaveBreadcrumb,
+  SentryBreadcrumbTypes,
+} from "../../utils/errorReporting";
 
 /**
  * `refreshOnOldBundleError` is a utility function that refreshes the page if the error is due to an old bundle.
