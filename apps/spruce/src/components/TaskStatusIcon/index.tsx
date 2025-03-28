@@ -3,7 +3,7 @@ import { palette } from "@leafygreen-ui/palette";
 import Icon from "@evg-ui/lib/components/Icon";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { reportError } from "@evg-ui/lib/utils/errorReporting";
-import { TaskBoxDiv } from "components/TaskBox";
+import { TaskBox } from "components/TaskBox";
 
 const { gray, green, purple, red, yellow } = palette;
 
@@ -118,15 +118,15 @@ export const mainlineCommitsGroupedStatuses = [
 
 export const waterfallGroupedStatuses = [
   {
-    icon: <TaskBoxDiv status={TaskStatus.Succeeded} />,
+    icon: <TaskBox status={TaskStatus.Succeeded} />,
     statuses: [TaskStatus.Succeeded],
   },
   {
-    icon: <TaskBoxDiv status={TaskStatus.Started} />,
+    icon: <TaskBox status={TaskStatus.Started} />,
     statuses: [TaskStatus.Started, TaskStatus.Dispatched],
   },
   {
-    icon: <TaskBoxDiv status={TaskStatus.SystemFailed} />,
+    icon: <TaskBox status={TaskStatus.SystemFailed} />,
     statuses: [
       TaskStatus.SystemFailed,
       TaskStatus.SystemTimedOut,
@@ -134,27 +134,27 @@ export const waterfallGroupedStatuses = [
     ],
   },
   {
-    icon: <TaskBoxDiv status={TaskStatus.Failed} />,
+    icon: <TaskBox status={TaskStatus.Failed} />,
     statuses: [TaskStatus.Failed],
   },
   {
-    icon: <TaskBoxDiv status={TaskStatus.KnownIssue} />,
+    icon: <TaskBox status={TaskStatus.KnownIssue} />,
     statuses: [TaskStatus.KnownIssue],
   },
   {
-    icon: <TaskBoxDiv status={TaskStatus.TaskTimedOut} />,
+    icon: <TaskBox status={TaskStatus.TaskTimedOut} />,
     statuses: [TaskStatus.TaskTimedOut, TaskStatus.TestTimedOut],
   },
   {
-    icon: <TaskBoxDiv status={TaskStatus.SetupFailed} />,
+    icon: <TaskBox status={TaskStatus.SetupFailed} />,
     statuses: [TaskStatus.SetupFailed],
   },
   {
-    icon: <TaskBoxDiv status={TaskStatus.Unscheduled} />,
+    icon: <TaskBox status={TaskStatus.Unscheduled} />,
     statuses: [TaskStatus.Unscheduled, TaskStatus.Aborted, TaskStatus.Blocked],
   },
   {
-    icon: <TaskBoxDiv status={TaskStatus.Undispatched} />,
+    icon: <TaskBox status={TaskStatus.Undispatched} />,
     statuses: [TaskStatus.Undispatched, TaskStatus.WillRun],
   },
 ];

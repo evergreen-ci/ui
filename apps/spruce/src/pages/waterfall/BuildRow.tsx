@@ -4,13 +4,14 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
 import { spacing } from "@leafygreen-ui/tokens";
+import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
-import { SQUARE_SIZE, SQUARE_BORDER, TaskBoxLink } from "components/TaskBox";
+import { SQUARE_SIZE, SQUARE_BORDER, TaskBox } from "components/TaskBox";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
@@ -200,11 +201,12 @@ const BuildGrid: React.FC<{
           return (
             <SquareMemo
               key={id}
+              as={Link}
               data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
               rightmost={isRightmostBuild}
               status={taskStatus}
               to={getTaskRoute(id, { execution })}
-              tooltip
+              tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
               {...squareProps}
             />
           );
@@ -248,4 +250,4 @@ const StyledIconButton = styled(IconButton)`
   ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
 
-const SquareMemo = memo(TaskBoxLink);
+const SquareMemo = memo(TaskBox);
