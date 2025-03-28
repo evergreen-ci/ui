@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
+import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
 import TextInput from "@leafygreen-ui/text-input";
-import { Skeleton } from "antd";
-// @ts-expect-error: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -49,7 +48,7 @@ export const NotificationsTab: React.FC = () => {
   });
 
   if (loading) {
-    return <Skeleton active />;
+    return <FormSkeleton />;
   }
 
   if (!notificationStatus) {

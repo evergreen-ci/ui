@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Skeleton } from "antd";
+import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { LoadingCell, LabelCellContainer } from "components/HistoryTable/Cell";
 
 interface LoadingRowProps {
@@ -8,7 +8,7 @@ interface LoadingRowProps {
 const LoadingRow: React.FC<LoadingRowProps> = ({ numVisibleCols }) => (
   <Container>
     <LabelCellContainer>
-      <Skeleton active paragraph={{ rows: 3 }} title={false} />
+      <ListSkeleton />
     </LabelCellContainer>
     {Array.from(Array(numVisibleCols)).map((_, index) => (
       // Disabling key index rules since there is nothing unique about these rows
