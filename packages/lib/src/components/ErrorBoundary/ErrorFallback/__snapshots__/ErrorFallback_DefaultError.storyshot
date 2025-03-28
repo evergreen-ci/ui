@@ -4,6 +4,7 @@
   >
     <div
       class="css-157odwz"
+      data-cy="error-fallback"
     >
       <div
         class="css-1xl0rym"
