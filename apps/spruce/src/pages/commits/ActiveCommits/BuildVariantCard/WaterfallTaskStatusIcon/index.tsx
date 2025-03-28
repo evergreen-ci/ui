@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { ListSkeleton } from "@leafygreen-ui/skeleton-loader";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
@@ -114,7 +114,7 @@ export const WaterfallTaskStatusIcon: React.FC<
           {displayName} {timeTaken && `- ${msToDuration(timeTaken)}`}
         </Body>
         {loading ? (
-          <Skeleton />
+          <ListSkeleton />
         ) : (
           <div>
             <TestList>
