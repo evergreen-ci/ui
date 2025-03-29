@@ -9,7 +9,7 @@ import {
  * @param error - The error object
  */
 const refreshOnOldBundleError = (error: Error) => {
-  if (error.message.includes("error loading dynamically imported module")) {
+  if (error.message.includes(dynamicallyLoadedModuleErrorMessage)) {
     leaveBreadcrumb(
       "Encountered an error loading a dynamically imported module, refreshing.",
       { error },
@@ -19,4 +19,5 @@ const refreshOnOldBundleError = (error: Error) => {
   }
 };
 
-export { refreshOnOldBundleError };
+const dynamicallyLoadedModuleErrorMessage = "dynamically imported module";
+export { refreshOnOldBundleError, dynamicallyLoadedModuleErrorMessage };

@@ -1,6 +1,7 @@
 import { isInitialized } from "@sentry/core";
 import { Mock } from "vitest";
 import { render, screen } from "test_utils";
+import { dynamicallyLoadedModuleErrorMessage } from "./utils";
 import ErrorBoundary from ".";
 
 vi.mock("@sentry/react", async (importOriginal) => {
@@ -99,7 +100,7 @@ describe("Error boundary", () => {
       expect(screen.getByDataCy("error-fallback")).toBeInTheDocument();
     });
     it("should refresh the page when an old bundle error occurs", () => {
-      const err = new Error("error loading dynamically imported module");
+      const err = new Error(dynamicallyLoadedModuleErrorMessage);
 
       vi.spyOn(window.location, "reload").mockImplementation(() => {});
 
