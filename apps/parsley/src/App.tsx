@@ -33,25 +33,27 @@ const router = createBrowserRouter([
       },
     ],
     element: (
-      <AuthProvider
-        evergreenAppURL={evergreenURL || ""}
-        localAuthRoute={routes.login}
-        remoteAuthURL={`${evergreenURL}/login`}
-        shouldUseLocalAuth={isLocal()}
-      >
-        <Outlet />
-      </AuthProvider>
+      <ErrorBoundary homeURL={parsleyURL || ""}>
+        <AuthProvider
+          evergreenAppURL={evergreenURL || ""}
+          localAuthRoute={routes.login}
+          remoteAuthURL={`${evergreenURL}/login`}
+          shouldUseLocalAuth={isLocal()}
+        >
+          <Outlet />
+        </AuthProvider>
+      </ErrorBoundary>
     ),
   },
 ]);
 
 const App = () => (
-  <ErrorBoundary homeURL={parsleyURL || ""}>
+  <>
     <GlobalStyles />
     <AppWrapper>
       <RouterProvider router={router} />
     </AppWrapper>
-  </ErrorBoundary>
+  </>
 );
 
 const AppWrapper = styled.div`
