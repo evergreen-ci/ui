@@ -46,7 +46,7 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
 
       const handleMouseMove = (e: MouseEvent) => {
         const trail = document.createElement("span");
-        trail.textContent = "✨"; // or try 🎉, 😎, 🐸, 💚, 🧃
+        trail.textContent = "✨";
         trail.style.position = "fixed";
         trail.style.left = `${e.clientX}px`;
         trail.style.top = `${e.clientY}px`;
@@ -87,6 +87,10 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
                 font-family: "Comic Sans MS", "Comic Sans", cursive !important;
                 letter-spacing: 0.1em;
                 text-transform: uppercase;
+                cursor:
+                  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🦄</text></svg>")
+                    16 0,
+                  auto;
               }
             `}
           />
