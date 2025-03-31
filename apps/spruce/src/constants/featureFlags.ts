@@ -1,3 +1,5 @@
 import { isProduction } from "utils/environmentVariables";
 
-export const showWaterfallPage = !isProduction();
+const showTaskHistoryTab = !isProduction();
+
+export { showTaskHistoryTab };

@@ -1,0 +1,18 @@
+{
+  "name": "@evg-ui/vite-utils",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check-types": "tsc -p tsconfig.json --noEmit",
+    "eslint:fix": "yarn eslint:strict --fix",
+    "eslint:staged": "STRICT=1 eslint",
+    "eslint:strict": "STRICT=1 eslint .",
+    "compile": "tsc"
+  },
+  "devDependencies": {
+    "@evg-ui/eslint-config": "*",
+    "eslint": "^9.20.1"
+  }
+}

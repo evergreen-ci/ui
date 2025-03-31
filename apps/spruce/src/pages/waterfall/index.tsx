@@ -1,8 +1,6 @@
-import { Suspense, useRef, useState, useTransition } from "react";
+import { Suspense, useCallback, useRef, useState } from "react";
 import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Banner from "@leafygreen-ui/banner";
-import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
@@ -11,8 +9,7 @@ import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { navBarHeight } from "components/styles/Layout";
 import { WalkthroughGuideCueRef } from "components/WalkthroughGuideCue";
 import { slugs } from "constants/routes";
-import { useAdminBetaFeatures, useIsScrollAtTop, useSpruceConfig } from "hooks";
-import { jiraLinkify } from "utils/string";
+import { useIsScrollAtTop } from "hooks";
 import { waterfallPageContainerId } from "./constants";
 import { Pagination, WaterfallFilterOptions } from "./types";
 import WaterfallErrorBoundary from "./WaterfallErrorBoundary";
@@ -23,10 +20,6 @@ import WaterfallSkeleton from "./WaterfallSkeleton";
 const Waterfall: React.FC = () => {
   const { [slugs.projectIdentifier]: projectIdentifier } = useParams();
   usePageTitle(`${projectIdentifier} | Waterfall`);
-  const { adminBetaSettings } = useAdminBetaFeatures();
-  const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host;
-  const [, startTransition] = useTransition();
   const { chips, handleClearAll, handleOnRemove } = useFilterChipQueryParams(
     validQueryParams,
     urlParamToTitleMap,
@@ -40,6 +33,10 @@ const Waterfall: React.FC = () => {
   const { atTop } = useIsScrollAtTop(pageWrapperRef, 200);
 
   const guideCueRef = useRef<WalkthroughGuideCueRef>(null);
+  const restartWalkthrough = useCallback(
+    () => guideCueRef.current?.restart(),
+    [guideCueRef.current],
+  );
 
   return (
     <>
@@ -49,39 +46,22 @@ const Waterfall: React.FC = () => {
         data-cy="waterfall-page"
         id={waterfallPageContainerId}
       >
-        {adminBetaSettings?.spruceWaterfallEnabled && (
-          <Banner>
-            <BannerContent>
-              <div>
-                <strong>Thanks for using the Waterfall Beta!</strong> Feedback?
-                Open a ticket within the project epic{" "}
-                {jiraLinkify("DEVPROD-3976", jiraHost ?? "")}.
-              </div>
-              <Button
-                data-cy="restart-walkthrough-button"
-                onClick={() => guideCueRef.current?.restart()}
-                size={ButtonSize.XSmall}
-              >
-                Restart walkthrough
-              </Button>
-            </BannerContent>
-          </Banner>
-        )}
         <WaterfallFilters
           // Using a key rerenders the filter components so that uncontrolled components can compute a new initial state
           key={projectIdentifier}
           pagination={pagination}
           projectIdentifier={projectIdentifier ?? ""}
+          restartWalkthrough={restartWalkthrough}
         />
         <FilterChips
           chips={chips}
           onClearAll={() => {
             sendEvent({ name: "Deleted all filter chips" });
-            startTransition(handleClearAll);
+            handleClearAll();
           }}
           onRemove={(b) => {
             sendEvent({ name: "Deleted one filter chip" });
-            startTransition(() => handleOnRemove(b));
+            handleOnRemove(b);
           }}
         />
         <Suspense fallback={<WaterfallSkeleton />}>
@@ -109,11 +89,6 @@ const urlParamToTitleMap = {
   [WaterfallFilterOptions.BuildVariant]: "Variant",
   [WaterfallFilterOptions.Task]: "Task",
 };
-
-const BannerContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 const PageContainer = styled.div`
   display: flex;

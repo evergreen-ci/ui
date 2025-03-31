@@ -1,9 +1,7 @@
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { MetadataItem } from "components/MetadataCard";
 import { Manifest } from "gql/generated/types";
-import { string } from "utils";
-
-const { omitTypename } = string;
+import { omitTypename } from "utils/object";
 
 interface Props {
   manifest: Manifest;

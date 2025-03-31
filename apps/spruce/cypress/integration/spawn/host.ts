@@ -205,9 +205,13 @@ describe("Navigating to Spawn Host page", () => {
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
       cy.dataCy("setup-script-text-area").should("not.exist");
-      cy.contains(
-        "Define setup script to run after host is configured (i.e. task data and artifacts are loaded",
-      ).click();
+      cy.dataCy("project-setup-script-checkbox").uncheck({ force: true });
+      cy.dataCy("setup-script-checkbox").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+      cy.dataCy("setup-script-checkbox").check({ force: true });
       cy.dataCy("setup-script-text-area").should("be.visible");
     });
 
@@ -215,6 +219,36 @@ describe("Navigating to Spawn Host page", () => {
       cy.visit(
         `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`,
       );
+      // Project setup script should be checked by default, which should disable setup script.
+      cy.dataCy("project-setup-script-checkbox").should(
+        "have.attr",
+        "aria-checked",
+        "true",
+      );
+      cy.dataCy("project-setup-script-checkbox").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+      cy.dataCy("setup-script-checkbox").should(
+        "have.attr",
+        "aria-disabled",
+        "true",
+      );
+
+      // Unchecking project setup script should reenable setup script.
+      cy.dataCy("project-setup-script-checkbox").uncheck({ force: true });
+      cy.dataCy("project-setup-script-checkbox").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+      cy.dataCy("setup-script-checkbox").should(
+        "have.attr",
+        "aria-disabled",
+        "false",
+      );
+
       // Checking setup script should disable project setup script.
       cy.dataCy("setup-script-checkbox").check({ force: true });
       cy.dataCy("project-setup-script-checkbox").should(
@@ -222,19 +256,10 @@ describe("Navigating to Spawn Host page", () => {
         "aria-disabled",
         "true",
       );
-      // Unchecking setup script should reenable project setup script.
-      cy.dataCy("setup-script-checkbox").uncheck({ force: true });
-      cy.dataCy("project-setup-script-checkbox").should(
-        "have.attr",
-        "aria-disabled",
-        "false",
-      );
-      // Checking project setup script should disable setup script.
-      cy.dataCy("project-setup-script-checkbox").check({ force: true });
       cy.dataCy("setup-script-checkbox").should(
         "have.attr",
         "aria-disabled",
-        "true",
+        "false",
       );
     });
     const label1 = "Use project-specific setup script defined at /path";

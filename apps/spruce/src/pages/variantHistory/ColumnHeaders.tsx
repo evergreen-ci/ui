@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, hooks } from "components/HistoryTable";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
@@ -11,7 +12,6 @@ import {
 } from "gql/generated/types";
 import { TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import { array, string } from "utils";
-import { reportError } from "utils/errorReporting";
 
 const { mapStringArrayToObject } = array;
 const { ColumnHeaderCell, LabelCellContainer, LoadingCell } = Cell;

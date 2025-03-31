@@ -1,20 +1,29 @@
 import { useMemo } from "react";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useQueryParam } from "hooks/useQueryParam";
-import { Build, BuildVariant, Version, WaterfallFilterOptions } from "./types";
-import { groupInactiveVersions } from "./utils";
+import { VERSION_LIMIT } from "./constants";
+import {
+  Build,
+  BuildVariant,
+  Pagination,
+  Version,
+  WaterfallFilterOptions,
+} from "./types";
+import { groupBuildVariants, groupInactiveVersions } from "./utils";
 
 type UseFiltersProps = {
-  buildVariants: BuildVariant[];
+  activeVersionIds: Pagination["activeVersionIds"];
   flattenedVersions: Version[];
   pins: string[];
 };
 
 export const useFilters = ({
-  buildVariants,
+  activeVersionIds,
   flattenedVersions,
   pins,
 }: UseFiltersProps) => {
+  const buildVariants = groupBuildVariants(flattenedVersions);
+
   const [requesters] = useQueryParam<string[]>(
     WaterfallFilterOptions.Requesters,
     [],
@@ -32,15 +41,6 @@ export const useFilters = ({
 
   const [taskFilter] = useQueryParam<string[]>(WaterfallFilterOptions.Task, []);
 
-  const hasFilters = useMemo(
-    () =>
-      requesters.length ||
-      statuses.length ||
-      buildVariantFilter.length ||
-      taskFilter.length,
-    [buildVariantFilter, requesters, statuses, taskFilter],
-  );
-
   const buildVariantFilterRegex: RegExp[] = useMemo(
     () => makeFilterRegex(buildVariantFilter),
     [buildVariantFilter],
@@ -52,10 +52,6 @@ export const useFilters = ({
   );
 
   const filteredBuildVariants = useMemo(() => {
-    if (!hasFilters && !pins.length) {
-      return buildVariants;
-    }
-
     const bvs: BuildVariant[] = [];
 
     let pinIndex = 0;
@@ -70,13 +66,16 @@ export const useFilters = ({
     };
 
     const activeVersions = flattenedVersions.filter(
-      (v) => v.activated && matchesRequesters(v, requesters),
+      (v) =>
+        activeVersionIds.includes(v.id) && matchesRequesters(v, requesters),
     );
 
     buildVariants.forEach((bv) => {
       const passesBVFilter =
         !buildVariantFilterRegex.length ||
-        buildVariantFilterRegex.some((r) => bv.displayName.match(r));
+        buildVariantFilterRegex.some(
+          (r) => bv.displayName.match(r) || bv.id.match(r),
+        );
 
       if (!passesBVFilter) {
         return;
@@ -109,10 +108,10 @@ export const useFilters = ({
     });
     return bvs;
   }, [
+    activeVersionIds,
     buildVariantFilterRegex,
     buildVariants,
     flattenedVersions,
-    hasFilters,
     pins,
     requesters,
     statuses,
@@ -125,10 +124,14 @@ export const useFilters = ({
         bv.builds.some((build) => build.version === version.id),
       );
 
-    return groupInactiveVersions(flattenedVersions, hasActiveBuild);
+    return groupInactiveVersions(
+      flattenedVersions,
+      hasActiveBuild,
+      VERSION_LIMIT,
+    );
   }, [filteredBuildVariants, flattenedVersions]);
 
-  const activeVersionIds = useMemo(
+  const filteredVersionIds = useMemo(
     () =>
       groupedVersions.reduce((ids: string[], { version }) => {
         if (version) {
@@ -140,7 +143,7 @@ export const useFilters = ({
   );
 
   return {
-    activeVersionIds,
+    activeVersionIds: filteredVersionIds,
     buildVariants: filteredBuildVariants,
     versions: groupedVersions,
   };

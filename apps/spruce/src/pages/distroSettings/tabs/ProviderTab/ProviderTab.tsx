@@ -4,7 +4,7 @@ import { AwsRegionsQuery, AwsRegionsQueryVariables } from "gql/generated/types";
 import { AWS_REGIONS } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import { useDistroSettingsContext } from "pages/distroSettings/Context";
-import { omitTypename } from "utils/string";
+import { omitTypename } from "utils/object";
 import { BaseTab } from "../BaseTab";
 import {
   FormToGqlFunction,

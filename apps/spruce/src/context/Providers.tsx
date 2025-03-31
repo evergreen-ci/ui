@@ -1,13 +1,15 @@
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { ToastProvider } from "@evg-ui/lib/context/toast";
-import { AuthProvider } from "context/Auth";
+import GQLWrapper from "gql/GQLWrapper";
 
-export const ContextProviders: React.FC<{ children: React.ReactNode }> = ({
+const ContextProviders: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
-  <AuthProvider>
+  <GQLWrapper>
     <LeafyGreenProvider baseFontSize={14}>
       <ToastProvider>{children}</ToastProvider>
     </LeafyGreenProvider>
-  </AuthProvider>
+  </GQLWrapper>
 );
+
+export default ContextProviders;

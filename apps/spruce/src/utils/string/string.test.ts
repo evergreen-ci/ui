@@ -3,7 +3,6 @@ import {
   msToDuration,
   sortFunctionDate,
   sortFunctionString,
-  omitTypename,
   getDateCopy,
   applyStrictRegex,
   shortenGithash,
@@ -118,127 +117,6 @@ describe("sortFunctionString", () => {
       { a: "beta" },
       { a: "Charlie" },
     ]);
-  });
-});
-
-describe("omitTypename", () => {
-  it("simple object with __typename", () => {
-    const obj = {
-      fieldA: "test",
-      fieldB: "test2",
-      __typename: "simpleObj",
-    };
-    expect(omitTypename(obj)).toStrictEqual({
-      fieldA: "test",
-      fieldB: "test2",
-    });
-  });
-  it("nested object with __typename", () => {
-    const obj = {
-      fieldA: "test",
-      fieldB: "test2",
-      someOtherObj: {
-        __typename: "someOtherObj",
-        fieldC: "test3",
-      },
-    };
-    expect(omitTypename(obj)).toStrictEqual({
-      fieldA: "test",
-      fieldB: "test2",
-      someOtherObj: {
-        fieldC: "test3",
-      },
-    });
-  });
-  it("deep nested object with __typename", () => {
-    const obj = {
-      fieldA: "test",
-      fieldB: "test2",
-      someOtherObj: {
-        fieldC: "test3",
-        someDeepObject: {
-          __typename: "someDeepObject",
-          fieldD: "test4",
-        },
-      },
-    };
-    expect(omitTypename(obj)).toStrictEqual({
-      fieldA: "test",
-      fieldB: "test2",
-      someOtherObj: {
-        fieldC: "test3",
-        someDeepObject: {
-          fieldD: "test4",
-        },
-      },
-    });
-  });
-  it("deep nested object with multiple __typename's", () => {
-    const obj = {
-      fieldA: "test",
-      fieldB: "test2",
-      someOtherObj: {
-        fieldC: "test3",
-        __typename: "someOtherObj",
-
-        someDeepObject: {
-          __typename: "someDeepObject",
-          fieldD: "test4",
-        },
-      },
-    };
-    expect(omitTypename(obj)).toStrictEqual({
-      fieldA: "test",
-      fieldB: "test2",
-      someOtherObj: {
-        fieldC: "test3",
-        someDeepObject: {
-          fieldD: "test4",
-        },
-      },
-    });
-  });
-  it("some object with multiple __typename's in an array", () => {
-    const obj = {
-      fieldA: "test",
-      fieldB: "test2",
-      someOtherObj: {
-        fieldC: "test3",
-        __typename: "someOtherObj",
-        someArray: [
-          {
-            __typename: "someDeepObject",
-            fieldD: "test4",
-          },
-          {
-            __typename: "someDeepObject",
-            fieldD: "test5",
-          },
-          {
-            __typename: "someDeepObject",
-            fieldD: "test6",
-          },
-        ],
-      },
-    };
-    expect(omitTypename(obj)).toStrictEqual({
-      fieldA: "test",
-      fieldB: "test2",
-      someOtherObj: {
-        fieldC: "test3",
-        someArray: [
-          {
-            fieldD: "test4",
-          },
-          {
-            fieldD: "test5",
-          },
-          {
-            fieldD: "test6",
-          },
-        ],
-      },
-    });
   });
 });
 

@@ -1,16 +1,16 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { initializeErrorHandling } from "@evg-ui/lib/utils/errorReporting";
 import {
   initializeHoneycomb,
   injectOpenTelemetryAttributeStoreIntoWindow,
 } from "@evg-ui/lib/utils/observability";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
-import { initializeErrorHandling } from "components/ErrorHandling";
 import { redirectRoutes, routes, slugs } from "constants/routes";
 import {
   getAppVersion,
   getReleaseStage,
-  getUiUrl,
+  getEvergreenUrl,
   isDevelopmentBuild,
 } from "utils/environmentVariables";
 import App from "./App";
@@ -26,12 +26,16 @@ const routeConfig = {
   jobLogsEvergreen: `${routes.jobLogs}/:${slugs.taskId}/:${slugs.execution}/:${slugs.groupId}`,
   patchRedirect: redirectRoutes.patch,
 };
-initializeErrorHandling();
+initializeErrorHandling({
+  environment: getReleaseStage(),
+  isProductionBuild: !isDevelopmentBuild(),
+  sentryDSN: process.env.REACT_APP_SPRUCE_SENTRY_DSN || "",
+});
 initializeHoneycomb({
   debug: isDevelopmentBuild(),
   endpoint: process.env.REACT_APP_HONEYCOMB_ENDPOINT || "",
   ingestKey: process.env.REACT_APP_HONEYCOMB_INGEST_KEY || "",
-  backendURL: toEscapedRegex(getUiUrl() || ""),
+  backendURL: toEscapedRegex(getEvergreenUrl() || ""),
   serviceName: "spruce",
   environment: getReleaseStage(),
   appVersion: getAppVersion(),

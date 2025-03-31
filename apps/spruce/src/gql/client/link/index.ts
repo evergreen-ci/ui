@@ -1,11 +1,15 @@
 import { ApolloLink, ServerParseError } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
+import {
+  leaveBreadcrumb,
+  SentryBreadcrumbTypes,
+} from "@evg-ui/lib/utils/errorReporting";
 import { shouldLogoutAndRedirect } from "@evg-ui/lib/utils/request";
-import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
 
 export { logGQLToSentryLink } from "./logGQLToSentryLink";
 export { logGQLErrorsLink } from "./logGQLErrorsLink";
+export { pausePollingLink } from "./pausePollingLink";
 
 export const authLink = (logoutAndRedirect: () => void): ApolloLink =>
   onError(({ networkError }) => {
@@ -15,7 +19,7 @@ export const authLink = (logoutAndRedirect: () => void): ApolloLink =>
       leaveBreadcrumb(
         "Not Authenticated",
         { status_code: 401 },
-        SentryBreadcrumb.User,
+        SentryBreadcrumbTypes.User,
       );
       logoutAndRedirect();
     }
@@ -38,7 +42,7 @@ export const authenticateIfSuccessfulLink = (
           status: !response.errors ? "OK" : "ERROR",
           errors: response.errors,
         },
-        SentryBreadcrumb.HTTP,
+        SentryBreadcrumbTypes.HTTP,
       );
       return response;
     }),

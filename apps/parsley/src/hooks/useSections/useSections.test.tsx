@@ -1,12 +1,12 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { RenderFakeToastContext as InitializeFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
+import * as ErrorReporting from "@evg-ui/lib/utils/errorReporting";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
 import {
   parsleySettingsMock,
   parsleySettingsMockSectionsDisabled,
 } from "test_data/parsleySettings";
-import * as ErrorReporting from "utils/errorReporting";
 import { sectionData, sectionStateAllClosed } from "./testData";
 import * as sectionUtils from "./utils";
 import { useSections } from ".";

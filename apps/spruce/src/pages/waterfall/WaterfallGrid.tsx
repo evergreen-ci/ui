@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { useSuspenseQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { fromZonedTime } from "date-fns-tz";
@@ -10,15 +10,20 @@ import {
   WATERFALL_PINNED_VARIANTS_KEY,
 } from "constants/index";
 import { utcTimeZone } from "constants/time";
-import { WaterfallQuery, WaterfallQueryVariables } from "gql/generated/types";
+import {
+  WaterfallOptions,
+  WaterfallQuery,
+  WaterfallQueryVariables,
+} from "gql/generated/types";
 import { WATERFALL } from "gql/queries";
-import { useAdminBetaFeatures, useUserTimeZone } from "hooks";
+import { useUserTimeZone } from "hooks";
 import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam, useQueryParams } from "hooks/useQueryParam";
 import { getObject, setObject } from "utils/localStorage";
 import { BuildRow } from "./BuildRow";
 import { BuildVariantProvider } from "./BuildVariantContext";
 import { VERSION_LIMIT } from "./constants";
+import { FetchMoreLoader } from "./FetchMoreLoader";
 import { InactiveVersionsButton } from "./InactiveVersions";
 import { OnboardingTutorial } from "./OnboardingTutorial";
 import {
@@ -30,8 +35,19 @@ import {
 import { Pagination, WaterfallFilterOptions, Version } from "./types";
 import { useFilters } from "./useFilters";
 import { useWaterfallTrace } from "./useWaterfallTrace";
-import { groupBuildVariants } from "./utils";
 import { VersionLabel, VersionLabelView } from "./VersionLabel";
+
+type ServerFilters = Pick<
+  WaterfallOptions,
+  "requesters" | "statuses" | "tasks" | "variants"
+>;
+
+const resetFilterState: ServerFilters = {
+  requesters: undefined,
+  statuses: undefined,
+  tasks: undefined,
+  variants: undefined,
+};
 
 type WaterfallGridProps = {
   atTop: boolean;
@@ -48,7 +64,6 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 }) => {
   useWaterfallTrace();
   const [queryParams, setQueryParams] = useQueryParams();
-  const { adminBetaSettings } = useAdminBetaFeatures();
   const { sendEvent } = useWaterfallAnalytics();
 
   const [pins, setPins] = useState<string[]>(
@@ -93,6 +108,9 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
 
   const timezone = useUserTimeZone() ?? utcTimeZone;
 
+  const [serverFilters, setServerFilters] =
+    useState<ServerFilters>(resetFilterState);
+
   const { data } = useSuspenseQuery<WaterfallQuery, WaterfallQueryVariables>(
     WATERFALL,
     {
@@ -104,10 +122,12 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           minOrder,
           revision,
           date: date ? fromZonedTime(date, timezone) : undefined,
+          ...serverFilters,
         },
       },
       // @ts-expect-error pollInterval isn't officially supported by useSuspenseQuery, but it works so let's use it anyway.
       pollInterval: DEFAULT_POLL_INTERVAL,
+      nextFetchPolicy: "cache-and-network",
     },
   );
 
@@ -115,7 +135,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   useEffect(() => {
     if (minOrder > 0) {
       const { flattenedVersions, pagination } = data.waterfall;
-      const activeVersions = flattenedVersions.filter((v) => v.activated);
+      const activeVersions = pagination.activeVersionIds;
       const isMostRecentCommitOnPage =
         flattenedVersions[0].order === pagination.mostRecentVersionOrder;
 
@@ -136,17 +156,40 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
   const refEl = useRef<HTMLDivElement>(null);
   const { height } = useDimensions<HTMLDivElement>(refEl);
 
-  const groupedBuildVariants = groupBuildVariants(
-    data.waterfall.flattenedVersions,
-  );
-
   const { activeVersionIds, buildVariants, versions } = useFilters({
-    buildVariants: groupedBuildVariants,
-    flattenedVersions: data.waterfall.flattenedVersions.map(
-      ({ waterfallBuilds, ...restOfVersion }) => restOfVersion,
-    ),
+    activeVersionIds: data.waterfall.pagination.activeVersionIds,
+    flattenedVersions: data.waterfall.flattenedVersions,
     pins,
   });
+
+  const [isPending, startTransition] = useTransition();
+  const [allQueryParams] = useQueryParams();
+
+  useEffect(() => {
+    const hasServerParams =
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Requesters) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Statuses) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.Task) ||
+      Object.keys(allQueryParams).includes(WaterfallFilterOptions.BuildVariant);
+    if (activeVersionIds.length < VERSION_LIMIT && hasServerParams) {
+      const filters = {
+        requesters: allQueryParams[
+          WaterfallFilterOptions.Requesters
+        ] as string[],
+        statuses: allQueryParams[WaterfallFilterOptions.Statuses] as string[],
+        tasks: allQueryParams[WaterfallFilterOptions.Task] as string[],
+        variants: allQueryParams[
+          WaterfallFilterOptions.BuildVariant
+        ] as string[],
+      };
+      startTransition(() => {
+        setServerFilters(filters);
+      });
+    } else if (!hasServerParams) {
+      // Because this data is already loaded and no animation is necessary, omitting startTransition for snappiness
+      setServerFilters(resetFilterState);
+    }
+  }, [allQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const firstActiveVersionId = activeVersionIds[0];
   const lastActiveVersionId = activeVersionIds[activeVersionIds.length - 1];
@@ -188,6 +231,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
               </InactiveVersion>
             );
           })}
+          {isPending && <FetchMoreLoader />}
         </Versions>
       </StickyHeader>
       <BuildVariantProvider>
@@ -207,9 +251,7 @@ export const WaterfallGrid: React.FC<WaterfallGridProps> = ({
           );
         })}
       </BuildVariantProvider>
-      {adminBetaSettings?.spruceWaterfallEnabled && (
-        <OnboardingTutorial guideCueRef={guideCueRef} />
-      )}
+      <OnboardingTutorial guideCueRef={guideCueRef} />
     </Container>
   );
 };

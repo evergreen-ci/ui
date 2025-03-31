@@ -7,21 +7,20 @@ import Cookies from "js-cookie";
 import { Link, useParams } from "react-router-dom";
 import Icon, { AnimatedIcon, HolidayTree } from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
 import { useNavbarAnalytics } from "analytics";
 import { navBarHeight } from "components/styles/Layout";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { wikiUrl } from "constants/externalResources";
 import {
-  getCommitsRoute,
   getUserPatchesRoute,
   getWaterfallRoute,
   routes,
   slugs,
 } from "constants/routes";
-import { useAuthStateContext } from "context/Auth";
 import { UserQuery, SpruceConfigQuery } from "gql/generated/types";
 import { USER, SPRUCE_CONFIG } from "gql/queries";
-import { useLegacyUIURL, useMergedBetaFeatures } from "hooks";
+import { useLegacyUIURL } from "hooks";
 import { validators } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
@@ -31,7 +30,7 @@ const { validateObjectId } = validators;
 const { blue, gray, white } = palette;
 
 export const Navbar: React.FC = () => {
-  const { isAuthenticated } = useAuthStateContext();
+  const { isAuthenticated } = useAuthProviderContext();
   const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();
 
@@ -62,9 +61,6 @@ export const Navbar: React.FC = () => {
   const projectIdentifier =
     currProject || configData?.spruceConfig?.ui?.defaultProject;
 
-  const { betaFeatures } = useMergedBetaFeatures();
-  const { spruceWaterfallEnabled } = betaFeatures ?? {};
-
   if (!isAuthenticated) {
     return null;
   }
@@ -77,24 +73,13 @@ export const Navbar: React.FC = () => {
         >
           <StyledAnimatedIcon icon={HolidayTree} />
         </LogoLink>
-        {spruceWaterfallEnabled ? (
-          <PrimaryLink
-            data-cy="waterfall-link"
-            onClick={() => sendEvent({ name: "Clicked waterfall link" })}
-            to={getWaterfallRoute(projectIdentifier)}
-          >
-            Waterfall
-          </PrimaryLink>
-        ) : (
-          <PrimaryLink
-            data-cy="project-health-link"
-            onClick={() => sendEvent({ name: "Clicked project health link" })}
-            to={getCommitsRoute(projectIdentifier)}
-          >
-            Project Health
-          </PrimaryLink>
-        )}
-
+        <PrimaryLink
+          data-cy="waterfall-link"
+          onClick={() => sendEvent({ name: "Clicked waterfall link" })}
+          to={getWaterfallRoute(projectIdentifier)}
+        >
+          Waterfall
+        </PrimaryLink>
         <PrimaryLink
           onClick={() => sendEvent({ name: "Clicked my patches link" })}
           // @ts-expect-error: FIXME. This comment was added by an automated script.

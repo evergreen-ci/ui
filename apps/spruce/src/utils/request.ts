@@ -1,9 +1,9 @@
-import { getUiUrl } from "./environmentVariables";
-import { reportError } from "./errorReporting";
+import { reportError } from "@evg-ui/lib/utils/errorReporting";
+import { getEvergreenUrl } from "./environmentVariables";
 
 export const post = async (url: string, body: unknown) => {
   try {
-    const response = await fetch(`${getUiUrl()}${url}`, {
+    const response = await fetch(`${getEvergreenUrl()}${url}`, {
       method: "POST",
       body: JSON.stringify(body),
       credentials: "include",

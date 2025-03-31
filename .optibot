@@ -1,0 +1,12 @@
+{
+   "autoSummary": false,
+   "reviews": {
+      "auto": false,
+      "code-generation": true,
+      "autoApprove": false,
+      "include": [
+      ],
+      "exclude": [
+      ]
+   }
+}

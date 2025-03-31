@@ -3,7 +3,7 @@ import { LogTypes } from "types/task";
 import {
   getHoneycombBaseURL,
   getParsleyUrl,
-  getUiUrl,
+  getEvergreenUrl,
 } from "utils/environmentVariables";
 
 export const wikiBaseUrl =
@@ -61,7 +61,8 @@ export const getJiraBugUrl = (jiraHost: string) =>
 export const getJiraImprovementUrl = (jiraHost: string) =>
   `https://${jiraHost}/secure/CreateIssueDetails!init.jspa?pid=22786&issuetype=4&priority=4&labels=user-feedback`;
 
-export const getIdeUrl = (hostId: string) => `${getUiUrl()}/host/${hostId}/ide`;
+export const getIdeUrl = (hostId: string) =>
+  `${getEvergreenUrl()}/host/${hostId}/ide`;
 
 export const getJiraSearchUrl = (jiraHost: string, jqlEscaped: string) =>
   `https://${jiraHost}/secure/IssueNavigator.jspa?jql=${jqlEscaped}`;
@@ -157,7 +158,7 @@ export const getHoneycombSystemMetricsUrl = (
   )}&omitMissingValues`;
 };
 
-export const adminSettingsURL = `${getUiUrl()}/admin`;
+export const adminSettingsURL = `${getEvergreenUrl()}/admin`;
 
 export const buildHostConfigurationRepoURL =
   "https://github.com/10gen/buildhost-configuration";

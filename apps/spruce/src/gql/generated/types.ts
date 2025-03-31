@@ -312,6 +312,12 @@ export type CreateProjectInput = {
   repoRefId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type CursorParams = {
+  cursorId: Scalars["String"]["input"];
+  direction: TaskHistoryDirection;
+  includeCursor: Scalars["Boolean"]["input"];
+};
+
 /** DeactivateStepbackTaskInput is the input to the deactivateStepbackTask mutation. */
 export type DeactivateStepbackTaskInput = {
   buildVariantName: Scalars["String"]["input"];
@@ -2129,6 +2135,7 @@ export enum ProjectSettingsSection {
 
 export type ProjectTasksPair = {
   __typename?: "ProjectTasksPair";
+  allowedBVs: Array<Scalars["String"]["output"]>;
   allowedTasks: Array<Scalars["String"]["output"]>;
   projectId: Scalars["String"]["output"];
 };
@@ -2210,6 +2217,7 @@ export type Query = {
   subnetAvailabilityZones: Array<Scalars["String"]["output"]>;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
+  taskHistory: TaskHistory;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]["output"]>>;
   taskQueueDistros: Array<TaskQueueDistro>;
   taskTestSample?: Maybe<Array<TaskTestResultSample>>;
@@ -2337,6 +2345,10 @@ export type QueryTaskArgs = {
 
 export type QueryTaskAllExecutionsArgs = {
   taskId: Scalars["String"]["input"];
+};
+
+export type QueryTaskHistoryArgs = {
+  options: TaskHistoryOpts;
 };
 
 export type QueryTaskNamesForBuildVariantArgs = {
@@ -2932,6 +2944,32 @@ export type TaskFilterOptions = {
   statuses?: InputMaybe<Array<Scalars["String"]["input"]>>;
   taskName?: InputMaybe<Scalars["String"]["input"]>;
   variant?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type TaskHistory = {
+  __typename?: "TaskHistory";
+  pagination: TaskHistoryPagination;
+  tasks: Array<Task>;
+};
+
+export enum TaskHistoryDirection {
+  After = "AFTER",
+  Before = "BEFORE",
+}
+
+export type TaskHistoryOpts = {
+  buildVariant: Scalars["String"]["input"];
+  cursorParams: CursorParams;
+  date?: InputMaybe<Scalars["Time"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  projectIdentifier: Scalars["String"]["input"];
+  taskName: Scalars["String"]["input"];
+};
+
+export type TaskHistoryPagination = {
+  __typename?: "TaskHistoryPagination";
+  mostRecentTaskOrder: Scalars["Int"]["output"];
+  oldestTaskOrder: Scalars["Int"]["output"];
 };
 
 export type TaskInfo = {
@@ -6159,6 +6197,7 @@ export type DistroQuery = {
     providerSettingsList: Array<any>;
     setup: string;
     setupAsSudo: boolean;
+    singleTaskDistro: boolean;
     sshOptions: Array<string>;
     user: string;
     userSpawnAllowed: boolean;
@@ -8662,6 +8701,23 @@ export type SecretFieldsQuery = {
   } | null;
 };
 
+export type SingleTaskDistroQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SingleTaskDistroQuery = {
+  __typename?: "Query";
+  spruceConfig?: {
+    __typename?: "SpruceConfig";
+    singleTaskDistro?: {
+      __typename?: "SingleTaskDistroConfig";
+      projectTasksPairs: Array<{
+        __typename?: "ProjectTasksPair";
+        projectId: string;
+        allowedTasks: Array<string>;
+      }>;
+    } | null;
+  } | null;
+};
+
 export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SpawnExpirationInfoQuery = {
@@ -9788,6 +9844,7 @@ export type WaterfallQuery = {
     }>;
     pagination: {
       __typename?: "WaterfallPagination";
+      activeVersionIds: Array<string>;
       hasNextPage: boolean;
       hasPrevPage: boolean;
       mostRecentVersionOrder: number;

@@ -4,6 +4,7 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 export const getFormSchema = (
   isContainerDistro: boolean,
   minimumHosts: number,
+  singleTaskDistroWarnings: string[],
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -70,6 +71,11 @@ export const getFormSchema = (
             title: "Disable queueing for this distro",
             default: false,
           },
+          singleTaskDistro: {
+            type: "boolean" as const,
+            title: "Set distro as Single Task Distro",
+            default: false,
+          },
           note: {
             type: "string" as const,
             title: "Notes",
@@ -128,6 +134,12 @@ export const getFormSchema = (
         ...(minimumHosts > 0 && {
           "ui:tooltipDescription": `This will still allow the minimum number of hosts (${minimumHosts}) to start`,
         }),
+      },
+      singleTaskDistro: {
+        "ui:description":
+          "Hosts will run only one task or task group before terminating.",
+        "ui:warnings": singleTaskDistroWarnings,
+        "ui:data-cy-banner": "single-task-banner",
       },
       note: {
         "ui:rows": 7,

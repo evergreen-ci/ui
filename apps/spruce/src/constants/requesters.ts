@@ -10,6 +10,16 @@ enum Requester {
   Trigger = "trigger_request",
 }
 
+const mainlineRequesters = [
+  Requester.AdHoc,
+  Requester.GitTag,
+  Requester.Gitter,
+  Requester.Trigger,
+];
+
+export const isMainlineRequester = (requester: Requester) =>
+  mainlineRequesters.includes(requester);
+
 const requesterToTitle: PartialRecord<Requester, string> = {
   [Requester.AdHoc]: "Periodic build",
   [Requester.GitHubMergeQueue]: "GitHub merge request",
@@ -25,4 +35,9 @@ const requesterToDescription: PartialRecord<Requester, string> = {
   [Requester.Trigger]: "Downstream trigger versions",
 };
 
-export { Requester, requesterToTitle, requesterToDescription };
+export {
+  Requester,
+  requesterToTitle,
+  requesterToDescription,
+  mainlineRequesters,
+};

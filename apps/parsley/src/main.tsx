@@ -1,11 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { initializeErrorHandling } from "@evg-ui/lib/utils/errorReporting";
 import {
   initializeHoneycomb,
   injectOpenTelemetryAttributeStoreIntoWindow,
 } from "@evg-ui/lib/utils/observability";
 import { toEscapedRegex } from "@evg-ui/lib/utils/string";
-import { initializeErrorHandling } from "components/ErrorHandling";
 import {
   evergreenURL,
   getReleaseStage,
@@ -19,7 +19,11 @@ const routeConfig = {
   // Override the testLogs route to include the groupID parameter so that we can easily identify routes with groupID slugs in Honeycomb.
   testLogs: `${routes.testLogs}/:${slugs.groupID}?`,
 };
-initializeErrorHandling();
+initializeErrorHandling({
+  environment: getReleaseStage(),
+  isProductionBuild: !isDevelopmentBuild(),
+  sentryDSN: process.env.REACT_APP_PARSLEY_SENTRY_DSN || "",
+});
 initializeHoneycomb({
   appVersion: process.env.REACT_APP_VERSION || "",
   backendURL: toEscapedRegex(evergreenURL || ""),

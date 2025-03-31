@@ -6,7 +6,7 @@ import { notificationFields } from "constants/subscription";
 import { Notifications } from "gql/generated/types";
 
 interface NotificationFieldProps {
-  notifications: { [key: string]: string };
+  notifications: { [key: string]: string | null | undefined };
   notificationStatus: Notifications;
   setNotificationStatus: (notifications: { [key: string]: string }) => void;
 }

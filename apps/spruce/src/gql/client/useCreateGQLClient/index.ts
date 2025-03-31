@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { HttpLink, ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import { useAuthProviderContext } from "@evg-ui/lib/context/AuthProvider";
+import {
+  leaveBreadcrumb,
+  SentryBreadcrumbTypes,
+} from "@evg-ui/lib/utils/errorReporting";
 import {
   fetchWithRetry,
   getUserStagingHeader,
   shouldLogoutAndRedirect,
 } from "@evg-ui/lib/utils/request";
-import { useAuthDispatchContext } from "context/Auth";
 import { cache } from "gql/client/cache";
 import {
   authenticateIfSuccessfulLink,
@@ -13,23 +17,23 @@ import {
   logGQLToSentryLink,
   logGQLErrorsLink,
   retryLink,
+  pausePollingLink,
 } from "gql/client/link";
 import { secretFieldsReq } from "gql/fetch";
 import { SecretFieldsQuery } from "gql/generated/types";
-import { environmentVariables } from "utils";
-import { leaveBreadcrumb, SentryBreadcrumb } from "utils/errorReporting";
+import { getGQLUrl } from "utils/environmentVariables";
 
-const { getGQLUrl } = environmentVariables;
-
-export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
-  const { dispatchAuthenticated, logoutAndRedirect } = useAuthDispatchContext();
+export const useCreateGQLClient = ():
+  | ApolloClient<NormalizedCacheObject>
+  | undefined => {
+  const { dispatchAuthenticated, logoutAndRedirect } = useAuthProviderContext();
   const [secretFields, setSecretFields] = useState<string[]>();
-  const [gqlClient, setGQLClient] = useState<any>();
+  const [gqlClient, setGQLClient] =
+    useState<ApolloClient<NormalizedCacheObject>>();
 
   useEffect(() => {
     fetchWithRetry<SecretFieldsQuery>(getGQLUrl(), secretFieldsReq)
       .then(({ data }) => {
-        dispatchAuthenticated();
         setSecretFields(data?.spruceConfig?.secretFields);
       })
       .catch((err) => {
@@ -38,8 +42,9 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
           {
             err,
           },
-          SentryBreadcrumb.HTTP,
+          SentryBreadcrumbTypes.HTTP,
         );
+
         if (shouldLogoutAndRedirect(err?.cause?.statusCode)) {
           logoutAndRedirect();
         }
@@ -55,6 +60,7 @@ export const useCreateGQLClient = (): ApolloClient<NormalizedCacheObject> => {
           .concat(logGQLToSentryLink(secretFields))
           .concat(logGQLErrorsLink(secretFields))
           .concat(retryLink)
+          .concat(pausePollingLink)
           .concat(
             new HttpLink({
               uri: getGQLUrl(),
