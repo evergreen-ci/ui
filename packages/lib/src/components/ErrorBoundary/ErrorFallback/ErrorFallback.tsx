@@ -11,7 +11,7 @@ interface ErrorFallbackProps {
   homeURL: string;
 }
 const ErrorFallback: React.FC<ErrorFallbackProps> = ({ homeURL }) => (
-  <Center>
+  <Center data-cy="error-fallback">
     <Text>
       <StyledHeader>Error</StyledHeader>
       <StyledSubtitle>
