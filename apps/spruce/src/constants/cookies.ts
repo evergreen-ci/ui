@@ -17,3 +17,4 @@ export const SEEN_WATERFALL_LAUNCH_MODAL = "seen-waterfall-launch-modal";
 export const SEEN_WATERFALL_ONBOARDING_TUTORIAL =
   "seen-waterfall-onboarding-tutorial";
 export const SEEN_DARK_MODE_PRANK = "seen-dark-mode-prank";
+export const SEEN_COMIC_SANS_PRANK = "seen-comic-sans-prank";

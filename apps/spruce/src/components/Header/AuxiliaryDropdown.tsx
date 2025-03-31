@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { useNavbarAnalytics } from "analytics";
-import AprilFoolsDarkMode, {
-  AprilFoolsDarkModeHandle,
-} from "components/AprilFoolsDarkMode";
+import EvergreenRedesignModal, {
+  EvergreenRedesignModalHandle,
+} from "components/AprilFoolsEvergreenRedesign";
 import {
   routes,
   getDistroSettingsRoute,
@@ -23,7 +23,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
 }) => {
   const { sendEvent } = useNavbarAnalytics();
   const { distro } = useFirstDistro();
-  const prankRef = useRef<AprilFoolsDarkModeHandle>(null);
+  const prankRef = useRef<EvergreenRedesignModalHandle>(null);
 
   const menuItems = [
     {
@@ -68,7 +68,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
 
   return (
     <>
-      <AprilFoolsDarkMode ref={prankRef} />
+      <EvergreenRedesignModal ref={prankRef} />
       <NavDropdown
         dataCy="auxiliary-dropdown-link"
         menuItems={menuItems}
