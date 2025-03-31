@@ -106,6 +106,13 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
             z-index: ${zIndex.modal};
           `}
           darkMode
+          disclaimer={
+            <div style={{ textAlign: "center" }}>
+              {isFollowUp
+                ? "You can always enable the redesign again. By clicking 'more' in the navbar"
+                : ""}
+            </div>
+          }
           graphic={<div />}
           linkText={isFollowUp ? "Click here to reset the page" : ""}
           onButtonClick={
