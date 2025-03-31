@@ -17,7 +17,9 @@ type Action =
   | { name: "Clicked profile link" }
   | { name: "Clicked notifications link" }
   | { name: "Clicked UI settings link" }
-  | { name: "Clicked task queue link" };
+  | { name: "Clicked task queue link" }
+  | { name: "Clicked disable april fools link" }
+  | { name: "Clicked enable april fools link in navbar" };
 
 export const useNavbarAnalytics = () =>
   useAnalyticsRoot<Action, AnalyticsIdentifier>("Navbar");

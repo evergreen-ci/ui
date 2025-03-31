@@ -3,6 +3,7 @@ import { css, Global } from "@emotion/react";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
 import Cookies from "js-cookie";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
+import { useNavbarAnalytics } from "analytics";
 import { SEEN_COMIC_SANS_PRANK } from "constants/cookies";
 
 export interface EvergreenRedesignModalHandle {
@@ -16,31 +17,26 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
     );
     const [comicSansEnabled, setComicSansEnabled] = useState(false);
     const [isFollowUp, setIsFollowUp] = useState(false);
-
+    const { sendEvent } = useNavbarAnalytics();
     useImperativeHandle(ref, () => ({
       openModal: () => {
+        sendEvent({ name: "Clicked enable april fools link in navbar" });
         setModalOpen(true);
         setIsFollowUp(false);
       },
     }));
 
-    const [isFolding, setIsFolding] = useState(false);
-
     const triggerComicSansWithAnimation = () => {
-      setIsFolding(true);
       setModalOpen(false); // Hide original modal
 
-      setTimeout(() => {
-        setComicSansEnabled(true);
-        setIsFolding(false);
+      setComicSansEnabled(true);
 
-        // Now start the 10s timer for the follow-up prank modal
-        setTimeout(() => {
-          setIsFollowUp(true);
-          setModalOpen(true);
-          Cookies.set(SEEN_COMIC_SANS_PRANK, "true", { expires: 2 });
-        }, 10000);
-      }, 2000); // Match animation duration
+      // Now start the 10s timer for the follow-up prank modal
+      setTimeout(() => {
+        setIsFollowUp(true);
+        setModalOpen(true);
+        Cookies.set(SEEN_COMIC_SANS_PRANK, "true", { expires: 2 });
+      }, 8000);
     };
 
     useEffect(() => {
@@ -95,41 +91,12 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
             `}
           />
         )}
-        <Global
-          styles={css`
-            @keyframes curtainReveal {
-              0% {
-                transform: translateY(0%);
-              }
-              100% {
-                transform: translateY(-100%);
-              }
-            }
-          `}
-        />
-
-        {isFolding && (
-          <div
-            css={css`
-              position: fixed;
-              top: 0;
-              left: 0;
-              width: 100vw;
-              height: 100vh;
-              background: linear-gradient(to bottom, #007d3c 0%, #00642f 100%);
-              animation: curtainReveal 2s ease-in-out forwards;
-              transform-origin: top;
-              z-index: 2147483647 !important;
-              transform: translateZ(0);
-              will-change: transform;
-              pointer-events: all;
-            `}
-          />
-        )}
 
         <MarketingModal
           buttonText={
-            isFollowUp ? "Okay... I guess?" : "Experience the Redesign"
+            isFollowUp
+              ? "The Evergreen team rocks for this!"
+              : "Experience the Redesign"
           }
           css={css`
             z-index: ${zIndex.modal};
@@ -143,7 +110,10 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
               : triggerComicSansWithAnimation
           }
           onClose={() => setModalOpen(false)}
-          onLinkClick={() => window.location.reload()}
+          onLinkClick={() => {
+            sendEvent({ name: "Clicked disable april fools link" });
+            window.location.reload();
+          }}
           open={modalOpen}
           setOpen={setModalOpen}
           showBlob
