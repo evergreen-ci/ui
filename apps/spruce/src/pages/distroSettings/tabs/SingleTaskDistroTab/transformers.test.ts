@@ -26,12 +26,12 @@ describe("single task distro data", () => {
         {
           displayTitle: "evergreen",
           allowedTasks: ["compile", "test"],
-          allowedBVs: ["ubuntu1604"],
+          allowedBVs: ["ubuntu1604", "windows"],
         },
         {
           displayTitle: "spruce",
           allowedTasks: ["lint", "storybook"],
-          allowedBVs: ["ubuntu1604", "windows"],
+          allowedBVs: ["ubuntu1604"],
         },
       ],
     });
