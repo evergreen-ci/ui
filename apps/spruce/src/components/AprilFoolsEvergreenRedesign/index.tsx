@@ -3,7 +3,7 @@ import { css, Global } from "@emotion/react";
 import MarketingModal from "@leafygreen-ui/marketing-modal";
 import Cookies from "js-cookie";
 import { zIndex } from "@evg-ui/lib/constants/tokens";
-import { useNavbarAnalytics } from "analytics";
+import { useAprilFoolsAnalytics } from "analytics/aprilFools/useAprilFoolsAnalytics";
 import { SEEN_COMIC_SANS_PRANK } from "constants/cookies";
 
 export interface EvergreenRedesignModalHandle {
@@ -17,10 +17,10 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
     );
     const [comicSansEnabled, setComicSansEnabled] = useState(false);
     const [isFollowUp, setIsFollowUp] = useState(false);
-    const { sendEvent } = useNavbarAnalytics();
+    const { sendEvent } = useAprilFoolsAnalytics();
     useImperativeHandle(ref, () => ({
       openModal: () => {
-        sendEvent({ name: "Clicked enable april fools link in navbar" });
+        sendEvent({ name: "Clicked enable April Fools link in navbar" });
         setModalOpen(true);
         setIsFollowUp(false);
       },
@@ -31,7 +31,7 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
 
       setComicSansEnabled(true);
 
-      // Now start the 10s timer for the follow-up prank modal
+      // Now start the 8s timer for the follow-up prank modal
       setTimeout(() => {
         setIsFollowUp(true);
         setModalOpen(true);
@@ -51,7 +51,7 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
         trail.style.left = `${e.clientX}px`;
         trail.style.top = `${e.clientY}px`;
         trail.style.pointerEvents = "none";
-        trail.style.zIndex = "2147483647";
+        trail.style.zIndex = `${zIndex.max_do_not_use}`;
         trail.style.transform = "translate(-50%, -50%)";
         trail.style.fontSize = "20px";
         trail.style.opacity = "1";
@@ -99,7 +99,7 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
         <MarketingModal
           buttonText={
             isFollowUp
-              ? "The Evergreen team rocks for this!"
+              ? "The Evergreen team rocks for this! "
               : "Experience the Redesign"
           }
           css={css`
@@ -122,7 +122,7 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
           }
           onClose={() => setModalOpen(false)}
           onLinkClick={() => {
-            sendEvent({ name: "Clicked disable april fools link" });
+            sendEvent({ name: "Clicked disable April Fools link" });
             window.location.reload();
           }}
           open={modalOpen}
