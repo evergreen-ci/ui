@@ -98,9 +98,7 @@ const EvergreenRedesignModal = forwardRef<EvergreenRedesignModalHandle>(
 
         <MarketingModal
           buttonText={
-            isFollowUp
-              ? "The Evergreen team rocks for this! "
-              : "Experience the Redesign"
+            isFollowUp ? "Continue the experience" : "Experience the Redesign"
           }
           css={css`
             z-index: ${zIndex.modal};
