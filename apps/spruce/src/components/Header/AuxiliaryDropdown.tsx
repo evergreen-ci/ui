@@ -1,4 +1,8 @@
+import { useRef } from "react";
 import { useNavbarAnalytics } from "analytics";
+import EvergreenRedesignModal, {
+  EvergreenRedesignModalHandle,
+} from "components/AprilFoolsEvergreenRedesign";
 import {
   routes,
   getDistroSettingsRoute,
@@ -19,6 +23,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
 }) => {
   const { sendEvent } = useNavbarAnalytics();
   const { distro } = useFirstDistro();
+  const prankRef = useRef<EvergreenRedesignModalHandle>(null);
 
   const menuItems = [
     {
@@ -55,13 +60,20 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
       to: getCommitsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Clicked project health link" }),
     },
+    {
+      text: "April Fools",
+      onClick: () => prankRef.current?.openModal(),
+    },
   ];
 
   return (
-    <NavDropdown
-      dataCy="auxiliary-dropdown-link"
-      menuItems={menuItems}
-      title="More"
-    />
+    <>
+      <EvergreenRedesignModal ref={prankRef} />
+      <NavDropdown
+        dataCy="auxiliary-dropdown-link"
+        menuItems={menuItems}
+        title="More"
+      />
+    </>
   );
 };

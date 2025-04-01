@@ -8713,6 +8713,7 @@ export type SingleTaskDistroQuery = {
         __typename?: "ProjectTasksPair";
         projectId: string;
         allowedTasks: Array<string>;
+        allowedBVs: Array<string>;
       }>;
     } | null;
   } | null;
