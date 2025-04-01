@@ -31,13 +31,7 @@ const TaskTimeline: React.FC<TimelineProps> = ({ groupedTasks, loading }) => {
 
   return (
     <Container>
-      <IconButton
-        aria-label="Previous Page"
-        disabled
-        onClick={() => {
-          console.log("TODO: DEVPROD-16050");
-        }}
-      >
+      <IconButton aria-label="Previous Page" disabled>
         <Icon glyph="ChevronLeft" />
       </IconButton>
       <Timeline ref={ref}>
@@ -72,13 +66,7 @@ const TaskTimeline: React.FC<TimelineProps> = ({ groupedTasks, loading }) => {
           </>
         )}
       </Timeline>
-      <IconButton
-        aria-label="Next Page"
-        disabled
-        onClick={() => {
-          console.log("TODO: DEVPROD-16050");
-        }}
-      >
+      <IconButton aria-label="Next Page" disabled>
         <Icon glyph="ChevronRight" />
       </IconButton>
     </Container>
