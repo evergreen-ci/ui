@@ -19,7 +19,6 @@ import {
   CY_DISABLE_COMMITS_WELCOME_MODAL,
   SLACK_NOTIFICATION_BANNER,
   SEEN_WATERFALL_ONBOARDING_TUTORIAL,
-  SEEN_COMIC_SANS_PRANK,
 } from "constants/cookies";
 import { hasOperationName, isMutation } from "../utils/graphql-test-utils";
 // Alternatively you can use CommonJS syntax:
@@ -170,7 +169,6 @@ const hostMutations = ["ReprovisionToNew", "RestartJasper", "UpdateHostStatus"];
     cy.setCookie(CY_DISABLE_COMMITS_WELCOME_MODAL, "true");
     cy.setCookie(SLACK_NOTIFICATION_BANNER, "true");
     cy.setCookie(SEEN_WATERFALL_ONBOARDING_TUTORIAL, "true");
-    cy.setCookie(SEEN_COMIC_SANS_PRANK, "true");
     mutationDispatched = false;
     clearAmboyDB = false;
     cy.intercept("POST", "/graphql/query", (req) => {
