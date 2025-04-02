@@ -1,8 +1,5 @@
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-} from "@evg-ui/lib/test_utils";
+import { vi } from "vitest";
+import { render, screen, userEvent } from "test_utils";
 import Popconfirm from ".";
 
 describe("controlled popconfirm", () => {
