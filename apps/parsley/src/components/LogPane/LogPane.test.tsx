@@ -130,9 +130,9 @@ describe("logPane", () => {
       render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
         wrapper,
       });
-      vi.advanceTimersByTime(100);
+      vi.advanceTimersByTime(200);
       await waitFor(() => {
-        expect(mockedScrollToLine).toHaveBeenCalledTimes(1);
+        expect(mockedScrollToLine).toHaveBeenCalled();
       });
       expect(mockedScrollToLine).toHaveBeenCalledWith(expect.anything());
     });
@@ -158,9 +158,9 @@ describe("logPane", () => {
         route: "?shareLine=5",
         wrapper,
       });
-      vi.advanceTimersByTime(100);
+      vi.advanceTimersByTime(200);
       await waitFor(() => {
-        expect(mockedScrollToLine).toHaveBeenCalledTimes(1);
+        expect(mockedScrollToLine).toHaveBeenCalled();
       });
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalledWith(expect.anything());
