@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { QueryParams } from "constants/queryParams";
 import BookmarksBar from ".";

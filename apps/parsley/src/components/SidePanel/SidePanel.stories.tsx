@@ -3,7 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import styled from "@emotion/styled";
 import { actions } from "@storybook/addon-actions";
 import { userEvent } from "@storybook/testing-library";
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";

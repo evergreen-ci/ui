@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { CustomMeta, CustomStoryObj } from "@evg-ui/lib/test_utils/types";
 import { LogTypes } from "constants/enums";
 import { useLogContext } from "context/LogContext";

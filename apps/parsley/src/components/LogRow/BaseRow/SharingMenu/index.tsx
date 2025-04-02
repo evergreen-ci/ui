@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";

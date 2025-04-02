@@ -1,4 +1,4 @@
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { MemoryRouter, useLocation } from "react-router-dom";
 import { act, renderHook } from "@evg-ui/lib/test_utils";
 import { CaseSensitivity, MatchType } from "constants/enums";
