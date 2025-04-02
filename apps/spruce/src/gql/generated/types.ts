@@ -8713,6 +8713,7 @@ export type SingleTaskDistroQuery = {
         __typename?: "ProjectTasksPair";
         projectId: string;
         allowedTasks: Array<string>;
+        allowedBVs: Array<string>;
       }>;
     } | null;
   } | null;
@@ -8911,6 +8912,25 @@ export type TaskFilesQuery = {
       }>;
     };
   } | null;
+};
+
+export type TaskHistoryQueryVariables = Exact<{
+  options: TaskHistoryOpts;
+}>;
+
+export type TaskHistoryQuery = {
+  __typename?: "Query";
+  taskHistory: {
+    __typename?: "TaskHistory";
+    tasks: Array<{
+      __typename?: "Task";
+      id: string;
+      order: number;
+      displayStatus: string;
+      execution: number;
+      activated: boolean;
+    }>;
+  };
 };
 
 export type TaskLogsQueryVariables = Exact<{

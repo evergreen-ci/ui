@@ -11,6 +11,7 @@ import { taskStatusToCopy } from "@evg-ui/lib/constants/task";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { useWaterfallAnalytics } from "analytics";
+import { SQUARE_SIZE, SQUARE_BORDER, TaskBox } from "components/TaskBox";
 import VisibilityContainer from "components/VisibilityContainer";
 import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import { useDimensions } from "hooks/useDimensions";
@@ -26,12 +27,10 @@ import {
   gridGroupCss,
   InactiveVersion,
   Row,
-  SQUARE_SIZE,
-  taskStatusStyleMap,
 } from "./styles";
 import { Build, BuildVariant, GroupedVersion } from "./types";
 
-const { black, gray, white } = palette;
+const { gray } = palette;
 
 type Props = {
   build: BuildVariant;
@@ -202,10 +201,12 @@ const BuildGrid: React.FC<{
           return (
             <SquareMemo
               key={id}
+              as={Link}
               data-tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
-              isRightmostBuild={isRightmostBuild}
+              rightmost={isRightmostBuild}
               status={taskStatus}
               to={getTaskRoute(id, { execution })}
+              tooltip={`${displayName} - ${taskStatusToCopy[taskStatus]}`}
               {...squareProps}
             />
           );
@@ -217,7 +218,7 @@ const BuildGrid: React.FC<{
 
 const padding = spacing[200];
 const border = 1;
-const squareWithBorder = SQUARE_SIZE + border * 2;
+const squareWithBorder = SQUARE_SIZE + SQUARE_BORDER * 2;
 const containerPaddingAndBorder = padding * 2 + border * 2;
 
 const calculateBVContainerHeight = ({
@@ -249,51 +250,4 @@ const StyledIconButton = styled(IconButton)`
   ${({ active }) => active && "transform: rotate(-30deg);"}
 `;
 
-const Square = styled(Link)<{ isRightmostBuild: boolean; status: TaskStatus }>`
-  width: ${SQUARE_SIZE}px;
-  height: ${SQUARE_SIZE}px;
-  border: 1px solid ${white};
-  box-sizing: content-box;
-  float: left;
-  cursor: pointer;
-  position: relative;
-
-  ${({ status }) => taskStatusStyleMap[status]}
-
-  /* Tooltip */
-  :before {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 5px);
-    left: 50%;
-    transform: ${({ isRightmostBuild }) =>
-      isRightmostBuild ? "translate(-90%)" : "translate(-50%)"};
-    z-index: 1;
-    width: max-content;
-    max-width: 450px;
-    overflow-wrap: break-word;
-    padding: ${size.xs};
-    border-radius: 6px;
-    background: ${black};
-    color: ${white};
-    text-align: center;
-    display: none;
-  }
-  :hover:before {
-    display: block;
-  }
-
-  /* Tooltip caret */
-  :hover:after {
-    content: "";
-    position: absolute;
-    bottom: calc(100% - 5px);
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: ${black} transparent transparent transparent;
-  }
-`;
-
-const SquareMemo = memo(Square);
+const SquareMemo = memo(TaskBox);
