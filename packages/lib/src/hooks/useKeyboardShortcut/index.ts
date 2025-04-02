@@ -2,17 +2,14 @@ import { useCallback, useEffect, useRef } from "react";
 import { CharKey, ModifierKey } from "../../constants/keys";
 import { arraySymmetricDifference } from "../../utils/array";
 
-// Define a type for the analytics event
 type ShortcutEvent = {
   name: string;
   keys: string;
 };
 
-// Mock analytics hook for testing
-const useShortcutAnalytics = () => {
+const useEmptyAnalytics = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const sendEvent = (_event: ShortcutEvent) => {
-    // Mock implementation - intentionally empty
   };
   return { sendEvent };
 };
@@ -46,7 +43,7 @@ export const useKeyboardShortcut = (
     throw new Error("Must provide at least one key.");
   }
 
-  const { sendEvent } = useShortcutAnalytics();
+  const { sendEvent } = useEmptyAnalytics();
   const cbRef = useRef(cb);
   cbRef.current = cb;
 
