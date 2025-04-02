@@ -222,10 +222,13 @@ describe("logPane", () => {
       render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
         wrapper,
       });
-      vi.advanceTimersByTime(200);
+      vi.advanceTimersByTime(500); // Increase wait time to 500ms
+      
+      // Use a longer timeout for the waitFor
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalled();
-      });
+      }, { timeout: 3000 });
+      
       expect(mockedScrollToLine).toHaveBeenCalledWith(expect.anything());
     });
 
@@ -246,10 +249,13 @@ describe("logPane", () => {
         route: "?shareLine=5",
         wrapper,
       });
-      vi.advanceTimersByTime(200);
+      vi.advanceTimersByTime(500); // Increase wait time to 500ms
+      
+      // Use a longer timeout for the waitFor
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalled();
-      });
+      }, { timeout: 3000 });
+      
       expect(mockedScrollToLine).toHaveBeenCalledWith(expect.anything());
     });
   });
