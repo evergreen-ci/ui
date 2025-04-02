@@ -1,9 +1,17 @@
-import {
-  renderWithRouterMatch as render,
-  screen,
-  userEvent,
-} from "@evg-ui/lib/test_utils";
+import { render, screen, userEvent } from "../../test_utils";
 import Popconfirm from ".";
+
+const mockFn = () => {
+  const fn = () => {};
+  fn.mockReturnValue = () => fn;
+  fn.mockImplementation = () => fn;
+  fn.mockClear = () => fn;
+  return fn;
+};
+
+const vi = {
+  fn: () => mockFn(),
+};
 
 describe("controlled popconfirm", () => {
   it("properly shows content inside the popconfirm", () => {

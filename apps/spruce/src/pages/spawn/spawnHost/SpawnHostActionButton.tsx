@@ -5,7 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics";
-import Popconfirm from "components/Popconfirm";
+import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { isSleepScheduleActive } from "components/Spawn";
 import {
   UpdateSpawnHostStatusMutation,

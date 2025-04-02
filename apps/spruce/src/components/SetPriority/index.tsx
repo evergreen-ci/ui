@@ -8,7 +8,7 @@ import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useVersionAnalytics, useTaskAnalytics } from "analytics";
-import Popconfirm from "components/Popconfirm";
+import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import {
   SetVersionPriorityMutation,
   SetVersionPriorityMutationVariables,

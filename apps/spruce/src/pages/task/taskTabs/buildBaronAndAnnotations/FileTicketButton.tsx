@@ -5,7 +5,7 @@ import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useAnnotationAnalytics } from "analytics";
-import Popconfirm from "components/Popconfirm";
+import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import {
   BuildBaronCreateTicketMutation,
   BuildBaronCreateTicketMutationVariables,

@@ -2,11 +2,10 @@ import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
-import { wordBreakCss } from "@evg-ui/lib/components/styles";
-import { size, zIndex } from "@evg-ui/lib/constants/tokens";
-import { useOnClickOutside } from "hooks";
+import { size, zIndex } from "../../constants/tokens";
+import { wordBreakCss } from "../styles";
 
-type PopconfirmProps = TooltipProps & {
+export type PopconfirmProps = TooltipProps & {
   confirmDisabled?: boolean;
   confirmText?: string;
   "data-cy"?: string;
@@ -31,10 +30,28 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
   const setOpen = isControlled ? controlledSetOpen : uncontrolledSetOpen;
 
   const popoverRef = useRef<HTMLDivElement>(null);
-  useOnClickOutside([popoverRef, ...(refEl ? [refEl] : [])], () => {
-    onClose();
-    setOpen(false);
-  });
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      popoverRef.current &&
+      !popoverRef.current.contains(event.target as Node) &&
+      (!refEl || 
+        (refEl && 
+          refEl instanceof HTMLElement && 
+          refEl.contains(event.target as Node)))
+    ) {
+      onClose();
+      setOpen(false);
+    }
+  };
+  
+  if (typeof window !== "undefined") {
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }
 
   return (
     <Tooltip

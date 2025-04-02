@@ -7,7 +7,7 @@ import TextInput from "@leafygreen-ui/text-input";
 import Cookies from "js-cookie";
 import { fontSize } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import Popconfirm from "components/Popconfirm";
+import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
 import {
   UpdateUserSettingsMutation,

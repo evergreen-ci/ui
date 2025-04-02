@@ -4,7 +4,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
-import Popconfirm from "components/Popconfirm";
+import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import {
   MyHostsQuery,
   MyHostsQueryVariables,
