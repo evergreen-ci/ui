@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
 import { Description } from "@leafygreen-ui/typography";
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useWaterfallAnalytics } from "analytics/waterfall/useWaterfallAnalytics";

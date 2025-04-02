@@ -8,7 +8,7 @@ import {
   LeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";

@@ -9,7 +9,7 @@ import {
   LeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";

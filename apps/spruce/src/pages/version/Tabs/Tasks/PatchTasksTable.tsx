@@ -1,4 +1,4 @@
-import { useQueryParams } from "hooks/useQueryParam";
+import { useQueryParams } from "@evg-ui/lib/hooks";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { InputFilterProps } from "components/Table/Filters";
