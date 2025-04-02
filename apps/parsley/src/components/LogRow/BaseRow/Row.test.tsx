@@ -60,7 +60,7 @@ describe("row", () => {
     );
 
     await user.click(screen.getByDataCy("log-link-0"));
-    expect(router.state.location.search).toBe("");
+    expect(router.state.location.search).toBe("?shareLine=0");
   });
 
   it("double clicking a log line adds it to the bookmarks", async () => {
@@ -78,7 +78,7 @@ describe("row", () => {
     );
 
     await user.dblClick(screen.getByText(testLog));
-    expect(router.state.location.search).toBe("");
+    expect(router.state.location.search).toBe("?shareLine=0");
   });
 
   it("a log line can be shared and bookmarked at the same time", async () => {
