@@ -2,8 +2,8 @@ import { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import { MenuItem } from "@leafygreen-ui/menu";
 import { Body } from "@leafygreen-ui/typography";
-import { useToastContext } from "@evg-ui/lib/context/toast";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
+import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   SetVersionPriorityMutation,
   SetVersionPriorityMutationVariables,

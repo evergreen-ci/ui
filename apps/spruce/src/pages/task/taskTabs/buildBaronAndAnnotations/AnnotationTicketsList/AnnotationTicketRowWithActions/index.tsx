@@ -5,8 +5,8 @@ import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import ConditionalWrapper from "@evg-ui/lib/components/ConditionalWrapper";
 import Icon from "@evg-ui/lib/components/Icon";
-import { size } from "@evg-ui/lib/constants/tokens";
 import Popconfirm from "@evg-ui/lib/components/Popconfirm";
+import { size } from "@evg-ui/lib/constants/tokens";
 import AnnotationTicketRow, {
   AnnotationTicketRowProps,
 } from "../AnnotationTicketRow";
