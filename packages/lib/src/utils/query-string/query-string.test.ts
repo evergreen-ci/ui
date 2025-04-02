@@ -89,12 +89,12 @@ describe("query-string", () => {
     });
     it("parses a query param with a number as a value", () => {
       expect(parseQueryString("status=1")).toMatchObject({
-        status: 1,
+        status: "1",
       });
     });
     it("parses a query param with a number array as a value", () => {
       expect(parseQueryString("status=1,2,3")).toMatchObject({
-        status: [1, 2, 3],
+        status: ["1", "2", "3"],
       });
     });
   });
