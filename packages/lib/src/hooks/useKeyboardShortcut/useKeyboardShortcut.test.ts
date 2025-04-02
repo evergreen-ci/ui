@@ -1,5 +1,5 @@
-import { CharKey, ModifierKey } from "../../constants/keys";
 import { renderHook } from "test_utils";
+import { CharKey, ModifierKey } from "../../constants/keys";
 import { useKeyboardShortcut } from ".";
 
 vi.mock("analytics", () => ({
