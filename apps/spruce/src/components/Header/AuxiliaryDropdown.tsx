@@ -52,11 +52,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
     },
     {
       "data-cy": "auxiliary-dropdown-project-health",
-      text: (
-        <>
-          Project Health <Badge variant="yellow">Deprecated</Badge>
-        </>
-      ),
+      text: <>Project Health <Badge variant="yellow">Deprecated</Badge></>,
       to: getCommitsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Clicked project health link" }),
     },

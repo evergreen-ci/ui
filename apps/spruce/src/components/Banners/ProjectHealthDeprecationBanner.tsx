@@ -13,7 +13,7 @@ export const ProjectHealthDeprecationBanner: React.FC<
 
   return (
     <Banner variant="warning">
-      This Project health page will be deprecated on {formattedDate}. Please use
+      The project health page is now deprecated and will be sunset on {formattedDate}. Please use
       the{" "}
       <StyledRouterLink to={getWaterfallRoute(projectIdentifier)}>
         new Waterfall page
