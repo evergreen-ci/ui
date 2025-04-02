@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Skeleton } from "antd";
+import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import {
   BuildBaron,
@@ -65,9 +65,11 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const bbTickets = bbCreatedTickets?.bbGetCreatedTickets;
   const canCreateTickets = bbData?.bbTicketCreationDefined;
 
+  if (loading) {
+    return <ParagraphSkeleton />;
+  }
   return (
     <Wrapper data-cy="bb-content">
-      {loading && <Skeleton active paragraph={{ rows: 4 }} title={false} />}
       {canCreateTickets ? (
         <CustomCreatedTickets
           execution={execution}

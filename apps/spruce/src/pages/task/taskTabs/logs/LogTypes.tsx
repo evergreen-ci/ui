@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
-import { Skeleton } from "antd";
+import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { useParams, useLocation } from "react-router-dom";
 import { size, fontSize } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -244,7 +244,7 @@ const useRenderBody: React.FC<{
   }, [setNoLogs, noLogs]);
 
   if (loading) {
-    return <Skeleton active paragraph={{ rows: 8 }} title={false} />;
+    return <ParagraphSkeleton />;
   }
   if (noLogs) {
     return <div data-cy="cy-no-logs">No logs found</div>;

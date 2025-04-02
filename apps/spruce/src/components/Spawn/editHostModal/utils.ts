@@ -1,5 +1,4 @@
 import { diff } from "deep-object-diff";
-// @ts-expect-error: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
 import { EditSpawnHostMutationVariables } from "gql/generated/types";
 

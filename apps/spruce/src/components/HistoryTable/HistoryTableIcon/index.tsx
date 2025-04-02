@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { Size, Skeleton } from "@leafygreen-ui/skeleton-loader";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
@@ -48,7 +48,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
         <TestName key={testName}>{testName}</TestName>
       ))}
       {loadingTestResults && (
-        <Skeleton active data-cy="history-tooltip-skeleton" />
+        <Skeleton data-cy="history-tooltip-skeleton" size={Size.Small} />
       )}
     </div>
   </Tooltip>

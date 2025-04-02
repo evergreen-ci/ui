@@ -2,8 +2,8 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
+import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import get from "lodash/get";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
@@ -21,7 +21,7 @@ export const AuthenticationCard = () => {
   >(USER_CONFIG);
   const { sendEvent } = usePreferencesAnalytics();
   if (loading) {
-    return <Skeleton active paragraph={{ rows: 6 }} />;
+    return <CardSkeleton />;
   }
   const config = get(data, "userConfig");
   // @ts-expect-error: FIXME. This comment was added by an automated script.
