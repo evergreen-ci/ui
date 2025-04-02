@@ -167,16 +167,13 @@ const SearchSuggestion = styled.button<SearchSuggestionProps>`
 
   padding: ${size.xs} ${size.s};
   word-break: break-all;
-  &:hover,
-  &:focus,
-  ${({ $isSelected }) =>
-    $isSelected &&
-    `
-    background-color: ${blue.light3};
-  `}
-  
   cursor: pointer;
   outline: none;
+
+  ${({ $isSelected }) =>
+    $isSelected
+      ? `background-color: ${blue.light3};`
+      : `&:hover, &:focus { background-color: ${blue.light3}; }`}
 `;
 
 export default SearchPopover;
