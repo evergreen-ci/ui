@@ -8,6 +8,12 @@ import {
   screen,
   waitFor,
 } from "@evg-ui/lib/test_utils";
+import {
+  FilterLogic,
+  LogRenderingTypes,
+  LogTypes,
+  WordWrapFormat,
+} from "constants/enums";
 import { LogContextProvider } from "context/LogContext";
 import * as logContext from "context/LogContext";
 import { parsleySettingsMock } from "test_data/parsleySettings";
@@ -30,6 +36,70 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 vi.mock("js-cookie");
 
+// Create a complete mock of LogContextState
+const createMockLogContext = (overrides = {}) => ({
+  expandedLines: {},
+  failingLine: undefined,
+  hasLogs: true,
+  isUploadedLog: false,
+  lineCount: 100,
+  listRef: createRef(),
+  logMetadata: {
+    logType: LogTypes.EVERGREEN_TASK,
+    renderingType: LogRenderingTypes.PLAIN,
+  },
+  matchingLines: undefined,
+  preferences: {
+    caseSensitive: false,
+    expandableRows: true,
+    filterLogic: FilterLogic.And,
+    highlightFilters: false,
+    prettyPrint: false,
+    setCaseSensitive: vi.fn(),
+    setExpandableRows: vi.fn(),
+    setFilterLogic: vi.fn(),
+    setHighlightFilters: vi.fn(),
+    setPrettyPrint: vi.fn(),
+    setWordWrapFormat: vi.fn(),
+    setWrap: vi.fn(),
+    setZebraStriping: vi.fn(),
+    wordWrapFormat: WordWrapFormat.Standard,
+    wrap: false,
+    zebraStriping: false,
+  },
+  processedLogLines: Array.from(list.keys()),
+  range: {
+    lowerRange: 0,
+    upperRange: undefined,
+  },
+  searchLine: undefined,
+  searchState: {
+    caseSensitive: false,
+    hasSearch: false,
+  },
+  clearExpandedLines: vi.fn(),
+  clearLogs: vi.fn(),
+  collapseLines: vi.fn(),
+  expandLines: vi.fn(),
+  getLine: vi.fn(),
+  getResmokeLineColor: vi.fn(),
+  ingestLines: vi.fn(),
+  openSectionAndScrollToLine: vi.fn(),
+  paginate: vi.fn(),
+  scrollToLine: vi.fn(),
+  sectioning: {
+    openSectionsContainingLineNumbers: vi.fn(),
+    sectionData: {},
+    sectionState: {},
+    sectioningEnabled: false,
+    toggleSection: vi.fn(),
+  },
+  setFileName: vi.fn(),
+  setLogMetadata: vi.fn(),
+  setSearch: vi.fn(),
+  ...overrides,
+});
+
 describe("logPane", () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -46,7 +116,7 @@ describe("logPane", () => {
   });
 
   it("should not execute wrap and pretty print functionality if cookie is false", async () => {
-    // @ts-expect-error
+    // @ts-expect-error - Mocking Cookie.get with string return value
     vi.spyOn(Cookie, "get").mockReturnValue("false");
 
     vi.useFakeTimers();
@@ -54,15 +124,28 @@ describe("logPane", () => {
     const mockedSetWrap = vi.fn();
     const mockedSetPrettyPrint = vi.fn();
 
-    mockedLogContext.mockImplementation(() => ({
-      listRef: createRef(),
-      // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
-      preferences: {
-        setPrettyPrint: mockedSetPrettyPrint,
-        setWrap: mockedSetWrap,
-      },
-      processedLogLines: Array.from(list.keys()),
-    }));
+    mockedLogContext.mockImplementation(() => 
+      createMockLogContext({
+        preferences: {
+          caseSensitive: false,
+          expandableRows: true,
+          filterLogic: FilterLogic.And,
+          highlightFilters: false,
+          prettyPrint: false,
+          setCaseSensitive: vi.fn(),
+          setExpandableRows: vi.fn(),
+          setFilterLogic: vi.fn(),
+          setHighlightFilters: vi.fn(),
+          setPrettyPrint: mockedSetPrettyPrint,
+          setWordWrapFormat: vi.fn(),
+          setWrap: mockedSetWrap,
+          setZebraStriping: vi.fn(),
+          wordWrapFormat: WordWrapFormat.Standard,
+          wrap: false,
+          zebraStriping: false,
+        },
+      })
+    );
 
     RenderFakeToastContext();
     render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
@@ -78,7 +161,7 @@ describe("logPane", () => {
   });
 
   it("should execute wrap and pretty print functionality if cookie is true", async () => {
-    // @ts-expect-error
+    // @ts-expect-error - Mocking Cookie.get with string return value
     vi.spyOn(Cookie, "get").mockReturnValue("true");
 
     vi.useFakeTimers();
@@ -86,15 +169,28 @@ describe("logPane", () => {
     const mockedSetWrap = vi.fn();
     const mockedSetPrettyPrint = vi.fn();
 
-    mockedLogContext.mockImplementation(() => ({
-      listRef: createRef(),
-      // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
-      preferences: {
-        setPrettyPrint: mockedSetPrettyPrint,
-        setWrap: mockedSetWrap,
-      },
-      processedLogLines: Array.from(list.keys()),
-    }));
+    mockedLogContext.mockImplementation(() => 
+      createMockLogContext({
+        preferences: {
+          caseSensitive: false,
+          expandableRows: true,
+          filterLogic: FilterLogic.And,
+          highlightFilters: false,
+          prettyPrint: false,
+          setCaseSensitive: vi.fn(),
+          setExpandableRows: vi.fn(),
+          setFilterLogic: vi.fn(),
+          setHighlightFilters: vi.fn(),
+          setPrettyPrint: mockedSetPrettyPrint,
+          setWordWrapFormat: vi.fn(),
+          setWrap: mockedSetWrap,
+          setZebraStriping: vi.fn(),
+          wordWrapFormat: WordWrapFormat.Standard,
+          wrap: false,
+          zebraStriping: false,
+        },
+      })
+    );
 
     RenderFakeToastContext();
     render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
@@ -114,17 +210,13 @@ describe("logPane", () => {
       vi.useFakeTimers();
       const mockedLogContext = vi.spyOn(logContext, "useLogContext");
       const mockedScrollToLine = vi.fn();
-      mockedLogContext.mockImplementation(() => ({
-        failingLine: 22,
-        listRef: createRef(),
-        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
-        preferences: {
-          setPrettyPrint: vi.fn(),
-          setWrap: vi.fn(),
-        },
-        processedLogLines: Array.from(list.keys()),
-        scrollToLine: mockedScrollToLine,
-      }));
+      
+      mockedLogContext.mockImplementation(() => 
+        createMockLogContext({
+          failingLine: 22,
+          scrollToLine: mockedScrollToLine,
+        })
+      );
 
       RenderFakeToastContext();
       render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
@@ -141,17 +233,13 @@ describe("logPane", () => {
       vi.useFakeTimers();
       const mockedLogContext = vi.spyOn(logContext, "useLogContext");
       const mockedScrollToLine = vi.fn();
-      mockedLogContext.mockImplementation(() => ({
-        failingLine: 22,
-        listRef: createRef(),
-        // @ts-expect-error - Only mocking a subset of useLogContext needed for this test.
-        preferences: {
-          setPrettyPrint: vi.fn(),
-          setWrap: vi.fn(),
-        },
-        processedLogLines: Array.from(list.keys()),
-        scrollToLine: mockedScrollToLine,
-      }));
+      
+      mockedLogContext.mockImplementation(() => 
+        createMockLogContext({
+          failingLine: 22,
+          scrollToLine: mockedScrollToLine,
+        })
+      );
 
       RenderFakeToastContext();
       render(<LogPane rowCount={list.length} rowRenderer={RowRenderer} />, {
@@ -162,9 +250,7 @@ describe("logPane", () => {
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalled();
       });
-      await waitFor(() => {
-        expect(mockedScrollToLine).toHaveBeenCalledWith(expect.anything());
-      });
+      expect(mockedScrollToLine).toHaveBeenCalledWith(expect.anything());
     });
   });
 });
