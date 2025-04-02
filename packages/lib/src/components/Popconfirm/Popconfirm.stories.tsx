@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { size } from "../../constants/tokens";
 import { CustomMeta, CustomStoryObj } from "../../test_utils/types";
 import Popconfirm from ".";
@@ -7,17 +6,13 @@ export default {
   component: Popconfirm,
 } satisfies CustomMeta<typeof Popconfirm>;
 
-const TriggerButton = styled.button`
-  padding: ${size.xs} ${size.s};
-  background-color: #f5f6f7;
-  border: 1px solid #babdbe;
-  border-radius: ${size.xxs};
-  cursor: pointer;
-
-  &:hover {
-    background-color: #e8e9ea;
-  }
-`;
+const triggerButtonStyle = {
+  padding: `${size.xs} ${size.s}`,
+  backgroundColor: "#f5f6f7",
+  border: "1px solid #babdbe",
+  borderRadius: size.xxs,
+  cursor: "pointer",
+};
 
 export const Default: CustomStoryObj<typeof Popconfirm> = {
   argTypes: {
@@ -42,7 +37,7 @@ export const Default: CustomStoryObj<typeof Popconfirm> = {
     align: "top",
     justify: "middle",
     children: "Are you sure you want to perform this action?",
-    trigger: <TriggerButton>Click to open popconfirm</TriggerButton>,
+    trigger: <button style={triggerButtonStyle}>Click to open popconfirm</button>,
   },
 };
 
@@ -62,53 +57,53 @@ export const CustomConfirmText: CustomStoryObj<typeof Popconfirm> = {
 
 export const DifferentPositions: CustomStoryObj<typeof Popconfirm> = {
   render: () => (
-    <PositionsContainer>
-      <PositionWrapper>
+    <div style={positionsContainerStyle}>
+      <div style={positionWrapperStyle}>
         <Popconfirm
           align="top"
           justify="middle"
-          trigger={<TriggerButton>Top Middle</TriggerButton>}
+          trigger={<button style={triggerButtonStyle}>Top Middle</button>}
         >
           Confirmation message
         </Popconfirm>
-      </PositionWrapper>
-      <PositionWrapper>
+      </div>
+      <div style={positionWrapperStyle}>
         <Popconfirm
           align="bottom"
           justify="middle"
-          trigger={<TriggerButton>Bottom Middle</TriggerButton>}
+          trigger={<button style={triggerButtonStyle}>Bottom Middle</button>}
         >
           Confirmation message
         </Popconfirm>
-      </PositionWrapper>
-      <PositionWrapper>
+      </div>
+      <div style={positionWrapperStyle}>
         <Popconfirm
           align="left"
           justify="middle"
-          trigger={<TriggerButton>Left Middle</TriggerButton>}
+          trigger={<button style={triggerButtonStyle}>Left Middle</button>}
         >
           Confirmation message
         </Popconfirm>
-      </PositionWrapper>
-      <PositionWrapper>
+      </div>
+      <div style={positionWrapperStyle}>
         <Popconfirm
           align="right"
           justify="middle"
-          trigger={<TriggerButton>Right Middle</TriggerButton>}
+          trigger={<button style={triggerButtonStyle}>Right Middle</button>}
         >
           Confirmation message
         </Popconfirm>
-      </PositionWrapper>
-    </PositionsContainer>
+      </div>
+    </div>
   ),
 };
 
-const PositionsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${size.l};
-`;
+const positionsContainerStyle = {
+  display: "flex",
+  flexWrap: "wrap" as const,
+  gap: size.l,
+};
 
-const PositionWrapper = styled.div`
-  margin: ${size.m};
-`;
+const positionWrapperStyle = {
+  margin: size.m,
+};
