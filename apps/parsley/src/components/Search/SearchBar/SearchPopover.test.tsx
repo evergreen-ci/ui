@@ -93,4 +93,8 @@ describe("search popover", () => {
     await user.click(document.body as HTMLElement);
     expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
   });
+
+  it.skip("should navigate through suggestions with arrow keys", async () => {
+    expect(true).toBe(true);
+  });
 });

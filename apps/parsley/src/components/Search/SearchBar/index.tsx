@@ -1,4 +1,4 @@
-import { KeyboardEvent, useRef, useState } from "react";
+import { type KeyboardEvent, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
@@ -41,6 +41,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const { sendEvent } = useLogWindowAnalytics();
   const inputRef = useRef<HTMLInputElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(SearchBarActions.Filter);
 
@@ -116,6 +117,15 @@ const SearchBar: React.FC<SearchBarProps> = ({
         direction: DIRECTION.NEXT,
         name: "Used search result pagination",
       });
+    } else if (
+      (e.key === "ArrowDown" || e.key === "ArrowUp") &&
+      searchSuggestions.length > 0
+    ) {
+      e.preventDefault();
+      popoverRef.current?.focus();
+      popoverRef.current?.dispatchEvent(
+        new KeyboardEvent("keydown", { bubbles: true, key: e.key }),
+      );
     }
   };
 
@@ -149,6 +159,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <IconButtonWrapper>
           <SearchPopover
             disabled={disabled}
+            forwardedRef={popoverRef}
             onClick={(suggestion) => {
               handleOnChange(suggestion);
               inputRef.current?.focus();
