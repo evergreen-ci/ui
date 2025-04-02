@@ -45,8 +45,8 @@ const createMockLogContext = (overrides = {}) => ({
   lineCount: 100,
   listRef: createRef(),
   logMetadata: {
-    logType: LogTypes.EVERGREEN_TASK,
-    renderingType: LogRenderingTypes.PLAIN,
+    logType: "evergreen_task",
+    renderingType: "plain",
   },
   matchingLines: undefined,
   preferences: {
@@ -144,7 +144,7 @@ describe("logPane", () => {
           wrap: false,
           zebraStriping: false,
         },
-      })
+      }) as any
     );
 
     RenderFakeToastContext();
@@ -189,7 +189,7 @@ describe("logPane", () => {
           wrap: false,
           zebraStriping: false,
         },
-      })
+      }) as any
     );
 
     RenderFakeToastContext();
@@ -215,7 +215,7 @@ describe("logPane", () => {
         createMockLogContext({
           failingLine: 22,
           scrollToLine: mockedScrollToLine,
-        })
+        }) as any
       );
 
       RenderFakeToastContext();
@@ -241,7 +241,7 @@ describe("logPane", () => {
         createMockLogContext({
           failingLine: 22,
           scrollToLine: mockedScrollToLine,
-        })
+        }) as any
       );
 
       RenderFakeToastContext();
