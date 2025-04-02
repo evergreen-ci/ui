@@ -1,4 +1,5 @@
 import Badge from "@leafygreen-ui/badge";
+import styled from "@emotion/styled";
 import { useNavbarAnalytics } from "analytics";
 import {
   routes,
@@ -52,7 +53,7 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
     },
     {
       "data-cy": "auxiliary-dropdown-project-health",
-      text: <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>Project Health <Badge variant="yellow">Deprecated</Badge></div>,
+      text: <BadgeWrapper>Project Health <Badge variant="yellow">Deprecated</Badge></BadgeWrapper>,
       to: getCommitsRoute(projectIdentifier),
       onClick: () => sendEvent({ name: "Clicked project health link" }),
     },
@@ -66,3 +67,9 @@ export const AuxiliaryDropdown: React.FC<AuxiliaryDropdownProps> = ({
     />
   );
 };
+
+const BadgeWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
