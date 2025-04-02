@@ -7,7 +7,11 @@ import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
 import { usePageTitle } from "@evg-ui/lib/hooks/usePageTitle";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import { ProjectBanner, RepotrackerBanner } from "components/Banners";
+import {
+  ProjectBanner,
+  RepotrackerBanner,
+  ProjectHealthDeprecationBanner,
+} from "components/Banners";
 import FilterChips, { useFilterChipQueryParams } from "components/FilterChips";
 import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
@@ -188,6 +192,9 @@ const Commits = () => {
       <ProjectBanner projectIdentifier={projectIdentifier} />
       {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
       <RepotrackerBanner projectIdentifier={projectIdentifier} />
+      {projectIdentifier && (
+        <ProjectHealthDeprecationBanner projectIdentifier={projectIdentifier} />
+      )}
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">
