@@ -1,5 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
-import { renderHook } from "../../test_utils";
+import { renderHook } from "test_utils";
 import { useOnClickOutside } from ".";
 
 describe("useOnClickOutside", () => {

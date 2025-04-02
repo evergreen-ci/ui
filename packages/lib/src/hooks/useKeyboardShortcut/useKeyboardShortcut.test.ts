@@ -1,6 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
 import { CharKey, ModifierKey } from "../../constants/keys";
-import { renderHook } from "../../test_utils";
+import { renderHook } from "test_utils";
 import { useKeyboardShortcut } from ".";
 
 vi.mock("analytics", () => ({

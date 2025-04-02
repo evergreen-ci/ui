@@ -1,5 +1,4 @@
-import { describe, expect, it } from "vitest";
-import { renderHook } from "../../test_utils";
+import { renderHook } from "test_utils";
 import { usePrevious } from ".";
 
 describe("usePrevious", () => {
