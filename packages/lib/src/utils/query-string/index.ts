@@ -13,7 +13,7 @@ export const parseQueryString = (
   const parseOptions: ParseOptions = {
     arrayFormat: "comma",
     parseBooleans: true,
-    parseNumbers: true,
+    parseNumbers: false, // Disable automatic number parsing to preserve large numerical values
     ...options,
   };
   return queryString.parse(search, parseOptions);
