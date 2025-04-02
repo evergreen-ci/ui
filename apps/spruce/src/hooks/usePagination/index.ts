@@ -34,7 +34,12 @@ const usePagination = () => {
     [queryParams, setQueryParams],
   );
 
-  return { page, limit, setLimit, setPage };
+  return { 
+    page: typeof page === 'string' ? parseInt(page, 10) : page, 
+    limit: typeof limit === 'string' ? parseInt(limit, 10) : limit, 
+    setLimit, 
+    setPage 
+  };
 };
 
 export default usePagination;

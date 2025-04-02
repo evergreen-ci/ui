@@ -33,6 +33,9 @@ export const useQueryVariables = (
       })
     : [];
 
+  const numericLimit = typeof limit === 'string' ? parseInt(limit, 10) : limit;
+  const numericPage = typeof page === 'string' ? parseInt(page, 10) : page;
+
   return {
     versionId,
     taskFilterOptions: {
@@ -41,8 +44,8 @@ export const useQueryVariables = (
       statuses: toArray(statuses),
       baseStatuses: toArray(baseStatuses),
       sorts: sortsToApply,
-      limit,
-      page,
+      limit: numericLimit,
+      page: numericPage,
     },
   };
 };
