@@ -8,6 +8,7 @@ import {
   SortingState,
   useLeafyGreenTable,
 } from "@leafygreen-ui/table";
+import { useQueryParams } from "hooks/useQueryParam";
 import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
@@ -28,7 +29,6 @@ import {
 } from "gql/generated/types";
 import { TASK_TESTS } from "gql/queries";
 import { useTableSort, usePolling } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import {
   RequiredQueryParams,
   mapFilterParamToId,

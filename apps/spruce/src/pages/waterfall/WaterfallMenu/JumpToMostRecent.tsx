@@ -1,7 +1,7 @@
+import { useQueryParams } from "hooks/useQueryParam";
 import Icon from "@evg-ui/lib/components/Icon";
 import { useWaterfallAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
-import { useQueryParams } from "hooks/useQueryParam";
 import { WaterfallFilterOptions } from "../types";
 
 interface Props {

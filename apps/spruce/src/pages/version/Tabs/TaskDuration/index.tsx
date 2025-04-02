@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { useQueryParams } from "hooks/useQueryParam";
 import { useLocation } from "react-router-dom";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
@@ -16,7 +17,6 @@ import {
 } from "gql/generated/types";
 import { VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams } from "types/task";
 import { parseQueryString } from "utils/queryString";
 import { useQueryVariables } from "../useQueryVariables";

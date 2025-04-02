@@ -1,3 +1,4 @@
+import { useQueryParams } from "hooks/useQueryParam";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { InputFilterProps } from "components/Table/Filters";
@@ -10,7 +11,6 @@ import {
   useStatusesFilter,
   useFilterInputChangeHandler,
 } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
 

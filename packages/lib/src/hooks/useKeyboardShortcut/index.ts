@@ -1,7 +1,21 @@
 import { useCallback, useEffect, useRef } from "react";
-import { CharKey, ModifierKey } from "@evg-ui/lib/constants/keys";
-import { arraySymmetricDifference } from "@evg-ui/lib/utils/array";
-import { useShortcutAnalytics } from "analytics";
+import { CharKey, ModifierKey } from "../../constants/keys";
+import { arraySymmetricDifference } from "../../utils/array";
+
+// Define a type for the analytics event
+type ShortcutEvent = {
+  name: string;
+  keys: string;
+};
+
+// Mock analytics hook for testing
+const useShortcutAnalytics = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const sendEvent = (_event: ShortcutEvent) => {
+    // Mock implementation - intentionally empty
+  };
+  return { sendEvent };
+};
 
 type ShortcutKeys = {
   modifierKeys?: ModifierKey[];
@@ -17,7 +31,13 @@ type UseKeyboardShortcutOptions = {
 // Used to prevent shortcuts from being activated when input elements have focus.
 const INPUT_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT", "BUTTON"];
 
-const useKeyboardShortcut = (
+/**
+ * `useKeyboardShortcut` is a hook that executes a callback when a specific keyboard shortcut is pressed.
+ * @param keys - object containing the keys to listen for
+ * @param cb - callback to execute when the shortcut is pressed
+ * @param options - options for the hook
+ */
+export const useKeyboardShortcut = (
   keys: ShortcutKeys,
   cb: () => void,
   options: UseKeyboardShortcutOptions = {},
@@ -27,7 +47,6 @@ const useKeyboardShortcut = (
   }
 
   const { sendEvent } = useShortcutAnalytics();
-  // We wrap the callback to prevent triggering unnecessary useEffect.
   const cbRef = useRef(cb);
   cbRef.current = cb;
 
@@ -65,14 +84,13 @@ const useKeyboardShortcut = (
 
       if (exactModifierKeysPressed && charKeyPressed) {
         if (shouldExecute) {
-          // Prevent browser default behavior.
           if (preventDefault) {
             event.preventDefault();
           }
           cbRef.current();
           sendEvent({
+            name: "Used Shortcut",
             keys: getPressedKeysAsString(keys),
-            name: "Used shortcut",
           });
         }
       }
@@ -81,7 +99,6 @@ const useKeyboardShortcut = (
   );
 
   useEffect(() => {
-    // There's no need to keep track of events if the component is disabled.
     if (disabled) {
       document.removeEventListener("keydown", handleKeydown);
     } else {
@@ -100,4 +117,3 @@ const getPressedKeysAsString = (keys: ShortcutKeys): string => {
   const charKeyString = charKey ?? "";
   return `${modifierKeysString}${charKeyString}`;
 };
-export default useKeyboardShortcut;

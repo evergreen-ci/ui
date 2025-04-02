@@ -8,6 +8,7 @@ import {
 import { H3 } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import {
   TaskHistoryDirection,
   TaskHistoryQuery,
@@ -15,7 +16,6 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_HISTORY } from "gql/queries";
-import { useQueryParam } from "hooks/useQueryParam";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import TaskTimeline from "./TaskTimeline";
 import { TaskHistoryOptions, ViewOptions } from "./types";

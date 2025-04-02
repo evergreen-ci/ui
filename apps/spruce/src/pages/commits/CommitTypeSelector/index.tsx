@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Dropdown from "components/Dropdown";
 import { ALL_VALUE, TreeSelect } from "components/TreeSelect";
 import { noFilterMessage } from "constants/strings";
-import { useQueryParam } from "hooks/useQueryParam";
 import { CommitRequesterTypes, MainlineCommitQueryParams } from "types/commits";
 
 const TreeData = [

@@ -2,13 +2,13 @@ import { useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import {
   BuildVariantsForTaskNameQuery,
   BuildVariantsForTaskNameQueryVariables,
 } from "gql/generated/types";
 import { BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
-import { useQueryParam } from "hooks/useQueryParam";
 import { HistoryQueryParams } from "types/history";
 
 interface BuildVariantSelectorProps {

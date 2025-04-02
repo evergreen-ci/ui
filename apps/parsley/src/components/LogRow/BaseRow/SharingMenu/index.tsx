@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import { useQueryParams } from "hooks/useQueryParam";
 import pluralize from "pluralize";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -9,7 +10,6 @@ import { useLogWindowAnalytics } from "analytics";
 import { QueryParams } from "constants/queryParams";
 import { useLogContext } from "context/LogContext";
 import { useMultiLineSelectContext } from "context/MultiLineSelectContext";
-import { useQueryParams } from "hooks/useQueryParam";
 import { copyToClipboard, getJiraFormat } from "utils/string";
 import { getLinesInProcessedLogLinesFromSelectedLines } from "./utils";
 

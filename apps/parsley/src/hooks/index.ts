@@ -1,6 +1,19 @@
-import useKeyboardShortcut from "./useKeyboardShortcut";
+import {
+  useKeyboardShortcut,
+  useOnClickOutside,
+  usePrevious,
+  useQueryParam,
+  useQueryParams,
+} from "@evg-ui/lib/hooks";
 import { useLogDownloader } from "./useLogDownloader";
-import useOnClickOutside from "./useOnClickOutside";
 import { useUser } from "./useUser";
 
-export { useKeyboardShortcut, useLogDownloader, useOnClickOutside, useUser };
+export {
+  useKeyboardShortcut,
+  useLogDownloader,
+  useOnClickOutside,
+  useUser,
+  usePrevious,
+  useQueryParam,
+  useQueryParams,
+};

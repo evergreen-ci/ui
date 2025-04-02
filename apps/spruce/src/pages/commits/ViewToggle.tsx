@@ -10,6 +10,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Overline, OverlineProps } from "@leafygreen-ui/typography";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import {
   ProjectHealthView,
@@ -17,7 +18,6 @@ import {
   ProjectHealthViewQueryVariables,
 } from "gql/generated/types";
 import { PROJECT_HEALTH_VIEW } from "gql/queries";
-import { useQueryParam } from "hooks/useQueryParam";
 import { ProjectFilterOptions } from "types/commits";
 
 const { gray } = palette;

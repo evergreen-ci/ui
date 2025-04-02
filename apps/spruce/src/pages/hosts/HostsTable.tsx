@@ -9,6 +9,7 @@ import {
   LeafyGreenTable,
 } from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
+import { useQueryParams } from "hooks/useQueryParam";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { Unpacked } from "@evg-ui/lib/types/utils";
 import { useHostsTableAnalytics } from "analytics";
@@ -18,7 +19,6 @@ import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { HostSortBy, HostsQuery } from "gql/generated/types";
 import { useTableSort } from "hooks";
-import { useQueryParams } from "hooks/useQueryParam";
 import { HostsTableFilterParams, mapIdToFilterParam } from "types/host";
 
 type Host = Unpacked<HostsQuery["hosts"]["hosts"]>;

@@ -1,51 +1,54 @@
 import { useCallback, useMemo } from "react";
 import { ParseOptions } from "query-string";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { conditionalToArray } from "@evg-ui/lib/utils/array";
-import {
-  parseQueryString,
-  stringifyQuery,
-} from "@evg-ui/lib/utils/query-string";
-import { QueryParams, urlParseOptions } from "constants/queryParams";
+import { conditionalToArray } from "../../utils/array";
+import { parseQueryString, stringifyQuery } from "../../utils/query-string";
 
 /**
  * `useQueryParams` returns all of the query params that exist in the url.
  * @param parseOptions - options which define how to parse params from the url (optional)
  * @returns a tuple containing the parsed query params and a function to set the query params
  */
-const useQueryParams = (parseOptions: ParseOptions = urlParseOptions) => {
-  const [searchParams] = useSearchParams();
+export const useQueryParams = (parseOptions?: ParseOptions) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+
   const setQueryString = useCallback(
-    (params: { [key: string]: any }) => {
+    (params: { [key: string]: unknown }) => {
       const stringifiedQuery = stringifyQuery(params, {
         skipEmptyString: false,
       });
-      navigate(`?${stringifiedQuery}`, { replace: true });
+
+      if (navigate) {
+        navigate(`?${stringifiedQuery}`, { replace: true });
+      } else {
+        setSearchParams(new URLSearchParams(stringifiedQuery), {
+          replace: true,
+        });
+      }
     },
-    [navigate],
+    [navigate, setSearchParams],
   );
 
-  const searchParamsObject = useMemo(
+  const parsedQueryString = useMemo(
     () => parseQueryString(searchParams.toString(), parseOptions),
     [searchParams, parseOptions],
   );
-  return [searchParamsObject, setQueryString] as const;
+
+  return [parsedQueryString, setQueryString] as const;
 };
 
 /**
  * `useQueryParam` allows you to interact with a query param in the same way you would use a useState hook.
- *  The first argument is the name of the query param. The second argument is the initial value of the query param.
- *  `useQueryParam` will default to the second argument if the query param is not present in the url.
  * @param param - the name of the query param
  * @param defaultParam - the default value of the query param
  * @param parseOptions - options which define how to parse params from the url (optional)
  * @returns a tuple containing the parsed query param and a function to set the query param
  */
-const useQueryParam = <T>(
-  param: QueryParams,
+export const useQueryParam = <T>(
+  param: string,
   defaultParam: T,
-  parseOptions: ParseOptions = urlParseOptions,
+  parseOptions?: ParseOptions,
 ): readonly [T, (set: T) => void] => {
   const [searchParams, setSearchParams] = useQueryParams(parseOptions);
 
@@ -54,6 +57,7 @@ const useQueryParam = <T>(
       const newParams = {
         ...searchParams,
       };
+
       Object.entries(newParams).forEach(([paramKey, paramValue]) => {
         if (paramValue === undefined) {
           delete newParams[paramKey];
@@ -64,6 +68,7 @@ const useQueryParam = <T>(
           );
         }
       });
+
       setSearchParams({
         ...newParams,
         [param]: value,
@@ -82,5 +87,3 @@ const useQueryParam = <T>(
 
   return [queryParam, setQueryParam] as const;
 };
-
-export { useQueryParams, useQueryParam };

@@ -1,5 +1,5 @@
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { QueryParams } from "constants/queryParams";
-import { useQueryParam } from "hooks/useQueryParam";
 import { SelectedLineRange } from "types/logs";
 import { encodeSelectedLineRange, parseSelectedLineRange } from "./utils";
 

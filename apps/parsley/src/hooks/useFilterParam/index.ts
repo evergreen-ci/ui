@@ -1,7 +1,7 @@
 import { useCallback } from "react";
+import { useQueryParams } from "hooks/useQueryParam";
 import { conditionalToArray } from "@evg-ui/lib/utils/array";
 import { QueryParams } from "constants/queryParams";
-import { useQueryParams } from "hooks/useQueryParam";
 import { Filters } from "types/logs";
 import { parseFilters, stringifyFilters } from "utils/query-string";
 

@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { useAnalyticsRoot } from "@evg-ui/lib/analytics/hooks";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { AnalyticsIdentifier } from "analytics/types";
 import { slugs } from "constants/routes";
 import { BuildBaronQuery, BuildBaronQueryVariables } from "gql/generated/types";
 import { BUILD_BARON } from "gql/queries";
-import { useQueryParam } from "hooks/useQueryParam";
 import { RequiredQueryParams } from "types/task";
 
 type Action =

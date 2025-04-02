@@ -5,10 +5,10 @@ import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useLogWindowAnalytics } from "analytics";
 import Popconfirm from "components/Popconfirm";
 import { QueryParams } from "constants/queryParams";
-import { useQueryParam } from "hooks/useQueryParam";
 
 const { gray, green, red } = palette;
 

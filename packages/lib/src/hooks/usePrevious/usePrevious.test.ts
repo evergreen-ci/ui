@@ -1,5 +1,6 @@
-import { renderHook } from "@evg-ui/lib/test_utils";
-import usePrevious from ".";
+import { describe, expect, it } from "vitest";
+import { renderHook } from "../../test_utils";
+import { usePrevious } from ".";
 
 describe("usePrevious", () => {
   it("should initially be undefined", () => {

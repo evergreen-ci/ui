@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
+import { useQueryParams } from "hooks/useQueryParam";
 import { useParams, useNavigate } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges";
@@ -8,7 +9,6 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { Requester } from "constants/requesters";
 import { getVersionRoute, slugs } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
-import { useQueryParams } from "hooks/useQueryParam";
 import { useTabShortcut } from "hooks/useTabShortcut";
 import { PatchStatus, VersionPageTabs } from "types/patch";
 import DownstreamTasks from "./DownstreamTasks";

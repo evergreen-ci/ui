@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import styled from "@emotion/styled";
+import { useQueryParam } from "@evg-ui/lib/hooks";
 import { useWaterfallAnalytics } from "analytics";
 import { ProjectSelect } from "components/ProjectSelect";
 import { getWaterfallRoute } from "constants/routes";
-import { useQueryParam } from "hooks/useQueryParam";
 import { BuildVariantFilter } from "./BuildVariantFilter";
 import { DateFilter } from "./DateFilter";
 import { PaginationButtons } from "./PaginationButtons";
