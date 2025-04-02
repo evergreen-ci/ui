@@ -1,7 +1,6 @@
-import React from "react";
 import Banner from "@leafygreen-ui/banner";
 import { StyledRouterLink } from "@evg-ui/lib/src/components/styles";
-import { getWaterfallRoute } from "../../constants/routes";
+import { getWaterfallRoute } from "constants/routes";
 
 interface ProjectHealthDeprecationBannerProps {
   projectIdentifier: string;
@@ -17,7 +16,7 @@ export const ProjectHealthDeprecationBanner: React.FC<
       This Project health page will be deprecated on {formattedDate}. Please use
       the{" "}
       <StyledRouterLink to={getWaterfallRoute(projectIdentifier)}>
-        new waterfall page
+        new Waterfall page
       </StyledRouterLink>{" "}
       instead.
     </Banner>
