@@ -1,8 +1,6 @@
 import { renderHook } from "test_utils";
 import { useQueryParam } from ".";
 
-const vi = { fn: () => jest.fn(), mock: jest.mock };
-
 vi.mock("react-router-dom", () => ({
   useSearchParams: () => [
     {
