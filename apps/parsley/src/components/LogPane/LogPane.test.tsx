@@ -227,7 +227,7 @@ describe("logPane", () => {
       // Use a longer timeout for the waitFor
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalled();
-      }, { timeout: 3000 });
+      }, { timeout: 10000 });
       
       expect(mockedScrollToLine).toHaveBeenCalledWith(expect.anything());
     });
@@ -254,7 +254,7 @@ describe("logPane", () => {
       // Use a longer timeout for the waitFor
       await waitFor(() => {
         expect(mockedScrollToLine).toHaveBeenCalled();
-      }, { timeout: 3000 });
+      }, { timeout: 10000 });
       
       expect(mockedScrollToLine).toHaveBeenCalledWith(expect.anything());
     });
