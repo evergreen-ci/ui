@@ -5,7 +5,7 @@ import Tooltip, { TooltipProps } from "@leafygreen-ui/tooltip";
 import { size, zIndex } from "../../constants/tokens";
 import { wordBreakCss } from "../styles";
 
-export type PopconfirmProps = TooltipProps & {
+type PopconfirmProps = TooltipProps & {
   confirmDisabled?: boolean;
   confirmText?: string;
   "data-cy"?: string;
