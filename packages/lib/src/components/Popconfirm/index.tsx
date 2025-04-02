@@ -35,16 +35,16 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
     if (
       popoverRef.current &&
       !popoverRef.current.contains(event.target as Node) &&
-      (!refEl || 
-        (refEl && 
-          refEl instanceof HTMLElement && 
+      (!refEl ||
+        (refEl &&
+          refEl instanceof HTMLElement &&
           refEl.contains(event.target as Node)))
     ) {
       onClose();
       setOpen(false);
     }
   };
-  
+
   if (typeof window !== "undefined") {
     if (open) {
       document.addEventListener("mousedown", handleClickOutside);

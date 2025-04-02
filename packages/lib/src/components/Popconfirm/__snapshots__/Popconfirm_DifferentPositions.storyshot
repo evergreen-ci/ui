@@ -1,0 +1,82 @@
+<div>
+  <div
+    style="display: flex; flex-wrap: wrap; gap: 32px;"
+  >
+    <div
+      style="margin: 24px;"
+    >
+      <button
+        aria-disabled="false"
+        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+        data-lgid="lg-button"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-16tr4y"
+        >
+          Top Middle
+        </div>
+      </button>
+    </div>
+    <div
+      style="margin: 24px;"
+    >
+      <button
+        aria-disabled="false"
+        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+        data-lgid="lg-button"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-16tr4y"
+        >
+          Bottom Middle
+        </div>
+      </button>
+    </div>
+    <div
+      style="margin: 24px;"
+    >
+      <button
+        aria-disabled="false"
+        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+        data-lgid="lg-button"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-16tr4y"
+        >
+          Left Middle
+        </div>
+      </button>
+    </div>
+    <div
+      style="margin: 24px;"
+    >
+      <button
+        aria-disabled="false"
+        class="lg-ui-button-0000 leafygreen-ui-161yf65"
+        data-lgid="lg-button"
+        type="button"
+      >
+        <div
+          class="leafygreen-ui-v038xi"
+        />
+        <div
+          class="leafygreen-ui-16tr4y"
+        >
+          Right Middle
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

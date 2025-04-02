@@ -1,17 +1,6 @@
+import { vi } from "vitest";
 import { render, screen, userEvent } from "test_utils";
 import Popconfirm from ".";
-
-const mockFn = () => {
-  const fn = () => {};
-  fn.mockReturnValue = () => fn;
-  fn.mockImplementation = () => fn;
-  fn.mockClear = () => fn;
-  return fn;
-};
-
-const vi = {
-  fn: () => mockFn(),
-};
 
 describe("controlled popconfirm", () => {
   it("properly shows content inside the popconfirm", () => {

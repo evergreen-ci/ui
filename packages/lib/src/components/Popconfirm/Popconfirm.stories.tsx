@@ -1,12 +1,11 @@
 import Button from "@leafygreen-ui/button";
-import { size } from "../../constants/tokens";
 import { CustomMeta, CustomStoryObj } from "test_utils/types";
+import { size } from "../../constants/tokens";
 import Popconfirm from ".";
 
 export default {
   component: Popconfirm,
 } satisfies CustomMeta<typeof Popconfirm>;
-
 
 export const Default: CustomStoryObj<typeof Popconfirm> = {
   argTypes: {
