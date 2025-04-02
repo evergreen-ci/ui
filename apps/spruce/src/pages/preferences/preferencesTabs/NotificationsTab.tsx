@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import { FormSkeleton } from "@leafygreen-ui/skeleton-loader";
+import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import TextInput from "@leafygreen-ui/text-input";
 import isEqual from "lodash.isequal";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -24,15 +24,21 @@ export const NotificationsTab: React.FC = () => {
   const dispatchToast = useToastContext();
   const { loading, userSettings } = useUserSettings();
   const { notifications, slackMemberId, slackUsername } = userSettings ?? {};
-  const [slackUsernameField, setSlackUsernameField] = useState(slackUsername);
-  const [slackMemberIdField, setSlackMemberIdField] = useState(slackMemberId);
-  const [notificationStatus, setNotificationStatus] = useState(notifications);
+  const [slackUsernameField, setSlackUsernameField] = useState(
+    slackUsername || "",
+  );
+  const [slackMemberIdField, setSlackMemberIdField] = useState(
+    slackMemberId || "",
+  );
+  const [notificationStatus, setNotificationStatus] = useState(
+    notifications || {},
+  );
   const { sendEvent } = usePreferencesAnalytics();
   // update state from query
   useEffect(() => {
-    setSlackUsernameField(slackUsername);
-    setSlackMemberIdField(slackMemberId);
-    setNotificationStatus(notifications);
+    setSlackUsernameField(slackUsername || "");
+    setSlackMemberIdField(slackMemberId || "");
+    setNotificationStatus(notifications || {});
   }, [slackUsername, slackMemberId, notifications]);
 
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
@@ -48,7 +54,7 @@ export const NotificationsTab: React.FC = () => {
   });
 
   if (loading) {
-    return <FormSkeleton />;
+    return <CardSkeleton />;
   }
 
   if (!notificationStatus) {
@@ -92,7 +98,6 @@ export const NotificationsTab: React.FC = () => {
           data-cy="slack-username-field"
           label="Slack Username"
           onChange={handleFieldUpdate(setSlackUsernameField)}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={slackUsernameField}
         />
         <StyledTextInput
@@ -100,7 +105,6 @@ export const NotificationsTab: React.FC = () => {
           description="Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'."
           label="Slack Member ID"
           onChange={handleFieldUpdate(setSlackMemberIdField)}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
           value={slackMemberIdField}
         />
         <NotificationField
@@ -122,14 +126,11 @@ export const NotificationsTab: React.FC = () => {
   );
 };
 
-// @ts-expect-error: FIXME. This comment was added by an automated script.
-const handleFieldUpdate = (stateUpdate) => (e) => {
-  if (typeof e === "string") {
-    stateUpdate(e); // Antd select just passes in the value string instead of an event
-  } else {
+const handleFieldUpdate =
+  (stateUpdate: (v: string) => void) =>
+  (e: React.ChangeEvent<HTMLInputElement>) => {
     stateUpdate(e.target.value);
-  }
-};
+  };
 
 const StyledTextInput = styled(TextInput)`
   margin-bottom: ${size.m};

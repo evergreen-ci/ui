@@ -244,11 +244,7 @@ const useRenderBody: React.FC<{
   }, [setNoLogs, noLogs]);
 
   if (loading) {
-    return (
-      <div>
-        <ParagraphSkeleton />
-      </div>
-    );
+    return <ParagraphSkeleton />;
   }
   if (noLogs) {
     return <div data-cy="cy-no-logs">No logs found</div>;

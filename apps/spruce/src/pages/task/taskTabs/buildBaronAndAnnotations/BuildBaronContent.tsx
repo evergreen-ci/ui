@@ -65,9 +65,11 @@ const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const bbTickets = bbCreatedTickets?.bbGetCreatedTickets;
   const canCreateTickets = bbData?.bbTicketCreationDefined;
 
+  if (loading) {
+    return <ParagraphSkeleton />;
+  }
   return (
     <Wrapper data-cy="bb-content">
-      {loading && <ParagraphSkeleton />}
       {canCreateTickets ? (
         <CustomCreatedTickets
           execution={execution}

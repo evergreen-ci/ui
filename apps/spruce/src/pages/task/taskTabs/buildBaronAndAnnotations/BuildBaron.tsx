@@ -27,21 +27,19 @@ const BuildBaron: React.FC<Props> = ({
       variables: { taskId, execution },
     },
   );
+  if (loading) {
+    return <ParagraphSkeleton />;
+  }
   return (
-    <>
-      {loading && <ParagraphSkeleton />}
-      {(data || annotation) && (
-        <BuildBaronContent
-          annotation={annotation}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          bbData={data?.buildBaron}
-          execution={execution}
-          loading={loading}
-          taskId={taskId}
-          userCanModify={userCanModify}
-        />
-      )}
-    </>
+    <BuildBaronContent
+      annotation={annotation}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      bbData={data?.buildBaron}
+      execution={execution}
+      loading={loading}
+      taskId={taskId}
+      userCanModify={userCanModify}
+    />
   );
 };
 
