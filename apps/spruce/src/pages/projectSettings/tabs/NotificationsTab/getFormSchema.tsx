@@ -39,7 +39,7 @@ export const getFormSchema = (
               title: "Build Break Notifications",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
-                repoData?.buildBreakSettings?.notifyOnBuildFailure ?? null,
+                repoData?.buildBreakSettings?.notifyOnBuildFailure ?? undefined,
               ),
             },
           },
