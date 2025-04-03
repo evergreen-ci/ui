@@ -31,8 +31,8 @@ fragment ProjectSettingsFields on ProjectSettings {
     ...ProjectPluginsSettings
     ...ProjectTriggersSettings
     ...ProjectViewsAndFiltersSettings
-    id
     ...ProjectVirtualWorkstationSettings
+    id
     identifier
     repoRefId
   }
@@ -57,13 +57,13 @@ fragment RepoSettingsFields on RepoSettings {
     ...RepoGeneralSettings
     ...RepoNotificationSettings
     ...RepoPatchAliasSettings
-    id
     ...RepoPeriodicBuildsSettings
-    displayName
     ...RepoPluginsSettings
     ...RepoTriggersSettings
     ...RepoViewsAndFiltersSettings
     ...RepoVirtualWorkstationSettings
+    id
+    displayName
   }
   subscriptions {
     ...Subscriptions

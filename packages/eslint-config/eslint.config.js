@@ -323,7 +323,7 @@ const graphQLConfig = {
   rules: {
     ...graphqlPlugin.configs["flat/operations-recommended"].rules,
     "@graphql-eslint/alphabetize": [
-      WARN,
+      errorIfStrict,
       {
         selections: ["OperationDefinition", "FragmentDefinition"],
         groups: ["...", "id", "*"],
