@@ -3601,10 +3601,10 @@ export type WorkstationSetupCommandInput = {
 
 export type BaseTaskFragment = {
   __typename?: "Task";
+  id: string;
   displayName: string;
   displayStatus: string;
   execution: number;
-  id: string;
   patchNumber?: number | null;
   versionMetadata: {
     __typename?: "Version";
@@ -3644,10 +3644,10 @@ export type LogkeeperTaskQuery = {
     id: string;
     task: {
       __typename?: "Task";
+      id: string;
       displayName: string;
       displayStatus: string;
       execution: number;
-      id: string;
       patchNumber?: number | null;
       tests: {
         __typename?: "TaskTestResult";
@@ -3681,10 +3681,10 @@ export type TaskQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
+    id: string;
     displayName: string;
     displayStatus: string;
     execution: number;
-    id: string;
     patchNumber?: number | null;
     details?: {
       __typename?: "TaskEndDetail";
@@ -3726,8 +3726,8 @@ export type TestLogUrlAndRenderingTypeQuery = {
       __typename?: "TaskTestResult";
       testResults: Array<{
         __typename?: "TestResult";
-        groupID?: string | null;
         id: string;
+        groupID?: string | null;
         status: string;
         testFile: string;
         logs: {
@@ -3800,8 +3800,8 @@ export type TaskFilesQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     files: {
       __typename?: "TaskFiles";
       groupedFiles: Array<{
