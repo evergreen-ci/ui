@@ -1,4 +1,5 @@
 fragment Annotation on Annotation {
+  id
   createdIssues {
     issueKey
     source {
@@ -8,7 +9,6 @@ fragment Annotation on Annotation {
     }
     url
   }
-  id
   issues {
     issueKey
     source {

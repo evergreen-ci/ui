@@ -1,10 +1,10 @@
 fragment ProjectPeriodicBuildsSettings on Project {
   id
   periodicBuilds {
+    id
     alias
     configFile
     cron
-    id
     intervalHours
     message
     nextRunTime
@@ -14,10 +14,10 @@ fragment ProjectPeriodicBuildsSettings on Project {
 fragment RepoPeriodicBuildsSettings on RepoRef {
   id
   periodicBuilds {
+    id
     alias
     configFile
     cron
-    id
     intervalHours
     message
     nextRunTime

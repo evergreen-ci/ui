@@ -15,15 +15,13 @@
 #import "./appSettings.graphql"
 
 fragment ProjectSettingsFields on ProjectSettings {
-  aliases {
-    ...Alias
-  }
   ...ProjectAppSettings
   ...ProjectGithubCommitQueue
   ...ProjectPermissionGroupSettings
+  aliases {
+    ...Alias
+  }
   projectRef {
-    id
-    identifier
     ...ProjectAccessSettings
     ...ProjectContainerSettings
     ...ProjectGeneralSettings
@@ -33,7 +31,9 @@ fragment ProjectSettingsFields on ProjectSettings {
     ...ProjectPluginsSettings
     ...ProjectTriggersSettings
     ...ProjectViewsAndFiltersSettings
+    id
     ...ProjectVirtualWorkstationSettings
+    identifier
     repoRefId
   }
   subscriptions {
@@ -45,26 +45,26 @@ fragment ProjectSettingsFields on ProjectSettings {
 }
 
 fragment RepoSettingsFields on RepoSettings {
+  ...RepoAppSettings
+  ...RepoGithubCommitQueue
+  ...RepoPermissionGroupSettings
   aliases {
     ...Alias
   }
   projectRef {
-    displayName
-    id
     ...RepoAccessSettings
     ...RepoContainerSettings
     ...RepoGeneralSettings
     ...RepoNotificationSettings
     ...RepoPatchAliasSettings
+    id
     ...RepoPeriodicBuildsSettings
+    displayName
     ...RepoPluginsSettings
     ...RepoTriggersSettings
     ...RepoViewsAndFiltersSettings
     ...RepoVirtualWorkstationSettings
   }
-  ...RepoAppSettings
-  ...RepoGithubCommitQueue
-  ...RepoPermissionGroupSettings
   subscriptions {
     ...Subscriptions
   }

@@ -24,8 +24,8 @@ query MainlineCommits(
         revision
       }
       version {
-        id
         ...UpstreamProject
+        id
         author
         buildVariants(options: $buildVariantOptionsForTaskIcons) {
           displayName
