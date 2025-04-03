@@ -47,7 +47,7 @@
     "@evg-ui/lib": "*",
     "@honeycombio/opentelemetry-web": "^0.4.0",
     "@leafygreen-ui/badge": "^9.0.0",
-    "@leafygreen-ui/button": "^21.0.6",
+    "@leafygreen-ui/button": "^23.1.4",
     "@leafygreen-ui/card": "^10.0.5",
     "@leafygreen-ui/checkbox": "^13.1.2",
     "@leafygreen-ui/confirmation-modal": "^5.0.8",
