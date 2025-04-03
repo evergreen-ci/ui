@@ -20,8 +20,11 @@ interface SearchPopoverProps {
   disabled?: boolean;
   searchSuggestions: string[];
   onClick?: (suggestion: string) => void;
+  /** Ref forwarded from parent component to handle keyboard events */
   forwardedRef?: React.RefObject<HTMLDivElement>;
+  /** Used only for testing keyboard navigation */
   _testSelectedIndex?: number;
+  /** Used only for testing keyboard navigation */
   _testSetSelectedIndex?: React.Dispatch<React.SetStateAction<number>>;
 }
 

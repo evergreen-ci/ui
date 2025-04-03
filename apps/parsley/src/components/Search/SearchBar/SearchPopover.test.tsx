@@ -94,7 +94,43 @@ describe("search popover", () => {
     expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
   });
 
-  it.skip("should navigate through suggestions with arrow keys", async () => {
-    expect(true).toBe(true);
+  it("should navigate through suggestions with arrow keys", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    const searchSuggestions = ["apple", "banana", "cherry"];
+
+    render(
+      <SearchPopover
+        _testSelectedIndex={0}
+        _testSetSelectedIndex={vi.fn()}
+        onClick={onClick}
+        searchSuggestions={searchSuggestions}
+      />
+    );
+
+    await user.click(screen.getByDataCy("search-suggestion-button"));
+    await waitFor(() => {
+      expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
+    });
+
+    await user.keyboard("{ArrowDown}");
+
+    expect(screen.getByText("apple")).toHaveAttribute("data-selected", "true");
+
+    await user.keyboard("{ArrowDown}");
+    expect(screen.getByText("banana")).toHaveAttribute("data-selected", "true");
+
+    await user.keyboard("{ArrowDown}");
+    expect(screen.getByText("cherry")).toHaveAttribute("data-selected", "true");
+
+    await user.keyboard("{ArrowDown}");
+    expect(screen.getByText("apple")).toHaveAttribute("data-selected", "true");
+
+    await user.keyboard("{ArrowUp}");
+    expect(screen.getByText("cherry")).toHaveAttribute("data-selected", "true");
+
+    await user.keyboard("{Enter}");
+    expect(onClick).toHaveBeenCalledWith("cherry");
+    expect(screen.getByDataCy("search-suggestion-popover")).not.toBeVisible();
   });
 });
