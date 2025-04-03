@@ -31,5 +31,8 @@
     "lint-staged": "15.2.2",
     "storybook": "8.6.11",
     "vitest": "2.0.5"
+  },
+  "dependencies": {
+    "@leafygreen-ui/button": "^23.1.4"
   }
 }
