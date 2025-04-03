@@ -61,6 +61,7 @@ export enum DistroSettingsTabRoutes {
 const paths = {
   commits: "/commits",
   container: "/container",
+  demo: "/demo",
   distro: "/distro",
   distros: "/distros",
   host: "/host",
@@ -124,6 +125,7 @@ export const routes = {
   commits: `${paths.commits}/:${slugs.projectIdentifier}?`,
   configurePatch: `${paths.patch}/:${slugs.patchId}/configure/:${slugs.tab}?`,
   container: `${paths.container}/:${slugs.podId}`,
+  demo: paths.demo,
   distroSettings: `${paths.distro}/:${slugs.distroId}/${PageNames.Settings}`,
   host: `${paths.host}/:${slugs.hostId}`,
   hosts: paths.hosts,

@@ -10,6 +10,7 @@ import { redirectRoutes, routes, slugs } from "constants/routes";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Container } from "pages/Container";
+import DemoPage from "pages/demo";
 import { Distro } from "pages/Distro";
 import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
@@ -36,6 +37,7 @@ export const Content: React.FC = () => (
       <Route element={<Navigate to={routes.myPatches} />} path="/" />
       <Route element={<Commits />} path={routes.commits} />
       <Route element={<Container />} path={routes.container} />
+      <Route element={<DemoPage />} path={routes.demo} />
       <Route
         element={<WaterfallCommitsRedirect />}
         path={redirectRoutes.waterfall}
