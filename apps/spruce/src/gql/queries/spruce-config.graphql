@@ -4,8 +4,8 @@ query SpruceConfig {
     bannerTheme
     containerPools {
       pools {
-        distro
         id
+        distro
         maxContainers
         port
       }

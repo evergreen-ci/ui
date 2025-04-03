@@ -1,7 +1,7 @@
 query TaskStatuses($id: String!) {
   version(versionId: $id) {
-    baseTaskStatuses
     id
+    baseTaskStatuses
     taskStatuses
   }
 }

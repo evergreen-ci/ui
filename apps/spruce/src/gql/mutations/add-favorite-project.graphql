@@ -1,7 +1,7 @@
 mutation AddFavoriteProject($projectIdentifier: String!) {
   addFavoriteProject(opts: { projectIdentifier: $projectIdentifier }) {
-    displayName
     id
+    displayName
     identifier
     isFavorite
     owner

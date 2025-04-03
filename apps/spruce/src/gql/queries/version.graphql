@@ -2,6 +2,7 @@
 
 query Version($id: String!) {
   version(versionId: $id) {
+    id
     activated
     author
     authorEmail
@@ -19,12 +20,11 @@ query Version($id: String!) {
       pusher
       tag
     }
-    id
     ignored
     isPatch
     manifest {
-      branch
       id
+      branch
       isBase
       moduleOverrides
       modules
@@ -38,10 +38,11 @@ query Version($id: String!) {
       value
     }
     patch {
+      id
       alias
       childPatches {
-        githash
         id
+        githash
         parameters {
           key
           value
@@ -50,16 +51,16 @@ query Version($id: String!) {
         status
         taskCount
         versionFull {
+          id
           baseVersion {
             id
           }
-          id
           status
         }
       }
-      id
       patchNumber
     }
+    ...UpstreamProject
     previousVersion {
       id
       revision
@@ -67,8 +68,8 @@ query Version($id: String!) {
     project
     projectIdentifier
     projectMetadata {
-      branch
       id
+      branch
       owner
       repo
     }
@@ -78,7 +79,6 @@ query Version($id: String!) {
     startTime
     status
     taskCount
-    ...UpstreamProject
     versionTiming {
       makespan
       timeTaken

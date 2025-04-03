@@ -1,5 +1,14 @@
 query UserSubscriptions {
   user {
+    settings {
+      notifications {
+        buildBreakId
+        patchFinishId
+        patchFirstFailureId
+        spawnHostExpirationId
+        spawnHostOutcomeId
+      }
+    }
     subscriptions {
       id
       ownerType
@@ -24,14 +33,5 @@ query UserSubscriptions {
       triggerData
     }
     userId
-    settings {
-      notifications {
-        buildBreakId
-        patchFinishId
-        patchFirstFailureId
-        spawnHostExpirationId
-        spawnHostOutcomeId
-      }
-    }
   }
 }

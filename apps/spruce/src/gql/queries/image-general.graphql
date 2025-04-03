@@ -1,12 +1,12 @@
 query ImageGeneral($imageId: String!) {
   image(imageId: $imageId) {
-    ami
     id
+    ami
     lastDeployed
     latestTask {
+      id
       execution
       finishTime
-      id
     }
   }
 }

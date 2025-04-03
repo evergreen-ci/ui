@@ -15,24 +15,26 @@ query MainlineCommits(
     prevPageOrderNumber
     versions {
       rolledUpVersions {
+        id
         author
         createTime
-        id
         ignored
         message
         order
         revision
       }
       version {
+        id
+        ...UpstreamProject
         author
         buildVariants(options: $buildVariantOptionsForTaskIcons) {
           displayName
           tasks {
+            id
             displayName
             displayStatus
             execution
             hasCedarResults
-            id
             timeTaken
           }
           variant
@@ -50,7 +52,6 @@ query MainlineCommits(
           pusher
           tag
         }
-        id
         message
         order
         projectIdentifier
@@ -62,7 +63,6 @@ query MainlineCommits(
           }
           eta
         }
-        ...UpstreamProject
       }
     }
   }

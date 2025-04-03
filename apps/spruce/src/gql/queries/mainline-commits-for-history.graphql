@@ -12,26 +12,28 @@ query MainlineCommitsForHistory(
     prevPageOrderNumber
     versions {
       rolledUpVersions {
+        id
         author
         createTime
         gitTags {
           pusher
           tag
         }
-        id
         message
         order
         revision
       }
       version {
+        ...UpstreamProject
+        id
         author
         buildVariants(options: $buildVariantOptions) {
           displayName
           tasks {
+            id
             displayName
             displayStatus
             execution
-            id
           }
           variant
         }
@@ -40,11 +42,9 @@ query MainlineCommitsForHistory(
           pusher
           tag
         }
-        id
         message
         order
         revision
-        ...UpstreamProject
       }
     }
   }

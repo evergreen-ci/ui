@@ -1,10 +1,10 @@
 query DistroTaskQueue($distroId: String!) {
   distroTaskQueue(distroId: $distroId) {
+    id
     activatedBy
     buildVariant
     displayName
     expectedDuration
-    id
     priority
     project
     projectIdentifier

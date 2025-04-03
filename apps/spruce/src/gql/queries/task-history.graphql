@@ -2,10 +2,10 @@ query TaskHistory($options: TaskHistoryOpts!) {
   taskHistory(options: $options) {
     tasks {
       id
-      order
+      activated
       displayStatus
       execution
-      activated
+      order
     }
   }
 }

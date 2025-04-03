@@ -8,11 +8,12 @@ query VersionTasks(
     tasks(options: $taskFilterOptions) {
       count
       data {
+        id
         aborted
         baseTask {
+          id
           displayStatus
           execution
-          id
         }
         blocked
         buildVariant
@@ -24,20 +25,19 @@ query VersionTasks(
         displayStatus
         execution
         executionTasksFull {
+          id
           baseTask {
+            id
             displayStatus
             execution
-            id
           }
           buildVariant
           buildVariantDisplayName
           displayName
           displayStatus
           execution
-          id
           projectIdentifier
         }
-        id
         projectIdentifier
       }
     }

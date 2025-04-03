@@ -1,22 +1,22 @@
 query BaseVersionAndTask($taskId: String!) {
   task(taskId: $taskId) {
+    id
     baseTask {
+      id
       displayStatus
       execution
-      id
     }
     buildVariant
     displayName
     displayStatus
     execution
-    id
     projectIdentifier
     versionMetadata {
+      id
       baseVersion {
         id
         order
       }
-      id
       isPatch
     }
   }

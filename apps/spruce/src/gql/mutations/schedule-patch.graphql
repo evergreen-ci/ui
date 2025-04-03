@@ -6,10 +6,10 @@ mutation SchedulePatch($patchId: String!, $configure: PatchConfigure!) {
     tasks
     variants
     versionFull {
+      id
       childVersions {
         id
       }
-      id
     }
   }
 }

@@ -2,7 +2,7 @@
 
 query VersionUpstreamProject($versionId: String!) {
   version(versionId: $versionId) {
-    id
     ...UpstreamProject
+    id
   }
 }

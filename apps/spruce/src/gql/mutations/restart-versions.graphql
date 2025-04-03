@@ -10,11 +10,11 @@ mutation RestartVersions(
   ) {
     id
     patch {
+      id
       childPatches {
         id
         status
       }
-      id
       status
     }
     status

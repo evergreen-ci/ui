@@ -1,5 +1,6 @@
 query MyVolumes {
   myVolumes {
+    id
     availabilityZone
     createdBy
     creationTime
@@ -8,12 +9,11 @@ query MyVolumes {
     expiration
     homeVolume
     host {
-      displayName
       id
+      displayName
       noExpiration
     }
     hostID
-    id
     migrating
     noExpiration
     size

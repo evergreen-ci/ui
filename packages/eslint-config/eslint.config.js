@@ -322,6 +322,10 @@ const graphQLConfig = {
   },
   rules: {
     ...graphqlPlugin.configs["flat/operations-recommended"].rules,
+    "@graphql-eslint/alphabetize": [
+      WARN,
+      { selections: ["OperationDefinition"], groups: ["...", "id", "*"] },
+    ],
     "@graphql-eslint/no-deprecated": WARN,
     "@graphql-eslint/selection-set-depth": [WARN, { maxDepth: 8 }],
     "spaced-comment": OFF,

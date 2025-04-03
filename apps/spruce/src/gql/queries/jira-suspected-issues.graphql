@@ -2,6 +2,7 @@
 
 query SuspectedIssues($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
+    id
     annotation {
       id
       suspectedIssues {
@@ -9,6 +10,5 @@ query SuspectedIssues($taskId: String!, $execution: Int) {
       }
     }
     execution
-    id
   }
 }
