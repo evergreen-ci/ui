@@ -19,7 +19,7 @@ export const SpawnVolumeTableActions: React.FC<Props> = ({
   const { displayName, homeVolume, host, id } = volume;
   return (
     <FlexRow
-      onClick={(e) => {
+      onClick={(e: React.MouseEvent) => {
         e.stopPropagation();
       }}
     >

@@ -15,7 +15,7 @@ export const MountButton: React.FC<Props> = ({ volume }) => {
       <Button
         data-cy={`attach-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
           setOpenModal(true);
         }}

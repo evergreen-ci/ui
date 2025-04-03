@@ -81,7 +81,7 @@ export const UnmountButton: React.FC<Props> = ({ volume }) => {
       <Button
         data-cy={`detach-btn-${volume.displayName || volume.id}`}
         disabled={loadingDetachVolume || isHomeVolume || volume.migrating}
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
         }}
         size={Size.XSmall}
