@@ -29,7 +29,7 @@
         >
           <svg
             aria-label="GitHub Icon"
-            fill="#001E2B"
+            fill="none"
             height="16"
             viewBox="0 0 98 96"
             width="16"
