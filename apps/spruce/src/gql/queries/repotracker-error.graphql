@@ -1,7 +1,7 @@
 query RepotrackerError($projectIdentifier: String!) {
   project(projectIdentifier: $projectIdentifier) {
-    branch
     id
+    branch
     repotrackerError {
       exists
       invalidRevision

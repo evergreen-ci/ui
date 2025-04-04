@@ -1,4 +1,5 @@
 fragment ProjectGithubSettings on Project {
+  id
   commitQueue {
     enabled
   }
@@ -7,13 +8,13 @@ fragment ProjectGithubSettings on Project {
   gitTagAuthorizedTeams
   gitTagAuthorizedUsers
   gitTagVersionsEnabled
-  id
   manualPrTestingEnabled
   oldestAllowedMergeBase
   prTestingEnabled
 }
 
 fragment RepoGithubSettings on RepoRef {
+  id
   commitQueue {
     enabled
   }
@@ -22,7 +23,6 @@ fragment RepoGithubSettings on RepoRef {
   gitTagAuthorizedTeams
   gitTagAuthorizedUsers
   gitTagVersionsEnabled
-  id
   manualPrTestingEnabled
   oldestAllowedMergeBase
   prTestingEnabled

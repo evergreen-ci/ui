@@ -6,8 +6,8 @@ fragment UpstreamProject on Version {
     repo
     revision
     task {
-      execution
       id
+      execution
     }
     triggerID
     triggerType

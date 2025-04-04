@@ -1,9 +1,10 @@
 query TaskEventLogs($id: String!, $execution: Int) {
   task(taskId: $id, execution: $execution) {
-    execution
     id
+    execution
     taskLogs {
       eventLogs {
+        id
         data {
           blockedOn
           hostId
@@ -16,7 +17,6 @@ query TaskEventLogs($id: String!, $execution: Int) {
           userId
         }
         eventType
-        id
         timestamp
       }
     }

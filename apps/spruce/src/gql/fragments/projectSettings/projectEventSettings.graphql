@@ -14,15 +14,13 @@
 #import "./appSettings.graphql"
 
 fragment ProjectEventSettings on ProjectEventSettings {
-  aliases {
-    ...Alias
-  }
   ...ProjectEventAppSettings
   ...ProjectEventGithubCommitQueue
   ...ProjectEventPermissionGroupSettings
+  aliases {
+    ...Alias
+  }
   projectRef {
-    hidden
-    identifier
     ...ProjectAccessSettings
     ...ProjectGeneralSettings
     ...ProjectNotificationSettings
@@ -32,6 +30,8 @@ fragment ProjectEventSettings on ProjectEventSettings {
     ...ProjectTriggersSettings
     ...ProjectViewsAndFiltersSettings
     ...ProjectVirtualWorkstationSettings
+    hidden
+    identifier
     repoRefId
     tracksPushEvents
     versionControlEnabled

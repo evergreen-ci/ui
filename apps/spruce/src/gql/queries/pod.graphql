@@ -3,9 +3,9 @@ query Pod($podId: String!) {
     id
     status
     task {
+      id
       displayName
       execution
-      id
     }
     taskContainerCreationOpts {
       arch

@@ -1,6 +1,6 @@
 fragment BaseHost on Host {
-  hostUrl
   id
+  hostUrl
   persistentDnsName
   provider
   startedBy

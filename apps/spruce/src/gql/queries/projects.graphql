@@ -2,8 +2,8 @@ query Projects {
   projects {
     groupDisplayName
     projects {
-      displayName
       id
+      displayName
       identifier
       isFavorite
       owner

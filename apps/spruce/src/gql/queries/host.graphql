@@ -2,11 +2,11 @@
 
 query Host($id: String!) {
   host(hostId: $id) {
-    ami
     ...BaseHost
+    ami
     distro {
-      bootstrapMethod
       id
+      bootstrapMethod
     }
     distroId
     lastCommunicationTime

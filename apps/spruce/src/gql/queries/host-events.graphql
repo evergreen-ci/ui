@@ -1,8 +1,10 @@
 query HostEvents($id: String!, $opts: HostEventsInput!) {
   host(hostId: $id) {
+    id
     events(opts: $opts) {
       count
       eventLogEntries {
+        id
         data {
           agentBuild
           agentRevision
@@ -22,7 +24,6 @@ query HostEvents($id: String!, $opts: HostEventsInput!) {
           user
         }
         eventType
-        id
         processedAt
         resourceId
         resourceType
@@ -30,6 +31,5 @@ query HostEvents($id: String!, $opts: HostEventsInput!) {
       }
     }
     eventTypes
-    id
   }
 }

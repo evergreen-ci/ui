@@ -1,8 +1,8 @@
 #import "./baseHost.graphql"
 
 fragment BaseSpawnHost on Host {
-  availabilityZone
   ...BaseHost
+  availabilityZone
   displayName
   distro {
     id
@@ -13,8 +13,8 @@ fragment BaseSpawnHost on Host {
   }
   expiration
   homeVolume {
-    displayName
     id
+    displayName
   }
   homeVolumeID
   instanceTags {
@@ -25,8 +25,8 @@ fragment BaseSpawnHost on Host {
   instanceType
   noExpiration
   volumes {
-    displayName
     id
+    displayName
     migrating
   }
 }

@@ -1,8 +1,8 @@
 fragment BaseTask on Task {
+  id
   displayName
   displayStatus
   execution
-  id
   patchNumber
   versionMetadata {
     id

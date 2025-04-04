@@ -5,8 +5,8 @@ query ProjectPatches(
   $patchesInput: PatchesInput!
 ) {
   project(projectIdentifier: $projectIdentifier) {
-    displayName
     id
+    displayName
     patches(patchesInput: $patchesInput) {
       ...PatchesPagePatches
     }
