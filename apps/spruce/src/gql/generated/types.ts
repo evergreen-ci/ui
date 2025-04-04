@@ -8925,10 +8925,25 @@ export type TaskHistoryQuery = {
     tasks: Array<{
       __typename?: "Task";
       id: string;
-      order: number;
+      activated: boolean;
+      canRestart: boolean;
+      createTime?: Date | null;
       displayStatus: string;
       execution: number;
-      activated: boolean;
+      order: number;
+      revision?: string | null;
+      project?: {
+        __typename?: "Project";
+        id: string;
+        owner: string;
+        repo: string;
+      } | null;
+      versionMetadata: {
+        __typename?: "Version";
+        id: string;
+        author: string;
+        message: string;
+      };
     }>;
   };
 };

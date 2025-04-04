@@ -2,10 +2,23 @@ query TaskHistory($options: TaskHistoryOpts!) {
   taskHistory(options: $options) {
     tasks {
       id
-      order
+      activated
+      canRestart
+      createTime
       displayStatus
       execution
-      activated
+      order
+      revision
+      project {
+        id
+        owner
+        repo
+      }
+      versionMetadata {
+        id
+        author
+        message
+      }
     }
   }
 }
