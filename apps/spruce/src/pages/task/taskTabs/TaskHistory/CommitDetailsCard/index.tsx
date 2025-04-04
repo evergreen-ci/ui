@@ -26,21 +26,27 @@ const { gray } = palette;
 
 interface CommitDetailsCardProps {
   task: TaskHistoryTask;
+  // TODO DEVPROD-16175: Instead of requesting these fields in TaskHistory query, pass these fields down from the single
+  // Task query. This will reduce duplicated query work since all tasks on the project should come from the same repo.
+  owner: string | undefined;
+  repo: string | undefined;
 }
 
-const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({ task }) => {
+const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
+  owner,
+  repo,
+  task,
+}) => {
   const {
     canRestart,
     createTime,
     displayStatus,
     id: taskId,
     order,
-    project,
     revision,
     versionMetadata,
   } = task;
   const { author, message } = versionMetadata;
-  const { owner, repo } = project ?? {};
 
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host ?? "";

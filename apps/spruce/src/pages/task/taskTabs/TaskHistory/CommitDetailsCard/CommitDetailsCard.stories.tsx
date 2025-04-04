@@ -47,5 +47,7 @@ const Template = (args: TemplateProps) => {
       message: args.message,
     },
   };
-  return <CommitDetailsCard task={storyTask} />;
+  return (
+    <CommitDetailsCard owner="evergreen-ci" repo="evergreen" task={storyTask} />
+  );
 };

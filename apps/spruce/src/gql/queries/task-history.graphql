@@ -9,11 +9,6 @@ query TaskHistory($options: TaskHistoryOpts!) {
       execution
       order
       revision
-      project {
-        id
-        owner
-        repo
-      }
       versionMetadata {
         id
         author

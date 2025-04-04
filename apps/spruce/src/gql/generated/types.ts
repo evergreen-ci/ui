@@ -8932,12 +8932,6 @@ export type TaskHistoryQuery = {
       execution: number;
       order: number;
       revision?: string | null;
-      project?: {
-        __typename?: "Project";
-        id: string;
-        owner: string;
-        repo: string;
-      } | null;
       versionMetadata: {
         __typename?: "Version";
         id: string;

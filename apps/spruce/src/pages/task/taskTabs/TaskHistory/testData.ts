@@ -11,11 +11,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "aef363719d0287e92cd83749a827bae",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -31,11 +26,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "b",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -51,11 +41,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "ce135c28ba11e9189cae",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -71,11 +56,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "d",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -91,11 +71,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "e",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -111,11 +86,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "f",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -131,11 +101,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "g",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -151,11 +116,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "h",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -171,11 +131,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "i",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -191,11 +146,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "j",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
@@ -211,11 +161,6 @@ export const tasks: TaskHistoryTask[] = [
     revision: "k",
     createTime: new Date("2025-04-03T10:22:13Z"),
     canRestart: true,
-    project: {
-      id: "project_id",
-      owner: "evergreen-ci",
-      repo: "evergreen",
-    },
     versionMetadata: {
       id: "version_id",
       author: "Evergreen Admin",
