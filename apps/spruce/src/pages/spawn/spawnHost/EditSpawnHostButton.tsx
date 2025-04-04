@@ -21,7 +21,7 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,
       jsx-a11y/no-static-element-interactions */}
       <span
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
         }}
       >
@@ -33,7 +33,7 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
             <Button
               data-cy="edit-host-button"
               disabled={!canEditSpawnHost}
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent) => {
                 e.stopPropagation();
                 setOpenModal(true);
                 spawnAnalytics.sendEvent({

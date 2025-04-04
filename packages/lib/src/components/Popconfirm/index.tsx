@@ -11,6 +11,12 @@ type PopconfirmProps = TooltipProps & {
   "data-cy"?: string;
   onConfirm?: (e?: React.MouseEvent) => void;
   children: React.ReactNode;
+  onEnter?: () => void;
+  onEntering?: () => void;
+  onEntered?: () => void;
+  onExit?: () => void;
+  onExiting?: () => void;
+  onExited?: () => void;
 };
 
 const Popconfirm: React.FC<PopconfirmProps> = ({
@@ -77,7 +83,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
           </Button>
           <Button
             disabled={confirmDisabled}
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent) => {
               onConfirm(e);
               setOpen(false);
             }}
