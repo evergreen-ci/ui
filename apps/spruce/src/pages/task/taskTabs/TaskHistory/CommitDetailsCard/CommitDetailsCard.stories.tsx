@@ -8,12 +8,16 @@ export default {
   component: CommitDetailsCard,
   decorators: [(Story: () => JSX.Element) => WithToastContext(Story)],
   args: {
+    isCurrentTask: true,
     status: TaskStatus.Succeeded,
     canRestart: true,
     message:
       "DEVPROD-1234: Create Commit Details Card component which will be used in the Commit Details List. It should handle overflow correctly and render different status colors.",
   },
   argTypes: {
+    isCurrentTask: {
+      control: { type: "boolean" },
+    },
     status: {
       options: SortedTaskStatus,
       control: { type: "select" },
@@ -32,6 +36,7 @@ export const Default: CustomStoryObj<TemplateProps> = {
 };
 
 type TemplateProps = {
+  isCurrentTask: boolean;
   status: TaskStatus;
   canRestart: boolean;
   message: string;
@@ -48,6 +53,11 @@ const Template = (args: TemplateProps) => {
     },
   };
   return (
-    <CommitDetailsCard owner="evergreen-ci" repo="evergreen" task={storyTask} />
+    <CommitDetailsCard
+      isCurrentTask={args.isCurrentTask}
+      owner="evergreen-ci"
+      repo="evergreen"
+      task={storyTask}
+    />
   );
 };

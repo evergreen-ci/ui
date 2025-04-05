@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Badge, { Variant as BadgeVariant } from "@leafygreen-ui/badge";
 import Button, { Size as ButtonSize } from "@leafygreen-ui/button";
 import IconButton from "@leafygreen-ui/icon-button";
 import { palette } from "@leafygreen-ui/palette";
@@ -26,6 +27,7 @@ const { gray } = palette;
 
 interface CommitDetailsCardProps {
   task: TaskHistoryTask;
+  isCurrentTask: boolean;
   // TODO DEVPROD-16175: Instead of requesting these fields in TaskHistory query, pass these fields down from the single
   // Task query. This will reduce duplicated query work since all tasks on the project should come from the same repo.
   owner: string | undefined;
@@ -33,6 +35,7 @@ interface CommitDetailsCardProps {
 }
 
 const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
+  isCurrentTask,
   owner,
   repo,
   task,
@@ -97,6 +100,7 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
         >
           Restart Task
         </Button>
+        {isCurrentTask && <Badge variant={BadgeVariant.Blue}>This Task</Badge>}
         <span>{dateCopy}</span>
         {/* Use this to debug issues with pagination. */}
         {!isProduction() && <OrderLabel>Order: {order}</OrderLabel>}
