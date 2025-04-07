@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
@@ -34,10 +34,8 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
     dataSource.map(({ id }, i) => [i, id === selectedHost]),
   );
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<MyHost>({
     columns,
-    containerRef: tableContainerRef,
     data: dataSource,
     defaultColumn: {
       enableColumnFilter: false,

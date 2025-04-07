@@ -56,5 +56,5 @@ export const DetailsCard: React.FC<DetailsCardProps> = ({
 const CardContainer = styled(Card)`
   width: 80%;
   padding: ${size.s} ${size.l};
-  margin: ${size.s} ${size.m};
+  margin: 0 ${size.m};
 `;

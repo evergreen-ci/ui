@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef } from "react";
+import { ForwardedRef, forwardRef, Fragment } from "react";
 import styled from "@emotion/styled";
 import { css } from "@leafygreen-ui/emotion";
 import Pagination from "@leafygreen-ui/pagination";
@@ -18,6 +18,10 @@ import {
   TableHead,
   VirtualItem,
   LeafyGreenTableRow,
+  LeafyGreenTable,
+  LeafyGreenVirtualTable,
+  Header,
+  LGTableDataType,
 } from "@leafygreen-ui/table";
 import { size } from "@evg-ui/lib/constants/tokens";
 import {
@@ -27,6 +31,8 @@ import {
 import { TreeDataEntry } from "components/TreeSelect";
 import { tableColumnOffset } from "constants/tokens";
 import TableLoader from "./TableLoader";
+
+const { gray } = palette;
 
 // Define typing of columns' meta field
 // https://tanstack.com/table/v8/docs/api/core/column-def#meta
@@ -52,7 +58,7 @@ declare module "@tanstack/table-core" {
 
 const { blue } = palette;
 
-type SpruceTableProps = {
+interface SpruceTableProps<T extends LGRowData> {
   "data-cy-row"?: string;
   "data-cy-table"?: string;
   emptyComponent?: React.ReactNode;
@@ -64,10 +70,14 @@ type SpruceTableProps = {
   /** rows that will have a blue tint to represent that they are selected */
   selectedRowIndexes?: number[];
   usePagination?: boolean;
-};
+  /** Object returned from the useLeafyGreenTable or useLeafyGreenVirtualTable hook */
+  table: LeafyGreenVirtualTable<T> | LeafyGreenTable<T>;
+}
 
-export const BaseTable = forwardRef(
-  (
+type BaseTableProps<T> = SpruceTableProps<T> & Omit<TableProps<T>, "table">;
+
+export const BaseTable = forwardRef<HTMLDivElement, BaseTableProps<any>>(
+  <T extends LGRowData>(
     {
       "data-cy-row": dataCyRow,
       "data-cy-table": dataCyTable,
@@ -79,90 +89,46 @@ export const BaseTable = forwardRef(
       table,
       usePagination = false,
       ...args
-    }: SpruceTableProps & TableProps<any>,
+    }: BaseTableProps<T>,
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
-    const { virtualRows } = table;
-    // @ts-expect-error: FIXME. This comment was added by an automated script.
     const { rows } = table.getRowModel();
+
+    const virtualRows = table.virtual?.getVirtualItems();
     const hasVirtualRows = virtualRows && virtualRows.length > 0;
+
     return (
       <>
-        <StyledTable ref={ref} data-cy={dataCyTable} table={table} {...args}>
+        <Table ref={ref} data-cy={dataCyTable} table={table} {...args}>
           <TableHead isSticky={hasVirtualRows}>
-            {/* @ts-expect-error: FIXME. This comment was added by an automated script. */}
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  const { columnDef } = header.column ?? {};
-                  const { meta } = columnDef;
-                  return (
-                    <HeaderCell
-                      key={header.id}
-                      header={header}
-                      // @ts-expect-error: FIXME. This comment was added by an automated script.
-                      style={meta?.width && { width: columnDef?.meta?.width }}
-                    >
-                      {flexRender(columnDef.header, header.getContext())}
-                      {header.column.getCanFilter() &&
-                        (meta?.treeSelect ? (
-                          <TableFilterPopover
-                            data-cy={meta.treeSelect?.["data-cy"]}
-                            onConfirm={(value) => {
-                              header.column.setFilterValue(value);
-                              if (usePagination && table) {
-                                table.firstPage();
-                              }
-                            }}
-                            options={
-                              meta.treeSelect?.filterOptions
-                                ? meta.treeSelect.options.filter(
-                                    ({ value }) =>
-                                      !!header.column
-                                        .getFacetedUniqueValues()
-                                        .get(value),
-                                  )
-                                : meta.treeSelect.options
-                            }
-                            value={
-                              (header?.column?.getFilterValue() as string[]) ??
-                              []
-                            }
-                          />
-                        ) : (
-                          <TableSearchPopover
-                            data-cy={meta?.search?.["data-cy"]}
-                            onConfirm={(value) => {
-                              header.column.setFilterValue(value);
-                              if (usePagination && table) {
-                                table.firstPage();
-                              }
-                            }}
-                            placeholder={meta?.search?.placeholder}
-                            value={
-                              (header?.column?.getFilterValue() as string) ?? ""
-                            }
-                          />
-                        ))}
-                    </HeaderCell>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHeaderCell
+                    key={header.id}
+                    header={header}
+                    table={table}
+                    usePagination={usePagination}
+                  />
+                ))}
               </HeaderRow>
             ))}
           </TableHead>
           <TableBody>
             {loading && (
               <TableLoader
-                // @ts-expect-error: FIXME. This comment was added by an automated script.
                 numColumns={table.getAllColumns().length}
                 numRows={loadingRows}
               />
             )}
+            {!loading &&
+              rows.length === 0 &&
+              (emptyComponent || (
+                <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
+              ))}
             {hasVirtualRows
-              ? // @ts-expect-error: FIXME. This comment was added by an automated script.
-                virtualRows.map((vr) => {
-                  const row = rows[vr.index];
+              ? virtualRows.map((vr) => {
+                  const { row } = vr;
                   return (
                     <RenderableRow
                       key={row.id}
@@ -179,17 +145,10 @@ export const BaseTable = forwardRef(
                     dataCyRow={dataCyRow}
                     isSelected={selectedRowIndexes.includes(row.index)}
                     row={row}
-                    // @ts-expect-error: FIXME. This comment was added by an automated script.
-                    virtualRow={null}
                   />
                 ))}
           </TableBody>
-        </StyledTable>
-        {!loading &&
-          rows.length === 0 &&
-          (emptyComponent || (
-            <DefaultEmptyMessage>No data to display</DefaultEmptyMessage>
-          ))}
+        </Table>
         {usePagination && table && (
           <StyledPagination
             currentPage={table.getState().pagination.pageIndex + 1}
@@ -210,7 +169,65 @@ export const BaseTable = forwardRef(
   },
 );
 
+BaseTable.displayName = "BaseTable";
+
 const cellPaddingStyle = { paddingBottom: size.xxs, paddingTop: size.xxs };
+
+const TableHeaderCell = <T extends LGRowData>({
+  header,
+  table,
+  usePagination,
+}: {
+  header: Header<LGTableDataType<T>, unknown>;
+  table: LeafyGreenVirtualTable<T> | LeafyGreenTable<T>;
+  usePagination: boolean;
+}) => {
+  const { columnDef } = header.column ?? {};
+  const { meta } = columnDef;
+  return (
+    <HeaderCell
+      key={header.id}
+      header={header}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      style={meta?.width && { width: columnDef?.meta?.width }}
+    >
+      {flexRender(columnDef.header, header.getContext())}
+      {header.column.getCanFilter() &&
+        (meta?.treeSelect ? (
+          <TableFilterPopover
+            data-cy={meta.treeSelect?.["data-cy"]}
+            onConfirm={(value) => {
+              header.column.setFilterValue(value);
+              if (usePagination) {
+                table.firstPage();
+              }
+            }}
+            options={
+              meta.treeSelect?.filterOptions
+                ? meta.treeSelect.options.filter(
+                    ({ value }) =>
+                      !!header.column.getFacetedUniqueValues().get(value),
+                  )
+                : meta.treeSelect.options
+            }
+            value={(header?.column?.getFilterValue() as string[]) ?? []}
+          />
+        ) : (
+          <TableSearchPopover
+            data-cy={meta?.search?.["data-cy"]}
+            onConfirm={(value) => {
+              header.column.setFilterValue(value);
+              if (usePagination) {
+                table.firstPage();
+              }
+            }}
+            placeholder={meta?.search?.placeholder}
+            value={(header?.column?.getFilterValue() as string) ?? ""}
+          />
+        ))}
+    </HeaderCell>
+  );
+};
 
 const RenderableRow = <T extends LGRowData>({
   dataCyRow = "leafygreen-table-row",
@@ -220,65 +237,45 @@ const RenderableRow = <T extends LGRowData>({
 }: {
   dataCyRow?: string;
   row: LeafyGreenTableRow<T>;
-  virtualRow: VirtualItem;
+  virtualRow?: VirtualItem;
   isSelected?: boolean;
 }) => (
-  <Row
-    className={css`
-      &[aria-hidden="false"] td > div {
-        max-height: unset;
-      }
-      ${isSelected &&
-      `
-        background-color: ${blue.light3} !important;
-        font-weight:bold;
+  <Fragment key={row.id}>
+    {!row.isExpandedContent && (
+      <Row
+        className={css`
+          ${isSelected &&
+          `
+           background-color: ${blue.light3} !important;
+           font-weight:bold;
+           `}
         `}
-    `}
-    data-cy={dataCyRow}
-    data-selected={isSelected}
-    row={row}
-    virtualRow={virtualRow}
-  >
-    {row.getVisibleCells().map((cell) => (
-      <Cell key={cell.id} style={cellPaddingStyle}>
-        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-      </Cell>
-    ))}
-    {row.original.renderExpandedContent && <StyledExpandedContent row={row} />}
-    {row.subRows &&
-      row.subRows.map((subRow) => (
-        <Row
-          key={subRow.id}
-          className={css`
-            &[aria-hidden="false"] td > div[data-state="entered"] {
-              max-height: unset;
-            }
-          `}
-          row={subRow}
-          virtualRow={virtualRow}
-        >
-          {subRow.getVisibleCells().map((cell) => (
-            <Cell key={cell.id}>
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </Cell>
-          ))}
-        </Row>
-      ))}
-  </Row>
+        data-cy={dataCyRow}
+        data-selected={isSelected}
+        row={row}
+        virtualRow={virtualRow}
+      >
+        {row.getVisibleCells().map((cell) => (
+          <Cell key={cell.id} cell={cell} style={cellPaddingStyle}>
+            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+          </Cell>
+        ))}
+      </Row>
+    )}
+    {row.isExpandedContent && <StyledExpandedContent row={row} />}
+  </Fragment>
 );
 
-const StyledTable = styled(Table)`
-  transition: none !important;
-`;
-
-const DefaultEmptyMessage = styled.span`
+const DefaultEmptyMessage = styled.div`
+  margin-top: ${size.s};
   margin-left: ${tableColumnOffset};
 `;
 
+// @ts-expect-error: styled is not directly compatible with LeafyGreen's definition of ExpandedContent.
 const StyledExpandedContent = styled(ExpandedContent)`
-  // Allow expanded content containers to take up the full table width
-  [data-state="entered"] > div {
-    flex-grow: 1;
+  > td {
+    padding: ${size.xs} 0;
+    background-color: ${gray.light3};
   }
 ` as typeof ExpandedContent;
 

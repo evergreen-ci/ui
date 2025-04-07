@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
 import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
@@ -45,10 +45,8 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
     [maxSpawnableLimit],
   );
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<TableVolume>({
     columns,
-    containerRef: tableContainerRef,
     data: dataSource,
     defaultColumn: {
       enableColumnFilter: false,

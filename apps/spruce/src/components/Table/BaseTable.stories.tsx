@@ -1,6 +1,10 @@
-import { useRef, useState } from "react";
+import { useState, useRef } from "react";
 import { css } from "@leafygreen-ui/emotion";
-import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table";
+import {
+  LGColumnDef,
+  useLeafyGreenTable,
+  useLeafyGreenVirtualTable,
+} from "@leafygreen-ui/table";
 import { WordBreak } from "@evg-ui/lib/components/styles";
 import { CustomStoryObj, CustomMeta } from "@evg-ui/lib/test_utils/types";
 import { BaseTable } from "./BaseTable";
@@ -10,7 +14,7 @@ export default {
 } satisfies CustomMeta<typeof BaseTable>;
 
 export const Default: CustomStoryObj<typeof BaseTable> = {
-  render: (args) => <TemplateComponent {...args} data={makeDefaultRows(100)} />,
+  render: (args) => <TemplateComponent {...args} data={lgRows} />,
   args: {
     shouldAlternateRowColor: true,
     darkMode: false,
@@ -43,12 +47,13 @@ export const LongContent: CustomStoryObj<typeof BaseTable> = {
 const virtualScrollingContainerHeight = css`
   height: 500px;
 `;
+
 export const VirtualTable: CustomStoryObj<typeof BaseTable> = {
   render: (args) => (
     <TemplateComponent
       {...args}
       className={virtualScrollingContainerHeight}
-      data={makeDefaultRows(10000)}
+      data={virtualRows}
       useVirtualScrolling
     />
   ),
@@ -79,6 +84,9 @@ const makeDefaultRows = (count: number): DataShape[] =>
     type: `type ${i}`,
     size: `size ${i}`,
   }));
+
+const lgRows = makeDefaultRows(100);
+const virtualRows = makeDefaultRows(1000);
 
 const nestedRows: DataShape[] = Array.from({ length: 50 }, (_, i) => ({
   name: `name ${i}`,
@@ -138,16 +146,25 @@ const TemplateComponent: React.FC<
   }
 > = (args) => {
   const { data, useVirtualScrolling, ...rest } = args;
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const tableData = useState(() => data)[0];
-  const table = useLeafyGreenTable<DataShape>({
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+
+  const lgTable = useLeafyGreenTable<DataShape>({
     data: tableData,
     columns,
-    containerRef: tableContainerRef,
-    useVirtualScrolling,
   });
 
-  return <BaseTable {...rest} ref={tableContainerRef} table={table} />;
+  const virtualTable = useLeafyGreenVirtualTable<DataShape>({
+    containerRef: tableContainerRef,
+    data: tableData,
+    columns,
+  });
+
+  return useVirtualScrolling ? (
+    <BaseTable {...rest} ref={tableContainerRef} table={virtualTable} />
+  ) : (
+    <BaseTable {...rest} table={lgTable} />
+  );
 };
 
 interface CellProps {

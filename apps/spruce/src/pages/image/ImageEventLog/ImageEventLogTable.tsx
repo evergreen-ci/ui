@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import {
@@ -73,10 +73,8 @@ export const ImageEventLogTable: React.FC<ImageEventLogTableProps> = ({
   const { sendEvent } = useImageAnalytics();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<ImageEventEntry>({
     columns,
-    containerRef: tableContainerRef,
     data: entries,
     defaultColumn: {
       enableColumnFilter: false,

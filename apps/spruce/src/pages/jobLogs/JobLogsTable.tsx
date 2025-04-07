@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { LGColumnDef, useLeafyGreenTable } from "@leafygreen-ui/table";
 import { Link } from "@leafygreen-ui/typography";
 import TestStatusBadge from "@evg-ui/lib/components/Badge/TestStatusBadge";
@@ -26,8 +26,6 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   tests,
 }) => {
   const { sendEvent } = useJobLogsAnalytics(isLogkeeper);
-
-  const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const logkeeperColumns: LGColumnDef<LogkeeperTestResult>[] = useMemo(
     () => [
@@ -93,7 +91,6 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
       ? logkeeperColumns
       : evergreenColumns) as LGColumnDef<JobLogsTableTestResult>[],
     data: tests,
-    containerRef: tableContainerRef,
   });
   return (
     <BaseTable
