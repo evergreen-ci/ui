@@ -3,9 +3,17 @@ query TaskHistory($options: TaskHistoryOpts!) {
     tasks {
       id
       activated
+      canRestart
+      createTime
       displayStatus
       execution
       order
+      revision
+      versionMetadata {
+        id
+        author
+        message
+      }
     }
   }
 }

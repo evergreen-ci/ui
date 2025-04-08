@@ -1,4 +1,4 @@
-import { TaskHistoryTask } from "../types";
+import { tasks } from "../testData";
 import { groupTasks } from ".";
 
 describe("groupTasks", () => {
@@ -10,16 +10,36 @@ describe("groupTasks", () => {
         task: tasks[0],
       },
       {
-        inactiveTasks: [tasks[1], tasks[2], tasks[3]],
+        inactiveTasks: null,
+        task: tasks[1],
+      },
+      {
+        inactiveTasks: [tasks[2]],
         task: null,
       },
       {
         inactiveTasks: null,
-        task: tasks[4],
+        task: tasks[3],
       },
       {
-        inactiveTasks: [tasks[5], tasks[6]],
+        inactiveTasks: [tasks[4]],
         task: null,
+      },
+      {
+        inactiveTasks: null,
+        task: tasks[5],
+      },
+      {
+        inactiveTasks: [tasks[6], tasks[7], tasks[8]],
+        task: null,
+      },
+      {
+        inactiveTasks: null,
+        task: tasks[9],
+      },
+      {
+        inactiveTasks: null,
+        task: tasks[10],
       },
     ]);
   });
@@ -55,58 +75,22 @@ describe("groupTasks", () => {
         inactiveTasks: null,
         task: tasks[6],
       },
+      {
+        inactiveTasks: null,
+        task: tasks[7],
+      },
+      {
+        inactiveTasks: null,
+        task: tasks[8],
+      },
+      {
+        inactiveTasks: null,
+        task: tasks[9],
+      },
+      {
+        inactiveTasks: null,
+        task: tasks[10],
+      },
     ]);
   });
 });
-
-export const tasks: TaskHistoryTask[] = [
-  {
-    id: "a",
-    activated: true,
-    displayStatus: "succeeded",
-    execution: 0,
-    order: 100,
-  },
-  {
-    id: "b",
-    activated: false,
-    displayStatus: "undispatched",
-    execution: 0,
-    order: 99,
-  },
-  {
-    id: "c",
-    activated: false,
-    displayStatus: "undispatched",
-    execution: 0,
-    order: 98,
-  },
-  {
-    id: "d",
-    activated: false,
-    displayStatus: "unscheduled",
-    execution: 0,
-    order: 97,
-  },
-  {
-    id: "e",
-    activated: true,
-    displayStatus: "failed",
-    execution: 0,
-    order: 96,
-  },
-  {
-    id: "f",
-    activated: false,
-    displayStatus: "unscheduled",
-    execution: 0,
-    order: 95,
-  },
-  {
-    id: "g",
-    activated: false,
-    displayStatus: "unscheduled",
-    execution: 0,
-    order: 94,
-  },
-];
