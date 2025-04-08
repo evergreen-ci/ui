@@ -8926,9 +8926,18 @@ export type TaskHistoryQuery = {
       __typename?: "Task";
       id: string;
       activated: boolean;
+      canRestart: boolean;
+      createTime?: Date | null;
       displayStatus: string;
       execution: number;
       order: number;
+      revision?: string | null;
+      versionMetadata: {
+        __typename?: "Version";
+        id: string;
+        author: string;
+        message: string;
+      };
     }>;
   };
 };
