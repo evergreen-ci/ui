@@ -1,9 +1,9 @@
 fragment ProjectNotificationSettings on Project {
+  id
   banner {
     text
     theme
   }
-  id
   notifyOnBuildFailure
 }
 

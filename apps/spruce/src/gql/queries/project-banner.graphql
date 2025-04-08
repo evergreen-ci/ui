@@ -1,9 +1,9 @@
 query ProjectBanner($identifier: String!) {
   project(projectIdentifier: $identifier) {
+    id
     banner {
       text
       theme
     }
-    id
   }
 }

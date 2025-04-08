@@ -5,8 +5,8 @@ query TaskTestsForJobLogs($id: String!, $execution: Int) {
     ...BaseTask
     tests(opts: {}) {
       testResults {
-        groupID
         id
+        groupID
         logs {
           urlParsley
         }

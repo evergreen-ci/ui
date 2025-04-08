@@ -8,8 +8,8 @@ query TaskTests(
   $testName: String!
 ) {
   task(taskId: $id, execution: $execution) {
-    execution
     id
+    execution
     tests(
       opts: {
         sort: $sort
@@ -21,9 +21,9 @@ query TaskTests(
     ) {
       filteredTestCount
       testResults {
+        id
         baseStatus
         duration
-        id
         logs {
           url
           urlParsley

@@ -1,4 +1,5 @@
 fragment ProjectPluginsSettings on Project {
+  id
   buildBaronSettings {
     ticketCreateIssueType
     ticketCreateProject
@@ -9,7 +10,6 @@ fragment ProjectPluginsSettings on Project {
     requesters
     urlTemplate
   }
-  id
   perfEnabled
   taskAnnotationSettings {
     fileTicketWebhook {
@@ -20,6 +20,7 @@ fragment ProjectPluginsSettings on Project {
 }
 
 fragment RepoPluginsSettings on RepoRef {
+  id
   buildBaronSettings {
     ticketCreateIssueType
     ticketCreateProject
@@ -30,7 +31,6 @@ fragment RepoPluginsSettings on RepoRef {
     requesters
     urlTemplate
   }
-  id
   perfEnabled
   taskAnnotationSettings {
     fileTicketWebhook {
