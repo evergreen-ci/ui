@@ -42,9 +42,9 @@ describe("search popover", () => {
     await waitFor(() => {
       expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
     });
-    const button = screen.getByRole("button", { name: "apple" });
-    button.focus();
-    expect(button).toHaveFocus();
+    const menuItem = screen.getByRole("menuitem", { name: "apple" });
+    menuItem.focus();
+    expect(menuItem).toHaveFocus();
     await user.keyboard("{Enter}");
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("apple");
@@ -64,9 +64,9 @@ describe("search popover", () => {
     await waitFor(() => {
       expect(screen.getByDataCy("search-suggestion-popover")).toBeVisible();
     });
-    const button = screen.getByRole("button", { name: "apple" });
-    button.focus();
-    expect(button).toHaveFocus();
+    const menuItem = screen.getByRole("menuitem", { name: "apple" });
+    menuItem.focus();
+    expect(menuItem).toHaveFocus();
     await user.keyboard(" ");
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith("apple");
