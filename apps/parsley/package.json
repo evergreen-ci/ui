@@ -89,7 +89,7 @@
     "react-dropzone": "14.3.8",
     "react-router-dom": "6.18.0",
     "react-virtuoso": "4.7.12",
-    "vite-node": "3.0.8",
+    "vite-node": "3.1.1",
     "xss": "1.0.15"
   },
   "devDependencies": {
@@ -135,7 +135,7 @@
     "vite-plugin-checker": "0.8.0",
     "vite-plugin-env-compatible": "2.0.1",
     "vite-tsconfig-paths": "4.3.2",
-    "vitest": "3.0.8"
+    "vitest": "3.1.1"
   },
   "engines": {
     "node": ">=22.14.0"
