@@ -53,7 +53,7 @@ export const DeleteVolumeButton: React.FC<Props> = ({ volume }) => {
         <Button
           data-cy={`trash-${volume.displayName || volume.id}`}
           disabled={loadingRemoveVolume || volume.migrating}
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent) => {
             e.stopPropagation();
           }}
           size={Size.XSmall}

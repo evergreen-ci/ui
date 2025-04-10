@@ -16,7 +16,7 @@ export const EditButton: React.FC<Props> = ({ maxSpawnableLimit, volume }) => {
       <Button
         data-cy={`edit-btn-${volume.displayName || volume.id}`}
         disabled={volume.migrating}
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
           setOpenModal(true);
         }}

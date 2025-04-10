@@ -58,9 +58,15 @@ export const InactiveVersionsButton: React.FC<Props> = ({
   );
 };
 
+interface StyledButtonProps {
+  variant?: string;
+  theme?: any;
+}
+
 const StyledButton = styled(Button)`
-  ${({ variant }) => variant === "primary" && glowButtonStyle}
-`;
+  ${({ variant }: StyledButtonProps) =>
+    variant === "primary" && glowButtonStyle}
+` as typeof Button;
 
 const glowButtonStyle = css`
   animation: glow 1s ease-in-out 5 alternate;
