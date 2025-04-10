@@ -3699,8 +3699,8 @@ export type JiraTicketFragment = {
 
 export type BaseHostFragment = {
   __typename?: "Host";
-  hostUrl: string;
   id: string;
+  hostUrl: string;
   persistentDnsName: string;
   provider: string;
   startedBy: string;
@@ -3712,11 +3712,11 @@ export type BaseHostFragment = {
 
 export type BasePatchFragment = {
   __typename?: "Patch";
+  id: string;
   activated: boolean;
   alias?: string | null;
   author: string;
   description: string;
-  id: string;
   status: string;
   parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
   variantsTasks: Array<{
@@ -3734,8 +3734,8 @@ export type BaseSpawnHostFragment = {
   homeVolumeID?: string | null;
   instanceType?: string | null;
   noExpiration: boolean;
-  hostUrl: string;
   id: string;
+  hostUrl: string;
   persistentDnsName: string;
   provider: string;
   startedBy: string;
@@ -3753,8 +3753,8 @@ export type BaseSpawnHostFragment = {
   } | null;
   homeVolume?: {
     __typename?: "Volume";
-    displayName: string;
     id: string;
+    displayName: string;
   } | null;
   instanceTags: Array<{
     __typename?: "InstanceTag";
@@ -3764,20 +3764,20 @@ export type BaseSpawnHostFragment = {
   }>;
   volumes: Array<{
     __typename?: "Volume";
-    displayName: string;
     id: string;
+    displayName: string;
     migrating: boolean;
   }>;
 };
 
 export type BaseTaskFragment = {
   __typename?: "Task";
+  id: string;
   buildVariant: string;
   buildVariantDisplayName?: string | null;
   displayName: string;
   displayStatus: string;
   execution: number;
-  id: string;
   revision?: string | null;
 };
 
@@ -3817,6 +3817,7 @@ export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{
     __typename?: "Patch";
+    id: string;
     activated: boolean;
     alias?: string | null;
     author: string;
@@ -3824,7 +3825,6 @@ export type PatchesPagePatchesFragment = {
     createTime?: Date | null;
     description: string;
     hidden: boolean;
-    id: string;
     projectIdentifier: string;
     status: string;
     projectMetadata?: {
@@ -3852,24 +3852,24 @@ export type PatchesPagePatchesFragment = {
 
 export type ProjectAccessSettingsFragment = {
   __typename?: "Project";
-  admins?: Array<string> | null;
   id: string;
+  admins?: Array<string> | null;
   restricted?: boolean | null;
 };
 
 export type RepoAccessSettingsFragment = {
   __typename?: "RepoRef";
-  admins: Array<string>;
   id: string;
+  admins: Array<string>;
   restricted: boolean;
 };
 
 export type AliasFragment = {
   __typename?: "ProjectAlias";
+  id: string;
   alias: string;
   description?: string | null;
   gitTag: string;
-  id: string;
   remotePath: string;
   task: string;
   taskTags: Array<string>;
@@ -3887,8 +3887,8 @@ export type ProjectAppSettingsFragment = {
   } | null;
   projectRef?: {
     __typename?: "Project";
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     id: string;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
   } | null;
 };
 
@@ -3901,8 +3901,8 @@ export type ProjectEventAppSettingsFragment = {
   } | null;
   projectRef?: {
     __typename?: "Project";
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     id: string;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
   } | null;
 };
 
@@ -3915,8 +3915,8 @@ export type RepoAppSettingsFragment = {
   } | null;
   projectRef?: {
     __typename?: "RepoRef";
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     id: string;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
   } | null;
 };
 
@@ -3944,6 +3944,7 @@ export type RepoContainerSettingsFragment = {
 
 export type ProjectGeneralSettingsFragment = {
   __typename?: "Project";
+  id: string;
   batchTime: number;
   branch: string;
   deactivatePrevious?: boolean | null;
@@ -3951,7 +3952,6 @@ export type ProjectGeneralSettingsFragment = {
   dispatchingDisabled?: boolean | null;
   displayName: string;
   enabled?: boolean | null;
-  id: string;
   owner: string;
   patchingDisabled?: boolean | null;
   remotePath: string;
@@ -3965,12 +3965,12 @@ export type ProjectGeneralSettingsFragment = {
 
 export type RepoGeneralSettingsFragment = {
   __typename?: "RepoRef";
+  id: string;
   batchTime: number;
   deactivatePrevious: boolean;
   disabledStatsCache: boolean;
   dispatchingDisabled: boolean;
   displayName: string;
-  id: string;
   owner: string;
   patchingDisabled: boolean;
   remotePath: string;
@@ -3984,12 +3984,12 @@ export type RepoGeneralSettingsFragment = {
 
 export type ProjectGithubSettingsFragment = {
   __typename?: "Project";
+  id: string;
   githubChecksEnabled?: boolean | null;
   githubTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled?: boolean | null;
-  id: string;
   manualPrTestingEnabled?: boolean | null;
   oldestAllowedMergeBase: string;
   prTestingEnabled?: boolean | null;
@@ -3998,12 +3998,12 @@ export type ProjectGithubSettingsFragment = {
 
 export type RepoGithubSettingsFragment = {
   __typename?: "RepoRef";
+  id: string;
   githubChecksEnabled: boolean;
   githubTriggerAliases?: Array<string> | null;
   gitTagAuthorizedTeams?: Array<string> | null;
   gitTagAuthorizedUsers?: Array<string> | null;
   gitTagVersionsEnabled: boolean;
-  id: string;
   manualPrTestingEnabled: boolean;
   oldestAllowedMergeBase: string;
   prTestingEnabled: boolean;
@@ -4015,12 +4015,12 @@ export type ProjectGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
   projectRef?: {
     __typename?: "Project";
+    id: string;
     githubChecksEnabled?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
-    id: string;
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
@@ -4033,12 +4033,12 @@ export type RepoGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
   projectRef?: {
     __typename?: "RepoRef";
+    id: string;
     githubChecksEnabled: boolean;
     githubTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled: boolean;
-    id: string;
     manualPrTestingEnabled: boolean;
     oldestAllowedMergeBase: string;
     prTestingEnabled: boolean;
@@ -4051,12 +4051,12 @@ export type ProjectEventGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
   projectRef?: {
     __typename?: "Project";
+    id: string;
     githubChecksEnabled?: boolean | null;
     githubTriggerAliases?: Array<string> | null;
     gitTagAuthorizedTeams?: Array<string> | null;
     gitTagAuthorizedUsers?: Array<string> | null;
     gitTagVersionsEnabled?: boolean | null;
-    id: string;
     manualPrTestingEnabled?: boolean | null;
     oldestAllowedMergeBase: string;
     prTestingEnabled?: boolean | null;
@@ -4069,10 +4069,10 @@ export type ProjectSettingsFieldsFragment = {
   githubWebhooksEnabled: boolean;
   aliases?: Array<{
     __typename?: "ProjectAlias";
+    id: string;
     alias: string;
     description?: string | null;
     gitTag: string;
-    id: string;
     remotePath: string;
     task: string;
     taskTags: Array<string>;
@@ -4147,10 +4147,10 @@ export type ProjectSettingsFieldsFragment = {
     }> | null;
     periodicBuilds?: Array<{
       __typename?: "PeriodicBuild";
+      id: string;
       alias: string;
       configFile: string;
       cron: string;
-      id: string;
       intervalHours: number;
       message: string;
       nextRunTime: Date;
@@ -4277,10 +4277,10 @@ export type RepoSettingsFieldsFragment = {
   githubWebhooksEnabled: boolean;
   aliases?: Array<{
     __typename?: "ProjectAlias";
+    id: string;
     alias: string;
     description?: string | null;
     gitTag: string;
-    id: string;
     remotePath: string;
     task: string;
     taskTags: Array<string>;
@@ -4290,8 +4290,8 @@ export type RepoSettingsFieldsFragment = {
   }> | null;
   projectRef?: {
     __typename?: "RepoRef";
-    displayName: string;
     id: string;
+    displayName: string;
     githubPermissionGroupByRequester?: { [key: string]: any } | null;
     admins: Array<string>;
     restricted: boolean;
@@ -4345,10 +4345,10 @@ export type RepoSettingsFieldsFragment = {
     }> | null;
     periodicBuilds?: Array<{
       __typename?: "PeriodicBuild";
+      id: string;
       alias: string;
       configFile: string;
       cron: string;
-      id: string;
       intervalHours: number;
       message: string;
       nextRunTime: Date;
@@ -4545,8 +4545,8 @@ export type SubscriptionsFragment = {
 
 export type ProjectPatchAliasSettingsFragment = {
   __typename?: "Project";
-  githubTriggerAliases?: Array<string> | null;
   id: string;
+  githubTriggerAliases?: Array<string> | null;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -4565,8 +4565,8 @@ export type ProjectPatchAliasSettingsFragment = {
 
 export type RepoPatchAliasSettingsFragment = {
   __typename?: "RepoRef";
-  githubTriggerAliases?: Array<string> | null;
   id: string;
+  githubTriggerAliases?: Array<string> | null;
   patchTriggerAliases?: Array<{
     __typename?: "PatchTriggerAlias";
     alias: string;
@@ -4588,10 +4588,10 @@ export type ProjectPeriodicBuildsSettingsFragment = {
   id: string;
   periodicBuilds?: Array<{
     __typename?: "PeriodicBuild";
+    id: string;
     alias: string;
     configFile: string;
     cron: string;
-    id: string;
     intervalHours: number;
     message: string;
     nextRunTime: Date;
@@ -4603,10 +4603,10 @@ export type RepoPeriodicBuildsSettingsFragment = {
   id: string;
   periodicBuilds?: Array<{
     __typename?: "PeriodicBuild";
+    id: string;
     alias: string;
     configFile: string;
     cron: string;
-    id: string;
     intervalHours: number;
     message: string;
     nextRunTime: Date;
@@ -4621,8 +4621,8 @@ export type ProjectPermissionGroupSettingsFragment = {
   } | null;
   projectRef?: {
     __typename?: "Project";
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     id: string;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -4639,8 +4639,8 @@ export type ProjectEventPermissionGroupSettingsFragment = {
   } | null;
   projectRef?: {
     __typename?: "Project";
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     id: string;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -4657,8 +4657,8 @@ export type RepoPermissionGroupSettingsFragment = {
   } | null;
   projectRef?: {
     __typename?: "RepoRef";
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     id: string;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     githubDynamicTokenPermissionGroups: Array<{
       __typename?: "GitHubDynamicTokenPermissionGroup";
       name: string;
@@ -4724,10 +4724,10 @@ export type ProjectEventSettingsFragment = {
   githubWebhooksEnabled: boolean;
   aliases?: Array<{
     __typename?: "ProjectAlias";
+    id: string;
     alias: string;
     description?: string | null;
     gitTag: string;
-    id: string;
     remotePath: string;
     task: string;
     taskTags: Array<string>;
@@ -4742,8 +4742,8 @@ export type ProjectEventSettingsFragment = {
     repoRefId: string;
     tracksPushEvents?: boolean | null;
     versionControlEnabled?: boolean | null;
-    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     id: string;
+    githubPermissionGroupByRequester?: { [key: string]: any } | null;
     admins?: Array<string> | null;
     restricted?: boolean | null;
     batchTime: number;
@@ -4798,10 +4798,10 @@ export type ProjectEventSettingsFragment = {
     }> | null;
     periodicBuilds?: Array<{
       __typename?: "PeriodicBuild";
+      id: string;
       alias: string;
       configFile: string;
       cron: string;
-      id: string;
       intervalHours: number;
       message: string;
       nextRunTime: Date;
@@ -5026,7 +5026,7 @@ export type UpstreamProjectFragment = {
     revision: string;
     triggerID: string;
     triggerType: string;
-    task?: { __typename?: "Task"; execution: number; id: string } | null;
+    task?: { __typename?: "Task"; id: string; execution: number } | null;
     version?: { __typename?: "Version"; id: string } | null;
   } | null;
 };
@@ -5040,12 +5040,12 @@ export type AbortTaskMutation = {
   abortTask: {
     __typename?: "Task";
     priority?: number | null;
+    id: string;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
     displayStatus: string;
     execution: number;
-    id: string;
     revision?: string | null;
   };
 };
@@ -5070,8 +5070,8 @@ export type AddFavoriteProjectMutation = {
   __typename?: "Mutation";
   addFavoriteProject: {
     __typename?: "Project";
-    displayName: string;
     id: string;
+    displayName: string;
     identifier: string;
     isFavorite: boolean;
     owner: string;
@@ -5285,8 +5285,8 @@ export type EditSpawnHostMutation = {
     homeVolumeID?: string | null;
     instanceType?: string | null;
     noExpiration: boolean;
-    hostUrl: string;
     id: string;
+    hostUrl: string;
     persistentDnsName: string;
     provider: string;
     startedBy: string;
@@ -5304,8 +5304,8 @@ export type EditSpawnHostMutation = {
     } | null;
     homeVolume?: {
       __typename?: "Volume";
-      displayName: string;
       id: string;
+      displayName: string;
     } | null;
     instanceTags: Array<{
       __typename?: "InstanceTag";
@@ -5315,8 +5315,8 @@ export type EditSpawnHostMutation = {
     }>;
     volumes: Array<{
       __typename?: "Volume";
-      displayName: string;
       id: string;
+      displayName: string;
       migrating: boolean;
     }>;
   };
@@ -5371,9 +5371,9 @@ export type OverrideTaskDependenciesMutation = {
   __typename?: "Mutation";
   overrideTaskDependencies: {
     __typename?: "Task";
+    id: string;
     displayStatus: string;
     execution: number;
-    id: string;
   };
 };
 
@@ -5407,8 +5407,8 @@ export type RemoveFavoriteProjectMutation = {
   __typename?: "Mutation";
   removeFavoriteProject: {
     __typename?: "Project";
-    displayName: string;
     id: string;
+    displayName: string;
     identifier: string;
     isFavorite: boolean;
     owner: string;
@@ -5468,11 +5468,11 @@ export type RestartTaskMutation = {
     execution: number;
     latestExecution: number;
     priority?: number | null;
+    id: string;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
     displayStatus: string;
-    id: string;
     revision?: string | null;
   };
 };
@@ -5567,11 +5567,11 @@ export type SchedulePatchMutation = {
     __typename?: "Patch";
     tasks: Array<string>;
     variants: Array<string>;
+    id: string;
     activated: boolean;
     alias?: string | null;
     author: string;
     description: string;
-    id: string;
     status: string;
     versionFull?: {
       __typename?: "Version";
@@ -5596,15 +5596,15 @@ export type ScheduleTasksMutation = {
   __typename?: "Mutation";
   scheduleTasks: Array<{
     __typename?: "Task";
-    status: string;
     canSchedule: boolean;
     canUnschedule: boolean;
+    status: string;
+    id: string;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
     displayStatus: string;
     execution: number;
-    id: string;
     revision?: string | null;
   }>;
 };
@@ -5617,9 +5617,9 @@ export type ScheduleUndispatchedBaseTasksMutation = {
   __typename?: "Mutation";
   scheduleUndispatchedBaseTasks?: Array<{
     __typename?: "Task";
+    id: string;
     displayStatus: string;
     execution: number;
-    id: string;
   }> | null;
 };
 
@@ -5645,8 +5645,8 @@ export type SetPatchVisibilityMutation = {
   __typename?: "Mutation";
   setPatchVisibility: Array<{
     __typename?: "Patch";
-    hidden: boolean;
     id: string;
+    hidden: boolean;
   }>;
 };
 
@@ -5659,8 +5659,8 @@ export type SetTaskPriorityMutation = {
   __typename?: "Mutation";
   setTaskPriority: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     priority?: number | null;
   };
 };
@@ -5701,12 +5701,12 @@ export type UnscheduleTaskMutation = {
   __typename?: "Mutation";
   unscheduleTask: {
     __typename?: "Task";
-    execution: number;
     id: string;
-    status: string;
-    displayStatus: string;
     canSchedule: boolean;
     canUnschedule: boolean;
+    displayStatus: string;
+    execution: number;
+    status: string;
   };
 };
 
@@ -5740,11 +5740,11 @@ export type UpdatePatchDescriptionMutation = {
   __typename?: "Mutation";
   schedulePatch: {
     __typename?: "Patch";
+    id: string;
     activated: boolean;
     alias?: string | null;
     author: string;
     description: string;
-    id: string;
     status: string;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     variantsTasks: Array<{
@@ -5836,8 +5836,8 @@ export type AgentLogsQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     taskLogs: {
       __typename?: "TaskLogs";
       agentLogs: Array<{
@@ -5859,8 +5859,8 @@ export type AllLogsQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     taskLogs: {
       __typename?: "TaskLogs";
       allLogs: Array<{
@@ -5888,17 +5888,17 @@ export type BaseVersionAndTaskQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
+    id: string;
     buildVariant: string;
     displayName: string;
     displayStatus: string;
     execution: number;
-    id: string;
     projectIdentifier?: string | null;
     baseTask?: {
       __typename?: "Task";
+      id: string;
       displayStatus: string;
       execution: number;
-      id: string;
     } | null;
     versionMetadata: {
       __typename?: "Version";
@@ -6008,11 +6008,11 @@ export type BuildVariantsWithChildrenQuery = {
       variant: string;
       tasks?: Array<{
         __typename?: "Task";
+        id: string;
         baseStatus?: string | null;
         displayName: string;
         displayStatus: string;
         execution: number;
-        id: string;
       }> | null;
     }> | null;
     childVersions?: Array<{
@@ -6026,11 +6026,11 @@ export type BuildVariantsWithChildrenQuery = {
         variant: string;
         tasks?: Array<{
           __typename?: "Task";
+          id: string;
           baseStatus?: string | null;
           displayName: string;
           displayStatus: string;
           execution: number;
-          id: string;
         }> | null;
       }> | null;
       generatedTaskCounts: Array<{
@@ -6120,11 +6120,11 @@ export type DisplayTaskQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
+    id: string;
     displayName: string;
     execution: number;
     executionTasks?: Array<string> | null;
-    id: string;
-    displayTask?: { __typename?: "Task"; execution: number; id: string } | null;
+    displayTask?: { __typename?: "Task"; id: string; execution: number } | null;
   } | null;
 };
 
@@ -6158,11 +6158,11 @@ export type DistroTaskQueueQuery = {
   __typename?: "Query";
   distroTaskQueue: Array<{
     __typename?: "TaskQueueItem";
+    id: string;
     activatedBy: string;
     buildVariant: string;
     displayName: string;
     expectedDuration: number;
-    id: string;
     priority: number;
     project: string;
     projectIdentifier?: string | null;
@@ -6293,8 +6293,8 @@ export type FailedTaskStatusIconTooltipQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     tests: {
       __typename?: "TaskTestResult";
       filteredTestCount: number;
@@ -6346,15 +6346,15 @@ export type HostEventsQuery = {
   __typename?: "Query";
   host?: {
     __typename?: "Host";
-    eventTypes: Array<HostEventType>;
     id: string;
+    eventTypes: Array<HostEventType>;
     events: {
       __typename?: "HostEvents";
       count: number;
       eventLogEntries: Array<{
         __typename?: "HostEventLogEntry";
-        eventType?: HostEventType | null;
         id: string;
+        eventType?: HostEventType | null;
         processedAt: Date;
         resourceId: string;
         resourceType: string;
@@ -6394,8 +6394,8 @@ export type HostQuery = {
     ami?: string | null;
     distroId?: string | null;
     lastCommunicationTime?: Date | null;
-    hostUrl: string;
     id: string;
+    hostUrl: string;
     persistentDnsName: string;
     provider: string;
     startedBy: string;
@@ -6405,8 +6405,8 @@ export type HostQuery = {
     user?: string | null;
     distro?: {
       __typename?: "DistroInfo";
-      bootstrapMethod?: string | null;
       id?: string | null;
+      bootstrapMethod?: string | null;
     } | null;
     runningTask?: {
       __typename?: "TaskInfo";
@@ -6436,10 +6436,10 @@ export type HostsQuery = {
     totalHostsCount: number;
     hosts: Array<{
       __typename?: "Host";
+      id: string;
       distroId?: string | null;
       elapsed?: Date | null;
       hostUrl: string;
-      id: string;
       noExpiration: boolean;
       provider: string;
       startedBy: string;
@@ -6449,8 +6449,8 @@ export type HostsQuery = {
       uptime?: Date | null;
       distro?: {
         __typename?: "DistroInfo";
-        bootstrapMethod?: string | null;
         id?: string | null;
+        bootstrapMethod?: string | null;
       } | null;
       runningTask?: {
         __typename?: "TaskInfo";
@@ -6523,14 +6523,14 @@ export type ImageGeneralQuery = {
   __typename?: "Query";
   image?: {
     __typename?: "Image";
-    ami: string;
     id: string;
+    ami: string;
     lastDeployed: Date;
     latestTask?: {
       __typename?: "Task";
+      id: string;
       execution: number;
       finishTime?: Date | null;
-      id: string;
     } | null;
   } | null;
 };
@@ -6628,8 +6628,8 @@ export type CustomCreatedIssuesQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     annotation?: {
       __typename?: "Annotation";
       id: string;
@@ -6672,8 +6672,8 @@ export type IssuesQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     annotation?: {
       __typename?: "Annotation";
       id: string;
@@ -6716,8 +6716,8 @@ export type SuspectedIssuesQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     annotation?: {
       __typename?: "Annotation";
       id: string;
@@ -6770,9 +6770,9 @@ export type LastMainlineCommitQuery = {
           __typename?: "GroupedBuildVariant";
           tasks?: Array<{
             __typename?: "Task";
+            id: string;
             displayStatus: string;
             execution: number;
-            id: string;
             order: number;
           }> | null;
         }> | null;
@@ -6789,9 +6789,9 @@ export type LogkeeperBuildMetadataQuery = {
   __typename?: "Query";
   logkeeperBuildMetadata: {
     __typename?: "LogkeeperBuild";
+    id: string;
     builder: string;
     buildNum: number;
-    id: string;
     taskExecution: number;
     taskId: string;
     tests: Array<{ __typename?: "LogkeeperTest"; id: string; name: string }>;
@@ -6813,9 +6813,9 @@ export type MainlineCommitsForHistoryQuery = {
       __typename?: "MainlineCommitVersion";
       rolledUpVersions?: Array<{
         __typename?: "Version";
+        id: string;
         author: string;
         createTime: Date;
-        id: string;
         message: string;
         order: number;
         revision: string;
@@ -6827,9 +6827,9 @@ export type MainlineCommitsForHistoryQuery = {
       }> | null;
       version?: {
         __typename?: "Version";
+        id: string;
         author: string;
         createTime: Date;
-        id: string;
         message: string;
         order: number;
         revision: string;
@@ -6839,10 +6839,10 @@ export type MainlineCommitsForHistoryQuery = {
           variant: string;
           tasks?: Array<{
             __typename?: "Task";
+            id: string;
             displayName: string;
             displayStatus: string;
             execution: number;
-            id: string;
           }> | null;
         }> | null;
         gitTags?: Array<{
@@ -6858,7 +6858,7 @@ export type MainlineCommitsForHistoryQuery = {
           revision: string;
           triggerID: string;
           triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
+          task?: { __typename?: "Task"; id: string; execution: number } | null;
           version?: { __typename?: "Version"; id: string } | null;
         } | null;
       } | null;
@@ -6884,9 +6884,9 @@ export type MainlineCommitsQuery = {
       __typename?: "MainlineCommitVersion";
       rolledUpVersions?: Array<{
         __typename?: "Version";
+        id: string;
         author: string;
         createTime: Date;
-        id: string;
         ignored: boolean;
         message: string;
         order: number;
@@ -6894,9 +6894,9 @@ export type MainlineCommitsQuery = {
       }> | null;
       version?: {
         __typename?: "Version";
+        id: string;
         author: string;
         createTime: Date;
-        id: string;
         message: string;
         order: number;
         projectIdentifier: string;
@@ -6907,11 +6907,11 @@ export type MainlineCommitsQuery = {
           variant: string;
           tasks?: Array<{
             __typename?: "Task";
+            id: string;
             displayName: string;
             displayStatus: string;
             execution: number;
             hasCedarResults: boolean;
-            id: string;
             timeTaken?: number | null;
           }> | null;
         }> | null;
@@ -6947,7 +6947,7 @@ export type MainlineCommitsQuery = {
           revision: string;
           triggerID: string;
           triggerType: string;
-          task?: { __typename?: "Task"; execution: number; id: string } | null;
+          task?: { __typename?: "Task"; id: string; execution: number } | null;
           version?: { __typename?: "Version"; id: string } | null;
         } | null;
       } | null;
@@ -6967,8 +6967,8 @@ export type MyHostsQuery = {
     homeVolumeID?: string | null;
     instanceType?: string | null;
     noExpiration: boolean;
-    hostUrl: string;
     id: string;
+    hostUrl: string;
     persistentDnsName: string;
     provider: string;
     startedBy: string;
@@ -6997,8 +6997,8 @@ export type MyHostsQuery = {
     } | null;
     homeVolume?: {
       __typename?: "Volume";
-      displayName: string;
       id: string;
+      displayName: string;
     } | null;
     instanceTags: Array<{
       __typename?: "InstanceTag";
@@ -7008,8 +7008,8 @@ export type MyHostsQuery = {
     }>;
     volumes: Array<{
       __typename?: "Volume";
-      displayName: string;
       id: string;
+      displayName: string;
       migrating: boolean;
     }>;
   }>;
@@ -7021,6 +7021,7 @@ export type MyVolumesQuery = {
   __typename?: "Query";
   myVolumes: Array<{
     __typename?: "Volume";
+    id: string;
     availabilityZone: string;
     createdBy: string;
     creationTime?: Date | null;
@@ -7029,15 +7030,14 @@ export type MyVolumesQuery = {
     expiration?: Date | null;
     homeVolume: boolean;
     hostID: string;
-    id: string;
     migrating: boolean;
     noExpiration: boolean;
     size: number;
     type: string;
     host?: {
       __typename?: "Host";
-      displayName?: string | null;
       id: string;
+      displayName?: string | null;
       noExpiration: boolean;
     } | null;
   }>;
@@ -7062,11 +7062,11 @@ export type ConfigurePatchQuery = {
   patch: {
     __typename?: "Patch";
     projectIdentifier: string;
+    id: string;
     activated: boolean;
     alias?: string | null;
     author: string;
     description: string;
-    id: string;
     status: string;
     childPatchAliases?: Array<{
       __typename?: "ChildPatchAlias";
@@ -7127,8 +7127,8 @@ export type PatchTaskStatusesQuery = {
   __typename?: "Query";
   patch: {
     __typename?: "Patch";
-    baseTaskStatuses: Array<string>;
     id: string;
+    baseTaskStatuses: Array<string>;
     taskStatuses: Array<string>;
   };
 };
@@ -7145,11 +7145,11 @@ export type PatchQuery = {
     patchNumber: number;
     projectID: string;
     projectIdentifier: string;
+    id: string;
     activated: boolean;
     alias?: string | null;
     author: string;
     description: string;
-    id: string;
     status: string;
     versionFull?: { __typename?: "Version"; id: string } | null;
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
@@ -7177,8 +7177,8 @@ export type PodEventsQuery = {
       count: number;
       eventLogEntries: Array<{
         __typename?: "PodEventLogEntry";
-        eventType?: string | null;
         id: string;
+        eventType?: string | null;
         processedAt: Date;
         resourceId: string;
         resourceType: string;
@@ -7193,9 +7193,9 @@ export type PodEventsQuery = {
           taskStatus?: string | null;
           task?: {
             __typename?: "Task";
+            id: string;
             displayName: string;
             execution: number;
-            id: string;
           } | null;
         };
       }>;
@@ -7216,9 +7216,9 @@ export type PodQuery = {
     type: string;
     task?: {
       __typename?: "Task";
+      id: string;
       displayName: string;
       execution: number;
-      id: string;
     } | null;
     taskContainerCreationOpts: {
       __typename?: "TaskContainerCreationOpts";
@@ -7269,10 +7269,10 @@ export type ProjectEventLogsQuery = {
         githubWebhooksEnabled: boolean;
         aliases?: Array<{
           __typename?: "ProjectAlias";
+          id: string;
           alias: string;
           description?: string | null;
           gitTag: string;
-          id: string;
           remotePath: string;
           task: string;
           taskTags: Array<string>;
@@ -7291,8 +7291,8 @@ export type ProjectEventLogsQuery = {
           repoRefId: string;
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           id: string;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -7347,10 +7347,10 @@ export type ProjectEventLogsQuery = {
           }> | null;
           periodicBuilds?: Array<{
             __typename?: "PeriodicBuild";
+            id: string;
             alias: string;
             configFile: string;
             cron: string;
-            id: string;
             intervalHours: number;
             message: string;
             nextRunTime: Date;
@@ -7483,10 +7483,10 @@ export type ProjectEventLogsQuery = {
         githubWebhooksEnabled: boolean;
         aliases?: Array<{
           __typename?: "ProjectAlias";
+          id: string;
           alias: string;
           description?: string | null;
           gitTag: string;
-          id: string;
           remotePath: string;
           task: string;
           taskTags: Array<string>;
@@ -7505,8 +7505,8 @@ export type ProjectEventLogsQuery = {
           repoRefId: string;
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           id: string;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -7561,10 +7561,10 @@ export type ProjectEventLogsQuery = {
           }> | null;
           periodicBuilds?: Array<{
             __typename?: "PeriodicBuild";
+            id: string;
             alias: string;
             configFile: string;
             cron: string;
-            id: string;
             intervalHours: number;
             message: string;
             nextRunTime: Date;
@@ -7718,13 +7718,14 @@ export type ProjectPatchesQuery = {
   __typename?: "Query";
   project: {
     __typename?: "Project";
-    displayName: string;
     id: string;
+    displayName: string;
     patches: {
       __typename?: "Patches";
       filteredPatchCount: number;
       patches: Array<{
         __typename?: "Patch";
+        id: string;
         activated: boolean;
         alias?: string | null;
         author: string;
@@ -7732,7 +7733,6 @@ export type ProjectPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
-        id: string;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
@@ -7771,10 +7771,10 @@ export type ProjectSettingsQuery = {
     githubWebhooksEnabled: boolean;
     aliases?: Array<{
       __typename?: "ProjectAlias";
+      id: string;
       alias: string;
       description?: string | null;
       gitTag: string;
-      id: string;
       remotePath: string;
       task: string;
       taskTags: Array<string>;
@@ -7853,10 +7853,10 @@ export type ProjectSettingsQuery = {
       }> | null;
       periodicBuilds?: Array<{
         __typename?: "PeriodicBuild";
+        id: string;
         alias: string;
         configFile: string;
         cron: string;
-        id: string;
         intervalHours: number;
         message: string;
         nextRunTime: Date;
@@ -8000,8 +8000,8 @@ export type ProjectsQuery = {
     groupDisplayName: string;
     projects: Array<{
       __typename?: "Project";
-      displayName: string;
       id: string;
+      displayName: string;
       identifier: string;
       isFavorite: boolean;
       owner: string;
@@ -8037,10 +8037,10 @@ export type RepoEventLogsQuery = {
         githubWebhooksEnabled: boolean;
         aliases?: Array<{
           __typename?: "ProjectAlias";
+          id: string;
           alias: string;
           description?: string | null;
           gitTag: string;
-          id: string;
           remotePath: string;
           task: string;
           taskTags: Array<string>;
@@ -8059,8 +8059,8 @@ export type RepoEventLogsQuery = {
           repoRefId: string;
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           id: string;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -8115,10 +8115,10 @@ export type RepoEventLogsQuery = {
           }> | null;
           periodicBuilds?: Array<{
             __typename?: "PeriodicBuild";
+            id: string;
             alias: string;
             configFile: string;
             cron: string;
-            id: string;
             intervalHours: number;
             message: string;
             nextRunTime: Date;
@@ -8251,10 +8251,10 @@ export type RepoEventLogsQuery = {
         githubWebhooksEnabled: boolean;
         aliases?: Array<{
           __typename?: "ProjectAlias";
+          id: string;
           alias: string;
           description?: string | null;
           gitTag: string;
-          id: string;
           remotePath: string;
           task: string;
           taskTags: Array<string>;
@@ -8273,8 +8273,8 @@ export type RepoEventLogsQuery = {
           repoRefId: string;
           tracksPushEvents?: boolean | null;
           versionControlEnabled?: boolean | null;
-          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           id: string;
+          githubPermissionGroupByRequester?: { [key: string]: any } | null;
           admins?: Array<string> | null;
           restricted?: boolean | null;
           batchTime: number;
@@ -8329,10 +8329,10 @@ export type RepoEventLogsQuery = {
           }> | null;
           periodicBuilds?: Array<{
             __typename?: "PeriodicBuild";
+            id: string;
             alias: string;
             configFile: string;
             cron: string;
-            id: string;
             intervalHours: number;
             message: string;
             nextRunTime: Date;
@@ -8475,10 +8475,10 @@ export type RepoSettingsQuery = {
     githubWebhooksEnabled: boolean;
     aliases?: Array<{
       __typename?: "ProjectAlias";
+      id: string;
       alias: string;
       description?: string | null;
       gitTag: string;
-      id: string;
       remotePath: string;
       task: string;
       taskTags: Array<string>;
@@ -8492,8 +8492,8 @@ export type RepoSettingsQuery = {
     }> | null;
     projectRef?: {
       __typename?: "RepoRef";
-      displayName: string;
       id: string;
+      displayName: string;
       githubPermissionGroupByRequester?: { [key: string]: any } | null;
       admins: Array<string>;
       restricted: boolean;
@@ -8547,10 +8547,10 @@ export type RepoSettingsQuery = {
       }> | null;
       periodicBuilds?: Array<{
         __typename?: "PeriodicBuild";
+        id: string;
         alias: string;
         configFile: string;
         cron: string;
-        id: string;
         intervalHours: number;
         message: string;
         nextRunTime: Date;
@@ -8681,8 +8681,8 @@ export type RepotrackerErrorQuery = {
   __typename?: "Query";
   project: {
     __typename?: "Project";
-    branch: string;
     id: string;
+    branch: string;
     repotrackerError?: {
       __typename?: "RepotrackerError";
       exists: boolean;
@@ -8711,8 +8711,9 @@ export type SingleTaskDistroQuery = {
       __typename?: "SingleTaskDistroConfig";
       projectTasksPairs: Array<{
         __typename?: "ProjectTasksPair";
-        projectId: string;
+        allowedBVs: Array<string>;
         allowedTasks: Array<string>;
+        projectId: string;
       }>;
     } | null;
   } | null;
@@ -8738,12 +8739,12 @@ export type SpawnTaskQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
+    id: string;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
     displayStatus: string;
     execution: number;
-    id: string;
     revision?: string | null;
     project?: {
       __typename?: "Project";
@@ -8765,8 +8766,8 @@ export type SpruceConfigQuery = {
       __typename?: "ContainerPoolsConfig";
       pools: Array<{
         __typename?: "ContainerPool";
-        distro: string;
         id: string;
+        distro: string;
         maxContainers: number;
         port: number;
       }>;
@@ -8820,8 +8821,8 @@ export type SystemLogsQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     taskLogs: {
       __typename?: "TaskLogs";
       systemLogs: Array<{
@@ -8842,10 +8843,10 @@ export type TaskAllExecutionsQuery = {
   __typename?: "Query";
   taskAllExecutions: Array<{
     __typename?: "Task";
+    id: string;
     activatedTime?: Date | null;
     displayStatus: string;
     execution: number;
-    id: string;
     ingestTime?: Date | null;
   }>;
 };
@@ -8859,14 +8860,14 @@ export type TaskEventLogsQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     taskLogs: {
       __typename?: "TaskLogs";
       eventLogs: Array<{
         __typename?: "TaskEventLogEntry";
-        eventType?: string | null;
         id: string;
+        eventType?: string | null;
         timestamp?: Date | null;
         data: {
           __typename?: "TaskEventLogData";
@@ -8894,8 +8895,8 @@ export type TaskFilesQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     files: {
       __typename?: "TaskFiles";
       fileCount: number;
@@ -8913,6 +8914,34 @@ export type TaskFilesQuery = {
   } | null;
 };
 
+export type TaskHistoryQueryVariables = Exact<{
+  options: TaskHistoryOpts;
+}>;
+
+export type TaskHistoryQuery = {
+  __typename?: "Query";
+  taskHistory: {
+    __typename?: "TaskHistory";
+    tasks: Array<{
+      __typename?: "Task";
+      id: string;
+      activated: boolean;
+      canRestart: boolean;
+      createTime?: Date | null;
+      displayStatus: string;
+      execution: number;
+      order: number;
+      revision?: string | null;
+      versionMetadata: {
+        __typename?: "Version";
+        id: string;
+        author: string;
+        message: string;
+      };
+    }>;
+  };
+};
+
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"]["input"];
   execution?: InputMaybe<Scalars["Int"]["input"]>;
@@ -8922,8 +8951,8 @@ export type TaskLogsQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     taskLogs: {
       __typename?: "TaskLogs";
       taskLogs: Array<{
@@ -8952,8 +8981,8 @@ export type TaskQueueDistrosQuery = {
   __typename?: "Query";
   taskQueueDistros: Array<{
     __typename?: "TaskQueueDistro";
-    hostCount: number;
     id: string;
+    hostCount: number;
     taskCount: number;
   }>;
 };
@@ -8966,8 +8995,8 @@ export type TaskStatusesQuery = {
   __typename?: "Query";
   version: {
     __typename?: "Version";
-    baseTaskStatuses: Array<string>;
     id: string;
+    baseTaskStatuses: Array<string>;
     taskStatuses: Array<string>;
   };
 };
@@ -8998,19 +9027,19 @@ export type TaskTestsForJobLogsQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
+    id: string;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
     displayStatus: string;
     execution: number;
-    id: string;
     revision?: string | null;
     tests: {
       __typename?: "TaskTestResult";
       testResults: Array<{
         __typename?: "TestResult";
-        groupID?: string | null;
         id: string;
+        groupID?: string | null;
         status: string;
         testFile: string;
         logs: { __typename?: "TestLog"; urlParsley?: string | null };
@@ -9033,17 +9062,17 @@ export type TaskTestsQuery = {
   __typename?: "Query";
   task?: {
     __typename?: "Task";
-    execution: number;
     id: string;
+    execution: number;
     tests: {
       __typename?: "TaskTestResult";
       filteredTestCount: number;
       totalTestCount: number;
       testResults: Array<{
         __typename?: "TestResult";
+        id: string;
         baseStatus?: string | null;
         duration?: number | null;
-        id: string;
         status: string;
         testFile: string;
         logs: {
@@ -9103,12 +9132,12 @@ export type TaskQuery = {
     tags: Array<string>;
     timeTaken?: number | null;
     totalTestCount: number;
+    id: string;
     buildVariant: string;
     buildVariantDisplayName?: string | null;
     displayName: string;
     displayStatus: string;
     execution: number;
-    id: string;
     revision?: string | null;
     abortInfo?: {
       __typename?: "AbortInfo";
@@ -9176,8 +9205,8 @@ export type TaskQuery = {
     } | null;
     baseTask?: {
       __typename?: "Task";
-      execution: number;
       id: string;
+      execution: number;
       timeTaken?: number | null;
       versionMetadata: { __typename?: "Version"; id: string; revision: string };
     } | null;
@@ -9207,18 +9236,18 @@ export type TaskQuery = {
     } | null;
     displayTask?: {
       __typename?: "Task";
+      id: string;
       displayName: string;
       execution: number;
-      id: string;
     } | null;
     executionTasksFull?: Array<{
       __typename?: "Task";
+      id: string;
       buildVariant: string;
       buildVariantDisplayName?: string | null;
       displayName: string;
       displayStatus: string;
       execution: number;
-      id: string;
       projectIdentifier?: string | null;
       revision?: string | null;
     }> | null;
@@ -9242,8 +9271,8 @@ export type TaskQuery = {
     } | null;
     versionMetadata: {
       __typename?: "Version";
-      author: string;
       id: string;
+      author: string;
       isPatch: boolean;
       message: string;
       order: number;
@@ -9270,12 +9299,12 @@ export type TestAnalysisQuery = {
       count: number;
       data: Array<{
         __typename?: "Task";
+        id: string;
         buildVariant: string;
         buildVariantDisplayName?: string | null;
         displayName: string;
         displayStatus: string;
         execution: number;
-        id: string;
         tests: {
           __typename?: "TaskTestResult";
           filteredTestCount: number;
@@ -9310,11 +9339,11 @@ export type UndispatchedTasksQuery = {
       __typename?: "VersionTasks";
       data: Array<{
         __typename?: "Task";
+        id: string;
         buildVariant: string;
         buildVariantDisplayName?: string | null;
         displayName: string;
         execution: number;
-        id: string;
       }>;
     };
   };
@@ -9383,6 +9412,7 @@ export type UserPatchesQuery = {
       filteredPatchCount: number;
       patches: Array<{
         __typename?: "Patch";
+        id: string;
         activated: boolean;
         alias?: string | null;
         author: string;
@@ -9390,7 +9420,6 @@ export type UserPatchesQuery = {
         createTime?: Date | null;
         description: string;
         hidden: boolean;
-        id: string;
         projectIdentifier: string;
         status: string;
         projectMetadata?: {
@@ -9495,6 +9524,17 @@ export type UserSubscriptionsQuery = {
   user: {
     __typename?: "User";
     userId: string;
+    settings: {
+      __typename?: "UserSettings";
+      notifications?: {
+        __typename?: "Notifications";
+        buildBreakId?: string | null;
+        patchFinishId?: string | null;
+        patchFirstFailureId?: string | null;
+        spawnHostExpirationId?: string | null;
+        spawnHostOutcomeId?: string | null;
+      } | null;
+    };
     subscriptions?: Array<{
       __typename?: "GeneralSubscription";
       id: string;
@@ -9519,17 +9559,6 @@ export type UserSubscriptionsQuery = {
         };
       } | null;
     }> | null;
-    settings: {
-      __typename?: "UserSettings";
-      notifications?: {
-        __typename?: "Notifications";
-        buildBreakId?: string | null;
-        patchFinishId?: string | null;
-        patchFirstFailureId?: string | null;
-        spawnHostExpirationId?: string | null;
-        spawnHostOutcomeId?: string | null;
-      } | null;
-    };
   };
 };
 
@@ -9561,20 +9590,20 @@ export type VersionTaskDurationsQuery = {
       count: number;
       data: Array<{
         __typename?: "Task";
+        id: string;
         buildVariantDisplayName?: string | null;
         displayName: string;
         displayStatus: string;
         execution: number;
-        id: string;
         startTime?: Date | null;
         timeTaken?: number | null;
         subRows?: Array<{
           __typename?: "Task";
+          id: string;
           buildVariantDisplayName?: string | null;
           displayName: string;
           displayStatus: string;
           execution: number;
-          id: string;
           startTime?: Date | null;
           timeTaken?: number | null;
         }> | null;
@@ -9599,6 +9628,7 @@ export type VersionTasksQuery = {
       count: number;
       data: Array<{
         __typename?: "Task";
+        id: string;
         aborted: boolean;
         blocked: boolean;
         buildVariant: string;
@@ -9606,29 +9636,28 @@ export type VersionTasksQuery = {
         displayName: string;
         displayStatus: string;
         execution: number;
-        id: string;
         projectIdentifier?: string | null;
         baseTask?: {
           __typename?: "Task";
+          id: string;
           displayStatus: string;
           execution: number;
-          id: string;
         } | null;
         dependsOn?: Array<{ __typename?: "Dependency"; name: string }> | null;
         executionTasksFull?: Array<{
           __typename?: "Task";
+          id: string;
           buildVariant: string;
           buildVariantDisplayName?: string | null;
           displayName: string;
           displayStatus: string;
           execution: number;
-          id: string;
           projectIdentifier?: string | null;
           baseTask?: {
             __typename?: "Task";
+            id: string;
             displayStatus: string;
             execution: number;
-            id: string;
           } | null;
         }> | null;
       }>;
@@ -9653,7 +9682,7 @@ export type VersionUpstreamProjectQuery = {
       revision: string;
       triggerID: string;
       triggerType: string;
-      task?: { __typename?: "Task"; execution: number; id: string } | null;
+      task?: { __typename?: "Task"; id: string; execution: number } | null;
       version?: { __typename?: "Version"; id: string } | null;
     } | null;
   };
@@ -9667,13 +9696,13 @@ export type VersionQuery = {
   __typename?: "Query";
   version: {
     __typename?: "Version";
+    id: string;
     activated?: boolean | null;
     author: string;
     authorEmail: string;
     createTime: Date;
     errors: Array<string>;
     finishTime?: Date | null;
-    id: string;
     ignored: boolean;
     isPatch: boolean;
     message: string;
@@ -9700,8 +9729,8 @@ export type VersionQuery = {
     }> | null;
     manifest?: {
       __typename?: "Manifest";
-      branch: string;
       id: string;
+      branch: string;
       isBase: boolean;
       moduleOverrides?: { [key: string]: any } | null;
       modules?: any | null;
@@ -9711,13 +9740,13 @@ export type VersionQuery = {
     parameters: Array<{ __typename?: "Parameter"; key: string; value: string }>;
     patch?: {
       __typename?: "Patch";
-      alias?: string | null;
       id: string;
+      alias?: string | null;
       patchNumber: number;
       childPatches?: Array<{
         __typename?: "Patch";
-        githash: string;
         id: string;
+        githash: string;
         projectIdentifier: string;
         status: string;
         taskCount?: number | null;
@@ -9741,8 +9770,8 @@ export type VersionQuery = {
     } | null;
     projectMetadata?: {
       __typename?: "Project";
-      branch: string;
       id: string;
+      branch: string;
       owner: string;
       repo: string;
     } | null;
@@ -9759,7 +9788,7 @@ export type VersionQuery = {
       revision: string;
       triggerID: string;
       triggerType: string;
-      task?: { __typename?: "Task"; execution: number; id: string } | null;
+      task?: { __typename?: "Task"; id: string; execution: number } | null;
       version?: { __typename?: "Version"; id: string } | null;
     } | null;
   };
@@ -9774,9 +9803,9 @@ export type ViewableProjectRefsQuery = {
     groupDisplayName: string;
     projects: Array<{
       __typename?: "Project";
+      id: string;
       displayName: string;
       enabled?: boolean | null;
-      id: string;
       identifier: string;
       isFavorite: boolean;
       owner: string;
@@ -9816,11 +9845,11 @@ export type WaterfallQuery = {
     __typename?: "Waterfall";
     flattenedVersions: Array<{
       __typename?: "Version";
+      id: string;
       activated?: boolean | null;
       author: string;
       createTime: Date;
       errors: Array<string>;
-      id: string;
       message: string;
       order: number;
       requester: string;
@@ -9828,16 +9857,16 @@ export type WaterfallQuery = {
       gitTags?: Array<{ __typename?: "GitTag"; tag: string }> | null;
       waterfallBuilds?: Array<{
         __typename?: "WaterfallBuild";
+        id: string;
         activated: boolean;
         buildVariant: string;
         displayName: string;
-        id: string;
         tasks: Array<{
           __typename?: "WaterfallTask";
+          id: string;
           displayName: string;
           displayStatusCache: string;
           execution: number;
-          id: string;
           status: string;
         }>;
       }> | null;

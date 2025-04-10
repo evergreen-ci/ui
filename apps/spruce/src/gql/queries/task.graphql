@@ -3,6 +3,7 @@
 
 query Task($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
+    ...BaseTask
     aborted
     abortInfo {
       buildVariantDisplayName
@@ -19,15 +20,14 @@ query Task($taskId: String!, $execution: Int) {
       ...Annotation
     }
     baseTask {
-      execution
       id
+      execution
       timeTaken
       versionMetadata {
         id
         revision
       }
     }
-    ...BaseTask
     blocked
     canAbort
     canDisable
@@ -59,20 +59,20 @@ query Task($taskId: String!, $execution: Int) {
       type
     }
     displayTask {
+      id
       displayName
       execution
-      id
     }
     distroId
     estimatedStart
     executionTasksFull {
       ...BaseTask
+      id
       buildVariant
       buildVariantDisplayName
       displayName
       displayStatus
       execution
-      id
       projectIdentifier
     }
     expectedDuration
@@ -121,8 +121,8 @@ query Task($taskId: String!, $execution: Int) {
     timeTaken
     totalTestCount
     versionMetadata {
-      author
       id
+      author
       isPatch
       message
       order

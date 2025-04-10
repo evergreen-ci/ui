@@ -1,25 +1,27 @@
 query BuildVariantsWithChildren($id: String!, $statuses: [String!]!) {
   version(versionId: $id) {
+    id
     buildVariants(options: { statuses: $statuses }) {
       displayName
       tasks {
+        id
         baseStatus
         displayName
         displayStatus
         execution
-        id
       }
       variant
     }
     childVersions {
+      id
       buildVariants(options: { statuses: $statuses }) {
         displayName
         tasks {
+          id
           baseStatus
           displayName
           displayStatus
           execution
-          id
         }
         variant
       }
@@ -27,7 +29,6 @@ query BuildVariantsWithChildren($id: String!, $statuses: [String!]!) {
         estimatedTasks
         taskId
       }
-      id
       project
       projectIdentifier
     }
@@ -35,6 +36,5 @@ query BuildVariantsWithChildren($id: String!, $statuses: [String!]!) {
       estimatedTasks
       taskId
     }
-    id
   }
 }

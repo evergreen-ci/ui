@@ -1,17 +1,17 @@
 fragment ProjectContainerSettings on Project {
+  id
   containerSizeDefinitions {
     cpu
     memoryMb
     name
   }
-  id
 }
 
 fragment RepoContainerSettings on RepoRef {
+  id
   containerSizeDefinitions {
     cpu
     memoryMb
     name
   }
-  id
 }

@@ -2,8 +2,9 @@ query SingleTaskDistro {
   spruceConfig {
     singleTaskDistro {
       projectTasksPairs {
-        projectId
+        allowedBVs
         allowedTasks
+        projectId
       }
     }
   }

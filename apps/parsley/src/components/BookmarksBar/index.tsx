@@ -4,9 +4,9 @@ import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "@evg-ui/lib/components/Icon";
+import Popconfirm from "@evg-ui/lib/components/Popconfirm";
 import { size, zIndex } from "@evg-ui/lib/constants/tokens";
 import { useLogWindowAnalytics } from "analytics";
-import Popconfirm from "components/Popconfirm";
 import { QueryParams } from "constants/queryParams";
 import { useQueryParam } from "hooks/useQueryParam";
 

@@ -1,4 +1,5 @@
 fragment ProjectGeneralSettings on Project {
+  id
   batchTime
   branch
   deactivatePrevious
@@ -6,7 +7,6 @@ fragment ProjectGeneralSettings on Project {
   dispatchingDisabled
   displayName
   enabled
-  id
   owner
   patchingDisabled
   remotePath
@@ -19,12 +19,12 @@ fragment ProjectGeneralSettings on Project {
 }
 
 fragment RepoGeneralSettings on RepoRef {
+  id
   batchTime
   deactivatePrevious
   disabledStatsCache
   dispatchingDisabled
   displayName
-  id
   owner
   patchingDisabled
   remotePath

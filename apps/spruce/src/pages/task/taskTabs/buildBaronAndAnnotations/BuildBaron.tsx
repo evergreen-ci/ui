@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Skeleton } from "antd";
+import { ParagraphSkeleton } from "@leafygreen-ui/skeleton-loader";
 import {
   Annotation,
   BuildBaronQuery,
@@ -27,21 +27,19 @@ const BuildBaron: React.FC<Props> = ({
       variables: { taskId, execution },
     },
   );
+  if (loading) {
+    return <ParagraphSkeleton />;
+  }
   return (
-    <>
-      {loading && <Skeleton active paragraph={{ rows: 4 }} title={false} />}
-      {(data || annotation) && (
-        <BuildBaronContent
-          annotation={annotation}
-          // @ts-expect-error: FIXME. This comment was added by an automated script.
-          bbData={data?.buildBaron}
-          execution={execution}
-          loading={loading}
-          taskId={taskId}
-          userCanModify={userCanModify}
-        />
-      )}
-    </>
+    <BuildBaronContent
+      annotation={annotation}
+      // @ts-expect-error: FIXME. This comment was added by an automated script.
+      bbData={data?.buildBaron}
+      execution={execution}
+      loading={loading}
+      taskId={taskId}
+      userCanModify={userCanModify}
+    />
   );
 };
 

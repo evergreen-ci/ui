@@ -1,9 +1,9 @@
 fragment BasePatch on Patch {
+  id
   activated
   alias
   author
   description
-  id
   parameters {
     key
     value

@@ -23,19 +23,27 @@ describe("single task distro", () => {
       .find("input")
       .eq(2)
       .should("have.value", "test");
+    cy.dataCy("expandable-card")
+      .find("input")
+      .eq(3)
+      .should("have.value", "ubuntu1604");
+    cy.dataCy("expandable-card")
+      .find("input")
+      .eq(4)
+      .should("have.value", "windows");
 
     cy.dataCy("expandable-card-title").eq(1).click();
     cy.dataCy("expandable-card")
       .find("input")
-      .eq(3)
+      .eq(5)
       .should("have.value", "spruce");
     cy.dataCy("expandable-card")
       .find("input")
-      .eq(4)
+      .eq(6)
       .should("have.value", "lint");
     cy.dataCy("expandable-card")
       .find("input")
-      .eq(5)
+      .eq(7)
       .should("have.value", "storybook");
   });
 });

@@ -2,9 +2,9 @@ query ViewableProjectRefs {
   viewableProjectRefs {
     groupDisplayName
     projects {
+      id
       displayName
       enabled
-      id
       identifier
       isFavorite
       owner

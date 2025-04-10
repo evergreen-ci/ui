@@ -14,15 +14,15 @@ query LastMainlineCommit(
   ) {
     versions {
       version {
+        id
         buildVariants(options: $buildVariantOptions) {
           tasks {
+            id
             displayStatus
             execution
-            id
             order
           }
         }
-        id
       }
     }
   }

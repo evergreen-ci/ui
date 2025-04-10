@@ -2,6 +2,7 @@
 
 query Issues($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
+    id
     annotation {
       id
       issues {
@@ -9,6 +10,5 @@ query Issues($taskId: String!, $execution: Int) {
       }
     }
     execution
-    id
   }
 }

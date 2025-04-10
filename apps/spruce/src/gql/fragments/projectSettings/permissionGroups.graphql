@@ -3,12 +3,12 @@ fragment ProjectPermissionGroupSettings on ProjectSettings {
     appId
   }
   projectRef {
+    id
     githubDynamicTokenPermissionGroups {
       name
       permissions
     }
     githubPermissionGroupByRequester
-    id
   }
 }
 fragment ProjectEventPermissionGroupSettings on ProjectEventSettings {
@@ -16,12 +16,12 @@ fragment ProjectEventPermissionGroupSettings on ProjectEventSettings {
     appId
   }
   projectRef {
+    id
     githubDynamicTokenPermissionGroups {
       name
       permissions
     }
     githubPermissionGroupByRequester
-    id
   }
 }
 
@@ -30,11 +30,11 @@ fragment RepoPermissionGroupSettings on RepoSettings {
     appId
   }
   projectRef {
+    id
     githubDynamicTokenPermissionGroups {
       name
       permissions
     }
     githubPermissionGroupByRequester
-    id
   }
 }

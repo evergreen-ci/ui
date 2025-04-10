@@ -1,6 +1,7 @@
 fragment PatchesPagePatches on Patches {
   filteredPatchCount
   patches {
+    id
     activated
     alias
     author
@@ -8,7 +9,6 @@ fragment PatchesPagePatches on Patches {
     createTime
     description
     hidden
-    id
     projectIdentifier
     projectMetadata {
       id

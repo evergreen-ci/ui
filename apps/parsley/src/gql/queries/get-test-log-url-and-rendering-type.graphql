@@ -7,8 +7,8 @@ query TestLogURLAndRenderingType(
     id
     tests(opts: { testName: $testName, excludeDisplayNames: true }) {
       testResults {
-        groupID
         id
+        groupID
         logs {
           renderingType
           url

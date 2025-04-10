@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { Skeleton, TableSkeleton } from "@leafygreen-ui/skeleton-loader";
 import { Body, BodyProps, Description } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
@@ -30,7 +30,12 @@ export const CodeChanges: React.FC<CodeChangesProps> = ({ patchId }) => {
   const { moduleCodeChanges } = data?.patch ?? {};
 
   if (loading) {
-    return <Skeleton active paragraph={{ rows: 8 }} title />;
+    return (
+      <>
+        <StyledSkeleton />
+        <TableSkeleton numCols={3} />
+      </>
+    );
   }
   if (error) {
     return <div id="patch-error">{error.message}</div>;
@@ -117,6 +122,9 @@ const sortFileDiffs = (fileDiffs: FileDiffsFragment[]): FileDiffsFragment[] =>
 
 const StyledButton = styled(Button)`
   margin-right: ${size.xs};
+`;
+const StyledSkeleton = styled(Skeleton)`
+  width: 400px;
 `;
 
 const Title = styled(Body)<BodyProps>`

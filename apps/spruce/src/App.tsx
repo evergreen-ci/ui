@@ -17,14 +17,16 @@ import {
 const router = createBrowserRouter([
   {
     element: (
-      <AuthProvider
-        evergreenAppURL={getEvergreenUrl()}
-        localAuthRoute={routes.login}
-        remoteAuthURL={`${getEvergreenUrl()}/login`}
-        shouldUseLocalAuth={isLocal()}
-      >
-        <Outlet />
-      </AuthProvider>
+      <ErrorBoundary homeURL={getSpruceURL() || ""}>
+        <AuthProvider
+          evergreenAppURL={getEvergreenUrl()}
+          localAuthRoute={routes.login}
+          remoteAuthURL={`${getEvergreenUrl()}/login`}
+          shouldUseLocalAuth={isLocal()}
+        >
+          <Outlet />
+        </AuthProvider>
+      </ErrorBoundary>
     ),
     children: [
       ...(isLocal()
@@ -50,10 +52,10 @@ const router = createBrowserRouter([
 ]);
 
 const App: React.FC = () => (
-  <ErrorBoundary homeURL={getSpruceURL() || ""}>
+  <>
     <GlobalStyles />
     <RouterProvider router={router} />
-  </ErrorBoundary>
+  </>
 );
 
 export default App;

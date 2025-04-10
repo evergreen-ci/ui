@@ -22,14 +22,14 @@ query Hosts(
   ) {
     filteredHostsCount
     hosts {
+      id
       distro {
-        bootstrapMethod
         id
+        bootstrapMethod
       }
       distroId
       elapsed
       hostUrl
-      id
       noExpiration
       provider
       runningTask {

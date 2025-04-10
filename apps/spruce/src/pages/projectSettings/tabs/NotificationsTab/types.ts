@@ -1,4 +1,3 @@
-import { Unpacked } from "@evg-ui/lib/types/utils";
 import { BannerTheme } from "gql/generated/types";
 import { ProjectType } from "../utils/types";
 
@@ -45,10 +44,9 @@ export interface NotificationsFormState {
 }
 
 // This utils file contains functions used to process the form state.
-export type SubscriptionData = Unpacked<
+export type SubscriptionData = NonNullable<
   NotificationsFormState["subscriptions"]
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
->["subscriptionData"];
+>[number]["subscriptionData"];
 
 export type TabProps = {
   projectData?: NotificationsFormState;

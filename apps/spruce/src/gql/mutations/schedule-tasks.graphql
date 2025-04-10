@@ -3,8 +3,8 @@
 mutation ScheduleTasks($taskIds: [String!]!, $versionId: String!) {
   scheduleTasks(taskIds: $taskIds, versionId: $versionId) {
     ...BaseTask
-    status
     canSchedule
     canUnschedule
+    status
   }
 }

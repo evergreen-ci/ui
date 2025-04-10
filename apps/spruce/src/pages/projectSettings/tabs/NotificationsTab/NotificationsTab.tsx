@@ -19,8 +19,7 @@ export const NotificationsTab: React.FC<TabProps> = ({
   const formSchema = useMemo(
     () =>
       getFormSchema(
-        // @ts-expect-error: FIXME. This comment was added by an automated script.
-        projectType === ProjectType.AttachedProject ? repoData : null,
+        projectType === ProjectType.AttachedProject ? (repoData ?? null) : null,
         projectType,
       ),
     [projectType, repoData],
@@ -29,8 +28,7 @@ export const NotificationsTab: React.FC<TabProps> = ({
   return (
     <BaseTab
       formSchema={formSchema}
-      // @ts-expect-error: FIXME. This comment was added by an automated script.
-      initialFormState={initialFormState}
+      initialFormState={initialFormState as NotificationsFormState}
       tab={tab}
       validate={validate}
     />
@@ -40,8 +38,7 @@ export const NotificationsTab: React.FC<TabProps> = ({
 const validate = ((formData, errors) => {
   const { subscriptions } = formData;
 
-  // @ts-expect-error: FIXME. This comment was added by an automated script.
-  subscriptions.forEach((subscription, i) => {
+  subscriptions?.forEach((subscription, i) => {
     const { subscriptionData } = subscription || {};
     const { event, notification } = subscriptionData || {};
     const { notificationSelect } = notification || {};
@@ -52,10 +49,9 @@ const validate = ((formData, errors) => {
         if (notificationSelect === notificationType) {
           const hasMatchingEvent = eventType.some((e) => e === eventSelect);
           if (hasMatchingEvent) {
-            // @ts-expect-error: FIXME. This comment was added by an automated script.
-            errors.subscriptions[
+            (errors.subscriptions as any[])[
               i
-            ].subscriptionData?.notification?.notificationSelect?.addError(
+            ]?.subscriptionData?.notification?.notificationSelect?.addError(
               "Subscription type not allowed for tasks in a project.",
             );
           }

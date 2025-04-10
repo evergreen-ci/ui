@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
+import { CardSkeleton } from "@leafygreen-ui/skeleton-loader";
 import {
   InlineCode,
   Subtitle,
@@ -9,7 +10,6 @@ import {
   Body,
   Disclaimer,
 } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { StyledLink } from "@evg-ui/lib/components/styles";
 import { size, fontSize } from "@evg-ui/lib/constants/tokens";
 import { usePreferencesAnalytics } from "analytics";
@@ -30,7 +30,7 @@ export const DownloadCard = () => {
   >(CLIENT_CONFIG);
 
   if (loading) {
-    return <Skeleton active paragraph={{ rows: 6 }} />;
+    return <CardSkeleton />;
   }
   // @ts-expect-error: FIXME. This comment was added by an automated script.
   const { clientConfig } = data;

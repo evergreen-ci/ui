@@ -8,12 +8,12 @@ query TestAnalysis(
     tasks(options: $options) {
       count
       data {
+        id
         buildVariant
         buildVariantDisplayName
         displayName
         displayStatus
         execution
-        id
         tests(opts: $opts) {
           filteredTestCount
           testResults {

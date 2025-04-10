@@ -8,7 +8,6 @@ import {
   useReducer,
 } from "react";
 import debounce from "lodash.debounce";
-// @ts-expect-error: FIXME. This comment was added by an automated script.
 import isEqual from "lodash.isequal";
 import { SpruceFormProps } from "components/SpruceForm/types";
 import { FormToGqlFunction, SettingsRoutes } from "./types";

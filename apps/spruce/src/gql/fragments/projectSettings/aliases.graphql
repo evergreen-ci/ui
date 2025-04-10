@@ -1,8 +1,8 @@
 fragment Alias on ProjectAlias {
+  id
   alias
   description
   gitTag
-  id
   parameters {
     key
     value
