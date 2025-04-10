@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -36,6 +36,12 @@ const SearchPopover: React.FC<SearchPopoverProps> = ({
     setIsOpen(false);
     setSelectedIndex(-1);
   });
+
+  useEffect(() => {
+    if (isOpen && popoverRef.current) {
+      popoverRef.current.focus();
+    }
+  }, [isOpen]);
 
   const handleClick = (suggestion: string) => {
     setIsOpen(false);
