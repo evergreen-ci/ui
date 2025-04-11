@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -85,8 +85,6 @@ const SubscriptionsTable: React.FC<{
   });
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
-
-  const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const columns = useMemo(
     () => [
@@ -183,7 +181,6 @@ const SubscriptionsTable: React.FC<{
 
   const table = useLeafyGreenTable<GeneralSubscription>({
     columns,
-    containerRef: tableContainerRef,
     data: subscriptions ?? [],
     defaultColumn: {
       enableColumnFilter: false,

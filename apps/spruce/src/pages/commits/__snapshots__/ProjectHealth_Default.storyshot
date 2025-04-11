@@ -662,37 +662,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -713,37 +684,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -764,37 +706,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
           </div>
@@ -824,37 +737,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -875,37 +759,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -926,37 +781,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
           </div>
@@ -990,37 +816,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -1041,37 +838,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -1092,37 +860,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
           </div>
@@ -1152,37 +891,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -1203,37 +913,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -1254,37 +935,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
           </div>
@@ -1314,37 +966,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -1365,37 +988,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
             <div
@@ -1416,37 +1010,8 @@
               >
                 <div
                   class="css-0"
-                  data-visible="true"
-                >
-                  <div
-                    class="css-1uxzogm-VariantTasks emd75rc0"
-                  >
-                    <div
-                      class="leafygreen-ui-cssveg"
-                    >
-                      <a
-                        data-cy="grouped-task-status-badge"
-                        href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
-                      >
-                        <div
-                          class="css-1hkjlfn-BadgeContainer emc61an4"
-                          fill="#5C6C75"
-                        >
-                          <span
-                            class="css-1f81ztl-Number emc61an2"
-                          >
-                            1
-                          </span>
-                          <span
-                            class="css-oqj204-Status emc61an1"
-                          >
-                            Scheduled
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                  data-visible="false"
+                />
               </div>
             </div>
           </div>

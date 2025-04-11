@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -60,10 +60,8 @@ export const ToolchainsTable: React.FC<ToolchainsTableProps> = ({
     imageData?.image?.toolchains?.filteredCount ??
     imageData?.image?.toolchains?.totalCount;
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<Toolchain>({
     columns,
-    containerRef: tableContainerRef,
     data: toolchains,
     defaultColumn: {
       enableColumnFilter: false,

@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
@@ -28,10 +28,8 @@ const EventDiffTable: React.FC<TableProps> = ({
     [after, before],
   );
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<EventDiffLine>({
     columns: columns(customKeyValueRenderConfig),
-    containerRef: tableContainerRef,
     data: eventLogEntries,
     defaultColumn: {
       enableColumnFilter: false,

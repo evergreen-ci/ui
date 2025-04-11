@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import {
@@ -128,10 +128,8 @@ const HostTable: React.FC<HostTableProps> = ({
     [getDateCopy, eventTypeFilterOptions],
   );
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table: LeafyGreenTable<HostEvent> = useLeafyGreenTable<HostEvent>({
     columns,
-    containerRef: tableContainerRef,
     data: hostEvents,
     defaultColumn: {
       enableColumnFilter: false,

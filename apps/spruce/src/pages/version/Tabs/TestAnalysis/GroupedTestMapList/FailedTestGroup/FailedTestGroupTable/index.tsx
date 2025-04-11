@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import Button from "@leafygreen-ui/button";
 import { useLeafyGreenTable, LGColumnDef } from "@leafygreen-ui/table";
 import TaskStatusBadge from "@evg-ui/lib/components/Badge/TaskStatusBadge";
@@ -15,10 +14,8 @@ interface FailedTestGroupTableProps {
 const FailedTestGroupTable: React.FC<FailedTestGroupTableProps> = ({
   tasks,
 }) => {
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<TaskBuildVariantField>({
     columns,
-    containerRef: tableContainerRef,
     data: tasks,
     defaultColumn: {
       enableColumnFilter: false,

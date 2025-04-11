@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   useLeafyGreenTable,
@@ -60,11 +60,9 @@ export const OperatingSystemTable: React.FC<OperatingSystemTableProps> = ({
     osData?.image?.operatingSystem.filteredCount ??
     osData?.image?.operatingSystem.totalCount;
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<OsInfo>({
     columns,
     data: operatingSystemInfo,
-    containerRef: tableContainerRef,
     defaultColumn: {
       enableColumnFilter: false,
     },

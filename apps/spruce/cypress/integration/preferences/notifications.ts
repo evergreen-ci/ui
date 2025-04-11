@@ -33,19 +33,20 @@ describe("preferences/notifications", () => {
     it("shows all of a user's subscriptions and expands with details", () => {
       cy.dataCy("subscription-row").should("have.length", 3);
 
-      cy.dataCy("regex-selectors").should("not.be.visible");
-      cy.dataCy("trigger-data").should("not.be.visible");
+      cy.dataCy("regex-selectors").should("not.exist");
+      cy.dataCy("trigger-data").should("not.exist");
+
       cy.dataCy("subscription-row")
         .eq(0)
         .within(() => {
-          cy.get("button").first().click();
+          cy.get("button[aria-label='Expand row']").click();
         });
       cy.dataCy("regex-selectors").should("be.visible");
-      cy.dataCy("trigger-data").should("not.be.visible");
+      cy.dataCy("trigger-data").should("not.exist");
       cy.dataCy("subscription-row")
         .eq(2)
         .within(() => {
-          cy.get("button").first().click();
+          cy.get("button[aria-label='Expand row']").click();
         });
       cy.dataCy("regex-selectors").should("be.visible");
       cy.dataCy("trigger-data").should("be.visible");

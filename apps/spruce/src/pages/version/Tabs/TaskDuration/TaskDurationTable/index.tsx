@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import {
   ColumnFiltersState,
   ColumnFiltering,
@@ -179,11 +179,9 @@ const TaskDurationTable: React.FC<Props> = ({
     [statusOptions],
   );
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table: LeafyGreenTable<TaskDurationData> =
     useLeafyGreenTable<TaskDurationData>({
       columns,
-      containerRef: tableContainerRef,
       // @ts-expect-error: FIXME. This comment was added by an automated script.
       data: tasks ?? [],
       defaultColumn: {
