@@ -1,6 +1,7 @@
 import { act } from "@testing-library/react";
 import * as useDropzoneModule from "react-dropzone";
 import { MemoryRouter } from "react-router-dom";
+import { MockedFunction } from "vitest";
 import { RenderFakeToastContext } from "@evg-ui/lib/context/toast/__mocks__";
 import { render, screen } from "@evg-ui/lib/test_utils";
 import { LogRenderingTypes, LogTypes } from "constants/enums";
@@ -42,7 +43,7 @@ describe("FileDropper", () => {
   const mockSetFileName = vi.fn();
   const mockSetLogMetadata = vi.fn();
   let mockUseLogContext;
-  let mockUseDropzone: any;
+  let mockUseDropzone: MockedFunction<typeof useDropzoneModule.useDropzone>;
 
   beforeEach(() => {
     mockUseLogContext = vi.mocked(useLogContext);
@@ -50,15 +51,15 @@ describe("FileDropper", () => {
       ingestLines: mockIngestLines,
       setFileName: mockSetFileName,
       setLogMetadata: mockSetLogMetadata,
-    } as any);
+    } as unknown as ReturnType<typeof useLogContext>);
 
     mockUseDropzone = vi.mocked(useDropzoneModule.useDropzone);
     mockUseDropzone.mockReturnValue({
-      getInputProps: () => ({ type: "file" }),
-      getRootProps: () => ({ role: "button" }),
+      getInputProps: () => ({}),
+      getRootProps: () => ({}),
       isDragActive: false,
       open: vi.fn(),
-    });
+    } as unknown as ReturnType<typeof useDropzoneModule.useDropzone>);
 
     mockIngestLines.mockReset();
     mockSetFileName.mockReset();
@@ -144,19 +145,20 @@ describe("FileDropper", () => {
     });
 
     mockUseDropzone.mockReturnValue({
-      getInputProps: () => ({ type: "file" }),
-      getRootProps: () => ({ role: "button" }),
+      getInputProps: () => ({}),
+      getRootProps: () => ({}),
       isDragActive: false,
       open: vi.fn(),
-    });
+    } as unknown as ReturnType<typeof useDropzoneModule.useDropzone>);
 
     const { Component } = RenderFakeToastContext(<FileDropper />);
     render(<Component />, { wrapper: CustomWrapper() });
 
-    const { onDropAccepted } = mockUseDropzone.mock.calls[0][0];
-
     act(() => {
-      onDropAccepted([mockFile]);
+      const options = mockUseDropzone.mock.calls[0][0];
+      if (options && options.onDrop) {
+        options.onDrop([mockFile], [], {} as any);
+      }
     });
 
     expect(mockDispatch).toHaveBeenCalledWith({
@@ -167,12 +169,49 @@ describe("FileDropper", () => {
 
   it("should process file and update log context when parsing method is selected", async () => {
     const mockDispatch = vi.fn();
+    const mockFileContent = "line1\nline2\nline3";
+    const mockFileName = "test-file.txt";
+
+    vi.mock("@leafygreen-ui/select", () => ({
+      Option: ({ children }: { children: React.ReactNode }) => (
+        <div data-testid={`option-${children}`}>{children}</div>
+      ),
+      Select: ({
+        children,
+        onChange,
+      }: {
+        children: React.ReactNode;
+        onChange: (value: string) => void;
+      }) => (
+        <div>
+          <button
+            aria-label="Select Default option"
+            aria-selected={false}
+            data-testid="select-default"
+            onClick={() => onChange(LogRenderingTypes.Default)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                onChange(LogRenderingTypes.Default);
+              }
+            }}
+            role="option"
+            tabIndex={0}
+            type="button"
+          >
+            Default
+          </button>
+          {children}
+        </div>
+      ),
+    }));
 
     vi.spyOn(useLogDropStateModule, "default").mockReturnValue({
       dispatch: mockDispatch,
       state: {
         currentState: "PROMPT_FOR_PARSING_METHOD",
-        file: { name: "test-file.txt", text: "line1\nline2\nline3" } as any,
+        file: { name: mockFileName, text: mockFileContent } as File & {
+          text: string;
+        },
         text: null,
         type: LogDropType.FILE,
       },
@@ -181,20 +220,16 @@ describe("FileDropper", () => {
     const { Component } = RenderFakeToastContext(<FileDropper />);
     render(<Component />, { wrapper: CustomWrapper() });
 
+    const defaultOption = screen.getByTestId("select-default");
+    act(() => {
+      defaultOption.click();
+    });
+
     const processLogButton = screen.getByText("Process Log");
     expect(processLogButton).toBeInTheDocument();
 
-    const onParse = (renderingType: LogRenderingTypes) => {
-      mockDispatch({ type: "PARSE_FILE" });
-      mockSetLogMetadata({
-        logType: LogTypes.LOCAL_UPLOAD,
-        renderingType,
-      });
-      mockIngestLines(["line1", "line2", "line3"], renderingType);
-    };
-
     act(() => {
-      onParse(LogRenderingTypes.Default);
+      processLogButton.click();
     });
 
     expect(mockDispatch).toHaveBeenCalledWith({ type: "PARSE_FILE" });
@@ -203,7 +238,7 @@ describe("FileDropper", () => {
       renderingType: LogRenderingTypes.Default,
     });
     expect(mockIngestLines).toHaveBeenCalledWith(
-      ["line1", "line2", "line3"],
+      mockFileContent.split("\n"),
       LogRenderingTypes.Default,
     );
   });

@@ -8,16 +8,25 @@ import { useLogContext } from "context/LogContext";
 import { logContextWrapper } from "context/LogContext/test_utils";
 import LoadingPage from ".";
 
+const TEST_BUILD_ID = "test-build-id";
+const TEST_EXECUTION = "0";
+const TEST_TASK_ID = "test-task-id";
+const TEST_TEST_ID = "test-test-id";
+const TEST_RAW_LOG_URL = "test-raw-log-url";
+const TEST_HTML_LOG_URL = "test-html-log-url";
+const TEST_JOB_LOGS_URL = "test-job-logs-url";
+const TEST_LOG_LINES = ["line 1", "line 2", "line 3"];
+
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
   return {
     ...actual,
     useParams: () => ({
-      buildID: "test-build-id",
-      execution: "0",
+      buildID: TEST_BUILD_ID,
+      execution: TEST_EXECUTION,
       logType: LogTypes.EVERGREEN_TEST_LOGS,
-      taskID: "test-task-id",
-      testID: "test-test-id",
+      taskID: TEST_TASK_ID,
+      testID: TEST_TEST_ID,
     }),
   };
 });
@@ -36,7 +45,7 @@ vi.mock("hooks/useFetch", () => ({
 
 vi.mock("hooks", () => ({
   useLogDownloader: () => ({
-    data: ["line 1", "line 2", "line 3"],
+    data: TEST_LOG_LINES,
     error: "",
     fileSize: 1024,
     isLoading: false,
@@ -45,8 +54,11 @@ vi.mock("hooks", () => ({
 
 vi.mock("./useResolveLogURLAndRenderingType", () => ({
   useResolveLogURLAndRenderingType: () => ({
+    downloadURL: "test-download-url",
+    htmlLogURL: TEST_HTML_LOG_URL,
+    jobLogsURL: TEST_JOB_LOGS_URL,
     loading: false,
-    rawLogURL: "test-url",
+    rawLogURL: TEST_RAW_LOG_URL,
     renderingType: LogRenderingTypes.Default,
   }),
 }));
@@ -67,7 +79,7 @@ describe("LoadingPage", () => {
       ingestLines: mockIngestLines,
       lineCount: 0,
       setLogMetadata: mockSetLogMetadata,
-    } as any); // Type assertion needed for test mocks
+    } as unknown as ReturnType<typeof useLogContext>); // Type assertion with unknown first
 
     mockIngestLines.mockReset();
     mockSetLogMetadata.mockReset();
@@ -88,9 +100,26 @@ describe("LoadingPage", () => {
     render(<Component />, { wrapper: CustomWrapper });
 
     await waitFor(() => {
-      expect(mockSetLogMetadata).toHaveBeenCalled();
+      expect(mockSetLogMetadata).toHaveBeenCalledWith({
+        buildID: TEST_BUILD_ID,
+        execution: TEST_EXECUTION,
+        fileName: undefined,
+        groupID: undefined,
+        htmlLogURL: TEST_HTML_LOG_URL,
+        jobLogsURL: TEST_JOB_LOGS_URL,
+        logType: LogTypes.EVERGREEN_TEST_LOGS,
+        origin: undefined,
+        rawLogURL: TEST_RAW_LOG_URL,
+        renderingType: LogRenderingTypes.Default,
+        taskID: TEST_TASK_ID,
+        testID: TEST_TEST_ID,
+      });
     });
 
-    expect(mockIngestLines).toHaveBeenCalled();
+    expect(mockIngestLines).toHaveBeenCalledWith(
+      TEST_LOG_LINES,
+      LogRenderingTypes.Default,
+      undefined,
+    );
   });
 });
