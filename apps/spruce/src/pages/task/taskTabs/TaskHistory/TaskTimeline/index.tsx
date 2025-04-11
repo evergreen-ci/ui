@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Skeleton, Size as SkeletonSize } from "@leafygreen-ui/skeleton-loader";
@@ -6,58 +6,50 @@ import { Link } from "react-router-dom";
 import Icon from "@evg-ui/lib/components/Icon";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { TaskStatus } from "@evg-ui/lib/types/task";
-import {
-  SQUARE_BORDER,
-  SQUARE_SIZE,
-  TaskBox as BaseTaskBox,
-  CollapsedBox,
-} from "components/TaskBox";
+import { TaskBox as BaseTaskBox, CollapsedBox } from "components/TaskBox";
 import { getTaskRoute } from "constants/routes";
-import { useDimensions } from "hooks/useDimensions";
 import { TaskTab } from "types/task";
 import { GroupedTask } from "../types";
 
 interface TimelineProps {
-  groupedTasks: GroupedTask[];
+  tasks: GroupedTask[];
   loading: boolean;
 }
 
-const TaskTimeline: React.FC<TimelineProps> = ({ groupedTasks, loading }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { width } = useDimensions<HTMLDivElement>(ref);
-
-  const numVisibleTasks = Math.floor(width / (SQUARE_SIZE + SQUARE_BORDER * 2));
-  const visibleTasks = groupedTasks.slice(0, numVisibleTasks);
-
-  return (
+const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
+  ({ loading, tasks }, ref) => (
     <Container>
       <IconButton aria-label="Previous Page" disabled>
         <Icon glyph="ChevronLeft" />
       </IconButton>
-      <Timeline ref={ref}>
+      <Timeline ref={ref} data-cy="task-timeline">
         {loading ? (
-          <Skeleton size={SkeletonSize.Small} />
+          <Skeleton
+            data-cy="task-timeline-skeleton"
+            size={SkeletonSize.Small}
+          />
         ) : (
           <>
-            {visibleTasks.map((vt) => {
-              if (vt.task) {
-                const currTask = vt.task;
+            {tasks.map((t) => {
+              if (t.task) {
+                const { task } = t;
                 return (
                   <TaskBox
-                    key={currTask.id}
+                    key={task.id}
                     as={Link}
+                    data-cy="timeline-box"
                     rightmost={false}
-                    status={currTask.displayStatus as TaskStatus}
-                    to={getTaskRoute(currTask.id, {
-                      execution: currTask.execution,
+                    status={task.displayStatus as TaskStatus}
+                    to={getTaskRoute(task.id, {
+                      execution: task.execution,
                       tab: TaskTab.History,
                     })}
                   />
                 );
-              } else if (vt.inactiveTasks) {
+              } else if (t.inactiveTasks) {
                 return (
-                  <CollapsedBox key={vt.inactiveTasks[0].id} data-collapsed>
-                    {vt.inactiveTasks.length}
+                  <CollapsedBox key={t.inactiveTasks[0].id} data-collapsed>
+                    {t.inactiveTasks.length}
                   </CollapsedBox>
                 );
               }
@@ -70,8 +62,10 @@ const TaskTimeline: React.FC<TimelineProps> = ({ groupedTasks, loading }) => {
         <Icon glyph="ChevronRight" />
       </IconButton>
     </Container>
-  );
-};
+  ),
+);
+
+TaskTimeline.displayName = "TaskTimeline";
 
 export default TaskTimeline;
 

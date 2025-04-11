@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import {
@@ -8,6 +8,8 @@ import {
 import { H3 } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
+import { SQUARE_BORDER, SQUARE_SIZE } from "components/TaskBox";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
   TaskHistoryDirection,
   TaskHistoryQuery,
@@ -15,7 +17,9 @@ import {
   TaskQuery,
 } from "gql/generated/types";
 import { TASK_HISTORY } from "gql/queries";
+import { useDimensions } from "hooks/useDimensions";
 import { useQueryParam } from "hooks/useQueryParam";
+import CommitDetailsList from "./CommitDetailsList";
 import { ACTIVATED_TASKS_LIMIT } from "./constants";
 import TaskTimeline from "./TaskTimeline";
 import { TaskHistoryOptions, ViewOptions } from "./types";
@@ -26,6 +30,9 @@ interface TaskHistoryProps {
 }
 
 const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { width } = useDimensions<HTMLDivElement>(timelineRef);
+
   const dispatchToast = useToastContext();
 
   const [viewOption, setViewOption] = useState(ViewOptions.Collapsed);
@@ -64,6 +71,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         limit: ACTIVATED_TASKS_LIMIT,
       },
     },
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(`Unable to get task history: ${err}`);
     },
@@ -73,6 +81,8 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { tasks = [] } = taskHistory ?? {};
 
   const groupedTasks = groupTasks(tasks, shouldCollapse);
+  const numVisibleTasks = Math.floor(width / (SQUARE_SIZE + SQUARE_BORDER * 2));
+  const visibleTasks = groupedTasks.slice(0, numVisibleTasks);
 
   return (
     <Container>
@@ -97,7 +107,12 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
           </SegmentedControlOption>
         </SegmentedControl>
       </Header>
-      <TaskTimeline groupedTasks={groupedTasks} loading={loading} />
+      <TaskTimeline ref={timelineRef} loading={loading} tasks={visibleTasks} />
+      <CommitDetailsList
+        currentTask={task}
+        loading={loading}
+        tasks={visibleTasks}
+      />
     </Container>
   );
 };
@@ -108,6 +123,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${size.s};
+
+  height: calc(100vh - 270px);
 `;
 
 const Header = styled.div`

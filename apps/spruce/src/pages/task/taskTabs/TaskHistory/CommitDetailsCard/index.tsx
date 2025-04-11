@@ -77,7 +77,11 @@ const CommitDetailsCard: React.FC<CommitDetailsCardProps> = ({
   });
 
   return (
-    <CommitCard key={taskId} status={displayStatus as TaskStatus}>
+    <CommitCard
+      key={taskId}
+      data-cy="commit-details-card"
+      status={displayStatus as TaskStatus}
+    >
       <TopLabel>
         <InlineCode
           as={Link}

@@ -105,6 +105,8 @@ query Task($taskId: String!, $execution: Int) {
     project {
       id
       identifier
+      owner
+      repo
     }
     requester
     resetWhenFinished

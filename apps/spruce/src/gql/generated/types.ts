@@ -9261,7 +9261,13 @@ export type TaskQuery = {
       taskLogLink?: string | null;
     };
     pod?: { __typename?: "Pod"; id: string } | null;
-    project?: { __typename?: "Project"; id: string; identifier: string } | null;
+    project?: {
+      __typename?: "Project";
+      id: string;
+      identifier: string;
+      owner: string;
+      repo: string;
+    } | null;
     stepbackInfo?: {
       __typename?: "StepbackInfo";
       lastFailingStepbackTaskId?: string | null;
