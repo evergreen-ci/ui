@@ -1,4 +1,4 @@
-import { useRef, useMemo } from "react";
+import { useMemo } from "react";
 import {
   ColumnFiltering,
   ColumnFiltersState,
@@ -102,11 +102,9 @@ const DownstreamTasksTable: React.FC<DownstreamTasksTableProps> = ({
     [baseStatusOptions, statusOptions, isPatch],
   );
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table: LeafyGreenTable<TaskTableInfo> =
     useLeafyGreenTable<TaskTableInfo>({
       columns,
-      containerRef: tableContainerRef,
       data: tasks ?? [],
       defaultColumn: {
         enableMultiSort: true,

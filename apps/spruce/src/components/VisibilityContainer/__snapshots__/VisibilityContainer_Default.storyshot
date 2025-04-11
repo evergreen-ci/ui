@@ -8,12 +8,8 @@
     >
       <div
         class="css-0"
-        data-visible="true"
-      >
-        <div>
-          Visible content
-        </div>
-      </div>
+        data-visible="false"
+      />
     </div>
   </div>
 </div>

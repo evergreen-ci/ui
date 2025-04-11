@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -109,10 +109,8 @@ export const PublicKeysTable: React.FC<PublicKeysTableProps> = ({
     [loadingRemovePublicKey, removePublicKey, sendEvent, setEditModalProps],
   );
 
-  const tableContainerRef = useRef<HTMLDivElement>(null);
   const table = useLeafyGreenTable<PublicKey>({
     columns,
-    containerRef: tableContainerRef,
     data: myKeysData?.myPublicKeys ?? [],
     defaultColumn: {
       // Workaround for react-table auto sizing limitations.
