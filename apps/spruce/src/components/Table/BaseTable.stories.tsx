@@ -88,7 +88,7 @@ const makeDefaultRows = (count: number): DataShape[] =>
 const lgRows = makeDefaultRows(20);
 const virtualRows = makeDefaultRows(20);
 
-const nestedRows: DataShape[] = Array.from({ length: 50 }, (_, i) => ({
+const nestedRows: DataShape[] = Array.from({ length: 10 }, (_, i) => ({
   name: `name ${i}`,
   type: `type ${i}`,
   size: `size ${i}`,
@@ -101,7 +101,7 @@ const nestedRows: DataShape[] = Array.from({ length: 50 }, (_, i) => ({
   ],
 }));
 
-const longContent = "long ".repeat(100);
+const longContent = "long ".repeat(50);
 const longContentRows: DataShape[] = Array.from({ length: 3 }, (_, i) => ({
   name: `${longContent} name ${i}`,
   type: `${longContent} type ${i}`,
