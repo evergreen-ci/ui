@@ -201,7 +201,7 @@
       </div>
     </div>
     <span
-      data-collapsed="true"
+      data-cy="collapsed-card"
     >
       1
        Collapsed
@@ -303,7 +303,7 @@
       </div>
     </div>
     <span
-      data-collapsed="true"
+      data-cy="collapsed-card"
     >
       1
        Collapsed
@@ -405,7 +405,7 @@
       </div>
     </div>
     <span
-      data-collapsed="true"
+      data-cy="collapsed-card"
     >
       3
        Collapsed
