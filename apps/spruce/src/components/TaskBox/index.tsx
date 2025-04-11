@@ -9,6 +9,7 @@ const { black, gray, white } = palette;
 
 export const SQUARE_SIZE = 16;
 export const SQUARE_BORDER = 1;
+export { statusColorMap };
 
 const getTaskStatusStyle = (status: TaskStatus) => {
   const icon = statusIconMap?.[status];
