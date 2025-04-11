@@ -1,9 +1,14 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
+import { css } from "@leafygreen-ui/emotion";
 import { LGColumnDef, useLeafyGreenVirtualTable } from "@leafygreen-ui/table";
 import { Body } from "@leafygreen-ui/typography";
-import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
+import {
+  WordBreak,
+  StyledRouterLink,
+  wordBreakCss,
+} from "@evg-ui/lib/components/styles";
 import { useTaskQueueAnalytics } from "analytics";
 import { BaseTable } from "components/Table/BaseTable";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
@@ -52,18 +57,18 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
       const i = taskQueue.findIndex((t) => t.id === taskId);
       setSelectedRowIndexes([i]);
       table.virtual.scrollToIndex(i, { align: "center" });
-
       setTimeout(() => {
         performedInitialScroll.current = true;
-        table.virtual.scrollToIndex(i, { align: "center" });
-      }, 200);
+        table.virtual.scrollToIndex(i, { align: "center", behavior: "smooth" });
+      }, 500);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskId, taskQueue]);
 
   return (
-    <StyledBaseTable
+    <BaseTable
       ref={tableContainerRef}
+      className={virtualScrollingContainerHeight}
       data-cy="task-queue-table"
       emptyComponent={<TablePlaceholder message="No tasks found in queue." />}
       selectedRowIndexes={selectedRowIndexes}
@@ -73,13 +78,15 @@ const TaskQueueTable: React.FC<TaskQueueTableProps> = ({
   );
 };
 
-const StyledBaseTable = styled(BaseTable)`
-  flex-grow: 1;
+const virtualScrollingContainerHeight = css`
+  max-height: 100vh;
+  width: 100%;
 `;
 
 const TaskCell = styled.div`
   display: flex;
   flex-direction: column;
+  ${wordBreakCss};
 `;
 
 const taskQueueTableColumns = (

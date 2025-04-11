@@ -3472,10 +3472,8 @@ export type VolumeHost = {
 
 export type Waterfall = {
   __typename?: "Waterfall";
-  buildVariants: Array<WaterfallBuildVariant>;
   flattenedVersions: Array<Version>;
   pagination: WaterfallPagination;
-  versions: Array<WaterfallVersion>;
 };
 
 export type WaterfallBuild = {

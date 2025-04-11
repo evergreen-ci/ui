@@ -1,24 +1,28 @@
 <div>
   <div
-    class="leafygreen-ui-1xn4uvd css-1wf6e6y-StyledTable e1bwwd863"
+    class="leafygreen-ui-1si66qn"
     tabindex="0"
   >
+    <div />
     <table
-      class="leafygreen-ui-1soynca"
+      class="lg-ui-lg-table-0000 leafygreen-ui-1soynca"
       data-cy="event-diff-table"
+      data-is-sticky="false"
       data-lgid="lg-table"
     >
       <thead
-        class="leafygreen-ui-bebmcm"
+        class="leafygreen-ui-181p7kg"
       >
-        <tr>
+        <tr
+          class="leafygreen-ui-5fo1n0"
+        >
           <th
-            class="leafygreen-ui-1vbvlh9"
+            class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             scope="col"
           >
             <div
-              class="leafygreen-ui-ui0te9"
+              class="leafygreen-ui-11hl1ow"
             >
               Property
               <button
@@ -52,23 +56,23 @@
             </div>
           </th>
           <th
-            class="leafygreen-ui-fjoumq"
+            class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             scope="col"
           >
             <div
-              class="leafygreen-ui-ui0te9"
+              class="leafygreen-ui-11hl1ow"
             >
               Before
             </div>
           </th>
           <th
-            class="leafygreen-ui-fjoumq"
+            class="leafygreen-ui-1it7wsd"
             data-lgid="lg-table-header"
             scope="col"
           >
             <div
-              class="leafygreen-ui-ui0te9"
+              class="leafygreen-ui-11hl1ow"
             >
               After
             </div>
@@ -77,597 +81,827 @@
       </thead>
       <tbody>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="0"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-0"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
-            >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
-              >
-                deletedField
-              </span>
-            </div>
-          </td>
-          <td
-            class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
-            style="padding-bottom: 4px; padding-top: 4px;"
-          >
-            <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
-            >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
-              >
-                "deleted value"
-              </span>
-            </div>
-          </td>
-          <td
-            class="leafygreen-ui-1by885u"
-            data-lgid="lg-table-cell"
-            style="padding-bottom: 4px; padding-top: 4px;"
-          >
-            <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
               <div
-                class="leafygreen-ui-dhdzha"
+                class="leafygreen-ui-mjg5qs"
               >
-                Deleted
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    deletedField
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1rqahhq"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    "deleted value"
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="leafygreen-ui-1rqahhq"
+            data-lgid="lg-table-cell"
+            style="padding-bottom: 4px; padding-top: 4px;"
+          >
+            <div
+              class="leafygreen-ui-18w181u"
+            >
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <div
+                    class="leafygreen-ui-dhdzha"
+                  >
+                    Deleted
+                  </div>
+                </div>
               </div>
             </div>
           </td>
         </tr>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="1"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-1"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                stringField
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    stringField
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                "original value"
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    "original value"
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                 
-                "updated value"
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                     
+                    "updated value"
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="2"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-2"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                numberField
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    numberField
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                96
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    96
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                 
-                1
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                     
+                    1
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="3"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-3"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                booleanField
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    booleanField
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                false
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    false
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                 
-                true
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                     
+                    true
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="4"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-4"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                addedField
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    addedField
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
-              />
+              <div
+                class="leafygreen-ui-mjg5qs"
+              >
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  />
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                 
-                "added value"
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                     
+                    "added value"
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="5"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-5"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                nested.array[0]
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    nested.array[0]
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                4
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    4
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                 
-                1
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                     
+                    1
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="6"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-6"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                nested.array[1]
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    nested.array[1]
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                5
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    5
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                 
-                2
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                     
+                    2
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="7"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-7"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                nested.array[2]
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    nested.array[2]
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                6
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    6
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                 
-                3
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                     
+                    3
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="8"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-8"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                nested.object.key
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    nested.object.key
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                "modified value"
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    "modified value"
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                 
-                "value"
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                     
+                    "value"
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>
         <tr
-          aria-hidden="false"
-          class="leafygreen-ui-1tnpggy leafygreen-ui-1t7kozd"
+          aria-disabled="false"
+          class="leafygreen-ui-1j40m9a leafygreen-ui-5svxsn"
           data-cy="event-log-table-row"
+          data-depth="0"
           data-expanded="false"
+          data-index="9"
           data-lgid="lg-table-row"
           data-selected="false"
           id="lg-table-row-9"
         >
           <td
-            class="leafygreen-ui-3nxf8o"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                customKey
-              </span>
+                <div
+                  class=""
+                >
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    customKey
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                <b
-                  style="color: red;"
+                <div
+                  class=""
                 >
-                  "custom value"
-                </b>
-              </span>
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                    <b
+                      style="color: red;"
+                    >
+                      "custom value"
+                    </b>
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
           <td
-            class="leafygreen-ui-1by885u"
+            class="leafygreen-ui-1rqahhq"
             data-lgid="lg-table-cell"
             style="padding-bottom: 4px; padding-top: 4px;"
           >
             <div
-              class="leafygreen-ui-15rig1x"
-              data-state="entered"
+              class="leafygreen-ui-18w181u"
             >
-              <span
-                class="css-dbrfx0-CellText e1uhqo6x0"
+              <div
+                class="leafygreen-ui-mjg5qs"
               >
-                 
-                <b
-                  style="color: red;"
+                <div
+                  class=""
                 >
-                  "modified value"
-                </b>
-              </span>
+                  <span
+                    class="css-dbrfx0-CellText e1uhqo6x0"
+                  >
+                     
+                    <b
+                      style="color: red;"
+                    >
+                      "modified value"
+                    </b>
+                  </span>
+                </div>
+              </div>
             </div>
           </td>
         </tr>

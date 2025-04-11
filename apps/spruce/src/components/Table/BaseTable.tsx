@@ -251,6 +251,7 @@ const RenderableRow = <T extends LGRowData>({
            `}
         `}
         data-cy={dataCyRow}
+        data-index={row.index}
         data-selected={isSelected}
         row={row}
         virtualRow={virtualRow}

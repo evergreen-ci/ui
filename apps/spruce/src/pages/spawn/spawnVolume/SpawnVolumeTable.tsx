@@ -1,7 +1,11 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { InfoSprinkle } from "@leafygreen-ui/info-sprinkle";
-import { LeafyGreenTableRow, useLeafyGreenTable } from "@leafygreen-ui/table";
+import {
+  ExpandedState,
+  LeafyGreenTableRow,
+  useLeafyGreenTable,
+} from "@leafygreen-ui/table";
 import { formatDistanceToNow } from "date-fns";
 import { WordBreak, StyledRouterLink } from "@evg-ui/lib/components/styles";
 import { size } from "@evg-ui/lib/constants/tokens";
@@ -25,7 +29,7 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
 }) => {
   const [selectedVolume] = useQueryParam(QueryParams.Volume, "");
 
-  const dataSource: TableVolume[] = useMemo(() => {
+  const volumeData: TableVolume[] = useMemo(() => {
     const volumesCopy = [...volumes];
     volumesCopy.sort(sortByHost);
     return volumes.map((v) => ({
@@ -37,8 +41,11 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   }, [volumes]);
 
   const initialExpanded = Object.fromEntries(
-    dataSource.map(({ id }, i) => [i, id === selectedVolume]),
+    volumeData.map(({ id }, i) => [i, id === selectedVolume]),
   );
+
+  // Remove and use initialState instead when LG-5035 is complete.
+  const [expanded, setExpanded] = useState<ExpandedState>(initialExpanded);
 
   const columns = useMemo(
     () => getColumns(maxSpawnableLimit),
@@ -47,7 +54,7 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
 
   const table = useLeafyGreenTable<TableVolume>({
     columns,
-    data: dataSource,
+    data: volumeData,
     defaultColumn: {
       enableColumnFilter: false,
       enableSorting: false,
@@ -56,8 +63,9 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
       // https://github.com/TanStack/table/issues/4289
       sortDescFirst: false,
     },
-    initialState: {
-      expanded: initialExpanded,
+    onExpandedChange: setExpanded,
+    state: {
+      expanded,
     },
   });
 
