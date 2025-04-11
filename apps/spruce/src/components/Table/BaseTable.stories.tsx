@@ -85,8 +85,8 @@ const makeDefaultRows = (count: number): DataShape[] =>
     size: `size ${i}`,
   }));
 
-const lgRows = makeDefaultRows(100);
-const virtualRows = makeDefaultRows(1000);
+const lgRows = makeDefaultRows(20);
+const virtualRows = makeDefaultRows(20);
 
 const nestedRows: DataShape[] = Array.from({ length: 50 }, (_, i) => ({
   name: `name ${i}`,
