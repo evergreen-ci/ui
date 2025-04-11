@@ -157,7 +157,9 @@ describe("FileDropper", () => {
     act(() => {
       const options = mockUseDropzone.mock.calls[0][0];
       if (options && options.onDrop) {
-        options.onDrop([mockFile], [], {} as any);
+        options.onDrop([mockFile], [], {
+          type: "drop",
+        } as React.DragEvent<HTMLElement>);
       }
     });
 
@@ -237,9 +239,11 @@ describe("FileDropper", () => {
       logType: LogTypes.LOCAL_UPLOAD,
       renderingType: LogRenderingTypes.Default,
     });
+    const expectedLines = mockFileContent.split("\n");
     expect(mockIngestLines).toHaveBeenCalledWith(
-      mockFileContent.split("\n"),
+      expectedLines,
       LogRenderingTypes.Default,
     );
+    expect(expectedLines).toEqual(["line1", "line2", "line3"]);
   });
 });

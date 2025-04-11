@@ -79,7 +79,7 @@ describe("LoadingPage", () => {
       ingestLines: mockIngestLines,
       lineCount: 0,
       setLogMetadata: mockSetLogMetadata,
-    } as unknown as ReturnType<typeof useLogContext>); // Type assertion with unknown first
+    } as unknown as ReturnType<typeof useLogContext>);
 
     mockIngestLines.mockReset();
     mockSetLogMetadata.mockReset();
@@ -121,5 +121,6 @@ describe("LoadingPage", () => {
       LogRenderingTypes.Default,
       undefined,
     );
+    expect(TEST_LOG_LINES).toEqual(["line 1", "line 2", "line 3"]);
   });
 });
