@@ -24,10 +24,7 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
       </IconButton>
       <Timeline ref={ref} data-cy="task-timeline">
         {loading ? (
-          <Skeleton
-            data-cy="task-timeline-skeleton"
-            size={SkeletonSize.Small}
-          />
+          <Skeleton size={SkeletonSize.Small} />
         ) : (
           <>
             {tasks.map((t) => {
@@ -48,7 +45,10 @@ const TaskTimeline = forwardRef<HTMLDivElement, TimelineProps>(
                 );
               } else if (t.inactiveTasks) {
                 return (
-                  <CollapsedBox key={t.inactiveTasks[0].id} data-collapsed>
+                  <CollapsedBox
+                    key={t.inactiveTasks[0].id}
+                    data-cy="collapsed-box"
+                  >
                     {t.inactiveTasks.length}
                   </CollapsedBox>
                 );

@@ -5,10 +5,10 @@ import {
   SegmentedControl,
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
-import { H3 } from "@leafygreen-ui/typography";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "@evg-ui/lib/constants/tokens";
 import { useToastContext } from "@evg-ui/lib/context/toast";
-import { SQUARE_BORDER, SQUARE_SIZE } from "components/TaskBox";
+import { SQUARE_WITH_BORDER } from "components/TaskBox";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import {
   TaskHistoryDirection,
@@ -31,7 +31,7 @@ interface TaskHistoryProps {
 
 const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const timelineRef = useRef<HTMLDivElement>(null);
-  const { width } = useDimensions<HTMLDivElement>(timelineRef);
+  const { width: timelineWidth } = useDimensions<HTMLDivElement>(timelineRef);
 
   const dispatchToast = useToastContext();
 
@@ -81,13 +81,13 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
   const { tasks = [] } = taskHistory ?? {};
 
   const groupedTasks = groupTasks(tasks, shouldCollapse);
-  const numVisibleTasks = Math.floor(width / (SQUARE_SIZE + SQUARE_BORDER * 2));
+  const numVisibleTasks = Math.floor(timelineWidth / SQUARE_WITH_BORDER);
   const visibleTasks = groupedTasks.slice(0, numVisibleTasks);
 
   return (
     <Container>
       <Header>
-        <H3>Task History Overview</H3>
+        <Subtitle>Task History Overview</Subtitle>
         <SegmentedControl
           onChange={(t) => setViewOption(t as ViewOptions)}
           size="xsmall"
@@ -108,6 +108,7 @@ const TaskHistory: React.FC<TaskHistoryProps> = ({ task }) => {
         </SegmentedControl>
       </Header>
       <TaskTimeline ref={timelineRef} loading={loading} tasks={visibleTasks} />
+      <Subtitle>Commit Details</Subtitle>
       <CommitDetailsList
         currentTask={task}
         loading={loading}
@@ -124,12 +125,12 @@ const Container = styled.div`
   flex-direction: column;
   gap: ${size.s};
 
-  height: calc(100vh - 270px);
+  height: calc(100vh - 100px);
 `;
 
 const Header = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 `;

@@ -28,8 +28,6 @@ const { gray } = palette;
 interface CommitDetailsCardProps {
   task: TaskHistoryTask;
   isCurrentTask: boolean;
-  // TODO DEVPROD-16175: Instead of requesting these fields in TaskHistory query, pass these fields down from the single
-  // Task query. This will reduce duplicated query work since all tasks on the project should come from the same repo.
   owner: string | undefined;
   repo: string | undefined;
 }

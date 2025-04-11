@@ -18,7 +18,7 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
 }) => (
   <CommitList data-cy="commit-details-list">
     {loading ? (
-      <ParagraphSkeleton data-cy="commit-details-list-skeleton" />
+      <ParagraphSkeleton />
     ) : (
       <>
         {tasks.map((t) => {
@@ -36,7 +36,7 @@ const CommitDetailsList: React.FC<CommitDetailsListProps> = ({
           } else if (t.inactiveTasks) {
             // TODO DEVPROD-16174: Replace with Inactive Commits Button.
             return (
-              <span key={t.inactiveTasks[0].id} data-collapsed>
+              <span key={t.inactiveTasks[0].id} data-cy="collapsed-card">
                 {t.inactiveTasks.length} Collapsed
               </span>
             );
